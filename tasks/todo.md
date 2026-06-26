@@ -12,9 +12,13 @@ logistics answers below.
   - Heat-spreader alloy → **laser-flash diffusivity** (→κ) + **dilatometry** (CTE)
   - Separation → **ICP-MS / ICP-OES**
   - Plus general: **XRD, SEM/EBSD**
-- [ ] **2. Fort Wayne Metals fabrication capability + turnaround.** Can they melt a
-      *custom* composition (Fe-Ni / RE-substituted / Cu-based metal-matrix), not
-      just the standard nitinol/CoCr/stainless portfolio? Days, weeks, or months?
+- [x] **2. Fort Wayne Metals — PARTIALLY ANSWERED.** Student has **hands-on R&D
+      access** and personally melts/processes alloys under mentor supervision → the
+      fabrication is the student's own work and iteration cadence is
+      student-controlled (not a vendor queue). *Remaining sub-questions:* melter
+      type (arc/button vs vacuum induction), element/composition flexibility (can
+      Cr/Mn be used freely?), and whether XRD/SEM characterization is available at
+      FWM vs only Purdue.
 - [ ] **3. DFT / first-principles experience.** Have you personally run VASP/QE +
       phonon/BTE (phono3py, ShengBTE)? For magnets: spin-orbit DFT for
       magnetocrystalline anisotropy (harder than κ)? Or lean on pretrained

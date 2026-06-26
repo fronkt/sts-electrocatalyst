@@ -10,7 +10,7 @@ booking** (start Week 0).
 ## Phase 0 — Setup & access (Wk 0–2, Jun 25 – Jul 12) — *do in parallel*
 - [ ] **Sponsor locked**; STS adult-sponsor + SRC/Risk-Assessment forms started (KOH, Cr(VI), metal dust).
 - [ ] **Potentiostat/EIS time booked** at Purdue (recurring slots); reference electrode (Hg/HgO) sourced.
-- [ ] **FWM melt channel confirmed** — turnaround quoted; composition-request template ready.
+- [ ] **FWM R&D access scheduled** — mentor time + melter booked; you run the melts yourself; element/composition flexibility confirmed.
 - [ ] Compute stood up: `fairchem`/OCP (OC22 model), `pymatgen`/`ASE`, `Ax`/`BoTorch`, GPU (Vast.ai/Purdue HPC).
 - [ ] Lab notebook + git repo for the ML code initialized (independence evidence).
 - [ ] Order EC consumables (GC electrodes, Nafion, 1 M KOH, Ni foam, NiFe precursors).
@@ -18,7 +18,7 @@ booking** (start Week 0).
 ## Phase 1 — ML round 1 (Wk 1–4, Jun 29 – Jul 26)
 - [ ] **Wk 1:** define composition space (Fe-Co-Ni-Cr/Mn/Cu); build slab/adsorbate enumerator; smoke-test OC22 inference on a known oxide.
 - [ ] **Wk 2:** compute *OH/*O/*OOH descriptors → η_theo for candidate compositions; implement phase-stability filter (VEC, δ, ΔH_mix, ΔS_mix, Ω; pycalphad if available).
-- [ ] **Wk 2:** **submit FWM round-1 melt request** (3–4 compositions) — *critical path; provisional list OK, refine before they cut metal.*
+- [ ] **Wk 2:** **melt round-1 compositions yourself in FWM R&D** (3–4) — *book mentor/equipment time early; you control the cadence.*
 - [ ] **Wk 3:** multi-objective Bayesian opt (activity × cost × formability) → finalize round-1 shortlist; freeze the predicted ranking (for later correlation).
 - [ ] **Wk 3–4:** synthesize/obtain **NiFe-LDH baseline**; build + dry-run EC protocol (RHE calibration, iR/EIS) on baseline + bare GC.
 
@@ -35,7 +35,7 @@ booking** (start Week 0).
 - [ ] **Go/no-go (end Wk 9):** compute ML-vs-experiment rank correlation; decide **round-2 melt vs computational round-2**.
 
 ## Phase 4 — Active learning round 2 + stability (Wk 10–13, Aug 31 – Sep 27)
-- [ ] Condition surrogate on measured η; **propose 1–2 refined compositions**; submit fast round-2 melt (if viable).
+- [ ] Condition surrogate on measured η; **propose 1–2 refined compositions**; **melt them yourself** (hands-on access makes round-2 — even round-3 — feasible).
 - [ ] **Stability:** chronopotentiometry @ 10 (±100) mA cm⁻², **≥12 h** (longer if time) on round-1 best.
 - [ ] Post-mortem **XRD/SEM-EDS(/XPS)** → document reconstructed active phase.
 - [ ] Measure round-2 samples; finalize all EC data + error bars.

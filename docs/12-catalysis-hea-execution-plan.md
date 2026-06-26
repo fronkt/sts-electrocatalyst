@@ -135,12 +135,17 @@ with the correlation and its failure modes.
   composition (3–4), homogenization anneal (e.g., ~1000–1100 °C, time per
   composition) to dissolve segregation. Wire-draw only if a high-surface-area
   geometry is wanted; bulk button is simpler for an electrode.
-- **Deliverable from FWM:** small dense ingots/coupons + nominal-composition
-  certificate. **FWM provides a fabrication *service*; the composition choices
-  and the science are the student's** (important for STS independence).
-- **Critical-path warning:** the melt + anneal + delivery is the **longest lead
-  item.** Submit the round-1 request in **Week 1**, the moment the ML round-1
-  shortlist exists (or even a provisional list, refined before melting).
+- **You run the melts yourself** in FWM R&D under mentor supervision — the alloy
+  fabrication and processing are *your own hands-on work*, not an outsourced
+  service. This is a major STS-independence advantage (see §8): you can defend
+  every processing choice in the interview, and you control composition,
+  homogenization, and **iteration cadence** directly.
+- **Critical path becomes scheduling, not a vendor queue:** the long-lead item is
+  now booking R&D equipment + mentor time, not waiting on someone else to cut
+  metal. Schedule the first melt for **Week 1–2** (provisional compositions OK,
+  finalize before melting). Because you control the cadence, the **round-2
+  active-learning melt — even a round-3 — is genuinely feasible**, which is what
+  makes the closed ML loop a real contribution rather than a one-shot.
 - **Electrode prep (at Purdue):** cut/mount coupons, polish to a defined finish,
   define geometric area (mask/epoxy), electrical contact. Alternative: powderize
   + drop-cast ink onto glassy carbon / Ni foam if bulk-electrode area is too
@@ -180,7 +185,7 @@ with the correlation and its failure modes.
 
 | Risk | Likelihood | Mitigation |
 |---|---|---|
-| **FWM melt slips the schedule** (critical path) | Med–High | Submit Week 1; provisional compositions; reduce round-1 count to 3; have a powder/co-precipitation fallback to make an oxide directly if metal slips entirely. |
+| **Melt schedule slips** (equipment/mentor availability) | Low–Med | Student-run hands-on, so this is *scheduling*, not a vendor queue — book equipment + mentor time early; provisional compositions; co-precipitation HE-oxide fallback if the melter is ever unavailable. |
 | Potentiostat/instrument booking delay | Med | Book in Week 0–1; reserve recurring slots; cross-train on the baseline first. |
 | HEA is multi-phase / brittle / segregated | Med | Phase-stability filter up front; XRD/EDS gate before testing; anneal; pick more forgiving compositions (Cantor-adjacent). |
 | ML prediction doesn't correlate with experiment | Med | This is still a *publishable, honest* result (calibration study) — the Scholar floor doesn't depend on the model being right, only rigorous. |
@@ -217,10 +222,14 @@ stability + post-mortem; (F7) predicted-vs-measured correlation.
 ## 8. Independence & sponsor notes (STS judging)
 
 - **Yours (defend in the interview):** the hypothesis, the ML pipeline design,
-  the composition-selection logic, the active-learning loop, the data analysis,
-  the interpretation.
-- **Service/access (acknowledge, don't claim as your science):** FWM's melting,
-  the mentor's lab/instrument access, any technician-run measurement.
+  the composition-selection logic, the active-learning loop, **the hands-on alloy
+  melting & processing you perform in FWM R&D**, the electrochemistry, the data
+  analysis, the interpretation. (You doing the fabrication yourself — not just
+  designing it — is a genuine independence advantage most STS entrants lack.)
+- **Access/supervision (acknowledge, don't claim as your science):** the FWM
+  mentor's supervision and facility/equipment access, the Purdue lab/instrument
+  access. Supervision is normal and disclosed; the intellectual + manual work is
+  yours.
 - Keep a **dated lab notebook / git history** of the ML code and decisions — it
   is the evidence of independent intellectual contribution.
 
@@ -239,9 +248,9 @@ stability + post-mortem; (F7) predicted-vs-measured correlation.
 
 ## 10. Go / no-go checkpoints
 
-- **End Week 2:** FWM melt request submitted + accepted; potentiostat booked; ML
-  round-1 shortlist exists. *If not → escalate or fall back to a co-precipitated
-  HE-oxide route that needs no melt.*
+- **End Week 2:** first melt scheduled or done by you in FWM R&D; potentiostat
+  booked; ML round-1 shortlist exists. *If the melter is unavailable → fall back
+  to a co-precipitated HE-oxide route that needs no melt.*
 - **End Week 6:** samples in hand, single-phase confirmed by XRD. *If multi-phase
   → re-anneal or down-select.*
 - **End Week 9:** round-1 OER data complete with error bars. *Go/no-go on round-2
