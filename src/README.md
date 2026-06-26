@@ -25,7 +25,10 @@ Outputs: a ranked table + diverse shortlist printed to stdout,
 | `hea_oer/composition.py` | `Composition` + HEA simplex sampling (4–5 elements, 5–35 at.%) |
 | `hea_oer/phase_stability.py` | VEC, δ, ΔS_mix, Miedema ΔH_mix, Ω → single-solid-solution score |
 | `hea_oer/descriptors.py` | OER 4-step thermodynamics → theoretical overpotential η |
-| `hea_oer/adsorption.py` | `HeuristicBackend` (CPU placeholder) · `OC22FairchemBackend` (GPU stub) |
+| `hea_oer/adsorption.py` | `HeuristicBackend` (CPU placeholder) · `FairchemSurfaceBackend` (real, GPU) |
+| `hea_oer/surfaces.py` | fcc(111) HEA slab build + *OH/*O/*OOH adsorbate placement (ASE) |
+| `hea_oer/referencing.py` | CHE ΔG referencing (H2O/H2 + ZPE−TΔS corrections) |
+| `hea_oer/relax.py` | ASE BFGS relaxation + fairchem UMA calculator factory |
 | `hea_oer/objective.py` | Multi-objective table, Pareto front, diverse top-k selection |
 | `hea_oer/pipeline.py` | `run_round1(...)` orchestrator |
 | `hea_oer/active_learning.py` | Round-2 GP + expected-improvement scaffold |
@@ -38,14 +41,25 @@ compositional disorder nudge the activity descriptor toward the volcano apex —
 transparent prior for *ranking only*. Every output row carries `backend="heuristic"`.
 Do not report these as physical adsorption energies.
 
-## Plugging in the real OC22 backend (GPU / Vast.ai)
+## Real backend: fairchem UMA on a GPU (Vast.ai)
 
-1. `pip install fairchem-core` and download an OC22 checkpoint (EquiformerV2 / GemNet-OC).
-2. In `hea_oer/adsorption.py`, implement `OC22FairchemBackend.predict`:
-   build (oxy)hydroxide/oxide surface slabs for the composition (pymatgen/ASE),
-   place \*OH/\*O/\*OOH adsorbates, relax with the GNN, convert binding energies
-   to ΔG with the standard gas-phase references.
-3. Run with `--backend oc22`. Everything downstream (ranking, plot, shortlist) is unchanged.
+`FairchemSurfaceBackend` (`--backend uma`) computes CHE-referenced *OH/*O/*OOH
+adsorption ΔG on an fcc(111) HEA slab using a fairchem universal model (UMA, OC20
+task). Surface + referencing live in `surfaces.py` / `referencing.py`; energies
+come from `relax.py`.
+
+On the GPU box:
+1. `uv pip install fairchem-core` (torch ships with the PyTorch image).
+2. Accept the UMA license at hf.co/facebook/UMA, then `huggingface-cli login`
+   (UMA is **gated** — access is granted by review, not instantly).
+3. Validate plumbing without the model (CPU): `python src/scripts/smoke_uma.py --calc emt`
+   — EMT stand-in on Ni50Cu50; exercises slab → relax → reference → ΔG → η end to end.
+4. Real single composition: `python src/scripts/smoke_uma.py --model uma-s-1p1`.
+5. Re-rank with real energies on the **shortlist** (not 4000 — each composition is
+   ~6 relaxations): `run_round1.py --backend uma --n-samples 200 --top-k 4`.
+
+**Caveat:** the surface is a *metal* fcc(111) proxy; the true OER-active phase is
+the reconstructed (oxy)hydroxide. A rutile-oxide (110) surface is the future refinement.
 
 ## Round-2 (after measuring round-1 alloys)
 

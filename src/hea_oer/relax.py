@@ -1,0 +1,46 @@
+"""ASE relaxation helpers + the fairchem (UMA) calculator factory.
+
+Only the calculator factory needs fairchem + a GPU; the relaxation driver is
+calculator-agnostic so the geometry can be exercised with any ASE calculator.
+"""
+from __future__ import annotations
+
+
+def make_calculator(model: str = "uma-s-1p1", task: str = "oc20", device: str = "cuda"):
+    """Build a fairchem UMA ASE calculator. Requires `fairchem-core` + (gated) HF access.
+
+    UMA is gated on Hugging Face — authenticate the box first, e.g.
+    ``huggingface-cli login`` after accepting the license at hf.co/facebook/UMA.
+    """
+    try:
+        from fairchem.core import FAIRChemCalculator, pretrained_mlip
+    except ImportError as e:  # pragma: no cover - only on a box without fairchem
+        raise ImportError(
+            "fairchem-core is required for the UMA backend: `uv pip install fairchem-core`"
+        ) from e
+    predict_unit = pretrained_mlip.get_predict_unit(model, device=device)
+    return FAIRChemCalculator(predict_unit, task_name=task)
+
+
+def relax(atoms, calc, fmax: float = 0.05, steps: int = 300):
+    """BFGS-relax a copy of `atoms` with `calc`; return (energy_eV, relaxed_atoms)."""
+    from ase.optimize import BFGS
+
+    atoms = atoms.copy()
+    atoms.calc = calc
+    BFGS(atoms, logfile=None).run(fmax=fmax, steps=steps)
+    return float(atoms.get_potential_energy()), atoms
+
+
+def gas_reference_energies(calc, fmax: float = 0.05, steps: int = 300, box: float = 12.0):
+    """Relax gas-phase H2O and H2 in a periodic box; return (E_H2O, E_H2) in eV."""
+    from ase.build import molecule
+
+    energies = {}
+    for name in ("H2O", "H2"):
+        m = molecule(name)
+        m.set_cell([box, box, box])
+        m.center()
+        m.pbc = True
+        energies[name], _ = relax(m, calc, fmax=fmax, steps=steps)
+    return energies["H2O"], energies["H2"]

@@ -37,7 +37,7 @@ def main() -> None:
     p.add_argument("--n-samples", type=int, default=4000)
     p.add_argument("--top-k", type=int, default=4)
     p.add_argument("--seed", type=int, default=0)
-    p.add_argument("--backend", default="heuristic", choices=["heuristic", "oc22"])
+    p.add_argument("--backend", default="heuristic", choices=["heuristic", "uma", "oc22"])
     p.add_argument("--formability-min", type=float, default=0.5)
     p.add_argument("--out", default=None, help="output dir (default STS2027/results)")
     p.add_argument("--no-plot", action="store_true")

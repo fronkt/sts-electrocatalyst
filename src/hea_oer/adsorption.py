@@ -77,32 +77,71 @@ class HeuristicBackend(AdsorptionBackend):
         return dG_OH, dG_O, dG_OOH
 
 
-class OC22FairchemBackend(AdsorptionBackend):
-    """Real OC22 GNN backend (stub — requires fairchem + GPU)."""
+class FairchemSurfaceBackend(AdsorptionBackend):
+    """Real backend: CHE-referenced *OH/*O/*OOH adsorption ΔG on an fcc(111) HEA
+    slab, energies from a fairchem universal model (UMA, OC20 task).
 
-    name = "oc22"
+    Per composition: relax the clean slab, relax each adsorbate configuration, and
+    reference to gas-phase H2O/H2 (cached). Heavy deps (ase, fairchem) and the
+    model load lazily on first ``predict`` — importing hea_oer stays light and the
+    CPU heuristic round-1 needs neither. Requires a GPU and (gated) HF access to
+    the model; an alternative ASE ``calculator`` can be injected for testing.
+    """
 
-    def __init__(self, checkpoint: str | None = None):
-        self.checkpoint = checkpoint
+    name = "uma"
+
+    def __init__(self, model: str = "uma-s-1p1", task: str = "oc20", device: str = "cuda",
+                 size: tuple[int, int, int] = (3, 3, 4), fmax: float = 0.05,
+                 steps: int = 300, seed: int = 0, calculator=None):
+        self.model = model
+        self.task = task
+        self.device = device
+        self.size = size
+        self.fmax = fmax
+        self.steps = steps
+        self.seed = seed
+        self.name = f"fairchem:{model}" if calculator is None else "fairchem:custom"
+        self._calc = calculator
+        self._gas: tuple[float, float] | None = None
+
+    def _calculator(self):
+        if self._calc is None:
+            from .relax import make_calculator
+            self._calc = make_calculator(self.model, self.task, self.device)
+        return self._calc
+
+    def _gas_refs(self) -> tuple[float, float]:
+        if self._gas is None:
+            from .relax import gas_reference_energies
+            self._gas = gas_reference_energies(self._calculator(), self.fmax, self.steps)
+        return self._gas
 
     def predict(self, comp: Composition) -> tuple[float, float, float]:
-        raise NotImplementedError(
-            "OC22FairchemBackend is a stub. To enable on a GPU box:\n"
-            "  1) pip install fairchem-core\n"
-            "  2) download an OC22 checkpoint (EquiformerV2 / GemNet-OC)\n"
-            "  3) build (oxy)hydroxide/oxide surface slabs for the composition "
-            "(pymatgen/ASE), place *OH/*O/*OOH adsorbates, relax with the GNN, "
-            "and convert binding energies to ΔG with the standard gas-phase "
-            "references. Then return (ΔG_OH, ΔG_O, ΔG_OOH).\n"
-            "See src/README.md."
-        )
+        from .relax import relax
+        from .surfaces import build_fcc111_hea, add_oer_adsorbate
+        from .referencing import delta_G
+
+        calc = self._calculator()
+        slab = build_fcc111_hea(comp, size=self.size, seed=self.seed)
+        e_slab, slab_relaxed = relax(slab, calc, self.fmax, self.steps)
+        E_H2O, E_H2 = self._gas_refs()
+        dG: dict[str, float] = {}
+        for sp in ("OH", "O", "OOH"):
+            ads = add_oer_adsorbate(slab_relaxed, sp)
+            e_ads, _ = relax(ads, calc, self.fmax, self.steps)
+            dG[sp] = delta_G(e_slab, e_ads, sp, E_H2O, E_H2)
+        return dG["OH"], dG["O"], dG["OOH"]
 
 
-_BACKENDS = {"heuristic": HeuristicBackend, "oc22": OC22FairchemBackend}
+_BACKENDS = {
+    "heuristic": HeuristicBackend,
+    "uma": FairchemSurfaceBackend,
+    "oc22": FairchemSurfaceBackend,  # alias — legacy name used in docs/12
+}
 
 
 def get_backend(name: str = "heuristic", **kwargs) -> AdsorptionBackend:
-    """Factory: 'heuristic' (default, CPU) or 'oc22' (GPU stub)."""
+    """Factory: 'heuristic' (CPU placeholder) or 'uma'/'oc22' (fairchem surface backend)."""
     key = name.lower()
     if key not in _BACKENDS:
         raise ValueError(f"unknown backend {name!r}; choose from {list(_BACKENDS)}")
