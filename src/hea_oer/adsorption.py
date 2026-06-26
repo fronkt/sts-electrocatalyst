@@ -92,7 +92,8 @@ class FairchemSurfaceBackend(AdsorptionBackend):
 
     def __init__(self, model: str = "uma-s-1p1", task: str = "oc20", device: str = "cuda",
                  size: tuple[int, int, int] = (3, 3, 4), fmax: float = 0.05,
-                 steps: int = 300, seed: int = 0, calculator=None):
+                 steps: int = 300, seed: int = 0, surface: str = "metal",
+                 n_sites: int = 4, calculator=None):
         self.model = model
         self.task = task
         self.device = device
@@ -100,7 +101,12 @@ class FairchemSurfaceBackend(AdsorptionBackend):
         self.fmax = fmax
         self.steps = steps
         self.seed = seed
-        self.name = f"fairchem:{model}" if calculator is None else "fairchem:custom"
+        self.surface = surface  # "metal" fcc(111) | "oxide" rocksalt(100) | "rutile" MO2(110)
+        self.n_sites = n_sites  # cus sites sampled per composition (rutile multi-site)
+        #: formula -> per-site eta distribution {n_sites, eta_min, eta_mean, eta_std, eta_max}
+        self.site_records: dict[str, dict] = {}
+        base = "fairchem:custom" if calculator is not None else f"fairchem:{model}"
+        self.name = base + ("" if surface == "metal" else f":{surface}")
         self._calc = calculator
         self._gas: tuple[float, float] | None = None
 
@@ -117,20 +123,62 @@ class FairchemSurfaceBackend(AdsorptionBackend):
         return self._gas
 
     def predict(self, comp: Composition) -> tuple[float, float, float]:
+        if self.surface == "rutile":
+            return self._predict_rutile_multisite(comp)
         from .relax import relax
-        from .surfaces import build_fcc111_hea, add_oer_adsorbate
         from .referencing import delta_G
+        if self.surface == "oxide":
+            from .surfaces_oxide import build_rocksalt100_hea as build_slab
+            from .surfaces_oxide import add_oer_adsorbate_oxide as add_ads
+        else:
+            from .surfaces import build_fcc111_hea as build_slab
+            from .surfaces import add_oer_adsorbate as add_ads
 
         calc = self._calculator()
-        slab = build_fcc111_hea(comp, size=self.size, seed=self.seed)
+        slab = build_slab(comp, size=self.size, seed=self.seed)
         e_slab, slab_relaxed = relax(slab, calc, self.fmax, self.steps)
         E_H2O, E_H2 = self._gas_refs()
         dG: dict[str, float] = {}
         for sp in ("OH", "O", "OOH"):
-            ads = add_oer_adsorbate(slab_relaxed, sp)
+            ads = add_ads(slab_relaxed, sp)
             e_ads, _ = relax(ads, calc, self.fmax, self.steps)
             dG[sp] = delta_G(e_slab, e_ads, sp, E_H2O, E_H2)
         return dG["OH"], dG["O"], dG["OOH"]
+
+    def _predict_rutile_multisite(self, comp: Composition) -> tuple[float, float, float]:
+        """Rutile(110): relax the slab, then sample `n_sites` cus sites, compute
+        ΔG(*OH/*O/*OOH)→η at each, and return the **best (lowest-η) site's** triple
+        (the 'favorable tail' active-site hypothesis). Per-site η spread is stashed
+        in `self.site_records[formula]` for the driver to surface.
+        """
+        from .relax import relax
+        from .referencing import delta_G
+        from .descriptors import oer_overpotential
+        from .surfaces_rutile import build_rutile110_hea, cus_site_xy, add_oer_adsorbate_at
+
+        calc = self._calculator()
+        slab = build_rutile110_hea(comp, supercell=(self.size[0], self.size[1]), seed=self.seed)
+        sites = cus_site_xy(slab, n_sites=self.n_sites)  # on pristine slab: ideal cus coordination
+        e_slab, slab_relaxed = relax(slab, calc, self.fmax, self.steps)
+        E_H2O, E_H2 = self._gas_refs()
+
+        per_site: list[tuple[float, tuple[float, float, float]]] = []
+        for xy in sites:
+            dG: dict[str, float] = {}
+            for sp in ("OH", "O", "OOH"):
+                ads = add_oer_adsorbate_at(slab_relaxed, sp, xy)
+                e_ads, _ = relax(ads, calc, self.fmax, self.steps)
+                dG[sp] = delta_G(e_slab, e_ads, sp, E_H2O, E_H2)
+            triple = (dG["OH"], dG["O"], dG["OOH"])
+            per_site.append((oer_overpotential(*triple).overpotential, triple))
+
+        per_site.sort(key=lambda t: t[0])  # favorable tail = lowest-η cus site first
+        etas = np.array([e for e, _ in per_site], dtype=float)
+        self.site_records[comp.formula()] = dict(
+            n_sites=int(len(etas)), eta_min=float(etas.min()), eta_mean=float(etas.mean()),
+            eta_std=float(etas.std()) if len(etas) > 1 else 0.0, eta_max=float(etas.max()),
+        )
+        return per_site[0][1]
 
 
 _BACKENDS = {
