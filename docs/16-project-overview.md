@@ -187,6 +187,8 @@ caveat carried into the paper: UMA's OC20 head is metal-dominated, so oxide adso
 best-site adsorption energies — will be **re-computed in DFT** to bound the MLIP error on the
 specific oxide surfaces used. This validates the screening prior with the same first-principles
 method the universal scaling relations were built on, and is defensible work the entrant owns.
+*(Full model spec, compute environment, relaxation/CHE protocol, validation, and every run's exact
+parameters are in §6.)*
 
 ### Step 4 — Multi-objective ranking *(CPU)*
 **What:** combine predicted activity (proximity to the volcano apex), single-phase formability, and
@@ -218,26 +220,112 @@ methodological contribution. It is currently **blocked** until the first melts a
 
 ---
 
-## 6. Results to date (computational)
+## 6. Computational results — UMA & the three sweeps, in full
 
-All three runs on 2026-06-26, RTX 5090, `uma-s-1p1`. Full tables/figures in
-[docs/13](13-round1-uma-results.md), reproducible record in [docs/14](14-compute-log.md).
+Self-contained: the model, the compute environment, the per-step protocol, the validation, and
+every production run with its parameters and outputs. All work 2026-06-26. Underlying CSVs/figures:
+[docs/13](13-round1-uma-results.md); dated lab-notebook record: [docs/14](14-compute-log.md).
 
-| Run | Surface | Pool | ρ(heuristic, UMA) | Headline |
-|---|---|---|---|---|
-| A | metal fcc(111) | top-24 by heuristic | **0.236** | over-binds; ranking only |
-| B | rutile(110) multi-site | top-12 by heuristic | **−0.09** | descriptors at apex; η 0.78–1.5 V |
-| C | rutile(110) multi-site | **diverse 30** (unbiased) | **0.155** | **confirms the headline on an unbiased pool** |
+### 6.1 Model & compute environment
+| Component | Detail |
+|---|---|
+| Model | Meta **UMA** `uma-s-1p1` (Universal Model for Atoms), 1.2 GB checkpoint, task **OC20**; HF-gated `facebook/UMA` |
+| Library | `fairchem-core` 2.21.0 (pure-PyTorch v2; the older OC22 PyG/torch-scatter stack won't build on Blackwell) |
+| GPU / driver | Vast.ai **RTX 5090** (Blackwell, sm_120, 32 GB), driver 580, CUDA 13.0 |
+| Torch | **2.8.0+cu128** (fairchem pins torch==2.8.0; install from the PyTorch CDN first, then fairchem) |
+| Aux | `ase` 3.x · `pandas` 3.0.3 · `pymatgen` (rutile slabs only, optional dep) · Python 3.12.13 |
 
-**Headline result:** **Fe₃₂Ni₁₇Co₃₄Mn₁₈** is the **#1 candidate**, robust across both the
-heuristic-selected pool (run B) and the diversity-selected pool (run C) at the **identical**
-best-site **η = 0.78 V**, with the **lowest site-spread in the top tier (η_std = 0.26)** — a
-reliable prediction, not a lucky tail. It is **Cr-free** (no Cr(VI) hazard) and platinum-group-free.
-The broader sweep also surfaced **Cr₆Fe₃₃Ni₂₇Mn₃₄** — single-phase, near-apex, and the **cheapest
-($6.25/kg) and most abundant** composition in either pool — added as the low-cost/scalability pick.
+### 6.2 Adsorption → overpotential protocol
+For each composition (and, for rutile, each cus site):
+1. **Slab** — build the surface supercell, decorate the metal sublattice with the composition
+   (seeded RNG for reproducibility). Sizes: metal fcc(111) `(3,3,4)`; rocksalt(100) `(2,2,4)`;
+   **rutile(110) `(2,2,1)` → 72 atoms, O:M = 2.00 verified**.
+2. **Relax** the clean slab and each of `*OH / *O / *OOH` with UMA via ASE, **fmax = 0.05 eV/Å,
+   ≤ 300 steps**.
+3. **CHE-reference** the energies to gas-phase H₂O/H₂ (computational hydrogen electrode) → the three
+   ΔG → the 4-step OER diagram → **η = max(ΔG₁…₄) − 1.23 V** and descriptor ΔG(\*O) − ΔG(\*OH).
+   Code: `referencing.py`, `descriptors.py`.
+4. **Rutile multi-site** — cus sites are located on the **pristine** slab (ideal 5-coordination;
+   finding them on the *relaxed* slab miscounts), **4 sites/composition**, each a distinct local
+   cation environment. η is taken at the **favorable-tail (best) cus site**; the full per-site
+   distribution (η_min/mean/std/max) is recorded. Code: `surfaces_rutile.py`,
+   `_predict_rutile_multisite` in `adsorption.py`.
 
-The low ρ values are themselves a result: the cheap composition-weighted prior carries almost no
-information about the real oxide ranking, so the UMA surface model is doing the actual work.
+### 6.3 Validation (all passed, before the production runs)
+| Check | What | Result |
+|---|---|---|
+| Plumbing (CPU, EMT) | Ni₅₀Cu₅₀ slab→relax→ref→ΔG→η | OK, 0.6 s |
+| First real UMA (metal) | CoCrFeMnNi fcc(111) | ΔG −0.52/−0.82/−0.95, desc −0.29, η 4.64 V, 188 s (incl. 1.2 GB download) |
+| Rocksalt(100) geometry | ASE bulk MgO-type | 128 atoms, cus metal 5-coord ✓ |
+| Rutile(110) geometry | pymatgen SlabGenerator | 72 atoms, **O:M = 2.00**, cus 5-coord, 4 sites ✓ |
+| Rutile multisite smoke | CoCrFeMnNi, 4 sites | descriptor **−0.29 (metal) → +2.02 (rutile)**, best-site η 1.95 V, 116 s |
+
+The descriptor jump **−0.29 → +2.02 eV** on the *same composition* when moving from the metal proxy
+to the rutile oxide is the clearest single demonstration that the **surface model**, not composition
+alone, controls the predicted activity.
+
+### 6.4 The three production runs
+
+**Run A — metal fcc(111) proxy.** `--backend uma --pool 24 --top-k 4`
+- Stage 1: 3000 sampled → **2470 single-phase** → top 24 by heuristic score.
+- Stage 2: UMA fcc(111), 24 candidates, **833 s** (~35 s each).
+- **ρ(heuristic, UMA) = 0.236.** Shortlist Fe₃₅Mn₁₅Ni₁₈Co₃₂ (η 2.78) / Mn₂₄Fe₂₄Ni₂₅Co₁₇Cu₉ (2.70) /
+  Mn₁₆Co₂₂Ni₃₃Fe₂₈ (3.17) / Cr₁₉Co₂₁Fe₂₇Ni₃₃ (3.32).
+- **Verdict:** the bare metal over-binds O → descriptors −2…0 eV, **η 2.7–4.9 V (unphysical magnitude)**;
+  ranking-information only. This motivated the oxide model.
+
+**Run B — rutile(110) multi-site, heuristic pool.** `--surface rutile --n-sites 4 --pool 12 --top-k 4`
+- Stage 1: same prior → top **12** single-phase. Stage 2: rutile(110), 4 cus sites/comp, **1899 s**
+  (GPU shared with a batterycv job).
+- **ρ(heuristic, rutile) = −0.09** — the prior is *uncorrelated* with the oxide ranking. Descriptors
+  cluster at the volcano apex; best-site **η 0.78–1.5 V (physical)**.
+- Shortlist: **Fe₃₂Ni₁₇Co₃₄Mn₁₈** (η 0.78, desc 1.75) / Cr₂₁Ni₂₄Co₁₅Cu₆Fe₃₃ (1.03) /
+  Cr₈Fe₃₄Mn₉Ni₂₃Co₂₇ (1.15) / Co₂₄Fe₂₄Ni₃₅Mn₁₇ (1.15).
+- **The ρ = −0.09 is the problem that triggered run C** (§5 Step 5): if the prior can't predict oxide
+  activity, pre-filtering the pool by it can silently hide the best candidate.
+
+**Run C — broader *diverse* sweep (the unbiased pool).**
+`--surface rutile --n-sites 4 --pool 30 --select diverse --top-k 6 --n-samples 4000`
+- **Pool selection (the fix):** `_diverse_pick` — sort single-phase candidates by formability, seed
+  with the most formable, then **greedily add the composition farthest (max-min Euclidean distance in
+  composition-vector space) from those already chosen**. Covers Cu-/Mn-rich regions the heuristic
+  top-12 never reached, *independent of* the activity prior.
+- Stage 1: 4000 sampled → **3304 single-phase** → diverse 30. Stage 2: **5795 s**.
+- **ρ(heuristic, rutile) = 0.155** (still low — re-confirmed on a 2.5× larger pool).
+- **Fe₃₂Ni₁₇Co₃₄Mn₁₈ remains #1** at the *identical* η_best **0.782 V** with the **lowest top-tier
+  site spread (η_std 0.26)**.
+
+### 6.5 Full ranked single-phase results (run C)
+Top single-phase **FCC** candidates (the meltable set). Two compositions had a lower η_best but are
+predicted **FCC+BCC dual-phase** (won't melt single-phase) with unreliable site variance → excluded:
+
+| Rank | Composition (at.%) | η_best (V) | descriptor (eV) | η_std (V) | phase | $/kg |
+|---|---|---|---|---|---|---|
+| 1 | **Fe₃₂Ni₁₇Co₃₄Mn₁₈** | 0.782 | 1.753 | 0.263 | FCC | 14.5 |
+| 3 | **Cr₆Fe₃₃Ni₂₇Mn₃₄** | 1.065 | 2.295 | 0.922 | FCC | **6.25** |
+| 4 | Mn₁₉Fe₁₂Ni₃₅Co₁₆Cr₁₈ | 0.930 | 1.847 | **0.151** | FCC | 13.8 |
+| 7 | Cu₁₂Mn₃₃Co₃₅Fe₂₁ | 0.921 | 1.925 | 0.489 | FCC | 13.2 |
+| 8 | Co₂₀Ni₂₀Cr₂₀Mn₂₀Cu₂₀ | 0.882 | 1.636 | 0.739 | FCC | 14.3 |
+| 9 | Cu₁₁Ni₃₄Cr₆Fe₂₀Co₂₉ | 1.094 | 1.833 | 0.203 | FCC | 17.4 |
+| *excl.* | *Ni₁₁Cr₂₄Mn₁₈Co₂₉Fe₁₈* | *0.772* | 1.815 | 0.601 | **FCC+BCC** | — |
+| *excl.* | *Cu₈Cr₂₃Mn₃₅Co₃₄* | *0.768* | 1.947 | **3.242** | **FCC+BCC** | — |
+| 30 | Co₂₀Mn₈Ni₁₈Fe₂₆Cu₂₈ | 3.590 | 1.690 | 0.982 | FCC | (worst — natural poor anchor) |
+
+Full 30-row table incl. ΔG(\*OH/\*O/\*OOH): [`results/round1_uma_rutile_sweep_candidates.csv`](../results/round1_uma_rutile_sweep_candidates.csv);
+volcano [`…_sweep_volcano.png`](../results/round1_uma_rutile_sweep_volcano.png). Runs A/B outputs:
+`results/round1_uma_candidates.csv`, `…_rutile_candidates.csv`.
+
+### 6.6 What the numbers mean
+- **The headline is robust.** Fe₃₂Ni₁₇Co₃₄Mn₁₈ wins on *both* a heuristic-selected (B) and an
+  unbiased diverse (C) pool, at the same η and with the tightest site distribution — Cr-free and
+  Pt-group-free.
+- **The favorable cus site beats the surface average** (η_best 0.78 vs η_mean 1.18 on the headline) —
+  direct support for the HEA active-site-*distribution* hypothesis (§3).
+- **The low ρ is itself a result:** the cheap composition-weighted prior carries almost no information
+  about the real oxide ranking, so the UMA surface model is doing the actual work — and the surface
+  choice reshuffles the ranking (the rutile #1 was metal-surface *rank 18*).
+- **A built-in poor anchor exists** (Co₂₀Mn₈Ni₁₈Fe₂₆Cu₂₈, η 3.59) giving the eventual
+  ML-vs-experiment correlation real dynamic range without melting anything exotic.
 
 ---
 
@@ -337,3 +425,7 @@ work**, and that the consumables/compute were self-funded. *(Mentor/sponsor name
   handle the paid-employment independence question explicitly.
 - **2026-06-26 (rev. 3)** — **eligibility confirmed**: entrant is a HS senior graduating spring 2027
   (STS-eligible). Paid-employment independence nuance retained as an explicit application to-do (§9).
+- **2026-06-26 (rev. 4)** — **§6 expanded to be self-contained**: UMA model + compute environment,
+  the adsorption→η protocol, the validation suite, all three production runs (A/B/C) with full
+  parameters, the diverse-selection algorithm, and the full ranked single-phase results table —
+  folded in from docs/13–14 so the dossier stands alone.
