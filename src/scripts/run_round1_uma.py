@@ -71,7 +71,11 @@ def main() -> None:
     p.add_argument("--model", default="uma-s-1p1")
     p.add_argument("--task", default="oc20")
     p.add_argument("--device", default="cuda")
-    p.add_argument("--size", type=int, nargs=3, default=(3, 3, 4), help="fcc(111) slab size")
+    p.add_argument("--surface", default="metal", choices=["metal", "oxide", "rutile"],
+                   help="metal=fcc(111) proxy; oxide=rocksalt(100); rutile=MO2(110) multi-site (docs/13)")
+    p.add_argument("--n-sites", type=int, default=4, help="cus sites sampled per composition (rutile)")
+    p.add_argument("--size", type=int, nargs=3, default=None,
+                   help="slab size (default: 3 3 4 metal, 2 2 4 oxide, 2 2 1 rutile supercell)")
     p.add_argument("--fmax", type=float, default=0.05)
     p.add_argument("--steps", type=int, default=300)
     p.add_argument("--formability-min", type=float, default=0.5)
@@ -98,13 +102,20 @@ def main() -> None:
           f"sending top {len(pool_comps)} to stage-2 backend={args.backend}")
 
     # --- Stage 2: real backend on the pool only --------------------------------
+    _default_size = {"oxide": (2, 2, 4), "rutile": (2, 2, 1)}.get(args.surface, (3, 3, 4))
+    size = tuple(args.size) if args.size else _default_size
     be_kwargs = {}
     if args.backend in ("uma", "oc22"):
-        be_kwargs = dict(model=args.model, task=args.task, device=args.device,
-                         size=tuple(args.size), fmax=args.fmax, steps=args.steps)
+        be_kwargs = dict(model=args.model, task=args.task, device=args.device, size=size,
+                         fmax=args.fmax, steps=args.steps, surface=args.surface, n_sites=args.n_sites)
     be = get_backend(args.backend, **be_kwargs)
     t0 = time.time()
     table = build_table(pool_comps, be, elements)
+    # merge the per-composition cus-site eta distribution (rutile multi-site)
+    if getattr(be, "site_records", None):
+        rec = pd.DataFrame.from_dict(be.site_records, orient="index")
+        rec.index.name = "formula"
+        table = table.merge(rec.reset_index(), on="formula", how="left")
     ranked = rank(table, formability_min=args.formability_min)
     shortlist = select_shortlist(ranked, top_k=args.top_k, elements=elements)
     dt = time.time() - t0
@@ -115,8 +126,9 @@ def main() -> None:
     # --- write results FIRST so the expensive UMA energies are never lost ------
     out_dir = Path(args.out) if args.out else (ROOT / "results")
     out_dir.mkdir(parents=True, exist_ok=True)
+    tag = "" if args.surface == "metal" else f"_{args.surface}"
     export = ranked.drop(columns=[c for c in ranked.columns if c.startswith("_")])
-    csv = out_dir / "round1_uma_candidates.csv"
+    csv = out_dir / f"round1_uma{tag}_candidates.csv"
     export.to_csv(csv, index=False)
 
     pd.set_option("display.width", 170)
@@ -127,10 +139,11 @@ def main() -> None:
     print(f"\n# Stage 2 ({be.name}) on {len(pool_comps)} candidates | {dt:.1f}s")
     print(f"# Spearman rho(eta_prior, eta_UMA) over the pool: {rho:.3f}  "
           f"(1.0 = prior already optimal; lower = UMA adds information)")
+    cols = DISPLAY_COLS + (["eta_mean", "eta_std", "n_sites"] if "eta_std" in ranked.columns else [])
     print("\n## Ranked by score (real backend)")
-    print(ranked[DISPLAY_COLS].to_string(index=False, float_format=fmt))
+    print(ranked[cols].to_string(index=False, float_format=fmt))
     print(f"\n## Shortlist to melt (diverse top-{args.top_k})")
-    print(shortlist[DISPLAY_COLS].to_string(index=False, float_format=fmt))
+    print(shortlist[cols].to_string(index=False, float_format=fmt))
     print(f"\n[written] {csv}")
 
     if not args.no_plot:
@@ -149,10 +162,12 @@ def main() -> None:
                     label="scaling-limit volcano")
             ax.set_xlabel(r"descriptor  $\Delta G_O-\Delta G_{OH}$  (eV)")
             ax.set_ylabel(r"theoretical OER overpotential  $\eta$  (V)")
-            ax.set_title(f"HEA OER round-1 — real backend ({be.name}), fcc(111) proxy")
+            _surf = {"metal": "fcc(111) metal proxy", "oxide": "rocksalt(100) oxide",
+                     "rutile": "rutile(110) oxide, multi-site"}.get(args.surface, args.surface)
+            ax.set_title(f"HEA OER round-1 — {be.name} ({_surf})")
             ax.legend(fontsize=8)
             fig.tight_layout()
-            png = out_dir / "round1_uma_volcano.png"
+            png = out_dir / f"round1_uma{tag}_volcano.png"
             fig.savefig(png, dpi=130)
             print(f"[written] {png}")
         except Exception as e:  # pragma: no cover - plotting is best-effort
