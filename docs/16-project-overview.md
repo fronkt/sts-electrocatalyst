@@ -13,7 +13,7 @@
 | **Working title** | *Machine-Learning-Guided Discovery of an Earth-Abundant High-Entropy-Alloy Oxygen-Evolution Electrocatalyst, Validated by Self-Fabrication and Calibrated Against Experiment* |
 | **Entrant** | Frank Cai *(sole author; STS is an individual competition)* |
 | **Competition** | Regeneron Science Talent Search 2027 — entry due ~Nov 5 2026 |
-| **Status (2026-06-26)** | ML round-1 screening **complete**; **no alloy melted yet** — fabrication & electrochemistry are the entire remaining loop (gated on lab logistics — §10). |
+| **Status (2026-06-26)** | ML round-1 screening **complete**; **no alloy melted yet** — first melt expected **~early July 2026 (~1 week out)**; electrochemistry follows (gated on potentiostat booking — §10). |
 | **Independence** | Project **conceived independently by the entrant** (hypothesis, ML pipeline, composition logic, AL loop); mentors/facilities provide access & supervision only. |
 | **Mentorship / access** | Fort Wayne Metals (alloy fabrication + structural characterization); Purdue (electrochemistry). *Mentor/sponsor of record: TBD — see §10.* |
 
@@ -305,11 +305,19 @@ independence evidence. *(Mentor/sponsor names of record: TBD — §10.)*
 - **Live critical-path gate:** Purdue potentiostat/EIS access is **expected but not yet booked** —
   this is now the single most schedule-sensitive action; book recurring slots before the first melt
   so the make→measure loop never stalls on instrument time.
-- **Still TBD (open questions):** entrant name confirmation + **STS 2027 eligibility** (12th-grade /
-  graduating spring 2027 — the "Purdue assistant researcher" role is an *access channel*, not
-  standing); **mentor/sponsor names of record** (FWM mentor, Purdue PI, form-signing sponsor) and the
-  nature of each relationship; **funding source** for consumables/compute/travel; any prior
-  electrochemistry/melting experience or pilot data.
+- **Self-funded** (2026-06-26): consumables, compute, and Purdue travel are paid by the entrant —
+  clean for the independence story (no grant strings).
+- **First melt imminent (~early July 2026, ~1 week out)** → the round-1 melt set ([docs/15](15-round1-melt-test-plan.md))
+  should be weigh-sheet-ready (target at.% → feedstock masses, Mn over-charge) before the melt.
+- **⚠ Eligibility — must confirm before committing to STS.** STS is restricted to **high-school
+  seniors graduating spring 2027**. The entrant holds a **paid, employed assistant-researcher
+  position** — compatible with being a senior, but it does *not* by itself establish HS-senior
+  standing, and **paid employment on the project invites an independence / "work-for-hire" question**
+  judges probe hard (mitigated by the idea being the entrant's own, but it must be handled explicitly
+  in the application). *If the entrant is past high school, the science retargets to a journal or
+  other venue with no loss.*
+- **STS sponsor of record: not yet identified** — STS requires an adult sponsor who signs; this is an
+  open action item. Mentor names (FWM, Purdue) for acknowledgments also TBD.
 
 > The TBD items above will be filled as answered; the change log records each update.
 
@@ -322,3 +330,7 @@ independence evidence. *(Mentor/sponsor names of record: TBD — §10.)*
   methods/limitations); project conceived independently (strengthened §9); potentiostat expected
   but unbooked (flagged as live critical-path gate); pre-melt status made explicit. Remaining TBDs
   narrowed to eligibility, mentor/sponsor names, and funding.
+- **2026-06-26 (rev. 2)** — self-funded; first melt ~early July 2026 (~1 week out); STS sponsor of
+  record not yet identified. Added an **eligibility flag**: entrant is a paid employed assistant
+  researcher — must confirm HS-senior (spring-2027 graduation) standing before committing to STS, and
+  handle the paid-employment independence question explicitly.
