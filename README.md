@@ -72,11 +72,16 @@ measurement inside the 3.5-month window. Ranked by Finalist reward-to-risk:
 | [`docs/09-solar-perovskites-pv.md`](docs/09-solar-perovskites-pv.md) | Solar / perovskites / PV deep-dive |
 | [`docs/10-computational-ml-materials.md`](docs/10-computational-ml-materials.md) | Computational / ML materials (methods/engine) deep-dive |
 | [`docs/11-metamaterials-metasurfaces.md`](docs/11-metamaterials-metasurfaces.md) | Metamaterials / metasurfaces deep-dive |
+| [`docs/12-catalysis-hea-execution-plan.md`](docs/12-catalysis-hea-execution-plan.md) | **Full execution plan for the lead candidate** (HEA OER electrocatalyst) |
 | [`tasks/todo.md`](tasks/todo.md) | Open logistics gates + next actions |
+| [`tasks/plan-catalysis-hea.md`](tasks/plan-catalysis-hea.md) | Week-by-week checkbox tracker for the HEA OER plan |
 
 ## Next decision
 
-Pick one framing from the shortlist, then answer the four logistics gates in
-[`tasks/todo.md`](tasks/todo.md) (instrument access + booking lead time, FWM
-fabrication capability/turnaround, DFT experience, STS sponsor). Those convert
-the idea into a dated plan that hits Nov 5, 2026.
+A **full execution plan for the lead candidate** (HEA OER electrocatalyst) is
+drafted in [`docs/12`](docs/12-catalysis-hea-execution-plan.md) +
+[`tasks/plan-catalysis-hea.md`](tasks/plan-catalysis-hea.md). To start executing,
+answer the four logistics gates in [`tasks/todo.md`](tasks/todo.md) (instrument
+access + booking lead time, FWM fabrication capability/turnaround, DFT
+experience, STS sponsor) — **the FWM melt and potentiostat booking are the
+critical path and must start in Week 0–1.**
