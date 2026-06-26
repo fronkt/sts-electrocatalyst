@@ -9,7 +9,7 @@ booking** (start Week 0).
 
 ## Phase 0 — Setup & access (Wk 0–2, Jun 25 – Jul 12) — *do in parallel*
 - [ ] **Sponsor locked**; STS adult-sponsor + SRC/Risk-Assessment forms started (KOH, Cr(VI), metal dust).
-- [ ] **Potentiostat/EIS time booked** at Purdue (recurring slots); reference electrode (Hg/HgO) sourced.
+- [ ] **Potentiostat/EIS time booked** at Purdue (recurring slots) — *the only instrument that must be at Purdue; XRD/SEM/EDS/metallography are on-site at FWM*; reference electrode (Hg/HgO) sourced.
 - [ ] **FWM R&D access scheduled** — mentor time + melter booked; you run the melts yourself; element/composition flexibility confirmed.
 - [ ] Compute stood up: `fairchem`/OCP (OC22 model), `pymatgen`/`ASE`, `Ax`/`BoTorch`, GPU (Vast.ai/Purdue HPC).
 - [ ] Lab notebook + git repo for the ML code initialized (independence evidence).
@@ -22,8 +22,8 @@ booking** (start Week 0).
 - [ ] **Wk 3:** multi-objective Bayesian opt (activity × cost × formability) → finalize round-1 shortlist; freeze the predicted ranking (for later correlation).
 - [ ] **Wk 3–4:** synthesize/obtain **NiFe-LDH baseline**; build + dry-run EC protocol (RHE calibration, iR/EIS) on baseline + bare GC.
 
-## Phase 2 — Fabrication & characterization (Wk 5–6, Jul 27 – Aug 9)
-- [ ] Receive FWM ingots; **XRD** (single-phase?) + **SEM-EDS** (nominal vs actual composition).
+## Phase 2 — Fabrication & characterization (Wk 5–6, Jul 27 – Aug 9) — *all at FWM, no travel*
+- [ ] Melt + anneal, then **XRD** (single-phase?) + **SEM-EDS** (nominal vs actual) **on-site at FWM** — can overlap with melting.
 - [ ] **Go/no-go (end Wk 6):** if multi-phase → re-anneal/down-select.
 - [ ] Electrode fabrication (cut/polish/mask geometric area, or powder + ink on GC/Ni foam).
 - [ ] CV activation protocol → form active (oxy)hydroxide.

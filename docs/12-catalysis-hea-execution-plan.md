@@ -62,7 +62,9 @@ a bug, and is a compelling story for judges.
   Synthesized in-house by co-precipitation *and/or* a commercial reference.
 - **Composition space:** earth-abundant 3d metals **Fe, Co, Ni, + Cr/Mn/Cu**
   (optionally Al as a leachable porosity former). **No platinum-group metals** —
-  the abundance angle is the whole "so what."
+  the abundance angle is the whole "so what." *Confirmed: FWM lets you melt **any
+  custom 3d-metal composition**, so the only real limiter is the ML
+  phase-stability filter, not lab policy.*
 - **Primary metric:** **overpotential η at 10 mA cm⁻²** (geometric, iR-corrected,
   vs RHE). **Secondary:** Tafel slope (mV/dec), ECSA-normalized activity,
   chronopotentiometric stability, ML-vs-experiment rank correlation.
@@ -131,10 +133,12 @@ with the correlation and its failure modes.
 
 ## 4. Fabrication plan (Fort Wayne Metals — the unfair advantage)
 
-- **Route:** arc-melt / vacuum-induction button or small ingot of each round-1
-  composition (3–4), homogenization anneal (e.g., ~1000–1100 °C, time per
-  composition) to dissolve segregation. Wire-draw only if a high-surface-area
-  geometry is wanted; bulk button is simpler for an electrode.
+- **Route (full suite available to you):** **arc/button melt** for fast round-1
+  screening (small dense buttons, arbitrary composition) → **vacuum induction**
+  for cleaner round-2 ingots → **homogenization anneal** (~1000–1100 °C) to
+  dissolve as-cast dendritic segregation → optional **wire-draw/rolling** for a
+  high-surface-area or architected electrode. Start with arc/button + anneal; a
+  bulk button is the simplest electrode.
 - **You run the melts yourself** in FWM R&D under mentor supervision — the alloy
   fabrication and processing are *your own hands-on work*, not an outsourced
   service. This is a major STS-independence advantage (see §8): you can defend
@@ -146,20 +150,31 @@ with the correlation and its failure modes.
   finalize before melting). Because you control the cadence, the **round-2
   active-learning melt — even a round-3 — is genuinely feasible**, which is what
   makes the closed ML loop a real contribution rather than a one-shot.
-- **Electrode prep (at Purdue):** cut/mount coupons, polish to a defined finish,
-  define geometric area (mask/epoxy), electrical contact. Alternative: powderize
-  + drop-cast ink onto glassy carbon / Ni foam if bulk-electrode area is too
-  small.
+- **Self-contained make→characterize→down-select loop at FWM:** XRD, SEM/EDS,
+  optical metallography + hardness are all available to you **on-site**, so you
+  melt → anneal → **confirm single-phase → down-select before ever traveling to
+  Purdue.** Purdue collapses to one job: the electrochemistry.
+- **(Optional Finalist-boosting axis) processing/microstructure as a 2nd design
+  lever:** because you can cold-work + anneal, you can vary **grain size / defect
+  density at fixed composition** and test its effect on OER activity — a
+  composition-*and*-processing co-design almost no ML-catalysis project has (and a
+  natural tie-in to your grain-sizing / thermomechanical work). Add **only** if
+  round-1 runs ahead of schedule; do not let it break the one-metric scope lock.
+- **Electrode prep:** cut/mount coupons (doable at FWM), polish to a defined
+  finish, define geometric area (mask/epoxy), electrical contact. Alternative:
+  powderize + drop-cast ink onto glassy carbon / Ni foam if bulk-electrode area
+  is too small.
 
 ---
 
-## 5. Characterization & electrochemistry (Purdue)
+## 5. Characterization (FWM, on-site) & electrochemistry (Purdue)
 
-**Structural / compositional (confirm what FWM made):**
+**Structural / compositional — done at FWM, fast, before traveling:**
 - **XRD** — single-phase vs multi-phase, lattice parameter.
 - **SEM-EDS** — homogeneity + actual vs nominal composition (HEAs segregate).
-- Optional **XPS** pre/post-OER — surface oxidation-state / reconstruction
-  evidence.
+- **Optical metallography + hardness** — grain structure, segregation, processing checks.
+- Optional **XPS** pre/post-OER (likely Purdue) — surface oxidation-state /
+  reconstruction evidence.
 
 **Electrochemistry (the heart of the result):**
 - **Cell:** 3-electrode, 1 M KOH, Hg/HgO reference (+ RHE calibration), Pt or

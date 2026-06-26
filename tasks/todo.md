@@ -11,14 +11,15 @@ logistics answers below.
   - Magnets / magnetocaloric → **VSM / PPMS** (make-or-break here)
   - Heat-spreader alloy → **laser-flash diffusivity** (→κ) + **dilatometry** (CTE)
   - Separation → **ICP-MS / ICP-OES**
-  - Plus general: **XRD, SEM/EBSD**
-- [x] **2. Fort Wayne Metals — PARTIALLY ANSWERED.** Student has **hands-on R&D
-      access** and personally melts/processes alloys under mentor supervision → the
-      fabrication is the student's own work and iteration cadence is
-      student-controlled (not a vendor queue). *Remaining sub-questions:* melter
-      type (arc/button vs vacuum induction), element/composition flexibility (can
-      Cr/Mn be used freely?), and whether XRD/SEM characterization is available at
-      FWM vs only Purdue.
+  - **Catalysis (lead path) → potentiostat/EIS at Purdue — the only must-book instrument**
+  - General **XRD, SEM/EBSD** — ✅ now covered on-site at FWM (no Purdue dependency)
+- [x] **2. Fort Wayne Metals — ANSWERED (best case).** Hands-on R&D access,
+      mentor-supervised: student personally runs **arc/button + vacuum-induction
+      melting, wire-drawing/thermomechanical, and annealing**, with **XRD,
+      SEM/EDS, metallography + hardness on-site**, and **any custom 3d-metal
+      composition** allowed. ⇒ Fabrication + structural characterization are a
+      self-contained, student-run, fast loop at FWM; Purdue is needed *only* for
+      electrochemistry. Big independence plus; round-2 active learning is real.
 - [ ] **3. DFT / first-principles experience.** Have you personally run VASP/QE +
       phonon/BTE (phono3py, ShengBTE)? For magnets: spin-orbit DFT for
       magnetocrystalline anisotropy (harder than κ)? Or lean on pretrained
