@@ -7,28 +7,34 @@ predictions** so the ML-vs-experiment correlation (the STS contribution) is hone
 
 ## 1. What to melt (and why these)
 
-The pipeline's diverse shortlist is all *predicted-good* (η 0.78–1.15 V). A
-correlation study needs **dynamic range**, so the round-1 melt set deliberately adds
-a predicted-poor anchor and an ablation alloy:
+The melt set is drawn from the **broader diverse rutile sweep** ([docs/13](13-round1-uma-results.md)
+"Broader diverse sweep"; 30 single-phase candidates chosen unbiased by the heuristic),
+restricted to compositions predicted **single-phase FCC** (the two lower-η_best hits
+were FCC+BCC dual-phase and are excluded — they would not melt single-phase). A
+correlation study needs **dynamic range**, so it deliberately adds a predicted-poor
+anchor and an ablation alloy:
 
-| # | Composition (at.%) | Role | Frozen ML rank | Pred. best-site η (V) | Pred. descriptor (eV) |
-|---|---|---|---|---|---|
-| 1 | **Fe32Ni17Co34Mn18** | headline (Cr-free, nearest apex) | 1 | 0.78 | 1.75 |
-| 2 | Cr21Ni24Co15Cu6Fe33 | shortlist (diverse) | 4 | 1.03 | 1.38 |
-| 3 | Cr8Fe34Mn9Ni23Co27 | shortlist (diverse) | 5 | 1.15 | 2.38 |
-| 4 | Co24Fe24Ni35Mn17 | shortlist (diverse) | 8 | 1.15 | 2.34 |
-| 5 | Cr19Co28Fe25Ni28 | **predicted-poor anchor** (correlation range) | 12 (last) | 2.96 | −0.57 |
-| 6 | FeCoNi (equiatomic) | **ablation** — drop the HEA aspect | n/a | — | — |
+| # | Composition (at.%) | Role | Sweep rank | Pred. best-site η (V) | η_std (V) | Why this one |
+|---|---|---|---|---|---|---|
+| 1 | **Fe32Ni17Co34Mn18** | headline (Cr-free, nearest apex) | 1 | 0.78 | 0.26 | sweep-confirmed #1, most robust top |
+| 2 | **Cr6Fe33Ni27Mn34** | low-cost / scalability angle | 3 | 1.07 | 0.92 | cheapest ($6.25/kg), most abundant, Cr-lean |
+| 3 | Mn19Fe12Ni35Co16Cr18 | most-confident prediction | 4 | 0.93 | **0.15** | lowest site variance = tightest prediction |
+| 4 | Co20Ni20Cr20Mn20Cu20 | equiatomic reference (Cantor+Cu) | 8 | 0.88 | 0.74 | classic 5-element, Cu-bearing |
+| 5 | Cr19Co28Fe25Ni28 | **predicted-poor anchor** (correlation range) | — | 2.96 | — | clean CrCoFeNi quaternary predicted far from apex |
+| 6 | FeCoNi (equiatomic) | **ablation** — drop the HEA aspect | n/a | — | — | isolates whether the high-entropy part helps |
 
 Controls (not melted): **NiFe-LDH** baseline (co-precipitation or commercial) and
 **bare glassy carbon**. The melt set spans predicted η 0.78→2.96 V across 5 HEAs +
-1 ternary, so the predicted-vs-measured rank correlation has real dynamic range.
+1 ternary, so the predicted-vs-measured rank correlation has real dynamic range, and
+adds a deliberate cost axis ($6.25–17/kg) for the "practical catalyst" narrative.
 
-> **Pre-melt gate (do this first):** the heuristic prior was found *uncorrelated*
-> with rutile (ρ=−0.09), so the shortlist is "best of the 12 evaluated," not "best
-> of all single-phase." Strongly consider the **broader rutile sweep**
-> ([docs/14](14-compute-log.md) §4) before locking the melt set — a better candidate
-> may sit outside the evaluated 12.
+> **Pre-melt gate — RESOLVED (2026-06-26):** the heuristic prefilter weakness
+> (ρ(heuristic, rutile) = −0.09) was closed by the broader diverse sweep
+> ([docs/14](14-compute-log.md) §3C): 4000 sampled → 3304 single-phase → diverse 30,
+> selected *independent of* the heuristic. It **confirmed Fe32Ni17Co34Mn18 as the
+> robust #1** (identical η 0.78 V, lowest top-tier η_std) and surfaced the low-cost
+> Cr6Fe33Ni27Mn34. The melt set above is now locked against the broader screen, not
+> the 12-candidate prefilter.
 
 ## 2. Freeze the prediction (independence evidence)
 

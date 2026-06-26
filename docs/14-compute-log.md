@@ -51,17 +51,29 @@ which matches the launching shell). See [[feedback_vast_workflow]].
 - Shortlist: **Fe32Ni17Co34Mn18** (Cr-free, top) / Cr21Ni24Co15Cu6Fe33 / Cr8Fe34Mn9Ni23Co27 / Co24Fe24Ni35Mn17.
 - Out: `results/round1_uma_rutile_candidates.csv`, `…_rutile_volcano.png`. Detail in [docs/13](13-round1-uma-results.md).
 
+**C. Broader diverse rutile sweep** — `run_round1_uma.py --surface rutile --n-sites 4 --pool 30 --select diverse --top-k 6 --n-samples 4000`
+- Closes run B's heuristic-prefilter weakness: pool selected by **max-min diversity**
+  over single-phase composition space (`--select diverse`, `_diverse_pick`), *not*
+  heuristic activity.
+- Stage 1: 4000 sampled → **3304 single-phase** → diverse 30. Stage 2: rutile(110),
+  4 cus sites/comp, **5795 s** (GPU shared with batterycv).
+- ρ(heuristic, rutile) = **0.155** (still low — re-confirmed on a bigger pool).
+  **Fe32Ni17Co34Mn18 remains #1 at the identical η_best 0.78 V**, lowest top-tier
+  η_std (0.26). New single-phase find: **Cr6Fe33Ni27Mn34** (cheapest $6.25/kg, most
+  abundant, Cr-lean). Two lower-η_best compositions were FCC+BCC dual-phase → excluded.
+- Out: `results/round1_uma_rutile_sweep_candidates.csv`, `…_rutile_sweep_volcano.png`.
+
 ## 4. Status — is the compute done?
 
 - **Round-1 screening: DONE** (a physically-grounded ranking + shortlist exist).
-- **⚠ Known limitation (act before melting):** the two-stage prior pre-filtered to
-  12 candidates by **heuristic** score, but ρ(heuristic, rutile) = −0.09 means the
-  heuristic does **not** predict rutile activity — so a rutile-excellent composition
-  could sit in heuristic-rank 13+ and was never evaluated. **Recommended remaining
-  run:** a broader rutile-UMA sweep over more single-phase candidates (e.g. 30–40,
-  selected by phase-stability/diversity, *not* heuristic activity), ~1.5–2 GPU-hr.
-  The phase-stability gate itself is sound (physics-based); only the heuristic
-  *activity* pre-ranking is the weak link.
+- **✓ Resolved (run C):** the heuristic-prefilter weakness in run B (ρ(heuristic,
+  rutile) = −0.09) was closed by the broader diversity-selected sweep (30 candidates,
+  unbiased by heuristic activity). It **confirmed Fe32Ni17Co34Mn18 as the robust #1**
+  and surfaced one new low-cost single-phase candidate (Cr6Fe33Ni27Mn34). The
+  shortlist is no longer "best of 12 by a bad prior" but "best of a diverse 30 over
+  the single-phase space." The phase-stability gate (physics-based) was sound
+  throughout; only the heuristic *activity* pre-ranking was the weak link, now retired
+  for the unbiased `--select diverse` path.
 - **Round-2 active learning: BLOCKED** on experimental η (cannot start until melts
   are measured) — `active_learning.propose_round2`.
 - **Optional further refinement:** true oxyhydroxide (NiOOH/FeOOH) termination;
@@ -73,8 +85,10 @@ which matches the launching shell). See [[feedback_vast_workflow]].
 # round-1 rutile (headline), on a CUDA box with the env in §1:
 PYTHONPATH=src python src/scripts/run_round1_uma.py \
     --surface rutile --n-sites 4 --pool 12 --top-k 4 --model uma-s-1p1 --device cuda
-# broader sweep (recommended) — raise --pool, optionally widen --n-samples:
-#   --surface rutile --n-sites 4 --pool 36 --top-k 6
+# broader diverse sweep (run C, DONE) — unbiased pool, not heuristic-ranked:
+PYTHONPATH=src python src/scripts/run_round1_uma.py --surface rutile --n-sites 4 \
+    --pool 30 --select diverse --top-k 6 --n-samples 4000 --device cuda \
+    --out results   # writes round1_uma_rutile_candidates.csv (rename *_sweep_* to keep both)
 ```
 
 > Infrastructure note: the 5090 box (`137.175.76.24`) was **shared** with a

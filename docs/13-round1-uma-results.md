@@ -64,6 +64,48 @@ Volcano: [`results/round1_uma_rutile_volcano.png`](../results/round1_uma_rutile_
 (Fe35Mn15Ni18Co32) is rank 7 on rutile — screening on the bare-metal proxy would
 have missed the best oxide candidate.
 
+### Broader diverse sweep — does the shortlist survive an unbiased pool?
+
+The pool-12 above was pre-filtered by **heuristic score**, but ρ(heuristic, rutile)
+= −0.09 means that pre-filter cannot be trusted to contain the best rutile candidate.
+To close that gap we re-ran rutile-UMA over a pool chosen *independent of the
+heuristic activity score*: 4000 sampled → **3304 single-phase** → a **max-min diverse
+30** spanning the single-phase composition space (greedy farthest-point, seeded by
+formability; `--select diverse`, `surfaces_rutile` + `_diverse_pick`). 30 candidates
+× 4 cus sites, **5795 s**.
+
+```bash
+PYTHONPATH=src python src/scripts/run_round1_uma.py --surface rutile --n-sites 4 \
+    --pool 30 --select diverse --top-k 6 --n-samples 4000 --device cuda
+```
+
+**The headline holds — and strengthens.** Over this 2.5× broader, heuristic-unbiased
+pool, **Fe32Ni17Co34Mn18 is still #1** at the *identical* best-site η = 0.78 V, and
+with the **lowest site spread of the top tier (η_std 0.26)** — the most robust
+prediction, not a lucky tail. ρ(heuristic, rutile) rises only to **0.155**:
+re-confirmed on a bigger sample, the cheap prior still cannot predict oxide activity.
+
+Two compositions edge it on raw η_best — Ni11Cr24Mn18Co29Fe18 (0.77) and
+Cu8Cr23Mn35Co34 (0.77) — but **both are predicted FCC+BCC dual-phase** (won't melt
+single-phase) and have large site variance (η_std 0.60 and **3.24** — their "best
+site" is an unreliable tail). They are *not* melt candidates.
+
+Top **single-phase FCC** candidates from the sweep (the meltable set):
+
+| Sweep rank | Composition (at.%) | η_best (V) | descriptor (eV) | η_std (V) | $/kg | note |
+|---|---|---|---|---|---|---|
+| 1 | **Fe32Ni17Co34Mn18** | 0.78 | 1.75 | 0.26 | 14.5 | headline, Cr-free, most robust |
+| 8 | Co20Ni20Cr20Mn20Cu20 | 0.88 | 1.64 | 0.74 | 14.3 | equiatomic (Cantor+Cu) |
+| 7 | Cu12Mn33Co35Fe21 | 0.92 | 1.93 | 0.49 | 13.2 | Cr-free |
+| 4 | Mn19Fe12Ni35Co16Cr18 | 0.93 | 1.85 | **0.15** | 13.8 | lowest spread = most confident |
+| 3 | **Cr6Fe33Ni27Mn34** | 1.07 | 2.29 | 0.92 | **6.25** | **cheapest, most abundant**, Cr-lean |
+
+The new sweep finds **Cr6Fe33Ni27Mn34** — single-phase FCC near the apex and by far
+the **cheapest ($6.25/kg) and most abundant** composition in either pool — a strong
+scalability/cost angle the heuristic pre-filter had excluded. Full ranked 30:
+[`results/round1_uma_rutile_sweep_candidates.csv`](../results/round1_uma_rutile_sweep_candidates.csv),
+volcano [`…_sweep_volcano.png`](../results/round1_uma_rutile_sweep_volcano.png).
+
 ---
 
 ## (First pass) Metal fcc(111) proxy

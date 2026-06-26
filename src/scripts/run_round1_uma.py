@@ -59,11 +59,34 @@ def _spearman(a: np.ndarray, b: np.ndarray) -> float:
     return float((ra * rb).sum() / denom) if denom > 1e-12 else float("nan")
 
 
+def _diverse_pick(formable: pd.DataFrame, n: int, elements) -> pd.DataFrame:
+    """Greedy max-min diverse subset of single-phase candidates over composition
+    space (seeded by highest formability), independent of the heuristic activity
+    score — the unbiased pool for a backend whose ranking the heuristic can't predict.
+    """
+    df = formable.sort_values("formability", ascending=False).reset_index(drop=True)
+    vecs = [c.vector(elements) for c in df["_comp"]]
+    chosen = [0]
+    while len(chosen) < min(n, len(df)):
+        best_i, best_d = None, -1.0
+        for i in range(len(df)):
+            if i in chosen:
+                continue
+            d = min(float(np.linalg.norm(vecs[i] - vecs[c])) for c in chosen)
+            if d > best_d:
+                best_d, best_i = d, i
+        chosen.append(best_i)
+    return df.iloc[chosen]
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description="Two-stage (heuristic prior -> UMA) HEA OER round-1")
     p.add_argument("--elements", nargs="+", default=None, help="design element set")
     p.add_argument("--n-samples", type=int, default=3000, help="stage-1 heuristic sample size")
     p.add_argument("--pool", type=int, default=24, help="# single-phase candidates to send to UMA")
+    p.add_argument("--select", default="score", choices=["score", "diverse"],
+                   help="pool selection: 'score'=top heuristic score; 'diverse'=max-min "
+                        "coverage of single-phase composition space (unbiased by heuristic activity)")
     p.add_argument("--top-k", type=int, default=4)
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--backend", default="uma", choices=["uma", "oc22", "heuristic"],
@@ -91,7 +114,8 @@ def main() -> None:
         backend="heuristic", formability_min=args.formability_min,
     )
     formable = prior.table[prior.table["formable"]].copy()
-    pool = formable.head(args.pool)
+    pool = _diverse_pick(formable, args.pool, elements) if args.select == "diverse" \
+        else formable.head(args.pool)
     if len(pool) == 0:
         raise SystemExit("no single-phase candidates passed the formability gate; "
                          "lower --formability-min or widen --elements")
@@ -99,7 +123,7 @@ def main() -> None:
     prior_eta = {r.formula: r.eta_V for r in pool.itertuples()}
     print(f"# Stage 1 (heuristic prior): {prior.n_candidates} sampled, "
           f"{int(prior.table['formable'].sum())} single-phase; "
-          f"sending top {len(pool_comps)} to stage-2 backend={args.backend}")
+          f"select={args.select} -> {len(pool_comps)} to stage-2 backend={args.backend}")
 
     # --- Stage 2: real backend on the pool only --------------------------------
     _default_size = {"oxide": (2, 2, 4), "rutile": (2, 2, 1)}.get(args.surface, (3, 3, 4))
