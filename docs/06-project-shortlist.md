@@ -73,3 +73,27 @@ logistics in [`../tasks/todo.md`](../tasks/todo.md).
 reuse; **R2 (magnetocaloric)** if keeping the cooling theme and the cleanest
 experiment matters more. **T1** is the best purely-thermal option if rare earths
 are dropped. Final pick is gated on the four logistics answers in `tasks/todo.md`.
+
+## Cross-lane verdict (after the `07`–`11` deep-dives)
+
+Widening the field beyond thermal + rare-earth, the five additional lane
+deep-dives reframe the decision around one fact: **Fort Wayne Metals can melt
+custom Fe-based alloys**, and the lanes that consume that with a *fast,
+quantitative* measurement are the strongest Finalist bets in a 3.5-month window.
+
+| Rank | Lane / framing | Why | Doc |
+|---|---|---|---|
+| **1** | **Catalysis — HEA electrocatalyst** (ML-screened → FWM-melted → OER/HER overpotential vs NiFe-LDH) | Electrochemistry is the fastest quantitative wet-lab (hours/sample); full design→make→measure→beat-baseline arc; near-unique FWM advantage | [`08`](08-catalysis.md) |
+| **2** | **Batteries — all-iron redox flow** (ML composition/additive → FWM iron → benchtop loop) | Same family as a recent Finalist (Sanxhaku '25); air-tolerant; consumes FWM iron | [`07`](07-batteries-energy-storage.md) |
+| **3** | **RE magnet (R1)** / **heat-spreader alloy (T1)** | FWM-fabricable, high "so what", but VSM/PPMS & laser-flash are slower, fussier measurements | [`05`](05-rare-earth-ideas.md) · [`04`](04-thermal-materials.md) |
+| **4** | **Metamaterials** (3D-print + impedance-tube/Instron) | Feasible hybrid, but historically **Scholar-capped**; needs a measured win over a named baseline to break out | [`11`](11-metamaterials-metasurfaces.md) |
+| **5** | **Solar / perovskites** | Air-sensitive, reproducibility risk, FWM weak fit | [`09`](09-solar-perovskites-pv.md) |
+| **6** | **Computational-only** | Caps lower; use as the **engine** feeding any hybrid above, not standalone | [`10`](10-computational-ml-materials.md) |
+
+**Updated single recommendation:** the **catalysis HEA electrocatalyst (doc 08,
+framing #1)** now looks like the best reward-to-risk Finalist swing — it pairs the
+fastest quantitative measurement with FWM's exact core competency. The rare-earth
+magnet (R1) remains the best "so what" / narrative; the all-iron flow battery
+(doc 07, #1) is the safest precedent-backed bet. All three converge on the same
+move: **ML designs an Fe-based alloy composition → FWM melts it → you measure it.**
+Pick is still gated on the four logistics answers in [`../tasks/todo.md`](../tasks/todo.md).

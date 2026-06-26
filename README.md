@@ -41,6 +41,21 @@ i.e. **entry due ~November 5, 2026**.
 
 - **Thermal:** heat-spreader alloy/composite inverse design · CFD-surrogate cold-plate · MLIP lattice-κ + defects
 - **Rare earth:** RE-lean / RE-free magnet inverse design (incl. tetrataenite) · magnetocaloric solid-state cooling · ML-guided REE separation/recovery
+- **Other screened lanes (full deep-dives in `docs/07`–`docs/11`):** batteries / energy storage · catalysis / electrocatalysis · solar / perovskites · computational-ML methods · metamaterials / metasurfaces
+
+## Cross-lane verdict (after the lane deep-dives)
+
+The deep-dives converge on one structural insight: **Fort Wayne Metals' real
+superpower is melting custom Fe-based metal alloys**, so the highest-leverage
+lanes are the ones that *consume* that capability with a fast, quantitative
+measurement inside the 3.5-month window. Ranked by Finalist reward-to-risk:
+
+1. **Catalysis — HEA electrocatalyst** (ML-screened → FWM-melted → OER/HER overpotential vs NiFe-LDH). *Fastest quantitative closed loop; strongest Finalist case.* → `docs/08`
+2. **Batteries — all-iron redox flow** (ML electrolyte/composition → FWM iron → air-tolerant benchtop loop). *Same family as a recent Finalist (Sanxhaku '25).* → `docs/07`
+3. **Rare-earth magnet** *or* **thermal heat-spreader alloy** — both FWM-fabricable, but VSM/PPMS (magnets) and laser-flash (κ) are slower, fussier measurements. → `docs/05`, `docs/04`
+4. **Metamaterials** — feasible 3D-print + impedance-tube/Instron hybrid, but historically **Scholar-capped**. → `docs/11`
+5. **Solar / perovskites** — air-sensitive, reproducibility risk, FWM weak fit. → `docs/09`
+6. **Computational-only** — caps lower; best used as the *engine* feeding any hybrid above. → `docs/10`
 
 ## Repo map
 
@@ -52,6 +67,11 @@ i.e. **entry due ~November 5, 2026**.
 | [`docs/04-thermal-materials.md`](docs/04-thermal-materials.md) | Thermal-management materials + where ML adds value |
 | [`docs/05-rare-earth-ideas.md`](docs/05-rare-earth-ideas.md) | Rare-earth project ideation |
 | [`docs/06-project-shortlist.md`](docs/06-project-shortlist.md) | Ranked candidate framings + decision gates |
+| [`docs/07-batteries-energy-storage.md`](docs/07-batteries-energy-storage.md) | Batteries / energy storage / redox-flow deep-dive |
+| [`docs/08-catalysis.md`](docs/08-catalysis.md) | Catalysis / electrocatalysis / photocatalysis deep-dive |
+| [`docs/09-solar-perovskites-pv.md`](docs/09-solar-perovskites-pv.md) | Solar / perovskites / PV deep-dive |
+| [`docs/10-computational-ml-materials.md`](docs/10-computational-ml-materials.md) | Computational / ML materials (methods/engine) deep-dive |
+| [`docs/11-metamaterials-metasurfaces.md`](docs/11-metamaterials-metasurfaces.md) | Metamaterials / metasurfaces deep-dive |
 | [`tasks/todo.md`](tasks/todo.md) | Open logistics gates + next actions |
 
 ## Next decision
