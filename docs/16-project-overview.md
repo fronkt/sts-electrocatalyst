@@ -13,8 +13,9 @@
 | **Working title** | *Machine-Learning-Guided Discovery of an Earth-Abundant High-Entropy-Alloy Oxygen-Evolution Electrocatalyst, Validated by Self-Fabrication and Calibrated Against Experiment* |
 | **Entrant** | Frank Cai *(sole author; STS is an individual competition)* |
 | **Competition** | Regeneron Science Talent Search 2027 — entry due ~Nov 5 2026 |
-| **Status (2026-06-26)** | ML round-1 screening **complete**; fabrication & electrochemistry **pending** (gated on lab logistics — §10). |
-| **Mentorship / access** | Fort Wayne Metals (alloy fabrication + structural characterization); Purdue (electrochemistry). *Sponsor/mentor of record: TBD — see §10.* |
+| **Status (2026-06-26)** | ML round-1 screening **complete**; **no alloy melted yet** — fabrication & electrochemistry are the entire remaining loop (gated on lab logistics — §10). |
+| **Independence** | Project **conceived independently by the entrant** (hypothesis, ML pipeline, composition logic, AL loop); mentors/facilities provide access & supervision only. |
+| **Mentorship / access** | Fort Wayne Metals (alloy fabrication + structural characterization); Purdue (electrochemistry). *Mentor/sponsor of record: TBD — see §10.* |
 
 ---
 
@@ -181,6 +182,11 @@ per composition. Full record: [docs/14](14-compute-log.md).
 energy in seconds, making a *distribution over sites over many compositions* tractable. Honest
 caveat carried into the paper: UMA's OC20 head is metal-dominated, so oxide adsorption is partly
 **out-of-distribution** — hence the model is a **screening prior, not an oracle** (§8).
+**DFT cross-check (planned, entrant-run):** because the entrant runs first-principles DFT
+(VASP/Quantum ESPRESSO) personally, a small subset of UMA ΔG predictions — the shortlist's
+best-site adsorption energies — will be **re-computed in DFT** to bound the MLIP error on the
+specific oxide surfaces used. This validates the screening prior with the same first-principles
+method the universal scaling relations were built on, and is defensible work the entrant owns.
 
 ### Step 4 — Multi-objective ranking *(CPU)*
 **What:** combine predicted activity (proximity to the volcano apex), single-phase formability, and
@@ -255,7 +261,8 @@ Detailed protocol in [docs/15](15-round1-melt-test-plan.md). In brief:
 ## 8. Limitations & threats to validity (carried into the paper)
 
 - **OC20 is metal-dominated** → oxide adsorption is partly out-of-distribution for UMA; η is a
-  *screening* estimate. *Mitigation:* relative ranking only; experimental calibration is the point.
+  *screening* estimate. *Mitigation:* relative ranking only; **entrant-run DFT (VASP/QE) spot-checks
+  of the shortlist's best-site ΔG** to bound the MLIP error; experimental calibration is the point.
 - **Non-ground-state rutiles.** FeO₂/CoO₂/NiO₂/CuO₂ lattice entries are model values on the rutile
   trend, not experimental ground states.
 - **Model surface ≠ real active phase.** rutile(110) approximates, but is not, the true in-situ
@@ -275,11 +282,13 @@ Detailed protocol in [docs/15](15-round1-melt-test-plan.md). In brief:
 | **Scholar floor** | a working ML→fabricate→measure pipeline; ≥3 HEAs made & benchmarked vs NiFe-LDH with clean triplicate data + honest ML-vs-experiment ρ — *even if none beat the baseline* | ML pipeline + shortlist **done**; fabrication/measurement pending |
 | **Finalist stretch** | ≥1 ML-designed composition **matches/beats** NiFe-LDH on η@10, survives ≥12 h, with post-mortem reconstruction evidence, AND the ML ranking demonstrably guided the discovery | contingent on the wet-lab loop |
 
-**Independence (STS judges probe this hard).** Yours to defend: the hypothesis, the ML pipeline
-design, the composition logic, the active-learning loop, the **hands-on melting/processing at FWM**,
-the electrochemistry, the analysis and interpretation. Acknowledged access/supervision: FWM mentor +
+**Independence (STS judges probe this hard).** The project was **conceived independently by the
+entrant** — the OER/HEA hypothesis, the ML pipeline design, the composition logic, and the
+active-learning loop are the entrant's own, not a slice of a mentor's grant. Yours to defend: all of
+the above plus the **hands-on melting/processing at FWM**, the **entrant-run DFT validation**, the
+electrochemistry, and the analysis/interpretation. Acknowledged access/supervision only: FWM mentor +
 facilities, Purdue lab/instruments. The dated git history of the code and these docs **is** the
-independence evidence. *(Sponsor of record, mentor names, and the "whose idea" attribution: TBD — §10.)*
+independence evidence. *(Mentor/sponsor names of record: TBD — §10.)*
 
 ---
 
@@ -290,16 +299,26 @@ independence evidence. *(Sponsor of record, mentor names, and the "whose idea" a
 - **Reproduce:** environment and exact commands in [docs/14](14-compute-log.md) §1, §5.
 - **Frozen predictions:** the round-1 ranking is committed/timestamped so the ML-vs-experiment
   correlation cannot be retrofitted ([docs/15](15-round1-melt-test-plan.md) §2).
-- **Open gates before the wet-lab loop can start** ([tasks/todo.md](../tasks/todo.md)):
-  Purdue potentiostat/EIS booking (the one must-book instrument); STS sponsor + independence
-  attribution; DFT/first-principles experience level; 12th-grade eligibility confirmation.
+- **Resolved (2026-06-26 grilling):** first-principles capability — *entrant runs DFT (VASP/QE)
+  personally* → DFT cross-check of the shortlist is in scope; idea origin — *entirely the entrant's
+  own*; fabrication stage — *pre-melt, nothing cast yet*.
+- **Live critical-path gate:** Purdue potentiostat/EIS access is **expected but not yet booked** —
+  this is now the single most schedule-sensitive action; book recurring slots before the first melt
+  so the make→measure loop never stalls on instrument time.
+- **Still TBD (open questions):** entrant name confirmation + **STS 2027 eligibility** (12th-grade /
+  graduating spring 2027 — the "Purdue assistant researcher" role is an *access channel*, not
+  standing); **mentor/sponsor names of record** (FWM mentor, Purdue PI, form-signing sponsor) and the
+  nature of each relationship; **funding source** for consumables/compute/travel; any prior
+  electrochemistry/melting experience or pilot data.
 
-> **Items marked TBD in this document** (entrant name confirmation, mentor/sponsor of record, DFT
-> experience, instrument booking status, current fabrication stage) are the subject of the open
-> questions accompanying this draft — they will be filled once answered.
+> The TBD items above will be filled as answered; the change log records each update.
 
 ---
 
 ### Change log
 - **2026-06-26** — initial dossier created; reflects ML round-1 complete (metal proxy → rutile
   multi-site → broader diverse sweep), headline Fe₃₂Ni₁₇Co₃₄Mn₁₈, experiment pending.
+- **2026-06-26 (rev.)** — folded in entrant answers: entrant runs DFT (added DFT cross-check to
+  methods/limitations); project conceived independently (strengthened §9); potentiostat expected
+  but unbooked (flagged as live critical-path gate); pre-melt status made explicit. Remaining TBDs
+  narrowed to eligibility, mentor/sponsor names, and funding.
