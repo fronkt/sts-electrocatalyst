@@ -77,6 +77,7 @@ measurement inside the 3.5-month window. Ranked by Finalist reward-to-risk:
 | [`docs/16-project-overview.md`](docs/16-project-overview.md) | **Master dossier** — problem, glossary, novelty, every step + rationale (read first) |
 | [`docs/18-competitive-benchmark.md`](docs/18-competitive-benchmark.md) | This project vs. real STS Finalist/Scholar precedents (complexity, scope, stage) |
 | [`docs/19-computational-fallback.md`](docs/19-computational-fallback.md) | Fully-computational backup ideas (the hedge) if the wet-lab loop slips |
+| [`docs/20-fallback-bestbet-her-discovery.md`](docs/20-fallback-bestbet-her-discovery.md) | Deep-research brief: the best-bet fallback (generative + DFT HER catalyst discovery) |
 | [`tasks/todo.md`](tasks/todo.md) | Open logistics gates + next actions |
 | [`tasks/plan-catalysis-hea.md`](tasks/plan-catalysis-hea.md) | Week-by-week checkbox tracker for the HEA OER plan |
 
