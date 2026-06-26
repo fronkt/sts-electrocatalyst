@@ -73,7 +73,7 @@ measurement inside the 3.5-month window. Ranked by Finalist reward-to-risk:
 | [`docs/10-computational-ml-materials.md`](docs/10-computational-ml-materials.md) | Computational / ML materials (methods/engine) deep-dive |
 | [`docs/11-metamaterials-metasurfaces.md`](docs/11-metamaterials-metasurfaces.md) | Metamaterials / metasurfaces deep-dive |
 | [`docs/12-catalysis-hea-execution-plan.md`](docs/12-catalysis-hea-execution-plan.md) | **Full execution plan for the lead candidate** (HEA OER electrocatalyst) |
-| [`docs/13`](docs/13-round1-uma-results.md) · [`14`](docs/14-compute-log.md) · [`15`](docs/15-round1-melt-test-plan.md) | Round-1 UMA results · reproducible compute log · melt/test protocol |
+| [`docs/13`](docs/13-round1-uma-results.md) · [`14`](docs/14-compute-log.md) · [`15`](docs/15-round1-melt-test-plan.md) · [`17`](docs/17-fwm-weigh-sheet.md) | Round-1 UMA results · compute log · melt/test protocol · FWM weigh-sheet |
 | [`docs/16-project-overview.md`](docs/16-project-overview.md) | **Master dossier** — problem, glossary, novelty, every step + rationale (read first) |
 | [`tasks/todo.md`](tasks/todo.md) | Open logistics gates + next actions |
 | [`tasks/plan-catalysis-hea.md`](tasks/plan-catalysis-hea.md) | Week-by-week checkbox tracker for the HEA OER plan |

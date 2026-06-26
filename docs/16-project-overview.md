@@ -288,7 +288,10 @@ active-learning loop are the entrant's own, not a slice of a mentor's grant. You
 the above plus the **hands-on melting/processing at FWM**, the **entrant-run DFT validation**, the
 electrochemistry, and the analysis/interpretation. Acknowledged access/supervision only: FWM mentor +
 facilities, Purdue lab/instruments. The dated git history of the code and these docs **is** the
-independence evidence. *(Mentor/sponsor names of record: TBD — §10.)*
+independence evidence. **Nuance to address head-on in the application:** the entrant is also a *paid
+assistant researcher*, so the write-up should make explicit that this STS project — its hypothesis,
+pipeline, and analysis — is the entrant's **own initiative, distinct from any assigned employer
+work**, and that the consumables/compute were self-funded. *(Mentor/sponsor names of record: TBD — §10.)*
 
 ---
 
@@ -309,13 +312,11 @@ independence evidence. *(Mentor/sponsor names of record: TBD — §10.)*
   clean for the independence story (no grant strings).
 - **First melt imminent (~early July 2026, ~1 week out)** → the round-1 melt set ([docs/15](15-round1-melt-test-plan.md))
   should be weigh-sheet-ready (target at.% → feedstock masses, Mn over-charge) before the melt.
-- **⚠ Eligibility — must confirm before committing to STS.** STS is restricted to **high-school
-  seniors graduating spring 2027**. The entrant holds a **paid, employed assistant-researcher
-  position** — compatible with being a senior, but it does *not* by itself establish HS-senior
-  standing, and **paid employment on the project invites an independence / "work-for-hire" question**
-  judges probe hard (mitigated by the idea being the entrant's own, but it must be handled explicitly
-  in the application). *If the entrant is past high school, the science retargets to a journal or
-  other venue with no loss.*
+- **Eligibility — CONFIRMED (2026-06-26):** entrant is a **high-school senior graduating spring
+  2027** → STS-eligible. Application note: the entrant is *also* a **paid, employed assistant
+  researcher**, so the independence / "work-for-hire" question (the entrant's own project vs. assigned
+  employer work?) must be **addressed explicitly** — mitigated by the hypothesis, ML pipeline, and
+  analysis being the entrant's own (§9) and by self-funding the consumables/compute.
 - **STS sponsor of record: not yet identified** — STS requires an adult sponsor who signs; this is an
   open action item. Mentor names (FWM, Purdue) for acknowledgments also TBD.
 
@@ -334,3 +335,5 @@ independence evidence. *(Mentor/sponsor names of record: TBD — §10.)*
   record not yet identified. Added an **eligibility flag**: entrant is a paid employed assistant
   researcher — must confirm HS-senior (spring-2027 graduation) standing before committing to STS, and
   handle the paid-employment independence question explicitly.
+- **2026-06-26 (rev. 3)** — **eligibility confirmed**: entrant is a HS senior graduating spring 2027
+  (STS-eligible). Paid-employment independence nuance retained as an explicit application to-do (§9).
