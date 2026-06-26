@@ -1,0 +1,11 @@
+"""Pytest bootstrap: make `src/` importable without installing the package.
+
+Keeps the env unmutated — `from hea_oer import ...` works in tests and scripts
+by putting the repo's `src/` directory on sys.path.
+"""
+import sys
+from pathlib import Path
+
+SRC = Path(__file__).resolve().parent / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
