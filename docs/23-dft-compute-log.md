@@ -74,28 +74,57 @@ for the bulk rutile MO₂ cell — both knobs flat to **< 1 meV/atom** beyond th
 use **1 k-point in the vacuum axis** (+ dipole correction); the cutoffs carry over unchanged. Heaviest
 run (8×8×12) ≈ 9 min on 24 ranks; the converged 80/640/6×6×8 point ≈ 4 min.
 
-## 5. Status
+## 5. Slab + adsorbate workflow (built, locally validated, ready to run)
 
-- **QE tier stood up + validated** (CrO₂ SCF correct, mag 4.00 μB). ✓
-- **Convergence sweep: DONE** → production setting locked at **80 Ry / 640 Ry / 6×6×8**. ✓
-- **Next (heavier — the real parity work):** build the **rutile(110) slab** workflow at the locked
-  cutoffs (clean slab + \*OH/\*O/\*OOH on the cus site, CHE referencing) — starting with CrO₂ — to get
-  the first DFT η for the **UMA↔DFT parity**; then the remaining ordered MO₂ endmembers (Mn/Fe/Co/Ni/Cu)
-  and the SQS approximants of the top 3–5 HEAs ([docs/22](22-multifidelity-dft-calibration.md) §5).
-  *Bulk endmember energies alone do not give parity points — parity needs the slab+adsorbate η.*
+The real parity work — `src/dft/qe_slab.py` (+ driver `src/dft/run_slab_dft.sh`). It **reuses the exact
+UMA slab geometry and CHE referencing**, so only the relaxer differs (QE here vs the UMA MLIP there) →
+a fair, method-vs-method parity:
 
-## 6. Reproduce
+- `build` reuses `hea_oer.surfaces_rutile` (`build_rutile110_hea`/`cus_site_xy`/`add_oer_adsorbate_at`)
+  to emit QE `relax` inputs for the clean slab, the \*OH/\*O/\*OOH adslabs on each cus site, and the
+  gas H₂O/H₂ refs (+ a manifest), at the locked **80 Ry / 640 Ry**, nspin=2 + PBE+U via the HUBBARD card,
+  bottom half fixed (`if_pos 0 0 0`), k-grid auto-scaled for the surface cell, **no dipole correction
+  (deliberately matching UMA).**
+- `eta` parses the relaxed energies and calls the **same** `referencing.delta_G` + `descriptors.oer_overpotential`
+  the UMA backend uses → a per-site η distribution (`eta_min/mean/std/max`) directly comparable to the UMA
+  `site_records`.
+
+**Validated locally (no QE needed):** `build Cr` emits a correct **72-atom CrO₂(110)** slab (identical to
+the UMA cell) + adslabs + gas; `py_compile` clean; the writers/helpers unit-checked. **Not yet run** — the
+relaxations (heavy: a magnetic +U slab relax each) wait for a **cheap high-core CPU box** (the 2×5090 box
+was torn down — DFT is CPU-only, no reason to pay GPU rates).
+
+**Open item:** the **H pseudopotential filename** (`H.pbe-rrkjus_psl.1.0.0.UPF`, best-guess) — the driver
+checks every referenced UPF exists and aborts with a clear message if SSSP names H differently; fix
+`ELEMENTS["H"]` in `qe_slab.py` if so. Next-box setup: conda-forge QE 7.x + `pip install ase pymatgen` +
+the repo (`PYTHONPATH=$REPO/src`).
+
+## 6. Status
+
+- **QE tier stood up + validated** (CrO₂ SCF, mag 4.00 μB). ✓
+- **Convergence: DONE** → locked **80 Ry / 640 Ry / 6×6×8**. ✓
+- **Slab+adsorbate workflow: BUILT + locally validated**, ready to run on a CPU box. ✓
+- **Next:** run `run_slab_dft.sh Cr` → first DFT η; then the other MO₂ endmembers (parity anchors) and the
+  SQS approximants of the top 3–5 HEAs; run UMA on the *same* structures → the UMA↔DFT parity plot
+  ([docs/22](22-multifidelity-dft-calibration.md) §6).
+
+## 7. Reproduce
 
 ```bash
 # on a CPU box with conda-forge QE 7.x + SSSP pseudos in /usr/share/espresso/pseudo:
 export PATH=<qe-env>/bin:$PATH; export LD_LIBRARY_PATH=<qe-env>/lib:$LD_LIBRARY_PATH
-# single SCF:
+
+# (a) bulk convergence (DONE):
 python3 src/dft/gen_rutile.py CrO2 --ecutwfc 60 --ecutrho 480 --kpts 4 4 6 \
   --pseudo-dir /usr/share/espresso/pseudo \
   --m-upf cr_pbe_v1.5.uspp.F.UPF --o-upf O.pbe-n-kjpaw_psl.0.1.UPF -o cro2.in
 mpirun --allow-run-as-root -np 8 pw.x -nk 2 -in cro2.in > cro2.out
-# full convergence sweep:
 FORMULA=CrO2 NP=24 NK=4 PSEUDO_DIR=/usr/share/espresso/pseudo \
   M_UPF=cr_pbe_v1.5.uspp.F.UPF O_UPF=O.pbe-n-kjpaw_psl.0.1.UPF \
   GEN=$PWD/src/dft/gen_rutile.py bash src/dft/run_convergence.sh
+
+# (b) slab + adsorbate -> DFT eta (NEXT; needs ase+pymatgen+repo):
+pip install ase pymatgen          # into the QE env or a venv
+NP=24 NK=4 NSITES=1 REPO=$PWD bash src/dft/run_slab_dft.sh Cr   # endmember CrO2(110)
+# -> writes runs/Cr_slab/dft_eta.json (eta_min/mean/std/max), comparable to the UMA site_records
 ```
