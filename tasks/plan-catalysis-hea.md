@@ -22,9 +22,9 @@ booking** (start Week 0).
 - [ ] **Wk 3:** multi-objective Bayesian opt (activity × cost × formability) → finalize round-1 shortlist; freeze the predicted ranking (for later correlation).
 - [ ] **Wk 3–4:** synthesize/obtain **NiFe-LDH baseline**; build + dry-run EC protocol (RHE calibration, iR/EIS) on baseline + bare GC.
 
-## Phase 1.5 — DFT calibration tier (Wk 2–6, in parallel) — [docs/22](../docs/22-multifidelity-dft-calibration.md)
-- [ ] **Stand up Quantum ESPRESSO** on a Vast.ai high-core CPU box (no VASP); SSSP-Efficiency pseudos; PBE+U (U: Cr 3.7/Mn 3.9/Fe 5.3/Co 3.32/Ni 6.2). *GPU sm_120 only via container, stretch.*
-- [ ] Converge ecutwfc/ecutrho + k-points on one rutile MO₂ endmember (η to <50 meV); record the test.
+## Phase 1.5 — DFT calibration tier (Wk 2–6, in parallel) — [docs/22](../docs/22-multifidelity-dft-calibration.md) · log [docs/23](../docs/23-dft-compute-log.md)
+- [x] **Stand up Quantum ESPRESSO** — conda-forge **QE 7.5** on a Vast Threadripper box (apt 6.7 had the glibc buffer-overflow bug); SSSP pseudos; PBE+U via the QE-7 `HUBBARD` card. Validated on CrO₂ (mag 4.00 μB). *(2026-06-27)*
+- [x] **Converge ecutwfc/ecutrho + k-points** on rutile CrO₂ → **LOCKED 80 Ry / 640 Ry / 6×6×8** (<1 meV/atom). CSV `results/cro2_dft_convergence.csv`. *(2026-06-27)*
 - [ ] **DFT the ordered oxide endmembers** (Cr/Mn/Fe/Co/Ni/Cu rutile MO₂) → anchor the parity plot.
 - [ ] Build **SQS/ordered approximants** (`icet`/`mcsqs`) for the **top 3–5** UMA picks; DFT \*OH/\*O/\*OOH on the cus site (CHE referencing); Fe₃₂Ni₁₇Co₃₄Mn₁₈ most thoroughly.
 - [ ] **UMA↔DFT parity:** Spearman ρ + Pearson r (with CI) + re-ranking table + failure-mode note → **F2b**.
