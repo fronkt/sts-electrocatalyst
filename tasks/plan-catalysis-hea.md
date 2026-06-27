@@ -25,7 +25,8 @@ booking** (start Week 0).
 ## Phase 1.5 — DFT calibration tier (Wk 2–6, in parallel) — [docs/22](../docs/22-multifidelity-dft-calibration.md) · log [docs/23](../docs/23-dft-compute-log.md)
 - [x] **Stand up Quantum ESPRESSO** — conda-forge **QE 7.5** on a Vast Threadripper box (apt 6.7 had the glibc buffer-overflow bug); SSSP pseudos; PBE+U via the QE-7 `HUBBARD` card. Validated on CrO₂ (mag 4.00 μB). *(2026-06-27)*
 - [x] **Converge ecutwfc/ecutrho + k-points** on rutile CrO₂ → **LOCKED 80 Ry / 640 Ry / 6×6×8** (<1 meV/atom). CSV `results/cro2_dft_convergence.csv`. *(2026-06-27)*
-- [ ] **DFT the ordered oxide endmembers** (Cr/Mn/Fe/Co/Ni/Cu rutile MO₂) → anchor the parity plot.
+- [x] **Slab+adsorbate DFT workflow built + locally validated** — `src/dft/qe_slab.py` (build/eta) + `run_slab_dft.sh`; reuses the UMA slab geometry + CHE referencing (fair parity); emits a correct 72-atom CrO₂(110) cell. *(2026-06-27, not yet run on a box)*
+- [ ] **Run the slab DFT** on a cheap CPU box: CrO₂ first (`run_slab_dft.sh Cr`) → first DFT η; then the other MO₂ endmembers (Mn/Fe/Co/Ni/Cu) → anchor the parity plot. *(verify the H UPF name; `pip install ase pymatgen`)*
 - [ ] Build **SQS/ordered approximants** (`icet`/`mcsqs`) for the **top 3–5** UMA picks; DFT \*OH/\*O/\*OOH on the cus site (CHE referencing); Fe₃₂Ni₁₇Co₃₄Mn₁₈ most thoroughly.
 - [ ] **UMA↔DFT parity:** Spearman ρ + Pearson r (with CI) + re-ranking table + failure-mode note → **F2b**.
 - [ ] **GATE (end Wk 6):** consensus melt list locked; EC test priority set. *If DFT overturns the headline → re-check magnetism/convergence before the round-2 melt.*
