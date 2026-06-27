@@ -63,6 +63,15 @@ which matches the launching shell). See [[feedback_vast_workflow]].
   abundant, Cr-lean). Two lower-η_best compositions were FCC+BCC dual-phase → excluded.
 - Out: `results/round1_uma_rutile_sweep_candidates.csv`, `…_rutile_sweep_volcano.png`.
 
+**D. DFT calibration tier (Quantum ESPRESSO) — PLANNED / next compute.** Protocol in
+[docs/22](22-multifidelity-dft-calibration.md). Not a "refinement" but the project's middle tier:
+recompute the top picks + ordered rutile MO₂ **endmembers** from first principles (PBE+U,
+SSSP-Efficiency pseudos), build **SQS** approximants for the top 3–5 HEAs, and produce the
+**UMA↔DFT parity (ρ + CI) + re-ranking** that DFT-blesses the melt list. Compute home = a Vast.ai
+**high-core CPU box** (QE/MPI; GPU on sm_120 via container only — same build-risk class as the
+torch install above). Runs in parallel with fabrication (docs/12 Phase 1.5). Inputs/`outdir` logs
+will be committed here as the DFT analogue of this log when the runs execute.
+
 ## 4. Status — is the compute done?
 
 - **Round-1 screening: DONE** (a physically-grounded ranking + shortlist exist).
@@ -74,6 +83,9 @@ which matches the launching shell). See [[feedback_vast_workflow]].
   the single-phase space." The phase-stability gate (physics-based) was sound
   throughout; only the heuristic *activity* pre-ranking was the weak link, now retired
   for the unbiased `--select diverse` path.
+- **DFT calibration tier (Quantum ESPRESSO): PLANNED — the next compute, not blocked.** Runs in
+  parallel with fabrication (run D above; [docs/22](22-multifidelity-dft-calibration.md)); produces
+  the UMA↔DFT parity that DFT-blesses the melt list before the round-2 melt.
 - **Round-2 active learning: BLOCKED** on experimental η (cannot start until melts
   are measured) — `active_learning.propose_round2`.
 - **Optional further refinement:** true oxyhydroxide (NiOOH/FeOOH) termination;

@@ -22,6 +22,14 @@ booking** (start Week 0).
 - [ ] **Wk 3:** multi-objective Bayesian opt (activity × cost × formability) → finalize round-1 shortlist; freeze the predicted ranking (for later correlation).
 - [ ] **Wk 3–4:** synthesize/obtain **NiFe-LDH baseline**; build + dry-run EC protocol (RHE calibration, iR/EIS) on baseline + bare GC.
 
+## Phase 1.5 — DFT calibration tier (Wk 2–6, in parallel) — [docs/22](../docs/22-multifidelity-dft-calibration.md)
+- [ ] **Stand up Quantum ESPRESSO** on a Vast.ai high-core CPU box (no VASP); SSSP-Efficiency pseudos; PBE+U (U: Cr 3.7/Mn 3.9/Fe 5.3/Co 3.32/Ni 6.2). *GPU sm_120 only via container, stretch.*
+- [ ] Converge ecutwfc/ecutrho + k-points on one rutile MO₂ endmember (η to <50 meV); record the test.
+- [ ] **DFT the ordered oxide endmembers** (Cr/Mn/Fe/Co/Ni/Cu rutile MO₂) → anchor the parity plot.
+- [ ] Build **SQS/ordered approximants** (`icet`/`mcsqs`) for the **top 3–5** UMA picks; DFT \*OH/\*O/\*OOH on the cus site (CHE referencing); Fe₃₂Ni₁₇Co₃₄Mn₁₈ most thoroughly.
+- [ ] **UMA↔DFT parity:** Spearman ρ + Pearson r (with CI) + re-ranking table + failure-mode note → **F2b**.
+- [ ] **GATE (end Wk 6):** consensus melt list locked; EC test priority set. *If DFT overturns the headline → re-check magnetism/convergence before the round-2 melt.*
+
 ## Phase 2 — Fabrication & characterization (Wk 5–6, Jul 27 – Aug 9) — *all at FWM, no travel*
 - [ ] Melt + anneal, then **XRD** (single-phase?) + **SEM-EDS** (nominal vs actual) **on-site at FWM** — can overlap with melting.
 - [ ] **Go/no-go (end Wk 6):** if multi-phase → re-anneal/down-select.

@@ -36,6 +36,13 @@ adds a deliberate cost axis ($6.25–17/kg) for the "practical catalyst" narrati
 > Cr6Fe33Ni27Mn34. The melt set above is now locked against the broader screen, not
 > the 12-candidate prefilter.
 
+> **DFT cross-check (multi-fidelity funnel):** this set is UMA-selected. The
+> **entrant-run Quantum ESPRESSO tier** ([docs/22](22-multifidelity-dft-calibration.md))
+> recomputes the top picks from first principles → a UMA↔DFT parity (ρ + CI) and a
+> re-ranking. The compositions melted are the **UMA↔DFT consensus**, and the EC test
+> priority follows the DFT-confirmed order. The headline Cr-free **Fe32Ni17Co34Mn18**
+> is melted first regardless (robust across runs B/C); DFT confirms it and orders the rest.
+
 ## 2. Freeze the prediction (independence evidence)
 
 Before any melt, commit this table to git (done here) so the **predicted ranking is

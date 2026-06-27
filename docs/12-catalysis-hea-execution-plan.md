@@ -5,8 +5,10 @@ oxide-adsorption GNN + multi-objective active learning) to design an
 earth-abundant high-entropy alloy that, once melted at Fort Wayne Metals and
 electrochemically activated, catalyzes the alkaline oxygen-evolution reaction
 (OER) at an overpotential matching or beating a NiFe-LDH benchmark — closing the
-full **design → fabricate → measure → beat-baseline** loop that distinguishes STS
-Finalists from Scholars.
+full **screen (UMA) → validate (DFT) → fabricate → measure → beat-baseline**
+multi-fidelity loop that distinguishes STS Finalists from Scholars. The DFT tier
+(§3.5, [docs/22](22-multifidelity-dft-calibration.md)) calibrates the cheap screen
+against first principles before any metal is cut.
 
 > This is the detailed spec for shortlist framing **08 #1**. The week-by-week
 > checklist lives in [`../tasks/plan-catalysis-hea.md`](../tasks/plan-catalysis-hea.md).
@@ -131,6 +133,37 @@ with the correlation and its failure modes.
 
 ---
 
+## 3.5 DFT validation tier — the multi-fidelity funnel (entrant-run)
+
+The screen and the experiment are bridged by a **first-principles middle tier the entrant
+runs personally**, turning a single-model screen into a **multi-fidelity funnel** where each
+tier cross-validates the one above:
+
+> **proposer → UMA (universal MLIP, screens thousands) → Quantum ESPRESSO DFT (validates the
+> top ~3–5 + reference oxides) → melt + measure (confirms the consensus pick).**
+
+Why it matters: UMA's OC20 head is metal-dominated, so its *absolute* oxide η is unphysical and
+only the *ranking* is trusted. DFT — **the same method the OER scaling relations were built on** —
+calibrates that ranking (UMA-rank vs DFT-rank → Spearman ρ + parity plot), **DFT-blesses the
+melt list** (FWM gets the UMA↔DFT *consensus*, not UMA-only), and is reusable infrastructure for
+the generative fallback ([docs/20](20-fallback-bestbet-her-discovery.md)).
+
+- **Engine:** **Quantum ESPRESSO** (open; *no VASP license*), PBE+U spin-polarized,
+  SSSP-Efficiency pseudopotentials, rutile(110) matched to the UMA cell, CHE referencing.
+- **Compute:** **Vast.ai**, a high-core CPU box as the reliable primary (QE/MPI; GPU on
+  Blackwell sm_120 is a stretch via container only).
+- **Boxed scope:** ordered oxide **endmembers** (anchor the parity plot) + **SQS/ordered
+  approximants** of the **top 3–5** HEAs — *not* the whole sweep, *not* full random cells →
+  a bounded GPU/CPU-week or two.
+- **Honest scope:** DFT **re-ranks within the UMA-surfaced top tier**; it does *not*
+  independently search the space (too expensive). Claim "DFT validates/corrects the screen,"
+  not "DFT found a different global winner."
+
+Full protocol — functional, U values, pseudos, cutoffs, k-points, SQS construction, the parity
+methodology, and the go/no-go gate — in **[docs/22](22-multifidelity-dft-calibration.md)**.
+
+---
+
 ## 4. Fabrication plan (Fort Wayne Metals — the unfair advantage)
 
 - **Route (full suite available to you):** **arc/button melt** for fast round-1
@@ -228,9 +261,11 @@ with the correlation and its failure modes.
 7. **Conclusion & future work** (½ pg)
 8. **References** (not counted toward the limit per current rules — confirm).
 
-Figure plan: (F1) concept schematic; (F2) ML pipeline + predicted volcano/ranking;
-(F3) XRD/SEM-EDS; (F4) LSV overpotentials vs baseline; (F5) Tafel + ECSA; (F6)
-stability + post-mortem; (F7) predicted-vs-measured correlation.
+Figure plan: (F1) concept schematic + the multi-fidelity funnel (UMA→DFT→experiment);
+(F2) ML pipeline + predicted volcano/ranking; **(F2b) UMA↔DFT parity plot + re-ranking
+(the computational calibration, [docs/22](22-multifidelity-dft-calibration.md))**; (F3)
+XRD/SEM-EDS; (F4) LSV overpotentials vs baseline; (F5) Tafel + ECSA; (F6) stability +
+post-mortem; (F7) predicted-vs-measured correlation.
 
 ---
 
@@ -255,7 +290,8 @@ stability + post-mortem; (F7) predicted-vs-measured correlation.
 | Item | Est. |
 |---|---|
 | GC electrodes, Hg/HgO reference, Nafion, KOH, Ni foam, NiFe precursors, consumables | ~$500–1,500 |
-| Compute (Vast.ai GPU, a few hundred GPU-hr) | ~$100–300 |
+| Compute — UMA screen (Vast.ai GPU, a few hundred GPU-hr) | ~$100–300 |
+| Compute — DFT calibration (Vast.ai high-core CPU box, ~1–2 box-weeks QE) | ~$150–400 |
 | Alloy melting (FWM) | in-kind / service |
 | Characterization (Purdue) | in-kind / facility access |
 
@@ -267,7 +303,9 @@ stability + post-mortem; (F7) predicted-vs-measured correlation.
   booked; ML round-1 shortlist exists. *If the melter is unavailable → fall back
   to a co-precipitated HE-oxide route that needs no melt.*
 - **End Week 6:** samples in hand, single-phase confirmed by XRD. *If multi-phase
-  → re-anneal or down-select.*
+  → re-anneal or down-select.* **DFT calibration tier complete** ([docs/22](22-multifidelity-dft-calibration.md)):
+  UMA↔DFT parity (ρ + CI) computed on endmembers + top SQS HEAs, consensus melt list locked,
+  EC test priority set. *If DFT overturns the headline pick → re-check before the round-2 melt.*
 - **End Week 9:** round-1 OER data complete with error bars. *Go/no-go on round-2
   melt vs computational round-2.*
 - **Early October (Week 14):** **DATA FREEZE.** No new experiments — write.

@@ -118,15 +118,20 @@ not just a candidate generator.
 3. **A universal MLIP (UMA) repurposed for high-throughput oxide-adsorption screening**, making
    it feasible to evaluate physically-grounded ΔG(\*OH/\*O/\*OOH) for thousands of disordered
    compositions on one GPU — a regime that is impractical with DFT.
-4. **ML-vs-experiment calibration as a first-class deliverable.** The Spearman ρ between
+4. **A multi-fidelity funnel (UMA → DFT → experiment), each tier calibrating the next.** The cheap
+   universal screen is checked against **entrant-run Quantum ESPRESSO DFT** (UMA↔DFT parity, ρ + CI;
+   [docs/22](22-multifidelity-dft-calibration.md)) *before* any metal is cut, and against measured η
+   *after* — so the project reports **two** calibrations (computational and experimental), not a bare
+   prediction. Most STS computational entries report one model and no first-principles cross-check.
+5. **ML-vs-experiment calibration as a first-class deliverable.** The Spearman ρ between
    predicted and measured rankings (with error bars), including its *failure modes*, is reported
    as a result — turning "the model was wrong" from an embarrassment into a publishable
    calibration finding.
-5. **A methodological self-correction on record.** When the cheap heuristic prior was found
+6. **A methodological self-correction on record.** When the cheap heuristic prior was found
    *uncorrelated* with the real oxide ranking (ρ = −0.09), the candidate-selection step was
    redesigned from "rank by heuristic" to "**diversity-cover the single-phase composition
    space**," removing a hidden bias — documented as it happened (§5, [docs/14](14-compute-log.md)).
-6. **(Optional Finalist axis)** composition-*and*-processing co-design — varying grain size at
+7. **(Optional Finalist axis)** composition-*and*-processing co-design — varying grain size at
    fixed composition via cold-work/anneal — a lever ML-catalysis projects almost never have.
 
 **Not novel (stated plainly, so the contribution is honest):** HEA electrocatalysis is an
@@ -182,11 +187,17 @@ per composition. Full record: [docs/14](14-compute-log.md).
 energy in seconds, making a *distribution over sites over many compositions* tractable. Honest
 caveat carried into the paper: UMA's OC20 head is metal-dominated, so oxide adsorption is partly
 **out-of-distribution** — hence the model is a **screening prior, not an oracle** (§8).
-**DFT cross-check (planned, entrant-run):** because the entrant runs first-principles DFT
-(VASP/Quantum ESPRESSO) personally, a small subset of UMA ΔG predictions — the shortlist's
-best-site adsorption energies — will be **re-computed in DFT** to bound the MLIP error on the
-specific oxide surfaces used. This validates the screening prior with the same first-principles
-method the universal scaling relations were built on, and is defensible work the entrant owns.
+**DFT calibration tier — the keystone of the multi-fidelity funnel (entrant-run):** the project
+is not a single-model screen but a **funnel** — *UMA (screens thousands) → Quantum ESPRESSO DFT
+(validates the top ~3–5 + reference oxides) → melt + measure (confirms the consensus)* — where
+each tier cross-validates the one above. The entrant runs **Quantum ESPRESSO** (open; no VASP
+license) personally on rented Vast.ai compute to recompute the top picks' best-site ΔG from first
+principles, producing a **UMA↔DFT parity (Spearman ρ + CI) and a re-ranking** that (a) calibrates
+the cheap screen with *the same method the OER scaling relations were built on*, and (b)
+**DFT-blesses the melt list** so FWM receives the UMA↔DFT *consensus*, not UMA alone. Honest scope:
+DFT re-ranks *within* the UMA-surfaced top tier — it validates/corrects the screen, it does not
+independently search the space. Full protocol (PBE+U, U values, SSSP pseudos, cutoffs, k-points,
+SQS construction, parity methodology, go/no-go) in **[docs/22](22-multifidelity-dft-calibration.md)**.
 *(Full model spec, compute environment, relaxation/CHE protocol, validation, and every run's exact
 parameters are in §6.)*
 
@@ -349,8 +360,9 @@ Detailed protocol in [docs/15](15-round1-melt-test-plan.md). In brief:
 ## 8. Limitations & threats to validity (carried into the paper)
 
 - **OC20 is metal-dominated** → oxide adsorption is partly out-of-distribution for UMA; η is a
-  *screening* estimate. *Mitigation:* relative ranking only; **entrant-run DFT (VASP/QE) spot-checks
-  of the shortlist's best-site ΔG** to bound the MLIP error; experimental calibration is the point.
+  *screening* estimate. *Mitigation:* relative ranking only; the **entrant-run Quantum ESPRESSO DFT
+  calibration tier** ([docs/22](22-multifidelity-dft-calibration.md)) bounds the MLIP error on these
+  exact surfaces (UMA↔DFT parity, ρ + CI) *before* the melt; experimental calibration follows.
 - **Non-ground-state rutiles.** FeO₂/CoO₂/NiO₂/CuO₂ lattice entries are model values on the rutile
   trend, not experimental ground states.
 - **Model surface ≠ real active phase.** rutile(110) approximates, but is not, the true in-situ
@@ -390,9 +402,10 @@ work**, and that the consumables/compute were self-funded. *(Mentor/sponsor name
 - **Reproduce:** environment and exact commands in [docs/14](14-compute-log.md) §1, §5.
 - **Frozen predictions:** the round-1 ranking is committed/timestamped so the ML-vs-experiment
   correlation cannot be retrofitted ([docs/15](15-round1-melt-test-plan.md) §2).
-- **Resolved (2026-06-26 grilling):** first-principles capability — *entrant runs DFT (VASP/QE)
-  personally* → DFT cross-check of the shortlist is in scope; idea origin — *entirely the entrant's
-  own*; fabrication stage — *pre-melt, nothing cast yet*.
+- **Resolved (2026-06-26 grilling):** first-principles capability — *entrant runs DFT (Quantum
+  ESPRESSO, no VASP license) personally* → promoted to the **multi-fidelity DFT calibration tier**
+  ([docs/22](22-multifidelity-dft-calibration.md)); idea origin — *entirely the entrant's own*;
+  fabrication stage — *pre-melt, nothing cast yet*.
 - **Live critical-path gate:** Purdue potentiostat/EIS access is **expected but not yet booked** —
   this is now the single most schedule-sensitive action; book recurring slots before the first melt
   so the make→measure loop never stalls on instrument time.
@@ -429,3 +442,9 @@ work**, and that the consumables/compute were self-funded. *(Mentor/sponsor name
   the adsorption→η protocol, the validation suite, all three production runs (A/B/C) with full
   parameters, the diverse-selection algorithm, and the full ranked single-phase results table —
   folded in from docs/13–14 so the dossier stands alone.
+- **2026-06-27 (rev. 5)** — **DFT promoted from spot-check to the keystone of a multi-fidelity
+  funnel** (UMA → Quantum ESPRESSO → experiment). Engine locked to **Quantum ESPRESSO** (no VASP
+  license); added a new novelty point (two calibrations, computational + experimental); new protocol
+  doc **[docs/22](22-multifidelity-dft-calibration.md)** + a Phase-1.5 DFT-calibration phase in the
+  tracker; melt list redefined as the **UMA↔DFT consensus**. Decided with the entrant to *combine*
+  the screen and the (formerly fallback) DFT-validation engine into one project rather than two.
