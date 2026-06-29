@@ -74,7 +74,7 @@ for the bulk rutile MO₂ cell — both knobs flat to **< 1 meV/atom** beyond th
 use **1 k-point in the vacuum axis** (+ dipole correction); the cutoffs carry over unchanged. Heaviest
 run (8×8×12) ≈ 9 min on 24 ranks; the converged 80/640/6×6×8 point ≈ 4 min.
 
-## 5. Slab + adsorbate workflow (built, locally validated, ready to run)
+## 5. Slab + adsorbate workflow (built, validated, **first run in progress**)
 
 The real parity work — `src/dft/qe_slab.py` (+ driver `src/dft/run_slab_dft.sh`). It **reuses the exact
 UMA slab geometry and CHE referencing**, so only the relaxer differs (QE here vs the UMA MLIP there) →
@@ -89,24 +89,46 @@ a fair, method-vs-method parity:
   the UMA backend uses → a per-site η distribution (`eta_min/mean/std/max`) directly comparable to the UMA
   `site_records`.
 
-**Validated locally (no QE needed):** `build Cr` emits a correct **72-atom CrO₂(110)** slab (identical to
-the UMA cell) + adslabs + gas; `py_compile` clean; the writers/helpers unit-checked. **Not yet run** — the
-relaxations (heavy: a magnetic +U slab relax each) wait for a **cheap high-core CPU box** (the 2×5090 box
-was torn down — DFT is CPU-only, no reason to pay GPU rates).
+The ordered CrO₂ endmember uses a **1×1 supercell → 18-atom CrO₂(110) slab** (nat=18; identical physics to
+a 2×2 but ~3.6× cheaper — the 2×2/72-atom cell is only needed for HEA disorder, not ordered endmembers).
+The best-guess **H pseudo `H.pbe-rrkjus_psl.1.0.0.UPF` works** (gas H₂ converged) — open item resolved.
 
-**Open item:** the **H pseudopotential filename** (`H.pbe-rrkjus_psl.1.0.0.UPF`, best-guess) — the driver
-checks every referenced UPF exists and aborts with a clear message if SSSP names H differently; fix
-`ELEMENTS["H"]` in `qe_slab.py` if so. Next-box setup: conda-forge QE 7.x + `pip install ase pymatgen` +
-the repo (`PYTHONPATH=$REPO/src`).
+### Run lessons (CrO₂, 2026-06-27/28)
 
-## 6. Status
+- **`nosym` doubles the k-points for a high-symmetry clean slab.** The symmetric clean slab aborts in
+  `checkallsym` during relaxation (fixing the bottom half breaks the top↔bottom mirror), so it needs
+  `nosym=.true. noinv=.true.`. But that also discards the *in-plane* symmetry the adslabs keep → the clean
+  slab went to **36 irreducible k-points vs 15** for the adslabs. The clean slab is therefore the most
+  expensive job, not the cheapest. → **always run it alone with the full core count**, never starved
+  alongside an adslab (8 starved ranks gave ~22 min/SCF-iter and the magnetic SCF sloshed badly).
+- **Add `mixing_mode='local-TF'` for slabs.** The magnetic-metal clean-slab SCF charge-sloshed (accuracy
+  bounced 0.13→25 Ry early). `local-TF` is the standard cure for long-wavelength slab sloshing — now baked
+  into `write_slab_input` in `qe_slab.py` (helps every future slab/SQS).
+- Adslabs relax fine **without** `nosym` (the adsorbate lowers symmetry naturally): `s0_OH` 6 ionic steps,
+  `s0_O` 27 steps, both `JOB DONE`. Per-adslab relax ≈ 1.5–2 h on this box.
+
+## 6. Status (CrO₂ parity point — paused for box switch)
+
+Endmember **CrO₂(110)**, run dir `runs/Cr_slab/` (snapshot pulled local; box `/workspace/Cr_slab_snapshot.tgz`).
+**4 of 6 energies done and saved locally**, 2 deferred to a cheaper CPU box:
+
+| job | state | total energy (Ry) |
+|---|---|---|
+| H₂ (gas) | ✓ JOB DONE | −2.33323818 |
+| H₂O (gas) | ✓ JOB DONE | −44.04119711 |
+| `s0_OH` adslab | ✓ JOB DONE (6 ionic) | −1594.87205599 |
+| `s0_O` adslab | ✓ JOB DONE (27 ionic) | −1593.59436879 |
+| `s0_OOH` adslab | ✗ stopped at ionic 7 (scf 2.5e-4) | re-run on cheap box |
+| clean `slab` | ✗ not started | re-run on cheap box |
+
+η needs all six → **cannot compute yet**; finish `s0_OOH` + `slab` on the next box, then `eta` (§7c).
+The 2×5090 box was wound down (idle GPU billing wasteful for CPU DFT); jobs stopped, box idle.
 
 - **QE tier stood up + validated** (CrO₂ SCF, mag 4.00 μB). ✓
 - **Convergence: DONE** → locked **80 Ry / 640 Ry / 6×6×8**. ✓
-- **Slab+adsorbate workflow: BUILT + locally validated**, ready to run on a CPU box. ✓
-- **Next:** run `run_slab_dft.sh Cr` → first DFT η; then the other MO₂ endmembers (parity anchors) and the
-  SQS approximants of the top 3–5 HEAs; run UMA on the *same* structures → the UMA↔DFT parity plot
-  ([docs/22](22-multifidelity-dft-calibration.md) §6).
+- **Slab+adsorbate workflow: BUILT + 4/6 of the first parity point computed.** ◑
+- **Next:** finish CrO₂ (`s0_OOH`+`slab`) → first DFT η; then MO₂ endmembers (Mn/Fe/Co/Ni/Cu) + SQS of the
+  top 3–5 HEAs; run UMA on the *same* structures → the UMA↔DFT parity plot ([docs/22](22-multifidelity-dft-calibration.md) §6).
 
 ## 7. Reproduce
 
@@ -123,8 +145,20 @@ FORMULA=CrO2 NP=24 NK=4 PSEUDO_DIR=/usr/share/espresso/pseudo \
   M_UPF=cr_pbe_v1.5.uspp.F.UPF O_UPF=O.pbe-n-kjpaw_psl.0.1.UPF \
   GEN=$PWD/src/dft/gen_rutile.py bash src/dft/run_convergence.sh
 
-# (b) slab + adsorbate -> DFT eta (NEXT; needs ase+pymatgen+repo):
+# (b) slab + adsorbate, fresh start on a new box (needs ase+pymatgen+repo):
 pip install ase pymatgen          # into the QE env or a venv
-NP=24 NK=4 NSITES=1 REPO=$PWD bash src/dft/run_slab_dft.sh Cr   # endmember CrO2(110)
+NP=<cores> NK=4 NSITES=1 REPO=$PWD bash src/dft/run_slab_dft.sh Cr   # endmember CrO2(110)
 # -> writes runs/Cr_slab/dft_eta.json (eta_min/mean/std/max), comparable to the UMA site_records
+
+# (c) RESUME the paused CrO2 point (4/6 already done) on the cheaper box:
+#   1. restore the snapshot into the run dir (skip the giant tmp/ — QE regenerates it):
+scp runs/Cr_slab_snapshot.tgz  newbox:/workspace/qe/runs/   # or re-pull from old box first
+ssh newbox 'cd /workspace/qe/runs && mkdir -p Cr_slab && tar -xzf Cr_slab_snapshot.tgz -C Cr_slab'
+#   2. the loop SKIPS the 4 JOB-DONE outputs and runs only s0_OOH + slab. IMPORTANT: run the
+#      clean slab ALONE on all cores (it has 36 k-pts, see §5) — do the two sequentially, full -np:
+ssh newbox 'cd /workspace/qe/runs/Cr_slab; export PATH=<qe-env>/bin:$PATH LD_LIBRARY_PATH=<qe-env>/lib:$LD_LIBRARY_PATH; OMP_NUM_THREADS=1 \
+  mpirun --allow-run-as-root -np <cores> pw.x -nk 4 -in s0_OOH.in > s0_OOH.out 2>&1; \
+  OMP_NUM_THREADS=1 mpirun --allow-run-as-root -np <cores> pw.x -nk 8 -in slab.in > slab.out 2>&1'
+#   3. pull s0_OOH.out + slab.out back into local runs/Cr_slab/, then compute eta LOCALLY:
+PYTHONPATH=src python src/dft/qe_slab.py eta --outdir runs/Cr_slab   # -> runs/Cr_slab/dft_eta.json
 ```

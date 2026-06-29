@@ -111,9 +111,12 @@ def write_slab_input(atoms, prefix, pseudo_dir, ecutwfc, ecutrho, outdir="./tmp"
   smearing = 'mv'
   degauss = 0.01
   nspin = 2
+  nosym = .true.
+  noinv = .true.
 {mag}/
 &ELECTRONS
   conv_thr = 1.0d-6
+  mixing_mode = 'local-TF'
   mixing_beta = 0.3
   electron_maxstep = 200
 /
