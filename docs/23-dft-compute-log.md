@@ -130,6 +130,67 @@ The 2×5090 box was wound down (idle GPU billing wasteful for CPU DFT); jobs sto
 - **Next:** finish CrO₂ (`s0_OOH`+`slab`) → first DFT η; then MO₂ endmembers (Mn/Fe/Co/Ni/Cu) + SQS of the
   top 3–5 HEAs; run UMA on the *same* structures → the UMA↔DFT parity plot ([docs/22](22-multifidelity-dft-calibration.md) §6).
 
+## 8. Endmember parity run — RTX 5090 box, the 30.7-vCPU cap lesson (2026-06-30)
+
+Resumed the 5 remaining MO₂ endmembers (Mn/Fe/Co/Ni/Cu) on a **new Vast.ai box** (`192.3.91.246`,
+RTX 5090, **shared with OptiGrain** — its FastAPI backend lives here too, never touched). Goal: the
+4 DFT jobs/endmember (`s0_O`/`s0_OH`/`s0_OOH` + clean `slab`), reusing CrO₂'s metal-independent gas
+refs (H₂/H₂O copied in → 4 jobs not 6). 20 jobs total → the 5 DFT η's that complete the 6-point
+UMA↔DFT parity (UMA η already computed for all 6: Cr 1.15 / Fe 1.10 / Mn 2.35 / Ni 2.38 / Co 2.39
+/ Cu 2.42).
+
+**The trap — `nproc` lies on a capped container.** First launch ran all 5 endmembers in parallel,
+5×48 = **240 `pw.x` ranks**. `nproc` reports **256**, `cpuset` allows `0-255` — but the container's
+cgroup-v2 `cpu.max` is **`3071999 100000` → a hard CFS quota of 30.72 vCPUs**. So:
+
+| layout | ranks | useful CPU | s / SCF-iter |
+|---|---|---|---|
+| parallel-5 | 240 | ~30 cores (8× oversubscribed → thrash) | **~525** |
+| queue, 4×24 | 96 | ~30 cores (3× oversubscribed) | ~100 |
+| **queue, 2×12** | **24** | **~24 cores @ 99% eff** | **~40** |
+
+Past the ~30-core quota, extra ranks don't compute — they thrash (context-switch + MPI spin-wait),
+and useful work stays pinned at ~30 cores regardless. **~12× speedup just from right-sizing ranks to
+the real (cgroup) core budget, not the advertised `nproc`.** Always read
+`/sys/fs/cgroup/cpu.max` (and `vast-capabilities`) before sizing MPI on a rented container; this also
+explains why CrO₂ ran fine at NP=24 single-job (it happened to match the cap).
+
+**Driver:** `src/dft/queue_dft.sh M-list, NP, NCONC` — a throttled queue (each job clears its own
+`./tmp`, runs `pw.x` at NP ranks, ≤ NCONC concurrent, logs `DONE M/job … <wall>s` + `QUEUE_ALL_DONE`
+to `/workspace/queue_dft.log`). Launched as `bash queue_dft.sh 12 2` (24 ranks, under the 30.7 cap,
+proven nk=4/6 divisibility); measured **~40 s/SCF-iter at 99% core efficiency** (vs ~525 at 240 ranks).
+
+**Parity tooling:** `src/dft/parity_plot.py` reads `runs/<M>_slab/{uma,dft}_eta.json`, pairs single-site
+η, reports Spearman ρ + Pearson r + MAE, draws `docs/figs/uma_dft_parity.png`. Dry-run OK (1/6 paired:
+CrO₂ DFT 2.03 vs UMA 1.15); the 5 endmember DFT η's are the only missing inputs.
+
+**Relocated for cost (2026-07-01).** The queue validated healthy on the 5090 box, but that box is an
+**RTX 5090 running CPU-only DFT → the GPU bills idle** (same waste flagged in [[feedback_vast_workflow]]).
+Since OptiGrain didn't need the box overnight, the run was **stopped and is being moved to a cheap
+CPU-only box** — inputs, the 7 pseudopotentials, and CrO₂'s gas refs are all pulled local (the 5090 can
+be destroyed). Redeploy recipe: `src/dft/setup_newbox.sh` (micromamba QE 7.5 → pseudos →
+`runs/<M>_slab/*.in`) then `queue_dft.sh <metals> <NP> <NCONC>` sized to the new box's `cpu.max`.
+Wall-time unchanged (~1–1.5 days; a 16–32-core CPU box ≈ the 5090's capped 30 cores) — the win is cost.
+
+## 9. Status & next steps (2026-07-01)
+
+**Done:** CrO₂ parity anchor (η_DFT 2.03 vs η_UMA 1.15, big disagreement — the case for the funnel);
+UMA η for all 6 endmembers (Fe 1.10 & Cr 1.15 best; Mn/Ni/Co/Cu 2.35–2.42); the throttled-queue +
+parity tooling, both validated; the `nproc`-vs-cgroup-cap lesson recorded.
+
+**Blocking the deliverable:** the 5 endmember **DFT** η's (Mn/Fe/Co/Ni/Cu). Awaiting a cheap CPU box.
+
+**Next steps (in order):**
+1. On the new CPU box: `setup_newbox.sh`, check `cat /sys/fs/cgroup/cpu.max`, launch `queue_dft.sh`
+   sized to the real cap (~24 ranks). ~1–1.5 days for the 20 jobs.
+2. Pull the 20 `.out` back; copy CrO₂'s `H2.out`/`H2O.out` into each `runs/<M>_slab/`; run
+   `qe_slab.py eta --outdir runs/<M>_slab` ×5 → 5 `dft_eta.json`.
+3. `python src/dft/parity_plot.py runs` → **the 6-point UMA↔DFT parity** (Spearman ρ + Pearson r + MAE
+   + `docs/figs/uma_dft_parity.png`) — the keystone calibration deliverable.
+4. Interpret: does UMA *rank* the endmembers like DFT+U (ρ), even though it over-binds absolutely? That
+   decides whether UMA's screen is trustworthy for the melt down-select, or needs a DFT re-rank.
+5. Housekeeping: revoke the HF token (frankcai222, still live); tear down boxes; merge to main.
+
 ## 7. Reproduce
 
 ```bash
