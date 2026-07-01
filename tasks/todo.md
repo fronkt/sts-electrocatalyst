@@ -6,6 +6,9 @@ conductor** — full plan in [`docs/24`](../docs/24-thermal-pivot-execution-plan
 The HEA-OER catalysis project (docs/12–23) is **parked** (docs/24 §9), preserved on
 main + PR #15. Prior ideation gates (docs/06 shortlist) are superseded; the old T1
 heat-spreader framing is struck (baseline class not castable — docs/24 §1).
+Pre-pivot todo archived at
+[`todo-archive-2026-07-01-pre-thermal-pivot.md`](todo-archive-2026-07-01-pre-thermal-pivot.md);
+catalysis trackers `plan-catalysis-hea.md` / `plan-her-discovery.md` untouched.
 
 ## Week-1 gates (G0 — answer these now)
 - [ ] **FWM Cu capability:** confirm OFHC Cu feedstock + Fe (and Ag/Cr/Zr master
