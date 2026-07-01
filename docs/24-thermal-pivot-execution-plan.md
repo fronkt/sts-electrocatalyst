@@ -8,14 +8,29 @@
 
 | | |
 |---|---|
-| **Working title** | *Machine-Learning Co-Design of Composition and Processing for High-Strength, High-Thermal-Dissipation Copper Conductors, Fabricated and Measured by the Entrant* |
-| **One-line pitch** | A physics-based κ oracle + Bayesian optimization designs Cu-Fe(-X) compositions *and* their wire-drawing/anneal schedules; the entrant melts, draws, and measures them at Fort Wayne Metals — targeting Cu-Nb-class performance at iron prices. |
+| **Working title** | *Machine-Learning Co-Design of Composition and Processing for High-Strength, High-Dissipation Copper Conductors for AI Data-Center Power Delivery — Fabricated and Measured by the Entrant* |
+| **One-line pitch** | AI compute is bottlenecked by getting power in and heat out; a physics-based κ oracle + Bayesian optimization designs Cu-Fe(-X) compositions *and* their wire-drawing/anneal schedules for that power-thermal path; the entrant melts, draws, and measures them at Fort Wayne Metals — targeting Cu-Nb-class performance at iron prices. |
 | **Two anchor spikes** | **(1) Computational discovery:** a physics-decomposed κ(x) oracle (fine-tuned MLIP thermal MD + first-principles alloy resistivity) driving multi-objective BO — an architecture with no published precedent. **(2) Synthesis + testing:** a 100 % in-house melt → draw → anneal → measure loop at FWM, ~20–40 compositions over 2 active-learning rounds. |
 | **Deadline chain** | Data freeze **early Oct 2026** → paper Oct → submit **Nov 5 2026**. Effective runway from today: **~13 weeks**. |
 
 ---
 
-## 1. The physics reality check (why the objective is a Pareto front, not "highest κ")
+## 1. The application driver, and the physics reality check (why the objective is a Pareto front, not "highest κ")
+
+**The application driver — AI compute.** The entrant's motivating problem is heat
+in large AI datacenters. A GB200-class rack draws >100 kW; accelerator packages
+exceed 1 kW each; and the industry is moving rack power to **800 VDC distribution
+precisely because I²R heating in busbars, cables, and connectors has become a
+first-order energy loss and cooling burden**. Every conductor in that power path
+runs hot while carrying mechanical load — clamping stress, electromagnetic forces,
+vibration, thermal-cycling fatigue — and pure copper softens and creeps under
+exactly those conditions. The material question this project attacks is therefore
+*the dissipation capacity of the datacenter power path per unit strength*: how
+much of copper's conductivity (and, via Wiedemann-Franz, its thermal dissipation)
+can be kept in a conductor strong enough to survive that environment. The same
+FOM governs EV hairpin windings, high-field magnet coils, and rocket-nozzle
+liners — cited as secondary markets, with the AI-infrastructure framing as the
+paper's motivation section.
 
 The naive goal — *the highest-thermal-conductivity material* — is *closed* for any
 fabrication route this project has:
@@ -32,9 +47,10 @@ fabrication route this project has:
 - Precedent confirms the trap: no "high-κ material" project cracked STS Top 40 in
   2021–2026 (docs/01 ceiling analysis).
 
-**The open problem** is that pure Cu is mechanically useless where dissipation
-matters most — EV hairpin windings, high-field magnet coils, chip power-delivery
-networks, rocket-nozzle liners (NASA GRCop), fusion first-wall conductors. These
+**The open problem** is that pure Cu is mechanically inadequate exactly where
+dissipation matters most — the datacenter power path above, plus EV hairpin
+windings, high-field magnet coils, rocket-nozzle liners (NASA GRCop), fusion
+first-wall conductors. These
 applications need **strength ≥3× hard Cu while keeping most of its conductivity**.
 That trade-off — the **strength–conductivity Pareto front** — is a real, active
 research frontier with named state-of-the-art anchors, and *moving that front* is
