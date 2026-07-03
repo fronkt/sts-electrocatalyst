@@ -18,12 +18,19 @@ run_one() {
   local M=$1 job=$2 nk=$3
   local d=$RUNS/${M}_slab
   cd "$d" || { echo "NODIR $M" >> "$LOG"; return 2; }
+  # Idempotent: relaunches skip anything already converged
+  if grep -q "JOB DONE" "${job}.out" 2>/dev/null; then
+    echo "SKIP $M/$job already-done $(date -u)" >> "$LOG"; return 0
+  fi
   rm -rf ./tmp 2>/dev/null
   local t0; t0=$(date +%s)
-  mpirun --allow-run-as-root --bind-to none -np "$NP" pw.x -nk "$nk" -in "${job}.in" > "${job}.out" 2>&1
+  # </dev/null is load-bearing: backgrounded mpirun otherwise drains the
+  # here-string job list via OpenMPI stdin-forwarding -> queue exits early
+  mpirun --allow-run-as-root --bind-to none -np "$NP" pw.x -nk "$nk" -in "${job}.in" > "${job}.out" 2>&1 < /dev/null
   local rc=$?
   local jd; jd=$(grep -c 'JOB DONE' "${job}.out")
   echo "DONE $M/$job rc=$rc JOB_DONE=$jd $(( $(date +%s)-t0 ))s $(date -u)" >> "$LOG"
+  rm -rf ./tmp 2>/dev/null   # free scratch immediately — small-disk (16 GB) boxes
 }
 
 # Build job list (adslabs nk=4, clean slab nk=6)
@@ -36,7 +43,7 @@ done)
 while read -r M j nk; do
   [ -z "$M" ] && continue
   while [ "$(jobs -rp | wc -l)" -ge "$NCONC" ]; do wait -n; done
-  run_one "$M" "$j" "$nk" &
+  run_one "$M" "$j" "$nk" </dev/null &
 done <<< "$JOBS"
 wait
 echo "QUEUE_ALL_DONE $(date -u)" >> "$LOG"
