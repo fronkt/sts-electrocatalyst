@@ -29,7 +29,11 @@ run_one() {
   mpirun --allow-run-as-root --bind-to none -np "$NP" pw.x -nk "$nk" -in "${job}.in" > "${job}.out" 2>&1 < /dev/null
   local rc=$?
   local jd; jd=$(grep -c 'JOB DONE' "${job}.out")
-  echo "DONE $M/$job rc=$rc JOB_DONE=$jd $(( $(date +%s)-t0 ))s $(date -u)" >> "$LOG"
+  # JOB DONE alone is a false positive: pw.x prints it even when a mid-relax
+  # SCF hits electron_maxstep and stops on an unconverged geometry
+  local sf; sf=$(grep -c 'convergence NOT achieved' "${job}.out")
+  local ff; ff=$(grep 'Total force' "${job}.out" | tail -1 | awk '{print $4}')
+  echo "DONE $M/$job rc=$rc JOB_DONE=$jd SCF_FAIL=$sf F_LAST=${ff:-na} $(( $(date +%s)-t0 ))s $(date -u)" >> "$LOG"
   rm -rf ./tmp 2>/dev/null   # free scratch immediately — small-disk (16 GB) boxes
 }
 
