@@ -21,6 +21,7 @@ RESTARTS = [
     ("Fe", "s0_O"), ("Fe", "s0_OOH"),
     ("Co", "s0_O"), ("Co", "s0_OH"), ("Co", "s0_OOH"),
     ("Ni", "s0_O"), ("Ni", "s0_OH"), ("Ni", "s0_OOH"),
+    ("Cu", "s0_O"), ("Cu", "s0_OH"), ("Cu", "s0_OOH"),
 ]
 
 
