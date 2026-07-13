@@ -84,6 +84,7 @@ measurement inside the 3.5-month window. Ranked by Finalist reward-to-risk:
 | [`docs/24-thermal-pivot-execution-plan.md`](docs/24-thermal-pivot-execution-plan.md) | **THERMAL PIVOT (current project)** — ML co-design of Cu-Fe(-X) conductors: κ oracle + BO + in-house FWM loop |
 | [`docs/25-sts-application-playbook.md`](docs/25-sts-application-playbook.md) | STS application playbook — dates, report spec, AI policy, judging pipeline |
 | [`docs/26-endmember-parity-checkpoint.md`](docs/26-endmember-parity-checkpoint.md) | **Catalysis close-out** — UMA↔DFT endmember parity: UMA cannot rank rutile-oxide OER (negative result, full provenance) |
+| [`docs/27-round0-weigh-sheet.md`](docs/27-round0-weigh-sheet.md) | **Round-0 weigh sheet** (thermal) — controls + Cu-Fe spine + microalloy probes, master-alloy arithmetic, shopping list |
 | [`tasks/todo.md`](tasks/todo.md) | Open logistics gates + next actions |
 | [`tasks/plan-catalysis-hea.md`](tasks/plan-catalysis-hea.md) | Week-by-week checkbox tracker for the HEA OER plan |
 

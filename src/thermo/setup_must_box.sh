@@ -35,7 +35,9 @@ cd /workspace/MuST
 if [ ! -x bin/mst2 ]; then
   # arch files live in architecture/; docs example is `make osx-gnu-openmpi`,
   # so pick the linux-gnu (non-GPU) analogue. Override with ARCH=... if wrong.
-  ARCH=${ARCH:-$(ls architecture | grep -i '^linux' | grep -i gnu | grep -ivE 'cuda|gpu|intel|nvhpc' | head -1)}
+  # `|| true` is load-bearing: under set -e a no-match grep would otherwise
+  # kill the script here silently, before the NO-ARCH-MATCH message below
+  ARCH=${ARCH:-$(ls architecture 2>/dev/null | grep -i 'linux' | grep -i gnu | grep -ivE 'cuda|gpu|intel|nvhpc|accel' | head -1 || true)}
   if [ -z "$ARCH" ]; then
     echo "NO ARCH MATCH — pick one of:" | tee -a "$LOG"
     ls architecture | tee -a "$LOG"
