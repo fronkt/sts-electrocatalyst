@@ -22,7 +22,7 @@ if ! command -v mpif90 >/dev/null 2>&1; then
   DEBIAN_FRONTEND=noninteractive apt-get install -y -qq \
     build-essential gfortran git make cmake m4 autoconf pkg-config \
     openmpi-bin libopenmpi-dev libopenblas-dev liblapack-dev \
-    libhdf5-dev libtirpc-dev 2>&1 | tail -2 | tee -a "$LOG"
+    libscalapack-openmpi-dev libhdf5-dev libtirpc-dev 2>&1 | tail -2 | tee -a "$LOG"
 fi
 echo "gfortran=$(gfortran --version | head -1)  mpi=$(mpirun --version | head -1)" | tee -a "$LOG"
 
@@ -30,22 +30,39 @@ echo "gfortran=$(gfortran --version | head -1)  mpi=$(mpirun --version | head -1
 cd /workspace
 if [ ! -d /workspace/MuST ]; then
   git clone --depth 1 https://github.com/mstsuite/MuST.git
+  # MST/Makefile builds git_version.h from `git tag` via a bashism that fails
+  # under dash AND a shallow clone has no tags -> empty version -> truncated
+  # Fortran WRITE in keep.F90. Any tag makes the fallback pipeline emit a
+  # valid quoted string.
+  git -C /workspace/MuST tag v0-shallow 2>/dev/null || true
 fi
 cd /workspace/MuST
-if [ ! -x bin/mst2 ]; then
-  # arch files live in architecture/; docs example is `make osx-gnu-openmpi`,
-  # so pick the linux-gnu (non-GPU) analogue. Override with ARCH=... if wrong.
-  # `|| true` is load-bearing: under set -e a no-match grep would otherwise
-  # kill the script here silently, before the NO-ARCH-MATCH message below
-  ARCH=${ARCH:-$(ls architecture 2>/dev/null | grep -i 'linux' | grep -i gnu | grep -ivE 'cuda|gpu|intel|nvhpc|accel' | head -1 || true)}
-  if [ -z "$ARCH" ]; then
-    echo "NO ARCH MATCH — pick one of:" | tee -a "$LOG"
+# real -x check must target the actual binary, not the ./bin symlink (make
+# install creates links even after a failed make -> dangling = looks built)
+if [ ! -x MST/bin/mst2 ]; then
+  # Use the repo's proven arch file (GNU+OpenMPI+OpenBLAS/ScaLAPACK, bundled
+  # LibXC/FFTW, NotUse_P3DFFT): scp src/thermo/arch-vast-gnu-openblas to
+  # /workspace/ alongside this script. The stock arch files all assume
+  # supercomputer library paths (the auto-picked linux-gnu-aocl cost a build).
+  if [ -f /workspace/arch-vast-gnu-openblas ]; then
+    sed 's/\r$//' /workspace/arch-vast-gnu-openblas > architecture/vast-gnu-openblas
+    ARCH=${ARCH:-vast-gnu-openblas}
+  fi
+  if [ -z "${ARCH:-}" ]; then
+    echo "NO ARCH FILE — scp arch-vast-gnu-openblas to /workspace or set ARCH=; options:" | tee -a "$LOG"
     ls architecture | tee -a "$LOG"
     exit 1
   fi
   echo "building with architecture file: $ARCH" | tee -a "$LOG"
-  make "$ARCH" 2>&1 | tail -20 | tee -a "$LOG"
-  make install 2>&1 | tail -5 | tee -a "$LOG"
+  # full log to file; NEVER pipe make through tail — it masks the exit code
+  make "$ARCH" > /workspace/must_build.log 2>&1
+  echo "MAKE_EXIT=$?" | tee -a "$LOG"
+  make install >> /workspace/must_build.log 2>&1
+  echo "INSTALL_EXIT=$?" | tee -a "$LOG"
+  if [ ! -x MST/bin/mst2 ] || [ ! -x KUBO/bin/kubo ]; then
+    echo "BUILD FAILED — real binaries missing; see /workspace/must_build.log" | tee -a "$LOG"
+    exit 1
+  fi
 fi
 
 # 3. report what we got (expect mst2 = KKR/KKR-CPA driver, kubo = conductivity)
