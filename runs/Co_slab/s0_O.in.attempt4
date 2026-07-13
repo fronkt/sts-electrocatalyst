@@ -1,0 +1,66 @@
+&CONTROL
+  calculation = 'relax'
+  prefix = 's0_O'
+  outdir = './tmp'
+  pseudo_dir = '/usr/share/espresso/pseudo'
+  tprnfor = .true.
+  forc_conv_thr = 2.0d-3
+  nstep = 200
+/
+&SYSTEM
+  ibrav = 0
+  nat = 19
+  ntyp = 2
+  ecutwfc = 80.0
+  ecutrho = 640.0
+  occupations = 'smearing'
+  smearing = 'mv'
+  degauss = 0.01
+  nspin = 2
+  nosym = .true.
+  noinv = .true.
+  starting_magnetization(1) = 0.4
+  starting_magnetization(2) = 0.0
+/
+&ELECTRONS
+  mixing_ndim = 16
+  diagonalization = 'david'
+  conv_thr = 1.0d-6
+  mixing_mode = 'local-TF'
+  mixing_beta = 0.05
+  electron_maxstep = 800
+/
+&IONS
+  ion_dynamics = 'bfgs'
+/
+ATOMIC_SPECIES
+  Co  58.933  Co_pbe_v1.2.uspp.F.UPF
+  O  15.999  O.pbe-n-kjpaw_psl.0.1.UPF
+CELL_PARAMETERS angstrom
+  2.99000000  0.00000000  0.00000000
+  0.00000000  6.30739249  0.00000000
+  0.00000000  0.00000000  25.22956995
+ATOMIC_POSITIONS (angstrom)
+Co               0.0000000000        4.7305443700        9.4610887300    0   0   0
+Co               1.4950000000        1.5768481200        9.4610887300    0   0   0
+Co               0.0000000000        1.5768481200       12.6147849800    0   0   0
+Co               1.4950000000        4.7305443700       12.6147849800    0   0   0
+Co               0.0000435205        4.7304508130       15.6765614132
+Co               1.4950023899        1.5764915602       15.7403175680
+O                0.0000000000        1.5768481200       10.6910302700    0   0   0
+O                0.0000000000        1.5768481200        8.2311472000    0   0   0
+O                1.4950000000        3.5006028300        9.4610887300    0   0   0
+O                1.4950000000        5.9604859000        9.4610887300    0   0   0
+O               -0.0000226296        4.7316005862       13.7809533552
+O                0.0000000000        4.7305443700       11.3848434400    0   0   0
+O                1.4950000000        0.3469065900       12.6147849800    0   0   0
+O                1.4950640474        2.8070188181       12.6251002651
+O                0.0000082396        1.5769786947       16.8260535737
+O               -0.0001267493        1.5755196408       14.5181202955
+O                1.4953860337        3.5427400670       15.8326044694
+O                1.4946128677        5.9184176373       15.8329032305
+O               -0.0000501281        4.7305371883       18.7510880735
+K_POINTS automatic
+  8 4 1 0 0 0
+HUBBARD (atomic)
+U Co-3d 3.32
