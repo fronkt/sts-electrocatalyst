@@ -80,6 +80,10 @@ measurement inside the 3.5-month window. Ranked by Finalist reward-to-risk:
 | [`docs/19-computational-fallback.md`](docs/19-computational-fallback.md) | Fully-computational backup ideas (the hedge) if the wet-lab loop slips |
 | [`docs/20-fallback-bestbet-her-discovery.md`](docs/20-fallback-bestbet-her-discovery.md) | Deep-research brief: the best-bet fallback (generative + DFT HER catalyst discovery) |
 | [`docs/21-fallback-execution-plan.md`](docs/21-fallback-execution-plan.md) · [`tasks/plan-her-discovery.md`](tasks/plan-her-discovery.md) | **Full execution plan** for the fallback + week-by-week tracker |
+| [`docs/23-dft-compute-log.md`](docs/23-dft-compute-log.md) | DFT compute log — QE 7.5 setup, convergence sweep, slab workflow, run lessons (closed) |
+| [`docs/24-thermal-pivot-execution-plan.md`](docs/24-thermal-pivot-execution-plan.md) | **THERMAL PIVOT (current project)** — ML co-design of Cu-Fe(-X) conductors: κ oracle + BO + in-house FWM loop |
+| [`docs/25-sts-application-playbook.md`](docs/25-sts-application-playbook.md) | STS application playbook — dates, report spec, AI policy, judging pipeline |
+| [`docs/26-endmember-parity-checkpoint.md`](docs/26-endmember-parity-checkpoint.md) | **Catalysis close-out** — UMA↔DFT endmember parity: UMA cannot rank rutile-oxide OER (negative result, full provenance) |
 | [`tasks/todo.md`](tasks/todo.md) | Open logistics gates + next actions |
 | [`tasks/plan-catalysis-hea.md`](tasks/plan-catalysis-hea.md) | Week-by-week checkbox tracker for the HEA OER plan |
 

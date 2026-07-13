@@ -109,6 +109,11 @@ The best-guess **H pseudo `H.pbe-rrkjus_psl.1.0.0.UPF` works** (gas H₂ converg
 
 ## 6. Status (CrO₂ parity point — paused for box switch)
 
+> **⚠ RETRACTED (2026-07-05, see §10 + [docs/26](26-endmember-parity-checkpoint.md) §4):** the
+> `s0_OH`/`s0_OOH` energies below and the η = 2.03 V derived from them came from silently
+> unconverged relaxations (`JOB DONE` with SCF failures; final forces 17–66× threshold). The
+> corrected, converged CrO₂ value is **η = 1.726 V**.
+
 Endmember **CrO₂(110)**, run dir `runs/Cr_slab/` (snapshot pulled local; box `/workspace/Cr_slab_snapshot.tgz`).
 **4 of 6 energies done and saved locally**, 2 deferred to a cheaper CPU box:
 
@@ -174,7 +179,7 @@ Wall-time unchanged (~1–1.5 days; a 16–32-core CPU box ≈ the 5090's capped
 
 ## 9. Status & next steps (2026-07-01)
 
-**Done:** CrO₂ parity anchor (η_DFT 2.03 vs η_UMA 1.15, big disagreement — the case for the funnel);
+**Done:** CrO₂ parity anchor (η_DFT 2.03 vs η_UMA 1.15 — **value later retracted as unconverged, see §10**);
 UMA η for all 6 endmembers (Fe 1.10 & Cr 1.15 best; Mn/Ni/Co/Cu 2.35–2.42); the throttled-queue +
 parity tooling, both validated; the `nproc`-vs-cgroup-cap lesson recorded.
 
@@ -190,6 +195,17 @@ parity tooling, both validated; the `nproc`-vs-cgroup-cap lesson recorded.
 4. Interpret: does UMA *rank* the endmembers like DFT+U (ρ), even though it over-binds absolutely? That
    decides whether UMA's screen is trustworthy for the melt down-select, or needs a DFT re-rank.
 5. Housekeeping: revoke the HF token (frankcai222, still live); tear down boxes; merge to main.
+
+## 10. Campaign complete (2026-07-13) — log closed
+
+The endmember run finished 2026-07-13 after a 12-day, 5-attempt-deep convergence
+campaign across two CPU boxes. **Full story, final numbers, retraction record, and
+exclusion protocol: [docs/26 — Endmember Parity Checkpoint](26-endmember-parity-checkpoint.md).**
+Headline: converged DFT η **Mn 0.892 < Fe 1.263 < Cr 1.726 ≈ Ni 1.751 V** (Co/Cu
+excluded, spin/charge multistability); 4-point parity vs UMA Spearman ρ = 0.40
+(p = 0.6), MAE = 0.71 eV → **UMA cannot rank rutile-oxide OER**. Figure:
+`docs/figs/uma_dft_parity.png`. This log is closed; the catalysis project is
+parked per [docs/24](24-thermal-pivot-execution-plan.md) §9.
 
 ## 7. Reproduce
 

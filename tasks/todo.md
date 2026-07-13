@@ -20,8 +20,10 @@ catalysis trackers `plan-catalysis-hea.md` / `plan-her-discovery.md` untouched.
       NOT on the critical path).
 - [ ] **STS sponsor of record:** still unresolved (carried over from docs/16 §10) —
       an adult sponsor must sign; highest-priority non-technical item.
-- [ ] Catalysis housekeeping: merge/close PR #15; revoke HF token (frankcai222);
-      repurpose the 15-vCPU CPU box for MuST or tear it down.
+- [ ] Catalysis housekeeping: **PR #15 is final and ready to merge** (endmember
+      parity done 2026-07-13 — [docs/26](../docs/26-endmember-parity-checkpoint.md);
+      UMA cannot rank rutile OER); revoke HF token (frankcai222); box A
+      (120.238.149.205) repurposed for MuST, **destroy box B (137.175.76.24)**.
 
 ## Execution (weeks 2+ — details in docs/24 §6)
 - [ ] Round-0 melts (controls + Cu-Fe spine) + ρ SOP validation vs handbook Cu (G1)
