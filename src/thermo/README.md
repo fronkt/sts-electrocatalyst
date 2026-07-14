@@ -38,3 +38,39 @@ never trust a tier until it reproduces something known. In order:
 
 Every ρ_res(x) point gets committed with its inputs, like `runs/<M>_slab/` did
 for the DFT campaign — same provenance discipline, new physics.
+
+## Ladder results (2026-07-14, box 137.175.76.24 — GATE PASSED)
+
+MuST v1.9.3-class build (arch `arch-vast-gnu-openblas`, NotUse_P3DFFT), fcc
+a = 3.615 Å fixed, non-spin-polarized, muffin-tin/VWN, 20³ k, vertex
+corrections ON. Full outputs in `runs_cpa/<tag>/o_n*`; raw tensor blocks in
+`runs_cpa/results.txt`.
+
+| x_Fe (at.%) | ρ_res (μΩ·cm) | ρ/x (μΩ·cm/at.%) |
+|---|---|---|
+| 1 | 16.262 | 16.26 |
+| 2 | 30.184 | 15.09 |
+| 5 | 68.211 | 13.64 |
+| 10 | 112.979 | 11.30 |
+
+- **Dilute slope 16.26 μΩ·cm/at.% = 1.75× Linde (9.3) → inside the
+  pre-registered 2× gate.** The overshoot direction/magnitude is the textbook
+  non-spin-polarized artifact: paramagnetic Fe parks its full d virtual bound
+  state at E_F, while the real (magnetic) impurity splits it. Literature
+  non-magnetic KKR values for Fe-in-Cu sit at ~14–18; spin-polarized/DLM
+  brings them to ~7–10 — that re-run is the documented refinement, and the
+  measured round-0 Cu-2Fe button (docs/27 #3) anchors it experimentally.
+- **Curvature is physical:** ρ/x falls monotonically 16.3 → 11.3 (concave,
+  Nordheim-consistent; saturates faster than rigid-band x(1−x), as expected
+  for resonant scatterers). Tensor perfectly isotropic (cubic ✓).
+- **Tool limitation (documented):** `kubo` hard-stops on single-species sites
+  ("atom on non-CPA sublattice") even at concentration 1.00 — the pure-Cu
+  ρ→0 anchor is therefore taken as the x = 0.1 at.% rung (`CuFe_x0001`,
+  expect ~1.6 μΩ·cm) rather than x = 0.
+- **Cost ledger:** SCF 16–48 min + kubo ~10 min per composition at 8 ranks on
+  a 9.6-vCPU box ⇒ ~1 h/composition ⇒ the docs/24 §6 CPA sweep v1 (20–40
+  compositions) is 1–2 box-days. The κ_e tier is affordable exactly as planned.
+
+**Verdict: the κ_e engine is validated at v1.** Next: spin-polarized re-run of
+this ladder (one flag), then the composition-grid sweep feeding
+`surrogate_v0.DRHO_SOLUTE` replacement.
