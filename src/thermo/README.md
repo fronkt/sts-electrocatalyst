@@ -63,10 +63,18 @@ corrections ON. Full outputs in `runs_cpa/<tag>/o_n*`; raw tensor blocks in
 - **Curvature is physical:** ρ/x falls monotonically 16.3 → 11.3 (concave,
   Nordheim-consistent; saturates faster than rigid-band x(1−x), as expected
   for resonant scatterers). Tensor perfectly isotropic (cubic ✓).
-- **Tool limitation (documented):** `kubo` hard-stops on single-species sites
-  ("atom on non-CPA sublattice") even at concentration 1.00 — the pure-Cu
-  ρ→0 anchor is therefore taken as the x = 0.1 at.% rung (`CuFe_x0001`,
-  expect ~1.6 μΩ·cm) rather than x = 0.
+- **Tool limitations (documented, both hit live):** (1) `kubo` hard-stops on
+  single-species sites ("atom on non-CPA sublattice") even at concentration
+  1.00 — and the sublattice type is baked into the *potential file*, so a
+  CPA-typed SCF redo doesn't save x = 0. (2) **Sub-1 at.% CPA is pathological
+  on this setup:** x = 0.1 at.% dies at SCF #4 ("screwed potential"),
+  x = 0.5 at.% converges but to ρ = 19.26 μΩ·cm > the 1 at.% value —
+  non-monotonic, unphysical, **excluded** (`runs_cpa/o_n0000000_CuFe_x0005`
+  kept as evidence; `CuFe_x0001.off` retired on-box). The ρ→0 limit is an
+  analytic property of CPA (zero disorder ⇒ zero residual scattering), not a
+  numerical demonstration here. This costs nothing: the entire round-0 design
+  space (Cu-2…14 wt.% ≈ 2.3–15.6 at.%) lies inside the validated 1–10 at.%
+  window, and the sweep grid will respect a ≥1 at.% floor.
 - **Cost ledger:** SCF 16–48 min + kubo ~10 min per composition at 8 ranks on
   a 9.6-vCPU box ⇒ ~1 h/composition ⇒ the docs/24 §6 CPA sweep v1 (20–40
   compositions) is 1–2 box-days. The κ_e tier is affordable exactly as planned.
