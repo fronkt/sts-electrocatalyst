@@ -114,8 +114,8 @@ def main():
         y = np.array([blk["eta"][m] for m in pm])
         gx = [summary["dft_eta"][m] for m in pm if m in summary["baseline_1p1_oc20"]]
         gy = [summary["baseline_1p1_oc20"][m] for m in pm if m in summary["baseline_1p1_oc20"]]
-        lo = min(x.min(), y.min(), *(gy or [9])) - 0.2
-        hi = max(x.max(), y.max(), *(gy or [0])) + 0.2
+        lo = min(x.min(), y.min(), *(gy or [9])) - 0.25
+        hi = max(x.max(), y.max(), *(gy or [0])) + 0.35  # headroom for point labels
         ax.plot([lo, hi], [lo, hi], "--", color="0.6", lw=1, zorder=1)
         if gx:
             ax.scatter(gx, gy, s=45, c="0.8", edgecolor="0.5", zorder=2,
@@ -133,9 +133,10 @@ def main():
         ax.text(0.04, 0.96, txt, transform=ax.transAxes, va="top", ha="left", fontsize=10,
                 bbox=dict(boxstyle="round", fc="w", ec="0.7"))
         ax.legend(loc="lower right", fontsize=8, frameon=False)
-    fig.suptitle("R0 re-parity: rutile MO$_2$(110) OER $\\eta$, uma-s-1p2p1 task heads vs DFT+U")
-    fig.tight_layout()
-    fig.savefig(OUT + ".png", dpi=200)
+    fig.suptitle("R0 re-parity: rutile MO$_2$(110) OER $\\eta$, uma-s-1p2p1 task heads vs DFT+U",
+                 y=0.99)
+    fig.tight_layout(rect=(0, 0, 1, 0.94))
+    fig.savefig(OUT + ".png", dpi=200, bbox_inches="tight")
     print(f"-> {OUT}.png")
 
 
