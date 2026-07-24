@@ -1,12 +1,17 @@
-# STS 2027 — Materials + ML Project (Regeneron Science Talent Search)
+# STS 2027 — HEA-OER Electrocatalyst (Regeneron Science Talent Search)
 
-Working repository for ideation, research, and planning of a Regeneron Science
-Talent Search entry. "STS 2027" = the competition cycle culminating March 2027,
-i.e. **entry due ~November 5, 2026**.
+> **Repo provenance (2026-07-24):** this is `fronkt/sts-electrocatalyst`, a full-history copy
+> of `fronkt/STS2027` created when the project **un-pivoted back to the electrocatalyst lane**
+> (thermal Cu-Fe(-X) lane dropped 2026-07-23; its artifacts remain frozen in docs/24, docs/27
+> and the `thermal-*`/`thermal-round0` branches). This repo is the electrocatalyst campaign's
+> home going forward. **Start here:**
+> [`docs/28-electrocatalyst-revival-plan.md`](docs/28-electrocatalyst-revival-plan.md)
+> (literature-calibrated revival plan + the four full deep-research surveys in
+> [`docs/research/`](docs/research/)) and [`tasks/todo.md`](tasks/todo.md) (gated R0–R4 plan).
+> Prior campaign record: [`docs/26-endmember-parity-checkpoint.md`](docs/26-endmember-parity-checkpoint.md).
 
-> Status: **ideation / scoping.** No project framing locked yet. This repo
-> collects the competitive-landscape research and the candidate project ideas so
-> a single framing can be chosen and turned into a week-by-week execution plan.
+Working repository for a Regeneron Science Talent Search entry. "STS 2027" = the
+competition cycle culminating March 2027, i.e. **entry due November 5, 2026, 8pm ET**.
 
 ## The student / constraints
 
