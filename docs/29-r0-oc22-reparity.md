@@ -96,6 +96,40 @@ was old" — both change at once otherwise.
 | **RuO₂ anchor** | lit. 0.37–0.42 | — | | |
 | **IrO₂ anchor** | lit. ≈ 0.56 | — | | |
 
+## 4b. R1 free reanalysis (docs/28 §4 F1–F3) — DONE, zero new compute
+
+`src/dft/volcano_r1.py` → `docs/figs/volcano_endmembers.{json,png}`. No new DFT: this is
+the existing four `dft_eta.json` re-read through the volcano/G_max lens.
+
+| M | x = ΔG_O − ΔG_OH (eV) | ΔG_OOH − ΔG_OH (eV) | η (V) | limiting step | G_max(η=0.3 V) (eV) |
+|---|---|---|---|---|---|
+| Mn | 2.122 | 3.082 | 0.892 | 2 | 0.969 |
+| Fe | 2.493 | 3.087 | 1.263 | 2 | 1.567 |
+| Cr | 2.956 | 3.281 | 1.726 | 2 | 1.426 |
+| Ni | 2.981 | 2.686 | 1.751 | 2 | 2.437 |
+
+Three findings, all free:
+
+1. **All four sit on the scaling line, far out on the weak-O-binding leg.** Every
+   descriptor is x = 2.1–3.0 eV against an apex of ≈1.6, and every point is *OH→*O
+   (step-2) limited. The reason none of these endmembers is a good catalyst is therefore
+   not incidental — they are descriptor-limited in the way the universal scaling relation
+   predicts. This is the quantitative motivation for the whole HEA
+   scaling-breaking thesis (docs/12 §3b), stated in the field's own coordinates.
+2. **Mn is the only endmember within error of a real electrode band.** η = 0.892 ± 0.3 V;
+   the IrO₂ literature band (≈0.56 V) is ~1σ away, RuO₂ (0.37–0.42 V) is not. Mn being
+   both the best DFT point *and* the only ambient-stable rutile (docs/28 §3, β-MnO₂
+   pyrolusite) is a consistency worth stating: the physics and the stability gate agree.
+3. **NiO₂ breaks *OOH/*OH scaling by −0.51 eV** (2.686 vs the universal 3.2 ± 0.2) — the
+   only endmember outside the scatter band. That cuts both ways and must not be
+   over-claimed: it is the signature the project *wants* (scaling-relation breaking), but
+   it appears on a fictitious ambient phase (NiO₂ is layered, not rutile — docs/28 §3),
+   at one cus site, with ±0.2–0.4 V method error. Filed as a hypothesis for R1's
+   magnetic/termination protocol to confirm or kill, not as a result.
+
+G_max ranks the same as η here (Mn best), so the kinetics-aware descriptor does not
+overturn the thermodynamic ordering at this level — one fewer confound to worry about.
+
 ## 5. Compute ledger
 
 - Box: Vast.ai RTX 4090 (instance 45735789, $0.357/hr), `pytorch/pytorch:2.7.1-cuda12.8`

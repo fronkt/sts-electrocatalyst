@@ -88,17 +88,23 @@ def main():
     ax.annotate("apex $\\eta$=0.37 V", (2.55, -0.35), fontsize=8, color="0.5")
     ax.axhspan(-0.42, -0.37, color="#2ca02c", alpha=0.15, label="RuO$_2$(110) lit. band")
     ax.axhspan(-0.62, -0.49, color="#9467bd", alpha=0.12, label="IrO$_2$(110) lit. band")
-    for r in rows:
+    # alternate label offsets so near-degenerate points (Cr/Ni) don't collide
+    order = sorted(range(len(rows)), key=lambda i: rows[i]["descriptor_eV"])
+    offs = {}
+    for rank, i in enumerate(order):
+        offs[i] = (6, 6) if rank % 2 == 0 else (6, -12)
+    for i, r in enumerate(rows):
         ax.errorbar(r["descriptor_eV"], -r["eta_V"], yerr=ETA_ERR, fmt="o", ms=8,
                     color="#d62728", ecolor="0.6", capsize=3, zorder=3)
         ax.annotate(r["metal"], (r["descriptor_eV"], -r["eta_V"]),
-                    xytext=(6, 4), textcoords="offset points", fontsize=10)
+                    xytext=offs[i], textcoords="offset points", fontsize=10)
     ax.set_xlabel(r"$\Delta G_{O} - \Delta G_{OH}$  (eV)")
     ax.set_ylabel(r"$-\eta$  (V)")
-    ax.set_title("Rutile MO$_2$(110) endmembers on the OER scaling volcano (QE PBE+U)")
+    ax.set_title("Rutile MO$_2$(110) endmembers on the OER scaling volcano\n(QE PBE+U, "
+                 r"$\pm$0.3 V method uncertainty)", fontsize=11)
     ax.legend(loc="lower left", fontsize=8, frameon=False)
     fig.tight_layout()
-    fig.savefig(OUT + ".png", dpi=200)
+    fig.savefig(OUT + ".png", dpi=200, bbox_inches="tight")
     print(f"-> {OUT}.png")
 
 
