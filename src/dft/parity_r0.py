@@ -25,7 +25,7 @@ ROOT = sys.argv[1] if len(sys.argv) > 1 else "runs"
 OUT = sys.argv[2] if len(sys.argv) > 2 else "docs/figs/uma_oc22_parity"
 METALS = ["Cr", "Mn", "Fe", "Co", "Ni", "Cu"]
 ANCHORS = {"Ru": (0.37, 0.42), "Ir": (0.49, 0.62)}  # lit eta bands: Rossmeisl 2007 / Man 2011
-TASKS = ["oc22", "oc20"]
+TASKS = ["oc22", "oc20", "oc25"]  # oc22 = pre-registered hypothesis; oc25 exploratory
 
 
 def load_eta(path):
@@ -103,7 +103,7 @@ def main():
     except Exception as e:
         print(f"[no figure] matplotlib unavailable: {e!r}")
         return
-    fig, axes = plt.subplots(1, len(TASKS), figsize=(10.5, 5.2), sharey=False)
+    fig, axes = plt.subplots(1, len(TASKS), figsize=(5.2 * len(TASKS), 5.2), sharey=False)
     for ax, task in zip(np.atleast_1d(axes), TASKS):
         blk = summary["variants"][task]
         pm = blk.get("paired_metals", [])

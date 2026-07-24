@@ -38,6 +38,16 @@ Everything except the model/head is byte-identical to docs/26:
 - **Variants:** `uma-s-1p2p1` × {`oc22` (the hypothesis), `oc20` (ablation — isolates
   head-change from checkpoint-change)}. The archived `uma-s-1p1`/`oc20` numbers are the
   third leg, read from `runs/<M>_slab/uma_eta.json` (never overwritten).
+- **Energy convention (checked before running):** in UMA *all* task heads emit **total**
+  energies — OC20 was recomputed from its original adsorption-energy labels for the UMA
+  release — so a per-head CHE chain is well-posed and cross-head mixing is not. This is
+  why gas references are recomputed per head rather than shared.
+- **Exploratory 4th leg, outside the gate:** `oc25`, the *electrocatalysis* head (also
+  1p2-only), which docs/28 did not consider. Caveat stated up front: OC25's level of
+  theory is built on **explicit solvent and ions** (arXiv:2509.17862) while these slabs are
+  dry vacuum, so it is out-of-distribution in a different way than oc20 is. Included
+  because it costs ~$0.10 and pre-empts the obvious "did you try the electrocatalysis
+  head?" question; it cannot move the gate in §3, which is defined on `oc22`.
 - **QC recorded per relaxation:** BFGS step count, final `fmax`, convergence flag —
   the docs/26 §4 lesson (a "finished" job that never converged) applies to MLIP relaxations too.
 

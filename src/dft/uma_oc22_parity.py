@@ -12,9 +12,16 @@ for the anchors: eta(RuO2) ~ 0.37-0.42 V, eta(IrO2) ~ 0.56 V (Rossmeisl 2007;
 Man 2011).
 
 Reference-chain rule: gas-phase H2O/H2 are computed with the SAME model+head as
-the slabs. Heads emulate different DFT references (oc22 = PBE+U totals, oc20 =
-RPBE adsorption), so cross-head mixing would break the CHE chain; each head is
-self-consistent, mirroring how the QE side uses its own gas references.
+the slabs. Each head emulates a different level of theory (oc22 = VASP PBE+U
+oxides, oc20 = RPBE metals, oc25 = electrocatalysis with explicit solvent/ions);
+in UMA all heads emit TOTAL energies (OC20 was recomputed from the original
+adsorption-energy labels), so a per-head CHE chain is well-posed while
+cross-head mixing would not be.
+
+Third leg `oc25` is EXPLORATORY, not part of the pre-registered gate (docs/29
+s3): it is the electrocatalysis head, but OC25's level of theory assumes
+explicit solvent and ions (arXiv:2509.17862) whereas these slabs are dry
+vacuum — a different kind of out-of-distribution. Reported for completeness.
 
 Writes per dir:  uma_eta_1p2p1_<task>.json  (+ relaxed_1p2p1_<task>_<job>.extxyz)
 Never touches the archived uma_eta.json (uma-s-1p1/oc20, docs/26 provenance).
@@ -81,7 +88,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("runs_root", nargs="?", default="runs")
     ap.add_argument("--model", default="uma-s-1p2p1")
-    ap.add_argument("--tasks", default="oc22,oc20")
+    ap.add_argument("--tasks", default="oc22,oc20,oc25")
     ap.add_argument("--dirs", default=None, help="comma list; default: auto-discover")
     ap.add_argument("--device", default="cuda")
     args = ap.parse_args()
