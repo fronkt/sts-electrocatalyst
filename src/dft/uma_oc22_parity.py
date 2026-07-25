@@ -87,7 +87,9 @@ def discover_dirs(root):
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("runs_root", nargs="?", default="runs")
-    ap.add_argument("--model", default="uma-s-1p2p1")
+    ap.add_argument("--model", default="uma-s-1p2")  # v1.2 checkpoint carrying the oc22 head;
+    # fairchem-core 2.21.0 does not register 'uma-s-1p2p1' by name (docs/29 §5), and the
+    # 1p2 vs 1p2p1 difference is a minor patch. docs/28 §2 names uma-s-1p2 as an oc22 carrier.
     ap.add_argument("--tasks", default="oc22,oc20,oc25")
     ap.add_argument("--dirs", default=None, help="comma list; default: auto-discover")
     ap.add_argument("--device", default="cuda")
@@ -111,11 +113,23 @@ def main():
         print(f"FATAL: get_predict_unit failed: {e!r}\navailable_models={avail}", flush=True)
         raise
 
-    summary = dict(model=args.model, tasks={}, started_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
+    # honest file tag from the actual checkpoint (uma-s-1p2 -> "1p2", uma-m-1p1 -> "1p1");
+    # the analysis script (parity_r0.py MODEL_TAG) must match.
+    tag = args.model.split("-")[-1]
+
+    summary = dict(model=args.model, tag=tag, tasks={},
+                   started_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
     for task in tasks:
-        calc = FAIRChemCalculator(predict_unit, task_name=task)
-        print(f"\n[r0:{task}] gas references...", flush=True)
-        gas = gas_refs(calc)
+        try:
+            calc = FAIRChemCalculator(predict_unit, task_name=task)
+            print(f"\n[r0:{task}] gas references...", flush=True)
+            gas = gas_refs(calc)
+        except Exception as ex:
+            # a task head unavailable for this checkpoint (e.g. oc25) must not abort the
+            # oc22/oc20 gate legs — record and move on.
+            print(f"[r0:{task}] SKIPPED (calculator/gas-ref failed): {ex!r}", flush=True)
+            summary["tasks"][task] = dict(error=f"task_setup: {ex!r}")
+            continue
         e_h2o, e_h2 = gas["H2O"][0], gas["H2"][0]
         print(f"  E_H2O={e_h2o:.4f}  E_H2={e_h2:.4f} eV", flush=True)
         task_block = dict(E_H2O=e_h2o, E_H2=e_h2,
@@ -134,7 +148,7 @@ def main():
                     err = f"{job}: {ex!r}"
                     print(f"  [{d}] {job} FAILED: {ex!r}", flush=True)
                     break
-                write(os.path.join(p, f"relaxed_1p2p1_{task}_{job}.extxyz"), relaxed)
+                write(os.path.join(p, f"relaxed_{tag}_{task}_{job}.extxyz"), relaxed)
                 print(f"  [{d}] {job:7s} E={E[job]:12.4f} eV  "
                       f"steps={qc[job]['steps']:3d} fmax={qc[job]['fmax_final']:.3f} "
                       f"({time.time()-t0:.1f}s)", flush=True)
@@ -157,7 +171,7 @@ def main():
                 eta_std=0.0, eta_max=round(res.overpotential, 3),
                 qc=qc,
             )
-            with open(os.path.join(p, f"uma_eta_1p2p1_{task}.json"), "w") as f:
+            with open(os.path.join(p, f"uma_eta_{tag}_{task}.json"), "w") as f:
                 json.dump(rec, f, indent=2)
             task_block["dirs"][d] = rec
             print(f"  [{d}] eta={rec['eta_min']:.3f} V  pls={res.potential_limiting_step}  "
@@ -166,7 +180,7 @@ def main():
         summary["tasks"][task] = task_block
 
     summary["wall_s"] = round(time.time() - t_all, 1)
-    out = os.path.join(args.runs_root, "uma_1p2p1_summary.json")
+    out = os.path.join(args.runs_root, f"uma_{tag}_summary.json")
     with open(out, "w") as f:
         json.dump(summary, f, indent=2)
     print(f"\n[r0] DONE in {summary['wall_s']}s -> {out}", flush=True)

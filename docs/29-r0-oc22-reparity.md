@@ -130,11 +130,34 @@ Three findings, all free:
 G_max ranks the same as η here (Mn best), so the kinetics-aware descriptor does not
 overturn the thermodynamic ordering at this level — one fewer confound to worry about.
 
+## 4c. Checkpoint substitution: uma-s-1p2 (not 1p2p1)
+
+The plan (docs/28 §7 R0) names `uma-s-1p2p1`. On the box, **`fairchem-core 2.21.0`'s
+`pretrained_mlip` registry does not resolve the name `uma-s-1p2p1`** — its UMA entries are
+`('uma-s-1p2', 'uma-s-1p1', 'uma-m-1p1')` (plus eSEN models). The `.pt` for 1.2.1 exists on
+the HF repo but this fairchem release does not register it by that name.
+
+Resolution: run with **`uma-s-1p2`**, the v1.2 checkpoint that docs/28 §2 explicitly names
+as an `oc22` carrier ("only exists in the `uma-s-1p2` / `uma-s-1p2p1` checkpoints"). 1.2 → 1.2.1
+is a patch (the HF README flags only the original `uma-s-1` for an extensivity bug); for R0's
+binary question — *does the oc22 head rank rutile OER at all* — 1p2 is decisive. If the gate
+lands in the 0.5–0.8 fine-tune band and the patch matters, the exact 1p2p1 re-run is a
+one-line change once fairchem is upgraded to a release that registers it. All output files
+and figures are tagged `1p2` (not `1p2p1`) so the record states what actually ran.
+
+This substitution was forced by tooling, discovered *after* the §2/§3 protocol was frozen,
+and does not change the gate thresholds.
+
 ## 5. Compute ledger
 
-- Box: Vast.ai RTX 4090 (instance 45735789, $0.357/hr), `pytorch/pytorch:2.7.1-cuda12.8`
-  + `fairchem-core`. A first box (45733809) was destroyed after ~20 min stuck pulling the image.
-- Expected cost: well under $1 — 8 systems × 4 jobs × 2 heads of 18-atom MLIP relaxations.
+- Box: Vast.ai RTX 4090 (instance 45770673, California, $0.29/hr),
+  `pytorch/pytorch:2.7.1-cuda12.8` + `fairchem-core 2.21.0` (torch 2.8.0+cu128).
+  Two earlier boxes were destroyed: 45733809 (stuck ~20 min pulling the image) and
+  45736612 (crashed in 6 s on a missing `pandas` — the runner's `hea_oer` import pulls
+  `pipeline.py`→pandas; fixed in `src/dft/setup_r0_box.sh` + a post-extract import-chain check).
+- Two false starts cost ~zero compute — both died at import/name-resolution before the
+  model downloaded. Real run: 8 systems × 4 jobs × up to 3 heads of 18-atom MLIP
+  relaxations; well under $1.
 - HF access: fresh READ token `sts-r0-uma-box` minted 2026-07-24 (gated
   `facebook/UMA` checkpoint access verified, HTTP 200). Old flagged token
   (`hf_…qBUA`, docs/23 §9) still pending deletion — one manual click, owner action.

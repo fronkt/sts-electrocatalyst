@@ -23,6 +23,7 @@ import numpy as np
 
 ROOT = sys.argv[1] if len(sys.argv) > 1 else "runs"
 OUT = sys.argv[2] if len(sys.argv) > 2 else "docs/figs/uma_oc22_parity"
+MODEL_TAG = sys.argv[3] if len(sys.argv) > 3 else "1p2"  # must match uma_oc22_parity.py tag
 METALS = ["Cr", "Mn", "Fe", "Co", "Ni", "Cu"]
 ANCHORS = {"Ru": (0.37, 0.42), "Ir": (0.49, 0.62)}  # lit eta bands: Rossmeisl 2007 / Man 2011
 TASKS = ["oc22", "oc20", "oc25"]  # oc22 = pre-registered hypothesis; oc25 exploratory
@@ -62,7 +63,7 @@ def main():
                    variants={}, anchors={})
 
     for task in TASKS:
-        uma = {M: load_eta(os.path.join(ROOT, f"{M}_slab", f"uma_eta_1p2p1_{task}.json"))
+        uma = {M: load_eta(os.path.join(ROOT, f"{M}_slab", f"uma_eta_{MODEL_TAG}_{task}.json"))
                for M in METALS}
         paired = [(M, uma[M], dft[M]) for M in METALS
                   if uma[M] is not None and dft[M] is not None]
@@ -71,13 +72,13 @@ def main():
             ms = [p[0] for p in paired]
             s = stats([p[1] for p in paired], [p[2] for p in paired])
             block.update(paired_metals=ms, **s)
-            print(f"[1p2p1/{task}] n={len(paired)} ({', '.join(ms)})  "
+            print(f"[{MODEL_TAG}/{task}] n={len(paired)} ({', '.join(ms)})  "
                   f"rho={s['spearman_rho']:+.3f} (p={s['spearman_p']:.3g})  "
                   f"r={s['pearson_r']:+.3f}  MAE={s['mae_eV']:.3f} eV")
         summary["variants"][task] = block
 
         for A, band in ANCHORS.items():
-            eta = load_eta(os.path.join(ROOT, f"{A}_anchor", f"uma_eta_1p2p1_{task}.json"))
+            eta = load_eta(os.path.join(ROOT, f"{A}_anchor", f"uma_eta_{MODEL_TAG}_{task}.json"))
             if eta is not None:
                 ok = band[0] - 0.15 <= eta <= band[1] + 0.15
                 summary["anchors"][f"{A}_{task}"] = dict(eta=eta, lit_band=band, within_015V=ok)
@@ -108,7 +109,7 @@ def main():
         blk = summary["variants"][task]
         pm = blk.get("paired_metals", [])
         if not pm:
-            ax.set_title(f"uma-s-1p2p1 / {task} — no data")
+            ax.set_title(f"uma-s-{MODEL_TAG} / {task} — no data")
             continue
         x = np.array([summary["dft_eta"][m] for m in pm])
         y = np.array([blk["eta"][m] for m in pm])
@@ -121,7 +122,7 @@ def main():
             ax.scatter(gx, gy, s=45, c="0.8", edgecolor="0.5", zorder=2,
                        label="uma-s-1p1/oc20 (docs/26)")
         ax.scatter(x, y, s=75, c="#d62728" if task == "oc22" else "#1f77b4",
-                   edgecolor="k", zorder=3, label=f"uma-s-1p2p1/{task}")
+                   edgecolor="k", zorder=3, label=f"uma-s-{MODEL_TAG}/{task}")
         for m, xi, yi in zip(pm, x, y):
             ax.annotate(m, (xi, yi), xytext=(5, 4), textcoords="offset points", fontsize=10)
         ax.set_xlim(lo, hi); ax.set_ylim(lo, hi); ax.set_aspect("equal")
@@ -133,7 +134,7 @@ def main():
         ax.text(0.04, 0.96, txt, transform=ax.transAxes, va="top", ha="left", fontsize=10,
                 bbox=dict(boxstyle="round", fc="w", ec="0.7"))
         ax.legend(loc="lower right", fontsize=8, frameon=False)
-    fig.suptitle("R0 re-parity: rutile MO$_2$(110) OER $\\eta$, uma-s-1p2p1 task heads vs DFT+U",
+    fig.suptitle(f"R0 re-parity: rutile MO$_2$(110) OER $\\eta$, uma-s-{MODEL_TAG} task heads vs DFT+U",
                  y=0.99)
     fig.tight_layout(rect=(0, 0, 1, 0.94))
     fig.savefig(OUT + ".png", dpi=200, bbox_inches="tight")
