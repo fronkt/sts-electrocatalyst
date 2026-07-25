@@ -22,19 +22,27 @@ Key corrections to the parked-project record (docs/28 §1–2):
 - [ ] Decide branch strategy: catalysis revival off `main` vs continuing on
       `thermal-round0` (repo currently dirty on thermal-round0)
 
-## R0 — Kill the artifact (≤1 box-day)
-- [ ] Re-run UMA parity with `uma-s-1p2p1` + `task_name="oc22"` on the existing
-      4 endmembers; unified reference chain both sides
-- [ ] Pull OC22 rutile structures as in-distribution sanity anchors
-- [ ] GATE: Spearman ≥0.8 → screen as-is · 0.5–0.8 → fine-tune (R3) · ~0 →
-      negative result is real, becomes headline finding
+## R0 — Kill the artifact — DONE 2026-07-25 (docs/29); GATE NOT MET
+- [x] Re-run UMA parity with `uma-s-1p2` (fairchem 2.21.0 doesn't register 1p2p1;
+      1p2 is the on-plan oc22 carrier) + `oc22`/`oc20`/`oc25`; per-head CHE chain
+- [x] Built RuO₂/IrO₂(110) in-distribution anchors (same builder, verified to 3e-9 Å)
+- [x] GATE RESULT: **oc22 ρ = −0.80** (anti-correlated), oc20 ρ = 0.0, oc25 ρ = +0.2
+      (QC-tainted), baseline +0.4 → "~0 → negative result is REAL". docs/28 §2
+      confound hypothesis REFUTED; no out-of-box head ranks rutile OER. Anchors
+      exonerate the pipeline (oc20/oc25 nail IrO₂ 0.52/0.57 V vs lit 0.56).
 
-## R1 — DFT hygiene (parallel with R0)
-- [ ] Free reanalysis: volcano positions (ΔG_O−ΔG_OH), G_max(η), ±0.2–0.4 V error
-      bars on all existing η
-- [ ] U-sensitivity: re-run Mn + Cr at linear-response U (7.15/6.63 eV)
-- [ ] Magnetic protocol: AFM β-MnO₂; OMC/U-ramping Co rescue (time-box 1 week)
-- [ ] Dipole correction + implicit solvation spot-check on Mn
+## DECISION FORK — Frank's call (docs/29 §7)
+- [ ] **Path A** embrace the benchmark negative as STS finding #3/#4 (zero compute,
+      ready now; recommended floor) — OR —
+- [ ] **Path B** R3 fine-tune on archived QE trajectories (78396b5) → re-screen
+      (single GPU-days; A becomes the before/after figure if B runs)
+
+## R1 — DFT hygiene
+- [x] Free reanalysis: volcano positions, G_max, ±0.3 V error bars (DONE, docs/29
+      §4b): all 4 on the scaling line far off-apex, step-2 limited; Mn only one near
+      a real-electrode band; NiO₂ breaks OOH/OH scaling −0.51 eV (hypothesis only)
+- [ ] U-sensitivity + magnetic protocol + dipole/solvation (MODERATE, CPU-box-weeks):
+      DEFERRED until Path A/B chosen — B reframes what these re-runs are for
 
 ## R2 — Stability gate (mostly free)
 - [ ] MP Pourbaix ΔG_pbx for all 6 endmembers + candidate HEA oxide products

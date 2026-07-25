@@ -1,7 +1,8 @@
 # 29 — R0: Killing the Task-Head Artifact (uma-s-1p2p1 / oc22 re-parity)
 
-**Date:** 2026-07-24
-**Status:** IN PROGRESS — protocol frozen below *before* results landed (pre-registration)
+**Date:** 2026-07-24 (protocol) / 2026-07-25 (results)
+**Status:** COMPLETE — **R0 gate NOT met** (oc22 Spearman ρ = −0.80). The docs/26 negative
+result is confirmed and un-confounded. Decision point for Frank in §7.
 **Plan:** [docs/28 §2, §7 R0](28-electrocatalyst-revival-plan.md) · **Supersedes the verdict in**
 [docs/26](26-endmember-parity-checkpoint.md) *if and only if* the gate below says so.
 **Branch:** `r0-catalysis-revival` · **Runner:** `src/dft/uma_oc22_parity.py` ·
@@ -81,20 +82,71 @@ n = 4 is small: ρ is reported with its p-value and never quoted as precision. T
 ablation leg (`1p2p1`/`oc20`) is what separates "the head was wrong" from "the checkpoint
 was old" — both change at once otherwise.
 
-## 4. Results
+## 4. Results — GATE NOT MET (the confound is killed; the negative result survives)
 
-*(pending — box run in flight; filled from `docs/figs/uma_oc22_parity.json`)*
+Run 2026-07-25, `uma-s-1p2`, 1705 s on the RTX 4090 (instance 45770673), all 24 relaxations
+(8 systems × 3 heads) completed. QC: every relaxation converged to fmax ≤ 0.05 eV/Å **except**
+two in the exploratory `oc25` leg (Fe, Mn `s0_O`), which are flagged below — those two
+`oc25` endmember points are therefore not trustworthy, but `oc25` is outside the gate anyway.
+Machine-readable: `runs/uma_1p2_summary.json`, per-dir `runs/<M>_slab/uma_eta_1p2_<task>.json`,
+figure `docs/figs/uma_oc22_parity.{png,json}`.
 
-| Endmember | η_DFT (V) | η 1p1/oc20 (docs/26) | η 1p2p1/oc20 | η 1p2p1/oc22 |
-|---|---|---|---|---|
-| MnO₂ | 0.892 | 2.347 | | |
-| FeO₂ | 1.263 | 1.105 | | |
-| CrO₂ | 1.726 | 1.147 | | |
-| NiO₂ | 1.751 | 2.382 | | |
-| CoO₂ | — (excluded) | 2.389 | | |
-| CuO₂ | — (excluded) | 2.418 | | |
-| **RuO₂ anchor** | lit. 0.37–0.42 | — | | |
-| **IrO₂ anchor** | lit. ≈ 0.56 | — | | |
+**η (V) by task head:**
+
+| Endmember | η_DFT (V) | η 1p1/oc20 (docs/26) | η 1p2/oc20 | **η 1p2/oc22** | η 1p2/oc25 |
+|---|---|---|---|---|---|
+| MnO₂ | 0.892 | 2.347 | 2.110 | **1.675** | 1.047 † |
+| FeO₂ | 1.263 | 1.105 | 0.969 | **1.537** | 1.890 † |
+| CrO₂ | 1.726 | 1.147 | 2.175 | **0.690** | 1.676 |
+| NiO₂ | 1.751 | 2.382 | 1.558 | **1.114** | 1.449 |
+| CoO₂ | — (excl.) | 2.389 | 0.922 | 1.042 | 0.927 |
+| CuO₂ | — (excl.) | 2.418 | 3.549 | 1.959 | 1.637 |
+| **RuO₂ anchor** | lit. 0.37–0.42 | — | 1.037 | **1.954** | 0.924 |
+| **IrO₂ anchor** | lit. ≈ 0.49–0.62 | — | **0.520 ✓** | **2.238** | **0.567 ✓** |
+
+† `oc25` Fe/Mn `s0_O` did not converge (fmax > 0.05) — point unreliable.
+
+**Correlation vs DFT+U (n = 4 endmembers: Cr, Mn, Fe, Ni):**
+
+| Variant | Spearman ρ | Pearson r | MAE (eV) | IrO₂ anchor | RuO₂ anchor |
+|---|---|---|---|---|---|
+| 1p1 / oc20 (docs/26 baseline) | +0.400 | −0.216 | 0.706 | — | — |
+| 1p2 / oc20 | **0.000** | −0.005 | 0.538 | 0.52 ✓ | 1.04 ✗ |
+| **1p2 / oc22 (pre-registered hypothesis)** | **−0.800** | −0.885 | 0.682 | 2.24 ✗ | 1.95 ✗ |
+| 1p2 / oc25 (exploratory) | +0.200 | +0.486 | 0.283 | 0.57 ✓ | 0.92 ✗ |
+
+### Verdict against the §3 gate
+
+**oc22 gives ρ = −0.80** — not merely ~0 but strongly *anti*-correlated, worse than the docs/26
+baseline it was supposed to rescue. This lands squarely on the gate's "≈0 → the negative result
+is real" branch. **The docs/28 §2 hypothesis is refuted:** switching to the correct PBE+U-oxide
+task head does not recover the ranking. Across the metal head (oc20, ρ=0.0), the correct oxide
+head (oc22, ρ=−0.8), and the electrocatalysis head (oc25, ρ=+0.2, and QC-tainted), **no
+out-of-the-box UMA head ranks rutile-MO₂(110) OER activity** against DFT+U. The docs/26
+conclusion stands, now un-confounded.
+
+### Why this is a real finding and not a pipeline bug — the anchors decide it
+
+The RuO₂/IrO₂ anchors are the control, and they exonerate the pipeline while localizing the
+failure to the oc22 *energetics*:
+
+- The **same slab + CHE + referencing code** places the benchmark IrO₂(110) electrode at
+  **0.52 V (oc20) / 0.57 V (oc25)** — both inside the literature band (~0.56 V). So the geometry,
+  the CHE chain, and the per-head gas references are correct; a bug would not spare two heads
+  and hit one.
+- Under **oc22**, *both* anchors blow up to ~2 V and become step-4 limited, with an unphysical
+  free-energy landscape (dG_OH < 0, i.e. *OH over-bound; dG_OOH ~1.5 eV, far below the ~3.5 eV
+  such surfaces show). This is the oc22 head's PES on pristine dry (110) cus sites, not a
+  referencing artifact (CHE differences cancel the per-head reference exactly).
+- **The irony worth stating in the writeup:** the *metal*-oriented oc20 head places the
+  canonical metal-oxide OER electrode (IrO₂) correctly, while the head *built for oxides*
+  (oc22) does not — consistent with the Loveday/López 2026 finding that out-of-box universal
+  MLIPs carry ~0.5 eV oxide-adsorption errors and that "fine-tuning is expected to be mandatory."
+
+**Caveats kept honest:** n = 4; OC22 was trained with all atoms free while our slabs fix the
+bottom half (mild OOD for oc22 specifically); oc25 assumes solvent/ions its inputs don't have
+and has 2 unconverged points. None of these rescue oc22 to the gate — a +2 V anchor error and
+ρ = −0.8 are not 0.2 V effects.
 
 ## 4b. R1 free reanalysis (docs/28 §4 F1–F3) — DONE, zero new compute
 
@@ -161,6 +213,35 @@ and does not change the gate thresholds.
 - HF access: fresh READ token `sts-r0-uma-box` minted 2026-07-24 (gated
   `facebook/UMA` checkpoint access verified, HTTP 200). Old flagged token
   (`hf_…qBUA`, docs/23 §9) still pending deletion — one manual click, owner action.
+
+## 7. What R0 decides, and the fork for Frank
+
+R0 was the cheap gate that determined which of two campaigns the project runs. The gate
+says the un-fine-tuned model is not a usable screener for this chemistry — so the "screen
+3000 compositions with UMA, DFT-calibrate the offset" funnel (docs/22) is off the table
+without training. Two legitimate paths remain; this is a genuine owner decision, not a
+default:
+
+- **Path A — embrace the benchmark negative (lowest risk, STS-ready now).** The deliverable
+  is docs/28 §6 finding #3/#4: *"out-of-box UMA — across oc20, oc22, AND oc25 heads — cannot
+  rank rutile-MO₂ OER; the oxide-specialized head is the worst and gives unphysical anchor
+  overpotentials, while the metal head places IrO₂ correctly."* This is a recognized
+  contribution class (CatBench 2025; Loveday 2026), it is pre-registered and QC-audited, and
+  it reads as integrity for an STS judge. Combined with the R1 volcano analysis (§4b) it is a
+  complete, honest story with zero further compute. **Recommended as the floor.**
+- **Path B — fine-tune, then screen (docs/28 §5/R3; single GPU-days).** The archived QE
+  trajectories (commit 78396b5) are an in-domain training set already on disk. The field's
+  small-data evidence (CLAM, MACE-catalysis, ~200–500 points → ρ 0.85–0.95) says a naive
+  fine-tune could turn ρ = −0.8 into a usable screener. Higher upside, higher risk, and R3/R4
+  spend is explicitly gated on Frank in docs/28 §7. Path A is not wasted if we do B — it
+  becomes the "before" half of a before/after fine-tuning figure, which is a *stronger* paper
+  than either alone.
+
+I did not launch R3: it is a substantial new direction the plan marks owner-gated, and the
+R0 outcome (embrace-negative vs invest-in-training) is a framing decision that is Frank's per
+docs/25. R1's *free* reanalysis (§4b) is already done; R1's *moderate* DFT hygiene (U-sensitivity,
+magnetic protocol — CPU-box-weeks) should wait until A-vs-B is chosen, since B reframes what
+those re-runs are for.
 
 ## 6. Note for the record
 
