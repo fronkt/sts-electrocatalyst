@@ -38,7 +38,13 @@ run_one() {
   local t0; t0=$(date +%s)
   # each job gets its own outdir so concurrent jobs cannot collide on ./tmp
   sed "s#outdir *= *'[^']*'#outdir = '${scratch}'#" "${job}${suf}" > "${job}.run.in"
-  mpirun --allow-run-as-root --bind-to core --map-by numa -np "$NP" \
+  # --bind-to none, NOT --bind-to core/--map-by numa: hwloc cannot see the real
+  # topology inside a Vast container, so PRTE fails the bind ("tried to bind a
+  # process but failed") and the ranks end up migrating across sockets and
+  # blocking in collectives -- the host sat 87% idle while pw.x crawled, with a
+  # 245-CPU cgroup quota we were nowhere near using. docs/23 s8 measured 99% core
+  # efficiency with --bind-to none, which is what the endmember campaign shipped.
+  mpirun --allow-run-as-root --bind-to none -np "$NP" \
          pw.x -nk "$nk" -in "${job}.run.in" > "${job}.out" 2>&1 </dev/null
   local rc=$?
   local jd sf ff nkp

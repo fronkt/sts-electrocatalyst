@@ -44,3 +44,19 @@ Note the pool path uses the *source package* name, not `quantum-espresso`.
 **Bonus check worth repeating:** pw.x prints an MD5 for every pseudopotential it reads.
 The O/H/Cr/Ni MD5s from this .deb match the 2026-06 campaign's archived outputs exactly,
 which is a free, airtight proof that new runs sit on the archive's footing.
+
+## 2026-07-31 — `--bind-to core --map-by numa` silently cripples MPI inside a container
+**What happened:** on a 2-socket EPYC 7742 Vast box I "improved" the proven mpirun line to
+`--bind-to core --map-by numa`. PRTE logged one line — *"tried to bind a process but failed …
+performance may be degraded"* — and continued. The ranks then migrated across sockets and sat
+blocked in collectives: the host showed **87.5% idle** while pw.x crawled at ~105 s per SCF
+iteration, against a cgroup quota of 245 CPUs we were nowhere near using. Reverting to
+`--bind-to none` took host utilisation from 12.4% to 44.2% (~32 → ~113 cores of useful work)
+with zero binding warnings.
+**Rule:** inside a Vast/Docker container hwloc usually cannot see the true topology, so
+explicit binding fails and leaves ranks unpinned *and* mis-mapped. Use `--bind-to none` (what
+docs/23 s8 shipped at 99% core efficiency) unless you have verified binding actually took.
+**Diagnostic that finds this fast:** if `top` shows the host mostly IDLE while your ranks are
+"running", they are blocked, not throttled — check the bind warning and the cgroup quota
+before assuming you were sold fewer cores than advertised. Idle host + slow job = communication
+problem; busy host + slow job = oversubscription.
