@@ -79,9 +79,32 @@ Key corrections to the parked-project record (docs/28 §1–2):
 - [ ] Integrate stability into the screening objective (Tran-2024-style)
 
 ## R3 — Fine-tuned screener (single GPU-days)
-- [ ] Convert archived QE trajectories (78396b5) → training set
+- [x] Convert archived QE trajectories (78396b5) → training set (785 frames,
+      `src/dft/qe_frames.py`). **Verified uncontaminated 2026-07-31**: pw.x emits
+      `!  total energy` only for a converged SCF, so a failed cycle contributes no
+      frame. Checked on all four POISONED trajectories — `n_energies == n_scf_ok`
+      exactly. They still donate their *good* frames (17 from Ni s0_O, 36 from Ni
+      s0_OH, 6 from Cu s0_OOH): rejected for η, salvaged for training.
+- [x] **Stage 0 CLOSED analytically — do not run it** (`src/dft/e0_stage0.py`).
+      The CHE reference is stoichiometrically closed, so an arbitrary per-element
+      E0 shift leaves every ΔG unchanged (verified through the real referencing
+      path, max |Δη| = 3.6e-15 eV over 8 systems). Therefore the oc22 ρ = −1.00 is
+      **not** a reference-energy artefact — the whole composition-linear subspace of
+      model error is projected out of the descriptor, and being force-free it does
+      not move geometries either. The failure is geometry-dependent local chemistry:
+      relative *O vs *OH binding across metals.
 - [ ] Fine-tune MACE-OMAT (naive, LR 1e-3, E0 reestimated) and/or UMA-small
-      head-only (LR 4e-4); held-out Spearman ≥0.8 gate
+      head-only (LR 4e-4). **Gate must be the CHE observable, not energy MAE** —
+      E0 alone can cut total-energy MAE a long way while leaving every η identical.
+- [ ] **Gate arithmetic (exact permutation, not asymptotic).** LOMO CV yields one
+      held-out η per metal; Spearman is computed across those. At the n available:
+      | n | ρ needed for p<0.05 | ranking errors tolerated |
+      |---|---------------------|--------------------------|
+      | 4 | unreachable (ρ=1 → p=0.083) | — |
+      | 5 | **1.000 only** (p=0.017); ρ=0.9 → p=0.083 | **zero** |
+      | 6 | 0.886 (p=0.033); ρ=1 → p=0.0028 | two |
+      So "Spearman ≥ 0.8" is only a meaningful gate at n ≥ 6. At n = 5 the fine-tune
+      must rank all five *perfectly* to claim anything.
 - [ ] Re-screen HEA space: activity × stability × cost; optional AL loop
       (3–10 DFT/loop)
 
