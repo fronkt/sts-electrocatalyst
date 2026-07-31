@@ -1,6 +1,6 @@
 &CONTROL
   calculation = 'relax'
-  prefix = 'slab'
+  prefix = 's0_O'
   outdir = './tmp'
   pseudo_dir = '/usr/share/espresso/pseudo'
   tprnfor = .true.
@@ -9,15 +9,18 @@
 /
 &SYSTEM
   ibrav = 0
-  nat = 18
+  nat = 19
   ntyp = 2
   ecutwfc = 80.0
   ecutrho = 640.0
   occupations = 'smearing'
   smearing = 'mv'
   degauss = 0.01
+  nspin = 2
   nosym = .true.
   noinv = .true.
+  starting_magnetization(1) = 0.0
+  starting_magnetization(2) = 0.0
 /
 &ELECTRONS
   conv_thr = 1.0d-6
@@ -38,7 +41,7 @@ CELL_PARAMETERS angstrom
 ATOMIC_POSITIONS angstrom
   Ir  0.00000000  4.77084945  9.54169891  0 0 0
   Ir  1.57700000  1.59028315  9.54169891  0 0 0
-  Ir  0.00000000  1.59028315  12.72226521  1 1 1
+  Ir  0.00000000  1.59028315  12.72226521  0 0 0
   Ir  1.57700000  4.77084945  12.72226521  1 1 1
   Ir  0.00000000  4.77084945  15.90283151  1 1 1
   Ir  1.57700000  1.59028315  15.90283151  1 1 1
@@ -54,5 +57,6 @@ ATOMIC_POSITIONS angstrom
   O  0.00000000  1.59028315  14.66241065  1 1 1
   O  1.57700000  3.53042859  15.90283151  1 1 1
   O  1.57700000  6.01127031  15.90283151  1 1 1
+  O  0.00000000  4.77084945  18.99325237  1 1 1
 K_POINTS automatic
   8 4 1 0 0 0

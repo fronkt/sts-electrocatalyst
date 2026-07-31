@@ -1,3 +1,9 @@
 # Shell scripts get scp'd from this Windows checkout to Linux boxes; a CRLF
 # checkout silently breaks them inside tmux (tasks/lessons.md). Force LF.
 *.sh text eol=lf
+
+# Same trap, same cure, for Quantum ESPRESSO inputs: pw.x reads Fortran namelists,
+# and a trailing \r inside one is a parse error on the Linux box.
+*.in text eol=lf
+# ...and the restart/attempt/snapshot variants, which get scp'd and run the same way
+*.in.* text eol=lf

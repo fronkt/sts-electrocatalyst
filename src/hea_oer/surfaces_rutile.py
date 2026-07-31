@@ -34,6 +34,9 @@ RUTILE_AC = {
     "Cr": (4.421, 2.916), "Mn": (4.404, 2.876),
     "Fe": (4.500, 3.000), "Co": (4.460, 2.990), "Ni": (4.440, 2.985),
     "Cu": (4.470, 3.000), "Al": (4.480, 2.950),
+    # benchmark-electrode anchors, experimental rutile constants (Bolzan et al.,
+    # Acta Cryst. B53, 373 (1997), 10.1107/S0108768197001468) -- see docs/29 s2
+    "Ru": (4.492, 3.107), "Ir": (4.498, 3.154),
 }
 _RUTILE_U = 0.305  # internal O parameter (P4_2/mnm, Wyckoff 4f)
 
@@ -98,7 +101,15 @@ def build_rutile110_hea(
     atoms = AseAtomsAdaptor.get_atoms(slab)
     z = atoms.positions[:, 2]
     zmid = (z.min() + z.max()) / 2.0
-    atoms.set_constraint(FixAtoms(mask=z < zmid))  # fix bottom half
+    # A symmetric rutile(110) slab puts a whole layer EXACTLY on the mid-plane, so a
+    # bare `z < zmid` decides those atoms on float64 noise: the 2026-07 endmember
+    # inputs came out with 11 free atoms for Cr/Mn/Fe/Cu/Ru, 7 for Ni, 10 for Ir and
+    # 8 for Co -- and for Co and Ir the split fell *within* the mid-layer, giving two
+    # crystallographically equivalent atoms different constraints. Tolerancing the
+    # comparison frees the whole mid-layer, which is both symmetry-respecting and
+    # what the majority of the archived runs happened to get. See docs/30.
+    tol = 1e-6 * max(1.0, abs(zmid))
+    atoms.set_constraint(FixAtoms(mask=z < zmid - tol))  # fix strictly-bottom half
     return atoms
 
 

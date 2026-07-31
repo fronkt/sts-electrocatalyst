@@ -1,10 +1,7 @@
 {
   "composition": "Ru100",
-  "kind": "uma_anchor",
-  "lattice_ac": [
-    4.492,
-    3.107
-  ],
+  "ecutwfc": 80.0,
+  "ecutrho": 640.0,
   "n_sites": 1,
   "jobs": [
     {
@@ -28,6 +25,22 @@
       "kind": "adslab",
       "site": 0,
       "species": "OOH"
+    },
+    {
+      "name": "H2O",
+      "kind": "gas"
+    },
+    {
+      "name": "H2",
+      "kind": "gas"
     }
-  ]
+  ],
+  "kind": "uma_anchor",
+  "lattice_ac": [
+    4.492,
+    3.107
+  ],
+  "lattice_source": "Bolzan 1997, Acta Cryst B53 373 (10.1107/S0108768197001468)",
+  "gas_refs": "copied verbatim from runs/Cr_slab (metal-independent; all 5 endmember H2/H2O outputs are byte-identical)",
+  "constraint_note": "rebuilt 2026-07-31 with the tolerance fix in surfaces_rutile.build_rutile110_hea; Ru inputs are byte-identical to the archived UMA-era ones, Ir gains one mid-layer atom (10 -> 11 free). Superseded Ir inputs kept as *.in.pre-constraint-fix. See docs/30."
 }

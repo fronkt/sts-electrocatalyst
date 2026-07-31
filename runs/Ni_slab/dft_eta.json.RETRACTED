@@ -1,0 +1,25 @@
+{
+  "composition": "Ni100",
+  "n_sites": 1,
+  "eta_min": 1.750597786668636,
+  "eta_mean": 1.750597786668636,
+  "eta_std": 0.0,
+  "eta_max": 1.750597786668636,
+  "per_site": [
+    {
+      "site": 0,
+      "dG_OH": 2.516,
+      "dG_O": 5.497,
+      "dG_OOH": 5.202,
+      "eta": 1.751,
+      "pls": 2
+    }
+  ],
+  "_RETRACTED": {
+    "date": "2026-07-31",
+    "doc": "docs/30-qc-audit-and-r1-campaign.md",
+    "reason": "eta=1.751 V was computed from runs/Ni_slab/s0_O.out and s0_OH.out, both of which terminated on a failed SCF cycle (200 iterations, no convergence) and print JOB DONE. Free-atom residual fmax 0.363 and 0.673 eV/A vs the 0.051 eV/A relax target, with the BFGS energy still falling 0.013 and 0.040 eV per step and ACCELERATING at termination. The .in.restart inputs generated for these two jobs (docs/26 section 4 remediation) were never run: the .out files start from the ORIGINAL .in geometry (max deviation 9e-5 A).",
+    "consequence": "dG_OH and dG_O are biased high by an unknown amount; dG_OOH - dG_OH = 2.686 eV, the basis of the docs/29 section 4b 'NiO2 breaks OOH/OH scaling by -0.51 eV' hypothesis, is biased LOW in exactly the direction an under-relaxed *OH produces. Hypothesis withdrawn, not confirmed.",
+    "to_reinstate": "run s0_O.in.restart and s0_OH.in.restart to convergence, then re-run qe_slab.py eta"
+  }
+}

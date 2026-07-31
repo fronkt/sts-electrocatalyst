@@ -49,10 +49,20 @@ def stats(uma, dft):
         ra, rb = np.argsort(np.argsort(uma)), np.argsort(np.argsort(dft))
         rho = float(np.corrcoef(ra, rb)[0, 1]); r = float(np.corrcoef(uma, dft)[0, 1])
         rho_p = r_p = float("nan")
-    return dict(spearman_rho=round(float(rho), 4), spearman_p=float(rho_p),
-                pearson_r=round(float(r), 4), pearson_p=float(r_p),
-                mae_eV=round(float(np.mean(np.abs(uma - dft))), 4),
-                mean_uma_minus_dft_eV=round(float(np.mean(uma - dft)), 4))
+    n = len(uma)
+    out = dict(n=n, spearman_rho=round(float(rho), 4), spearman_p=float(rho_p),
+               pearson_r=round(float(r), 4), pearson_p=float(r_p),
+               mae_eV=round(float(np.mean(np.abs(uma - dft))), 4),
+               mean_uma_minus_dft_eV=round(float(np.mean(uma - dft)), 4))
+    if n < 5:
+        # scipy's asymptotic p is meaningless here -- at n=3 the only attainable |rho|
+        # are 1.0 and 0.5, and an exact two-sided permutation test gives p >= 1/3 for
+        # ANY result. Quote rho as a sign/direction, never as evidence.
+        import math
+        out["p_values_not_meaningful"] = (
+            f"n={n}: asymptotic p-values are invalid; the exact two-sided permutation p for the "
+            f"most extreme attainable rho is {2.0 / math.factorial(n):.3f}")
+    return out
 
 
 def main():
