@@ -48,10 +48,14 @@ run_one() {
          pw.x -nk "$nk" -in "${job}.run.in" > "${job}.out" 2>&1 </dev/null
   local rc=$?
   local jd sf ff nkp
-  jd=$(grep -c 'JOB DONE' "${job}.out" 2>/dev/null || echo 0)
-  sf=$(grep -c 'convergence NOT achieved' "${job}.out" 2>/dev/null || echo 0)
-  ff=$(grep 'Total force' "${job}.out" 2>/dev/null | tail -1 | awk '{print $4}')
-  nkp=$(grep -m1 'number of k points' "${job}.out" 2>/dev/null | awk '{print $5}')
+  # `grep -c` already prints 0 on no-match AND exits 1, so `|| echo 0` appends a
+  # SECOND zero and the DONE line comes out as "JOB_DONE=0\n0 SCF_FAIL=0\n0 ..." --
+  # which breaks the machine-checkable acceptance criterion in docs/30 s7.
+  # `|| true` keeps `set -u`-safe non-zero exits from aborting without adding output.
+  jd=$(grep -ac 'JOB DONE' "${job}.out" 2>/dev/null || true)
+  sf=$(grep -ac 'convergence NOT achieved' "${job}.out" 2>/dev/null || true)
+  ff=$(grep -a 'Total force' "${job}.out" 2>/dev/null | tail -1 | awk '{print $4}')
+  nkp=$(grep -am1 'number of k points' "${job}.out" 2>/dev/null | awk '{print $5}')
   echo "DONE $d/$job rc=$rc JOB_DONE=$jd SCF_FAIL=$sf F_LAST=${ff:-na} NK=${nkp:-na} $(( $(date +%s)-t0 ))s $(date -u)" >> "$LOG"
   rm -rf "$scratch"
 }
