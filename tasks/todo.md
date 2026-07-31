@@ -31,11 +31,41 @@ Key corrections to the parked-project record (docs/28 §1–2):
       confound hypothesis REFUTED; no out-of-box head ranks rutile OER. Anchors
       exonerate the pipeline (oc20/oc25 nail IrO₂ 0.52/0.57 V vs lit 0.56).
 
-## DECISION FORK — Frank's call (docs/29 §7)
-- [ ] **Path A** embrace the benchmark negative as STS finding #3/#4 (zero compute,
-      ready now; recommended floor) — OR —
-- [ ] **Path B** R3 fine-tune on archived QE trajectories (78396b5) → re-screen
-      (single GPU-days; A becomes the before/after figure if B runs)
+## QC AUDIT — DONE 2026-07-31 (docs/30, commit 1a3a77b, $0 spent)
+- [x] Strict QC tooling (`src/dft/qe_qc.py`); `parse_qe_energy` can no longer
+      return an energy from a run that failed SCF or never converged
+- [x] **η(NiO₂) = 1.751 V RETRACTED** — `s0_O`/`s0_OH` both died on a failed SCF
+      while printing JOB DONE, at 7× and 13× the force threshold, energy still
+      falling 0.013/0.040 eV per step and accelerating. The `.in.restart` files
+      prepared in docs/26 §4 were never run. docs/29 §4b "NiO₂ breaks *OOH/*OH
+      scaling" withdrawn — the bias runs in exactly that direction.
+- [x] R0 restated at n=3: oc22 goes −0.80 → **−1.00**. Verdict SURVIVES and
+      sharpens; but n=3 has no power (a perfect ordering gives p=1/3), so the
+      campaign is short of DATA POINTS, not of another task head.
+- [x] Slab constraint float-tie fixed (the mid-plane layer was decided by
+      rounding: 11 free atoms for Cr/Mn/Fe/Cu/Ru, 10 Ir, 8 Co, 7 Ni — Co and Ir
+      split symmetry-equivalent atoms). Does not affect the R0 parity; does bias
+      the cross-metal η ranking.
+- [x] Ru/Ir anchors made reproducible from committed code (byte-exact for Ru),
+      wired for `eta`, and patched ~4× cheaper (nspin=1 for the non-magnetic
+      anchors; nosym on the clean slab only). CRLF trap closed for `*.in`.
+- [x] 785-frame MLIP training set extracted + validated (`src/dft/qe_frames.py`);
+      ASE's espresso-out reader fails on 33 of 44 archived slab outputs
+
+## R1 CAMPAIGN — STAGED, blocked on one approval
+- [ ] **Frank: approve the box** — machine 13822, interruptible $0.30 bid, ~$1.6
+      expected for all 10 jobs, tripwire destroy at $3.20. Everything else is
+      ready: `src/dft/{setup_r1_box,queue_r1}.sh` + `src/dft/jobs_r1.txt`.
+- [ ] Ni rescue (2 prepared restarts) → n=4 [best value/$: p goes 1/3 → 1/12]
+- [ ] Ru/Ir DFT anchors (8 jobs) → the DFT tier's FIRST external validation
+      (lit. η RuO₂ 0.37–0.42 V, IrO₂ ≈0.56 V) and n→6. Gate pre-registered in
+      docs/30 §7 before any number exists.
+
+## DECISION FORK (docs/29 §7) — now effectively A **and** B; confirm
+- [x] **Path A** banked and QC-hardened (the negative is stronger after the audit)
+- [ ] **Path B** R3 fine-tune: data extracted, MACE-OMAT recipe costed at ~$1.9,
+      leave-one-metal-out CV drafted. Free Stage 0 (E0-only recalibration on the
+      laptop CPU) may settle it for $0 — run that first.
 
 ## R1 — DFT hygiene
 - [x] Free reanalysis: volcano positions, G_max, ±0.3 V error bars (DONE, docs/29
