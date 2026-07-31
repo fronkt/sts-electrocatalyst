@@ -225,6 +225,21 @@ Recorded before any anchor number exists, in the docs/29 §2 style:
   result (docs/28 §4 M4), not buried.
 - **Acceptance per job**, machine-checked from `queue_r1.log`: `JOB_DONE=1` **and**
   `SCF_FAIL=0` **and** `qe_qc.py` verdict `TRUSTWORTHY`. Anything else is not an energy.
+  - **Amendment, 2026-07-31 (after the run started, before any η exists).** The first
+    two clauses are now known to be jointly insufficient, so the third is load-bearing
+    rather than belt-and-braces. Stopping the stalled `Ni_slab/s0_O` with a
+    `<outdir>/<prefix>.EXIT` flag made pw.x exit gracefully **and print `JOB DONE.`**
+    after zero completed ionic steps; the queue logged
+    `DONE Ni_slab/s0_O rc=0 JOB_DONE=1 SCF_FAIL=0`. That is a *third* false-success
+    mode alongside the SCF failure of docs/26 §4 and `nstep` exhaustion. The log-level
+    shortcut must never be used on its own.
+  - The same episode exposed a hole in `qe_qc.py` itself: the `n_ionic == 0` clause,
+    written to admit genuine `calculation='scf'` gas references, was returning
+    `TRUSTWORTHY` for a relax that died inside ionic step 1 with a **null energy**.
+    Fixed by making "produced an energy" a hard precondition for `TRUSTWORTHY` and by
+    detecting the user-stop marker. `tests/test_qe_qc.py` (11 tests) now pins all three
+    false-success modes plus the free-atom force masking; the archive-wide audit is
+    unchanged at POISONED = 4, so no historical verdict moved.
 - **Ni reinstated** only if both restarts reach `bfgs converged` with free-atom fmax
   ≤ 0.051 eV/Å. If they do not, Ni stays retracted and the parity stays at n = 5.
 

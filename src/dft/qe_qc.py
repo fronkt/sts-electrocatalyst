@@ -59,6 +59,12 @@ _RE_BFGS_CONV = re.compile(r"bfgs converged in\s+(\d+) scf cycles and\s+(\d+) bf
 _RE_MAXSTEP = re.compile(r"The maximum number of steps has been reached")
 _RE_FINAL_E = re.compile(r"Final energy\s+=\s+(-?\d+\.\d+)\s+Ry")
 _RE_NAT = re.compile(r"number of atoms/cell\s+=\s+(\d+)")
+# Third false-success mode, found 2026-07-31 when Ni_slab/s0_O was stopped on purpose:
+# a `<outdir>/<prefix>.EXIT` flag makes pw.x quit gracefully AND print "JOB DONE.", so
+# the run looks finished to every string test we had. The queue log for that job read
+# `rc=0 JOB_DONE=1 SCF_FAIL=0` -- passing the first two clauses of the docs/30 s7
+# acceptance criterion on a job that had not completed a single ionic step.
+_RE_USER_STOP = re.compile(r"Program stopped by user request")
 
 
 def free_mask(infile: str) -> list[bool] | None:
@@ -105,7 +111,7 @@ def scan(outfile: str, infile: str | None = None) -> dict:
     rec: dict = {
         "path": outfile, "exists": os.path.exists(outfile), "job_done": False,
         "n_ionic": 0, "n_scf_ok": 0, "n_scf_fail": 0, "scf_fail_steps": [],
-        "bfgs_converged": False, "max_steps_reached": False,
+        "bfgs_converged": False, "max_steps_reached": False, "user_stopped": False,
         "energy_ry": None, "energy_ev": None, "n_energies": 0,
         "total_force_ry_au": None, "fmax_free_ry_au": None, "fmax_free_ev_ang": None,
         "nat": None, "n_free": None, "verdict": "MISSING", "reasons": [],
@@ -120,6 +126,7 @@ def scan(outfile: str, infile: str | None = None) -> dict:
     rec["n_scf_fail"] = len(_RE_SCF_BAD.findall(txt))
     rec["bfgs_converged"] = bool(_RE_BFGS_CONV.search(txt))
     rec["max_steps_reached"] = bool(_RE_MAXSTEP.search(txt))
+    rec["user_stopped"] = bool(_RE_USER_STOP.search(txt))
     m = _RE_NAT.search(txt)
     if m:
         rec["nat"] = int(m.group(1))
@@ -186,6 +193,10 @@ def scan(outfile: str, infile: str | None = None) -> dict:
         r.append("relaxation hit nstep without converging")
     if not rec["bfgs_converged"] and rec["job_done"] and not rec["max_steps_reached"]:
         r.append("no 'bfgs converged' line (scf-only run, or relax ended abnormally)")
+    if rec["user_stopped"]:
+        r.append("stopped by user request (.EXIT flag) -- pw.x still printed JOB DONE")
+    if rec["energy_ry"] is None:
+        r.append("no '!    total energy' line: the run produced no usable energy at all")
     if rec["fmax_free_ry_au"] is not None and rec["fmax_free_ry_au"] > FMAX_AUDIT_RY_AU:
         r.append(f"free-atom fmax {rec['fmax_free_ry_au']:.4f} Ry/au "
                  f"({rec['fmax_free_ev_ang']:.3f} eV/A) > {FMAX_AUDIT_RY_AU} Ry/au")
@@ -193,7 +204,12 @@ def scan(outfile: str, infile: str | None = None) -> dict:
     if rec["n_scf_fail"] or rec["max_steps_reached"] or (
             rec["fmax_free_ry_au"] is not None and rec["fmax_free_ry_au"] > FMAX_AUDIT_RY_AU):
         rec["verdict"] = "POISONED"
-    elif not rec["job_done"]:
+    # An energy is the whole point of the file. `n_ionic == 0` alone must NEVER buy a
+    # TRUSTWORTHY verdict -- that clause is only meant to admit genuine scf-only runs
+    # (the H2/H2O gas references), and a genuine scf-only run always has an energy.
+    # A relax killed inside ionic step 1 also has n_ionic == 0, and before this guard
+    # it was reported TRUSTWORTHY with a null energy.
+    elif not rec["job_done"] or rec["user_stopped"] or rec["energy_ry"] is None:
         rec["verdict"] = "INCOMPLETE"
     elif rec["bfgs_converged"] or rec["n_ionic"] == 0:
         rec["verdict"] = "TRUSTWORTHY"
