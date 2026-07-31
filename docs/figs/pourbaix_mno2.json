@@ -1,0 +1,116 @@
+{
+ "generated_utc": "2026-07-31T18:18:14+00:00",
+ "conventions": {
+  "dissolved_ion_concentration_M": 1e-06,
+  "concentration_note": "all windows shift ~59 mV per decade of concentration",
+  "oer_equilibrium_V_rhe": 1.229,
+  "rhe_conversion": "V_RHE = V_SHE + 0.0591 * pH (298 K)",
+  "rutile_test": "P4_2/mnm (#136)"
+ },
+ "beta_mno2_experimental": {
+  "phase": "beta-MnO2 (pyrolusite, rutile P4_2/mnm)",
+  "axis": "experimental Delta_Gf (298 K), hand-entered - NOT DFT",
+  "source": "Wagman et al., NBS tables, J. Phys. Chem. Ref. Data 11 Suppl. 2 (1982); cross-checked against Pourbaix, Atlas of Electrochemical Equilibria (1974)",
+  "dissolved_ion_concentration_M": 1e-06,
+  "concentration_sensitivity": "Nernstian edges move ~59 mV per decade of dissolved-ion activity",
+  "solids_included": [
+   "Mn",
+   "MnO",
+   "Mn3O4",
+   "Mn2O3",
+   "MnO2",
+   "Mn(OH)2"
+  ],
+  "ions_included": [
+   "Mn[+2]",
+   "Mn[+3]",
+   "HMnO2[-1]",
+   "MnO4[-2]",
+   "MnO4[-1]"
+  ],
+  "known_omission": "no Mn(III) oxyhydroxide (gamma-MnOOH); affects the lower edge only",
+  "oer_equilibrium_V_rhe": 1.229,
+  "windows": [
+   {
+    "pH": 0.0,
+    "stable": true,
+    "lower_V_she": 1.4071,
+    "upper_V_she": 1.5827,
+    "lower_V_rhe": 1.4071,
+    "upper_V_rhe": 1.5827,
+    "width_V": 0.1757,
+    "reduces_to": "Mn[+2]",
+    "oxidises_to": "MnO4[-1]",
+    "upper_edge_minus_oer_V": 0.3537,
+    "oer_equilibrium_inside_window": false,
+    "operating_1p53VRHE_inside_window": true,
+    "max_eta_before_upper_edge_V": 0.3537
+   },
+   {
+    "pH": 7.0,
+    "stable": true,
+    "lower_V_she": 0.5797,
+    "upper_V_she": 1.0311,
+    "lower_V_rhe": 0.9934,
+    "upper_V_rhe": 1.4448,
+    "width_V": 0.4515,
+    "reduces_to": "Mn[+2]",
+    "oxidises_to": "MnO4[-1]",
+    "upper_edge_minus_oer_V": 0.2158,
+    "oer_equilibrium_inside_window": true,
+    "operating_1p53VRHE_inside_window": false,
+    "max_eta_before_upper_edge_V": 0.2158
+   },
+   {
+    "pH": 13.0,
+    "stable": true,
+    "lower_V_she": 0.2057,
+    "upper_V_she": 0.5583,
+    "lower_V_rhe": 0.974,
+    "upper_V_rhe": 1.3266,
+    "width_V": 0.3527,
+    "reduces_to": "Mn2O3(s)",
+    "oxidises_to": "MnO4[-1]",
+    "upper_edge_minus_oer_V": 0.0976,
+    "oer_equilibrium_inside_window": true,
+    "operating_1p53VRHE_inside_window": false,
+    "max_eta_before_upper_edge_V": 0.0976
+   },
+   {
+    "pH": 14.0,
+    "stable": true,
+    "lower_V_she": 0.1466,
+    "upper_V_she": 0.4421,
+    "lower_V_rhe": 0.974,
+    "upper_V_rhe": 1.2695,
+    "width_V": 0.2955,
+    "reduces_to": "Mn2O3(s)",
+    "oxidises_to": "MnO4[-2]",
+    "upper_edge_minus_oer_V": 0.0405,
+    "oer_equilibrium_inside_window": true,
+    "operating_1p53VRHE_inside_window": false,
+    "max_eta_before_upper_edge_V": 0.0405
+   }
+  ]
+ },
+ "analytic_validation": [
+  {
+   "pH": 0.0,
+   "lower_edge_diagram_V_she": 1.4071,
+   "lower_edge_analytic_V_she": 1.4071,
+   "lower_edge_residual_mV": -0.028,
+   "upper_edge_diagram_V_she": 1.5827,
+   "upper_edge_analytic_V_she": 1.5826,
+   "upper_edge_residual_mV": 0.117
+  },
+  {
+   "pH": 7.0,
+   "lower_edge_diagram_V_she": 0.5797,
+   "lower_edge_analytic_V_she": 0.5797,
+   "lower_edge_residual_mV": -0.028,
+   "upper_edge_diagram_V_she": 1.0311,
+   "upper_edge_analytic_V_she": 1.031,
+   "upper_edge_residual_mV": 0.117
+  }
+ ]
+}
