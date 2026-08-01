@@ -45,9 +45,13 @@ if [ ! -f /usr/share/espresso/pseudo/Ru_ONCV_PBE-1.0.oncvpsp.upf ]; then
   fi
   echo "  pseudo dir now holds $(ls /usr/share/espresso/pseudo | wc -l) files" | tee -a "$LOG"
 fi
+# Required UPFs default to the R1 anchor set but can be overridden on the command
+# line, because the campaign that needs the box changes faster than this script does
+# (R3's repair jobs need Cr/Mn/Fe instead of Ru/Ir/Ni). Hard-failing on a missing
+# pseudopotential is the whole point, so the list must match the actual manifest.
+REQUIRED_UPF=${*:-"Ru_ONCV_PBE-1.0.oncvpsp.upf Ir_pbe_v1.2.uspp.F.UPF O.pbe-n-kjpaw_psl.0.1.UPF H.pbe-rrkjus_psl.1.0.0.UPF ni_pbe_v1.4.uspp.F.UPF"}
 MISSING=0
-for p in Ru_ONCV_PBE-1.0.oncvpsp.upf Ir_pbe_v1.2.uspp.F.UPF O.pbe-n-kjpaw_psl.0.1.UPF \
-         H.pbe-rrkjus_psl.1.0.0.UPF ni_pbe_v1.4.uspp.F.UPF; do
+for p in $REQUIRED_UPF; do
   if [ -f "/usr/share/espresso/pseudo/$p" ]; then
     echo "  OK   $p" | tee -a "$LOG"
   else
