@@ -52,14 +52,28 @@ Key corrections to the parked-project record (docs/28 §1–2):
 - [x] 785-frame MLIP training set extracted + validated (`src/dft/qe_frames.py`);
       ASE's espresso-out reader fails on 33 of 44 archived slab outputs
 
-## R1 CAMPAIGN — STAGED, blocked on one approval
-- [ ] **Frank: approve the box** — machine 13822, interruptible $0.30 bid, ~$1.6
-      expected for all 10 jobs, tripwire destroy at $3.20. Everything else is
-      ready: `src/dft/{setup_r1_box,queue_r1}.sh` + `src/dft/jobs_r1.txt`.
-- [ ] Ni rescue (2 prepared restarts) → n=4 [best value/$: p goes 1/3 → 1/12]
-- [ ] Ru/Ir DFT anchors (8 jobs) → the DFT tier's FIRST external validation
-      (lit. η RuO₂ 0.37–0.42 V, IrO₂ ≈0.56 V) and n→6. Gate pre-registered in
-      docs/30 §7 before any number exists.
+## R1 CAMPAIGN — RUN AND CLOSED 2026-08-01 (docs/32, $4.42, instance destroyed)
+- [x] Ru/Ir DFT anchors, 8/8 jobs TRUSTWORTHY, geometries verified textbook.
+      **η(RuO₂) = 0.787 V, η(IrO₂) = 0.781 V.**
+- [x] **GATE NOT MET** (docs/30 §7): both η land inside 0.30–0.90 V (clauses 1–2
+      PASS) but η(Ru) < η(Ir) **FAILS** — by 6 mV, which is a tie, not a
+      mis-ordering. Absolute error +0.39 V (Ru) / +0.22 V (Ir) vs literature.
+- [x] **The deliverable is the tier's measured resolution**: differential error
+      between two similar rutiles ≈ 0.17 V, versus a true Ru–Ir gap of ~0.15 V.
+      Supports **Cr > Fe > {Mn ≈ Ru ≈ Ir}** — three distinguishable levels over
+      five materials. R0's negative result is untouched (ρ = −1.00 is far larger
+      than any resolution question).
+- [x] IrO₂ `*OOH`/`*OH` scaling = 3.652 eV (+0.45 outside band) while Ru = 3.180
+      (textbook) — so not a pipeline systematic. H-bond explanation tested and
+      REFUTED (both `*OH` near-identical, neither H-bonded). Unresolved, recorded
+      both ways, η unaffected (`pls = 3` never touches ΔG_OH).
+- [x] Ni rescue FAILED: `s0_O` stalled and was killed, `s0_OH` orphaned. Ni stays
+      retracted, **n = 5**.
+- [ ] **Frank's call — Ni rescue round 2, ~$5–9?** Buys error tolerance (at n=5
+      only a perfect ordering reaches p<0.05; at n=6 two errors still clear it),
+      but if η(Ni) lands near 0.8 V it joins the unresolved cluster and buys
+      nothing. Needs a two-stage SCF protocol (smooth-`degauss` pre-converge, then
+      production `degauss`). Not spent.
 
 ## DECISION FORK (docs/29 §7) — now effectively A **and** B; confirm
 - [x] **Path A** banked and QC-hardened (the negative is stronger after the audit)
