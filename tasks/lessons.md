@@ -92,3 +92,29 @@ which are the actual deliverable.
 to go, seconds per iteration, and *how many ionic steps remain*. The third usually dominates
 and is the one that gets forgotten. A job that cannot finish in budget even if it unsticks
 should be killed the moment you know that, not when it fails.
+
+## 2026-08-01 — Vast's "SSH key associated" is bookkeeping, not installation
+**What happened:** two boxes in a row refused me. The proxy route reported
+`Connection refused`, which reads exactly like a host still provisioning, so I
+destroyed the first one as a bad host. It was not. The **direct** route
+(`public_ipaddr` : `machine_dir_ssh_port`, both in the instance JSON) reported the
+real error — `Permission denied (publickey)`. The container was listening the whole
+time. `ssh -v` then showed my client offering the correct key, the account record
+matched my local `id_ed25519.pub` byte-for-byte, and the attach API answered
+*"SSH key already associated with instance."* All true, and the key was still not in
+the container's `authorized_keys`: `vastai/base-image:cuda-12.4.1-auto` never acts on
+the association.
+**Rule:** never diagnose a Vast box from the proxy alone — it masks auth failures as
+connection refusals. Check the direct route before concluding anything about a host.
+**Fix that always works, regardless of image:** pass an `onstart` that installs the key
+itself, and a sentinel you can verify:
+```
+mkdir -p /root/.ssh && echo '<pubkey>' >> /root/.ssh/authorized_keys &&
+chmod 700 /root/.ssh && chmod 600 /root/.ssh/authorized_keys &&
+echo KEY_INSTALLED > /root/.key_ok
+```
+SSH answered 40 s after `actual_status` went `running`. Cost of diagnosing it the slow
+way: ~$0.12 across two destroyed boxes.
+**Also:** poll `actual_status == "running"`, not `cur_state`. `cur_state` flips to
+`running` when the *contract* is active — billing starts there, but the container may
+still be pulling its image.
