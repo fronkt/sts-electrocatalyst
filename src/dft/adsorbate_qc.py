@@ -31,10 +31,23 @@ import math
 import os
 import sys
 
-#: An adsorbate O further than this from the nearest metal is not chemisorbed.
-#: Real M-O bonds here are 1.6-2.1 A; the failures sit at 3.8-4.0 A. Nothing
-#: legitimate lands in between, so the exact cut is not load-bearing.
-M_O_BOND_MAX = 2.40
+#: CORRECTED 2026-08-02 after the Fe repair. The original single cut at 2.40 A came
+#: with the claim "real M-O bonds are 1.6-2.1 A, the failures sit at 3.8-4.0 A, nothing
+#: legitimate lands in between". That was wrong. Restarting Fe_slab/s0_OOH from a bound
+#: 2.076 A geometry relaxed to **2.552 A at 0.376 eV LOWER** energy than the desorbed
+#: original -- a genuine, weakly-bound minimum sitting squarely in the "impossible"
+#: gap, and within 0.013 A of MACE's independent prediction of 2.565 A.
+#:
+#: So distance alone cannot separate "weakly bound" from "never adsorbed". Use three
+#: tiers, and treat the middle one as a flag for a human rather than a failure.
+M_O_BOUND_MAX = 2.20        #: unambiguous chemisorption
+M_O_DESORBED_MIN = 3.00     #: unambiguously not interacting with the surface
+#: Kept as the back-compatible name used by the CLI; now only the desorption cut.
+M_O_BOND_MAX = M_O_DESORBED_MIN
+#: A relax that "converges" in very few ionic steps never explored anything. Mn and Fe
+#: s0_OOH stopped at 2 and 13 steps; their repaired counterparts took 29+. This caught
+#: the real defect more reliably than any distance threshold did.
+MIN_IONIC_STEPS = 15
 #: Flag a bond this far from the median across metals for the same adsorbate.
 #: Cr/s0_O is +0.29 A against a 1.73 A median; genuine chemistry varies far less.
 BOND_OUTLIER_TOL = 0.20
@@ -48,19 +61,34 @@ def m_o_distances(atoms, metal: str, n_slab: int = 18) -> list[float]:
     return [min(math.dist(a.position, p) for p in mets) for a in atoms[n_slab:]]
 
 
-def check_structure(atoms, metal: str, n_slab: int = 18) -> dict:
-    """Bound/unbound verdict for one relaxed adslab."""
+def check_structure(atoms, metal: str, n_slab: int = 18, n_ionic: int | None = None) -> dict:
+    """Three-tier verdict for one relaxed adslab.
+
+    `tier` is 'bound' (< 2.20 A), 'weak' (2.20-3.00 A) or 'desorbed' (> 3.00 A).
+    Only 'desorbed' fails. 'weak' is a real physical possibility -- FeO2(110) *OOH
+    genuinely minimises at 2.552 A -- so it is surfaced, not rejected.
+
+    Pass `n_ionic` to add the step-count check, which is the more reliable signal:
+    a relax that stopped after a couple of steps never explored anything, whatever
+    distance it happens to sit at.
+    """
     if len(atoms) <= n_slab:
-        return dict(ok=True, reasons=[], n_ads=0, m_o_min=None, height=None)
+        return dict(ok=True, reasons=[], n_ads=0, m_o_min=None, height=None, tier="none")
     d = m_o_distances(atoms, metal, n_slab)
     zsurf = max(a.position[2] for a in atoms[:n_slab])
     height = min(a.position[2] for a in atoms[n_slab:]) - zsurf
+    dmin = min(d)
+    tier = ("bound" if dmin <= M_O_BOUND_MAX
+            else "desorbed" if dmin > M_O_DESORBED_MIN else "weak")
     reasons = []
-    if min(d) > M_O_BOND_MAX:
-        reasons.append(f"adsorbate not bound: nearest {metal}-O = {min(d):.3f} A "
-                       f"(> {M_O_BOND_MAX}); sits {height:+.2f} A above the slab")
+    if tier == "desorbed":
+        reasons.append(f"adsorbate not bound: nearest {metal}-O = {dmin:.3f} A "
+                       f"(> {M_O_DESORBED_MIN}); sits {height:+.2f} A above the slab")
+    if n_ionic is not None and n_ionic < MIN_IONIC_STEPS:
+        reasons.append(f"only {n_ionic} ionic steps (< {MIN_IONIC_STEPS}): the relaxation "
+                       f"barely moved, so this is a starting guess rather than a minimum")
     return dict(ok=not reasons, reasons=reasons, n_ads=len(atoms) - n_slab,
-                m_o_min=round(min(d), 3), height=round(height, 2))
+                m_o_min=round(dmin, 3), height=round(height, 2), tier=tier)
 
 
 def check_thermo(dG_OOH: float) -> list[str]:

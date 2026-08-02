@@ -49,10 +49,27 @@ def test_desorbed_adsorbate_is_caught():
     assert r["m_o_min"] == pytest.approx(3.95, abs=1e-3)
 
 
-def test_boundary_is_not_load_bearing():
-    """Real bonds are 1.6-2.1 A and the failures are 3.8-4.0 A; nothing sits between."""
-    assert aq.check_structure(_slab_with_adsorbate("Cr", 2.10), "Cr")["ok"]
-    assert not aq.check_structure(_slab_with_adsorbate("Cr", 3.40), "Cr")["ok"]
+def test_weakly_bound_minimum_is_flagged_not_failed():
+    """CORRECTION 2026-08-02. The original single 2.40 A cut assumed nothing legitimate
+    sits between chemisorption and desorption. Fe_slab/s0_OOH restarted from 2.076 A
+    relaxed to 2.552 A at 0.376 eV LOWER energy than the desorbed original -- a real
+    minimum in the supposedly impossible gap, and within 0.013 A of MACE's independent
+    2.565 A. A weakly-bound adsorbate must be surfaced, never rejected.
+    """
+    r = aq.check_structure(_slab_with_adsorbate("Fe", 2.552, n_ads=3), "Fe")
+    assert r["tier"] == "weak"
+    assert r["ok"], "a genuine weakly-bound minimum must not be failed"
+    assert aq.check_structure(_slab_with_adsorbate("Cr", 2.10), "Cr")["tier"] == "bound"
+    assert aq.check_structure(_slab_with_adsorbate("Cr", 3.95), "Cr")["tier"] == "desorbed"
+
+
+def test_too_few_ionic_steps_is_caught_regardless_of_distance():
+    """The signal that actually separated the defects: Mn/Fe stopped at 2 and 13 steps,
+    their repaired counterparts took 29+. Distance alone could not do this."""
+    at = _slab_with_adsorbate("Mn", 2.10, n_ads=3)          # perfectly good geometry
+    assert aq.check_structure(at, "Mn", n_ionic=40)["ok"]
+    bad = aq.check_structure(at, "Mn", n_ionic=2)
+    assert not bad["ok"] and "barely moved" in bad["reasons"][0]
 
 
 def test_negative_fourth_step_is_flagged():
