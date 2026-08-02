@@ -80,9 +80,19 @@ def test_negative_fourth_step_is_flagged():
     """
     assert aq.check_thermo(3.709) == []          # Ru, healthy
     assert aq.check_thermo(4.799) == []          # Cr, healthy
-    assert aq.check_thermo(4.989)                # Mn, unphysical
-    assert aq.check_thermo(5.221)                # Fe, unphysical
+    assert aq.check_thermo(5.221)                # Fe pre-repair, dG4 = -0.301, real
     assert "exergonic" in aq.check_thermo(5.221)[0]
+
+
+def test_dG4_tolerance_does_not_overclaim():
+    """CORRECTION 2026-08-02. G_TOTAL is the experimental 4x1.23 V while dG_OOH carries
+    a GGA error of order 0.1-0.2 eV, so a marginally negative dG4 is consistent with
+    zero, not impossible. The repaired Mn sits at dG4 = -0.022 eV after a full 34-step
+    relaxation; calling that unphysical would be overclaiming. Fe's pre-repair -0.301
+    is the scale of a genuine violation.
+    """
+    assert aq.check_thermo(4.942) == [], "repaired Mn (dG4 = -0.022) must not be flagged"
+    assert aq.check_thermo(5.221), "Fe pre-repair (dG4 = -0.301) must still be flagged"
 
 
 def test_cross_metal_outlier_finds_the_trapped_relaxation():

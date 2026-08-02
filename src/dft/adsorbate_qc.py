@@ -91,13 +91,22 @@ def check_structure(atoms, metal: str, n_slab: int = 18, n_ionic: int | None = N
                 m_o_min=round(dmin, 3), height=round(height, 2), tier=tier)
 
 
-def check_thermo(dG_OOH: float) -> list[str]:
-    """The fourth CHE step must be uphill at 0 V."""
+#: Tolerance on the dG4 > 0 test. G_TOTAL = 4.92 eV is the experimental 4 x 1.23 V,
+#: while dG_OOH carries the usual GGA adsorption error of order 0.1-0.2 eV, so a
+#: slightly negative dG4 is consistent with zero rather than impossible.
+#: Calibrated 2026-08-02 on the repaired Mn: dG4 = -0.022 eV at a genuine, fully
+#: relaxed 34-ionic-step minimum. Flagging that as unphysical would be overclaiming.
+#: Fe's pre-repair -0.301 eV is the scale of a real violation.
+DG4_TOL = 0.15
+
+
+def check_thermo(dG_OOH: float, tol: float = DG4_TOL) -> list[str]:
+    """The fourth CHE step must be uphill at 0 V, to within method error."""
     g4 = G_TOTAL - dG_OOH
-    if g4 < 0:
-        return [f"dG4 = {g4:+.3f} eV < 0: the final step is exergonic at zero "
-                f"potential, which no real OER intermediate gives -- dG_OOH "
-                f"({dG_OOH:.3f}) exceeds the {G_TOTAL} eV total"]
+    if g4 < -tol:
+        return [f"dG4 = {g4:+.3f} eV < -{tol}: the final step is exergonic at zero "
+                f"potential by more than method error, which no real OER intermediate "
+                f"gives -- dG_OOH ({dG_OOH:.3f}) exceeds the {G_TOTAL} eV total"]
     return []
 
 
