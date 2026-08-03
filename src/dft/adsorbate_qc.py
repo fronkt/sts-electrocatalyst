@@ -51,6 +51,28 @@ MIN_IONIC_STEPS = 15
 #: Flag a bond this far from the median across metals for the same adsorbate.
 #: Cr/s0_O is +0.29 A against a 1.73 A median; genuine chemistry varies far less.
 BOND_OUTLIER_TOL = 0.20
+
+#: CORRECTED 2026-08-03, third falsification of a threshold in this module. Run over the
+#: repaired tier, the median test flagged Fe/s0_OOH (2.552 A) and Mn/s0_OOH (2.480 A) as
+#: "suspect a trapped relaxation" -- i.e. it condemned the two structures the 2026-08-02
+#: DFT campaign was bought to verify, and which MACE independently reproduced to 0.013 A.
+#:
+#: Measured spread across the five DFT-verified metals:
+#:
+#:     s0_O     span 0.202 A   Cr 1.572  Mn 1.671  Ru 1.698  Ir 1.767  Fe 1.774
+#:     s0_OH    span 0.089 A   Mn 1.848  Fe 1.849  Cr 1.856  Ru 1.929  Ir 1.937
+#:     s0_OOH   span 0.640 A   Ir 1.912  Ru 1.947  Cr 2.076 | Mn 2.480  Fe 2.552
+#:
+#: `*O` and `*OH` cluster tightly, so a median IS a reference for them. `*OOH` does not:
+#: it is **bimodal**, and the split is chemistry rather than error -- the noble rutiles
+#: and Cr chemisorb the peroxo group, while late-3d MnO2/FeO2 bind it weakly. A
+#: median-based outlier test is the wrong instrument for a bimodal distribution; it will
+#: always accuse the smaller mode.
+#:
+#: So the cross-metal test is restricted to the states where uniformity is established.
+#: `*OOH` is covered by the three-tier distance check, the ionic-step check and the dG4
+#: floor -- which are what actually caught Mn, Fe and Ni, none of them by median.
+OUTLIER_STATES = ("s0_O", "s0_OH")
 #: Total OER free energy: sum of the four steps is fixed by thermodynamics.
 G_TOTAL = 4.92
 
@@ -150,9 +172,12 @@ def cmd_check(args):
         if not r["ok"]:
             bad.append((src, r["reasons"]))
 
-    print("\ncross-metal bond outliers (same adsorbate, median reference):")
+    print(f"\ncross-metal bond outliers (median reference; {'/'.join(OUTLIER_STATES)} only "
+          f"-- *OOH binding is bimodal, see module docstring):")
     any_out = False
     for job, bonds in sorted(per_state.items()):
+        if job not in OUTLIER_STATES:
+            continue
         clean = {k: v for k, v in bonds.items() if v is not None and v < M_O_BOND_MAX}
         for msg in cross_metal_outliers(clean):
             print(f"  {job}: {msg}")

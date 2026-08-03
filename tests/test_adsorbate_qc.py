@@ -114,3 +114,34 @@ def test_clean_slab_has_nothing_to_check():
     at = _slab_with_adsorbate("Ru", 1.7)[:18]
     r = aq.check_structure(at, "Ru")
     assert r["ok"] and r["n_ads"] == 0
+
+
+def test_cross_metal_test_does_not_condemn_the_verified_repairs():
+    """CORRECTION 2026-08-03, the third threshold in this module falsified by real data.
+
+    Run over the repaired tier, the median outlier test flagged Fe/s0_OOH (2.552 A) and
+    Mn/s0_OOH (2.480 A) as trapped relaxations -- the two structures the 2026-08-02 DFT
+    campaign was bought to verify, and which MACE independently reproduced to 0.013 and
+    0.06 A. The cause is that `*OOH` binding is BIMODAL across this tier:
+
+        Ir 1.912  Ru 1.947  Cr 2.076  |  Mn 2.480  Fe 2.552
+
+    A median is not a reference for a bimodal distribution -- it always accuses the
+    smaller mode. `*O` (span 0.202 A) and `*OH` (span 0.089 A) are genuinely uniform and
+    the test remains valid there.
+    """
+    ooh = {"Cr": 2.076, "Mn": 2.480, "Fe": 2.552, "Ru": 1.947, "Ir": 1.912}
+    assert "s0_OOH" not in aq.OUTLIER_STATES, "the median test must not run on *OOH"
+    # and if it did, it would wrongly condemn both verified repairs
+    wrongly = aq.cross_metal_outliers(ooh)
+    assert len(wrongly) == 2 and {m.split(":")[0] for m in wrongly} == {"Fe", "Mn"}
+
+
+def test_cross_metal_test_still_applies_where_binding_is_uniform():
+    """*O and *OH stay in scope: their real spreads are 0.202 and 0.089 A."""
+    assert set(aq.OUTLIER_STATES) == {"s0_O", "s0_OH"}
+    o_verified = {"Cr": 1.572, "Mn": 1.671, "Fe": 1.774, "Ru": 1.698, "Ir": 1.767}
+    assert aq.cross_metal_outliers(o_verified) == [], "repaired *O tier must be clean"
+    # the failed Ni s0_O (SCF died at step 17) must still be caught
+    assert any(m.startswith("Ni:") for m in
+               aq.cross_metal_outliers({**o_verified, "Ni": 2.817}))
