@@ -149,3 +149,25 @@ to a **different machine_id**, not merely a different offer on the same machine.
 
 Cost of finding this the slow way: $0.044. Cost of not checking the log first: however
 long you spend re-attaching keys to a box that cannot run sshd.
+
+### Addendum, same day: `intended_status: stopped` on a freshly created instance
+
+The replacement box (46726365) then sat at `actual_status: loading` for ten minutes.
+The log call returned `Error response from daemon: No such container: C.46726365` — the
+container had never been created at all. The reason was in the instance record:
+
+```
+actual_status    loading      <- the field we poll
+cur_state        stopped
+intended_status  stopped      <- Vast never asked the host to start it
+```
+
+`PUT /api/v0/asks/<id>/` returned `{"success": true, "new_contract": ...}` and still left
+the contract in a stopped state. Fixed with an explicit
+`PUT /api/v0/instances/<id>/ {"state": "running"}`.
+
+**So `actual_status` alone is not enough either** — it read `loading` the whole time,
+which is indistinguishable from a slow image pull. Check `intended_status` on any box
+that has not become reachable within a few minutes; if it says `stopped`, no amount of
+waiting will help. Combined rule for a new box: poll `actual_status`, and if it has not
+gone `running` in ~3 min, look at `intended_status` and the boot log before anything else.

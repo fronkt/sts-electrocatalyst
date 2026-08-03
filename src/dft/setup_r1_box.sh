@@ -74,10 +74,12 @@ VER=$(pw.x --version 2>/dev/null | grep -io "v\.\?[0-9.]*" | head -1)
 echo "pw.x version: ${VER:-MISSING}" | tee -a "$LOG"
 [ -n "$VER" ] || { echo "FATAL: pw.x not runnable" | tee -a "$LOG"; exit 1; }
 
-# 3. inputs
-if [ -f /workspace/r1_inputs.tgz ]; then
+# 3. inputs. Tarball name is overridable for the same reason the UPF list is: the
+#    campaign that needs the box changes faster than this script does.
+INPUTS=${INPUTS:-/workspace/r1_inputs.tgz}
+if [ -f "$INPUTS" ]; then
   mkdir -p /workspace/sts
-  tar -xzf /workspace/r1_inputs.tgz -C /workspace/sts
+  tar -xzf "$INPUTS" -C /workspace/sts
   echo "input dirs: $(ls /workspace/sts/runs 2>/dev/null | tr '\n' ' ')" | tee -a "$LOG"
   echo "inputs: $(find /workspace/sts/runs -name '*.in*' | wc -l) files" | tee -a "$LOG"
 fi
