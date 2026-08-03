@@ -1,8 +1,14 @@
 # 29 — R0: Killing the Task-Head Artifact (uma-s-1p2p1 / oc22 re-parity)
 
-**Date:** 2026-07-24 (protocol) / 2026-07-25 (results)
-**Status:** COMPLETE — **R0 gate NOT met** (oc22 Spearman ρ = −0.80). The docs/26 negative
-result is confirmed and un-confounded. Decision point for Frank in §7.
+**Date:** 2026-07-24 (protocol) / 2026-07-25 (results) · **amended 2026-08-03**
+**Status:** COMPLETE — **R0 gate NOT met.** The docs/26 negative result is confirmed and
+un-confounded. Decision point for Frank in §7.
+> ⚠ **READ §8 BEFORE QUOTING ANY ρ IN THIS DOCUMENT.** The headline "oc22 ρ = −0.80,
+> strongly *anti*-correlated" was measured against a DFT reference later found to contain
+> a trapped `Cr_slab/s0_O` relaxation. Against the repaired reference oc22 is
+> **ρ = 0.000** (n = 5) / **+0.500** (n = 3): no rank signal, not an inverted one. The
+> gate verdict is unchanged; the *shape* of the negative is not. Every UMA number below
+> is as-measured and correct — only the DFT column moved.
 **Plan:** [docs/28 §2, §7 R0](28-electrocatalyst-revival-plan.md) · **Supersedes the verdict in**
 [docs/26](26-endmember-parity-checkpoint.md) *if and only if* the gate below says so.
 **Branch:** `r0-catalysis-revival` · **Runner:** `src/dft/uma_oc22_parity.py` ·
@@ -249,3 +255,76 @@ A concurrent session holds a second Vast.ai box (45678136, RTX 3090) running a l
 `pxrd-flow` conditioned-training job. It was inspected read-only and left untouched;
 combined burn of the two boxes against the remaining credit is the reason this campaign
 destroys its box immediately on completion.
+
+---
+
+## 8. Amendment, 2026-08-03 — the reference moved, so every ρ here moved with it
+
+**Nothing measured in this document about UMA has changed.** All 24 relaxations, all
+per-head η, and the anchor analysis of §4 stand exactly as written. What changed is the
+DFT column they were correlated *against*.
+
+On 2026-08-02 three structures in our own reference were found defective and re-run
+(diagnosis: docs/33 §4; outcome: docs/32 §3). The consequential one is `Cr_slab/s0_O`,
+force-converged at a Cr–O bond of 2.016 Å where every other metal reaches 1.67–1.77 Å.
+Restarted short it converged **1.396 eV lower**, moving η(CrO₂) from **1.726 → 0.491 V**
+— from the worst material in the set to the best.
+
+Cr is one of only three 3d endmembers surviving QC, so a 1.235 V move in one of three
+points does not perturb a rank correlation, it re-draws it:
+
+| head | n = 3 (Cr, Mn, Fe) | n = 5 (+ Ru, Ir anchors) | η MAE, n=5 |
+|---|---|---|---|
+| oc20 | +0.500 → **−1.000** | +0.700 → **−0.300** | 0.742 V |
+| **oc22** | **−1.000 → +0.500** | **−1.000 → 0.000** | 0.776 V |
+| oc25 | +0.500 → +0.500 | +0.900 → **+0.400** | 0.464 V |
+
+*(left of each arrow: as published, against the defective reference; right: against the
+repaired one. No p-value here reaches significance at any n — see §8.3.)*
+
+### 8.1 What survives, stated exactly
+
+**Survives:** *no out-of-box UMA head ranks rutile-MO₂(110) OER activity.* The best head
+against the repaired reference is oc25 at ρ = +0.400 (exact two-sided p = 0.52), and oc25
+is the QC-tainted exploratory leg. The pre-registered §3 gate asked for ρ ≥ 0.8; nothing
+comes near it. **The R0 verdict is unchanged.**
+
+**Withdrawn:** the stronger claim that oc22 is *anti*-correlated — "not merely ~0 but
+strongly anti-correlated, worse than the docs/26 baseline it was supposed to rescue"
+(§4 verdict), and its restatement in docs/30 §7 as ρ = −1.00 that "SURVIVES and sharpens".
+oc22 against the repaired reference is ρ = 0.000 at n = 5. It lands on the gate's "≈ 0"
+branch, which is where the gate table already said the negative result becomes the
+finding — so the conclusion arrives by the route the protocol pre-registered, rather than
+by the more dramatic one we reported.
+
+**Also withdrawn:** the §4b claim that "all four sit far out on the weak-O-binding leg"
+and that this is *why* none is a good catalyst. Cr's repaired descriptor is 1.560 eV
+against the Man 2011 apex of 1.60 — it is **on** the apex, step-3 limited, not out on the
+weak-binding leg at 2.956. The scaling-relation motivation for the HEA thesis is intact
+for Mn and Fe; it no longer describes Cr, and Cr is now the most active point we have.
+
+### 8.2 An honest accounting of who was wrong
+
+The oc22 head placed CrO₂ at η = 0.690 V while our DFT said 1.726 V, and that single
+disagreement carried most of the anti-correlation. **The model was closer to the repaired
+answer (0.491 V) than our own DFT was.** MACE-MPA-0 independently found the same short
+bond and predicted η(Cr) = 0.500 V — a 9 mV error against the DFT that eventually
+confirmed it. Two independent MLIPs disagreed with our reference in the same direction,
+and both were right. That is the strongest evidence in this campaign that MLIP screening
+has value, and it arrived as a byproduct of a negative result.
+
+It should also be said plainly that this was found only because the R3 evaluation chased
+a single outlier rather than reporting the aggregate. The QC tooling of docs/30 could not
+have caught it: `qe_qc` is entirely numerical and the trapped run is a genuine, honestly
+converged stationary point. `src/dft/adsorbate_qc.py` exists now to close that gap.
+
+### 8.3 The real limit is n, and it always was
+
+At n = 3 the only attainable |ρ| are 1.0 and 0.5, and *every* exact two-sided p is 1.000 —
+no result at n = 3 can be significant in either direction. At n = 5 only a perfect
+ordering reaches p < 0.05 (ρ = 1 → p = 0.017). So neither the published ρ = −1.00 nor the
+corrected ρ = 0.000 was ever a *statistically* supported statement; both are descriptive.
+This does not weaken the R0 negative — a screener that needs to be usable must clear
+ρ ≥ 0.8, and the burden of proof there is on the positive claim — but it does mean the
+campaign's binding constraint is the number of metals, not the choice of task head. That
+is what `tasks/todo.md` R3 now spends on.

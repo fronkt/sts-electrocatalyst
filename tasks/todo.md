@@ -52,6 +52,27 @@ Key corrections to the parked-project record (docs/28 §1–2):
 - [x] 785-frame MLIP training set extracted + validated (`src/dft/qe_frames.py`);
       ASE's espresso-out reader fails on 33 of 44 archived slab outputs
 
+## REFERENCE REPAIR — RUN AND CLOSED 2026-08-02 (docs/33 §5b, $2.64, instance destroyed)
+- [x] Three structures that passed `qe_qc` were chemically wrong; all three re-run, all
+      three superseded. **η(CrO₂) 1.726 → 0.491 V** (Cr–O 2.016 → 1.572 Å, −1.396 eV);
+      Fe/Mn `*OOH` finally bound at 2.552/2.480 Å. η(Fe), η(Mn) unchanged (both pls=2).
+- [x] MACE-MPA-0 had predicted all three: η(Cr) to **9 mV**, Fe–O to 0.013 Å, Mn–O to
+      0.06 Å. **The MLIP was right and our DFT reference was wrong.**
+- [x] `src/dft/adsorbate_qc.py` added (chemical validity, which `qe_qc` is blind to by
+      construction). Two of its own thresholds were then falsified by the repair results
+      and corrected — both pinned in `tests/test_adsorbate_qc.py`.
+- [x] **2026-08-03: the repaired outputs had been written NEXT TO the reference**
+      (`.out.shortbond` / `.out.bound`) so `dft_reference()` still returned the trapped Cr
+      for a day. Files swapped, defective ones kept as `.out.trapped-*`/`.out.desorbed-*`,
+      `tests/test_dft_reference.py` added to pin it. 59 tests pass.
+- [x] Docs 29/30/32/33 corrected; pre-repair versions archived with provenance headers.
+      **R0 headline changes shape**: oc22 goes ρ = −1.000 → **0.000** (n=5) / **+0.500**
+      (n=3). "No out-of-box UMA head ranks rutile OER" SURVIVES (best is oc25 at +0.400,
+      p = 0.52). "oc22 ranks them *backwards*" is WITHDRAWN — and a material part of that
+      anti-correlation was our own trapped Cr. docs/29 §8.
+- [ ] Cost overrun to note: $2.64 vs a $0.6–1.1 estimate. Magnetic 3d slabs with 32–36
+      k-points run 10–12 h, not the 3–5 h projected off the non-magnetic anchors.
+
 ## R1 CAMPAIGN — RUN AND CLOSED 2026-08-01 (docs/32, $4.42, instance destroyed)
 - [x] Ru/Ir DFT anchors, 8/8 jobs TRUSTWORTHY, geometries verified textbook.
       **η(RuO₂) = 0.787 V, η(IrO₂) = 0.781 V.**
@@ -69,11 +90,31 @@ Key corrections to the parked-project record (docs/28 §1–2):
       both ways, η unaffected (`pls = 3` never touches ΔG_OH).
 - [x] Ni rescue FAILED: `s0_O` stalled and was killed, `s0_OH` orphaned. Ni stays
       retracted, **n = 5**.
-- [ ] **Frank's call — Ni rescue round 2, ~$5–9?** Buys error tolerance (at n=5
-      only a perfect ordering reaches p<0.05; at n=6 two errors still clear it),
-      but if η(Ni) lands near 0.8 V it joins the unresolved cluster and buys
-      nothing. Needs a two-stage SCF protocol (smooth-`degauss` pre-converge, then
-      production `degauss`). Not spent.
+- [ ] ~~**Frank's call — Ni rescue round 2, ~$5–9?**~~ **SUPERSEDED 2026-08-03 — this is
+      now the top-priority spend, re-costed at ~$4, and it beats the fine-tune.** See
+      docs/32 §5 and docs/33 §6. Three changes:
+      - **Price**: measured, not guessed — 4 concurrent magnetic-3d jobs ≈ $4 (from the
+        repair run's 3 jobs / 12.1 h / $2.64), inside the $8.46 credit.
+      - **Scope**: run Ni (`s0_O`, `s0_OH`) **and** Co (`s0_O`, `s0_OOH`) together. Both
+        died on the same SCF-plateau pathology, so both need the two-stage `degauss`
+        protocol and neither is safe alone; running both means one failure still gives
+        n = 6, and success on both gives n = 7.
+      - **Why it beats the $1.9 fine-tune**: at n = 5 *only* a perfect ordering reaches
+        p < 0.05, and MACE's single error is the Ru/Ir pair our own DFT separates by
+        6 mV — so the gate asks a model to reproduce an ordering the reference cannot
+        resolve, and a perfect score would be indistinguishable from luck. At n = 6 the
+        **free** model, keeping the error it already has, gives ρ = 0.943, p = 0.017.
+- [ ] **PREREQUISITE — fix the constraint mask before buying either.** docs/30 §3's
+      float-tie is not evenly spread: Cr/Mn/Fe/Cu/Ru/Ir all have the same 11 free atoms,
+      **Co has 8, Ni has 7** — the two exceptions are exactly the two candidates. Adding
+      either as shipped injects a systematic into the quantity the gate measures.
+      `mlip_predict.py maskbias` prices it; > ~0.05 V means their existing TRUSTWORTHY
+      states are also on the wrong mask and each metal costs 4 jobs, not 2.
+- [ ] **FREE, DO FIRST — `mlip_predict.py predict`.** A sixth point inside the
+      0.78–0.89 V cluster ({Ir, Ru, Mn}, unresolved) buys nothing. MACE-MPA-0 is at
+      η MAE = 0.149 V, enough to say which candidate lands outside it before renting
+      anything. Validated first on the five knowns; the prediction goes on record so the
+      DFT tests it rather than fits it.
 
 ## DECISION FORK (docs/29 §7) — now effectively A **and** B; confirm
 - [x] **Path A** banked and QC-hardened (the negative is stronger after the audit)

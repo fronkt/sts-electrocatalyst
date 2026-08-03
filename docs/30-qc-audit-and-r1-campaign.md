@@ -78,8 +78,16 @@ Re-running `parity_r0.py` with Ni excluded (`docs/figs/uma_oc22_parity_qc.{json,
 | **1p2 / oc22 (the hypothesis)** | **−0.800** | **−1.000** | −0.946 | 0.698 |
 | 1p2 / oc25 (exploratory) | +0.200 | +0.500 | +0.672 | 0.277 |
 
-**The docs/29 verdict survives and sharpens**: across the three trustworthy endmembers the
-oxide-specialised `oc22` head ranks rutile OER *perfectly backwards*. The anchors still
+> ⚠ **AMENDED 2026-08-03 — the paragraph below is WITHDRAWN.** The n=3 column was
+> computed against a DFT reference whose `Cr_slab/s0_O` was trapped at a long Cr–O bond
+> (docs/33 §4); the repaired run moved η(Cr) from 1.726 → 0.491 V. Cr is one of these
+> three points, so the column changes sign: **oc22 goes −1.000 → +0.500**, oc20 goes
+> +0.500 → −1.000, oc25 stays +0.500. Full corrected table and what survives: docs/29 §8.
+> The *gate verdict* is unchanged (no head reaches ρ ≥ 0.8, at any n); the claim that
+> oc22 ranks rutile OER "perfectly backwards" is not.
+
+~~**The docs/29 verdict survives and sharpens**: across the three trustworthy endmembers the
+oxide-specialised `oc22` head ranks rutile OER *perfectly backwards*.~~ The anchors still
 exonerate the pipeline (oc20/oc25 place IrO₂ at 0.52/0.57 V against a ~0.56 V literature
 band). Nothing in R0's conclusion depended on Ni.
 

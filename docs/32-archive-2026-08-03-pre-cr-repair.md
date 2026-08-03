@@ -1,3 +1,13 @@
+> **ARCHIVED 2026-08-03 — superseded by `32-anchor-gate-verdict.md`.**
+>
+> Provenance: this is docs/32 exactly as written on 2026-08-01, before the three DFT
+> repair jobs of 2026-08-02. Its §3 ranking table carries η(Cr) = 1.726 V from a
+> `Cr_slab/s0_O` relaxation that was later shown to be trapped at a Cr–O bond of
+> 2.016 Å; restarting it at 1.609 Å converged 1.396 eV lower and moved η(Cr) to
+> 0.491 V, which **inverts** the tier statement in §3. Kept because the anchor
+> measurement itself (§1, §2, §4 — the 6 mV Ru/Ir tie and the 0.17 V differential
+> resolution) is unaffected and was the deliverable those jobs were bought for.
+
 # 32 — RuO₂/IrO₂ anchor verdict: the DFT tier's resolution, measured
 
 Campaign run 2026-07-31 → 2026-08-01 on Vast instance 46420594 (dual EPYC 7742).
@@ -45,60 +55,38 @@ worth more than a passed one that yields none.
 
 ## 3. What this costs the ranking claims
 
-**REVISED 2026-08-03.** The table below is the repaired record. As first published on
-2026-08-01 it carried η(Cr) = 1.726 V and descriptor 2.956 from a `Cr_slab/s0_O`
-relaxation later shown to be trapped (docs/33 §4): force-converged at a Cr–O bond of
-2.016 Å, where every other metal reaches 1.67–1.77 Å. Restarted at 1.609 Å it converged
-**1.396 eV lower**, moving Cr from the worst material in the set to the best. The
-pre-repair version is preserved at
-[`32-archive-2026-08-03-pre-cr-repair.md`](32-archive-2026-08-03-pre-cr-repair.md).
-
 Full DFT record, n = 5, QC-gated:
 
-| metal | descriptor | pls | η_DFT | |
-|-------|-----------|-----|-------|---|
-| Cr | 1.560 | 3 | **0.491** | was 2.956 / pls 2 / 1.726 V |
-| Ir | 1.641 | 3 | 0.781 | |
-| Ru | 1.163 | 3 | 0.787 | |
-| Mn | 2.122 | 2 | 0.892 | |
-| Fe | 2.493 | 2 | 1.263 | |
+| metal | descriptor | pls | η_DFT |
+|-------|-----------|-----|-------|
+| Cr | 2.956 | 2 | 1.726 |
+| Fe | 2.493 | 2 | 1.263 |
+| Mn | 2.122 | 2 | 0.892 |
+| Ru | 1.163 | 3 | 0.787 |
+| Ir | 1.641 | 3 | 0.781 |
 
 Applying the 0.17 V differential error as a resolution floor, the separations are
-Cr→Ir 0.290 V (resolved), Ir→Ru 0.006 V (**not** resolved), Ru→Mn 0.105 V (**not**
-resolved), Mn→Fe 0.371 V (resolved). The tier therefore supports
+Cr→Fe 0.463 V (resolved), Fe→Mn 0.371 V (resolved), Mn→Ru 0.105 V (**not** resolved),
+Ru→Ir 0.006 V (**not** resolved). The tier therefore supports roughly
 
-> **Cr < {Ir ≈ Ru ≈ Mn} < Fe** — still three distinguishable levels across five
-> materials, but Cr has moved from the bottom of the ladder to the top.
+> **Cr > Fe > {Mn ≈ Ru ≈ Ir}** — three distinguishable levels across five materials.
 
 Caveat, stated plainly: 0.17 V is a *two-point* estimate, and literature η themselves
 carry setup dependence. It is an order-of-magnitude resolution estimate, not a
 rigorous error bar. But it is the only empirical one this project has.
 
-**Cr now sits essentially on the volcano apex** — descriptor 1.560 against Man 2011's
-1.60, i.e. 0.04 eV away, with η = 0.491 V beating both noble anchors in our own DFT.
-That is a strong claim about a material with no established OER pedigree, and it rests
-on a number that moved 1.24 V from a single geometry fix. It must not be written up
-before the U-sensitivity and magnetic-state ladder measures how firm it is (`tasks/todo.md`
-R1 hygiene, promoted to required for exactly this reason). Note also that the claim
-survives contact with R2 only as a *tension*: docs/31 finds CrO₂ has **no aqueous
-stability window at any pH** — it dissolves as chromate. The most active endmember in
-this set is the one that cannot exist as an electrode.
-
 Consequence for R0: the Spearman test of UMA against DFT is weaker than n = 5 implies,
-because the middle three targets are not reliably ordered among themselves. Combined
+because the bottom three targets are not reliably ordered among themselves. Combined
 with the exact permutation arithmetic (see `tasks/todo.md` R3), a significant rank
-claim from this data is not currently reachable. **The R0 negative changes shape.**
-It was written as "oc22 is *anti*-correlated at ρ = −1.00, a failure far larger than
-any resolution question". Against the repaired reference oc22 gives **ρ = 0.000** at
-n = 5 — no rank signal rather than an inverted one. The claim "no out-of-box UMA head
-ranks rutile OER" survives; the stronger claim that it ranks them *backwards* does not,
-and a material part of that anti-correlation was our own trapped Cr. See docs/29 §8.
+claim from this data is not currently reachable. **This does not touch the R0 negative
+result** — "no out-of-box UMA head ranks rutile OER" survives, because oc22 was
+*anti*-correlated at ρ = −1.00, a failure far larger than any resolution question.
 
-Also worth noting: the clean structural split is unchanged in kind but not in
-membership. Mn and Fe sit at descriptors 2.12–2.49, far onto the weak-O-binding leg
-(apex 1.60) and step-2 limited; Cr, Ru and Ir sit at 1.16–1.64, near the apex and
-step-3 limited. Cr moved across that divide when it was repaired — the trapped
-geometry had put it on the wrong leg of the volcano entirely.
+Also worth noting: there is a clean structural split. The three 3d rutiles sit at
+descriptors 2.12–2.96, far onto the weak-O-binding leg (apex 1.60) and step-2 limited;
+both noble rutiles sit at 1.16–1.64, near the apex and step-3 limited. The tier gets
+that coarse chemistry right, which is consistent with it resolving ~0.4 V differences
+and not ~0.1 V ones.
 
 ## 4. The IrO₂ scaling deviation — unresolved, recorded both ways
 
@@ -154,37 +142,6 @@ of the unresolved cluster and buys nothing. A rescue would need the two-stage SC
 protocol (smooth-`degauss` pre-converge, then production `degauss` for the energies)
 at ~$5–9. **Owner's call; not spent.**
 
-**REVISED 2026-08-03.** Three things have changed and all of them are actionable:
-
-- **The price came down.** $5–9 was a guess. The 2026-08-02 repair run measured the real
-  thing: three concurrent magnetic 3d jobs, 12.1 h wall, **$2.64** on a $0.21/hr box
-  (docs/33 §5b). Four concurrent jobs land near **$4**, inside the current $8.46 credit.
-- **Co is a second route, at the same price.** Ni is missing `s0_O`/`s0_OH` (both
-  POISONED); Co is missing `s0_O`/`s0_OOH` (never converged). Both died on the *same*
-  SCF-plateau pathology, so neither is safe alone — but running both means one failure
-  still yields n = 6, and success on both yields n = 7.
-- **The "buys nothing if it lands near 0.8 V" worry is now testable for $0.** MACE-MPA-0
-  reaches η MAE = 0.149 V against the repaired reference (docs/33 §3), which is enough to
-  say whether a candidate will fall inside the unresolved cluster *before* renting
-  anything. `src/dft/mlip_predict.py` does this, and records the prediction first so the
-  DFT tests it rather than fits it.
-
-One prerequisite, found 2026-08-03 and not previously flagged. The docs/30 §3 constraint
-float-tie is **not** evenly distributed:
-
-| free slab atoms | metals |
-|---|---|
-| 11 — `[2,3,4,5,10,12,13,14,15,16,17]` | Cr, Mn, Fe, Cu, Ru, Ir |
-| 8 | **Co** |
-| 7 | **Ni** |
-
-Six of eight share one mask, and the two exceptions are precisely the two candidates for
-the sixth point. Buying Ni or Co as shipped would add a point relaxed under different
-freedom than the five it is being ranked against — injecting a systematic into the exact
-quantity the gate measures. `mlip_predict.py maskbias` prices it; if the shift exceeds
-~0.05 V, their existing TRUSTWORTHY states are also on the wrong mask and each metal
-costs four jobs rather than two.
-
 ## 6. Ledger
 
 | | |
@@ -195,4 +152,3 @@ costs four jobs rather than two.
 | New η on record | η(RuO₂) = 0.787 V, η(IrO₂) = 0.781 V |
 | Gate | **NOT MET** (clause 3, by 6 mV) |
 | Tier resolution | ~0.17 V differential; ~3 distinguishable levels over 5 materials |
-| Amended 2026-08-03 | η(CrO₂) 1.726 → **0.491 V** (docs/33 §5b); §3 tier statement inverted; Ni/Co rescue re-costed at ~$4 and gated on the mask fix |
