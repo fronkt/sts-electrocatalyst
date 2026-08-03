@@ -113,7 +113,18 @@ Key corrections to the parked-project record (docs/28 §1–2):
       Same metal, same geometries, mask swapped: Ni 1.200 → 1.196, Co 0.883 → 0.882,
       against a 0.17 V tier resolution. So Ni/Co **reuse their existing TRUSTWORTHY
       states — 2 jobs each, not 4** — and docs/30 §3's ranking concern is largely retired.
-- [ ] **THE BUY: Ni + Co, 4 concurrent jobs, ~$4.** Not Cu. Rationale in docs/34 §4: no
+- [x] **LAUNCHED 2026-08-03 — instance 46726365 (Norway, 96 vCPU, $0.268/hr), 5 jobs.**
+      Became 5 jobs not 4: `adsorbate_qc` found `Ni_slab/s0_OOH` **desorbed at 3.080 A**
+      despite 39 converged ionic steps and a TRUSTWORTHY verdict — a fourth instance of
+      the same defect. Every job starts from the MACE minimum, not the builder placement,
+      because the builder's ~3.1 A `*OOH` has now failed on Mn, Fe AND Ni (and MACE says
+      Co would follow: builder 2.983 A vs pulled-in 2.105 A at 0.427 eV lower).
+      Two-stage SCF: `scf` at degauss 0.03 -> `relax` at production 0.01 with
+      `startingpot='file'`. **Both metals that had never converged passed stage A**
+      (Co 6134 s, Ni 6957 s) — the plateau that killed three prior attempts is beaten.
+      All four pseudopotential MD5s verified identical to the archived runs.
+      Infra cost of getting there: $0.044 on a broken box (3 new lessons in lessons.md).
+- [ ] ~~**THE BUY: Ni + Co, 4 concurrent jobs, ~$4.**~~ (superseded by the line above) Not Cu. Rationale in docs/34 §4: no
       candidate lands in clear space (Ni is 0.063 V from Fe, Co 0.009 V from Mn), so each
       brings its own unresolvable pair — which is exactly why n = 7 beats n = 6. If all
       three unresolvable pairs swap: n=7 → ρ 0.893, p **0.0123** (clears comfortably);
