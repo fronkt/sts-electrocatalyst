@@ -118,3 +118,34 @@ way: ~$0.12 across two destroyed boxes.
 **Also:** poll `actual_status == "running"`, not `cur_state`. `cur_state` flips to
 `running` when the *contract* is active — billing starts there, but the container may
 still be pulling its image.
+
+## 2026-08-03 — a Vast box can be broken in a way the status field never shows
+
+`actual_status: running`, `status_msg: "success, running ..."`, SSH port open and
+answering — and the instance was still unusable. Instance 46725846 (machine 129402) had
+its own launcher in a crash loop:
+
+```
+/.launch: line 48: ssh: command not found      <- once per second, forever
+```
+
+Symptoms that looked like the familiar key problem but were not:
+- direct route `public_ipaddr:machine_dir_ssh_port` → `Permission denied (publickey)`
+- proxy route `ssh_host:ssh_port` → `Connection refused` (the reverse tunnel never opened)
+- `POST /instances/<id>/ssh/` → `"SSH key already associated with instance."`
+
+**Rule: when SSH fails on a fresh box, pull the boot log BEFORE re-trying, re-keying, or
+waiting.** One call settles in seconds what guessing costs minutes of billed time:
+
+```
+PUT /api/v0/instances/request_logs/<id>/   {"tail":"120"}   -> {"result_url": ...}
+# then GET result_url (S3, takes ~5-20 s to populate)
+```
+
+`Permission denied (publickey)` means the container's sshd is up and the key is missing.
+`Connection refused` on the proxy route means the launcher never registered the tunnel —
+that one is a broken host, and no amount of key installation fixes it. Destroy and move
+to a **different machine_id**, not merely a different offer on the same machine.
+
+Cost of finding this the slow way: $0.044. Cost of not checking the log first: however
+long you spend re-attaching keys to a box that cannot run sshd.
