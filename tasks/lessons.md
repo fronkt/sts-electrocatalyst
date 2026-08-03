@@ -171,3 +171,24 @@ which is indistinguishable from a slow image pull. Check `intended_status` on an
 that has not become reachable within a few minutes; if it says `stopped`, no amount of
 waiting will help. Combined rule for a new box: poll `actual_status`, and if it has not
 gone `running` in ~3 min, look at `intended_status` and the boot log before anything else.
+
+### Addendum 2: neither SSH route is diagnostic on its own
+
+The 2026-08-02 lesson said "diagnose via the direct route `public_ipaddr`:`machine_dir_ssh_port`".
+That was right for the box it was written on and **wrong for the next two**:
+
+| box | direct route | proxy route (`ssh_host`:`ssh_port`) | truth |
+|---|---|---|---|
+| 46518763 (08-02) | answers, key missing | — | key not installed |
+| 46725846 (08-03) | `Permission denied` | `Connection refused` | host launcher crash-looping |
+| 46726365 (08-03) | never answers | **works** | fine; host exposes proxy only |
+
+On the last one I polled the direct route for ten minutes while sshd was up and healthy
+the whole time, with my key installed — the boot log said `ONSTART_KEYS 1`,
+`ONSTART_SSHD 1`, `Server listening on 0.0.0.0 port 22`.
+
+**Rule: try BOTH routes, and treat the boot log as the only authority.** A host may
+expose either, both, or neither. `Permission denied` from one route while the other is
+refused is a broken launcher, not a key problem. And put explicit markers in the
+`onstart` script (`echo ONSTART_KEYS $(wc -l < authorized_keys)`) so the log answers
+"was the key installed?" directly instead of by inference from a failed connection.
