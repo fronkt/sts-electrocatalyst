@@ -192,3 +192,32 @@ expose either, both, or neither. `Permission denied` from one route while the ot
 refused is a broken launcher, not a key problem. And put explicit markers in the
 `onstart` script (`echo ONSTART_KEYS $(wc -l < authorized_keys)`) so the log answers
 "was the key installed?" directly instead of by inference from a failed connection.
+
+## 2026-08-03 — every threshold I encoded about "normal" chemistry was too narrow
+
+Three separate thresholds in `src/dft/adsorbate_qc.py` were falsified by the very data
+they were written to judge, inside 48 hours:
+
+| threshold | asserted | falsified by |
+|---|---|---|
+| `M_O_BOND_MAX = 2.40 A` | "real bonds are 1.6-2.1, failures at 3.8-4.0, **nothing legitimate lands in between**" | Fe `*OOH` relaxed to a genuine minimum at **2.552 A**, 0.376 eV below the desorbed original |
+| `dG4 > 0` | "no real OER intermediate gives an exergonic fourth step" | repaired Mn gives **-0.022 eV** after a full 34-step relaxation; G_TOTAL is experimental while dG_OOH carries 0.1-0.2 eV of GGA error |
+| median outlier test, all states | "genuine chemistry varies far less than 0.20 A" | `*OOH` binding is **bimodal** (Ir/Ru/Cr 1.91-2.08 vs Mn/Fe 2.48-2.55); the test accused both DFT-verified repairs |
+
+The pattern is one-directional: **I never encoded a threshold that was too permissive.**
+Every one assumed the physical spread was narrower than it is, and each was written in
+confident prose ("nothing legitimate lands in between") that made it harder to question.
+
+Rules taken from this:
+
+1. **Derive thresholds from the data you already have, not from what sounds physical.**
+   Print the actual spread first (`s0_O` 0.202 A, `s0_OH` 0.089 A, `s0_OOH` 0.640 A) and
+   set the cut from it. Two of the three would have been caught by looking.
+2. **A summary statistic assumes a shape.** A median-based outlier test silently assumes
+   unimodality. Check the distribution before choosing the statistic, especially when a
+   physical mechanism (weak vs strong chemisorption) could split it.
+3. **Prefer a three-tier verdict to a binary one** where the middle is genuinely
+   ambiguous: bound / weak / desorbed, with only the extreme failing and the middle
+   surfaced for a human. A binary cut forces a wrong answer on every ambiguous case.
+4. **When a check fires on data you independently verified, the check is the suspect.**
+   All three of these were found that way, not by reasoning about the threshold.
