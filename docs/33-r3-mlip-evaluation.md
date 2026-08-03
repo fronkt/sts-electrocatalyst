@@ -55,22 +55,28 @@ functional with a different energy zero* directly comparable to our PBE+U number
 Single-point on the DFT-relaxed geometries of the five QC-passing metals, zero
 fine-tuning, zero alignment:
 
-| model | ρ(descriptor) | ρ(η) | 15-point ΔG MAE | signed bias |
-|---|---|---|---|---|
-| MACE-MPA-0 (2024) | **+1.000** (exact p = 0.017) | +0.900 (p = 0.083) | 0.264 eV | −0.258 |
-| MACE-MP-0 (2023) | +0.900 | +0.900 | 0.336 eV | **+0.316** |
-| UMA-oc22 | — | **−1.00** † | — | — |
+**Re-measured 2026-08-03 on repaired frames and the repaired reference.** The original
+row set was computed against the defective reference *and* on the defective geometries;
+re-running both models on the re-extracted frames makes the comparison matched again
+(§3a explains why an unmatched re-score is meaningless rather than merely shifted).
 
-**⚠ This entire table was measured against the defective reference, and re-scoring it is
-not a matter of swapping one column.** See §3a: the single-point mode is *invalidated* by
-the repair, not merely shifted, because the geometries it evaluates on are the defective
-ones. The claim this section makes — that foundation models rank rutile OER out of the
-box — survives, but it now rests on the **model-relaxed** result (§3), which is the harder
-test and the one that does not depend on our geometries at all. UMA-oc22 is ρ = 0.000
-against the repaired reference (docs/29 §8), not −1.00.
+| model | ρ(descriptor) | ρ(η) | 15-point ΔG MAE | η MAE | signed bias |
+|---|---|---|---|---|---|
+| MACE-MPA-0 (2024) | +0.900 | **+0.900** (p = 0.083) | **0.250 eV** | **0.164 V** | −0.227 |
+| MACE-MP-0 (2023) | +0.900 | +0.800 (p = 0.133) | 0.375 eV | 0.173 V | **+0.365** |
+| UMA-oc22 | — | **0.000** | — | 0.776 V | — |
 
-Different vintages, different training sets, **opposite sign of systematic bias**, both
-strongly positive. Not a lucky checkpoint.
+*(as first published, against the defective reference: MPA-0 ρ(descr) +1.000 / ρ(η) +0.900
+/ MAE 0.264; MP-0 +0.900 / +0.900 / 0.336; oc22 ρ(η) −1.00.)*
+
+Different vintages, different training sets, **opposite sign of systematic bias**
+(−0.227 vs +0.365 eV), both strongly positive in rank. Not a lucky checkpoint. MACE-MPA-0
+is the better model on every metric, which is the expected ordering for the newer
+checkpoint and a mild sanity check on the pipeline.
+
+Worth stating on its own: single-point MACE-MPA-0 puts **η(CrO₂) at 0.501 V against the
+repaired DFT's 0.491** — a 10 mV error on the structure our own reference had wrong by
+1.235 V.
 
 So docs/29's "no out-of-box head ranks rutile OER" was really **"no UMA head does"** —
 only oc20/oc22/oc25 were ever tested. That is a meaningful narrowing of the R0 claim
@@ -109,9 +115,18 @@ Chasing that single outlier is what produced §4, and §5b then settled it with 
 model was right and our reference was wrong.** The third column above is the same MACE
 run, unchanged, re-scored against the repaired reference. So the honest reading of this
 section is the opposite of the one it was opened with — the like-for-like test did not
-break, it *detected a defect in the target*. A model-relaxed evaluation is strictly more
-informative than a single-point one for exactly this reason: it is free to disagree about
-geometry, and that disagreement is the diagnostic.
+break, it *detected a defect in the target*.
+
+**And once the frames were re-extracted too, the gap closed entirely** (§3a): single-point
+on matched geometries also gives ρ(η) = +0.900, η MAE 0.164 V. There was never a
+single-point-vs-relaxed difference to explain. What looked like one was the trapped Cr
+`*O` appearing in the frames file, so the two modes disagreed only about a structure that
+was wrong in the first place.
+
+The residual reason to prefer model-relaxed is narrower than "it scores better", and
+survives the correction: it is free to disagree about geometry, and that disagreement is
+the diagnostic that found four defects in our own reference. A single-point cannot
+produce that signal because it never proposes a geometry of its own.
 
 `report()` now requires an explicit `mode` string so a single-point run can never be
 recorded as a relaxed one. `dft_reference()` reads `<state>.out`, and on 2026-08-02 the
@@ -122,29 +137,41 @@ files were swapped on 2026-08-03 and `tests/test_dft_reference.py` now pins the 
 
 ## 3a. The two modes swapped places, and that is the cleanest evidence in the campaign
 
-Re-scoring the *stored, unchanged* MACE predictions against the repaired reference:
+Re-scoring the *stored, unchanged* MACE predictions against the repaired reference made
+the two modes appear to exchange scores exactly:
 
-| | vs defective ref | vs repaired ref |
-|---|---|---|
-| MACE-MPA-0, **single-point** on DFT geometries | ρ(η) **+0.900** | ρ(η) **−0.100** |
-| MACE-MP-0, **single-point** on DFT geometries | ρ(η) **+0.900** | ρ(η) **−0.100** |
-| MACE-MPA-0, **model-relaxed** | ρ(η) **−0.100** | ρ(η) **+0.900** |
+| | vs defective ref | vs repaired ref, **old frames** | vs repaired ref, **repaired frames** |
+|---|---|---|---|
+| MACE-MPA-0, **single-point** | ρ(η) **+0.900** | ρ(η) **−0.100** | ρ(η) **+0.900** |
+| MACE-MP-0, **single-point** | ρ(η) **+0.900** | ρ(η) **−0.100** | ρ(η) **+0.800** |
+| MACE-MPA-0, **model-relaxed** | ρ(η) **−0.100** | ρ(η) **+0.900** | — |
 
-The two evaluation modes exchanged scores exactly, and the mechanism is not subtle.
-A single-point is computed *on the DFT-relaxed geometry* — which for Cr is the trapped
-2.016 Å structure sitting in `data/qe_frames.extxyz`. The repaired reference energy
-belongs to a different structure (1.572 Å) that the single-point never saw. Pairing a
-defective geometry with a repaired energy measures nothing about the model.
+The middle column is **an artefact of a mismatch, not a result**, and the mechanism is
+not subtle. A single-point is computed *on the DFT-relaxed geometry* — which for Cr was
+the trapped 2.016 Å structure sitting in `data/qe_frames.extxyz`. The repaired reference
+energy belongs to a different structure (1.572 Å) that the single-point never saw.
+Pairing a defective geometry with a repaired energy measures nothing about the model.
 
-So the −0.100 in the right-hand column is **an artefact of a mismatch, not a result**.
-The single-point baseline is invalidated until the frames are re-extracted from the
-repaired trajectories, and §2's table carries a warning to that effect.
+Re-extracting the frames from the repaired trajectories and re-running (right column)
+settles it: **single-point recovers ρ = +0.900 with η MAE 0.164 V**, statistically
+indistinguishable from model-relaxed's +0.900 / 0.149 V.
 
-The model-relaxed row has no such dependency: the model is handed a starting geometry and
-finds its own minimum, so a defect in *our* relaxation cannot propagate into its
-prediction. That is why it moved the other way. **Model-relaxed evaluation is the mode
-this project should have been using from the start**, and after this it is the only one
-quoted without a caveat.
+So the "like-for-like test breaks" framing this document opened with was wrong in both
+directions, and the truth is simpler than either version: **the two modes agree, and the
+apparent collapse was one defective structure viewed two different ways.** The honest
+summary is that MACE-MPA-0 ranks this tier at ρ = +0.900 with η MAE ≈ 0.15 V whether or
+not it is handed our geometries.
+
+Model-relaxed remains the mode to prefer, but for a narrower reason than "it scores
+better": it is the only one whose result cannot be corrupted by a defect in *our*
+relaxation, which is a property worth having given that four such defects have now been
+found. `report()` requires an explicit `mode` string so the two can never be conflated.
+
+`dft_reference()` reads `<state>.out`, and on 2026-08-02 the repaired outputs were written
+*alongside* the defective ones under `.out.shortbond` / `.out.bound` — so the canonical
+path kept returning the trapped Cr for another day. The files were swapped on 2026-08-03
+and `tests/test_dft_reference.py` now pins the repaired η so that shape of mistake fails
+loudly.
 
 ### The training set was unrepresentative, not poisoned — a distinction worth keeping
 
