@@ -37,9 +37,12 @@ steps, and each ΔG is invariant *separately*.
 Three consequences:
 
 1. Stage 0 has no informative outcome. Don't run it.
-2. The oc22 ρ = −1.00 is **not** a reference-energy artefact. The entire
-   composition-linear subspace of model error is projected out of the descriptor, and
-   being force-free it does not move geometries either.
+2. Whatever oc22's disagreement with us is, it is **not** a reference-energy artefact.
+   The entire composition-linear subspace of model error is projected out of the
+   descriptor, and being force-free it does not move geometries either. *(This was
+   written when oc22 stood at ρ = −1.00. It has since gone to ρ = 0.000 — but for an
+   unrelated reason, a defect in our DFT, not in the referencing; docs/29 §8. The proof
+   here is unaffected: it holds for any E0 shift regardless of what ρ happens to be.)*
 3. **The R3 gate must be the CHE observable, not energy MAE** — E0 alone can cut
    total-energy MAE a long way while leaving every η identical.
 
@@ -56,7 +59,15 @@ fine-tuning, zero alignment:
 |---|---|---|---|---|
 | MACE-MPA-0 (2024) | **+1.000** (exact p = 0.017) | +0.900 (p = 0.083) | 0.264 eV | −0.258 |
 | MACE-MP-0 (2023) | +0.900 | +0.900 | 0.336 eV | **+0.316** |
-| UMA-oc22 | — | **−1.00** | — | — |
+| UMA-oc22 | — | **−1.00** † | — | — |
+
+**⚠ This entire table was measured against the defective reference, and re-scoring it is
+not a matter of swapping one column.** See §3a: the single-point mode is *invalidated* by
+the repair, not merely shifted, because the geometries it evaluates on are the defective
+ones. The claim this section makes — that foundation models rank rutile OER out of the
+box — survives, but it now rests on the **model-relaxed** result (§3), which is the harder
+test and the one that does not depend on our geometries at all. UMA-oc22 is ρ = 0.000
+against the repaired reference (docs/29 §8), not −1.00.
 
 Different vintages, different training sets, **opposite sign of systematic bias**, both
 strongly positive. Not a lucky checkpoint.
@@ -108,6 +119,40 @@ repaired outputs were written *alongside* the defective ones under `.out.shortbo
 `.out.bound` — so the canonical path kept returning the trapped Cr for another day. The
 files were swapped on 2026-08-03 and `tests/test_dft_reference.py` now pins the repaired
 η so that shape of mistake fails loudly.
+
+## 3a. The two modes swapped places, and that is the cleanest evidence in the campaign
+
+Re-scoring the *stored, unchanged* MACE predictions against the repaired reference:
+
+| | vs defective ref | vs repaired ref |
+|---|---|---|
+| MACE-MPA-0, **single-point** on DFT geometries | ρ(η) **+0.900** | ρ(η) **−0.100** |
+| MACE-MP-0, **single-point** on DFT geometries | ρ(η) **+0.900** | ρ(η) **−0.100** |
+| MACE-MPA-0, **model-relaxed** | ρ(η) **−0.100** | ρ(η) **+0.900** |
+
+The two evaluation modes exchanged scores exactly, and the mechanism is not subtle.
+A single-point is computed *on the DFT-relaxed geometry* — which for Cr is the trapped
+2.016 Å structure sitting in `data/qe_frames.extxyz`. The repaired reference energy
+belongs to a different structure (1.572 Å) that the single-point never saw. Pairing a
+defective geometry with a repaired energy measures nothing about the model.
+
+So the −0.100 in the right-hand column is **an artefact of a mismatch, not a result**.
+The single-point baseline is invalidated until the frames are re-extracted from the
+repaired trajectories, and §2's table carries a warning to that effect.
+
+The model-relaxed row has no such dependency: the model is handed a starting geometry and
+finds its own minimum, so a defect in *our* relaxation cannot propagate into its
+prediction. That is why it moved the other way. **Model-relaxed evaluation is the mode
+this project should have been using from the start**, and after this it is the only one
+quoted without a caveat.
+
+### The same defect is sitting in the training set
+
+`data/qe_frames.extxyz` was extracted from the pre-repair trajectories, so the 785-frame
+MLIP training set contains the entire trapped Cr `*O` descent and both desorbed `*OOH`
+paths. Fine-tuning on it as it stands would teach a model our own error — the specific
+failure §4 was written to prevent. Re-extraction from the repaired outputs is a
+prerequisite for any fine-tune, and it is free.
 
 ## 4. Chasing that outlier found two defects in our own DFT reference
 
