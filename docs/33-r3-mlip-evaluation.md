@@ -146,13 +146,38 @@ prediction. That is why it moved the other way. **Model-relaxed evaluation is th
 this project should have been using from the start**, and after this it is the only one
 quoted without a caveat.
 
-### The same defect is sitting in the training set
+### The training set was unrepresentative, not poisoned — a distinction worth keeping
 
-`data/qe_frames.extxyz` was extracted from the pre-repair trajectories, so the 785-frame
-MLIP training set contains the entire trapped Cr `*O` descent and both desorbed `*OOH`
-paths. Fine-tuning on it as it stands would teach a model our own error — the specific
-failure §4 was written to prevent. Re-extraction from the repaired outputs is a
-prerequisite for any fine-tune, and it is free.
+`data/qe_frames.extxyz` was extracted from the pre-repair trajectories. The first version
+of this section said fine-tuning on it "would teach a model our own error". **That is
+wrong and worth correcting explicitly**, because it is the same kind of overclaim this
+document exists to catch.
+
+Every frame in it is a legitimate sample of E(R): converged SCF, a real geometry, real
+forces. `qe_frames.py` only ever emits frames whose SCF converged, and the trapped Cr
+`*O` run is a genuine stationary point on the PBE+U surface — just a *higher* one than
+the minimum the restart found. Two local minima are not a contradiction, and a trajectory
+that walks into the wrong one is still true information about the potential.
+
+What the pre-repair extraction actually lacked was **coverage of the region that
+matters**:
+
+| | pre-repair | repaired |
+|---|---|---|
+| `Cr_slab/s0_O` | 28 frames, none below 2.016 Å | 12 frames, all in the 1.57 Å basin |
+| `Mn_slab/s0_OOH` | **2** frames, desorbed | **34** frames, bound |
+| `Fe_slab/s0_OOH` | **13** frames, desorbed | **29** frames, bound |
+| total | 864 | **896** |
+
+Two of the three `*OOH` states contributed 2 and 13 frames of a molecule floating in
+vacuum, and nothing at all near a bound `*OOH` on those metals. That is a sampling hole,
+not contamination — and it sits exactly where the model would need data to get ΔG_OOH
+right. Re-extracted 2026-08-03; the pre-repair set is kept at
+`data/qe_frames-archive-2026-08-03-pre-repair.extxyz`.
+
+Since both sets are valid, their **union** is strictly better training data than either
+(896 bound-region frames plus 43 frames of the higher basin and the desorbed
+approach). Worth doing if the fine-tune is ever commissioned; not done here.
 
 ## 4. Chasing that outlier found two defects in our own DFT reference
 
