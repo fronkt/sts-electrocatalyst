@@ -145,6 +145,21 @@ def best_state(calc, atoms, metal: str, fmax=0.05, verbose=True):
     return best[0], dict(chosen=best[1], starts=log)
 
 
+def save_geometry(atoms, path: str) -> None:
+    """Write the chosen minimum so a DFT restart can begin from it.
+
+    Starting DFT from the MLIP minimum rather than the builder placement is not a
+    convenience -- it is the fix for two failure modes this campaign has already paid
+    for. The builder puts every adsorbate ~3.07-3.13 A out, and from there DFT trapped
+    Cr's `*O` at 2.016 A and left Mn/Fe/Ni's `*OOH` desorbed entirely. Restarting Cr from
+    MACE's 1.609 A converged 1.396 eV lower. DFT still finds its own minimum and computes
+    its own energy; only the choice of basin is inherited.
+    """
+    from ase.io import write
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    write(path, atoms, format="extxyz")
+
+
 def gas_energies(calc, frames: dict) -> dict:
     """Common H2/H2O reference, MACE-relaxed. Identical across metals by construction."""
     out = {}
@@ -155,7 +170,8 @@ def gas_energies(calc, frames: dict) -> dict:
     return out
 
 
-def predict_metal(calc, metal: str, frames: dict, gas: dict, free=None, fmax=0.05) -> dict:
+def predict_metal(calc, metal: str, frames: dict, gas: dict, free=None, fmax=0.05,
+                  savedir: str = "") -> dict:
     """Full CHE chain for one metal from its builder inputs."""
     d = DIRNAME[metal]
     E, qc = dict(gas), {}
@@ -167,6 +183,10 @@ def predict_metal(calc, metal: str, frames: dict, gas: dict, free=None, fmax=0.0
         a, info = best_state(calc, at, metal, fmax=fmax)
         E[s] = a.get_potential_energy()
         qc[s] = info
+        if savedir:
+            p = os.path.join(savedir, f"{d}_{s}.mace.xyz")
+            save_geometry(a, p)
+            print(f"      -> {p}", flush=True)
     r = che_from_energies(E)
     r["qc"] = qc
     r["free_atoms"] = len(free if free is not None else free_indices(read_state(d, "slab")))
@@ -219,7 +239,8 @@ def cmd_predict(args):
     frames = final_frames(args.frames)
     gas = gas_energies(calc, frames)
     metals = args.limit.split(",") if args.limit else UNKNOWN
-    pred = {m: predict_metal(calc, m, frames, gas, fmax=args.fmax) for m in metals}
+    pred = {m: predict_metal(calc, m, frames, gas, fmax=args.fmax, savedir=args.savedir)
+            for m in metals}
     _table([(m, pred[m]) for m in metals])
     print("\n  as-shipped constraint masks (free slab atoms):")
     for m in metals:
@@ -283,6 +304,8 @@ def main():
         p.add_argument("--fmax", type=float, default=0.05)
         p.add_argument("--limit", default="")
         p.add_argument("--out", default="")
+        p.add_argument("--savedir", default="",
+                       help="write each chosen minimum here, as a DFT restart geometry")
         p.set_defaults(func=fn)
     a = ap.parse_args()
     raise SystemExit(a.func(a))

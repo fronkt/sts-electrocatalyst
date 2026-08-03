@@ -91,6 +91,35 @@ Cost basis is measured, not guessed: the repair campaign ran three concurrent ma
 jobs for 12.1 h wall at $0.21/hr = **$2.64** (docs/33 §5b). Four jobs ≈ $4 against the
 current $8.46 credit.
 
+### 4b. Correction before spending: it is five jobs, not four
+
+Running `adsorbate_qc` over the states we planned to *reuse* found a fourth instance of
+the desorption defect, in Ni:
+
+| state | qe_qc | ionic steps | M–O | verdict |
+|---|---|---|---|---|
+| `Ni_slab/s0_OOH` | TRUSTWORTHY | 39 | **3.080 Å** | **desorbed — must be re-run** |
+| `Co_slab/s0_OH` | TRUSTWORTHY | 16 | 1.796 Å | bound; reusable (MACE finds 1.811 Å) |
+
+Ni's `*OOH` ran 39 ionic steps — it is not the barely-moved case Mn and Fe were — and
+still ended unbound, while MACE finds a bound minimum at 2.221 Å from all three starts.
+So **Ni needs three jobs (`s0_O`, `s0_OH`, `s0_OOH`), Co needs two (`s0_O`, `s0_OOH`)**:
+five in total, ~$5.
+
+**The builder's `*OOH` placement is systematically wrong for 3d metals.** It puts the
+adsorbate 3.07–3.13 Å out, and from there DFT has now failed on Mn, Fe *and* Ni — and
+MACE says Co would fail the same way (builder start → 2.983 Å; pulled-in start → 2.105 Å
+at **0.427 eV lower**). Every job commissioned here therefore starts from the MLIP
+minimum rather than the builder placement, which is also what rescued Cr's `*O`.
+
+**η itself is unaffected by any of this**, which is worth stating because it bounds the
+damage: both Ni and Co are predicted `pls = 2`, so their overpotential is set by
+ΔG_O − ΔG_OH and never touches ΔG_OOH. Step 2 leads the next-largest step by 1.47 eV (Ni)
+and 1.38 eV (Co), far outside the 0.150 V error bar, so `pls = 2` is not a close call.
+The three η-critical jobs are **Ni `s0_O`, Ni `s0_OH`, Co `s0_O`**; the two `*OOH` jobs
+buy the complete CHE chain, the ΔG₄ check and the 15-point ΔG MAE, and are the ones to
+drop if the box misbehaves.
+
 ## 5. The constraint float-tie: measured, and it does not matter
 
 docs/30 §3 found the mid-plane layer was assigned by floating-point rounding, and flagged
