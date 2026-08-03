@@ -104,17 +104,22 @@ Key corrections to the parked-project record (docs/28 §1–2):
         6 mV — so the gate asks a model to reproduce an ordering the reference cannot
         resolve, and a perfect score would be indistinguishable from luck. At n = 6 the
         **free** model, keeping the error it already has, gives ρ = 0.943, p = 0.017.
-- [ ] **PREREQUISITE — fix the constraint mask before buying either.** docs/30 §3's
-      float-tie is not evenly spread: Cr/Mn/Fe/Cu/Ru/Ir all have the same 11 free atoms,
-      **Co has 8, Ni has 7** — the two exceptions are exactly the two candidates. Adding
-      either as shipped injects a systematic into the quantity the gate measures.
-      `mlip_predict.py maskbias` prices it; > ~0.05 V means their existing TRUSTWORTHY
-      states are also on the wrong mask and each metal costs 4 jobs, not 2.
-- [ ] **FREE, DO FIRST — `mlip_predict.py predict`.** A sixth point inside the
-      0.78–0.89 V cluster ({Ir, Ru, Mn}, unresolved) buys nothing. MACE-MPA-0 is at
-      η MAE = 0.149 V, enough to say which candidate lands outside it before renting
-      anything. Validated first on the five knowns; the prediction goes on record so the
-      DFT tests it rather than fits it.
+- [x] **DONE 2026-08-03, $0 — predictions frozen in [docs/34](../docs/34-prereg-sixth-point.md).**
+      Protocol validated on the five knowns from BUILDER geometries with zero DFT input:
+      ρ(η) = **+0.900**, η MAE = **0.150 V**. Predictions: **Ni 1.200 V (outside the
+      cluster — BUY)**, Co 0.883 V (inside, 9 mV from Mn), Cu 1.373 V (outside but needs
+      4 jobs and has no working `slab.out`). All three pls = 2, descriptors 2.11–2.60.
+- [x] **DONE 2026-08-03 — the constraint float-tie is 1–4 mV and does NOT matter.**
+      Same metal, same geometries, mask swapped: Ni 1.200 → 1.196, Co 0.883 → 0.882,
+      against a 0.17 V tier resolution. So Ni/Co **reuse their existing TRUSTWORTHY
+      states — 2 jobs each, not 4** — and docs/30 §3's ranking concern is largely retired.
+- [ ] **THE BUY: Ni + Co, 4 concurrent jobs, ~$4.** Not Cu. Rationale in docs/34 §4: no
+      candidate lands in clear space (Ni is 0.063 V from Fe, Co 0.009 V from Mn), so each
+      brings its own unresolvable pair — which is exactly why n = 7 beats n = 6. If all
+      three unresolvable pairs swap: n=7 → ρ 0.893, p **0.0123** (clears comfortably);
+      n=6 → ρ 0.886, p **0.0333** (clears, zero margin); n=5 → p 0.083 (fails, as today).
+      Both metals need the two-stage `degauss` protocol; both died on the same SCF plateau,
+      so running both is the hedge against one failing.
 
 ## DECISION FORK (docs/29 §7) — now effectively A **and** B; confirm
 - [x] **Path A** banked and QC-hardened (the negative is stronger after the audit)
