@@ -124,7 +124,21 @@ Key corrections to the parked-project record (docs/28 §1–2):
       (Co 6134 s, Ni 6957 s) — the plateau that killed three prior attempts is beaten.
       All four pseudopotential MD5s verified identical to the archived runs.
       Infra cost of getting there: $0.044 on a broken box (3 new lessons in lessons.md).
-- [ ] ~~**THE BUY: Ni + Co, 4 concurrent jobs, ~$4.**~~ (superseded by the line above) Not Cu. Rationale in docs/34 §4: no
+- [x] **CLOSED 2026-08-04 — [docs/35](../docs/35-n7-campaign-result.md). GATE MET.**
+      n=5 -> **n=7**. MACE-MPA-0, free and un-fine-tuned: rho=+0.857, exact p=**0.0238**.
+      (n=6 with Ni alone: rho=+0.886, p=0.0333.) The binding constraint was n, exactly as
+      docs/34 argued. **eta(Ni)=1.084 V, eta(Co)=0.544 V.**
+      - Pre-registered test **1 hit / 1 miss**: Ni +0.116 V (within the 0.150 bar), Co
+        **+0.339 V (2.3x out)** — and MACE's "Co is inside the cluster" call was wrong too.
+      - Both `*OOH` jobs FAILED (Ni SCF diverged 3x; Co ran out of credit at 16 ionic).
+        eta survives via `src/dft/eta_bounded.py`: dG3+dG4 = 4.92 - dG_O contains no
+        dG_OOH, so eta is bounded from measured quantities. Co's tight high edge closed by
+        its partial relax (a run stopped early sits ABOVE its minimum -> upper bound).
+      - **Fourth desorbed `*OOH` found** (Ni, 3.080 A, TRUSTWORTHY by qe_qc, 39 ionic).
+        Archived; it would have given dG4 = -0.282 eV.
+      - **Spend $8.17 vs a $3.20 projection — 2.5x over.** docs/35 s6. The three jobs that
+        mattered cost ~$4; the two `*OOH` jobs were worth $0 because the bound made them
+        unnecessary. Deriving that bound BEFORE renting would have saved half the money. Not Cu. Rationale in docs/34 §4: no
       candidate lands in clear space (Ni is 0.063 V from Fe, Co 0.009 V from Mn), so each
       brings its own unresolvable pair — which is exactly why n = 7 beats n = 6. If all
       three unresolvable pairs swap: n=7 → ρ 0.893, p **0.0123** (clears comfortably);
