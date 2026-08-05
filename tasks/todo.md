@@ -153,24 +153,45 @@ are still meltable objects, but "ML-predicted best" is not a supportable claim a
 them. Regenerating the list is free (MACE + MP), needs no Vast credit, and must
 happen before a melt slot is spent — a frozen prediction table built on a void
 ranking would contaminate the campaign's central contribution.
-- [ ] **A. Multi-start adsorbate placement in the HEA screening path.** `_adsorbate`
+- [x] **A. DONE 2026-08-05 (commit 10189d0).** Multi-start adsorbate placement.
       places at 1.85–1.90 Å above the slab's TOPMOST atoms; on rutile(110) those are
       the bridging-O rows, so the adsorbate lands 3.07–3.13 Å off the cus metal —
       the exact defect docs/34 §4b priced at $2.64 and four wrong structures. The
       HEA path (`add_oer_adsorbate_at`) inherits it verbatim. Port the proven
       remedy: builder start + rigid pull-in to M–O 1.70/2.10 Å, lowest energy wins.
-- [ ] **B. MACE backend** wired into the screen (`relax.make_mace_calculator`,
-      `"mace"` in the backend registry). MACE-MPA-0 is the checkpoint that passed
-      the R3 gate (ρ=+0.857, p=0.0238) and is cached locally.
+      Measured on the HEA path: `*O` 3.080 Å, `*OH`/`*OOH` 3.130 Å off the cus metal
+      — every adsorbate started **past the 3.00 Å desorption cut**. Remedy = builder
+      start + rigid pull-ins to M–O 1.70/2.10 Å, lowest energy wins; winning bond
+      length recorded so a desorbed "minimum" cannot enter a melt list silently.
+      Both pull-in and builder starts win on different states, so all three are kept.
+- [x] **B. DONE 2026-08-05 (commit 10189d0).** MACE-MPA-0 backend
+      (`relax.make_mace_calculator`, `"mace"` in the registry), CPU, float64.
+- [x] **B2. DONE 2026-08-05 (commit 294fb01).** Pool cus sites over 3 decorations.
+      A 2×2 slab has only 4 cus sites and seed 0 puts *only* Co/Fe on them for
+      Fe32Ni17Co34Mn18 — Ni and Mn (34 at.%) never appear at an active site. The
+      2026-06 UMA sweep had the same weakness.
+- [x] **E. DONE 2026-08-05.** Multi-element Pourbaix (`src/dft/pourbaix_multi.py`,
+      9 tests). Metric = **soluble cation fraction at pH 14 / 1.53 V vs RHE**, which
+      avoids inventing a ΔG_pbx for an HEA oxide MP does not hold. Quaternary hull
+      reproduces docs/31 §4's per-element assignments exactly (Fe→Fe₂O₃(s),
+      Co→CoOOH(s), Mn→MnO₄⁻, Ni→Ni(OH)₃⁻). **docs/15 melt set, soluble fraction:**
+      FeCoNi 33.3% < Fe32Ni17Co34Mn18 34.0% < Cr19Co28Fe25Ni28 47.0% <
+      Co20Ni20Cr20Mn20Cu20 60.0% < Cr6Fe33Ni27Mn34 67.0% < Mn19Fe12Ni35Co16Cr18 72.0%.
+      Every candidate ≥33% soluble; Ni soluble in all, Cr soluble in all Cr-bearing.
+      Concentration sensitivity checked: Ni stays Ni(OH)₃⁻ from 1e-8 to 1e-4 M and
+      only passivates as NiO at 1e-2 M, so the **ordering is robust** across the
+      dilute range but the absolute % is not a physical constant.
 - [ ] **C. Validate the SCREEN, not just the model.** Run the 7 endmembers through
       the screening path's OWN slabs (pymatgen 2×2, Vegard lattice) and score ρ vs
       the QC-gated DFT η. R3 validated MACE on the DFT tier's 18-atom cells; this
       validates the pipeline that will actually rank the HEAs. Gate before screening.
 - [ ] **D. Re-screen HEA space** with the validated path; analytic prefilter
       (phase stability + formability) is free, MACE only on survivors.
-- [ ] **E. Multi-element Fe–Ni–Co–Mn Pourbaix** — the open half of R2 (docs/31 §8.4).
-      docs/31 §8.3: any screening objective must be activity × ΔG_pbx.
 - [ ] **F. New frozen melt list** (docs/36) + weigh sheet, superseding docs/15 §1.
+      Framing: activity ORDERS, stability GATES, and since every candidate is ≥33%
+      soluble the list should deliberately SPAN the activity/stability tension rather
+      than scalarize it away — that tension is the HEA thesis's subject (docs/31 §8).
+      Must retain a predicted-poor anchor for correlation dynamic range (docs/15 §6).
 
 ## DECISION FORK (docs/29 §7) — now effectively A **and** B; confirm
 - [x] **Path A** banked and QC-hardened (the negative is stronger after the audit)
