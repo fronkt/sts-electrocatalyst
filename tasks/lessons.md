@@ -221,3 +221,37 @@ Rules taken from this:
    surfaced for a human. A binary cut forces a wrong answer on every ambiguous case.
 4. **When a check fires on data you independently verified, the check is the suspect.**
    All three of these were found that way, not by reasoning about the threshold.
+
+---
+
+## Compute estimates keep coming in low, and always for the same reason (2026-08-05)
+
+Third mis-costed run in a month, each one a *3.5x-or-worse* underestimate extrapolated
+from a cheaper system than the one actually being bought:
+
+| run | basis for the estimate | projected | actual | over |
+|---|---|---|---|---|
+| repair campaign (docs/33 s5b) | non-magnetic anchors | $0.6-1.1 | $2.64 | 2.4x |
+| n=7 campaign (docs/35 s6) | 3 concurrent jobs / 12.1 h | $3.20 | $8.17 | 2.5x |
+| HEA screen (this one) | **pure endmembers, ~51 s/relaxation** | 1.5 h/candidate | **5.2 h** | 3.5x |
+
+The endmember timings came from *pure* MO2 slabs. An HEA slab of the same 72 atoms has
+four cation species, no symmetry, and a rougher force landscape, so BFGS takes far more
+steps to reach the same `fmax`. Relaxation count was estimated correctly; **cost per
+relaxation was assumed transferable between a symmetric and a disordered cell, and it
+is not.**
+
+Rules taken from this:
+
+1. **Time one instance of the real thing before sizing the batch.** I timed a pure slab
+   and a loose-`fmax` smoke run, neither of which is the workload. One full HEA
+   candidate at production settings would have cost 5 h and saved a 62-hour commitment.
+2. **Symmetry is a speed feature.** Any estimate crossing from ordered to disordered
+   cells needs a measured multiplier, not an assumption of parity.
+3. **Checkpoint per unit of work so a bad estimate is survivable.** The screen writes
+   after every candidate, so the 3.5x miss cost nothing but wall-clock -- the partial
+   result is a valid ranked list at all times. This is the one thing that went right.
+4. **Do not economise by cutting the sampling that the science needs.** The obvious
+   response to a slow screen is fewer sites; candidate 1 immediately argued the other
+   way (best site 0.59 V below the site mean, and found only in the third decoration).
+   Buy speed with hardware, not with statistical power.
