@@ -138,7 +138,7 @@ def cmd_validate(args) -> int:
     _log(f"DFT tier of record: n = {len(ref)}; validating on {metals}")
     _log("this scores the PIPELINE (own slabs, own placement), not the model")
 
-    backend = get_backend("mace", model=args.model, surface="rutile",
+    backend = get_backend("mace", model=args.model, device=args.device, surface="rutile",
                           n_sites=1, size=(2, 2, 4), fmax=args.fmax, seed=args.seed)
     rows, done = {}, []
     for m in metals:
@@ -188,7 +188,7 @@ def cmd_validate(args) -> int:
 def cmd_check_equivalence(args) -> int:
     """Verify the claim that lets `validate` sample one cus site instead of four."""
     _log(f"{args.metal}: 4 cus sites on a pure 2x2 slab should be translation-equivalent")
-    backend = get_backend("mace", model=args.model, surface="rutile",
+    backend = get_backend("mace", model=args.model, device=args.device, surface="rutile",
                           n_sites=4, size=(2, 2, 4), fmax=args.fmax, seed=args.seed)
     rec = evaluate(backend, Composition((args.metal,), (1.0,)))
     r = backend.site_records[rec["formula"]]
@@ -249,11 +249,24 @@ def cmd_screen(args) -> int:
                 best_d, best_i = d, i
         chosen.append(best_i)
     pool = [keep[i] for i in chosen]
+
+    # Sharding. The diverse pick above is deterministic in (elements, n_samples, seed,
+    # n_candidates), so every shard derives the identical pool and takes a disjoint
+    # slice of it. Candidates are independent, and one 72-atom MACE graph leaves a GPU
+    # mostly idle, so running shards concurrently converts a latency-bound serial job
+    # into a throughput-bound parallel one.
+    if args.shard:
+        k, n = (int(x) for x in args.shard.split("/"))
+        if not 1 <= k <= n:
+            _log(f"REFUSING: bad shard {args.shard}; want k/n with 1 <= k <= n")
+            return 2
+        pool = pool[k - 1::n]
+        _log(f"shard {k}/{n}: {len(pool)} of {args.n_candidates} candidates")
     _log(f"diverse pool: {len(pool)} candidates -> MACE (multi-site, multi-start)")
 
     seeds = tuple(int(s) for s in args.seeds.split(",")) if args.seeds else (args.seed,)
     _log(f"pooling cus sites over {len(seeds)} decoration(s) {seeds} x {args.n_sites} sites")
-    backend = get_backend("mace", model=args.model, surface="rutile",
+    backend = get_backend("mace", model=args.model, device=args.device, surface="rutile",
                           n_sites=args.n_sites, size=(2, 2, 4), fmax=args.fmax,
                           seed=args.seed, seeds=seeds)
     rows = []
@@ -330,6 +343,10 @@ def main() -> None:
                         "accident of the shuffle, so a single decoration samples the "
                         "site distribution the HEA hypothesis is about far too thinly.")
     s.add_argument("--validation", default="results/r4_validate.json")
+    s.add_argument("--shard", default="",
+                   help="k/n — take every n-th candidate starting at k. The pool is "
+                        "deterministic, so shards are disjoint and cover it exactly.")
+    s.add_argument("--device", default="cpu", help="cpu | cuda")
     s.add_argument("--force", action="store_true",
                    help="screen even without a passing validation record")
     s.set_defaults(func=cmd_screen)
