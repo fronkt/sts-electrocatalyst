@@ -115,14 +115,27 @@ def spearman(a, b):
 
 
 def exact_two_sided_p(rho_obs: int | float, n: int) -> float:
-    """Exact permutation p (no asymptotics). n<=8 only; that is all we ever have."""
+    """Exact permutation p (no asymptotics). n<=8 only; that is all we ever have.
+
+    Counts the upper tail and doubles it, which is the correct two-sided p **only
+    because the null distribution of rho is symmetric about 0** -- and therefore only
+    if the tail is measured from |rho|. Taking rho_obs at face value made this return
+    ~1.0 for any negative correlation (nearly every permutation exceeds a negative
+    rho), which is silently wrong rather than loudly wrong.
+
+    Every use in the campaign until 2026-08-05 was on the positive R0/R3 gate, where
+    abs() is the identity, so no published number changes. The first negative
+    correlation measured -- activity vs solubility across the screen, rho = -0.657 --
+    is what exposed it.
+    """
     from itertools import permutations
     from math import factorial
+    r = abs(float(rho_obs))
     ref = list(range(n))
     cnt = 0
     for p in permutations(ref):
         d2 = sum((ref[i] - p[i]) ** 2 for i in range(n))
-        if 1 - 6 * d2 / (n * (n * n - 1)) >= rho_obs - 1e-12:
+        if 1 - 6 * d2 / (n * (n * n - 1)) >= r - 1e-12:
             cnt += 1
     return min(1.0, 2 * cnt / factorial(n))
 

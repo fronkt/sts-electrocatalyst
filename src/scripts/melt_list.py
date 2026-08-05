@@ -82,8 +82,21 @@ def select(rows, k_interior: int = 2) -> list:
     picks: list[tuple[str, dict]] = []
 
     def add(role: str, r: dict) -> None:
-        if r is not None and all(r["formula"] != p["formula"] for _, p in picks):
-            picks.append((role, r))
+        """One composition may satisfy two roles. Say so rather than dropping the role.
+
+        Silently omitting a collapsed role loses exactly the information the reader
+        needs: if the poor anchor IS the stability end, the list has no independent
+        low-activity point and the correlation study's dynamic range is whatever the
+        front happens to span — a limitation, not a free lunch.
+        """
+        if r is None:
+            return
+        for i, (existing, p) in enumerate(picks):
+            if p["formula"] == r["formula"]:
+                if role not in existing.split(" + "):
+                    picks[i] = (f"{existing} + {role}", p)
+                return
+        picks.append((role, r))
 
     add("activity end", front[0])
     add("stability end", min(front, key=lambda r: r["soluble_at_operating"]))
@@ -118,12 +131,13 @@ def main() -> None:
         print("no candidate carries both an activity and a stability number")
         raise SystemExit(1)
 
-    print(f"{'role':<16}{'composition':<26}{'eta_pred':>9}{'soluble':>9}"
+    span = max(r["eta"] for _, r in picks) - min(r["eta"] for _, r in picks)
+    print(f"{'role':<32}{'composition':<26}{'eta_pred':>9}{'soluble':>9}"
           f"{'$/kg':>8}{'sites':>7}")
     out = []
     for role, r in picks:
         c = cost(r["elements"], r["fractions"])
-        print(f"{role:<16}{r['formula']:<26}{r['eta']:>9.3f}"
+        print(f"{role:<32}{r['formula']:<26}{r['eta']:>9.3f}"
               f"{r['soluble_at_operating']*100:>8.1f}%{c:>8.2f}"
               f"{r.get('n_sites', 0):>7}")
         out.append(dict(role=role, formula=r["formula"], elements=r["elements"],
@@ -133,6 +147,15 @@ def main() -> None:
                         cost_usd_kg=c, n_sites_sampled=r.get("n_sites"),
                         n_decorations=r.get("n_decorations")))
 
+    collapsed = [role for role, _ in picks if " + " in role]
+    if collapsed:
+        print(f"\n  ROLE COLLAPSE: {collapsed[0]}. One composition satisfies both, so the")
+        print("  list has no INDEPENDENT low-activity point and its dynamic range is")
+        print("  whatever the Pareto front happens to span.")
+    print(f"\n  Predicted-eta span across the list: {span:.3f} V, against a validated")
+    print("  screener MAE of 0.130 V (docs/36 s1). docs/15 s6 is right that a")
+    print("  correlation over ~6 points needs dynamic range; judge whether this span")
+    print("  buys enough before freezing, and widen the screened pool if not.")
     print("\n  FeCoNi (equiatomic) is melted alongside these as the ablation -- it")
     print("  drops the high-entropy aspect, and the stability gate makes it the least")
     print("  soluble composition in the docs/15 set (33.3%), so it is a contender too.")
