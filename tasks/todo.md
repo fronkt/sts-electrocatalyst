@@ -181,12 +181,20 @@ ranking would contaminate the campaign's central contribution.
       Concentration sensitivity checked: Ni stays Ni(OH)₃⁻ from 1e-8 to 1e-4 M and
       only passivates as NiO at 1e-2 M, so the **ordering is robust** across the
       dilute range but the absolute % is not a physical constant.
-- [ ] **C. Validate the SCREEN, not just the model.** Run the 7 endmembers through
-      the screening path's OWN slabs (pymatgen 2×2, Vegard lattice) and score ρ vs
-      the QC-gated DFT η. R3 validated MACE on the DFT tier's 18-atom cells; this
-      validates the pipeline that will actually rank the HEAs. Gate before screening.
-- [ ] **D. Re-screen HEA space** with the validated path; analytic prefilter
-      (phase stability + formability) is free, MACE only on survivors.
+- [x] **C. DONE 2026-08-05 — GATE MET ([docs/36](../docs/36-screen-validation-and-stability-gate.md)).**
+      Pipeline scored on its OWN slabs vs the n=7 DFT tier: **ρ = +0.8571, exact
+      p = 0.0238, η MAE = 0.130 V** — 42 mV BETTER than docs/35's 0.172 V, which
+      scored the same model on the DFT tier's own geometries. Letting the MLIP find
+      its own minimum beats scoring it on someone else's. Worst point is **IrO₂
+      (−0.254 V)**, which moved from +0.131 in docs/35 — a caveat on any "beats
+      IrO₂" claim. Two rank errors, both on pairs the reference cannot resolve
+      (Co/Ir, Mn/Ni; tier resolution ~0.17 V).
+- [~] **D. RUNNING 2026-08-05 09:35** — `screen_mace.py screen`, 12 diverse
+      single-phase candidates (3339/4000 passed the Hume-Rothery/Ω–δ filter),
+      4 cus sites × 3 decorations, checkpointed per candidate to
+      `results/r4_screen.json`. ~15–20 h on this CPU-only box; partial results
+      ranked and usable throughout. A GPU box does it in <1 h for ~$1 —
+      **Vast credit is $0.295**, so that is a top-up decision, not a technical one.
 - [ ] **F. New frozen melt list** (docs/36) + weigh sheet, superseding docs/15 §1.
       Framing: activity ORDERS, stability GATES, and since every candidate is ≥33%
       soluble the list should deliberately SPAN the activity/stability tension rather
