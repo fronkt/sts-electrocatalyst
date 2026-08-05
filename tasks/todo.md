@@ -189,13 +189,29 @@ ranking would contaminate the campaign's central contribution.
       (−0.254 V)**, which moved from +0.131 in docs/35 — a caveat on any "beats
       IrO₂" claim. Two rank errors, both on pairs the reference cannot resolve
       (Co/Ir, Mn/Ni; tier resolution ~0.17 V).
-- [~] **D. RUNNING 2026-08-05 09:35** — `screen_mace.py screen`, 12 diverse
+- [x] **D. DONE 2026-08-05 ([docs/37](../docs/37-hea-screen-result-and-melt-list.md)).**
+      12 candidates on a Vast Tesla V100 (~$0.25, instance DESTROYED). **6 of 12 are
+      chemically invalid** (desorbed states) — including one that would have ranked
+      4th-best. Best site runs **0.44–0.60 V below the site mean** = the high-entropy
+      hypothesis quantified, and the top candidate's winning site came from the THIRD
+      decoration. **Bit-level CPU/GPU parity** (η identical to 4 dp). Original note: — `screen_mace.py screen`, 12 diverse
       single-phase candidates (3339/4000 passed the Hume-Rothery/Ω–δ filter),
       4 cus sites × 3 decorations, checkpointed per candidate to
       `results/r4_screen.json`. ~15–20 h on this CPU-only box; partial results
       ranked and usable throughout. A GPU box does it in <1 h for ~$1 —
       **Vast credit is $0.295**, so that is a top-up decision, not a technical one.
-- [ ] **F. New frozen melt list** (docs/36) + weigh sheet, superseding docs/15 §1.
+- [x] **E2. DONE** — stability joined onto the ranking (`pourbaix_multi.py gate`).
+      **ρ(η, soluble) = −0.657, p = 0.175, n = 6** — activity and stability
+      ANTI-correlate across the screen. Suggestive, NOT significant; must not be
+      written up as established. Found + fixed a real bug doing it:
+      `exact_two_sided_p` counted only the upper tail, correct solely for positive ρ.
+      No published number changes (verified exhaustively at n = 5, 6, 7).
+- [~] **F. BUILT, awaiting Frank's freeze decision** — `results/r4_melt_list.json`.
+      Two stated limitations: **role collapse** (least-active candidate is also the
+      most stable → no independent low-activity point) and **0.356 V predicted span
+      against a 0.130 V screener MAE** — under 3 MAE of dynamic range. Remedy is
+      ~$0.50 / ~3 h for 24–36 more candidates; cheap now, expensive after the melt.
+      THEN: weigh sheet (docs/17) + dated Cr(VI) risk assessment BEFORE the first melt.
       Framing: activity ORDERS, stability GATES, and since every candidate is ≥33%
       soluble the list should deliberately SPAN the activity/stability tension rather
       than scalarize it away — that tension is the HEA thesis's subject (docs/31 §8).
