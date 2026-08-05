@@ -280,6 +280,14 @@ def cmd_screen(args) -> int:
           f"(every winning state bound below {M_O_DESORBED_MIN} A)")
     print("  ORDERING only — docs/34's out-of-sample test missed eta(Co) by +0.339 V,")
     print("  2.3x the validated bar. Do not quote a candidate's absolute eta.")
+    print("\n  SAMPLING-DEPTH CAVEAT. eta above is the lowest-eta site out of")
+    print(f"  {args.n_sites} sites x {len(seeds)} decorations. Every candidate here was")
+    print("  sampled to the SAME depth, so ranking them against each other is sound.")
+    print("  Ranking them against the endmember tier is NOT: a pure MO2 slab has one")
+    print("  distinct cus site, so its eta is a single draw while an HEA's is the")
+    print("  minimum of many. A tail statistic beats a single draw for free, and the")
+    print("  gap grows with depth. 'This HEA beats beta-MnO2' does not follow from")
+    print("  these numbers, and needs matched sampling before anyone writes it down.")
 
     _checkpoint(args.out, dict(status="complete", model=args.model,
                                validation=args.validation, n_sampled=len(comps),
