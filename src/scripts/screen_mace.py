@@ -251,9 +251,11 @@ def cmd_screen(args) -> int:
     pool = [keep[i] for i in chosen]
     _log(f"diverse pool: {len(pool)} candidates -> MACE (multi-site, multi-start)")
 
+    seeds = tuple(int(s) for s in args.seeds.split(",")) if args.seeds else (args.seed,)
+    _log(f"pooling cus sites over {len(seeds)} decoration(s) {seeds} x {args.n_sites} sites")
     backend = get_backend("mace", model=args.model, surface="rutile",
                           n_sites=args.n_sites, size=(2, 2, 4), fmax=args.fmax,
-                          seed=args.seed)
+                          seed=args.seed, seeds=seeds)
     rows = []
     for i, (c, m) in enumerate(pool, 1):
         _log(f"  [{i}/{len(pool)}] {c.formula()}")
@@ -314,6 +316,11 @@ def main() -> None:
     s.add_argument("--n-samples", type=int, default=4000)
     s.add_argument("--n-candidates", type=int, default=24)
     s.add_argument("--n-sites", type=int, default=4)
+    s.add_argument("--seeds", default="0,1,2",
+                   help="comma-separated decorations to pool cus sites over. One 2x2 "
+                        "slab exposes 4 cus sites and which elements occupy them is an "
+                        "accident of the shuffle, so a single decoration samples the "
+                        "site distribution the HEA hypothesis is about far too thinly.")
     s.add_argument("--validation", default="results/r4_validate.json")
     s.add_argument("--force", action="store_true",
                    help="screen even without a passing validation record")
