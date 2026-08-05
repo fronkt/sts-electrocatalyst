@@ -146,6 +146,32 @@ Key corrections to the parked-project record (docs/28 §1–2):
       Both metals need the two-stage `degauss` protocol; both died on the same SCF plateau,
       so running both is the hedge against one failing.
 
+## R4-PREP — MELT-LIST REGENERATION (started 2026-08-05; potentiostat BOOKED)
+The docs/15 melt set was ranked by **UMA rutile**, and R0 voided that ranking (no
+out-of-box UMA head ranks rutile OER; best oc25 ρ=+0.400, p=0.52). The compositions
+are still meltable objects, but "ML-predicted best" is not a supportable claim about
+them. Regenerating the list is free (MACE + MP), needs no Vast credit, and must
+happen before a melt slot is spent — a frozen prediction table built on a void
+ranking would contaminate the campaign's central contribution.
+- [ ] **A. Multi-start adsorbate placement in the HEA screening path.** `_adsorbate`
+      places at 1.85–1.90 Å above the slab's TOPMOST atoms; on rutile(110) those are
+      the bridging-O rows, so the adsorbate lands 3.07–3.13 Å off the cus metal —
+      the exact defect docs/34 §4b priced at $2.64 and four wrong structures. The
+      HEA path (`add_oer_adsorbate_at`) inherits it verbatim. Port the proven
+      remedy: builder start + rigid pull-in to M–O 1.70/2.10 Å, lowest energy wins.
+- [ ] **B. MACE backend** wired into the screen (`relax.make_mace_calculator`,
+      `"mace"` in the backend registry). MACE-MPA-0 is the checkpoint that passed
+      the R3 gate (ρ=+0.857, p=0.0238) and is cached locally.
+- [ ] **C. Validate the SCREEN, not just the model.** Run the 7 endmembers through
+      the screening path's OWN slabs (pymatgen 2×2, Vegard lattice) and score ρ vs
+      the QC-gated DFT η. R3 validated MACE on the DFT tier's 18-atom cells; this
+      validates the pipeline that will actually rank the HEAs. Gate before screening.
+- [ ] **D. Re-screen HEA space** with the validated path; analytic prefilter
+      (phase stability + formability) is free, MACE only on survivors.
+- [ ] **E. Multi-element Fe–Ni–Co–Mn Pourbaix** — the open half of R2 (docs/31 §8.4).
+      docs/31 §8.3: any screening objective must be activity × ΔG_pbx.
+- [ ] **F. New frozen melt list** (docs/36) + weigh sheet, superseding docs/15 §1.
+
 ## DECISION FORK (docs/29 §7) — now effectively A **and** B; confirm
 - [x] **Path A** banked and QC-hardened (the negative is stronger after the audit)
 - [ ] **Path B** R3 fine-tune: data extracted, MACE-OMAT recipe costed at ~$1.9,

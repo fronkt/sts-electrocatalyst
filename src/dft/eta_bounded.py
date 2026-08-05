@@ -74,6 +74,75 @@ def eta_window(dG_OH: float, dG_O: float) -> dict:
                 margin_hi=hi - OBSERVED_DG_OOH[1], margin_lo=OBSERVED_DG_OOH[0] - lo)
 
 
+#: Metals whose `*OOH` job failed, so eta comes from the bounded identity above rather
+#: than a complete CHE chain (docs/35 s3), with the partial-relaxation output that
+#: closes the upper edge where one exists.
+BOUNDED = (("Ni", "Ni_slab", None),
+           ("Co", "Co_slab", "s0_OOH.out.stageB-partial"))
+
+
+def _partial_dG_OOH(path: str, E: dict) -> float | None:
+    """dG_OOH implied by a relaxation that was stopped early — an UPPER bound.
+
+    A run halted above its own minimum can only overestimate the converged energy,
+    which is what closes Co's tight high edge (docs/35 s3).
+    """
+    from hea_oer.referencing import delta_G
+    if not os.path.exists(path):
+        return None
+    Es = [float(l.split("=")[1].split("Ry")[0]) for l in open(path, errors="ignore")
+          if l.startswith("!    total energy")]
+    if not Es:
+        return None
+    return delta_G(E["slab"], Es[-1] * 13.605693122, "OOH", E["H2O"], E["H2"])
+
+
+def bounded_eta(root: str, dirname: str, partial: str | None = None) -> dict | None:
+    """eta for a metal with a QC-passing `*OH` and `*O` but no usable `*OOH`.
+
+    Returns None if any required state fails QC — absence, never a guessed number.
+    """
+    from hea_oer.referencing import delta_G
+    from dft.qe_qc import trusted_energy_ev
+
+    E = {s: trusted_energy_ev(os.path.join(root, dirname, s + ".out"),
+                              os.path.join(root, dirname, s + ".in"))
+         for s in ("slab", "s0_O", "s0_OH", "H2O", "H2")}
+    if any(v is None for v in E.values()):
+        return None
+    dG_OH = delta_G(E["slab"], E["s0_OH"], "OH", E["H2O"], E["H2"])
+    dG_O = delta_G(E["slab"], E["s0_O"], "O", E["H2O"], E["H2"])
+    w = eta_window(dG_OH, dG_O)
+    ub = _partial_dG_OOH(os.path.join(root, dirname, partial), E) if partial else None
+    w.update(dG_OH=dG_OH, dG_O=dG_O, dG_OOH=None, source="bounded",
+             upper_bound_dG_OOH=ub, hi_closed=bool(ub is not None and ub < w["hi"]))
+    return w
+
+
+def reference_tier(root: str = "runs") -> dict:
+    """The **n = 7 tier of record** — eta per metal, however it was established.
+
+    Five metals have a complete, QC-gated CHE chain; Ni and Co do not, because both
+    `*OOH` jobs failed (docs/35 s3), and their eta comes from the bounded identity in
+    this module. Both routes are QC-gated and both are published numbers, but until
+    now they lived in two modules and no single call returned the tier docs/35 quotes
+    — `score_n7.py` on its own reports "nothing to score". Anything scoring a model
+    against the DFT should call this, so it never has to decide which half to trust.
+
+    Each record carries `source` = "chain" | "bounded".
+    """
+    from dft.mlip_eval import dft_reference
+
+    tier = {m: dict(v, source="chain") for m, v in dft_reference(root).items()}
+    for metal, dirname, partial in BOUNDED:
+        if metal in tier:
+            continue
+        w = bounded_eta(root, dirname, partial)
+        if w is not None:
+            tier[metal] = w
+    return tier
+
+
 def report(name: str, dG_OH: float, dG_O: float, partial_dG_OOH: float | None = None) -> dict:
     w = eta_window(dG_OH, dG_O)
     print(f"\n{name}:  dG_OH {dG_OH:.3f}   dG_O {dG_O:.3f}")
@@ -93,25 +162,18 @@ def report(name: str, dG_OH: float, dG_O: float, partial_dG_OOH: float | None = 
 
 
 def main():
-    from hea_oer.referencing import delta_G
-    from dft.qe_qc import trusted_energy_ev
     out = {}
-    for m, d, partial in (("NiO2(110)", "Ni_slab", None), ("CoO2(110)", "Co_slab", "s0_OOH.out.stageB-partial")):
-        E = {s: trusted_energy_ev(f"runs/{d}/{s}.out", f"runs/{d}/{s}.in")
-             for s in ("slab", "s0_O", "s0_OH", "H2O", "H2")}
-        if any(v is None for v in E.values()):
-            print(f"{m}: missing a QC-passing state, skipping")
+    for metal, d, partial in BOUNDED:
+        w = bounded_eta("runs", d, partial)
+        if w is None:
+            print(f"{metal}O2(110): missing a QC-passing state, skipping")
             continue
-        dG_OH = delta_G(E["slab"], E["s0_OH"], "OH", E["H2O"], E["H2"])
-        dG_O = delta_G(E["slab"], E["s0_O"], "O", E["H2O"], E["H2"])
-        ub = None
-        p = f"runs/{d}/{partial}" if partial else None
-        if p and os.path.exists(p):
-            Es = [float(l.split("=")[1].split("Ry")[0]) for l in open(p, errors="ignore")
-                  if l.startswith("!    total energy")]
-            if Es:
-                ub = delta_G(E["slab"], Es[-1] * 13.605693122, "OOH", E["H2O"], E["H2"])
-        out[m] = report(m, dG_OH, dG_O, ub)
+        out[metal] = report(f"{metal}O2(110)", w["dG_OH"], w["dG_O"],
+                            w.get("upper_bound_dG_OOH"))
+    tier = reference_tier("runs")
+    print(f"\n{'='*60}\nTIER OF RECORD  n = {len(tier)}\n{'='*60}")
+    for m, v in sorted(tier.items(), key=lambda kv: kv[1]["eta"]):
+        print(f"  {m:<3} eta = {v['eta']:.3f} V   pls = {v['pls']}   ({v['source']})")
     return 0
 
 

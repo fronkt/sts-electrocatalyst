@@ -23,7 +23,7 @@ from abc import ABC, abstractmethod
 import numpy as np
 
 from .composition import Composition
-from .data import OXOPHILICITY_KJ_PER_O
+from .data import M_O_DESORBED_MIN, OXOPHILICITY_KJ_PER_O
 from .descriptors import OOH_OH_SCALING, OPTIMAL_DESCRIPTOR
 
 
@@ -150,41 +150,102 @@ class FairchemSurfaceBackend(AdsorptionBackend):
         ΔG(*OH/*O/*OOH)→η at each, and return the **best (lowest-η) site's** triple
         (the 'favorable tail' active-site hypothesis). Per-site η spread is stashed
         in `self.site_records[formula]` for the driver to surface.
+
+        Each adsorbate state is relaxed from **several starts** (builder placement +
+        rigid pull-ins) and the lowest-energy result wins — see
+        `surfaces_rutile.adsorbate_starts` for why single-start is not an option here.
+        The winning M–O distances are recorded so a desorbed "minimum" cannot enter
+        the melt list silently, which is exactly how four wrong structures survived
+        into the DFT tier.
         """
         from .relax import relax
         from .referencing import delta_G
         from .descriptors import oer_overpotential
-        from .surfaces_rutile import build_rutile110_hea, cus_site_xy, add_oer_adsorbate_at
+        from .surfaces_rutile import (
+            build_rutile110_hea, cus_site_xy, adsorbate_starts, m_o_distance,
+        )
 
         calc = self._calculator()
         slab = build_rutile110_hea(comp, supercell=(self.size[0], self.size[1]), seed=self.seed)
         sites = cus_site_xy(slab, n_sites=self.n_sites)  # on pristine slab: ideal cus coordination
         e_slab, slab_relaxed = relax(slab, calc, self.fmax, self.steps)
         E_H2O, E_H2 = self._gas_refs()
+        n_slab = len(slab_relaxed)
 
         per_site: list[tuple[float, tuple[float, float, float]]] = []
+        bonds: list[dict] = []
         for xy in sites:
             dG: dict[str, float] = {}
+            bond: dict[str, float] = {}
             for sp in ("OH", "O", "OOH"):
-                ads = add_oer_adsorbate_at(slab_relaxed, sp, xy)
-                e_ads, _ = relax(ads, calc, self.fmax, self.steps)
-                dG[sp] = delta_G(e_slab, e_ads, sp, E_H2O, E_H2)
+                best_e, best_atoms, best_tag = None, None, ""
+                for tag, start in adsorbate_starts(slab_relaxed, sp, xy):
+                    e_ads, relaxed = relax(start, calc, self.fmax, self.steps)
+                    if best_e is None or e_ads < best_e:
+                        best_e, best_atoms, best_tag = e_ads, relaxed, tag
+                dG[sp] = delta_G(e_slab, best_e, sp, E_H2O, E_H2)
+                bond[sp] = m_o_distance(best_atoms, n_slab)
+                bond[sp + "_start"] = best_tag
             triple = (dG["OH"], dG["O"], dG["OOH"])
             per_site.append((oer_overpotential(*triple).overpotential, triple))
+            bonds.append(bond)
 
-        per_site.sort(key=lambda t: t[0])  # favorable tail = lowest-η cus site first
+        order = np.argsort([e for e, _ in per_site])  # favorable tail = lowest-η first
+        per_site = [per_site[i] for i in order]
+        bonds = [bonds[i] for i in order]
         etas = np.array([e for e, _ in per_site], dtype=float)
         self.site_records[comp.formula()] = dict(
             n_sites=int(len(etas)), eta_min=float(etas.min()), eta_mean=float(etas.mean()),
             eta_std=float(etas.std()) if len(etas) > 1 else 0.0, eta_max=float(etas.max()),
+            bonds=bonds[0], all_bonds=bonds,
+            # the winning site's chemistry, so the screen can refuse to rank a
+            # composition whose "best" state never actually adsorbed
+            desorbed=[sp for sp in ("OH", "O", "OOH")
+                      if bonds[0][sp] >= M_O_DESORBED_MIN],
         )
         return per_site[0][1]
+
+
+class MACESurfaceBackend(FairchemSurfaceBackend):
+    """The screening backend of record: identical geometry/CHE machinery, MACE energies.
+
+    R0 established that **no** out-of-box UMA head ranks rutile MO2(110) OER (best
+    oc25 rho = +0.400, p = 0.52; docs/29 s8), which voids the UMA-derived melt set in
+    docs/15 s1. R3 then found that MACE-MPA-0 does, un-fine-tuned and free
+    (rho = +0.857, exact p = 0.0238, eta MAE 0.172 V at n = 7; docs/35 s1). This
+    backend is that result made usable for screening.
+
+    Two standing caveats, both load-bearing when reading a shortlist it produces:
+
+    * **Rank, not value.** The pre-registered out-of-sample test in docs/34 came back
+      1 hit / 1 miss -- eta(Co) was wrong by +0.339 V, 2.3x the validated bar. Use the
+      ordering; do not quote a candidate's absolute eta as a prediction.
+    * **A calibration tier, not an electrode.** docs/31: of the six rutile MO2
+      endmembers only beta-MnO2 is a real ambient phase with any aqueous window, and
+      what actually gets melted is an fcc metal that reconstructs to an (oxy)hydroxide
+      under OER. Activity from here must be gated on stability before it means
+      anything (docs/31 s8.3).
+    """
+
+    def __init__(self, model: str = "medium-mpa-0", device: str = "cpu",
+                 dtype: str = "float64", surface: str = "rutile", **kwargs):
+        kwargs.pop("task", None)  # MACE has no task head; silently accepting one would lie
+        super().__init__(model=model, device=device, surface=surface, **kwargs)
+        self.dtype = dtype
+        self.name = f"mace:{model}" + ("" if surface == "metal" else f":{surface}")
+
+    def _calculator(self):
+        if self._calc is None:
+            from .relax import make_mace_calculator
+            self._calc = make_mace_calculator(self.model, self.device, self.dtype)
+        return self._calc
 
 
 _BACKENDS = {
     "heuristic": HeuristicBackend,
     "uma": FairchemSurfaceBackend,
     "oc22": FairchemSurfaceBackend,  # alias — legacy name used in docs/12
+    "mace": MACESurfaceBackend,
 }
 
 

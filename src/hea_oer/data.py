@@ -11,6 +11,14 @@ from __future__ import annotations
 
 R_GAS = 8.314462618  # J / (mol K)
 
+#: M-O distance (Å) at or beyond which an adsorbate is not interacting with the
+#: surface. MUST track `dft.adsorbate_qc.M_O_DESORBED_MIN` — that module owns this
+#: threshold and records the three separate occasions one of its cuts was falsified
+#: by data. Duplicated here so `hea_oer` needs no dependency on the campaign scripts
+#: and `adsorption` stays ASE-free on the heuristic path;
+#: `tests/test_surfaces_rutile.py` asserts the two never drift apart.
+M_O_DESORBED_MIN = 3.00
+
 #: 12-coordinate metallic (Goldschmidt) atomic radii, Å.
 #: Senkov & Miracle, *Materials Research Bulletin* 36 (2001); as tabulated in
 #: Miracle & Senkov, *Acta Materialia* 122 (2017). Chosen because they reproduce

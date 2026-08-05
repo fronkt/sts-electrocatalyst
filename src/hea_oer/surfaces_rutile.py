@@ -160,3 +160,64 @@ def add_oer_adsorbate_at(atoms: Atoms, species: str, xy: tuple[float, float]) ->
     out = atoms.copy()
     add_adsorbate(out, ads, height=height, position=(float(xy[0]), float(xy[1])), mol_index=0)
     return out
+
+
+#: Rigid pull-in targets for the M-O distance, A. 1.70 is the median M-O across the
+#: five DFT-verified metals; 2.10 covers the weakly-bound minimum the Fe *OOH repair
+#: proved is real (2.552 A, 0.376 eV BELOW the desorbed original). docs/34 s4b.
+PULL_TO = (1.70, 2.10)
+
+
+
+def binding_metal_index(atoms: Atoms, ads_index: int) -> int:
+    """Index of the surface metal the adsorbate at `ads_index` actually sits on.
+
+    Found, not assumed: on an HEA slab every cus site carries a different element,
+    so the binding partner has to be located per site.
+    """
+    metals = [i for i in range(len(atoms))
+              if atoms[i].symbol != "O" and i < ads_index]
+    if not metals:
+        raise ValueError("slab has no metal atoms below the adsorbate index")
+    d = atoms.get_distances(ads_index, metals, mic=True)
+    return metals[int(np.argmin(d))]
+
+
+def adsorbate_starts(slab: Atoms, species: str, xy: tuple[float, float],
+                     pull_to: tuple[float, ...] = PULL_TO) -> list[tuple[str, Atoms]]:
+    """Builder placement plus rigidly pulled-in copies. ``[(tag, Atoms), ...]``
+
+    **Why this exists.** `_adsorbate` sets the initial height above the slab's
+    *topmost* atoms, and on rutile(110) those are the bridging-O rows, which stand
+    above the cus metal row. The adsorbate therefore lands 3.07-3.13 A off the cus
+    metal it is supposed to bind. From that start the 2026-07 DFT campaign trapped
+    Cr's `*O` at 2.016 A (1.396 eV above the true minimum) and left `*OOH` desorbed
+    on Mn, Fe *and* Ni -- four chemically-wrong structures that passed every
+    numerical QC check, cost $2.64 to repair, and were each caught by MACE first
+    (docs/33 s5b, docs/34 s4b, docs/35 s4).
+
+    A single-start screen over HEA compositions would reproduce that defect on every
+    candidate, and unlike the endmember tier there would be no DFT to catch it. So
+    each adsorbate state is started from the builder geometry *and* from copies with
+    the whole adsorbate rigidly translated to a target M-O distance; the caller keeps
+    the lowest relaxed energy. This is the cheap half of what the repair cost.
+    """
+    base = add_oer_adsorbate_at(slab, species, xy)
+    n = len(slab)  # index of the binding atom (mol_index=0 -> first appended)
+    out = [("builder", base)]
+
+    cus = binding_metal_index(base, n)
+    v = base.get_distance(cus, n, mic=True, vector=True)
+    d0 = float(np.linalg.norm(v))
+    if d0 < 1e-6:  # degenerate; nothing sensible to scale
+        return out
+    for target in pull_to:
+        a = base.copy()
+        a.positions[n:] += v * (target / d0 - 1.0)  # rigid translation, geometry intact
+        out.append((f"pull{target:.2f}", a))
+    return out
+
+
+def m_o_distance(atoms: Atoms, n_slab: int) -> float:
+    """Relaxed M-O distance between the adsorbate's binding atom and its metal."""
+    return float(atoms.get_distance(binding_metal_index(atoms, n_slab), n_slab, mic=True))

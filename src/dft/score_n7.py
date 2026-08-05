@@ -52,16 +52,30 @@ RESOLUTION = 0.17
 
 
 def dft_eta(root: str, metals) -> dict:
-    """QC-gated eta per metal. A metal with any rejected state is simply absent."""
+    """QC-gated eta per metal. A metal with any rejected state is simply absent.
+
+    Falls back to the bounded identity (`eta_bounded`) for a metal whose `*OOH` job
+    failed but whose `*OH`/`*O` are QC-clean. Without that fallback this scorer
+    reports "nothing to score" on the very campaign it was written for: both Ni and
+    Co `*OOH` jobs died, which is precisely why the bound exists (docs/35 s3).
+    """
+    from dft.eta_bounded import BOUNDED, bounded_eta
     from dft.qe_qc import trusted_energy_ev
+
     out = {}
     for m in metals:
         d = os.path.join(root, DIRNAME[m])
         E = {s: trusted_energy_ev(os.path.join(d, s + ".out"),
                                   os.path.join(d, s + ".in")) for s in STATES}
-        if any(v is None for v in E.values()):
+        if not any(v is None for v in E.values()):
+            out[m] = dict(che_from_energies(E), source="chain")
             continue
-        out[m] = che_from_energies(E)
+        for metal, dirname, partial in BOUNDED:
+            if metal != m:
+                continue
+            w = bounded_eta(root, dirname, partial)
+            if w is not None:
+                out[m] = w
     return out
 
 
