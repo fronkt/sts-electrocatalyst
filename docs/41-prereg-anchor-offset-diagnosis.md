@@ -137,6 +137,59 @@ The honest reading of the anchor-gate failure is therefore *not* "the DFT has a 
 It is: **a bare, unsolvated, full-coverage rutile(110) cus site at PBE level puts
 RuO₂ 0.4 V from experiment, and three independent methods agree on that number.**
 
+### 2d. η is a positively biased statistic, and that alone predicts a positive miss
+
+The construction in `hea_oer/descriptors.py` imposes `G_TOTAL = 4.92` by defining
+ΔG₄ ≔ 4.92 − ΔG_OOH. The four rungs then telescope:
+
+```
+ΔG₁ + ΔG₂ + ΔG₃ + ΔG₄ = ΔG_OH + (ΔG_O−ΔG_OH) + (ΔG_OOH−ΔG_O) + (4.92−ΔG_OOH) ≡ 4.92
+```
+
+verified to 8.9e-16 over 20,000 random inputs through the real code path. So the sum is
+an **identity**, the mean rung is pinned at exactly 1.23 eV, and
+
+> **η = max(ΔG_i) − mean(ΔG_i)**
+
+η is therefore a *max-minus-mean* statistic over four numbers of fixed sum. It is ≥ 0
+by construction, equal to zero only when all four rungs are degenerate — which is the
+definition of an ideal catalyst — and **any error, of any origin, in any direction,
+inflates it.** "Both anchors miss positive" is not evidence of a shared physical
+mechanism. It is the expected behaviour of this estimator.
+
+Monte Carlo, adding Gaussian error of s.d. σ to the three adsorbate free energies of a
+ladder with **true η = 0.370 V** (a literature-consistent RuO₂: descriptor 1.60,
+ΔG_OOH−ΔG_OH 3.20) and reading off the computed η:
+
+| σ (eV) | 0.10 | 0.20 | 0.30 | 0.35 | 0.40 |
+|---|---|---|---|---|---|
+| E[η] iid errors | 0.468 | 0.566 | 0.671 | 0.725 | **0.783** |
+| bias | +0.098 | +0.196 | +0.301 | +0.355 | **+0.413** |
+| with ρ(OH,OOH)=0.8, ρ_O=0.5 | +0.076 | +0.152 | +0.227 | +0.267 | +0.306 |
+| with ρ(OH,OOH)=0.95, ρ_O=0.8 | +0.049 | +0.098 | +0.148 | +0.173 | +0.200 |
+
+At σ ≈ 0.35–0.40 eV — an ordinary GGA error bar for oxide adsorption energies — the
+**expected** computed η for a true-0.37 V catalyst is 0.73–0.78 V. The measured value
+is **0.787 V**. The sampling s.d. of η at that σ is ~0.34–0.38 V, which is also why the
+6 mV Ru/Ir "inversion" is meaningless, as docs/32 already concluded on other grounds.
+
+The correlation rows are the honest caveat and they matter: scaling relations correlate
+the errors on *OH and *OOH, and under strong correlation the bias explains only
+~0.10–0.20 V of the gap rather than all of it. **This is a range, not a closed case.**
+What it does establish is that a substantial, previously unaccounted-for part of both
+anchor misses is a property of the estimator rather than of the chemistry, and that no
+physical mechanism needs to be found for the *shared sign*.
+
+Two things this does **not** license:
+
+- It does not say the physical model is fine. §2c still points at coverage / resting
+  state / solvation, and the residual after the bias is exactly what those must explain.
+- It does not say η is the wrong statistic for *model-vs-model* benchmarking. That was
+  tested on the n=5 matched set and came out **neutral**: MAE(model−DFT) scored on η,
+  on the descriptor, and on ΔG_OOH−ΔG_OH is 0.150/0.165/0.148 (MACE) and
+  0.131/0.109/0.177 (UMA `omat`), with ρ differing by a single swap. The bias largely
+  cancels when both sides carry it. Do not claim otherwise from this data.
+
 ## 3. Why this is good news
 
 A diffuse tier-wide offset would be nearly undiagnosable on this budget. Two localised,
