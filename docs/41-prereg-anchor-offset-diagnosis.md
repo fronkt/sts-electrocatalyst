@@ -262,6 +262,31 @@ softened. 0.15 V is chosen as slightly under the 0.17 V differential resolution 
 already concedes, so the criterion cannot be met by a change the tier could not resolve
 anyway.
 
+**P9 — RPBE vs PBE (added 2026-08-06, before any probe result existed).** The
+literature overpotentials in §1 that this gate is scored against are **RPBE**
+(Rossmeisl 2007, Man 2011; `docs/research/2026-07-24-methodology-survey.md` says so
+explicitly for both). This campaign is **PBE**. That was never a like-for-like
+comparison, and it has gone unremarked through docs/29–40. RPBE weakens chemisorption
+relative to PBE by ~0.3–0.5 eV for atomic *O and only ~0.15–0.25 eV for *OH/*OOH, so
+it raises ΔG_O − ΔG_OH — the exact coordinate, sign, and order of magnitude of Ru's
+descriptor deficit.
+
+*Predicted before running:* the `rpbe` variant raises Ru's descriptor by **0.2–0.5 eV**.
+- Raises it by **≥ 0.30 eV** ⇒ P4 satisfied; the dominant Ru error is a
+  functional mismatch between this campaign and its own reference values, not a bug.
+- **< 0.15 eV** ⇒ the functional-mismatch explanation is dead and must be recorded as
+  a closed negative alongside dipole, vacuum, thickness and referencing.
+
+Two conditions on this test, both enforced in code:
+1. The variant carries **its own RPBE gas references**. ΔG subtracts a·E_H₂O + b·E_H₂,
+   so scoring an RPBE slab against a PBE water is a category error worth hundreds of
+   meV. `probe_eta.py` refuses to score an XC variant whose own H₂O/H₂ are missing.
+2. The pseudopotentials were **generated for PBE**. An RPBE single point on them is the
+   standard non-self-consistent-pseudo approximation, not a clean RPBE calculation.
+   It is the right first cut — PBE and RPBE differ only in the exchange enhancement
+   factor — but the result must be reported with that caveat and must not be presented
+   as a converged RPBE overpotential.
+
 **P8 — what will not count as evidence.** Agreement of any variant's *absolute* η with
 literature, absent the corresponding descriptor or scaling movement in P4/P5. Two
 errors cancelling is not a diagnosis, and the tier has enough free parameters to hit
@@ -278,6 +303,36 @@ P7 runs **first** on the honest ordering (a step that can falsify the central cl
 precedes one that only refines it), but both fit inside a single ~$25 top-up. Remaining
 credit at time of writing is **$0.295**, which is less than either step; the top-up is
 the blocking action.
+
+## 6a. Corrections to the record (2026-08-06)
+
+- **The non-uniform constraint mask does not touch the anchor gate.** The claim that
+  the compared metals ran different masks (11 free for Cr/Mn/Fe/Cu/Ru, 10 for Ir, 8 Co,
+  7 Ni) traces to the **superseded `*.in.uma` files**, not to what `pw.x` executed.
+  Read back from the ionic trajectories in `runs/Ru_anchor/slab.out` and
+  `runs/Ir_anchor/slab.out`, the atoms with exactly zero displacement from first to
+  last step are `[0,1,6,7,8,9,11]` in **both** anchors — byte-identical 11-free/7-fixed
+  masks. Cr/Mn/Fe/Cu/Ru/Ir all ran 11 free. Only **Co (8)** and **Ni (7)** genuinely
+  differ, so the mask is a live concern for those two metals and for nothing else.
+- **Slab thickness and constraint are a closed negative.** Releasing all 18 atoms
+  moves η(Ru) by **+0.05 V** and η(Ir) by **+0.00 V** — the wrong sign for Ru, and an
+  order of magnitude short. Going 3 → 5 trilayers moves ΔG₃ by +0.006 (Ru) and −0.011
+  (Ir). Scored in the P4/P5 currency the shifts are ~0.03 eV and ~0.001 eV against a
+  required 0.30 eV: a null by two orders of magnitude. Do not spend on `Ru_freeall`.
+- **Coverage is real, large, and metal-dependent — but it is not the shared cause.**
+  In the 1×1 cell the *OOH proton reaches its own periodic image: on Ru it forms a
+  near-shared-proton bond at H···O = **1.473 Å** that *over*-stabilises *OOH, while on
+  Ir it points away and leaves a repulsive O···O = 2.516 Å contact. This is the
+  accidental version of the Halck/Rossmeisl proton-accepting-neighbour mechanism.
+  Diluting to ½ ML takes **Ir's ΔG_OOH−ΔG_OH from 3.652 to ~3.11, back inside the
+  universal band** — i.e. it explains §2's Ir anomaly outright — while moving Ru's
+  descriptor *further* from the apex (1.163 → ~1.01). So the coverage artifact is
+  currently **masking** part of Ru's descriptor deficit rather than causing it, and
+  removing it widens the failed ordering clause instead of repairing it.
+
+Net: of the six candidate causes, four are closed negatives (dipole, vacuum,
+thickness/constraint, referencing), coverage is confirmed but explains **Ir only**, and
+Ru's descriptor deficit is still open — which is what P9 now tests.
 
 ## 7. Standing caveats
 

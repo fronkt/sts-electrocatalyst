@@ -203,15 +203,28 @@ def apply_vacuum(positions, cell, new_c):
     return newpos, newcell
 
 
+#: Exchange-correlation overrides available as variant tokens. RPBE is the one that
+#: matters: the literature overpotentials this campaign's gate is scored against
+#: (Rossmeisl 2007, Man 2011 -- see docs/research/2026-07-24-methodology-survey.md)
+#: are RPBE, and this campaign is PBE. RPBE weakens chemisorption relative to PBE by
+#: ~0.3-0.5 eV for atomic *O but only ~0.15-0.25 eV for *OH/*OOH, which raises
+#: dG_O - dG_OH -- the exact coordinate, sign and order of magnitude of Ru's
+#: descriptor deficit (docs/41 s2). Comparing a PBE number to an RPBE reference was
+#: never a like-for-like comparison.
+_XC_TOKENS = {"rpbe": "RPBE", "revpbe": "REVPBE", "pbesol": "PBESOL", "pbe": "PBE"}
+
+
 def parse_variant(v: str):
-    """'dipole+vac32' -> dict(dipole=True, vac=32.0, uscale=None)."""
-    spec = dict(dipole=False, vac=None, uscale=None, name=v)
+    """'dipole+vac32' -> dict(dipole=True, vac=32.0, uscale=None, xc=None)."""
+    spec = dict(dipole=False, vac=None, uscale=None, xc=None, name=v)
     for tok in v.split("+"):
         tok = tok.strip().lower()
         if tok == "base":
             continue
         elif tok == "dipole":
             spec["dipole"] = True
+        elif tok in _XC_TOKENS:
+            spec["xc"] = _XC_TOKENS[tok]
         elif tok.startswith("vac"):
             spec["vac"] = float(tok[3:])
         elif tok.startswith("u"):
@@ -232,6 +245,14 @@ def write_probe(deck, positions, spec, prefix, pseudo_dir, outdir_scratch,
     extra, emaxpos, eopreg = ("", None, None)
     if spec["dipole"]:
         extra, emaxpos, eopreg = dipole_block(positions, cell)
+    if spec["xc"]:
+        # `input_dft` overrides the functional the pseudopotentials declare. The
+        # pseudos here were GENERATED for PBE, so an RPBE single point on them is
+        # the standard non-self-consistent-pseudo approximation, not a clean RPBE
+        # calculation. It is the right first cut -- RPBE and PBE differ only in the
+        # exchange enhancement factor, so the core/valence partitioning is nearly
+        # unchanged -- but any artifact from it must be reported as such.
+        extra += f"  input_dft = '{spec['xc']}'\n"
 
     mag = ""
     if deck["nspin"] == 2:
@@ -295,6 +316,39 @@ ATOMIC_SPECIES
         vac_gap=vacuum_report(positions, cell)[2])
 
 
+def write_gas_probe(inpath, outpath_out, spec, prefix, scratch):
+    """Patch a gas-reference deck in place rather than rebuilding it.
+
+    The gas decks are ibrav=1 + celldm(1) + assume_isolated='mt' + K_POINTS gamma,
+    not the ibrav=0 slab form `write_probe` emits, and nothing about them needs to
+    change except the functional and the calculation type. Text-patching preserves
+    the Martyna-Tuckerman setup, the box size and the pseudopotentials exactly.
+
+    This exists because ANY exchange-correlation variant invalidates the cached gas
+    references: delta_G subtracts a*E_H2O + b*E_H2, so scoring an RPBE slab against
+    a PBE water is a straight category error worth hundreds of meV.
+    """
+    txt = open(inpath).read()
+    txt = re.sub(r"calculation\s*=\s*'[^']*'", "calculation = 'scf'", txt, count=1)
+    txt = re.sub(r"^\s*forc_conv_thr\s*=.*\n", "", txt, flags=re.M)
+    txt = re.sub(r"^\s*nstep\s*=.*\n", "", txt, flags=re.M)
+    txt = re.sub(r"&IONS.*?\n/\n", "", txt, flags=re.S)
+    txt = re.sub(r"prefix\s*=\s*'[^']*'", f"prefix = '{prefix}'", txt, count=1)
+    txt = re.sub(r"outdir\s*=\s*'[^']*'", f"outdir = '{scratch}'", txt, count=1)
+    if spec["xc"]:
+        txt = txt.replace("&SYSTEM\n", f"&SYSTEM\n  input_dft = '{spec['xc']}'\n", 1)
+    # use the RELAXED molecular geometry if the source run produced one
+    pos, prov = (None, None)
+    if os.path.exists(outpath_out):
+        pos, prov = parse_final_coordinates(outpath_out)
+    if pos:
+        block = "ATOMIC_POSITIONS angstrom\n" + "".join(
+            f"  {s}  {x:.8f}  {y:.8f}  {z:.8f}\n" for (s, x, y, z) in pos)
+        txt = re.sub(r"ATOMIC_POSITIONS\s+\S*\s*\n(?:\s*[A-Z][a-z]?\s+[-\d.eE+]+.*\n)+",
+                     block, txt, count=1)
+    return txt, prov
+
+
 def cmd_build(args):
     src = args.rundir
     manifest_path = os.path.join(src, "manifest.json")
@@ -343,6 +397,28 @@ def cmd_build(args):
                 geometry_provenance=prov, relax_reference_ev=e_relax, **meta))
         print(f"  {name}: {len(args.variants)} variants  (geometry: {prov}, "
               f"relax E = {e_relax:.4f} eV)")
+
+    # Any XC-changing variant needs its OWN gas references; the cached PBE ones
+    # are invalid for it. probe_eta.py looks for these and refuses to score an XC
+    # variant without them.
+    xc_variants = [v for v in args.variants if parse_variant(v)["xc"]]
+    for v in xc_variants:
+        spec = parse_variant(v)
+        for g in ("H2O", "H2"):
+            gi = os.path.join(src, g + ".in")
+            if not os.path.exists(gi):
+                print(f"  WARNING: {gi} missing -- cannot build {v} gas reference")
+                continue
+            prefix = f"{g}__{v}"
+            text, prov = write_gas_probe(gi, os.path.join(src, g + ".out"), spec,
+                                         prefix, args.scratch)
+            with open(os.path.join(args.outdir, prefix + ".in"), "w", newline="\n") as f:
+                f.write(text)
+            out_manifest["jobs"].append(dict(
+                job=g, variant=v, file=prefix + ".in", kind="gas",
+                geometry_provenance=prov, relax_reference_ev=None,
+                emaxpos=None, eopreg=None, cell_c=None, vac_gap=None))
+            print(f"  {g:8s} gas reference for {v}")
 
     with open(os.path.join(args.outdir, "probe_manifest.json"), "w") as f:
         json.dump(out_manifest, f, indent=2)

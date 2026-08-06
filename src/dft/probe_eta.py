@@ -120,7 +120,8 @@ def main():
     # --- GATE 1: the control must reproduce the relaxation --------------------
     print("GATE 1  extraction control (base SCF vs relaxation final energy)")
     drift_ok = True
-    for job in sorted({j["job"] for j in man["jobs"]}):
+    slab_jobs = sorted({j["job"] for j in man["jobs"] if j.get("kind") != "gas"})
+    for job in slab_jobs:
         e_base, e_relax = E.get((job, "base")), ref_relax.get(job)
         if e_base is None or e_relax is None:
             print(f"  {job:10s} -- not available")
@@ -141,14 +142,43 @@ def main():
     else:
         print("  -> control reproduces the relaxation; extraction is faithful.\n")
 
+    # --- variant-matched gas references ---------------------------------------
+    # An XC-changing variant CANNOT reuse the cached PBE gas energies: delta_G
+    # subtracts a*E_H2O + b*E_H2, so scoring an RPBE slab against a PBE water is a
+    # category error worth hundreds of meV. Refuse rather than silently mix.
+    import importlib.util as _ilu
+    _s = _ilu.spec_from_file_location(
+        "probe_decks", os.path.join(os.path.dirname(os.path.abspath(__file__)), "probe_decks.py"))
+    _pd = _ilu.module_from_spec(_s); _s.loader.exec_module(_pd)
+
+    gas_for = {}
+    for v in variants:
+        if not _pd.parse_variant(v)["xc"]:
+            gas_for[v] = gas
+            continue
+        g = {}
+        for name in ("H2O", "H2"):
+            p = os.path.join(args.probedir, f"{name}__{v}.out")
+            g[name] = qc.trusted_energy_ev(p, strict=True) if os.path.exists(p) else None
+        if None in g.values():
+            print(f"SKIPPING variant {v}: it changes the functional but its own gas "
+                  f"references are missing or failed QC (need {v}'s H2O and H2). "
+                  f"Reusing the cached PBE gas energies here would be wrong.")
+            continue
+        gas_for[v] = g
+        print(f"variant {v}: own gas refs  H2O {g['H2O']:.4f}  H2 {g['H2']:.4f} eV")
+
     # --- score every variant ---------------------------------------------------
     rows, base_eta = [], None
     for v in variants:
+        if v not in gas_for:
+            continue
         need = [("slab", v)] + [(f"s0_{sp}", v) for sp in ADSORBATES]
         if any(k not in E for k in need):
             continue
         e_slab = E[("slab", v)]
-        dG = {sp: delta_G(e_slab, E[(f"s0_{sp}", v)], sp, gas["H2O"], gas["H2"])
+        gv = gas_for[v]
+        dG = {sp: delta_G(e_slab, E[(f"s0_{sp}", v)], sp, gv["H2O"], gv["H2"])
               for sp in ADSORBATES}
         res = oer_overpotential(dG["OH"], dG["O"], dG["OOH"])
         row = dict(variant=v, dG_OH=dG["OH"], dG_O=dG["O"], dG_OOH=dG["OOH"],
