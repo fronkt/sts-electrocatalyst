@@ -88,6 +88,55 @@ referencing to a state that does not exist under operating conditions. This is
 independent evidence for the coverage / surface-Pourbaix hypothesis, and it is specific
 to Ir rather than tier-wide.
 
+### 2c. Two independent MLIPs reproduce both anomalies — so the numerics are exonerated
+
+This is the strongest constraint available, it costs nothing, and the data was already
+in `results/r5_matched_protocol.json` and `results/r5_matched_omat.json` (docs/38's
+matched-protocol run, all states converged, sensible M–O distances, independent gas
+references):
+
+| | ΔG_O − ΔG_OH (apex 1.60) | | ΔG_OOH − ΔG_OH (band 3.2) | |
+|---|---|---|---|---|
+| | **Ru** | **Ir** | **Ru** | **Ir** |
+| QE PBE(+U), this project | 1.163 | 1.642 | 3.180 | **3.652** |
+| MACE-MPA-0 | 1.206 | 1.495 | 3.082 | **3.641** |
+| UMA `omat` | 1.248 | 1.589 | 3.357 | **3.651** |
+| miss vs literature | **−0.35 to −0.44** | ok | ok | **+0.44 to +0.45** |
+
+All three methods reproduce Ru's descriptor deficit and Ir's scaling violation. The
+three Ir values agree to **11 meV**.
+
+What the three share: the 1×1 rutile(110) builder geometry, the bare-cus-site
+reference, no solvation, no coverage treatment, the CHE construction, and PBE-level
+physics. What they do **not** share: the DFT engine (QE here, VASP-derived training
+data there), pseudopotentials, Hubbard U, k-points, cutoffs, smearing, convergence
+thresholds, gas references — and, decisively, **long-range electrostatics, which the
+MLIPs do not have at all.** MACE and UMA are short-range models with a ~6 Å cutoff:
+they carry no dipole term and cannot see the cell height.
+
+Therefore:
+
+1. **The whole "QE numerical setup" family is ruled out** — pseudopotentials, k-points,
+   cutoffs, smearing, Hubbard implementation, convergence thresholds. Two models with
+   none of those reach the same numbers.
+2. **The missing dipole correction cannot be responsible for a 0.4 eV error.** If it
+   were, models with *no electrostatics whatsoever* could not agree with this DFT to
+   11 meV on the very quantity that fails.
+3. **Vacuum size cannot be responsible** for the same reason: it is invisible to a
+   6 Å-cutoff model.
+4. The anomaly lives in what the three **do** share: the structural and physical model
+   — bare-cus reference, 1 ML coverage, no solvation, PBE. This is the same place
+   §2b's ΔG_OH(Ir) = −0.0005 eV points.
+
+**This converts P2 and P3 from open questions into pre-registered predictions.**
+Both are predicted **NULL** (|Δη| < 50 mV) before running, on the argument above. If
+either comes back ≥ 100 mV, the argument in this section is wrong and must be
+retracted — which is exactly why the probes are still worth their ~$3.
+
+The honest reading of the anchor-gate failure is therefore *not* "the DFT has a bug."
+It is: **a bare, unsolvated, full-coverage rutile(110) cus site at PBE level puts
+RuO₂ 0.4 V from experiment, and three independent methods agree on that number.**
+
 ## 3. Why this is good news
 
 A diffuse tier-wide offset would be nearly undiagnosable on this budget. Two localised,
@@ -121,7 +170,10 @@ that fails this, and a failure voids the batch rather than being reported with a
 caveat. *Rationale:* if the coordinate/cell/species/magnetisation/Hubbard round trip is
 not faithful, every other variant is measuring the round trip rather than the physics.
 
-**P2 — dipole correction.** *Predicted before running:* |Δη| < 50 mV on both anchors.
+**P2 — dipole correction.** *Predicted before running:* |Δη| < 50 mV on both anchors —
+and now predicted **NULL on the independent argument of §2c**, not merely on a guess
+about magnitude. A result of ≥ 100 mV falsifies §2c and that retraction must be
+recorded alongside the number.
 - **< 50 mV on both** ⇒ the missing dipole correction is **not** the explanation. Record
   it as a closed negative and stop citing it as a suspect.
 - **≥ 100 mV on either** ⇒ it is a live contributor; docs/22's spec was right and the
