@@ -100,7 +100,88 @@ cost): that is reported as an attempted-and-blocked result with the blocker name
    an obligation the project is already under from R0, and which the STS report must
    carry.
 
-## 6. Result
+## 6. Result — `omat` MEETS the gate, and R0's headline claim is FALSIFIED
 
-*(To be filled after the run. If this section is still empty in a later commit, the run
-did not happen and nothing may be claimed about `omat`.)*
+**Run 2026-08-06, ~9 min laptop CPU, $0.** Criterion frozen in commit `e084af8` at
+07:46:27−04:00; the run started after it. Artifacts: `results/r5_matched_omat.json`,
+`docs/figs/parity_matched.{json,png}`.
+
+| model / head | n=7 ρ | exact p | η MAE | **gate** | n=5 ρ | p | gate |
+|---|---|---|---|---|---|---|---|
+| **uma-s-1p2 / `omat`** | **+0.964** | **0.0028** | **0.125 V** | **MET** | **+1.000** | 0.0167 | **MET** |
+| mace:medium-mpa-0 | +0.857 | 0.0238 | 0.173 V | MET | +0.900 | 0.0833 | NOT MET |
+| uma-s-1p2 / `oc25` | +0.357 | 0.4444 | 0.438 V | — | +0.400 | 0.5167 | — |
+| uma-s-1p2 / `oc22` | +0.321 | 0.4976 | 0.630 V | — | 0.000 | 1.0000 | — |
+| uma-s-1p2 / `oc20` | −0.036 | 0.9635 | 0.651 V | — | −0.300 | 0.6833 | — |
+
+`omat` clears the frozen criterion on both the headline and every secondary quantity,
+and it holds at n = 5 where MACE does not. The orderings:
+
+```
+DFT :  Cr < Co < Ir < Ru < Mn < Ni < Fe
+omat:  Co < Cr < Ir < Ru < Mn < Ni < Fe     <- ONE adjacent swap, on a 53 mV DFT gap
+mace:  Cr < Ru < Co < Ir < Ni < Mn < Fe     <- four
+```
+
+**Per §4, the outcome is therefore: R0's headline claim is falsified and must be
+rewritten, not softened.** "No out-of-the-box UMA head ranks rutile OER" was always a
+claim over *all* heads defended by testing three of them, and the untested one is the
+best model on this tier the project has measured. In hindsight `omat` is the obvious
+head to have tried: OMat24 is PBE/PBE+U VASP energetics on bulk inorganic materials —
+the same functional family as our QE PBE+U reference — whereas R0 reasoned entirely
+about *adsorption* datasets and never considered that a bulk-energetics head might
+transfer better.
+
+### 6a. The `*OOH` problem, which does not rescue R0
+
+`omat` **desorbs `*OOH` on 5 of 7 metals**: Cr 3.778, Mn 3.835, Fe 4.012, Co 3.906,
+Ni 3.857 Å, against our 3.00 Å cut. That is far worse than MACE under the same protocol
+(Cr 3.013, Mn 3.028, Fe 3.074 — marginal). Only Ru (1.953) and Ir (1.928) held.
+
+But a desorbed `*OOH` corrupts η **only when the potential-limiting step touches
+ΔG_OOH**, i.e. `pls ∈ {3, 4}`. Of the five, four are `pls` 1 or 2:
+
+| | Cr | Mn | Fe | Co | Ni | Ru | Ir |
+|---|---|---|---|---|---|---|---|
+| `pls` | **3** | 2 | 2 | 2 | 1 | 3 | 3 |
+| `*OOH` desorbed | ✗ | ✗ | ✗ | ✗ | ✗ | — | — |
+| η contaminated | **YES** | no | no | no | no | no | no |
+
+**Exactly one η is contaminated — Cr.** Six of seven are well-founded, so the desorption
+finding cannot be used to wave the gate result away. `parity_matched.py` now records
+`desorbed_OOH` and `eta_contaminated` separately, because "QC flag" and "this number is
+wrong" are different claims.
+
+The uncomfortable direction deserves the same honesty: **Cr is the one metal `omat`
+mis-ranks, and it is the one contaminated point.** Reading Cr's η off its `pls = 2` step
+instead (ΔG_O − ΔG_OH − 1.23 = 3.144 − 1.445 − 1.23) gives **0.469 V against a DFT
+0.491 V**, a 22 mV error, and would make the ranking *perfect*. **This is post-hoc
+arithmetic and it is not the gate** — §3 forbids exactly this kind of substitution, and
+the gate is already met without it. It is recorded as an observation, and as the reason
+a properly-constrained `*OOH` re-run would be interesting rather than decisive.
+
+### 6b. Risk 1 materialised and did not matter
+
+As predicted in §5, the gas references are shifted: `E_H2O` = −14.1961, `E_H2` = −6.6497
+eV, against MACE's −13.7861 / −6.5185. The ranking is unaffected, consistent with
+`e0_stage0.py`'s closure proof absorbing the per-element component exactly.
+
+### 6c. What this changes, and what it does not
+
+**Does not change:** the screen, the ranking, or the melt list. All rest on MACE, whose
+validation stands independently and by three separate routes (docs/38 §2). No candidate
+moves.
+
+**Does change:** the model-selection narrative, and docs/26 / docs/29 / docs/38 §4.
+
+**The tension worth writing up rather than resolving:** `omat` ranks this tier better
+while being *worse* at keeping adsorbates bound. The tier is forgiving because 5 of 7
+metals are `pls ≤ 2`, so most η never touch the leg `omat` fails. **The HEA screen is
+not forgiving** — docs/37 found 6 of 12 candidates chemically invalid from precisely
+this failure mode, and screened candidates span `pls` 1–4. "Ranks the endmembers better"
+and "is the better screener" are different claims, and only the first is established.
+
+**Recommendation: do not re-screen on `omat`.** It re-opens a gate already met, ten
+weeks from freeze, on a model that desorbs the `*OOH` leg on 5 of 7 known systems. The
+right use of this result is in the write-up, as a corrected negative and an honest
+account of how a pre-registered test overturned the project's own prior conclusion.

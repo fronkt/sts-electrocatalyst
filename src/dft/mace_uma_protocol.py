@@ -98,15 +98,33 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--root", default="runs")
-    ap.add_argument("--model", default="medium-mpa-0")
+    ap.add_argument("--backend", default="mace", choices=("mace", "uma"),
+                    help="swap the calculator; the protocol is identical either way")
+    ap.add_argument("--model", default=None,
+                    help="default: medium-mpa-0 (mace) / uma-s-1p2 (uma)")
+    ap.add_argument("--uma-task", default="omat",
+                    help="UMA task head. Heads emulate different DFT references, so the "
+                         "gas chain is recomputed per head and never mixed (docs/29 s2).")
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--dtype", default="float64")
     ap.add_argument("--out", default="results/r5_matched_protocol.json")
     a = ap.parse_args()
 
-    from mace.calculators import mace_mp
-    print(f"loading MACE {a.model} ({a.device}, {a.dtype}) ...", flush=True)
-    calc = mace_mp(model=a.model, device=a.device, default_dtype=a.dtype)
+    # One runner, one protocol, calculator swapped. Matching is then a property of the
+    # code path rather than of anyone remembering to match (docs/39 s2).
+    if a.backend == "mace":
+        a.model = a.model or "medium-mpa-0"
+        from mace.calculators import mace_mp
+        print(f"loading MACE {a.model} ({a.device}, {a.dtype}) ...", flush=True)
+        calc = mace_mp(model=a.model, device=a.device, default_dtype=a.dtype)
+        tag = f"mace:{a.model}"
+    else:
+        a.model = a.model or "uma-s-1p2"
+        from fairchem.core import FAIRChemCalculator, pretrained_mlip
+        print(f"loading UMA {a.model} task={a.uma_task} ({a.device}) ...", flush=True)
+        calc = FAIRChemCalculator(pretrained_mlip.get_predict_unit(a.model, device=a.device),
+                                  task_name=a.uma_task)
+        tag = f"uma:{a.model}:{a.uma_task}"
 
     gas = {}
     for name in ("H2O", "H2"):
@@ -142,7 +160,8 @@ def main() -> None:
         print(f"  -> {metal}: eta = {r.overpotential:.3f} V  pls={r.potential_limiting_step}\n",
               flush=True)
 
-    res = dict(model=a.model, dtype=a.dtype, device=a.device,
+    res = dict(model=a.model, backend=a.backend, tag=tag, dtype=a.dtype, device=a.device,
+               uma_task=a.uma_task if a.backend == "uma" else None,
                protocol=("UMA-matched: ORIGINAL builder .in, SINGLE start, as-shipped mask, "
                          "BFGS fmax=0.05 steps=300, gas refs = ase.build.molecule in 12A cell"),
                gas=gas, pred=out)

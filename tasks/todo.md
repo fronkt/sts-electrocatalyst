@@ -245,7 +245,24 @@ ranking would contaminate the campaign's central contribution.
       **OC22 holds no usable external validation for rutile MO₂(110) OER on our metals**
       — which retires "just validate against public data" instead of leaving it vague.
       Verified via MP OPTIMADE (no API key) + spglib; docs/38 §3b.
-- [ ] **K. UMA `omat` head, never tested** — one CLI argument
+- [x] **K. DONE — `omat` MEETS the gate. R0's headline claim is FALSIFIED.**
+      Criterion frozen and pushed FIRST (docs/39, commit `e084af8`, 07:46:27-04:00),
+      then run: **ρ = +0.964, exact p = 0.0028, η MAE 0.125 V at n = 7** — beating
+      MACE (+0.857 / 0.0238 / 0.173 V) and holding at n = 5 (ρ = +1.000, p = 0.0167)
+      where MACE fails. One adjacent ranking swap, on a 53 mV DFT gap.
+      **"No out-of-the-box UMA head ranks rutile OER" is wrong** — R0 tested three
+      *adsorption* heads and never tried the *bulk-energetics* head, which is trained on
+      PBE/PBE+U VASP data, the same functional family as our own reference.
+      docs/26, docs/29 and docs/38 §4 all bannered as falsified in part.
+      **The screen and melt list are UNAFFECTED** — both rest on MACE, validated
+      independently by three routes (docs/38 §2). No candidate moves.
+      **Counter-caveat:** `omat` desorbs `*OOH` on 5 of 7 metals (3.78–4.01 Å vs MACE's
+      marginal 3.0), but only Cr is `pls=3`, so exactly ONE η is contaminated — the
+      desorption cannot rescue R0. It also means `omat` ranks this tier better while
+      being worse at the chemistry the HEA screen depends on (docs/37: 6 of 12
+      candidates invalid from this failure mode). **Do NOT re-screen on `omat`** — it
+      re-opens a met gate ten weeks from freeze. Cost: $0, ~9 min laptop CPU.
+- [ ] ~~**K(old). UMA `omat` head, never tested**~~ — one CLI argument
       (`uma_oc22_parity.py --tasks omat`), the only untested attack on R0. Either
       pre-register the acceptance criterion in a doc **first** and run it, or state in
       one sentence that it was not run and why. Silence is the unacceptable option.

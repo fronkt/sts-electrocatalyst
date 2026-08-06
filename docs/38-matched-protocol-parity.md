@@ -120,9 +120,19 @@ defensible claim is the empirical one: on this tier, MACE ranks and UMA does not
 
 ## 4. What may and may not be claimed
 
-**May:** no UMA head tested (`oc20`/`oc22`/`oc25`, on 1p1 or 1p2) reaches the
+> **⚠ SUPERSEDED 2026-08-06 by [docs/39](39-prereg-omat-head.md) §6 — the same day.**
+> §5 K listed the `omat` head as the one untested attack on R0. It was tested under a
+> pre-registered criterion and **it meets the gate: ρ = +0.964, p = 0.0028, MAE 0.125 V
+> at n = 7**, beating MACE (+0.857 / 0.0238 / 0.173 V) and holding at n = 5 where MACE
+> fails. **The claim below is false as written and is retained only to show what it
+> said.** Correct statement: *the `oc20`/`oc22`/`oc25` heads do not rank this chemistry;
+> the `omat` head does. R0 tested three adsorption heads and never tried the bulk-
+> energetics head that works.* The screen is unaffected — it rests on MACE, validated
+> independently — but the model-selection narrative is not.
+
+**May:** ~~no UMA head tested (`oc20`/`oc22`/`oc25`, on 1p1 or 1p2) reaches the
 pre-registered ρ ≥ 0.8 gate on this tier — true against every reference, every n, and
-the matched re-run. MACE meets it at n = 7 by three independent routes. And **the MLIP
+the matched re-run.~~ MACE meets it at n = 7 by three independent routes. And **the MLIP
 corrected the DFT on four structures** — Cr `*O` (MACE 1.609 Å vs the DFT restart's
 1.572 Å; η predicted 0.500 against a measured 0.491, a 9 mV error on a number the old
 reference had wrong by 1.235 V), plus Fe/Mn `*OOH` and the desorbed Ni `*OOH`. That last

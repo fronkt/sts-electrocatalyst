@@ -98,20 +98,34 @@ def main() -> None:
     src = {m: v.get("source") for m, v in reference_tier(root).items()}
     models = load_uma(root)
 
-    if os.path.exists(matched_path):
-        models["MACE-MPA-0 (UMA protocol)"] = {
-            m: r["eta"] for m, r in json.load(open(matched_path))["pred"].items()}
-    else:
-        print(f"[warn] {matched_path} absent -- run mace_uma_protocol.py first")
-
     full = sorted(ref)
     cut5 = [m for m in full if m not in MACE_ENTANGLED]
-    summary = dict(
+    summary: dict = dict(
         reference_tier={m: dict(eta=round(ref[m], 4), source=src[m]) for m in full},
-        note=("Both models scored against eta_bounded.reference_tier(). MACE row is the "
-              "matched-protocol run (mace_uma_protocol.py): original builder geometries, "
-              "single start, as-shipped masks -- UMA's exact protocol."),
-        n7={}, n5={})
+        note=("All models scored against eta_bounded.reference_tier(). Rows marked "
+              "'(matched)' come from mace_uma_protocol.py -- original builder geometries, "
+              "single start, as-shipped masks, one runner with the calculator swapped, so "
+              "they are comparable by construction rather than by discipline (docs/39 s2)."),
+        n7={}, n5={}, adsorbate_qc={})
+
+    # Every matched-protocol run, whatever backend produced it.
+    found = sorted(glob.glob(os.path.join(os.path.dirname(matched_path) or ".",
+                                          "r5_matched_*.json")))
+    if not found:
+        print("[warn] no results/r5_matched_*.json -- run mace_uma_protocol.py first")
+    for f in found:
+        rec = json.load(open(f))
+        label = f"{rec.get('tag') or rec.get('model', os.path.basename(f))} (matched)"
+        models[label] = {m: r["eta"] for m, r in rec["pred"].items()}
+        desorbed = [m for m, r in rec["pred"].items()
+                    if (r["qc"]["s0_OOH"]["m_o_final"] or 0) >= 3.0]
+        # A desorbed *OOH only contaminates eta when the potential-limiting step actually
+        # touches dG_OOH, i.e. pls in {3, 4}. Recording both is the difference between
+        # "QC flag" and "this number is wrong" -- and the distinction is load-bearing:
+        # omat desorbs *OOH on 5 of 7 metals but only ONE of them is pls=3 (docs/39 s6).
+        summary["adsorbate_qc"][label] = dict(
+            desorbed_OOH=sorted(desorbed),
+            eta_contaminated=sorted(m for m in desorbed if rec["pred"][m]["pls"] in (3, 4)))
 
     print(f"{'model / head':<30}{'n':>3}{'rho':>9}{'p_exact':>10}{'MAE V':>9}  gate")
     for tag, pred in sorted(models.items()):
@@ -149,7 +163,7 @@ def main() -> None:
         y = [models[tag][m] for m in s["metals"]]
         lo, hi = min(x + y) - 0.2, max(x + y) + 0.3
         ax.plot([lo, hi], [lo, hi], "--", color="0.6", lw=1)
-        is_mace = tag.startswith("MACE")
+        is_mace = "mace" in tag.lower()
         ax.scatter(x, y, s=70, c="#d62728" if is_mace else "#1f77b4", edgecolor="k", zorder=3)
         for m, xi, yi in zip(s["metals"], x, y):
             ax.annotate(m, (xi, yi), xytext=(5, 4), textcoords="offset points", fontsize=9)

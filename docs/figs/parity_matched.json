@@ -29,9 +29,9 @@
       "source": "chain"
     }
   },
-  "note": "Both models scored against eta_bounded.reference_tier(). MACE row is the matched-protocol run (mace_uma_protocol.py): original builder geometries, single start, as-shipped masks -- UMA's exact protocol.",
+  "note": "All models scored against eta_bounded.reference_tier(). Rows marked '(matched)' come from mace_uma_protocol.py -- original builder geometries, single start, as-shipped masks, one runner with the calculator swapped, so they are comparable by construction rather than by discipline (docs/39 s2).",
   "n7": {
-    "MACE-MPA-0 (UMA protocol)": {
+    "mace:medium-mpa-0 (matched)": {
       "n": 7,
       "metals": [
         "Co",
@@ -108,10 +108,26 @@
       "p_exact": 0.4444,
       "mae_eta": 0.4381,
       "gate_met": false
+    },
+    "uma:uma-s-1p2:omat (matched)": {
+      "n": 7,
+      "metals": [
+        "Co",
+        "Cr",
+        "Fe",
+        "Ir",
+        "Mn",
+        "Ni",
+        "Ru"
+      ],
+      "rho": 0.9643,
+      "p_exact": 0.0028,
+      "mae_eta": 0.1247,
+      "gate_met": true
     }
   },
   "n5": {
-    "MACE-MPA-0 (UMA protocol)": {
+    "mace:medium-mpa-0 (matched)": {
       "n": 5,
       "metals": [
         "Cr",
@@ -178,6 +194,42 @@
       "p_exact": 0.5167,
       "mae_eta": 0.4637,
       "gate_met": false
+    },
+    "uma:uma-s-1p2:omat (matched)": {
+      "n": 5,
+      "metals": [
+        "Cr",
+        "Fe",
+        "Ir",
+        "Mn",
+        "Ru"
+      ],
+      "rho": 1.0,
+      "p_exact": 0.0167,
+      "mae_eta": 0.1309,
+      "gate_met": true
+    }
+  },
+  "adsorbate_qc": {
+    "uma:uma-s-1p2:omat (matched)": {
+      "desorbed_OOH": [
+        "Co",
+        "Cr",
+        "Fe",
+        "Mn",
+        "Ni"
+      ],
+      "eta_contaminated": [
+        "Cr"
+      ]
+    },
+    "mace:medium-mpa-0 (matched)": {
+      "desorbed_OOH": [
+        "Cr",
+        "Fe",
+        "Mn"
+      ],
+      "eta_contaminated": []
     }
   }
 }

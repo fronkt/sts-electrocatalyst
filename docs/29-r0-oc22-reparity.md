@@ -1,5 +1,24 @@
 # 29 — R0: Killing the Task-Head Artifact (uma-s-1p2p1 / oc22 re-parity)
 
+> ## ⚠ FALSIFIED IN PART 2026-08-06 — see [docs/39](39-prereg-omat-head.md) §6
+>
+> This document's verdict generalises from the heads it tested to **all** UMA heads.
+> That generalisation is **wrong**. Under a criterion frozen and pushed before the run,
+> the **`omat`** head — which R0 never tried — scores **ρ = +0.964, exact p = 0.0028,
+> η MAE 0.125 V at n = 7** against the repaired tier, clearing the same ρ ≥ 0.8 / p < 0.05
+> gate MACE cleared and beating MACE on every axis.
+>
+> What survives: the `oc20`, `oc22` and `oc25` heads do not rank rutile MO₂(110) OER.
+> What does not: "UMA cannot rank rutile-oxide OER". R0 reasoned entirely about
+> *adsorption* datasets and never considered that a *bulk-energetics* head trained on
+> PBE/PBE+U VASP data — the same functional family as our own reference — might transfer
+> better. It does.
+>
+> The screen and melt list are unaffected: both rest on MACE, validated independently
+> (docs/38 §2). Caveat that cuts the other way: `omat` desorbs `*OOH` on 5 of 7 metals,
+> far worse than MACE, so it ranks this tier better while being worse at the chemistry
+> the HEA screen depends on (docs/39 §6a).
+
 **Date:** 2026-07-24 (protocol) / 2026-07-25 (results) · **amended 2026-08-03**
 **Status:** COMPLETE — **R0 gate NOT met.** The docs/26 negative result is confirmed and
 un-confounded. Decision point for Frank in §7.

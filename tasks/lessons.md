@@ -299,3 +299,40 @@ Rules taken from this:
    from MACE's own minima. That belongs in the same table as the headline, not in a
    caveats section -- so `parity_matched.py` prints both cuts by default and a test
    enforces that a rho above threshold with p > 0.05 is never reported as MET.
+
+
+## A universal claim needs a universal search, not three samples (2026-08-06, docs/39)
+
+R0 concluded "UMA cannot rank rutile-oxide OER" after testing `oc20`, `oc22` and `oc25`.
+The `omat` head was one CLI argument away and was never tried. It scores rho = +0.964,
+p = 0.0028, MAE 0.125 V -- better than the MACE model the whole screen was built on.
+
+The reasoning error is instructive and was not laziness. R0 reasoned hard and correctly
+about which *adsorption* dataset matched our chemistry: OC22 is PBE+U oxides with
+O*/OH*/OOH*, so `oc22` was the right hypothesis **within the space R0 was searching**.
+That space was "adsorption heads". The head that works is a **bulk-energetics** head,
+trained on PBE/PBE+U VASP inorganic crystals -- the same functional family as our own
+reference, and never considered because it has no adsorbates in it at all. The search
+was well-executed inside a frame that was itself too narrow.
+
+Rules taken from this:
+
+1. **Match the claim's scope to the search's scope.** "No head works" needs every head,
+   or the claim shrinks to "the heads we tried". Cheap tests that would close a
+   universal quantifier are worth running BEFORE the claim is written, not after it has
+   been load-bearing for two weeks.
+2. **When a model family exposes a small enumerable option (heads, tasks, checkpoints),
+   enumerate it.** Seven heads at ~9 min each is 1 hour. The cost of not doing it was a
+   published negative that a pre-registered one-hour run overturned.
+3. **Pre-register before running, even when -- especially when -- the run is cheap and
+   post-hoc.** This was the project's only post-hoc addition to a pre-registered
+   protocol. Freezing rho >= 0.8 AND p < 0.05 and pushing it first is the entire reason
+   the falsification is credible rather than a suspicious late reversal. Had the
+   criterion been written afterwards, the same numbers would prove much less.
+4. **Commit to both outcomes in writing, in advance.** docs/39 s4 said what a pass would
+   mean before the pass existed. That made reporting an inconvenient result mechanical
+   instead of a judgement call made under the temptation to protect an existing story.
+5. **Distinguish "ranks better" from "is the better tool".** `omat` wins the ranking and
+   desorbs `*OOH` on 5 of 7 metals. The tier tolerates that because most metals are
+   pls <= 2; the HEA screen would not. A single headline statistic can be genuinely
+   better while the model is genuinely worse for the actual job.
