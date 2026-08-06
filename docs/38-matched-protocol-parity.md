@@ -83,6 +83,35 @@ it. This **weakens the confound hypothesis that motivated R0** and corresponding
 **strengthens the R0 negative**: oc22's failure is less surprising once its (110)
 coverage is known.
 
+### 3b. The one surviving lead was not rutile either
+
+The audit left exactly one candidate external validation point: **`mp-1095353` (Ir₄O₈)**,
+15 OC22 systems at (110) carrying **3 `*OOH`, 3 `*O`, 1 `*OH`** — a complete OER triad on
+one of our two anchors. Settled against the MP OPTIMADE record (no API key needed:
+`optimade.materialsproject.org/v1/structures/mp-1095353`), symmetry via `spglib`:
+
+| | mp-1095353 | mp-2723 (canonical rutile IrO₂) |
+|---|---|---|
+| space group | **Pa-3 (205)** — cubic | **P4₂/mnm (136)** — tetragonal |
+| a, b, c (Å) | 4.904, 4.902, 4.905 | 3.177, 4.505, 4.505 |
+| cell | Ir₄O₈, 12 atoms | Ir₂O₄, 6 atoms |
+| O sites | Wyckoff 8c, u ≈ 0.35 (pyrite-type framework) | 4f, the rutile motif |
+| Ir–O, Ir coordination | 2.006 Å, 6 | 1.967 Å, 6 |
+
+**It is a pyrite-type cubic polymorph, not rutile** (identical at `symprec` 0.01 and 0.1,
+so this is not a tolerance artifact). Its O–O of 2.550 Å is too long for a peroxide
+dimer, so it is a pyrite *framework* rather than textbook pyrite — but either way its
+(110) facet is not our surface. Rutile(110) exposes the alternating bridging-O rows and
+5-fold coordinatively-unsaturated metal sites that this entire project's OER model rests
+on; a Pa-3 (110) cut has no such motif. The adsorption energies are not comparable, and
+scoring MACE against them would be a **false validation** — the failure mode docs/37 §5
+already warns about, arriving through the back door.
+
+**So the audit closes cleanly: OC22 contains no usable external validation for rutile
+MO₂(110) OER on any of our metals.** That is a more useful result than a half-comparable
+dataset would have been, and it retires "just validate against public data" as an option
+rather than leaving it open as a vague possibility.
+
 **Do not publish the symmetric corollary.** "OC22 has no rutile(110), so UMA was judged
 out-of-domain" invites the obvious return question, and MACE-MPA-0 trains on MPtrj +
 sAlex — bulk crystals with **zero** adsorbates and zero catalytic surfaces. By that
@@ -105,11 +134,8 @@ docs/34 run as it was executed. p < 0.05 without the n = 5 disclosure.
 
 ## 5. Open, and deliberately not closed here
 
-- **`mp-1095353` (Ir₄O₈)** has 15 OC22 systems at (110) including **3 `*OOH`, 3 `*O`,
-  1 `*OH`** — a complete OER triad on one of our anchors. It is a different MP entry
-  from canonical rutile IrO₂, so its structure type is unconfirmed. If it is rutile,
-  it is the only free external validation point the audit found. **~30 minutes to
-  settle; worth doing before the write-up.**
+- ~~**`mp-1095353` (Ir₄O₈)**~~ — **CLOSED NEGATIVE 2026-08-06, see §3b.** It is not
+  rutile. There is no free external validation point in OC22.
 - **UMA `omat` head, never tested.** `uma_oc22_parity.py --tasks` defaults to
   `oc20,oc22,oc25`; `omat` is one CLI argument away, and Karimitari et al.
   (arXiv:2605.09394) Table 4 puts UMA/OMAT best-in-table on metal-oxide reaction

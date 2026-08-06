@@ -15,10 +15,21 @@ exactly 1 of which carries *OOH; 19 rutile(110) systems touch our metals, 0 with
 neither canonical rutile bulk (mp-825 RuO2, mp-2723 IrO2) is sampled at (110) at all.
 This corrects the too-strong reading of docs/29 s2.
 
-One lead survives: mp-1095353 (Ir4O8) has 15 systems at (110) including 3 *OOH, 3 *O and
-1 *OH -- a complete OER triad on one of our anchors. It is a DIFFERENT MP entry from
-canonical rutile IrO2 (mp-2723), so confirm its structure type before treating it as an
-external validation point.
+The audit's one lead is CLOSED NEGATIVE (2026-08-06, docs/38 s3b). mp-1095353 (Ir4O8)
+has 15 systems at (110) including 3 *OOH, 3 *O and 1 *OH -- a complete OER triad -- but
+it is not rutile. Via MP OPTIMADE (no API key) + spglib:
+
+    mp-1095353  Pa-3 (205)      cubic  a,b,c = 4.904, 4.902, 4.905 A   Ir4O8, pyrite-type
+    mp-2723     P4_2/mnm (136)  tetrag a,b,c = 3.177, 4.505, 4.505 A   Ir2O4, RUTILE
+
+Identical at symprec 0.01 and 0.1, so not a tolerance artifact. A Pa-3 (110) cut has none
+of the bridging-O-row / 5-fold-cus-metal motif rutile(110) has, so those adsorption
+energies are not comparable and scoring against them would be a FALSE validation.
+
+Conclusion: OC22 contains no usable external validation for rutile MO2(110) OER on any of
+our metals. Reproduce the structure check with:
+
+    curl -s https://optimade.materialsproject.org/v1/structures/mp-1095353
 
 Usage:
   curl -L -o oc22_metadata.pkl \

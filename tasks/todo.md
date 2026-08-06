@@ -236,10 +236,15 @@ ranking would contaminate the campaign's central contribution.
       docs/34 §2 ("no DFT input of any kind"), plus the `evaluate_relaxed` docstring.
       Three `docs/figs/uma_*.json` stamped `SUPERSEDED_BY` — they still published the
       retracted `dft_eta` Cr = 1.726.
-- [ ] **J. `mp-1095353` (Ir₄O₈): 15 OC22 systems at (110) with 3 `*OOH`, 3 `*O`,
-      1 `*OH`** — a complete OER triad on one of our anchors, and the only free external
-      validation lead the audit found. Different MP entry from canonical rutile IrO₂,
-      so **confirm the structure type first (~30 min)**. Do before the write-up.
+- [x] **J. CLOSED NEGATIVE — `mp-1095353` is not rutile.** The audit's one external
+      validation lead (15 OC22 systems at (110) with a complete `*OOH`/`*O`/`*OH` triad)
+      is **Pa-3 (205), cubic a = 4.90 Å**, a pyrite-type polymorph — against canonical
+      rutile IrO₂ (mp-2723) at P4₂/mnm (136), a = 4.505, c = 3.177 Å. Identical at
+      symprec 0.01 and 0.1. Its (110) has no bridging-O-row / cus-metal motif, so the
+      energies are not comparable and scoring against them would be a FALSE validation.
+      **OC22 holds no usable external validation for rutile MO₂(110) OER on our metals**
+      — which retires "just validate against public data" instead of leaving it vague.
+      Verified via MP OPTIMADE (no API key) + spglib; docs/38 §3b.
 - [ ] **K. UMA `omat` head, never tested** — one CLI argument
       (`uma_oc22_parity.py --tasks omat`), the only untested attack on R0. Either
       pre-register the acceptance criterion in a doc **first** and run it, or state in

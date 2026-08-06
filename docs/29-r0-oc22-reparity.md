@@ -41,11 +41,13 @@ with O\*/OH\*/OOH\* intermediates (arXiv:2206.08917). `oc22` exists only in the
 > surprising once the (110) coverage is known. Reproduce with
 > `src/dft/oc22_coverage.py`.
 >
-> One live lead survives the audit: `mp-1095353` (Ir₄O₈) has 15 systems at (110)
-> including **3 `*OOH`, 3 `*O`, 1 `*OH`** — a complete OER triad on one of our two
-> anchors. It is a different MP entry from canonical rutile IrO₂, so its structure
-> type is unconfirmed; docs/38 §5 keeps it open as the one external-validation lead
-> worth the half hour it costs to settle.
+> The audit left one lead — `mp-1095353` (Ir₄O₈), 15 systems at (110) with a complete
+> `*OOH`/`*O`/`*OH` triad — and it is **closed negative**: MP OPTIMADE + spglib give
+> **Pa-3 (205), cubic a = 4.90 Å**, a pyrite-type polymorph, against canonical rutile
+> IrO₂'s P4₂/mnm (136) at a = 4.505, c = 3.177 Å. Its (110) facet has none of the
+> bridging-O-row / cus-metal motif our model rests on, so those energies are not
+> comparable. **OC22 contains no usable external validation for rutile MO₂(110) OER on
+> any of our metals** (docs/38 §3b).
 
 A **negative** Pearson r is the signature of a reference/settings mismatch, not of a
 capability ceiling — a merely under-powered model gives noisy-positive correlation, not
