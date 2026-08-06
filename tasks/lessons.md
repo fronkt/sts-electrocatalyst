@@ -336,3 +336,48 @@ Rules taken from this:
    desorbs `*OOH` on 5 of 7 metals. The tier tolerates that because most metals are
    pls <= 2; the HEA screen would not. A single headline statistic can be genuinely
    better while the model is genuinely worse for the actual job.
+
+
+## "Independent routes" usually means independent PREDICTORS, not independent EVIDENCE
+(2026-08-06, docs/40)
+
+I wrote, in docs/38 s2, that MACE "meets the gate by three independent routes": the DFT
+tier's 18-atom cells, the screen's 2x2 Vegard slabs, and UMA's protocol. All three score
+against the same seven DFT numbers, and MACE was *selected* on those same seven. Three
+protocols, one target. Seven distinct values, not twenty-one. Held-out points: zero.
+
+The sentence felt true when written because the three routes really are different --
+different cell, different start geometry, different multi-start. Every one of those
+differences is on the PREDICTOR side. Varying how you ask does not add evidence if you
+keep asking the same question.
+
+The same audit found the coupling I had already disclosed was wrong in its particulars:
+docs/38 s5(iii) named Ni and Co as the seeded points. Co's `s0_OH` is not seeded at all
+(rms 0.502 A) and Co is pls=1, so its eta rests on no seeded basin -- dropping Co
+*improves* the correlation. The genuinely load-bearing seeded point is **Cr**, which I
+never named: reverting it drops both models below significance.
+
+Rules taken from this:
+
+1. **Count distinct TARGET values, not distinct experiments.** Before writing "N
+   independent validations", ask how many distinct reference numbers they are scored
+   against. If the answer is "the same set every time", write "N protocols against one
+   target" instead.
+2. **A disclosed limitation still needs auditing.** I had disclosed the coupling and
+   still got two of its three parts wrong -- one overstated (Co), one missing entirely
+   and larger than both (selection on target). Writing the caveat is not the same as
+   measuring it. Grep the actual files; diff the actual geometries.
+3. **Measure how load-bearing each point is, and publish the whole spectrum.** The
+   leave-one-out sweep (MACE meets the gate on 3 of 7 cuts, omat on 7 of 7) says more
+   about robustness than the headline rho does, costs nothing, and would have flagged
+   Cr months ago.
+4. **A sensitivity number is not an alternative hypothesis.** Reverting Cr collapses both
+   gates -- but 1.726 V was a trapped stationary point 1.396 eV above the restart, so
+   "what if Cr were 1.726" is not a live possibility. Report such numbers as *how much
+   rests here*, never as *how likely we are wrong*, or the disclosure becomes its own
+   distortion.
+5. **Do not inflate a limitation to look rigorous.** The tempting move was to cite a
+   Csanyi-group paper on selective-U pathology next to our own striking U-partitioned
+   desorption (p = 0.048). That paper has no rutile, no OER, never evaluates UMA, and its
+   mechanism predicts our regime is exempt. Overstating a limitation is as wrong as
+   hiding one, and in a competition report it needlessly damages a valid result.

@@ -266,10 +266,44 @@ ranking would contaminate the campaign's central contribution.
       (`uma_oc22_parity.py --tasks omat`), the only untested attack on R0. Either
       pre-register the acceptance criterion in a doc **first** and run it, or state in
       one sentence that it was not run and why. Silence is the unacceptable option.
-- [ ] **L. Disclose the predictor/target coupling** (docs/38 §5): MPtrj carries MP's
-      selective-U convention and our QE reference uses MP's U values verbatim; both
-      "independent checkpoints" are MPtrj-family; Ni/Co carry significance and are
-      seeded from MACE minima. One paragraph, plus the n = 5 row beside n = 7.
+- [x] **L. DONE — [docs/40](../docs/40-predictor-reference-independence.md).** The
+      audit found **twelve** contacts, not three, and corrected two of the three:
+      * **NEW, and the largest: selection on the target.** `screen_mace.dft_tier()` and
+        `parity_matched.py` make the identical `reference_tier()` call, and
+        `r4_validate.json`'s `dft` block is element-for-element identical to it. MACE was
+        SELECTED on this tier. So docs/35 / 36 / 38's three "routes" are **three
+        predictor-side protocols against ONE target — 7 distinct DFT η, not 21.**
+        Held-out DFT points in the project: **zero**. docs/38 §2 corrected in place.
+      * **NEW, load-bearing: the Cr `*O` basin came from MACE** (`s0_O.in` rms 0.000000 Å
+        vs the archived MACE geometry) and Cr is `pls=3`. Reverting Cr to its pre-repair
+        1.726 V takes MACE +0.857/p0.0238 → +0.107/p0.8397 and omat +0.964/p0.0028 →
+        +0.464/p0.3024 — **both models, both cuts, fail without it.** NB this is a
+        load-bearing measurement, NOT a live alternative: 1.726 was a trapped stationary
+        point and the restart converged 1.396 eV LOWER. docs/38 §5(iii) never named Cr.
+      * **CORRECTED: Co was overstated.** `Co_slab/s0_OH.in` is NOT MACE-seeded (rms
+        0.502 Å) and Co is `pls=1`, so Co's η rests on no seeded basin — dropping Co
+        *improves* MACE (+0.886, p 0.0333).
+      * **Leave-one-out published in full: MACE meets the gate on 3 of 7 cuts, omat on
+        7 of 7.** MACE's significance rests on Ni.
+      * **U convention CONFIRMED and `omat` does not break it.** Our U values match
+        pymatgen `MPRelaxSet` `LDAUU['O']` exactly (Cr 3.7 / Mn 3.9 / Fe 5.3 / Co 3.32 /
+        Ni 6.2; Cu/Ru/Ir absent = our zeros), and OMat24 follows "Materials Project
+        defaults" via `MPRelaxSet`. Independence gained by MACE → omat on this axis: ZERO.
+      * **`omat` DOES repair checkpoint/seeding independence** — different vendor,
+        architecture, corpus; seeded nothing; and from unseeded builder starts it reaches
+        every seeded basin to max |Δ| = 0.023 Å.
+      * **A limitation we declined to overstate:** omat's `*OOH` desorption partitions
+        exactly on the U line (p = 0.048), but that is reported as a coincidence in our
+        own artifacts, NOT as reproducing Warford/Thiemann/Csányi — that paper has no
+        rutile, no OER, never evaluates UMA, and predicts our fully-oxidised regime is
+        exempt.
+- [ ] **L-followup (cheap, high value): compute ONE held-out metal at DFT and
+      pre-register it before scoring any model on it.** Cu is already in `RUTILE_AC` and
+      carries no Hubbard U. Converts "zero held-out points" into "one" — a categorical
+      change in what the report may claim.
+- [ ] **L-followup: re-check before the mid-Oct freeze** whether the shipped
+      `uma-s-1p2` `omat` head carries MPtrj+sAlex fine-tuning. If it does, omat's corpus
+      independence collapses and docs/40 §2 must be rewritten.
 
 ## DECISION FORK (docs/29 §7) — now effectively A **and** B; confirm
 - [x] **Path A** banked and QC-hardened (the negative is stronger after the audit)

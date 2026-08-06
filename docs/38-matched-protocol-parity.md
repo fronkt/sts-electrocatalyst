@@ -49,9 +49,18 @@ as-shipped `FixAtoms`, BFGS `fmax=0.05`/300 steps, `ase.build.molecule` in a 12 
 **The conclusion survives matching.** MACE reproduces its published η to **within 5 mV
 on all seven metals** from raw builder geometry with a single start, so none of the
 protocol advantages was load-bearing — the multi-start is worth ≤3 mV on every tier
-metal. MACE now meets the gate by **three independent routes**: the DFT tier's 18-atom
+metal. MACE now meets the gate by three routes: the DFT tier's 18-atom
 cells (MAE 0.172 V), the screen's own 2×2 Vegard slabs (0.130 V, `r4_validate.json`),
 and UMA's protocol (0.173 V).
+
+> **⚠ CORRECTED 2026-08-06 ([docs/40](40-predictor-reference-independence.md) §1.1).**
+> This sentence said "three **independent** routes". They are not independent. All three
+> score against `eta_bounded.reference_tier()` — verified element-for-element identical to
+> `r4_validate.json`'s `dft` block — and MACE was *selected* on that same tier (docs/33
+> §2). They are **three predictor-side protocols against one target: seven distinct DFT η
+> values, not twenty-one.** Held-out DFT points in the project: zero. What genuinely
+> varies is the cell (18-atom `(1,1)` vs 72-atom `(2,2)`), the start geometry and the
+> multi-start — real, but predictor-side.
 
 **Two things the matched run exposes that were not previously stated:**
 
@@ -153,14 +162,20 @@ docs/34 run as it was executed. p < 0.05 without the n = 5 disclosure.
   criterion first** — this would be the sole post-hoc addition to a pre-registered
   protocol — or state in one sentence that it was not run and why. Silence is the only
   unacceptable option.
-- **The predictor and the target are coupled three ways**, and this is the largest
-  untracked risk in the project: (i) MACE-MPA-0 trains on MPtrj, which carries the
-  Materials Project selective-U convention, and our QE reference uses MP's U values
-  verbatim (`qe_slab.py:34–46`); (ii) both "independent checkpoints" are MPtrj-family,
-  so docs/33's "not a lucky checkpoint" is weaker than written; (iii) Ni and Co carry
-  significance and are seeded from MACE's own minima. One paragraph naming all three,
-  plus the n = 5 row, is the honest fix. The thing that actually breaks the circle is
-  the potentiostat.
+- ~~**The predictor and the target are coupled three ways**~~ — **DONE and superseded by
+  [docs/40](40-predictor-reference-independence.md), which found twelve contacts, not
+  three, and corrects two of the three stated here:**
+  - (i) the U convention is **confirmed and worse than written** — our values match
+    pymatgen's `MPRelaxSet` `LDAUU['O']` exactly, and OMat24 follows "Materials Project
+    defaults" via `MPRelaxSet` too, so `omat` gains **zero** independence on this axis;
+  - (ii) checkpoint non-independence is **repaired** by `omat` — different vendor,
+    architecture and corpus, and it seeded nothing;
+  - (iii) **names the wrong metals.** `Co_slab/s0_OH.in` is *not* MACE-seeded (rms
+    0.502 Å) and Co is `pls = 1`, so Co's η does not rest on a seeded basin — dropping
+    Co *improves* MACE. The load-bearing seeded point is **Cr**, unnamed here: reverting
+    it takes MACE from p 0.0238 to 0.8397 and omat from 0.0028 to 0.3024.
+  - The largest contact is one this list missed entirely: **selection on the target**
+    (§1.1 above / docs/40 §1.1).
 
 ## 6. What changed in the repo
 
