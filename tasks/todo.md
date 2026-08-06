@@ -217,6 +217,38 @@ ranking would contaminate the campaign's central contribution.
       than scalarize it away — that tension is the HEA thesis's subject (docs/31 §8).
       Must retain a predicted-poor anchor for correlation dynamic range (docs/15 §6).
 
+## R4-PREP ADDENDUM — the model comparison, put on one footing (2026-08-06, docs/38)
+- [x] **G. MACE vs UMA was never a matched comparison** — and every unmatched axis
+      (defective reference, n, start geometry, multi-start, dtype, mask) flattered
+      MACE. Fixed by running it: `mace_uma_protocol.py` restores the original builder
+      inputs and re-runs MACE single-start under UMA's exact docs/29 protocol;
+      `parity_matched.py` scores every stored UMA head **and** that run against
+      `eta_bounded.reference_tier()`. **MACE +0.857 / p 0.0238 / MAE 0.173 V vs UMA's
+      best head (oc25) +0.357 / 0.4444 / 0.438 V.** Conclusion survives; the published
+      MACE η reproduce to within 5 mV from raw builder geometry, so no protocol
+      advantage was load-bearing. Artifact: `docs/figs/parity_matched.{json,png}`.
+- [x] **H. Gate is NOT met at n = 5** — drop Ni and Co (bounded η; DFT restarts seeded
+      from MACE's own minima, docs/34 §4b) and MACE is ρ +0.900 at **p = 0.0833**.
+      `parity_matched.py` prints both cuts by default and a test locks the behaviour,
+      so a rho above threshold can never be reported as a met gate again.
+- [x] **I. Four false/stale statements retracted in place** — docs/26 headline (never
+      amended for the repair), docs/29 §2 (OC22 coverage), docs/33 §3 ("like-for-like"),
+      docs/34 §2 ("no DFT input of any kind"), plus the `evaluate_relaxed` docstring.
+      Three `docs/figs/uma_*.json` stamped `SUPERSEDED_BY` — they still published the
+      retracted `dft_eta` Cr = 1.726.
+- [ ] **J. `mp-1095353` (Ir₄O₈): 15 OC22 systems at (110) with 3 `*OOH`, 3 `*O`,
+      1 `*OH`** — a complete OER triad on one of our anchors, and the only free external
+      validation lead the audit found. Different MP entry from canonical rutile IrO₂,
+      so **confirm the structure type first (~30 min)**. Do before the write-up.
+- [ ] **K. UMA `omat` head, never tested** — one CLI argument
+      (`uma_oc22_parity.py --tasks omat`), the only untested attack on R0. Either
+      pre-register the acceptance criterion in a doc **first** and run it, or state in
+      one sentence that it was not run and why. Silence is the unacceptable option.
+- [ ] **L. Disclose the predictor/target coupling** (docs/38 §5): MPtrj carries MP's
+      selective-U convention and our QE reference uses MP's U values verbatim; both
+      "independent checkpoints" are MPtrj-family; Ni/Co carry significance and are
+      seeded from MACE minima. One paragraph, plus the n = 5 row beside n = 7.
+
 ## DECISION FORK (docs/29 §7) — now effectively A **and** B; confirm
 - [x] **Path A** banked and QC-hardened (the negative is stronger after the audit)
 - [ ] **Path B** R3 fine-tune: data extracted, MACE-OMAT recipe costed at ~$1.9,

@@ -30,6 +30,20 @@ the reference cannot resolve, and a perfect score would be indistinguishable fro
 
 ## 2. The protocol, and its measured error bar
 
+> **⚠ CORRECTION 2026-08-06 (docs/38 §1).** "No DFT input of any kind" was not true at
+> the time of this run. Three of the 21 adsorbate starts were **not** builder
+> geometries: `runs/Cr_slab/s0_O.in` had been replaced on 2026-08-01 by the MACE-derived
+> 1.609 Å restart, and `runs/{Mn,Fe}_slab/s0_OOH.in` by 2.076 Å geometries assembled
+> from DFT-relaxed `s0_OH` slabs plus Cr's DFT-relaxed `*OOH` adsorbate
+> (`src/dft/make_fix_inputs.py`). The originals survive as
+> `.in.trapped-2026-08-02` / `.in.desorbed-2026-08-02`.
+>
+> The claim has since been **earned rather than assumed**: `mace_uma_protocol.py`
+> restores all three originals and re-runs single-start from raw builder geometry, and
+> η reproduces to **within 5 mV on all seven metals** (docs/38 §2). So the protocol's
+> independence from DFT is now a measured result instead of an unchecked assertion —
+> but this document overstated it when written.
+
 `mlip_predict.py` relaxes each state with MACE-MPA-0 from **builder geometries only** —
 no DFT input of any kind — starting from the builder placement *and* from rigidly
 pulled-in copies at M–O = 1.70 and 2.10 Å, keeping the lowest relaxed energy. Multi-start

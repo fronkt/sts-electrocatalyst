@@ -26,6 +26,27 @@ what the **`oc22`** head emulates; OC22's training set contains 4,318 rutile sys
 with O\*/OH\*/OOH\* intermediates (arXiv:2206.08917). `oc22` exists only in the
 `uma-s-1p2`/`uma-s-1p2p1` checkpoints, so it was never reachable from `uma-s-1p1`.
 
+> **⚠ CORRECTION 2026-08-06 (docs/38 §3).** The sentence above is true as written and
+> misleading as used. Audited against the real OC22 metadata (62,331 systems, 4,286
+> bulks — `oc22_metadata.pkl`, CC-BY 4.0): the 4,318 rutile count is right, but **only
+> 83 of them are at (110)**, and across all of those exactly **one** carries `*OOH`.
+> Restricted to this project's eight metals, rutile(110) gives 19 systems, 5 with an
+> OER intermediate and **0 with `*OOH`**. Neither canonical rutile bulk — mp-825
+> (RuO₂) nor mp-2723 (IrO₂) — is sampled at (110) at all.
+>
+> So the premise "our chemistry is *literally* the OC22 dataset" was too strong: the
+> facet we model is a thin slice of OC22, and the `*OOH` leg of the CHE chain is
+> essentially absent from it. This **weakens the confound hypothesis** that motivated
+> R0 and correspondingly **strengthens** the R0 negative — oc22's failure is less
+> surprising once the (110) coverage is known. Reproduce with
+> `src/dft/oc22_coverage.py`.
+>
+> One live lead survives the audit: `mp-1095353` (Ir₄O₈) has 15 systems at (110)
+> including **3 `*OOH`, 3 `*O`, 1 `*OH`** — a complete OER triad on one of our two
+> anchors. It is a different MP entry from canonical rutile IrO₂, so its structure
+> type is unconfirmed; docs/38 §5 keeps it open as the one external-validation lead
+> worth the half hour it costs to settle.
+
 A **negative** Pearson r is the signature of a reference/settings mismatch, not of a
 capability ceiling — a merely under-powered model gives noisy-positive correlation, not
 anti-correlation. So the docs/26 verdict is **confounded** until the correct head is tested.

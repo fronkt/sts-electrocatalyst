@@ -255,3 +255,47 @@ Rules taken from this:
    response to a slow screen is fewer sites; candidate 1 immediately argued the other
    way (best site 0.59 V below the site mean, and found only in the third decoration).
    Buy speed with hardware, not with statistical power.
+
+
+## A model comparison is only as good as its worst-matched axis (2026-08-06, docs/38)
+
+R0 rejected UMA, R3 accepted MACE, and the whole screen rests on that pair of verdicts.
+The two models had **never been scored the same way**. Six axes differed -- DFT
+reference (two of UMA's four points were later found defective), n (4 vs 7), start
+geometry (builder at 3.07 A vs DFT-relaxed frames), starts per state (1 vs 3), dtype
+(unrecorded vs explicit float64), and constraint mask -- and **every one of them ran in
+MACE's favour**.
+
+None of it was fraud; it was drift. Each change was individually reasonable and
+separately documented. The comparison rotted because nothing ever re-ran the *old* arm
+after the world moved. Worse, the code said otherwise: `evaluate_relaxed`'s docstring
+claimed "This function does what UMA did" while starting from the DFT minimum, and
+docs/34 claimed "builder geometries only -- no DFT input of any kind" when three of its
+21 starts had been overwritten with MACE- and DFT-derived coordinates.
+
+The saving grace is that running the matched experiment cost **16 minutes of laptop CPU
+and $0**, and the conclusion survived intact.
+
+Rules taken from this:
+
+1. **When the reference moves, re-score every arm against it -- not just the current
+   favourite.** The repair regenerated MACE's numbers and left UMA's untouched, so the
+   comparison silently became reference-vs-reference. If re-running an arm is too
+   expensive, say so explicitly in the doc; do not let the stale arm keep its old number
+   in a table beside a fresh one.
+2. **A superseded artifact must be stamped, not just superseded in prose.** docs/29 s8
+   corrected the record in text while `docs/figs/uma_oc22_parity.json` kept publishing
+   the retracted Cr = 1.726 for four more days. Prose corrections do not propagate to
+   files. Add a `SUPERSEDED_BY` key.
+3. **Docstrings that assert an experimental equivalence are claims and need testing.**
+   "This function does what UMA did" was load-bearing and false. If a comment says two
+   procedures match, either a test pins the axes that must match, or the comment states
+   which axes do *not*.
+4. **Suspect any comparison whose every difference points the same way.** Independent
+   drift is unbiased; a clean sweep in one direction means the axes were chosen, however
+   unconsciously, after the answer was known.
+5. **Report the fragile cut next to the headline.** MACE meets the gate at n = 7 and
+   fails it at n = 5, and the two points that make the difference are the ones seeded
+   from MACE's own minima. That belongs in the same table as the headline, not in a
+   caveats section -- so `parity_matched.py` prints both cuts by default and a test
+   enforces that a rho above threshold with p > 0.05 is never reported as MET.

@@ -206,12 +206,23 @@ def report(pred: dict, ref: dict, label: str,
 
 
 def evaluate_relaxed(calc, frames: dict, metals=None, fmax=0.05, steps=200) -> dict:
-    """Relax with the model, then take its energies -- the like-for-like UMA test.
+    """Relax with the model, then take its energies. **Not** the like-for-like UMA test.
 
     The stored UMA records (runs/*/uma_eta_1p2_oc22.json) come from UMA relaxing each
     structure itself (their `qc` blocks log 16-52 optimizer steps), so a single-point
     on DFT-relaxed geometry is NOT comparable to them: it hands the model the answer
-    to the geometry half of the problem. This function does what UMA did.
+    to the geometry half of the problem.
+
+    CORRECTED 2026-08-06 (docs/38 s1). This function was documented as "what UMA did"
+    and it is not. `frames` comes from `final_frames()`, i.e. the **DFT-relaxed** final
+    geometry, so the model starts AT the DFT minimum and BFGS runs 5-62 steps. UMA
+    started from the builder `.in` with the adsorbate 3.06-3.14 A off the cus metal and
+    ran 10-221 steps. Relaxing from the answer is not the same experiment as finding it.
+
+    The genuinely matched comparison is `mace_uma_protocol.py` -> `parity_matched.py`,
+    which restores the original builder inputs and runs single-start. Use those to
+    compare models; use this only to ask "does letting the model relax help at all",
+    which is what docs/33 s3 legitimately measures.
 
     Constraints mirror the DFT exactly -- the bottom-half `free == 0` atoms stay fixed
     (the `free` array is carried per frame by qe_frames). fmax = 0.05 eV/A matches the

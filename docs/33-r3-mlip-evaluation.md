@@ -86,13 +86,30 @@ MPA-0's single η ranking error is Ru vs Ir — the pair docs/32 measured as a *
 in our own DFT, i.e. the one pair the reference cannot resolve. Its Ru < Ir also matches
 literature (0.37–0.42 vs 0.54–0.58), where our DFT marginally inverts them.
 
-## 3. The like-for-like test "broke" — and the break was ours, not the model's
+## 3. The relaxed test "broke" — and the break was ours, not the model's
+
+> **⚠ CORRECTION 2026-08-06 (docs/38 §1).** This section was headed "the like-for-like
+> test" and described as "running MACE the way UMA was run". **It is not.** The frames
+> it relaxes come from `mlip_eval.final_frames()`, which returns the **DFT-relaxed**
+> final geometry — so MACE starts at the DFT minimum and BFGS runs 5–62 steps, while
+> UMA started from the builder `.in` with the adsorbate 3.06–3.14 Å out and ran 10–221
+> steps. Matching the *relaxer settings* is not matching the *experiment*.
+>
+> The genuinely matched run is `src/dft/mace_uma_protocol.py` → `parity_matched.py`
+> (docs/38): original builder inputs, single start, as-shipped masks. It gives MACE
+> ρ = +0.857, p = 0.0238, MAE 0.173 V against UMA's best head at +0.357 — so the
+> conclusion below survives, but it had not been earned when it was written.
+>
+> What this section legitimately measures is narrower and still worth having: whether
+> letting the model relax from the DFT minimum degrades the ranking, and whether a
+> break there indicts the model or the reference. The answer to the second — the
+> reference — is what the rest of the section establishes, and it stands.
 
 The stored UMA records come from UMA **relaxing** each structure itself (16–52 optimiser
 steps in their `qc` blocks). A single-point on DFT-relaxed geometry is the easier task —
-it hands the model the answer to the geometry half. Running MACE the way UMA was run
-(same `FixAtoms`, fmax = 0.05 eV/Å ≈ the DFT `forc_conv_thr` of 2e-3 Ry/au) appeared to
-destroy the ranking:
+it hands the model the answer to the geometry half. Relaxing MACE with the same
+`FixAtoms` and fmax = 0.05 eV/Å ≈ the DFT `forc_conv_thr` of 2e-3 Ry/au (though, per the
+correction above, still from DFT-relaxed frames) appeared to destroy the ranking:
 
 | | single-point | model-relaxed | model-relaxed, **repaired ref** |
 |---|---|---|---|

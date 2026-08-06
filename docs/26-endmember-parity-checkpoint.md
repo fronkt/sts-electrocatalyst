@@ -1,5 +1,24 @@
 # 26 — Endmember Parity Checkpoint: UMA Cannot Rank Rutile-Oxide OER
 
+> ## ⚠ READ THIS BEFORE QUOTING ANY NUMBER BELOW — amended 2026-08-06
+>
+> **Every ρ, r and MAE in this document was measured against a DFT reference now known
+> to be defective**, and unlike docs/29 this document was never amended when the
+> reference was repaired. Two of its four points were wrong: **Cr η 1.726 V** (a trapped
+> `s0_O` at Cr–O 2.016 Å; the restart converged 1.396 eV lower → **0.491 V**) and
+> **Ni η 1.751 V** (two unconverged adslabs plus a desorbed `*OOH`; retracted in
+> docs/30 §2 → **1.084 V**). The headline "ρ = 0.40 (p = 0.60), r = −0.22, MAE 0.71 eV"
+> is therefore **not UMA's performance** and must not be quoted as such.
+>
+> The same is true of `docs/figs/uma_dft_parity.json`, which still carries the retracted
+> `dft_eta` values and now carries a `SUPERSEDED_BY` banner.
+>
+> **The verdict stands; the evidence for it changed.** Scored against the repaired n = 7
+> tier, no UMA head reaches the ρ ≥ 0.8 gate: oc25 +0.357, oc22 +0.321, oc20 −0.036,
+> and this document's own uma-s-1p1/oc20 at −0.300 (n = 5). See
+> [`docs/38`](38-matched-protocol-parity.md) and `docs/figs/parity_matched.json` for the
+> comparison on one footing, which is the only one that should be cited.
+
 > **Final close-out of the catalysis compute campaign** (docs/12–23, parked per
 > docs/24 §9). This is the keystone calibration deliverable promised in
 > [docs/22](22-multifidelity-dft-calibration.md) §6: the UMA↔DFT parity across the
