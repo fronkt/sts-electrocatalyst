@@ -352,6 +352,33 @@ def cmd_build(args):
         print("WARNING: no 'base' control in this batch -- probe_eta.py will refuse to score it.")
 
 
+def cmd_manifest(args):
+    """Emit queue_r1.sh manifest lines for a built probe batch.
+
+    Reusing that queue rather than writing a second runner is deliberate: it
+    already carries the three rules the campaign paid for -- size ranks to
+    cgroup cpu.max not nproc (docs/23 s8, a 12x thrash), `</dev/null` on the
+    backgrounded mpirun or OpenMPI's stdin forwarding eats the job list, and
+    JOB DONE alone is not success. A fresh script would have to relearn them.
+
+    Lines are `<dir> <job> <suffix> <nk>` relative to the queue's RUNS root, so
+    `--rundir-label probe/Ru` resolves to $RUNS/probe/Ru/<job>.in.
+    """
+    man = json.load(open(os.path.join(args.probedir, "probe_manifest.json")))
+    label = args.rundir_label or os.path.basename(args.probedir.rstrip("/\\"))
+    lines = [f"# {len(man['jobs'])} fixed-geometry probe SCFs from {man['source_run']}",
+             f"# {man['note']}"]
+    for j in man["jobs"]:
+        lines.append(f"{label} {j['file'][:-3]} .in {args.nk}")
+    text = "\n".join(lines) + "\n"
+    if args.out:
+        with open(args.out, "w", newline="\n") as f:
+            f.write(text)
+        print(f"wrote {len(man['jobs'])} manifest lines -> {args.out}")
+    else:
+        print(text, end="")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -365,6 +392,13 @@ def main():
     b.add_argument("--scratch", default="./tmp")
     b.add_argument("--calculation", default="scf", choices=["scf", "relax"])
     b.set_defaults(func=cmd_build)
+    m = sub.add_parser("manifest", help="emit queue_r1.sh manifest lines for a built batch")
+    m.add_argument("probedir")
+    m.add_argument("--rundir-label", default=None,
+                   help="path under the queue's RUNS root, e.g. probe/Ru")
+    m.add_argument("--nk", type=int, default=4)
+    m.add_argument("--out", default=None)
+    m.set_defaults(func=cmd_manifest)
     args = ap.parse_args()
     args.func(args)
 
