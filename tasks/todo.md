@@ -216,6 +216,20 @@ ranking would contaminate the campaign's central contribution.
       soluble the list should deliberately SPAN the activity/stability tension rather
       than scalarize it away — that tension is the HEA thesis's subject (docs/31 §8).
       Must retain a predicted-poor anchor for correlation dynamic range (docs/15 §6).
+      **UPDATE 2026-08-06 (commit eec7a75): a selector bug was hiding a free
+      improvement.** `select()`'s "spread along the front by activity" used a stride
+      of `len(interior)//k_interior`, which is `max(1, 3//2) == 1` — a contiguous
+      PREFIX at the low-η end, the opposite of a spread. The shipped list was
+      0.440 / 0.453 / 0.479 / 0.796: three picks inside 39 mV, then a 0.317 V gap,
+      i.e. two activity levels wearing four labels. Fixed to evenly-spaced indices:
+      **0.440 / 0.453 / 0.726 / 0.796** — identical span, identical cost, three
+      resolvable levels, and it recovers Ni34Fe6Cu29Co31, a Pareto-front point that
+      was being dropped. `results/r4_melt_list.json` is deliberately NOT regenerated;
+      re-run `melt_list.py build --out results/r4_melt_list.json` at freeze time.
+      This does not fix the role collapse or the span-vs-MAE problem, and the
+      resolvability arithmetic is still the binding constraint: the min-over-12-sites
+      descriptor carries sd 0.08–0.19 V, so the two lowest picks are ~0.05σ apart and
+      even the widest pair is only ~1.7σ. Widening the pool remains the real remedy.
 
 ## R4-PREP ADDENDUM — the model comparison, put on one footing (2026-08-06, docs/38)
 - [x] **G. MACE vs UMA was never a matched comparison** — and every unmatched axis
@@ -315,8 +329,44 @@ ranking would contaminate the campaign's central contribution.
 - [x] Free reanalysis: volcano positions, G_max, ±0.3 V error bars (DONE, docs/29
       §4b): all 4 on the scaling line far off-apex, step-2 limited; Mn only one near
       a real-electrode band; NiO₂ breaks OOH/OH scaling −0.51 eV (hypothesis only)
-- [ ] U-sensitivity + magnetic protocol + dipole/solvation (MODERATE, CPU-box-weeks):
-      DEFERRED until Path A/B chosen — B reframes what these re-runs are for
+- [x] **Anchor-failure decomposition — FREE, and it changes the diagnosis**
+      (2026-08-06, docs/41 §2, $0). The working hypothesis was ONE tier-wide
+      systematic offset, because Ru (+0.39 V) and Ir (+0.22 V) both miss positive.
+      Decomposing against the Man 2011 invariants refutes it:
+      Ru is broken ONLY in the descriptor (ΔG_O−ΔG_OH = 1.163 vs apex 1.60, miss
+      −0.437) while its *OOH scaling is perfect (3.180 vs band 3.2); Ir is broken
+      ONLY in the *OOH scaling (3.652, miss +0.452) while its descriptor is at the
+      apex (1.642). They reach the same η through different steps — **the shared
+      sign is a coincidence, not a shared cause.**
+      Corollary, also free: the gas references are ruled out algebraically. An
+      E(H₂O) error cannot move the descriptor at all, and the single shift that
+      pulls Ir onto the band drives Ru off it (3.180 → 2.728). No one-parameter
+      repair exists, including uniform solvation of the H-bearing adsorbates.
+      Also: ΔG_OH(Ir) = −0.0005 eV ⇒ the bare cus site is unstable to
+      hydroxylation at U = 0, so it is not the resting state Ir is referenced to.
+- [x] Probe tooling built and verified (`src/dft/probe_decks.py`, `probe_eta.py`,
+      commit b8b2c7a). All four states of both anchors are ALREADY relaxed, so each
+      protocol variable can be tested at FIXED GEOMETRY as a single SCF — cents, not
+      dollars. Gated on a `base` control that must reproduce the relaxation's own
+      final energy to 5 meV or the batch is void; verified field-by-field
+      (species/cell/k-points/Hubbard/nspin/mags/if_pos/positions) to be
+      physics-identical to the production decks. Emits queue_r1.sh manifests rather
+      than a second runner.
+- [ ] **RUN the probes — BLOCKED ON CREDIT.** Acceptance criteria are pre-registered
+      in docs/41 §5 and must not be revised after seeing numbers.
+      - [ ] P7 U-ladder on Cr + Co (32 SCF, ~$4) — **runs FIRST: it can falsify the
+            headline claim.** If η(Cr) or η(Co) moves > 0.15 V across
+            U ∈ {0, 0.5×, 1×, 1.35×}, "earth-abundant rutiles beat the noble
+            anchors" is WITHDRAWN, not softened.
+      - [ ] P2–P5 dipole/vacuum probe on Ru + Ir (32 SCF, ~$3). A variant only
+            counts as explaining Ru if it raises the descriptor ≥ 0.30 eV, or Ir if
+            it lowers ΔG_OOH−ΔG_OH ≥ 0.30 eV. P6: if no single variant does both,
+            the registered conclusion is TWO independent mechanisms — assembling a
+            per-metal "corrected" tier after the fact is the circularity docs/40
+            exists to catch.
+      - [ ] Vast credit is **$0.295**, less than either step. A ~$25 top-up is the
+            single blocking action for the entire DFT arm.
+- [ ] AFM β-MnO₂ (~$0.15) — still unrun; FM-only starts on an experimentally AFM oxide
 
 ## R2 — Stability gate (mostly free)
 - [ ] MP Pourbaix ΔG_pbx for all 6 endmembers + candidate HEA oxide products
