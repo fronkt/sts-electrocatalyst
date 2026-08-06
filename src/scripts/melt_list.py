@@ -101,11 +101,24 @@ def select(rows, k_interior: int = 2) -> list:
     add("activity end", front[0])
     add("stability end", min(front, key=lambda r: r["soluble_at_operating"]))
     # interior points, spread along the front by activity
+    #
+    # A stride of `len(interior) // k_interior` does NOT spread: with 3 interior
+    # points and k=2 it is max(1, 3//2) == 1, so `interior[::1][:2]` returns the
+    # first two -- a contiguous PREFIX at the low-eta end, which is the opposite of
+    # what the docstring promises. That shipped: the r4 list came out at eta
+    # 0.440 / 0.453 / 0.479 / 0.796, i.e. three picks inside 39 mV and then a gap
+    # of 0.317 V, which is two activity levels wearing four labels.
+    #
+    # Spread over evenly-spaced INDICES instead. Same span, same cost, but the
+    # 0.453 / 0.479 near-duplicate becomes 0.453 / 0.726 and the list carries
+    # three resolvable levels. The set() keeps it well behaved when k_interior
+    # exceeds the number of interior points.
     interior = [r for r in front if all(r["formula"] != p["formula"] for _, p in picks)]
     if interior and k_interior > 0:
-        step = max(1, len(interior) // k_interior)
-        for r in interior[::step][:k_interior]:
-            add("interior front", r)
+        span = len(interior) - 1
+        idx = sorted({round(i * span / max(1, k_interior - 1)) for i in range(k_interior)})
+        for i in idx[:k_interior]:
+            add("interior front", interior[i])
     add("poor anchor", max(usable, key=lambda r: r["eta"]))
     return picks
 
