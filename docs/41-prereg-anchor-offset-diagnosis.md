@@ -468,6 +468,87 @@ Net: of the six candidate causes, four are closed negatives (dipole, vacuum,
 thickness/constraint, referencing), coverage is confirmed but explains **Ir only**, and
 Ru's descriptor deficit is still open — which is what P9 now tests.
 
+## 6b. RESULTS — first returns, scored against §5 as written (2026-08-07)
+
+Criteria below are quoted from §5 unchanged. Nothing here was revised after seeing a
+number.
+
+### GATE 1 — extraction control: **PASS**, by three orders of magnitude
+
+| | base SCF vs relaxation final | tolerance |
+|---|---|---|
+| Ru `s0_OOH` | **+0.0024 meV** | 5 meV |
+| Ir `s0_OOH` | **+0.0031 meV** | 5 meV |
+
+The fixed-geometry probe reproduces the production relaxation to ~2.5 µeV. The whole
+approach is validated: any shift a variant shows is the variant, not the round trip.
+
+### P11 — spin polarisation: **REFUTED. It moves η the WRONG WAY.**
+
+All 16 jobs converged, zero SCF failures.
+
+| | ΔG_OH | ΔG_O | ΔG_OOH | descriptor | η |
+|---|---|---|---|---|---|
+| **Ru** base | 0.529 | 1.692 | 3.709 | 1.163 | 0.787 |
+| **Ru** spin | 0.527 | 1.676 | 3.715 | **1.149** | **0.808** |
+| **Ir** base | −0.000 | 1.641 | 3.652 | 1.642 | 0.781 |
+| **Ir** spin | −0.002 | **1.467** | 3.642 | **1.468** | **0.945** |
+
+Descriptor change: **−0.014 eV (Ru), −0.173 eV (Ir)**, against a requirement of
+**≥ +0.30**. η *rises* by +0.022 V and +0.165 V. §5's third bin — "< 0.10 eV … the
+hypothesis is closed" — is met, so **P11 is closed as written.**
+
+This is not a collapsed-moment null; §5 required the magnetisation be reported either
+way and moments genuinely appeared: Ru clean slab total 1.03 / absolute 3.20 µB, Ru *O
+2.23 / 2.97; Ir clean slab −0.15 / 0.17 (correctly near-nonmagnetic), Ir *O 0.65 /
+**2.46**. Magnetism is available — it just stabilises *O *relative to the bare slab*,
+which **lowers** ΔG_O and shrinks the descriptor. That is the opposite of the mechanism
+Liang reports.
+
+**What this does and does not close.** Both limits were registered in §5 before the run:
+this is **FM, not the AFM ground state**, and a **single point at an NM-relaxed
+geometry**. Liang's 0.41–0.49 V comes from AFM ordering with full relaxation in a 3×2
+cell at a surface-Pourbaix-selected termination. So this result closes **the cheap
+version of the magnetism test**; it does not refute Liang, and it does not make
+`qe_slab.py:44-48`'s "itinerant and non-magnetic" comment correct — RuO₂ is still
+experimentally AFM. What it does establish is that **magnetism is not a cheap fix**, and
+that the ~0.3 eV Liang attributes to it does not survive being stripped of the ordering,
+the relaxation, and the coverage.
+
+### P10 — the symmetry trap: Ru **CONVERGED at −0.082 eV → exonerated as written**
+
+| | E | vs on-record |
+|---|---|---|
+| Ru `s0_OOH` on-record (in-plane) | −23333.8595 eV | — |
+| Ru `s0_OOH` off-plane, yaw 90°, `nosym` | −23333.9412 eV | **−0.0817 eV** |
+
+The trap is **real but small**. §5: "drop < 0.10 eV ⇒ the trap is exonerated at DFT
+level" — met, at 82 meV. **MACE predicted −0.273 eV and overestimated the trap depth by
+3.3×**, which is worth recording: the MLIP was right that a lower basin exists and wrong
+about how much lower.
+
+Consequence for Ru: only ΔG_OOH moves, so the descriptor is untouched at 1.163 and the
+scaling goes 3.180 → 3.098 (still inside the band). **η(Ru) 0.787 → 0.705 V.** Closer to
+literature, nowhere near it.
+
+**The tier-wide retraction risk in §2e is therefore much reduced — for Ru.** Ir is still
+relaxing (22 ionic steps, −0.180 eV and descending, fmax 0.033), already past the 0.10 eV
+bin and not yet at 0.30. Ir is where the trap could still bite, and its result is
+pending.
+
+### Where that leaves the Ru descriptor deficit
+
+Closed negatives now: dipole, vacuum, thickness/constraint, referencing, **and cheap
+magnetism**. Coverage explains Ir, not Ru, and pushes Ru's descriptor the wrong way. The
+symmetry trap is worth 82 meV on Ru and touches only ΔG_OOH, not the descriptor.
+
+**Ru's −0.437 eV descriptor deficit remains unexplained by every mechanism tested.** The
+untested candidates are now the expensive, structural ones §2f names: implicit or
+explicit solvation, a surface-Pourbaix-correct resting state at proper coverage, AFM with
+relaxation, and the functional itself. That list, and the fact that three independent
+methods agree to 11 meV (§2c), is increasingly consistent with §2f's reading: this is the
+field's known RuO₂ systematic, not a defect in this campaign.
+
 ## 7. Standing caveats
 
 - Fixed geometry. Second-order relaxation effects are excluded by construction.
