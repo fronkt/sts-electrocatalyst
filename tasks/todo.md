@@ -352,10 +352,32 @@ ranking would contaminate the campaign's central contribution.
       (species/cell/k-points/Hubbard/nspin/mags/if_pos/positions) to be
       physics-identical to the production decks. Emits queue_r1.sh manifests rather
       than a second runner.
-- [ ] **RUN the probes — BLOCKED ON CREDIT.** Acceptance criteria are pre-registered
+- [~] **PROBES RUNNING on Vast box 47025043 (166.113.52.39:43442), launched
+      2026-08-06.** Credit topped to ~$19.7; ~$0.3 spent; box is $0.108/hr.
+      Check/collect with `src/dft/collect_probes.sh {status|pull|score}`
+      (`HOST=166.113.52.39 PORT=43442`). Two detached queues:
+      `queue_orient.log` (P10 relaxations) and `queue_r1.log` (SCF probes).
+      **DESTROY THE INSTANCE when done: `vastai destroy instance 47025043`.**
+      - Measured throughput: **47 min** per Ru spin SCF, **109 min** per Cr +U SCF at
+        4 ranks; ~37 min per ionic step for the orient relaxations. The original
+        84-job plan was ~14 core-days on a 23-core box, so scope was cut to the
+        decisive subset (32 SCF + 2 relaxations). ETA ~14 h for P11+P7,
+        1–2 days for P10.
+      - `cpu.max` on this box is **23.04 vCPUs** though `nproc` reports 48 — the
+        docs/23 §8 trap, caught before sizing MPI.
+      - Two setup gotchas for next time: bare `ubuntu:24.04` has no `bzip2`, so the
+        micromamba tarball in `setup_r1_box.sh` cannot unpack; and `NP` must be an
+        exact multiple of `-nk` or `pw.x` aborts in `mp_start_pools`.
+      - `yaw90` and `yaw270` are **mirror images across the plane under test** —
+        energies agreed to <1e-5 Ry. The duplicates were killed; only `yaw90` runs.
+      - DEFERRED, not cancelled: P9 RPBE (20 jobs, downgraded by Briquet) and
+        P2/P3 dipole/vacuum (32 jobs, predicted NULL on three independent grounds).
+        Decks are built and staged on the box under `probe/{Ru,Ir}_rpbe` and
+        `probe/{Ru,Ir}`; re-queue with `m_all.txt` if wanted.
+- [ ] **Score the probes when they land.** Acceptance criteria are pre-registered
       in docs/41 §5 and must not be revised after seeing numbers.
-      - [ ] P7 U-ladder on Cr + Co (32 SCF, ~$4) — **runs FIRST: it can falsify the
-            headline claim.** If η(Cr) or η(Co) moves > 0.15 V across
+      - [ ] P7 U-ladder on **Cr only** (16 SCF) — Co cannot be laddered until its
+            `s0_OOH` exists (see below). Can falsify the headline claim. If η(Cr) or η(Co) moves > 0.15 V across
             U ∈ {0, 0.5×, 1×, 1.35×}, "earth-abundant rutiles beat the noble
             anchors" is WITHDRAWN, not softened.
       - [ ] P2–P5 dipole/vacuum probe on Ru + Ir (32 SCF, ~$3). A variant only
