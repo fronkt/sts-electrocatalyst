@@ -215,8 +215,8 @@ _XC_TOKENS = {"rpbe": "RPBE", "revpbe": "REVPBE", "pbesol": "PBESOL", "pbe": "PB
 
 
 def parse_variant(v: str):
-    """'dipole+vac32' -> dict(dipole=True, vac=32.0, uscale=None, xc=None)."""
-    spec = dict(dipole=False, vac=None, uscale=None, xc=None, name=v)
+    """'dipole+vac32' -> dict(dipole=True, vac=32.0, uscale=None, xc=None, spin=None)."""
+    spec = dict(dipole=False, vac=None, uscale=None, xc=None, spin=None, name=v)
     for tok in v.split("+"):
         tok = tok.strip().lower()
         if tok == "base":
@@ -225,6 +225,19 @@ def parse_variant(v: str):
             spec["dipole"] = True
         elif tok in _XC_TOKENS:
             spec["xc"] = _XC_TOKENS[tok]
+        elif tok.startswith("spin"):
+            # spin0.5 -> nspin=2 with starting_magnetization 0.5 on the metal.
+            # qe_slab.py:44-48 runs Ru and Ir at nspin=1 on the stated grounds that
+            # they are "itinerant and non-magnetic". For RuO2 that is wrong: Berlijn
+            # et al., PRL 118, 077201 (2017) established itinerant ANTIFERROMAGNETISM
+            # by neutron diffraction, and Liang/Bieberle-Hutter/Brocks, JPCC 126, 1337
+            # (2022) show the consequence -- non-magnetic RuO2(110) gives eta =
+            # 0.63-0.73 V limited by step 3, against 0.41-0.49 V for AFM, because spin
+            # polarisation puts a moment on the bare, *OH- and *OOH-covered cus Ru but
+            # NOT on the already-low-spin *O one, raising dG(*O) by up to ~0.3 eV.
+            # That is this campaign's exact signature (0.787 V, pls 3, nspin 1) and
+            # the exact coordinate Ru's descriptor is short in.
+            spec["spin"] = float(tok[4:]) if len(tok) > 4 else 0.5
         elif tok.startswith("vac"):
             spec["vac"] = float(tok[3:])
         elif tok.startswith("u"):
@@ -255,7 +268,15 @@ def write_probe(deck, positions, spec, prefix, pseudo_dir, outdir_scratch,
         extra += f"  input_dft = '{spec['xc']}'\n"
 
     mag = ""
-    if deck["nspin"] == 2:
+    if spec["spin"] is not None:
+        # Put the moment on the transition metal only. ATOMIC_SPECIES is ordered
+        # metals-then-O by _species_block, and H sorts before the metal, so the
+        # metal is located by exclusion rather than by a hard-coded index.
+        idx = {s: i + 1 for i, (s, _, _) in enumerate(deck["species"])}
+        metals = [s for s in idx if s not in ("O", "H")]
+        mag = "  nspin = 2\n" + "".join(
+            f"  starting_magnetization({idx[s]}) = {spec['spin']}\n" for s in sorted(metals))
+    elif deck["nspin"] == 2:
         mag = "  nspin = 2\n" + "".join(
             f"  starting_magnetization({i}) = {m}\n" for i, m in sorted(deck["mags"].items()))
     sym = "  nosym = .true.\n  noinv = .true.\n" if deck["nosym"] else ""

@@ -240,6 +240,49 @@ candidate causes are the same size, same sign, same channel (*OOH only) and same
 metal-dependence, so they are collinear in every observable currently in hand and
 **only DFT can separate them.**
 
+### 2f. η(RuO₂) ≈ 0.79 V is not anomalous — it is a named, published systematic
+
+The framing in §1 — "the DFT failed its gate" — assumed 0.787 V was an outlier. A
+literature check says it is a **known, reproducible, named** outcome of this exact
+protocol. Four independent confirmations, three read in full text:
+
+| source | protocol | η(RuO₂) |
+|---|---|---|
+| **Zhu et al., Nat. Commun. 14, 5365 (2023)** | VASP, PBE, PAW, 500 eV, **with** VASPsol implicit solvation | **0.81 V** (IrO₂ 1.00) |
+| **Liang, Bieberle-Hütter & Brocks, JPCC 126, 1337 (2022)** | VASP PBE+U, 7-layer, 3×2 cell, **nspin = 1** | **0.63–0.73 V, pls = 3** |
+| **Dickens & Nørskov, JPCC 121, 18516 (2017)** | BEEF-vdW, converged SUNCAT setup | descriptor 0.88 eV ⇒ **η ≈ 1.0 V** |
+| **Briquet et al., ChemCatChem 9, 1261 (2017)** | RPBE **and** PBE across **six codes** | "RuO₂ is consistently predicted to have large overpotentials" |
+
+Zhu et al. state it outright: *"Most of the existing DFT calculations exhibit a
+systematic overestimation of the OER overpotentials for IrO₂ and RuO₂."* This
+project's 0.787 V is **within 0.03 V** of a *Nature Communications* reference value
+obtained with a strictly more complete protocol. And Dickens & Nørskov's own
+BEEF-vdW descriptor (0.88 eV) is **further from the apex than this project's 1.163**.
+
+The gate's reference band was also too narrow. The published DFT descriptor for
+RuO₂(110) spans ~0.7 eV (0.88 → ~1.6 eV), i.e. η from ~1.0 V down to ~0.4 V for the
+same material and facet. "Literature 0.37–0.42 V" is **one corner of a 0.6 V-wide
+published range**, not a consensus. docs/32's clause 1 was scored against the
+optimistic edge of that range.
+
+**And the literature names the fix, in Ru's exact coordinate.** RuO₂ is
+**antiferromagnetic** — Berlijn et al., PRL 118, 077201 (2017), itinerant AFM from
+neutron diffraction. Liang 2022 shows spin polarisation puts a moment on the bare,
+*OH- and *OOH-covered cus Ru but **not** on the already-low-spin *O one, so ΔG(*O)
+rises by up to **~0.3 eV**, the descriptor moves toward the apex, and the step-3
+limitation eases: AFM gives **0.41–0.49 V** against NM's 0.63–0.73 V.
+
+`qe_slab.py:44-48` sets Ru and Ir to `U = 0, mag = 0` with the comment *"RuO2/IrO2 are
+4d/5d rutile metals, itinerant and non-magnetic."* **For RuO₂ that is factually
+wrong**, and it is the single best-supported candidate for the descriptor deficit
+§2 localised. This campaign's signature — 0.787 V, pls = 3, nspin = 1 — matches
+Liang's non-magnetic row on all three counts.
+
+Note this also **downgrades P9**: Briquet et al. ran both RPBE and PBE across six
+codes and got the RuO₂ anomaly either way, so RPBE alone is not expected to fix it.
+P9 still runs (it is cheap and pre-registered) but it is no longer the leading
+hypothesis. **P11 is.**
+
 ## 3. Why this is good news
 
 A diffuse tier-wide offset would be nearly undiagnosable on this budget. Two localised,
@@ -355,6 +398,28 @@ unchanged and only the frozen degree of freedom moves. Readout:
   attribution in §6a stands.
 - MACE predicts −0.27 eV (Ru) and −0.73 eV (Ir). That prediction is on the record here
   before the DFT is run.
+
+**P11 — spin polarisation on the anchors (added 2026-08-06, before any result).**
+Re-run all four states of Ru and Ir at fixed geometry with `nspin = 2` and
+`starting_magnetization = 0.5` on the metal only. *Predicted before running,* from
+Liang 2022's mechanism: ΔG(*O) rises by **0.15–0.35 eV** while ΔG(*OH) and ΔG(*OOH)
+move by **< 0.10 eV**, so the descriptor rises by 0.15–0.35 eV and η(Ru) falls.
+
+- **Descriptor rises ≥ 0.30 eV** ⇒ P4 satisfied; the `nspin = 1` choice in
+  `qe_slab.py:44-48` is the dominant Ru error and its stated justification must be
+  retracted.
+- **Descriptor rises 0.10–0.30 eV** ⇒ a major contributor but not the whole gap;
+  report as partial and combine with §2f's other named ingredients.
+- **< 0.10 eV, or the moment collapses to zero** ⇒ magnetism is not available at this
+  geometry and the hypothesis is closed. Report the converged total magnetisation
+  either way — a collapsed moment is a result, not a failed run.
+
+Two limits on this test, both stated in advance: (i) it is **FM**, not the AFM ground
+state, because AFM needs the Ru sublattice split into two species — FM captures the
+*local* moment that drives Liang's mechanism, and AFM is the follow-up if FM moves the
+descriptor; (ii) it is a **single point at an NM-relaxed geometry**, so it is a lower
+bound on the effect — relaxation under a moment can only lower the magnetic state
+further.
 
 **P8 — what will not count as evidence.** Agreement of any variant's *absolute* η with
 literature, absent the corresponding descriptor or scaling movement in P4/P5. Two
