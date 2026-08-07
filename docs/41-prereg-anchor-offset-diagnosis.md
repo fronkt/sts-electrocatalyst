@@ -190,6 +190,56 @@ Two things this does **not** license:
   0.131/0.109/0.177 (UMA `omat`), with ρ differing by a single swap. The bias largely
   cancels when both sides carry it. Do not claim otherwise from this data.
 
+### 2e. Every adsorbate in this campaign relaxed inside a mirror plane
+
+`hea_oer.surfaces._adsorbate` defines all three OER adsorbates with **y ≡ 0**:
+
+```python
+"O"   -> Atoms("O",   [[0,0,0]])
+"OH"  -> Atoms("OH",  [[0,0,0], [0.7,0,0.7]])
+"OOH" -> Atoms("OOH", [[0,0,0], [1.1,0,0.9], [1.4,0,1.85]])
+```
+
+and `surfaces_rutile.add_oer_adsorbate_at` places that template at (x_cus, y_cus).
+Every adsorbate therefore starts **exactly on the rutile(110) mirror plane**
+y = y_cus, which is an exact symmetry of the slab. `pw.x` uses that mirror to reduce
+32 k-points to 15 irreducible — and then symmetrises the forces onto it.
+
+Measured directly from the outputs, not inferred. Maximum |F_y| on **any adsorbate
+atom**, over **every** ionic step:
+
+| run | ionic steps | max abs F_y, adsorbate | max abs F_y, any atom |
+|---|---|---|---|
+| `Ru_anchor/s0_OOH.out` | 68 | **0.0000000000** | 0.026079 |
+| `Ir_anchor/s0_OOH.out` | 60 | **0.0000000000** | 0.049007 |
+| `Ru_anchor/s0_OH.out` | 33 | **0.0000000000** | 0.047480 |
+| `Cr_slab/s0_OOH.out` | 82 | **0.0000000000** | 0.021930 |
+
+Exactly zero, to ten decimals, while other atoms in the same runs carry |F_y| up to
+0.049 Ry/au. This is a symmetry constraint, not a coincidence.
+
+**So every adsorbate relaxation in this campaign was a constrained optimisation in a
+2-D (x, z) subspace.** The "textbook" convergence the anchors are credited with in
+docs/32 — fmax 0.0014–0.0019 Ry/au — is convergence *inside* that constraint. The
+multi-start machinery in `surfaces_rutile.adsorbate_starts` varies only the radial
+M–O distance (`PULL_TO`), so it never leaves the plane either, which is exactly why
+docs/38 could measure multi-start as worth ≤3 mV and conclude the starts were
+adequate.
+
+This is the same failure class that already produced the trapped Cr *O (1.396 eV
+above the true minimum) and the desorbed *OOH on Mn/Fe/Ni — but worse, because a
+numerical QC gate **cannot** detect it: the constrained optimum is a genuine
+stationary point of the constrained problem, with genuinely vanishing forces.
+
+MACE-MPA-0 with 16 orientational starts, at unchanged 1×1 cell and unchanged 1 ML
+coverage, puts the on-record *OOH basin **0.273 eV (Ru) and 0.731 eV (Ir)** above the
+global minimum. Repeating the 1×1-vs-2×1 coverage experiment with orientational
+starts on both sides collapses the Ir *OOH lateral term from +0.382 to **+0.007 eV** —
+i.e. what §6a attributes to coverage may be largely this trap instead. The two
+candidate causes are the same size, same sign, same channel (*OOH only) and same
+metal-dependence, so they are collinear in every observable currently in hand and
+**only DFT can separate them.**
+
 ## 3. Why this is good news
 
 A diffuse tier-wide offset would be nearly undiagnosable on this budget. Two localised,
@@ -286,6 +336,25 @@ Two conditions on this test, both enforced in code:
    It is the right first cut — PBE and RPBE differ only in the exchange enhancement
    factor — but the result must be reported with that caveat and must not be presented
    as a converged RPBE overpotential.
+
+**P10 — the symmetry trap (added 2026-08-06, before any result existed).** Restart
+*OOH on both anchors from orientations yawed 90° and 270° about the vertical axis
+through the binding atom, with `nosym`/`noinv` so `pw.x` cannot symmetrise the forces
+back onto the mirror plane. The binding atom is held at its production position, so
+the M–O distance — the one coordinate the existing multi-start already explored — is
+unchanged and only the frozen degree of freedom moves. Readout:
+ΔG_OOH(off-plane) − ΔG_OOH(on record).
+
+- **Drop ≥ 0.30 eV** ⇒ the on-record *OOH is a symmetry-trapped basin. Then the Ir
+  scaling anomaly is a **basin failure**, not coverage, and — because the trap is in
+  the builder, not in the anchors — **every `*OH` and `*OOH` number in the entire
+  seven-metal tier is suspect**, including the Cr and Co values behind the headline
+  claim. That is the single largest retraction risk currently live in the project,
+  which is why this test outranks everything else in §6.
+- **Drop < 0.10 eV** ⇒ the trap is exonerated at DFT level and the coverage
+  attribution in §6a stands.
+- MACE predicts −0.27 eV (Ru) and −0.73 eV (Ir). That prediction is on the record here
+  before the DFT is run.
 
 **P8 — what will not count as evidence.** Agreement of any variant's *absolute* η with
 literature, absent the corresponding descriptor or scaling movement in P4/P5. Two
