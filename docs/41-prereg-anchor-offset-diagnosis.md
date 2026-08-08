@@ -549,6 +549,148 @@ relaxation, and the functional itself. That list, and the fact that three indepe
 methods agree to 11 meV (§2c), is increasingly consistent with §2f's reading: this is the
 field's known RuO₂ systematic, not a defect in this campaign.
 
+## 6c. RESULTS — the queue drained (2026-08-08)
+
+Both queues reached `QUEUE_ALL_DONE`. What follows is scored against §5 as written. Two
+tests did not run at all because of harness bugs, and they are reported as *not run*, not
+as nulls — a deck that aborts in 2 s is not evidence of a small effect.
+
+### A QC bug was silently discarding every probe — found, fixed, and the fix verified
+
+`qe_qc.scan` inferred "single point" from `n_ionic == 0`. But `pw.x` prints a forces block
+whenever `tprnfor` is on, so **every** probe SCF scored `n_ionic == 1`, failed to find a
+`bfgs converged` line, and was demoted to `SUSPECT` — which `trusted_energy_ev(strict=True)`
+drops. The verdict now reads `calculation` from the deck instead of guessing from the
+output's shape, and the free-atom force audit no longer poisons a single point (a variant
+probe at coordinates relaxed under a *different* Hamiltonian is expected to carry force).
+
+This gate was changed **after** seeing that it blocked results, so it is held to the
+matching standard:
+
+- It moves **no** pre-registered threshold — GATE 1's 5 meV, P7's 0.15 V, P10's 0.10/0.30 eV
+  and P11's 0.30 eV are all untouched.
+- All 18 production relaxations keep their `TRUSTWORTHY` verdict; the killed `yaw270`
+  restarts stay `POISONED`. The fix admits single points and nothing else.
+- **§6b's P11 numbers reproduce digit for digit** under the fixed gate, and GATE 1 now
+  passes on all four adsorbate states per anchor instead of only `s0_OOH`. §6b stands as
+  written; the bug was dropping jobs, not corrupting them.
+
+### P3 — vacuum: **REFUTED at the DFT level.** Closed negative.
+
+At 32 Å (from 20 Å), fixed geometry, both anchors:
+
+| | Δη | max |ΔΔG| |
+|---|---|---|
+| Ru | **−0.0005 V** | 0.001 eV |
+| Ir | **+0.0002 V** | 0.003 eV |
+
+§5 sets < 50 mV ⇒ not the explanation. This is two orders of magnitude inside that. The
+a-priori MLIP argument in §2c is now confirmed by direct DFT rather than merely inherited.
+
+### P2 — dipole: **NOT RUN.** Deck bug.
+
+All 16 dipole decks aborted in 2 s: `bad line in namelist &system: "tefield = .true."`.
+`tefield` and `dipfield` are **`&CONTROL`** variables; only `edir`/`emaxpos`/`eopreg`/`eamp`
+belong to `&SYSTEM`. `probe_decks.py` emitted all six into `&SYSTEM`. Fixed. P2 remains
+closed only by the §2c a-priori argument and by P3's result, **not** by its own test.
+
+### P9 — RPBE: **NOT SCORED.** Gas references died.
+
+The eight RPBE slab single points ran clean. Both gas decks aborted: *"Gamma-only
+calculations not allowed with pools"* — the gas decks are Γ-only but the queue launched
+everything at `-nk 4`. `probe_eta.py` then did exactly what §5 condition 1 requires and
+**refused to score RPBE slabs against cached PBE water**. The gate worked; the test is
+still owed.
+
+### P10 — the symmetry trap: Ir lands at **−0.291 eV, in a band §5 left undeclared**
+
+Ir's `yaw90` converged after 54 ionic steps and 22.6 h at **−0.2913 eV**. §5 declares a
+verdict for ≥ 0.30 eV (trapped, tier-wide retraction) and for < 0.10 eV (exonerated). This
+is **9 meV below the trigger and three times above the exoneration bin** — the criterion
+has a gap and this result sits in it. It is recorded as such. It is *not* rounded up to
+"trapped" and *not* waved through as "exonerated"; assigning it to either bin after the
+fact is the circularity §6a warns about.
+
+What can be said without choosing a bin — the consequences for Ir, which are large:
+
+| Ir | ΔG_OOH − ΔG_OH | vs band 3.2 ± 0.2 | η | pls |
+|---|---|---|---|---|
+| on record (in-plane) | 3.652 | **outside** | 0.781 V | 3 |
+| off-plane `yaw90` | **3.361** | **inside** | **0.490 V** | 3 |
+
+So the off-plane restart pulls Ir's scaling anomaly — the second of the two independent
+anchor failures in §2 — from outside the universal band to inside it, and drops η(Ir) into
+the published IrO₂ range. Ru's trap is worth only 82 meV and leaves its descriptor
+untouched. **The two anchors' failures remain distinct: Ir's was substantially a basin
+failure, Ru's is not.**
+
+MACE predicted −0.73 eV for Ir and −0.27 eV for Ru. Measured: −0.291 and −0.082. It called
+the *existence* and the *ordering* of the lower basin correctly on both, and overestimated
+the depth by 2.5× and 3.3×. That prediction was on the record before the DFT ran.
+
+### P7 — U-sensitivity: **TRIGGERED. The headline claim must be withdrawn.**
+
+Cr, four U values at fixed geometry:
+
+| variant | ΔG_O − ΔG_OH | η | pls |
+|---|---|---|---|
+| ×0.0 | 0.761 | 1.452 V | 3 |
+| ×0.5 | 1.133 | 0.904 V | 3 |
+| **×1.0 (production)** | **1.560** | **0.330 V** | **2** |
+| ×1.35 | 1.873 | 0.643 V | 2 |
+
+§5: *"If η(Cr) or η(Co) moves by more than 0.15 V across U ∈ {0, 0.5×, 1×, 1.35×} at fixed
+geometry, then 'earth-abundant rutiles outperform RuO₂/IrO₂ in this tier' is not supported
+by this data and must be withdrawn, not softened."*
+
+η(Cr) moves **1.122 V**. That is 7.5× the criterion.
+
+**This survives the GATE 1 failure below.** The descriptor uses only `s0_O` and `s0_OH`,
+both of which round-trip at 0.00 meV, and it spans **1.112 eV** across the ladder. The two
+`pls = 2` rows — production and ×1.35 — take η directly from that clean descriptor and
+alone give a **0.313 V** swing, still 2× the criterion. No part of the trigger depends on a
+drifted number.
+
+The mechanism is the damaging part: the descriptor is monotonic in U and production U
+happens to place Cr at **1.560 eV, essentially on Man's 1.60 eV apex**. η(Cr) = 0.330 V is
+therefore not a prediction the method made — it is where the volcano peak sits, selected by
+a U value the campaign did not derive from anything. **"Earth-abundant rutiles beat the
+noble anchors" is withdrawn.**
+
+Co's ladder never ran: its probe batch was built without a `base` control, so `probe_eta.py`
+refused it. P7 is triggered by Cr alone, but Co is still owed.
+
+### NEW — the Cr `*OOH` relaxation is in a metastable magnetic state, 175 meV high
+
+GATE 1 failed for Cr on `s0_OOH` alone: base SCF −22265.4947 eV vs the relaxation's own
+final −22265.3196 eV, a drift of **−175.11 meV**, with the SCF *below* the relaxation. A
+converged geometry cannot do that unless the electronic state differs — and it does:
+
+| Cr `s0_OOH` | total mag | abs mag | E (eV) |
+|---|---|---|---|
+| relaxation, final step | **11.80** | 19.41 | −22265.3196 |
+| fresh SCF, identical coordinates | **11.00** | 20.09 | **−22265.4947** |
+
+`s0_OH` gives 11.00 / 19.45 both ways and round-trips at 0.00 meV. The relaxation converged
+cleanly — `bfgs converged`, 82 steps, fmax 0.0021 — and carried a metastable magnetic
+solution through all 82 of them. The SCF at step 1 chose a basin and the relaxation never
+left it.
+
+Consequences:
+
+1. **η(Cr) = 0.330 V is unaffected**, because Cr's limiting step is `pls = 2` — the
+   ΔG_O − ΔG_OH step, which involves neither `*OOH` nor any drifted number. Lowering
+   ΔG_OOH by 0.175 eV moves ΔG₃ to 1.371 and ΔG₄ to 0.471, both still below 1.560.
+2. **The tier-wide exposure is not bounded by this.** Six magnetic 3d metals × 4 states =
+   24 production states have never been checked for this, and it took one probe to find one
+   case at 175 meV. Where a metal's `pls` *is* 3 or 4, an error of this size lands directly
+   on η.
+3. The audit is cheap — one fresh SCF per state, ~28 jobs, the same machinery as this
+   campaign. It is now the highest-value outstanding DFT task.
+
+**GATE 1 earned its place here.** It was written to catch a coordinate round-trip failure
+and it caught a physics failure instead, in the one state out of four where it mattered.
+
 ## 7. Standing caveats
 
 - Fixed geometry. Second-order relaxation effects are excluded by construction.

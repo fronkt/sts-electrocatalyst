@@ -189,8 +189,14 @@ def dipole_block(positions, cell):
     # keep the whole drop window clear of the slab
     if not (emaxpos + eopreg < zlo or emaxpos > zhi):
         eopreg = max(0.02, (zlo - emaxpos) * 0.8) if emaxpos < zlo else 0.05
-    return (f"  tefield = .true.\n  dipfield = .true.\n  edir = 3\n"
-            f"  emaxpos = {emaxpos:.4f}\n  eopreg = {eopreg:.4f}\n  eamp = 0.0d0\n"), emaxpos, eopreg
+    # `tefield` and `dipfield` are &CONTROL variables; only edir/emaxpos/eopreg/eamp
+    # live in &SYSTEM. Emitting all six into &SYSTEM aborts pw.x in read_namelists
+    # after ~2 s -- which is how the first dipole batch died without producing a
+    # single energy. Return the two namelists separately so they cannot be merged.
+    ctrl = "  tefield = .true.\n  dipfield = .true.\n"
+    system = (f"  edir = 3\n  emaxpos = {emaxpos:.4f}\n"
+              f"  eopreg = {eopreg:.4f}\n  eamp = 0.0d0\n")
+    return ctrl, system, emaxpos, eopreg
 
 
 def apply_vacuum(positions, cell, new_c):
@@ -255,9 +261,9 @@ def write_probe(deck, positions, spec, prefix, pseudo_dir, outdir_scratch,
     if spec["vac"]:
         positions, cell = apply_vacuum(positions, cell, spec["vac"])
 
-    extra, emaxpos, eopreg = ("", None, None)
+    ctrl_extra, extra, emaxpos, eopreg = ("", "", None, None)
     if spec["dipole"]:
-        extra, emaxpos, eopreg = dipole_block(positions, cell)
+        ctrl_extra, extra, emaxpos, eopreg = dipole_block(positions, cell)
     if spec["xc"]:
         # `input_dft` overrides the functional the pseudopotentials declare. The
         # pseudos here were GENERATED for PBE, so an RPBE single point on them is
@@ -289,7 +295,7 @@ def write_probe(deck, positions, spec, prefix, pseudo_dir, outdir_scratch,
   tprnfor = .true.
   forc_conv_thr = 2.0d-3
   nstep = 200
-/
+{ctrl_extra}/
 &SYSTEM
   ibrav = 0
   nat = {len(positions)}
@@ -466,7 +472,12 @@ def cmd_manifest(args):
     lines = [f"# {len(man['jobs'])} fixed-geometry probe SCFs from {man['source_run']}",
              f"# {man['note']}"]
     for j in man["jobs"]:
-        lines.append(f"{label} {j['file'][:-3]} .in {args.nk}")
+        # Gas references are Gamma-only (write_gas_probe emits K_POINTS gamma), and
+        # pw.x refuses Gamma with k-point pools: "Gamma-only calculations not allowed
+        # with pools". Launching the gas decks at the slabs' -nk killed both RPBE
+        # references in 2 s and cost P9 its entire test. Pin gas jobs to one pool.
+        nk = 1 if j.get("kind") == "gas" else args.nk
+        lines.append(f"{label} {j['file'][:-3]} .in {nk}")
     text = "\n".join(lines) + "\n"
     if args.out:
         with open(args.out, "w", newline="\n") as f:

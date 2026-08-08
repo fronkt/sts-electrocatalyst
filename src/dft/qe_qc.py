@@ -55,6 +55,7 @@ _RE_FORCE_ATOM = re.compile(
     r"(-?\d+\.\d+)\s+(-?\d+\.\d+)\s+(-?\d+\.\d+)"
 )
 _RE_TOTAL_FORCE = re.compile(r"Total force\s+=\s+(\d+\.\d+)")
+_RE_CALC = re.compile(r"^\s*calculation\s*=\s*['\"]?(\w+)", re.M | re.I)
 _RE_BFGS_CONV = re.compile(r"bfgs converged in\s+(\d+) scf cycles and\s+(\d+) bfgs steps")
 _RE_MAXSTEP = re.compile(r"The maximum number of steps has been reached")
 _RE_FINAL_E = re.compile(r"Final energy\s+=\s+(-?\d+\.\d+)\s+Ry")
@@ -114,7 +115,8 @@ def scan(outfile: str, infile: str | None = None) -> dict:
         "bfgs_converged": False, "max_steps_reached": False, "user_stopped": False,
         "energy_ry": None, "energy_ev": None, "n_energies": 0,
         "total_force_ry_au": None, "fmax_free_ry_au": None, "fmax_free_ev_ang": None,
-        "nat": None, "n_free": None, "verdict": "MISSING", "reasons": [],
+        "nat": None, "n_free": None, "calculation": None,
+        "verdict": "MISSING", "reasons": [],
     }
     if not rec["exists"]:
         rec["reasons"].append("file does not exist")
@@ -130,6 +132,15 @@ def scan(outfile: str, infile: str | None = None) -> dict:
     m = _RE_NAT.search(txt)
     if m:
         rec["nat"] = int(m.group(1))
+
+    # Run type comes from the deck, never from the output's shape. `n_ionic == 0` was
+    # standing in for "single point", but pw.x prints a forces block whenever tprnfor
+    # is on, so every scf probe scored n_ionic == 1 and was demoted to SUSPECT --
+    # which `trusted_energy_ev(strict=True)` then drops. Read `calculation` instead.
+    if infile and os.path.exists(infile):
+        mc = _RE_CALC.search(open(infile, errors="ignore").read())
+        if mc:
+            rec["calculation"] = mc.group(1).lower()
 
     energies = _RE_ETOT.findall(txt)
     rec["n_energies"] = len(energies)
@@ -191,8 +202,11 @@ def scan(outfile: str, infile: str | None = None) -> dict:
         r.append("no JOB DONE (killed / still running / crashed)")
     if rec["max_steps_reached"]:
         r.append("relaxation hit nstep without converging")
-    if not rec["bfgs_converged"] and rec["job_done"] and not rec["max_steps_reached"]:
-        r.append("no 'bfgs converged' line (scf-only run, or relax ended abnormally)")
+    single_point = rec["calculation"] == "scf" or (
+        rec["calculation"] is None and rec["n_ionic"] == 0)
+    if (not rec["bfgs_converged"] and rec["job_done"]
+            and not rec["max_steps_reached"] and not single_point):
+        r.append("no 'bfgs converged' line (relax ended abnormally)")
     if rec["user_stopped"]:
         r.append("stopped by user request (.EXIT flag) -- pw.x still printed JOB DONE")
     if rec["energy_ry"] is None:
@@ -201,17 +215,22 @@ def scan(outfile: str, infile: str | None = None) -> dict:
         r.append(f"free-atom fmax {rec['fmax_free_ry_au']:.4f} Ry/au "
                  f"({rec['fmax_free_ev_ang']:.3f} eV/A) > {FMAX_AUDIT_RY_AU} Ry/au")
 
-    if rec["n_scf_fail"] or rec["max_steps_reached"] or (
-            rec["fmax_free_ry_au"] is not None and rec["fmax_free_ry_au"] > FMAX_AUDIT_RY_AU):
+    # A single point is evaluated at an imposed geometry, so a residual force is a
+    # property of that geometry, not evidence the run misbehaved -- a variant probe
+    # (changed vacuum, functional, or U) is *expected* to show force at coordinates
+    # relaxed under a different Hamiltonian. Only a relaxation owes us a low force.
+    force_poison = (rec["fmax_free_ry_au"] is not None
+                    and rec["fmax_free_ry_au"] > FMAX_AUDIT_RY_AU
+                    and not single_point)
+    if rec["n_scf_fail"] or rec["max_steps_reached"] or force_poison:
         rec["verdict"] = "POISONED"
-    # An energy is the whole point of the file. `n_ionic == 0` alone must NEVER buy a
-    # TRUSTWORTHY verdict -- that clause is only meant to admit genuine scf-only runs
-    # (the H2/H2O gas references), and a genuine scf-only run always has an energy.
-    # A relax killed inside ionic step 1 also has n_ionic == 0, and before this guard
-    # it was reported TRUSTWORTHY with a null energy.
+    # An energy is the whole point of the file. Being a single point must NEVER buy a
+    # TRUSTWORTHY verdict on its own -- a genuine single point always has an energy,
+    # and a relax killed inside ionic step 1 must not slip through with a null one.
+    # This branch stays ahead of the TRUSTWORTHY branch to enforce that.
     elif not rec["job_done"] or rec["user_stopped"] or rec["energy_ry"] is None:
         rec["verdict"] = "INCOMPLETE"
-    elif rec["bfgs_converged"] or rec["n_ionic"] == 0:
+    elif rec["bfgs_converged"] or single_point:
         rec["verdict"] = "TRUSTWORTHY"
     else:
         rec["verdict"] = "SUSPECT"
