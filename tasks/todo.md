@@ -1,5 +1,43 @@
 # STS 2027 — TODO
 
+## HEADLINE WITHDRAWN (2026-08-08) — read docs/41 §6c first
+
+**"Earth-abundant rutiles (Cr, Co) outperform RuO₂/IrO₂ in this tier" is withdrawn.**
+Pre-registered test P7 (docs/41 §5) triggered: η(Cr) moves **1.122 V** across
+U ∈ {0, 0.5, 1, 1.35}× at fixed geometry, against a 0.15 V falsification threshold. The
+trigger holds on GATE-1-clean states alone (0.313 V), so it does not depend on any
+drifted number. Production U happens to place Cr's descriptor at 1.560 eV — essentially
+on Man's 1.60 eV volcano apex — so η(Cr) = 0.330 V was a consequence of the U value, not
+a prediction the method made. §5 says withdraw, not soften.
+
+Two independent problems found the same day, both in docs/41 §6c:
+- **Co never had an `s0_OOH` calculation at all** — the other headline metal's chain was
+  a bounded inference, not a measurement.
+- **Cu has essentially no usable data** (slab and `s0_O` missing, `s0_OH`/`s0_OOH`
+  poisoned). Only Cr, Fe, Mn and the two anchors have all four states converged.
+- **Cr's `*OOH` relaxation sat in a metastable magnetic state 175 meV high** (totmag
+  11.80 vs 11.00 from a fresh SCF at identical coordinates). η(Cr) itself is unaffected
+  (its limiting step is `pls = 2`, which never touches `*OOH`), but 24 tier states have
+  never been checked for this and it took one probe to find one case.
+
+Good news from the same batch: the **symmetry trap is real and fixes Ir** — the off-plane
+`*OOH` restart pulls Ir's scaling from 3.652 (outside the 3.2 ± 0.2 universal band) to
+**3.361 (inside)**, and η(Ir) from 0.781 → **0.490 V**, into the published IrO₂ range.
+Ru's trap is only 82 meV and leaves its descriptor untouched, so the two anchors still
+fail for different reasons. **P3 (vacuum) is now refuted by direct DFT** (Ru −0.0005 V,
+Ir +0.0002 V at 32 Å), not merely by the MLIP argument.
+
+### Running now (instance 47025043, 166.113.52.39:43442, $0.108/hr)
+35 SCFs launched 2026-08-08, NP=4 NCONC=5, manifest `/workspace/m_followup.txt`:
+- **Magnetic-metastability audit** (Fe 4, Mn 4, Ni 3) — GATE 1 *is* the test: a fresh
+  `base` SCF vs the relaxation's own final energy. This is the highest-value item.
+- **Co U-ladder** (12) — P7's other half; its `base` doubles as Co's audit.
+- **P2 dipole** (8) — re-run with `tefield`/`dipfield` moved to `&CONTROL`.
+- **P9 RPBE gas refs** (4) — re-run at `-nk 1`; unblocks 8 RPBE slabs already done.
+
+Poll: `HOST=166.113.52.39 PORT=43442 bash src/dft/collect_probes.sh status`, then
+`pull` and `score`. **Destroy when done: `vastai destroy instance 47025043`.**
+
 ## Status (2026-07-24)
 **FRAMING: HEA-OER electrocatalyst campaign REVIVED; thermal lane DROPPED** (owner
 decision 2026-07-23). Revival plan + literature synthesis in
