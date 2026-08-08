@@ -691,6 +691,50 @@ Consequences:
 **GATE 1 earned its place here.** It was written to catch a coordinate round-trip failure
 and it caught a physics failure instead, in the one state out of four where it mattered.
 
+## 6d. RESULTS — the magnetic audit (2026-08-08)
+
+§6c item 3 called the audit "the highest-value outstanding DFT task." It ran: 11 fresh
+fixed-geometry SCFs over Fe (4 states), Mn (4) and Ni (3), each compared against its own
+relaxation's final energy. **Two of the three elements carry a multistable state.**
+
+| element | state | fresh SCF (eV) | relaxation final (eV) | drift | total mag, SCF → relax |
+|---|---|---|---|---|---|
+| **Mn** | all four | — | — | **≤ 0.005 meV** | 17.00 → 17.00 |
+| **Fe** | `s0_OOH` | −34803.8875 | −34804.1641 | **+276.60 meV** | 23.86 → 22.98 |
+| **Ni** | `s0_OH` | −35374.7913 | −35374.6182 | **−173.04 meV** | 4.16 → 7.18 |
+
+Fe's other three states round-trip at ≤0.52 meV and Ni's other two at ≤0.03 meV, so in both
+cases the failure is one state, not a systematic extraction fault. Mn reproduces
+digit-for-digit including absolute magnetization (23.76 both ways).
+
+**The sign matters, and it differs between the two.** For Ni — as for Cr in §6c — the fresh
+SCF lands *below* the relaxation, meaning the production relaxation carried an **excited**
+state and its ΔG is too high. For Fe the fresh SCF lands *above*: the production relaxation
+found the lower solution and it was the audit SCF that got trapped. **Fe's on-record number
+is the good one; Ni's is not.**
+
+Consequences:
+
+1. **η(Fe) = 1.263 V survives, and is more robust than it looked.** Re-scoring Fe with the
+   drifted `*OOH` in place returns **1.2636 V**, unchanged from the record. Fe's limiting
+   step is `pls = 2` with a rung-2 margin of ~2.0 eV over rungs 3 and 4, so a 277 meV
+   wobble in `*OOH` cannot reach η by an order of magnitude in margin.
+2. **η(Ni) = 1.084 V is now compromised twice over** — it was already a bounded inference
+   rather than a measurement (§1), and its `*OH` sits 173 meV above the state a fresh SCF
+   finds at identical coordinates. The audit deck carried no `s0_OOH` for Ni, so it cannot
+   be re-closed from what is in hand.
+3. **Mn is the only endmember verified clean across all four states.** η(Mn) = 0.8917 V
+   re-scores through GATE 1 without a refusal — the one tier number that has now passed
+   both the convergence and the multistability check.
+4. **The rate is not a tail.** Three of the seven production states audited so far are
+   multistable (Cr `*OOH`, Fe `*OOH`, Ni `*OH`). The §6c estimate of the exposure was
+   correct to treat 24 unchecked states as an open liability rather than a formality.
+5. The two anchors are **not** exposed to this failure mode: Ru and Ir run `nspin = 1`
+   (§2f, P11), so they have no magnetic basin to be trapped in.
+
+Still unaudited: Co (its `s0_OOH` was never computed at all, and the U-ladder is what is
+running now), and Cu (no usable production data to audit against).
+
 ## 7. Standing caveats
 
 - Fixed geometry. Second-order relaxation effects are excluded by construction.
