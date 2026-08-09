@@ -266,7 +266,13 @@ run_one() {
   # blocking in collectives -- the host sat 87% idle while pw.x crawled, with a
   # 245-CPU cgroup quota we were nowhere near using. docs/23 s8 measured 99% core
   # efficiency with --bind-to none, which is what the endmember campaign shipped.
-  mpirun --allow-run-as-root --bind-to none -np "$NP" \
+  # --oversubscribe: PRRTE's default slot count is PHYSICAL cores, so on an SMT
+  # box with 14 physical / 28 threads a -np 20 launch dies in 1 s with rc=1 and
+  # burns the whole manifest (2026-08-09 fleet launch: 3 boxes, 20 jobs each,
+  # all rc=1 in under 30 s). The docs/23 s8 thrash was about exceeding the
+  # CGROUP QUOTA, which the pre-flight refuses separately; ranks within the
+  # quota but above the physical-core count just share SMT threads.
+  mpirun --allow-run-as-root --bind-to none --oversubscribe -np "$NP" \
          pw.x -nk "$nk" -in "${job}.run.in" > "${job}.out" 2>&1 </dev/null
   local rc=$?
   local jd sf ff nkp
