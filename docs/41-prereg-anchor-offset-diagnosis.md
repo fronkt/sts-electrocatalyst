@@ -829,6 +829,97 @@ is a *published* result (Liang 2022, 0.63–0.73 V, same `pls = 3` signature), a
 positively biased estimator (§2d). That is a defensible story, and it is stronger for
 having eliminated the alternatives by direct calculation rather than by argument.
 
+## 6f. RESULTS — the basin restarts landed (2026-08-09). `tier_v2`.
+
+The three states GATE 1 caught in the wrong SCF solution (§6d) were re-relaxed from
+their own final geometry with a fresh atomic-superposition density
+(`src/dft/build_basin_restarts.py`). All three converged. **All three reproduced the
+audit SCF at ionic step 1 to better than 0.02 meV**, which is the validation the repair
+needed: it confirms the mechanism was path dependence in the extrapolated charge
+density, not a mixing or convergence failure.
+
+| state | production relax | audit fixed SCF | basin re-relax step 1 | basin final | drift prod → final |
+|---|---|---|---|---|---|
+| Cr `*OOH` | −1636.47080322 | −1636.48367381 | −1636.48367381 | −1636.48392834 | **−178.58 meV** |
+| Co `*OH`  | −2331.97437355 | −2332.00410501 | −2332.00410589 | −2332.00425138 | **−406.51 meV** |
+| Ni `*OH`  | −2599.98648382 | −2599.99920170 | −2599.99920186 | −2599.99940826 | **−175.85 meV** |
+
+(Ry. `bfgs converged` and `JOB DONE` on all three; 4, 3 and 5 ionic steps respectively.)
+
+Relaxing on the correct surface bought only **2–3.5 meV** beyond the fixed-geometry
+estimate. That is worth stating plainly: **the §6d fixed-geometry numbers were not merely
+lower bounds, they were essentially the answer.** The geometry these states want is the
+geometry they already had — what was wrong was the electronic solution sitting on top
+of it. A future audit can therefore quote the GATE-1 SCF as the correction with a stated
+2–4 meV residual, rather than paying for a full re-relaxation per state.
+
+### The corrected tier
+
+| M | η(v1) | η(v2) | Δ | pls v1 → v2 | c_M | floor c_M/2 − 1.23 | excess |
+|---|---|---|---|---|---|---|---|
+| Cr | 0.491 | **0.330** | **−0.160** | 3 → 2 | 3.102 | 0.321 | **0.009** |
+| Ir | 0.781 | 0.781 | — | 3 | 3.652 | 0.596 | 0.185 |
+| Co | 0.544 | **0.784** | **+0.240** | 1 → 2 | — (bounded) | — | — |
+| Ru | 0.787 | 0.787 | — | 3 | 3.180 | 0.360 | 0.427 |
+| Mn | 0.892 | 0.892 | — | 2 | 3.034 | 0.287 | 0.604 |
+| Ni | 1.084 | **1.189** | **+0.105** | 1 → 2 | — (bounded) | — | — |
+| Fe | 1.263 | 1.263 | — | 2 | 2.711 | 0.125 | 1.138 |
+
+    tier_v1 : Cr < Co < Ir < Ru < Mn < Ni < Fe
+    tier_v2 : Cr < Ir < Co < Ru < Mn < Ni < Fe
+
+Three things follow.
+
+**Co 0.544 V is withdrawn.** It was the tier's second-best number and it does not exist.
+Co's `*OH` was the largest drift in the campaign, and correcting it moves Co by +240 mV
+and changes its potential-limiting step from 1 to 2. Co is now an ordinary mid-tier
+metal, 3 mV from Ir and 3 mV from Ru. It never had a `*OOH` and still does not; the value
+above is a bound, and the bound is now *safer* than before — the window widens from
+[3.15, 5.16] to **[2.91, 5.40] eV**, comfortably containing Co's own partial-relaxation
+upper bound of 4.571.
+
+**Cr is now sitting on its scaling floor.** The correction pulls c_Cr from 3.281 to
+**3.102 eV**, and η(Cr) = 0.330 V against a floor of 0.321 V — an excess of **9 meV**.
+Cr is not a descriptor success; it is a metal whose `*OOH`/`*OH` scaling constant happens
+to be favourable, and it is exploiting essentially all of it. c_M = 3.102 is only 0.65σ
+below Divanis (2020)'s pooled 3.18 ± 0.12 eV, i.e. **not a scaling-relation breaker.**
+This does not reinstate the headline: **P7 still stands**, η(Cr) moves 1.122 V across U,
+and 0.330 V is a value at one chosen U, not a measurement.
+
+**Ni's `pls` flips 1 → 2 and its bound gets much safer** — window [2.50, 6.97] eV, width
+4.47 eV. Ni is unchanged in rank.
+
+### The docs/39 pre-registration, discharged
+
+docs/39 §4 committed to reporting the `omat` result "as prominently as the negative."
+Both pre-registered heads were rescored against `tier_v2` with the identical
+matched-protocol pipeline:
+
+| head | vs `tier_v1` | vs `tier_v2` |
+|---|---|---|
+| UMA `uma-s-1p2`, `omat` task | ρ = +0.9643, exact p = 0.0028, MAE 0.125 V | **ρ = +0.8929, exact p = 0.0123, MAE 0.134 V** |
+| MACE `medium-mpa-0` | ρ = +0.8571, exact p = 0.0238, MAE 0.173 V | **ρ = +0.8214, exact p = 0.0341, MAE 0.146 V** |
+
+Both degrade and **both remain significant at α = 0.05.** The degradation is one adjacent
+transposition in each case, and it is the *same* transposition: neither model predicted
+Co's basin failure, because neither model was ever told which SCF solution the DFT
+reference had landed in. MACE's MAE *improves* while its ρ falls, which is the expected
+signature of a rank error on a pair that moved apart in value.
+
+Recorded honestly: this rescore was run **after** the corrections were known, so it
+discharges the docs/39 commitment but it is **not** a blind test. The remaining
+corrections — symmetry, cell, U — have not run, and the degradation against `tier_v3`
+must be written down with a number *before* they are scored.
+
+### What this does not fix
+
+The three repaired states were all built at y ≡ 0 and are all still on the slab mirror
+plane. **The symmetry trap is untouched by this correction**, and Cr's `*OOH` — the state
+that now sets Cr's scaling constant — is exactly the class of state P10 found a −0.291 eV
+escape for on Ir. Cr's 0.330 V should be read as "the magnetically-correct value at the
+production U, in the production cell, on the mirror plane," and every one of those four
+qualifiers is still live.
+
 ## 7. Standing caveats
 
 - Fixed geometry. Second-order relaxation effects are excluded by construction.
