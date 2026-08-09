@@ -20,7 +20,7 @@
       "monatomic_offplane_min_dy_A": {
         "value": 0.3,
         "clause": "docs/43-prereg-week1-factorial.md s2-A.1",
-        "anchor": "y-translation of"
+        "anchor": "y-translation of \u2265 0.30 \u00c5"
       },
       "spectator_kick_ref_only": {
         "value": true,
@@ -30,27 +30,27 @@
       "spectator_contingency_dy_A": {
         "value": 0.02,
         "clause": "docs/43-prereg-week1-factorial.md s2-A.2",
-        "anchor": "a `ref__2x1o_mir` job is added"
+        "anchor": "0.02 \u00c5, a `ref__2x1o_mir` job is added"
       },
       "cr_pair_magnetisation_tol_bohrmag": {
         "value": 0.1,
         "clause": "docs/43-prereg-week1-factorial.md s2-A.3(a)",
-        "anchor": "members of each Cr pair must agree to within"
+        "anchor": "must agree to within **0.1 \u03bc_B**"
       },
       "cr_gate1_scf_tol_meV": {
         "value": 5.0,
         "clause": "docs/43-prereg-week1-factorial.md s2-A.3(b)",
-        "anchor": "one fixed-geometry fresh-density SCF per Cr 2"
+        "anchor": "required to agree to **\u2264 5 meV**"
       },
       "gate_c_energy_tol_meV": {
         "value": 5.0,
         "clause": "docs/43-prereg-week1-factorial.md s2 / s2-A.4",
-        "anchor": "clean at the folded mesh"
+        "anchor": "\u2264 5 meV can be passed by a different"
       },
       "gate_c_magnetisation_tol_bohrmag": {
         "value": 0.1,
         "clause": "docs/43-prereg-week1-factorial.md s2-A.4",
-        "anchor": "Magnetisation must match to 0.1 "
+        "anchor": "Magnetisation must match to 0.1 \u03bc_B"
       },
       "cr_2x1_kmesh": {
         "value": [
@@ -64,19 +64,26 @@
       "production_cell_decision_eV": {
         "value": 0.1,
         "clause": "docs/43-prereg-week1-factorial.md s2",
-        "anchor": "the per-adsorbate adsorption energy differs"
+        "anchor": "by **\u2265 0.10 eV** on any of the three metals"
       },
       "sign_rule_max_positive_dE_sym_eV": {
         "value": 0.02,
         "clause": "docs/43-prereg-week1-factorial.md s1",
-        "anchor": "is a failure of the search or"
+        "anchor": "\u0394E_sym > +0.02 eV is a failure of the search or"
+      },
+      "replication_gate_ir_oohx_1x1_eV": {
+        "value": [
+          -0.291,
+          0.05
+        ],
+        "clause": "docs/43-prereg-week1-factorial.md s2 (Pre-registered predictions)",
+        "anchor": "must reproduce \u0394E_sym = **\u22120.291 \u00b1\n0.05 eV**"
       }
     }
   },
   "design": "3 metals x 3 cells {1x1,2x1v,2x1o} x 2 symmetry {mir,off} x 3 states {*O,*OH,*OOH}, each arm with its own reference",
   "reused_from_disk": {
-    "Ru/s0_OOH/1x1/off": "runs/probe/Ru_orient/s0_OOH__yaw90.out",
-    "Ir/s0_OOH/1x1/off": "runs/probe/Ir_orient/s0_OOH__yaw90.out"
+    "Ru/s0_OOH/1x1/off": "runs/probe/Ru_orient/s0_OOH__yaw90.out"
   },
   "cost_model": {
     "sec_per_kpt_step": 48.6,
@@ -108,18 +115,18 @@
       "file": "m_cellsym_a_np4.txt",
       "np": 4,
       "nconc": 5,
-      "n_jobs": 36,
+      "n_jobs": 13,
       "command": "bash queue_r1.sh m_cellsym_a_np4.txt 4 5",
-      "sum_hours": 1589.2,
-      "longest_job_hours": 121.2
+      "sum_hours": 184.4,
+      "longest_job_hours": 27.4
     },
     "B": {
       "file": "m_cellsym_b_cr_np20.txt",
       "np": 20,
       "nconc": 1,
-      "n_jobs": 17,
+      "n_jobs": 45,
       "command": "bash queue_r1.sh m_cellsym_b_cr_np20.txt 20 1",
-      "sum_hours": 1006.6,
+      "sum_hours": 1527.0,
       "longest_job_hours": 170.5
     },
     "C": {
@@ -141,7 +148,7 @@
       "status": "PENDING -- decks emitted, not run",
       "manifest": "m_cellmult.txt",
       "command": "bash queue_r1.sh m_cellmult.txt 20 1",
-      "cost": "3 SCFs x 1200 s at NP=20/NCONC=1, ~1 box-hour",
+      "cost": "3 SCFs x max_seconds = 3600 s at NP=20/NCONC=1; the two 1x1 legs exit early, only the Cr 2x1o leg can spend its cap. Budget <= 3 box-hours, expect ~1.5 (N8: derived from the constant, not hand-copied)",
       "quoted_meanwhile": {
         "cell_mult": 5.5,
         "cell_mult_ceiling": 8.0,
@@ -178,9 +185,9 @@
       "pair_tol_bohrmag": 0.1,
       "pair_action": "a mir/off pair that disagrees by more than the tolerance is CONFOUNDED under docs/43 s5: excluded from every symmetry statistic and reported separately",
       "gate1_scf_tol_meV": 5.0,
-      "gate1_jobs_required": 14,
-      "gate1_emitter": "build_cellsym_pilot.py --gate1 (wave 2; refuses until every Cr 2x1 relaxation has `bfgs converged`)",
-      "gate1_est_hours_at_np20": 31.5
+      "gate1_jobs_required": 21,
+      "gate1_emitter": "build_cellsym_pilot.py --gate1 (wave 2; refuses until every Cr relaxation has `bfgs converged`)",
+      "gate1_est_hours_at_np20": 37.4
     },
     "readout": {
       "emitter": "build_cellsym_pilot.py --score",
@@ -199,7 +206,7 @@
         "FAIL"
       ],
       "scoreability": "hard rule 3: a relax must carry `bfgs converged`, an SCF a final total energy and no `convergence NOT achieved`. `JOB DONE` is never the test. A pair whose halves are not both scoreable is PENDING, never OK.",
-      "validated": "2026-08-09 against the two P10 rows already on disk: Ir *OOH 1x1 dE_sym = -0.291323 eV (docs/43 s2 replication gate: -0.291 +/- 0.05) and Ru -0.081714 eV (the 82 meV on record)."
+      "scorer_selftest": "2026-08-09: the scorer's arithmetic reproduced the two P10 rows then on disk (Ir -0.291323, Ru -0.081714 eV). That is a CODE test, not the replication gate: a gate that re-reads the run it exists to replicate cannot fail (N2). The replication gate (GATE R) scores the FRESH Ir s0_OOH__1x1_off run and is PENDING until that run converges."
     },
     "sign_rule": {
       "clause": "docs/43-prereg-week1-factorial.md s1",
@@ -448,22 +455,24 @@
       "nk": 4,
       "manifest": "B",
       "np_run": 20,
-      "steps_est": 5,
+      "steps_est": 24,
       "steps_basis": {
-        "measured_1x1_steps": null,
-        "multiplier": null,
-        "basis": "a replicated relaxed clean slab is already a stationary point of the 2x1 problem, so this should converge in a handful of steps; 5 is the allowance. For Cr the mesh also changes (9 4 1 does not fold), so it is not exactly stationary."
+        "measured_1x1_steps": 16,
+        "source": "runs/Cr_slab\\slab.out",
+        "multiplier": 1.5,
+        "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)",
+        "note": "a replicated relaxed clean slab is close to a stationary point of the 2x1 problem and should exit early; the est/cap use the measured slab count x STEP_MULT anyway (U1). For Cr the mesh also changes (9 4 1 does not fold), so it is not exactly stationary."
       },
-      "est_hours_np4": 20.8,
-      "est_hours_at_np": 6.9,
+      "est_hours_np4": 99.8,
+      "est_hours_at_np": 33.3,
       "est_hours_bracket_np4": [
-        4.3,
-        31.1
+        20.7,
+        199.1
       ],
-      "max_seconds": 49896,
+      "max_seconds": 239501,
       "nspin": 2,
       "spectator_y": null,
-      "md5": "bac08b411fa78499f4ad15e9e107b41d",
+      "md5": "d4373df18ef671717ecdcb08fe984e22",
       "nat": 36,
       "dmin": 1.8218,
       "z_extent": 8.8426,
@@ -495,7 +504,7 @@
       "est_hours_at_np": 24.9,
       "est_hours_bracket_np4": [
         15.6,
-        112.0
+        149.3
       ],
       "max_seconds": 179626,
       "nspin": 2,
@@ -532,7 +541,7 @@
       "est_hours_at_np": 14.0,
       "est_hours_bracket_np4": [
         8.7,
-        63.0
+        84.0
       ],
       "max_seconds": 101039,
       "nspin": 2,
@@ -569,7 +578,7 @@
       "est_hours_at_np": 14.0,
       "est_hours_bracket_np4": [
         8.7,
-        63.0
+        84.0
       ],
       "max_seconds": 101039,
       "nspin": 2,
@@ -606,7 +615,7 @@
       "est_hours_at_np": 24.9,
       "est_hours_bracket_np4": [
         15.6,
-        112.0
+        149.3
       ],
       "max_seconds": 179626,
       "nspin": 2,
@@ -643,7 +652,7 @@
       "est_hours_at_np": 24.9,
       "est_hours_bracket_np4": [
         15.6,
-        112.0
+        149.3
       ],
       "max_seconds": 179626,
       "nspin": 2,
@@ -680,7 +689,7 @@
       "est_hours_at_np": 51.5,
       "est_hours_bracket_np4": [
         32.1,
-        230.9
+        307.9
       ],
       "max_seconds": 370478,
       "nspin": 2,
@@ -717,7 +726,7 @@
       "est_hours_at_np": 51.5,
       "est_hours_bracket_np4": [
         32.1,
-        230.9
+        307.9
       ],
       "max_seconds": 370478,
       "nspin": 2,
@@ -754,7 +763,7 @@
       "est_hours_at_np": 91.5,
       "est_hours_bracket_np4": [
         57.0,
-        410.6
+        547.4
       ],
       "max_seconds": 658627,
       "nspin": 2,
@@ -791,7 +800,7 @@
       "est_hours_at_np": 91.5,
       "est_hours_bracket_np4": [
         57.0,
-        410.6
+        547.4
       ],
       "max_seconds": 658627,
       "nspin": 2,
@@ -828,7 +837,7 @@
       "est_hours_at_np": 95.9,
       "est_hours_bracket_np4": [
         59.8,
-        430.4
+        573.9
       ],
       "max_seconds": 690436,
       "nspin": 2,
@@ -865,7 +874,7 @@
       "est_hours_at_np": 95.9,
       "est_hours_bracket_np4": [
         59.8,
-        430.4
+        573.9
       ],
       "max_seconds": 690436,
       "nspin": 2,
@@ -902,7 +911,7 @@
       "est_hours_at_np": 170.5,
       "est_hours_bracket_np4": [
         106.3,
-        765.2
+        1020.2
       ],
       "max_seconds": 1227442,
       "nspin": 2,
@@ -939,7 +948,7 @@
       "est_hours_at_np": 170.5,
       "est_hours_bracket_np4": [
         106.3,
-        765.2
+        1020.2
       ],
       "max_seconds": 1227442,
       "nspin": 2,
@@ -1097,6 +1106,150 @@
     },
     {
       "metal": "Cr",
+      "job": "slab__1x1_k8_relax",
+      "deck_source": "slab",
+      "arm": "1x1",
+      "state": "slab",
+      "calculation": "relax",
+      "sym": "none",
+      "note": "GATE C baseline for Cr, RELAXED at the folded mesh (N10 / amendment 4) so both sides of the gate are the same protocol. Starts from runs/Cr_slab\\slab.out.",
+      "kmesh": "8 4 1",
+      "n_kpt_est": 32,
+      "nk": 4,
+      "manifest": "B",
+      "np_run": 20,
+      "steps_est": 6,
+      "steps_basis": {
+        "measured_1x1_steps": null,
+        "multiplier": null,
+        "basis": "restart-from-own-minimum class, MEASURED: the three docs/41 s6f basin restarts took 3/4/5 ionic steps from converged geometries; 6 = that + 1 for the 9 -> 8 mesh nudge"
+      },
+      "est_hours_np4": 9.1,
+      "est_hours_at_np": 3.0,
+      "est_hours_bracket_np4": [
+        2.6,
+        9.3
+      ],
+      "max_seconds": 21773,
+      "nspin": 2,
+      "spectator_y": null,
+      "md5": "a7a5679866ca570c8706470534fa0678",
+      "nat": 18,
+      "dmin": 1.8218,
+      "z_extent": 8.8426,
+      "vac_gap": 16.1664,
+      "max_ads_dy": 0.0
+    },
+    {
+      "metal": "Cr",
+      "job": "s0_O__1x1_k8_relax",
+      "deck_source": "s0_O",
+      "arm": "1x1",
+      "state": "s0_O",
+      "calculation": "relax",
+      "sym": "mir",
+      "note": "GATE C-2 baseline for Cr, RELAXED at the folded mesh (N10 / amendment 4) so both sides of the gate are the same protocol. Starts from runs/Cr_slab\\s0_O.out.",
+      "kmesh": "8 4 1",
+      "n_kpt_est": 15,
+      "nk": 4,
+      "manifest": "B",
+      "np_run": 20,
+      "steps_est": 6,
+      "steps_basis": {
+        "measured_1x1_steps": null,
+        "multiplier": null,
+        "basis": "restart-from-own-minimum class, MEASURED: the three docs/41 s6f basin restarts took 3/4/5 ionic steps from converged geometries; 6 = that + 1 for the 9 -> 8 mesh nudge"
+      },
+      "est_hours_np4": 4.3,
+      "est_hours_at_np": 1.4,
+      "est_hours_bracket_np4": [
+        1.2,
+        4.4
+      ],
+      "max_seconds": 10206,
+      "nspin": 2,
+      "spectator_y": null,
+      "md5": "b24c042f82ab67bca2d14a343fd32b36",
+      "nat": 19,
+      "dmin": 1.5716,
+      "z_extent": 9.4826,
+      "vac_gap": 15.5263,
+      "max_ads_dy": 0.0
+    },
+    {
+      "metal": "Cr",
+      "job": "s0_O__1x1_mir",
+      "deck_source": "s0_O",
+      "arm": "1x1",
+      "state": "s0_O",
+      "calculation": "relax",
+      "sym": "mir",
+      "note": "amendment 2 / N11: mirror row re-emitted under the emitter's own settings (local-TF) so DE_sym is a difference between two decks that differ only in the symmetry arm. The production value remains the tier-of-record.",
+      "kmesh": "9 4 1",
+      "n_kpt_est": 15,
+      "nk": 4,
+      "manifest": "B",
+      "np_run": 20,
+      "steps_est": 6,
+      "steps_basis": {
+        "measured_1x1_steps": null,
+        "multiplier": null,
+        "basis": "restart-from-own-minimum class, MEASURED: docs/41 s6f basin restarts took 3/4/5 ionic steps"
+      },
+      "est_hours_np4": 4.3,
+      "est_hours_at_np": 1.4,
+      "est_hours_bracket_np4": [
+        1.2,
+        4.4
+      ],
+      "max_seconds": 10206,
+      "nspin": 2,
+      "spectator_y": null,
+      "md5": "f7681a2c4855a0ff6cf4d803fda0e2c2",
+      "nat": 19,
+      "dmin": 1.5716,
+      "z_extent": 9.4826,
+      "vac_gap": 15.5263,
+      "max_ads_dy": 0.0
+    },
+    {
+      "metal": "Cr",
+      "job": "s0_OH__1x1_mir",
+      "deck_source": "s0_OH",
+      "arm": "1x1",
+      "state": "s0_OH",
+      "calculation": "relax",
+      "sym": "mir",
+      "note": "amendment 2 / N11: mirror row re-emitted under the emitter's own settings (local-TF) so DE_sym is a difference between two decks that differ only in the symmetry arm. The production value remains the tier-of-record.",
+      "kmesh": "9 4 1",
+      "n_kpt_est": 15,
+      "nk": 4,
+      "manifest": "B",
+      "np_run": 20,
+      "steps_est": 6,
+      "steps_basis": {
+        "measured_1x1_steps": null,
+        "multiplier": null,
+        "basis": "restart-from-own-minimum class, MEASURED: docs/41 s6f basin restarts took 3/4/5 ionic steps"
+      },
+      "est_hours_np4": 4.3,
+      "est_hours_at_np": 1.4,
+      "est_hours_bracket_np4": [
+        1.2,
+        4.4
+      ],
+      "max_seconds": 10206,
+      "nspin": 2,
+      "spectator_y": null,
+      "md5": "aa604617155bd2bd0938ec5050f90b20",
+      "nat": 20,
+      "dmin": 0.9854,
+      "z_extent": 9.8466,
+      "vac_gap": 15.1624,
+      "max_ads_dy": 0.0
+    },
+    {
+      "metal": "Cr",
       "job": "s0_OH__1x1_k8__cellmult",
       "deck_source": "s0_OH",
       "arm": "1x1",
@@ -1147,7 +1300,7 @@
       "est_hours_at_np": 1.6,
       "est_hours_bracket_np4": [
         1.0,
-        7.0
+        9.3
       ],
       "max_seconds": 3600,
       "nspin": 2,
@@ -1235,6 +1388,43 @@
     },
     {
       "metal": "Ir",
+      "job": "s0_OOH__1x1_off",
+      "deck_source": "s0_OOH",
+      "arm": "1x1",
+      "state": "s0_OOH",
+      "calculation": "relax",
+      "sym": "off",
+      "note": "production geometry, off-plane start + nosym/noinv; the 1x1 mirror row is the production run and is not rebuilt",
+      "kmesh": "8 4 1",
+      "n_kpt_est": 32,
+      "nk": 4,
+      "manifest": "A",
+      "np_run": 4,
+      "steps_est": 60,
+      "steps_basis": {
+        "measured_1x1_steps": 60,
+        "source": "runs/Ir_anchor\\s0_OOH.out",
+        "multiplier": 1.0,
+        "basis": "measured 1x1 ionic steps; the off-plane 1x1 rows on record came in at 0.34-0.90x of their mirror row (Ru 23/68, Ir 54/60), so 1.0x is already the conservative side"
+      },
+      "est_hours_np4": 25.9,
+      "est_hours_at_np": 25.9,
+      "est_hours_bracket_np4": [
+        25.9,
+        25.9
+      ],
+      "max_seconds": 186624,
+      "nspin": 1,
+      "spectator_y": null,
+      "md5": "92cc1e53d9e4a6bebd7264764cea3b24",
+      "nat": 21,
+      "dmin": 0.9817,
+      "z_extent": 11.3416,
+      "vac_gap": 14.103,
+      "max_ads_dy": 0.8958
+    },
+    {
+      "metal": "Ir",
       "job": "ref__2x1v",
       "deck_source": "slab",
       "arm": "2x1v",
@@ -1247,22 +1437,24 @@
       "nk": 4,
       "manifest": "A",
       "np_run": 4,
-      "steps_est": 5,
+      "steps_est": 18,
       "steps_basis": {
-        "measured_1x1_steps": null,
-        "multiplier": null,
-        "basis": "a replicated relaxed clean slab is already a stationary point of the 2x1 problem, so this should converge in a handful of steps; 5 is the allowance. For Cr the mesh also changes (9 4 1 does not fold), so it is not exactly stationary."
+        "measured_1x1_steps": 12,
+        "source": "runs/Ir_anchor\\slab.out",
+        "multiplier": 1.5,
+        "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)",
+        "note": "a replicated relaxed clean slab is close to a stationary point of the 2x1 problem and should exit early; the est/cap use the measured slab count x STEP_MULT anyway (U1). For Cr the mesh also changes (9 4 1 does not fold), so it is not exactly stationary."
       },
-      "est_hours_np4": 5.9,
-      "est_hours_at_np": 5.9,
+      "est_hours_np4": 21.4,
+      "est_hours_at_np": 21.4,
       "est_hours_bracket_np4": [
-        4.3,
-        8.6
+        15.6,
+        41.5
       ],
-      "max_seconds": 42768,
+      "max_seconds": 153965,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "f5e85862c3af1802f6acc87371ef42fa",
+      "md5": "a32f323def477ad9c1dc4e37a1f87ae0",
       "nat": 36,
       "dmin": 1.9401,
       "z_extent": 8.9208,
@@ -1281,8 +1473,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 16,
       "nk": 4,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 51,
       "steps_basis": {
         "measured_1x1_steps": 34,
@@ -1291,15 +1483,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 60.6,
-      "est_hours_at_np": 60.6,
+      "est_hours_at_np": 20.2,
       "est_hours_bracket_np4": [
         44.1,
-        88.1
+        117.5
       ],
-      "max_seconds": 436234,
+      "max_seconds": 145411,
       "nspin": 1,
       "spectator_y": 5.12084945,
-      "md5": "ab54d4eacee64014eeb05c3576338287",
+      "md5": "ab5c14453542268e0c6bf62ac7d338c2",
       "nat": 37,
       "dmin": 1.8014,
       "z_extent": 9.501,
@@ -1318,8 +1510,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 9,
       "nk": 2,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 51,
       "steps_basis": {
         "measured_1x1_steps": 34,
@@ -1328,15 +1520,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 34.1,
-      "est_hours_at_np": 34.1,
+      "est_hours_at_np": 11.4,
       "est_hours_bracket_np4": [
         24.8,
-        49.6
+        66.1
       ],
-      "max_seconds": 245381,
+      "max_seconds": 81794,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "4b046547f6bf342d95f184da408a04c7",
+      "md5": "6d6d15f0ebe471104d7882130e25935f",
       "nat": 37,
       "dmin": 1.7671,
       "z_extent": 9.501,
@@ -1355,8 +1547,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 9,
       "nk": 2,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 51,
       "steps_basis": {
         "measured_1x1_steps": 34,
@@ -1365,15 +1557,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 34.1,
-      "est_hours_at_np": 34.1,
+      "est_hours_at_np": 11.4,
       "est_hours_bracket_np4": [
         24.8,
-        49.6
+        66.1
       ],
-      "max_seconds": 245381,
+      "max_seconds": 81794,
       "nspin": 1,
       "spectator_y": 4.77084945,
-      "md5": "8e90eb0cf67e3d9fbcb4ed31c3302e0a",
+      "md5": "38d4f5b781e5928e885af2d3db3a2501",
       "nat": 38,
       "dmin": 1.7671,
       "z_extent": 9.501,
@@ -1392,8 +1584,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 16,
       "nk": 4,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 51,
       "steps_basis": {
         "measured_1x1_steps": 34,
@@ -1402,15 +1594,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 60.6,
-      "est_hours_at_np": 60.6,
+      "est_hours_at_np": 20.2,
       "est_hours_bracket_np4": [
         44.1,
-        88.1
+        117.5
       ],
-      "max_seconds": 436234,
+      "max_seconds": 145411,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "29ffbd6a1b97fd58fb629077f9d3f848",
+      "md5": "47ce0fcb69acea792fef546384cbf0b0",
       "nat": 37,
       "dmin": 1.8014,
       "z_extent": 9.501,
@@ -1429,8 +1621,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 16,
       "nk": 4,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 51,
       "steps_basis": {
         "measured_1x1_steps": 34,
@@ -1439,15 +1631,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 60.6,
-      "est_hours_at_np": 60.6,
+      "est_hours_at_np": 20.2,
       "est_hours_bracket_np4": [
         44.1,
-        88.1
+        117.5
       ],
-      "max_seconds": 436234,
+      "max_seconds": 145411,
       "nspin": 1,
       "spectator_y": 4.77084945,
-      "md5": "f09e1060333c15b1700968457ea12f9c",
+      "md5": "82e8248419d413cc66c5801f21c73daf",
       "nat": 38,
       "dmin": 1.7671,
       "z_extent": 9.501,
@@ -1466,8 +1658,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 9,
       "nk": 2,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 45,
       "steps_basis": {
         "measured_1x1_steps": 30,
@@ -1476,15 +1668,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 30.1,
-      "est_hours_at_np": 30.1,
+      "est_hours_at_np": 10.0,
       "est_hours_bracket_np4": [
         21.9,
-        43.7
+        58.3
       ],
-      "max_seconds": 216513,
+      "max_seconds": 72171,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "f34b4055a2eadba6dc147b51c8fe1b04",
+      "md5": "ff5a81482d9c597e9a9831f2f28890ab",
       "nat": 38,
       "dmin": 0.9807,
       "z_extent": 9.9893,
@@ -1503,8 +1695,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 9,
       "nk": 2,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 45,
       "steps_basis": {
         "measured_1x1_steps": 30,
@@ -1513,15 +1705,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 30.1,
-      "est_hours_at_np": 30.1,
+      "est_hours_at_np": 10.0,
       "est_hours_bracket_np4": [
         21.9,
-        43.7
+        58.3
       ],
-      "max_seconds": 216513,
+      "max_seconds": 72171,
       "nspin": 1,
       "spectator_y": 4.77084945,
-      "md5": "2593a87f31e471b04aec4f9127b1910c",
+      "md5": "bccb21a026ab9f49e7bfc713ad03af82",
       "nat": 39,
       "dmin": 0.9807,
       "z_extent": 9.9893,
@@ -1540,8 +1732,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 16,
       "nk": 4,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 45,
       "steps_basis": {
         "measured_1x1_steps": 30,
@@ -1550,15 +1742,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 53.5,
-      "est_hours_at_np": 53.5,
+      "est_hours_at_np": 17.8,
       "est_hours_bracket_np4": [
         38.9,
-        77.8
+        103.7
       ],
-      "max_seconds": 384912,
+      "max_seconds": 128304,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "bc730803a4ea6cee46d8a50024f8913c",
+      "md5": "38e529f11b47f1dd4568813d6c655e63",
       "nat": 38,
       "dmin": 0.9807,
       "z_extent": 9.9893,
@@ -1577,8 +1769,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 16,
       "nk": 4,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 45,
       "steps_basis": {
         "measured_1x1_steps": 30,
@@ -1587,15 +1779,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 53.5,
-      "est_hours_at_np": 53.5,
+      "est_hours_at_np": 17.8,
       "est_hours_bracket_np4": [
         38.9,
-        77.8
+        103.7
       ],
-      "max_seconds": 384912,
+      "max_seconds": 128304,
       "nspin": 1,
       "spectator_y": 4.77084945,
-      "md5": "f05cfc2fdd416d75d414ae4b802ee619",
+      "md5": "5ab5b56a9f7c56bb6b33d46794c51423",
       "nat": 39,
       "dmin": 0.9807,
       "z_extent": 9.9893,
@@ -1614,8 +1806,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 9,
       "nk": 2,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 90,
       "steps_basis": {
         "measured_1x1_steps": 60,
@@ -1624,15 +1816,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 60.1,
-      "est_hours_at_np": 60.1,
+      "est_hours_at_np": 20.0,
       "est_hours_bracket_np4": [
         43.7,
-        87.5
+        116.6
       ],
-      "max_seconds": 433026,
+      "max_seconds": 144342,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "ebaa23f05454b687658293ccc987368b",
+      "md5": "dc466a3cc2fa1f58407323b69323377f",
       "nat": 39,
       "dmin": 0.9817,
       "z_extent": 11.3416,
@@ -1651,8 +1843,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 9,
       "nk": 2,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 90,
       "steps_basis": {
         "measured_1x1_steps": 60,
@@ -1661,15 +1853,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 60.1,
-      "est_hours_at_np": 60.1,
+      "est_hours_at_np": 20.0,
       "est_hours_bracket_np4": [
         43.7,
-        87.5
+        116.6
       ],
-      "max_seconds": 433026,
+      "max_seconds": 144342,
       "nspin": 1,
       "spectator_y": 4.77084945,
-      "md5": "a4139746e716eb0fe7085bccb534e956",
+      "md5": "7739d8d3b0d0abf36c2e29c63d70bb8c",
       "nat": 40,
       "dmin": 0.9817,
       "z_extent": 11.3416,
@@ -1688,8 +1880,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 16,
       "nk": 4,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 90,
       "steps_basis": {
         "measured_1x1_steps": 60,
@@ -1698,15 +1890,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 106.9,
-      "est_hours_at_np": 106.9,
+      "est_hours_at_np": 35.6,
       "est_hours_bracket_np4": [
         77.8,
-        155.5
+        207.4
       ],
-      "max_seconds": 769824,
+      "max_seconds": 256608,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "34011537969ece7eac5a8f844a8dba2a",
+      "md5": "e01ecea70897ad38d27d2983e59d7bed",
       "nat": 39,
       "dmin": 0.9817,
       "z_extent": 11.3416,
@@ -1725,8 +1917,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 16,
       "nk": 4,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 90,
       "steps_basis": {
         "measured_1x1_steps": 60,
@@ -1735,15 +1927,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 106.9,
-      "est_hours_at_np": 106.9,
+      "est_hours_at_np": 35.6,
       "est_hours_bracket_np4": [
         77.8,
-        155.5
+        207.4
       ],
-      "max_seconds": 769824,
+      "max_seconds": 256608,
       "nspin": 1,
       "spectator_y": 4.77084945,
-      "md5": "3d9cb365cf6676a44f84a4b1c452d3df",
+      "md5": "67b761a20e36762fe45c1c1b6acbe29e",
       "nat": 40,
       "dmin": 0.9817,
       "z_extent": 11.3416,
@@ -1838,22 +2030,24 @@
       "nk": 4,
       "manifest": "A",
       "np_run": 4,
-      "steps_est": 5,
+      "steps_est": 18,
       "steps_basis": {
-        "measured_1x1_steps": null,
-        "multiplier": null,
-        "basis": "a replicated relaxed clean slab is already a stationary point of the 2x1 problem, so this should converge in a handful of steps; 5 is the allowance. For Cr the mesh also changes (9 4 1 does not fold), so it is not exactly stationary."
+        "measured_1x1_steps": 12,
+        "source": "runs/Ru_anchor\\slab.out",
+        "multiplier": 1.5,
+        "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)",
+        "note": "a replicated relaxed clean slab is close to a stationary point of the 2x1 problem and should exit early; the est/cap use the measured slab count x STEP_MULT anyway (U1). For Cr the mesh also changes (9 4 1 does not fold), so it is not exactly stationary."
       },
-      "est_hours_np4": 5.9,
-      "est_hours_at_np": 5.9,
+      "est_hours_np4": 21.4,
+      "est_hours_at_np": 21.4,
       "est_hours_bracket_np4": [
-        4.3,
-        8.6
+        15.6,
+        41.5
       ],
-      "max_seconds": 42768,
+      "max_seconds": 153965,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "fe173bf670760d46ec7e46b9dc0316b4",
+      "md5": "4b8b002995cb6580319fba8a5233a66a",
       "nat": 36,
       "dmin": 1.882,
       "z_extent": 8.8413,
@@ -1872,8 +2066,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 16,
       "nk": 4,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 41,
       "steps_basis": {
         "measured_1x1_steps": 27,
@@ -1882,15 +2076,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 48.7,
-      "est_hours_at_np": 48.7,
+      "est_hours_at_np": 16.2,
       "est_hours_bracket_np4": [
         35.4,
-        70.8
+        94.5
       ],
-      "max_seconds": 350698,
+      "max_seconds": 116899,
       "nspin": 1,
       "spectator_y": 1.93816183,
-      "md5": "8d375392883cf5b5f76e8bf6ab27f1ff",
+      "md5": "1f4f3932dd476b18b8d6da8c5ce6db06",
       "nat": 37,
       "dmin": 1.7341,
       "z_extent": 9.4657,
@@ -1922,7 +2116,7 @@
       "est_hours_at_np": 27.4,
       "est_hours_bracket_np4": [
         19.9,
-        39.9
+        53.1
       ],
       "max_seconds": 197267,
       "nspin": 1,
@@ -1959,7 +2153,7 @@
       "est_hours_at_np": 27.4,
       "est_hours_bracket_np4": [
         19.9,
-        39.9
+        53.1
       ],
       "max_seconds": 197267,
       "nspin": 1,
@@ -1983,8 +2177,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 16,
       "nk": 4,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 41,
       "steps_basis": {
         "measured_1x1_steps": 27,
@@ -1993,15 +2187,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 48.7,
-      "est_hours_at_np": 48.7,
+      "est_hours_at_np": 16.2,
       "est_hours_bracket_np4": [
         35.4,
-        70.8
+        94.5
       ],
-      "max_seconds": 350698,
+      "max_seconds": 116899,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "b1dc2ce1b08c12af1e2eea1fef6db8aa",
+      "md5": "60c99637fe9bf6ab77d377e5368f2586",
       "nat": 37,
       "dmin": 1.7341,
       "z_extent": 9.4657,
@@ -2020,8 +2214,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 16,
       "nk": 4,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 41,
       "steps_basis": {
         "measured_1x1_steps": 27,
@@ -2030,15 +2224,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 48.7,
-      "est_hours_at_np": 48.7,
+      "est_hours_at_np": 16.2,
       "est_hours_bracket_np4": [
         35.4,
-        70.8
+        94.5
       ],
-      "max_seconds": 350698,
+      "max_seconds": 116899,
       "nspin": 1,
       "spectator_y": 1.58816183,
-      "md5": "d636b5d6e2898cf132353b09bd4fa586",
+      "md5": "d1fccea3bcf421c0d6cc617739ba6e43",
       "nat": 38,
       "dmin": 1.6985,
       "z_extent": 9.4657,
@@ -2057,8 +2251,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 9,
       "nk": 2,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 50,
       "steps_basis": {
         "measured_1x1_steps": 33,
@@ -2067,15 +2261,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 33.4,
-      "est_hours_at_np": 33.4,
+      "est_hours_at_np": 11.1,
       "est_hours_bracket_np4": [
         24.3,
-        48.6
+        64.8
       ],
-      "max_seconds": 240570,
+      "max_seconds": 80190,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "634f52038c8fa29f37d0a4537bf34db9",
+      "md5": "c32bd4bf4e5c735516439d1b5f9ffbe5",
       "nat": 38,
       "dmin": 0.981,
       "z_extent": 9.9248,
@@ -2094,8 +2288,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 9,
       "nk": 2,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 50,
       "steps_basis": {
         "measured_1x1_steps": 33,
@@ -2104,15 +2298,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 33.4,
-      "est_hours_at_np": 33.4,
+      "est_hours_at_np": 11.1,
       "est_hours_bracket_np4": [
         24.3,
-        48.6
+        64.8
       ],
-      "max_seconds": 240570,
+      "max_seconds": 80190,
       "nspin": 1,
       "spectator_y": 1.58816183,
-      "md5": "2f763467f89e5d1a3533f1b5d69a17af",
+      "md5": "bd763d0827559e2ef9545108faf51bd8",
       "nat": 39,
       "dmin": 0.981,
       "z_extent": 9.9248,
@@ -2131,8 +2325,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 16,
       "nk": 4,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 50,
       "steps_basis": {
         "measured_1x1_steps": 33,
@@ -2141,15 +2335,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 59.4,
-      "est_hours_at_np": 59.4,
+      "est_hours_at_np": 19.8,
       "est_hours_bracket_np4": [
         43.2,
-        86.4
+        115.2
       ],
-      "max_seconds": 427680,
+      "max_seconds": 142560,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "acc909ed3ae1ee2a4324ad112cfe4131",
+      "md5": "3fe8aaa89ac3564c6f7749286c1ca1a3",
       "nat": 38,
       "dmin": 0.981,
       "z_extent": 9.9248,
@@ -2168,8 +2362,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 16,
       "nk": 4,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 50,
       "steps_basis": {
         "measured_1x1_steps": 33,
@@ -2178,15 +2372,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 59.4,
-      "est_hours_at_np": 59.4,
+      "est_hours_at_np": 19.8,
       "est_hours_bracket_np4": [
         43.2,
-        86.4
+        115.2
       ],
-      "max_seconds": 427680,
+      "max_seconds": 142560,
       "nspin": 1,
       "spectator_y": 1.58816183,
-      "md5": "13e3ee18e36e970ab2479d5a18ce0b7d",
+      "md5": "4ed8c4888df18cfe2ff47a83ad1308d4",
       "nat": 39,
       "dmin": 0.981,
       "z_extent": 9.9248,
@@ -2205,8 +2399,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 9,
       "nk": 2,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 102,
       "steps_basis": {
         "measured_1x1_steps": 68,
@@ -2215,15 +2409,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 68.2,
-      "est_hours_at_np": 68.2,
+      "est_hours_at_np": 22.7,
       "est_hours_bracket_np4": [
         49.6,
-        99.1
+        132.2
       ],
-      "max_seconds": 490763,
+      "max_seconds": 163588,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "880e51f5d31e715126a39f93748d419e",
+      "md5": "e1c794414506f80d583742dd277dd4d0",
       "nat": 39,
       "dmin": 1.0259,
       "z_extent": 10.6195,
@@ -2242,8 +2436,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 9,
       "nk": 2,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 102,
       "steps_basis": {
         "measured_1x1_steps": 68,
@@ -2252,15 +2446,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 68.2,
-      "est_hours_at_np": 68.2,
+      "est_hours_at_np": 22.7,
       "est_hours_bracket_np4": [
         49.6,
-        99.1
+        132.2
       ],
-      "max_seconds": 490763,
+      "max_seconds": 163588,
       "nspin": 1,
       "spectator_y": 1.58816183,
-      "md5": "a4e2932d34b7b5a251d17be627deeb4e",
+      "md5": "d92b3723918f71b4107588937aa754cb",
       "nat": 40,
       "dmin": 1.0259,
       "z_extent": 10.6195,
@@ -2279,8 +2473,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 16,
       "nk": 4,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 102,
       "steps_basis": {
         "measured_1x1_steps": 68,
@@ -2289,15 +2483,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 121.2,
-      "est_hours_at_np": 121.2,
+      "est_hours_at_np": 40.4,
       "est_hours_bracket_np4": [
         88.1,
-        176.3
+        235.0
       ],
-      "max_seconds": 872467,
+      "max_seconds": 290822,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "a2aa02244b1334717e79afa1c3624a9e",
+      "md5": "03681b90462e233ac53d386ddc770dbc",
       "nat": 39,
       "dmin": 1.0259,
       "z_extent": 10.6195,
@@ -2316,8 +2510,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 16,
       "nk": 4,
-      "manifest": "A",
-      "np_run": 4,
+      "manifest": "B",
+      "np_run": 20,
       "steps_est": 102,
       "steps_basis": {
         "measured_1x1_steps": 68,
@@ -2326,15 +2520,15 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
       "est_hours_np4": 121.2,
-      "est_hours_at_np": 121.2,
+      "est_hours_at_np": 40.4,
       "est_hours_bracket_np4": [
         88.1,
-        176.3
+        235.0
       ],
-      "max_seconds": 872467,
+      "max_seconds": 290822,
       "nspin": 1,
       "spectator_y": 1.58816183,
-      "md5": "d4186256e2324352af708fd1eb73ff2c",
+      "md5": "cad2e9f7fc342553d8241b8d2245438f",
       "nat": 40,
       "dmin": 1.0259,
       "z_extent": 10.6195,

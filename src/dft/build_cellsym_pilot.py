@@ -95,9 +95,12 @@ The engineering decisions this file makes, and the evidence for each
    is written into cellsym_manifest.json so it is read from the artifact rather
    than remembered.
 
-Eight of the 45 adsorbate cells already exist on disk and are NOT rebuilt: the 9
-production 1x1/mir states (Cr/Ir/Ru x *O/*OH/*OOH; Cr *OOH from the basin
-restart) and the 2 P10 off-plane 1x1 *OOH runs (Ru, Ir).
+Reused from disk, declared per row in the manifest: the Ir/Ru production
+1x1/mir states, Cr *OOH's basin-restart mirror row, and Ru's P10 off-plane 1x1
+*OOH run. NOT reused any more: Ir's P10 off-plane run (it is the docs/43 s2
+replication gate and must be reproduced, not re-read -- finding N2) and Cr's
+s0_O / s0_OH mirror rows (re-emitted under this emitter's own mixing so each
+pair differs in exactly one thing -- amendment 2 / finding N11).
 
 Known, INTENDED deviation from the production decks
 ---------------------------------------------------
@@ -139,10 +142,14 @@ DOC43 = "docs/43-prereg-week1-factorial.md"
 # --------------------------------------------------------------------------
 # PREREG -- pointers, not copies.
 #
-# Each entry is (value, docs/43 clause, literal ASCII substring that must still
-# be present in docs/43). The value is here because a machine needs a number;
-# the anchor is here so the number cannot silently drift away from the clause it
-# claims to implement. _prereg_check() aborts the build if any anchor is gone.
+# Each entry is (value, docs/43 clause, literal substring that must still be
+# present in docs/43). The value is here because a machine needs a number; the
+# anchor is here so the number cannot silently drift away from the clause it
+# claims to implement, WHICH MEANS EVERY ANCHOR MUST RUN THROUGH THE NUMBER IT
+# PINS. Round-2 finding N1 demonstrated the failure: six anchors stopped just
+# short of their number, five registered thresholds were changed in a scratch
+# copy of docs/43, and the builder emitted all 56 decks without a warning.
+# _prereg_check() aborts the build if any anchor is gone.
 # --------------------------------------------------------------------------
 PREREG = {
     "states": (
@@ -150,34 +157,39 @@ PREREG = {
         "States: `*O`, `*OH`, `*OOH`"),
     "monatomic_offplane_min_dy_A": (
         0.30, "s2-A.1",
-        "y-translation of"),
+        "y-translation of ≥ 0.30 Å"),
     "spectator_kick_ref_only": (
         True, "s2-A.2",
         "the kick is applied to `ref__2x1o` only"),
     "spectator_contingency_dy_A": (
         0.02, "s2-A.2",
-        "a `ref__2x1o_mir` job is added"),
+        "0.02 Å, a `ref__2x1o_mir` job is added"),
     "cr_pair_magnetisation_tol_bohrmag": (
         0.1, "s2-A.3(a)",
-        "members of each Cr pair must agree to within"),
+        "must agree to within **0.1 μ_B**"),
     "cr_gate1_scf_tol_meV": (
         5.0, "s2-A.3(b)",
-        "one fixed-geometry fresh-density SCF per Cr 2"),
+        "required to agree to **≤ 5 meV**"),
     "gate_c_energy_tol_meV": (
         5.0, "s2 / s2-A.4",
-        "clean at the folded mesh"),
+        "≤ 5 meV can be passed by a different"),
     "gate_c_magnetisation_tol_bohrmag": (
         0.1, "s2-A.4",
-        "Magnetisation must match to 0.1 "),
+        "Magnetisation must match to 0.1 μ_B"),
     "cr_2x1_kmesh": (
         ("4", "4", "1"), "s2-A.5",
         "Cr therefore runs the same 4 4 1 as the others"),
     "production_cell_decision_eV": (
         0.10, "s2",
-        "the per-adsorbate adsorption energy differs"),
+        "by **≥ 0.10 eV** on any of the three metals"),
     "sign_rule_max_positive_dE_sym_eV": (
         0.02, "s1",
-        "is a failure of the search or"),
+        "ΔE_sym > +0.02 eV is a failure of the search or"),
+    # (expected, tolerance) for the replication gate. The anchor spans the
+    # line wrap in docs/43 so it pins BOTH numbers.
+    "replication_gate_ir_oohx_1x1_eV": (
+        (-0.291, 0.05), "s2 (Pre-registered predictions)",
+        "must reproduce ΔE_sym = **−0.291 ±\n0.05 eV**"),
 }
 
 
@@ -217,16 +229,37 @@ METALS = {
 
 STATES = PREREG["states"][0]
 
-#: 1x1 off-plane cells already computed under P10 -- do not rebuild (22.6 h and
-#: 10.3 h respectively at NP=4). Both used this same emitter with production
-#: cutoffs, k-mesh and mask, plus nosym/noinv and a yaw-90 start.
+#: 1x1 off-plane cell already computed under P10 -- not rebuilt (22.6 h at
+#: NP=4). It used this same emitter with production cutoffs, k-mesh and mask,
+#: plus nosym/noinv and a yaw-90 start. Declared as REUSE in the manifest.
+#:
+#: Ir s0_OOH 1x1 off is deliberately NOT here any more (round-2 finding N2):
+#: docs/43 s2 makes that job the replication gate ("must reproduce DE_sym =
+#: -0.291 +/- 0.05 eV ... a pipeline control"), and a control that re-reads the
+#: very output it exists to replicate returns -0.291 by construction and cannot
+#: fail. The Ir deck is emitted and RUN fresh; the gate scores the fresh run.
 ALREADY_ON_DISK = {
     ("Ru", "s0_OOH", "1x1", "off"): "runs/probe/Ru_orient/s0_OOH__yaw90.out",
-    ("Ir", "s0_OOH", "1x1", "off"): "runs/probe/Ir_orient/s0_OOH__yaw90.out",
 }
 
 KMESH_2X1 = PREREG["cr_2x1_kmesh"][0]
 KMESH_CR_CONTROL = ("8", "4", "1")   # the mesh Cr's 2x1 4 4 1 folds from
+
+#: MEASURED restart class. A relaxation restarted from its own converged
+#: geometry: the three docs/41 s6f basin restarts converged in 3, 4 and 5 ionic
+#: steps. 6 = that class + 1 step of headroom for the 9 -> 8 mesh nudge. Used
+#: ONLY for restart-from-own-minimum jobs, never for the spliced 2x1 cells (U1).
+RESTART_STEPS_ALLOWANCE = 6
+
+#: docs/43 AMENDMENT 2 ("the 1x1 mirror arm must be re-emitted, not reused") /
+#: round-2 finding N11: Cr's production s0_O and s0_OH decks carry no
+#: mixing_mode while every deck this emitter writes carries local-TF, and
+#: docs/41 s6f measured a 178.58 meV basin difference on exactly that axis for
+#: Cr. These two mirror rows are re-emitted through THIS emitter so each Cr 1x1
+#: pair differs in exactly one thing. Cr *OOH is clean already: its mirror row
+#: is the basin restart (runs/probe/Cr_basin), which used local-TF, as do all
+#: Ir/Ru production rows. The production values remain the tier-of-record.
+CR_MIR_REEMIT = ("s0_O", "s0_OH")
 YAW_DEG = 90.0                       # matches P10, so the 1x1 rows are comparable
 #: y displacement of the 2x1o spectator *O in `ref__2x1o` ONLY (docs/43 s2-A.2).
 #: It must clear MIN_OFFPLANE_DY_A below, because in `ref__2x1o` the spectator is
@@ -536,7 +569,18 @@ CELL_MULT_CEILING = 8.0
 #: relaxations so the interface is not at a stationary point. The measured 1x1
 #: counts are the FLOOR (finding [2]: assuming fewer steps in a harder cell is
 #: the project's standing costing failure with the sign flipped).
+#: The bracket end feeds est_bracket_np4 -- round-2 finding N9: a published
+#: bracket that varies MAG_MULT and CELL_MULT but pins the step count at both
+#: ends is not a bracket of the quantity finding [2] was about.
 STEP_MULT_2X1 = 1.5
+STEP_MULT_2X1_BRACKET = (1.5, 2.0)
+# Round-2 finding N9: `ceil(n * STEP_MULT_2X1) < n` is false for every n >= 1
+# whenever the constant is >= 1.0, so the in-function "guard" could never fire
+# in production. The real invariant is on the CONSTANT, so it lives here, at
+# import time, where an edit to the constant is the only thing that can trip it.
+assert STEP_MULT_2X1 >= 1.0, (
+    "STEP_MULT_2X1 < 1.0 would cost the 2x1 cells below their measured 1x1 "
+    "ionic-step counts (finding [2])")
 
 #: MEASURED. A fresh-density fixed-geometry SCF costs about 1.3-1.6 ionic-step
 #: equivalents in this model: probe/Cr/s0_OH__base 258.5 s/kpt / (48.6 x 3.5) =
@@ -562,9 +606,14 @@ RANK_SPEEDUP_BRACKET = (2.5, 5.1)
 MAX_SECONDS_SAFETY = 2.0
 MAX_SECONDS_FLOOR = 7200
 
-#: Manifest A: Ir/Ru jobs + the Cr fixed-geometry SCFs. Manifest B: the Cr
-#: relaxations, one per box (adjudications finding [6]). NP x NCONC <= 23 usable
-#: cores in both, and NP is an exact multiple of every nk in the file.
+#: Manifest A: jobs short enough to pack at NP=4 x NCONC=5. Manifest B: every
+#: LONG job -- Cr relaxations plus any job whose NP=4 estimate exceeds
+#: LONG_JOB_NP4_HOURS -- one at a time at full ranks. Round-2 finding U6:
+#: manifest A used to hold Ru s0_OOH 2x1 jobs estimated at 121.2 h at NP=4,
+#: a single-job critical path that renting more boxes cannot shorten; only
+#: ranks can, so those jobs belong in B. NP x NCONC <= 23 usable cores in
+#: both, and NP is an exact multiple of every nk in the file.
+LONG_JOB_NP4_HOURS = 30.0
 MANIFESTS = {
     "A": dict(file="m_cellsym_a_np4.txt", np=4, nconc=5),
     "B": dict(file="m_cellsym_b_cr_np20.txt", np=20, nconc=1),
@@ -600,10 +649,17 @@ def est_hours_np4(nk, steps, magnetic, big):
 
 
 def est_bracket_np4(nk, steps, magnetic, big):
-    """(low, high) hours at NP=4 over the MAG_MULT x CELL_MULT bracket."""
+    """(low, high) hours at NP=4 over the MAG_MULT x CELL_MULT x STEP_MULT bracket.
+
+    `steps` arrives already multiplied by STEP_MULT_2X1 for the 2x1 jobs, so the
+    high end rescales it to the bracket ceiling (finding N9: the published
+    bracket must bracket the step count too, not just the per-step cost).
+    """
     base = nk * steps * SEC_PER_KPT_STEP / 3600.0
     lo = base * (MAG_MULT_BRACKET[0] if magnetic else 1.0) * (CELL_MULT_FLOOR if big else 1.0)
     hi = base * (MAG_MULT_BRACKET[1] if magnetic else 1.0) * (CELL_MULT_CEILING if big else 1.0)
+    if big:
+        hi *= STEP_MULT_2X1_BRACKET[1] / STEP_MULT_2X1
     return lo, hi
 
 
@@ -701,7 +757,13 @@ def build_metal(M, cfg, outroot, pseudo_dir, scratch, dry):
         h4 = est_hours_np4(nkp, eff_steps, magnetic, big)
         lo4, hi4 = est_bracket_np4(nkp, eff_steps, magnetic, big)
         if manifest is None:
-            manifest = "A" if (calculation == "scf" or M != "Cr") else "B"
+            # U6: a single long job's wall clock is bounded only by its rank
+            # count, so anything over LONG_JOB_NP4_HOURS at NP=4 runs serially
+            # at NP=20 regardless of metal. Cr relaxations go to B always
+            # (finding [6]): even the short ones are magnetic and their caps
+            # were sized at NP=20.
+            long_job = h4 > LONG_JOB_NP4_HOURS
+            manifest = "B" if (long_job or (M == "Cr" and calculation == "relax")) else "A"
         np_run = MANIFESTS[manifest]["np"]
         speed = RANK_SPEEDUP_NP20 if np_run == 20 else 1.0
         h_run = h4 / speed
@@ -744,15 +806,10 @@ def build_metal(M, cfg, outroot, pseudo_dir, scratch, dry):
         return h_run
 
     def steps_2x1(state):
+        # s >= n is guaranteed by the import-time assertion on STEP_MULT_2X1;
+        # the in-function check that used to sit here could never fire (N9).
         n = src[state]["steps_1x1"]
         s = int(math.ceil(n * STEP_MULT_2X1))
-        if s < n:
-            # finding [2]: the 2x1 cell has twice the free atoms and a spliced
-            # half-and-half start. Costing it BELOW the measured 1x1 count is the
-            # project's standing costing failure with the sign flipped.
-            raise SystemExit(f"refusing to build: {state} 2x1 costed at {s} ionic "
-                             f"steps, below the measured 1x1 count {n} "
-                             f"({src[state]['steps_src']})")
         return s, dict(
             measured_1x1_steps=n, source=src[state]["steps_src"],
             multiplier=STEP_MULT_2X1,
@@ -783,17 +840,23 @@ def build_metal(M, cfg, outroot, pseudo_dir, scratch, dry):
              note=("production geometry, off-plane start + nosym/noinv; the 1x1 "
                    "mirror row is the production run and is not rebuilt"))
 
-    # ---- arm 2x1v: clean neighbouring cus site
+    # ---- arm 2x1v: clean neighbouring cus site.
+    # Round-2 finding U1: costing this at a 5-step allowance put the block's
+    # own GATE C job 3.2-4.8x below the block's own rule and gave Cr a
+    # max_seconds cap the STEP_MULT model says is 5x short. A replicated
+    # relaxed slab probably IS near-stationary and will exit early -- but
+    # max_seconds must be sized from the same rule as every other 2x1 job,
+    # because a cap that fires converts GATE C into a stale-.out intervention.
+    st_ref, basis_ref = steps_2x1("slab")
     emit("ref__2x1v", "slab", slab_clean + shift_x(slab_clean, a1),
-         list(mask) * 2, KMESH_2X1, 2.0, "none", 2, steps=5, nkp=16,
+         list(mask) * 2, KMESH_2X1, 2.0, "none", 2, steps=st_ref, nkp=16,
          arm="2x1v", state="ref",
-         steps_basis=dict(measured_1x1_steps=None, multiplier=None,
-                          basis="a replicated relaxed clean slab is already a "
-                                "stationary point of the 2x1 problem, so this "
-                                "should converge in a handful of steps; 5 is the "
-                                "allowance. For Cr the mesh also changes "
-                                "(9 4 1 does not fold), so it is not exactly "
-                                "stationary."),
+         steps_basis=dict(basis_ref, note=(
+             "a replicated relaxed clean slab is close to a stationary point "
+             "of the 2x1 problem and should exit early; the est/cap use the "
+             "measured slab count x STEP_MULT anyway (U1). For Cr the mesh "
+             "also changes (9 4 1 does not fold), so it is not exactly "
+             "stationary.")),
          note=(f"GATE C: |E(2x1 clean) - 2 E(1x1 clean at the folded mesh)| <= "
                f"{PREREG['gate_c_energy_tol_meV'][0]} meV AND magnetisation to "
                f"{PREREG['gate_c_magnetisation_tol_bohrmag'][0]} mu_B "
@@ -871,6 +934,55 @@ def build_metal(M, cfg, outroot, pseudo_dir, scratch, dry):
                  note=f"k-mesh bridge 9 4 1 -> 8 4 1 at fixed geometry from "
                       f"{src[job]['geom_src']}")
 
+        # Round-2 finding N10 / docs/43 AMENDMENT 4: GATE C and C-2 compared a
+        # RELAXED 2x1 energy against a FIXED-GEOMETRY 1x1 baseline evaluated at
+        # a geometry relaxed at 9 4 1 -- so any relaxation energy released by
+        # the 9 -> 8 mesh change reads as a gate failure with nothing to
+        # distinguish "the cell construction is wrong" from "the 1x1 geometry
+        # was not stationary at the folded mesh". The two gate baselines are
+        # therefore RELAXED at the folded mesh; the fixed-geometry SCFs above
+        # stay as the registered k-mesh bridge (s2-A.5), and the difference
+        # E(relax@841) - E(scf@841) is reported as mesh_relaxation_meV.
+        for job, nkp, sym in (("slab", 32, "none"), ("s0_O", 15, "mir")):
+            pos = src[job]["pos"]
+            flags = list(mask) + ["1 1 1"] * (len(pos) - n_slab)
+            emit(f"{job}__1x1_k8_relax", job, pos, flags, KMESH_CR_CONTROL, 1.0,
+                 sym, 1, calculation="relax",
+                 steps=RESTART_STEPS_ALLOWANCE, nkp=nkp, arm="1x1", state=job,
+                 steps_basis=dict(
+                     measured_1x1_steps=None,
+                     multiplier=None,
+                     basis="restart-from-own-minimum class, MEASURED: the three "
+                           "docs/41 s6f basin restarts took 3/4/5 ionic steps "
+                           "from converged geometries; 6 = that + 1 for the "
+                           "9 -> 8 mesh nudge"),
+                 note=(f"GATE {'C' if job == 'slab' else 'C-2'} baseline for Cr, "
+                       f"RELAXED at the folded mesh (N10 / amendment 4) so both "
+                       f"sides of the gate are the same protocol. Starts from "
+                       f"{src[job]['geom_src']}."))
+
+    # ---- docs/43 AMENDMENT 2: the Cr 1x1 s0_O / s0_OH mirror rows are
+    # re-emitted through this emitter (local-TF, fresh atomic density) so the
+    # 1x1 pair differs from its off-plane partner in exactly one thing. The
+    # production 9 4 1 mesh is kept -- the pair partner runs 9 4 1 too.
+    if M == "Cr":
+        for state in CR_MIR_REEMIT:
+            pos = src[state]["pos"]
+            emit(f"{state}__1x1_mir", state, pos,
+                 list(mask) + ["1 1 1"] * (len(pos) - n_slab),
+                 cfg["kmesh_1x1"], 1.0, "mir", 1, calculation="relax",
+                 steps=RESTART_STEPS_ALLOWANCE, nkp=15, arm="1x1", state=state,
+                 steps_basis=dict(
+                     measured_1x1_steps=None,
+                     multiplier=None,
+                     basis="restart-from-own-minimum class, MEASURED: docs/41 "
+                           "s6f basin restarts took 3/4/5 ionic steps"),
+                 note=("amendment 2 / N11: mirror row re-emitted under the "
+                       "emitter's own settings (local-TF) so DE_sym is a "
+                       "difference between two decks that differ only in the "
+                       "symmetry arm. The production value remains the "
+                       "tier-of-record."))
+
     # ---- the CELL_MULT / MAG_MULT measurement wave (finding [5]). Three
     # fixed-geometry SCFs at identical NP/nk, capped at 20 minutes each. The
     # ratio of the "total cpu time spent up to now" increments per SCF iteration
@@ -936,9 +1048,11 @@ def build_metal(M, cfg, outroot, pseudo_dir, scratch, dry):
 # ------------------------------------------------------- wave 2: GATE-1 SCFs ---
 
 def cmd_gate1(a):
-    """Emit the docs/43 s2-A.3(b) fresh-density SCF for every Cr 2x1 relaxation.
+    """Emit the fresh-density GATE-1 SCF for every Cr relaxation in the block.
 
-    One fixed-geometry SCF per Cr 2x1 relaxation, at that relaxation's own final
+    docs/43 s2-A.3(b) registers the 2x1 relaxations; amendment 4 extends the
+    same control to the 1x1 rows. One fixed-geometry SCF per Cr relaxation,
+    at that relaxation's own final
     coordinates, from a fresh atomic superposition, required to agree to <= 5 meV.
     It also captures s2-A.3(a): the total and absolute magnetisation of the
     parent relaxation are recorded here, so the mir/off pair comparison has an
@@ -951,11 +1065,14 @@ def cmd_gate1(a):
     if not os.path.exists(man_path):
         raise SystemExit(f"refusing: {man_path} not found; build the block first")
     man = json.load(open(man_path, encoding="utf-8"))
+    # s2-A.3(b) registers the 2x1 relaxations; amendment 4 extends GATE-1 to
+    # EVERY Cr relaxation this block emits -- the failure it catches was first
+    # measured on a 1x1 (Cr *OOH, -178.58 meV, docs/41 s6f), so the 1x1 rows
+    # are just as exposed and the marginal cost is five cheap SCFs.
     targets = [j for j in man["jobs"]
-               if j["metal"] == "Cr" and j["calculation"] == "relax"
-               and j["arm"] in ("2x1v", "2x1o")]
+               if j["metal"] == "Cr" and j["calculation"] == "relax"]
     if not targets:
-        raise SystemExit("refusing: no Cr 2x1 relaxations in the manifest")
+        raise SystemExit("refusing: no Cr relaxations in the manifest")
 
     cfg = METALS["Cr"]
     rd, n_slab = cfg["rundir"], cfg["n_slab"]
@@ -984,30 +1101,42 @@ def cmd_gate1(a):
 
     if not_ready:
         raise SystemExit("refusing to emit any GATE-1 deck; "
-                         f"{len(not_ready)} of {len(targets)} Cr 2x1 relaxations "
+                         f"{len(not_ready)} of {len(targets)} Cr relaxations "
                          "are not scoreable yet:\n  " + "\n  ".join(not_ready))
 
     rows = []
     for j, op, pos in emitted:
         name = j["job"] + "__g1"
         d = dict(parse_input_deck(os.path.join(rd, j["deck_source"] + ".in")))
-        n_ads = j["nat"] - 2 * n_slab
-        d["flags"] = list(mask) * 2 + ["1 1 1"] * n_ads
-        d["nosym"] = j["sym"] == "off"
-        d["cell"] = [[d["cell"][0][0] * 2.0, 0.0, 0.0],
+        # 1x1 parents keep their own cell and mesh; 2x1 parents doubled a1.
+        n_halves = 2 if j["arm"] in ("2x1v", "2x1o") else 1
+        n_ads = j["nat"] - n_halves * n_slab
+        d["flags"] = list(mask) * n_halves + ["1 1 1"] * n_ads
+        # Round-2 finding N3: the build path sets nosym for sym in
+        # ("off", "off_fixed", "none") -- ref__2x1v is emitted with sym="none"
+        # and runs nosym/noinv at 16 k-points. A GATE-1 child that turns
+        # symmetry back on moves the k-set and the symmetry treatment at the
+        # same time, so a >5 meV disagreement cannot be attributed and a <5 meV
+        # agreement certifies nothing. Mirror the build path exactly.
+        d["nosym"] = j["sym"] in ("off", "none")
+        d["cell"] = [[d["cell"][0][0] * float(n_halves), 0.0, 0.0],
                      list(d["cell"][1]), list(d["cell"][2])]
-        d["kpts"] = ("automatic", list(KMESH_2X1) + ["0", "0", "0"])
+        kmesh = tuple(j["kmesh"].split())
+        d["kpts"] = ("automatic", list(kmesh) + ["0", "0", "0"])
         text, _ = write_probe(d, pos, parse_variant("base"), name, a.pseudo_dir,
                               a.scratch, calculation="scf")
-        h4 = est_hours_np4(j["n_kpt_est"], SCF_STEP_EQUIV, True, True)
+        h4 = est_hours_np4(j["n_kpt_est"], SCF_STEP_EQUIV, True, n_halves == 2)
         h_run = h4 / RANK_SPEEDUP_NP20
         ms = max(MAX_SECONDS_FLOOR, int(round(MAX_SECONDS_SAFETY * h_run * 3600)))
         cut = text.index("\n/\n")
         text = text[:cut] + f"\n  max_seconds = {ms}" + text[cut:]
         guard(text, os.path.join(rd, j["deck_source"] + ".in"), name,
-              dict(cell_mult=2.0, kmesh=KMESH_2X1, nat=j["nat"], n_halves=2,
-                   y_mirror=y_mirror,
-                   sym="off_fixed" if j["sym"] == "off" else "mir_fixed",
+              dict(cell_mult=float(n_halves), kmesh=kmesh, nat=j["nat"],
+                   n_halves=n_halves, y_mirror=y_mirror,
+                   # "none" parents pass off_fixed so the guard re-checks
+                   # nosym AND noinv on the emitted bytes (N3).
+                   sym=("off_fixed" if j["sym"] in ("off", "none")
+                        else "mir_fixed"),
                    max_seconds=ms))
         blob = text.encode("utf-8")
         if not a.dry_run:
@@ -1022,8 +1151,10 @@ def cmd_gate1(a):
                          parent_absolute_magnetization=ab,
                          md5=hashlib.md5(blob).hexdigest()))
 
-    lines = [f"# docs/43 s2-A.3(b): one fresh-density fixed-geometry SCF per Cr "
-             f"2x1 relaxation, tolerance {PREREG['cr_gate1_scf_tol_meV'][0]} meV.",
+    lines = ["# docs/43 s2-A.3(b) + amendment 4: one fresh-density",
+             f"# fixed-geometry SCF per Cr relaxation, tolerance "
+             f"{PREREG['cr_gate1_scf_tol_meV'][0]} meV.",
+             "# NP=20 NCONC=1",
              "# bash queue_r1.sh m_cellsym_gate1.txt 20 1",
              "# NP=20 is an exact multiple of every nk below; NP x NCONC <= 23."]
     lines += [f"probe/Cr_cellsym {r['job']} .in {r['nk']}" for r in rows]
@@ -1073,7 +1204,8 @@ def _scoreable(rec, calculation):
 
 
 def cmd_score(a):
-    """Read block 1A: the Cr magnetic pair test, GATE C/C-2, and the sign rule."""
+    """Read block 1A: GATE-1, the Cr pair test, GATE C/C-2/R, the sign rule,
+    and the s2-A.2 spectator contingency."""
     man_path = os.path.join(a.out, "cellsym_manifest.json")
     if not os.path.exists(man_path):
         raise SystemExit(f"refusing: {man_path} not found; build the block first")
@@ -1083,6 +1215,7 @@ def cmd_score(a):
     e_tol = PREREG["gate_c_energy_tol_meV"][0]
     gc_mag_tol = PREREG["gate_c_magnetisation_tol_bohrmag"][0]
     sign_tol = PREREG["sign_rule_max_positive_dE_sym_eV"][0]
+    g1_tol = PREREG["cr_gate1_scf_tol_meV"][0]
 
     def deck_out(M, job):
         return os.path.join(a.out, f"{M}_cellsym", job + ".out")
@@ -1105,23 +1238,97 @@ def cmd_score(a):
                                     else "NOT_SCOREABLE"),
                             **(rec or {})))
 
-    # ---- s2-A.3(a) + s1: the mir/off pairs. The 1x1 mirror row is the
-    # production run and was never rebuilt, so that half comes from `rundir`.
+    # ---- s2-A.3(b): GATE-1, EVALUATED (finding U5: this threshold used to
+    # have an emitter and a recorder and no evaluator). One row per __g1 SCF:
+    # AGREE within 5 meV, else BASIN_DRIFT -- in which case the fresh-density
+    # SCF energy is the corrected value (docs/41 s6f measured the GATE-1 SCF
+    # reproducing the true basin to 2-3.5 meV on all three restarts).
+    gate1_rows = []
+    g1_child = {}       # parent job name -> the child's read_out record
+    g1man_path = os.path.join(a.out, "cellsym_gate1_manifest.json")
+    if os.path.exists(g1man_path):
+        g1man = json.load(open(g1man_path, encoding="utf-8"))
+        for r in g1man["jobs"]:
+            child = read_out(deck_out("Cr", r["job"]))
+            row = dict(job=r["job"], parent=r["parent"], tol_meV=g1_tol,
+                       parent_final_energy_ev=r["parent_final_energy_ev"])
+            if not _scoreable(child, "scf"):
+                row.update(verdict="PENDING",
+                           reason="GATE-1 SCF not scoreable yet")
+            else:
+                dE_meV = (child["energy_ev"]
+                          - r["parent_final_energy_ev"]) * 1000.0
+                row["dE_meV"] = round(dE_meV, 3)
+                if r.get("parent_total_magnetization") is not None and \
+                        child["total_magnetization"] is not None:
+                    row["d_total_magnetization"] = round(
+                        child["total_magnetization"]
+                        - r["parent_total_magnetization"], 4)
+                if r.get("parent_absolute_magnetization") is not None and \
+                        child["absolute_magnetization"] is not None:
+                    row["d_absolute_magnetization"] = round(
+                        child["absolute_magnetization"]
+                        - r["parent_absolute_magnetization"], 4)
+                if abs(dE_meV) <= g1_tol:
+                    row.update(verdict="AGREE", reason="")
+                else:
+                    row.update(verdict="BASIN_DRIFT", reason=(
+                        f"|dE| {abs(dE_meV):.2f} meV > {g1_tol}: the parent "
+                        "relaxation ended in a different SCF solution than a "
+                        "fresh density finds. The GATE-1 SCF energy is the "
+                        "corrected value (docs/41 s6f); the pair below is "
+                        "scored from it."))
+                g1_child[r["parent"]] = child
+            gate1_rows.append(row)
+
+    def gate1_passed(job_name, rec):
+        """docs/43 s1: Cr pair members enter DE_sym as GATE-1-PASSED energies.
+
+        Returns (record-to-score, provenance) or (None, why-not). A manifest Cr
+        relaxation needs its __g1 child; the Cr *OOH basin restart is
+        prevalidated (its step-1 energy reproduced the audit SCF to 8.7e-4 meV,
+        docs/41 s6f) and enters as-is.
+        """
+        if job_name is None:
+            return rec, "prevalidated (docs/41 s6f basin restart / production)"
+        child = g1_child.get(job_name)
+        if child is None:
+            return None, (f"{job_name}: no scoreable GATE-1 SCF -- s2-A.3(b) "
+                          "is a precondition of the readout")
+        r2 = dict(rec)
+        r2["energy_ev"] = child["energy_ev"]
+        r2["total_magnetization"] = child["total_magnetization"]
+        r2["absolute_magnetization"] = child["absolute_magnetization"]
+        return r2, "gate1 SCF"
+
+    # ---- s2-A.3(a) + s1: the mir/off pairs. Ir/Ru 1x1 mirror rows are the
+    # production runs; Cr's s0_O/s0_OH mirror rows are the amendment-2
+    # re-emissions and Cr *OOH's is the basin restart (all local-TF, so each
+    # pair differs from its partner in exactly one thing -- finding N11).
     pairs = []
     for M in METALS:
         for state in STATES:
             for arm in ("1x1", "2x1v", "2x1o"):
                 if arm == "1x1":
-                    mir_p, mir_calc = prod_out(M, state), "relax"
+                    if M == "Cr" and state in CR_MIR_REEMIT:
+                        mir_j = f"{state}__1x1_mir"
+                        mir_p, mir_calc = deck_out(M, mir_j), "relax"
+                        mir_name = mir_j
+                    else:
+                        mir_p, mir_calc = prod_out(M, state), "relax"
+                        mir_name = None
                     off_j = f"{state}__1x1_off"
+                    reused = (M, state, "1x1", "off") in ALREADY_ON_DISK
                     off_p = (ALREADY_ON_DISK.get((M, state, "1x1", "off"))
                              or deck_out(M, off_j))
+                    off_name = None if reused else off_j
                 else:
                     mir_j, off_j = f"{state}__{arm}_mir", f"{state}__{arm}_off"
                     if (M, mir_j) not in by_job:
                         continue
                     mir_p, mir_calc = deck_out(M, mir_j), "relax"
                     off_p = deck_out(M, off_j)
+                    mir_name, off_name = mir_j, off_j
                 mir, off = read_out(mir_p), read_out(off_p)
                 ok = _scoreable(mir, mir_calc) and _scoreable(off, "relax")
                 row = dict(metal=M, state=state, arm=arm,
@@ -1133,22 +1340,40 @@ def cmd_score(a):
                         else "off-plane arm not scoreable"))
                     pairs.append(row)
                     continue
+                if METALS[M]["magnetic"]:
+                    mir, mir_prov = gate1_passed(mir_name, mir)
+                    off, off_prov = gate1_passed(off_name, off)
+                    if mir is None or off is None:
+                        row.update(verdict="PENDING_GATE1",
+                                   reason=mir_prov if mir is None else off_prov)
+                        pairs.append(row)
+                        continue
+                    row["energy_provenance"] = dict(mir=mir_prov, off=off_prov)
                 dE = off["energy_ev"] - mir["energy_ev"]
                 row["dE_sym_eV"] = round(dE, 6)
-                dM = None
+                # finding U4: threshold BOTH magnetisations. An antiferromagnetic
+                # rearrangement -- the exact failure s2-A.3 names for the 2x1 --
+                # has dM_total = 0 and a large dM_absolute.
+                confound = []
                 if mir["total_magnetization"] is not None and \
                         off["total_magnetization"] is not None:
-                    dM = off["total_magnetization"] - mir["total_magnetization"]
-                    row["d_total_magnetization"] = round(dM, 4)
-                    row["d_absolute_magnetization"] = round(
-                        off["absolute_magnetization"] -
-                        mir["absolute_magnetization"], 4)
-                if dM is not None and abs(dM) > mag_tol:
+                    dMt = off["total_magnetization"] - mir["total_magnetization"]
+                    row["d_total_magnetization"] = round(dMt, 4)
+                    if abs(dMt) > mag_tol:
+                        confound.append(f"total {abs(dMt):.3f}")
+                if mir["absolute_magnetization"] is not None and \
+                        off["absolute_magnetization"] is not None:
+                    dMa = (off["absolute_magnetization"]
+                           - mir["absolute_magnetization"])
+                    row["d_absolute_magnetization"] = round(dMa, 4)
+                    if abs(dMa) > mag_tol:
+                        confound.append(f"absolute {abs(dMa):.3f}")
+                if confound:
                     row.update(verdict="CONFOUNDED", reason=(
-                        f"|d total magnetisation| {abs(dM):.3f} > {mag_tol} mu_B "
-                        f"({DOC43} s2-A.3(a) / s5): the pair mixes a geometry "
-                        "effect with a magnetic basin change. Excluded from every "
-                        "symmetry statistic and reported separately."))
+                        f"|d magnetisation| ({', '.join(confound)}) > {mag_tol} "
+                        f"mu_B ({DOC43} s2-A.3(a) / s5): the pair mixes a "
+                        "geometry effect with a magnetic basin change. Excluded "
+                        "from every symmetry statistic and reported separately."))
                 elif dE > sign_tol:
                     row.update(verdict="SIGN_VIOLATION", reason=(
                         f"dE_sym = +{dE:.4f} eV > +{sign_tol} ({DOC43} s1): an "
@@ -1160,17 +1385,23 @@ def cmd_score(a):
                     row.update(verdict="OK", reason="")
                 pairs.append(row)
 
-    # ---- s2-A.4: GATE C, energy AND magnetisation. The 1x1 baseline is the
-    # folded-mesh SCF where one exists (Cr), the production run where the mesh
-    # already folds exactly (Ir, Ru: 8 4 1 -> 4 4 1).
+    # ---- s2-A.4: GATE C / C-2, energy AND magnetisation (both kinds, U4).
+    # For Ir/Ru the 1x1 baseline is the production relaxation (mesh folds
+    # exactly). For Cr it is the __1x1_k8_relax job -- RELAXED at the folded
+    # mesh (finding N10 / amendment 4) so both sides are the same protocol; the
+    # k8 SCF is kept as the k-mesh bridge and the difference between the two is
+    # reported as mesh_relaxation_meV, which separates "the 1x1 geometry was
+    # not stationary at the folded mesh" from "the cell construction is wrong".
     gates = []
     for M in METALS:
         folds = METALS[M]["kfolds"]
-        for name, big_job, small in (
+        for name, big_job, small, bridge in (
                 ("GATE C", "ref__2x1v",
-                 prod_out(M, "slab") if folds else deck_out(M, "slab__1x1_k8")),
+                 prod_out(M, "slab") if folds else deck_out(M, "slab__1x1_k8_relax"),
+                 None if folds else deck_out(M, "slab__1x1_k8")),
                 ("GATE C-2", "s0_O__2x1o_mir",
-                 prod_out(M, "s0_O") if folds else deck_out(M, "s0_O__1x1_k8"))):
+                 prod_out(M, "s0_O") if folds else deck_out(M, "s0_O__1x1_k8_relax"),
+                 None if folds else deck_out(M, "s0_O__1x1_k8"))):
             if (M, big_job) not in by_job:
                 continue
             big = read_out(deck_out(M, big_job))
@@ -1178,8 +1409,13 @@ def cmd_score(a):
             g = dict(metal=M, gate=name, big=big_job,
                      baseline=small.replace("\\", "/"),
                      tol_meV=e_tol, tol_bohrmag=gc_mag_tol)
+            if bridge is not None:
+                br = read_out(bridge)
+                if _scoreable(br, "scf") and _scoreable(ref, "relax"):
+                    g["mesh_relaxation_meV"] = round(
+                        (ref["energy_ev"] - br["energy_ev"]) * 1000.0, 3)
             if not (_scoreable(big, by_job[(M, big_job)]["calculation"])
-                    and _scoreable(ref, "relax" if folds else "scf")):
+                    and _scoreable(ref, "relax")):
                 g.update(verdict="PENDING")
                 gates.append(g)
                 continue
@@ -1191,19 +1427,91 @@ def cmd_score(a):
                 dM = big["total_magnetization"] - 2.0 * ref["total_magnetization"]
                 g["d_total_magnetization"] = round(dM, 4)
                 if abs(dM) > gc_mag_tol:
-                    fails.append(f"|dM| {abs(dM):.3f} > {gc_mag_tol} mu_B")
+                    fails.append(f"|dM total| {abs(dM):.3f} > {gc_mag_tol} mu_B")
+            if big["absolute_magnetization"] is not None and \
+                    ref["absolute_magnetization"] is not None:
+                dMa = (big["absolute_magnetization"]
+                       - 2.0 * ref["absolute_magnetization"])
+                g["d_absolute_magnetization"] = round(dMa, 4)
+                if abs(dMa) > gc_mag_tol:
+                    fails.append(f"|dM absolute| {abs(dMa):.3f} > {gc_mag_tol} mu_B")
+            if fails and g.get("mesh_relaxation_meV") is not None:
+                fails.append(
+                    f"diagnostic: mesh_relaxation_meV = "
+                    f"{g['mesh_relaxation_meV']} -- if |dE| is comparable, this "
+                    "is MESH_RELAXATION, not CELL_MISMATCH (N10)")
             g.update(verdict="FAIL" if fails else "PASS", reason="; ".join(fails))
             gates.append(g)
 
-    out = dict(prereg=dict(document=DOC43, sections=["1", "2-A.3", "2-A.4"],
+    # ---- docs/43 s2 "Replication (gating)": GATE R (finding N2). Scores the
+    # FRESH Ir s0_OOH 1x1 off-plane run -- the reused P10 output would return
+    # the registered number by construction and cannot fail.
+    rep_e, rep_tol = PREREG["replication_gate_ir_oohx_1x1_eV"][0]
+    prow = next((p for p in pairs if p["metal"] == "Ir"
+                 and p["state"] == "s0_OOH" and p["arm"] == "1x1"), None)
+    g = dict(metal="Ir", gate="GATE R (replication)", expected_eV=rep_e,
+             tol_eV=rep_tol,
+             fresh_run="runs/probe/Ir_cellsym/s0_OOH__1x1_off.out")
+    if prow is None or "dE_sym_eV" not in prow:
+        g.update(verdict="PENDING",
+                 reason="fresh Ir s0_OOH__1x1_off not scoreable yet")
+    else:
+        g["dE_sym_eV"] = prow["dE_sym_eV"]
+        miss = abs(prow["dE_sym_eV"] - rep_e)
+        if miss <= rep_tol:
+            g.update(verdict="PASS", reason="")
+        else:
+            g.update(verdict="FAIL", reason=(
+                f"|dE_sym - ({rep_e})| = {miss:.4f} eV > {rep_tol} ({DOC43} "
+                "s2): a miss voids the block and the pipeline is debugged "
+                "before anything else is read."))
+    gates.append(g)
+
+    # ---- s2-A.2 registered contingency, MEASURED (finding U2: it used to be
+    # stored as OPEN with no code evaluating it). The spectator is the last
+    # atom of ref__2x1o by construction.
+    spectator = []
+    dy_tol = PREREG["spectator_contingency_dy_A"][0]
+    for M in METALS:
+        if (M, "ref__2x1o") not in by_job:
+            continue
+        p = deck_out(M, "ref__2x1o")
+        rec = read_out(p)
+        y_mirror = [gm for gm in man["geometry"] if gm["metal"] == M][0]["y_mirror"]
+        row = dict(metal=M, deck="ref__2x1o", threshold_A=dy_tol,
+                   clause=f"{DOC43} s2-A.2")
+        if not _scoreable(rec, "relax"):
+            row.update(status="OPEN", reason="ref__2x1o not converged yet")
+        else:
+            pos, prov = parse_final_coordinates(p)
+            dy = abs(pos[-1][2] - y_mirror)
+            row["measured_dy_A"] = round(dy, 4)
+            if dy > dy_tol:
+                mir_rec = read_out(deck_out(M, "ref__2x1o_mir"))
+                row.update(status="TRIGGERED", action=(
+                    "ref__2x1o_mir exists and is converged; interaction may be "
+                    "scored" if _scoreable(mir_rec, "relax") else
+                    "a ref__2x1o_mir job is REQUIRED before the interaction "
+                    "term S(2x1o) - S(2x1v) is scored. Adding it after reading "
+                    "the interaction is post-hoc."))
+            else:
+                row.update(status="CLEAR")
+        spectator.append(row)
+
+    out = dict(prereg=dict(document=DOC43,
+                           sections=["1", "2", "2-A.2", "2-A.3", "2-A.4"],
                            pair_magnetisation_tol_bohrmag=mag_tol,
+                           gate1_scf_tol_meV=g1_tol,
                            gate_c_energy_tol_meV=e_tol,
                            gate_c_magnetisation_tol_bohrmag=gc_mag_tol,
-                           sign_rule_max_positive_dE_sym_eV=sign_tol),
+                           sign_rule_max_positive_dE_sym_eV=sign_tol,
+                           replication_gate_eV=[rep_e, rep_tol],
+                           spectator_contingency_dy_A=dy_tol),
                note="PENDING means the job has not produced a defensible result "
                     "yet. Hard rule 3: a relax must carry `bfgs converged` and an "
                     "SCF a final total energy; `JOB DONE` is never the test.",
-               magnetic_records=records, pairs=pairs, gates=gates)
+               magnetic_records=records, gate1=gate1_rows, pairs=pairs,
+               gates=gates, spectator_contingency=spectator)
     if not a.dry_run:
         with open(os.path.join(a.out, "cellsym_readout.json"), "w",
                   encoding="utf-8", newline="\n") as fh:
@@ -1216,13 +1524,20 @@ def cmd_score(a):
         return ", ".join(f"{k} {v}" for k, v in sorted(c.items()))
 
     print(f"magnetic records ({len(records)} Cr jobs): {tally(records, 'status')}")
+    print(f"GATE-1 SCFs ({len(gate1_rows)}): "
+          f"{tally(gate1_rows) if gate1_rows else 'not emitted yet (--gate1)'}")
     print(f"mir/off pairs ({len(pairs)}): {tally(pairs)}")
-    print(f"GATE C / C-2 ({len(gates)}): {tally(gates)}")
-    for r in pairs + gates:
-        if r.get("verdict") not in ("OK", "PASS", "PENDING"):
-            print(f"  {r.get('verdict')}  {r.get('metal')} "
-                  f"{r.get('state', r.get('gate'))} {r.get('arm', '')}: "
-                  f"{r.get('reason')}")
+    print(f"GATE C / C-2 / R ({len(gates)}): {tally(gates)}")
+    print(f"spectator contingency ({len(spectator)}): {tally(spectator, 'status')}")
+    for r in gate1_rows + pairs + gates:
+        if r.get("verdict") not in ("OK", "PASS", "PENDING", "AGREE"):
+            print(f"  {r.get('verdict')}  {r.get('metal', 'Cr')} "
+                  f"{r.get('state', r.get('gate', r.get('job', '')))} "
+                  f"{r.get('arm', '')}: {r.get('reason')}")
+    for r in spectator:
+        if r.get("status") == "TRIGGERED":
+            print(f"  TRIGGERED  {r['metal']} ref__2x1o dy = "
+                  f"{r.get('measured_dy_A')} A: {r.get('action')}")
     return 0
 
 
@@ -1258,20 +1573,27 @@ def main():
         geom.append(g)
         print(f"{M}: {len(jobs)} decks -> {a.out}/{M}_cellsym")
 
-    # ---- manifests, split per finding [6]
+    # ---- manifests, split per findings [6] and U6
     hdr = {
-        "A": ["# block 1A, manifest A: every Ir/Ru job plus the Cr fixed-geometry",
-              "# SCFs. Throughput arm -- these pack, and none of them is the",
-              "# critical path.",
+        "A": ["# block 1A, manifest A: the SHORT jobs (every job under "
+              f"{LONG_JOB_NP4_HOURS:.0f} h",
+              "# at NP=4 that is not a Cr relaxation). Throughput arm.",
               "#   bash queue_r1.sh m_cellsym_a_np4.txt 4 5",
               "# NP=4 x NCONC=5 = 20 ranks <= 23.04 usable cores; NP is an exact",
-              "# multiple of every nk below (hard rule 4). Longest first."],
-        "B": ["# block 1A, manifest B: the Cr relaxations, ONE PER BOX.",
+              "# multiple of every nk below (hard rule 4). Longest first.",
+              "# The manifest's own longest job is stated in",
+              "# cellsym_manifest.json manifests.A.longest_job_hours -- the wall",
+              "# clock of a full-width launch is THAT number, not sum/slots",
+              "# (finding U6)."],
+        "B": ["# block 1A, manifest B: the LONG jobs -- every Cr relaxation plus",
+              f"# any job over {LONG_JOB_NP4_HOURS:.0f} h at NP=4 -- ONE AT A "
+              "TIME at full ranks.",
               "#   bash queue_r1.sh m_cellsym_b_cr_np20.txt 20 1",
               "# Renting more boxes cannot shorten a single job; only ranks can",
-              "# (finding [6]). NP=20 x NCONC=1 = 20 ranks <= 23.04 usable cores,",
-              "# and 20 is an exact multiple of nk in {2,4}. Cr off-plane jobs",
-              "# are ordered FIRST.",
+              "# (finding [6]). To parallelise, SPLIT THIS FILE across boxes;",
+              "# never raise NCONC. NP=20 x NCONC=1 = 20 ranks <= 23.04 usable",
+              "# cores, and 20 is an exact multiple of nk in {2,4}. Off-plane",
+              "# jobs are ordered FIRST.",
               "# Every line here carries max_seconds. A job that stops on",
               "# max_seconds still prints JOB DONE and queue_r1.sh SKIPs on that",
               "# string, so a capped job must be REBUILT from its own",
@@ -1307,7 +1629,17 @@ def main():
     written = {}
     for key, cfgm in MANIFESTS.items():
         sel = sorted([j for j in all_jobs if j["manifest"] == key], key=order[key])
-        lines = list(hdr[key])
+        # Machine directives, parsed by queue_r1.sh's pre-flight:
+        #   NP/NCONC (finding N6) -- every max_seconds below was computed at
+        #   THIS NP; running the manifest at a lower NP silently truncates jobs
+        #   at ~NP_run/NP of the work, so the pre-flight refuses a mismatch.
+        #   EXPECT_CAP (finding N7, manifest C only) -- these legs are DESIGNED
+        #   to stop on max_seconds; a capped .out here is the deliverable, not
+        #   a stale file, and must never be deleted.
+        lines = [f"# NP={cfgm['np']} NCONC={cfgm['nconc']}"]
+        if key == "C":
+            lines.append("# EXPECT_CAP")
+        lines += list(hdr[key])
         for j in sel:
             lines.append(f"probe/{j['metal']}_cellsym {j['job']} .in {j['nk']}")
         written[key] = dict(file=cfgm["file"], np=cfgm["np"], nconc=cfgm["nconc"],
@@ -1330,8 +1662,9 @@ def main():
         print(f"removed superseded {old} (split into "
               f"{', '.join(c['file'] for c in MANIFESTS.values())})")
 
-    cr_relax = [j for j in all_jobs if j["metal"] == "Cr" and j["calculation"] == "relax"
-                and j["arm"] in ("2x1v", "2x1o")]
+    # every Cr relaxation gets a GATE-1 child (s2-A.3(b) + amendment 4)
+    cr_relax = [j for j in all_jobs
+                if j["metal"] == "Cr" and j["calculation"] == "relax"]
     manifest = dict(
         block="1A -- cell x symmetry crossed factorial",
         prereg=dict(
@@ -1391,7 +1724,12 @@ def main():
                  status="PENDING -- decks emitted, not run",
                  manifest=MANIFESTS["C"]["file"],
                  command=f"bash queue_r1.sh {MANIFESTS['C']['file']} 20 1",
-                 cost="3 SCFs x 1200 s at NP=20/NCONC=1, ~1 box-hour",
+                 cost=(f"3 SCFs x max_seconds = {CELLMULT_MAX_SECONDS} s at "
+                       f"NP=20/NCONC=1; the two 1x1 legs exit early, only the "
+                       f"Cr 2x1o leg can spend its cap. Budget "
+                       f"<= {3 * CELLMULT_MAX_SECONDS / 3600:.0f} box-hours, "
+                       f"expect ~1.5 (N8: derived from the constant, not "
+                       f"hand-copied)"),
                  quoted_meanwhile=dict(cell_mult=CELL_MULT_PLANNING,
                                        cell_mult_ceiling=CELL_MULT_CEILING,
                                        mag_mult=MAG_MULT),
@@ -1434,10 +1772,11 @@ def main():
                 gate1_scf_tol_meV=PREREG["cr_gate1_scf_tol_meV"][0],
                 gate1_jobs_required=len(cr_relax),
                 gate1_emitter="build_cellsym_pilot.py --gate1 (wave 2; refuses "
-                              "until every Cr 2x1 relaxation has `bfgs "
+                              "until every Cr relaxation has `bfgs "
                               "converged`)",
                 gate1_est_hours_at_np20=round(
-                    sum(est_hours_np4(j["n_kpt_est"], SCF_STEP_EQUIV, True, True)
+                    sum(est_hours_np4(j["n_kpt_est"], SCF_STEP_EQUIV, True,
+                                      j["arm"] in ("2x1v", "2x1o"))
                         / RANK_SPEEDUP_NP20 for j in cr_relax), 1)),
             readout=dict(
                 emitter="build_cellsym_pilot.py --score",
@@ -1454,10 +1793,14 @@ def main():
                              "achieved`. `JOB DONE` is never the test. A pair "
                              "whose halves are not both scoreable is PENDING, "
                              "never OK.",
-                validated="2026-08-09 against the two P10 rows already on disk: "
-                          "Ir *OOH 1x1 dE_sym = -0.291323 eV (docs/43 s2 "
-                          "replication gate: -0.291 +/- 0.05) and Ru -0.081714 eV "
-                          "(the 82 meV on record)."),
+                scorer_selftest="2026-08-09: the scorer's arithmetic reproduced "
+                                "the two P10 rows then on disk (Ir -0.291323, "
+                                "Ru -0.081714 eV). That is a CODE test, not the "
+                                "replication gate: a gate that re-reads the run "
+                                "it exists to replicate cannot fail (N2). The "
+                                "replication gate (GATE R) scores the FRESH Ir "
+                                "s0_OOH__1x1_off run and is PENDING until that "
+                                "run converges."),
             sign_rule=dict(clause=f"{DOC43} s1",
                            max_positive_dE_sym_eV=PREREG["sign_rule_max_positive_dE_sym_eV"][0],
                            action="voids that arm; it is not reported as "

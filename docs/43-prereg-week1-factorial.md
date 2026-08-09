@@ -742,3 +742,80 @@ remedy — a **larger δ**, not a tighter `conv_thr` — the only lever left, an
 prior probability that the Ir pilot returns UNDERPOWERED rather than a verdict. If it does,
 that is a measurement of this design's resolution and is reported as such, not as evidence
 about the physics.
+
+---
+
+# AMENDMENT 4 — 2026-08-09, after the round-2 review, before any 1A gate job runs
+
+Four registrations, all arising from round-2 findings on the block-1A implementation
+(tasks/review/round2-findings.md). Every one is registered here **before** the affected
+job has produced a number.
+
+## 1. GATE C / C-2's Cr baseline is a relaxation at the folded mesh (finding N10)
+
+As built, GATE C compared a **relaxed** 2×1 energy against a **fixed-geometry** 1×1
+baseline evaluated at a geometry relaxed at 9 4 1. Any relaxation energy released by the
+9 → 8 mesh change would appear as a systematic negative ΔE and read as a gate failure,
+with nothing to distinguish "the cell construction is wrong" from "the 1×1 geometry was
+not stationary at the folded mesh". §2-A.4's registered test says only "1×1 clean at the
+folded mesh" — it is silent on the baseline's relaxation state, and the confound forces
+the choice:
+
+- **Registered:** for Cr, the GATE C baseline is `slab__1x1_k8_relax` and the GATE C-2
+  baseline is `s0_O__1x1_k8_relax` — the production 1×1 geometries **re-relaxed at
+  8 4 1**, so both sides of each gate are the same protocol. Ir/Ru are unchanged (their
+  production mesh folds exactly; both sides were always relaxations).
+- The fixed-geometry SCFs at 8 4 1 remain exactly what §2-A.5 registered them as: the
+  k-mesh bridge. They are not gate baselines.
+- The difference E(relax@841) − E(scf@841) is reported per state as
+  `mesh_relaxation_meV`. On a gate FAIL, a |ΔE| comparable to `mesh_relaxation_meV` is
+  read as MESH_RELAXATION, not CELL_MISMATCH — and the readout says which.
+- Step cost of the two new relaxations is quoted from the measured
+  restart-from-own-minimum class (docs/41 §6f basin restarts: 3/4/5 ionic steps), not
+  from the 1×1 from-scratch counts.
+
+## 2. GATE-1 extends to every Cr relaxation in the block (findings U2/U5, N3)
+
+§2-A.3(b) registered one fresh-density SCF per Cr **2×1** relaxation. The failure it
+guards against was first measured on a **1×1** (Cr `*OOH`, −178.58 meV, docs/41 §6f), so
+the 1×1 rows are equally exposed and the marginal cost is five cheap SCFs.
+
+- **Registered:** every Cr relaxation this block emits gets a `__g1` fresh-density
+  fixed-geometry SCF at its own final coordinates, **at the parent's own symmetry
+  treatment, k-mesh and cell** (a GATE-1 child that changes `nosym` or the k-set at the
+  same time attributes nothing — finding N3).
+- The evaluator is `--score`, which now actually computes the ≤ 5 meV comparison (U5):
+  verdict AGREE within tolerance, else **BASIN_DRIFT**, in which case the GATE-1 SCF
+  energy is the corrected value (docs/41 §6f: the fresh-density SCF reproduced the true
+  basin to 2–3.5 meV on all three restarts) and the pair is scored from it.
+- Cr pair members without a scoreable GATE-1 SCF are **PENDING_GATE1** — §2-A.3 calls
+  the control "a precondition of the readout", and now the code enforces that. The Cr
+  `*OOH` 1×1 mirror member is prevalidated (the docs/41 §6f basin restart) and enters
+  as-is; its provenance is recorded in the readout row.
+
+## 3. Both magnetisation channels are thresholded (finding U4)
+
+§2-A.3(a) records "total and absolute magnetisation" and requires pair members to
+"agree to within 0.1 μ_B"; §2-A.3's own stated failure mode is an antiferromagnetic
+rearrangement — which has ΔM_total = 0 and a large ΔM_absolute. As coded, only the total
+was thresholded, so the registered test was blind to the registered failure mode.
+
+- **Registered:** the 0.1 μ_B tolerance applies to **total AND absolute** magnetisation,
+  for the Cr pair test and for GATE C / C-2 (where the comparison is against 2× the
+  baseline value). Either channel exceeding tolerance is CONFOUNDED (pairs) or a FAIL
+  channel (gates).
+
+## 4. The replication gate scores a fresh run (finding N2)
+
+§2's "Replication (gating)" requires Ir `*OOH` 1×1 off-plane to **reproduce**
+ΔE_sym = −0.291 ± 0.05 eV as a pipeline control. As built, the scorer redirected that
+row to the archived P10 output — the gate re-read the very run it exists to replicate
+and returned −0.291323 by construction. A control that cannot fail controls nothing.
+
+- **Registered:** the Ir `s0_OOH__1x1_off` deck is emitted and **run fresh** through the
+  current pipeline; GATE R scores the fresh run against −0.291 ± 0.05 eV. The archived
+  P10 output is no longer an admissible source for this row. (Ru's P10 reuse stands —
+  Ru is not the gating row — and is declared per-row in the manifest and readout.)
+- The manifest field that recorded the re-read as "validated" is renamed
+  `scorer_selftest` and states what it actually was: an arithmetic check of the scorer,
+  not the gate.

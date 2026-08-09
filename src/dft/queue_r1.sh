@@ -60,7 +60,43 @@ PREFLIGHT_ONLY=${PREFLIGHT_ONLY:-0}
 
 preflight() {
   local nline=0 nbad=0 nstale=0 nskip=0 nrun=0
-  local d job suf nk extra dir inp out calc ok
+  local d job suf nk extra dir inp out calc ok seen mesh nprod
+  local want_np want_nconc expect_cap cores quota period
+
+  # Manifest directives (finding N6): every max_seconds in the decks was
+  # computed at the NP the builder intended, and NP is a runtime argument.
+  # Running manifest B's NP=20 caps at NP=4 silently truncates each job at
+  # ~20% of its work -- after days of box time. The builder stamps
+  # `# NP=<n> NCONC=<n>` into the manifest; a mismatch is a refusal, not a
+  # warning. `# EXPECT_CAP` (finding N7) marks a manifest whose legs are
+  # DESIGNED to stop on max_seconds (the CELL_MULT timing wave): there a
+  # capped .out is the deliverable, never stale, and must never be deleted.
+  want_np=$(grep -am1 -oE '^# NP=[0-9]+ NCONC=[0-9]+' "$MANIFEST" | grep -oE 'NP=[0-9]+' | cut -d= -f2)
+  want_nconc=$(grep -am1 -oE '^# NP=[0-9]+ NCONC=[0-9]+' "$MANIFEST" | grep -oE 'NCONC=[0-9]+' | cut -d= -f2)
+  expect_cap=0
+  grep -qam1 '^# EXPECT_CAP' "$MANIFEST" && expect_cap=1
+  if [ -n "${want_np:-}" ]; then
+    if [ "$want_np" != "$NP" ] || [ "$want_nconc" != "$NCONC" ]; then
+      echo "PREFLIGHT_BAD wrong-np-for-manifest: $MANIFEST declares NP=$want_np NCONC=$want_nconc, invoked with NP=$NP NCONC=$NCONC -- the decks' max_seconds were sized at the declared NP (finding N6)"
+      nbad=$((nbad + 1))
+    fi
+  fi
+
+  # Oversubscription (finding N5(c)): NP x NCONC against the cgroup quota.
+  # docs/23 s8 measured a 12x thrash from exactly this. Only checkable where
+  # cgroup v2 exposes cpu.max; skipped elsewhere.
+  if [ -r /sys/fs/cgroup/cpu.max ]; then
+    read -r quota period < /sys/fs/cgroup/cpu.max
+    if [ "$quota" != "max" ] && [ -n "${quota:-}" ] && [ -n "${period:-}" ]; then
+      cores=$((quota / period))
+      if [ $((NP * NCONC)) -gt $((cores + 1)) ]; then
+        echo "PREFLIGHT_BAD oversubscribed: NP=$NP x NCONC=$NCONC = $((NP * NCONC)) ranks against a $cores-core cgroup quota (docs/23 s8: 12x thrash)"
+        nbad=$((nbad + 1))
+      fi
+    fi
+  fi
+
+  seen=" "
   while read -r d job suf nk extra; do
     case "${d:-}" in ""|\#*) continue;; esac
     nline=$((nline + 1))
@@ -73,6 +109,14 @@ preflight() {
       echo "PREFLIGHT_BAD np-not-a-multiple-of-nk $d/$job NP=$NP nk=$nk (hard rule 4: pw.x aborts)"
       nbad=$((nbad + 1)); continue
     fi
+    # duplicate lines (finding N5(b)): two concurrent runs of the same job
+    # share one cwd/outdir and the first to finish rm -rf's the other's
+    # scratch mid-run.
+    case "$seen" in *" $d/$job "*)
+      echo "PREFLIGHT_BAD duplicate-job $d/$job appears twice in $MANIFEST"
+      nbad=$((nbad + 1)); continue;;
+    esac
+    seen="$seen$d/$job "
     dir=$RUNS/$d
     if [ ! -d "$dir" ]; then
       echo "PREFLIGHT_BAD missing-dir $dir"; nbad=$((nbad + 1)); continue
@@ -85,33 +129,70 @@ preflight() {
       echo "PREFLIGHT_BAD crlf-input $inp (hard rule 1: a CRLF deck dies silently)"
       nbad=$((nbad + 1)); continue
     fi
+    # gross nk sanity (finding N5(a)): nk can never exceed the full k-mesh
+    # product (symmetry only ever reduces it further). This is a LOWER bound
+    # on trouble -- a symmetric deck can still have fewer irreducible points
+    # than the product -- but it catches the coarse-mesh case measured on the
+    # box (nk=8 on a 6-point mesh) before pw.x aborts mid-wave.
+    mesh=$(grep -aA1 'K_POINTS' "$inp" | tail -1 | awk '{print $1, $2, $3}')
+    if [ -n "$mesh" ]; then
+      nprod=$(echo "$mesh" | awk '{print $1 * $2 * $3}')
+      if [ "${nprod:-0}" -gt 0 ] && [ "$nk" -gt "$nprod" ]; then
+        echo "PREFLIGHT_BAD nk-exceeds-kmesh $d/$job nk=$nk > $nprod = full mesh product (pw.x aborts)"
+        nbad=$((nbad + 1)); continue
+      fi
+    fi
     out=$dir/${job}.out
     if [ -f "$out" ] && grep -qa 'JOB DONE' "$out"; then
-      calc=$(grep -am1 -oE "calculation[[:space:]]*=[[:space:]]*'[a-z-]+'" "$inp" \
-             | sed "s/.*'\(.*\)'/\1/")
+      # finding N4: the old single-quote-only extraction returned '' on a
+      # double-quoted deck and the empty calc fell into the PERMISSIVE branch,
+      # so a truncated relaxation written `calculation = "relax"` was
+      # classified complete. Both quote styles are read, an unreadable
+      # calculation is a refusal, and the unknown branch is the STRICT one.
+      calc=$(grep -am1 -oE 'calculation[[:space:]]*=[[:space:]]*["'"'"'][a-z-]+["'"'"']' "$inp" \
+             | grep -oE '[a-z-]+' | tail -1)
+      if [ -z "${calc:-}" ]; then
+        echo "PREFLIGHT_BAD unreadable-calculation $d/$job: cannot classify $out without it (finding N4)"
+        nbad=$((nbad + 1)); continue
+      fi
       ok=0
-      case "${calc:-unknown}" in
-        relax|vc-relax) grep -qa 'bfgs converged' "$out" && ok=1;;
-        *) grep -qa '^!    total energy' "$out" && \
-           ! grep -qa 'convergence NOT achieved' "$out" && ok=1;;
+      case "$calc" in
+        scf|nscf|bands)
+          if [ "$expect_cap" = 1 ] && grep -qa 'Maximum CPU time exceeded' "$out"; then
+            # finding N7: this manifest's legs are designed to stop on the
+            # cap; the partial .out IS the measurement.
+            ok=1
+          elif grep -qa '^!    total energy' "$out" && \
+               ! grep -qa 'convergence NOT achieved' "$out"; then
+            ok=1
+          fi;;
+        *) # relax, vc-relax, and anything unrecognised: STRICT (finding N4)
+           grep -qa 'bfgs converged' "$out" && ok=1;;
       esac
       if [ "$ok" = 1 ]; then
         nskip=$((nskip + 1))
       else
         nstale=$((nstale + 1))
-        echo "PREFLIGHT_STALE $d/$job calc=${calc:-?} JOB_DONE-without-a-defensible-result:" \
+        # calculation-aware instruction (finding N7): an SCF has no `Begin
+        # final coordinates`, and telling an operator to delete one destroys
+        # the artifact; only a relaxation is rebuilt-and-requeued.
+        if [ "$calc" = "scf" ] || [ "$calc" = "nscf" ] || [ "$calc" = "bands" ]; then
+          fixmsg="-- run_one would SKIP it forever; INSPECT $out (do not delete it blindly: a partial SCF may itself be data), then requeue after removing or renaming it, or set ALLOW_STALE_SKIP=1"
+        else
+          fixmsg="-- run_one would SKIP it forever; rebuild the deck from its own \`Begin final coordinates\`, delete $out, requeue, or set ALLOW_STALE_SKIP=1"
+        fi
+        echo "PREFLIGHT_STALE $d/$job calc=$calc JOB_DONE-without-a-defensible-result:" \
              "bfgs=$(grep -ac 'bfgs converged' "$out" 2>/dev/null || true)" \
              "scf_fail=$(grep -ac 'convergence NOT achieved' "$out" 2>/dev/null || true)" \
              "maxsec=$(grep -ac 'Maximum CPU time exceeded' "$out" 2>/dev/null || true)" \
-             "-- run_one would SKIP it forever; delete $out and requeue from its own" \
-             "\`Begin final coordinates\`, or set ALLOW_STALE_SKIP=1"
+             "$fixmsg"
       fi
     else
       nrun=$((nrun + 1))
     fi
   done < "$MANIFEST"
 
-  echo "PREFLIGHT manifest=$MANIFEST lines=$nline to_run=$nrun already_done=$nskip stale=$nstale bad=$nbad NP=$NP NCONC=$NCONC"
+  echo "PREFLIGHT manifest=$MANIFEST lines=$nline to_run=$nrun already_done=$nskip stale=$nstale bad=$nbad NP=$NP NCONC=$NCONC expect_cap=$expect_cap"
   [ "$nline" -gt 0 ] || { echo "PREFLIGHT_BAD manifest-has-no-job-lines $MANIFEST"; return 2; }
   [ "$nbad" -eq 0 ] || return 2
   if [ "$nstale" -gt 0 ] && [ "$ALLOW_STALE_SKIP" != "1" ]; then return 3; fi
