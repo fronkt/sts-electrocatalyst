@@ -1,0 +1,279 @@
+{
+  "state": "Ir",
+  "source_run": "runs/Ir_anchor",
+  "source_in": "runs/Ir_anchor\\s0_OOH.in",
+  "source_out": "runs/Ir_anchor\\s0_OOH.out",
+  "job": "s0_OOH",
+  "note": "on-record mirror-plane *OOH, eta 0.781 V (docs/32); nspin=1, no Hubbard U; the state P10 found a -0.291 eV yaw90 escape from (docs/41 s6c)",
+  "method": "Partial Hessian on the adsorbate atoms only, finite differences of forces: x/z rows by central +/- pairs; y rows by the +dy FORWARD difference with the reference forces as the base point (docs/43 am.4 s7 items 1-2 \u2014 the ym decks run solely as the Q6 mirror-identity control and never enter H). nosym/noinv on every deck INCLUDING the reference; each SCF starts from a fresh atomic-superposition density so the 19 points are independent.",
+  "prereg": "docs/43-prereg-week1-factorial.md sec 3 (P14) + sec 3-A (amendment 1). This manifest holds no copy of the rule; hessian_analyze.py --print-prereg reads those sections out of docs/43.",
+  "verdict_scope": "q = 0, 1x1 cell, 1 ML",
+  "cell_label": "1x1",
+  "coverage_ML": 1.0,
+  "wavevector": "Gamma (q = 0)",
+  "cell_1x1_A": [
+    3.154,
+    6.3611326
+  ],
+  "verdict_axis": "y",
+  "axes_purpose": {
+    "y": "THE 1C VERDICT. Mirror-normal. The y-block of H is built from the +dy FORWARD difference exclusively, with the reference forces as the base point (docs/43 am.4 s7 items 1-2). The ym deck is the exact mirror of the yp deck (docs/43 amendment 3): no sqrt(2) gain, no independent noise realisation. It NEVER enters H; it is retained and run solely as the Q6 mirror-identity control \u2014 F_y(ym) = -F_y(yp), F_x/F_z(ym) = +F_x/F_z(yp) on the raw force blocks \u2014 the only available test of the Hessian diagonal (finding N34).",
+    "x": "block 2B in-house ZPE/-TS table. NOT diagnostic for 1C: F_y is identically zero in these decks by mirror symmetry, so they carry no y-block information.",
+    "z": "block 2B in-house ZPE/-TS table. NOT diagnostic for 1C: F_y is identically zero in these decks by mirror symmetry, so they carry no y-block information."
+  },
+  "cr_held_pending_1a": false,
+  "cell_verdict_1a": null,
+  "cell_label_operator": null,
+  "cell_verdict_admission_match": null,
+  "min_image_contact_angstrom": 2.5164295795614042,
+  "min_image_contact_label": "O19...O20(-1,+0)",
+  "min_image_H_contact_angstrom": 2.5540170620492035,
+  "min_image_H_contact_label": "O20...H21(+1,+0)",
+  "geometry_provenance": "final",
+  "reference_relax_energy_ev": -22777.178762588388,
+  "source_final_energy_ev": -22777.178762588388,
+  "source_final_total_mag": null,
+  "source_final_abs_mag": null,
+  "n_atoms": 21,
+  "n_slab": 18,
+  "adsorbate_indices_1based": [
+    19,
+    20,
+    21
+  ],
+  "adsorbate_species": [
+    "O",
+    "O",
+    "H"
+  ],
+  "adsorbate_masses_amu": [
+    15.999,
+    15.999,
+    1.008
+  ],
+  "mirror_plane": true,
+  "mirror_y_angstrom": 4.77084945,
+  "mirror_y_spread_angstrom": 0.0,
+  "source_relax_adsorbate_max_abs_Fy_ry_bohr": 0.0,
+  "source_relax_adsorbate_max_abs_F_component_ry_bohr": 0.00087311,
+  "source_relax_movable_max_abs_F_component_ry_bohr": 0.00118135,
+  "delta_nominal_angstrom": 0.01,
+  "conv_thr": "1.0d-10",
+  "electron_maxstep": 120,
+  "nosym": true,
+  "noinv": true,
+  "kpoints": [
+    "automatic",
+    [
+      "8",
+      "4",
+      "1",
+      "0",
+      "0",
+      "0"
+    ]
+  ],
+  "expected_nk": 32,
+  "nk_pools": 4,
+  "nspin": 1,
+  "starting_magnetization": {},
+  "hubbard": [],
+  "ecutwfc": 80.0,
+  "ecutrho": 640.0,
+  "degauss": 0.01,
+  "reference_job": "s0_OOH__hess_ref",
+  "n_displacements": 18,
+  "n_scf_total": 19,
+  "jobs": [
+    {
+      "job": "s0_OOH__hess_ref",
+      "file": "s0_OOH__hess_ref.in",
+      "kind": "reference",
+      "atom_1based": null,
+      "atom_index0": null,
+      "axis": null,
+      "sign": 0,
+      "displacement_A": 0.0
+    },
+    {
+      "job": "s0_OOH__hess_a19xp",
+      "file": "s0_OOH__hess_a19xp.in",
+      "kind": "displacement",
+      "atom_1based": 19,
+      "atom_index0": 18,
+      "axis": "x",
+      "sign": 1,
+      "displacement_A": 0.0099999965
+    },
+    {
+      "job": "s0_OOH__hess_a19xm",
+      "file": "s0_OOH__hess_a19xm.in",
+      "kind": "displacement",
+      "atom_1based": 19,
+      "atom_index0": 18,
+      "axis": "x",
+      "sign": -1,
+      "displacement_A": -0.0100000035
+    },
+    {
+      "job": "s0_OOH__hess_a19yp",
+      "file": "s0_OOH__hess_a19yp.in",
+      "kind": "displacement",
+      "atom_1based": 19,
+      "atom_index0": 18,
+      "axis": "y",
+      "sign": 1,
+      "displacement_A": 0.01
+    },
+    {
+      "job": "s0_OOH__hess_a19ym",
+      "file": "s0_OOH__hess_a19ym.in",
+      "kind": "displacement",
+      "atom_1based": 19,
+      "atom_index0": 18,
+      "axis": "y",
+      "sign": -1,
+      "displacement_A": -0.01
+    },
+    {
+      "job": "s0_OOH__hess_a19zp",
+      "file": "s0_OOH__hess_a19zp.in",
+      "kind": "displacement",
+      "atom_1based": 19,
+      "atom_index0": 18,
+      "axis": "z",
+      "sign": 1,
+      "displacement_A": 0.010000004
+    },
+    {
+      "job": "s0_OOH__hess_a19zm",
+      "file": "s0_OOH__hess_a19zm.in",
+      "kind": "displacement",
+      "atom_1based": 19,
+      "atom_index0": 18,
+      "axis": "z",
+      "sign": -1,
+      "displacement_A": -0.009999996
+    },
+    {
+      "job": "s0_OOH__hess_a20xp",
+      "file": "s0_OOH__hess_a20xp.in",
+      "kind": "displacement",
+      "atom_1based": 20,
+      "atom_index0": 19,
+      "axis": "x",
+      "sign": 1,
+      "displacement_A": 0.0099999958
+    },
+    {
+      "job": "s0_OOH__hess_a20xm",
+      "file": "s0_OOH__hess_a20xm.in",
+      "kind": "displacement",
+      "atom_1based": 20,
+      "atom_index0": 19,
+      "axis": "x",
+      "sign": -1,
+      "displacement_A": -0.0100000042
+    },
+    {
+      "job": "s0_OOH__hess_a20yp",
+      "file": "s0_OOH__hess_a20yp.in",
+      "kind": "displacement",
+      "atom_1based": 20,
+      "atom_index0": 19,
+      "axis": "y",
+      "sign": 1,
+      "displacement_A": 0.01
+    },
+    {
+      "job": "s0_OOH__hess_a20ym",
+      "file": "s0_OOH__hess_a20ym.in",
+      "kind": "displacement",
+      "atom_1based": 20,
+      "atom_index0": 19,
+      "axis": "y",
+      "sign": -1,
+      "displacement_A": -0.01
+    },
+    {
+      "job": "s0_OOH__hess_a20zp",
+      "file": "s0_OOH__hess_a20zp.in",
+      "kind": "displacement",
+      "atom_1based": 20,
+      "atom_index0": 19,
+      "axis": "z",
+      "sign": 1,
+      "displacement_A": 0.0099999999
+    },
+    {
+      "job": "s0_OOH__hess_a20zm",
+      "file": "s0_OOH__hess_a20zm.in",
+      "kind": "displacement",
+      "atom_1based": 20,
+      "atom_index0": 19,
+      "axis": "z",
+      "sign": -1,
+      "displacement_A": -0.0100000001
+    },
+    {
+      "job": "s0_OOH__hess_a21xp",
+      "file": "s0_OOH__hess_a21xp.in",
+      "kind": "displacement",
+      "atom_1based": 21,
+      "atom_index0": 20,
+      "axis": "x",
+      "sign": 1,
+      "displacement_A": 0.0099999976
+    },
+    {
+      "job": "s0_OOH__hess_a21xm",
+      "file": "s0_OOH__hess_a21xm.in",
+      "kind": "displacement",
+      "atom_1based": 21,
+      "atom_index0": 20,
+      "axis": "x",
+      "sign": -1,
+      "displacement_A": -0.0100000024
+    },
+    {
+      "job": "s0_OOH__hess_a21yp",
+      "file": "s0_OOH__hess_a21yp.in",
+      "kind": "displacement",
+      "atom_1based": 21,
+      "atom_index0": 20,
+      "axis": "y",
+      "sign": 1,
+      "displacement_A": 0.01
+    },
+    {
+      "job": "s0_OOH__hess_a21ym",
+      "file": "s0_OOH__hess_a21ym.in",
+      "kind": "displacement",
+      "atom_1based": 21,
+      "atom_index0": 20,
+      "axis": "y",
+      "sign": -1,
+      "displacement_A": -0.01
+    },
+    {
+      "job": "s0_OOH__hess_a21zp",
+      "file": "s0_OOH__hess_a21zp.in",
+      "kind": "displacement",
+      "atom_1based": 21,
+      "atom_index0": 20,
+      "axis": "z",
+      "sign": 1,
+      "displacement_A": 0.0100000044
+    },
+    {
+      "job": "s0_OOH__hess_a21zm",
+      "file": "s0_OOH__hess_a21zm.in",
+      "kind": "displacement",
+      "atom_1based": 21,
+      "atom_index0": 20,
+      "axis": "z",
+      "sign": -1,
+      "displacement_A": -0.0099999956
+    }
+  ]
+}

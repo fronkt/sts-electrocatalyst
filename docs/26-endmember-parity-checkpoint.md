@@ -1,5 +1,46 @@
 # 26 — Endmember Parity Checkpoint: UMA Cannot Rank Rutile-Oxide OER
 
+> ## ⚠ FALSIFIED IN PART 2026-08-06 — see [docs/39](39-prereg-omat-head.md) §6
+>
+> This document's verdict generalises from the heads it tested to **all** UMA heads.
+> That generalisation is **wrong**. Under a criterion frozen and pushed before the run,
+> the **`omat`** head — which R0 never tried — scores **ρ = +0.964, exact p = 0.0028,
+> η MAE 0.125 V at n = 7** against the repaired tier, clearing the same ρ ≥ 0.8 / p < 0.05
+> gate MACE cleared and beating MACE on every axis.
+>
+> What survives: the `oc20`, `oc22` and `oc25` heads do not rank rutile MO₂(110) OER.
+> What does not: "UMA cannot rank rutile-oxide OER". R0 reasoned entirely about
+> *adsorption* datasets and never considered that a *bulk-energetics* head trained on
+> PBE/PBE+U VASP data — the same functional family as our own reference — might transfer
+> better. It does.
+>
+> The screen and melt list are unaffected: both rest on MACE, validated independently
+> (docs/38 §2). Caveat that cuts the other way: `omat` desorbs `*OOH` on 5 of 7 metals,
+> far worse than MACE, so it ranks this tier better while being worse at the chemistry
+> the HEA screen depends on (docs/39 §6a).
+
+> ## ⚠ READ THIS BEFORE QUOTING ANY NUMBER BELOW — amended 2026-08-06
+>
+> **Every ρ, r and MAE in this document was measured against a DFT reference now known
+> to be defective**, and unlike docs/29 this document was never amended when the
+> reference was repaired. Two of its four points were wrong: **Cr η 1.726 V** (a trapped
+> `s0_O` at Cr–O 2.016 Å; the restart converged 1.396 eV lower → **0.491 V**) and
+> **Ni η 1.751 V** (two unconverged adslabs plus a desorbed `*OOH`; retracted in
+> docs/30 §2 → **1.084 V**). The headline "ρ = 0.40 (p = 0.60), r = −0.22, MAE 0.71 eV"
+> is therefore **not UMA's performance** and must not be quoted as such.
+>
+> The same is true of `docs/figs/uma_dft_parity.json`, which still carries the retracted
+> `dft_eta` values and now carries a `SUPERSEDED_BY` banner.
+>
+> **The verdict for THIS head stands; the evidence for it changed.** Scored against the
+> repaired n = 7 tier, this document's own uma-s-1p1/`oc20` is ρ = −0.300 (n = 5), and
+> the other adsorption heads fare no better: `oc25` +0.357, `oc22` +0.321, `oc20`
+> −0.036. But see the banner above — the `omat` head **does** clear the gate, so the
+> generalisation from "this head fails" to "UMA cannot" does not hold. See
+> [`docs/38`](38-matched-protocol-parity.md), [`docs/39`](39-prereg-omat-head.md) and
+> `docs/figs/parity_matched.json` for the comparison on one footing, which is the only
+> one that should be cited.
+
 > **Final close-out of the catalysis compute campaign** (docs/12–23, parked per
 > docs/24 §9). This is the keystone calibration deliverable promised in
 > [docs/22](22-multifidelity-dft-calibration.md) §6: the UMA↔DFT parity across the

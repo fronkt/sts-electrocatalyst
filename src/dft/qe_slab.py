@@ -41,6 +41,11 @@ ELEMENTS = {
     "Co": dict(pseudo="Co_pbe_v1.2.uspp.F.UPF",             U=3.32, mag=0.4, mass=58.933),
     "Ni": dict(pseudo="ni_pbe_v1.4.uspp.F.UPF",             U=6.2,  mag=0.3, mass=58.693),
     "Cu": dict(pseudo="Cu.paw.z_11.ld1.psl.v1.0.0-low.upf", U=0.0,  mag=0.2, mass=63.546),
+    # Benchmark-electrode anchors (docs/29 s2). No +U: RuO2/IrO2 are 4d/5d rutile
+    # metals, itinerant and non-magnetic, and the rutile-OER literature we compare
+    # against (Rossmeisl 2007, Man 2011) runs them at plain GGA.
+    "Ru": dict(pseudo="Ru_ONCV_PBE-1.0.oncvpsp.upf",        U=0.0,  mag=0.0, mass=101.070),
+    "Ir": dict(pseudo="Ir_pbe_v1.2.uspp.F.UPF",             U=0.0,  mag=0.0, mass=192.217),
 }
 ADSORBATES = ("OH", "O", "OOH")
 
@@ -82,16 +87,66 @@ def _fixed_mask(atoms):
     return fixed
 
 
-def write_slab_input(atoms, prefix, pseudo_dir, ecutwfc, ecutrho, outdir="./tmp"):
-    """QE 'relax' input for a magnetic rutile(110) slab (ibrav=0, bottom fixed, +U)."""
+def write_slab_input(atoms, prefix, pseudo_dir, ecutwfc, ecutrho, outdir="./tmp",
+                     *, nosym):
+    """QE 'relax' input for a rutile(110) slab (ibrav=0, bottom fixed, +U if magnetic).
+
+    `nspin` is emitted as 2 only when some species carries a non-zero starting
+    magnetization. RuO2/IrO2 are non-magnetic 4d/5d rutile metals with mag = 0, and
+    `nspin=2` with every `starting_magnetization` at zero is a fixed point of the
+    SCF -- it reproduces the `nspin=1` answer at exactly twice the cost. That one is
+    exact and stands.
+
+    `nosym` is REQUIRED and has no default. It used to default to True here, and the
+    adsorbate call site used to pass False, on the reasoning recorded in this docstring
+    until 2026-08-09:
+
+        "An adsorbate lowers the symmetry by itself, and runs/Cr_slab/s0_OH.in (no
+         nosym) ran to JOB DONE at 15 k-points while runs/Mn_slab/s0_O.in (nosym) paid
+         for 36 -- same physics, 2.4x the bill."
+
+    **Both halves of that are false, and the second one is the campaign's central
+    finding (docs/41 s6g).**
+
+    The adsorbate does NOT lower the symmetry by itself. `hea_oer.surfaces._adsorbate`
+    defines every OER adsorbate with y == 0 and places it at (x_cus, y_cus), i.e.
+    exactly on the rutile(110) mirror plane, which is an exact symmetry of the slab.
+    The adsorbate sits *in* the mirror rather than breaking it.
+
+    So it is not the same physics. With the mirror alive, pw.x symmetrises F_y onto it:
+    max|F_y| on the adsorbate is **exactly 0.0000000000 Ry/au** over every ionic step,
+    and the relaxation is a constrained optimisation in a 2-D (x, z) subspace. The
+    2.4x that was saved bought a different calculation, not a cheaper one -- worth
+    -291 meV on Ir's *OOH, which moves eta(Ir) from 0.781 to 0.490 V.
+
+    The audit that settled it: of 20 production adsorbate relaxations, 9 are LOCKED
+    (this path) and their confinement class is predicted 20-for-20 by whether this one
+    flag was set. Cr, Ir and Ru went through here; Mn, Fe, Co, Ni and Cu predate it and
+    kept nosym. The tier is therefore two protocols, not one.
+
+    Hence: no default. A caller must state which it wants, in writing, at the call site.
+    And note that `nosym = True` alone is NOT a fix -- on an exactly symmetric input it
+    removes the constraint without supplying any reason to move, and 6 of the 11 states
+    that had it never left the plane. An off-plane search needs a *physical
+    displacement* as well; see `orient_starts.py`.
+
+    (The original reason nosym is needed on the CLEAN slab is unaffected and still
+    holds: freezing the bottom half breaks the top-bottom mirror, so pw.x aborts in
+    `checkallsym` without it -- docs/23 s5.)
+    """
     syms = atoms.get_chemical_symbols()
     order, idx = _species_block(syms)
     fixed = _fixed_mask(atoms)
     cell = atoms.cell
     nat, ntyp = len(atoms), len(order)
 
-    mag = "".join(f"  starting_magnetization({idx[s]}) = {ELEMENTS[s]['mag']}\n"
-                  for s in order)
+    spin_polarised = any(ELEMENTS[s]["mag"] for s in order)
+    if spin_polarised:
+        mag = "  nspin = 2\n" + "".join(
+            f"  starting_magnetization({idx[s]}) = {ELEMENTS[s]['mag']}\n" for s in order)
+    else:
+        mag = ""
+    sym = "  nosym = .true.\n  noinv = .true.\n" if nosym else ""
     head = f"""&CONTROL
   calculation = 'relax'
   prefix = '{prefix}'
@@ -110,10 +165,7 @@ def write_slab_input(atoms, prefix, pseudo_dir, ecutwfc, ecutrho, outdir="./tmp"
   occupations = 'smearing'
   smearing = 'mv'
   degauss = 0.01
-  nspin = 2
-  nosym = .true.
-  noinv = .true.
-{mag}/
+{sym}{mag}/
 &ELECTRONS
   conv_thr = 1.0d-6
   mixing_mode = 'local-TF'
@@ -201,17 +253,27 @@ def cmd_build(args):
 
     def emit(name, text, **meta):
         path = os.path.join(args.outdir, name + ".in")
-        with open(path, "w") as f:
+        # newline="\n" unconditionally: these inputs are written on Windows and read by
+        # pw.x on Linux, and a stray \r inside a Fortran namelist is the same trap that
+        # .gitattributes already guards for *.sh (tasks/lessons.md).
+        with open(path, "w", newline="\n") as f:
             f.write(text)
         manifest["jobs"].append(dict(name=name, **meta))
 
-    emit("slab", write_slab_input(slab, "slab", args.pseudo_dir, args.ecutwfc, args.ecutrho),
-         kind="slab")
+    emit("slab", write_slab_input(slab, "slab", args.pseudo_dir, args.ecutwfc, args.ecutrho,
+                                  nosym=True), kind="slab")
     for si, xy in enumerate(sites):
         for sp in ADSORBATES:
             ads = add_oer_adsorbate_at(slab, sp, xy)
+            # nosym=True, reversing the 2026-07-31 cost optimisation that produced the
+            # LOCKED half of the tier (docs/41 s6g; the refutation is in
+            # write_slab_input's docstring). This alone does not make the search
+            # three-dimensional -- see docs/43 s0a -- it only stops pw.x from
+            # symmetrising F_y to exactly zero. The physical displacement that makes it
+            # a real search is supplied by orient_starts.py / build_cellsym_pilot.py.
             emit(f"s{si}_{sp}", write_slab_input(ads, f"s{si}_{sp}", args.pseudo_dir,
-                 args.ecutwfc, args.ecutrho), kind="adslab", site=si, species=sp)
+                 args.ecutwfc, args.ecutrho, nosym=True),
+                 kind="adslab", site=si, species=sp)
     for name, mol in _gas_molecules().items():
         emit(name, write_molecule_input(name, mol, args.pseudo_dir, args.ecutwfc, args.ecutrho),
              kind="gas")
@@ -222,15 +284,21 @@ def cmd_build(args):
           f"(composition {comp.formula()}, {len(sites)} cus site(s))")
 
 
-def parse_qe_energy(outfile):
-    """Final total energy (eV) from a finished pw.x run; None if not converged/JOB DONE."""
-    if not os.path.exists(outfile):
-        return None
-    txt = open(outfile, errors="ignore").read()
-    if "JOB DONE" not in txt:
-        return None
-    es = re.findall(r"^!\s+total energy\s+=\s+(-?\d+\.\d+)", txt, re.M)
-    return float(es[-1]) * RY_EV if es else None
+def parse_qe_energy(outfile, strict=True):
+    """Final total energy (eV) from a pw.x run that PASSES QC; None otherwise.
+
+    Delegates to `qe_qc.trusted_energy_ev`. The old implementation accepted any
+    file containing `JOB DONE`, which is exactly how eleven silently-unconverged
+    relaxations reached docs/26 (pw.x prints `JOB DONE` after
+    `convergence NOT achieved ... stopping`). `strict=False` restores the loose
+    behaviour for diagnosis only -- never for published energies.
+    """
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "qe_qc", os.path.join(os.path.dirname(os.path.abspath(__file__)), "qe_qc.py"))
+    qc = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(qc)
+    return qc.trusted_energy_ev(outfile, strict=strict)
 
 
 def cmd_eta(args):
@@ -244,7 +312,16 @@ def cmd_eta(args):
         E[job["name"]] = parse_qe_energy(os.path.join(args.outdir, job["name"] + ".out"))
     missing = [n for n, e in E.items() if e is None]
     if missing:
-        print(f"WARNING: {len(missing)} job(s) unfinished/missing: {missing}")
+        print(f"WARNING: {len(missing)} job(s) failed QC or are unfinished: {missing}")
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            "qe_qc", os.path.join(os.path.dirname(os.path.abspath(__file__)), "qe_qc.py"))
+        qc = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(qc)
+        for n in missing:
+            out = os.path.join(args.outdir, n + ".out")
+            rec = qc.scan(out, out[:-4] + ".in" if os.path.exists(out[:-4] + ".in") else None)
+            print(f"  {n}: {rec['verdict']} -- {'; '.join(rec['reasons']) or 'no reason recorded'}")
 
     e_slab, e_h2o, e_h2 = E.get("slab"), E.get("H2O"), E.get("H2")
     if None in (e_slab, e_h2o, e_h2):

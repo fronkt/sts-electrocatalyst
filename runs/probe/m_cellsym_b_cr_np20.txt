@@ -1,0 +1,57 @@
+# NP=20 NCONC=1
+# block 1A, manifest B: the LONG jobs -- every Cr relaxation plus
+# any job over 30 h at NP=4 -- ONE AT A TIME at full ranks.
+#   bash queue_r1.sh m_cellsym_b_cr_np20.txt 20 1
+# Renting more boxes cannot shorten a single job; only ranks can
+# (finding [6]). To parallelise, SPLIT THIS FILE across boxes;
+# never raise NCONC. NP=20 x NCONC=1 = 20 ranks <= 23.04 usable
+# cores, and 20 is an exact multiple of nk in {2,4}. Off-plane
+# jobs are ordered FIRST.
+# Every line here carries max_seconds. A job that stops on
+# max_seconds still prints JOB DONE and queue_r1.sh SKIPs on that
+# string, so a capped job must be REBUILT from its own
+# `Begin final coordinates` and its .out DELETED before requeue.
+# Gate on `bfgs converged`, never on JOB DONE (hard rule 3).
+probe/Cr_cellsym s0_OOH__2x1v_off .in 4
+probe/Cr_cellsym s0_OOH__2x1o_off .in 4
+probe/Cr_cellsym s0_OH__2x1v_off .in 4
+probe/Cr_cellsym s0_OH__2x1o_off .in 4
+probe/Cr_cellsym s0_OOH__1x1_off .in 4
+probe/Ru_cellsym s0_OOH__2x1v_off .in 4
+probe/Ru_cellsym s0_OOH__2x1o_off .in 4
+probe/Ir_cellsym s0_OOH__2x1v_off .in 4
+probe/Ir_cellsym s0_OOH__2x1o_off .in 4
+probe/Cr_cellsym s0_OH__1x1_off .in 4
+probe/Cr_cellsym ref__2x1o .in 4
+probe/Cr_cellsym s0_O__2x1v_off .in 4
+probe/Cr_cellsym s0_O__2x1o_off .in 4
+probe/Ir_cellsym ref__2x1o .in 4
+probe/Ir_cellsym s0_O__2x1v_off .in 4
+probe/Ir_cellsym s0_O__2x1o_off .in 4
+probe/Ru_cellsym s0_OH__2x1v_off .in 4
+probe/Ru_cellsym s0_OH__2x1o_off .in 4
+probe/Ir_cellsym s0_OH__2x1v_off .in 4
+probe/Ir_cellsym s0_OH__2x1o_off .in 4
+probe/Ru_cellsym ref__2x1o .in 4
+probe/Ru_cellsym s0_O__2x1v_off .in 4
+probe/Ru_cellsym s0_O__2x1o_off .in 4
+probe/Cr_cellsym s0_O__1x1_off .in 4
+probe/Cr_cellsym s0_OOH__2x1v_mir .in 2
+probe/Cr_cellsym s0_OOH__2x1o_mir .in 2
+probe/Cr_cellsym s0_OH__2x1v_mir .in 2
+probe/Cr_cellsym s0_OH__2x1o_mir .in 2
+probe/Cr_cellsym ref__2x1v .in 4
+probe/Ru_cellsym s0_OOH__2x1v_mir .in 2
+probe/Ru_cellsym s0_OOH__2x1o_mir .in 2
+probe/Ir_cellsym s0_OOH__2x1v_mir .in 2
+probe/Ir_cellsym s0_OOH__2x1o_mir .in 2
+probe/Cr_cellsym s0_O__2x1v_mir .in 2
+probe/Cr_cellsym s0_O__2x1o_mir .in 2
+probe/Ir_cellsym s0_O__2x1v_mir .in 2
+probe/Ir_cellsym s0_O__2x1o_mir .in 2
+probe/Ru_cellsym s0_OH__2x1v_mir .in 2
+probe/Ru_cellsym s0_OH__2x1o_mir .in 2
+probe/Cr_cellsym slab__1x1_k8_relax .in 4
+probe/Cr_cellsym s0_O__1x1_k8_relax .in 4
+probe/Cr_cellsym s0_O__1x1_mir .in 4
+probe/Cr_cellsym s0_OH__1x1_mir .in 4

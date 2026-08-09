@@ -8,3 +8,429 @@ kept as a visible backup doc.
 first copy the outgoing version to an explicit dated archive file (e.g.
 `<name>-archive-YYYY-MM-DD-<reason>.md`) with a provenance header, and link it
 from the replacement. Git history is provenance, not a browsable backup.
+
+## 2026-07-31 — `pkill -f <pattern>` matches the shell that runs it
+**What happened:** to clear leftover preflight processes I ran `pkill -f pw.x` over SSH.
+`-f` matches the whole command line, and the command line of the bash process *executing
+that very command* contains the string `pw.x` — so it killed its own session. That bash
+was the container's foreground process, so the Vast.ai instance exited. By the time it
+could be restarted the interruptible slot had been taken by another tenant, and the box
+(with its finished QE install) was lost.
+**Rule:** never `pkill -f` with a pattern that appears in the killing command line. Use
+`pkill -x <exact-process-name>` (matches the name, not the cmdline), or resolve the PID
+first (`ps -eo pid,cmd --no-headers | awk '/patt[e]rn/{print $1}'`) and `kill` that literal
+PID. The bracket trick (`patt[e]rn`) exists for exactly this reason.
+
+## 2026-07-31 — Vast.ai `cpu_cores_effective` is an advertisement; measure it
+**What happened:** a box advertising 128 `cpu_cores_effective` delivered ~20–25 real cores;
+a dual-socket EPYC 7742 advertising 256 delivered ~47. QE was launched at 96 ranks on the
+first one and crawled at ~4 min per SCF iteration — the docs/23 s8 thrash, one level up.
+**Rule:** rent, then **benchmark before uploading anything**, and size ranks to the measured
+number. A 60-second parallel-scaling probe costs about $0.01 and is the difference between
+a 3-hour run and a 20-hour one. Expect SMT to add ~nothing for DFT: on the EPYC 7742,
+64 workers gave 47 effective cores and 128 workers gave 50.
+**Corollary — write the benchmark correctly.** My first version used a 0.16 s work unit and
+a cold `mp.Pool`, so process-spawn dominated and it reported ~28 cores where the true figure
+was ~47. Use a work unit of several seconds, and warm the pool before timing. I nearly
+discarded a usable box on a measurement artifact.
+
+## 2026-07-31 — `apt install quantum-espresso-data-sssp` fails before Ubuntu 24.04
+**What happened:** the SSSP pseudopotential package is its own source package and only
+exists from noble/trixie onwards; on a 22.04 box `apt-get install` finds nothing and the
+setup script reported all five required UPFs missing.
+**Rule:** it is `arch:all` (pure data), so pull the .deb straight from
+`pool/universe/q/quantum-espresso-data-sssp/` and `dpkg -x` it — release-independent.
+Note the pool path uses the *source package* name, not `quantum-espresso`.
+**Bonus check worth repeating:** pw.x prints an MD5 for every pseudopotential it reads.
+The O/H/Cr/Ni MD5s from this .deb match the 2026-06 campaign's archived outputs exactly,
+which is a free, airtight proof that new runs sit on the archive's footing.
+
+## 2026-07-31 — `--bind-to core --map-by numa` silently cripples MPI inside a container
+**What happened:** on a 2-socket EPYC 7742 Vast box I "improved" the proven mpirun line to
+`--bind-to core --map-by numa`. PRTE logged one line — *"tried to bind a process but failed …
+performance may be degraded"* — and continued. The ranks then migrated across sockets and sat
+blocked in collectives: the host showed **87.5% idle** while pw.x crawled at ~105 s per SCF
+iteration, against a cgroup quota of 245 CPUs we were nowhere near using. Reverting to
+`--bind-to none` took host utilisation from 12.4% to 44.2% (~32 → ~113 cores of useful work)
+with zero binding warnings.
+**Rule:** inside a Vast/Docker container hwloc usually cannot see the true topology, so
+explicit binding fails and leaves ranks unpinned *and* mis-mapped. Use `--bind-to none` (what
+docs/23 s8 shipped at 99% core efficiency) unless you have verified binding actually took.
+**Diagnostic that finds this fast:** if `top` shows the host mostly IDLE while your ranks are
+"running", they are blocked, not throttled — check the bind warning and the cgroup quota
+before assuming you were sold fewer cores than advertised. Idle host + slow job = communication
+problem; busy host + slow job = oversubscription.
+
+## 2026-07-31 — killing a job cleanly is how I found the *third* `JOB DONE` false success
+**What happened:** `Ni_slab/s0_O` stalled — SCF descended cleanly for 80 iterations
+(432 → 2.1e-4 Ry, a tidy ~0.85×/iteration decay) then went dead flat for 4 against
+`conv_thr = 1e-6`, still on ionic step 1 of ~20 at ~150 s/iteration. Rather than
+`pkill` (which once killed the container — see the lesson above), I stopped it with QE's
+own mechanism: `touch <outdir>/<prefix>.EXIT`. pw.x exited gracefully in 20 s … and
+**printed `JOB DONE.`**. The queue logged `rc=0 JOB_DONE=1 SCF_FAIL=0` — passing the first
+two clauses of my own pre-registered acceptance criterion on a job I had just killed.
+Worse, `qe_qc.py` called the file **TRUSTWORTHY**, because its `n_ionic == 0` clause (there
+to admit genuine `calculation='scf'` gas references) fired on a relax that died inside its
+first ionic step with a **null energy**.
+**Rule:** `JOB DONE` means "pw.x reached its exit routine", nothing more. Three distinct
+ways to get it with no result: SCF failure, `nstep` exhaustion, and a user `.EXIT` stop.
+The only safe gate is "did this run produce an energy I can defend" — so **make "has an
+energy" a hard precondition for any TRUSTWORTHY verdict**, and never accept a job on log
+strings alone.
+**Generalisation:** when a QC tool and the thing it checks are written by the same person
+in the same session, the tool inherits the blind spots. Deliberately feeding it a file I
+*knew* was worthless is what exposed the hole — do that on purpose, not by accident.
+`tests/test_qe_qc.py` now pins all three modes.
+
+## 2026-07-31 — a flat `estimated scf accuracy` is a decision point, not a wait
+**What happened:** the temptation was to let the stalled Ni job run, since `electron_maxstep`
+was 500 and it had "only" used 85. At ~150 s/iteration that was 17 more hours and ~$10 to
+arrive at `convergence NOT achieved … stopping` — and it was still ionic step 1 of ~20, so
+even a *healthy* SCF put the job at 8–16 h. It was also stealing 12 ranks from the anchors,
+which are the actual deliverable.
+**Rule:** when SCF accuracy plateaus, compute three numbers before deciding — decades still
+to go, seconds per iteration, and *how many ionic steps remain*. The third usually dominates
+and is the one that gets forgotten. A job that cannot finish in budget even if it unsticks
+should be killed the moment you know that, not when it fails.
+
+## 2026-08-01 — Vast's "SSH key associated" is bookkeeping, not installation
+**What happened:** two boxes in a row refused me. The proxy route reported
+`Connection refused`, which reads exactly like a host still provisioning, so I
+destroyed the first one as a bad host. It was not. The **direct** route
+(`public_ipaddr` : `machine_dir_ssh_port`, both in the instance JSON) reported the
+real error — `Permission denied (publickey)`. The container was listening the whole
+time. `ssh -v` then showed my client offering the correct key, the account record
+matched my local `id_ed25519.pub` byte-for-byte, and the attach API answered
+*"SSH key already associated with instance."* All true, and the key was still not in
+the container's `authorized_keys`: `vastai/base-image:cuda-12.4.1-auto` never acts on
+the association.
+**Rule:** never diagnose a Vast box from the proxy alone — it masks auth failures as
+connection refusals. Check the direct route before concluding anything about a host.
+**Fix that always works, regardless of image:** pass an `onstart` that installs the key
+itself, and a sentinel you can verify:
+```
+mkdir -p /root/.ssh && echo '<pubkey>' >> /root/.ssh/authorized_keys &&
+chmod 700 /root/.ssh && chmod 600 /root/.ssh/authorized_keys &&
+echo KEY_INSTALLED > /root/.key_ok
+```
+SSH answered 40 s after `actual_status` went `running`. Cost of diagnosing it the slow
+way: ~$0.12 across two destroyed boxes.
+**Also:** poll `actual_status == "running"`, not `cur_state`. `cur_state` flips to
+`running` when the *contract* is active — billing starts there, but the container may
+still be pulling its image.
+
+## 2026-08-03 — a Vast box can be broken in a way the status field never shows
+
+`actual_status: running`, `status_msg: "success, running ..."`, SSH port open and
+answering — and the instance was still unusable. Instance 46725846 (machine 129402) had
+its own launcher in a crash loop:
+
+```
+/.launch: line 48: ssh: command not found      <- once per second, forever
+```
+
+Symptoms that looked like the familiar key problem but were not:
+- direct route `public_ipaddr:machine_dir_ssh_port` → `Permission denied (publickey)`
+- proxy route `ssh_host:ssh_port` → `Connection refused` (the reverse tunnel never opened)
+- `POST /instances/<id>/ssh/` → `"SSH key already associated with instance."`
+
+**Rule: when SSH fails on a fresh box, pull the boot log BEFORE re-trying, re-keying, or
+waiting.** One call settles in seconds what guessing costs minutes of billed time:
+
+```
+PUT /api/v0/instances/request_logs/<id>/   {"tail":"120"}   -> {"result_url": ...}
+# then GET result_url (S3, takes ~5-20 s to populate)
+```
+
+`Permission denied (publickey)` means the container's sshd is up and the key is missing.
+`Connection refused` on the proxy route means the launcher never registered the tunnel —
+that one is a broken host, and no amount of key installation fixes it. Destroy and move
+to a **different machine_id**, not merely a different offer on the same machine.
+
+Cost of finding this the slow way: $0.044. Cost of not checking the log first: however
+long you spend re-attaching keys to a box that cannot run sshd.
+
+### Addendum, same day: `intended_status: stopped` on a freshly created instance
+
+The replacement box (46726365) then sat at `actual_status: loading` for ten minutes.
+The log call returned `Error response from daemon: No such container: C.46726365` — the
+container had never been created at all. The reason was in the instance record:
+
+```
+actual_status    loading      <- the field we poll
+cur_state        stopped
+intended_status  stopped      <- Vast never asked the host to start it
+```
+
+`PUT /api/v0/asks/<id>/` returned `{"success": true, "new_contract": ...}` and still left
+the contract in a stopped state. Fixed with an explicit
+`PUT /api/v0/instances/<id>/ {"state": "running"}`.
+
+**So `actual_status` alone is not enough either** — it read `loading` the whole time,
+which is indistinguishable from a slow image pull. Check `intended_status` on any box
+that has not become reachable within a few minutes; if it says `stopped`, no amount of
+waiting will help. Combined rule for a new box: poll `actual_status`, and if it has not
+gone `running` in ~3 min, look at `intended_status` and the boot log before anything else.
+
+### Addendum 2: neither SSH route is diagnostic on its own
+
+The 2026-08-02 lesson said "diagnose via the direct route `public_ipaddr`:`machine_dir_ssh_port`".
+That was right for the box it was written on and **wrong for the next two**:
+
+| box | direct route | proxy route (`ssh_host`:`ssh_port`) | truth |
+|---|---|---|---|
+| 46518763 (08-02) | answers, key missing | — | key not installed |
+| 46725846 (08-03) | `Permission denied` | `Connection refused` | host launcher crash-looping |
+| 46726365 (08-03) | never answers | **works** | fine; host exposes proxy only |
+
+On the last one I polled the direct route for ten minutes while sshd was up and healthy
+the whole time, with my key installed — the boot log said `ONSTART_KEYS 1`,
+`ONSTART_SSHD 1`, `Server listening on 0.0.0.0 port 22`.
+
+**Rule: try BOTH routes, and treat the boot log as the only authority.** A host may
+expose either, both, or neither. `Permission denied` from one route while the other is
+refused is a broken launcher, not a key problem. And put explicit markers in the
+`onstart` script (`echo ONSTART_KEYS $(wc -l < authorized_keys)`) so the log answers
+"was the key installed?" directly instead of by inference from a failed connection.
+
+## 2026-08-03 — every threshold I encoded about "normal" chemistry was too narrow
+
+Three separate thresholds in `src/dft/adsorbate_qc.py` were falsified by the very data
+they were written to judge, inside 48 hours:
+
+| threshold | asserted | falsified by |
+|---|---|---|
+| `M_O_BOND_MAX = 2.40 A` | "real bonds are 1.6-2.1, failures at 3.8-4.0, **nothing legitimate lands in between**" | Fe `*OOH` relaxed to a genuine minimum at **2.552 A**, 0.376 eV below the desorbed original |
+| `dG4 > 0` | "no real OER intermediate gives an exergonic fourth step" | repaired Mn gives **-0.022 eV** after a full 34-step relaxation; G_TOTAL is experimental while dG_OOH carries 0.1-0.2 eV of GGA error |
+| median outlier test, all states | "genuine chemistry varies far less than 0.20 A" | `*OOH` binding is **bimodal** (Ir/Ru/Cr 1.91-2.08 vs Mn/Fe 2.48-2.55); the test accused both DFT-verified repairs |
+
+The pattern is one-directional: **I never encoded a threshold that was too permissive.**
+Every one assumed the physical spread was narrower than it is, and each was written in
+confident prose ("nothing legitimate lands in between") that made it harder to question.
+
+Rules taken from this:
+
+1. **Derive thresholds from the data you already have, not from what sounds physical.**
+   Print the actual spread first (`s0_O` 0.202 A, `s0_OH` 0.089 A, `s0_OOH` 0.640 A) and
+   set the cut from it. Two of the three would have been caught by looking.
+2. **A summary statistic assumes a shape.** A median-based outlier test silently assumes
+   unimodality. Check the distribution before choosing the statistic, especially when a
+   physical mechanism (weak vs strong chemisorption) could split it.
+3. **Prefer a three-tier verdict to a binary one** where the middle is genuinely
+   ambiguous: bound / weak / desorbed, with only the extreme failing and the middle
+   surfaced for a human. A binary cut forces a wrong answer on every ambiguous case.
+4. **When a check fires on data you independently verified, the check is the suspect.**
+   All three of these were found that way, not by reasoning about the threshold.
+
+---
+
+## Compute estimates keep coming in low, and always for the same reason (2026-08-05)
+
+Third mis-costed run in a month, each one a *3.5x-or-worse* underestimate extrapolated
+from a cheaper system than the one actually being bought:
+
+| run | basis for the estimate | projected | actual | over |
+|---|---|---|---|---|
+| repair campaign (docs/33 s5b) | non-magnetic anchors | $0.6-1.1 | $2.64 | 2.4x |
+| n=7 campaign (docs/35 s6) | 3 concurrent jobs / 12.1 h | $3.20 | $8.17 | 2.5x |
+| HEA screen (this one) | **pure endmembers, ~51 s/relaxation** | 1.5 h/candidate | **5.2 h** | 3.5x |
+
+The endmember timings came from *pure* MO2 slabs. An HEA slab of the same 72 atoms has
+four cation species, no symmetry, and a rougher force landscape, so BFGS takes far more
+steps to reach the same `fmax`. Relaxation count was estimated correctly; **cost per
+relaxation was assumed transferable between a symmetric and a disordered cell, and it
+is not.**
+
+Rules taken from this:
+
+1. **Time one instance of the real thing before sizing the batch.** I timed a pure slab
+   and a loose-`fmax` smoke run, neither of which is the workload. One full HEA
+   candidate at production settings would have cost 5 h and saved a 62-hour commitment.
+2. **Symmetry is a speed feature.** Any estimate crossing from ordered to disordered
+   cells needs a measured multiplier, not an assumption of parity.
+3. **Checkpoint per unit of work so a bad estimate is survivable.** The screen writes
+   after every candidate, so the 3.5x miss cost nothing but wall-clock -- the partial
+   result is a valid ranked list at all times. This is the one thing that went right.
+4. **Do not economise by cutting the sampling that the science needs.** The obvious
+   response to a slow screen is fewer sites; candidate 1 immediately argued the other
+   way (best site 0.59 V below the site mean, and found only in the third decoration).
+   Buy speed with hardware, not with statistical power.
+
+
+## A model comparison is only as good as its worst-matched axis (2026-08-06, docs/38)
+
+R0 rejected UMA, R3 accepted MACE, and the whole screen rests on that pair of verdicts.
+The two models had **never been scored the same way**. Six axes differed -- DFT
+reference (two of UMA's four points were later found defective), n (4 vs 7), start
+geometry (builder at 3.07 A vs DFT-relaxed frames), starts per state (1 vs 3), dtype
+(unrecorded vs explicit float64), and constraint mask -- and **every one of them ran in
+MACE's favour**.
+
+None of it was fraud; it was drift. Each change was individually reasonable and
+separately documented. The comparison rotted because nothing ever re-ran the *old* arm
+after the world moved. Worse, the code said otherwise: `evaluate_relaxed`'s docstring
+claimed "This function does what UMA did" while starting from the DFT minimum, and
+docs/34 claimed "builder geometries only -- no DFT input of any kind" when three of its
+21 starts had been overwritten with MACE- and DFT-derived coordinates.
+
+The saving grace is that running the matched experiment cost **16 minutes of laptop CPU
+and $0**, and the conclusion survived intact.
+
+Rules taken from this:
+
+1. **When the reference moves, re-score every arm against it -- not just the current
+   favourite.** The repair regenerated MACE's numbers and left UMA's untouched, so the
+   comparison silently became reference-vs-reference. If re-running an arm is too
+   expensive, say so explicitly in the doc; do not let the stale arm keep its old number
+   in a table beside a fresh one.
+2. **A superseded artifact must be stamped, not just superseded in prose.** docs/29 s8
+   corrected the record in text while `docs/figs/uma_oc22_parity.json` kept publishing
+   the retracted Cr = 1.726 for four more days. Prose corrections do not propagate to
+   files. Add a `SUPERSEDED_BY` key.
+3. **Docstrings that assert an experimental equivalence are claims and need testing.**
+   "This function does what UMA did" was load-bearing and false. If a comment says two
+   procedures match, either a test pins the axes that must match, or the comment states
+   which axes do *not*.
+4. **Suspect any comparison whose every difference points the same way.** Independent
+   drift is unbiased; a clean sweep in one direction means the axes were chosen, however
+   unconsciously, after the answer was known.
+5. **Report the fragile cut next to the headline.** MACE meets the gate at n = 7 and
+   fails it at n = 5, and the two points that make the difference are the ones seeded
+   from MACE's own minima. That belongs in the same table as the headline, not in a
+   caveats section -- so `parity_matched.py` prints both cuts by default and a test
+   enforces that a rho above threshold with p > 0.05 is never reported as MET.
+
+
+## A universal claim needs a universal search, not three samples (2026-08-06, docs/39)
+
+R0 concluded "UMA cannot rank rutile-oxide OER" after testing `oc20`, `oc22` and `oc25`.
+The `omat` head was one CLI argument away and was never tried. It scores rho = +0.964,
+p = 0.0028, MAE 0.125 V -- better than the MACE model the whole screen was built on.
+
+The reasoning error is instructive and was not laziness. R0 reasoned hard and correctly
+about which *adsorption* dataset matched our chemistry: OC22 is PBE+U oxides with
+O*/OH*/OOH*, so `oc22` was the right hypothesis **within the space R0 was searching**.
+That space was "adsorption heads". The head that works is a **bulk-energetics** head,
+trained on PBE/PBE+U VASP inorganic crystals -- the same functional family as our own
+reference, and never considered because it has no adsorbates in it at all. The search
+was well-executed inside a frame that was itself too narrow.
+
+Rules taken from this:
+
+1. **Match the claim's scope to the search's scope.** "No head works" needs every head,
+   or the claim shrinks to "the heads we tried". Cheap tests that would close a
+   universal quantifier are worth running BEFORE the claim is written, not after it has
+   been load-bearing for two weeks.
+2. **When a model family exposes a small enumerable option (heads, tasks, checkpoints),
+   enumerate it.** Seven heads at ~9 min each is 1 hour. The cost of not doing it was a
+   published negative that a pre-registered one-hour run overturned.
+3. **Pre-register before running, even when -- especially when -- the run is cheap and
+   post-hoc.** This was the project's only post-hoc addition to a pre-registered
+   protocol. Freezing rho >= 0.8 AND p < 0.05 and pushing it first is the entire reason
+   the falsification is credible rather than a suspicious late reversal. Had the
+   criterion been written afterwards, the same numbers would prove much less.
+4. **Commit to both outcomes in writing, in advance.** docs/39 s4 said what a pass would
+   mean before the pass existed. That made reporting an inconvenient result mechanical
+   instead of a judgement call made under the temptation to protect an existing story.
+5. **Distinguish "ranks better" from "is the better tool".** `omat` wins the ranking and
+   desorbs `*OOH` on 5 of 7 metals. The tier tolerates that because most metals are
+   pls <= 2; the HEA screen would not. A single headline statistic can be genuinely
+   better while the model is genuinely worse for the actual job.
+
+
+## "Independent routes" usually means independent PREDICTORS, not independent EVIDENCE
+(2026-08-06, docs/40)
+
+I wrote, in docs/38 s2, that MACE "meets the gate by three independent routes": the DFT
+tier's 18-atom cells, the screen's 2x2 Vegard slabs, and UMA's protocol. All three score
+against the same seven DFT numbers, and MACE was *selected* on those same seven. Three
+protocols, one target. Seven distinct values, not twenty-one. Held-out points: zero.
+
+The sentence felt true when written because the three routes really are different --
+different cell, different start geometry, different multi-start. Every one of those
+differences is on the PREDICTOR side. Varying how you ask does not add evidence if you
+keep asking the same question.
+
+The same audit found the coupling I had already disclosed was wrong in its particulars:
+docs/38 s5(iii) named Ni and Co as the seeded points. Co's `s0_OH` is not seeded at all
+(rms 0.502 A) and Co is pls=1, so its eta rests on no seeded basin -- dropping Co
+*improves* the correlation. The genuinely load-bearing seeded point is **Cr**, which I
+never named: reverting it drops both models below significance.
+
+Rules taken from this:
+
+1. **Count distinct TARGET values, not distinct experiments.** Before writing "N
+   independent validations", ask how many distinct reference numbers they are scored
+   against. If the answer is "the same set every time", write "N protocols against one
+   target" instead.
+2. **A disclosed limitation still needs auditing.** I had disclosed the coupling and
+   still got two of its three parts wrong -- one overstated (Co), one missing entirely
+   and larger than both (selection on target). Writing the caveat is not the same as
+   measuring it. Grep the actual files; diff the actual geometries.
+3. **Measure how load-bearing each point is, and publish the whole spectrum.** The
+   leave-one-out sweep (MACE meets the gate on 3 of 7 cuts, omat on 7 of 7) says more
+   about robustness than the headline rho does, costs nothing, and would have flagged
+   Cr months ago.
+4. **A sensitivity number is not an alternative hypothesis.** Reverting Cr collapses both
+   gates -- but 1.726 V was a trapped stationary point 1.396 eV above the restart, so
+   "what if Cr were 1.726" is not a live possibility. Report such numbers as *how much
+   rests here*, never as *how likely we are wrong*, or the disclosure becomes its own
+   distortion.
+5. **Do not inflate a limitation to look rigorous.** The tempting move was to cite a
+   Csanyi-group paper on selective-U pathology next to our own striking U-partitioned
+   desorption (p = 0.048). That paper has no rutile, no OER, never evaluates UMA, and its
+   mechanism predicts our regime is exempt. Overstating a limitation is as wrong as
+   hiding one, and in a competition report it needlessly damages a valid result.
+
+## A parse result that contradicts direct evidence is a parse bug (2026-08-09, docs/41 s6g)
+
+**What happened:** the archive symmetry audit reported **0 of 156 outputs constrained**. That
+was flatly impossible: `orient_starts.py` had already shown, by reading the force blocks
+directly, that four specific runs carry max|F_y| = 0.0000000000 Ry/au over every ionic step,
+which cannot happen without an enforced mirror. My regex assumed pw.x prints
+`Sym. Ops., no inversion, found 2 symmetry operations`. It actually prints the count FIRST:
+
+    2 Sym. Ops. (no inversion) found ( 1 have fractional translation)
+
+so the pattern never matched, every row fell through to the "not printed" bucket, and a
+fallback regex mislabelled 72 runs as free. Corrected, the number is 76/156 constrained and
+the header agrees with the force evidence on all 96 adsorbate runs.
+**Rule:** before believing a parse, check it against a fact established by a *different*
+route. Here the force blocks were the independent witness and they were already in hand. A
+0% or 100% answer to an empirical question is a bug hypothesis first and a finding second.
+**Corollary that paid for itself:** building the cross-check into the tool rather than doing
+it by hand is what turned a bookkeeping script into the finding -- the three-way LOCKED /
+ON_PLANE / EXPLORED split only exists because the tool measured forces *and* read the header,
+and `nosym` set with nothing to push against turned out to be its own regime.
+
+## An optimisation justified as "same physics" is a physics claim, and needs a physics test (2026-08-09, docs/41 s6g)
+
+**What happened:** on 2026-07-31, commit `1a3a77b` ("make the Ru/Ir anchors runnable and 4x
+cheaper") noticed that `runs/Cr_slab/s0_OH.in` ran at 15 irreducible k-points while
+`runs/Mn_slab/s0_O.in` paid for 36, and wrote into `qe_slab.py`: *"An adsorbate lowers the
+symmetry by itself ... same physics, 2.4x the bill."* It then made `nosym = False` the rule
+for every adsorbate deck. Both premises were false. The adsorbate is built at y == 0, exactly
+ON the mirror plane, so it preserves the symmetry rather than breaking it; and the "same
+physics" is a 2-D constrained optimisation worth -291 meV on Ir's *OOH. Ir and Ru were built
+under the new rule and are symmetry-locked on all three states, which is where two of the
+campaign's three unexplained anchor offsets come from.
+**Rule:** "this only changes cost, not the answer" is a claim about the physics, not about
+the budget, and it needs to be tested like one -- run both and diff the energy, once, before
+adopting it. Cost optimisations are the most dangerous kind of change precisely because they
+come with a built-in reason not to check them.
+**Second rule, narrower:** never infer symmetry from a description of the structure ("an
+adsorbate lowers the symmetry"). Read what pw.x actually reports -- it prints the group size
+in the header of every single run, for free, and it disagreed with the description here.
+**Third:** the two runs the argument was checked against were the two whose difference it was
+explaining. A comparison cannot be its own control.
+
+## "We disabled the constraint" is not evidence the search explored (2026-08-09)
+
+**What happened:** the endmember decks for Mn/Fe/Co/Ni/Cu carry `nosym = .true.`, so the
+campaign had been treating those relaxations as unconstrained. Six of eleven such states have
+max|F_y| below 1e-4 Ry/au -- they never left the mirror plane. `nosym` removes the constraint
+but supplies no reason to move; on an exactly symmetric input it changes nothing. The flag and
+the outcome are different claims.
+**Rule:** a search is evidenced by what it measured, not by what it was permitted to do. Cite
+the measured off-plane force or displacement, never the input flag. Any off-plane arm must
+carry a *physical displacement* as well as `nosym`/`noinv`.

@@ -5,7 +5,12 @@
 Thumbs.db
 
 # Data / model artifacts (keep the repo about ideas + plans, not large blobs)
-data/
+data/*
+# ...except the pinned tiers of record. These are the frozen scientific baselines
+# every figure and statistic is computed against (docs/43 s0); they are small, they
+# are write-once, and losing them would make past claims unreproducible.
+!data/tiers/
+!data/tiers/*.json
 results/
 checkpoints/
 *.ckpt
@@ -15,3 +20,10 @@ checkpoints/
 __pycache__/
 .ipynb_checkpoints/
 .venv/
+
+# fairchem lives in an isolated venv (torch~=2.8 vs the main env 2.11); docs/39 s5
+.venv-fairchem/
+
+# QE per-job scratch. run_one() creates ./tmp_<job>/ next to the deck and removes it on a
+# clean exit; a killed or crashed job leaves it behind. One of these was 26 MB.
+tmp_*/

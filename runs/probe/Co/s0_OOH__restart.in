@@ -1,0 +1,68 @@
+&CONTROL
+  calculation = 'relax'
+  prefix = 's0_OOH'
+  outdir = './tmp'
+  pseudo_dir = '/usr/share/espresso/pseudo'
+  tprnfor = .true.
+  forc_conv_thr = 2.0d-3
+  nstep = 200
+/
+&SYSTEM
+  ibrav = 0
+  nat = 21
+  ntyp = 3
+  ecutwfc = 80.0
+  ecutrho = 640.0
+  occupations = 'smearing'
+  smearing = 'mv'
+  degauss = 0.01
+  nosym = .true.
+  noinv = .true.
+  nspin = 2
+  starting_magnetization(1) = 0.4
+  starting_magnetization(2) = 0.0
+  starting_magnetization(3) = 0.0
+/
+&ELECTRONS
+  conv_thr = 1.0d-6
+  mixing_mode = 'local-TF'
+  mixing_beta = 0.3
+  electron_maxstep = 200
+/
+&IONS
+  ion_dynamics = 'bfgs'
+/
+ATOMIC_SPECIES
+  Co  58.933  Co_pbe_v1.2.uspp.F.UPF
+  H  1.008  H.pbe-rrkjus_psl.1.0.0.UPF
+  O  15.999  O.pbe-n-kjpaw_psl.0.1.UPF
+CELL_PARAMETERS angstrom
+  2.99000000  0.00000000  0.00000000
+  0.00000000  6.30739249  0.00000000
+  0.00000000  0.00000000  25.22956995
+ATOMIC_POSITIONS angstrom
+  Co  0.00000000  4.73054437  9.46108873  0 0 0
+  Co  1.49500000  1.57684812  9.46108873  0 0 0
+  Co  0.00000000  1.57684812  12.61478498  0 0 0
+  Co  1.49500000  4.73054437  12.61478498  0 0 0
+  Co  -0.01357328  4.74283818  15.58184903  1 1 1
+  Co  1.49007720  1.60182129  15.58678260  1 1 1
+  O  0.00000000  1.57684812  10.69103027  0 0 0
+  O  0.00000000  1.57684812  8.23114720  0 0 0
+  O  1.49500000  3.50060283  9.46108873  0 0 0
+  O  1.49500000  5.96048590  9.46108873  0 0 0
+  O  -0.00471736  4.74564891  13.76949972  1 1 1
+  O  0.00000000  4.73054437  11.38484344  0 0 0
+  O  1.49500000  0.34690659  12.61478498  0 0 0
+  O  1.49252229  2.78578864  12.59262123  1 1 1
+  O  0.01012722  1.60969302  16.70236994  1 1 1
+  O  -0.00176347  1.59860834  14.42208847  1 1 1
+  O  1.48866099  3.53235732  15.62677237  1 1 1
+  O  1.48885329  5.95685625  15.64229720  1 1 1
+  O  0.16858192  4.69493937  17.56448024  1 1 1
+  O  -0.62684261  5.37525807  18.43076033  1 1 1
+  H  -1.58744043  5.10722391  18.09971702  1 1 1
+K_POINTS automatic
+  8 4 1 0 0 0
+HUBBARD (atomic)
+U Co-3d 3.3200

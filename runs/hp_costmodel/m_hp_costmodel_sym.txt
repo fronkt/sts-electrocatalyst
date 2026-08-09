@@ -1,0 +1,43 @@
+# hp.x cost model -- SYM ARM. GENERATED from the written-file list (N25):
+# every crslab_sym deck in runs/hp_costmodel is on a line below.
+# Lines: <dir> <scf> <hp> <nk>.
+# The *_hp_1atomq_* lines are the ONLY thing that has to run before block 3Y
+# can be costed honestly; the counting decks exit in seconds. Projections,
+# floor / plan / ceiling WALL HOURS at NP=18, per (atom, q) rung -- the spin
+# cost is no longer double-counted (N19), which HALVED every slab figure:
+#     sym_q1    N_k=15  q=[0.0, 0.0, 0.0]  [1.0, 2.0, 3.1] h   <- Gamma
+#     sym_q3    N_k=27  q=[0.3333, 0.0, 0.0]  [1.9, 3.7, 5.8] h   <- the general-q symmetry probe
+# Each q is timed TWICE (N27): perturb_only_atom(5), a SURFACE Cr -- the site
+# the recommended production variant perturbs -- and perturb_only_atom(1), the
+# frozen bulk-like bottom-layer Cr. Their ratio turns n_LR's site dependence,
+# the model's largest unknown, into a measurement.
+# THE HEADLINE TIMING ROW for block 3Y is crslab_sym__hp_1atomq_a5_q3 (surface
+# atom, general q). The sym q1/q3 pair (N_k 15 vs 27) is the ONLY arm where
+# the Gamma-understatement is measurable; the nosym q3 decks are n_LR
+# replicates (N16) and live in m_hp_costmodel_nosym.txt.
+# First rung pays the SCF: modelled ~0.6 h wall at NP=18; its deck's max_seconds caps it at 2x that (N22).
+# ARM TOTAL (plan): SCF ~0.6 h + 4 timing rungs ~11.4 h = ~12.0 wall-hours at NP=18 (ceiling ~18.4).
+#
+# RUN AS: bash queue_hp.sh m_hp_costmodel_sym.txt 18 1
+# [N13] READ THIS ARM'S WALL CLOCK BEFORE LAUNCHING m_hp_costmodel_nosym.txt.
+# The nosym arm is a separate file precisely so no single command commits both.
+# (q#2 = (0,1/2,0) is ALSO fully symmetric, N_k = 15 -- timing it would have
+# re-measured Gamma's cost under a different name, which is why q#3 is the
+# general-q index here.)
+#   nk=6  -> NP must be 6, 12 or 18. NP x NCONC <= 23 (cgroup = 23.04 usable
+#            cores), so NP=18 forces NCONC=1 by itself.
+#   NCONC MUST be 1 for a second reason: these lines are TIMINGS. A wall clock
+#            taken while another job competes for a throttled cgroup is not a cost
+#            basis, it is the mechanism behind the 2.4x/2.5x/3.5x mis-costings in
+#            tasks/lessons.md 2026-08-05.
+# CHECK against the .out: hp.x prints the q coordinates and 'number of k points='.
+hp_costmodel crslab_sym__scf crslab_sym__hp_npert 6
+hp_costmodel crslab_sym__scf crslab_sym__hp_qmesh_q111 6
+hp_costmodel crslab_sym__scf crslab_sym__hp_qmesh_q211 6
+hp_costmodel crslab_sym__scf crslab_sym__hp_qmesh_q321 6
+hp_costmodel crslab_sym__scf crslab_sym__hp_qmesh_q421 6
+hp_costmodel crslab_sym__scf crslab_sym__hp_qmesh_q941 6
+hp_costmodel crslab_sym__scf crslab_sym__hp_1atomq_a5 6
+hp_costmodel crslab_sym__scf crslab_sym__hp_1atomq_a1 6
+hp_costmodel crslab_sym__scf crslab_sym__hp_1atomq_a5_q3 6
+hp_costmodel crslab_sym__scf crslab_sym__hp_1atomq_a1_q3 6

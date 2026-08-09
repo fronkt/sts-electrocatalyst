@@ -1,0 +1,43 @@
+{
+  "source_run": "runs/Ni_slab",
+  "note": "FIXED-GEOMETRY single points on already-relaxed structures. This is a leading-order SENSITIVITY analysis: relaxation under the perturbation is NOT included and the artifacts must not be reported as relaxed.",
+  "calculation": "scf",
+  "variants": [
+    "base"
+  ],
+  "jobs": [
+    {
+      "job": "slab",
+      "variant": "base",
+      "file": "slab__base.in",
+      "geometry_provenance": "final",
+      "relax_reference_ev": -34793.243481607075,
+      "emaxpos": null,
+      "eopreg": null,
+      "cell_c": 25.11643287,
+      "vac_gap": 16.4949236554
+    },
+    {
+      "job": "s0_OH",
+      "variant": "base",
+      "file": "s0_OH__base.in",
+      "geometry_provenance": "final",
+      "relax_reference_ev": -35374.61822020274,
+      "emaxpos": null,
+      "eopreg": null,
+      "cell_c": 25.11643287,
+      "vac_gap": 15.5630447281
+    },
+    {
+      "job": "s0_O",
+      "variant": "base",
+      "file": "s0_O__base.in",
+      "geometry_provenance": "final",
+      "relax_reference_ev": -35356.20289905163,
+      "emaxpos": null,
+      "eopreg": null,
+      "cell_c": 25.11643287,
+      "vac_gap": 15.9498830707
+    }
+  ]
+}
