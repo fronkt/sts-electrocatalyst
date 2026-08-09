@@ -10,14 +10,37 @@ At 1x1 / 1 ML this *OOH is hydrogen-bonded to its own periodic image.  The two m
 likely to come back imaginary -- the OOH yaw and the H torsion -- are governed by that
 contact rather than by the mirror constraint the paper is about, so a CONFIRMED here would
 be attributed to the symmetry trap when its cause is the coverage.  A proton in a 2.40 A
-O...O bond is also the worst case for a harmonic central difference.
+O...O bond is also the worst case for a harmonic finite difference.
 
 The 19 decks that were in this directory were built on 2026-08-09 under the superseded
 protocol (electron_maxstep = 200, no scope or Q0 fields in the manifest) and are DELETED
-rather than left launchable.  They are regenerated exactly by one command once 1A reports:
+rather than left launchable.  Regeneration once 1A reports (N30/N36 — the old command
+here said "in the chosen production cell" and then rebuilt the same 1x1 decks):
+
+  1. If 1A chose a cell OTHER than the 1x1, FIRST repoint STATES["Cr"]["rundir"] in
+     src/dft/build_hessian_pilot.py at the converged Cr *OOH relaxation in that cell
+     (and record its 1x1 lattice anchor cell_1x1_A unchanged -- it is what the derivation
+     compares against).  If 1A kept the 1x1, the current runs/probe/Cr_basin source stands.
+  2. Then (BOTH flags are required):
 
     PYTHONPATH=src python src/dft/build_hessian_pilot.py --states Cr \
+        --cell-label <label> \
         --cell-verdict-1a "<block 1A's verdict, verbatim>" --out runs/probe
+
+The builder DERIVES cell_label / coverage_ML / verdict_scope from the source deck's
+CELL_PARAMETERS and refuses unless --cell-label EQUALS that derived label (N30/N36).
+The verdict string is then tested against an explicit ADMISSIBILITY GRAMMAR (N30 as
+re-opened by the 1C verify round -- the previous substring check was defeated by a
+verdict that ruled the 1x1 INADMISSIBLE, because a refusal necessarily names the cell it
+refuses): the derived label must appear as an ADMITTED cell, i.e. the verdict must
+contain '<label> [cell] [is] ADMISSIBLE' or 'PRODUCTION CELL = <label>' (word-bounded and
+case-insensitive, so INADMISSIBLE / NOT ADMISSIBLE can never match).  Mere mention is NOT
+admission; anything that fails the grammar refuses to build.  The matched admission text
+is recorded in the manifest as cell_verdict_admission_match.
+
+Since docs/43 am.4 s7 the y-block of any regenerated Hessian is built from the +dy
+FORWARD difference with the reference forces as the base point; the ym decks are still
+emitted and run, solely as the Q6 mirror-identity control, and never enter H.
 
 Ir is not held and runs now (docs/43 s3-A.7): milder contact (2.516 A) and it is the state
 with the known -291 meV yaw90 escape, so it is the one the saddle-point claim most needs.

@@ -1,8 +1,25 @@
 # hp.x GO/NO-GO: bulk rutile TiO2 (2 projectors) + the magnetic, metallic
 # bulk CrO2 arm that docs/43 s4-A.3 requires. Lines: <dir> <scf> <hp> <nk>.
 # Acceptance criteria live in docs/43 s4 + s4-A; this manifest runs them,
-# it does not judge them. Counting decks (hp_npert/hp_npert3/hp_qmesh)
-# exit in ~3 s. hp_npert3 is find_atpert=3, which criterion I5 needs.
+# it does not judge them. GENERATED from the written-file list (N25): every
+# deck in runs/hp_tio2 is on a line below.
+# Counting decks (hp_npert/hp_npert3/hp_qmesh) exit in ~3 s -- NOTHING ELSE
+# DOES; see the totals below. hp_npert3 (find_atpert=3) is an unregistered
+# n_pert cross-check; docs/43 registers no find_atpert comparison (U9).
+# The hp_1atomq__atomic and _q2 rungs re-verify the two measured timing
+# anchors (99.05 s / 85.61 s at NP=12); _q3 is the out-of-sample point that
+# can falsify the k-scaling law on a six-atom cell before the slab bill
+# depends on it.
+#
+# COST, floor / plan / ceiling, from cost_model.json (N26):
+#   U-producing batch (incl. both SCFs):  59.8 / 76.4 / 92.9 core-h
+#   CrO2 arm (incl. its SCF):             4.7 / 10.5 / 19.9 core-h
+#   3 TiO2 timing rungs:                  1.0 / 1.3 / 1.5 core-h
+#   13 counting decks:                    0.21 core-h (13 x 2.9 s wall x NP=20; wall measured at NP=4 and NP-flat, N26)
+#   MANIFEST TOTAL:                       65.7 / 88.4 / 114.5 core-h
+#                                       = 3.3 / 4.4 / 5.7 WALL HOURS at NP=20
+# This manifest owns the box for most of a working day. It is not a
+# background errand.
 #
 # RUN AS: bash queue_hp.sh m_hp_tio2.txt 20 1
 #   nk=4  -> NP must be an exact multiple of 4 (pw.x and hp.x both abort
@@ -10,7 +27,7 @@
 #            usable cores; nproc says 48 and is wrong).
 #   NCONC MUST be 1: the three prefixes below each appear on many lines,
 #            and hp.x names its scratch from prefix + rank alone.
-# The CrO2 arm is the one that licenses block 2C. Order it LAST here only
+# The CrO2 arm is the one that licenses block 2C. It is ordered LAST only
 # because its SCF is the most likely to fail; nothing depends on it first.
 hp_tio2 scf__atomic hp_npert__atomic 4
 hp_tio2 scf__atomic hp_npert3__atomic 4
@@ -30,8 +47,10 @@ hp_tio2 scf__ortho hp__ortho_q222 4
 hp_tio2 scf__ortho hp__ortho_q333 4
 hp_tio2 scf__ortho hp__ortho_q444 4
 hp_tio2 scf__ortho hp__ortho_q333_allatoms 4
+hp_tio2 scf__atomic hp_1atomq__atomic 4
+hp_tio2 scf__atomic hp_1atomq__atomic_q2 4
+hp_tio2 scf__atomic hp_1atomq__atomic_q3 4
 hp_tio2 scf__cro2 hp_npert__cro2 4
 hp_tio2 scf__cro2 hp_npert3__cro2 4
 hp_tio2 scf__cro2 hp_qmesh__cro2_q222 4
 hp_tio2 scf__cro2 hp__cro2_q222 4
-hp_tio2 scf__atomic hp_1atomq__atomic_q3 4

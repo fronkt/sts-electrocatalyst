@@ -60,7 +60,7 @@
 #
 # Manifest lines:  <dir-under-runs> <scf-basename> <hp-basename> <nk>
 #   e.g.  hp_tio2 scf__atomic hp__atomic_q333 4
-#         hp_costmodel crslab_sym__scf crslab_sym__hp_1atomq_q3 6
+#         hp_costmodel crslab_sym__scf crslab_sym__hp_1atomq_a5_q3 6
 # Reads $RUNS/<dir>/<scf>.in and $RUNS/<dir>/<hp>.in, writes <scf>.out and <hp>.out.
 #
 # NP must be an EXACT MULTIPLE of nk for BOTH binaries or they abort in mp_startup, and
@@ -170,10 +170,33 @@ preflight() {
 }
 
 # ---------------------------------------------------------------------------- the SCF ---
+# [N23] the converged string alone proves a PROCESS once converged, not that the ground
+# state is still on disk: this file's own footer tells the operator to rm -rf the tmp_*
+# scratch when the batch is scored, after which a string-only skip sends every rung into
+# hp.x with no charge density -- 23 crashes from a "passing" gate. Skip (and success)
+# require the string AND the charge-density file hp.x will actually read.
+_scf_density_ok() {
+  # $1 = outdir, $2 = prefix. QE writes charge-density.dat (or .hdf5 builds).
+  [ -s "$1/$2.save/charge-density.dat" ] || [ -s "$1/$2.save/charge-density.hdf5" ]
+}
+# [N24] total/absolute magnetisation, read from the .out and logged on BOTH paths. The
+# CrO2 arm exists to exercise the magnetic branch (docs/43 s4-A.3); an SCF that lands on a
+# zero-moment solution is a second closed-shell run and its arm licenses nothing -- the
+# builder's recorded pass condition requires MAG here to be non-zero. Block 1A's
+# adjudication [3] set the record-magnetisation rule this follows.
+_scf_mags() {
+  MAG=$(grep -a 'total magnetization'    "$1" 2>/dev/null | tail -1 | awk '{print $4}')
+  ABSMAG=$(grep -a 'absolute magnetization' "$1" 2>/dev/null | tail -1 | awk '{print $4}')
+  MAG=${MAG:-na}; ABSMAG=${ABSMAG:-na}
+}
 scf_once() {
   local dir=$1 scf=$2 nk=$3
-  if grep -aq "convergence has been achieved" "${scf}.out" 2>/dev/null; then
-    echo "SCF_SKIP $dir/$scf already-converged $(date -u)" >> "$LOG"
+  local sprefix soutdir
+  sprefix=$(deck_field prefix "${scf}.in"); soutdir=$(deck_field outdir "${scf}.in")
+  if grep -aq "convergence has been achieved" "${scf}.out" 2>/dev/null \
+     && _scf_density_ok "$soutdir" "$sprefix"; then
+    _scf_mags "${scf}.out"
+    echo "SCF_SKIP $dir/$scf already-converged MAG=$MAG ABSMAG=$ABSMAG $(date -u)" >> "$LOG"
   else
     local t0; t0=$(date +%s)
     mpirun --allow-run-as-root --bind-to none -np "$NP" \
@@ -181,9 +204,11 @@ scf_once() {
     local rc=$? conv fail
     conv=$(grep -ac 'convergence has been achieved' "${scf}.out" 2>/dev/null || true)
     fail=$(grep -ac 'convergence NOT achieved'      "${scf}.out" 2>/dev/null || true)
-    echo "SCF_DONE $dir/$scf rc=$rc CONV=$conv SCF_FAIL=$fail $(( $(date +%s)-t0 ))s $(date -u)" >> "$LOG"
+    _scf_mags "${scf}.out"
+    echo "SCF_DONE $dir/$scf rc=$rc CONV=$conv SCF_FAIL=$fail MAG=$MAG ABSMAG=$ABSMAG $(( $(date +%s)-t0 ))s $(date -u)" >> "$LOG"
   fi
-  grep -aq 'convergence has been achieved' "${scf}.out" 2>/dev/null
+  grep -aq 'convergence has been achieved' "${scf}.out" 2>/dev/null \
+    && _scf_density_ok "$soutdir" "$sprefix"    # [N23] both, or the rung aborts
 }
 
 # ---------------------------------------------------------------------------- one rung ---
@@ -209,7 +234,11 @@ run_one() {
   # the process dies -- the old mkdir lock survived a crash and blocked the next batch for
   # 12 h. Different prefixes never contend.
   (
-    flock -x 9
+    # [N18] if flock is missing (a rebuilt container image would do it -- the util is not
+    # part of the QE env), the old bare call fell through and the rung ran completely
+    # unserialised, the exact state findings [9]/[18] describe, with nothing in the log.
+    # A lock that cannot be taken is now a loud abort.
+    flock -x 9 || { echo "HP_ABORT $d/$hp reason=no_flock $(date -u)" >> "$LOG"; exit 4; }
     if ! scf_once "$dir" "$scf" "$nk"; then
       echo "HP_ABORT $d/$hp reason=scf_not_converged $(date -u)" >> "$LOG"; exit 3
     fi
@@ -242,7 +271,15 @@ run_one() {
     local hasu=0 nu=0 uval=na
     if [ -s "${hp}.Hubbard_parameters.dat" ]; then
       hasu=$(grep -ac 'Hubbard U parameters:' "${hp}.Hubbard_parameters.dat" 2>/dev/null || true)
-      nu=$(awk '/Hubbard U parameters:/{f=1;next} f && $NF ~ /^-?[0-9]+\.[0-9]+$/ {c++} END{print c+0}' \
+      # [N15] NU counts U-table rows ONLY: the count stops at the first line after the
+      # table that is not a data row (blank line or the next section header). The old awk
+      # ran to EOF and swept up the chi0/chi/inverse/Hubbard matrices that follow in the
+      # same file -- a 2-Ti .dat reported NU=12 for 2 U values, a number shaped to be
+      # copied into a table later.
+      nu=$(awk '/Hubbard U parameters:/{f=1;next}
+                f && c>0 && $NF !~ /^-?[0-9]+\.[0-9]+$/ {exit}
+                f && $NF ~ /^-?[0-9]+\.[0-9]+$/ {c++}
+                END{print c+0}' \
              "${hp}.Hubbard_parameters.dat")
       uval=$(awk '/Hubbard U parameters:/{f=1;next} f && $NF ~ /^-?[0-9]+\.[0-9]+$/ {print $NF; exit}' \
              "${hp}.Hubbard_parameters.dat")
@@ -269,6 +306,10 @@ run_one() {
 
 # ------------------------------------------------------------------------------ driver ---
 echo "QUEUE_HP_START $(date -u) NP=$NP NCONC=$NCONC manifest=$MANIFEST cpu.max=$(cat /sys/fs/cgroup/cpu.max 2>/dev/null)" >> "$LOG"
+# [N14][N21] the log is append-only and shared by every manifest and every re-run, so any
+# count taken over the whole file describes history, not this batch. Capture the byte
+# offset now; the banner greps only what THIS run appended after this point.
+BATCH_OFF=$(wc -c < "$LOG")
 if ! preflight; then
   echo "QUEUE_HP_ABORTED_PREFLIGHT $(date -u)" >> "$LOG"
   exit 1
@@ -285,15 +326,28 @@ while read -r d scf hp nk _rest; do
 done < "$MANIFEST"
 wait
 
-# The banner is not allowed to be the only thing at the end of the log. A batch in which
-# every U-producing deck failed and a batch in which every one succeeded used to emit
-# identical tails; these two counts are what makes them different at a glance.
-want=$(grep -ac 'HP_DONE .* EXPECT=U ' "$LOG" 2>/dev/null || true)
-got=$(grep -ac 'HP_DONE .* EXPECT=U ARTIFACT=1 ' "$LOG" 2>/dev/null || true)
-echo "QUEUE_HP_ALL_DONE U_DECKS=$want WITH_ARTIFACT=$got (log-wide counts) $(date -u)" >> "$LOG"
+# The banner is not allowed to be the only thing at the end of the log, and it counts
+# THIS BATCH ONLY ([N14][N21]): every grep below runs on the bytes appended after the
+# QUEUE_HP_START offset, so a re-run cannot inherit an earlier batch's successes and the
+# TiO2 batch's counts cannot leak into the costmodel batch's banner.
+# [U11] NOTCONV is carried, and CLEAN_ARTIFACT requires NOTCONV=0: hp.x writes the
+# .Hubbard_parameters.dat even after "Convergence has not been reached" (measured, FeO2),
+# so ARTIFACT=1 alone is reachable on a stalled linear response -- which is precisely the
+# CrO2 arm's registered failure mode (docs/43 s4-A.3: a finite U with ZERO such lines).
+# A batch whose every U came from a stalled response must not print a clean tail.
+batch=$(tail -c +$((BATCH_OFF + 1)) "$LOG" 2>/dev/null || true)
+want=$(printf '%s\n' "$batch" | grep -ac 'HP_DONE .* EXPECT=U ' || true)
+gotany=$(printf '%s\n' "$batch" | grep -ac 'HP_DONE .* EXPECT=U ARTIFACT=1 ' || true)
+clean=$(printf '%s\n' "$batch" | { grep -a 'HP_DONE .* EXPECT=U ARTIFACT=1 ' || true; } | grep -ac ' NOTCONV=0 ' || true)
+nconv=$(printf '%s\n' "$batch" | { grep -a 'HP_DONE .* EXPECT=U ' || true; } | grep -ac ' NOTCONV=[1-9]' || true)
+aborts=$(printf '%s\n' "$batch" | grep -ac 'HP_ABORT ' || true)
+echo "QUEUE_HP_ALL_DONE U_DECKS=$want WITH_ARTIFACT=$gotany CLEAN_ARTIFACT=$clean NOTCONV_RUNGS=$nconv ABORTS=$aborts (this batch only) $(date -u)" >> "$LOG"
 # The scratch dirs are deliberately NOT removed: an hp.x rerun (compute_hp=.true.
 # post-processing, or an extra q-mesh rung) needs the same .save, and re-running a 30-minute
 # slab SCF to recover it is the expensive mistake this whole script exists to avoid. Note
 # that a compute_hp rerun also needs <outdir>/HP/<prefix>.chi.dat back under its PREFIX name;
 # the per-rung copies here are named after the deck.
 # Clean them by hand when the batch is scored: rm -rf $RUNS/*/tmp_* $RUNS/*/.hp_*.lock
+# (After that cleanup a re-run pays each SCF again: scf_once requires the charge density
+# on disk, not just the converged string in the .out, so it re-runs instead of letting
+# hp.x crash 23 times on a missing .save -- [N23].)

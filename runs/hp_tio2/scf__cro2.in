@@ -6,6 +6,7 @@
   verbosity = 'high'
   tprnfor = .true.
   tstress = .false.
+  max_seconds = 243  ! 2x modelled SCF cost at NP=20 (N22)
 /
 &SYSTEM
   ibrav = 6
@@ -25,7 +26,7 @@
 &ELECTRONS
   conv_thr = 1.0d-10
   mixing_beta = 0.3
-  electron_maxstep = 200
+  electron_maxstep = 120
 /
 ATOMIC_SPECIES
   Cr  51.996  cr_pbe_v1.5.uspp.F.UPF

@@ -5,20 +5,26 @@
   "source_out": "runs/Ir_anchor\\s0_OOH.out",
   "job": "s0_OOH",
   "note": "on-record mirror-plane *OOH, eta 0.781 V (docs/32); nspin=1, no Hubbard U; the state P10 found a -0.291 eV yaw90 escape from (docs/41 s6c)",
-  "method": "Partial Hessian on the adsorbate atoms only, central finite differences of forces. nosym/noinv on every deck INCLUDING the reference; each SCF starts from a fresh atomic-superposition density so the 19 points are independent.",
+  "method": "Partial Hessian on the adsorbate atoms only, finite differences of forces: x/z rows by central +/- pairs; y rows by the +dy FORWARD difference with the reference forces as the base point (docs/43 am.4 s7 items 1-2 \u2014 the ym decks run solely as the Q6 mirror-identity control and never enter H). nosym/noinv on every deck INCLUDING the reference; each SCF starts from a fresh atomic-superposition density so the 19 points are independent.",
   "prereg": "docs/43-prereg-week1-factorial.md sec 3 (P14) + sec 3-A (amendment 1). This manifest holds no copy of the rule; hessian_analyze.py --print-prereg reads those sections out of docs/43.",
   "verdict_scope": "q = 0, 1x1 cell, 1 ML",
   "cell_label": "1x1",
   "coverage_ML": 1.0,
   "wavevector": "Gamma (q = 0)",
+  "cell_1x1_A": [
+    3.154,
+    6.3611326
+  ],
   "verdict_axis": "y",
   "axes_purpose": {
-    "y": "THE 1C VERDICT. Mirror-normal. Central difference kept for its sqrt(2) noise gain.",
+    "y": "THE 1C VERDICT. Mirror-normal. The y-block of H is built from the +dy FORWARD difference exclusively, with the reference forces as the base point (docs/43 am.4 s7 items 1-2). The ym deck is the exact mirror of the yp deck (docs/43 amendment 3): no sqrt(2) gain, no independent noise realisation. It NEVER enters H; it is retained and run solely as the Q6 mirror-identity control \u2014 F_y(ym) = -F_y(yp), F_x/F_z(ym) = +F_x/F_z(yp) on the raw force blocks \u2014 the only available test of the Hessian diagonal (finding N34).",
     "x": "block 2B in-house ZPE/-TS table. NOT diagnostic for 1C: F_y is identically zero in these decks by mirror symmetry, so they carry no y-block information.",
     "z": "block 2B in-house ZPE/-TS table. NOT diagnostic for 1C: F_y is identically zero in these decks by mirror symmetry, so they carry no y-block information."
   },
   "cr_held_pending_1a": false,
   "cell_verdict_1a": null,
+  "cell_label_operator": null,
+  "cell_verdict_admission_match": null,
   "min_image_contact_angstrom": 2.5164295795614042,
   "min_image_contact_label": "O19...O20(-1,+0)",
   "min_image_H_contact_angstrom": 2.5540170620492035,

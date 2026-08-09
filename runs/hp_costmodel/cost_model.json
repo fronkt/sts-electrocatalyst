@@ -6,11 +6,17 @@
     "external_window": "see docs/43 s4-A.1. NOT copied here on purpose: three builders wrote a contradicting copy of a registered rule into a source file on 2026-08-09, and a widened acceptance window sitting in a build artifact is the single most damaging thing an STS judge could find. The value is read from the pre-registration or not at all. What is recorded here is only that the build round's proposed widening was REJECTED.",
     "withdrawn": "perturbation-amplitude independence -- hp.x is DFPT and the binary has no amplitude keyword, so the check was unperformable, not merely unmet (docs/43 s4-A.2). Replaced by the CrO2 arm (s4-A.3).",
     "demoted_to_diagnostic": {
-      "answer": "POST-symmetrisation. |chi_ij - chi_ji| is identically zero in anything hp.x reports, so the registered check passes vacuously on every run, converged or not, at any conv_thr_chi.",
-      "evidence": "QE 7.5 HP/src/hp_postproc.f90, SUBROUTINE reconstruct_full_chi: after filling missing elements by distance matching it runs an unconditional chi_(na,nb) = 0.5*(chi_(na,nb)+chi_(nb,na)) loop over ALL (na,nb), on chi0 and chi both, and only then does calculate_Hubbard_parameters write the .dat. average_similar_elements runs one step earlier and smears equal-distance elements together as well.",
-      "consequence": "Reported as a diagnostic, never gated (docs/43 s4-A.4). It is not quite content-free: the RAW <outdir>/HP/<prefix>.chi.dat written during the run by hp_write_chi_full is pre-symmetrisation, and when find_atpert = 4 perturbs both Ti independently its two columns ARE computed independently, so chi(1,2) vs chi(2,1) read off that file is a genuine measurement. That is only possible because queue_hp.sh now preserves the file per rung."
+      "status": "PENDING",
+      "answer": "PENDING -- resolved per docs/43 s4-A.4 by reading the first completed iverbosity = 2 run: compare the RAW <outdir>/HP/<prefix>.chi.dat (preserved per rung by queue_hp.sh as <deck>.chi*.dat) against the matrices in <deck>.Hubbard_parameters.dat. If chi_ij != chi_ji in the raw file while the .dat is symmetric, the printed chi is post-symmetrisation and the registered check is vacuous; if the raw file is already symmetric to well below docs/43 s4's tolerance, the check has content.",
+      "prior_expectation": "An off-box reading of QE's HP post-processing source suggested an unconditional 0.5*(chi_ij+chi_ji) symmetrisation before anything is written -- NOT verifiable on the box (no source tree; find / -name hp_postproc.f90 returns nothing), so it is recorded as an expectation, not as evidence.",
+      "consequence": "Reported as a diagnostic, never gated (docs/43 s4-A.4), whichever way the pending measurement resolves. Independent of it, when find_atpert = 4 perturbs both Ti independently their two chi columns are computed independently, so chi(1,2) vs chi(2,1) read off the RAW per-rung file is a genuine measurement either way."
     }
   },
+  "manifests": [
+    "m_hp_tio2.txt",
+    "m_hp_costmodel_sym.txt",
+    "m_hp_costmodel_nosym.txt"
+  ],
   "built": "2026-08-09",
   "pseudopotentials": {
     "Ti": {
@@ -57,7 +63,7 @@
       "n_pert_expected": 1,
       "n_q_expected": 6,
       "file": "hp__atomic_q222.in",
-      "role": "q-mesh ladder (I1)"
+      "role": "q-mesh ladder (docs/43 s4: q-mesh convergence)"
     },
     {
       "system": "TiO2",
@@ -70,7 +76,7 @@
       "n_pert_expected": 1,
       "n_q_expected": 8,
       "file": "hp__atomic_q333.in",
-      "role": "q-mesh ladder (I1)"
+      "role": "q-mesh ladder (docs/43 s4: q-mesh convergence)"
     },
     {
       "system": "TiO2",
@@ -83,7 +89,7 @@
       "n_pert_expected": 1,
       "n_q_expected": 21,
       "file": "hp__atomic_q444.in",
-      "role": "q-mesh ladder (I1)"
+      "role": "q-mesh ladder (docs/43 s4: q-mesh convergence)"
     },
     {
       "system": "TiO2",
@@ -96,7 +102,7 @@
       "n_pert_expected": 2,
       "n_q_expected": 8,
       "file": "hp__atomic_q333_allatoms.in",
-      "role": "two-site reproducibility (I2)"
+      "role": "two-site reproducibility (docs/43 s4 + s4-A.4)"
     },
     {
       "system": "TiO2",
@@ -109,7 +115,7 @@
       "n_pert_expected": 1,
       "n_q_expected": 6,
       "file": "hp__ortho_q222.in",
-      "role": "q-mesh ladder (I1)"
+      "role": "q-mesh ladder (docs/43 s4: q-mesh convergence)"
     },
     {
       "system": "TiO2",
@@ -122,7 +128,7 @@
       "n_pert_expected": 1,
       "n_q_expected": 8,
       "file": "hp__ortho_q333.in",
-      "role": "q-mesh ladder (I1)"
+      "role": "q-mesh ladder (docs/43 s4: q-mesh convergence)"
     },
     {
       "system": "TiO2",
@@ -135,7 +141,7 @@
       "n_pert_expected": 1,
       "n_q_expected": 21,
       "file": "hp__ortho_q444.in",
-      "role": "q-mesh ladder (I1)"
+      "role": "q-mesh ladder (docs/43 s4: q-mesh convergence)"
     },
     {
       "system": "TiO2",
@@ -148,7 +154,7 @@
       "n_pert_expected": 2,
       "n_q_expected": 8,
       "file": "hp__ortho_q333_allatoms.in",
-      "role": "two-site reproducibility (I2)"
+      "role": "two-site reproducibility (docs/43 s4 + s4-A.4)"
     },
     {
       "system": "CrO2",
@@ -164,7 +170,7 @@
       "occupations": "smearing mv 0.01",
       "file": "hp__cro2_q222.in",
       "role": "magnetic/metallic branch, docs/43 s4-A.3 check 4'",
-      "pass_condition": "a finite U with zero 'Convergence has not been reached'"
+      "pass_condition": "a finite U with zero 'Convergence has not been reached' lines (docs/43 s4-A.3, quoted not restated) AND a non-zero total magnetization in the SCF log (queue_hp.sh MAG= field) -- a zero-moment solution means the magnetic branch was never exercised (N24)"
     }
   ],
   "costmodel_jobs": [
@@ -180,9 +186,12 @@
       },
       "scf_file": "crslab_sym__scf.in",
       "timing_files": [
-        "crslab_sym__hp_1atomq.in (q#1 = Gamma)",
-        "crslab_sym__hp_1atomq_q3.in (q#3 = general, predicted N_k = 27 vs 15 at Gamma)"
+        "crslab_sym__hp_1atomq_a5.in (q#1 = Gamma, surface Cr 5)",
+        "crslab_sym__hp_1atomq_a5_q3.in (q#3, surface Cr 5, N_k = 27 vs 15 at Gamma -- general-q symmetry probe (THE headline timing point for block 3Y))",
+        "crslab_sym__hp_1atomq_a1.in (q#1 = Gamma, frozen bottom-layer Cr 1; with the a5 deck this measures the surface/subsurface n_LR ratio, N27)",
+        "crslab_sym__hp_1atomq_a1_q3.in (q#3, frozen bottom-layer Cr 1)"
       ],
+      "q3_role": "general-q symmetry probe (THE headline timing point for block 3Y)",
       "q_table_3x2x1": [
         {
           "index": 1,
@@ -235,12 +244,14 @@
       ],
       "changes_vs_source": [
         "conv_thr",
+        "electron_maxstep",
         "nosym/noinv removed",
         "calculation",
         "prefix",
         "outdir",
         "positions",
-        "HUBBARD U"
+        "HUBBARD U",
+        "max_seconds added (N22)"
       ]
     },
     {
@@ -253,9 +264,12 @@
       },
       "scf_file": "crslab_nosym__scf.in",
       "timing_files": [
-        "crslab_nosym__hp_1atomq.in (q#1 = Gamma)",
-        "crslab_nosym__hp_1atomq_q3.in (q#3 = general, predicted N_k = 36 vs 36 at Gamma)"
+        "crslab_nosym__hp_1atomq_a5.in (q#1 = Gamma, surface Cr 5)",
+        "crslab_nosym__hp_1atomq_a5_q3.in (q#3, surface Cr 5, N_k = 36 vs 36 at Gamma -- n_LR replicate at a second q -- NOT a symmetry probe; every nosym q has N_k = 36 (N16))",
+        "crslab_nosym__hp_1atomq_a1.in (q#1 = Gamma, frozen bottom-layer Cr 1; with the a5 deck this measures the surface/subsurface n_LR ratio, N27)",
+        "crslab_nosym__hp_1atomq_a1_q3.in (q#3, frozen bottom-layer Cr 1)"
       ],
+      "q3_role": "n_LR replicate at a second q -- NOT a symmetry probe; every nosym q has N_k = 36 (N16)",
       "q_table_3x2x1": [
         {
           "index": 1,
@@ -332,11 +346,13 @@
       ],
       "changes_vs_source": [
         "conv_thr",
+        "electron_maxstep",
         "calculation",
         "prefix",
         "outdir",
         "positions",
-        "HUBBARD U"
+        "HUBBARD U",
+        "max_seconds added (N22)"
       ]
     }
   ],
@@ -350,14 +366,14 @@
         0.0
       ],
       "core_h": [
-        29.0,
-        72.0,
-        141.0
+        18.0,
+        36.0,
+        56.0
       ],
       "wall_h_at_np": [
-        1.6,
-        4.0,
-        7.8
+        1.0,
+        2.0,
+        3.1
       ],
       "np": 18
     },
@@ -370,14 +386,14 @@
         0.0
       ],
       "core_h": [
-        55.0,
-        133.0,
-        260.0
+        34.0,
+        67.0,
+        104.0
       ],
       "wall_h_at_np": [
-        3.1,
-        7.4,
-        14.4
+        1.9,
+        3.7,
+        5.8
       ],
       "np": 18
     },
@@ -390,14 +406,14 @@
         0.0
       ],
       "core_h": [
-        68.0,
-        172.0,
-        339.0
+        43.0,
+        86.0,
+        135.0
       ],
       "wall_h_at_np": [
-        3.8,
-        9.5,
-        18.8
+        2.4,
+        4.8,
+        7.5
       ],
       "np": 18
     },
@@ -410,14 +426,14 @@
         0.0
       ],
       "core_h": [
-        73.0,
-        178.0,
-        346.0
+        46.0,
+        89.0,
+        139.0
       ],
       "wall_h_at_np": [
-        4.1,
-        9.9,
-        19.2
+        2.5,
+        4.9,
+        7.7
       ],
       "np": 18
     }
@@ -616,15 +632,16 @@
       "[10] the flat 0.308 core-h per (atom,q) is gone. It was measured at nq=2x2x2, the one mesh whose every q is a TRIM, so hp.x got maximum symmetry reduction at every point that fed the model. See correction_vs_flat_model in the batch row.",
       "[10] the review proposed scaling by the PRINTED k-count. Measured, that over-costs every non-Gamma q by 2x: q#1 printed 65 and cost 7.63 s per LR iteration; q#2 printed 130 -- twice as many -- and cost 8.0 s, five per cent more. The printed count includes the k+q set, which the NSCF diagonalises but the Sternheimer solve does not iterate over. The scaling variable is N_k = printed/2 away from Gamma, and the review's own third point settles it: 12.5 s at N_k = 104 against 7.8 s at N_k = 65 is a ratio of 1.60 against 1.60.",
       "[11] the slab timing decks. q#1 is Gamma on every mesh, and on the 3x2x1 slab mesh q#2 = (0,1/2,0) is ALSO fully symmetric (N_k = 15, the same as Gamma), so the review's proposed start_q=2 would have re-measured the defect. The added deck is q#3 = (1/3,0,0), N_k = 27. Each slab row carries the gamma_understatement factor the Gamma-only anchor was missing.",
-      "the old R_iter = 5.54 conflated a 65-k LR iteration with a 50-k SCF iteration. Per k it is 4.3, and the slab extrapolation now carries the cell factor and the k count separately."
+      "the old R_iter = 5.54 conflated a 65-k LR iteration with a 50-k SCF iteration. Per k it is 4.3, and the slab extrapolation now carries the cell factor and the k count separately.",
+      "[N19] the previous build multiplied the slab rows by BOTH cell_factor (derived from the nspin=2 slab SCF, so it already contains the spin cost) AND SPIN_UPLIFT -- the same spin cost twice, from the same measurement pair. SPIN_UPLIFT is removed from the slab rows (kept on the bulk CrO2/2C rows, whose basis is nspin=1 TiO2), and _atomq_core_s now refuses any call that multiplies both. Every slab number roughly halved at plan basis."
     ],
     "assumptions": [
-      "n_LR on a magnetic metal is ASSUMED (floor 12 / plan 25 / ceiling 40); TiO2 measured 9 and 12. This is the largest single unknown in the table and it is what runs/hp_costmodel/*_hp_1atomq_q3.in exists to remove.",
-      "the nspin = 2 uplift per LR iteration is ASSUMED (1.6 / 2.0 / 2.5).",
+      "n_LR on a magnetic metal is ASSUMED (floor 12 / plan 25 / ceiling 40); TiO2 measured 9 and 12. This is the largest single unknown in the table and it is what runs/hp_costmodel/*_hp_1atomq_a5_q3.in exists to remove -- and [N27] n_LR is site-dependent, which is why the a5 (surface) and a1 (frozen bulk-like) variants both ship: their ratio is the measurement.",
+      "the nspin = 2 uplift per LR iteration is ASSUMED (1.6 / 2.0 / 2.5) and applies ONLY to bulk rows extrapolated from nspin=1 TiO2; the slab rows carry their spin cost inside the measured cell_factor instead (N19).",
       "ortho-atomic projectors are costed at the same rate as atomic; unmeasured.",
       "slab SCF cost is the campaign's own measurement on a 32-core box (runs/Cr_slab/slab.out), not on this 23.04-core one; core-seconds are used throughout so the two are comparable, but parallel efficiency is not identical.",
       "hp.x on the slab may reduce the k-set further than pw.x did (it keeps only the operations that fix the perturbed Cr), so the slab N_k here are LOWER bounds between the measured 15 at Gamma and the unreduced 36.",
-      "tasks/lessons.md 2026-08-05: this project's last three compute estimates came in 2.4x, 2.5x and 3.5x low, every one of them extrapolated from a cheaper system. The slab rows are exactly that shape. Treat 'plan' as a floor and run runs/hp_costmodel/crslab_sym__hp_1atomq_q3.in before committing block 3Y."
+      "tasks/lessons.md 2026-08-05: this project's last three compute estimates came in 2.4x, 2.5x and 3.5x low, every one of them extrapolated from a cheaper system. The slab rows are exactly that shape. Treat 'plan' as a floor and run runs/hp_costmodel/crslab_sym__hp_1atomq_a5_q3.in before committing block 3Y."
     ],
     "n_lr": {
       "TiO2": {
@@ -643,7 +660,12 @@
       "plan": 2.0,
       "ceiling": 2.5
     },
+    "niter_max": {
+      "TiO2": 30,
+      "magnetic": 80
+    },
     "slab_cell_factor_vs_tio2_per_iteration_per_k": 229.6,
+    "slab_cell_factor_note": "numerator is the nspin=2 slab SCF, so this factor already contains the spin cost; slab rows therefore take no SPIN_UPLIFT (N19)",
     "table": [
       {
         "system": "bulk rutile TiO2, 1 perturbed atom",
@@ -723,7 +745,7 @@
         "core_h_plan": 10.5,
         "core_h_ceiling": 19.9,
         "wall_min_at_np20": 32.0,
-        "note": "docs/43 s4-A.3 estimates 'roughly ten minutes of the box'. The measured-anchored model says 20-50 min at NP=20 including its SCF. Still cheap, still required; the ten-minute figure should not be quoted as the cost."
+        "note": "docs/43 s4-A.3 estimates 'roughly ten minutes of the box'. This row's own bracket at NP=20 including its SCF is 14 / 32 / 60 min (floor / plan / ceiling). Still cheap, still required; neither the ten-minute figure nor any number outside this bracket should be quoted as the cost (N12)."
       },
       {
         "system": "block 2C: 7 metals bulk, 2 projectors, nq 3x3x3",
@@ -770,12 +792,12 @@
           36,
           36
         ],
-        "core_h_floor": 2610.0,
-        "core_h_plan": 6361.0,
-        "core_h_ceiling": 12421.0,
-        "gamma_anchored_core_h": 6179.0,
+        "core_h_floor": 1631.0,
+        "core_h_plan": 3181.0,
+        "core_h_ceiling": 4969.0,
+        "gamma_anchored_core_h": 3089.0,
         "gamma_understatement": 1.03,
-        "box_days_at_23_cores": 11.5
+        "box_days_at_23_cores": 5.8
       },
       {
         "system": "CrO2(110) clean slab",
@@ -790,12 +812,12 @@
           27,
           27
         ],
-        "core_h_floor": 1014.0,
-        "core_h_plan": 2473.0,
-        "core_h_ceiling": 4829.0,
-        "gamma_anchored_core_h": 1716.0,
+        "core_h_floor": 634.0,
+        "core_h_plan": 1236.0,
+        "core_h_ceiling": 1932.0,
+        "gamma_anchored_core_h": 858.0,
         "gamma_understatement": 1.44,
-        "box_days_at_23_cores": 4.5
+        "box_days_at_23_cores": 2.2
       },
       {
         "system": "CrO2(110) clean slab",
@@ -808,12 +830,12 @@
           15,
           15
         ],
-        "core_h_floor": 354.0,
-        "core_h_plan": 873.0,
-        "core_h_ceiling": 1713.0,
-        "gamma_anchored_core_h": 858.0,
+        "core_h_floor": 221.0,
+        "core_h_plan": 437.0,
+        "core_h_ceiling": 685.0,
+        "gamma_anchored_core_h": 429.0,
         "gamma_understatement": 1.02,
-        "box_days_at_23_cores": 1.6
+        "box_days_at_23_cores": 0.8
       },
       {
         "system": "CrO2(110) clean slab",
@@ -826,12 +848,12 @@
           15,
           15
         ],
-        "core_h_floor": 118.0,
-        "core_h_plan": 291.0,
-        "core_h_ceiling": 571.0,
-        "gamma_anchored_core_h": 286.0,
+        "core_h_floor": 74.0,
+        "core_h_plan": 146.0,
+        "core_h_ceiling": 228.0,
+        "gamma_anchored_core_h": 143.0,
         "gamma_understatement": 1.02,
-        "box_days_at_23_cores": 0.5
+        "box_days_at_23_cores": 0.3
       },
       {
         "system": "CrO2(110) clean slab",
@@ -843,12 +865,12 @@
         "n_k_per_q": [
           15
         ],
-        "core_h_floor": 57.0,
-        "core_h_plan": 143.0,
-        "core_h_ceiling": 282.0,
-        "gamma_anchored_core_h": 143.0,
+        "core_h_floor": 36.0,
+        "core_h_plan": 72.0,
+        "core_h_ceiling": 113.0,
+        "gamma_anchored_core_h": 72.0,
         "gamma_understatement": 1.0,
-        "box_days_at_23_cores": 0.3
+        "box_days_at_23_cores": 0.1
       }
     ]
   }

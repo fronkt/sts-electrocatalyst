@@ -1,0 +1,40 @@
+# hp.x cost model -- NOSYM ARM. GENERATED from the written-file list (N25):
+# every crslab_nosym deck in runs/hp_costmodel is on a line below.
+# Lines: <dir> <scf> <hp> <nk>.
+#
+# [N13] DO NOT LAUNCH THIS FILE until m_hp_costmodel_sym.txt has run and its
+# wall clock has been read. This arm costs real box-hours, and the decision to
+# pay for it is supposed to be taken on the sym arm's measured number -- not
+# committed in the same command that measures it.
+#
+# [N16] WHAT THESE TIMING DECKS ARE: with nosym there is no symmetry left to
+# lose, so EVERY q of every mesh has N_k = 36. The _q3 decks are therefore
+# n_LR REPLICATES at a second q, NOT symmetry probes -- they cannot measure
+# the Gamma-understatement (the model's own figure for this arm is 1.03; the
+# sym q1/q3 pair is the only place it is measurable). What this arm DOES buy:
+# the sym-vs-nosym cost ratio at equal n_LR assumptions -- what symmetry is
+# worth, measured rather than assumed -- plus two more independent n_LR draws
+# per q (atom 5 surface / atom 1 frozen bulk-like, N27).
+# Projections, floor / plan / ceiling WALL HOURS at NP=18 (N19-corrected):
+#     nosym_q1  N_k=36  q=[0.0, 0.0, 0.0]  [2.4, 4.8, 7.5] h   <- Gamma
+#     nosym_q3  N_k=36  q=[0.3333, 0.0, 0.0]  [2.5, 4.9, 7.7] h   <- n_LR replicate: N_k identical to Gamma (N16)
+# First rung pays the SCF: modelled ~1.4 h wall at NP=18; its deck's max_seconds caps it at 2x that (N22).
+# ARM TOTAL (plan): SCF ~1.4 h + 4 timing rungs ~19.4 h = ~20.8 wall-hours at NP=18 (ceiling ~31.8).
+#
+# RUN AS (only after the sym wall clock is read):
+#   bash queue_hp.sh m_hp_costmodel_nosym.txt 18 1
+#   nk=6  -> NP must be 6, 12 or 18. NP x NCONC <= 23 (cgroup = 23.04 usable
+#            cores), so NP=18 forces NCONC=1 by itself.
+#   NCONC MUST be 1 for a second reason: these lines are TIMINGS. A wall clock
+#            taken while another job competes for a throttled cgroup is not a cost
+#            basis, it is the mechanism behind the 2.4x/2.5x/3.5x mis-costings in
+#            tasks/lessons.md 2026-08-05.
+# CHECK against the .out: hp.x prints the q coordinates and 'number of k points='.
+hp_costmodel crslab_nosym__scf crslab_nosym__hp_npert 6
+hp_costmodel crslab_nosym__scf crslab_nosym__hp_qmesh_q321 6
+hp_costmodel crslab_nosym__scf crslab_nosym__hp_qmesh_q421 6
+hp_costmodel crslab_nosym__scf crslab_nosym__hp_qmesh_q941 6
+hp_costmodel crslab_nosym__scf crslab_nosym__hp_1atomq_a5 6
+hp_costmodel crslab_nosym__scf crslab_nosym__hp_1atomq_a1 6
+hp_costmodel crslab_nosym__scf crslab_nosym__hp_1atomq_a5_q3 6
+hp_costmodel crslab_nosym__scf crslab_nosym__hp_1atomq_a1_q3 6

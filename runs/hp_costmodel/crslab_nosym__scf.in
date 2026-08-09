@@ -4,6 +4,7 @@
   outdir = './tmp_crslab_nosym'
   pseudo_dir = '/usr/share/espresso/pseudo'
   tprnfor = .true.
+  max_seconds = 9920  ! 2x modelled SCF cost at NP=18 (N22)
 /
 &SYSTEM
   ibrav = 0
@@ -24,7 +25,7 @@
   conv_thr = 1.0d-10
   mixing_mode = 'local-TF'
   mixing_beta = 0.3
-  electron_maxstep = 200
+  electron_maxstep = 120
 /
 ATOMIC_SPECIES
   Cr  51.996  cr_pbe_v1.5.uspp.F.UPF

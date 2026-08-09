@@ -65,7 +65,7 @@ contact from the emitted geometry and refuses to be quiet about it —
 The two modes most likely to come back imaginary — the OOH yaw and the H torsion — are on Cr
 governed by that image contact rather than by the mirror constraint the paper is about, so a
 CONFIRMED on Cr at 1x1 would be attributed to the symmetry trap when its cause is the
-coverage. A proton in a 2.40 A O...O bond is also the worst case for a harmonic central
+coverage. A proton in a 2.40 A O...O bond is also the worst case for a harmonic finite
 difference. Block 1A is concurrently deciding whether the 1x1 cell is admissible at all.
 
 So **Cr is held until 1A returns its cell verdict** and is then run in the chosen production
@@ -73,36 +73,54 @@ cell; building it requires `--cell-verdict-1a "<the verdict>"`, which is recorde
 manifest. **Ir runs now**: it is the milder contact and it is the state with the known
 -291 meV escape, so it is the one the saddle-point claim most needs.
 
-Which decks decide the verdict (docs/43 §3-A.8)
------------------------------------------------
+Which decks decide the verdict (docs/43 §3-A.8, corrected by amendment 3)
+-------------------------------------------------------------------------
 At an exactly mirror-symmetric reference the y block decouples exactly, so F_y is identically
 zero in every +/-x and +/-z deck and all 18 y/xz cross-elements of the Hessian are
-structurally zero. **1C's verdict rests on the +/-y block.** The +/-x and +/-z decks are
+structurally zero. **1C's verdict rests on the y block.** The +/-x and +/-z decks are
 still emitted, and their stated purpose is now block 2B's in-house ZPE/-TS table, not this
-verdict. The +/-y central difference is kept for its sqrt(2) noise gain over a one-sided
-difference. `axes_purpose` in the manifest records this so a reader cannot mistake the 12
-in-plane decks for evidence the verdict used.
+verdict. [U15] The ym decks buy NO sqrt(2) noise gain and NO independent noise realisation:
+each ym deck is the EXACT mirror of its yp partner (verified to 8.9e-16 A, slab included),
+pw.x is deterministic, so F(ym) is the mirror of F(yp) — SCF convergence error included —
+and the central difference reduces algebraically to the one-sided difference (docs/43
+amendment 3). docs/43 am.4 §7 items 1-2 resolve what follows: **the y-block of H is built
+from the +dy FORWARD difference exclusively, with the reference forces as the base point;
+the ym decks are RETAINED and RUN solely as the Q6 mirror-identity control and NEVER enter
+H.** The identity F_y(ym) = -F_y(yp), F_x/F_z(ym) = +F_x/F_z(yp) on the raw force blocks
+is the ONLY available test of the Hessian DIAGONAL, and hessian_analyze.py enforces it as
+gate Q6 (finding N34). `axes_purpose` in the manifest records this so a reader cannot
+mistake the 12 in-plane decks for evidence the verdict used.
 
 Method, and the four traps in it
 --------------------------------
-Partial Hessian, ADSORBATE ATOMS ONLY, central finite differences of forces.
+Partial Hessian, ADSORBATE ATOMS ONLY, finite differences of forces: the x/z rows by
+central +/- pairs, the y rows by the +dy FORWARD difference with the reference forces as
+the base point (docs/43 am.4 §7 items 1-2 — the ym decks run solely as the Q6 mirror
+control and never enter H).
 
     3 adsorbate atoms x 3 cartesian x 2 signs = 18 displacements
                                               +  1 reference
                                               = 19 SCFs per state, 38 for the pilot.
 
 (The plan's "36 SCFs" omitted the reference. The reference is not optional: it is the
-baseline for the magnetisation guard and it is the only place the residual gradient at the
-on-record geometry gets measured. This script prints the arithmetic for whatever it
-actually generates — do not trust the number in the plan, trust the one it prints.)
+baseline for the magnetisation guard, the base point of every y-row forward difference
+(am.4 §7 item 2), and the only place the residual gradient at the on-record geometry gets
+measured. This script prints the arithmetic for whatever it actually generates — do not
+trust the number in the plan, trust the one it prints.)
 
 **Trap 1 — conv_thr, and it is now MEASURED rather than extrapolated.** QE's default 1e-8 is
 not tight enough, and the arithmetic says so. The Hellmann-Feynman force error is *linear* in
 the density error while the total-energy error is *quadratic*, so if conv_thr bounds the
 energy estimate at eps the force noise goes as sigma_F ~ C*sqrt(eps) with C of order
 1 Ry/bohr (ORDER-OF-MAGNITUDE ASSUMPTION — the analysis script measures C for real, from the
-Hessian asymmetry, and reports it). Two independent displaced SCFs give a force-constant
-noise sigma_k = sqrt(2)*sigma_F/(2*delta), and at delta = 0.01 A, 2*delta = 0.0377946 bohr.
+Hessian asymmetry, and reports it). A +/- pair of displaced SCFs with INDEPENDENT errors —
+the +/-x and +/-z pairs — gives a force-constant noise sigma_k = sqrt(2)*sigma_F/(2*delta).
+[U15] The +/-y pair is NOT such a pair: the ym run is the exact mirror of the yp run
+(docs/43 amendment 3), its error is the same realisation mirrored, so there is no averaging
+on the block the verdict rests on. Per am.4 §7 item 2 the y rows of H are the +dy FORWARD
+difference (F(+dy) - F(ref))/delta — two independent SCF evaluations, so the y-row noise
+is sqrt(2)*sigma_F/delta, twice the central-pair sigma_F/(sqrt(2)*delta) of the x/z rows.
+At delta = 0.01 A, 2*delta = 0.0377946 bohr.
 Converting to the frequency of an oxygen atom (kappa_50 = 3.027e-3 Ry/bohr^2 is a 50 cm^-1
 oscillator of mass 16 amu):
 
@@ -223,7 +241,12 @@ Usage
 -----
   PYTHONPATH=src python src/dft/build_hessian_pilot.py --out runs/probe            # Ir only
   PYTHONPATH=src python src/dft/build_hessian_pilot.py --states Cr \
-      --cell-verdict-1a "1x1 admissible, block 1A 2026-08-xx"                      # Cr, held
+      --cell-label 1x1 \
+      --cell-verdict-1a "1x1 ADMISSIBLE; PRODUCTION CELL = 1x1 (block 1A 2026-08-xx)"
+      # Cr, held: --cell-label must equal the label DERIVED from CELL_PARAMETERS, and the
+      # verdict must ADMIT that label under the documented grammar ('<label> [cell] [is]
+      # ADMISSIBLE' or 'PRODUCTION CELL = <label>') — mere mention is not admission
+      # (N30, 1C verify round).
 
 then, on the box (NP must be an exact multiple of -nk):
 
@@ -256,13 +279,19 @@ BOHR_A = 0.529177210903
 #: geometry (from <job>.out final coordinates), so the deck we emit and the state we are
 #: making a claim about cannot come apart.
 STATES = {
+    # N30+N36: cell_1x1_A is the measured in-plane (|a|, |b|) of the production 1x1 cell,
+    # read from the named source deck's CELL_PARAMETERS. It is a geometry anchor, not a
+    # registered threshold: _derive_cell_label compares the deck actually being emitted
+    # against it so cell_label / coverage_ML / verdict_scope are MEASURED, never asserted.
     "Ir": dict(
         rundir="runs/Ir_anchor", job="s0_OOH", n_slab=18, held=False,
+        cell_1x1_A=(3.15400000, 6.36113260),   # runs/Ir_anchor/s0_OOH.in CELL_PARAMETERS
         note="on-record mirror-plane *OOH, eta 0.781 V (docs/32); nspin=1, no Hubbard U; "
              "the state P10 found a -0.291 eV yaw90 escape from (docs/41 s6c)",
     ),
     "Cr": dict(
         rundir="runs/probe/Cr_basin", job="s0_OOH", n_slab=18, held=True,
+        cell_1x1_A=(2.91600000, 6.25223816),   # runs/probe/Cr_basin/s0_OOH.in CELL_PARAMETERS
         note="the BASIN-CORRECTED *OOH that is in tier_v2 (docs/41 s6f). NOT "
              "runs/Cr_slab/s0_OOH, which is 178.58 meV high in a wrong magnetic solution. "
              "This *OOH sets c_Cr = 3.102 eV and hence Cr's 9 meV scaling excess",
@@ -276,18 +305,41 @@ DEFAULT_STATES = [k for k, v in STATES.items() if not v["held"]]
 
 AXES = ("x", "y", "z")
 
-#: docs/43 §3-A.8. Stamped into the manifest so nobody can later read the 12 in-plane decks
-#: as evidence the 1C verdict used.
+#: docs/43 §3-A.8 as corrected by amendment 3. Stamped into the manifest so nobody can later
+#: read the 12 in-plane decks as evidence the 1C verdict used.
 AXES_PURPOSE = {
-    "y": "THE 1C VERDICT. Mirror-normal. Central difference kept for its sqrt(2) noise gain.",
+    # U15: the sqrt(2)-gain / independent-noise claim is DELETED — docs/43 amendment 3
+    # measured that each ym deck is the exact mirror of its yp partner, so it carries no
+    # independent noise realisation and the central difference reduces algebraically to the
+    # one-sided difference. The ym decks' real value is N34's identity gate on the Hessian
+    # diagonal (hessian_analyze.py Q6).
+    "y": "THE 1C VERDICT. Mirror-normal. The y-block of H is built from the +dy FORWARD "
+         "difference exclusively, with the reference forces as the base point (docs/43 "
+         "am.4 s7 items 1-2). The ym deck is the exact mirror of the yp deck (docs/43 "
+         "amendment 3): no sqrt(2) gain, no independent noise realisation. It NEVER "
+         "enters H; it is retained and run solely as the Q6 mirror-identity control — "
+         "F_y(ym) = -F_y(yp), F_x/F_z(ym) = +F_x/F_z(yp) on the raw force blocks — the "
+         "only available test of the Hessian diagonal (finding N34).",
     "x": "block 2B in-house ZPE/-TS table. NOT diagnostic for 1C: F_y is identically zero "
          "in these decks by mirror symmetry, so they carry no y-block information.",
     "z": "block 2B in-house ZPE/-TS table. NOT diagnostic for 1C: F_y is identically zero "
          "in these decks by mirror symmetry, so they carry no y-block information.",
 }
 
-#: Every verdict this pilot can produce is scoped to this and nothing wider (docs/43 §3-A.7).
-VERDICT_SCOPE = "q = 0, 1x1 cell, 1 ML"
+#: N30+N36: the scope is DERIVED per state — cell_label and coverage_ML are measured from
+#: the source deck's CELL_PARAMETERS against the recorded 1x1 lattice (_derive_cell_label),
+#: never asserted as module constants. This is only the template (docs/43 §3-A.7 scopes
+#: every 1C verdict; the cell in the stamp is now a measurement).
+VERDICT_SCOPE_TEMPLATE = "q = 0, {cell} cell, {cov} ML"
+
+#: U14+N31: per-SCF wall cost, MEASURED, keyed by state — a state absent from this dict has
+#: NOT been timed at these settings and gets no number, because a cost taken from a cheaper
+#: system and quoted for a harder one is the exact pattern lessons.md 2026-08-05 documents
+#: three times. Ir: 643 s = the 2026-08-09 feasibility probe on the real deck (30 iterations
+#: x 20.95 s electrons + init_run/forces overhead) at NP = 20 / -nk 4. Cr is nspin=2 + U at
+#: 36 k-points and is NOT in this dict on purpose (docstring: ~2.4x Ir per iteration is an
+#: extrapolation, not a measurement).
+MEASURED_SEC_PER_SCF = {"Ir": 643.0}
 
 
 # ------------------------------------------------------------------ helpers ---
@@ -377,6 +429,63 @@ def _min_image_contacts(positions, ads, cell):
     return dict(min_any=best_any, min_H=best_H)
 
 
+def _verdict_admits_cell(verdict: str, label: str):
+    """The N30 admissibility grammar. Returns the matched admission text, or None.
+
+    Defect: 1C verify round on N30 (docs/43 am.4 §7 governs the ym items; this guard is
+    the verify round's re-opening of round-2 N30). The previous guard was bare substring
+    containment — `cell_label not in args.cell_verdict_1a` — and N30's own acid string,
+    "2x1-vacant REQUIRED; the 1x1 cell is INADMISSIBLE", defeated it: a verdict that
+    rules the 1x1 OUT necessarily NAMES the 1x1. Mere mention is not admission.
+
+    GRAMMAR (exact, documented here because refusal messages point at it). A verdict
+    string ADMITS cell label L if and only if it contains, case-insensitively, one of:
+
+        1.  L [cell] [is] ADMISSIBLE      e.g. "1x1 ADMISSIBLE", "2x1 cell is ADMISSIBLE"
+            — the label, optionally the literal words "cell" and/or "is", then the word
+            ADMISSIBLE. ADMISSIBLE must follow whitespace and end at a word boundary, so
+            "INADMISSIBLE" and "NOT ADMISSIBLE" can never match, and the label is
+            bounded so "21x1" can never admit "1x1".
+        2.  PRODUCTION CELL = L           e.g. "PRODUCTION CELL = 2x1"
+
+    Anything else — including naming the label while ruling it out — is NOT admission
+    and the build refuses.
+    """
+    lab = re.escape(label)
+    for pat in (rf"(?<![0-9A-Za-z]){lab}(?:\s+cell)?(?:\s+is)?\s+ADMISSIBLE(?![A-Za-z])",
+                rf"PRODUCTION\s+CELL\s*=\s*{lab}(?![0-9A-Za-z])"):
+        m = re.search(pat, verdict, re.I)
+        if m:
+            return m.group(0)
+    return None
+
+
+def _derive_cell_label(cell, cell_1x1, tag):
+    """(cell_label, coverage_ML) MEASURED from the emitted cell — findings N30+N36.
+
+    docs/43 §3-A.7 requires Cr to be run "in the chosen production cell", and the scope
+    stamp exists to stop a coverage artifact being read as the symmetry trap. A hardcoded
+    cell_label = "1x1" is an assertion, not a measurement: repoint the rundir at a 2x1
+    relaxation and every verdict would still be stamped "1x1, 1 ML". So the label is
+    derived here from the source deck's CELL_PARAMETERS against the recorded 1x1 lattice,
+    and refuses when the cell is not an integer multiple of it.
+    """
+    a_len = math.sqrt(sum(c * c for c in cell[0]))
+    b_len = math.sqrt(sum(c * c for c in cell[1]))
+    mult = []
+    for length, l1, ax in ((a_len, cell_1x1[0], "a"), (b_len, cell_1x1[1], "b")):
+        n = max(1, round(length / l1))
+        if abs(length - n * l1) > 0.02 * l1:
+            raise Refuse(
+                f"{tag}: in-plane lattice |{ax}| = {length:.5f} A is not an integer "
+                f"multiple of the recorded 1x1 value {l1:.5f} A (nearest {n}x is off by "
+                f"{length - n * l1:+.5f} A) — cannot derive cell_label, and the scope "
+                f"stamp may not be asserted without it (N30/N36)")
+        mult.append(n)
+    n1, n2 = mult
+    return f"{n1}x{n2}", 1.0 / (n1 * n2)
+
+
 # ------------------------------------------------------------------- guards ---
 
 class Refuse(SystemExit):
@@ -401,7 +510,8 @@ def verify_emitted(text: str, src: dict, ref_pos, n_slab: int, disp, conv_thr: s
     write_probe formats coordinates to 8 decimals while pw.x prints its final geometry to
     10, so the realised +delta/-delta differ from 0.01 A by up to 5e-9 A. That is
     irrelevant physically and fatal to an exact-equality check, so the analysis divides by
-    the realised 2*delta instead of the nominal one.
+    the realised step instead of the nominal one — 2*delta for the central x/z pairs,
+    delta for the y-row forward difference (docs/43 am.4 s7 item 2).
     """
     got = _parse_text(text)
 
@@ -528,6 +638,55 @@ def build_state(name: str, cfg: dict, args) -> dict:
     # docs/43 §3-A.7 — the coverage contact, measured from the geometry being emitted.
     contacts = _min_image_contacts(pos, ads, deck["cell"])
 
+    # N30+N36: cell_label / coverage_ML / verdict_scope are DERIVED from the source deck's
+    # CELL_PARAMETERS against the recorded 1x1 lattice, not asserted as constants.
+    cell_label, coverage_ML = _derive_cell_label(deck["cell"], cfg["cell_1x1_A"], name)
+    scope = VERDICT_SCOPE_TEMPLATE.format(cell=cell_label, cov=f"{coverage_ML:g}")
+
+    # N30, re-opened by the 1C verify round: the old check here was bare substring
+    # containment, and N30's own acid string ("2x1-vacant REQUIRED; the 1x1 cell is
+    # INADMISSIBLE") defeated it — a verdict ruling the 1x1 OUT names the 1x1, so
+    # `cell_label in verdict` read a refusal as an authorisation. Replaced by three
+    # refuse-by-default checks: (a) --cell-label is REQUIRED alongside the verdict and is
+    # an operator assertion, (b) it must EQUAL the label DERIVED from CELL_PARAMETERS,
+    # (c) the derived label must appear as an ADMITTED cell in the verdict under the
+    # explicit admissibility grammar of _verdict_admits_cell — mere mention is not
+    # admission. The manifest records which grammar production matched.
+    admission = None
+    if args.cell_verdict_1a is not None:
+        if args.cell_label is None:
+            raise Refuse(
+                f"{name}: --cell-verdict-1a was given without --cell-label. The operator "
+                f"must assert the cell being built (--cell-label {cell_label!r} to match "
+                f"this source deck); the assertion is checked against the label DERIVED "
+                f"from CELL_PARAMETERS and against the verdict's admissibility grammar "
+                f"(N30, 1C verify round).")
+        if args.cell_label != cell_label:
+            raise Refuse(
+                f"{name}: --cell-label {args.cell_label!r} does not equal the label "
+                f"DERIVED from the source deck's CELL_PARAMETERS, {cell_label!r} "
+                f"(coverage {coverage_ML:g} ML). Either the assertion or the source "
+                f"rundir is wrong — repoint STATES[{name!r}]['rundir'] at the relaxation "
+                f"in the cell 1A chose, or fix the flag (N30/N36).")
+        admission = _verdict_admits_cell(args.cell_verdict_1a, cell_label)
+        if admission is None:
+            raise Refuse(
+                f"{name}: the recorded block-1A verdict does not ADMIT the cell this "
+                f"build is actually using. Derived from CELL_PARAMETERS: {cell_label} "
+                f"(coverage {coverage_ML:g} ML); --cell-verdict-1a = "
+                f"{args.cell_verdict_1a!r}. Admission requires "
+                f"'{cell_label} [cell] [is] ADMISSIBLE' or "
+                f"'PRODUCTION CELL = {cell_label}' in the verdict string — mere mention "
+                f"is NOT admission; a verdict that rules a cell INADMISSIBLE names it "
+                f"too (N30, 1C verify round; grammar documented at "
+                f"_verdict_admits_cell). docs/43 §3-A.7 says the held state is run IN "
+                f"THE CHOSEN PRODUCTION CELL — repoint STATES[{name!r}]['rundir'] first "
+                f"if 1A chose a different cell.")
+    elif args.cell_label is not None and args.cell_label != cell_label:
+        raise Refuse(
+            f"{name}: --cell-label {args.cell_label!r} does not equal the derived label "
+            f"{cell_label!r} (N30/N36).")
+
     outdir = os.path.join(args.out, f"{name}_hess")
     deck = dict(deck)
     deck["nosym"] = True          # Trap 2: write_probe emits nosym AND noinv from this
@@ -590,19 +749,30 @@ def build_state(name: str, cfg: dict, args) -> dict:
     man = dict(
         state=name, source_run=rundir, source_in=src_in, source_out=src_out, job=job,
         note=cfg["note"],
-        method=("Partial Hessian on the adsorbate atoms only, central finite differences "
-                "of forces. nosym/noinv on every deck INCLUDING the reference; each SCF "
-                "starts from a fresh atomic-superposition density so the 19 points are "
-                "independent."),
+        # docs/43 am.4 s7 items 1-2: the y-block is NOT a central difference.
+        method=("Partial Hessian on the adsorbate atoms only, finite differences of "
+                "forces: x/z rows by central +/- pairs; y rows by the +dy FORWARD "
+                "difference with the reference forces as the base point (docs/43 am.4 s7 "
+                "items 1-2 — the ym decks run solely as the Q6 mirror-identity control "
+                "and never enter H). nosym/noinv on every deck INCLUDING the reference; "
+                "each SCF starts from a fresh atomic-superposition density so the 19 "
+                "points are independent."),
         prereg="docs/43-prereg-week1-factorial.md sec 3 (P14) + sec 3-A (amendment 1). "
                "This manifest holds no copy of the rule; hessian_analyze.py "
                "--print-prereg reads those sections out of docs/43.",
-        verdict_scope=VERDICT_SCOPE,
-        cell_label="1x1", coverage_ML=1.0, wavevector="Gamma (q = 0)",
+        # N30+N36: verdict_scope / cell_label / coverage_ML are MEASURED from the emitted
+        # cell by _derive_cell_label, not module constants.
+        verdict_scope=scope,
+        cell_label=cell_label, coverage_ML=coverage_ML, wavevector="Gamma (q = 0)",
+        cell_1x1_A=list(cfg["cell_1x1_A"]),
         verdict_axis="y",
         axes_purpose=dict(AXES_PURPOSE),
         cr_held_pending_1a=STATES[name].get("held", False),
         cell_verdict_1a=getattr(args, "cell_verdict_1a", None),
+        # N30 (1C verify round): the operator's own cell assertion and the exact grammar
+        # production that admitted the derived label, for provenance.
+        cell_label_operator=getattr(args, "cell_label", None),
+        cell_verdict_admission_match=admission,
         min_image_contact_angstrom=(contacts["min_any"][0] if contacts["min_any"] else None),
         min_image_contact_label=(contacts["min_any"][1] if contacts["min_any"] else None),
         min_image_H_contact_angstrom=(contacts["min_H"][0] if contacts["min_H"] else None),
@@ -658,12 +828,19 @@ def build_state(name: str, cfg: dict, args) -> dict:
     if contacts["min_H"]:
         d, lab = contacts["min_H"]
         print(f"  min image contact involving H : {d:.3f} A  {lab}")
-    print(f"  SCOPE                         : every verdict is scoped to '{VERDICT_SCOPE}'")
+    print(f"  SCOPE                         : every verdict is scoped to '{scope}' "
+          f"(cell_label {cell_label} DERIVED from CELL_PARAMETERS vs 1x1 = "
+          f"{cfg['cell_1x1_A']}, N30/N36)")
     print(f"  {len(ads)} atoms x 3 cartesian x 2 signs = {n_disp} displacements "
           f"+ 1 reference = {n_disp + 1} SCFs")
-    print(f"    of which the 1C VERDICT uses the {len(ads) * 2} +/-y decks + the reference "
-          f"(docs/43 s3-A.8); the {len(ads) * 4} +/-x and +/-z decks are bought for block "
-          f"2B's ZPE/-TS table and carry no y-block information")
+    print(f"    of which the 1C VERDICT rests on the y block (docs/43 s3-A.8): the "
+          f"{len(ads)} +y decks + the reference carry it as a FORWARD difference with "
+          f"the reference as base point (am.4 s7 items 1-2); the {len(ads)} -y decks are "
+          f"the exact mirrors of the +y decks (amendment 3 — no sqrt(2) gain, no "
+          f"independent noise; U15), NEVER enter H, and run solely as the Q6 "
+          f"mirror-identity control on the Hessian diagonal (N34); the {len(ads) * 4} "
+          f"+/-x and +/-z decks are bought for block 2B's ZPE/-TS table and carry no "
+          f"y-block information")
     print(f"  -> {outdir.replace(os.sep, '/')}")
     return man
 
@@ -677,7 +854,16 @@ def main() -> int:
                          "holds Cr until block 1A returns its cell verdict)")
     ap.add_argument("--cell-verdict-1a", dest="cell_verdict_1a", default=None,
                     help="block 1A's cell verdict, verbatim. REQUIRED to build a held "
-                         "state; recorded in the manifest.")
+                         "state; recorded in the manifest. The label derived from "
+                         "CELL_PARAMETERS must appear in it as an ADMITTED cell — "
+                         "'<label> [cell] [is] ADMISSIBLE' or 'PRODUCTION CELL = "
+                         "<label>'; mere mention is not admission (N30, 1C verify "
+                         "round).")
+    ap.add_argument("--cell-label", dest="cell_label", default=None,
+                    help="the cell label the operator asserts is being built (e.g. 1x1, "
+                         "2x1). REQUIRED alongside --cell-verdict-1a; refused unless it "
+                         "EQUALS the label derived from the source deck's "
+                         "CELL_PARAMETERS (N30, 1C verify round).")
     ap.add_argument("--out", default="runs/probe")
     ap.add_argument("--manifest", default="runs/probe/m_hess.txt")
     ap.add_argument("--delta", type=float, default=0.01,
@@ -685,7 +871,17 @@ def main() -> int:
     ap.add_argument("--conv-thr", dest="conv_thr", default="1.0d-10",
                     help="SCF threshold; see Trap 1 for why 1.0d-8 is not enough")
     ap.add_argument("--electron-maxstep", dest="electron_maxstep", type=int, default=120,
-                    help="measured cost is 30 iterations; 120 is 4x headroom (Trap 1)")
+                    help="measured cost is 30 iterations; 120 is 4x headroom (Trap 1). "
+                         "Accepted band 30..150; 151..200 needs "
+                         "--allow-electron-maxstep-200 (U13+N29)")
+    # U13+N29: 200 was silently reachable through the ordinary flag (the old band was
+    # 30..200 inclusive), so "guard fires on 200" was false. The inherited value now
+    # requires an explicit escape hatch.
+    ap.add_argument("--allow-electron-maxstep-200", dest="allow_emaxstep_200",
+                    action="store_true",
+                    help="explicit escape hatch: widen the accepted electron_maxstep band "
+                         "from 30..150 to 30..200. The inherited 200 is the value Trap 1 "
+                         "exists to cut; without this flag it is refused (U13+N29)")
     ap.add_argument("--nk", type=int, default=4,
                     help="pw.x -nk; NP on the queue must be an exact multiple of this")
     ap.add_argument("--np", type=int, default=20,
@@ -712,10 +908,18 @@ def main() -> int:
     if not re.fullmatch(r"1\.0d-1[02]", args.conv_thr):
         raise Refuse(f"conv_thr = {args.conv_thr!r}; a force-difference Hessian at "
                      f"delta = {args.delta} A needs 1.0d-10 (or 1.0d-12). See Trap 1.")
-    if not (30 <= args.electron_maxstep <= 200):
-        raise Refuse(f"electron_maxstep = {args.electron_maxstep}: below 30 is under the "
-                     f"measured iteration count, above 200 is the inherited value Trap 1 "
-                     f"exists to cut")
+    # U13+N29: the accepted band is 30..150. Reaching the inherited 200 requires the
+    # explicit --allow-electron-maxstep-200 escape flag; it is never a side effect of the
+    # ordinary --electron-maxstep argument.
+    emax_cap = 200 if args.allow_emaxstep_200 else 150
+    if not (30 <= args.electron_maxstep <= emax_cap):
+        raise Refuse(
+            f"electron_maxstep = {args.electron_maxstep}: accepted band is 30..{emax_cap}. "
+            f"Below 30 is under the measured iteration count (30). "
+            + ("Above 200 is never accepted." if args.allow_emaxstep_200 else
+               "151..200 is the inherited regime Trap 1 exists to cut and requires the "
+               "explicit --allow-electron-maxstep-200 escape flag (U13+N29); above 200 is "
+               "never accepted."))
     if args.np % args.nk:
         raise Refuse(f"NP = {args.np} is not an exact multiple of -nk {args.nk}; pw.x "
                      f"aborts. Fix the printed queue line, not the deck.")
@@ -725,7 +929,7 @@ def main() -> int:
 
     # docs/43 §3-A.7 — Cr does not launch on this script's say-so.
     for name in args.states:
-        if STATES[name]["held"] and not args.cell_verdict_1a:
+        if STATES[name]["held"] and not (args.cell_verdict_1a and args.cell_label):
             raise Refuse(
                 f"{name} is HELD by docs/43 §3-A.7 until block 1A returns its cell verdict. "
                 f"At 1x1 this state's *OOH hydrogen-bonds to its own periodic image "
@@ -733,18 +937,36 @@ def main() -> int:
                 f"the H torsion — the two modes most likely to come back imaginary — are "
                 f"governed by the coverage rather than by the mirror, and a CONFIRMED here "
                 f"would be attributed to the symmetry trap on a coverage artifact. If 1A has "
-                f"reported, pass --cell-verdict-1a \"<verdict>\" and build it in the chosen "
-                f"production cell.")
+                f"reported, pass BOTH --cell-verdict-1a \"<verdict>\" AND --cell-label "
+                f"<label>, and build it in the chosen production cell. The builder DERIVES "
+                f"the cell from the source deck's CELL_PARAMETERS, refuses unless "
+                f"--cell-label equals that derived label, and refuses unless the verdict "
+                f"ADMITS the derived label under the documented grammar — "
+                f"'<label> [cell] [is] ADMISSIBLE' or 'PRODUCTION CELL = <label>'; mere "
+                f"mention is not admission (N30, 1C verify round) — repoint "
+                f"STATES['{name}']['rundir'] first if 1A chose a different cell.")
     _DELTA[0] = args.delta
 
+    built = []
+    total = 0
+    for name in args.states:
+        man = build_state(name, STATES[name], args)
+        built.append((name, man))
+        total += man["n_scf_total"]
+
+    # N30+N36: the manifest header quotes the DERIVED per-state scopes, not a constant.
+    scope_txt = "; ".join(f"{name}: '{man['verdict_scope']}'" for name, man in built)
     lines = [
         "# Block 1C Hessian pilot. Fixed-geometry SCFs, nosym+noinv, conv_thr "
-        f"{args.conv_thr}, electron_maxstep {args.electron_maxstep}, delta {args.delta} A, "
-        f"central differences.",
-        "# RULE: docs/43 s3 + s3-A. No copy of it lives in the code. Verdicts are scoped to "
-        f"'{VERDICT_SCOPE}'.",
+        f"{args.conv_thr}, electron_maxstep {args.electron_maxstep}, delta {args.delta} A. "
+        f"x/z rows central differences; the y rows are the +dy FORWARD difference against "
+        f"the reference (docs/43 am.4 s7 — the ym decks run solely as the Q6 "
+        f"mirror-identity control and never enter H).",
+        "# RULE: docs/43 s3 + s3-A. No copy of it lives in the code. Verdict scope is "
+        f"DERIVED from each source deck's CELL_PARAMETERS (N30/N36): {scope_txt}.",
         "# NOT a relaxation. 'JOB DONE' is not success: hessian_analyze.py gates on an "
-        "energy, 'No symmetry found', the k count, the magnetisation and Q0.",
+        "energy, 'No symmetry found', the k count, the magnetisation, Q0 and the Q6 "
+        "mirror-identity check on the raw forces (N34).",
         f"# NP on queue_r1.sh must be an exact multiple of {args.nk}. NP x NCONC <= 23.",
         "# BEFORE LAUNCHING: delete or rename every stale <job>.out in these directories. "
         "queue_r1.sh:33 SKIPS any job whose .out contains 'JOB DONE', and pw.x prints that "
@@ -754,12 +976,9 @@ def main() -> int:
         "*.THROWAWAY-convthr-feasibility-probe-2026-08-09.out so the production reference "
         "is not silently replaced by a job docs/43 amendment 1 forbids reusing.",
     ]
-    total = 0
-    for name in args.states:
-        man = build_state(name, STATES[name], args)
+    for name, man in built:
         for rec in man["jobs"]:
             lines.append(f"probe/{name}_hess {rec['job']} .in {args.nk}")
-        total += man["n_scf_total"]
 
     with open(args.manifest, "w", encoding="utf-8", newline="\n") as fh:
         fh.write("\n".join(lines) + "\n")
@@ -768,8 +987,20 @@ def main() -> int:
     print(f"  bash queue_r1.sh /workspace/sts/runs/{rel} {args.np} {args.nconc}"
           f"   # NP={args.np} (= {args.np // args.nk} x -nk {args.nk}), NCONC={args.nconc} "
           f"-> {args.np * args.nconc} of the box's 23.04 usable cores")
-    print(f"  measured: 20.95 s per SCF iteration and 30 iterations at NP=20/-nk 4 on this "
-          f"exact deck, so {total} SCFs = {total * 643 / 3600:.1f} h wall at NCONC=1.")
+    # U14+N31: the measured extrapolation is printed ONLY for states measured at these
+    # exact settings; every other state prints NOT TIMED instead of a number, because the
+    # printout is what gets copied into a plan (hard rule 6; lessons.md 2026-08-05).
+    for name, man in built:
+        n = man["n_scf_total"]
+        sec = MEASURED_SEC_PER_SCF.get(name)
+        if sec is not None:
+            print(f"  {name}: measured 20.95 s/SCF-iteration x 30 iterations at NP=20/"
+                  f"-nk 4 on this exact deck -> {n} SCFs x {sec:.0f} s = "
+                  f"{n * sec / 3600:.1f} h wall at NCONC=1.")
+        else:
+            print(f"  {name}: NOT TIMED at these settings — time one SCF before sizing "
+                  f"this arm ({n} SCFs; no wall-hour figure is printed on purpose, "
+                  f"U14+N31).")
     print(f"  rule: docs/43 s3 + s3-A.  python src/dft/hessian_analyze.py --print-prereg")
     held = [n for n in STATES if STATES[n]["held"] and n not in args.states]
     if held:

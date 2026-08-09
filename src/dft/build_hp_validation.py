@@ -38,10 +38,12 @@ pointers so nobody has to guess which document is current -- NOT as a second cop
             DFPT; the binary has no amplitude keyword, so the check was unperformable).
   * s4-A.3  it is replaced by check 4': the CrO2 arm below must print a finite U with ZERO
             "Convergence has not been reached" lines.
-  * s4-A.4  the chi-symmetry check is a REPORTED DIAGNOSTIC, not a gate. Settled today by
-            reading the source (see `CHI_SYMMETRY_IS_AN_IDENTITY` below): on anything hp.x
-            reports it is an exact identity. The real reproducibility test is
-            `find_atpert = 4`, two independently perturbed Ti within 0.05 eV.
+  * s4-A.4  the chi-symmetry check is a REPORTED DIAGNOSTIC, not a gate. Whether the
+            printed chi is pre- or post-symmetrisation is PENDING: docs/43 s4-A.4 registers
+            it as settled by reading one completed iverbosity = 2 run, and that run has not
+            happened (see `CHI_SYMMETRY_STATUS` below -- N28). The real reproducibility
+            test is `find_atpert = 4`, two independently perturbed Ti agreeing within the
+            tolerance registered in docs/43 s4-A.4 -- deliberately not copied here (U9).
   * s4-A.5  the cost model is per-(atom, q) and scales with the k-count hp.x prints for
             each q; the slab timing is taken at a general, non-Gamma q.
 
@@ -99,21 +101,15 @@ What was settled on 2026-08-09 in the fix round (findings 9-20)
   answer in place -- measured: nq 1x1x1 gave 4.1543, then nq 2x2x2 in the same outdir left
   one file reading 4.1786. `queue_hp.sh` now renames both onto the deck basename immediately
   after the hp.x call and gates on the artifact.
-* **The chi-symmetry gate was an identity, and this is now proven rather than suspected.**
-  `HP/src/hp_postproc.f90` (QE 7.5, fetched from the QEF GitLab at tag `qe-7.5`) runs, in
-  order: `read_chi` -> `average_similar_elements` -> `reconstruct_full_chi` -> invert ->
-  `calculate_Hubbard_parameters` (which is what writes the .dat). The last block of
-  `reconstruct_full_chi` is literally
-
-      ! Symmetrization
-      DO na = 1, nath_sc
-         DO nb = 1, nath_sc
-            chi_(na,nb) = 0.5d0 * ( chi_(na,nb) + chi_(nb,na) )
-            chi_(nb,na) = chi_(na,nb)
-
-  applied to chi0 and chi before anything is printed. So |chi_ij - chi_ji| is identically 0
-  in every matrix hp.x reports, at any conv_thr, on any system, converged or not. See
-  `CHI_SYMMETRY_IS_AN_IDENTITY`.
+* **The chi-symmetry question is PENDING, and this file no longer claims otherwise (N28).**
+  An off-box reading of QE's HP post-processing source suggested the printed matrices are
+  symmetrised before anything is written -- but there is NO QE source tree on box 47025043
+  (`/workspace/qe` contains only `env`; `find / -name hp_postproc.f90` returns nothing), so
+  that reading is not reproducible on the machine the campaign runs on, and docs/43 s4-A.4
+  registers the question as settled only "by reading one completed iverbosity = 2 run".
+  It is therefore carried as PENDING and resolved from the first preserved
+  `find_atpert = 4` rung's `.chi.dat`, which `queue_hp.sh` keeps per rung precisely so
+  this measurement is available for the price of reading it. See `CHI_SYMMETRY_STATUS`.
 * **A validated k-count model** (`rutile_q_list`, `slab_q_list`). hp.x reduces the NSCF
   k-set with a SUBSET of the crystal group -- on bulk rutile it is the 8 operations that
   leave the perturbed Ti at the origin fixed, not the full 16 -- which is why its Gamma NSCF
@@ -137,9 +133,11 @@ miss in a 30 000-line output and the consequence is a silently wrong chi matrix.
 Refuse-to-write guards
 ----------------------
 The slab decks are derived from `runs/Cr_slab/slab.in` + the relaxed geometry in
-`runs/Cr_slab/slab.out`. Exactly five things are allowed to differ from the source deck:
+`runs/Cr_slab/slab.out`. Exactly seven things are allowed to differ from the source deck:
 `calculation`, `prefix`/`outdir`, the coordinates (start -> relaxed), the Hubbard U value
-(3.7 -> 1.0d-8, the from-scratch DFPT protocol), and -- in the `sym` arm only, declared -- the
+(3.7 -> 1.0d-8, the from-scratch DFPT protocol), `electron_maxstep` 200 -> 120 plus an
+added `max_seconds` (both declared, [N22]: they bound a stalled SCF inside the deck
+itself), and -- in the `sym` arm only, declared -- the
 removal of `nosym`/`noinv`. Every other field is compared token by token against the source
 and the builder raises SystemExit and writes nothing if any of them moved. A U computed on a
 different cutoff, k-mesh, smearing or magnetisation than the tier it is meant to correct is
@@ -185,8 +183,12 @@ PROJECTORS = ("atomic", "ortho-atomic")
 #: canonical HP-tutorial placeholder is used.
 U_SEED = "1.d-8"
 
-#: TiO2 q-mesh ladder. Internal criterion I1 is |U(4x4x4) - U(3x3x3)| <= 0.10 eV, so the
-#: ladder must contain both, and 2x2x2 is carried as the cheap first return.
+#: TiO2 q-mesh ladder. The registered gate on it is docs/43 s4's "q-mesh convergence" row
+#: (delta-U against the next finer mesh); the threshold lives in docs/43 ONLY and is
+#: deliberately not copied here -- [U7]/[U9]: the previous in-code copy stated a DIFFERENT
+#: value than the pre-registration while attributing it to docs/43, which is the exact
+#: re-registration defect finding [12] was about. The ladder carries three meshes so that
+#: "the next finer mesh" exists for 3x3x3, and 2x2x2 is the cheap first return.
 TIO2_QMESH_LADDER = ((2, 2, 2), (3, 3, 3), (4, 4, 4))
 
 #: Measured today with `determine_q_mesh_only` -- irreducible q counts for the ladder, so the
@@ -210,6 +212,14 @@ CRO2_KPTS = (6, 6, 8)
 CRO2_QMESH = (2, 2, 2)
 
 CR_SLAB_RUN = "runs/Cr_slab"
+
+#: [N27] which Cr the slab timing decks perturb. Atom 5 is a SURFACE Cr (top layer,
+#: relaxable, z ~ 15.6 A) -- the site the cost table's recommended production variant
+#: perturbs, so it carries the HEADLINE timing. Atom 1 is the frozen bottom-layer,
+#: bulk-like Cr; its variant ships alongside so the surface/subsurface n_LR ratio is a
+#: measurement instead of the model's largest unstated assumption. Both are asserted
+#: against the geometry in build_costmodel before anything is written.
+SURFACE_CR_ATOM, SUBSURF_CR_ATOM = 5, 1
 
 # ------------------------------------------------------- symmetry / k-count model ---
 # Findings [10] [11] [19]: the shipped cost model applied ONE core-h figure to all 102
@@ -353,7 +363,9 @@ CRSLAB_PRINTED_K_MEASURED = {((1, 1, 1), 1): 15}
 def _validate_symmetry_model():
     """Refuse to cost anything if the symmetry model contradicts a measured integer.
 
-    Twenty-two integers, every one of them printed by QE on this box. If any single one
+    Twenty-six integers, every one of them printed by QE on this box ([N17]: the count is
+    the sum this function returns -- 7 rutile nq + 5 slab sym nq + 3 slab nosym nq +
+    10 printed-k + 1 slab printed-k). If any single one
     disagrees the model is wrong somewhere and every extrapolation downstream of it is
     worthless, so this raises rather than warns -- the build_basin_restarts.py pattern.
     """
@@ -386,25 +398,33 @@ def _validate_symmetry_model():
             + len(TIO2_PRINTED_K_MEASURED) + len(CRSLAB_PRINTED_K_MEASURED))
 
 
-#: Finding [13], settled by reading QE 7.5 HP/src/hp_postproc.f90 rather than by inference.
-#: Kept as a named constant because the temptation to re-promote this to a hard gate will
-#: recur, and the answer is in the source, not in an opinion.
-CHI_SYMMETRY_IS_AN_IDENTITY = dict(
-    answer="POST-symmetrisation. |chi_ij - chi_ji| is identically zero in anything hp.x "
-           "reports, so the registered check passes vacuously on every run, converged or "
-           "not, at any conv_thr_chi.",
-    evidence="QE 7.5 HP/src/hp_postproc.f90, SUBROUTINE reconstruct_full_chi: after filling "
-             "missing elements by distance matching it runs an unconditional "
-             "chi_(na,nb) = 0.5*(chi_(na,nb)+chi_(nb,na)) loop over ALL (na,nb), on chi0 and "
-             "chi both, and only then does calculate_Hubbard_parameters write the .dat. "
-             "average_similar_elements runs one step earlier and smears equal-distance "
-             "elements together as well.",
-    consequence="Reported as a diagnostic, never gated (docs/43 s4-A.4). It is not quite "
-                "content-free: the RAW <outdir>/HP/<prefix>.chi.dat written during the run "
-                "by hp_write_chi_full is pre-symmetrisation, and when find_atpert = 4 "
-                "perturbs both Ti independently its two columns ARE computed independently, "
-                "so chi(1,2) vs chi(2,1) read off that file is a genuine measurement. That "
-                "is only possible because queue_hp.sh now preserves the file per rung.")
+#: [N28] Whether the printed chi is pre- or post-symmetrisation is PENDING. docs/43 s4-A.4
+#: registers the resolution mechanism -- "settled by reading one completed iverbosity = 2
+#: run" -- and that run has not happened. The previous version of this constant resolved
+#: the conditional to a hardcoded answer on the strength of an off-box source reading that
+#: cannot be reproduced on box 47025043 (there is no QE source tree there; only the
+#: compiled symbols reconstruct_full_chi / hp_postproc exist in the binary, which confirms
+#: the routines exist and nothing about what they do). Kept as a named constant because the
+#: temptation to re-promote this to a hard gate will recur.
+CHI_SYMMETRY_STATUS = dict(
+    status="PENDING",
+    answer="PENDING -- resolved per docs/43 s4-A.4 by reading the first completed "
+           "iverbosity = 2 run: compare the RAW <outdir>/HP/<prefix>.chi.dat (preserved "
+           "per rung by queue_hp.sh as <deck>.chi*.dat) against the matrices in "
+           "<deck>.Hubbard_parameters.dat. If chi_ij != chi_ji in the raw file while the "
+           ".dat is symmetric, the printed chi is post-symmetrisation and the registered "
+           "check is vacuous; if the raw file is already symmetric to well below docs/43 "
+           "s4's tolerance, the check has content.",
+    prior_expectation="An off-box reading of QE's HP post-processing source suggested an "
+                      "unconditional 0.5*(chi_ij+chi_ji) symmetrisation before anything is "
+                      "written -- NOT verifiable on the box (no source tree; find / -name "
+                      "hp_postproc.f90 returns nothing), so it is recorded as an "
+                      "expectation, not as evidence.",
+    consequence="Reported as a diagnostic, never gated (docs/43 s4-A.4), whichever way the "
+                "pending measurement resolves. Independent of it, when find_atpert = 4 "
+                "perturbs both Ti independently their two chi columns are computed "
+                "independently, so chi(1,2) vs chi(2,1) read off the RAW per-rung file is "
+                "a genuine measurement either way.")
 
 # --------------------------------------------------------------------------- HP inputs ---
 
@@ -535,7 +555,8 @@ def _assert_hp_compatible(text: str, where: str):
 #: Fields that must be byte-identical between a derived slab deck and its source. If any of
 #: these moves, the U is being computed for a different Hamiltonian than the tier it corrects.
 _FROZEN_FIELDS = ("ecutwfc", "ecutrho", "degauss", "smearing", "nspin", "occupations",
-                  "ibrav", "nat", "ntyp", "conv_thr", "mixing_mode", "mixing_beta")
+                  "ibrav", "nat", "ntyp", "conv_thr", "mixing_mode", "mixing_beta",
+                  "electron_maxstep")  # [N22] tracked so the 200 -> 120 move is DECLARED
 
 
 def _scalars(text: str):
@@ -610,10 +631,12 @@ def build_tio2(outdir: str):
         written.append((os.path.join(outdir, f"hp_npert__{tag}.in"),
                         hp_namelist(f"tio2_{tag}", f"./tmp_tio2_{tag}", (2, 2, 2),
                                     determine_num_pert_only=True, find_atpert=1)))
-        # find_atpert = 3 (group by SYMMETRY). docs/43's criterion I5 compares the n_pert
-        # that find_atpert = 1 and 3 return on bulk TiO2; the shipped batch had no
-        # find_atpert = 3 deck anywhere, so the criterion was unmeetable by construction
-        # (finding [14]). These cost ~3 s each -- there was never a reason not to ship them.
+        # find_atpert = 3 (group by SYMMETRY). An UNREGISTERED diagnostic cross-check on
+        # n_pert against find_atpert = 1 -- [U9]: docs/43 defines NO criterion comparing
+        # find_atpert modes, and the previous round's in-code criterion label for this deck
+        # named nothing in the pre-registration, so it is gone. The decks stay because they
+        # cost ~3 s each and a disagreement between the two groupings would be worth
+        # knowing; nothing is gated on them.
         written.append((os.path.join(outdir, f"hp_npert3__{tag}.in"),
                         hp_namelist(f"tio2_{tag}", f"./tmp_tio2_{tag}", (2, 2, 2),
                                     determine_num_pert_only=True, find_atpert=3)))
@@ -623,28 +646,31 @@ def build_tio2(outdir: str):
                             hp_namelist(f"tio2_{tag}", f"./tmp_tio2_{tag}", nq,
                                         determine_q_mesh_only=True, perturb_only_atom=1)))
 
-        # the q-mesh ladder itself -- internal criterion I1
+        # the q-mesh ladder itself -- evaluates docs/43 s4's registered "q-mesh convergence"
+        # check (delta-U vs the next finer mesh; threshold in docs/43 only -- [U9])
         for nq in TIO2_QMESH_LADDER:
             q = "".join(map(str, nq))
             written.append((os.path.join(outdir, f"hp__{tag}_q{q}.in"),
                             hp_namelist(f"tio2_{tag}", f"./tmp_tio2_{tag}", nq,
-                                        find_atpert=1)))
+                                        find_atpert=1, niter_max=NITER_MAX["TiO2"])))
             jobs.append(dict(system="TiO2", projector=proj, nq=list(nq),
                              n_pert_expected=1, n_q_expected=TIO2_NQ_MEASURED.get(nq),
-                             file=f"hp__{tag}_q{q}.in", role="q-mesh ladder (I1)"))
+                             file=f"hp__{tag}_q{q}.in",
+                             role="q-mesh ladder (docs/43 s4: q-mesh convergence)"))
 
-        # internal criterion I2: perturb BOTH Ti independently. They are related by the 4_2
-        # screw, so their chi0/chi rows and their U must agree. With the default
-        # find_atpert=1 hp.x perturbs one atom and RECONSTRUCTS the other by symmetry, which
-        # makes the agreement an identity rather than a measurement. find_atpert=4 is the
-        # only setting that turns it into a test (measured today: it lists 2 atoms).
+        # docs/43 s4's registered "symmetry-equivalent perturbed atoms" check, load-bearing
+        # per s4-A.4 (tolerance in docs/43 only -- [U9]): perturb BOTH Ti independently.
+        # They are related by the 4_2 screw, so their chi0/chi rows and their U must agree.
+        # With the default find_atpert=1 hp.x perturbs one atom and RECONSTRUCTS the other
+        # by symmetry, which makes the agreement an identity rather than a measurement.
+        # find_atpert=4 is the only setting that turns it into a test (measured: 2 atoms).
         written.append((os.path.join(outdir, f"hp__{tag}_q333_allatoms.in"),
                         hp_namelist(f"tio2_{tag}", f"./tmp_tio2_{tag}", (3, 3, 3),
-                                    find_atpert=4)))
+                                    find_atpert=4, niter_max=NITER_MAX["TiO2"])))
         jobs.append(dict(system="TiO2", projector=proj, nq=[3, 3, 3], n_pert_expected=2,
                          n_q_expected=TIO2_NQ_MEASURED[(3, 3, 3)],
                          file=f"hp__{tag}_q333_allatoms.in",
-                         role="two-site reproducibility (I2)"))
+                         role="two-site reproducibility (docs/43 s4 + s4-A.4)"))
 
     # The timing probes, so the cost model is reproducible rather than remembered. q#1 and
     # q#2 of the 2x2x2 mesh were already measured (99.05 s and 85.61 s at NP=12) -- and BOTH
@@ -656,7 +682,8 @@ def build_tio2(outdir: str):
         suffix = "" if qi == 1 else f"_q{qi}"
         written.append((os.path.join(outdir, f"hp_1atomq__atomic{suffix}.in"),
                         hp_namelist("tio2_atomic", "./tmp_tio2_atomic", (2, 2, 2),
-                                    perturb_only_atom=1, start_q=qi, last_q=qi)))
+                                    perturb_only_atom=1, start_q=qi, last_q=qi,
+                                    niter_max=NITER_MAX["TiO2"])))  # [N22]
     return written, jobs
 
 
@@ -689,6 +716,19 @@ def build_cro2(outdir: str):
     scf = make_input("CrO2", ECUTWFC, ECUTRHO, CRO2_KPTS, PSEUDO_DIR, CR_UPF, O_UPF,
                      prefix="cro2_atomic", outdir="./tmp_cro2_atomic",
                      conv_thr="1.0d-10", with_u=False, occupations="smearing")
+    # [N22] a magnetic metal at conv_thr 1e-10 that stalls burns the inherited
+    # electron_maxstep = 200 before anything notices; 120 bounds the stall (adjudication
+    # [22]'s figure), and max_seconds = 2x the modelled SCF cost at the manifest's NP=20
+    # bounds the wall clock inside the deck itself (adjudication [8]'s rule).
+    scf = re.sub(r"^(\s*)electron_maxstep\s*=\s*\S+", r"\g<1>electron_maxstep = 120",
+                 scf, count=1, flags=re.M)
+    if "electron_maxstep = 120" not in scf:
+        raise SystemExit("refusing to write cro2 scf: electron_maxstep = 120 not applied (N22)")
+    cro2_max_seconds = int(round(2.0 * CRO2_SCF_MODEL_CORE_S / CRO2_SCF_NP))
+    scf = re.sub(r"^/\s*$", f"  max_seconds = {cro2_max_seconds}  ! 2x modelled SCF cost "
+                            f"at NP={CRO2_SCF_NP} (N22)\n/", scf, count=1, flags=re.M)
+    if f"max_seconds = {cro2_max_seconds}" not in scf:
+        raise SystemExit("refusing to write cro2 scf: max_seconds not applied (N22)")
     scf += f"HUBBARD (atomic)\nU Cr-3d {U_SEED}\n"
 
     # The arm is worthless unless it really is the other branch. Each of these is one of the
@@ -726,21 +766,31 @@ def build_cro2(outdir: str):
                                 determine_q_mesh_only=True, perturb_only_atom=1)))
     written.append((os.path.join(outdir, f"hp__cro2_q{q}.in"),
                     hp_namelist("cro2_atomic", "./tmp_cro2_atomic", CRO2_QMESH,
-                                find_atpert=1)))
+                                find_atpert=1, niter_max=NITER_MAX["magnetic"])))  # [N22]
     jobs.append(dict(system="CrO2", projector="atomic", nq=list(CRO2_QMESH),
                      n_pert_expected=1,
                      n_q_expected=len(_mesh_orbits(CRO2_QMESH, _RUTILE_OPS)),
                      nspin=2, occupations="smearing mv 0.01",
                      file=f"hp__cro2_q{q}.in",
                      role="magnetic/metallic branch, docs/43 s4-A.3 check 4'",
-                     pass_condition="a finite U with zero 'Convergence has not been reached'"))
+                     # [N24] the moment condition is an ARM-IDENTITY guard, not a new
+                     # registered threshold: docs/43 s4-A.3 defines this arm AS nspin = 2
+                     # magnetic, and an SCF that converges to a zero-moment solution is a
+                     # second closed-shell run that exercises nothing the arm was bought
+                     # to exercise. queue_hp.sh logs MAG=/ABSMAG= for every SCF.
+                     pass_condition="a finite U with zero 'Convergence has not been "
+                                    "reached' lines (docs/43 s4-A.3, quoted not restated) "
+                                    "AND a non-zero total magnetization in the SCF log "
+                                    "(queue_hp.sh MAG= field) -- a zero-moment solution "
+                                    "means the magnetic branch was never exercised (N24)"))
     return written, jobs
 
 
 # ------------------------------------------------------------------------- Cr(110) slab ---
 
 
-def _slab_scf_from_source(src_text: str, positions, prefix: str, outdir: str, keep_nosym: bool):
+def _slab_scf_from_source(src_text: str, positions, prefix: str, outdir: str, keep_nosym: bool,
+                          max_seconds: int | None = None):
     """Turn `runs/Cr_slab/slab.in` (a relax) into the hp.x-compatible SCF at its own answer.
 
     Text-patching, not rebuilding: `probe_decks.write_probe` would re-emit the deck from
@@ -760,6 +810,19 @@ def _slab_scf_from_source(src_text: str, positions, prefix: str, outdir: str, ke
     txt = re.sub(r"&IONS.*?\n/\n", "", txt, flags=re.S)
     # hp.x differentiates this density; 1e-6 is not enough to differentiate (see build_tio2)
     txt = re.sub(r"^(\s*)conv_thr\s*=\s*\S+", r"\g<1>conv_thr = 1.0d-10", txt, count=1, flags=re.M)
+    # [N22] the inherited electron_maxstep = 200 at 1e-10 lets a stalled magnetic-metal SCF
+    # burn ~9 wall-hours before HP_ABORT; 120 bounds the stall (adjudication [22]'s figure).
+    txt = re.sub(r"^(\s*)electron_maxstep\s*=\s*\S+", r"\g<1>electron_maxstep = 120",
+                 txt, count=1, flags=re.M)
+    if "electron_maxstep = 120" not in txt:
+        raise SystemExit("refusing to write: electron_maxstep = 120 not applied (N22)")
+    # [N22] max_seconds = 2x the modelled SCF cost (adjudication [8]'s rule), computed at
+    # the NP the manifest documents, so the wall clock is bounded by the deck itself.
+    if max_seconds is not None:
+        txt = re.sub(r"^/\s*$", f"  max_seconds = {max_seconds}  ! 2x modelled SCF cost "
+                                f"at NP={SLAB_SCF_NP} (N22)\n/", txt, count=1, flags=re.M)
+        if f"max_seconds = {max_seconds}" not in txt:
+            raise SystemExit("refusing to write: max_seconds not applied (N22)")
     if not keep_nosym:
         # DECLARED change, `sym` arm only. Production ran nosym/noinv because the adsorbate
         # relaxations needed it (orient_starts.py, docs/41 s2e). For hp.x it is pure cost:
@@ -806,11 +869,32 @@ def build_costmodel(outdir: str, repo_root: str):
     if len(pos) != len(deck["positions"]):
         raise SystemExit("refusing to write: relaxed/deck atom count mismatch")
 
+    # [N27] the timing decks exist to pin n_LR, and n_LR is site-dependent. Atom 1 is the
+    # FROZEN bottom-layer Cr (if_pos 0 0 0, bulk-like); the recommended production variant
+    # in the cost table perturbs the SURFACE pair, so the headline timing deck must perturb
+    # a surface Cr -- asserted from the geometry, not assumed from the atom index.
+    src_flags = [ln.split()[4:7]
+                 for ln in _POS_RE.search(src_text).group(1).strip().split("\n")]
+    cr_idx = [i for i, p in enumerate(pos) if p[0] == "Cr"]
+    top_two = set(sorted(cr_idx, key=lambda i: -pos[i][3])[:2])
+    if (SURFACE_CR_ATOM - 1) not in top_two or src_flags[SURFACE_CR_ATOM - 1] == ["0", "0", "0"]:
+        raise SystemExit(f"refusing to write: atom {SURFACE_CR_ATOM} is not a free "
+                         f"top-layer Cr; the headline timing deck must perturb the surface "
+                         f"site the production variant perturbs (N27)")
+    if src_flags[SUBSURF_CR_ATOM - 1] != ["0", "0", "0"]:
+        raise SystemExit(f"refusing to write: atom {SUBSURF_CR_ATOM} is not the frozen "
+                         f"bottom-layer Cr, so the a{SUBSURF_CR_ATOM} decks would not "
+                         f"measure the bulk-like site (N27)")
+
     written, jobs = [], []
     for arm, keep_nosym in (("sym", False), ("nosym", True)):
         prefix = f"crslab_{arm}"
-        scf = _slab_scf_from_source(src_text, pos, prefix, f"./tmp_{prefix}", keep_nosym)
-        allowed = {"conv_thr"}          # the only frozen-list field intentionally moved
+        scf = _slab_scf_from_source(src_text, pos, prefix, f"./tmp_{prefix}", keep_nosym,
+                                    max_seconds=int(round(
+                                        2.0 * _slab_scf_model_core_s(arm) / SLAB_SCF_NP)))
+        # [N22] conv_thr AND electron_maxstep are the two frozen-list fields intentionally
+        # moved (1e-6 -> 1e-10 for DFPT; 200 -> 120 to bound a stall); max_seconds is added.
+        allowed = {"conv_thr", "electron_maxstep"}
         moved = _assert_only_intended_changes(src_text, scf, allowed, f"crslab {arm} scf")
         # nosym/noinv are not scalars in _FROZEN_FIELDS, so they need their own assertion --
         # and they need it in BOTH directions. The two arms exist precisely to measure what
@@ -854,26 +938,70 @@ def build_costmodel(outdir: str, repo_root: str):
         # q#14 of 4x4x4 = (1/4,1/2,1/4)) and their k-counts exactly.
         qrows = q_table((3, 2, 1), CRSLAB_KMESH,
                         _SLAB_OPS if arm == "sym" else _SLAB_OPS_NOSYM)
+        # [N16] what the q#3 deck IS depends on the arm, and the label must say so. On the
+        # sym arm q#3 = (1/3,0,0) keeps only {E, m_y}, N_k 27 vs 15 at Gamma -- a genuine
+        # general-q symmetry probe. On the nosym arm there is no symmetry left to lose:
+        # EVERY q has N_k = 36, so its q#3 deck is an n_LR REPLICATE at a second q (the
+        # model's own gamma_understatement for that arm is 1.03), and selling it as the
+        # general-q measurement would be false.
+        sold_as_symmetry_probe = arm == "sym"
+        q3_role = ("general-q symmetry probe (THE headline timing point for block 3Y)"
+                   if sold_as_symmetry_probe else
+                   "n_LR replicate at a second q -- NOT a symmetry probe; every nosym q "
+                   "has N_k = 36 (N16)")
         for qi in (1, 3):
-            suffix = "" if qi == 1 else f"_q{qi}"
             row = qrows[qi - 1]
-            if qi == 3 and row["gamma"]:
-                raise SystemExit("refusing to write: the general-q slab timing deck landed "
-                                 "on Gamma; re-derive the q index")
-            written.append((os.path.join(outdir, f"{prefix}__hp_1atomq{suffix}.in"),
-                            hp_namelist(prefix, f"./tmp_{prefix}", (3, 2, 1),
-                                        perturb_only_atom=1, start_q=qi, last_q=qi)))
+            # [N20] the old guard here (`row['gamma']`) could never fire: Gamma is orbit #1
+            # of every mesh, so q#3 is never Gamma by construction -- a gate that cannot
+            # fail. The real hazard is COST-equivalence: a "general" q whose N_k is no
+            # larger than Gamma's measures nothing about what a general q costs, which is
+            # exactly the nosym arm's situation. The guard therefore fires on cost-
+            # equivalence, and only when the deck is SOLD as a symmetry probe -- the nosym
+            # q#3 deck passes honestly because N16's relabel sells it as an n_LR replicate.
+            #
+            # [N20 residual] the first rewrite keyed the guard on the LITERAL q index
+            # (`qi == 3`), so regressing the loop above to (1, 2) would have emitted a
+            # Gamma-cost-equivalent q#2 deck (N_k 15 = Gamma's 15) sold as the general-q
+            # timing, with no refusal. Re-keyed on ROLE: any deck this loop emits at a
+            # non-Gamma q (row["gamma"] False -- the same mark that gives it a `_q{qi}`
+            # suffix and the q3_role sale in the manifest metadata) IS the arm's non-Gamma
+            # timing deck, and when it is sold as a symmetry probe its N_k must exceed the
+            # Gamma ROW's N_k -- whichever q index produced either row.
+            gamma_nk = next(r["n_k"] for r in qrows if r["gamma"])
+            if (not row["gamma"]) and sold_as_symmetry_probe and row["n_k"] <= gamma_nk:
+                raise SystemExit(
+                    f"refusing to write: the {arm}-arm general-q timing deck (q#{qi}) is "
+                    f"cost-equivalent to Gamma (N_k {row['n_k']} <= {gamma_nk}) and "
+                    f"cannot measure what a general q costs; re-derive the q index or "
+                    f"relabel the deck as an n_LR replicate (N16/N20)")
+            # [N27] both atom variants, surface first: the headline row is the a5 deck.
+            for atom in (SURFACE_CR_ATOM, SUBSURF_CR_ATOM):
+                suffix = f"_a{atom}" + ("" if qi == 1 else f"_q{qi}")
+                written.append((os.path.join(outdir, f"{prefix}__hp_1atomq{suffix}.in"),
+                                hp_namelist(prefix, f"./tmp_{prefix}", (3, 2, 1),
+                                            perturb_only_atom=atom, start_q=qi, last_q=qi,
+                                            niter_max=NITER_MAX["magnetic"])))  # [N22]
         jobs.append(dict(system=f"CrO2(110) clean slab [{arm}]", n_pert_measured=6,
                          nq_measured={str(k): v for k, v in nqmap.items()},
                          scf_file=f"{prefix}__scf.in",
-                         timing_files=[f"{prefix}__hp_1atomq.in (q#1 = Gamma)",
-                                       f"{prefix}__hp_1atomq_q3.in (q#3 = general, "
-                                       f"predicted N_k = {qrows[2]['n_k']} vs "
-                                       f"{qrows[0]['n_k']} at Gamma)"],
+                         timing_files=[
+                             f"{prefix}__hp_1atomq_a{SURFACE_CR_ATOM}.in (q#1 = Gamma, "
+                             f"surface Cr {SURFACE_CR_ATOM})",
+                             f"{prefix}__hp_1atomq_a{SURFACE_CR_ATOM}_q3.in (q#3, surface "
+                             f"Cr {SURFACE_CR_ATOM}, N_k = {qrows[2]['n_k']} vs "
+                             f"{qrows[0]['n_k']} at Gamma -- {q3_role})",
+                             f"{prefix}__hp_1atomq_a{SUBSURF_CR_ATOM}.in (q#1 = Gamma, "
+                             f"frozen bottom-layer Cr {SUBSURF_CR_ATOM}; with the a"
+                             f"{SURFACE_CR_ATOM} deck this measures the surface/subsurface "
+                             f"n_LR ratio, N27)",
+                             f"{prefix}__hp_1atomq_a{SUBSURF_CR_ATOM}_q3.in (q#3, frozen "
+                             f"bottom-layer Cr {SUBSURF_CR_ATOM})"],
+                         q3_role=q3_role,
                          q_table_3x2x1=qrows,
                          changes_vs_source=sorted(moved) + (
                              ["nosym/noinv removed"] if not keep_nosym else []) +
-                         ["calculation", "prefix", "outdir", "positions", "HUBBARD U"]))
+                         ["calculation", "prefix", "outdir", "positions", "HUBBARD U",
+                          "max_seconds added (N22)"]))
     return written, jobs
 
 
@@ -936,7 +1064,43 @@ N_LR = {"TiO2": {"floor": 9, "plan": 12, "ceiling": 15},
 #: nspin = 2 uplift per LR iteration. ASSUMED. The Sternheimer system is solved per spin
 #: channel so 2.0 is the naive count; the bracket admits shared setup on the low side and a
 #: harder response mixing on a metal on the high side.
+#:
+#: [N19] SCOPE: this factor applies ONLY to rows whose cost basis is the nspin = 1 TiO2
+#: measurement (the bulk CrO2 arm, block 2C). The slab rows must NEVER carry it, because
+#: their cell factor is derived from runs/Cr_slab/slab.out -- an nspin = 2 run -- so the
+#: spin cost is already inside that factor and multiplying SPIN_UPLIFT on top double-counts
+#: it. Enforced in `_atomq_core_s`.
 SPIN_UPLIFT = {"floor": 1.6, "plan": 2.0, "ceiling": 2.5}
+
+#: [N22] hp.x's compiled-in ceiling is niter_max = 100 LR iterations; no deck set it, so a
+#: stalled linear response could run 2.5-8x past the model's own ceiling before stopping.
+#: Every deck that iterates the linear response now passes niter_max explicitly, at 2x the
+#: model's ceiling n_LR -- the same ~2x-headroom rule adjudication [8] set for max_seconds:
+#: it bounds a runaway near the quoted ceiling without clipping a plausible convergence.
+#: NOT a registered threshold; docs/43 registers no iteration count.
+NITER_MAX = {"TiO2": 2 * N_LR["TiO2"]["ceiling"],          # 30
+             "magnetic": 2 * N_LR["magnetic"]["ceiling"]}  # 80
+
+#: [N22] modelled SCF core-seconds, used both by the cost table and to emit `max_seconds`
+#: (at 2x the model, adjudication [8]'s rule) into the decks themselves so a stalled SCF is
+#: bounded by the deck, not by an operator noticing.
+#: CrO2: TiO2's measured 486 core-s, x2 for nspin, x2.5 for a metal's iteration count at
+#: conv_thr 1e-10. Bracketed, not precise; it is 5% of the arm either way.
+CRO2_SCF_MODEL_CORE_S = 486.0 * 2 * 2.5
+#: Slab: the campaign's measured 2976 core-s per SCF iteration on 36 k (nosym), scaled by
+#: each arm's k-count; 19 cold iterations were measured at conv_thr 1e-6, and 1e-10 buys
+#: more, so the plan figure is 30 iterations -- stated assumption, not a measurement.
+SLAB_SCF_ITER_PLAN = 30
+#: max_seconds is a WALL cap, so it is NP-dependent; it is computed at the NP the manifest
+#: documents (RUN AS lines: NP=18 for the slab manifests, NP=20 for m_hp_tio2).
+SLAB_SCF_NP, CRO2_SCF_NP = 18, 20
+
+
+def _slab_scf_model_core_s(arm):
+    """[N22] modelled slab SCF cost: measured core-s/iteration scaled to the arm's k-count."""
+    per_iter = (COST_BASIS["crslab_scf_production"]["core_s_per_scf_iteration"]
+                * CRSLAB_KPTS[arm] / CRSLAB_KPTS["nosym"])
+    return per_iter * SLAB_SCF_ITER_PLAN
 
 
 def unit_costs():
@@ -1006,9 +1170,35 @@ def _model_check():
 
 def _atomq_core_s(rows, n_lr, uplift=1.0, cell_factor=1.0):
     """Core-seconds for ONE perturbed atom over a list of q rows from `q_table`."""
+    # [N19] no cost term may multiply two factors derived from the same measurement pair.
+    # The only cell_factor in this file is derived from (slab nspin=2 SCF) / (TiO2 nspin=1
+    # SCF), so it ALREADY CONTAINS the spin cost; SPIN_UPLIFT models that same spin cost
+    # from that same measurement pair. Multiplying both double-counted spin ~2x on every
+    # slab row. If a future cell factor is derived from an nspin=1 slab reference, update
+    # this guard together with `_slab_cell_factor`'s docstring.
+    if uplift != 1.0 and cell_factor != 1.0:
+        raise SystemExit("refusing to cost: uplift and cell_factor are both != 1, i.e. two "
+                         "factors from the same measurement pair multiplied into one cost "
+                         "term (N19). Slab rows must pass uplift=1.0; bulk rows must pass "
+                         "cell_factor=1.0.")
     u = unit_costs()
     return sum(cell_factor * uplift *
                (u["_c_nscf"] * r["printed_k"] + u["_c_lr"] * n_lr * r["n_k"]) for r in rows)
+
+
+def _slab_cell_factor():
+    """Slab/TiO2 per-SCF-iteration-per-k cost ratio -- the CELL factor for slab rows.
+
+    [N19] the numerator is runs/Cr_slab/slab.out, an **nspin = 2** run, so this factor
+    already contains the ~2x spin cost. Slab rows therefore take SPIN_UPLIFT REMOVED
+    (uplift = 1.0), not divided out: the spin cost stays, carried inside this measured
+    factor rather than as a second, assumed multiplier on top of it. Previously both were
+    applied and every slab cost came out ~2x high (plan basis).
+    """
+    slab_scf_per_iter_k = (COST_BASIS["crslab_scf_production"]["core_s_per_scf_iteration"]
+                           / CRSLAB_KPTS["nosym"])
+    t = COST_BASIS["tio2_scf_fixedocc"]
+    return slab_scf_per_iter_k / (t["core_s"] / t["scf_iterations"] / t["nk_points"])
 
 
 def slab_timing_projection(np_ranks=18):
@@ -1019,17 +1209,15 @@ def slab_timing_projection(np_ranks=18):
     and an operator who launches the manifest expecting "everything else exits in seconds"
     finds that out eight hours in.
     """
-    slab_scf_per_iter_k = (COST_BASIS["crslab_scf_production"]["core_s_per_scf_iteration"]
-                           / CRSLAB_KPTS["nosym"])
-    t = COST_BASIS["tio2_scf_fixedocc"]
-    cell = slab_scf_per_iter_k / (t["core_s"] / t["scf_iterations"] / t["nk_points"])
+    cell = _slab_cell_factor()
     out = {}
     for arm in ("sym", "nosym"):
         ops = _SLAB_OPS if arm == "sym" else _SLAB_OPS_NOSYM
         qr = q_table((3, 2, 1), CRSLAB_KMESH, ops)
         for qi in (1, 3):
             row = qr[qi - 1]
-            core_h = {k: _atomq_core_s([row], N_LR["magnetic"][k], SPIN_UPLIFT[k], cell) / 3600.0
+            # [N19] uplift=1.0: the spin cost lives inside `cell` (see _slab_cell_factor)
+            core_h = {k: _atomq_core_s([row], N_LR["magnetic"][k], 1.0, cell) / 3600.0
                       for k in ("floor", "plan", "ceiling")}
             out[f"{arm}_q{qi}"] = dict(
                 n_k=row["n_k"], gamma=row["gamma"],
@@ -1096,12 +1284,16 @@ def cost_table():
                      box_hours_at_23_cores=round((batch_h["plan"] + scf_h) / 23.04, 1)))
 
     # --- the CrO2 arm, docs/43 s4-A.3 -----------------------------------------------------
+    # SPIN_UPLIFT is correct here ([N19]): this row's basis is the nspin=1 TiO2 measurement
+    # (cell_factor = 1.0), so nothing in it carries a spin cost yet.
     cro2 = q_table(CRO2_QMESH, CRO2_KPTS, _RUTILE_OPS)
     cro2_h = {k: _atomq_core_s(cro2, N_LR["magnetic"][k], SPIN_UPLIFT[k]) / 3600.0
               for k in ("floor", "plan", "ceiling")}
-    # the CrO2 SCF: TiO2's measured 486 core-s, x2 for nspin and x2.5 for a metal's iteration
-    # count at conv_thr 1e-10. Bracketed, not precise; it is 5% of the arm either way.
-    cro2_scf_h = 486.0 * 2 * 2.5 / 3600.0
+    # the CrO2 SCF: the same modelled figure the deck's max_seconds is derived from (N22).
+    cro2_scf_h = CRO2_SCF_MODEL_CORE_S / 3600.0
+    # [N12] the prose quotes the row's OWN bracket, computed from the same numbers as the
+    # row, so it cannot drift from the JSON it annotates.
+    cro2_min = {k: round((cro2_h[k] + cro2_scf_h) * 60 / 20) for k in cro2_h}
     rows.append(dict(system="bulk rutile CrO2 arm (magnetic, metallic) -- docs/43 s4-A.3",
                      basis="MODEL, spin uplift ASSUMED", arm="atomic", n_pert=1,
                      nq_mesh="x".join(map(str, CRO2_QMESH)), n_q=len(cro2),
@@ -1110,10 +1302,12 @@ def cost_table():
                      core_h_plan=round(cro2_h["plan"] + cro2_scf_h, 1),
                      core_h_ceiling=round(cro2_h["ceiling"] + cro2_scf_h, 1),
                      wall_min_at_np20=round((cro2_h["plan"] + cro2_scf_h) * 60 / 20, 0),
-                     note="docs/43 s4-A.3 estimates 'roughly ten minutes of the box'. The "
-                          "measured-anchored model says 20-50 min at NP=20 including its "
-                          "SCF. Still cheap, still required; the ten-minute figure should "
-                          "not be quoted as the cost."))
+                     note=f"docs/43 s4-A.3 estimates 'roughly ten minutes of the box'. "
+                          f"This row's own bracket at NP=20 including its SCF is "
+                          f"{cro2_min['floor']} / {cro2_min['plan']} / "
+                          f"{cro2_min['ceiling']} min (floor / plan / ceiling). Still "
+                          f"cheap, still required; neither the ten-minute figure nor any "
+                          f"number outside this bracket should be quoted as the cost (N12)."))
 
     # --- block 2C: 7 metals, bulk ---------------------------------------------------------
     m3 = q_table((3, 3, 3), TIO2_KPTS, _RUTILE_OPS)
@@ -1131,12 +1325,12 @@ def cost_table():
     # applying it per k is what stops the cell cost and the symmetry saving being conflated.
     # That conflation is exactly where the old R_iter = 5.54 came from: it divided a 65-k LR
     # iteration by a 50-k SCF iteration and kept the difference as physics.
-    slab_scf_per_iter_k = (COST_BASIS["crslab_scf_production"]["core_s_per_scf_iteration"]
-                           / CRSLAB_KPTS["nosym"])
-    tio2_scf = COST_BASIS["tio2_scf_fixedocc"]
-    tio2_scf_per_iter_k = (tio2_scf["core_s"] / tio2_scf["scf_iterations"]
-                           / tio2_scf["nk_points"])
-    cell_factor = slab_scf_per_iter_k / tio2_scf_per_iter_k
+    #
+    # [N19] the slab measurement is nspin = 2, so cell_factor already contains the spin
+    # cost, and the rows below pass uplift = 1.0 -- SPIN_UPLIFT REMOVED, not divided out
+    # (see _slab_cell_factor). The previous build multiplied both and every slab number
+    # came out ~2x high, in the direction that kills an affordable block.
+    cell_factor = _slab_cell_factor()
     for arm, nq, n_pert, note in (
             ("nosym", (3, 2, 1), 6, "as production runs today"),
             ("sym", (3, 2, 1), 6, "symmetry on"),
@@ -1151,11 +1345,11 @@ def cost_table():
         if measured_nq is not None and len(qr) != measured_nq:
             raise SystemExit(f"refusing to cost: slab {arm} nq{nq} model q-count {len(qr)} "
                              f"disagrees with the measured {measured_nq}")
-        tot = {k: n_pert * _atomq_core_s(qr, N_LR["magnetic"][k], SPIN_UPLIFT[k],
+        tot = {k: n_pert * _atomq_core_s(qr, N_LR["magnetic"][k], 1.0,  # [N19] no uplift
                                          cell_factor) / 3600.0
                for k in ("floor", "plan", "ceiling")}
         gamma_only = n_pert * len(qr) * _atomq_core_s(
-            [qr[0]], N_LR["magnetic"]["plan"], SPIN_UPLIFT["plan"], cell_factor) / 3600.0
+            [qr[0]], N_LR["magnetic"]["plan"], 1.0, cell_factor) / 3600.0  # [N19]
         rows.append(dict(system="CrO2(110) clean slab", basis="EXTRAPOLATED",
                          arm=f"{arm}: {note}", n_pert=n_pert,
                          nq_mesh="x".join(map(str, nq)), n_q=len(qr),
@@ -1208,12 +1402,22 @@ def cost_table():
             "the old R_iter = 5.54 conflated a 65-k LR iteration with a 50-k SCF iteration. "
             "Per k it is 4.3, and the slab extrapolation now carries the cell factor and the "
             "k count separately.",
+            "[N19] the previous build multiplied the slab rows by BOTH cell_factor (derived "
+            "from the nspin=2 slab SCF, so it already contains the spin cost) AND "
+            "SPIN_UPLIFT -- the same spin cost twice, from the same measurement pair. "
+            "SPIN_UPLIFT is removed from the slab rows (kept on the bulk CrO2/2C rows, "
+            "whose basis is nspin=1 TiO2), and _atomq_core_s now refuses any call that "
+            "multiplies both. Every slab number roughly halved at plan basis.",
         ],
         assumptions=[
             "n_LR on a magnetic metal is ASSUMED (floor 12 / plan 25 / ceiling 40); TiO2 "
             "measured 9 and 12. This is the largest single unknown in the table and it is "
-            "what runs/hp_costmodel/*_hp_1atomq_q3.in exists to remove.",
-            "the nspin = 2 uplift per LR iteration is ASSUMED (1.6 / 2.0 / 2.5).",
+            "what runs/hp_costmodel/*_hp_1atomq_a5_q3.in exists to remove -- and [N27] "
+            "n_LR is site-dependent, which is why the a5 (surface) and a1 (frozen "
+            "bulk-like) variants both ship: their ratio is the measurement.",
+            "the nspin = 2 uplift per LR iteration is ASSUMED (1.6 / 2.0 / 2.5) and applies "
+            "ONLY to bulk rows extrapolated from nspin=1 TiO2; the slab rows carry their "
+            "spin cost inside the measured cell_factor instead (N19).",
             "ortho-atomic projectors are costed at the same rate as atomic; unmeasured.",
             "slab SCF cost is the campaign's own measurement on a 32-core box "
             "(runs/Cr_slab/slab.out), not on this 23.04-core one; core-seconds are used "
@@ -1224,10 +1428,14 @@ def cost_table():
             "tasks/lessons.md 2026-08-05: this project's last three compute estimates came "
             "in 2.4x, 2.5x and 3.5x low, every one of them extrapolated from a cheaper "
             "system. The slab rows are exactly that shape. Treat 'plan' as a floor and run "
-            "runs/hp_costmodel/crslab_sym__hp_1atomq_q3.in before committing block 3Y.",
+            "runs/hp_costmodel/crslab_sym__hp_1atomq_a5_q3.in before committing block 3Y.",
         ],
         n_lr=N_LR, spin_uplift=SPIN_UPLIFT,
+        niter_max=NITER_MAX,
         slab_cell_factor_vs_tio2_per_iteration_per_k=round(cell_factor, 1),
+        slab_cell_factor_note="numerator is the nspin=2 slab SCF, so this factor already "
+                              "contains the spin cost; slab rows therefore take no "
+                              "SPIN_UPLIFT (N19)",
         table=rows)
 
 
@@ -1275,68 +1483,209 @@ def main():
     # colliding (run B died, exit code 2) and, worse, could have survived reading each other's
     # half-written .wfcN. queue_hp.sh refuses NCONC > 1 on a repeated prefix; parallelism has
     # to come from different prefixes. NP x NCONC <= 23 (cgroup 23.04 cores).
-    tio2_lines = ["# hp.x GO/NO-GO: bulk rutile TiO2 (2 projectors) + the magnetic, metallic",
-                  "# bulk CrO2 arm that docs/43 s4-A.3 requires. Lines: <dir> <scf> <hp> <nk>.",
-                  "# Acceptance criteria live in docs/43 s4 + s4-A; this manifest runs them,",
-                  "# it does not judge them. Counting decks (hp_npert/hp_npert3/hp_qmesh)",
-                  "# exit in ~3 s. hp_npert3 is find_atpert=3, which criterion I5 needs.",
-                  "#",
-                  "# RUN AS: bash queue_hp.sh m_hp_tio2.txt 20 1",
-                  "#   nk=4  -> NP must be an exact multiple of 4 (pw.x and hp.x both abort",
-                  "#            otherwise). NP x NCONC <= 23 (cgroup 2304000/100000 = 23.04",
-                  "#            usable cores; nproc says 48 and is wrong).",
-                  "#   NCONC MUST be 1: the three prefixes below each appear on many lines,",
-                  "#            and hp.x names its scratch from prefix + rank alone.",
-                  "# The CrO2 arm is the one that licenses block 2C. Order it LAST here only",
-                  "# because its SCF is the most likely to fail; nothing depends on it first."]
-    for tag in ("atomic", "ortho", "cro2"):
-        for path, _ in tio2_files:
+    #
+    # [N25] every manifest is GENERATED from the written-file list: a deck cannot be
+    # orphaned from its manifest, and a manifest line cannot point at a deck that was never
+    # written, without _manifest_body changing. The previous build hardcoded the costmodel
+    # lines as string literals; 8 decks on disk were unreachable from any manifest, among
+    # them crslab_nosym__hp_qmesh_q321 -- which left the production-cutoff q-count
+    # re-verifiable on only ONE arm of a comparison whose entire purpose is two arms.
+    def _deck_prefix(text):
+        m = re.search(r"^\s*prefix\s*=\s*'([^']*)'", text, re.M)
+        return m.group(1) if m else None
+
+    def _manifest_body(files, nk):
+        scf_of = {}
+        for path, text in files:
             base = os.path.basename(path)[:-3]
-            if base.startswith((f"hp_npert__{tag}", f"hp_npert3__{tag}",
-                                f"hp_qmesh__{tag}", f"hp__{tag}")):
-                tio2_lines.append(f"hp_tio2 scf__{tag} {base} 4")
-    # One timing rung, ~3 min, and it is the cheapest falsification available: q#3 of the
-    # 2x2x2 mesh is (0,1/2,0) with N_k = 100, the first TiO2 point whose k-count differs from
-    # the two already timed (both N_k = 65). If the k-scaling law is wrong, this is where it
-    # shows -- on a six-atom cell, before the slab bill depends on it.
-    tio2_lines.append("hp_tio2 scf__atomic hp_1atomq__atomic_q3 4")
+            if base.startswith("scf__") or base.endswith("__scf"):
+                scf_of[_deck_prefix(text)] = base
+        lines = []
+        for path, text in files:
+            base = os.path.basename(path)[:-3]
+            if base in scf_of.values():
+                continue
+            pref = _deck_prefix(text)
+            if pref not in scf_of:
+                raise SystemExit(f"refusing to write manifest: deck {base} has prefix "
+                                 f"{pref!r} with no matching SCF deck (N25)")
+            d = os.path.basename(os.path.dirname(path))
+            lines.append(f"{d} {scf_of[pref]} {base} {nk}")
+        return lines
+
+    proj = cost_table()
+
+    # [N26] the TiO2 manifest header quotes its own floor / plan / ceiling and the MANIFEST
+    # total. Previously its only number was "~3 s" -- true of the counting decks, off by
+    # four orders of magnitude for the manifest, and this lane's other header already
+    # states what that does to an operator.
+    def _row(prefix_):
+        return next(r for r in proj["table"] if r["system"].startswith(prefix_))
+    batch_row = _row("TiO2 GO/NO-GO batch")
+    cro2_row = _row("bulk rutile CrO2 arm")
+    q222 = q_table((2, 2, 2), TIO2_KPTS, _RUTILE_OPS)
+    timing_h = {k: sum(_atomq_core_s([q222[i]], N_LR["TiO2"][k])
+                       for i in (0, 1, 2)) / 3600.0 for k in ("floor", "plan", "ceiling")}
+    # [N26 residual] the previous line said "~0.1 core-h is an upper bound" -- unsupported:
+    # the measured basis (COST_BASIS["tio2_hp_determine_modes"]) is 2.9 s WALL at NP=4, and
+    # these determine_*_only decks are setup-dominated, so the wall clock does not shrink
+    # with NP. At the manifest's own NP the bill is n_decks * wall_s * NP: 13 * 2.9 s * 20
+    # = 754 core-s = 0.21 core-h, which already exceeds the claimed "upper bound". The
+    # computed number at the manifest's own NP is quoted instead, with its basis; no
+    # upper-bound language. Deck count is derived from the written-file list, not asserted.
+    manifest_np = 20  # the NP in this manifest's own RUN AS line
+    n_counting = sum(1 for p, _ in tio2_files
+                     if os.path.basename(p).startswith(("hp_npert", "hp_qmesh")))
+    counting_wall_s = COST_BASIS["tio2_hp_determine_modes"]["wall_s"]
+    counting_h = n_counting * counting_wall_s * manifest_np / 3600.0
+    tio2_tot = {k: batch_row[f"core_h_{k}"] + cro2_row[f"core_h_{k}"] + timing_h[k]
+                + counting_h for k in ("floor", "plan", "ceiling")}
+
+    def _fpc(d, scale=1.0, unit="core-h"):
+        return (" / ".join(f"{d[k] * scale:.1f}" for k in ("floor", "plan", "ceiling"))
+                + f" {unit}")
+
+    tio2_lines = [
+        "# hp.x GO/NO-GO: bulk rutile TiO2 (2 projectors) + the magnetic, metallic",
+        "# bulk CrO2 arm that docs/43 s4-A.3 requires. Lines: <dir> <scf> <hp> <nk>.",
+        "# Acceptance criteria live in docs/43 s4 + s4-A; this manifest runs them,",
+        "# it does not judge them. GENERATED from the written-file list (N25): every",
+        "# deck in runs/hp_tio2 is on a line below.",
+        "# Counting decks (hp_npert/hp_npert3/hp_qmesh) exit in ~3 s -- NOTHING ELSE",
+        "# DOES; see the totals below. hp_npert3 (find_atpert=3) is an unregistered",
+        "# n_pert cross-check; docs/43 registers no find_atpert comparison (U9).",
+        "# The hp_1atomq__atomic and _q2 rungs re-verify the two measured timing",
+        "# anchors (99.05 s / 85.61 s at NP=12); _q3 is the out-of-sample point that",
+        "# can falsify the k-scaling law on a six-atom cell before the slab bill",
+        "# depends on it.",
+        "#",
+        "# COST, floor / plan / ceiling, from cost_model.json (N26):",
+        f"#   U-producing batch (incl. both SCFs):  {_fpc({k: batch_row[f'core_h_{k}'] for k in ('floor', 'plan', 'ceiling')})}",
+        f"#   CrO2 arm (incl. its SCF):             {_fpc({k: cro2_row[f'core_h_{k}'] for k in ('floor', 'plan', 'ceiling')})}",
+        f"#   3 TiO2 timing rungs:                  {_fpc(timing_h)}",
+        f"#   {n_counting} counting decks:                    {counting_h:.2f} core-h "
+        f"({n_counting} x {counting_wall_s} s wall x NP={manifest_np}; wall measured at "
+        f"NP=4, assumed NP-flat, N26)",
+        f"#   MANIFEST TOTAL:                       {_fpc(tio2_tot)}",
+        f"#                                       = {_fpc(tio2_tot, scale=1 / manifest_np, unit=f'WALL HOURS at NP={manifest_np}')}",
+        "# This manifest owns the box for most of a working day. It is not a",
+        "# background errand.",
+        "#",
+        f"# RUN AS: bash queue_hp.sh m_hp_tio2.txt {manifest_np} 1",
+        "#   nk=4  -> NP must be an exact multiple of 4 (pw.x and hp.x both abort",
+        "#            otherwise). NP x NCONC <= 23 (cgroup 2304000/100000 = 23.04",
+        "#            usable cores; nproc says 48 and is wrong).",
+        "#   NCONC MUST be 1: the three prefixes below each appear on many lines,",
+        "#            and hp.x names its scratch from prefix + rank alone.",
+        "# The CrO2 arm is the one that licenses block 2C. It is ordered LAST only",
+        "# because its SCF is the most likely to fail; nothing depends on it first."]
+    tio2_lines += _manifest_body(tio2_files, 4)
     manifest_tio2 = "\n".join(tio2_lines) + "\n"
 
+    # [N13] the two slab arms are SEPARATE manifest files with separate RUN AS lines, so
+    # the only copy-pasteable command cannot commit the nosym arm before the sym wall clock
+    # exists. (A commented-out block in one file was rejected: uncommenting and re-running
+    # one manifest would re-run the already-paid sym rungs, since the queue re-runs every
+    # hp.x line it is given.)
     stp = slab_timing_projection(np_ranks=18)
-    manifest_cost = "\n".join(
-        ["# hp.x cost model. The *_hp_1atomq* lines are the ONLY thing that has to run before",
-         "# block 3Y can be costed honestly; everything else exits in seconds. They are NOT",
-         "# cheap -- each is one linear-response solve on an 18-atom magnetic +U slab at",
-         "# production cutoffs, and each needs a production SCF in front of it. Under the",
-         "# k-scaled model these are the projections, floor / plan / ceiling WALL HOURS at",
-         "# NP=18, and they are the reason this manifest is not a background errand:"]
-        + [f"#     {k:<9} N_k={v['n_k']:<3} q={v['q']}  {v['wall_h_at_np']} h"
-           + ("   <- Gamma" if v["gamma"] else "")
-           for k, v in stp.items()]
-        + ["# Launch the sym arm first and read its wall clock before paying for nosym.",
-           "#"]
-        + [
-         "# RUN AS: bash queue_hp.sh m_hp_costmodel.txt 18 1",
-         "#   nk=6  -> NP must be 6, 12 or 18. NP x NCONC <= 23 (cgroup = 23.04 usable",
-         "#            cores), so NP=18 forces NCONC=1 by itself.",
-         "#   NCONC MUST be 1 for a second reason: these lines are TIMINGS. A wall clock",
-         "#            taken while another job competes for a throttled cgroup is not a cost",
-         "#            basis, it is the mechanism behind the 2.4x/2.5x/3.5x mis-costings in",
-         "#            tasks/lessons.md 2026-08-05.",
-         "#",
-         "# q#1 of EVERY mesh is Gamma -- the cheapest point that exists -- so the _q3 decks",
-         "# are the ones block 3Y must be costed from. q#3 of the 3x2x1 mesh is (1/3,0,0),",
-         "# predicted N_k = 27 against 15 at Gamma. (q#2 is (0,1/2,0), which is ALSO fully",
-         "# symmetric and would have re-measured Gamma's cost under a different name.)",
-         "# CHECK against the .out: hp.x prints the q coordinates and 'number of k points='.",
-         "hp_costmodel crslab_sym__scf   crslab_sym__hp_npert      6",
-         "hp_costmodel crslab_sym__scf   crslab_sym__hp_qmesh_q211 6",
-         "hp_costmodel crslab_sym__scf   crslab_sym__hp_qmesh_q321 6",
-         "hp_costmodel crslab_sym__scf   crslab_sym__hp_1atomq     6",
-         "hp_costmodel crslab_sym__scf   crslab_sym__hp_1atomq_q3  6",
-         "hp_costmodel crslab_nosym__scf crslab_nosym__hp_npert    6",
-         "hp_costmodel crslab_nosym__scf crslab_nosym__hp_1atomq   6",
-         "hp_costmodel crslab_nosym__scf crslab_nosym__hp_1atomq_q3 6"]) + "\n"
+    sym_files = [(p, t) for p, t in cost_files
+                 if os.path.basename(p).startswith("crslab_sym")]
+    nosym_files = [(p, t) for p, t in cost_files
+                   if os.path.basename(p).startswith("crslab_nosym")]
+    if len(sym_files) + len(nosym_files) != len(cost_files):
+        raise SystemExit("refusing to write: a costmodel deck belongs to neither arm")
+
+    def _arm_scf_wall_h(arm):
+        return _slab_scf_model_core_s(arm) / SLAB_SCF_NP / 3600.0
+
+    def _arm_timing_wall_h(arm, k):
+        i = ("floor", "plan", "ceiling").index(k)
+        # each q is timed twice: atoms 5 (surface) and 1 (frozen bulk-like) -- N27
+        return 2 * (stp[f"{arm}_q1"]["wall_h_at_np"][i] + stp[f"{arm}_q3"]["wall_h_at_np"][i])
+
+    def _qline(key):
+        v = stp[key]
+        note = "   <- Gamma" if v["gamma"] else (
+            "   <- the general-q symmetry probe" if key == "sym_q3" else
+            "   <- n_LR replicate: N_k identical to Gamma (N16)")
+        return (f"#     {key:<9} N_k={v['n_k']:<3} q={v['q']}  {v['wall_h_at_np']} h"
+                + note)
+
+    common_run_notes = [
+        "#   nk=6  -> NP must be 6, 12 or 18. NP x NCONC <= 23 (cgroup = 23.04 usable",
+        "#            cores), so NP=18 forces NCONC=1 by itself.",
+        "#   NCONC MUST be 1 for a second reason: these lines are TIMINGS. A wall clock",
+        "#            taken while another job competes for a throttled cgroup is not a cost",
+        "#            basis, it is the mechanism behind the 2.4x/2.5x/3.5x mis-costings in",
+        "#            tasks/lessons.md 2026-08-05.",
+        "# CHECK against the .out: hp.x prints the q coordinates and 'number of k points='."]
+
+    sym_lines = [
+        "# hp.x cost model -- SYM ARM. GENERATED from the written-file list (N25):",
+        "# every crslab_sym deck in runs/hp_costmodel is on a line below.",
+        "# Lines: <dir> <scf> <hp> <nk>.",
+        "# The *_hp_1atomq_* lines are the ONLY thing that has to run before block 3Y",
+        "# can be costed honestly; the counting decks exit in seconds. Projections,",
+        "# floor / plan / ceiling WALL HOURS at NP=18, per (atom, q) rung -- the spin",
+        "# cost is no longer double-counted (N19), which HALVED every slab figure:",
+        _qline("sym_q1"),
+        _qline("sym_q3"),
+        "# Each q is timed TWICE (N27): perturb_only_atom(5), a SURFACE Cr -- the site",
+        "# the recommended production variant perturbs -- and perturb_only_atom(1), the",
+        "# frozen bulk-like bottom-layer Cr. Their ratio turns n_LR's site dependence,",
+        "# the model's largest unknown, into a measurement.",
+        "# THE HEADLINE TIMING ROW for block 3Y is crslab_sym__hp_1atomq_a5_q3 (surface",
+        "# atom, general q). The sym q1/q3 pair (N_k 15 vs 27) is the ONLY arm where",
+        "# the Gamma-understatement is measurable; the nosym q3 decks are n_LR",
+        "# replicates (N16) and live in m_hp_costmodel_nosym.txt.",
+        f"# First rung pays the SCF: modelled ~{_arm_scf_wall_h('sym'):.1f} h wall at "
+        f"NP=18; its deck's max_seconds caps it at 2x that (N22).",
+        f"# ARM TOTAL (plan): SCF ~{_arm_scf_wall_h('sym'):.1f} h + 4 timing rungs "
+        f"~{_arm_timing_wall_h('sym', 'plan'):.1f} h = "
+        f"~{_arm_scf_wall_h('sym') + _arm_timing_wall_h('sym', 'plan'):.1f} wall-hours "
+        f"at NP=18 (ceiling ~{_arm_scf_wall_h('sym') + _arm_timing_wall_h('sym', 'ceiling'):.1f}).",
+        "#",
+        "# RUN AS: bash queue_hp.sh m_hp_costmodel_sym.txt 18 1",
+        "# [N13] READ THIS ARM'S WALL CLOCK BEFORE LAUNCHING m_hp_costmodel_nosym.txt.",
+        "# The nosym arm is a separate file precisely so no single command commits both.",
+        "# (q#2 = (0,1/2,0) is ALSO fully symmetric, N_k = 15 -- timing it would have",
+        "# re-measured Gamma's cost under a different name, which is why q#3 is the",
+        "# general-q index here.)"] + common_run_notes
+    sym_lines += _manifest_body(sym_files, 6)
+    manifest_sym = "\n".join(sym_lines) + "\n"
+
+    nosym_lines = [
+        "# hp.x cost model -- NOSYM ARM. GENERATED from the written-file list (N25):",
+        "# every crslab_nosym deck in runs/hp_costmodel is on a line below.",
+        "# Lines: <dir> <scf> <hp> <nk>.",
+        "#",
+        "# [N13] DO NOT LAUNCH THIS FILE until m_hp_costmodel_sym.txt has run and its",
+        "# wall clock has been read. This arm costs real box-hours, and the decision to",
+        "# pay for it is supposed to be taken on the sym arm's measured number -- not",
+        "# committed in the same command that measures it.",
+        "#",
+        "# [N16] WHAT THESE TIMING DECKS ARE: with nosym there is no symmetry left to",
+        "# lose, so EVERY q of every mesh has N_k = 36. The _q3 decks are therefore",
+        "# n_LR REPLICATES at a second q, NOT symmetry probes -- they cannot measure",
+        "# the Gamma-understatement (the model's own figure for this arm is 1.03; the",
+        "# sym q1/q3 pair is the only place it is measurable). What this arm DOES buy:",
+        "# the sym-vs-nosym cost ratio at equal n_LR assumptions -- what symmetry is",
+        "# worth, measured rather than assumed -- plus two more independent n_LR draws",
+        "# per q (atom 5 surface / atom 1 frozen bulk-like, N27).",
+        "# Projections, floor / plan / ceiling WALL HOURS at NP=18 (N19-corrected):",
+        _qline("nosym_q1"),
+        _qline("nosym_q3"),
+        f"# First rung pays the SCF: modelled ~{_arm_scf_wall_h('nosym'):.1f} h wall at "
+        f"NP=18; its deck's max_seconds caps it at 2x that (N22).",
+        f"# ARM TOTAL (plan): SCF ~{_arm_scf_wall_h('nosym'):.1f} h + 4 timing rungs "
+        f"~{_arm_timing_wall_h('nosym', 'plan'):.1f} h = "
+        f"~{_arm_scf_wall_h('nosym') + _arm_timing_wall_h('nosym', 'plan'):.1f} wall-hours "
+        f"at NP=18 (ceiling ~{_arm_scf_wall_h('nosym') + _arm_timing_wall_h('nosym', 'ceiling'):.1f}).",
+        "#",
+        "# RUN AS (only after the sym wall clock is read):",
+        "#   bash queue_hp.sh m_hp_costmodel_nosym.txt 18 1"] + common_run_notes
+    nosym_lines += _manifest_body(nosym_files, 6)
+    manifest_nosym = "\n".join(nosym_lines) + "\n"
 
     payload = dict(
         note=("Block 1B artifacts. hp.x GO/NO-GO target + cost model. Every timing in "
@@ -1356,7 +1705,8 @@ def main():
             withdrawn="perturbation-amplitude independence -- hp.x is DFPT and the binary "
                       "has no amplitude keyword, so the check was unperformable, not merely "
                       "unmet (docs/43 s4-A.2). Replaced by the CrO2 arm (s4-A.3).",
-            demoted_to_diagnostic=CHI_SYMMETRY_IS_AN_IDENTITY),
+            demoted_to_diagnostic=CHI_SYMMETRY_STATUS),  # [N28] PENDING, not resolved
+        manifests=["m_hp_tio2.txt", "m_hp_costmodel_sym.txt", "m_hp_costmodel_nosym.txt"],
         built="2026-08-09",
         pseudopotentials=dict(Ti=dict(file=TI_UPF, type="ultrasoft (GBRV)", zval=12),
                               Cr=dict(file=CR_UPF, type="ultrasoft (GBRV)"),
@@ -1370,11 +1720,17 @@ def main():
             "determine_q_mesh_only requires perturb_only_atom",
             "a gapped system must NOT be run with smearing (measured, not documented)"],
         tio2_jobs=tio2_jobs, costmodel_jobs=cost_jobs,
-        slab_timing_projection=slab_timing_projection(np_ranks=18),
-        cost_basis=COST_BASIS, cost_projection=cost_table())
+        slab_timing_projection=stp,
+        cost_basis=COST_BASIS, cost_projection=proj)
+
+    manifest_writes = ((os.path.join(tio2_dir, "m_hp_tio2.txt"), manifest_tio2),
+                       (os.path.join(cost_dir, "m_hp_costmodel_sym.txt"), manifest_sym),
+                       (os.path.join(cost_dir, "m_hp_costmodel_nosym.txt"), manifest_nosym))
 
     if a.check_only:
         for path, _ in tio2_files + cost_files:
+            print(f"WOULD WRITE {path}")
+        for path, _ in manifest_writes:
             print(f"WOULD WRITE {path}")
         print(json.dumps(payload["cost_projection"], indent=2))
         print(f"\nall guards passed; {len(tio2_files) + len(cost_files)} decks pending")
@@ -1387,11 +1743,25 @@ def main():
             fh.write(text)
         print(f"wrote {path}")
 
-    for path, text in ((os.path.join(tio2_dir, "m_hp_tio2.txt"), manifest_tio2),
-                       (os.path.join(cost_dir, "m_hp_costmodel.txt"), manifest_cost)):
+    for path, text in manifest_writes:
         with open(path, "w", encoding="utf-8", newline="\n") as fh:
             fh.write(text)
         print(f"wrote {path}")
+
+    # [N25] the orphan sweep. A deck or manifest on disk that this build did not just write
+    # is exactly how the last round's 8 unreachable decks (and a superseded manifest name)
+    # would survive to confuse a later reader. Only *.in and *.txt are swept; .out results
+    # are never touched.
+    expected = {os.path.abspath(p) for p, _ in tio2_files + cost_files}
+    expected |= {os.path.abspath(p) for p, _ in manifest_writes}
+    for dpath in (tio2_dir, cost_dir):
+        for fn in sorted(os.listdir(dpath)):
+            if not (fn.endswith(".in") or fn.endswith(".txt")):
+                continue
+            fp = os.path.abspath(os.path.join(dpath, fn))
+            if fp not in expected:
+                os.remove(fp)
+                print(f"removed stale {fp}")
 
     with open(os.path.join(cost_dir, "cost_model.json"), "w", encoding="utf-8",
               newline="\n") as fh:
