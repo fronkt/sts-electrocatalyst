@@ -920,6 +920,103 @@ escape for on Ir. Cr's 0.330 V should be read as "the magnetically-correct value
 production U, in the production cell, on the mirror plane," and every one of those four
 qualifiers is still live.
 
+## 6g. RESULTS — the archive symmetry audit (2026-08-09). The tier is not one protocol.
+
+Block 1D of the program asked a bookkeeping question: how many of the 153 archived `.out`
+files were relaxed inside a symmetry constraint? The answer is not a percentage. It is that
+**the seven-metal tier was never computed under a single protocol**, and which protocol a
+metal got was decided by an input flag that nobody chose deliberately.
+
+`src/dft/symops_audit.py` reads every pw.x output, records the size of the symmetry group
+pw.x kept, and independently measures max|F_y| on the adsorbate atoms across every printed
+force block. Those are two separate witnesses to the same thing, and **they agree on every
+one of the 96 adsorbate runs.**
+
+### Three regimes, not two
+
+| class | definition | meaning |
+|---|---|---|
+| **LOCKED** | pw.x kept ≥ 2 operations and symmetrised F_y to **exactly** 0.0000000000 Ry/au | the relaxation was a constrained optimisation in a 2-D (x, z) subspace and could not leave the plane |
+| **ON_PLANE** | no symmetry enforced, but max\|F_y\| < 1e-4 Ry/au | numerically free; the optimiser was never pushed off the plane and did not leave it. **Physically identical to LOCKED.** |
+| **EXPLORED** | max\|F_y\| ≥ 1e-4 Ry/au | a real out-of-plane force existed and the optimiser acted on it |
+
+The middle class is the one a two-way audit would have missed. `nosym` on an exactly
+symmetric input does nothing — it removes the constraint without supplying a reason to
+move — so "we set `nosym`" is not evidence that a search explored anything.
+
+### The 20 production adsorbate relaxations
+
+| | LOCKED | ON_PLANE | EXPLORED |
+|---|---|---|---|
+| count | 9 (45%) | 6 (30%) | 5 (25%) |
+
+**15 of 20 (75%) were confined to the mirror plane by one route or the other.**
+
+| metal | `*O` | `*OH` | `*OOH` |
+|---|---|---|---|
+| **Cr** | LOCKED | LOCKED | LOCKED |
+| **Ir** | LOCKED | LOCKED | LOCKED |
+| **Ru** | LOCKED | LOCKED | LOCKED |
+| Mn | ON_PLANE | **EXPLORED** | **EXPLORED** |
+| Fe | ON_PLANE | **EXPLORED** | ON_PLANE |
+| Co | **EXPLORED** | **EXPLORED** | — |
+| Ni | ON_PLANE | ON_PLANE | — |
+| Cu | — | — | ON_PLANE |
+
+### The cause is a single flag, and it partitions the tier perfectly
+
+| `nosym = .true.` in the deck | LOCKED | ON_PLANE | EXPLORED |
+|---|---|---|---|
+| **absent** (Cr, Ir, Ru) | **9** | 0 | 0 |
+| **present** (Mn, Fe, Co, Ni, Cu) | 0 | 6 | 5 |
+
+Twenty for twenty, no exceptions. The confinement class of every production relaxation in
+this campaign is predicted exactly by whether one line was present in its input.
+
+`git log -S nosym -- runs/` places its arrival in the endmember **rescue ladder** — the
+`da87f7e` / `abd78c7` / `70f5521` restart commits written for the eleven adslabs that died
+on mid-relax SCF failures with a false `JOB DONE`. Mn, Fe, Co, Ni and Cu all went through
+that ladder. Cr, Ir and Ru converged first time and never did. *(The precise reason Cr's
+final decks carry no `nosym` despite Cr appearing in `da87f7e` is not yet established from
+the diffs and is left open rather than guessed.)*
+
+So, stated carefully: **the three metals that never gave any trouble are the three that
+kept the constrained protocol.** Nothing went wrong with them, so nothing was ever rebuilt,
+so they alone retained the default. Every one of them reports textbook convergence.
+
+### Why this matters more than the count does
+
+**1. The tier's η values are not mutually comparable.** Cr, Ir and Ru were optimised over a
+2-D subspace; Mn, Fe, Co, Ni and Cu over the full 3-D one. Comparing those seven numbers —
+which is exactly what a benchmark tier is for — compares two different calculations. This is
+not a correction to apply; it is a statement that the comparison was ill-posed.
+
+**2. The partition lands on precisely the campaign's three unexplained problems.** Cr, whose
+headline was withdrawn. Ir, whose scaling anomaly is fixed by an off-plane restart
+(3.652 → 3.361, η 0.781 → 0.490). Ru, whose descriptor deficit has survived six closed
+negatives. All three LOCKED, on all three states, with no exceptions.
+
+**3. And it lands on the clean metal from the other side.** Mn is the only endmember verified
+clean across all four states (≤ 0.005 meV, §6d) and the only real ambient rutile in the tier
+— and Mn is one of only two metals that genuinely explored off-plane.
+
+That correlation is on n = 8 metals and confinement is confounded with which era built the
+deck, so it is **hypothesis-generating, not causal**. It is exactly what block 1A of the
+program is designed to test, and it is registered as such in docs/43 §2 before that block
+runs.
+
+**4. It sharpens what the symmetry claim can honestly say.** Not "this campaign relaxed
+every adsorbate inside a mirror plane" — that overstates it, and `orient_starts.py`'s
+docstring, written before this audit, says exactly that. The accurate claim is stronger and
+more specific: *a single undeclared input flag, varying silently across a benchmark tier,
+determined whether each metal's geometry optimisation was three-dimensional; 75% of the
+production relaxations were confined either way; and no force, energy or convergence
+criterion distinguishes the two populations.* Every affected run passed every QC gate this
+project has.
+
+Machine-readable output: `docs/figs/symops_audit.csv`, one row per `.out`, with the symmetry
+count, the deck's `nosym` state, max|F_y|, and the class.
+
 ## 7. Standing caveats
 
 - Fixed geometry. Second-order relaxation effects are excluded by construction.

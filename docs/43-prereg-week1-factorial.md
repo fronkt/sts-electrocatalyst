@@ -37,6 +37,49 @@ prediction in §7 below is registered before it does.
 
 ---
 
+## 0a. What the archive audit found, before any pilot ran
+
+Block 1D was run first, on 2026-08-09, because it costs nothing. Its result (docs/41 §6g)
+changes what block 1A can claim, so it is recorded here as part of the pre-pilot record
+rather than being discovered later and folded in.
+
+**The tier was never computed under one protocol.** Of the 20 production adsorbate
+relaxations, 9 are LOCKED (pw.x kept a mirror and symmetrised F_y to exactly zero), 6 are
+ON_PLANE (`nosym` was set but the out-of-plane force never rose above 1e-4 Ry/au, so nothing
+ever left the plane), and 5 EXPLORED. **75% were confined either way.** The class is
+predicted 20-for-20 by whether one line — `nosym = .true.` — was present in the deck; it is
+absent for Cr, Ir and Ru and present for Mn, Fe, Co, Ni and Cu, having arrived through the
+endmember rescue ladder that the three trouble-free metals never went through.
+
+Three consequences are registered here, in advance:
+
+1. **The "mirror" arm of block 1A reproduces the production protocol only for Cr, Ir and
+   Ru.** For the other four metals there is no production mirror arm to compare against,
+   because they already ran with `nosym`. The tier-wide correction is therefore **not**
+   "apply a symmetry fix to seven metals" — it is "bring seven metals onto one protocol,
+   from three different starting positions." The report must say this rather than
+   presenting a uniform correction.
+2. **`nosym` is not a treatment.** Six of the eleven states that had it never left the
+   plane. Any claim that a state was searched off-plane must cite its measured max\|F_y\|,
+   never the presence of the flag.
+3. **A new internal control, pre-registered.** If the confinement classes are causal rather
+   than coincidental, then in the core sweep the metals whose production runs are LOCKED
+   (Cr, Ir, Ru) must show **larger** symmetry corrections than the ones that EXPLORED (Mn,
+   Co). Concretely: **median \|ΔE_sym\| over LOCKED states ≥ 2× the median over EXPLORED
+   states.** If instead EXPLORED metals show corrections as large, then the confinement
+   class is not what governs the error, the correlation with the campaign's three
+   unexplained problems is a coincidence of n = 8, and that must be reported as a
+   refutation of our own mechanism.
+
+**The correlation that motivates all of this, stated with its weakness.** The three LOCKED
+metals are exactly Cr (withdrawn headline), Ir (scaling anomaly, fixed by an off-plane
+restart) and Ru (descriptor deficit surviving six closed negatives); and Mn — the only
+endmember clean across all four states — is one of only two that EXPLORED. That is a
+striking pattern on **n = 8 metals**, and confinement is confounded with which era built the
+deck. It is hypothesis-generating. Point 3 above is how it gets tested.
+
+---
+
 ## 1. Closing the P10 gap
 
 docs/41 §5 declared a verdict for a symmetry-escape energy of **≥ 0.30 eV** (trapped;

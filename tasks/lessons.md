@@ -381,3 +381,35 @@ Rules taken from this:
    desorption (p = 0.048). That paper has no rutile, no OER, never evaluates UMA, and its
    mechanism predicts our regime is exempt. Overstating a limitation is as wrong as
    hiding one, and in a competition report it needlessly damages a valid result.
+
+## A parse result that contradicts direct evidence is a parse bug (2026-08-09, docs/41 s6g)
+
+**What happened:** the archive symmetry audit reported **0 of 156 outputs constrained**. That
+was flatly impossible: `orient_starts.py` had already shown, by reading the force blocks
+directly, that four specific runs carry max|F_y| = 0.0000000000 Ry/au over every ionic step,
+which cannot happen without an enforced mirror. My regex assumed pw.x prints
+`Sym. Ops., no inversion, found 2 symmetry operations`. It actually prints the count FIRST:
+
+    2 Sym. Ops. (no inversion) found ( 1 have fractional translation)
+
+so the pattern never matched, every row fell through to the "not printed" bucket, and a
+fallback regex mislabelled 72 runs as free. Corrected, the number is 76/156 constrained and
+the header agrees with the force evidence on all 96 adsorbate runs.
+**Rule:** before believing a parse, check it against a fact established by a *different*
+route. Here the force blocks were the independent witness and they were already in hand. A
+0% or 100% answer to an empirical question is a bug hypothesis first and a finding second.
+**Corollary that paid for itself:** building the cross-check into the tool rather than doing
+it by hand is what turned a bookkeeping script into the finding -- the three-way LOCKED /
+ON_PLANE / EXPLORED split only exists because the tool measured forces *and* read the header,
+and `nosym` set with nothing to push against turned out to be its own regime.
+
+## "We disabled the constraint" is not evidence the search explored (2026-08-09)
+
+**What happened:** the endmember decks for Mn/Fe/Co/Ni/Cu carry `nosym = .true.`, so the
+campaign had been treating those relaxations as unconstrained. Six of eleven such states have
+max|F_y| below 1e-4 Ry/au -- they never left the mirror plane. `nosym` removes the constraint
+but supplies no reason to move; on an exactly symmetric input it changes nothing. The flag and
+the outcome are different claims.
+**Rule:** a search is evidenced by what it measured, not by what it was permitted to do. Cite
+the measured off-plane force or displacement, never the input flag. Any off-plane arm must
+carry a *physical displacement* as well as `nosym`/`noinv`.
