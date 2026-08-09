@@ -3,13 +3,21 @@
     "document": "docs/43-prereg-week1-factorial.md",
     "sections": [
       "1",
+      "2",
+      "2-A.2",
       "2-A.3",
       "2-A.4"
     ],
     "pair_magnetisation_tol_bohrmag": 0.1,
+    "gate1_scf_tol_meV": 5.0,
     "gate_c_energy_tol_meV": 5.0,
     "gate_c_magnetisation_tol_bohrmag": 0.1,
-    "sign_rule_max_positive_dE_sym_eV": 0.02
+    "sign_rule_max_positive_dE_sym_eV": 0.02,
+    "replication_gate_eV": [
+      -0.291,
+      0.05
+    ],
+    "spectator_contingency_dy_A": 0.02
   },
   "note": "PENDING means the job has not produced a defensible result yet. Hard rule 3: a relax must carry `bfgs converged` and an SCF a final total energy; `JOB DONE` is never the test.",
   "magnetic_records": [
@@ -47,6 +55,24 @@
       "state": "s0_OH",
       "sym": "mir",
       "calculation": "scf",
+      "status": "SCOREABLE",
+      "path": "runs/probe/Cr_cellsym/s0_OH__1x1_k8__cellmult.out",
+      "energy_ev": -21701.08410094839,
+      "total_magnetization": 11.0,
+      "absolute_magnetization": 19.43,
+      "bfgs_converged": false,
+      "scf_fail": false,
+      "max_seconds_stop": false,
+      "job_done": true,
+      "ionic_steps": 1
+    },
+    {
+      "metal": "Cr",
+      "job": "s0_OH__1x1_mir",
+      "arm": "1x1",
+      "state": "s0_OH",
+      "sym": "mir",
+      "calculation": "relax",
       "status": "PENDING"
     },
     {
@@ -74,7 +100,16 @@
       "state": "s0_OH",
       "sym": "mir",
       "calculation": "scf",
-      "status": "PENDING"
+      "status": "SCOREABLE",
+      "path": "runs/probe/Cr_cellsym/s0_OH__2x1o_mir__cellmult.out",
+      "energy_ev": -43384.1875854981,
+      "total_magnetization": 21.0,
+      "absolute_magnetization": 37.85,
+      "bfgs_converged": false,
+      "scf_fail": false,
+      "max_seconds_stop": false,
+      "job_done": true,
+      "ionic_steps": 1
     },
     {
       "metal": "Cr",
@@ -168,6 +203,24 @@
     },
     {
       "metal": "Cr",
+      "job": "s0_O__1x1_k8_relax",
+      "arm": "1x1",
+      "state": "s0_O",
+      "sym": "mir",
+      "calculation": "relax",
+      "status": "PENDING"
+    },
+    {
+      "metal": "Cr",
+      "job": "s0_O__1x1_mir",
+      "arm": "1x1",
+      "state": "s0_O",
+      "sym": "mir",
+      "calculation": "relax",
+      "status": "PENDING"
+    },
+    {
+      "metal": "Cr",
       "job": "s0_O__1x1_off",
       "arm": "1x1",
       "state": "s0_O",
@@ -219,17 +272,27 @@
       "sym": "none",
       "calculation": "scf",
       "status": "PENDING"
+    },
+    {
+      "metal": "Cr",
+      "job": "slab__1x1_k8_relax",
+      "arm": "1x1",
+      "state": "slab",
+      "sym": "none",
+      "calculation": "relax",
+      "status": "PENDING"
     }
   ],
+  "gate1": [],
   "pairs": [
     {
       "metal": "Cr",
       "state": "s0_O",
       "arm": "1x1",
-      "mir": "runs/Cr_slab/s0_O.out",
+      "mir": "runs/probe/Cr_cellsym/s0_O__1x1_mir.out",
       "off": "runs/probe/Cr_cellsym/s0_O__1x1_off.out",
       "verdict": "PENDING",
-      "reason": "off-plane arm not scoreable"
+      "reason": "mirror arm not scoreable"
     },
     {
       "metal": "Cr",
@@ -253,10 +316,10 @@
       "metal": "Cr",
       "state": "s0_OH",
       "arm": "1x1",
-      "mir": "runs/Cr_slab/s0_OH.out",
+      "mir": "runs/probe/Cr_cellsym/s0_OH__1x1_mir.out",
       "off": "runs/probe/Cr_cellsym/s0_OH__1x1_off.out",
       "verdict": "PENDING",
-      "reason": "off-plane arm not scoreable"
+      "reason": "mirror arm not scoreable"
     },
     {
       "metal": "Cr",
@@ -362,10 +425,9 @@
       "state": "s0_OOH",
       "arm": "1x1",
       "mir": "runs/Ir_anchor/s0_OOH.out",
-      "off": "runs/probe/Ir_orient/s0_OOH__yaw90.out",
-      "dE_sym_eV": -0.291323,
-      "verdict": "OK",
-      "reason": ""
+      "off": "runs/probe/Ir_cellsym/s0_OOH__1x1_off.out",
+      "verdict": "PENDING",
+      "reason": "off-plane arm not scoreable"
     },
     {
       "metal": "Ir",
@@ -473,7 +535,7 @@
       "metal": "Cr",
       "gate": "GATE C",
       "big": "ref__2x1v",
-      "baseline": "runs/probe/Cr_cellsym/slab__1x1_k8.out",
+      "baseline": "runs/probe/Cr_cellsym/slab__1x1_k8_relax.out",
       "tol_meV": 5.0,
       "tol_bohrmag": 0.1,
       "verdict": "PENDING"
@@ -482,7 +544,7 @@
       "metal": "Cr",
       "gate": "GATE C-2",
       "big": "s0_O__2x1o_mir",
-      "baseline": "runs/probe/Cr_cellsym/s0_O__1x1_k8.out",
+      "baseline": "runs/probe/Cr_cellsym/s0_O__1x1_k8_relax.out",
       "tol_meV": 5.0,
       "tol_bohrmag": 0.1,
       "verdict": "PENDING"
@@ -522,6 +584,41 @@
       "tol_meV": 5.0,
       "tol_bohrmag": 0.1,
       "verdict": "PENDING"
+    },
+    {
+      "metal": "Ir",
+      "gate": "GATE R (replication)",
+      "expected_eV": -0.291,
+      "tol_eV": 0.05,
+      "fresh_run": "runs/probe/Ir_cellsym/s0_OOH__1x1_off.out",
+      "verdict": "PENDING",
+      "reason": "fresh Ir s0_OOH__1x1_off not scoreable yet"
+    }
+  ],
+  "spectator_contingency": [
+    {
+      "metal": "Cr",
+      "deck": "ref__2x1o",
+      "threshold_A": 0.02,
+      "clause": "docs/43-prereg-week1-factorial.md s2-A.2",
+      "status": "OPEN",
+      "reason": "ref__2x1o not converged yet"
+    },
+    {
+      "metal": "Ir",
+      "deck": "ref__2x1o",
+      "threshold_A": 0.02,
+      "clause": "docs/43-prereg-week1-factorial.md s2-A.2",
+      "status": "OPEN",
+      "reason": "ref__2x1o not converged yet"
+    },
+    {
+      "metal": "Ru",
+      "deck": "ref__2x1o",
+      "threshold_A": 0.02,
+      "clause": "docs/43-prereg-week1-factorial.md s2-A.2",
+      "status": "OPEN",
+      "reason": "ref__2x1o not converged yet"
     }
   ]
 }

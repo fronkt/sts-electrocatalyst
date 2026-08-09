@@ -856,3 +856,34 @@ Done, from primary records (Crossref, OpenAlex, PMC, arXiv — no grey-area sour
 
 The §10 caveat "every external citation is unverified" is superseded for these three; it
 stands for all others.
+
+
+## 6. Corrections and completions from the adversarial verify round (2026-08-09, same day)
+
+Three verifier agents re-ran every round-2 demonstration against the fixed code: all 21
+fixes CONFIRMED, 13 new defects found. The defects are closed in code; four touch this
+document and are registered here:
+
+1. **§2's cost prose said "five cheap SCFs"; the registered rule covers seven.** "Every
+   Cr relaxation this block emits" sweeps in the two `__1x1_k8_relax` gate baselines
+   created by §1 of this same amendment — 21 GATE-1 parents in all, not 19. The rule is
+   unchanged; the count was wrong.
+2. **GATE-1-passed energies apply to the GATES as well as the pairs.** As coded after §2,
+   the four Cr relaxations that feed gates but no pair (`ref__2x1v`, `ref__2x1o`, the two
+   `_k8_relax` baselines) had an evaluated-then-ignored control: GATE C could PASS from a
+   raw parent energy while that parent's own GATE-1 verdict was BASIN_DRIFT. Registered:
+   every Cr energy entering any gate or pair is the GATE-1-passed value; a Cr gate whose
+   side lacks a scoreable `__g1` child is **PENDING_GATE1**.
+3. **"Comparable" in §1 is made numeric.** A GATE C/C-2 FAIL with
+   \|ΔE\| ≤ 2×\|mesh_relaxation_meV\| is read (and recorded by the readout, in a
+   `fail_reading` field) as MESH_RELAXATION; otherwise CELL_MISMATCH_OR_UNATTRIBUTED.
+4. **A missing magnetisation record is NOT_SCOREABLE, never agreement.** The verify round
+   demonstrated a CONFOUNDED pair flipping to OK and a GATE C-2 FAIL flipping to PASS
+   when the magnetisation lines were stripped from the output — every threshold was
+   guarded by "if present". For a magnetic metal, §2-A.3(a)/§2-A.4 tests refuse to score
+   without the record.
+
+Also noted for the record: the queue launcher's controls (the `# NP=<n> NCONC=<n>`
+directive, `# EXPECT_CAP`, the calculation-aware stale rules, the cgroup refusal) are
+engineering controls documented in the script and manifest headers, deliberately not
+registered here — they protect the schedule, not the inference.

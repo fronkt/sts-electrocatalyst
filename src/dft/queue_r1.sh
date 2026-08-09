@@ -71,10 +71,27 @@ preflight() {
   # warning. `# EXPECT_CAP` (finding N7) marks a manifest whose legs are
   # DESIGNED to stop on max_seconds (the CELL_MULT timing wave): there a
   # capped .out is the deliverable, never stale, and must never be deleted.
-  want_np=$(grep -am1 -oE '^# NP=[0-9]+ NCONC=[0-9]+' "$MANIFEST" | grep -oE 'NP=[0-9]+' | cut -d= -f2)
-  want_nconc=$(grep -am1 -oE '^# NP=[0-9]+ NCONC=[0-9]+' "$MANIFEST" | grep -oE 'NCONC=[0-9]+' | cut -d= -f2)
+  # A NEAR-MISS directive must refuse, not silently disarm the guard (verify
+  # round: '# NP=x NCONC=', '#NP=20 NCONC=1', '# NCONC=1 NP=20' all failed the
+  # strict regex and PREFLIGHT_OK'd with no protection). Any comment line that
+  # mentions NP= or NCONC= must match the exact form, and there may be at most
+  # one, so a conflicting duplicate cannot silently win by being first.
+  # start-anchored: prose header lines legitimately mention NP=4 mid-sentence;
+  # only a line that BEGINS like a directive is held to the directive form.
+  ndirect=$(grep -acE '^# *N(P|CONC)=' "$MANIFEST" || true)
+  nstrict=$(grep -acE '^# NP=[0-9]+ NCONC=[0-9]+$' "$MANIFEST" || true)
+  if [ "$ndirect" != "$nstrict" ]; then
+    echo "PREFLIGHT_BAD malformed-np-directive: $MANIFEST has $ndirect comment line(s) mentioning NP=/NCONC= but only $nstrict in the exact form '# NP=<n> NCONC=<n>' -- a typo here would silently disarm the wrong-NP refusal (finding N6)"
+    nbad=$((nbad + 1))
+  elif [ "$nstrict" -gt 1 ]; then
+    echo "PREFLIGHT_BAD duplicate-np-directive: $MANIFEST carries $nstrict NP/NCONC directives; with more than one, which applies is ambiguous"
+    nbad=$((nbad + 1))
+  fi
+  want_np=$(grep -am1 -oE '^# NP=[0-9]+ NCONC=[0-9]+$' "$MANIFEST" | grep -oE 'NP=[0-9]+' | cut -d= -f2)
+  want_nconc=$(grep -am1 -oE '^# NP=[0-9]+ NCONC=[0-9]+$' "$MANIFEST" | grep -oE 'NCONC=[0-9]+' | cut -d= -f2)
   expect_cap=0
-  grep -qam1 '^# EXPECT_CAP' "$MANIFEST" && expect_cap=1
+  # exact line only -- '# EXPECT_CAPRICIOUS' must not arm it (verify round)
+  grep -qaxE '# EXPECT_CAP' "$MANIFEST" && expect_cap=1
   if [ -n "${want_np:-}" ]; then
     if [ "$want_np" != "$NP" ] || [ "$want_nconc" != "$NCONC" ]; then
       echo "PREFLIGHT_BAD wrong-np-for-manifest: $MANIFEST declares NP=$want_np NCONC=$want_nconc, invoked with NP=$NP NCONC=$NCONC -- the decks' max_seconds were sized at the declared NP (finding N6)"
@@ -84,15 +101,23 @@ preflight() {
 
   # Oversubscription (finding N5(c)): NP x NCONC against the cgroup quota.
   # docs/23 s8 measured a 12x thrash from exactly this. Only checkable where
-  # cgroup v2 exposes cpu.max; skipped elsewhere.
+  # cgroup v2 exposes cpu.max; skipped elsewhere. Both fields are validated as
+  # integers so garbage content fails CLOSED with a named refusal, not an
+  # arithmetic error that empties the report (verify round).
   if [ -r /sys/fs/cgroup/cpu.max ]; then
     read -r quota period < /sys/fs/cgroup/cpu.max
-    if [ "$quota" != "max" ] && [ -n "${quota:-}" ] && [ -n "${period:-}" ]; then
-      cores=$((quota / period))
-      if [ $((NP * NCONC)) -gt $((cores + 1)) ]; then
-        echo "PREFLIGHT_BAD oversubscribed: NP=$NP x NCONC=$NCONC = $((NP * NCONC)) ranks against a $cores-core cgroup quota (docs/23 s8: 12x thrash)"
-        nbad=$((nbad + 1))
-      fi
+    if [ "${quota:-max}" != "max" ]; then
+      case "$quota$period" in
+        *[!0-9]*)
+          echo "PREFLIGHT_BAD unreadable-cpu-quota: /sys/fs/cgroup/cpu.max says '$quota $period'"
+          nbad=$((nbad + 1));;
+        *)
+          cores=$((quota / period))
+          if [ $((NP * NCONC)) -gt $((cores + 1)) ]; then
+            echo "PREFLIGHT_BAD oversubscribed: NP=$NP x NCONC=$NCONC = $((NP * NCONC)) ranks against a $cores-core cgroup quota (docs/23 s8: 12x thrash)"
+            nbad=$((nbad + 1))
+          fi;;
+      esac
     fi
   fi
 
@@ -102,6 +127,13 @@ preflight() {
     nline=$((nline + 1))
     if [ -z "${job:-}" ] || [ -z "${suf:-}" ] || [ -z "${nk:-}" ]; then
       echo "PREFLIGHT_BAD malformed-line '$d ${job:-} ${suf:-} ${nk:-}'"; nbad=$((nbad + 1)); continue
+    fi
+    # verify round: preflight read 5 fields but the DRIVER reads 4, so a 5th
+    # token used to fold into run_one's nk and reach pw.x as `-nk '4 junk'` --
+    # a runtime abort mid-wave, the exact class this pre-flight exists to stop.
+    if [ -n "${extra:-}" ]; then
+      echo "PREFLIGHT_BAD trailing-token $d/$job: '$extra' -- the driver reads 4 fields and would pass this to pw.x inside -nk"
+      nbad=$((nbad + 1)); continue
     fi
     case "$nk" in ''|*[!0-9]*) echo "PREFLIGHT_BAD nk-not-an-integer $d/$job nk='$nk'"
                                nbad=$((nbad + 1)); continue;; esac

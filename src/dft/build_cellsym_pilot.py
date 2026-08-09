@@ -206,6 +206,29 @@ def _prereg_check():
                           for k, sec, anc in missing)
         raise SystemExit("refusing to build: docs/43 anchors moved. This file must "
                          "be re-read against the pre-registration, not patched.\n" + lines)
+    # Verify-round finding: the anchors catch a docs/43 edit, but a change to
+    # the PREREG VALUE beside an intact anchor built 61 decks silently, and the
+    # manifest then recorded value and anchor contradicting each other in
+    # adjacent fields. Every anchor now contains its digits, so demand the
+    # scalar value literally appear in its own anchor text.
+    drift = []
+    for k, (v, sec, anc) in PREREG.items():
+        if isinstance(v, (int, float)) and not isinstance(v, bool):
+            forms = {f"{v}", f"{v:g}", f"{float(v):.2f}".rstrip("0").rstrip(".")}
+            if not any(f in anc for f in forms):
+                drift.append(f"    {k} = {v} does not appear in its anchor {anc!r}")
+        elif isinstance(v, tuple) and v and all(
+                isinstance(x, (int, float)) and not isinstance(x, bool) for x in v):
+            for x in v:
+                forms = {f"{x}", f"{x:g}", f"{abs(x):g}"}
+                if not any(f in anc for f in forms):
+                    drift.append(f"    {k}: component {x} does not appear in "
+                                 f"its anchor {anc!r}")
+    if drift:
+        raise SystemExit("refusing to build: a PREREG value drifted away from "
+                         "the anchor that pins it. Change docs/43 by amendment, "
+                         "then the anchor, then the value -- never the value "
+                         "alone.\n" + "\n".join(drift))
     return {k: dict(value=v, clause=f"{DOC43} {sec}", anchor=anc)
             for k, (v, sec, anc) in PREREG.items()}
 
@@ -568,9 +591,11 @@ STEP_MULT_2X1_BRACKET = (1.5, 2.0)
 # whenever the constant is >= 1.0, so the in-function "guard" could never fire
 # in production. The real invariant is on the CONSTANT, so it lives here, at
 # import time, where an edit to the constant is the only thing that can trip it.
-assert STEP_MULT_2X1 >= 1.0, (
-    "STEP_MULT_2X1 < 1.0 would cost the 2x1 cells below their measured 1x1 "
-    "ionic-step counts (finding [2])")
+# Not a bare `assert` -- the verify round demonstrated `python -O` strips those.
+if STEP_MULT_2X1 < 1.0:
+    raise SystemExit(
+        "STEP_MULT_2X1 < 1.0 would cost the 2x1 cells below their measured 1x1 "
+        "ionic-step counts (finding [2])")
 
 #: MEASURED. A fresh-density fixed-geometry SCF costs about 1.3-1.6 ionic-step
 #: equivalents in this model: probe/Cr/s0_OH__base 258.5 s/kpt / (48.6 x 3.5) =
@@ -1107,8 +1132,21 @@ def cmd_gate1(a):
         # and runs nosym/noinv at 16 k-points. A GATE-1 child that turns
         # symmetry back on moves the k-set and the symmetry treatment at the
         # same time, so a >5 meV disagreement cannot be attributed and a <5 meV
-        # agreement certifies nothing. Mirror the build path exactly.
+        # agreement certifies nothing. Mirror the build path exactly -- and
+        # then check against the PARENT'S EMITTED BYTES, not this derivation
+        # (verify-round residual: the two call-site derivations used to
+        # cross-check only each other, so a coordinated revert slipped both).
         d["nosym"] = j["sym"] in ("off", "none")
+        parent_deck = os.path.join(outdir, j["job"] + ".in")
+        ptxt = open(parent_deck, encoding="utf-8", errors="replace").read()
+        parent_nosym = bool(re.search(r"^\s*nosym\s*=\s*\.true\.", ptxt,
+                                      re.M | re.I))
+        if parent_nosym != d["nosym"]:
+            raise SystemExit(
+                f"refusing to emit {name}: parent deck {parent_deck} carries "
+                f"nosym={parent_nosym} but the child would carry {d['nosym']} "
+                "-- a GATE-1 child must run at the parent's own symmetry "
+                "treatment (N3)")
         d["cell"] = [[d["cell"][0][0] * float(n_halves), 0.0, 0.0],
                      list(d["cell"][1]), list(d["cell"][2])]
         kmesh = tuple(j["kmesh"].split())
@@ -1191,6 +1229,16 @@ def _scoreable(rec, calculation):
     if rec is None or rec["energy_ev"] is None or rec["scf_fail"]:
         return False
     return rec["bfgs_converged"] if calculation == "relax" else True
+
+
+def _mag_complete(rec):
+    """Verify-round finding: every magnetisation threshold in the scorer was
+    guarded by `is not None`, so an .out with the lines MISSING sailed through
+    the registered magnetic tests -- a demonstrated CONFOUNDED pair flipped to
+    OK when the lines were stripped. For a magnetic metal, absence of the
+    record is NOT_SCOREABLE, never a pass (same shape as ledger N38)."""
+    return (rec.get("total_magnetization") is not None
+            and rec.get("absolute_magnetization") is not None)
 
 
 def cmd_score(a):
@@ -1339,6 +1387,15 @@ def cmd_score(a):
                         pairs.append(row)
                         continue
                     row["energy_provenance"] = dict(mir=mir_prov, off=off_prov)
+                    if not (_mag_complete(mir) and _mag_complete(off)):
+                        side = "mir" if not _mag_complete(mir) else "off"
+                        row.update(verdict="NOT_SCOREABLE", reason=(
+                            f"the {side} member's output carries no "
+                            "magnetisation record -- s2-A.3(a) requires it for "
+                            "every Cr job, and a missing record must not score "
+                            "as agreement"))
+                        pairs.append(row)
+                        continue
                 dE = off["energy_ev"] - mir["energy_ev"]
                 row["dE_sym_eV"] = round(dE, 6)
                 # finding U4: threshold BOTH magnetisations. An antiferromagnetic
@@ -1385,12 +1442,14 @@ def cmd_score(a):
     gates = []
     for M in METALS:
         folds = METALS[M]["kfolds"]
-        for name, big_job, small, bridge in (
+        for name, big_job, small, small_name, bridge in (
                 ("GATE C", "ref__2x1v",
                  prod_out(M, "slab") if folds else deck_out(M, "slab__1x1_k8_relax"),
+                 None if folds else "slab__1x1_k8_relax",
                  None if folds else deck_out(M, "slab__1x1_k8")),
                 ("GATE C-2", "s0_O__2x1o_mir",
                  prod_out(M, "s0_O") if folds else deck_out(M, "s0_O__1x1_k8_relax"),
+                 None if folds else "s0_O__1x1_k8_relax",
                  None if folds else deck_out(M, "s0_O__1x1_k8"))):
             if (M, big_job) not in by_job:
                 continue
@@ -1409,6 +1468,27 @@ def cmd_score(a):
                 g.update(verdict="PENDING")
                 gates.append(g)
                 continue
+            if METALS[M]["magnetic"]:
+                # Verify-round finding: gates were scored from RAW parent
+                # energies even when that parent's own GATE-1 verdict was
+                # BASIN_DRIFT -- an evaluated-then-ignored control. Gate sides
+                # go through the same GATE-1 gate as pair members.
+                big, big_prov = gate1_passed(big_job, big)
+                ref, ref_prov = gate1_passed(small_name, ref)
+                if big is None or ref is None:
+                    g.update(verdict="PENDING_GATE1",
+                             reason=big_prov if big is None else ref_prov)
+                    gates.append(g)
+                    continue
+                g["energy_provenance"] = dict(big=big_prov, baseline=ref_prov)
+                if not (_mag_complete(big) and _mag_complete(ref)):
+                    side = "big" if not _mag_complete(big) else "baseline"
+                    g.update(verdict="NOT_SCOREABLE", reason=(
+                        f"the {side} output carries no magnetisation record -- "
+                        "s2-A.4 tests magnetisation, and a missing record must "
+                        "not score as a match"))
+                    gates.append(g)
+                    continue
             dE_meV = (big["energy_ev"] - 2.0 * ref["energy_ev"]) * 1000.0
             g["dE_meV"] = round(dE_meV, 3)
             fails = [f"|dE| {abs(dE_meV):.2f} meV > {e_tol}"] if abs(dE_meV) > e_tol else []
@@ -1425,11 +1505,18 @@ def cmd_score(a):
                 g["d_absolute_magnetization"] = round(dMa, 4)
                 if abs(dMa) > gc_mag_tol:
                     fails.append(f"|dM absolute| {abs(dMa):.3f} > {gc_mag_tol} mu_B")
-            if fails and g.get("mesh_relaxation_meV") is not None:
-                fails.append(
-                    f"diagnostic: mesh_relaxation_meV = "
-                    f"{g['mesh_relaxation_meV']} -- if |dE| is comparable, this "
-                    "is MESH_RELAXATION, not CELL_MISMATCH (N10)")
+            if fails:
+                # amendment 4 correction note: "comparable" is made numeric --
+                # |dE| <= 2x|mesh_relaxation_meV| reads as MESH_RELAXATION,
+                # and the readout says which (the verify round found the
+                # registered reading left to a human).
+                mr = g.get("mesh_relaxation_meV")
+                if mr is not None:
+                    g["fail_reading"] = ("MESH_RELAXATION"
+                                         if abs(dE_meV) <= 2.0 * abs(mr)
+                                         else "CELL_MISMATCH_OR_UNATTRIBUTED")
+                    fails.append(f"read as {g['fail_reading']} "
+                                 f"(mesh_relaxation_meV = {mr})")
             g.update(verdict="FAIL" if fails else "PASS", reason="; ".join(fails))
             gates.append(g)
 
@@ -1473,7 +1560,18 @@ def cmd_score(a):
         if not _scoreable(rec, "relax"):
             row.update(status="OPEN", reason="ref__2x1o not converged yet")
         else:
+            # Verify-round finding: a converged .out with no coordinate block
+            # crashed here with a TypeError, and a truncated relax's
+            # 'last-step' fallback block would have been silently measured.
             pos, prov = parse_final_coordinates(p)
+            nat = by_job[(M, "ref__2x1o")]["nat"]
+            if pos is None or prov != "final" or len(pos) != nat:
+                row.update(status="NOT_SCOREABLE", reason=(
+                    f"geometry provenance {prov!r} with "
+                    f"{0 if pos is None else len(pos)}/{nat} atoms -- the "
+                    "spectator position cannot be trusted from this output"))
+                spectator.append(row)
+                continue
             dy = abs(pos[-1][2] - y_mirror)
             row["measured_dy_A"] = round(dy, 4)
             if dy > dy_tol:
@@ -1569,7 +1667,7 @@ def main():
               f"{LONG_JOB_NP4_HOURS:.0f} h",
               "# at NP=4 that is not a Cr relaxation). Throughput arm.",
               "#   bash queue_r1.sh m_cellsym_a_np4.txt 4 5",
-              "# NP=4 x NCONC=5 = 20 ranks <= 23.04 usable cores; NP is an exact",
+              "# 4 ranks x 5 concurrent = 20 <= 23.04 usable cores; NP is an exact",
               "# multiple of every nk below (hard rule 4). Longest first.",
               "# The manifest's own longest job is stated in",
               "# cellsym_manifest.json manifests.A.longest_job_hours -- the wall",
@@ -1773,7 +1871,8 @@ def main():
                            f"{DOC43} s2-A.4 -- GATE C and GATE C-2 on energy AND "
                            "magnetisation"],
                 verdicts=["OK", "CONFOUNDED", "SIGN_VIOLATION", "PENDING",
-                          "PASS", "FAIL"],
+                          "PENDING_GATE1", "NOT_SCOREABLE", "PASS", "FAIL",
+                          "AGREE", "BASIN_DRIFT", "TRIGGERED", "CLEAR", "OPEN"],
                 scoreability="hard rule 3: a relax must carry `bfgs converged`, "
                              "an SCF a final total energy and no `convergence NOT "
                              "achieved`. `JOB DONE` is never the test. A pair "
