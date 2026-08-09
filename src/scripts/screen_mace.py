@@ -90,9 +90,15 @@ def _log(msg: str) -> None:
     print(f"[{time.strftime('%H:%M:%S')}] {msg}", flush=True)
 
 
-def dft_tier(root: str = "runs") -> dict:
+def dft_tier(root: str = "runs", version: str = "tier_v2") -> dict:
+    """The DFT tier this screen is gated against.
+
+    Pinned rather than recomputed (docs/43 §0). Defaults to `tier_v2` — the tier after the
+    2026-08-09 basin restarts — because that is the current truth; the default is written
+    here, in one place, rather than being "whatever the run directory holds today".
+    """
     from dft.eta_bounded import reference_tier
-    return reference_tier(root)
+    return reference_tier(root, version=version)
 
 
 def spearman(a, b) -> float:

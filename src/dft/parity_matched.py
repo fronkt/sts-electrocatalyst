@@ -16,8 +16,9 @@ needs, for two structural reasons:
    but they carry a `SUPERSEDED_BY` banner pointing here.
 
 This script scores every stored UMA head AND the matched-protocol MACE run against
-`eta_bounded.reference_tier()` -- the single call that returns the tier of record
-however each metal's eta was established.
+a **pinned** tier (`src/dft/tiers.py`, docs/43 s0), named on the command line. There is no
+default, because since 2026-08-09 there is more than one defensible tier and a parity plot
+is a claim about one specific one.
 
 Two cuts are reported, deliberately:
 
@@ -93,16 +94,24 @@ def main() -> None:
     root = sys.argv[1] if len(sys.argv) > 1 else "runs"
     matched_path = sys.argv[2] if len(sys.argv) > 2 else "results/r5_matched_protocol.json"
     out = sys.argv[3] if len(sys.argv) > 3 else "docs/figs/parity_matched"
+    # No default: a parity plot is a claim about a specific tier, and since 2026-08-09
+    # there is more than one (docs/43 s0). Regenerating this figure must state which.
+    if len(sys.argv) <= 4:
+        raise SystemExit("usage: parity_matched.py <root> <matched.json> <out> <tier_version>\n"
+                         "  tier_version: tier_v1 | tier_v2 | live   (no default, on purpose)")
+    tier_version = sys.argv[4]
 
-    ref = {m: v["eta"] for m, v in reference_tier(root).items()}
-    src = {m: v.get("source") for m, v in reference_tier(root).items()}
+    tier = reference_tier(root, version=tier_version)
+    ref = {m: v["eta"] for m, v in tier.items()}
+    src = {m: v.get("source") for m, v in tier.items()}
     models = load_uma(root)
 
     full = sorted(ref)
     cut5 = [m for m in full if m not in MACE_ENTANGLED]
     summary: dict = dict(
+        tier_version=tier_version,
         reference_tier={m: dict(eta=round(ref[m], 4), source=src[m]) for m in full},
-        note=("All models scored against eta_bounded.reference_tier(). Rows marked "
+        note=(f"All models scored against pinned tier '{tier_version}'. Rows marked "
               "'(matched)' come from mace_uma_protocol.py -- original builder geometries, "
               "single start, as-shipped masks, one runner with the calculator swapped, so "
               "they are comparable by construction rather than by discipline (docs/39 s2)."),

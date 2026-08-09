@@ -5,7 +5,12 @@
 Thumbs.db
 
 # Data / model artifacts (keep the repo about ideas + plans, not large blobs)
-data/
+data/*
+# ...except the pinned tiers of record. These are the frozen scientific baselines
+# every figure and statistic is computed against (docs/43 s0); they are small, they
+# are write-once, and losing them would make past claims unreproducible.
+!data/tiers/
+!data/tiers/*.json
 results/
 checkpoints/
 *.ckpt

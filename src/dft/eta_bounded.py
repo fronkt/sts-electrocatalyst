@@ -119,7 +119,7 @@ def bounded_eta(root: str, dirname: str, partial: str | None = None) -> dict | N
     return w
 
 
-def reference_tier(root: str = "runs") -> dict:
+def reference_tier(root: str = "runs", *, version: str) -> dict:
     """The **n = 7 tier of record** — eta per metal, however it was established.
 
     Five metals have a complete, QC-gated CHE chain; Ni and Co do not, because both
@@ -130,8 +130,20 @@ def reference_tier(root: str = "runs") -> dict:
     against the DFT should call this, so it never has to decide which half to trust.
 
     Each record carries `source` = "chain" | "bounded".
+
+    `version` is REQUIRED and has no default (docs/43 §0). As of 2026-08-09 there is more
+    than one defensible tier — the basin restarts moved Cr, Co and Ni and changed the
+    ordering — so "the tier" is no longer a well-posed request. Pass a pinned version
+    (`'tier_v1'`, `'tier_v2'`, ...) to get an immutable answer, or the literal
+    `tiers.LIVE` to recompute from the run directory. Recomputing is legitimate; doing it
+    *by accident*, which is what a default would allow, is how a figure regenerated in
+    October silently disagrees with the number quoted beside it in August.
     """
     from dft.mlip_eval import dft_reference
+    from dft import tiers
+
+    if version != tiers.LIVE:
+        return tiers.load(version)
 
     tier = {m: dict(v, source="chain") for m, v in dft_reference(root).items()}
     for metal, dirname, partial in BOUNDED:
@@ -170,8 +182,11 @@ def main():
             continue
         out[metal] = report(f"{metal}O2(110)", w["dG_OH"], w["dG_O"],
                             w.get("upper_bound_dG_OOH"))
-    tier = reference_tier("runs")
-    print(f"\n{'='*60}\nTIER OF RECORD  n = {len(tier)}\n{'='*60}")
+    from dft import tiers
+    tier = reference_tier("runs", version=tiers.LIVE)
+    print(f"\n{'='*60}\nTIER OF RECORD (live, recomputed from disk)  n = {len(tier)}\n{'='*60}")
+    print("  NB: this is the LIVE recomputation, not a pinned tier. Any figure or claim\n"
+          "  must load a pinned version -- see src/dft/tiers.py and docs/43 s0.")
     for m, v in sorted(tier.items(), key=lambda kv: kv[1]["eta"]):
         print(f"  {m:<3} eta = {v['eta']:.3f} V   pls = {v['pls']}   ({v['source']})")
     return 0
