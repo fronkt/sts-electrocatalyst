@@ -403,6 +403,27 @@ it by hand is what turned a bookkeeping script into the finding -- the three-way
 ON_PLANE / EXPLORED split only exists because the tool measured forces *and* read the header,
 and `nosym` set with nothing to push against turned out to be its own regime.
 
+## An optimisation justified as "same physics" is a physics claim, and needs a physics test (2026-08-09, docs/41 s6g)
+
+**What happened:** on 2026-07-31, commit `1a3a77b` ("make the Ru/Ir anchors runnable and 4x
+cheaper") noticed that `runs/Cr_slab/s0_OH.in` ran at 15 irreducible k-points while
+`runs/Mn_slab/s0_O.in` paid for 36, and wrote into `qe_slab.py`: *"An adsorbate lowers the
+symmetry by itself ... same physics, 2.4x the bill."* It then made `nosym = False` the rule
+for every adsorbate deck. Both premises were false. The adsorbate is built at y == 0, exactly
+ON the mirror plane, so it preserves the symmetry rather than breaking it; and the "same
+physics" is a 2-D constrained optimisation worth -291 meV on Ir's *OOH. Ir and Ru were built
+under the new rule and are symmetry-locked on all three states, which is where two of the
+campaign's three unexplained anchor offsets come from.
+**Rule:** "this only changes cost, not the answer" is a claim about the physics, not about
+the budget, and it needs to be tested like one -- run both and diff the energy, once, before
+adopting it. Cost optimisations are the most dangerous kind of change precisely because they
+come with a built-in reason not to check them.
+**Second rule, narrower:** never infer symmetry from a description of the structure ("an
+adsorbate lowers the symmetry"). Read what pw.x actually reports -- it prints the group size
+in the header of every single run, for free, and it disagreed with the description here.
+**Third:** the two runs the argument was checked against were the two whose difference it was
+explaining. A comparison cannot be its own control.
+
 ## "We disabled the constraint" is not evidence the search explored (2026-08-09)
 
 **What happened:** the endmember decks for Mn/Fe/Co/Ni/Cu carry `nosym = .true.`, so the

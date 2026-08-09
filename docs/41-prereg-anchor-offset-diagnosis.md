@@ -973,16 +973,49 @@ move — so "we set `nosym`" is not evidence that a search explored anything.
 Twenty for twenty, no exceptions. The confinement class of every production relaxation in
 this campaign is predicted exactly by whether one line was present in its input.
 
-`git log -S nosym -- runs/` places its arrival in the endmember **rescue ladder** — the
-`da87f7e` / `abd78c7` / `70f5521` restart commits written for the eleven adslabs that died
-on mid-relax SCF failures with a false `JOB DONE`. Mn, Fe, Co, Ni and Cu all went through
-that ladder. Cr, Ir and Ru converged first time and never did. *(The precise reason Cr's
-final decks carry no `nosym` despite Cr appearing in `da87f7e` is not yet established from
-the diffs and is left open rather than guessed.)*
+### The cause, exactly: it was deliberate, and the reasoning is written down
 
-So, stated carefully: **the three metals that never gave any trouble are the three that
-kept the constrained protocol.** Nothing went wrong with them, so nothing was ever rebuilt,
-so they alone retained the default. Every one of them reports textbook convergence.
+*(An earlier draft of this section attributed the split to the endmember rescue ladder.
+That was wrong. The real cause is in the builder, with a comment.)*
+
+`src/dft/qe_slab.py` emitted `nosym = .true.` for the clean slab and `nosym = False` for
+every adsorbate slab. The docstring that justified it, in the repository until today:
+
+> `nosym` belongs on the CLEAN slab only. […] it also discards the in-plane symmetry,
+> taking that slab from 15 to 36 irreducible k-points. **An adsorbate lowers the symmetry
+> by itself**, and `runs/Cr_slab/s0_OH.in` (no nosym) ran to JOB DONE at 15 k-points while
+> `runs/Mn_slab/s0_O.in` (nosym) paid for 36 — **same physics, 2.4× the bill.**
+
+Both claims are false, and the second one is this campaign's central finding.
+
+**"An adsorbate lowers the symmetry by itself."** It does not.
+`hea_oer.surfaces._adsorbate` defines every OER adsorbate with y ≡ 0 and places it at
+(x_cus, y_cus) — *exactly on* the rutile(110) mirror plane. The adsorbate sits **in** the
+mirror rather than breaking it. That is the entire mechanism, and it is the one thing the
+justification assumed away.
+
+**"Same physics, 2.4× the bill."** Not the same physics. With the mirror alive, pw.x
+symmetrises F_y onto it and the relaxation becomes a constrained optimisation over a 2-D
+(x, z) subspace. The saving bought a *different calculation*, and on Ir's `*OOH` the
+difference is **−291 meV**, which moves η(Ir) from 0.781 to 0.490 V.
+
+### The chronology
+
+| date | event |
+|---|---|
+| **2026-06-29** | endmember decks committed (`3f3dd19`) carrying `nosym` — Mn, Fe, Co, Ni, Cu. The Cr anchor lands the same day by a separate path (`7e06fdb`) **without** it. The discrepancy exists, unnoticed. |
+| **2026-07-31** | `1a3a77b` — *"make the Ru/Ir anchors runnable and 4× cheaper"*. The Cr-vs-Mn discrepancy is **observed, measured at 15 vs 36 k-points, explained as "same physics", and made the rule.** `nosym = False` becomes the default for every adsorbate deck. |
+| **2026-07-31 →** | Ir and Ru are built under the new rule. Both LOCKED on all three states. |
+| **2026-08-09** | this audit. The rule is reversed and the call site now states its choice explicitly; `nosym` is a required argument with no default. |
+
+So the honest account is not that a constraint crept in unnoticed. **It was noticed, checked
+against two runs, rationalised with a physical argument, and adopted as a documented cost
+optimisation** — in a commit that advertises the saving in its subject line. The argument
+was wrong in the one way no convergence test can reveal, and the two runs it was checked
+against were the two whose difference it was explaining.
+
+That is a better story than an accident, and a more useful one: it is what a careful
+practitioner does, and it still produced two protocols in one benchmark tier.
 
 ### Why this matters more than the count does
 

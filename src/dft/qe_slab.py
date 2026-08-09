@@ -88,23 +88,51 @@ def _fixed_mask(atoms):
 
 
 def write_slab_input(atoms, prefix, pseudo_dir, ecutwfc, ecutrho, outdir="./tmp",
-                     nosym=True):
+                     *, nosym):
     """QE 'relax' input for a rutile(110) slab (ibrav=0, bottom fixed, +U if magnetic).
-
-    Two switches earn their keep on a tight compute budget, and both are exact --
-    they change cost, not the answer:
 
     `nspin` is emitted as 2 only when some species carries a non-zero starting
     magnetization. RuO2/IrO2 are non-magnetic 4d/5d rutile metals with mag = 0, and
     `nspin=2` with every `starting_magnetization` at zero is a fixed point of the
-    SCF -- it reproduces the `nspin=1` answer at exactly twice the cost.
+    SCF -- it reproduces the `nspin=1` answer at exactly twice the cost. That one is
+    exact and stands.
 
-    `nosym` belongs on the CLEAN slab only. Freezing the bottom half breaks the
-    top-bottom mirror, so pw.x aborts in `checkallsym` without it (docs/23 s5) --
-    but it also discards the in-plane symmetry, taking that slab from 15 to 36
-    irreducible k-points. An adsorbate lowers the symmetry by itself, and
-    `runs/Cr_slab/s0_OH.in` (no nosym) ran to JOB DONE at 15 k-points while
-    `runs/Mn_slab/s0_O.in` (nosym) paid for 36 -- same physics, 2.4x the bill.
+    `nosym` is REQUIRED and has no default. It used to default to True here, and the
+    adsorbate call site used to pass False, on the reasoning recorded in this docstring
+    until 2026-08-09:
+
+        "An adsorbate lowers the symmetry by itself, and runs/Cr_slab/s0_OH.in (no
+         nosym) ran to JOB DONE at 15 k-points while runs/Mn_slab/s0_O.in (nosym) paid
+         for 36 -- same physics, 2.4x the bill."
+
+    **Both halves of that are false, and the second one is the campaign's central
+    finding (docs/41 s6g).**
+
+    The adsorbate does NOT lower the symmetry by itself. `hea_oer.surfaces._adsorbate`
+    defines every OER adsorbate with y == 0 and places it at (x_cus, y_cus), i.e.
+    exactly on the rutile(110) mirror plane, which is an exact symmetry of the slab.
+    The adsorbate sits *in* the mirror rather than breaking it.
+
+    So it is not the same physics. With the mirror alive, pw.x symmetrises F_y onto it:
+    max|F_y| on the adsorbate is **exactly 0.0000000000 Ry/au** over every ionic step,
+    and the relaxation is a constrained optimisation in a 2-D (x, z) subspace. The
+    2.4x that was saved bought a different calculation, not a cheaper one -- worth
+    -291 meV on Ir's *OOH, which moves eta(Ir) from 0.781 to 0.490 V.
+
+    The audit that settled it: of 20 production adsorbate relaxations, 9 are LOCKED
+    (this path) and their confinement class is predicted 20-for-20 by whether this one
+    flag was set. Cr, Ir and Ru went through here; Mn, Fe, Co, Ni and Cu predate it and
+    kept nosym. The tier is therefore two protocols, not one.
+
+    Hence: no default. A caller must state which it wants, in writing, at the call site.
+    And note that `nosym = True` alone is NOT a fix -- on an exactly symmetric input it
+    removes the constraint without supplying any reason to move, and 6 of the 11 states
+    that had it never left the plane. An off-plane search needs a *physical
+    displacement* as well; see `orient_starts.py`.
+
+    (The original reason nosym is needed on the CLEAN slab is unaffected and still
+    holds: freezing the bottom half breaks the top-bottom mirror, so pw.x aborts in
+    `checkallsym` without it -- docs/23 s5.)
     """
     syms = atoms.get_chemical_symbols()
     order, idx = _species_block(syms)
@@ -237,8 +265,14 @@ def cmd_build(args):
     for si, xy in enumerate(sites):
         for sp in ADSORBATES:
             ads = add_oer_adsorbate_at(slab, sp, xy)
+            # nosym=True, reversing the 2026-07-31 cost optimisation that produced the
+            # LOCKED half of the tier (docs/41 s6g; the refutation is in
+            # write_slab_input's docstring). This alone does not make the search
+            # three-dimensional -- see docs/43 s0a -- it only stops pw.x from
+            # symmetrising F_y to exactly zero. The physical displacement that makes it
+            # a real search is supplied by orient_starts.py / build_cellsym_pilot.py.
             emit(f"s{si}_{sp}", write_slab_input(ads, f"s{si}_{sp}", args.pseudo_dir,
-                 args.ecutwfc, args.ecutrho, nosym=False),
+                 args.ecutwfc, args.ecutrho, nosym=True),
                  kind="adslab", site=si, species=sp)
     for name, mol in _gas_molecules().items():
         emit(name, write_molecule_input(name, mol, args.pseudo_dir, args.ecutwfc, args.ecutrho),
