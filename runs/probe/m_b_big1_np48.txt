@@ -1,0 +1,8 @@
+# NP=48 NCONC=1
+# BIG BOX 1 (EPYC 7663 class): the 2x1v Cr *OOH pair -- the critical path
+# Split of manifest B (m_cellsym_b_cr_np20.txt) for the 2026-08-09
+# launch. Deck max_seconds were sized at NP=20; running at a HIGHER
+# NP only makes jobs finish further inside their caps.
+# Off-plane jobs first; gate on `bfgs converged`, never JOB DONE.
+probe/Cr_cellsym s0_OOH__2x1v_off .in 4
+probe/Cr_cellsym s0_OOH__2x1v_mir .in 2

@@ -1,0 +1,13 @@
+# NP=20 NCONC=1
+# FLEET BOX 5: 7 jobs, 157 h serial at NP=20
+# Split of manifest B (m_cellsym_b_cr_np20.txt) for the 2026-08-09
+# launch. Deck max_seconds were sized at NP=20; running at a HIGHER
+# NP only makes jobs finish further inside their caps.
+# Off-plane jobs first; gate on `bfgs converged`, never JOB DONE.
+probe/Cr_cellsym s0_OOH__1x1_off .in 4
+probe/Ir_cellsym s0_OOH__2x1v_off .in 4
+probe/Cr_cellsym s0_O__2x1v_off .in 4
+probe/Ir_cellsym s0_O__2x1o_off .in 4
+probe/Ir_cellsym s0_OH__2x1o_off .in 4
+probe/Cr_cellsym s0_O__1x1_off .in 4
+probe/Ir_cellsym s0_O__2x1v_mir .in 2
