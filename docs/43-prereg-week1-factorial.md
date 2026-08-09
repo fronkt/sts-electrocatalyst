@@ -887,3 +887,30 @@ Also noted for the record: the queue launcher's controls (the `# NP=<n> NCONC=<n
 directive, `# EXPECT_CAP`, the calculation-aware stale rules, the cgroup refusal) are
 engineering controls documented in the script and manifest headers, deliberately not
 registered here — they protect the schedule, not the inference.
+
+
+## 7. The ym decks' role, resolved (2026-08-09, after the 1C verify round)
+
+Amendment 3 withdrew the √2 claim and registered that "the verdict rests on the +dy
+displacements alone" — but the verify round then found (its N34) that the ym decks have a
+value amendment 3 did not consider: because each ym deck is the *exact mirror* of its yp
+partner (verified to 8.9e-16 Å), symmetry fixes F_y(ym) = −F_y(yp) and F_x/F_z(ym) =
++F_x/F_z(yp) atom by atom, which is the **only available test of the Hessian diagonal** —
+the axis every other gate is provably blind to (a diagonal force error contributes zero to
+H − H^T and zero to σ_F; a demonstrated 1e-2 Ry/bohr corruption flipped the verdict to
+CONFIRMED with zero gate failures). Registered resolution, superseding amendment 3's
+"withdrawn from the pilot" clause and only that clause:
+
+1. **The ym decks are RETAINED and RUN, solely as the Q6 mirror-identity control.** They
+   never enter H.
+2. **The y-block of H is built from the +dy forward difference exclusively** (algebraically
+   identical to the central difference whenever Q6 passes, which is why amendment 3 found
+   the central difference carried no extra information). x and z blocks remain central.
+3. **A missing or unusable force block on any +displacement deck is a hard gate failure
+   (VOID) for that state** — never a silent coordinate drop. The verify round demonstrated
+   the y coordinate being dropped wholesale, after which the state returned REFUTED — the
+   R3-feeding verdict — without the H-atom y mode ever having been measured. Missing
+   evidence must not score as a pass (the N38 rule, third appearance). An unusable ym deck
+   voids only the Q6 control for that atom, and is reported.
+4. **Q5 is reported, not gated** — this was already registered in amendment 3 and the code
+   must comply; the verify round found it still appending to the gate list.
