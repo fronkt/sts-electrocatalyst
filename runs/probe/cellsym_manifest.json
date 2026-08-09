@@ -89,16 +89,16 @@
     "sec_per_kpt_step": 48.6,
     "sec_per_kpt_step_basis": "MEASURED: Ru/Ir s0_OOH__yaw90 at NP=4, npool=4, NCONC=4 (50.1 and 47.1 s)",
     "mag_mult": 3.5,
-    "mag_mult_basis": "RULED (finding [4]) from the four probe/Cr/*__base / probe/Ru/*__base pairs in runs/probe/queue_scf.log (3.44 / 4.05 / 3.84 / 2.97, mean 3.57)",
+    "mag_mult_basis": "MEASURED 2026-08-09 (m_cellmult wave, box 47025043): per-iteration-per-master-k Cr/Ru = 1.63 at identical NP=20/nk=4/state, x the archive iters-per-step ratio 26.1-28.8 vs 11.9-13.9 = band [3.06, 4.03]; 3.5 retained mid-band",
     "mag_mult_bracket": [
-      1.0,
-      3.6
+      3.06,
+      4.03
     ],
-    "mag_mult_caveat": "those pairs are fixed-geometry from-scratch SCFs. The same ratio on RELAXATIONS at identical NP=12/npool=4/nk=15 is 1.02-1.98, and the timing-free measurement (SCF iterations per ionic step) is 2.1x. 3.5 is the conservative end of a bracket, not a measurement of this workload.",
-    "cell_mult_floor": 4.0,
-    "cell_mult_planning": 5.5,
-    "cell_mult_ceiling": 8.0,
-    "cell_mult_status": "ASSUMED. Basis sizes measured exactly 2.000x in bands and G-vectors; the 4.1x FFT term and the 8x ZGEMM/diagonalisation terms are comparable at this nbnd, so 4.0 is the floor. PENDING the m_cellmult wave.",
+    "mag_mult_caveat": "the pre-measurement optimistic end (1.0, from cross-box relaxation timings) is EXCLUDED by the same-box measurement; those timings were contaminated by box sharing.",
+    "cell_mult_floor": 4.5,
+    "cell_mult_planning": 5.19,
+    "cell_mult_ceiling": 6.0,
+    "cell_mult_status": "MEASURED 2026-08-09 (m_cellmult wave): 20.52/3.95 = 5.19 s/master-k, estimator spread 5.19-5.21. Floor/ceiling are a labelled +/-15% allowance for state dependence (only s0_OH was measured).",
     "step_mult_2x1": 1.5,
     "step_mult_status": "ASSUMED. 22 free atoms against 11 and a spliced half-and-half start. The measured 1x1 counts are the floor.",
     "scf_step_equiv": 2.0,
@@ -115,19 +115,19 @@
       "file": "m_cellsym_a_np4.txt",
       "np": 4,
       "nconc": 5,
-      "n_jobs": 13,
+      "n_jobs": 15,
       "command": "bash queue_r1.sh m_cellsym_a_np4.txt 4 5",
-      "sum_hours": 184.4,
-      "longest_job_hours": 27.4
+      "sum_hours": 235.8,
+      "longest_job_hours": 28.4
     },
     "B": {
       "file": "m_cellsym_b_cr_np20.txt",
       "np": 20,
       "nconc": 1,
-      "n_jobs": 45,
+      "n_jobs": 43,
       "command": "bash queue_r1.sh m_cellsym_b_cr_np20.txt 20 1",
-      "sum_hours": 1527.0,
-      "longest_job_hours": 170.5
+      "sum_hours": 1426.9,
+      "longest_job_hours": 160.9
     },
     "C": {
       "file": "m_cellmult.txt",
@@ -135,8 +135,8 @@
       "nconc": 1,
       "n_jobs": 3,
       "command": "bash queue_r1.sh m_cellmult.txt 20 1",
-      "sum_hours": 2.2,
-      "longest_job_hours": 1.6
+      "sum_hours": 2.1,
+      "longest_job_hours": 1.5
     }
   },
   "superseded_manifests": [
@@ -145,16 +145,11 @@
   "pending_measurements": [
     {
       "name": "CELL_MULT and MAG_MULT",
-      "status": "PENDING -- decks emitted, not run",
+      "status": "MEASURED 2026-08-09 -- wave ran on box 47025043, all three legs converged inside the cap (434/212/1818 s). CELL_MULT 5.19 (spread 5.19-5.21), MAG per-iteration 1.63 -> MAG_MULT band [3.06, 4.03], 3.5 retained. Outputs: runs/probe/{Cr,Ru}_cellsym/*__cellmult.out.",
       "manifest": "m_cellmult.txt",
       "command": "bash queue_r1.sh m_cellmult.txt 20 1",
-      "cost": "3 SCFs x max_seconds = 3600 s at NP=20/NCONC=1; the two 1x1 legs exit early, only the Cr 2x1o leg can spend its cap. Budget <= 3 box-hours, expect ~1.5 (N8: derived from the constant, not hand-copied)",
-      "quoted_meanwhile": {
-        "cell_mult": 5.5,
-        "cell_mult_ceiling": 8.0,
-        "mag_mult": 3.5
-      },
-      "blocks": "every wall-clock and box-count number in this manifest"
+      "cost": "actual: 2464 s box time against the budgeted 10800 s cap",
+      "blocks": "nothing -- every hour in this manifest is now quoted from the measurement"
     }
   ],
   "gates": {
@@ -187,7 +182,7 @@
       "gate1_scf_tol_meV": 5.0,
       "gate1_jobs_required": 21,
       "gate1_emitter": "build_cellsym_pilot.py --gate1 (wave 2; refuses until every Cr relaxation has `bfgs converged`)",
-      "gate1_est_hours_at_np20": 37.4
+      "gate1_est_hours_at_np20": 35.6
     },
     "readout": {
       "emitter": "build_cellsym_pilot.py --score",
@@ -354,8 +349,8 @@
       "est_hours_np4": 20.4,
       "est_hours_at_np": 6.8,
       "est_hours_bracket_np4": [
-        5.8,
-        21.0
+        17.8,
+        23.5
       ],
       "max_seconds": 48989,
       "nspin": 2,
@@ -391,8 +386,8 @@
       "est_hours_np4": 74.8,
       "est_hours_at_np": 24.9,
       "est_hours_bracket_np4": [
-        21.4,
-        77.0
+        65.4,
+        86.2
       ],
       "max_seconds": 179626,
       "nspin": 2,
@@ -428,8 +423,8 @@
       "est_hours_np4": 139.5,
       "est_hours_at_np": 46.5,
       "est_hours_bracket_np4": [
-        39.9,
-        143.5
+        121.9,
+        160.6
       ],
       "max_seconds": 334757,
       "nspin": 2,
@@ -463,16 +458,16 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)",
         "note": "a replicated relaxed clean slab is close to a stationary point of the 2x1 problem and should exit early; the est/cap use the measured slab count x STEP_MULT anyway (U1). For Cr the mesh also changes (9 4 1 does not fold), so it is not exactly stationary."
       },
-      "est_hours_np4": 99.8,
-      "est_hours_at_np": 33.3,
+      "est_hours_np4": 94.2,
+      "est_hours_at_np": 31.4,
       "est_hours_bracket_np4": [
-        20.7,
-        199.1
+        71.4,
+        167.1
       ],
-      "max_seconds": 239501,
+      "max_seconds": 226002,
       "nspin": 2,
       "spectator_y": null,
-      "md5": "d4373df18ef671717ecdcb08fe984e22",
+      "md5": "0275fe81172c539c6cdca30e606947a7",
       "nat": 36,
       "dmin": 1.8218,
       "z_extent": 8.8426,
@@ -500,16 +495,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 74.8,
-      "est_hours_at_np": 24.9,
+      "est_hours_np4": 70.6,
+      "est_hours_at_np": 23.5,
       "est_hours_bracket_np4": [
-        15.6,
-        149.3
+        53.5,
+        125.3
       ],
-      "max_seconds": 179626,
+      "max_seconds": 169501,
       "nspin": 2,
       "spectator_y": 1.91305954,
-      "md5": "9a6de2c4fba26ff3db038b6442f4a42b",
+      "md5": "39cac0aae344a96c599b60a13323b385",
       "nat": 37,
       "dmin": 1.6101,
       "z_extent": 9.4826,
@@ -537,16 +532,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 42.1,
-      "est_hours_at_np": 14.0,
+      "est_hours_np4": 39.7,
+      "est_hours_at_np": 13.2,
       "est_hours_bracket_np4": [
-        8.7,
-        84.0
+        30.1,
+        70.5
       ],
-      "max_seconds": 101039,
+      "max_seconds": 95344,
       "nspin": 2,
       "spectator_y": null,
-      "md5": "ef88904d99b6af394d7943ea9c14f4ab",
+      "md5": "4f2c78ccc39a323dd24341ab00c71b2f",
       "nat": 37,
       "dmin": 1.5716,
       "z_extent": 9.4826,
@@ -574,16 +569,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 42.1,
-      "est_hours_at_np": 14.0,
+      "est_hours_np4": 39.7,
+      "est_hours_at_np": 13.2,
       "est_hours_bracket_np4": [
-        8.7,
-        84.0
+        30.1,
+        70.5
       ],
-      "max_seconds": 101039,
+      "max_seconds": 95344,
       "nspin": 2,
       "spectator_y": 1.56305954,
-      "md5": "f4c39ca1427ef5ab3c1701e3bbaa81b6",
+      "md5": "3543c91a383894db3a9f43b3d3863304",
       "nat": 38,
       "dmin": 1.5716,
       "z_extent": 9.4826,
@@ -611,16 +606,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 74.8,
-      "est_hours_at_np": 24.9,
+      "est_hours_np4": 70.6,
+      "est_hours_at_np": 23.5,
       "est_hours_bracket_np4": [
-        15.6,
-        149.3
+        53.5,
+        125.3
       ],
-      "max_seconds": 179626,
+      "max_seconds": 169501,
       "nspin": 2,
       "spectator_y": null,
-      "md5": "881aa317ab2623f3e9d0a8d5d3f96575",
+      "md5": "424fc6a09475d192e0bd41e16c95e132",
       "nat": 37,
       "dmin": 1.6101,
       "z_extent": 9.4826,
@@ -648,16 +643,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 74.8,
-      "est_hours_at_np": 24.9,
+      "est_hours_np4": 70.6,
+      "est_hours_at_np": 23.5,
       "est_hours_bracket_np4": [
-        15.6,
-        149.3
+        53.5,
+        125.3
       ],
-      "max_seconds": 179626,
+      "max_seconds": 169501,
       "nspin": 2,
       "spectator_y": 1.56305954,
-      "md5": "25193c10ac7c7a654fc0d6acbb4cfdd5",
+      "md5": "56cae6f3bd58b3d5f83817f393771ba6",
       "nat": 38,
       "dmin": 1.5716,
       "z_extent": 9.4826,
@@ -685,16 +680,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 154.4,
-      "est_hours_at_np": 51.5,
+      "est_hours_np4": 145.7,
+      "est_hours_at_np": 48.6,
       "est_hours_bracket_np4": [
-        32.1,
-        307.9
+        110.4,
+        258.5
       ],
-      "max_seconds": 370478,
+      "max_seconds": 349596,
       "nspin": 2,
       "spectator_y": null,
-      "md5": "5d677fb9bfdc3d8e890555e4f5c926af",
+      "md5": "cb7b56773e1ff02e7c445fad5a2b2894",
       "nat": 38,
       "dmin": 0.9854,
       "z_extent": 9.8466,
@@ -722,16 +717,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 154.4,
-      "est_hours_at_np": 51.5,
+      "est_hours_np4": 145.7,
+      "est_hours_at_np": 48.6,
       "est_hours_bracket_np4": [
-        32.1,
-        307.9
+        110.4,
+        258.5
       ],
-      "max_seconds": 370478,
+      "max_seconds": 349596,
       "nspin": 2,
       "spectator_y": 1.56305954,
-      "md5": "a7d1fab6cd87832c2d0133e68fb58a1e",
+      "md5": "493792d0e8587c2e0be196099bc0f7b0",
       "nat": 39,
       "dmin": 0.9854,
       "z_extent": 9.8466,
@@ -759,16 +754,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 274.4,
-      "est_hours_at_np": 91.5,
+      "est_hours_np4": 259.0,
+      "est_hours_at_np": 86.3,
       "est_hours_bracket_np4": [
-        57.0,
-        547.4
+        196.3,
+        459.6
       ],
-      "max_seconds": 658627,
+      "max_seconds": 621505,
       "nspin": 2,
       "spectator_y": null,
-      "md5": "42cc12f90197df3c753426032b5d43ce",
+      "md5": "29e5aba90280bdf3b485e1d7849dc07c",
       "nat": 38,
       "dmin": 0.9854,
       "z_extent": 9.8466,
@@ -796,16 +791,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 274.4,
-      "est_hours_at_np": 91.5,
+      "est_hours_np4": 259.0,
+      "est_hours_at_np": 86.3,
       "est_hours_bracket_np4": [
-        57.0,
-        547.4
+        196.3,
+        459.6
       ],
-      "max_seconds": 658627,
+      "max_seconds": 621505,
       "nspin": 2,
       "spectator_y": 1.56305954,
-      "md5": "6c23144813676f9e5d2d6ff9253694ed",
+      "md5": "1a62e8ffe807d3e268f5cc0ccdd17e7a",
       "nat": 39,
       "dmin": 0.9854,
       "z_extent": 9.8466,
@@ -833,16 +828,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 287.7,
-      "est_hours_at_np": 95.9,
+      "est_hours_np4": 271.5,
+      "est_hours_at_np": 90.5,
       "est_hours_bracket_np4": [
-        59.8,
-        573.9
+        205.8,
+        481.8
       ],
-      "max_seconds": 690436,
+      "max_seconds": 651520,
       "nspin": 2,
       "spectator_y": null,
-      "md5": "f8153e6f6367f0c9f9d452e5d4ca587d",
+      "md5": "332b5912cbeffeb3042bd66a93cf794b",
       "nat": 39,
       "dmin": 1.062,
       "z_extent": 10.6732,
@@ -870,16 +865,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 287.7,
-      "est_hours_at_np": 95.9,
+      "est_hours_np4": 271.5,
+      "est_hours_at_np": 90.5,
       "est_hours_bracket_np4": [
-        59.8,
-        573.9
+        205.8,
+        481.8
       ],
-      "max_seconds": 690436,
+      "max_seconds": 651520,
       "nspin": 2,
       "spectator_y": 1.56305954,
-      "md5": "5fe1c1f973de733cc023c42b21454678",
+      "md5": "53bb17237efd201da1e735558d5f341c",
       "nat": 40,
       "dmin": 1.062,
       "z_extent": 10.6732,
@@ -907,16 +902,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 511.4,
-      "est_hours_at_np": 170.5,
+      "est_hours_np4": 482.6,
+      "est_hours_at_np": 160.9,
       "est_hours_bracket_np4": [
-        106.3,
-        1020.2
+        365.8,
+        856.6
       ],
-      "max_seconds": 1227442,
+      "max_seconds": 1158259,
       "nspin": 2,
       "spectator_y": null,
-      "md5": "fd77f8f314fac3b66935ef2e2ad67d19",
+      "md5": "2049708eb10543c3e47cf0392cca2cda",
       "nat": 39,
       "dmin": 1.062,
       "z_extent": 10.6732,
@@ -944,16 +939,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 511.4,
-      "est_hours_at_np": 170.5,
+      "est_hours_np4": 482.6,
+      "est_hours_at_np": 160.9,
       "est_hours_bracket_np4": [
-        106.3,
-        1020.2
+        365.8,
+        856.6
       ],
-      "max_seconds": 1227442,
+      "max_seconds": 1158259,
       "nspin": 2,
       "spectator_y": 1.56305954,
-      "md5": "b1d2eaf5d12bfd34a61bb3343711f586",
+      "md5": "cce211c1c0bdf837b7f7f4c1a11eef4d",
       "nat": 40,
       "dmin": 1.062,
       "z_extent": 10.6732,
@@ -983,8 +978,8 @@
       "est_hours_np4": 3.0,
       "est_hours_at_np": 3.0,
       "est_hours_bracket_np4": [
-        0.9,
-        3.1
+        2.6,
+        3.5
       ],
       "max_seconds": 21773,
       "nspin": 2,
@@ -1019,8 +1014,8 @@
       "est_hours_np4": 1.4,
       "est_hours_at_np": 1.4,
       "est_hours_bracket_np4": [
-        0.4,
-        1.5
+        1.2,
+        1.6
       ],
       "max_seconds": 10206,
       "nspin": 2,
@@ -1055,8 +1050,8 @@
       "est_hours_np4": 1.4,
       "est_hours_at_np": 1.4,
       "est_hours_bracket_np4": [
-        0.4,
-        1.5
+        1.2,
+        1.6
       ],
       "max_seconds": 10206,
       "nspin": 2,
@@ -1091,8 +1086,8 @@
       "est_hours_np4": 1.4,
       "est_hours_at_np": 1.4,
       "est_hours_bracket_np4": [
-        0.4,
-        1.5
+        1.2,
+        1.6
       ],
       "max_seconds": 10206,
       "nspin": 2,
@@ -1127,8 +1122,8 @@
       "est_hours_np4": 9.1,
       "est_hours_at_np": 3.0,
       "est_hours_bracket_np4": [
-        2.6,
-        9.3
+        7.9,
+        10.4
       ],
       "max_seconds": 21773,
       "nspin": 2,
@@ -1163,8 +1158,8 @@
       "est_hours_np4": 4.3,
       "est_hours_at_np": 1.4,
       "est_hours_bracket_np4": [
-        1.2,
-        4.4
+        3.7,
+        4.9
       ],
       "max_seconds": 10206,
       "nspin": 2,
@@ -1199,8 +1194,8 @@
       "est_hours_np4": 4.3,
       "est_hours_at_np": 1.4,
       "est_hours_bracket_np4": [
-        1.2,
-        4.4
+        3.7,
+        4.9
       ],
       "max_seconds": 10206,
       "nspin": 2,
@@ -1235,8 +1230,8 @@
       "est_hours_np4": 4.3,
       "est_hours_at_np": 1.4,
       "est_hours_bracket_np4": [
-        1.2,
-        4.4
+        3.7,
+        4.9
       ],
       "max_seconds": 10206,
       "nspin": 2,
@@ -1267,8 +1262,8 @@
       "est_hours_np4": 1.4,
       "est_hours_at_np": 0.5,
       "est_hours_bracket_np4": [
-        0.4,
-        1.5
+        1.2,
+        1.6
       ],
       "max_seconds": 3600,
       "nspin": 2,
@@ -1296,11 +1291,11 @@
       "np_run": 20,
       "steps_est": 2.0,
       "steps_basis": null,
-      "est_hours_np4": 4.7,
-      "est_hours_at_np": 1.6,
+      "est_hours_np4": 4.4,
+      "est_hours_at_np": 1.5,
       "est_hours_bracket_np4": [
-        1.0,
-        9.3
+        3.3,
+        7.8
       ],
       "max_seconds": 3600,
       "nspin": 2,
@@ -1445,16 +1440,16 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)",
         "note": "a replicated relaxed clean slab is close to a stationary point of the 2x1 problem and should exit early; the est/cap use the measured slab count x STEP_MULT anyway (U1). For Cr the mesh also changes (9 4 1 does not fold), so it is not exactly stationary."
       },
-      "est_hours_np4": 21.4,
-      "est_hours_at_np": 21.4,
+      "est_hours_np4": 20.2,
+      "est_hours_at_np": 20.2,
       "est_hours_bracket_np4": [
-        15.6,
-        41.5
+        17.5,
+        31.1
       ],
-      "max_seconds": 153965,
+      "max_seconds": 145287,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "a32f323def477ad9c1dc4e37a1f87ae0",
+      "md5": "a4c6fa457ec90a6b77be8228f9f2378f",
       "nat": 36,
       "dmin": 1.9401,
       "z_extent": 8.9208,
@@ -1482,16 +1477,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 60.6,
-      "est_hours_at_np": 20.2,
+      "est_hours_np4": 57.2,
+      "est_hours_at_np": 19.1,
       "est_hours_bracket_np4": [
-        44.1,
-        117.5
+        49.6,
+        88.1
       ],
-      "max_seconds": 145411,
+      "max_seconds": 137215,
       "nspin": 1,
       "spectator_y": 5.12084945,
-      "md5": "ab5c14453542268e0c6bf62ac7d338c2",
+      "md5": "9c172b6f5c967633531bcb5fb9ad7784",
       "nat": 37,
       "dmin": 1.8014,
       "z_extent": 9.501,
@@ -1519,16 +1514,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 34.1,
-      "est_hours_at_np": 11.4,
+      "est_hours_np4": 32.2,
+      "est_hours_at_np": 10.7,
       "est_hours_bracket_np4": [
-        24.8,
-        66.1
+        27.9,
+        49.6
       ],
-      "max_seconds": 81794,
+      "max_seconds": 77184,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "6d6d15f0ebe471104d7882130e25935f",
+      "md5": "cbb9ed224fe7dabf83ed89750cee067e",
       "nat": 37,
       "dmin": 1.7671,
       "z_extent": 9.501,
@@ -1556,16 +1551,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 34.1,
-      "est_hours_at_np": 11.4,
+      "est_hours_np4": 32.2,
+      "est_hours_at_np": 10.7,
       "est_hours_bracket_np4": [
-        24.8,
-        66.1
+        27.9,
+        49.6
       ],
-      "max_seconds": 81794,
+      "max_seconds": 77184,
       "nspin": 1,
       "spectator_y": 4.77084945,
-      "md5": "38d4f5b781e5928e885af2d3db3a2501",
+      "md5": "737467bd56ca3c1130d682a1956ec46c",
       "nat": 38,
       "dmin": 1.7671,
       "z_extent": 9.501,
@@ -1593,16 +1588,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 60.6,
-      "est_hours_at_np": 20.2,
+      "est_hours_np4": 57.2,
+      "est_hours_at_np": 19.1,
       "est_hours_bracket_np4": [
-        44.1,
-        117.5
+        49.6,
+        88.1
       ],
-      "max_seconds": 145411,
+      "max_seconds": 137215,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "47ce0fcb69acea792fef546384cbf0b0",
+      "md5": "399cef79e996461299a2ccbb8cae9bd0",
       "nat": 37,
       "dmin": 1.8014,
       "z_extent": 9.501,
@@ -1630,16 +1625,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 60.6,
-      "est_hours_at_np": 20.2,
+      "est_hours_np4": 57.2,
+      "est_hours_at_np": 19.1,
       "est_hours_bracket_np4": [
-        44.1,
-        117.5
+        49.6,
+        88.1
       ],
-      "max_seconds": 145411,
+      "max_seconds": 137215,
       "nspin": 1,
       "spectator_y": 4.77084945,
-      "md5": "82e8248419d413cc66c5801f21c73daf",
+      "md5": "ac78a3f79875054b7ba92677342e0a3d",
       "nat": 38,
       "dmin": 1.7671,
       "z_extent": 9.501,
@@ -1658,8 +1653,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 9,
       "nk": 2,
-      "manifest": "B",
-      "np_run": 20,
+      "manifest": "A",
+      "np_run": 4,
       "steps_est": 45,
       "steps_basis": {
         "measured_1x1_steps": 30,
@@ -1667,16 +1662,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 30.1,
-      "est_hours_at_np": 10.0,
+      "est_hours_np4": 28.4,
+      "est_hours_at_np": 28.4,
       "est_hours_bracket_np4": [
-        21.9,
-        58.3
+        24.6,
+        43.7
       ],
-      "max_seconds": 72171,
+      "max_seconds": 204310,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "ff5a81482d9c597e9a9831f2f28890ab",
+      "md5": "253a393c328ecc8cfeebb98a59b7ef87",
       "nat": 38,
       "dmin": 0.9807,
       "z_extent": 9.9893,
@@ -1695,8 +1690,8 @@
       "kmesh": "4 4 1",
       "n_kpt_est": 9,
       "nk": 2,
-      "manifest": "B",
-      "np_run": 20,
+      "manifest": "A",
+      "np_run": 4,
       "steps_est": 45,
       "steps_basis": {
         "measured_1x1_steps": 30,
@@ -1704,16 +1699,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 30.1,
-      "est_hours_at_np": 10.0,
+      "est_hours_np4": 28.4,
+      "est_hours_at_np": 28.4,
       "est_hours_bracket_np4": [
-        21.9,
-        58.3
+        24.6,
+        43.7
       ],
-      "max_seconds": 72171,
+      "max_seconds": 204310,
       "nspin": 1,
       "spectator_y": 4.77084945,
-      "md5": "bccb21a026ab9f49e7bfc713ad03af82",
+      "md5": "e6c3cc58c443c61f4c8358c07a050413",
       "nat": 39,
       "dmin": 0.9807,
       "z_extent": 9.9893,
@@ -1741,16 +1736,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 53.5,
-      "est_hours_at_np": 17.8,
+      "est_hours_np4": 50.4,
+      "est_hours_at_np": 16.8,
       "est_hours_bracket_np4": [
-        38.9,
-        103.7
+        43.7,
+        77.8
       ],
-      "max_seconds": 128304,
+      "max_seconds": 121072,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "38e529f11b47f1dd4568813d6c655e63",
+      "md5": "e01b7647426cb206abbe2e7903634c18",
       "nat": 38,
       "dmin": 0.9807,
       "z_extent": 9.9893,
@@ -1778,16 +1773,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 53.5,
-      "est_hours_at_np": 17.8,
+      "est_hours_np4": 50.4,
+      "est_hours_at_np": 16.8,
       "est_hours_bracket_np4": [
-        38.9,
-        103.7
+        43.7,
+        77.8
       ],
-      "max_seconds": 128304,
+      "max_seconds": 121072,
       "nspin": 1,
       "spectator_y": 4.77084945,
-      "md5": "5ab5b56a9f7c56bb6b33d46794c51423",
+      "md5": "81823129a619dd1bb34617c9b87d44b1",
       "nat": 39,
       "dmin": 0.9807,
       "z_extent": 9.9893,
@@ -1815,16 +1810,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 60.1,
-      "est_hours_at_np": 20.0,
+      "est_hours_np4": 56.8,
+      "est_hours_at_np": 18.9,
       "est_hours_bracket_np4": [
-        43.7,
-        116.6
+        49.2,
+        87.5
       ],
-      "max_seconds": 144342,
+      "max_seconds": 136206,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "dc466a3cc2fa1f58407323b69323377f",
+      "md5": "0ea6e60c2832913bafc214c8ed4b062a",
       "nat": 39,
       "dmin": 0.9817,
       "z_extent": 11.3416,
@@ -1852,16 +1847,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 60.1,
-      "est_hours_at_np": 20.0,
+      "est_hours_np4": 56.8,
+      "est_hours_at_np": 18.9,
       "est_hours_bracket_np4": [
-        43.7,
-        116.6
+        49.2,
+        87.5
       ],
-      "max_seconds": 144342,
+      "max_seconds": 136206,
       "nspin": 1,
       "spectator_y": 4.77084945,
-      "md5": "7739d8d3b0d0abf36c2e29c63d70bb8c",
+      "md5": "a0f7b07b14d9ca4ec4004a83e7dc73d8",
       "nat": 40,
       "dmin": 0.9817,
       "z_extent": 11.3416,
@@ -1889,16 +1884,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 106.9,
-      "est_hours_at_np": 35.6,
+      "est_hours_np4": 100.9,
+      "est_hours_at_np": 33.6,
       "est_hours_bracket_np4": [
-        77.8,
-        207.4
+        87.5,
+        155.5
       ],
-      "max_seconds": 256608,
+      "max_seconds": 242145,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "e01ecea70897ad38d27d2983e59d7bed",
+      "md5": "c3815ed663b112ffbd724f33ec01b80e",
       "nat": 39,
       "dmin": 0.9817,
       "z_extent": 11.3416,
@@ -1926,16 +1921,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 106.9,
-      "est_hours_at_np": 35.6,
+      "est_hours_np4": 100.9,
+      "est_hours_at_np": 33.6,
       "est_hours_bracket_np4": [
-        77.8,
-        207.4
+        87.5,
+        155.5
       ],
-      "max_seconds": 256608,
+      "max_seconds": 242145,
       "nspin": 1,
       "spectator_y": 4.77084945,
-      "md5": "67b761a20e36762fe45c1c1b6acbe29e",
+      "md5": "b424ff56999c71e097322a1c57acaf28",
       "nat": 40,
       "dmin": 0.9817,
       "z_extent": 11.3416,
@@ -2038,16 +2033,16 @@
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)",
         "note": "a replicated relaxed clean slab is close to a stationary point of the 2x1 problem and should exit early; the est/cap use the measured slab count x STEP_MULT anyway (U1). For Cr the mesh also changes (9 4 1 does not fold), so it is not exactly stationary."
       },
-      "est_hours_np4": 21.4,
-      "est_hours_at_np": 21.4,
+      "est_hours_np4": 20.2,
+      "est_hours_at_np": 20.2,
       "est_hours_bracket_np4": [
-        15.6,
-        41.5
+        17.5,
+        31.1
       ],
-      "max_seconds": 153965,
+      "max_seconds": 145287,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "4b8b002995cb6580319fba8a5233a66a",
+      "md5": "0f7f6bbd99759b13d8e7569e3f5bdda4",
       "nat": 36,
       "dmin": 1.882,
       "z_extent": 8.8413,
@@ -2075,16 +2070,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 48.7,
-      "est_hours_at_np": 16.2,
+      "est_hours_np4": 46.0,
+      "est_hours_at_np": 15.3,
       "est_hours_bracket_np4": [
-        35.4,
-        94.5
+        39.9,
+        70.8
       ],
-      "max_seconds": 116899,
+      "max_seconds": 110310,
       "nspin": 1,
       "spectator_y": 1.93816183,
-      "md5": "1f4f3932dd476b18b8d6da8c5ce6db06",
+      "md5": "83aea549b0a71f73d8b1c4d0e93fefd5",
       "nat": 37,
       "dmin": 1.7341,
       "z_extent": 9.4657,
@@ -2112,16 +2107,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 27.4,
-      "est_hours_at_np": 27.4,
+      "est_hours_np4": 25.9,
+      "est_hours_at_np": 25.9,
       "est_hours_bracket_np4": [
-        19.9,
-        53.1
+        22.4,
+        39.9
       ],
-      "max_seconds": 197267,
+      "max_seconds": 186149,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "57e24afb61279f6f811c869f7f7b155e",
+      "md5": "4395d6b63a3e8f6a20c185cecf509da6",
       "nat": 37,
       "dmin": 1.6985,
       "z_extent": 9.4657,
@@ -2149,16 +2144,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 27.4,
-      "est_hours_at_np": 27.4,
+      "est_hours_np4": 25.9,
+      "est_hours_at_np": 25.9,
       "est_hours_bracket_np4": [
-        19.9,
-        53.1
+        22.4,
+        39.9
       ],
-      "max_seconds": 197267,
+      "max_seconds": 186149,
       "nspin": 1,
       "spectator_y": 1.58816183,
-      "md5": "eb3235397ec999abddac88da87306f07",
+      "md5": "b2feac8ad19880f360328780cd59bbb3",
       "nat": 38,
       "dmin": 1.6985,
       "z_extent": 9.4657,
@@ -2186,16 +2181,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 48.7,
-      "est_hours_at_np": 16.2,
+      "est_hours_np4": 46.0,
+      "est_hours_at_np": 15.3,
       "est_hours_bracket_np4": [
-        35.4,
-        94.5
+        39.9,
+        70.8
       ],
-      "max_seconds": 116899,
+      "max_seconds": 110310,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "60c99637fe9bf6ab77d377e5368f2586",
+      "md5": "0d8c7713568926aacfcc74a9a3acf232",
       "nat": 37,
       "dmin": 1.7341,
       "z_extent": 9.4657,
@@ -2223,16 +2218,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 48.7,
-      "est_hours_at_np": 16.2,
+      "est_hours_np4": 46.0,
+      "est_hours_at_np": 15.3,
       "est_hours_bracket_np4": [
-        35.4,
-        94.5
+        39.9,
+        70.8
       ],
-      "max_seconds": 116899,
+      "max_seconds": 110310,
       "nspin": 1,
       "spectator_y": 1.58816183,
-      "md5": "d1fccea3bcf421c0d6cc617739ba6e43",
+      "md5": "f4da04d9483ca7078dfd5b6dab969dc9",
       "nat": 38,
       "dmin": 1.6985,
       "z_extent": 9.4657,
@@ -2260,16 +2255,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 33.4,
-      "est_hours_at_np": 11.1,
+      "est_hours_np4": 31.5,
+      "est_hours_at_np": 10.5,
       "est_hours_bracket_np4": [
-        24.3,
-        64.8
+        27.3,
+        48.6
       ],
-      "max_seconds": 80190,
+      "max_seconds": 75670,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "c32bd4bf4e5c735516439d1b5f9ffbe5",
+      "md5": "968ea16ae2a2e903d96d2d1ef69f532a",
       "nat": 38,
       "dmin": 0.981,
       "z_extent": 9.9248,
@@ -2297,16 +2292,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 33.4,
-      "est_hours_at_np": 11.1,
+      "est_hours_np4": 31.5,
+      "est_hours_at_np": 10.5,
       "est_hours_bracket_np4": [
-        24.3,
-        64.8
+        27.3,
+        48.6
       ],
-      "max_seconds": 80190,
+      "max_seconds": 75670,
       "nspin": 1,
       "spectator_y": 1.58816183,
-      "md5": "bd763d0827559e2ef9545108faf51bd8",
+      "md5": "1a52332c221e882c679db07e34be8ddc",
       "nat": 39,
       "dmin": 0.981,
       "z_extent": 9.9248,
@@ -2334,16 +2329,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 59.4,
-      "est_hours_at_np": 19.8,
+      "est_hours_np4": 56.1,
+      "est_hours_at_np": 18.7,
       "est_hours_bracket_np4": [
-        43.2,
-        115.2
+        48.6,
+        86.4
       ],
-      "max_seconds": 142560,
+      "max_seconds": 134525,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "3fe8aaa89ac3564c6f7749286c1ca1a3",
+      "md5": "7c374255d94937e7c7f9618bfe0a33d2",
       "nat": 38,
       "dmin": 0.981,
       "z_extent": 9.9248,
@@ -2371,16 +2366,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 59.4,
-      "est_hours_at_np": 19.8,
+      "est_hours_np4": 56.1,
+      "est_hours_at_np": 18.7,
       "est_hours_bracket_np4": [
-        43.2,
-        115.2
+        48.6,
+        86.4
       ],
-      "max_seconds": 142560,
+      "max_seconds": 134525,
       "nspin": 1,
       "spectator_y": 1.58816183,
-      "md5": "4ed8c4888df18cfe2ff47a83ad1308d4",
+      "md5": "57d6808be0d5e71a8931f3aacc89f810",
       "nat": 39,
       "dmin": 0.981,
       "z_extent": 9.9248,
@@ -2408,16 +2403,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 68.2,
-      "est_hours_at_np": 22.7,
+      "est_hours_np4": 64.3,
+      "est_hours_at_np": 21.4,
       "est_hours_bracket_np4": [
-        49.6,
-        132.2
+        55.8,
+        99.1
       ],
-      "max_seconds": 163588,
+      "max_seconds": 154367,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "e1c794414506f80d583742dd277dd4d0",
+      "md5": "c1dee3b6848f86bab31bf59de9fedc9e",
       "nat": 39,
       "dmin": 1.0259,
       "z_extent": 10.6195,
@@ -2445,16 +2440,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 68.2,
-      "est_hours_at_np": 22.7,
+      "est_hours_np4": 64.3,
+      "est_hours_at_np": 21.4,
       "est_hours_bracket_np4": [
-        49.6,
-        132.2
+        55.8,
+        99.1
       ],
-      "max_seconds": 163588,
+      "max_seconds": 154367,
       "nspin": 1,
       "spectator_y": 1.58816183,
-      "md5": "d92b3723918f71b4107588937aa754cb",
+      "md5": "85217c2e451f5fd05dfbff44e213541e",
       "nat": 40,
       "dmin": 1.0259,
       "z_extent": 10.6195,
@@ -2482,16 +2477,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 121.2,
-      "est_hours_at_np": 40.4,
+      "est_hours_np4": 114.3,
+      "est_hours_at_np": 38.1,
       "est_hours_bracket_np4": [
-        88.1,
-        235.0
+        99.1,
+        176.3
       ],
-      "max_seconds": 290822,
+      "max_seconds": 274431,
       "nspin": 1,
       "spectator_y": null,
-      "md5": "03681b90462e233ac53d386ddc770dbc",
+      "md5": "30d59ff50ba3168bc9ab5aee4e53997c",
       "nat": 39,
       "dmin": 1.0259,
       "z_extent": 10.6195,
@@ -2519,16 +2514,16 @@
         "multiplier": 1.5,
         "basis": "measured 1x1 ionic steps x STEP_MULT_2X1 (assumed, see module)"
       },
-      "est_hours_np4": 121.2,
-      "est_hours_at_np": 40.4,
+      "est_hours_np4": 114.3,
+      "est_hours_at_np": 38.1,
       "est_hours_bracket_np4": [
-        88.1,
-        235.0
+        99.1,
+        176.3
       ],
-      "max_seconds": 290822,
+      "max_seconds": 274431,
       "nspin": 1,
       "spectator_y": 1.58816183,
-      "md5": "cad2e9f7fc342553d8241b8d2245438f",
+      "md5": "80be8f2c47282ab2d38190ad0307443a",
       "nat": 40,
       "dmin": 1.0259,
       "z_extent": 10.6195,

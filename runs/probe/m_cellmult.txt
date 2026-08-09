@@ -1,15 +1,14 @@
 # NP=20 NCONC=1
 # EXPECT_CAP
 # block 1A, manifest C: the CELL_MULT / MAG_MULT measurement.
+# STATUS: RAN AND CONVERGED 2026-08-09 on box 47025043 -- all
+# three legs exited inside the cap (434 / 212 / 1818 s, 27/22/29
+# SCF iterations). CELL_MULT = 5.19, MAG per-iteration = 1.63.
+# Kept for provenance and for re-measurement on a new box class.
 #   bash queue_r1.sh m_cellmult.txt 20 1
 # Three fixed-geometry SCFs, max_seconds = 3600
 # each, identical NP=20 and nk=4 on all three legs (that is why nk
-# is forced here rather than derived from the k-count). The two 1x1
-# legs converge and exit well inside the cap (measured 26 and 21
-# SCF iterations at 46 and 15 s/iteration at this NP); only the Cr
-# 2x1o leg can spend it, and it is the leg the ratio needs, at
-# 10-14 iterations instead of the 3-5 a 20-minute cap would buy.
-# Budget it as <= 3 box-hours, expect ~1.5.
+# is forced here rather than derived from the k-count).
 # Analysis:
 #   for each .out take the `total cpu time spent up to now`
 #   increments, drop the first and last, take the MEDIAN, and

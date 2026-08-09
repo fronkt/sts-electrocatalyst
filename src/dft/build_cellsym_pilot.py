@@ -523,46 +523,36 @@ def parse_input_deck_text(text):
 #: configuration manifest A runs in.
 SEC_PER_KPT_STEP = 48.6
 
-#: RULED (adjudications 2026-08-09, finding [4]) at 3.5, from the four same-log
-#: base-SCF pairs in runs/probe/queue_scf.log:
+#: MEASURED 2026-08-09, m_cellmult wave, box 47025043 (the manifest-C analysis,
+#: exactly as registered in the manifest header): median `total cpu time spent
+#: up to now` increment, first and last dropped, divided by the master pool's
+#: k-count ceil(nk/4), identical NP=20/nk=4 on all three legs.
 #:
-#:   probe/Cr/slab__base   6734 s / 36 kpt = 187.1  |  probe/Ru/slab__base   1742/32 = 54.4   -> 3.44
-#:   probe/Cr/s0_OH__base  3878 s / 15 kpt = 258.5  |  probe/Ru/s0_OH__base   958/15 = 63.9   -> 4.05
-#:   probe/Cr/s0_OOH__base 3689 s / 15 kpt = 245.9  |  probe/Ru/s0_OOH__base  961/15 = 64.1   -> 3.84
-#:   probe/Cr/s0_O__base   3003 s / 15 kpt = 200.2  |  probe/Ru/s0_O__base   1010/15 = 67.3   -> 2.97
-#:                                                                            mean      3.57
+#:   Cr 1x1 s0_OH  15 kpt, 27 iters, median 15.80 s -> 3.95 s/master-k
+#:   Ru 1x1 s0_OH  15 kpt, 22 iters, median  9.70 s -> 2.43 s/master-k
+#:   Cr 2x1o s0_OH  9 kpt, 29 iters, median 61.55 s -> 20.52 s/master-k
 #:
-#: The value it replaces, 1.93, was Mn's slab against `probe/Ru/slab__dipole`, a
-#: dipole-perturbed SCF and the slowest Ru slab in the archive -- not a base SCF.
-#:
-#: DISAGREEMENT ON RECORD, implemented as ruled. Those four pairs are
-#: FIXED-GEOMETRY FROM-SCRATCH SCFs, which is the most Cr-unfavourable workload
-#: there is: Cr's penalty is mostly extra SCF iterations, and a relaxation pays
-#: that only on its first ionic step. The same ratio measured on RELAXATIONS at
-#: identical NP=12/npool=4/nk=15 is 1.0-2.0:
-#:
-#:   Cr_slab/s0_OH   34020 s /(15 x 44) = 51.6 s/kpt/step | Ir 50.4, Ru 45.7  -> 1.02-1.13
-#:   Cr_slab/s0_OOH  71160 s /(15 x 82) = 57.9            | Ir 31.5, Ru 29.2  -> 1.84-1.98
-#:
-#: and the one hardware-independent measurement -- SCF iterations per ionic step,
-#: which needs no timing at all -- is Cr 26.1/28.8 against Ir/Ru 11.9-13.9, i.e.
-#: 2.1x. The three measurements are cross-box or cross-workload and bracket
-#: [1.0, 3.6]; 3.5 sits at the conservative end of that bracket, which is the
-#: right end to sit at (lessons.md: estimates come in low every time). The
-#: `m_cellmult.txt` wave settles it on one box in one hour.
+#: Per-iteration magnetic ratio Cr/Ru = 1.63 (estimator spread 1.63-1.67);
+#: x the archive's SCF-iterations-per-ionic-step ratio (Cr 26.1-28.8 vs Ir/Ru
+#: 11.9-13.9, hardware-free) = 3.06-4.03. The old planning value 3.5 sits
+#: mid-band and is RETAINED; the bracket is now the MEASURED band. Note the
+#: pre-measurement optimistic end (1.0, from cross-box relaxation timings) is
+#: EXCLUDED by this same-box same-workload measurement -- the relaxation
+#: numbers were contaminated by box sharing, exactly as their caveat suspected.
 MAG_MULT = 3.5
-MAG_MULT_BRACKET = (1.0, 3.6)
+MAG_MULT_BRACKET = (3.06, 4.03)
 
-#: ASSUMED, and labelled. Measured basis sizes (run on the box 2026-08-09):
-#: Cr 1x1 s0_OH = 98 bands / 297,421 smooth G / 841,263 dense; Cr 2x1o s0_OH =
-#: 196 / 594,817 / 1,682,519 -- exactly 2.000x and 2.000x. The FFT/H|psi> term
-#: goes as nbnd*Npw*log(Npw) = 4.1x; the subspace-rotation ZGEMM (nbnd^2*Npw) and
-#: the subspace diagonalisation (nbnd^3) both go as 8x, and at nbnd ~ 100-200
-#: with 300-670k plane waves those terms are comparable to the FFT term. 4.0 is
-#: the FLOOR of that bracket, not the model. PENDING MEASUREMENT: m_cellmult.txt.
-CELL_MULT_FLOOR = 4.0
-CELL_MULT_PLANNING = 5.5
-CELL_MULT_CEILING = 8.0
+#: MEASURED 2026-08-09, same wave, same analysis: CELL_MULT = Cr 2x1o / Cr 1x1
+#: = 20.52 / 3.95 = 5.19 (estimator spread 5.19-5.21 across median / mean /
+#: total-time -- the measurement is tight). The old planning value 5.5 was 6%
+#: high; the assumed floor 4.0 / ceiling 8.0 correctly bracketed it.
+#: FLOOR/CEILING below are a LABELLED ALLOWANCE for state dependence, not a
+#: measured spread: the wave measured s0_OH only, and the other states differ
+#: in nat by +/-2 and in adsorbate SCF hardness (s0_OOH is the historically
+#: hard one). +/-15% covers the nat range; nothing measured contradicts it.
+CELL_MULT_FLOOR = 4.5
+CELL_MULT_PLANNING = 5.19
+CELL_MULT_CEILING = 6.0
 
 #: ASSUMED, and labelled. A 2x1 cell has 22 free atoms against 11, so BFGS runs
 #: in twice the dimension, and its start is spliced from two different
@@ -1600,15 +1590,14 @@ def main():
               "# `Begin final coordinates` and its .out DELETED before requeue.",
               "# Gate on `bfgs converged`, never on JOB DONE (hard rule 3)."],
         "C": ["# block 1A, manifest C: the CELL_MULT / MAG_MULT measurement.",
+              "# STATUS: RAN AND CONVERGED 2026-08-09 on box 47025043 -- all",
+              "# three legs exited inside the cap (434 / 212 / 1818 s, 27/22/29",
+              "# SCF iterations). CELL_MULT = 5.19, MAG per-iteration = 1.63.",
+              "# Kept for provenance and for re-measurement on a new box class.",
               "#   bash queue_r1.sh m_cellmult.txt 20 1",
               f"# Three fixed-geometry SCFs, max_seconds = {CELLMULT_MAX_SECONDS}",
               "# each, identical NP=20 and nk=4 on all three legs (that is why nk",
-              "# is forced here rather than derived from the k-count). The two 1x1",
-              "# legs converge and exit well inside the cap (measured 26 and 21",
-              "# SCF iterations at 46 and 15 s/iteration at this NP); only the Cr",
-              "# 2x1o leg can spend it, and it is the leg the ratio needs, at",
-              "# 10-14 iterations instead of the 3-5 a 20-minute cap would buy.",
-              "# Budget it as <= 3 box-hours, expect ~1.5.",
+              "# is forced here rather than derived from the k-count).",
               "# Analysis:",
               "#   for each .out take the `total cpu time spent up to now`",
               "#   increments, drop the first and last, take the MEDIAN, and",
@@ -1683,24 +1672,23 @@ def main():
             sec_per_kpt_step_basis="MEASURED: Ru/Ir s0_OOH__yaw90 at NP=4, "
                                    "npool=4, NCONC=4 (50.1 and 47.1 s)",
             mag_mult=MAG_MULT,
-            mag_mult_basis="RULED (finding [4]) from the four probe/Cr/*__base / "
-                           "probe/Ru/*__base pairs in runs/probe/queue_scf.log "
-                           "(3.44 / 4.05 / 3.84 / 2.97, mean 3.57)",
+            mag_mult_basis="MEASURED 2026-08-09 (m_cellmult wave, box 47025043): "
+                           "per-iteration-per-master-k Cr/Ru = 1.63 at identical "
+                           "NP=20/nk=4/state, x the archive iters-per-step ratio "
+                           "26.1-28.8 vs 11.9-13.9 = band [3.06, 4.03]; 3.5 "
+                           "retained mid-band",
             mag_mult_bracket=list(MAG_MULT_BRACKET),
-            mag_mult_caveat="those pairs are fixed-geometry from-scratch SCFs. "
-                            "The same ratio on RELAXATIONS at identical "
-                            "NP=12/npool=4/nk=15 is 1.02-1.98, and the "
-                            "timing-free measurement (SCF iterations per ionic "
-                            "step) is 2.1x. 3.5 is the conservative end of a "
-                            "bracket, not a measurement of this workload.",
+            mag_mult_caveat="the pre-measurement optimistic end (1.0, from "
+                            "cross-box relaxation timings) is EXCLUDED by the "
+                            "same-box measurement; those timings were "
+                            "contaminated by box sharing.",
             cell_mult_floor=CELL_MULT_FLOOR,
             cell_mult_planning=CELL_MULT_PLANNING,
             cell_mult_ceiling=CELL_MULT_CEILING,
-            cell_mult_status="ASSUMED. Basis sizes measured exactly 2.000x in "
-                             "bands and G-vectors; the 4.1x FFT term and the 8x "
-                             "ZGEMM/diagonalisation terms are comparable at this "
-                             "nbnd, so 4.0 is the floor. PENDING the m_cellmult "
-                             "wave.",
+            cell_mult_status="MEASURED 2026-08-09 (m_cellmult wave): 20.52/3.95 "
+                             "= 5.19 s/master-k, estimator spread 5.19-5.21. "
+                             "Floor/ceiling are a labelled +/-15% allowance for "
+                             "state dependence (only s0_OH was measured).",
             step_mult_2x1=STEP_MULT_2X1,
             step_mult_status="ASSUMED. 22 free atoms against 11 and a spliced "
                              "half-and-half start. The measured 1x1 counts are "
@@ -1721,19 +1709,17 @@ def main():
         superseded_manifests=[SUPERSEDED_MANIFEST],
         pending_measurements=[
             dict(name="CELL_MULT and MAG_MULT",
-                 status="PENDING -- decks emitted, not run",
+                 status="MEASURED 2026-08-09 -- wave ran on box 47025043, all "
+                        "three legs converged inside the cap (434/212/1818 s). "
+                        "CELL_MULT 5.19 (spread 5.19-5.21), MAG per-iteration "
+                        "1.63 -> MAG_MULT band [3.06, 4.03], 3.5 retained. "
+                        "Outputs: runs/probe/{Cr,Ru}_cellsym/*__cellmult.out.",
                  manifest=MANIFESTS["C"]["file"],
                  command=f"bash queue_r1.sh {MANIFESTS['C']['file']} 20 1",
-                 cost=(f"3 SCFs x max_seconds = {CELLMULT_MAX_SECONDS} s at "
-                       f"NP=20/NCONC=1; the two 1x1 legs exit early, only the "
-                       f"Cr 2x1o leg can spend its cap. Budget "
-                       f"<= {3 * CELLMULT_MAX_SECONDS / 3600:.0f} box-hours, "
-                       f"expect ~1.5 (N8: derived from the constant, not "
-                       f"hand-copied)"),
-                 quoted_meanwhile=dict(cell_mult=CELL_MULT_PLANNING,
-                                       cell_mult_ceiling=CELL_MULT_CEILING,
-                                       mag_mult=MAG_MULT),
-                 blocks="every wall-clock and box-count number in this manifest"),
+                 cost=(f"actual: 2464 s box time against the budgeted "
+                       f"{3 * CELLMULT_MAX_SECONDS} s cap"),
+                 blocks="nothing -- every hour in this manifest is now quoted "
+                        "from the measurement"),
         ],
         gates=dict(
             gate_c=dict(
@@ -1839,9 +1825,10 @@ def main():
     print(f"  bracket over MAG_MULT {MAG_MULT_BRACKET} x CELL_MULT "
           f"[{CELL_MULT_FLOOR}, {CELL_MULT_CEILING}]: "
           f"{tot_lo:.0f}-{tot_hi:.0f} single-job hours at NP=4")
-    print(f"  CELL_MULT {CELL_MULT_PLANNING} planning / {CELL_MULT_CEILING} "
-          f"ceiling / {CELL_MULT_FLOOR} floor -- ASSUMED, pending "
-          f"{MANIFESTS['C']['file']}")
+    print(f"  CELL_MULT {CELL_MULT_PLANNING} MEASURED 2026-08-09 "
+          f"({MANIFESTS['C']['file']} wave; floor/ceiling "
+          f"[{CELL_MULT_FLOOR}, {CELL_MULT_CEILING}] = labelled state-dependence "
+          f"allowance); MAG_MULT {MAG_MULT} inside measured {MAG_MULT_BRACKET}")
     if a.dry_run:
         print("  [DRY RUN, nothing written]")
 
