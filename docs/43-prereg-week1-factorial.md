@@ -705,3 +705,40 @@ settings to their off-plane partners, rather than reused from production. They r
 a converged geometry, so they are cheap — the three basin restarts of docs/41 §6f converged
 in 3, 4 and 5 ionic steps. The production values remain the tier-of-record; these exist only
 so that ΔE_sym is a difference between two decks that differ in exactly one thing.
+
+---
+
+# AMENDMENT 3 — 2026-08-09. Correcting a claim I made in amendment 1.
+
+**§3-A.8 said the ±y central difference is "kept for its √2 noise gain". That is wrong,
+and it is my error, not the builder's.**
+
+At a mirror-symmetric reference geometry the +δy and −δy structures are related by the
+mirror. pw.x is deterministic, so their forces are exactly mirror-related:
+F(−δy) = σ·F(+δy), with no independent noise realisation. The central difference therefore
+reduces algebraically to the forward difference — same number, same noise — and the cubic
+anharmonic term it would normally cancel is already absent by the same symmetry. A
+byte-level check confirms the premise: each `..ym.in` deck is the **exact** mirror image of
+its `..yp.in` partner, slab included, to all eight written decimals.
+
+So the six `ym` decks carry **exactly zero information** and are withdrawn from the pilot.
+The verdict rests on the +δy displacements alone.
+
+Two things follow that are worth stating rather than absorbing:
+
+- The saving is real but it is not the point. The point is that a "central difference for
+  noise averaging" that is a mirror image of its partner is a redundancy dressed as a
+  control, and the same reasoning applies to **Q5**, the Hessian-symmetry check on the
+  y/xz cross-block: those elements are structurally zero by the same symmetry, so Q5 as
+  registered is a noise measurement, not a physics gate. It is reported, not gated.
+- The ±x and ±z decks remain, with the purpose amendment 1 already assigned them —
+  block 2B's in-house ZPE/−TS table, replacing digits taken from paywalled sources this
+  project cannot legally verify. They are not evidence for the 1C verdict and are no longer
+  described as such.
+
+**Registered consequence for UNDERPOWERED.** With the √2 gain gone, the noise floor on the
+y-block is whatever a single displacement gives. That makes amendment 2's replacement
+remedy — a **larger δ**, not a tighter `conv_thr` — the only lever left, and raises the
+prior probability that the Ir pilot returns UNDERPOWERED rather than a verdict. If it does,
+that is a measurement of this design's resolution and is reported as such, not as evidence
+about the physics.
