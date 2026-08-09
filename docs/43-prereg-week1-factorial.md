@@ -643,3 +643,65 @@ the zone boundary, 208 at nq 3×3×3 q#2, **576** at nq 4×4×4 q#14. A cost mod
 and TRIM points understates a general q by up to ~9×, and block 3Y is the thing this model
 exists to protect. Registered: cost scales with n_k(q), which hp.x prints for every q, and
 the slab timing is taken at a **general, non-Γ** q.
+
+---
+
+# AMENDMENT 2 — 2026-08-09, after the feasibility probe, before any 1C production job
+
+## The probe returned, and it closes one question and opens another
+
+`runs/probe/Ir_hess/s0_OOH__hess_ref` — the throwaway feasibility probe registered in
+amendment 1 — completed. Its files are renamed
+`*.THROWAWAY-convthr-feasibility-probe-2026-08-09.*` so they cannot be mistaken for a
+Hessian reference.
+
+| | |
+|---|---|
+| `conv_thr = 1e-10` reached? | **yes** — "convergence has been achieved in **30 iterations**" |
+| final accuracy | 6.9e-11 Ry, descending cleanly at ~0.36 decades/iteration, **no plateau** |
+| cost | **639 s** at NP = 20 |
+| final `ethr` | **1.79e-13** |
+
+**Closed:** `conv_thr = 1e-10` is reachable and cheap on this system. It had never been
+reached anywhere in this project — the deepest on record was 5.7e-9 — and the entire 1C
+block was about to be built on the assumption. 30 iterations sits comfortably inside
+`electron_maxstep`, so the 18.4 h stall the review projected does not happen.
+
+## Opened, and it invalidates a registered response
+
+**The escalation path this document registered does not exist.** §3-A.1 declares the
+response to an UNDERPOWERED verdict as *"rerun at tighter `conv_thr`"*. The probe shows why
+that cannot work: QE clamps the Davidson threshold at `ethr = MAX(ethr, 1e-13)`, and at
+`conv_thr = 1e-10` this system already sits at **ethr = 1.79e-13** — a factor of 1.8 above
+the clamp. A further two decades of `conv_thr` would demand ethr ≈ 1.8e-15, which the clamp
+forbids, so the SCF could not reach the requested threshold and would return
+"convergence NOT achieved" — a VOID, not a tighter measurement.
+
+**Registered replacement.** The response to UNDERPOWERED is **a larger displacement, not a
+tighter `conv_thr`.** The Hessian's noise scales as σ_F/δ while its anharmonic error scales
+as δ, so with σ_F pinned at the floor the only remaining lever is δ. On an UNDERPOWERED
+verdict the state is re-run at **δ = 0.02 Å**, and the two δ values are reported together —
+agreement between them is itself evidence that the harmonic regime holds, and disagreement
+is reported rather than averaged.
+
+This is registered now, before any 1C production job, because it was found by a
+639-second probe rather than after a 38-job block returned VOID.
+
+## Also registered: the 1×1 mirror arm must be re-emitted, not reused
+
+The review found (N11) that the 1×1 comparison is not controlled. `write_probe` hardcodes
+`mixing_mode = 'local-TF'`, and Cr's production **adslab** decks carry no `mixing_mode` at
+all. §2 as written reuses the production run as the 1×1/mirror row and emits a new deck for
+the 1×1/off row — so the pair differs in the mixing scheme as well as in the symmetry.
+
+Mixing does not change a converged solution *in general*, but this campaign's entire subject
+is that it can change **which** solution is converged to: the same Cr `*OOH` geometry gives
+−1636.47080 Ry from the production relax and −1636.48367 Ry from a fresh local-TF SCF, a
+178.58 meV basin difference (docs/41 §6f). Mixing and starting density are confounded there,
+and the pilot must not inherit that confound.
+
+**Registered fix:** the 1×1/mirror rows are **re-emitted as cellsym decks** under identical
+settings to their off-plane partners, rather than reused from production. They restart from
+a converged geometry, so they are cheap — the three basin restarts of docs/41 §6f converged
+in 3, 4 and 5 ionic steps. The production values remain the tier-of-record; these exist only
+so that ΔE_sym is a difference between two decks that differ in exactly one thing.

@@ -1,0 +1,855 @@
+{
+  "note": "Block 1B artifacts. hp.x GO/NO-GO target + cost model. Every timing in cost_basis is a wall-clock measurement on the stated box; the slab per-(atom,q) figures are EXTRAPOLATIONS and are labelled as such.",
+  "prereg": {
+    "document": "docs/43 s4 (P15) as amended by AMENDMENT 1 s4-A (commit 0244f4e)",
+    "rule": "docs/43 is the ONLY pre-registration. This file and this JSON register nothing; where they disagree with docs/43, docs/43 wins.",
+    "external_window": "see docs/43 s4-A.1. NOT copied here on purpose: three builders wrote a contradicting copy of a registered rule into a source file on 2026-08-09, and a widened acceptance window sitting in a build artifact is the single most damaging thing an STS judge could find. The value is read from the pre-registration or not at all. What is recorded here is only that the build round's proposed widening was REJECTED.",
+    "withdrawn": "perturbation-amplitude independence -- hp.x is DFPT and the binary has no amplitude keyword, so the check was unperformable, not merely unmet (docs/43 s4-A.2). Replaced by the CrO2 arm (s4-A.3).",
+    "demoted_to_diagnostic": {
+      "answer": "POST-symmetrisation. |chi_ij - chi_ji| is identically zero in anything hp.x reports, so the registered check passes vacuously on every run, converged or not, at any conv_thr_chi.",
+      "evidence": "QE 7.5 HP/src/hp_postproc.f90, SUBROUTINE reconstruct_full_chi: after filling missing elements by distance matching it runs an unconditional chi_(na,nb) = 0.5*(chi_(na,nb)+chi_(nb,na)) loop over ALL (na,nb), on chi0 and chi both, and only then does calculate_Hubbard_parameters write the .dat. average_similar_elements runs one step earlier and smears equal-distance elements together as well.",
+      "consequence": "Reported as a diagnostic, never gated (docs/43 s4-A.4). It is not quite content-free: the RAW <outdir>/HP/<prefix>.chi.dat written during the run by hp_write_chi_full is pre-symmetrisation, and when find_atpert = 4 perturbs both Ti independently its two columns ARE computed independently, so chi(1,2) vs chi(2,1) read off that file is a genuine measurement. That is only possible because queue_hp.sh now preserves the file per rung."
+    }
+  },
+  "built": "2026-08-09",
+  "pseudopotentials": {
+    "Ti": {
+      "file": "ti_pbe_v1.4.uspp.F.UPF",
+      "type": "ultrasoft (GBRV)",
+      "zval": 12
+    },
+    "Cr": {
+      "file": "cr_pbe_v1.5.uspp.F.UPF",
+      "type": "ultrasoft (GBRV)"
+    },
+    "O": {
+      "file": "O.pbe-n-kjpaw_psl.0.1.UPF",
+      "type": "PAW (PSlibrary)",
+      "zval": 6
+    },
+    "note": "the only Ti, only Cr and only O in /usr/share/espresso/pseudo"
+  },
+  "hp_constraints_from_binary": [
+    "HP with tetrahedra is not supported",
+    "The HP code is not working after vc-relax",
+    "The HP code with Q in real space is not supported",
+    "The HP code with Q in real space is not supported",
+    "The HP code does not support the 2D cutoff",
+    "The HP code with constrained magnetization is not yet available",
+    "HP does not support the Liechtenstein formulation",
+    "HP with two Fermi energies is not available",
+    "HP: no hybrids / meta-GGA",
+    "Hubbard_projectors must be 'atomic' or 'ortho-atomic'",
+    "a HUBBARD card must be present in the pw.x run",
+    "Hubbard atoms must be listed first in ATOMIC_POSITIONS (warning only)",
+    "determine_q_mesh_only requires perturb_only_atom",
+    "a gapped system must NOT be run with smearing (measured, not documented)"
+  ],
+  "tio2_jobs": [
+    {
+      "system": "TiO2",
+      "projector": "atomic",
+      "nq": [
+        2,
+        2,
+        2
+      ],
+      "n_pert_expected": 1,
+      "n_q_expected": 6,
+      "file": "hp__atomic_q222.in",
+      "role": "q-mesh ladder (I1)"
+    },
+    {
+      "system": "TiO2",
+      "projector": "atomic",
+      "nq": [
+        3,
+        3,
+        3
+      ],
+      "n_pert_expected": 1,
+      "n_q_expected": 8,
+      "file": "hp__atomic_q333.in",
+      "role": "q-mesh ladder (I1)"
+    },
+    {
+      "system": "TiO2",
+      "projector": "atomic",
+      "nq": [
+        4,
+        4,
+        4
+      ],
+      "n_pert_expected": 1,
+      "n_q_expected": 21,
+      "file": "hp__atomic_q444.in",
+      "role": "q-mesh ladder (I1)"
+    },
+    {
+      "system": "TiO2",
+      "projector": "atomic",
+      "nq": [
+        3,
+        3,
+        3
+      ],
+      "n_pert_expected": 2,
+      "n_q_expected": 8,
+      "file": "hp__atomic_q333_allatoms.in",
+      "role": "two-site reproducibility (I2)"
+    },
+    {
+      "system": "TiO2",
+      "projector": "ortho-atomic",
+      "nq": [
+        2,
+        2,
+        2
+      ],
+      "n_pert_expected": 1,
+      "n_q_expected": 6,
+      "file": "hp__ortho_q222.in",
+      "role": "q-mesh ladder (I1)"
+    },
+    {
+      "system": "TiO2",
+      "projector": "ortho-atomic",
+      "nq": [
+        3,
+        3,
+        3
+      ],
+      "n_pert_expected": 1,
+      "n_q_expected": 8,
+      "file": "hp__ortho_q333.in",
+      "role": "q-mesh ladder (I1)"
+    },
+    {
+      "system": "TiO2",
+      "projector": "ortho-atomic",
+      "nq": [
+        4,
+        4,
+        4
+      ],
+      "n_pert_expected": 1,
+      "n_q_expected": 21,
+      "file": "hp__ortho_q444.in",
+      "role": "q-mesh ladder (I1)"
+    },
+    {
+      "system": "TiO2",
+      "projector": "ortho-atomic",
+      "nq": [
+        3,
+        3,
+        3
+      ],
+      "n_pert_expected": 2,
+      "n_q_expected": 8,
+      "file": "hp__ortho_q333_allatoms.in",
+      "role": "two-site reproducibility (I2)"
+    },
+    {
+      "system": "CrO2",
+      "projector": "atomic",
+      "nq": [
+        2,
+        2,
+        2
+      ],
+      "n_pert_expected": 1,
+      "n_q_expected": 6,
+      "nspin": 2,
+      "occupations": "smearing mv 0.01",
+      "file": "hp__cro2_q222.in",
+      "role": "magnetic/metallic branch, docs/43 s4-A.3 check 4'",
+      "pass_condition": "a finite U with zero 'Convergence has not been reached'"
+    }
+  ],
+  "costmodel_jobs": [
+    {
+      "system": "CrO2(110) clean slab [sym]",
+      "n_pert_measured": 6,
+      "nq_measured": {
+        "(1, 1, 1)": 1,
+        "(2, 1, 1)": 2,
+        "(3, 2, 1)": 4,
+        "(4, 2, 1)": 6,
+        "(9, 4, 1)": 15
+      },
+      "scf_file": "crslab_sym__scf.in",
+      "timing_files": [
+        "crslab_sym__hp_1atomq.in (q#1 = Gamma)",
+        "crslab_sym__hp_1atomq_q3.in (q#3 = general, predicted N_k = 27 vs 15 at Gamma)"
+      ],
+      "q_table_3x2x1": [
+        {
+          "index": 1,
+          "q": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "n_small_ops": 4,
+          "n_k": 15,
+          "printed_k": 15,
+          "gamma": true
+        },
+        {
+          "index": 2,
+          "q": [
+            0.0,
+            0.5,
+            0.0
+          ],
+          "n_small_ops": 4,
+          "n_k": 15,
+          "printed_k": 30,
+          "gamma": false
+        },
+        {
+          "index": 3,
+          "q": [
+            0.3333333333333333,
+            0.0,
+            0.0
+          ],
+          "n_small_ops": 2,
+          "n_k": 27,
+          "printed_k": 54,
+          "gamma": false
+        },
+        {
+          "index": 4,
+          "q": [
+            0.3333333333333333,
+            0.5,
+            0.0
+          ],
+          "n_small_ops": 2,
+          "n_k": 27,
+          "printed_k": 54,
+          "gamma": false
+        }
+      ],
+      "changes_vs_source": [
+        "conv_thr",
+        "nosym/noinv removed",
+        "calculation",
+        "prefix",
+        "outdir",
+        "positions",
+        "HUBBARD U"
+      ]
+    },
+    {
+      "system": "CrO2(110) clean slab [nosym]",
+      "n_pert_measured": 6,
+      "nq_measured": {
+        "(3, 2, 1)": 6,
+        "(4, 2, 1)": 8,
+        "(9, 4, 1)": 36
+      },
+      "scf_file": "crslab_nosym__scf.in",
+      "timing_files": [
+        "crslab_nosym__hp_1atomq.in (q#1 = Gamma)",
+        "crslab_nosym__hp_1atomq_q3.in (q#3 = general, predicted N_k = 36 vs 36 at Gamma)"
+      ],
+      "q_table_3x2x1": [
+        {
+          "index": 1,
+          "q": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "n_small_ops": 1,
+          "n_k": 36,
+          "printed_k": 36,
+          "gamma": true
+        },
+        {
+          "index": 2,
+          "q": [
+            0.0,
+            0.5,
+            0.0
+          ],
+          "n_small_ops": 1,
+          "n_k": 36,
+          "printed_k": 72,
+          "gamma": false
+        },
+        {
+          "index": 3,
+          "q": [
+            0.3333333333333333,
+            0.0,
+            0.0
+          ],
+          "n_small_ops": 1,
+          "n_k": 36,
+          "printed_k": 72,
+          "gamma": false
+        },
+        {
+          "index": 4,
+          "q": [
+            0.3333333333333333,
+            0.5,
+            0.0
+          ],
+          "n_small_ops": 1,
+          "n_k": 36,
+          "printed_k": 72,
+          "gamma": false
+        },
+        {
+          "index": 5,
+          "q": [
+            0.6666666666666666,
+            0.0,
+            0.0
+          ],
+          "n_small_ops": 1,
+          "n_k": 36,
+          "printed_k": 72,
+          "gamma": false
+        },
+        {
+          "index": 6,
+          "q": [
+            0.6666666666666666,
+            0.5,
+            0.0
+          ],
+          "n_small_ops": 1,
+          "n_k": 36,
+          "printed_k": 72,
+          "gamma": false
+        }
+      ],
+      "changes_vs_source": [
+        "conv_thr",
+        "calculation",
+        "prefix",
+        "outdir",
+        "positions",
+        "HUBBARD U"
+      ]
+    }
+  ],
+  "slab_timing_projection": {
+    "sym_q1": {
+      "n_k": 15,
+      "gamma": true,
+      "q": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "core_h": [
+        29.0,
+        72.0,
+        141.0
+      ],
+      "wall_h_at_np": [
+        1.6,
+        4.0,
+        7.8
+      ],
+      "np": 18
+    },
+    "sym_q3": {
+      "n_k": 27,
+      "gamma": false,
+      "q": [
+        0.3333,
+        0.0,
+        0.0
+      ],
+      "core_h": [
+        55.0,
+        133.0,
+        260.0
+      ],
+      "wall_h_at_np": [
+        3.1,
+        7.4,
+        14.4
+      ],
+      "np": 18
+    },
+    "nosym_q1": {
+      "n_k": 36,
+      "gamma": true,
+      "q": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "core_h": [
+        68.0,
+        172.0,
+        339.0
+      ],
+      "wall_h_at_np": [
+        3.8,
+        9.5,
+        18.8
+      ],
+      "np": 18
+    },
+    "nosym_q3": {
+      "n_k": 36,
+      "gamma": false,
+      "q": [
+        0.3333,
+        0.0,
+        0.0
+      ],
+      "core_h": [
+        73.0,
+        178.0,
+        346.0
+      ],
+      "wall_h_at_np": [
+        4.1,
+        9.9,
+        19.2
+      ],
+      "np": 18
+    }
+  },
+  "cost_basis": {
+    "box": "Vast 47025043; cgroup cpu.max 2304000/100000 -> 23.04 usable cores (nproc lies: 48)",
+    "tio2_scf_fixedocc": {
+      "np": 12,
+      "nk": 4,
+      "wall_s": 40.5,
+      "scf_iterations": 27,
+      "core_s": 486.0,
+      "ecut": "80/640",
+      "nk_points": 50,
+      "note": "occupations='fixed'; identical E to the smeared run"
+    },
+    "tio2_hp_1atomq_qGamma": {
+      "np": 12,
+      "nk": 4,
+      "wall_s": 99.05,
+      "setup_s": 7.49,
+      "lr_iterations": 12,
+      "core_s": 1188.6
+    },
+    "tio2_hp_1atomq_q2": {
+      "np": 12,
+      "nk": 4,
+      "wall_s": 85.61,
+      "setup_s": 13.72,
+      "lr_iterations": 9,
+      "core_s": 1027.3
+    },
+    "tio2_hp_determine_modes": {
+      "np": 4,
+      "wall_s": 2.9,
+      "note": "both determine_*_only modes exit in ~3 s"
+    },
+    "crslab_scf_production": {
+      "np": 32,
+      "nk": 8,
+      "source": "runs/Cr_slab/slab.out",
+      "cold_scf_wall_s": 1795.8,
+      "cold_scf_iterations": 19,
+      "warm_scf_wall_s": 910.6,
+      "warm_scf_iterations": 10,
+      "wall_s_per_scf_iteration": 93.0,
+      "core_s_per_scf_iteration": 2976.0,
+      "note": "measured on the campaign's own 32-core box, NOT this one"
+    },
+    "crslab_scf_cheap_thisbox": {
+      "np": 12,
+      "nk": 6,
+      "ecut": "30/240",
+      "kpts": "3 2 1",
+      "sym_wall_s": 102.0,
+      "nosym_wall_s": 112.9,
+      "scf_iterations": 32,
+      "note": "counting deck only -- n_pert and n_q are symmetry counts and do not depend on the cutoff"
+    },
+    "tio2_hp_1atomq_q333_q2": {
+      "np": 12,
+      "nk": 4,
+      "printed_k": 208,
+      "s_per_lr_iteration": 12.5,
+      "source": "measured during the 2026-08-09 adversarial review (finding [10]); the third and only non-TRIM point in the timing set, and the one that pins the k-scaling law rather than confirming it"
+    },
+    "tio2_hp_printed_k": {
+      "q222_q1_Gamma": 65,
+      "q222_q2_zone_boundary": 130,
+      "q333_q2": 208,
+      "q444_q14_general": 576,
+      "note": "hp.x's 'number of k points=' per q. At Gamma it is the k set alone; elsewhere it is k AND k+q, i.e. 2 * N_k. The Sternheimer solve runs once per k, so the WORK scales with N_k, and q222_q1 and q222_q2 -- printed 65 and 130 -- both have N_k = 65 and cost the same to within 5%."
+    },
+    "crslab_symmetry_at_production_cutoff": {
+      "np": 18,
+      "nk": 6,
+      "ecut": "80/640",
+      "fft": "45 x 96 x 384",
+      "g_vectors": 841263,
+      "sym_ops": 4,
+      "k_points_9x4x1": 15,
+      "note": "run with max_seconds=20 so it stops after init; this is the check that the cheap-cutoff counting is valid. 4 Sym. Ops. at 80/640 == 4 at 30/240 == spglib Pmm2 on the same coordinates. The k-point count is the second, unlooked-for prize: 36 (nosym, production) -> 15 with symmetry on."
+    }
+  },
+  "cost_projection": {
+    "prereg": "docs/43 s4 (P15) + AMENDMENT 1 s4-A. This table EVALUATES the registered model; it does not define it, widen it or reinterpret it.",
+    "model": "core_s(atom, q) = c_nscf * printed_k(q) + c_lr * n_LR * N_k(q), where printed_k = N_k at Gamma and 2*N_k elsewhere, and N_k comes from the symmetry model validated against 26 measured integers.",
+    "unit_costs": {
+      "c_nscf_core_s_per_printed_k": 1.325,
+      "c_lr_core_s_per_iteration_per_k": 1.4419,
+      "c_lr_samples": [
+        1.4086,
+        1.4747,
+        1.4423
+      ],
+      "c_lr_spread_pct": 4.6,
+      "c_nscf_samples": [
+        1.383,
+        1.266
+      ],
+      "_c_nscf": 1.3246153846153845,
+      "_c_lr": 1.4418632478632478
+    },
+    "model_self_check": [
+      {
+        "deck": "tio2_hp_1atomq_qGamma",
+        "n_k": 65,
+        "printed_k": 65,
+        "predicted_core_s": 1210.8,
+        "measured_core_s": 1188.6,
+        "residual_pct": 1.9
+      },
+      {
+        "deck": "tio2_hp_1atomq_q2",
+        "n_k": 65,
+        "printed_k": 130,
+        "predicted_core_s": 1015.7,
+        "measured_core_s": 1027.3,
+        "residual_pct": -1.1
+      }
+    ],
+    "symmetry_model": {
+      "measured_integers_reproduced": 26,
+      "rutile_ops": 8,
+      "slab_ops_sym": 4,
+      "why": "hp.x reduces its NSCF k-set with the operations that leave the PERTURBED atom fixed -- 8 of rutile's 16 -- which is why its Gamma NSCF prints 65 k where the pw.x SCF on the same 6x6x8 mesh prints 50.",
+      "n_k_by_mesh": {
+        "2x2x2": [
+          65,
+          65,
+          100,
+          100,
+          65,
+          65
+        ],
+        "3x3x3": [
+          65,
+          104,
+          180,
+          288,
+          105,
+          168,
+          105,
+          168
+        ],
+        "4x4x4": [
+          65,
+          104,
+          65,
+          180,
+          288,
+          180,
+          100,
+          160,
+          100,
+          105,
+          168,
+          105,
+          180,
+          288,
+          180,
+          105,
+          168,
+          105,
+          65,
+          104,
+          65
+        ]
+      },
+      "slab_n_k_by_mesh": {
+        "sym 3x2x1": [
+          15,
+          15,
+          27,
+          27
+        ],
+        "sym 2x1x1": [
+          15,
+          15
+        ],
+        "nosym 3x2x1": [
+          36,
+          36,
+          36,
+          36,
+          36,
+          36
+        ],
+        "nosym 2x1x1": [
+          36,
+          36
+        ]
+      }
+    },
+    "what_changed_and_why": [
+      "[10] the flat 0.308 core-h per (atom,q) is gone. It was measured at nq=2x2x2, the one mesh whose every q is a TRIM, so hp.x got maximum symmetry reduction at every point that fed the model. See correction_vs_flat_model in the batch row.",
+      "[10] the review proposed scaling by the PRINTED k-count. Measured, that over-costs every non-Gamma q by 2x: q#1 printed 65 and cost 7.63 s per LR iteration; q#2 printed 130 -- twice as many -- and cost 8.0 s, five per cent more. The printed count includes the k+q set, which the NSCF diagonalises but the Sternheimer solve does not iterate over. The scaling variable is N_k = printed/2 away from Gamma, and the review's own third point settles it: 12.5 s at N_k = 104 against 7.8 s at N_k = 65 is a ratio of 1.60 against 1.60.",
+      "[11] the slab timing decks. q#1 is Gamma on every mesh, and on the 3x2x1 slab mesh q#2 = (0,1/2,0) is ALSO fully symmetric (N_k = 15, the same as Gamma), so the review's proposed start_q=2 would have re-measured the defect. The added deck is q#3 = (1/3,0,0), N_k = 27. Each slab row carries the gamma_understatement factor the Gamma-only anchor was missing.",
+      "the old R_iter = 5.54 conflated a 65-k LR iteration with a 50-k SCF iteration. Per k it is 4.3, and the slab extrapolation now carries the cell factor and the k count separately."
+    ],
+    "assumptions": [
+      "n_LR on a magnetic metal is ASSUMED (floor 12 / plan 25 / ceiling 40); TiO2 measured 9 and 12. This is the largest single unknown in the table and it is what runs/hp_costmodel/*_hp_1atomq_q3.in exists to remove.",
+      "the nspin = 2 uplift per LR iteration is ASSUMED (1.6 / 2.0 / 2.5).",
+      "ortho-atomic projectors are costed at the same rate as atomic; unmeasured.",
+      "slab SCF cost is the campaign's own measurement on a 32-core box (runs/Cr_slab/slab.out), not on this 23.04-core one; core-seconds are used throughout so the two are comparable, but parallel efficiency is not identical.",
+      "hp.x on the slab may reduce the k-set further than pw.x did (it keeps only the operations that fix the perturbed Cr), so the slab N_k here are LOWER bounds between the measured 15 at Gamma and the unreduced 36.",
+      "tasks/lessons.md 2026-08-05: this project's last three compute estimates came in 2.4x, 2.5x and 3.5x low, every one of them extrapolated from a cheaper system. The slab rows are exactly that shape. Treat 'plan' as a floor and run runs/hp_costmodel/crslab_sym__hp_1atomq_q3.in before committing block 3Y."
+    ],
+    "n_lr": {
+      "TiO2": {
+        "floor": 9,
+        "plan": 12,
+        "ceiling": 15
+      },
+      "magnetic": {
+        "floor": 12,
+        "plan": 25,
+        "ceiling": 40
+      }
+    },
+    "spin_uplift": {
+      "floor": 1.6,
+      "plan": 2.0,
+      "ceiling": 2.5
+    },
+    "slab_cell_factor_vs_tio2_per_iteration_per_k": 229.6,
+    "table": [
+      {
+        "system": "bulk rutile TiO2, 1 perturbed atom",
+        "basis": "MODEL on MEASURED",
+        "arm": "-",
+        "n_pert": 1,
+        "nq_mesh": "2x2x2",
+        "n_q": 6,
+        "sum_n_k": 460,
+        "n_k_range": [
+          65,
+          100
+        ],
+        "core_h_floor": 1.97,
+        "core_h_plan": 2.53,
+        "core_h_ceiling": 3.08,
+        "flat_model_core_h": 1.85
+      },
+      {
+        "system": "bulk rutile TiO2, 1 perturbed atom",
+        "basis": "MODEL on MEASURED",
+        "arm": "-",
+        "n_pert": 1,
+        "nq_mesh": "3x3x3",
+        "n_q": 8,
+        "sum_n_k": 1183,
+        "n_k_range": [
+          65,
+          288
+        ],
+        "core_h_floor": 5.11,
+        "core_h_plan": 6.53,
+        "core_h_ceiling": 7.95,
+        "flat_model_core_h": 2.46
+      },
+      {
+        "system": "bulk rutile TiO2, 1 perturbed atom",
+        "basis": "MODEL on MEASURED",
+        "arm": "-",
+        "n_pert": 1,
+        "nq_mesh": "4x4x4",
+        "n_q": 21,
+        "sum_n_k": 2880,
+        "n_k_range": [
+          65,
+          288
+        ],
+        "core_h_floor": 12.48,
+        "core_h_plan": 15.94,
+        "core_h_ceiling": 19.4,
+        "flat_model_core_h": 6.47
+      },
+      {
+        "system": "TiO2 GO/NO-GO batch (2 projectors, every deck that computes U)",
+        "basis": "MODEL on MEASURED",
+        "arm": "-",
+        "n_pert": "1 and 2",
+        "nq_mesh": "2x2x2 + 3x3x3 + 4x4x4",
+        "n_atom_q": 102,
+        "sum_n_k": 13778,
+        "core_h_floor": 59.8,
+        "core_h_plan": 76.4,
+        "core_h_ceiling": 92.9,
+        "flat_model_core_h": 32.0,
+        "correction_vs_flat_model": 2.39,
+        "box_hours_at_23_cores": 3.3
+      },
+      {
+        "system": "bulk rutile CrO2 arm (magnetic, metallic) -- docs/43 s4-A.3",
+        "basis": "MODEL, spin uplift ASSUMED",
+        "arm": "atomic",
+        "n_pert": 1,
+        "nq_mesh": "2x2x2",
+        "n_q": 6,
+        "sum_n_k": 460,
+        "core_h_floor": 4.7,
+        "core_h_plan": 10.5,
+        "core_h_ceiling": 19.9,
+        "wall_min_at_np20": 32.0,
+        "note": "docs/43 s4-A.3 estimates 'roughly ten minutes of the box'. The measured-anchored model says 20-50 min at NP=20 including its SCF. Still cheap, still required; the ten-minute figure should not be quoted as the cost."
+      },
+      {
+        "system": "block 2C: 7 metals bulk, 2 projectors, nq 3x3x3",
+        "basis": "PROJECTED",
+        "arm": "floor",
+        "n_pert": 1,
+        "nq_mesh": "3x3x3",
+        "n_q": 8,
+        "sum_n_k": 1183,
+        "core_h_total": 156.0
+      },
+      {
+        "system": "block 2C: 7 metals bulk, 2 projectors, nq 3x3x3",
+        "basis": "PROJECTED",
+        "arm": "plan",
+        "n_pert": 1,
+        "nq_mesh": "3x3x3",
+        "n_q": 8,
+        "sum_n_k": 1183,
+        "core_h_total": 365.0
+      },
+      {
+        "system": "block 2C: 7 metals bulk, 2 projectors, nq 3x3x3",
+        "basis": "PROJECTED",
+        "arm": "ceiling",
+        "n_pert": 1,
+        "nq_mesh": "3x3x3",
+        "n_q": 8,
+        "sum_n_k": 1183,
+        "core_h_total": 702.0
+      },
+      {
+        "system": "CrO2(110) clean slab",
+        "basis": "EXTRAPOLATED",
+        "arm": "nosym: as production runs today",
+        "n_pert": 6,
+        "nq_mesh": "3x2x1",
+        "n_q": 6,
+        "n_k_per_q": [
+          36,
+          36,
+          36,
+          36,
+          36,
+          36
+        ],
+        "core_h_floor": 2610.0,
+        "core_h_plan": 6361.0,
+        "core_h_ceiling": 12421.0,
+        "gamma_anchored_core_h": 6179.0,
+        "gamma_understatement": 1.03,
+        "box_days_at_23_cores": 11.5
+      },
+      {
+        "system": "CrO2(110) clean slab",
+        "basis": "EXTRAPOLATED",
+        "arm": "sym: symmetry on",
+        "n_pert": 6,
+        "nq_mesh": "3x2x1",
+        "n_q": 4,
+        "n_k_per_q": [
+          15,
+          15,
+          27,
+          27
+        ],
+        "core_h_floor": 1014.0,
+        "core_h_plan": 2473.0,
+        "core_h_ceiling": 4829.0,
+        "gamma_anchored_core_h": 1716.0,
+        "gamma_understatement": 1.44,
+        "box_days_at_23_cores": 4.5
+      },
+      {
+        "system": "CrO2(110) clean slab",
+        "basis": "EXTRAPOLATED",
+        "arm": "sym: + smaller q-mesh",
+        "n_pert": 6,
+        "nq_mesh": "2x1x1",
+        "n_q": 2,
+        "n_k_per_q": [
+          15,
+          15
+        ],
+        "core_h_floor": 354.0,
+        "core_h_plan": 873.0,
+        "core_h_ceiling": 1713.0,
+        "gamma_anchored_core_h": 858.0,
+        "gamma_understatement": 1.02,
+        "box_days_at_23_cores": 1.6
+      },
+      {
+        "system": "CrO2(110) clean slab",
+        "basis": "EXTRAPOLATED",
+        "arm": "sym: + split Cr into surface/subsurface ATOMIC_SPECIES types with identical U and perturb only the surface pair",
+        "n_pert": 2,
+        "nq_mesh": "2x1x1",
+        "n_q": 2,
+        "n_k_per_q": [
+          15,
+          15
+        ],
+        "core_h_floor": 118.0,
+        "core_h_plan": 291.0,
+        "core_h_ceiling": 571.0,
+        "gamma_anchored_core_h": 286.0,
+        "gamma_understatement": 1.02,
+        "box_days_at_23_cores": 0.5
+      },
+      {
+        "system": "CrO2(110) clean slab",
+        "basis": "EXTRAPOLATED",
+        "arm": "sym: Gamma-only q -- CHEAPEST, and NOT a q-converged U",
+        "n_pert": 2,
+        "nq_mesh": "1x1x1",
+        "n_q": 1,
+        "n_k_per_q": [
+          15
+        ],
+        "core_h_floor": 57.0,
+        "core_h_plan": 143.0,
+        "core_h_ceiling": 282.0,
+        "gamma_anchored_core_h": 143.0,
+        "gamma_understatement": 1.0,
+        "box_days_at_23_cores": 0.3
+      }
+    ]
+  }
+}

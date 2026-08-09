@@ -1,0 +1,26 @@
+# block 1A, manifest C: the CELL_MULT / MAG_MULT measurement.
+#   bash queue_r1.sh m_cellmult.txt 20 1
+# Three fixed-geometry SCFs, max_seconds = 3600
+# each, identical NP=20 and nk=4 on all three legs (that is why nk
+# is forced here rather than derived from the k-count). The two 1x1
+# legs converge and exit well inside the cap (measured 26 and 21
+# SCF iterations at 46 and 15 s/iteration at this NP); only the Cr
+# 2x1o leg can spend it, and it is the leg the ratio needs, at
+# 10-14 iterations instead of the 3-5 a 20-minute cap would buy.
+# Budget it as <= 3 box-hours, expect ~1.5.
+# Analysis:
+#   for each .out take the `total cpu time spent up to now`
+#   increments, drop the first and last, take the MEDIAN, and
+#   divide by ceil(`number of k points` / 4) -- the k-points the
+#   MASTER POOL carried, not the total. The 2x1 leg has 9 k-points
+#   over 4 pools (3,2,2,2) and normalising by 9/4 would overstate
+#   its per-k cost by 33%:
+#     CELL_MULT = Cr 2x1o / Cr 1x1
+#     MAG_MULT  = (Cr 1x1 / Ru 1x1) x (SCF iterations per ionic
+#                 step, Cr 26.1-28.8 vs Ir/Ru 11.9-13.9 measured)
+# Until this returns, CELL_MULT = 5.5 planning / 8.0 ceiling /
+# 4.0 floor and MAG_MULT = 3.5 are ESTIMATES, and every hour
+# quoted from them is an estimate too.
+probe/Cr_cellsym s0_OH__1x1_k8__cellmult .in 4
+probe/Ru_cellsym s0_OH__1x1_k8__cellmult .in 4
+probe/Cr_cellsym s0_OH__2x1o_mir__cellmult .in 4

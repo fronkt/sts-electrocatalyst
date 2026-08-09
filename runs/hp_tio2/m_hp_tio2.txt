@@ -1,0 +1,37 @@
+# hp.x GO/NO-GO: bulk rutile TiO2 (2 projectors) + the magnetic, metallic
+# bulk CrO2 arm that docs/43 s4-A.3 requires. Lines: <dir> <scf> <hp> <nk>.
+# Acceptance criteria live in docs/43 s4 + s4-A; this manifest runs them,
+# it does not judge them. Counting decks (hp_npert/hp_npert3/hp_qmesh)
+# exit in ~3 s. hp_npert3 is find_atpert=3, which criterion I5 needs.
+#
+# RUN AS: bash queue_hp.sh m_hp_tio2.txt 20 1
+#   nk=4  -> NP must be an exact multiple of 4 (pw.x and hp.x both abort
+#            otherwise). NP x NCONC <= 23 (cgroup 2304000/100000 = 23.04
+#            usable cores; nproc says 48 and is wrong).
+#   NCONC MUST be 1: the three prefixes below each appear on many lines,
+#            and hp.x names its scratch from prefix + rank alone.
+# The CrO2 arm is the one that licenses block 2C. Order it LAST here only
+# because its SCF is the most likely to fail; nothing depends on it first.
+hp_tio2 scf__atomic hp_npert__atomic 4
+hp_tio2 scf__atomic hp_npert3__atomic 4
+hp_tio2 scf__atomic hp_qmesh__atomic_q222 4
+hp_tio2 scf__atomic hp_qmesh__atomic_q333 4
+hp_tio2 scf__atomic hp_qmesh__atomic_q444 4
+hp_tio2 scf__atomic hp__atomic_q222 4
+hp_tio2 scf__atomic hp__atomic_q333 4
+hp_tio2 scf__atomic hp__atomic_q444 4
+hp_tio2 scf__atomic hp__atomic_q333_allatoms 4
+hp_tio2 scf__ortho hp_npert__ortho 4
+hp_tio2 scf__ortho hp_npert3__ortho 4
+hp_tio2 scf__ortho hp_qmesh__ortho_q222 4
+hp_tio2 scf__ortho hp_qmesh__ortho_q333 4
+hp_tio2 scf__ortho hp_qmesh__ortho_q444 4
+hp_tio2 scf__ortho hp__ortho_q222 4
+hp_tio2 scf__ortho hp__ortho_q333 4
+hp_tio2 scf__ortho hp__ortho_q444 4
+hp_tio2 scf__ortho hp__ortho_q333_allatoms 4
+hp_tio2 scf__cro2 hp_npert__cro2 4
+hp_tio2 scf__cro2 hp_npert3__cro2 4
+hp_tio2 scf__cro2 hp_qmesh__cro2_q222 4
+hp_tio2 scf__cro2 hp__cro2_q222 4
+hp_tio2 scf__atomic hp_1atomq__atomic_q3 4
