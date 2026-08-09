@@ -1,0 +1,21 @@
+{
+  "source_run": "runs/Co_slab",
+  "note": "RELAX restart of the never-finished Co *OOH, resumed from the last geometry of s0_OOH.out.stageB-partial (16 SCF cycles, |F| = 0.018 Ry/au vs 2.0e-3 threshold, energy still falling ~7 meV/step). Closing this converts eta(Co) from a BOUNDED inference into a measured chain and unblocks the P7 U-ladder for Co.",
+  "calculation": "relax",
+  "variants": [
+    "restart"
+  ],
+  "jobs": [
+    {
+      "job": "s0_OOH",
+      "variant": "restart",
+      "file": "s0_OOH__restart.in",
+      "geometry_provenance": "last-step (NOT a converged final geometry)",
+      "relax_reference_ev": null,
+      "emaxpos": null,
+      "eopreg": null,
+      "cell_c": 25.22956995,
+      "vac_gap": null
+    }
+  ]
+}
