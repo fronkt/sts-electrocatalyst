@@ -819,3 +819,40 @@ and returned −0.291323 by construction. A control that cannot fail controls no
 - The manifest field that recorded the re-read as "validated" is renamed
   `scorer_selftest` and states what it actually was: an arithmetic check of the scorer,
   not the gate.
+
+
+## 5. Citation verification — the three load-bearing references (2026-08-09)
+
+Section 10 registered every external citation as unverified and required confirmation from
+the actual papers before any is cited in the report or used to concede a novelty claim.
+Done, from primary records (Crossref, OpenAlex, PMC, arXiv — no grey-area sources):
+
+1. **Deshpande, Kitchin & Viswanathan — CONFIRMED, exact.** "Quantifying Uncertainty in
+   Activity Volcano Relationships for Oxygen Reduction Reaction", *ACS Catal.* **6**,
+   5251–5259 (2016), DOI 10.1021/acscatal.6b00509. Volume and first page as cited. Note
+   for the report: it is an **ORR** volcano-uncertainty paper — cite it for the
+   uncertainty-quantification methodology, not as OER precedent.
+
+2. **Divanis et al. — CONFIRMED, verbatim.** *Chem. Sci.* **11**, 2943–2950 (2020),
+   DOI 10.1039/c9sc05897d (open access, PMC8157516). The paper's own pooled value:
+   "In this study the intercept is equal to **3.18 ± 0.12 eV** and ±0.24 eV for a
+   confidence level of 1σ and 2σ respectively." §6's z = (c_M − 3.18)/0.12 uses the
+   paper's 1σ exactly as printed. (The 3.2 ± 0.2 eV it also quotes is the prior
+   literature value, not the pooled fit.)
+
+3. **Goniakowski & Gillan — CONFIRMED in substance; the citation year needed one
+   correction.** The journal article is *Surf. Sci.* **350**, 145–158 (**1996**), DOI
+   10.1016/0039-6028(95)01252-4 — not 1995 as this document wrote. "Known since 1995"
+   survives via the preprint: arXiv:mtrl-th/9508009, submitted **24 Aug 1995**. The
+   content claim is stronger than assumed — the abstract states, of H₂O on rutile
+   TiO₂/SnO₂(110): "allowance is made for relaxation of the adsorbed species to
+   unsymmetrical configurations" and "the **symmetrical molecularly adsorbed
+   configuration is unstable with respect to lowering of symmetry**." That is the
+   precaution, on this surface, verbatim, thirty-one years before this campaign. Cite as
+   Surf. Sci. 350, 145 (1996); arXiv:mtrl-th/9508009 (1995). The report's novelty framing
+   must credit it accordingly: the lead contribution is the *Hessian classification and
+   the magnitude on MO₂ OER intermediates*, not the observation that symmetric adsorbates
+   can be unstable.
+
+The §10 caveat "every external citation is unverified" is superseded for these three; it
+stands for all others.
