@@ -1,0 +1,99 @@
+{
+  "source_run": "runs/Ru_anchor",
+  "note": "FIXED-GEOMETRY single points on already-relaxed structures. This is a leading-order SENSITIVITY analysis: relaxation under the perturbation is NOT included and the artifacts must not be reported as relaxed.",
+  "calculation": "scf",
+  "variants": [
+    "base",
+    "spin0.5"
+  ],
+  "jobs": [
+    {
+      "job": "slab",
+      "variant": "base",
+      "file": "slab__base.in",
+      "geometry_provenance": "final",
+      "relax_reference_ev": -22186.3646701642,
+      "emaxpos": null,
+      "eopreg": null,
+      "cell_c": 25.41058929,
+      "vac_gap": 16.569320822100003
+    },
+    {
+      "job": "slab",
+      "variant": "spin0.5",
+      "file": "slab__spin0.5.in",
+      "geometry_provenance": "final",
+      "relax_reference_ev": -22186.3646701642,
+      "emaxpos": null,
+      "eopreg": null,
+      "cell_c": 25.41058929,
+      "vac_gap": 16.569320822100003
+    },
+    {
+      "job": "s0_OH",
+      "variant": "base",
+      "file": "s0_OH__base.in",
+      "geometry_provenance": "final",
+      "relax_reference_ev": -22769.52388765941,
+      "emaxpos": null,
+      "eopreg": null,
+      "cell_c": 25.41058929,
+      "vac_gap": 15.4857745874
+    },
+    {
+      "job": "s0_OH",
+      "variant": "spin0.5",
+      "file": "s0_OH__spin0.5.in",
+      "geometry_provenance": "final",
+      "relax_reference_ev": -22769.52388765941,
+      "emaxpos": null,
+      "eopreg": null,
+      "cell_c": 25.41058929,
+      "vac_gap": 15.4857745874
+    },
+    {
+      "job": "s0_O",
+      "variant": "base",
+      "file": "s0_O__base.in",
+      "geometry_provenance": "final",
+      "relax_reference_ev": -22752.187911994108,
+      "emaxpos": null,
+      "eopreg": null,
+      "cell_c": 25.41058929,
+      "vac_gap": 15.944931495700002
+    },
+    {
+      "job": "s0_O",
+      "variant": "spin0.5",
+      "file": "s0_O__spin0.5.in",
+      "geometry_provenance": "final",
+      "relax_reference_ev": -22752.187911994108,
+      "emaxpos": null,
+      "eopreg": null,
+      "cell_c": 25.41058929,
+      "vac_gap": 15.944931495700002
+    },
+    {
+      "job": "s0_OOH",
+      "variant": "base",
+      "file": "s0_OOH__base.in",
+      "geometry_provenance": "final",
+      "relax_reference_ev": -23333.85949443214,
+      "emaxpos": null,
+      "eopreg": null,
+      "cell_c": 25.41058929,
+      "vac_gap": 14.791070485500002
+    },
+    {
+      "job": "s0_OOH",
+      "variant": "spin0.5",
+      "file": "s0_OOH__spin0.5.in",
+      "geometry_provenance": "final",
+      "relax_reference_ev": -23333.85949443214,
+      "emaxpos": null,
+      "eopreg": null,
+      "cell_c": 25.41058929,
+      "vac_gap": 14.791070485500002
+    }
+  ]
+}

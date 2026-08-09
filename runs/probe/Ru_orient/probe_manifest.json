@@ -1,0 +1,27 @@
+{
+  "source_run": "runs/Ru_anchor",
+  "job": "s0_OOH",
+  "n_slab": 18,
+  "note": "Off-mirror-plane *OOH restarts. The production relaxation had max|F_y| = 0 on every adsorbate atom at every ionic step, i.e. it was constrained to the y = y_cus mirror plane. These decks set nosym/noinv so pw.x cannot symmetrise the forces back onto it.",
+  "on_record_energy_ev": -23333.85949443214,
+  "jobs": [
+    {
+      "job": "s0_OOH",
+      "variant": "yaw90",
+      "file": "s0_OOH__yaw90.in",
+      "yaw_deg": 90.0,
+      "flip_h": false,
+      "max_adsorbate_displacement_A": 1.7943,
+      "relax_reference_ev": -23333.85949443214
+    },
+    {
+      "job": "s0_OOH",
+      "variant": "yaw270",
+      "file": "s0_OOH__yaw270.in",
+      "yaw_deg": 270.0,
+      "flip_h": false,
+      "max_adsorbate_displacement_A": 1.7943,
+      "relax_reference_ev": -23333.85949443214
+    }
+  ]
+}

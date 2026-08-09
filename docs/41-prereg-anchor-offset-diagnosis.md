@@ -735,6 +735,100 @@ Consequences:
 Still unaudited: Co (its `s0_OOH` was never computed at all, and the U-ladder is what is
 running now), and Cu (no usable production data to audit against).
 
+## 6e. RESULTS — the follow-up queue drained (2026-08-09)
+
+All 36 jobs returned. Every remote output was verified byte-identical against the local
+copy (112 files, md5) before teardown. This closes the two probes §6c had to report as
+unrun, and it resolves Co.
+
+### P2 — dipole: **REFUTED by direct DFT.** Closed negative.
+
+§6c could only report the deck bug. The rebuilt decks ran clean (`SCF_FAIL=0`, fmax
+0.0035–0.0051) and the correction is nil:
+
+| anchor | Δη (dipole) | ΔG shifts (OH / O / OOH) | deficit it must explain |
+|---|---|---|---|
+| Ru | **−0.0018 V** | +0.000 / +0.004 / +0.002 | +0.39 V |
+| Ir | **+0.0002 V** | +0.001 / +0.009 / +0.010 | +0.22 V |
+
+Two orders of magnitude short on Ru, three on Ir. The earlier ≤20 meV bound from §6c was
+an estimate; this is a measurement, and it is tighter. (The combined `dipole+vac32`
+variant still carries the original `&SYSTEM`/`&CONTROL` deck bug and died in 2 s — moot,
+since dipole alone and vac32 alone are each independently null.)
+
+### P9 — RPBE: **REFUTED, and it moves η the wrong way.**
+
+RPBE was the plausible XC rescue — it is OC20's functional, and a GGA that weakens
+adsorbate binding. It does weaken binding, and that makes both anchors *worse*:
+
+| anchor | η base | η RPBE | Δη | descriptor ΔG_O−ΔG_OH |
+|---|---|---|---|---|
+| Ru | 0.7868 | **1.0027** | **+0.2160 V** | 1.163 → **1.018** |
+| Ir | 0.7806 | **0.9426** | **+0.1620 V** | 1.642 → **1.495** |
+
+RPBE gas references: H₂O −601.3804 eV, H₂ −32.0726 eV.
+
+The mechanism is worth keeping, because it is almost perfectly transferable between two
+different metals: **ΔG_OH +0.198 / +0.199 eV and ΔG_O +0.053 / +0.053 eV** on Ru and Ir
+respectively. A near-identical rigid shift on both — so the descriptor drops by 0.145 (Ru)
+and 0.147 (Ir). Ru's descriptor was already 0.44 eV *below* Man's 1.60 apex, so RPBE drives
+it further off; Ir's was sitting *on* the apex, and RPBE knocks it off. Neither anchor is
+rescued by changing the functional, and the direction is unambiguous.
+
+### P7 on Co — **unscoreable, and the reason is the result.**
+
+The hard restart worked as a convergence fix: `slab__base` converged in 4.4 h
+(`rc=0`, `SCF_FAIL=0`) where the original stalled for 7.9 h at iteration 115/200. But
+GATE 1 then refused the ladder:
+
+| Co state | fresh SCF (eV) | relaxation final (eV) | drift |
+|---|---|---|---|
+| `s0_O` | −31710.3473 | −31710.3473 | +0.01 meV OK |
+| `s0_OH` | −31728.5322 | −31728.1277 | **−404.52 meV** |
+| `slab` | −31146.1540 | −31146.2133 | **+59.39 meV** |
+
+**−405 meV is the largest drift in the campaign**, and the escalated mixing did not fail
+so much as find a *different, higher* basin for the slab. So Co is not merely hard to
+converge — its SCF has multiple solutions and the recipe selects among them. That
+retroactively explains Co going 0-for-4 in the endmember campaign (docs/26 §6): it was
+read as convergence difficulty, and it is really solution multiplicity.
+
+**The `slab` drift is the serious one.** A clean slab is the common reference in every
+ΔG on that element, so a 59 meV ambiguity there propagates into all four rungs at once.
+
+### Where the tier stands on multistability
+
+| | states audited | multistable | worst drift |
+|---|---|---|---|
+| **Mn** | 4 | **0** | ≤0.005 meV |
+| Cr | 4 | 1 (`*OOH`) | −175 meV |
+| Fe | 4 | 1 (`*OOH`) | +277 meV (audit trapped; record OK) |
+| Ni | 3 | 1 (`*OH`) | −173 meV |
+| Co | 3 | 2 (`*OH`, **slab**) | −405 meV |
+| **Ru / Ir** | 4 + 4 | **0** | ≤0.01 meV |
+
+**Every magnetic 3d endmember except Mn carries at least one multistable state, and the
+two `nspin = 1` anchors carry none** — they round-trip to 0.01 meV across all eight states.
+That is a clean structural statement: the failure mode is magnetic, it is confined to the
+open-shell 3d oxides, and it does not touch the anchors.
+
+### What is left of the anchor deficit
+
+With P2 and P9 closed, the candidate list is nearly exhausted. Gas references (ruled out
+algebraically, §2a), vacuum (−0.0005 V, §6c), dipole (≤2 meV, above), thickness and
+constraint (+0.05 V, wrong sign, §6c), spin (P11, wrong way, §6c), XC (P9, wrong way,
+above), and magnetic multistability (not applicable at `nspin = 1`) are all closed
+negatives. Only P10 survives, and it is asymmetric: **it largely fixes Ir** (scaling
+3.652 → 3.361, η 0.781 → 0.490 V, inside the published range) and **leaves Ru essentially
+untouched** at 82 meV.
+
+So the honest position going into the writeup is that **Ir is explained and Ru is not** —
+not by any artifact this campaign can find. The remaining account for Ru is the one in
+§2f and §2d, which does not depend on finding a bug: η ≈ 0.79 V for `nspin = 1` RuO₂(110)
+is a *published* result (Liang 2022, 0.63–0.73 V, same `pls = 3` signature), and η is a
+positively biased estimator (§2d). That is a defensible story, and it is stronger for
+having eliminated the alternatives by direct calculation rather than by argument.
+
 ## 7. Standing caveats
 
 - Fixed geometry. Second-order relaxation effects are excluded by construction.
