@@ -1,0 +1,203 @@
+
+     Program HP v.7.5 starts on 10Aug2026 at  6:49: 1 
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 21 395502 (2009);
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 29 465901 (2017);
+         "P. Giannozzi et al., J. Chem. Phys. 152 154105 (2020);
+          URL http://www.quantum-espresso.org", 
+     in publications or presentations arising from this work. More details at
+     http://www.quantum-espresso.org/quote
+
+     Parallel version (MPI & OpenMP), running on      20 processor cores
+     Number of MPI processes:                20
+     Threads/MPI process:                     1
+
+     MPI processes distributed on     1 nodes
+     K-points division:     npool     =       4
+     R & G space division:  proc/nbgrp/npool/nimage =       5
+     243218 MiB available memory on the printing compute node when the environment starts
+
+
+     =---------------------------------------------------------------------------=
+
+           Calculation of Hubbard parameters using the HP code based on DFPT      
+
+               Please cite the following papers when using this program:          
+
+                 - HP code : Comput. Phys. Commun. 279, 108455 (2022).            
+
+                                                                                  
+
+           For a nonrelativistic, collinear calculation:                          
+
+                 - Theory  : I. Timrov et al, Phys. Rev. B 98,  085127 (2018) and 
+
+                             I. Timrov et al, Phys. Rev. B 103, 045141 (2021).    
+
+                                                                                  
+
+           For a fully-relativistic, and/or noncollinear calculation:             
+
+                 - Theory  : L. Binci et al., Phys. Rev. B 108, 115157 (2023) and 
+
+                             I. Timrov et al, Phys. Rev. B 98,  085127 (2018) 
+
+     =-----------------------------------------------------------------------------=
+
+     Reading xml data from directory:
+
+     ./tmp_cro2_atomic/cro2_atomic.save/
+     file O.pbe-n-kjpaw_psl.0.1.UPF: wavefunction(s)  2P renormalized
+
+     IMPORTANT: XC functional enforced from input :
+     Exchange-correlation= PBE
+                           (   1   4   3   4   0   0   0)
+     Any further DFT definition will be discarded
+     Please, verify this is what you really want
+
+
+     Parallelization info
+     --------------------
+     sticks:   dense  smooth     PW     G-vecs:    dense   smooth      PW
+     Min         713     355    103                21057     7429    1205
+     Max         715     357    104                21057     7430    1208
+     Sum        3569    1781    517               105285    37147    6029
+
+     Using Slab Decomposition
+
+
+     Check: negative core charge=   -0.000003
+
+     negative rho (up, down):  4.713E-07 6.871E-03
+     Reading collected, re-writing distributed wavefunctions
+
+
+     bravais-lattice index     =             6
+     lattice parameter (alat)  =        8.3545 (a.u.)
+     unit-cell volume          =      384.6146 (a.u.)^3
+     number of atoms/cell      =             6
+     number of atomic types    =             2
+     kinetic-energy cut-off    =         80.00 (Ry)
+     charge density cut-off    =        640.00 (Ry)
+     conv. thresh. for NSCF    =       1.0E-11
+     conv. thresh. for chi     =       1.0E-05
+     Input Hubbard parameters (in eV):
+       U ( 1)                     =   1.00000E-08
+
+     celldm(1) =  8.35448  celldm(2) =  0.00000  celldm(3) =  0.65958
+     celldm(4) =  0.00000  celldm(5) =  0.00000  celldm(6) =  0.00000
+
+     crystal axes: (cart. coord. in units of alat)
+               a(1) = (  1.0000  0.0000  0.0000 )  
+               a(2) = (  0.0000  1.0000  0.0000 )  
+               a(3) = (  0.0000  0.0000  0.6596 )  
+
+     reciprocal axes: (cart. coord. in units 2 pi/alat)
+               b(1) = (  1.0000  0.0000  0.0000 )  
+               b(2) = (  0.0000  1.0000  0.0000 )  
+               b(3) = (  0.0000  0.0000  1.5161 )  
+
+     Atoms inside the unit cell (Cartesian axes):
+     site n.  atom      mass           positions (alat units)
+        1   Cr        51.9960   tau(  1) = (  0.00000  0.00000  0.00000  )
+        2   Cr        51.9960   tau(  2) = (  0.50000  0.50000  0.32979  )
+        3   O         15.9990   tau(  3) = (  0.30230  0.30230  0.00000  )
+        4   O         15.9990   tau(  4) = (  0.69770  0.69770  0.00000  )
+        5   O         15.9990   tau(  5) = (  0.80230  0.19770  0.32979  )
+        6   O         15.9990   tau(  6) = (  0.19770  0.80230  0.32979  )
+
+     Atom which will be perturbed:
+
+        1   Cr        51.9960   tau( 1) = (  0.00000  0.00000  0.00000  )
+
+     =====================================================================
+
+                          PERTURBED ATOM #    1
+
+     site n.  atom      mass           positions (alat units)
+        1   Cr        51.9960   tau( 1) = (  0.00000  0.00000  0.00000  )
+
+     =====================================================================
+
+     The perturbed atom has a type which is not unique!
+     Changing the type of the perturbed atom and recomputing the symmetries...
+     The number of symmetries is reduced :
+     nsym =  8  nsym_PWscf = 16
+     Changing the type of the perturbed atom back to its original type...
+
+
+     The grid of q-points ( 2, 2, 2)  (  6 q-points ) :
+       N       xq(1)         xq(2)         xq(3)       wq
+       1   0.000000000   0.000000000   0.000000000   0.125000000
+       2   0.000000000   0.000000000  -0.758058158   0.125000000
+       3   0.000000000  -0.500000000   0.000000000   0.250000000
+       4   0.000000000  -0.500000000  -0.758058158   0.250000000
+       5  -0.500000000  -0.500000000   0.000000000   0.125000000
+       6  -0.500000000  -0.500000000  -0.758058158   0.125000000
+
+     PRINTING TIMING FROM PWSCF ROUTINES: 
+
+
+     Called by init_run:
+
+     Called by electrons:
+     v_of_rho     :      0.07s CPU      0.08s WALL (       1 calls)
+     v_h          :      0.00s CPU      0.00s WALL (       1 calls)
+     v_xc         :      0.07s CPU      0.08s WALL (       1 calls)
+     newd         :      0.03s CPU      0.04s WALL (       1 calls)
+     PAW_pot      :      0.06s CPU      0.06s WALL (       1 calls)
+
+     Called by c_bands:
+
+     Called by sum_band:
+
+     Called by *egterg:
+
+     Called by h_psi:
+
+     General routines
+     fft          :      0.32s CPU      0.32s WALL (      21 calls)
+     davcio       :      0.00s CPU      0.00s WALL (      25 calls)
+
+     Parallel routines
+
+     Hubbard U routines
+
+     PAW routines
+     PAW_pot      :      0.06s CPU      0.06s WALL (       1 calls)
+
+     init_vloc    :      0.02s CPU      0.02s WALL (       1 calls)
+     init_us_1    :      0.09s CPU      0.10s WALL (       1 calls)
+     newd         :      0.03s CPU      0.04s WALL (       1 calls)
+
+     PRINTING TIMING FROM HP ROUTINES: 
+
+
+     PRINTING TIMING FROM LR MODULE: 
+
+
+     USPP ROUTINES: 
+
+
+     HP           :      1.02s CPU      1.07s WALL
+
+
+   This run was terminated on:   6:49: 2  10Aug2026            
+
+=------------------------------------------------------------------------------=
+   JOB DONE.
+=------------------------------------------------------------------------------=
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
