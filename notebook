@@ -1,0 +1,29 @@
+OER = Oxygen Evolution Reaction: 2H₂O → O₂ + 4H⁺ + 4e⁻ (or 4OH⁻ → O₂ + 2H₂O + 4e⁻ in base). It's the anode (oxidation) half-reaction of water
+  electrolysis — the other half is HER (hydrogen evolution) at the cathode, and together they split water into H₂ and O₂.
+
+  Why it matters practically: Electrolyzers are the main way to make "green" hydrogen — run electricity (ideally renewable) through water
+  instead of steam-reforming natural gas, and you get H₂ fuel with no carbon in the process. Hydrogen made this way is a candidate for
+  decarbonizing things electrification struggles with: steel/cement production, long-haul shipping and aviation, seasonal/grid-scale energy
+  storage, and as a feedstock for green ammonia. So OER catalyst performance is directly a bottleneck on how cheap and efficient that whole
+  "hydrogen economy" pathway is.
+
+  Why OER specifically is the hard part. HER (the H₂-making side) is comparatively easy — it's a 2-electron process and Pt is already an
+  excellent, well-understood catalyst for it. OER is a 4-electron, 4-proton process with multiple bound-oxygen intermediates (*OH → *O → *OOH →
+  O₂) that each need roughly comparable amounts of energy to form. Because they can't all be simultaneously easy on the same catalyst surface,
+  there's an intrinsic energy penalty called the scaling relation — it's the reason OER is kinetically sluggish on essentially every known
+  catalyst and needs a large overpotential (extra voltage beyond the thermodynamic 1.23 V) to run at a useful rate. OER overpotential is the
+  single biggest efficiency loss in most electrolyzers, which is why so much catalysis research (including this project) focuses there rather
+  than on HER.
+
+  Why it's a materials problem, not just a chemistry one. The best-known OER catalysts are IrO₂ and RuO₂ — both scarce, expensive precious
+  metals (Ir is one of the rarest elements in Earth's crust), which is a real bottleneck if OER-based electrolysis is going to scale to
+  gigawatt/industrial levels. That scarcity is the actual motivation for this project's HEA (high-entropy alloy) approach: mix Ir/Ru with
+  cheaper, abundant 3d transition metals (Cr, Co, etc.) in a disordered multi-metal oxide, and try to find compositions that keep OER activity
+  high (measured via the ΔG/η descriptor from the last question) while diluting out most of the precious metal.
+
+  Why it connects to your project's actual finding. The theoretical descriptor used to screen candidates (CHE-derived η, computed from DFT) is
+  only as trustworthy as the DFT itself — and your project's central result is that standard screening pipelines can silently get that
+  descriptor wrong (Hubbard-U sensitivity, the symmetry trap, magnetic multistability) in ways that look like a real discovery but aren't.
+  That's the throughline: OER is important because it's the efficiency bottleneck in green hydrogen production, precious-metal scarcity makes
+  finding better catalysts economically urgent, and your project's contribution is showing where the computational search for those catalysts
+  can quietly mislead itself.
