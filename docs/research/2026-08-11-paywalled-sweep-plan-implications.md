@@ -250,3 +250,78 @@ Each row needs a yes/no; every "yes" becomes a dated docs/43 amendment (pre-amen
 | D10 | LIT-8 (unverified) — mechanism-scope flags | Verify first if wanted |
 | D11 | §4 wording/attribution obligations + Xu 2015 fetch (no prereg change) | **Yes, automatic** |
 
+
+---
+
+## 10. Addendum (2026-08-12): the Xu 2015 gate, resolved
+
+Xu, Rossmeisl & Kitchin, "A Linear Response DFT+U Study of Trends in the Oxygen Evolution
+Activity of Transition Metal Rutile Dioxides," *J. Phys. Chem. C* **2015**, 119, 4827–4833
+(10.1021/jp511426q) was pulled via Purdue on 2026-08-12 and read in full. (The 2026-08-12
+pull first fetched the wrong Kitchin JPCC 2015 paper — Curnan & Kitchin, 10.1021/acs.jpcc.5b05338,
+kept and indexed on its own merits; see docs/43 A5.8.) Gate outcomes:
+
+**The slab hp.x claim survives.** Their linear-response U is **bulk-only**: Cococcioni–de
+Gironcoli supercell method, perturbations up to ±0.15 eV on both metal and oxygen in
+2×2×2 48-atom rutile supercells (p. 4828). Adsorption energetics ran on two-layer
+H-terminated (110) slabs with the bulk U applied. No slab linear-response calculation
+appears anywhere in the paper (which predates hp.x). The §3.8/§6 wording stands, now
+verified rather than assumed: our slab-DFPT attempt and its non-convergence result are,
+to our knowledge, without precedent — and the bulk-U-applied-to-slabs practice our
+attempt was probing is exactly what Xu 2015 canonized.
+
+**New attribution debts (§6 updated by this addendum):**
+
+1. **U-dependence of rutile (110) OER energetics as a phenomenon → Xu 2015, not
+   Tripkovic.** They scanned U = 0–8 eV in 0.5 eV steps on our exact surface class,
+   including CrO₂ and MnO₂: adsorption weakens systematically with U, scaling relations
+   established at U = 0 are preserved for 4d/5d, and applying the computed U moves
+   compounds **along** the volcano (pp. 4829–4831). Tripkovic 2018 remains the
+   attribution for the valence-change **mechanism** and the perovskite η swings; Deng
+   2025 for ordinal U-scans as reporting practice. Our surviving contribution is
+   unchanged in kind but must be worded against Xu: the pre-registered,
+   falsification-grade quantification of the **near-apex failure mode** at fixed
+   geometry (η(Cr) swing 1.122 V), plus the magnetic-multistability audit. Xu's own
+   screening conclusion contains the caveat our case demonstrates: U = 0 trend studies
+   "should produce similar conclusions, **except perhaps near the top of the volcano**"
+   (p. 4831) — quote it; it is the paper conceding the exact regime P7 fired in.
+2. **A5.1(d)'s intercept test ("U moves you along the volcano, not off it") is a
+   replication-and-extension of Xu's central result**, not a novel hypothesis. The
+   registered test is unchanged; its motivating prior is now Xu 2015 (rutile, same
+   surfaces) with Tripkovic Table 3 as the differences-don't-cancel counterpoint. Any
+   report wording presents it as testing whether Xu's scaling-preservation result
+   survives on *doped* rutiles under our protocol.
+3. **The Cr *OOH pathology has a 2015 sighting.** On CrO₂ and MnO₂ they found *OOH
+   adsorption becomes unstable above U ≈ 4 eV, breaking the OH/OOH scaling relation —
+   "We are unsure how to interpret the breaking of the surface−adsorbate bonds"
+   (p. 4830). Our metastable-magnetic-state finding and the LIT-3 anatomy are the
+   follow-up that question has been waiting for; cite accordingly.
+4. **CrO₂ U = 7.15 eV (their Table 1) is the "lit 7.15" leg of our U spread — now
+   primary-verified.** The three-determination bracket becomes precisely citable:
+   MP 3.7 (VASP PAW thermochemical fit) / our hp.x DFPT bulk 6.16 / Xu supercell linear
+   response 7.15 eV — with the DFPT-vs-supercell methods difference stated rather than
+   implied. Their Table 1 also gives MnO₂ 6.63, TiO₂ 4.95 (inside the 1B GO window
+   [3.0, 7.0] eV), RuO₂ 6.73, IrO₂ 5.91.
+5. **A caveat lands on the U = 0 Ru/Ir anchor convention.** Xu computed linear-response
+   U for the 4d/5d hosts and found that applying it *improves* agreement with the
+   experimental activity ordering (IrO₂ > RhO₂ > RuO₂ > PtO₂ vs measured
+   RuO₂ ≈ IrO₂ > RhO₂ > PtO₂), with reaction-energy shifts of 0.2–0.4 eV that never
+   flip a compound between volcano legs (p. 4831). Our production protocol's U = 0 on
+   Ru/Ir (MP convention) is defensible but must carry this citation as the measured
+   size of what the convention neglects.
+6. **One more Cr-instability prior for LIT-6:** they excluded CrO₂ from the activity
+   comparison outright on Pourbaix grounds (p. 4831, citing the Pourbaix Atlas) —
+   alongside Man 2011's identical flag, the anticipated Cr bulk-Pourbaix flag in
+   A5.5(a) now has two independent priors and must be presented as confirmation of
+   known thermodynamics, never as a finding.
+
+**Also of practical use:** their complete inputs/outputs are open data
+(10.5281/zenodo.12635) — an external parity anchor for our QE rutile setups if one is
+ever needed; and their two-layer-slab validation (parity and shared scaling vs a
+four-layer slab at U = 0, Fig 1) is the citable precedent for economical rutile (110)
+slab models.
+
+The A5.8 bar on linear-response-U novelty wording is lifted by its own terms; the
+obligations above replace it. This addendum records a read, not a plan change — no
+docs/43 amendment is required, and the report prose remains Frank's.
+

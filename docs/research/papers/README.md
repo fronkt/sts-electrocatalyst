@@ -26,7 +26,8 @@ in.
 | `Grimaud-2017_NatChem_lattice-oxygen-redox.pdf` | Grimaud, Diaz-Morales, Han, Hong, Lee, Giordano, Stoerzinger, Koper & Shao-Horn, "Activating lattice oxygen redox reactions in metal oxides to catalyse oxygen evolution," *Nat. Chem.* **2017**. [10.1038/NCHEM.2695](https://doi.org/10.1038/NCHEM.2695) — *this copy is the advance-online PDF and carries no volume/pages; the survey records them as 9(5), 457–465* | The lattice-oxygen mechanism (survey recommendation 8). Relevant wherever AEM may not be the operative path. |
 | `Fabbri-2018_ACSCatal_OER-enigma-viewpoint.pdf` | Fabbri & Schmidt, "Oxygen Evolution Reaction — The Enigma in Water Electrolysis," *ACS Catal.* **2018**, 8, 9765–9774. [10.1021/acscatal.8b02712](https://doi.org/10.1021/acscatal.8b02712) | Short viewpoint; useful framing and citation anchor for the report's mechanism paragraph. |
 | `man2011.pdf` | Man, Su, Calle-Vallejo, Hansen, Martínez, Inoglu, Kitchin, Jaramillo, Nørskov & Rossmeisl, "Universality in Oxygen Evolution Electrocatalysis on Oxide Surfaces," *ChemCatChem* **2011**, 3, 1159–1165. [10.1002/cctc.201000397](https://doi.org/10.1002/cctc.201000397) | The universal-scaling paper (3.20 eV intercept, MAE 0.17 eV, ~0.37 V planar-oxide floor). Pulled for the tabulated ΔG values, not the argument; corroborates the Divanis 3.18 ± 0.12 eV constant that P17 already uses. |
-| `jp5b05338.pdf` | Curnan & Kitchin, "Investigating the Energetic Ordering of Stable and Metastable TiO2 Polymorphs Using DFT+U and Hybrid Functionals," *J. Phys. Chem. C* **2015**, 119, 21060–21071. [10.1021/acs.jpcc.5b05338](https://doi.org/10.1021/acs.jpcc.5b05338) | Pulled 2026-08-12 **by mistake for Xu 2015** (same group/journal/year — see below) and kept on merit: polymorph ordering is consistent over U *intervals* under GGA+U, while no first-principles method predicts the exact-exchange fraction — independent support for the no-hybrid-arbitration position (Tripkovic conclusion 3). |
+| `jp5b05338.pdf` | Curnan & Kitchin, "Investigating the Energetic Ordering of Stable and Metastable TiO2 Polymorphs Using DFT+U and Hybrid Functionals," *J. Phys. Chem. C* **2015**, 119, 21060–21071. [10.1021/acs.jpcc.5b05338](https://doi.org/10.1021/acs.jpcc.5b05338) | Pulled 2026-08-12 **by mistake for Xu 2015** (same group/journal/year) and kept on merit: polymorph ordering is consistent over U *intervals* under GGA+U, while no first-principles method predicts the exact-exchange fraction — independent support for the no-hybrid-arbitration position (Tripkovic conclusion 3). |
+| `jp511426q.pdf` | Xu, Rossmeisl & Kitchin, "A Linear Response DFT+U Study of Trends in the Oxygen Evolution Activity of Transition Metal Rutile Dioxides," *J. Phys. Chem. C* **2015**, 119, 4827–4833. [10.1021/jp511426q](https://doi.org/10.1021/jp511426q) | The gating read for the hp.x novelty wording — resolved 2026-08-12 (sweep memo §10). Linear-response U is **bulk-only** (Cococcioni supercell, 2×2×2), so our slab-DFPT non-convergence claim survives; their U 0–8 eV scans on rutile (110) incl. CrO₂ own the on-rutile U-dependence prior; CrO₂ U = 7.15 eV (Table 1) is our "lit" leg, now primary-verified; full data open at [10.5281/zenodo.12635](https://doi.org/10.5281/zenodo.12635). |
 
 ## Solvation and the interface
 
@@ -58,13 +59,8 @@ The original `docs/28` §9 flagged list is now fully cleared (Man 2011 and Feng 
 arrived in this pull). The sweep memo's citation ledger (§7) flags the next round, in
 priority order:
 
-- **Xu, Rossmeisl & Kitchin,** "A Linear Response DFT+U Study of Trends in the Oxygen
-  Evolution Activity of Transition Metal Rutile Dioxides," *J. Phys. Chem. C* **2015**, 119,
-  4827–4833, [10.1021/jp511426q](https://doi.org/10.1021/jp511426q). **Gates the hp.x
-  novelty wording** — likely bulk-only linear response, which would preserve our slab claim,
-  but that must be read, not assumed. **STILL NEEDED**: the 2026-08-12 pull fetched
-  `jp5b05338.pdf`, which is the *other* Kitchin JPCC 2015 paper (Curnan & Kitchin, indexed
-  above). No OA copy exists (Unpaywall: closed) — pull `10.1021/jp511426q` via Purdue.
+- ~~Xu, Rossmeisl & Kitchin 2015~~ — **obtained 2026-08-12** (`jp511426q.pdf`, indexed
+  above); gate resolved in sweep memo §10.
 - **Lin 2019**, *Nat. Commun.* 10:162 — Cr₀.₆Ru₀.₄O₂ experimental prior art.
 - **Comer 2022**, *J. Phys. Chem. C* 126, 7903 — pure-rutile slab series.
 - **Dickens, Kirk & Nørskov 2019**, *J. Phys. Chem. C* — kinetic volcano.
