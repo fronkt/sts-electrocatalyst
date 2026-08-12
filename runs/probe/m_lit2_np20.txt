@@ -1,0 +1,14 @@
+# NOT-DEPLOYED -- prepared decks only, nothing queued, nothing
+# launched. docs/43 A5.7: LIT decks queue only after the 1A manifest
+# on a box is drained, or on a separately provisioned box. Launch
+# authority: Frank.
+# LIT-2 trimmed core (docs/43 A5.2 = D2): 3 new termination
+# relaxations; every other rung of the ladder is a REUSED block-1A
+# output (lit2_manifest.json `reused_rungs`).
+# NP=20 NCONC=1
+#   bash queue_r1.sh m_lit2_np20.txt 20 1
+# NP is an exact multiple of every nk below; NP x NCONC <= 23 usable
+# cores. Longest first.
+probe/Cr_lit2 cov_2OH__2x1_off .in 4
+probe/Cr_lit2 cov_Ovac__2x1_off .in 4
+probe/Ru_lit2 cov_2OH__2x1_off .in 4
