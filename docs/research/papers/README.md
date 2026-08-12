@@ -1,8 +1,10 @@
 # Local reading copies — paywalled pulls
 
-Fifteen publisher PDFs, pulled 2026-08-11, clearing most of the "paywalled-no-OA items
+Seventeen publisher PDFs, pulled 2026-08-11, clearing the "paywalled-no-OA items
 flagged for Purdue library pull" list in `docs/28` §9 and the `[PAYWALLED]` flags in
-`docs/research/2026-07-24-methodology-survey.md`.
+`docs/research/2026-07-24-methodology-survey.md`. The full set was read and integrated
+against the pre-registered plan the same day — see
+`docs/research/2026-08-11-paywalled-sweep-plan-implications.md`.
 
 **The PDFs are gitignored and stay on this machine.** This repository is public;
 redistributing a publisher PDF is a copyright problem however the copy was obtained. This
@@ -23,6 +25,7 @@ in.
 | `Tripkovic-2018_JPCC_DFTU-vs-HSE-perovskite-OER.pdf` | Tripkovic, Hansen, Garcia-Lastra & Vegge, "Comparative DFT+U and HSE Study of the Oxygen Evolution Electrocatalysis on Perovskite Oxides," *J. Phys. Chem. C* **2018**, 122, 1135–1147. [10.1021/acs.jpcc.7b07660](https://doi.org/10.1021/acs.jpcc.7b07660) | Functional-choice benchmark (survey recommendation 9): how far +U and HSE move OER energetics on oxides, which bounds how much of our spread is functional artefact. |
 | `Grimaud-2017_NatChem_lattice-oxygen-redox.pdf` | Grimaud, Diaz-Morales, Han, Hong, Lee, Giordano, Stoerzinger, Koper & Shao-Horn, "Activating lattice oxygen redox reactions in metal oxides to catalyse oxygen evolution," *Nat. Chem.* **2017**. [10.1038/NCHEM.2695](https://doi.org/10.1038/NCHEM.2695) — *this copy is the advance-online PDF and carries no volume/pages; the survey records them as 9(5), 457–465* | The lattice-oxygen mechanism (survey recommendation 8). Relevant wherever AEM may not be the operative path. |
 | `Fabbri-2018_ACSCatal_OER-enigma-viewpoint.pdf` | Fabbri & Schmidt, "Oxygen Evolution Reaction — The Enigma in Water Electrolysis," *ACS Catal.* **2018**, 8, 9765–9774. [10.1021/acscatal.8b02712](https://doi.org/10.1021/acscatal.8b02712) | Short viewpoint; useful framing and citation anchor for the report's mechanism paragraph. |
+| `man2011.pdf` | Man, Su, Calle-Vallejo, Hansen, Martínez, Inoglu, Kitchin, Jaramillo, Nørskov & Rossmeisl, "Universality in Oxygen Evolution Electrocatalysis on Oxide Surfaces," *ChemCatChem* **2011**, 3, 1159–1165. [10.1002/cctc.201000397](https://doi.org/10.1002/cctc.201000397) | The universal-scaling paper (3.20 eV intercept, MAE 0.17 eV, ~0.37 V planar-oxide floor). Pulled for the tabulated ΔG values, not the argument; corroborates the Divanis 3.18 ± 0.12 eV constant that P17 already uses. |
 
 ## Solvation and the interface
 
@@ -46,17 +49,25 @@ treatment of the intermediate is what moved the number.
 | `Jia-2025_JACS_closed-loop-bifunctional-oxide-discovery.pdf` | Jia, Zhou *et al.*, "Closed-Loop Framework for Discovering Stable and Low-Cost Bifunctional Metal Oxide Catalysts for Efficient Electrocatalytic Water Splitting in Acid," *J. Am. Chem. Soc.* **2025**, 147, 22642–22654. [10.1021/jacs.5c04079](https://doi.org/10.1021/jacs.5c04079) | Active-learning loop over the same objective (activity + stability + cost). Same competitive-benchmark caution as above. |
 | `Deng-2025_ACSCatal_betaMnO2-IrRu-cosubstitution.pdf` | Deng, Liu *et al.*, "Rational Design of β-MnO2 via Ir/Ru Co-substitution for Enhanced Oxygen Evolution Reaction in Acidic Media," *ACS Catal.* **2025**, 15, 1782–1794. [10.1021/acscatal.4c05989](https://doi.org/10.1021/acscatal.4c05989) | Mn-rutile host with noble co-substitution — directly relevant given Mn ranked best on both η and G_max in `docs/29`. |
 | `Burnett-2020_ChemMater_M-RuO2-rutiles-MEA.pdf` | Burnett, Petrucco, Rigg, Zalitis, Lok, Kashtiban, Lees, Sharman & Walton, "(M,Ru)O2 (M = Mg, Zn, Cu, Ni, Co) Rutiles and Their Use as Oxygen Evolution Electrocatalysts in Membrane Electrode Assemblies under Acidic Conditions," *Chem. Mater.* **2020**, 32, 6150–6160. [10.1021/acs.chemmater.0c01884](https://doi.org/10.1021/acs.chemmater.0c01884) | Synthesised (M,Ru)O2 rutiles measured in a real MEA — the experimental reality check on a computed ranking, and it includes Cu and Co. |
+| `1-s2.0-S0021951725000338-main.pdf` | Feng, Li, Zheng, Zhong, Wang & Wang, "GC-DFT simulation of coverage and potential effect for oxygen evolution reaction on RuO2-based electrocatalyst," *J. Catal.* **2025**, 443, 115968. [10.1016/j.jcat.2025.115968](https://doi.org/10.1016/j.jcat.2025.115968) | Item **B2** of the rutile-landscape survey and the most direct overlap with this project: our exact 3d dopant set on RuO2(110) with surface Pourbaix, GC-DFT and their own synthesis (Cr-RuO2 201 mV, best in set) — at zero Hubbard U and no spin. |
 
-## Still missing from the `docs/28` §9 flagged list
+## Next pulls flagged by the 2026-08-11 sweep
 
-- **Man 2011 numeric tables** — Man, Su, Calle-Vallejo, Hansen, Martínez, Inoglu, Kitchin,
-  Jaramillo, Nørskov & Rossmeisl, *ChemCatChem* 2011, [10.1002/cctc.201000397](https://doi.org/10.1002/cctc.201000397).
-  Wanted for the tabulated ΔG values, not the argument.
-- **Feng 2025, GC-DFT doped-RuO2** — "GC-DFT simulation of coverage and potential effect for
-  OER on RuO₂-based electrocatalyst," *J. Catal.*, ScienceDirect PII **S0021951725000338**
-  (item **B2** of the rutile-landscape survey). This is the one that most directly overlaps
-  the project — grand-canonical DFT over M-RuO₂ for exactly our 3d set — so it is the highest
-  priority of the two remaining pulls.
+The original `docs/28` §9 flagged list is now fully cleared (Man 2011 and Feng 2025 both
+arrived in this pull). The sweep memo's citation ledger (§7) flags the next round, in
+priority order:
+
+- **Xu, Rossmeisl & Kitchin,** "A Linear Response DFT+U Study of Trends in the Oxygen
+  Evolution Activity of Transition Metal Rutile Dioxides," *J. Phys. Chem. C* **2015**, 119,
+  4827. **Gates the hp.x novelty wording** — likely bulk-only linear response, which would
+  preserve our slab claim, but that must be read, not assumed.
+- **Lin 2019**, *Nat. Commun.* 10:162 — Cr₀.₆Ru₀.₄O₂ experimental prior art.
+- **Comer 2022**, *J. Phys. Chem. C* 126, 7903 — pure-rutile slab series.
+- **Dickens, Kirk & Nørskov 2019**, *J. Phys. Chem. C* — kinetic volcano.
+- **McCrory 2013**, *JACS* 135, 16977 + **Palkovits 2019**, *ACS Catal.* 9, 8383 — the
+  η = 0.3 V benchmarking convention.
+- **Sun 2024 and Cao 2026 SIs** (free ACS downloads) — per-dopant experimental η₁₀ and
+  Cao's dopant-U table (direct comparator for our hp.x numbers).
 
 ## One correction this pull turned up
 
