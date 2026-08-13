@@ -1086,6 +1086,13 @@ def cmd_gate1(a):
     # are just as exposed and the marginal cost is five cheap SCFs.
     targets = [j for j in man["jobs"]
                if j["metal"] == "Cr" and j["calculation"] == "relax"]
+    # amendment 4 s2: EVERY Cr relaxation gets a GATE-1 child -- including the
+    # s2-A.2 contingency relaxation, whose row lives in the refmir manifest.
+    rm_path = os.path.join(a.out, "cellsym_refmir_manifest.json")
+    if os.path.exists(rm_path):
+        rman = json.load(open(rm_path, encoding="utf-8"))
+        targets += [j for j in rman["jobs"]
+                    if j["metal"] == "Cr" and j["calculation"] == "relax"]
     if not targets:
         raise SystemExit("refusing: no Cr relaxations in the manifest")
 
