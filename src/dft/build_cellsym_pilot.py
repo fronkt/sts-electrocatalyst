@@ -1199,6 +1199,135 @@ def cmd_gate1(a):
     return 0
 
 
+# ------------------- s2-A.2 registered contingency: ref__2x1o_mir (--refmir) ---
+
+def cmd_refmir(a):
+    """Emit the registered spectator-contingency deck `ref__2x1o_mir` per metal.
+
+    docs/43 s2 (amendment 4) registered, before the fact: if `ref__2x1o`'s
+    spectator relaxes to |dy| > 0.02 A, a `ref__2x1o_mir` job is added BEFORE
+    the interaction term S(2x1o) - S(2x1v) is scored. This emitter measures the
+    trigger from `ref__2x1o.out` itself and REFUSES to emit for a metal whose
+    contingency has not fired -- an untriggered mir ref would be a new arm, not
+    the registered contingency. The deck is `ref__2x1o` with the spectator
+    pinned on the mirror plane (spec_mir, no kick) and the mirror arm's
+    symmetry treatment (no nosym/noinv, mirror-folded k-set): exactly the
+    construction every 2x1o mir deck in the block uses.
+    """
+    man_path = os.path.join(a.out, "cellsym_manifest.json")
+    if not os.path.exists(man_path):
+        raise SystemExit(f"refusing: {man_path} not found; build the block first")
+    man = json.load(open(man_path, encoding="utf-8"))
+    dy_tol = PREREG["spectator_contingency_dy_A"][0]
+
+    rows = []
+    for M in a.metals:
+        cfg = METALS[M]
+        rd, n_slab = cfg["rundir"], cfg["n_slab"]
+        outdir = os.path.join(a.out, f"{M}_cellsym")
+        name = "ref__2x1o_mir"
+
+        # ---- the trigger, measured from ref__2x1o.out itself (never from a
+        # readout file: the builder re-derives what it acts on)
+        op = os.path.join(outdir, "ref__2x1o.out")
+        rec = read_out(op)
+        if not _scoreable(rec, "relax"):
+            raise SystemExit(f"refusing {M}: ref__2x1o is not a converged relax "
+                             f"({op}); the contingency cannot be evaluated")
+        pos_ref, prov = parse_final_coordinates(op)
+        man_geom = [g for g in man["geometry"] if g["metal"] == M][0]
+        y_mirror_man = man_geom["y_mirror"]
+        if pos_ref is None or prov != "final":
+            raise SystemExit(f"refusing {M}: ref__2x1o geometry provenance {prov!r}")
+        dy = abs(pos_ref[-1][2] - y_mirror_man)
+        if dy <= dy_tol:
+            raise SystemExit(
+                f"refusing {M}: measured spectator |dy| = {dy:.4f} A <= {dy_tol} "
+                "-- the s2-A.2 contingency has NOT fired for this metal and a "
+                "mir ref would be a new arm, not the registered contingency")
+
+        # ---- rebuild the wave-1 geometry from the same sources build_metal
+        # used, and refuse if they have moved since wave 1
+        src = {job: load(rd, job, cfg["basin_out"].get(job))
+               for job in ("slab", "s0_O", "s0_OOH")}
+        slab_clean = src["slab"]["pos"]
+        cus = cus_metal(slab_clean, src["s0_OOH"]["pos"][n_slab:])
+        y_mirror = cus[2]
+        # the manifest records y_mirror rounded (5 decimals); a real source move
+        # is >= 1e-4, so 1e-5 separates rounding from drift
+        if abs(y_mirror - y_mirror_man) > 1e-5:
+            raise SystemExit(f"refusing {M}: re-derived y_mirror {y_mirror!r} != "
+                             f"manifest {y_mirror_man!r}; sources moved since wave 1")
+        a1 = src["slab"]["deck"]["cell"][0][0]
+        mask = src["slab"]["deck"]["flags"][:n_slab]
+        slab_O = src["s0_O"]["pos"][:n_slab]
+        spec_mir = shift_x(src["s0_O"]["pos"][n_slab:], a1)
+        positions = slab_clean + shift_x(slab_O, a1) + spec_mir
+
+        d = dict(parse_input_deck(os.path.join(rd, "s0_O.in")))
+        d["flags"] = list(mask) * 2 + ["1 1 1"]
+        d["nosym"] = False                       # mir arm: the mirror stays on
+        d["cell"] = [[d["cell"][0][0] * 2.0, 0.0, 0.0],
+                     list(d["cell"][1]), list(d["cell"][2])]
+        d["kpts"] = ("automatic", list(KMESH_2X1) + ["0", "0", "0"])
+        text, _ = write_probe(d, positions, parse_variant("base"), name,
+                              a.pseudo_dir, a.scratch, calculation="relax")
+
+        # the mirror folds the 4x4 grid 16 -> 9, measured on this cell in the
+        # build path (Ir s0_OOH__2x1v_mir probe, 2026-08-09). More symmetry than
+        # the mirror would only lower nkp further; nk=2 still divides.
+        nkp = 9
+        steps = int(math.ceil(src["s0_O"]["steps_1x1"] * STEP_MULT_2X1))
+        h4 = est_hours_np4(nkp, steps, cfg["magnetic"], True)
+        h_run = h4 / RANK_SPEEDUP_NP20
+        ms = max(MAX_SECONDS_FLOOR, int(round(MAX_SECONDS_SAFETY * h_run * 3600)))
+        cut = text.index("\n/\n")
+        text = text[:cut] + f"\n  max_seconds = {ms}" + text[cut:]
+        meta = guard(text, os.path.join(rd, "s0_O.in"), name,
+                     dict(cell_mult=2.0, kmesh=KMESH_2X1, nat=len(positions),
+                          n_halves=2, y_mirror=y_mirror, sym="mir",
+                          max_seconds=ms))
+        blob = text.encode("utf-8")
+        nk = 2                                   # nkp 9 < 12; 20 % 2 == 0
+        if not a.dry_run:
+            with open(os.path.join(outdir, name + ".in"), "wb") as fh:
+                fh.write(blob)
+        rows.append(dict(metal=M, job=name, deck_source="s0_O", arm="2x1o",
+                         state="ref", calculation="relax", sym="mir",
+                         kmesh=" ".join(KMESH_2X1), n_kpt_est=nkp, nk=nk,
+                         np_run=20, steps_est=steps, max_seconds=ms,
+                         est_hours_at_np20=round(h_run, 1),
+                         trigger_measured_dy_A=round(dy, 4),
+                         trigger_threshold_A=dy_tol,
+                         spectator_y=round(positions[-1][2], 8),
+                         md5=hashlib.md5(blob).hexdigest(), **meta))
+
+    lines = ["# docs/43 s2 amendment-4 registered contingency (s2-A.2): the",
+             "# ref__2x1o spectator settled off-plane, so the mirror reference",
+             "# runs BEFORE the interaction S(2x1o) - S(2x1v) is scored.",
+             "# NP=20 NCONC=1",
+             "# bash queue_r1.sh m_cellsym_refmir.txt 20 1",
+             "# 20 is an exact multiple of every nk below; NP x NCONC <= 23."]
+    lines += [f"probe/{r['metal']}_cellsym {r['job']} .in {r['nk']}" for r in rows]
+    if not a.dry_run:
+        with open(os.path.join(a.out, "m_cellsym_refmir.txt"), "w",
+                  encoding="utf-8", newline="\n") as fh:
+            fh.write("\n".join(lines) + "\n")
+        with open(os.path.join(a.out, "cellsym_refmir_manifest.json"), "w",
+                  encoding="utf-8", newline="\n") as fh:
+            json.dump(dict(prereg=f"{DOC43} s2-A.2 registered contingency",
+                           note=("Cr's ref__2x1o_mir, once converged, needs its "
+                                 "__g1 fresh-density child before its energy "
+                                 "enters any gate or pair (amendment 4 s2)."),
+                           jobs=rows), fh, indent=2)
+    for r in rows:
+        print(f"{r['metal']}: {r['job']} dy={r['trigger_measured_dy_A']} A "
+              f"steps_est={r['steps_est']} max_seconds={r['max_seconds']} "
+              f"md5={r['md5'][:8]}")
+    print(f"{len(rows)} contingency decks -> {a.out}")
+    return 0
+
+
 # ------------------------------------------------ the readout: --score (wave 3) ---
 #
 # docs/43 s2-A.3(a) and s2-A.4 are RULES, and until this existed they were rules
@@ -1643,6 +1772,10 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--gate1", action="store_true",
                     help="wave 2: emit the Cr GATE-1 SCFs from converged 1A outputs")
+    ap.add_argument("--refmir", action="store_true",
+                    help="s2-A.2 registered contingency: emit ref__2x1o_mir for "
+                         "every metal whose ref__2x1o spectator settled at "
+                         "|dy| > the registered threshold")
     ap.add_argument("--score", action="store_true",
                     help="wave 3: read the block -- Cr mir/off magnetisation pairs "
                          "(docs/43 s2-A.3(a)), GATE C and C-2 (s2-A.4) and the "
@@ -1653,6 +1786,8 @@ def main():
     prereg = _prereg_check()
     if a.gate1:
         return cmd_gate1(a)
+    if a.refmir:
+        return cmd_refmir(a)
     if a.score:
         return cmd_score(a)
 
