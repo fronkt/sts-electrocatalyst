@@ -1198,5 +1198,470 @@
       "status": "TRIGGERED",
       "action": "ref__2x1o_mir exists and is converged; interaction may be scored"
     }
-  ]
+  ],
+  "kmesh_bridge": [
+    {
+      "state": "slab",
+      "clause": "docs/43-prereg-week1-factorial.md s2-A.5",
+      "status": "MEASURED",
+      "delta_k_meV": 2.22,
+      "d_total_magnetization": 0.0,
+      "d_absolute_magnetization": -0.01
+    },
+    {
+      "state": "s0_O",
+      "clause": "docs/43-prereg-week1-factorial.md s2-A.5",
+      "status": "MEASURED",
+      "delta_k_meV": 2.59,
+      "d_total_magnetization": 0.0,
+      "d_absolute_magnetization": -0.02
+    },
+    {
+      "state": "s0_OH",
+      "clause": "docs/43-prereg-week1-factorial.md s2-A.5",
+      "status": "MEASURED",
+      "delta_k_meV": 0.75,
+      "d_total_magnetization": 0.0,
+      "d_absolute_magnetization": -0.02
+    },
+    {
+      "state": "s0_OOH",
+      "clause": "docs/43-prereg-week1-factorial.md s2-A.5",
+      "status": "MEASURED",
+      "delta_k_meV": 4.18,
+      "d_total_magnetization": 0.0,
+      "d_absolute_magnetization": -0.02
+    }
+  ],
+  "cell_decision": {
+    "rows": [
+      {
+        "metal": "Cr",
+        "state": "s0_O",
+        "threshold_eV": 0.1,
+        "clause": "docs/43-prereg-week1-factorial.md s2 (production-cell decision; off arm only)",
+        "D_cell_raw_eV": -0.3613,
+        "energy_provenance": {
+          "ref_2x1v": "gate1 SCF",
+          "slab_1x1": "prevalidated (docs/41 s6f basin restart / production) (production slab; not a block-1A relaxation, no __g1 child exists)",
+          "off_1x1": "gate1 SCF",
+          "off_2x1v": "gate1 SCF"
+        },
+        "kbridge_correction_eV": 0.0004,
+        "kbridge_note": "s2-A.5: bridge measured at the production mirror geometry, applied to the off row; the k-sensitivity is published, not hidden inside the cell effect",
+        "D_cell_eV": -0.3616,
+        "status": "EXCEEDS"
+      },
+      {
+        "metal": "Cr",
+        "state": "s0_OH",
+        "threshold_eV": 0.1,
+        "clause": "docs/43-prereg-week1-factorial.md s2 (production-cell decision; off arm only)",
+        "D_cell_raw_eV": -0.221,
+        "energy_provenance": {
+          "ref_2x1v": "gate1 SCF",
+          "slab_1x1": "prevalidated (docs/41 s6f basin restart / production) (production slab; not a block-1A relaxation, no __g1 child exists)",
+          "off_1x1": "gate1 SCF",
+          "off_2x1v": "gate1 SCF"
+        },
+        "kbridge_correction_eV": -0.0015,
+        "kbridge_note": "s2-A.5: bridge measured at the production mirror geometry, applied to the off row; the k-sensitivity is published, not hidden inside the cell effect",
+        "D_cell_eV": -0.2195,
+        "status": "EXCEEDS",
+        "off_arm_flags": [
+          "1x1 pair CONFOUNDED"
+        ]
+      },
+      {
+        "metal": "Cr",
+        "state": "s0_OOH",
+        "threshold_eV": 0.1,
+        "clause": "docs/43-prereg-week1-factorial.md s2 (production-cell decision; off arm only)",
+        "D_cell_raw_eV": -0.154,
+        "energy_provenance": {
+          "ref_2x1v": "gate1 SCF",
+          "slab_1x1": "prevalidated (docs/41 s6f basin restart / production) (production slab; not a block-1A relaxation, no __g1 child exists)",
+          "off_1x1": "gate1 SCF",
+          "off_2x1v": "gate1 SCF"
+        },
+        "kbridge_correction_eV": 0.002,
+        "kbridge_note": "s2-A.5: bridge measured at the production mirror geometry, applied to the off row; the k-sensitivity is published, not hidden inside the cell effect",
+        "D_cell_eV": -0.1559,
+        "status": "EXCEEDS",
+        "off_arm_flags": [
+          "1x1 pair CONFOUNDED",
+          "2x1v pair CONFOUNDED"
+        ]
+      },
+      {
+        "metal": "Ir",
+        "state": "s0_O",
+        "threshold_eV": 0.1,
+        "clause": "docs/43-prereg-week1-factorial.md s2 (production-cell decision; off arm only)",
+        "D_cell_raw_eV": -0.1149,
+        "energy_provenance": {
+          "ref_2x1v": "raw relax",
+          "slab_1x1": "raw relax (production slab; not a block-1A relaxation, no __g1 child exists)",
+          "off_1x1": "raw relax",
+          "off_2x1v": "raw relax"
+        },
+        "D_cell_eV": -0.1149,
+        "status": "EXCEEDS"
+      },
+      {
+        "metal": "Ir",
+        "state": "s0_OH",
+        "threshold_eV": 0.1,
+        "clause": "docs/43-prereg-week1-factorial.md s2 (production-cell decision; off arm only)",
+        "D_cell_raw_eV": 0.0661,
+        "energy_provenance": {
+          "ref_2x1v": "raw relax",
+          "slab_1x1": "raw relax (production slab; not a block-1A relaxation, no __g1 child exists)",
+          "off_1x1": "raw relax",
+          "off_2x1v": "raw relax"
+        },
+        "D_cell_eV": 0.0661,
+        "status": "WITHIN"
+      },
+      {
+        "metal": "Ir",
+        "state": "s0_OOH",
+        "threshold_eV": 0.1,
+        "clause": "docs/43-prereg-week1-factorial.md s2 (production-cell decision; off arm only)",
+        "D_cell_raw_eV": -0.1687,
+        "energy_provenance": {
+          "ref_2x1v": "raw relax",
+          "slab_1x1": "raw relax (production slab; not a block-1A relaxation, no __g1 child exists)",
+          "off_1x1": "raw relax",
+          "off_2x1v": "raw relax"
+        },
+        "D_cell_eV": -0.1687,
+        "status": "EXCEEDS"
+      },
+      {
+        "metal": "Ru",
+        "state": "s0_O",
+        "threshold_eV": 0.1,
+        "clause": "docs/43-prereg-week1-factorial.md s2 (production-cell decision; off arm only)",
+        "D_cell_raw_eV": -0.1247,
+        "energy_provenance": {
+          "ref_2x1v": "raw relax",
+          "slab_1x1": "raw relax (production slab; not a block-1A relaxation, no __g1 child exists)",
+          "off_1x1": "raw relax",
+          "off_2x1v": "raw relax"
+        },
+        "D_cell_eV": -0.1247,
+        "status": "EXCEEDS"
+      },
+      {
+        "metal": "Ru",
+        "state": "s0_OH",
+        "threshold_eV": 0.1,
+        "clause": "docs/43-prereg-week1-factorial.md s2 (production-cell decision; off arm only)",
+        "D_cell_raw_eV": -0.2515,
+        "energy_provenance": {
+          "ref_2x1v": "raw relax",
+          "slab_1x1": "raw relax (production slab; not a block-1A relaxation, no __g1 child exists)",
+          "off_1x1": "raw relax",
+          "off_2x1v": "raw relax"
+        },
+        "D_cell_eV": -0.2515,
+        "status": "EXCEEDS",
+        "off_arm_flags": [
+          "1x1 pair SIGN_VIOLATION"
+        ]
+      },
+      {
+        "metal": "Ru",
+        "state": "s0_OOH",
+        "threshold_eV": 0.1,
+        "clause": "docs/43-prereg-week1-factorial.md s2 (production-cell decision; off arm only)",
+        "D_cell_raw_eV": 0.0018,
+        "energy_provenance": {
+          "ref_2x1v": "raw relax",
+          "slab_1x1": "raw relax (production slab; not a block-1A relaxation, no __g1 child exists)",
+          "off_1x1": "raw relax",
+          "off_2x1v": "raw relax"
+        },
+        "D_cell_eV": 0.0018,
+        "status": "WITHIN"
+      }
+    ],
+    "verdict": "ADOPT_2X1V",
+    "rows_exceeding": [
+      "Cr s0_O -0.362 eV",
+      "Cr s0_OH -0.220 eV",
+      "Cr s0_OOH -0.156 eV",
+      "Ir s0_O -0.115 eV",
+      "Ir s0_OOH -0.169 eV",
+      "Ru s0_O -0.125 eV",
+      "Ru s0_OH -0.252 eV"
+    ],
+    "coverage_live_variable": true,
+    "coverage_rows_exceeding": [
+      "Cr s0_O +0.724 eV",
+      "Cr s0_OH +0.529 eV",
+      "Ir s0_O +0.230 eV",
+      "Ir s0_OOH +0.186 eV",
+      "Ru s0_O +0.234 eV",
+      "Ru s0_OH +0.269 eV"
+    ]
+  },
+  "coverage": [
+    {
+      "metal": "Cr",
+      "state": "s0_O",
+      "threshold_eV": 0.1,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (resting-state coverage)",
+      "D_cov_eV": 0.7244,
+      "status": "EXCEEDS"
+    },
+    {
+      "metal": "Cr",
+      "state": "s0_OH",
+      "threshold_eV": 0.1,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (resting-state coverage)",
+      "D_cov_eV": 0.5291,
+      "status": "EXCEEDS"
+    },
+    {
+      "metal": "Cr",
+      "state": "s0_OOH",
+      "threshold_eV": 0.1,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (resting-state coverage)",
+      "D_cov_eV": 0.0467,
+      "status": "WITHIN"
+    },
+    {
+      "metal": "Ir",
+      "state": "s0_O",
+      "threshold_eV": 0.1,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (resting-state coverage)",
+      "D_cov_eV": 0.2295,
+      "status": "EXCEEDS"
+    },
+    {
+      "metal": "Ir",
+      "state": "s0_OH",
+      "threshold_eV": 0.1,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (resting-state coverage)",
+      "D_cov_eV": 0.0597,
+      "status": "WITHIN"
+    },
+    {
+      "metal": "Ir",
+      "state": "s0_OOH",
+      "threshold_eV": 0.1,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (resting-state coverage)",
+      "D_cov_eV": 0.1859,
+      "status": "EXCEEDS"
+    },
+    {
+      "metal": "Ru",
+      "state": "s0_O",
+      "threshold_eV": 0.1,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (resting-state coverage)",
+      "D_cov_eV": 0.2345,
+      "status": "EXCEEDS"
+    },
+    {
+      "metal": "Ru",
+      "state": "s0_OH",
+      "threshold_eV": 0.1,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (resting-state coverage)",
+      "D_cov_eV": 0.2692,
+      "status": "EXCEEDS"
+    },
+    {
+      "metal": "Ru",
+      "state": "s0_OOH",
+      "threshold_eV": 0.1,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (resting-state coverage)",
+      "D_cov_eV": 0.0433,
+      "status": "WITHIN"
+    }
+  ],
+  "interaction": [
+    {
+      "metal": "Cr",
+      "state": "s0_O",
+      "additive_max_eV": 0.05,
+      "not_separable_min_eV": 0.3,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (Interaction)",
+      "I_eV": 0.0002,
+      "status": "ADDITIVE"
+    },
+    {
+      "metal": "Cr",
+      "state": "s0_OH",
+      "additive_max_eV": 0.05,
+      "not_separable_min_eV": 0.3,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (Interaction)",
+      "status": "NOT_SCOREABLE",
+      "reason": "1x1 pair CONFOUNDED"
+    },
+    {
+      "metal": "Cr",
+      "state": "s0_OOH",
+      "additive_max_eV": 0.05,
+      "not_separable_min_eV": 0.3,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (Interaction)",
+      "status": "NOT_SCOREABLE",
+      "reason": "1x1 pair CONFOUNDED; 2x1v pair CONFOUNDED"
+    },
+    {
+      "metal": "Ir",
+      "state": "s0_O",
+      "additive_max_eV": 0.05,
+      "not_separable_min_eV": 0.3,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (Interaction)",
+      "I_eV": -0.0008,
+      "status": "ADDITIVE"
+    },
+    {
+      "metal": "Ir",
+      "state": "s0_OH",
+      "additive_max_eV": 0.05,
+      "not_separable_min_eV": 0.3,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (Interaction)",
+      "I_eV": -0.0429,
+      "status": "ADDITIVE"
+    },
+    {
+      "metal": "Ir",
+      "state": "s0_OOH",
+      "additive_max_eV": 0.05,
+      "not_separable_min_eV": 0.3,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (Interaction)",
+      "I_eV": 0.2661,
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "metal": "Ru",
+      "state": "s0_O",
+      "additive_max_eV": 0.05,
+      "not_separable_min_eV": 0.3,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (Interaction)",
+      "I_eV": -0.001,
+      "status": "ADDITIVE"
+    },
+    {
+      "metal": "Ru",
+      "state": "s0_OH",
+      "additive_max_eV": 0.05,
+      "not_separable_min_eV": 0.3,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (Interaction)",
+      "status": "NOT_SCOREABLE",
+      "reason": "1x1 pair SIGN_VIOLATION"
+    },
+    {
+      "metal": "Ru",
+      "state": "s0_OOH",
+      "additive_max_eV": 0.05,
+      "not_separable_min_eV": 0.3,
+      "clause": "docs/43-prereg-week1-factorial.md s2 (Interaction)",
+      "I_eV": -0.0271,
+      "status": "ADDITIVE"
+    }
+  ],
+  "spectator_symmetry": [
+    {
+      "metal": "Cr",
+      "clause": "docs/43-prereg-week1-factorial.md s2 (Design) + s2-A.2",
+      "status": "MEASURED",
+      "S_spec_eV": 0.0,
+      "energy_provenance": {
+        "ref_2x1o": "gate1 SCF",
+        "ref_2x1o_mir": "gate1 SCF"
+      },
+      "per_state": [
+        {
+          "state": "s0_O",
+          "status": "SCORED",
+          "S_2x1o_raw_eV": 0.00072,
+          "S_2x1o_armref_eV": 0.0007,
+          "I_spec_eV": 0.0007
+        },
+        {
+          "state": "s0_OH",
+          "status": "NOT_SCOREABLE",
+          "reason": "2x1o pair SIGN_VIOLATION"
+        },
+        {
+          "state": "s0_OOH",
+          "status": "NOT_SCOREABLE",
+          "reason": "2x1o pair CONFOUNDED; 2x1v pair CONFOUNDED"
+        }
+      ]
+    },
+    {
+      "metal": "Ir",
+      "clause": "docs/43-prereg-week1-factorial.md s2 (Design) + s2-A.2",
+      "status": "MEASURED",
+      "S_spec_eV": 0.0001,
+      "energy_provenance": {
+        "ref_2x1o": "raw relax",
+        "ref_2x1o_mir": "raw relax"
+      },
+      "per_state": [
+        {
+          "state": "s0_O",
+          "status": "SCORED",
+          "S_2x1o_raw_eV": 0.00158,
+          "S_2x1o_armref_eV": 0.0014,
+          "I_spec_eV": 0.0013
+        },
+        {
+          "state": "s0_OH",
+          "status": "SCORED",
+          "S_2x1o_raw_eV": 0.003206,
+          "S_2x1o_armref_eV": 0.0031,
+          "I_spec_eV": 0.0402
+        },
+        {
+          "state": "s0_OOH",
+          "status": "NOT_SCOREABLE",
+          "reason": "2x1o pair SIGN_VIOLATION"
+        }
+      ]
+    },
+    {
+      "metal": "Ru",
+      "clause": "docs/43-prereg-week1-factorial.md s2 (Design) + s2-A.2",
+      "status": "MEASURED",
+      "S_spec_eV": -0.0,
+      "energy_provenance": {
+        "ref_2x1o": "raw relax",
+        "ref_2x1o_mir": "raw relax"
+      },
+      "per_state": [
+        {
+          "state": "s0_O",
+          "status": "SCORED",
+          "S_2x1o_raw_eV": -0.012956,
+          "S_2x1o_armref_eV": -0.0129,
+          "I_spec_eV": -0.0129
+        },
+        {
+          "state": "s0_OH",
+          "status": "SCORED",
+          "S_2x1o_raw_eV": -0.011484,
+          "S_2x1o_armref_eV": -0.0115,
+          "I_spec_eV": -0.0244
+        },
+        {
+          "state": "s0_OOH",
+          "status": "SCORED",
+          "S_2x1o_raw_eV": -0.090353,
+          "S_2x1o_armref_eV": -0.0903,
+          "I_spec_eV": 0.0185
+        }
+      ]
+    }
+  ],
+  "hessian_unlock_s3A7": {
+    "clause": "docs/43-prereg-week1-factorial.md s3-A.7",
+    "status": "UNLOCKED",
+    "action": "Cr (block 1C) now runs in the 2x1v production cell"
+  }
 }
