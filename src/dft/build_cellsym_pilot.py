@@ -1184,7 +1184,9 @@ def cmd_gate1(a):
              f"{PREREG['cr_gate1_scf_tol_meV'][0]} meV.",
              "# NP=20 NCONC=1",
              "# bash queue_r1.sh m_cellsym_gate1.txt 20 1",
-             "# NP=20 is an exact multiple of every nk below; NP x NCONC <= 23."]
+             # NOT "# NP=20 is an exact multiple ..." -- a comment that BEGINS
+             # like a directive trips queue_r1's malformed-np-directive refusal.
+             "# 20 is an exact multiple of every nk below; NP x NCONC <= 23."]
     lines += [f"probe/Cr_cellsym {r['job']} .in {r['nk']}" for r in rows]
     if not a.dry_run:
         with open(os.path.join(a.out, "m_cellsym_gate1.txt"), "w",
