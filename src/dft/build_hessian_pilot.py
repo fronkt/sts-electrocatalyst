@@ -290,11 +290,18 @@ STATES = {
              "the state P10 found a -0.291 eV yaw90 escape from (docs/41 s6c)",
     ),
     "Cr": dict(
-        rundir="runs/probe/Cr_basin", job="s0_OOH", n_slab=18, held=True,
+        # REPOINTED 2026-08-13 per runs/probe/Cr_hess/HELD-pending-block-1A-cell-verdict.txt
+        # step 1: block 1A returned ADOPT_2X1V (runs/probe/cellsym_readout.json, s3-A.7
+        # hessian_unlock UNLOCKED), so the held state now sources the converged Cr *OOH
+        # mirror relaxation in the 2x1-vacant production cell. cell_1x1_A is UNCHANGED —
+        # it is the 1x1 anchor the label derivation compares against.
+        rundir="runs/probe/Cr_cellsym", job="s0_OOH__2x1v_mir", n_slab=36, held=True,
         cell_1x1_A=(2.91600000, 6.25223816),   # runs/probe/Cr_basin/s0_OOH.in CELL_PARAMETERS
-        note="the BASIN-CORRECTED *OOH that is in tier_v2 (docs/41 s6f). NOT "
-             "runs/Cr_slab/s0_OOH, which is 178.58 meV high in a wrong magnetic solution. "
-             "This *OOH sets c_Cr = 3.102 eV and hence Cr's 9 meV scaling excess",
+        note="the mirror-arm *OOH relaxed in the 2x1-vacant cell block 1A adopted "
+             "(ADOPT_2X1V, 2026-08-13). GATE-1 AGREE via s0_OOH__2x1v_mir__g1 (22/22 "
+             "block). Supersedes runs/probe/Cr_basin/s0_OOH as 1C reference: at 1x1 the "
+             "*OOH hydrogen-bonds to its own periodic image (H...O 1.338 A) and the "
+             "verdict modes are governed by coverage, not the mirror (s3-A.7)",
     ),
 }
 
