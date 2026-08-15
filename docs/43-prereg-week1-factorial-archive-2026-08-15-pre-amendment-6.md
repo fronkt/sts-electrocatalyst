@@ -1,3 +1,12 @@
+<!-- ARCHIVE COPY. This is docs/43 exactly as last committed at 51c36a6 (2026-08-13,
+     amendments 1-5 included), BEFORE amendment 6. Kept as a browsable backup because a
+     pre-registration's value is that its earlier state can be read, not merely diffed
+     (lessons.md, 2026-07-01). The live document, including amendment 6, is
+     docs/43-prereg-week1-factorial.md. When this snapshot was taken: block 1A was
+     CLOSED and scored (verdict ADOPT_2X1V, commit 58f5867), block 1C's Cr arm had been
+     rebuilt in the 2x1v cell but not launched, LIT-2 had drained (3/3 clean) and LIT-3
+     was mid-flight on box 47662258 at job 1 of 8, and block 6A (the A0 U-grid) had not
+     been run or built. Amendment 6 concerns block 6A only. -->
 # 43 — Pre-registration: the Week-1 factorial, the Hessian test, and the *U* gate
 
 **Written 2026-08-09, before any Week-1 job was launched.** Deposited to Zenodo for a DOI
@@ -1158,152 +1167,4 @@ group's site). **Until 10.1021/jp511426q is pulled and read, the report may not 
 novelty or priority for any linear-response-U result beyond the plain statement of what
 was computed here.** The slab non-convergence observation remains reportable as an
 observation.
-
----
-
-# AMENDMENT 6 — 2026-08-15, before any block-6A (A0) deck is built or launched
-
-## A6.0 — What changed, and why this is registered now
-
-Block 6A — the A0 grid — was registered in §4 as *"the η(U) grid over 0–9 eV from pw.x
-alone (140 fixed-geometry SCFs)"*, declared independent of the 1B hp.x gate and declared
-to ship regardless of a NO-GO. It has never been built or run; only the inherited
-four-point ladders exist.
-
-Since it was registered, **block 1A closed with the verdict ADOPT_2X1V** (commit 58f5867):
-on 7 of 9 off-arm rows the 1×1 cell was systematically weakening binding through the
-periodic image, by 0.11–0.36 eV. A0's fixed geometries are 1×1. As registered, therefore,
-A0 would densify η(U) in a cell this campaign has since retired — a scope question the
-original registration never had to face.
-
-This amendment answers it **before a single A0 deck exists**, which is the only point at
-which the answer is worth anything.
-
-## A6.1 — The decision: the main grid stays 1×1, and a second arm crosses the cell
-
-**(a) A0-main, unchanged.** Dense η(U) grid, U = 0–9 eV, fixed geometry, 1×1 cell, pw.x
-only, ~140 SCFs — exactly as block 6A registered it.
-
-*Rationale, stated so it can be attacked:* P7 — the withdrawn η(Cr) headline, the 1.122 V
-swing — was measured in the 1×1 cell. A0's registered job is to bound **that** claim.
-Moving the grid wholesale into 2×1v would not bound P7; it would compute a different
-quantity and leave P7 a four-point result permanently, which is strictly worse for the
-finding the report is built on. The retired-cell objection is answered by (b), not by
-abandoning (a).
-
-**(b) A0-cell, newly registered.** A Cr-only 2×1v arm: four states (`ref`, `*O`, `*OH`,
-`*OOH`) × five U points = **20 fixed-geometry SCFs**, run on block 1A's already-relaxed
-2×1v Cr geometries. The builder must take those geometries from the production set that
-defines `tier_v3`, not re-pick them — a different 2×1v geometry would confound the cell
-comparison with a geometry comparison.
-
-U points: the four already on the ladder — `u0.0` = 0, `u0.5` = 1.85, `base` = 3.70,
-`u1.35` = 5.00 eV — plus **7.15 eV**, which is Xu, Rossmeisl & Kitchin 2015 Table 1's
-linear-response U for CrO₂ (10.1021/jp511426q). The fifth point is an external anchor,
-not a free choice made after seeing the first four.
-
-## A6.2 — The registered test: is the U error separable from the cell error?
-
-Over the five shared U points, with D(cell) = ΔG_O − ΔG_OH — the descriptor P7 measured —
-and span(cell) = max_U D − min_U D, define
-
-> **I_U ≡ span(2×1v) − span(1×1)**
-
-Thresholds are **inherited verbatim from §2's interaction bins** (P13, block 1A). They are
-not re-derived, and deliberately so: a threshold invented after the quantity is known is
-worth nothing.
-
-| \|I_U\| | declared reading |
-|---|---|
-| < 0.05 eV | **additive.** The U error and the cell error are separate corrections; the error budget may report and decompose them separately. |
-| ≥ 0.30 eV | **not separable.** Only the fully-corrected 2×1v U-sensitivity is reportable; the error budget carries one combined "cell + U" row and the report says so in words. |
-| 0.05–0.30 eV | **inconclusive.** Reported as inconclusive. Not rounded toward either. |
-
-*Prior, stated so it can be wrong:* I expect **|I_U| < 0.05 eV, additive.** Block 1A
-already measured the cell × symmetry interaction as additive on five of six scoreable rows
-(~0.00–0.04 eV) with one inconclusive (Ir `*OOH`, 0.266 eV), and the A5.1a mechanism test
-attributes the U-swing to a valence change on `*O` whose Δm is itself U-flat for every Cr
-state (range ≤ 0.12 μ_B). **If instead |I_U| ≥ 0.30 eV, the "separable error classes"
-framing that organises the entire report is wrong** and must be replaced by a
-non-decomposable combined budget. That is a legitimate result and it gets stated plainly,
-in the same paragraph as the finding it damages, not buried in supplementary material.
-
-**Second readout from the same arm, no extra compute:** whether the *location* of the
-volcano-apex crossing moves between cells. If the two cells place the crossing at U values
-differing by more than 1.0 eV, then A0's central claim — that the crossing is *located*
-rather than bracketed — is cell-conditional, and must be reported as such.
-
-## A6.3 — The reference anchors are in scope
-
-Production assigns **U = 0 to Ru and Ir** by the MP convention. That is a free choice this
-campaign has never examined, sitting underneath every number in the reference tier. Xu 2015
-computed 6.73 eV (Ru) and 5.91 eV (Ir) by linear response and reported that using them
-*improves* agreement with the experimental ordering — a 0.2–0.4 eV effect already flagged
-in the sweep memo §10.
-
-Registered: **A0-main spans U for Ru and Ir as well as the 3d metals**, over the same
-0–9 eV range, with Xu's computed values marked as declared anchor points.
-
-*Pre-registered prediction, falsifiable:* **the reference ordering Ir < Ru is stable across
-U ∈ [0, 9] eV.** If it inverts anywhere in the band, then the anchors against which every
-3d result in this campaign is reported are themselves U-conditional, and every ranking
-claim in the report — including the ones that survived P7 — inherits that caveat.
-
-This does **not** license re-deriving the production tier at nonzero Ru/Ir U. The
-production convention stays U = 0; any finding here is reported as a sensitivity, not
-applied as a correction.
-
-## A6.4 — What A0 may and may not claim
-
-- The **fixed-geometry approximation is unchanged** and must be restated wherever the grid
-  is used. A0 measures the U-response of energies at frozen geometry; it cannot see a
-  U-driven geometry change. Where A0 and a relaxed point disagree, **the relaxed point
-  wins** and the discrepancy is reported, not averaged.
-- **A0 does not supersede P7.** P7 stands as the registered prediction that triggered and
-  forced a withdrawal. A0 resolves it; it does not retroactively soften it.
-- **A5.1(b)'s ranking-claim rule continues to bind unchanged.** A0 supplies the U-band leg
-  from measured curves instead of interpolation. It relaxes none of the three legs.
-
-## A6.5 — Operational requirements, registered because they have already cost this campaign once
-
-1. **Charge densities must survive, or `projwfc.x` runs inline.** LIT-1 tranche 1 has no
-   Löwdin populations for exactly one reason: no `.save` directories survived (A5.1a).
-   Every A0 point either retains its `.save` or runs `projwfc.x` in the same job. Where
-   this holds, the moment-based valence tracker is upgraded to a charge-based one.
-2. **A declared escalation ladder for non-convergent points.** SCF convergence is expected
-   to be *worst* near the valence transition — precisely where the physics is. The
-   registered "re-run at tighter `conv_thr`" remedy is dead (amendment 2: QE's 1e-13 `ethr`
-   clamp). Replacement, in order: (i) restart from the converged neighbouring-U density as
-   `startingpot`; (ii) halve the mixing β; (iii) failing both, the point is recorded
-   **NOT_CONVERGED and plotted as a gap** — never interpolated across, never silently
-   dropped. A grid with holes is reportable. A grid with invented points is not.
-3. **The 2×1v arm scores only against GATE-1-passed parent geometries**, consistent with
-   §5 and amendment 4 §2.
-
-## A6.6 — Scope guard
-
-This amendment registers **~160 fixed-geometry SCFs and zero relaxations** (~140 A0-main +
-20 A0-cell). It alters no existing threshold: §2's interaction bins are reused unchanged,
-and the P12 bins, the 1C verdict ladder, the 1B GO window, the frozen tiers and A5.1(b) are
-untouched. It does **not** license an oxyhydroxide tier, an SQS/HEA tier, re-derivation of
-the production tier at nonzero Ru/Ir U, or any relaxation in any cell. Block 6A remains
-independent of the 1B hp.x gate and still ships regardless of its outcome.
-
-## A6.7 — A5.8's gate is discharged; recording it here so the live document is not stale
-
-A5.8 above states that the Xu 2015 gate is open. **It is not — it was discharged on
-2026-08-12** (commit 147f61e, sweep memo §10): `jp511426q.pdf` was pulled and read in full.
-Their linear-response U is **bulk-only** (Cococcioni 2×2×2 supercell, predating `hp.x`), so
-this campaign's slab-DFPT non-convergence observation survives as first-of-kind, and the
-wording ban A5.8 imposed is lifted to the extent that memo §10 records. The attribution
-debts that read created — on-rutile U-dependence to Xu 2015, and their p. 4831 caveat
-*"except perhaps near the top of the volcano"* being exactly P7's regime — are binding on
-report drafting under A5.6. A5.8's text is left standing rather than edited, per the
-no-edit-after-deposit rule; this section is the correction of record.
-
----
-
-**Deposit obligation.** Like amendments 1–5, this amendment must be Zenodo-deposited
-**before the first block-6A job runs**. That is Frank's action, and it is a launch gate,
-not a formality: an interaction test registered after the grid is read is not a test.
 
