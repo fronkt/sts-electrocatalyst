@@ -123,3 +123,36 @@ Motivating prior, updated after the 2026-08-12 Xu read (sweep memo §10): the on
 ## What A0 adds
 
 Everything above rests on four U points per metal — 0, 0.5×, 1×, 1.35× of the MP-fitted production U — inherited from the P7 probe. The registered A0 grid (docs/43 §4, block 6A: ~140 fixed-geometry SCFs spanning U = 0–9 eV, pw.x only, independent of the hp.x gate) extends each of these 4-point ladders to a dense grid over the full physically defensible U range. That buys: (i) η_TD(U) and G_max(U) as *curves*, so the volcano-apex crossing that produced the withdrawn Cr headline is located rather than bracketed; (ii) valence tracking with enough resolution to see *where* the active-site moment steps, not just that it differs between endpoints; (iii) the intercept test on a dense axis, directly comparable to Tripkovic's 0–5 eV span; and (iv) the U-band leg of the A5.1(b) ranking-claim rule ({U = 0, MP U, hp.x U if 1B returns GO}) evaluated from measured curves instead of interpolation. Per A5.1a, Löwdin populations from projwfc.x ride along wherever A0 regenerates charge densities (≤ ~150 cheap SCFs), upgrading the moment-based valence tracker with a charge-based one. The fixed-geometry approximation is unchanged in A0 and is stated wherever the grid is used.
+
+---
+
+## Correction of record — 2026-08-16
+
+**What is corrected.** Two sentences above call the LIT-1 Cr system a "**doped** rutile"
+(the motivating-prior paragraph: "a replication-and-extension of their result on a
+**doped** rutile under our protocol") and attribute the 0.447 eV intercept drift to
+"a doped-Cr-specific effect at this resolution."
+
+**The correction.** The system is not doped. `src/dft/gen_rutile.py` line 65 builds
+**stoichiometric rutile CrO₂** at the experimental lattice (a = 4.421 Å, c = 2.916 Å,
+u = 0.3023) and tags it `# real rutile (FM half-metal)` — the same undoped CrO₂(110)
+that appears in Xu, Rossmeisl & Kitchin 2015's own ten-metal set. There is no dopant
+anywhere in the tier; the model-rutile tags in that file (Fe/Co/Ni/Cu) mark hypothetical
+*phases*, not doping. Verified against `src/dft/gen_rutile.py` and the deck headers in
+`runs/Cr_slab/` on 2026-08-16.
+
+**What survives and what does not.** The measured numbers in this memo are untouched —
+the ladder, the 0.447 eV intercept span, the 1.111 eV descriptor span, and the
+valence-conserving/valence-changing split all stand. What falls is the *interpretive*
+clause: the intercept drift cannot be "doped-Cr-specific" because nothing is doped. The
+correct statement is that our fixed-geometry, SSSP 80/640, 2-D-ladder protocol measures
+a 0.447 eV intercept drift on the same undoped CrO₂ where Xu's full-relaxation,
+GBRV 40/500, frozen-`tot_magnetization` protocol reported clean scaling preservation —
+i.e. the discrepancy is a **protocol-difference or U-response finding on the identical
+material**, which is *more* interesting for this project's thesis, not less. To be
+confirmed or bounded on the dense A0 grid, as already registered.
+
+**Why the error matters enough to date.** "Doped" would have handed the report a false
+escape hatch ("Xu's preserved scaling doesn't apply — ours is doped"). The lit-sweep
+round-2 synthesis (2026-08-15-lit-sweep-round2-synthesis.md) flagged the contradiction;
+the repo read above confirmed which side is wrong. Nothing before this line was edited.
