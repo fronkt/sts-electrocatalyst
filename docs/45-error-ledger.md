@@ -45,15 +45,17 @@ deposit. This ledger tracks what exists and what is owed.
 
 | Amendment | Governs | Status | Deadline |
 |---|---|---|---|
-| A1–A5 | blocks 1A/1B/1C, LIT | committed + deposited | done |
-| **A6** | A0 cell scope + U-by-cell interaction | committed (2214b68); **Zenodo deposit OUTSTANDING — launch gate for block 6A** | before first 6A job |
-| **A7** | P-PROJ, P-PLS, P-FLOOR-U, nine S0 capability gates, phase-reality ledger | **NOT DRAFTED** (specified in round-2 synthesis §8 only) | **Aug 18, before ANY new job** |
+| A1–A5 | blocks 1A/1B/1C, LIT | committed; no per-amendment DOI was ever recorded — now covered by the combined A1–A7 deposit | done |
+| A6 | A0 cell scope + U-by-cell interaction | committed (2214b68); deposited in the combined A1–A7 record — 6A launch gate DISCHARGED | done 2026-08-16 |
+| A7 | P-PROJ, P-PLS, P-FLOOR-U, nine S0 capability gates, phase-reality ledger | drafted (d1032e5) + **DEPOSITED: 10.5281/zenodo.21963144** (restricted; flip to open at submission) | done 2026-08-16 |
 | **A8** | S3 protocol (off-plane = nosym + displacement, noinv pending S0(b), dy ladder, GATE-1 depth, CONFOUND rule, P-SYMCOV) | NOT DRAFTED | Aug 24, before first S3 deck launches |
 | **A9** | external-census controls (P-CTRL: OC20 negative / own-corpus positive), scope limits | NOT DRAFTED | Aug 22, before any corpus is parsed |
 | **A10** | BEEF row | NOT DRAFTED; gated on S0(a) | Sep 18 |
 | **S8 freeze** | melt-set predictions frozen before first melt | registered as rule (round-2 addendum ccb1806); deposit owed before first ingot | before first melt |
 
-**The binding sequence right now:** Frank re-authors + deposits A7 (by Aug 18) and
-deposits A6 → S0's nine gates run → A8/A9 deposited → S3 decks launch Aug 26.
-Until A7 is deposited, no new job may launch — that is the campaign's own rule
-(docs/43: "an interaction test registered after the grid is read is not a test").
+**The binding sequence (updated 2026-08-16):** A1–A7 deposited as one restricted
+Zenodo record, 10.5281/zenodo.21963144 — S0's nine gates are CLEAR TO LAUNCH.
+Next deposits owed: A9 by Aug 22 (before any corpus parse), A8 by Aug 24 (before
+first S3 deck), S8 melt-set freeze before the first ingot. Governance per A7.7:
+amendments are AI-drafted disclosed infrastructure; the report paraphrases, never
+copies.

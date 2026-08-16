@@ -1455,3 +1455,10 @@ docs/43 complete (A1–A7) is deposited to Zenodo as ONE restricted-access recor
 (files closed, DOI + timestamp public, flipped to open at report submission) BEFORE
 any job governed by this amendment runs. The DOI is recorded here in a dated line
 when it exists.
+
+**DOI line (2026-08-16):** the A1–A7 chain was deposited and published as Zenodo
+record **10.5281/zenodo.21963144** (restricted access: DOI + timestamp public, files
+closed until report submission; file `43-prereg-week1-factorial-A1-A7.md`, 92,505
+bytes, exactly the state committed at d1032e5). The deposit obligation of A7.8 is
+discharged; every job governed by A7 may now launch. Text added after publication;
+the deposited file is the frozen artifact.
