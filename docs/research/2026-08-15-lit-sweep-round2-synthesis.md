@@ -583,3 +583,46 @@ unchanged (ESM, 2x1o, the bare symmetry-rate threshold, perturb_only_atom, n=25,
 Wander/Kitchin noise floor, OC22 symmetry arm). The Aug 29–Sep 1 submission pile-up
 remains a scheduling fact; the Aug 26 S3 launch date stands on its own merits.
 Nothing above this line was edited.
+
+---
+
+## Addendum — 2026-08-16, S8 registered: the make→measure loop (melt-and-validate)
+
+Added on the entrant's decision, with furnace (FWM), XRD and Purdue OER bench access all
+confirmed by him 2026-08-16. This stage was absent from rounds 1 and 2 only because the
+agents priced capacity; the repo has carried the plan since docs/15 (FWM melt → Purdue
+OER, predictions frozen before measurement) and the built list since docs/37
+(`results/r4_melt_list.json`, 2026-08-05).
+
+**S8 — parallel, non-blocking. The report spine (S0–S7) must remain complete and
+scorable if S8 produces nothing.**
+
+1. **RE-RANK GATE (hard).** Nothing melts off the current r4 ranking. The r4 screen is
+   MLIP-scored and pre-dates the corrected protocol; its own QC already invalidated
+   6 of 12 candidates on desorption. Before any melt: re-score the surviving candidates
+   with the corrected protocol applied at the screen's weakest points — symmetry-released
+   multi-start relaxations, fresh-density basin gates, stated coverage — with
+   corrected-DFT spot-checks on the best site of each of the top ~4 compositions. The
+   S6 MLIP-rescore hook is the natural carrier.
+2. **MELT SET.** Top 2–4 of the re-ranked list **plus one predicted-poor anchor**
+   (docs/15's design: a correlation needs dynamic range) **plus an IrO₂ (or RuO₂)
+   experimental reference measured in the identical cell and conditions** — "vs
+   iridium" is a same-bench comparison or it is cross-lab noise.
+3. **FREEZE BEFORE FIRE.** Predicted values for the melt set are deposited (Zenodo,
+   same convention as every amendment) before the first melt. No prediction may be
+   revised after any measurement exists.
+4. **MEASUREMENT.** Per docs/15: melt at FWM, XRD single-phase confirmation, Purdue
+   OER (η at fixed current density, Tafel, stability hold), repeats stated.
+5. **INCLUSION RULE (eligibility-engineered).** S8 enters the report ONLY if complete —
+   melted, confirmed, measured, repeated — by the Oct freeze, and then as ONE figure:
+   frozen-predicted vs measured, attribution caveats on its face. If incomplete it
+   detaches with zero damage: the report never cites it, and it becomes the first
+   datapoint of the successor campaign. Partial S8 results may not appear anywhere in
+   the report ("results to date of an unfinished study" is the disqualification shape).
+6. **ANTI-CLAIM.** A measured overpotential on a melted polycrystal validates the
+   *discovery loop*, never the DFT error budget — surface oxidation, morphology and
+   kinetics are unmodelled. S8 must never be framed as experimental validation of the
+   S3/S6 error measurements; those are validated by their own internal controls and
+   the external census.
+
+Nothing above the 2026-08-16 addenda was edited.
