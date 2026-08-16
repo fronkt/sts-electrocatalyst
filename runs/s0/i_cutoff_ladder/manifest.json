@@ -1,0 +1,75 @@
+{
+  "gate": "i",
+  "title": "Ti/Sn bulk rutile cutoff ladders (endmember admission)",
+  "registered_jobs": 8,
+  "registered_box_h": 2.4,
+  "decks": {
+    "tio2__ecut60.in": {
+      "jobs": 1,
+      "nk": 2,
+      "est_box_h": 0.15,
+      "source_geometry": "runs/hp_tio2/scf__atomic.in (celldm/positions verbatim; encodes gen_rutile.py TiO2 a=4.5937 A, c=2.9587 A, u=0.30478)",
+      "purpose": "TiO2 ladder context rung (below-protocol cutoff): 60 Ry / 480 Ry"
+    },
+    "tio2__ecut80.in": {
+      "jobs": 1,
+      "nk": 2,
+      "est_box_h": 0.25,
+      "source_geometry": "runs/hp_tio2/scf__atomic.in (celldm/positions verbatim; encodes gen_rutile.py TiO2 a=4.5937 A, c=2.9587 A, u=0.30478)",
+      "purpose": "TiO2 frozen-protocol point: 80 Ry / 640 Ry (admission-rule leg 1)"
+    },
+    "tio2__ecut100.in": {
+      "jobs": 1,
+      "nk": 2,
+      "est_box_h": 0.35,
+      "source_geometry": "runs/hp_tio2/scf__atomic.in (celldm/positions verbatim; encodes gen_rutile.py TiO2 a=4.5937 A, c=2.9587 A, u=0.30478)",
+      "purpose": "TiO2 admission-rule leg 2: 100 Ry / 800 Ry"
+    },
+    "tio2__ecut120.in": {
+      "jobs": 1,
+      "nk": 2,
+      "est_box_h": 0.45,
+      "source_geometry": "runs/hp_tio2/scf__atomic.in (celldm/positions verbatim; encodes gen_rutile.py TiO2 a=4.5937 A, c=2.9587 A, u=0.30478)",
+      "purpose": "TiO2 asymptote/monotonicity witness: 120 Ry / 960 Ry (dE/atom reference point)"
+    },
+    "sno2__ecut60.in": {
+      "jobs": 1,
+      "nk": 2,
+      "est_box_h": 0.15,
+      "source_geometry": "GENERATED (no SnO2 anywhere in repo): rutile SnO2 cassiterite a=4.7374 A, c=3.1864 A, u=0.3056 (Baur & Khan, Acta Crystallogr. B 27, 2133 (1971)); celldm(1)=8.95239, celldm(3)=0.67261 via gen_rutile.py's ANG2BOHR/rounding rules",
+      "purpose": "SnO2 ladder context rung: 60 Ry / 480 Ry (CAPABILITY-ONLY per A7.5)"
+    },
+    "sno2__ecut80.in": {
+      "jobs": 1,
+      "nk": 2,
+      "est_box_h": 0.25,
+      "source_geometry": "GENERATED (no SnO2 anywhere in repo): rutile SnO2 cassiterite a=4.7374 A, c=3.1864 A, u=0.3056 (Baur & Khan, Acta Crystallogr. B 27, 2133 (1971)); celldm(1)=8.95239, celldm(3)=0.67261 via gen_rutile.py's ANG2BOHR/rounding rules",
+      "purpose": "SnO2 frozen-protocol point: 80 Ry / 640 Ry (admission-rule leg 1; CAPABILITY-ONLY per A7.5)"
+    },
+    "sno2__ecut100.in": {
+      "jobs": 1,
+      "nk": 2,
+      "est_box_h": 0.35,
+      "source_geometry": "GENERATED (no SnO2 anywhere in repo): rutile SnO2 cassiterite a=4.7374 A, c=3.1864 A, u=0.3056 (Baur & Khan, Acta Crystallogr. B 27, 2133 (1971)); celldm(1)=8.95239, celldm(3)=0.67261 via gen_rutile.py's ANG2BOHR/rounding rules",
+      "purpose": "SnO2 admission-rule leg 2: 100 Ry / 800 Ry (CAPABILITY-ONLY per A7.5)"
+    },
+    "sno2__ecut120.in": {
+      "jobs": 1,
+      "nk": 2,
+      "est_box_h": 0.45,
+      "source_geometry": "GENERATED (no SnO2 anywhere in repo): rutile SnO2 cassiterite a=4.7374 A, c=3.1864 A, u=0.3056 (Baur & Khan, Acta Crystallogr. B 27, 2133 (1971)); celldm(1)=8.95239, celldm(3)=0.67261 via gen_rutile.py's ANG2BOHR/rounding rules",
+      "purpose": "SnO2 asymptote/monotonicity witness: 120 Ry / 960 Ry (CAPABILITY-ONLY per A7.5)"
+    }
+  },
+  "launch_precondition": "PSEUDOS_NEEDED.txt — sn_pbe_v1.uspp.F.UPF has NO repo precedent and must be verified present (exact filename) in /usr/share/espresso/pseudo before the SnO2 arm launches. TiO2 arm has no precondition and may launch first (requirements.md gate-i scheduling recommendation).",
+  "queue_manifest_lines": [
+    "s0/i_cutoff_ladder tio2__ecut60 .in 2",
+    "s0/i_cutoff_ladder tio2__ecut80 .in 2",
+    "s0/i_cutoff_ladder tio2__ecut100 .in 2",
+    "s0/i_cutoff_ladder tio2__ecut120 .in 2",
+    "s0/i_cutoff_ladder sno2__ecut60 .in 2",
+    "s0/i_cutoff_ladder sno2__ecut80 .in 2",
+    "s0/i_cutoff_ladder sno2__ecut100 .in 2",
+    "s0/i_cutoff_ladder sno2__ecut120 .in 2"
+  ]
+}

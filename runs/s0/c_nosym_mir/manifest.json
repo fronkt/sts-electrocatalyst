@@ -1,0 +1,23 @@
+{
+  "gate": "S0(c) mirror-arm nosym invariance",
+  "registered_jobs": 1,
+  "decks": {
+    "s0_OOH__2x1v_mir__nosym.in": {
+      "jobs": 1,
+      "nk": 4,
+      "est_box_h": 2.0,
+      "source_geometry": "final BFGS geometry of runs/probe/Cr_cellsym/s0_OOH__2x1v_mir.out",
+      "purpose": "fixed-geometry SCF at the mirror-arm final geometry with nosym=.true. + noinv=.true. (full unfolded 16-point 4 4 1 set); everything else identical to the symmetry-ON parent protocol",
+      "md5": "866d08a46fce889829880a8c3dec41d5"
+    }
+  },
+  "queue_manifest_lines": [
+    "s0/c_nosym_mir s0_OOH__2x1v_mir__nosym .in 4"
+  ],
+  "decision_rule": "|E(nosym SCF) - E(sym-ON reference)| < 1 meV (0.0000734986 Ry)",
+  "reference_energy_Ry": {
+    "adjudicated_reference__mir__g1_child": -3188.70496977,
+    "fallback__mir_relax_final": -3188.70497020,
+    "g1_minus_relax_uRy": 0.43
+  }
+}

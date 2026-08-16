@@ -71,7 +71,7 @@ Wander/Kitchin, OC22 symmetry arm, MOOH phases, MLIP fine-tuning).
 
 | Stage | Scope (as reconciled) | Governed by | Status |
 |---|---|---|---|
-| S0 | nine capability gates, ~35 box-h | A7 (DEPOSITED) | **CLEAR TO LAUNCH** |
+| S0 | nine capability gates, ~35 box-h | A7 (DEPOSITED) | **DECKS BUILT + ADVERSARIALLY VERIFIED 2026-08-16** (runs/s0/, 29/29 registered jobs, est 33.7 box-h; launch awaits LIT-2/3 drain on box 47662258 — two QUEUE_ALL_DONE lines — or explicit PARK; SnO2 arm additionally gated on the Sn pseudo being present on-box, see runs/s0/i_cutoff_ladder/PSEUDOS_NEEDED.txt; a_beef deck iv is wave-2 after SELECT-WINNER) |
 | S1 | silentgate v0.1: entrant-written core, pluggable readers, CI controls | A9 (owed Aug 22) | blocked on A9 |
 | S2 | external census: Xu 810 lock/direction map, span_U halves, Divanis delta-curve, pymatgen+atomate paired audit; literature-coding audit RESTORED | A9 (owed Aug 22) | blocked on A9 |
 | S3 | tier_v3 crossed coverage x symmetry x basin, 8 metals; second spin seeds RESTORED beyond *OOH-only where triage allows; dy ladder; Cr 1C + re-Hessian at escape | A8 (owed Aug 24) | decks buildable now, launch Aug 26 |

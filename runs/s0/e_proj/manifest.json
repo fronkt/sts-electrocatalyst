@@ -1,0 +1,32 @@
+{
+  "gate": "e",
+  "title": "S0 gate (e) - ortho-atomic projector acceptance (P-PROJ capability leg)",
+  "registered_jobs": 2,
+  "registered_box_h": 2.0,
+  "authority": [
+    "docs/43-prereg-week1-factorial.md AMENDMENT 7 (A7.1 P-PROJ, A7.4 nine-gate table; Zenodo 10.5281/zenodo.21963144)",
+    "docs/research/2026-08-15-lit-sweep-round2-synthesis.md lines 182-202 (S0 table)"
+  ],
+  "decks": {
+    "s0_O__u715_atomic.in": {
+      "jobs": 1,
+      "nk": 4,
+      "est_box_h": 1.0,
+      "source_geometry": "ATOMIC_POSITIONS of runs/probe/Cr/s0_O__base.in, themselves the final BFGS geometry of runs/Cr_slab/s0_O.out (probe_manifest.json: source_run runs/Cr_slab, geometry_provenance 'final')",
+      "purpose": "Cr *O fixed-geometry SCF, 1x1, U = 7.1500 eV, HUBBARD (atomic) - the production-projector leg of the P-PROJ pair at the A0 fifth grid point",
+      "md5": "edb3aae651d1064d908a0e66970db4bf"
+    },
+    "s0_O__u715_ortho.in": {
+      "jobs": 1,
+      "nk": 4,
+      "est_box_h": 1.0,
+      "source_geometry": "ATOMIC_POSITIONS of runs/probe/Cr/s0_O__base.in, themselves the final BFGS geometry of runs/Cr_slab/s0_O.out (probe_manifest.json: source_run runs/Cr_slab, geometry_provenance 'final')",
+      "purpose": "Cr *O fixed-geometry SCF, 1x1, U = 7.1500 eV, HUBBARD (ortho-atomic) - the acceptance test: does this QE build accept the ortho-atomic card at all",
+      "md5": "6f36bd88bed6521fdb771ae321032c5e"
+    }
+  },
+  "queue_lines": [
+    "s0/e_proj s0_O__u715_atomic .in 4",
+    "s0/e_proj s0_O__u715_ortho .in 4"
+  ]
+}
