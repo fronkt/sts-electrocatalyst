@@ -568,3 +568,18 @@ All three proposals blur three candidate dates (nothing launches after Oct 8; ha
 ### What this program cuts, stated plainly
 
 It cuts the Xu **repair** (never re-runs anyone's decks — the census says "it is in their data too," and S3 says "here is the corrected number on systems I control"). It cuts the Wander Hessian arm, the literature-coding audit, the deposit-availability count, the 2x1o cell, ESM entirely, RISM entirely, the explicit-water leg, the MOOH tier, the bi-U sensitivity sweep, the full 8-configuration magnetic enumeration, the arXiv preprint, and any OC22 arm. It caps in-house n at 8. It buys **differences, rates, an instrument and a bounded budget — never absolute overpotentials for any single material**, and the report must never be caught implying otherwise: four of the eight systems are unanchorable by construction, three of those are phases that do not exist as electrodes, and the fifth magnetic system is run in an approximate magnetic order.
+
+---
+
+## Addendum — 2026-08-16, entrant correction on the budget premise
+
+The ~21-effective-day budget in §1(i)/§4 priced the entrant at ~30 h/week and deducted
+~14.5 days for competing deadlines. The entrant rejects the premise: the budget is the
+full calendar window to the hard deadline, and capacity is not to be assumed.
+Consequence: every cut in this document that was motivated by human-days reverts to
+LIVE (arXiv preprint, A0 cell rider, bulk hp.x scope, S3 second-seed depth, the fuller
+magnetic grid, literature-coding audit). Cuts motivated by physics or evidence stand
+unchanged (ESM, 2x1o, the bare symmetry-rate threshold, perturb_only_atom, n=25,
+Wander/Kitchin noise floor, OC22 symmetry arm). The Aug 29–Sep 1 submission pile-up
+remains a scheduling fact; the Aug 26 S3 launch date stands on its own merits.
+Nothing above this line was edited.
