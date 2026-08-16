@@ -1307,3 +1307,151 @@ no-edit-after-deposit rule; this section is the correction of record.
 **before the first block-6A job runs**. That is Frank's action, and it is a launch gate,
 not a formality: an interaction test registered after the grid is read is not a test.
 
+
+---
+
+# AMENDMENT 7 — 2026-08-16, before any post-1A job launches (S0 gates, the projector, the pls closed form, the floor-U replacement)
+
+## A7.0 — What changed, and why this is registered now
+
+The two-round adversarial literature sweep (docs/research/2026-08-15-lit-sweep-*,
+committed 1b9b326) closed with a program whose first stage is nine cheap capability
+gates and three new predictions. None of them may run after the answers are visible;
+all of them are therefore registered here, before any new job launches. Drafting
+provenance: this amendment was AI-drafted at the entrant's direction (2026-08-16)
+and is recorded as such in the AI-use log; the report will paraphrase, never
+reproduce, any sentence of it (see A7.7).
+
+## A7.1 — P-PROJ: the Hubbard projector as a paired variable
+
+The fifth A0 grid point (U = 7.15 eV, Xu 2015 Table 1) was produced under a
+different Hubbard projector than the production tier's `HUBBARD (atomic)`. The
+campaign has measured a +1.45 eV shift in the U *value* from projector choice, but
+has never measured the η consequence at fixed U. Before any A0 deck is built on the
+fifth grid point:
+
+- **Test:** two Cr fixed-geometry SCF sets at U = 7.15 eV, 1×1 (matching A0),
+  `HUBBARD (atomic)` vs `(ortho-atomic)`, all four states.
+- **PREDICTION (blind): |Δη(Cr)| > 0.10 V.** FALSIFIED below 0.03 V, in which case
+  the projector is not a live variable at this U and Xu's supercell linear-response
+  value may be imported as a literature anchor.
+- If it fires: the fifth grid point is labelled PROJECTOR-MISMATCHED before any
+  result exists; the whole η(U) grid runs in ONE projector; the projector delta
+  becomes its own labelled sub-row.
+- Gated on the S0 ortho-atomic acceptance test; if this QE build rejects the card,
+  that is recorded as a capability result and the point is labelled
+  projector-unverifiable rather than silently imported.
+- Citation rule: 10.1016/j.cpc.2022.108455 (the HP code paper) is NOT evidence for
+  projector dependence of η and must not be cited for it; the campaign's own
+  measured +1.45 eV is the evidence.
+
+## A7.2 — P-PLS: the closed form and the crossing as a deliverable
+
+Registered: for pls in {2,3}, **η = (c_M/2 − 1.23 V) + |ΔG₂ − ΔG₃|/2** exactly, where
+c_M = ΔG_OOH − ΔG_OH; the identity breaks when pls flips to 1 or 4; any row spanning
+a flip is reported in two pieces, never averaged across it. The U at which each
+metal's pls flips is a first-class deliverable.
+
+- **PREDICTION: ≥3 of 6 metals show a pls flip inside the registered A0 grid.**
+- **DISCLOSED NON-BLIND:** Cr flips 3→2 between U = 1.85 and 3.70 (its production U
+  landed 7 meV from the crossing — the physical content of "Cr sat 9 meV above its
+  floor"); Co and Ni both flipped 1→2 under correction; the LIT-1 Co ladder returns
+  pls = 1 at U = 4.48. **Blind: Mn, Fe, Ru, Ir, Ti.**
+
+## A7.3 — P-FLOOR-U (replaces the withdrawn P-U-SPLIT)
+
+The round-1 ratio ("excess exceeds floor by >3×") is WITHDRAWN before any grid is
+read: the excess |ΔG₂ − ΔG₃|/2 vanishes identically at a pls crossing, so the ratio
+is a grid artifact (Cr's excess runs 0.961 → 0.007 → 0.375 V across U = 0/3.70/5.00).
+Registered replacement, smooth and physical:
+
+- **Quantity: span(c_M)/2 in volts, at FIXED endpoints U = 0 and U = U_max** —
+  never max-minus-min over a grid.
+- **PREDICTION: span(c_M)/2 exceeds 0.10 V on ≥4 of the 6 metals with a converged
+  *OOH geometry.** FALSIFIED if ≤1 of 6 exceeds 0.10 V, in which case U does not
+  move the physical limit and the floor may serve as a U-invariant denominator —
+  a change of framing registered here, before the fact.
+- **DISCLOSED NON-BLIND:** Cr measures 0.223 V (floor 0.492 → 0.269 V across
+  U = 0 → 5.00), conditional on the S0(f) GATE-1 pass: if any of the four ladder
+  points moves > 50 meV on a fresh-density restart, the number is re-derived and
+  the correction recorded before this prediction is dated. **Blind: Mn, Fe, Ru,
+  Ir, Ti.**
+
+## A7.4 — The nine capability gates, each recorded whichever way it goes
+
+| Gate | Decides | Kill it prevents |
+|---|---|---|
+| (a) BEEF emission, FOUR decks (`ensemble_energies` / `calculation='ensemble'` / control / winner + HUBBARD card) | which switch this build honours | striking the XC row on a null a grep cannot interpret |
+| (b) `noinv` exactness (2 fixed-geometry SCFs, one 2×1v off-plane geometry, must agree < 1 meV) | drop `noinv` from every off-plane job (~38% off the battery; worst job ~62 h → ~39 h) | a week of avoidable critical-path calendar |
+| (c) Mirror-arm `nosym` invariance (< 1 meV) | mirror arm stays symmetry ON / 9 k; comparability control | conflating k-folding with a sampling change |
+| (d) Hessian timing AND σ_F in 2×1v (`conv_thr 1e-10`) | wall clock; whether 1e-10 is REACHED at 42 atoms/16 k; σ_F delivered | launching 19 decks whose minimum claim is unscorable |
+| (e) Ortho-atomic acceptance (build capability) | whether P-PROJ can run at all | silent import of a mismatched grid point |
+| (f) GATE-1 on the four Cr LIT-1 U-ladder points (6 fresh-density SCFs) | whether the 0.223 V floor number survives a basin audit | registering the program's most legible number on ungated points |
+| (g) TiO₂ 2×1v nspin=1 timing (1 relaxation) | replaces an extrapolated cost class with a measurement | mis-costing S3 |
+| (h) AFM anchor probe (4 nspin=2 AFM SCFs on existing RuO₂ 2×1v geometries) | a measured magnetic row on the anchor; closes P11 | the refuted "structurally incapable" wording resurfacing |
+| (i) Ti/Sn bulk cutoff ladders (8 SCFs; admission delta-E under 5 meV/atom, 80 to 100 Ry) | endmember admission inside the frozen 80/640 protocol | an unqualified pseudopotential entering the tier |
+
+## A7.5 — The phase-reality ledger and the MODEL-PHASE scoping rule
+
+Registered before any gate: the measured quantity of every arm is a **difference
+between two treatments of the SAME slab**; a difference is a valid method
+measurement whether or not the slab is a synthesisable electrode. The report may
+therefore never quote an absolute η for Cr, Fe, Co or Ni as a materials claim; they
+appear only inside paired within-metal differences. Enforced by the pre-submission
+script (S7).
+
+Tier strata: TiO₂, β-MnO₂, RuO₂, IrO₂ = REAL-AMBIENT-UNDISTORTED; CrO₂ =
+REAL-UNDISTORTED-METASTABLE (Man 2011, read verbatim: "some oxides such as NbO₂,
+ReO₂, VO₂, MoO₂, and CrO₂ are not stable"); FeO₂, CoO₂, NiO₂ = MODEL PHASE, method
+test systems only. β-MnO₂ is antiferromagnetic and `gen_rutile.py` initialises it
+FM — either the AFM arm runs or every materials-facing Mn sentence is struck.
+Exclusions (VO₂, NbO₂, MoO₂, WO₂, ReO₂, TcO₂, RhO₂, PtO₂, TaO₂, GeO₂, PbO₂, OsO₂,
+SiO₂-stishovite, CuO₂): each row of the exclusion table must carry one resolvable
+identifier (MP entry or primary crystallography) plus one reason, or the row is
+marked UNVERIFIED — the phase claims for candidate additions are currently unsourced
+(the 2026-07-24 survey covers only Cr/Mn/Fe/Co/Ni/Cu) and may not be presented
+otherwise. SnO₂ may be admitted as a declared control-stratum member only if Mom
+2014's stoichiometric rows are confirmed cus-site by Sep 1 (Man 2011's reduced-
+surface SnO₂ row is bridge-site, with the cus site reported not to bind).
+
+## A7.6 — Corrections of record entering with this amendment
+
+1. The multistability priors misattributed to "Dorado et al. 2013" are **Rabone &
+   Krack**, Comput. Mater. Sci. 2013 (10.1016/j.commatsci.2013.01.023).
+2. `starting_ns_eigenvalue` is an initial guess on the first DFT+U iteration, NOT a
+   held constraint; it must not be called occupation-matrix control.
+3. arXiv:2605.20985 contains no statement about DFPT+U non-convergence above U ~2 eV;
+   that claim is struck. The ph.x rejection rests on this system's measured hp.x
+   behaviour plus the already-priced finite-difference Hessian.
+4. Moore et al. 2024 (10.1103/PhysRevMaterials.8.014409): verified author order
+   Moore, Horton, Ganose, Siron, Linscott, O'Regan, Persson; the "VASP + atomate
+   supercell" characterisation is an inference from the abstract, labelled as such.
+5. GeO₂'s exclusion reason is corrected: rutile-type IS its ambient polymorph; it is
+   excluded as a wide-gap (~4.7 eV) insulator that would be a third occupancy
+   convention in one table, not on phase grounds.
+6. The token "STRUCTURALLY ZERO" is struck from the status vocabulary; permitted
+   statuses are MEASURED / BOUNDED / TRANSFERRED / NOT MEASURED.
+
+## A7.7 — Governance: P-DISPOSITION and authorship, as amended by the entrant
+
+- **P-DISPOSITION.** Any prediction not scored by Oct 15 is marked WITHDRAWN-UNSCORED
+  with its date; withdrawal is a legitimate ledger outcome shown alongside HELD and
+  TRIGGERED. The body-figure ledger is capped at six rows (five new + the historical
+  P7).
+- **Authorship (amends the round-2 P-AUTHORSHIP proposal; entrant's decision,
+  2026-08-16).** Amendments are AI-drafted research infrastructure, disclosed in the
+  AI-use log. The protection sits at report time: no sentence of any amendment is
+  reproduced verbatim in the report, essays, or application answers — the entrant
+  paraphrases. The AI-use log records what AI produced (sweeps, amendment drafts,
+  critique, scaffolding, CI) and what it did not (the report, essays, boxes,
+  disclosures, and the silentgate core, which the entrant writes himself per S1).
+
+## A7.8 — Deposit obligation, and a correction about the record
+
+No Zenodo DOI is recorded anywhere in this repository for amendments 1–6; as far as
+the record shows, no deposit has actually been performed and the chain to date is
+git-only. This amendment therefore carries the obligation for the whole document:
+docs/43 complete (A1–A7) is deposited to Zenodo as ONE restricted-access record
+(files closed, DOI + timestamp public, flipped to open at report submission) BEFORE
+any job governed by this amendment runs. The DOI is recorded here in a dated line
+when it exists.
