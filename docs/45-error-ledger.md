@@ -59,3 +59,27 @@ Next deposits owed: A9 by Aug 22 (before any corpus parse), A8 by Aug 24 (before
 first S3 deck), S8 melt-set freeze before the first ingot. Governance per A7.7:
 amendments are AI-drafted disclosed infrastructure; the report paraphrases, never
 copies.
+
+---
+
+## E. Program board (added 2026-08-16) — the reconciled S0–S8, cuts-reverted
+
+The single current answer to "what is the plan." Scopes below INCLUDE the
+budget-motivated cuts reverted by the 2026-08-16 addendum; physics kills stay dead
+(ESM, 2x1o, bare symmetry-rate threshold, perturb_only_atom-as-cost-cut, n=25,
+Wander/Kitchin, OC22 symmetry arm, MOOH phases, MLIP fine-tuning).
+
+| Stage | Scope (as reconciled) | Governed by | Status |
+|---|---|---|---|
+| S0 | nine capability gates, ~35 box-h | A7 (DEPOSITED) | **CLEAR TO LAUNCH** |
+| S1 | silentgate v0.1: entrant-written core, pluggable readers, CI controls | A9 (owed Aug 22) | blocked on A9 |
+| S2 | external census: Xu 810 lock/direction map, span_U halves, Divanis delta-curve, pymatgen+atomate paired audit; literature-coding audit RESTORED | A9 (owed Aug 22) | blocked on A9 |
+| S3 | tier_v3 crossed coverage x symmetry x basin, 8 metals; second spin seeds RESTORED beyond *OOH-only where triage allows; dy ladder; Cr 1C + re-Hessian at escape | A8 (owed Aug 24) | decks buildable now, launch Aug 26 |
+| S4 | A0 dense U grid 1x1 + Cr 2x1v cell rider RESTORED + bulk hp.x Cr+Ti RESTORED (atomic projector) + slab hp.x one relaunch under 72 h cap RESTORED | A6 + A7 (DEPOSITED) | clear after S0(e)/P-PROJ |
+| S5 | BEEF-vdW sigma, Ru/Ir/Ti; extension to +U metals if clean | A10 (owed Sep 18, gated S0(a)) | gated |
+| S6 | floor/excess, four estimators, n=7 statistics repair, P-SYMCOV scoring, r4 re-rank hook for S8 | A7 P-PLS/P-FLOOR-U + A8 | after data |
+| S7 | freeze, figure pack, pre-submission assertions; arXiv preprint RESTORED as post-freeze option | — | Oct 8–15 |
+| S8 | make->measure: re-rank gate -> freeze predictions -> melt 2–4 + poor anchor + IrO2 same-bench -> Purdue OER; ONE figure iff complete by freeze | S8 addendum (ccb1806); freeze deposit owed before first ingot | re-rank gate first |
+
+Box-hour repricing of the restored scopes is owed alongside A8 (the restored items
+add roughly 300–500 box-h; still trivially affordable).
