@@ -1,0 +1,82 @@
+{
+  "gate": "f",
+  "registered_jobs": 6,
+  "registered_box_h": 5,
+  "cell": "1x1 (the cell the ladder was measured in), CELL_PARAMETERS 2.91600 x 6.25223816 x 25.00895264 angstrom, K_POINTS automatic 9 4 1 0 0 0, symmetry ON (no nosym/noinv), nspin=2",
+  "queue_manifest_lines": [
+    "s0/f_gate1_uladder s0_OOH__u0.0__g1 .in 4",
+    "s0/f_gate1_uladder s0_OOH__u0.5__g1 .in 4",
+    "s0/f_gate1_uladder s0_OOH__base__g1 .in 4",
+    "s0/f_gate1_uladder s0_OOH__u1.35__g1 .in 4",
+    "s0/f_gate1_uladder s0_OOH__u0.0+spin1.0__g1 .in 4",
+    "s0/f_gate1_uladder s0_OOH__u1.35+spin1.0__g1 .in 4"
+  ],
+  "decks": {
+    "s0_OOH__u0.0__g1.in": {
+      "jobs": 1,
+      "nk": 4,
+      "est_box_h": 0.8,
+      "source_geometry": "ATOMIC_POSITIONS of runs/probe/Cr/s0_OOH__u0.0.in (byte-identical copy), themselves the final BFGS geometry of runs/Cr_slab/s0_OOH.out (probe_manifest.json, geometry_provenance 'final')",
+      "purpose": "GATE-1 fresh-density SCF at U=0 (plain PBE, no HUBBARD card), production seed mag(Cr)=0.6; reference E_parent = -1637.89546422 Ry",
+      "U_eV": 0.0,
+      "starting_magnetization_Cr": 0.6,
+      "parent_out": "runs/probe/Cr/s0_OOH__u0.0.out",
+      "parent_final_energy_Ry": -1637.89546422
+    },
+    "s0_OOH__u0.5__g1.in": {
+      "jobs": 1,
+      "nk": 4,
+      "est_box_h": 0.8,
+      "source_geometry": "ATOMIC_POSITIONS of runs/probe/Cr/s0_OOH__u0.5.in (byte-identical copy), themselves the final BFGS geometry of runs/Cr_slab/s0_OOH.out (probe_manifest.json, geometry_provenance 'final')",
+      "purpose": "GATE-1 fresh-density SCF at U=1.85 eV, production seed mag(Cr)=0.6; reference E_parent = -1637.15837792 Ry",
+      "U_eV": 1.85,
+      "starting_magnetization_Cr": 0.6,
+      "parent_out": "runs/probe/Cr/s0_OOH__u0.5.out",
+      "parent_final_energy_Ry": -1637.15837792
+    },
+    "s0_OOH__base__g1.in": {
+      "jobs": 1,
+      "nk": 4,
+      "est_box_h": 0.8,
+      "source_geometry": "ATOMIC_POSITIONS of runs/probe/Cr/s0_OOH__base.in (byte-identical copy), themselves the final BFGS geometry of runs/Cr_slab/s0_OOH.out (probe_manifest.json, geometry_provenance 'final')",
+      "purpose": "GATE-1 fresh-density SCF at U=3.70 eV (production), production seed mag(Cr)=0.6; reference E_parent = -1636.48367381 Ry",
+      "U_eV": 3.7,
+      "starting_magnetization_Cr": 0.6,
+      "parent_out": "runs/probe/Cr/s0_OOH__base.out",
+      "parent_final_energy_Ry": -1636.48367381
+    },
+    "s0_OOH__u1.35__g1.in": {
+      "jobs": 1,
+      "nk": 4,
+      "est_box_h": 0.8,
+      "source_geometry": "ATOMIC_POSITIONS of runs/probe/Cr/s0_OOH__u1.35.in (byte-identical copy), themselves the final BFGS geometry of runs/Cr_slab/s0_OOH.out (probe_manifest.json, geometry_provenance 'final')",
+      "purpose": "GATE-1 fresh-density SCF at U=4.995 eV, production seed mag(Cr)=0.6; reference E_parent = -1636.04658302 Ry",
+      "U_eV": 4.995,
+      "starting_magnetization_Cr": 0.6,
+      "parent_out": "runs/probe/Cr/s0_OOH__u1.35.out",
+      "parent_final_energy_Ry": -1636.04658302
+    },
+    "s0_OOH__u0.0+spin1.0__g1.in": {
+      "jobs": 1,
+      "nk": 4,
+      "est_box_h": 0.9,
+      "source_geometry": "ATOMIC_POSITIONS of runs/probe/Cr/s0_OOH__u0.0.in (byte-identical copy), themselves the final BFGS geometry of runs/Cr_slab/s0_OOH.out (probe_manifest.json, geometry_provenance 'final')",
+      "purpose": "Second-spin-seed SCF at the U=0 floor-span endpoint: identical to s0_OOH__u0.0__g1 except starting_magnetization(1)=1.0 (fully-polarised start targeting the documented 11.8 mu_B metastable family, docs/41 s6f); basin-uniqueness witness",
+      "U_eV": 0.0,
+      "starting_magnetization_Cr": 1.0,
+      "parent_out": "runs/probe/Cr/s0_OOH__u0.0.out",
+      "parent_final_energy_Ry": -1637.89546422
+    },
+    "s0_OOH__u1.35+spin1.0__g1.in": {
+      "jobs": 1,
+      "nk": 4,
+      "est_box_h": 0.9,
+      "source_geometry": "ATOMIC_POSITIONS of runs/probe/Cr/s0_OOH__u1.35.in (byte-identical copy), themselves the final BFGS geometry of runs/Cr_slab/s0_OOH.out (probe_manifest.json, geometry_provenance 'final')",
+      "purpose": "Second-spin-seed SCF at the U=5.00 floor-span endpoint: identical to s0_OOH__u1.35__g1 except starting_magnetization(1)=1.0; basin-uniqueness witness",
+      "U_eV": 4.995,
+      "starting_magnetization_Cr": 1.0,
+      "parent_out": "runs/probe/Cr/s0_OOH__u1.35.out",
+      "parent_final_energy_Ry": -1636.04658302
+    }
+  }
+}

@@ -914,3 +914,551 @@ CONFIRMED with zero gate failures). Registered resolution, superseding amendment
    voids only the Q6 control for that atom, and is reported.
 4. **Q5 is reported, not gated** — this was already registered in amendment 3 and the code
    must comply; the verify round found it still appending to the gate list.
+
+
+---
+
+# AMENDMENT 5 — 2026-08-11, after the literature sweep, before any LIT job runs
+
+Seventeen paywalled PDFs were pulled on 2026-08-11 and integrated the same day
+(docs/research/2026-08-11-paywalled-sweep-plan-implications.md, commit 0126b96 — twelve
+reader agents, one synthesis, six adversarial verifiers, one global skeptic). The sweep's
+verdict was **no pivot**: nothing in the seventeen papers invalidates blocks 1A/1B/1C or
+the surviving symmetry-trap finding. Frank adopted the memo's recommended subset on
+2026-08-11 (decision sheet, memo §9.7): **D1, D2, D4, D6, D8, D11** — registered below.
+**Deferred and NOT registered:** D3 (full per-metal termination campaign + U-flip
+extension), D5 (thermochemical U re-fit), D7 (single-water probe arm), D9 (LIT-7: Co *OOH
+attempt, scaling column, Comer parity), D10 (LIT-8: mechanism-scope flags). Any of these
+may still happen, but only through its own dated amendment; D9/D10 additionally were never
+adversarially verified.
+
+**Stated weakness, up front.** This sweep was conducted *after* 1C returned CONFIRMED,
+after tier_v2 was known, and after the 1.122 V Cr swing was measured. Every "test" below
+is therefore motivated by literature read after the data existed. Following the precedent
+of §0a (a control registered from an observed correlation, stated with its weakness),
+nothing here is dressed as a prediction: these are **mechanism tests and scope columns
+registered before their own jobs run**, which is the only blindness still available to
+them. One exception is genuinely blind and is the reason this amendment exists today
+rather than in October: §A5.1(b), which must be registered before tier_v3 exists.
+
+## A5.1 — LIT-1: the U-robustness analysis package (D1)
+
+(a) **Valence tracking.** Every existing (metal × adsorbate × U) output is post-processed
+for the active-site **local magnetic moment vs the bare slab** — already printed in every
+spin-polarized pw.x output, zero new DFT — as the primary valence tracker, supplemented by
+Löwdin populations from projwfc.x where charge densities are regenerated (no `.save`
+directories survive; each Löwdin point costs one fixed-geometry SCF + projwfc, budget
+≤ ~150 cheap SCFs if the full A0 grid is covered). Each ΔG is classified
+**valence-conserving** (expected U-robust) or **valence-changing** (expected U-fragile) —
+an adaptation of Tripkovic 2018's V(B) analysis (moments, charges *and* O–O bond
+structure; peroxo/superoxo O–O distances checked as in their protocol). The mechanism
+test, stated with its post-hoc weakness: the 1.122 V η(Cr) swing should correlate with a
+Cr oxidation-state change under *O/*OOH, and U-flat quantities should show none. Either
+outcome is reported.
+
+(b) **The ranking-claim rule — registered now, before tier_v3 exists.** A pairwise
+ordering of metals may be claimed in the report only if **all three** hold:
+  1. the ordering is the same under η_TD and under G_max(η = 0.3 V);
+  2. the G_max gap between the pair is ≥ 0.20 eV (Exner 2020's stated sensitivity floor,
+     p. 12611);
+  3. the ordering is stable across the U band **{U = 0, MP U, hp.x U if block 1B returns
+     GO}** at fixed geometry (the A0 grid's approximation, stated wherever used).
+Pairs failing any leg are reported as **not distinguishable at this protocol's
+resolution**. The band contains no thermochemical leg because D5 was not adopted; if a
+later amendment adopts it, the band extends by that amendment. This rule is registered
+while tier_v3 does not exist (§7's blind-prediction reasoning): registering it after
+tier_v3 would let the rule be fitted to the outcome.
+
+(c) **G_max across the A0 grid.** G_max at η = 0.1/0.2/0.3 V with the limiting-span
+identity, computed for every U in the A0 grid — a pure function of the same four ΔG
+values, zero new DFT. The `g_max()` implementation was session-verified algebraically
+identical to Razzaq–Exner 2023 eqs 10–25 and reproduces the docs/29 §4b Fe/Mn values
+exactly; no renumbering.
+
+(d) **Intercept-vs-descriptor U-test** ("U moves you along the volcano, not off it"):
+does the 3.2 eV scaling intercept stay U-robust while the descriptor axis is U-fragile?
+Motivating prior, from Tripkovic Table 3 itself: LaCrO₃ ΔE(*OOH)−ΔE(*OH) moves 2.94→2.93
+eV over U = 0–5 eV while ΔE(*O)−ΔE(*OH) moves +1.06 eV.
+
+(e) **Hygiene.** docs/29 §4b currently carries the trapped Cr rows (1.726/1.426) and a Ni
+row resting on `runs/Ni_slab/dft_eta.json.RETRACTED` (both verified on disk 2026-08-11).
+docs/29 is a dated plan-of-record and is not rewritten; the stale rows receive an inline
+erratum marker pointing to a regenerated table, which is published in the LIT-1 results
+document with tier version named per §0 and GATE-1 provenance per Amendment 4 §2. Every
+Cr energy in the regenerated table is the GATE-1-passed value. `volcano_r1.py`'s
+docstring is corrected to cite Exner 2020 and Razzaq–Exner 2023 (it currently cites only
+Acc. Chem. Res. 2024); `descriptors.py` lines 16–17 ("the scaling-relation floor this
+project aims to circumvent") are reworded — Razzaq–Exner 2023 §3.1 shows breaking the
+3.2 eV relation can *reduce* activity, and the retracted-Ni "broken scaling" talking
+point stays dead.
+
+## A5.2 — LIT-2 trimmed core: the termination check (D2; full campaign deferred = D3)
+
+Static CHE surface Pourbaix in the existing 2×1 cells, **registered scope: the RuO₂
+benchmark plus the Cr O-covered-preference check only** (~12 relaxations; the full
+Ru/Ir/Cr termination campaign and the U-flip extension are D3, deferred).
+
+- Terminations representable at 2×1: clean / 1 ML *O_cus / mixed 1:1 *OH–*O / 1 ML *OH
+  (plus an O-depleted variant for Cr). Block-1A outputs are **reused, not re-run**, where
+  they already are these states (the 2×1 neighbour-*O arm with working *O is 1 ML *O_cus;
+  working *OH with *O spectator is the mixed rung). Genuinely new relaxations run under
+  the standing protocol: off-plane starts, nosym/noinv, a `__g1` GATE-1 child at the
+  parent's own symmetry/k-mesh/cell (Amendment 4 §2), total AND absolute magnetisation
+  recorded with the 0.1 μ_B channels for Cr (Amendment 4 §3).
+- **RuO₂ validation, two-sided, registered before any job runs.** A 2×1 cell cannot
+  represent Qiu 2026's 1/3, 2/3, 5/6 ML rungs, so the scoreable benchmark is the
+  coarsened ladder. PASS iff (i) the ordering with falling potential is
+  full-O → mixed → full-*OH and (ii) the full-O/mixed and mixed/full-*OH transition
+  potentials fall within **±0.25 V** of Qiu's AIMD brackets (~1.50 V and ~1.24 V; the
+  tolerance absorbs the known vacuum-vs-solvated offset). On PASS, the Cr column is
+  reported as validated-by-proxy. On FAIL, the Cr column is still reported, labelled
+  vacuum-CHE-only, with the measured RuO₂ discrepancy attached as its systematic error.
+  Both outcomes are publishable; neither is a gate on any 1A/1B/1C result.
+- **Decision rule (Cao's oxygen-environment finding, restated in CHE-at-U form):** if Cr
+  prefers an O-covered termination by > 0.1 eV per site at U = 1.23 V + η(Cr), every
+  clean-termination Cr energetics row in the report carries a **conditional-on-termination
+  flag**. The flag qualifies; it does not retract — P7's withdrawal already stands on
+  U-sensitivity alone.
+- **Descriptor rewording, registered:** all reported η_TD values are named
+  **bare-surface-limit η_TD** wherever the resting-termination question is live (Qiu
+  2026: no bare cus-exposed RuO₂ surface exists at any potential in 1.23–1.80 V; Feng
+  2025 p.4: almost all M-RuO₂ are fully O-terminated at 1.43 V).
+
+## A5.3 — LIT-3: the *OOH anatomy (D4)
+
+(a) **Fingerprint classification, zero DFT first.** Every archived *OOH geometry is
+classified by **O–O distance as the primary fingerprint** (hydroperoxo *O–OH ~1.37–1.45 Å
+vs superoxo *OO-H ~1.30–1.32 Å, Inico 2024), with Bader (QTAIM) charge via pp.x as the
+secondary check — Inico's charge thresholds (~−0.4 |e| hydroperoxo, < 0.1 |e| superoxo)
+are Bader-defined and may not be compared against Löwdin values without recalibration on
+our own unambiguous anchor states. Where charge densities were not retained, one
+fixed-geometry SCF per state regenerates them. A scaling-residual audit accompanies the
+classification (Man 3.2 ± 0.2/0.4 as an RPBE-population outlier flag only, never a
+per-state pass/fail — docs/41 P9's functional-mismatch caveat applies).
+
+(b) ***OO-H spot check, uniform across Cr, Ir, Ru** (P6/P19: never Cr alone): one *OO-H
+initialization (superoxo O–O + H on bridging O) per metal, ± spin starts, standing
+protocol with GATE-1 children for Cr. Inico's measured stabilizations, per oxide: 0.46 eV
+(TiO₂, vacuum), 0.19 eV (RuO₂, vacuum), ~0.13–0.15 eV (IrO₂, one-water/bilayer models).
+
+(c) **Cr conformer × spin factorial** including one nspin=1 control — the Gauthier
+diagnostic for the 175 meV metastable-magnetic *OOH state (Gauthier 2017 p.4: the *OOH
+moment differs between conformers and "significantly affects the energy"; without spin
+polarization the conformer gap collapses to ~0.05 eV).
+
+**Registered constraint:** outputs of (b) and (c) are mechanism-caveat columns or
+uniformly-applied tier_v3 inputs — never a Cr-specific rescue (P6). §2's registered Cr
+prediction (the *OOH symmetry correction changes η(Cr) by exactly zero) is untouched.
+The (c) result feeds the held Cr Hessian decision (§3-A.7) as context, not as a gate.
+
+## A5.4 — LIT-5r: the solvation sensitivity band (D6; single-water arm deferred = D7)
+
+- All as-computed vacuum η_TD and G_max columns remain the **primary** results.
+- Sensitivity overlay, zero DFT: ΔG_OOH swept over **[−0.4, +0.2] eV** — the rutile-(110)
+  literature band (Gauthier 2017: −0.3/−0.4 eV at *O neighbour-coverage, +0.2 eV at *OH
+  neighbour-coverage, all stated by Gauthier as upper bounds from a 0 K ice-network
+  global-minimum search). **No central value is designated**: the correction is
+  coverage-dependent and sign-flipping, and both of Gauthier's coverage cases have an
+  occupied neighbouring cus site, which our low-coverage slabs do not — no literature
+  value exists for our geometry. ΔG_OH and ΔG_O are swept over 0 ± 0.1 eV. The report
+  states which rankings, apex assignments, and limiting-step labels survive the whole
+  band including zero.
+- **Guard, registered:** shifted columns may only **demote or qualify** vacuum-based
+  conclusions. No candidate that fails at unshifted values may be promoted to any
+  headline via a shifted column.
+- **Registered: no static water bilayer will be run.** Inico 2024: AIMD shows 45%/63%
+  water dissociation on RuO₂/IrO₂(110); the rigid intact bilayer inflates the RuO₂
+  *OOH/*OO-H splitting from 0.19 to 0.88 eV — a ~0.69 eV artifact — and destabilizes
+  *O-H on IrO₂. Running one anyway and reporting it would manufacture a number this
+  document has pre-committed to distrust.
+- Gauthier 2017 p.4 is cited as independent literature support for the Cr *OOH
+  metastable-magnetic-state finding (docs/41).
+
+## A5.5 — LIT-6: stability and dissolution scope columns (D8)
+
+Registered **outcome-neutrally, before any value is computed** (this amendment is that
+registration; the pre-amendment document is archived as
+docs/43-prereg-week1-factorial-archive-2026-08-11-pre-amendment-5.md).
+
+(a) **Bulk Pourbaix flags**, pymatgen/Materials Project, pH 0, 1.23–2.0 V vs SHE, applied
+uniformly to every host and dopant composition including the Ru/Ir survivors. Gate =
+Jia 2025's full published criterion: ΔG_pbx < 0.5 eV/atom **and** a solid phase present
+in the window. The flag is reported whatever it says. Anticipated but not asserted:
+Cr/Co/Cu likely flag; RuO₂ itself crosses its RuO₄ line at ~1.82 V (Cao Fig 2b), so a
+host flag near the window top is expected behaviour of the gate, not a defect. Wording:
+"thermodynamically flagged for bulk dissolution/transformation" — bulk Pourbaix carries
+no surface-state or kinetic information (Jia's own caveat).
+
+(b) **Substitutional formation energies** per Garcia-Mota 2011 Eq. 5, reusing existing
+doped-slab totals plus ~10 bulk reference relaxations (elemental metals in correct
+magnetic states, host bulks, O₂). Because slab totals carry U and elemental references do
+not, ΔE_form is U-dependent: reported at production U **and** at the P7 U-range
+endpoints, flagging any dopant whose stability verdict flips across the range.
+
+(c) **Published-SI anchors:** the free ACS SIs of Sun 2024 (Fig S6b per-dopant η₁₀ — the
+only published experimental activity set spanning the full Sc–Zn row in a rutile RuOx
+host) and Cao 2026 (Tables S1/S8 — their dopant U values, the direct comparator for our
+hp.x numbers). These are **anchor/context columns, never validation targets** (Sun's
+full-row η₁₀ spread is ~66 mV in nanoparticulate form; Burnett 2020 shows wet-cell and
+MEA rankings disagree on identical powders).
+
+(d) **Leaching caveat text**, stated with both edges: Burnett — Co loses 91.4% of its
+dopant in 1000 cycles while Ru loses < 0.4%, and Co's activity *rose* post-leach; Deng —
+Mn leaches ~300× Ir/Ru and it is sacrificial-protective. The caveat scopes what the
+ranking predicts (the modelled doped surface is transient under operation); it does not
+say the catalyst is dead.
+
+**Firewall, registered:** these stability columns are orthogonal scope documentation.
+They may note that Co/Cu would have been triaged on independent grounds; they may NOT be
+used to argue the withdrawn Cr headline or the P7 U-sensitivity finding is moot, and the
+Co *OOH and Cu holes remain holes in the activity dataset.
+
+## A5.6 — Wording and attribution obligations (D11; binding on report drafting, no compute)
+
+The memo §4 obligations are adopted as standing constraints on how results are worded
+(the report prose itself remains Frank's, per standing rule): (1) the withdrawal framed as
+field-consistent (Exner: η_TD least reliable near the apex); (2) P7 attributed — same
+phenomenon and mechanism as Tripkovic 2018, ours the pre-registered quantification on
+doped rutile (110); (3) no hybrid-functional arbitration — cite Tripkovic conclusion 3,
+do not compute; (4) "fixed-protocol DFT cannot reliably place Cr," never "Cr is bad"
+(Feng 2025: Cr-RuO₂ 201 mV experimental, best in set; Cao 2026: CrRuO₂ 360 h at
+100 mA/cm²); (5) the AEM-scope caveat package (Grimaud/Fabbri/Qiu/Deng) with the
+crystalline-RuO₂ null result defending the host baseline; (6) experimental validation
+limited to Mn-consistency plus leaching caveats, with Burnett's wet-cell/MEA
+non-correlation as the standard rebuttal to "validate against experiment"; (7) G_max
+presented as Exner's descriptor, adopted with citation; (8) every absolute η scoped:
+bare-surface-limit, AEM-channel, unsolvated, at stated tier and U.
+
+## A5.7 — Scope guard
+
+Nothing in this amendment alters the 1A replication gate, the P12 bins, the 1C verdict
+ladder, the 1B GO window, the frozen tiers, or any registered threshold. No LIT job
+launches on a box that is still running block-1A work; LIT decks queue only after the 1A
+manifest on a box is drained, or on a separately provisioned box. Total newly registered
+compute: ~12 relaxations (A5.2) + ~10–15 relaxations (A5.3b/c) + ~10 bulk relaxations
+(A5.5b) + regeneration SCFs (A5.1a/A5.3a, bounded above at ~150 cheap fixed-geometry
+SCFs). Every new Cr relaxation gets its GATE-1 child; every new relaxation of any metal
+follows the off-plane/nosym standing protocol with measured max|F_y| recorded (§0a.2).
+
+## A5.8 — The Xu 2015 gate: still open, and a wrong-paper note for the record
+
+The sweep memo gated all novelty wording about linear-response U on rutile OER systems on
+reading **Xu, Rossmeisl & Kitchin, "A Linear Response DFT+U Study of Trends in the Oxygen
+Evolution Activity of Transition Metal Rutile Dioxides," J. Phys. Chem. C 2015, 119,
+4827–4833, DOI 10.1021/jp511426q**. The PDF pulled on 2026-08-11 under the name
+`jp5b05338.pdf` is a **different paper from the same group, journal and year** — Curnan &
+Kitchin, "Investigating the Energetic Ordering of Stable and Metastable TiO₂ Polymorphs
+Using DFT+U and Hybrid Functionals," JPCC 2015, 119, 21060–21071, DOI
+10.1021/acs.jpcc.5b05338. That paper is kept (it independently supports the no-hybrid-
+arbitration position: experimentally consistent polymorph ordering holds over U
+*intervals*, while "a first-principles methodology capable of calculating exact exchange
+fractions ... is not available"), but it does not resolve the gate. No open-access copy
+of the correct paper exists (Unpaywall: closed; publisher and Scopus links only on the
+group's site). **Until 10.1021/jp511426q is pulled and read, the report may not claim
+novelty or priority for any linear-response-U result beyond the plain statement of what
+was computed here.** The slab non-convergence observation remains reportable as an
+observation.
+
+---
+
+# AMENDMENT 6 — 2026-08-15, before any block-6A (A0) deck is built or launched
+
+## A6.0 — What changed, and why this is registered now
+
+Block 6A — the A0 grid — was registered in §4 as *"the η(U) grid over 0–9 eV from pw.x
+alone (140 fixed-geometry SCFs)"*, declared independent of the 1B hp.x gate and declared
+to ship regardless of a NO-GO. It has never been built or run; only the inherited
+four-point ladders exist.
+
+Since it was registered, **block 1A closed with the verdict ADOPT_2X1V** (commit 58f5867):
+on 7 of 9 off-arm rows the 1×1 cell was systematically weakening binding through the
+periodic image, by 0.11–0.36 eV. A0's fixed geometries are 1×1. As registered, therefore,
+A0 would densify η(U) in a cell this campaign has since retired — a scope question the
+original registration never had to face.
+
+This amendment answers it **before a single A0 deck exists**, which is the only point at
+which the answer is worth anything.
+
+## A6.1 — The decision: the main grid stays 1×1, and a second arm crosses the cell
+
+**(a) A0-main, unchanged.** Dense η(U) grid, U = 0–9 eV, fixed geometry, 1×1 cell, pw.x
+only, ~140 SCFs — exactly as block 6A registered it.
+
+*Rationale, stated so it can be attacked:* P7 — the withdrawn η(Cr) headline, the 1.122 V
+swing — was measured in the 1×1 cell. A0's registered job is to bound **that** claim.
+Moving the grid wholesale into 2×1v would not bound P7; it would compute a different
+quantity and leave P7 a four-point result permanently, which is strictly worse for the
+finding the report is built on. The retired-cell objection is answered by (b), not by
+abandoning (a).
+
+**(b) A0-cell, newly registered.** A Cr-only 2×1v arm: four states (`ref`, `*O`, `*OH`,
+`*OOH`) × five U points = **20 fixed-geometry SCFs**, run on block 1A's already-relaxed
+2×1v Cr geometries. The builder must take those geometries from the production set that
+defines `tier_v3`, not re-pick them — a different 2×1v geometry would confound the cell
+comparison with a geometry comparison.
+
+U points: the four already on the ladder — `u0.0` = 0, `u0.5` = 1.85, `base` = 3.70,
+`u1.35` = 5.00 eV — plus **7.15 eV**, which is Xu, Rossmeisl & Kitchin 2015 Table 1's
+linear-response U for CrO₂ (10.1021/jp511426q). The fifth point is an external anchor,
+not a free choice made after seeing the first four.
+
+## A6.2 — The registered test: is the U error separable from the cell error?
+
+Over the five shared U points, with D(cell) = ΔG_O − ΔG_OH — the descriptor P7 measured —
+and span(cell) = max_U D − min_U D, define
+
+> **I_U ≡ span(2×1v) − span(1×1)**
+
+Thresholds are **inherited verbatim from §2's interaction bins** (P13, block 1A). They are
+not re-derived, and deliberately so: a threshold invented after the quantity is known is
+worth nothing.
+
+| \|I_U\| | declared reading |
+|---|---|
+| < 0.05 eV | **additive.** The U error and the cell error are separate corrections; the error budget may report and decompose them separately. |
+| ≥ 0.30 eV | **not separable.** Only the fully-corrected 2×1v U-sensitivity is reportable; the error budget carries one combined "cell + U" row and the report says so in words. |
+| 0.05–0.30 eV | **inconclusive.** Reported as inconclusive. Not rounded toward either. |
+
+*Prior, stated so it can be wrong:* I expect **|I_U| < 0.05 eV, additive.** Block 1A
+already measured the cell × symmetry interaction as additive on five of six scoreable rows
+(~0.00–0.04 eV) with one inconclusive (Ir `*OOH`, 0.266 eV), and the A5.1a mechanism test
+attributes the U-swing to a valence change on `*O` whose Δm is itself U-flat for every Cr
+state (range ≤ 0.12 μ_B). **If instead |I_U| ≥ 0.30 eV, the "separable error classes"
+framing that organises the entire report is wrong** and must be replaced by a
+non-decomposable combined budget. That is a legitimate result and it gets stated plainly,
+in the same paragraph as the finding it damages, not buried in supplementary material.
+
+**Second readout from the same arm, no extra compute:** whether the *location* of the
+volcano-apex crossing moves between cells. If the two cells place the crossing at U values
+differing by more than 1.0 eV, then A0's central claim — that the crossing is *located*
+rather than bracketed — is cell-conditional, and must be reported as such.
+
+## A6.3 — The reference anchors are in scope
+
+Production assigns **U = 0 to Ru and Ir** by the MP convention. That is a free choice this
+campaign has never examined, sitting underneath every number in the reference tier. Xu 2015
+computed 6.73 eV (Ru) and 5.91 eV (Ir) by linear response and reported that using them
+*improves* agreement with the experimental ordering — a 0.2–0.4 eV effect already flagged
+in the sweep memo §10.
+
+Registered: **A0-main spans U for Ru and Ir as well as the 3d metals**, over the same
+0–9 eV range, with Xu's computed values marked as declared anchor points.
+
+*Pre-registered prediction, falsifiable:* **the reference ordering Ir < Ru is stable across
+U ∈ [0, 9] eV.** If it inverts anywhere in the band, then the anchors against which every
+3d result in this campaign is reported are themselves U-conditional, and every ranking
+claim in the report — including the ones that survived P7 — inherits that caveat.
+
+This does **not** license re-deriving the production tier at nonzero Ru/Ir U. The
+production convention stays U = 0; any finding here is reported as a sensitivity, not
+applied as a correction.
+
+## A6.4 — What A0 may and may not claim
+
+- The **fixed-geometry approximation is unchanged** and must be restated wherever the grid
+  is used. A0 measures the U-response of energies at frozen geometry; it cannot see a
+  U-driven geometry change. Where A0 and a relaxed point disagree, **the relaxed point
+  wins** and the discrepancy is reported, not averaged.
+- **A0 does not supersede P7.** P7 stands as the registered prediction that triggered and
+  forced a withdrawal. A0 resolves it; it does not retroactively soften it.
+- **A5.1(b)'s ranking-claim rule continues to bind unchanged.** A0 supplies the U-band leg
+  from measured curves instead of interpolation. It relaxes none of the three legs.
+
+## A6.5 — Operational requirements, registered because they have already cost this campaign once
+
+1. **Charge densities must survive, or `projwfc.x` runs inline.** LIT-1 tranche 1 has no
+   Löwdin populations for exactly one reason: no `.save` directories survived (A5.1a).
+   Every A0 point either retains its `.save` or runs `projwfc.x` in the same job. Where
+   this holds, the moment-based valence tracker is upgraded to a charge-based one.
+2. **A declared escalation ladder for non-convergent points.** SCF convergence is expected
+   to be *worst* near the valence transition — precisely where the physics is. The
+   registered "re-run at tighter `conv_thr`" remedy is dead (amendment 2: QE's 1e-13 `ethr`
+   clamp). Replacement, in order: (i) restart from the converged neighbouring-U density as
+   `startingpot`; (ii) halve the mixing β; (iii) failing both, the point is recorded
+   **NOT_CONVERGED and plotted as a gap** — never interpolated across, never silently
+   dropped. A grid with holes is reportable. A grid with invented points is not.
+3. **The 2×1v arm scores only against GATE-1-passed parent geometries**, consistent with
+   §5 and amendment 4 §2.
+
+## A6.6 — Scope guard
+
+This amendment registers **~160 fixed-geometry SCFs and zero relaxations** (~140 A0-main +
+20 A0-cell). It alters no existing threshold: §2's interaction bins are reused unchanged,
+and the P12 bins, the 1C verdict ladder, the 1B GO window, the frozen tiers and A5.1(b) are
+untouched. It does **not** license an oxyhydroxide tier, an SQS/HEA tier, re-derivation of
+the production tier at nonzero Ru/Ir U, or any relaxation in any cell. Block 6A remains
+independent of the 1B hp.x gate and still ships regardless of its outcome.
+
+## A6.7 — A5.8's gate is discharged; recording it here so the live document is not stale
+
+A5.8 above states that the Xu 2015 gate is open. **It is not — it was discharged on
+2026-08-12** (commit 147f61e, sweep memo §10): `jp511426q.pdf` was pulled and read in full.
+Their linear-response U is **bulk-only** (Cococcioni 2×2×2 supercell, predating `hp.x`), so
+this campaign's slab-DFPT non-convergence observation survives as first-of-kind, and the
+wording ban A5.8 imposed is lifted to the extent that memo §10 records. The attribution
+debts that read created — on-rutile U-dependence to Xu 2015, and their p. 4831 caveat
+*"except perhaps near the top of the volcano"* being exactly P7's regime — are binding on
+report drafting under A5.6. A5.8's text is left standing rather than edited, per the
+no-edit-after-deposit rule; this section is the correction of record.
+
+---
+
+**Deposit obligation.** Like amendments 1–5, this amendment must be Zenodo-deposited
+**before the first block-6A job runs**. That is Frank's action, and it is a launch gate,
+not a formality: an interaction test registered after the grid is read is not a test.
+
+
+---
+
+# AMENDMENT 7 — 2026-08-16, before any post-1A job launches (S0 gates, the projector, the pls closed form, the floor-U replacement)
+
+## A7.0 — What changed, and why this is registered now
+
+The two-round adversarial literature sweep (docs/research/2026-08-15-lit-sweep-*,
+committed 1b9b326) closed with a program whose first stage is nine cheap capability
+gates and three new predictions. None of them may run after the answers are visible;
+all of them are therefore registered here, before any new job launches. Drafting
+provenance: this amendment was AI-drafted at the entrant's direction (2026-08-16)
+and is recorded as such in the AI-use log; the report will paraphrase, never
+reproduce, any sentence of it (see A7.7).
+
+## A7.1 — P-PROJ: the Hubbard projector as a paired variable
+
+The fifth A0 grid point (U = 7.15 eV, Xu 2015 Table 1) was produced under a
+different Hubbard projector than the production tier's `HUBBARD (atomic)`. The
+campaign has measured a +1.45 eV shift in the U *value* from projector choice, but
+has never measured the η consequence at fixed U. Before any A0 deck is built on the
+fifth grid point:
+
+- **Test:** two Cr fixed-geometry SCF sets at U = 7.15 eV, 1×1 (matching A0),
+  `HUBBARD (atomic)` vs `(ortho-atomic)`, all four states.
+- **PREDICTION (blind): |Δη(Cr)| > 0.10 V.** FALSIFIED below 0.03 V, in which case
+  the projector is not a live variable at this U and Xu's supercell linear-response
+  value may be imported as a literature anchor.
+- If it fires: the fifth grid point is labelled PROJECTOR-MISMATCHED before any
+  result exists; the whole η(U) grid runs in ONE projector; the projector delta
+  becomes its own labelled sub-row.
+- Gated on the S0 ortho-atomic acceptance test; if this QE build rejects the card,
+  that is recorded as a capability result and the point is labelled
+  projector-unverifiable rather than silently imported.
+- Citation rule: 10.1016/j.cpc.2022.108455 (the HP code paper) is NOT evidence for
+  projector dependence of η and must not be cited for it; the campaign's own
+  measured +1.45 eV is the evidence.
+
+## A7.2 — P-PLS: the closed form and the crossing as a deliverable
+
+Registered: for pls in {2,3}, **η = (c_M/2 − 1.23 V) + |ΔG₂ − ΔG₃|/2** exactly, where
+c_M = ΔG_OOH − ΔG_OH; the identity breaks when pls flips to 1 or 4; any row spanning
+a flip is reported in two pieces, never averaged across it. The U at which each
+metal's pls flips is a first-class deliverable.
+
+- **PREDICTION: ≥3 of 6 metals show a pls flip inside the registered A0 grid.**
+- **DISCLOSED NON-BLIND:** Cr flips 3→2 between U = 1.85 and 3.70 (its production U
+  landed 7 meV from the crossing — the physical content of "Cr sat 9 meV above its
+  floor"); Co and Ni both flipped 1→2 under correction; the LIT-1 Co ladder returns
+  pls = 1 at U = 4.48. **Blind: Mn, Fe, Ru, Ir, Ti.**
+
+## A7.3 — P-FLOOR-U (replaces the withdrawn P-U-SPLIT)
+
+The round-1 ratio ("excess exceeds floor by >3×") is WITHDRAWN before any grid is
+read: the excess |ΔG₂ − ΔG₃|/2 vanishes identically at a pls crossing, so the ratio
+is a grid artifact (Cr's excess runs 0.961 → 0.007 → 0.375 V across U = 0/3.70/5.00).
+Registered replacement, smooth and physical:
+
+- **Quantity: span(c_M)/2 in volts, at FIXED endpoints U = 0 and U = U_max** —
+  never max-minus-min over a grid.
+- **PREDICTION: span(c_M)/2 exceeds 0.10 V on ≥4 of the 6 metals with a converged
+  *OOH geometry.** FALSIFIED if ≤1 of 6 exceeds 0.10 V, in which case U does not
+  move the physical limit and the floor may serve as a U-invariant denominator —
+  a change of framing registered here, before the fact.
+- **DISCLOSED NON-BLIND:** Cr measures 0.223 V (floor 0.492 → 0.269 V across
+  U = 0 → 5.00), conditional on the S0(f) GATE-1 pass: if any of the four ladder
+  points moves > 50 meV on a fresh-density restart, the number is re-derived and
+  the correction recorded before this prediction is dated. **Blind: Mn, Fe, Ru,
+  Ir, Ti.**
+
+## A7.4 — The nine capability gates, each recorded whichever way it goes
+
+| Gate | Decides | Kill it prevents |
+|---|---|---|
+| (a) BEEF emission, FOUR decks (`ensemble_energies` / `calculation='ensemble'` / control / winner + HUBBARD card) | which switch this build honours | striking the XC row on a null a grep cannot interpret |
+| (b) `noinv` exactness (2 fixed-geometry SCFs, one 2×1v off-plane geometry, must agree < 1 meV) | drop `noinv` from every off-plane job (~38% off the battery; worst job ~62 h → ~39 h) | a week of avoidable critical-path calendar |
+| (c) Mirror-arm `nosym` invariance (< 1 meV) | mirror arm stays symmetry ON / 9 k; comparability control | conflating k-folding with a sampling change |
+| (d) Hessian timing AND σ_F in 2×1v (`conv_thr 1e-10`) | wall clock; whether 1e-10 is REACHED at 42 atoms/16 k; σ_F delivered | launching 19 decks whose minimum claim is unscorable |
+| (e) Ortho-atomic acceptance (build capability) | whether P-PROJ can run at all | silent import of a mismatched grid point |
+| (f) GATE-1 on the four Cr LIT-1 U-ladder points (6 fresh-density SCFs) | whether the 0.223 V floor number survives a basin audit | registering the program's most legible number on ungated points |
+| (g) TiO₂ 2×1v nspin=1 timing (1 relaxation) | replaces an extrapolated cost class with a measurement | mis-costing S3 |
+| (h) AFM anchor probe (4 nspin=2 AFM SCFs on existing RuO₂ 2×1v geometries) | a measured magnetic row on the anchor; closes P11 | the refuted "structurally incapable" wording resurfacing |
+| (i) Ti/Sn bulk cutoff ladders (8 SCFs; admission delta-E under 5 meV/atom, 80 to 100 Ry) | endmember admission inside the frozen 80/640 protocol | an unqualified pseudopotential entering the tier |
+
+## A7.5 — The phase-reality ledger and the MODEL-PHASE scoping rule
+
+Registered before any gate: the measured quantity of every arm is a **difference
+between two treatments of the SAME slab**; a difference is a valid method
+measurement whether or not the slab is a synthesisable electrode. The report may
+therefore never quote an absolute η for Cr, Fe, Co or Ni as a materials claim; they
+appear only inside paired within-metal differences. Enforced by the pre-submission
+script (S7).
+
+Tier strata: TiO₂, β-MnO₂, RuO₂, IrO₂ = REAL-AMBIENT-UNDISTORTED; CrO₂ =
+REAL-UNDISTORTED-METASTABLE (Man 2011, read verbatim: "some oxides such as NbO₂,
+ReO₂, VO₂, MoO₂, and CrO₂ are not stable"); FeO₂, CoO₂, NiO₂ = MODEL PHASE, method
+test systems only. β-MnO₂ is antiferromagnetic and `gen_rutile.py` initialises it
+FM — either the AFM arm runs or every materials-facing Mn sentence is struck.
+Exclusions (VO₂, NbO₂, MoO₂, WO₂, ReO₂, TcO₂, RhO₂, PtO₂, TaO₂, GeO₂, PbO₂, OsO₂,
+SiO₂-stishovite, CuO₂): each row of the exclusion table must carry one resolvable
+identifier (MP entry or primary crystallography) plus one reason, or the row is
+marked UNVERIFIED — the phase claims for candidate additions are currently unsourced
+(the 2026-07-24 survey covers only Cr/Mn/Fe/Co/Ni/Cu) and may not be presented
+otherwise. SnO₂ may be admitted as a declared control-stratum member only if Mom
+2014's stoichiometric rows are confirmed cus-site by Sep 1 (Man 2011's reduced-
+surface SnO₂ row is bridge-site, with the cus site reported not to bind).
+
+## A7.6 — Corrections of record entering with this amendment
+
+1. The multistability priors misattributed to "Dorado et al. 2013" are **Rabone &
+   Krack**, Comput. Mater. Sci. 2013 (10.1016/j.commatsci.2013.01.023).
+2. `starting_ns_eigenvalue` is an initial guess on the first DFT+U iteration, NOT a
+   held constraint; it must not be called occupation-matrix control.
+3. arXiv:2605.20985 contains no statement about DFPT+U non-convergence above U ~2 eV;
+   that claim is struck. The ph.x rejection rests on this system's measured hp.x
+   behaviour plus the already-priced finite-difference Hessian.
+4. Moore et al. 2024 (10.1103/PhysRevMaterials.8.014409): verified author order
+   Moore, Horton, Ganose, Siron, Linscott, O'Regan, Persson; the "VASP + atomate
+   supercell" characterisation is an inference from the abstract, labelled as such.
+5. GeO₂'s exclusion reason is corrected: rutile-type IS its ambient polymorph; it is
+   excluded as a wide-gap (~4.7 eV) insulator that would be a third occupancy
+   convention in one table, not on phase grounds.
+6. The token "STRUCTURALLY ZERO" is struck from the status vocabulary; permitted
+   statuses are MEASURED / BOUNDED / TRANSFERRED / NOT MEASURED.
+
+## A7.7 — Governance: P-DISPOSITION and authorship, as amended by the entrant
+
+- **P-DISPOSITION.** Any prediction not scored by Oct 15 is marked WITHDRAWN-UNSCORED
+  with its date; withdrawal is a legitimate ledger outcome shown alongside HELD and
+  TRIGGERED. The body-figure ledger is capped at six rows (five new + the historical
+  P7).
+- **Authorship (amends the round-2 P-AUTHORSHIP proposal; entrant's decision,
+  2026-08-16).** Amendments are AI-drafted research infrastructure, disclosed in the
+  AI-use log. The protection sits at report time: no sentence of any amendment is
+  reproduced verbatim in the report, essays, or application answers — the entrant
+  paraphrases. The AI-use log records what AI produced (sweeps, amendment drafts,
+  critique, scaffolding, CI) and what it did not (the report, essays, boxes,
+  disclosures, and the silentgate core, which the entrant writes himself per S1).
+
+## A7.8 — Deposit obligation, and a correction about the record
+
+No Zenodo DOI is recorded anywhere in this repository for amendments 1–6; as far as
+the record shows, no deposit has actually been performed and the chain to date is
+git-only. This amendment therefore carries the obligation for the whole document:
+docs/43 complete (A1–A7) is deposited to Zenodo as ONE restricted-access record
+(files closed, DOI + timestamp public, flipped to open at report submission) BEFORE
+any job governed by this amendment runs. The DOI is recorded here in a dated line
+when it exists.
+
+**DOI line (2026-08-16):** the A1–A7 chain was deposited and published as Zenodo
+record **10.5281/zenodo.21963144** (restricted access: DOI + timestamp public, files
+closed until report submission; file `43-prereg-week1-factorial-A1-A7.md`, 92,505
+bytes, exactly the state committed at d1032e5). The deposit obligation of A7.8 is
+discharged; every job governed by A7 may now launch. Text added after publication;
+the deposited file is the frozen artifact.

@@ -1,0 +1,57 @@
+{
+  "gate": "a",
+  "title": "S0 gate (a) - BEEF-vdW ensemble emission capability",
+  "registered_jobs": 4,
+  "registered_box_h": 4.0,
+  "authority": [
+    "docs/43-prereg-week1-factorial.md AMENDMENT 7 (A7.4 nine-gate table; Zenodo 10.5281/zenodo.21963144)",
+    "docs/research/2026-08-15-lit-sweep-round2-synthesis.md lines 182-202 (S0 table, arm 7, F5)"
+  ],
+  "decks": {
+    "slab__beefens.in": {
+      "jobs": 1,
+      "nk": 4,
+      "est_box_h": 1.0,
+      "source_geometry": "ATOMIC_POSITIONS of runs/probe/Ru/slab__base.in, themselves the final BFGS geometry of runs/Ru_anchor/slab.out (probe_manifest.json: source_run runs/Ru_anchor, geometry_provenance 'final')",
+      "purpose": "deck (i): input_dft='BEEF-vdW' + ensemble_energies=.true. in &SYSTEM - does this switch emit the BEEF ensemble block?",
+      "md5": "0c13e803ac21e49413f9a7997ed496b9"
+    },
+    "slab__beefcalc.in": {
+      "jobs": 1,
+      "nk": 4,
+      "est_box_h": 1.0,
+      "source_geometry": "ATOMIC_POSITIONS of runs/probe/Ru/slab__base.in, themselves the final BFGS geometry of runs/Ru_anchor/slab.out (probe_manifest.json: source_run runs/Ru_anchor, geometry_provenance 'final')",
+      "purpose": "deck (ii): input_dft='BEEF-vdW' + calculation='ensemble' in &CONTROL (replacing 'scf') - does this switch emit?",
+      "md5": "629263363e2d3d4d8645a63820db0de1"
+    },
+    "slab__beefctl.in": {
+      "jobs": 1,
+      "nk": 4,
+      "est_box_h": 1.0,
+      "source_geometry": "ATOMIC_POSITIONS of runs/probe/Ru/slab__base.in, themselves the final BFGS geometry of runs/Ru_anchor/slab.out (probe_manifest.json: source_run runs/Ru_anchor, geometry_provenance 'final')",
+      "purpose": "deck (iii) CONTROL: input_dft='BEEF-vdW' only, NO emission switch - does this build emit unrequested/by default?",
+      "md5": "7230a5dbcb7c1a757a1241e38a2e7879"
+    },
+    "slab__beefhub.in": {
+      "jobs": 1,
+      "nk": 4,
+      "est_box_h": 1.0,
+      "status": "SELECT-WINNER - file does not exist yet; copy the winner's template (see README) to slab__beefhub.in AFTER decks (i)-(iii) drain. Runs only if a winner exists.",
+      "templates": {
+        "slab__beefhub.in.template_i": "winner=(i): ensemble_energies + HUBBARD (atomic) / U Ru-4d 3.7000; md5 4eebc02f6d5e90b5e7cd91a8208db4ce",
+        "slab__beefhub.in.template_ii": "winner=(ii): calculation='ensemble' + HUBBARD (atomic) / U Ru-4d 3.7000; md5 54b4d29160e35db2fae216f31a540247",
+        "slab__beefhub.in.template_iii": "winner=(iii): input_dft only + HUBBARD (atomic) / U Ru-4d 3.7000; md5 c14ff5b44ba6683117f2da2bd95e3fd6"
+      },
+      "source_geometry": "ATOMIC_POSITIONS of runs/probe/Ru/slab__base.in, themselves the final BFGS geometry of runs/Ru_anchor/slab.out (probe_manifest.json: source_run runs/Ru_anchor, geometry_provenance 'final')",
+      "purpose": "deck (iv): WINNER of (i)-(iii) re-run with a HUBBARD card - the undocumented card-vs-emission combination S5's +U extension needs. PROBE-U: U Ru-4d 3.7000 is a capability placeholder, not a physics claim. Capability-only; never a science row."
+    }
+  },
+  "queue_lines_wave1": [
+    "s0/a_beef slab__beefens .in 4",
+    "s0/a_beef slab__beefcalc .in 4",
+    "s0/a_beef slab__beefctl .in 4"
+  ],
+  "queue_lines_wave2_after_select_winner": [
+    "s0/a_beef slab__beefhub .in 4"
+  ]
+}

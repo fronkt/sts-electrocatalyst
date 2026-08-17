@@ -1,0 +1,31 @@
+{
+  "gate": "S0(b) noinv exactness",
+  "registered_jobs": 2,
+  "decks": {
+    "s0_OOH__2x1v_off__noinvT.in": {
+      "jobs": 1,
+      "nk": 4,
+      "est_box_h": 2.3,
+      "source_geometry": "final BFGS geometry of runs/probe/Cr_cellsym/s0_OOH__2x1v_off.out",
+      "purpose": "leg-1: parent symmetry treatment (nosym=.true. + noinv=.true., 16 k-points); byte-identical to the proven s0_OOH__2x1v_off__g1.in except the prefix",
+      "md5": "d75e4a6d8942bc5268914202844e7e8d"
+    },
+    "s0_OOH__2x1v_off__noinvF.in": {
+      "jobs": 1,
+      "nk": 2,
+      "est_box_h": 1.5,
+      "source_geometry": "final BFGS geometry of runs/probe/Cr_cellsym/s0_OOH__2x1v_off.out",
+      "purpose": "leg-2: nosym=.true. with noinv ABSENT (QE default .false.; time-reversal reduces the 4 4 1 mesh 16 -> 10 k-points, the ~38% saving under test); differs from leg-1 only in prefix + the removed noinv line",
+      "md5": "ccb18cb1f926a73a7ceae2c32d57f74e"
+    }
+  },
+  "queue_manifest_lines": [
+    "s0/b_noinv s0_OOH__2x1v_off__noinvT .in 4",
+    "s0/b_noinv s0_OOH__2x1v_off__noinvF .in 2"
+  ],
+  "decision_rule": "|E(leg1) - E(leg2)| < 1 meV (0.0000734986 Ry)",
+  "cross_check_energy_Ry": {
+    "parent_relax_final": -3188.79231810,
+    "existing_off__g1_child": "cross-check for leg-1 only, not a substitute for running it (requirements.md gate b)"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "s0_OOH__2x1v_off.in": {
+    "jobs": 1,
+    "nk": 4,
+    "est_box_h": 4.0,
+    "source_geometry": "GENERATED (no TiO2 slab exists anywhere in the repo): bulk rutile TiO2 a=4.5937 A, c=2.9587 A, u=0.30478 from src/dft/gen_rutile.py RUTILE['TiO2'] (Abrahams & Bernstein 1971 / Burdett 1987 attribution flagged UNVERIFIED in-source); (110) slab cleaved by the production pipeline idiom of src/hea_oer/surfaces_rutile.py build_rutile110_hea (pymatgen SlabGenerator, min_slab_size=8.0, vacuum=13.0, center_slab, lll_reduce, 18-atom 1x1, bottom half fixed with the docs/30 mid-plane tolerance -> 7 fixed atoms per half); *OOH placed on the single cus site by cus_site_xy + adsorbate_starts pull1.70 (M-O = 1.700 A); off-plane start = yaw 90 deg about the binding O (build_cellsym_pilot YAW_DEG idiom, achieved |dy| = 1.400 A >= 0.30 A); 2x1v assembled as slab + shift_x(slab, a1=2.9587) + fragment per build_cellsym_pilot.build_metal. Builder script: scratchpad s0build/build_g_tio2.py. Deck md5 6d5643122c1de3077ecd7d7d43548021",
+    "purpose": "S0 gate (g): TiO2 2x1v nspin=1 timing. One *OOH adsorbate relaxation replacing the extrapolated 3-6 h nspin=1 2x1v cost class with a measurement before S3 is costed (TiO2 n=8 tier addition). Deliverables: wall clock, BFGS step count, per-SCF time. No pass/fail."
+  }
+}

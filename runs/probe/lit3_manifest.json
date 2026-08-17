@@ -1,0 +1,419 @@
+{
+  "block": "LIT-3 (b)+(c) -- *OO-H spot check and Cr conformer x spin factorial (docs/43 A5.3 = D4)",
+  "status": "NOT_DEPLOYED",
+  "prereg": {
+    "document": "docs/43-prereg-week1-factorial.md",
+    "section": "AMENDMENT 5, A5.3 (+ A5.7)",
+    "rule": "docs/43 is the only pre-registration. Where this manifest and docs/43 disagree, docs/43 wins.",
+    "anchors_verified": {
+      "oosh_initialization": {
+        "value": true,
+        "clause": "docs/43-prereg-week1-factorial.md A5.3(b)",
+        "anchor": "(superoxo O\u2013O + H on bridging O) per metal, \u00b1 spin starts"
+      },
+      "uniform_across_metals": {
+        "value": [
+          "Cr",
+          "Ir",
+          "Ru"
+        ],
+        "clause": "docs/43-prereg-week1-factorial.md A5.3(b)",
+        "anchor": "uniform across Cr, Ir, Ru** (P6/P19: never Cr alone)"
+      },
+      "inico_stabilization_ruo2_eV": {
+        "value": 0.46,
+        "clause": "docs/43-prereg-week1-factorial.md A5.3(b)",
+        "anchor": "Inico's measured stabilizations, per oxide: 0.46 eV"
+      },
+      "cr_factorial": {
+        "value": true,
+        "clause": "docs/43-prereg-week1-factorial.md A5.3(c)",
+        "anchor": "**Cr conformer \u00d7 spin factorial** including one nspin=1 control"
+      },
+      "superoxo_band_A": {
+        "value": [
+          1.3,
+          1.32
+        ],
+        "clause": "docs/43-prereg-week1-factorial.md A5.3(a)",
+        "anchor": "vs superoxo *OO-H ~1.30\u20131.32 \u00c5"
+      },
+      "never_cr_rescue": {
+        "value": true,
+        "clause": "docs/43-prereg-week1-factorial.md A5.3",
+        "anchor": "never a Cr-specific rescue (P6)"
+      },
+      "offplane_min_dy_A": {
+        "value": 0.3,
+        "clause": "docs/43-prereg-week1-factorial.md s2-A.1",
+        "anchor": "y-translation of \u2265 0.30 \u00c5"
+      },
+      "gate1_children_cr": {
+        "value": true,
+        "clause": "docs/43-prereg-week1-factorial.md A5.7",
+        "anchor": "Every new Cr relaxation gets its GATE-1 child"
+      },
+      "not_deployed_gate": {
+        "value": true,
+        "clause": "docs/43-prereg-week1-factorial.md A5.7",
+        "anchor": "manifest on a box is drained, or on a separately provisioned box"
+      }
+    }
+  },
+  "registered_constraint": "outputs are mechanism-caveat columns or uniformly-applied tier_v3 inputs -- never a Cr-specific rescue (P6); the docs/43 s2 registered Cr prediction is untouched",
+  "inico_reference_stabilizations_eV": {
+    "TiO2_vacuum": 0.46,
+    "RuO2_vacuum": 0.19,
+    "IrO2_one_water_bilayer": "0.13-0.15",
+    "note": "per-oxide, NEVER a blanket band (sweep verifier fix, memo s9 LIT-3 row)"
+  },
+  "registered_ambiguities": [
+    "'+/- spin starts' is under-determined: a global sign flip is exactly degenerate (collinear time reversal). Implemented as the O-channel seed sign (magp = production; magm = starting_magnetization(O) = -0.5, antiparallel to Cr). Ru/Ir run nspin=1 in production, where a spin start does not exist: one deck each. NEEDS FRANK'S SIGN-OFF BEFORE LAUNCH.",
+    "conformer axis = {yaw90, yaw270} (P10's registered operation); the mirror conformer enters by reuse (production metastable + basin corrected), and yaw90 x magp is the pending 1A row probe/Cr_cellsym/s0_OOH__1x1_off, reused not re-run.",
+    "the single nspin=1 control is placed at yaw90, matched to the 1A off row's conformer.",
+    "step allowances: conformers x1.0 (measured class), *OO-H x1.5 (ASSUMED, bracket 1.0-2.0)."
+  ],
+  "reused_rows": [
+    {
+      "metal": "Cr",
+      "cell": "conformer yaw90 x magp",
+      "job": "probe/Cr_cellsym/s0_OOH__1x1_off",
+      "status": "PENDING (no .out on disk)",
+      "gate1_required": true,
+      "note": "block-1A row, declared REUSE (A5.2 rule); its GATE-1 child is a 1A wave-2 obligation"
+    },
+    {
+      "metal": "Cr",
+      "cell": "conformer yaw0 (mirror) x production spin",
+      "job": "runs/Cr_slab/s0_OOH",
+      "status": "CONVERGED",
+      "gate1_required": false,
+      "note": "production relaxation -- the METASTABLE magnetic solution, 175 meV high (docs/41 s6f); enters the factorial as the documented trap, never as an energy of record"
+    },
+    {
+      "metal": "Cr",
+      "cell": "conformer yaw0 (mirror) x production spin",
+      "job": "runs/probe/Cr_basin/s0_OOH",
+      "status": "CONVERGED",
+      "gate1_required": false,
+      "note": "basin restart, the corrected (tier_v2) mirror value; prevalidated (docs/41 s6f: step-1 energy reproduced the audit SCF to 8.7e-4 meV)"
+    }
+  ],
+  "manifests": {
+    "B": {
+      "file": "m_lit3_np20.txt",
+      "np": 20,
+      "nconc": 1,
+      "n_jobs": 8,
+      "command": "bash queue_r1.sh m_lit3_np20.txt 20 1",
+      "sum_hours": 319.9,
+      "longest_job_hours": 69.7
+    }
+  },
+  "jobs": [
+    {
+      "metal": "Cr",
+      "job": "oosh__1x1_off_magp",
+      "deck_source": "s0_OOH",
+      "variant": "oosh/magp",
+      "calculation": "relax",
+      "sym": "off",
+      "kmesh": "9 4 1",
+      "n_kpt_est": 36,
+      "nk": 4,
+      "manifest": "B",
+      "np_run": 20,
+      "steps_est": 123,
+      "steps_basis": {
+        "measured_1x1_steps": 82,
+        "source": "runs/Cr_slab/s0_OOH.out",
+        "multiplier": 1.5,
+        "bracket": [
+          1.0,
+          2.0
+        ],
+        "basis": "measured production s0_OOH ionic steps x OOSH_STEP_MULT (ASSUMED: H moved to a new bonding site is not the measured restart class)"
+      },
+      "est_hours_np4": 209.2,
+      "est_hours_at_np": 69.7,
+      "est_hours_bracket_np4": [
+        182.9,
+        240.9
+      ],
+      "max_seconds": 502135,
+      "nspin": 2,
+      "geometry_source": "runs/probe/Cr_basin/s0_OOH.out",
+      "note": "A5.3(b): superoxo O-O = 1.31 A (registered band midpoint), H on the bridging O (slab atom 14) at 0.98 A with +0.35 A y-tilt; O-O fragment yawed 90 deg off the mirror; PLUS spin start (production starting_magnetization)",
+      "md5": "54dd233e36b194dc709dced84c9f1cd2",
+      "nat": 21,
+      "dmin": 0.9843,
+      "z_extent": 10.6374,
+      "vac_gap": 14.3715,
+      "max_start_dy": 3.4761
+    },
+    {
+      "metal": "Cr",
+      "job": "oosh__1x1_off_magm",
+      "deck_source": "s0_OOH",
+      "variant": "oosh/magm",
+      "calculation": "relax",
+      "sym": "off",
+      "kmesh": "9 4 1",
+      "n_kpt_est": 36,
+      "nk": 4,
+      "manifest": "B",
+      "np_run": 20,
+      "steps_est": 123,
+      "steps_basis": {
+        "measured_1x1_steps": 82,
+        "source": "runs/Cr_slab/s0_OOH.out",
+        "multiplier": 1.5,
+        "bracket": [
+          1.0,
+          2.0
+        ],
+        "basis": "measured production s0_OOH ionic steps x OOSH_STEP_MULT (ASSUMED: H moved to a new bonding site is not the measured restart class)"
+      },
+      "est_hours_np4": 209.2,
+      "est_hours_at_np": 69.7,
+      "est_hours_bracket_np4": [
+        182.9,
+        240.9
+      ],
+      "max_seconds": 502135,
+      "nspin": 2,
+      "geometry_source": "runs/probe/Cr_basin/s0_OOH.out",
+      "note": "A5.3(b): superoxo O-O = 1.31 A (registered band midpoint), H on the bridging O (slab atom 14) at 0.98 A with +0.35 A y-tilt; O-O fragment yawed 90 deg off the mirror; MINUS spin start (starting_magnetization(O) = -0.5, O channel seeded antiparallel to Cr -- see module docstring, interpretive choice 1)",
+      "md5": "f62f735eb1f37a445becaef9800def37",
+      "nat": 21,
+      "dmin": 0.9843,
+      "z_extent": 10.6374,
+      "vac_gap": 14.3715,
+      "max_start_dy": 3.4761
+    },
+    {
+      "metal": "Cr",
+      "job": "s0_OOH__1x1_yaw90_magm",
+      "deck_source": "s0_OOH",
+      "variant": "conformer yaw90/magm",
+      "calculation": "relax",
+      "sym": "off",
+      "kmesh": "9 4 1",
+      "n_kpt_est": 36,
+      "nk": 4,
+      "manifest": "B",
+      "np_run": 20,
+      "steps_est": 82,
+      "steps_basis": {
+        "measured_1x1_steps": 82,
+        "source": "runs/Cr_slab/s0_OOH.out",
+        "multiplier": 1.0,
+        "basis": "measured production s0_OOH ionic steps x 1.0; the yaw'd off-plane rows on record came in at 0.34-0.90x of their mirror row (build_cellsym_pilot), so 1.0x is already the conservative side"
+      },
+      "est_hours_np4": 139.5,
+      "est_hours_at_np": 46.5,
+      "est_hours_bracket_np4": [
+        121.9,
+        160.6
+      ],
+      "max_seconds": 334757,
+      "nspin": 2,
+      "geometry_source": "runs/probe/Cr_basin/s0_OOH.out",
+      "note": "A5.3(c) factorial cell: conformer = P10 yaw 90 deg of the corrected-basin *OOH; spin start = starting_magnetization(O) = -0.5 (interpretive choice 1)",
+      "md5": "b60b79b1bc116a1938cb0cf75cde2727",
+      "nat": 21,
+      "dmin": 1.062,
+      "z_extent": 10.6732,
+      "vac_gap": 14.3358,
+      "max_start_dy": 1.7473
+    },
+    {
+      "metal": "Cr",
+      "job": "s0_OOH__1x1_yaw270_magp",
+      "deck_source": "s0_OOH",
+      "variant": "conformer yaw270/magp",
+      "calculation": "relax",
+      "sym": "off",
+      "kmesh": "9 4 1",
+      "n_kpt_est": 36,
+      "nk": 4,
+      "manifest": "B",
+      "np_run": 20,
+      "steps_est": 82,
+      "steps_basis": {
+        "measured_1x1_steps": 82,
+        "source": "runs/Cr_slab/s0_OOH.out",
+        "multiplier": 1.0,
+        "basis": "measured production s0_OOH ionic steps x 1.0; the yaw'd off-plane rows on record came in at 0.34-0.90x of their mirror row (build_cellsym_pilot), so 1.0x is already the conservative side"
+      },
+      "est_hours_np4": 139.5,
+      "est_hours_at_np": 46.5,
+      "est_hours_bracket_np4": [
+        121.9,
+        160.6
+      ],
+      "max_seconds": 334757,
+      "nspin": 2,
+      "geometry_source": "runs/probe/Cr_basin/s0_OOH.out",
+      "note": "A5.3(c) factorial cell: conformer = P10 yaw 270 deg of the corrected-basin *OOH; spin start = production starting_magnetization",
+      "md5": "869a27e09a80933d541812386dfbe72d",
+      "nat": 21,
+      "dmin": 1.062,
+      "z_extent": 10.6732,
+      "vac_gap": 14.3358,
+      "max_start_dy": 1.7473
+    },
+    {
+      "metal": "Cr",
+      "job": "s0_OOH__1x1_yaw270_magm",
+      "deck_source": "s0_OOH",
+      "variant": "conformer yaw270/magm",
+      "calculation": "relax",
+      "sym": "off",
+      "kmesh": "9 4 1",
+      "n_kpt_est": 36,
+      "nk": 4,
+      "manifest": "B",
+      "np_run": 20,
+      "steps_est": 82,
+      "steps_basis": {
+        "measured_1x1_steps": 82,
+        "source": "runs/Cr_slab/s0_OOH.out",
+        "multiplier": 1.0,
+        "basis": "measured production s0_OOH ionic steps x 1.0; the yaw'd off-plane rows on record came in at 0.34-0.90x of their mirror row (build_cellsym_pilot), so 1.0x is already the conservative side"
+      },
+      "est_hours_np4": 139.5,
+      "est_hours_at_np": 46.5,
+      "est_hours_bracket_np4": [
+        121.9,
+        160.6
+      ],
+      "max_seconds": 334757,
+      "nspin": 2,
+      "geometry_source": "runs/probe/Cr_basin/s0_OOH.out",
+      "note": "A5.3(c) factorial cell: conformer = P10 yaw 270 deg of the corrected-basin *OOH; spin start = starting_magnetization(O) = -0.5 (interpretive choice 1)",
+      "md5": "6f8468664f40465026887b964327b745",
+      "nat": 21,
+      "dmin": 1.062,
+      "z_extent": 10.6732,
+      "vac_gap": 14.3358,
+      "max_start_dy": 1.7473
+    },
+    {
+      "metal": "Ru",
+      "job": "oosh__1x1_off",
+      "deck_source": "s0_OOH",
+      "variant": "oosh",
+      "calculation": "relax",
+      "sym": "off",
+      "kmesh": "8 4 1",
+      "n_kpt_est": 32,
+      "nk": 4,
+      "manifest": "B",
+      "np_run": 20,
+      "steps_est": 102,
+      "steps_basis": {
+        "measured_1x1_steps": 68,
+        "source": "runs/Ru_anchor/s0_OOH.out",
+        "multiplier": 1.5,
+        "bracket": [
+          1.0,
+          2.0
+        ],
+        "basis": "measured production s0_OOH ionic steps x OOSH_STEP_MULT (ASSUMED: H moved to a new bonding site is not the measured restart class)"
+      },
+      "est_hours_np4": 44.1,
+      "est_hours_at_np": 14.7,
+      "est_hours_bracket_np4": [
+        44.1,
+        44.1
+      ],
+      "max_seconds": 105754,
+      "nspin": 1,
+      "geometry_source": "runs/Ru_anchor/s0_OOH.out",
+      "note": "A5.3(b): superoxo O-O = 1.31 A (registered band midpoint), H on the bridging O (slab atom 14) at 0.98 A with +0.35 A y-tilt; O-O fragment yawed 90 deg off the mirror; nspin=1 standing protocol -- a spin start does not exist at nspin=1 (interpretive choice 1), and nspin=1 keeps this row comparable to the existing *OOH",
+      "md5": "499ff05e899343c7034c9896f37f96d8",
+      "nat": 21,
+      "dmin": 0.9843,
+      "z_extent": 10.559,
+      "vac_gap": 14.8516,
+      "max_start_dy": 3.5263
+    },
+    {
+      "metal": "Cr",
+      "job": "s0_OOH__1x1_yaw90_ns1",
+      "deck_source": "s0_OOH",
+      "variant": "conformer yaw90/ns1",
+      "calculation": "relax",
+      "sym": "off",
+      "kmesh": "9 4 1",
+      "n_kpt_est": 36,
+      "nk": 4,
+      "manifest": "B",
+      "np_run": 20,
+      "steps_est": 82,
+      "steps_basis": {
+        "measured_1x1_steps": 82,
+        "source": "runs/Cr_slab/s0_OOH.out",
+        "multiplier": 1.0,
+        "basis": "measured production s0_OOH ionic steps x 1.0; the yaw'd off-plane rows on record came in at 0.34-0.90x of their mirror row (build_cellsym_pilot), so 1.0x is already the conservative side"
+      },
+      "est_hours_np4": 39.9,
+      "est_hours_at_np": 13.3,
+      "est_hours_bracket_np4": [
+        39.9,
+        39.9
+      ],
+      "max_seconds": 95645,
+      "nspin": 1,
+      "geometry_source": "runs/probe/Cr_basin/s0_OOH.out",
+      "note": "A5.3(c): the ONE registered nspin=1 control (Gauthier diagnostic -- without spin polarization the conformer/basin structure should collapse). Hubbard U stays on: only the spin axis moves. Placed at yaw90, matched to the pending 1A off row (interpretive choice 3)",
+      "md5": "6c439b465d9d04b4210112c9a4321869",
+      "nat": 21,
+      "dmin": 1.062,
+      "z_extent": 10.6732,
+      "vac_gap": 14.3358,
+      "max_start_dy": 1.7473
+    },
+    {
+      "metal": "Ir",
+      "job": "oosh__1x1_off",
+      "deck_source": "s0_OOH",
+      "variant": "oosh",
+      "calculation": "relax",
+      "sym": "off",
+      "kmesh": "8 4 1",
+      "n_kpt_est": 32,
+      "nk": 4,
+      "manifest": "B",
+      "np_run": 20,
+      "steps_est": 90,
+      "steps_basis": {
+        "measured_1x1_steps": 60,
+        "source": "runs/Ir_anchor/s0_OOH.out",
+        "multiplier": 1.5,
+        "bracket": [
+          1.0,
+          2.0
+        ],
+        "basis": "measured production s0_OOH ionic steps x OOSH_STEP_MULT (ASSUMED: H moved to a new bonding site is not the measured restart class)"
+      },
+      "est_hours_np4": 38.9,
+      "est_hours_at_np": 13.0,
+      "est_hours_bracket_np4": [
+        38.9,
+        38.9
+      ],
+      "max_seconds": 93312,
+      "nspin": 1,
+      "geometry_source": "runs/Ir_anchor/s0_OOH.out",
+      "note": "A5.3(b): superoxo O-O = 1.31 A (registered band midpoint), H on the bridging O (slab atom 14) at 0.98 A with +0.35 A y-tilt; O-O fragment yawed 90 deg off the mirror; nspin=1 standing protocol -- a spin start does not exist at nspin=1 (interpretive choice 1), and nspin=1 keeps this row comparable to the existing *OOH",
+      "md5": "53270deed299210c8306ce7baaf9fd7e",
+      "nat": 21,
+      "dmin": 0.9843,
+      "z_extent": 10.5581,
+      "vac_gap": 14.8864,
+      "max_start_dy": 2.8306
+    }
+  ]
+}

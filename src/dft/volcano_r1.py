@@ -6,9 +6,13 @@ F1: each endmember on the Man 2011 volcano (descriptor x = dG_O - dG_OH; apex
     x ~ 1.6 eV, eta ~ 0.37 V under the universal *OOH = *OH + 3.2 eV scaling),
     anchored by lit RuO2(110) 0.37-0.42 V / IrO2(110) ~0.56 V.
 F2: Exner's G_max(eta) — the largest contiguous free-energy span at applied
-    potential U, a kinetics-aware alternative to eta_thermo (Acc. Chem. Res.
-    2024, 10.1021/acs.accounts.4c00048). Reported at U = 1.53 V (eta = 0.3 V)
-    and at the thermodynamic limiting potential.
+    potential U, a kinetics-aware alternative to eta_thermo. Primary sources:
+    Exner, ACS Catal. 10 (2020) 12607 (10.1021/acscatal.0c03865, definition and
+    the 0.20 eV sensitivity floor) and Razzaq & Exner, ACS Catal. 13 (2023)
+    1740 (10.1021/acscatal.2c03997, the 10-span free-energy-span formalism this
+    implementation matches, eqs 10-25); overview in Acc. Chem. Res. 2024,
+    10.1021/acs.accounts.4c00048. Reported at U = 1.53 V (eta = 0.3 V) and at
+    the thermodynamic limiting potential.
 
 Writes docs/figs/volcano_endmembers.{json,png}.
 Usage:  python src/dft/volcano_r1.py [runs_dir] [out_prefix]

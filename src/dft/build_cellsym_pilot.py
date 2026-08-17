@@ -182,6 +182,15 @@ PREREG = {
     "production_cell_decision_eV": (
         0.10, "s2",
         "by **≥ 0.10 eV** on any of the three metals"),
+    "coverage_live_variable_eV": (
+        0.10, "s2",
+        "differs from 2×1-vacant by ≥ 0.10 eV"),
+    "interaction_additive_max_eV": (
+        0.05, "s2 (Interaction)",
+        "< 0.05 eV | the two effects are additive"),
+    "interaction_not_separable_min_eV": (
+        0.30, "s2 (Interaction)",
+        "≥ 0.30 eV | **not separable.**"),
     "sign_rule_max_positive_dE_sym_eV": (
         0.02, "s1",
         "ΔE_sym > +0.02 eV is a failure of the search or"),
@@ -1086,6 +1095,13 @@ def cmd_gate1(a):
     # are just as exposed and the marginal cost is five cheap SCFs.
     targets = [j for j in man["jobs"]
                if j["metal"] == "Cr" and j["calculation"] == "relax"]
+    # amendment 4 s2: EVERY Cr relaxation gets a GATE-1 child -- including the
+    # s2-A.2 contingency relaxation, whose row lives in the refmir manifest.
+    rm_path = os.path.join(a.out, "cellsym_refmir_manifest.json")
+    if os.path.exists(rm_path):
+        rman = json.load(open(rm_path, encoding="utf-8"))
+        targets += [j for j in rman["jobs"]
+                    if j["metal"] == "Cr" and j["calculation"] == "relax"]
     if not targets:
         raise SystemExit("refusing: no Cr relaxations in the manifest")
 
@@ -1184,7 +1200,9 @@ def cmd_gate1(a):
              f"{PREREG['cr_gate1_scf_tol_meV'][0]} meV.",
              "# NP=20 NCONC=1",
              "# bash queue_r1.sh m_cellsym_gate1.txt 20 1",
-             "# NP=20 is an exact multiple of every nk below; NP x NCONC <= 23."]
+             # NOT "# NP=20 is an exact multiple ..." -- a comment that BEGINS
+             # like a directive trips queue_r1's malformed-np-directive refusal.
+             "# 20 is an exact multiple of every nk below; NP x NCONC <= 23."]
     lines += [f"probe/Cr_cellsym {r['job']} .in {r['nk']}" for r in rows]
     if not a.dry_run:
         with open(os.path.join(a.out, "m_cellsym_gate1.txt"), "w",
@@ -1194,6 +1212,135 @@ def cmd_gate1(a):
                   encoding="utf-8", newline="\n") as fh:
             json.dump(dict(prereg=f"{DOC43} s2-A.3", jobs=rows), fh, indent=2)
     print(f"{len(rows)} GATE-1 SCFs -> {outdir}")
+    return 0
+
+
+# ------------------- s2-A.2 registered contingency: ref__2x1o_mir (--refmir) ---
+
+def cmd_refmir(a):
+    """Emit the registered spectator-contingency deck `ref__2x1o_mir` per metal.
+
+    docs/43 s2 (amendment 4) registered, before the fact: if `ref__2x1o`'s
+    spectator relaxes to |dy| > 0.02 A, a `ref__2x1o_mir` job is added BEFORE
+    the interaction term S(2x1o) - S(2x1v) is scored. This emitter measures the
+    trigger from `ref__2x1o.out` itself and REFUSES to emit for a metal whose
+    contingency has not fired -- an untriggered mir ref would be a new arm, not
+    the registered contingency. The deck is `ref__2x1o` with the spectator
+    pinned on the mirror plane (spec_mir, no kick) and the mirror arm's
+    symmetry treatment (no nosym/noinv, mirror-folded k-set): exactly the
+    construction every 2x1o mir deck in the block uses.
+    """
+    man_path = os.path.join(a.out, "cellsym_manifest.json")
+    if not os.path.exists(man_path):
+        raise SystemExit(f"refusing: {man_path} not found; build the block first")
+    man = json.load(open(man_path, encoding="utf-8"))
+    dy_tol = PREREG["spectator_contingency_dy_A"][0]
+
+    rows = []
+    for M in a.metals:
+        cfg = METALS[M]
+        rd, n_slab = cfg["rundir"], cfg["n_slab"]
+        outdir = os.path.join(a.out, f"{M}_cellsym")
+        name = "ref__2x1o_mir"
+
+        # ---- the trigger, measured from ref__2x1o.out itself (never from a
+        # readout file: the builder re-derives what it acts on)
+        op = os.path.join(outdir, "ref__2x1o.out")
+        rec = read_out(op)
+        if not _scoreable(rec, "relax"):
+            raise SystemExit(f"refusing {M}: ref__2x1o is not a converged relax "
+                             f"({op}); the contingency cannot be evaluated")
+        pos_ref, prov = parse_final_coordinates(op)
+        man_geom = [g for g in man["geometry"] if g["metal"] == M][0]
+        y_mirror_man = man_geom["y_mirror"]
+        if pos_ref is None or prov != "final":
+            raise SystemExit(f"refusing {M}: ref__2x1o geometry provenance {prov!r}")
+        dy = abs(pos_ref[-1][2] - y_mirror_man)
+        if dy <= dy_tol:
+            raise SystemExit(
+                f"refusing {M}: measured spectator |dy| = {dy:.4f} A <= {dy_tol} "
+                "-- the s2-A.2 contingency has NOT fired for this metal and a "
+                "mir ref would be a new arm, not the registered contingency")
+
+        # ---- rebuild the wave-1 geometry from the same sources build_metal
+        # used, and refuse if they have moved since wave 1
+        src = {job: load(rd, job, cfg["basin_out"].get(job))
+               for job in ("slab", "s0_O", "s0_OOH")}
+        slab_clean = src["slab"]["pos"]
+        cus = cus_metal(slab_clean, src["s0_OOH"]["pos"][n_slab:])
+        y_mirror = cus[2]
+        # the manifest records y_mirror rounded (5 decimals); a real source move
+        # is >= 1e-4, so 1e-5 separates rounding from drift
+        if abs(y_mirror - y_mirror_man) > 1e-5:
+            raise SystemExit(f"refusing {M}: re-derived y_mirror {y_mirror!r} != "
+                             f"manifest {y_mirror_man!r}; sources moved since wave 1")
+        a1 = src["slab"]["deck"]["cell"][0][0]
+        mask = src["slab"]["deck"]["flags"][:n_slab]
+        slab_O = src["s0_O"]["pos"][:n_slab]
+        spec_mir = shift_x(src["s0_O"]["pos"][n_slab:], a1)
+        positions = slab_clean + shift_x(slab_O, a1) + spec_mir
+
+        d = dict(parse_input_deck(os.path.join(rd, "s0_O.in")))
+        d["flags"] = list(mask) * 2 + ["1 1 1"]
+        d["nosym"] = False                       # mir arm: the mirror stays on
+        d["cell"] = [[d["cell"][0][0] * 2.0, 0.0, 0.0],
+                     list(d["cell"][1]), list(d["cell"][2])]
+        d["kpts"] = ("automatic", list(KMESH_2X1) + ["0", "0", "0"])
+        text, _ = write_probe(d, positions, parse_variant("base"), name,
+                              a.pseudo_dir, a.scratch, calculation="relax")
+
+        # the mirror folds the 4x4 grid 16 -> 9, measured on this cell in the
+        # build path (Ir s0_OOH__2x1v_mir probe, 2026-08-09). More symmetry than
+        # the mirror would only lower nkp further; nk=2 still divides.
+        nkp = 9
+        steps = int(math.ceil(src["s0_O"]["steps_1x1"] * STEP_MULT_2X1))
+        h4 = est_hours_np4(nkp, steps, cfg["magnetic"], True)
+        h_run = h4 / RANK_SPEEDUP_NP20
+        ms = max(MAX_SECONDS_FLOOR, int(round(MAX_SECONDS_SAFETY * h_run * 3600)))
+        cut = text.index("\n/\n")
+        text = text[:cut] + f"\n  max_seconds = {ms}" + text[cut:]
+        meta = guard(text, os.path.join(rd, "s0_O.in"), name,
+                     dict(cell_mult=2.0, kmesh=KMESH_2X1, nat=len(positions),
+                          n_halves=2, y_mirror=y_mirror, sym="mir",
+                          max_seconds=ms))
+        blob = text.encode("utf-8")
+        nk = 2                                   # nkp 9 < 12; 20 % 2 == 0
+        if not a.dry_run:
+            with open(os.path.join(outdir, name + ".in"), "wb") as fh:
+                fh.write(blob)
+        rows.append(dict(metal=M, job=name, deck_source="s0_O", arm="2x1o",
+                         state="ref", calculation="relax", sym="mir",
+                         kmesh=" ".join(KMESH_2X1), n_kpt_est=nkp, nk=nk,
+                         np_run=20, steps_est=steps, max_seconds=ms,
+                         est_hours_at_np20=round(h_run, 1),
+                         trigger_measured_dy_A=round(dy, 4),
+                         trigger_threshold_A=dy_tol,
+                         spectator_y=round(positions[-1][2], 8),
+                         md5=hashlib.md5(blob).hexdigest(), **meta))
+
+    lines = ["# docs/43 s2 amendment-4 registered contingency (s2-A.2): the",
+             "# ref__2x1o spectator settled off-plane, so the mirror reference",
+             "# runs BEFORE the interaction S(2x1o) - S(2x1v) is scored.",
+             "# NP=20 NCONC=1",
+             "# bash queue_r1.sh m_cellsym_refmir.txt 20 1",
+             "# 20 is an exact multiple of every nk below; NP x NCONC <= 23."]
+    lines += [f"probe/{r['metal']}_cellsym {r['job']} .in {r['nk']}" for r in rows]
+    if not a.dry_run:
+        with open(os.path.join(a.out, "m_cellsym_refmir.txt"), "w",
+                  encoding="utf-8", newline="\n") as fh:
+            fh.write("\n".join(lines) + "\n")
+        with open(os.path.join(a.out, "cellsym_refmir_manifest.json"), "w",
+                  encoding="utf-8", newline="\n") as fh:
+            json.dump(dict(prereg=f"{DOC43} s2-A.2 registered contingency",
+                           note=("Cr's ref__2x1o_mir, once converged, needs its "
+                                 "__g1 fresh-density child before its energy "
+                                 "enters any gate or pair (amendment 4 s2)."),
+                           jobs=rows), fh, indent=2)
+    for r in rows:
+        print(f"{r['metal']}: {r['job']} dy={r['trigger_measured_dy_A']} A "
+              f"steps_est={r['steps_est']} max_seconds={r['max_seconds']} "
+              f"md5={r['md5'][:8]}")
+    print(f"{len(rows)} contingency decks -> {a.out}")
     return 0
 
 
@@ -1586,6 +1733,236 @@ def cmd_score(a):
                 row.update(status="CLEAR")
         spectator.append(row)
 
+    # ---- s2, EVALUATED: the k-mesh bridge (s2-A.5), the production-cell
+    # decision, the coverage variable, the interaction, and the s2-A.2
+    # spectator-corrected symmetry effect. These were declared thresholds with
+    # no evaluator -- the same defect U2/U5 named for the pair rules. Every Cr
+    # energy here is GATE-1-passed (amendment 4 s6.2); the production 1x1 slab
+    # is not a block-1A relaxation, has no __g1 child, and enters with its
+    # provenance recorded.
+    cell_thr = PREREG["production_cell_decision_eV"][0]
+    cov_thr = PREREG["coverage_live_variable_eV"][0]
+    i_add = PREREG["interaction_additive_max_eV"][0]
+    i_nosep = PREREG["interaction_not_separable_min_eV"][0]
+
+    def scored_energy(M, job_name, path=None, calculation="relax"):
+        """(energy_ev, provenance) or (None, why-not), Cr GATE-1-substituted."""
+        p = path or deck_out(M, job_name)
+        rec = read_out(p)
+        if not _scoreable(rec, calculation):
+            return None, f"{job_name or p}: not scoreable"
+        if METALS[M]["magnetic"]:
+            rec2, prov = gate1_passed(job_name, rec)
+            if rec2 is None:
+                return None, prov
+            return rec2["energy_ev"], prov
+        return rec["energy_ev"], "raw relax"
+
+    # s2-A.5: the 9 -> 8 k-mesh shift, measured at the production mirror
+    # geometries. A published number, not a term hiding inside the cell effect.
+    kbridge, kb_by_state = [], {}
+    for state in ("slab",) + tuple(STATES):
+        k8 = read_out(deck_out("Cr", f"{state}__1x1_k8"))
+        prod = read_out(prod_out("Cr", state))
+        row = dict(state=state, clause=f"{DOC43} s2-A.5")
+        if not (_scoreable(k8, "scf") and _scoreable(prod, "relax")):
+            row.update(status="PENDING", reason="k8 SCF or production relax "
+                                                "not scoreable")
+        else:
+            row.update(status="MEASURED",
+                       delta_k_meV=round((k8["energy_ev"]
+                                          - prod["energy_ev"]) * 1000.0, 2))
+            for ch in ("total_magnetization", "absolute_magnetization"):
+                if k8[ch] is not None and prod[ch] is not None:
+                    row["d_" + ch] = round(k8[ch] - prod[ch], 4)
+        kbridge.append(row)
+        kb_by_state[state] = row
+
+    pair_ix = {(r["metal"], r["state"], r["arm"]): r for r in pairs}
+
+    def off_1x1(M, state):
+        reused = (M, state, "1x1", "off") in ALREADY_ON_DISK
+        p = (ALREADY_ON_DISK.get((M, state, "1x1", "off"))
+             or deck_out(M, f"{state}__1x1_off"))
+        return p, (None if reused else f"{state}__1x1_off")
+
+    # s2 "The production-cell decision, declared in advance": per-adsorbate
+    # adsorption energy, OFF arm only (the mirror arm's cell effect is largely
+    # a constraint artifact, s2e), 2x1v vs 1x1. Gas references cancel.
+    cell_rows = []
+    for M in METALS:
+        e_ref2v, prov_ref2v = scored_energy(M, "ref__2x1v")
+        e_slab, prov_slab = scored_energy(M, None, path=prod_out(M, "slab"))
+        for state in STATES:
+            p1, name1 = off_1x1(M, state)
+            e_off1, prov_off1 = scored_energy(M, name1, path=p1)
+            e_off2v, prov_off2v = scored_energy(M, f"{state}__2x1v_off")
+            row = dict(metal=M, state=state, threshold_eV=cell_thr,
+                       clause=f"{DOC43} s2 (production-cell decision; "
+                              "off arm only)")
+            missing = [w for e, w in ((e_ref2v, prov_ref2v), (e_slab, prov_slab),
+                                      (e_off1, prov_off1), (e_off2v, prov_off2v))
+                       if e is None]
+            if missing:
+                row.update(status="NOT_SCOREABLE", reason="; ".join(missing))
+                cell_rows.append(row)
+                continue
+            d = (e_off2v - e_ref2v) - (e_off1 - e_slab)
+            row["D_cell_raw_eV"] = round(d, 4)
+            row["energy_provenance"] = dict(
+                ref_2x1v=prov_ref2v, slab_1x1=prov_slab + " (production slab; "
+                "not a block-1A relaxation, no __g1 child exists)",
+                off_1x1=prov_off1, off_2x1v=prov_off2v)
+            if M == "Cr":
+                bs, bb = kb_by_state.get(state), kb_by_state.get("slab")
+                if not (bs and bb and bs.get("delta_k_meV") is not None
+                        and bb.get("delta_k_meV") is not None):
+                    row.update(status="NOT_SCOREABLE",
+                               reason="k-mesh bridge (s2-A.5) not measured")
+                    cell_rows.append(row)
+                    continue
+                bridge = (bs["delta_k_meV"] - bb["delta_k_meV"]) / 1000.0
+                row["kbridge_correction_eV"] = round(bridge, 4)
+                row["kbridge_note"] = (
+                    "s2-A.5: bridge measured at the production mirror "
+                    "geometry, applied to the off row; the k-sensitivity is "
+                    "published, not hidden inside the cell effect")
+                d = d - bridge
+            row["D_cell_eV"] = round(d, 4)
+            row["status"] = "EXCEEDS" if abs(d) >= cell_thr else "WITHIN"
+            flags = [f"{arm} pair {pair_ix[(M, state, arm)]['verdict']}"
+                     for arm in ("1x1", "2x1v")
+                     if (M, state, arm) in pair_ix
+                     and pair_ix[(M, state, arm)].get("verdict")
+                     not in ("OK", None)]
+            if flags:
+                row["off_arm_flags"] = flags
+            cell_rows.append(row)
+
+    # s2: "If the 2x1 + *O-neighbour arm differs from 2x1-vacant by >= 0.10 eV,
+    # the resting-state coverage is itself a live variable" -- its own
+    # error-budget row, not resolved by picking one. Arm-consistent reference:
+    # the OFF arm's 2x1o reference is the kicked ref__2x1o (s2 Design).
+    cov_rows = []
+    for M in METALS:
+        e_ref2o, prov_ref2o = scored_energy(M, "ref__2x1o")
+        e_ref2v, prov_ref2v = scored_energy(M, "ref__2x1v")
+        for state in STATES:
+            e_off2o, prov_off2o = scored_energy(M, f"{state}__2x1o_off")
+            e_off2v, prov_off2v = scored_energy(M, f"{state}__2x1v_off")
+            row = dict(metal=M, state=state, threshold_eV=cov_thr,
+                       clause=f"{DOC43} s2 (resting-state coverage)")
+            missing = [w for e, w in ((e_ref2o, prov_ref2o), (e_ref2v, prov_ref2v),
+                                      (e_off2o, prov_off2o), (e_off2v, prov_off2v))
+                       if e is None]
+            if missing:
+                row.update(status="NOT_SCOREABLE", reason="; ".join(missing))
+            else:
+                d = (e_off2o - e_ref2o) - (e_off2v - e_ref2v)
+                row.update(D_cov_eV=round(d, 4),
+                           status="EXCEEDS" if abs(d) >= cov_thr else "WITHIN")
+            cov_rows.append(row)
+
+    # s2 "Interaction": I = dE_sym(2x1v) - dE_sym(1x1) per (metal, state).
+    # CONFOUNDED pairs are excluded from every symmetry statistic (s2-A.3(a));
+    # a sign-violated arm is voided (s1) -- either makes the row NOT_SCOREABLE.
+    inter_rows = []
+    for M in METALS:
+        for state in STATES:
+            row = dict(metal=M, state=state,
+                       additive_max_eV=i_add, not_separable_min_eV=i_nosep,
+                       clause=f"{DOC43} s2 (Interaction)")
+            bad = []
+            for arm in ("1x1", "2x1v"):
+                r = pair_ix.get((M, state, arm))
+                if r is None or r.get("verdict") != "OK":
+                    bad.append(f"{arm} pair "
+                               f"{'missing' if r is None else r.get('verdict')}")
+            if bad:
+                row.update(status="NOT_SCOREABLE", reason="; ".join(bad))
+            else:
+                I = (pair_ix[(M, state, "2x1v")]["dE_sym_eV"]
+                     - pair_ix[(M, state, "1x1")]["dE_sym_eV"])
+                row.update(I_eV=round(I, 4),
+                           status=("ADDITIVE" if abs(I) < i_add else
+                                   "NOT_SEPARABLE" if abs(I) >= i_nosep else
+                                   "INCONCLUSIVE"))
+            inter_rows.append(row)
+
+    # s2 Design ("each arm's own reference computed in the same cell at the
+    # same settings") + s2-A.2: the 2x1o symmetry effect with arm-consistent
+    # references. S_spec = E(ref__2x1o) - E(ref__2x1o_mir) is the spectator's
+    # own off-plane relaxation energy; S_armref(2x1o) = S_raw - S_spec.
+    spec_rows = []
+    for M in METALS:
+        e_refo, prov_o = scored_energy(M, "ref__2x1o")
+        e_refm, prov_m = scored_energy(M, "ref__2x1o_mir")
+        srow = dict(metal=M, clause=f"{DOC43} s2 (Design) + s2-A.2")
+        if e_refo is None or e_refm is None:
+            srow.update(status="PENDING",
+                        reason=prov_o if e_refo is None else prov_m)
+            spec_rows.append(srow)
+            continue
+        s_spec = e_refo - e_refm
+        srow.update(status="MEASURED", S_spec_eV=round(s_spec, 4),
+                    energy_provenance=dict(ref_2x1o=prov_o,
+                                           ref_2x1o_mir=prov_m))
+        if s_spec > sign_tol:
+            srow["sign_flag"] = (f"S_spec = +{s_spec:.4f} eV > +{sign_tol}: "
+                                 "the kicked reference sits ABOVE the mirror "
+                                 "reference, a failure of the search or of the "
+                                 "comparison (s1)")
+        per_state = []
+        for state in STATES:
+            st = dict(state=state)
+            bad = []
+            for arm in ("2x1o", "2x1v"):
+                r = pair_ix.get((M, state, arm))
+                if r is None or r.get("verdict") != "OK":
+                    bad.append(f"{arm} pair "
+                               f"{'missing' if r is None else r.get('verdict')}")
+            if bad:
+                st.update(status="NOT_SCOREABLE", reason="; ".join(bad))
+            else:
+                s_raw = pair_ix[(M, state, "2x1o")]["dE_sym_eV"]
+                s_arm = s_raw - s_spec
+                st.update(status="SCORED", S_2x1o_raw_eV=round(s_raw, 6),
+                          S_2x1o_armref_eV=round(s_arm, 4),
+                          I_spec_eV=round(
+                              s_arm - pair_ix[(M, state, "2x1v")]["dE_sym_eV"],
+                              4))
+            per_state.append(st)
+        srow["per_state"] = per_state
+        spec_rows.append(srow)
+
+    # the verdict itself + the s3-A.7 unlock
+    scoreable = [r for r in cell_rows if "D_cell_eV" in r]
+    exceeds = [r for r in scoreable if r["status"] == "EXCEEDS"]
+    not_scoreable = [r for r in cell_rows if "D_cell_eV" not in r]
+    if not_scoreable:
+        cell_verdict = dict(verdict="PENDING", reason=(
+            f"{len(not_scoreable)} of {len(cell_rows)} cell rows not "
+            "scoreable"))
+    elif exceeds:
+        cell_verdict = dict(verdict="ADOPT_2X1V", rows_exceeding=[
+            f"{r['metal']} {r['state']} {r['D_cell_eV']:+.3f} eV"
+            for r in exceeds])
+    else:
+        cell_verdict = dict(verdict="KEEP_1X1", published_bound_eV=round(
+            max(abs(r["D_cell_eV"]) for r in scoreable), 4))
+    cov_exceeds = [r for r in cov_rows if r.get("status") == "EXCEEDS"]
+    cell_verdict["coverage_live_variable"] = bool(cov_exceeds)
+    if cov_exceeds:
+        cell_verdict["coverage_rows_exceeding"] = [
+            f"{r['metal']} {r['state']} {r['D_cov_eV']:+.3f} eV"
+            for r in cov_exceeds]
+    prod_cell = {"ADOPT_2X1V": "2x1v", "KEEP_1X1": "1x1"}.get(
+        cell_verdict["verdict"])
+    hessian_unlock = dict(clause=f"{DOC43} s3-A.7", status=(
+        "UNLOCKED" if prod_cell else "STILL_HELD"), action=(
+        f"Cr (block 1C) now runs in the {prod_cell} production cell"
+        if prod_cell else "cell verdict PENDING; Cr stays held"))
+
     out = dict(prereg=dict(document=DOC43,
                            sections=["1", "2", "2-A.2", "2-A.3", "2-A.4"],
                            pair_magnetisation_tol_bohrmag=mag_tol,
@@ -1599,7 +1976,12 @@ def cmd_score(a):
                     "yet. Hard rule 3: a relax must carry `bfgs converged` and an "
                     "SCF a final total energy; `JOB DONE` is never the test.",
                magnetic_records=records, gate1=gate1_rows, pairs=pairs,
-               gates=gates, spectator_contingency=spectator)
+               gates=gates, spectator_contingency=spectator,
+               kmesh_bridge=kbridge,
+               cell_decision=dict(rows=cell_rows, **cell_verdict),
+               coverage=cov_rows, interaction=inter_rows,
+               spectator_symmetry=spec_rows,
+               hessian_unlock_s3A7=hessian_unlock)
     if not a.dry_run:
         with open(os.path.join(a.out, "cellsym_readout.json"), "w",
                   encoding="utf-8", newline="\n") as fh:
@@ -1626,6 +2008,43 @@ def cmd_score(a):
         if r.get("status") == "TRIGGERED":
             print(f"  TRIGGERED  {r['metal']} ref__2x1o dy = "
                   f"{r.get('measured_dy_A')} A: {r.get('action')}")
+    print(f"k-mesh bridge (s2-A.5, Cr): " + ", ".join(
+        f"{r['state']} {r.get('delta_k_meV', '?')} meV" for r in kbridge))
+    print(f"cell decision ({len(cell_rows)} rows): {tally(cell_rows, 'status')} "
+          f"-> {cell_verdict['verdict']}"
+          + (f" (bound {cell_verdict['published_bound_eV']} eV)"
+             if "published_bound_eV" in cell_verdict else ""))
+    for r in cell_rows:
+        if "D_cell_eV" in r:
+            print(f"  D_cell {r['metal']} {r['state']}: {r['D_cell_eV']:+.4f} eV"
+                  f" [{r['status']}]"
+                  + (f" flags: {'; '.join(r['off_arm_flags'])}"
+                     if "off_arm_flags" in r else ""))
+    print(f"coverage ({len(cov_rows)} rows): {tally(cov_rows, 'status')} -> "
+          f"live variable: {cell_verdict['coverage_live_variable']}")
+    for r in cov_rows:
+        if "D_cov_eV" in r:
+            print(f"  D_cov {r['metal']} {r['state']}: {r['D_cov_eV']:+.4f} eV"
+                  f" [{r['status']}]")
+    print(f"interaction ({len(inter_rows)} rows): {tally(inter_rows, 'status')}")
+    for r in inter_rows:
+        if "I_eV" in r:
+            print(f"  I {r['metal']} {r['state']}: {r['I_eV']:+.4f} eV "
+                  f"[{r['status']}]")
+        else:
+            print(f"  I {r['metal']} {r['state']}: NOT_SCOREABLE ({r['reason']})")
+    for srow in spec_rows:
+        if srow.get("status") == "MEASURED":
+            print(f"spectator S_spec {srow['metal']}: {srow['S_spec_eV']:+.4f} eV"
+                  + ("  " + srow["sign_flag"] if "sign_flag" in srow else ""))
+            for st in srow["per_state"]:
+                if st.get("status") == "SCORED":
+                    print(f"  S(2x1o) {srow['metal']} {st['state']}: raw "
+                          f"{st['S_2x1o_raw_eV']:+.4f} armref "
+                          f"{st['S_2x1o_armref_eV']:+.4f} I_spec "
+                          f"{st['I_spec_eV']:+.4f} eV")
+    print(f"s3-A.7 Cr Hessian: {hessian_unlock['status']} -- "
+          f"{hessian_unlock['action']}")
     return 0
 
 
@@ -1641,6 +2060,10 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--gate1", action="store_true",
                     help="wave 2: emit the Cr GATE-1 SCFs from converged 1A outputs")
+    ap.add_argument("--refmir", action="store_true",
+                    help="s2-A.2 registered contingency: emit ref__2x1o_mir for "
+                         "every metal whose ref__2x1o spectator settled at "
+                         "|dy| > the registered threshold")
     ap.add_argument("--score", action="store_true",
                     help="wave 3: read the block -- Cr mir/off magnetisation pairs "
                          "(docs/43 s2-A.3(a)), GATE C and C-2 (s2-A.4) and the "
@@ -1651,6 +2074,8 @@ def main():
     prereg = _prereg_check()
     if a.gate1:
         return cmd_gate1(a)
+    if a.refmir:
+        return cmd_refmir(a)
     if a.score:
         return cmd_score(a)
 

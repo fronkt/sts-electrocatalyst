@@ -1,0 +1,617 @@
+{
+ "_meta": {
+  "generated": "2026-08-12",
+  "script": "src/dft/lit3_ooh_fingerprints.py",
+  "registration": "docs/43-prereg-week1-factorial.md AMENDMENT 5, A5.3(a) -- zero-DFT tranche",
+  "primary_fingerprint": "O-O distance (registered bands: hydroperoxo (1.37, 1.45) A, superoxo (1.3, 1.32) A, Inico 2024; the registration writes them with '~' and they are applied as stated intervals)",
+  "secondary": "Bader (QTAIM) via pp.x -- NOT computed here; see bader_todo",
+  "tier_context": "zero new DFT; geometric observables only. tier_v2 is frozen and unchanged; tier_v3 does not exist."
+ },
+ "classified": [
+  {
+   "run": "runs/probe/Cr_basin/s0_OOH.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 21,
+   "cell_arm": "1x1",
+   "oo_A": 1.3539,
+   "classification": "UNCLASSIFIED (between the registered bands; nearest = hydroperoxo, 0.016 A away)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 1.062,
+   "h_to_outer_O_A": 1.062,
+   "h_to_binding_O_A": 1.338,
+   "active_site": "Cr",
+   "M_Obind_A": 2.0792,
+   "total_magnetization": 11.0,
+   "absolute_magnetization": 20.09,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/probe/Cr_cellsym/s0_OOH__2x1o_mir.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 40,
+   "cell_arm": "2x1",
+   "oo_A": 1.3163,
+   "classification": "superoxo (*OO-H band)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 1.0718,
+   "h_to_outer_O_A": 1.0718,
+   "h_to_binding_O_A": 1.9449,
+   "active_site": "Cr",
+   "M_Obind_A": 2.1132,
+   "total_magnetization": 21.0,
+   "absolute_magnetization": 38.41,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/probe/Cr_cellsym/s0_OOH__2x1o_off.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 40,
+   "cell_arm": "2x1",
+   "oo_A": 1.2214,
+   "classification": "UNCLASSIFIED (outside both registered bands; nearest = superoxo, 0.079 A away)",
+   "h_nearest_O": "slab bridging O (*OO-H connectivity)",
+   "h_O_dist_A": 0.9712,
+   "h_to_outer_O_A": 2.637,
+   "h_to_binding_O_A": 3.1048,
+   "active_site": "Cr",
+   "M_Obind_A": 3.4158,
+   "total_magnetization": 21.0,
+   "absolute_magnetization": 39.89,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/probe/Cr_cellsym/s0_OOH__2x1v_mir.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 39,
+   "cell_arm": "2x1",
+   "oo_A": 1.3542,
+   "classification": "UNCLASSIFIED (between the registered bands; nearest = hydroperoxo, 0.016 A away)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 0.9897,
+   "h_to_outer_O_A": 0.9897,
+   "h_to_binding_O_A": 1.8708,
+   "active_site": "Cr",
+   "M_Obind_A": 1.9681,
+   "total_magnetization": 23.0,
+   "absolute_magnetization": 38.66,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/probe/Cr_cellsym/s0_OOH__2x1v_off.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 39,
+   "cell_arm": "2x1",
+   "oo_A": 1.232,
+   "classification": "UNCLASSIFIED (outside both registered bands; nearest = superoxo, 0.068 A away)",
+   "h_nearest_O": "slab bridging O (*OO-H connectivity)",
+   "h_O_dist_A": 0.9717,
+   "h_to_outer_O_A": 2.1566,
+   "h_to_binding_O_A": 2.8453,
+   "active_site": "Cr",
+   "M_Obind_A": 2.4476,
+   "total_magnetization": 23.0,
+   "absolute_magnetization": 40.52,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/Cr_slab/s0_OOH.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 21,
+   "cell_arm": "1x1",
+   "oo_A": 1.36,
+   "classification": "UNCLASSIFIED (between the registered bands; nearest = hydroperoxo, 0.010 A away)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 1.0575,
+   "h_to_outer_O_A": 1.0575,
+   "h_to_binding_O_A": 1.3278,
+   "active_site": "Cr",
+   "M_Obind_A": 2.0764,
+   "total_magnetization": 11.8,
+   "absolute_magnetization": 19.41,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/Cu_slab/s0_OOH.out",
+   "calculation": "relax",
+   "qc_verdict": "POISONED",
+   "bfgs_converged": false,
+   "geometry_provenance": "last-step (NOT a converged final geometry)",
+   "nat": 21,
+   "cell_arm": "1x1",
+   "oo_A": 1.3231,
+   "classification": "UNCLASSIFIED (between the registered bands; nearest = superoxo, 0.003 A away)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 0.9673,
+   "h_to_outer_O_A": 0.9673,
+   "h_to_binding_O_A": 1.9184,
+   "active_site": "Cu",
+   "M_Obind_A": 3.4122,
+   "total_magnetization": 2.51,
+   "absolute_magnetization": 3.18,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/Fe_slab/s0_OOH.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 21,
+   "cell_arm": "1x1",
+   "oo_A": 1.3299,
+   "classification": "UNCLASSIFIED (between the registered bands; nearest = superoxo, 0.010 A away)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 1.0818,
+   "h_to_outer_O_A": 1.0818,
+   "h_to_binding_O_A": 1.3744,
+   "active_site": "Fe",
+   "M_Obind_A": 2.5525,
+   "total_magnetization": 22.98,
+   "absolute_magnetization": 25.89,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/Ir_anchor/s0_OOH.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 21,
+   "cell_arm": "1x1",
+   "oo_A": 1.4267,
+   "classification": "hydroperoxo (*O-OH band)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 0.9817,
+   "h_to_outer_O_A": 0.9817,
+   "h_to_binding_O_A": 1.8141,
+   "active_site": "Ir",
+   "M_Obind_A": 1.912,
+   "total_magnetization": null,
+   "absolute_magnetization": null,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/probe/Ir_cellsym/s0_OOH__1x1_off.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 21,
+   "cell_arm": "1x1",
+   "oo_A": 1.4363,
+   "classification": "hydroperoxo (*O-OH band)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 0.983,
+   "h_to_outer_O_A": 0.983,
+   "h_to_binding_O_A": 1.8732,
+   "active_site": "Ir",
+   "M_Obind_A": 1.932,
+   "total_magnetization": null,
+   "absolute_magnetization": null,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/probe/Ir_cellsym/s0_OOH__2x1o_mir.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 40,
+   "cell_arm": "2x1",
+   "oo_A": 1.4214,
+   "classification": "hydroperoxo (*O-OH band)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 0.9818,
+   "h_to_outer_O_A": 0.9818,
+   "h_to_binding_O_A": 1.8616,
+   "active_site": "Ir",
+   "M_Obind_A": 1.9122,
+   "total_magnetization": null,
+   "absolute_magnetization": null,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/probe/Ir_orient/s0_OOH__yaw270.out",
+   "calculation": "relax",
+   "qc_verdict": "POISONED",
+   "bfgs_converged": false,
+   "geometry_provenance": "last-step (NOT a converged final geometry)",
+   "nat": 21,
+   "cell_arm": "1x1",
+   "oo_A": 1.4705,
+   "classification": "UNCLASSIFIED (outside both registered bands; nearest = hydroperoxo, 0.021 A away)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 0.989,
+   "h_to_outer_O_A": 0.989,
+   "h_to_binding_O_A": 1.782,
+   "active_site": "Ir",
+   "M_Obind_A": 1.9415,
+   "total_magnetization": null,
+   "absolute_magnetization": null,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/probe/Ir_orient/s0_OOH__yaw90.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 21,
+   "cell_arm": "1x1",
+   "oo_A": 1.4344,
+   "classification": "hydroperoxo (*O-OH band)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 0.9835,
+   "h_to_outer_O_A": 0.9835,
+   "h_to_binding_O_A": 1.8787,
+   "active_site": "Ir",
+   "M_Obind_A": 1.933,
+   "total_magnetization": null,
+   "absolute_magnetization": null,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/Mn_slab/s0_OOH.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 21,
+   "cell_arm": "1x1",
+   "oo_A": 1.3346,
+   "classification": "UNCLASSIFIED (between the registered bands; nearest = superoxo, 0.015 A away)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 1.0889,
+   "h_to_outer_O_A": 1.0889,
+   "h_to_binding_O_A": 1.308,
+   "active_site": "Mn",
+   "M_Obind_A": 2.4803,
+   "total_magnetization": 17.0,
+   "absolute_magnetization": 23.76,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/Ru_anchor/s0_OOH.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 21,
+   "cell_arm": "1x1",
+   "oo_A": 1.3871,
+   "classification": "hydroperoxo (*O-OH band)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 1.0259,
+   "h_to_outer_O_A": 1.0259,
+   "h_to_binding_O_A": 1.4725,
+   "active_site": "Ru",
+   "M_Obind_A": 1.9474,
+   "total_magnetization": null,
+   "absolute_magnetization": null,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/probe/Ru_cellsym/s0_OOH__2x1o_mir.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 40,
+   "cell_arm": "2x1",
+   "oo_A": 1.3483,
+   "classification": "UNCLASSIFIED (between the registered bands; nearest = hydroperoxo, 0.022 A away)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 1.0792,
+   "h_to_outer_O_A": 1.0792,
+   "h_to_binding_O_A": 2.0087,
+   "active_site": "Ru",
+   "M_Obind_A": 1.9023,
+   "total_magnetization": null,
+   "absolute_magnetization": null,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/probe/Ru_cellsym/s0_OOH__2x1o_off.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 40,
+   "cell_arm": "2x1",
+   "oo_A": 1.3568,
+   "classification": "UNCLASSIFIED (between the registered bands; nearest = hydroperoxo, 0.013 A away)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 1.0852,
+   "h_to_outer_O_A": 1.0852,
+   "h_to_binding_O_A": 2.0019,
+   "active_site": "Ru",
+   "M_Obind_A": 1.9041,
+   "total_magnetization": null,
+   "absolute_magnetization": null,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/probe/Ru_cellsym/s0_OOH__2x1v_mir.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 39,
+   "cell_arm": "2x1",
+   "oo_A": 1.4041,
+   "classification": "hydroperoxo (*O-OH band)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 0.9835,
+   "h_to_outer_O_A": 0.9835,
+   "h_to_binding_O_A": 1.9077,
+   "active_site": "Ru",
+   "M_Obind_A": 1.9005,
+   "total_magnetization": null,
+   "absolute_magnetization": null,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/probe/Ru_cellsym/s0_OOH__2x1v_off.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 39,
+   "cell_arm": "2x1",
+   "oo_A": 1.3763,
+   "classification": "hydroperoxo (*O-OH band)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 1.0598,
+   "h_to_outer_O_A": 1.0598,
+   "h_to_binding_O_A": 1.9853,
+   "active_site": "Ru",
+   "M_Obind_A": 1.9058,
+   "total_magnetization": null,
+   "absolute_magnetization": null,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/probe/Ru_orient/s0_OOH__yaw270.out",
+   "calculation": "relax",
+   "qc_verdict": "POISONED",
+   "bfgs_converged": false,
+   "geometry_provenance": "last-step (NOT a converged final geometry)",
+   "nat": 21,
+   "cell_arm": "1x1",
+   "oo_A": 1.3889,
+   "classification": "hydroperoxo (*O-OH band)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 1.0178,
+   "h_to_outer_O_A": 1.0178,
+   "h_to_binding_O_A": 1.9904,
+   "active_site": "Ru",
+   "M_Obind_A": 1.9176,
+   "total_magnetization": null,
+   "absolute_magnetization": null,
+   "needs_scf_regeneration_for_bader": true
+  },
+  {
+   "run": "runs/probe/Ru_orient/s0_OOH__yaw90.out",
+   "calculation": "relax",
+   "qc_verdict": "TRUSTWORTHY",
+   "bfgs_converged": true,
+   "geometry_provenance": "final",
+   "nat": 21,
+   "cell_arm": "1x1",
+   "oo_A": 1.3607,
+   "classification": "UNCLASSIFIED (between the registered bands; nearest = hydroperoxo, 0.009 A away)",
+   "h_nearest_O": "adsorbate outer O (*O-OH connectivity)",
+   "h_O_dist_A": 1.0713,
+   "h_to_outer_O_A": 1.0713,
+   "h_to_binding_O_A": 1.9796,
+   "active_site": "Ru",
+   "M_Obind_A": 1.9115,
+   "total_magnetization": null,
+   "absolute_magnetization": null,
+   "needs_scf_regeneration_for_bader": true
+  }
+ ],
+ "skipped": [],
+ "excluded_fixed_geometry": [
+  {
+   "run": "runs/probe/Cr_hess/*",
+   "note": "Hessian displacement stencil: +/-0.02-bohr copies of one parent geometry (block 1C), not independent *OOH geometries"
+  },
+  {
+   "run": "runs/probe/Ir_hess/*",
+   "note": "Hessian displacement stencil: +/-0.02-bohr copies of one parent geometry (block 1C), not independent *OOH geometries"
+  },
+  {
+   "run": "runs/probe/Cr/s0_OOH__base.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Cr/s0_OOH__u0.0.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Cr/s0_OOH__u0.5.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Cr/s0_OOH__u1.35.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Cr_cellsym/s0_OOH__1x1_k8.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Fe_audit/s0_OOH__base.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Ir/s0_OOH__base.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Ir/s0_OOH__dipole+vac32.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Ir/s0_OOH__dipole.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Ir/s0_OOH__vac32.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Ir_rpbe/s0_OOH__base.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Ir_rpbe/s0_OOH__rpbe.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Ir_spin/s0_OOH__base.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Ir_spin/s0_OOH__spin0.5.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Mn_audit/s0_OOH__base.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Ru/s0_OOH__base.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Ru/s0_OOH__dipole+vac32.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Ru/s0_OOH__dipole.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Ru/s0_OOH__vac32.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Ru_rpbe/s0_OOH__base.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Ru_rpbe/s0_OOH__rpbe.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Ru_spin/s0_OOH__base.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  },
+  {
+   "run": "runs/probe/Ru_spin/s0_OOH__spin0.5.out",
+   "note": "fixed-geometry SCF: geometry duplicates its parent relaxation; classified once, at the parent"
+  }
+ ],
+ "scaling_residual_audit": {
+  "rule": "x = dG_OOH - dG_OH vs Man 3.2 +/- 0.2/0.4 eV; RPBE-population outlier flag ONLY, never a per-state pass/fail (docs/41 P9 functional-mismatch caveat)",
+  "rows": [
+   {
+    "metal": "Ru",
+    "source": "runs/Ru_anchor",
+    "ooh_energy": "production",
+    "note": "",
+    "dG_OH_eV": 0.5291,
+    "dG_OOH_eV": 3.7092,
+    "intercept_eV": 3.1801,
+    "flag": "within Man 3.2 +/- 0.2"
+   },
+   {
+    "metal": "Ir",
+    "source": "runs/Ir_anchor",
+    "ooh_energy": "production",
+    "note": "",
+    "dG_OH_eV": -0.0005,
+    "dG_OOH_eV": 3.6518,
+    "intercept_eV": 3.6523,
+    "flag": "RPBE-population OUTLIER FLAG (|x - 3.2| = 0.452 eV > 0.4) -- flag only, never a per-state pass/fail; docs/41 P9 functional-mismatch caveat applies"
+   },
+   {
+    "metal": "Cr",
+    "source": "runs/Cr_slab",
+    "ooh_energy": "gate1_passed_basin (value of record)",
+    "note": "*OOH of record = basin restart (GATE-1-passed, docs/41 s6f); production metastable row audited alongside",
+    "dG_OH_eV": 1.5181,
+    "dG_OOH_eV": 4.6205,
+    "intercept_eV": 3.1024,
+    "flag": "within Man 3.2 +/- 0.2"
+   },
+   {
+    "metal": "Cr",
+    "source": "runs/Cr_slab",
+    "ooh_energy": "production_mirror (METASTABLE, docs/41 s6f -- audited, not of record)",
+    "note": "*OOH of record = basin restart (GATE-1-passed, docs/41 s6f); production metastable row audited alongside",
+    "dG_OH_eV": 1.5181,
+    "dG_OOH_eV": 4.799,
+    "intercept_eV": 3.281,
+    "flag": "within Man 3.2 +/- 0.2"
+   },
+   {
+    "metal": "Mn",
+    "source": "runs/Mn_slab",
+    "ooh_energy": "production",
+    "note": "",
+    "dG_OH_eV": 1.9075,
+    "dG_OOH_eV": 4.9419,
+    "intercept_eV": 3.0344,
+    "flag": "within Man 3.2 +/- 0.2"
+   },
+   {
+    "metal": "Fe",
+    "source": "runs/Fe_slab",
+    "ooh_energy": "production",
+    "note": "",
+    "dG_OH_eV": 2.1343,
+    "dG_OOH_eV": 4.8448,
+    "intercept_eV": 2.7105,
+    "flag": "RPBE-population OUTLIER FLAG (|x - 3.2| = 0.489 eV > 0.4) -- flag only, never a per-state pass/fail; docs/41 P9 functional-mismatch caveat applies"
+   },
+   {
+    "metal": "Cu",
+    "source": "runs/Cu_slab",
+    "ooh_energy": "production",
+    "note": "",
+    "intercept_eV": null,
+    "flag": "NOT COMPUTABLE: slab (missing), s0_OH (failed strict QC), s0_OOH (failed strict QC), H2O (missing), H2 (missing)"
+   }
+  ]
+ },
+ "registered_holes": [
+  "Co: no *OOH run exists at any U (docs/41 s6d/s6e; docs/43 A5.5 firewall) -- the hole is registered, not papered over",
+  "Ni: runs/Ni_slab *OOH chain rests on dft_eta.json.RETRACTED; no trusted Ni row exists"
+ ],
+ "bader_todo": {
+  "status": "NOT ATTEMPTED (registered secondary; requires charge densities that do not survive on disk)",
+  "what_each_run_needs": "one fixed-geometry SCF at the archived final geometry to regenerate the density (A5.3a; part of the ~150-SCF A5.1a/A5.3a regeneration budget) + pp.x + a Bader partitioning, recalibrated on our own unambiguous anchor states before Inico's thresholds are applied",
+  "runs_needing_regeneration": 21
+ }
+}

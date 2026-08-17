@@ -1,0 +1,69 @@
+&CONTROL
+  calculation = 'relax'
+  prefix = 'oosh__1x1_off_magm'
+  outdir = './tmp'
+  pseudo_dir = '/usr/share/espresso/pseudo'
+  tprnfor = .true.
+  forc_conv_thr = 2.0d-3
+  nstep = 200
+  max_seconds = 502135
+/
+&SYSTEM
+  ibrav = 0
+  nat = 21
+  ntyp = 3
+  ecutwfc = 80.0
+  ecutrho = 640.0
+  occupations = 'smearing'
+  smearing = 'mv'
+  degauss = 0.01
+  nosym = .true.
+  noinv = .true.
+  nspin = 2
+  starting_magnetization(1) = 0.6
+  starting_magnetization(2) = 0.0
+  starting_magnetization(3) = -0.5
+/
+&ELECTRONS
+  conv_thr = 1.0d-6
+  mixing_mode = 'local-TF'
+  mixing_beta = 0.3
+  electron_maxstep = 200
+/
+&IONS
+  ion_dynamics = 'bfgs'
+/
+ATOMIC_SPECIES
+  Cr  51.996  cr_pbe_v1.5.uspp.F.UPF
+  H  1.008  H.pbe-rrkjus_psl.1.0.0.UPF
+  O  15.999  O.pbe-n-kjpaw_psl.0.1.UPF
+CELL_PARAMETERS angstrom
+  2.91600000  0.00000000  0.00000000
+  0.00000000  6.25223816  0.00000000
+  0.00000000  0.00000000  25.00895264
+ATOMIC_POSITIONS angstrom
+  Cr  0.00000000  1.56305954  9.37835724  0 0 0
+  Cr  1.45800000  4.68917862  9.37835724  0 0 0
+  Cr  0.00233270  4.68917862  12.56568001  1 1 1
+  Cr  1.45738451  1.56305954  12.52829582  1 1 1
+  Cr  -0.02637099  1.56305954  15.66827872  1 1 1
+  Cr  1.46586394  4.68917862  15.82098924  1 1 1
+  O  0.00000000  4.68917862  10.59754368  0 0 0
+  O  0.00000000  4.68917862  8.15917080  0 0 0
+  O  1.45800000  0.34387310  9.37835724  0 0 0
+  O  1.45800000  2.78224598  9.37835724  0 0 0
+  O  -0.00395512  1.56305954  13.78803606  1 1 1
+  O  0.00000000  1.56305954  11.28528988  0 0 0
+  O  1.46028397  3.45457307  12.54359162  1 1 1
+  O  1.46028397  5.92378417  12.54359162  1 1 1
+  O  -0.00829776  4.68917862  16.94936722  1 1 1
+  O  0.00894081  4.68917862  14.48087481  1 1 1
+  O  1.44890057  0.33605666  15.75608819  1 1 1
+  O  1.44890057  2.79006242  15.75608819  1 1 1
+  O  0.24344324  1.56305954  17.72985203  1 1 1
+  O  0.24344324  0.80270279  18.79660299  1 1 1
+  H  -0.00829776  5.03917862  17.86936722  1 1 1
+K_POINTS automatic
+  9 4 1 0 0 0
+HUBBARD (atomic)
+U Cr-3d 3.7000

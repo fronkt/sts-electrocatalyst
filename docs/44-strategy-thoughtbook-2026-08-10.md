@@ -135,3 +135,59 @@ memory):
 These compete for the same calendar as the compute work and are easy to let slide
 while attention is on the DFT campaign. Treat locking down the sponsor + recommenders
 as the single highest-leverage non-compute action available right now.
+
+## 7. (2026-08-16) The goal never changed — the word "fixed" became the project
+
+Captured from the post-lit-sweep discussion, after Frank asked: *"I thought our goal
+was to find a better OER alloy by using a fixed DFT to screen HEAs to beat iridium?"*
+Answer: that sentence is still exactly the project. The last two months have been the
+word **"fixed"** — it turned out to be a research project of its own. This section is
+the plain-language map of why, for reuse in the report's framing and the interview.
+
+**The arc.** The screen was built first (r4: 4,000 compositions → 12 candidates,
+best η 0.440 V, melt list built — docs/36–37). Checking the ruler before melting is
+what exposed the problem: the DFT's *silent* errors are larger than the differences
+the screen was ranking.
+
+| Silent error | Moves η by | Where measured |
+|---|---|---|
+| Symmetry trap (mirror-plane saddle) | 0.291 V on Ir (0.781→0.490), mechanically confirmed i167 cm⁻¹ | 1C Hessian |
+| Hubbard-U choice | 1.12 V on Cr — fired P7, withdrew the headline | P7 probe |
+| Magnetic basin | 0.1–0.4 eV drifts on our own runs | GATE-1 audits |
+| Coverage/cell | 6/9 rows > 0.10 eV | block 1A |
+
+Candidate separations in the screen are 0.03–0.08 V. **Ranking at 0.05 V with a
+method that silently wobbles 0.1–1.1 V is measuring millimeters with a ruler that
+wobbles centimeters.** The withdrawn Cr headline was that artifact happening to us;
+the 6/12 desorption-invalid r4 candidates were it happening downstream.
+
+**What each piece is, in one line each:**
+- Endmember tier (CrO₂...IrO₂) = the calibration standards, never candidates. You
+  don't melt your ruler.
+- tier_v3 / corrected protocol = *the fixed DFT* — symmetry released, basin gated,
+  U registered, coverage stated; every fix measured, not assumed.
+- silentgate + the Xu 810 census = proof the errors are the field's, not our builder's
+  bug — what makes the fix credible.
+- S8 (registered 2026-08-16, round-2 synthesis addendum) = the loop closing: re-rank
+  r4 under the fixed protocol → melt top 2–4 + a poor anchor at FWM → Purdue OER vs
+  an IrO₂ reference on the SAME bench, predictions frozen before the first melt.
+  Access to furnace + XRD + OER bench confirmed by Frank 2026-08-16.
+
+**The one-sentence story (report framing + interview):** "I set out to find a cheap
+alloy to beat iridium. My screen's hidden errors turned out to be 10× larger than the
+differences I was ranking — so I measured every one of them, fixed the protocol,
+showed the same errors sit in the field's published data, then re-ranked my
+candidates, melted them, and measured them against iridium itself." One project, not
+two: discovery-without-rigor dies in round 1 (three in-field PhDs); rigor-without-a-
+payoff has no ending. This supersedes §2's worry — the melt hook is now registered,
+not hypothetical, with a clean detachment rule if the furnace half runs long.
+
+**Interview honesty note on "beat iridium":** in alkaline, NiFe-based catalysts
+beating IrO₂ is already established in the literature. The claim is never "first to
+beat iridium"; it is "**a screen you can trust found it, and the loop closed** —
+predicted, made, measured, same bench." Do not let a judge land this first.
+
+**Standing correction absorbed into all planning (2026-08-16):** budgets are sized to
+the hard deadline, not to assumed hours/week. The lit-sweep's "21 effective days" and
+its drop-two-deadlines ultimatum are void; budget-motivated cuts reverted to live
+(round-2 synthesis addendum), physics kills stand.

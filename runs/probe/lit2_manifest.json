@@ -1,0 +1,336 @@
+{
+  "block": "LIT-2 trimmed core -- termination check (docs/43 A5.2 = D2)",
+  "status": "NOT_DEPLOYED",
+  "prereg": {
+    "document": "docs/43-prereg-week1-factorial.md",
+    "section": "AMENDMENT 5, A5.2 (+ A5.7)",
+    "rule": "docs/43 is the only pre-registration. Where this manifest and docs/43 disagree, docs/43 wins.",
+    "anchors_verified": {
+      "registered_scope_trimmed": {
+        "value": true,
+        "clause": "docs/43-prereg-week1-factorial.md A5.2",
+        "anchor": "benchmark plus the Cr O-covered-preference check only"
+      },
+      "terminations_2x1": {
+        "value": [
+          "clean",
+          "O_full",
+          "mixed_OH_O",
+          "OH_full"
+        ],
+        "clause": "docs/43-prereg-week1-factorial.md A5.2",
+        "anchor": "clean / 1 ML *O_cus / mixed 1:1 *OH\u2013*O / 1 ML *OH"
+      },
+      "cr_o_depleted_variant": {
+        "value": true,
+        "clause": "docs/43-prereg-week1-factorial.md A5.2",
+        "anchor": "(plus an O-depleted variant for Cr)"
+      },
+      "reuse_rule": {
+        "value": true,
+        "clause": "docs/43-prereg-week1-factorial.md A5.2",
+        "anchor": "Block-1A outputs are **reused, not re-run**"
+      },
+      "qiu_tolerance_V": {
+        "value": 0.25,
+        "clause": "docs/43-prereg-week1-factorial.md A5.2",
+        "anchor": "within **\u00b10.25 V** of Qiu's AIMD brackets"
+      },
+      "qiu_brackets_V": {
+        "value": [
+          1.5,
+          1.24
+        ],
+        "clause": "docs/43-prereg-week1-factorial.md A5.2",
+        "anchor": "Qiu's AIMD brackets (~1.50 V and ~1.24 V"
+      },
+      "qiu_ordering": {
+        "value": true,
+        "clause": "docs/43-prereg-week1-factorial.md A5.2",
+        "anchor": "full-O \u2192 mixed \u2192 full-*OH"
+      },
+      "cr_flag_threshold_eV_per_site": {
+        "value": 0.1,
+        "clause": "docs/43-prereg-week1-factorial.md A5.2",
+        "anchor": "prefers an O-covered termination by > 0.1 eV per site at U = 1.23 V"
+      },
+      "offplane_min_dy_A": {
+        "value": 0.3,
+        "clause": "docs/43-prereg-week1-factorial.md s2-A.1",
+        "anchor": "y-translation of \u2265 0.30 \u00c5"
+      },
+      "gate1_children_cr": {
+        "value": true,
+        "clause": "docs/43-prereg-week1-factorial.md A5.7",
+        "anchor": "Every new Cr relaxation gets its GATE-1 child"
+      },
+      "not_deployed_gate": {
+        "value": true,
+        "clause": "docs/43-prereg-week1-factorial.md A5.7",
+        "anchor": "manifest on a box is drained, or on a separately provisioned box"
+      }
+    }
+  },
+  "design": "static CHE surface Pourbaix in the existing 2x1 cells; registered rungs clean / 1 ML *O_cus / mixed 1:1 *OH-*O / 1 ML *OH (+ O-depleted for Cr); block-1A outputs reused, not re-run",
+  "benchmark": {
+    "what": "coarsened-Qiu RuO2 coverage ladder, two-sided, registered before any job runs",
+    "pass_rule": "(i) ordering with falling potential is full-O -> mixed -> full-*OH AND (ii) both transition potentials within +/-0.25 V of Qiu's AIMD brackets ~1.50 V and ~1.24 V",
+    "on_pass": "Cr column reported as validated-by-proxy",
+    "on_fail": "Cr column still reported, labelled vacuum-CHE-only, with the measured RuO2 discrepancy attached as its systematic error",
+    "gate_on_1a_results": "none -- neither outcome gates any 1A/1B/1C result"
+  },
+  "cr_decision_rule": "if Cr prefers an O-covered termination by > 0.1 eV per site at U = 1.23 V + eta(Cr), every clean-termination Cr energetics row carries a conditional-on-termination flag (qualifies, does not retract)",
+  "registered_ambiguities": [
+    "A5.2's cost parenthetical says ~12 relaxations; the registered reuse rule leaves 3 genuinely new. The reuse rule was followed.",
+    "'O-depleted variant' does not name the O: one bridging O of the 2x1 cell was removed (minimal depletion representable at 2x1); the surviving bridging O carries the off-plane kick.",
+    "new terminations are emitted off-plane only (A5.2 lists off-plane starts + nosym/noinv; no mirror partner registered).",
+    "ref__2x1o (1/2 ML O) is on disk but is NOT a registered rung; recorded as context only."
+  ],
+  "reused_rungs": [
+    {
+      "metal": "Ru",
+      "rung": "clean",
+      "job": "probe/Ru_cellsym/ref__2x1v",
+      "status": "CONVERGED",
+      "gate1_required": false,
+      "gate1_note": ""
+    },
+    {
+      "metal": "Ru",
+      "rung": "O_full",
+      "job": "probe/Ru_cellsym/s0_O__2x1o_mir",
+      "status": "CONVERGED",
+      "gate1_required": false,
+      "gate1_note": ""
+    },
+    {
+      "metal": "Ru",
+      "rung": "O_full",
+      "job": "probe/Ru_cellsym/s0_O__2x1o_off",
+      "status": "CONVERGED",
+      "gate1_required": false,
+      "gate1_note": ""
+    },
+    {
+      "metal": "Ru",
+      "rung": "mixed_OH_O",
+      "job": "probe/Ru_cellsym/s0_OH__2x1o_mir",
+      "status": "CONVERGED",
+      "gate1_required": false,
+      "gate1_note": ""
+    },
+    {
+      "metal": "Ru",
+      "rung": "mixed_OH_O",
+      "job": "probe/Ru_cellsym/s0_OH__2x1o_off",
+      "status": "CONVERGED",
+      "gate1_required": false,
+      "gate1_note": ""
+    },
+    {
+      "metal": "Ru",
+      "rung": "CONTEXT-ONLY (1/2 ML O; not a registered rung)",
+      "job": "probe/Ru_cellsym/ref__2x1o",
+      "status": "PENDING (no .out on disk)",
+      "gate1_required": false,
+      "gate1_note": "present on disk for free; entering the scored ladder would need its own amendment"
+    },
+    {
+      "metal": "Cr",
+      "rung": "clean",
+      "job": "probe/Cr_cellsym/ref__2x1v",
+      "status": "CONVERGED",
+      "gate1_required": true,
+      "gate1_note": "block-1A wave-2 obligation (s2-A.3(b)/amendment 4 s2); LIT-2 scores GATE-1-passed Cr energies only"
+    },
+    {
+      "metal": "Cr",
+      "rung": "O_full",
+      "job": "probe/Cr_cellsym/s0_O__2x1o_mir",
+      "status": "CONVERGED",
+      "gate1_required": true,
+      "gate1_note": "block-1A wave-2 obligation (s2-A.3(b)/amendment 4 s2); LIT-2 scores GATE-1-passed Cr energies only"
+    },
+    {
+      "metal": "Cr",
+      "rung": "O_full",
+      "job": "probe/Cr_cellsym/s0_O__2x1o_off",
+      "status": "PENDING (no .out on disk)",
+      "gate1_required": true,
+      "gate1_note": "block-1A wave-2 obligation (s2-A.3(b)/amendment 4 s2); LIT-2 scores GATE-1-passed Cr energies only"
+    },
+    {
+      "metal": "Cr",
+      "rung": "mixed_OH_O",
+      "job": "probe/Cr_cellsym/s0_OH__2x1o_mir",
+      "status": "CONVERGED",
+      "gate1_required": true,
+      "gate1_note": "block-1A wave-2 obligation (s2-A.3(b)/amendment 4 s2); LIT-2 scores GATE-1-passed Cr energies only"
+    },
+    {
+      "metal": "Cr",
+      "rung": "mixed_OH_O",
+      "job": "probe/Cr_cellsym/s0_OH__2x1o_off",
+      "status": "CONVERGED",
+      "gate1_required": true,
+      "gate1_note": "block-1A wave-2 obligation (s2-A.3(b)/amendment 4 s2); LIT-2 scores GATE-1-passed Cr energies only"
+    },
+    {
+      "metal": "Cr",
+      "rung": "CONTEXT-ONLY (1/2 ML O; not a registered rung)",
+      "job": "probe/Cr_cellsym/ref__2x1o",
+      "status": "CONVERGED",
+      "gate1_required": false,
+      "gate1_note": "present on disk for free; entering the scored ladder would need its own amendment"
+    }
+  ],
+  "geometry": [
+    {
+      "metal": "Ru",
+      "a1": 3.107,
+      "y_mirror": 1.588161,
+      "kmesh_2x1": "4 4 1",
+      "gas_references": [
+        "runs/Ru_anchor/H2O.out",
+        "runs/Ru_anchor/H2.out"
+      ]
+    },
+    {
+      "metal": "Cr",
+      "a1": 2.916,
+      "y_mirror": 1.56306,
+      "kmesh_2x1": "4 4 1",
+      "gas_references": [
+        "runs/Cr_slab/H2O.out",
+        "runs/Cr_slab/H2.out"
+      ]
+    }
+  ],
+  "manifests": {
+    "long": {
+      "file": "m_lit2_np20.txt",
+      "np": 20,
+      "nconc": 1,
+      "n_jobs": 3,
+      "command": "bash queue_r1.sh m_lit2_np20.txt 20 1",
+      "sum_hours": 146.9,
+      "longest_job_hours": 86.3
+    }
+  },
+  "jobs": [
+    {
+      "metal": "Cr",
+      "job": "cov_2OH__2x1_off",
+      "deck_source": "s0_OH",
+      "termination": "OH_full (1 ML *OH_cus)",
+      "calculation": "relax",
+      "sym": "off",
+      "kmesh": "4 4 1",
+      "n_kpt_est": 16,
+      "nk": 4,
+      "np_run": 20,
+      "steps_est": 66,
+      "steps_basis": {
+        "measured_1x1_steps": 44,
+        "source": "runs/Cr_slab/s0_OH.out",
+        "multiplier": 1.5,
+        "bracket": [
+          1.5,
+          2.0
+        ],
+        "basis": "measured s0_OH 1x1 ionic steps x STEP_MULT_2X1 (assumed, build_cellsym_pilot module docstring)"
+      },
+      "est_hours_np4": 259.0,
+      "est_hours_at_np20": 86.3,
+      "est_hours_bracket_np4": [
+        196.3,
+        459.6
+      ],
+      "max_seconds": 621505,
+      "nspin": 2,
+      "note": "both halves carry the s0_OH relaxed substrate + its *OH; first-half OH yawed +90, second-half -90 (off-plane start on BOTH fragments)",
+      "md5": "49e1afab7ec5f78a83965d72c4440d53",
+      "nat": 40,
+      "dmin": 0.9854,
+      "z_extent": 9.8466,
+      "vac_gap": 15.1624,
+      "max_start_dy": 0.9116
+    },
+    {
+      "metal": "Cr",
+      "job": "cov_Ovac__2x1_off",
+      "deck_source": "slab",
+      "termination": "O_depleted (2x1 clean minus one bridging O)",
+      "calculation": "relax",
+      "sym": "off",
+      "kmesh": "4 4 1",
+      "n_kpt_est": 16,
+      "nk": 4,
+      "np_run": 20,
+      "steps_est": 32,
+      "steps_basis": {
+        "measured_1x1_steps": 16,
+        "source": "runs/Cr_slab/slab.out",
+        "multiplier": 2.0,
+        "bracket": [
+          1.5,
+          3.0
+        ],
+        "basis": "measured clean-slab 1x1 ionic steps x OVAC_STEP_MULT (ASSUMED: vacancy adds a new local rearrangement on top of the splice)"
+      },
+      "est_hours_np4": 125.6,
+      "est_hours_at_np20": 41.9,
+      "est_hours_bracket_np4": [
+        95.2,
+        222.8
+      ],
+      "max_seconds": 301336,
+      "nspin": 2,
+      "note": "one of the two bridging O removed (atom 14 of the second half); the surviving bridging O (atom 14) kicked +0.35 A in y so the off-plane arm is performed, not just flagged",
+      "md5": "8c05589ca7251f490d3282d40d76ec59",
+      "nat": 35,
+      "dmin": 1.8218,
+      "z_extent": 8.8426,
+      "vac_gap": 16.1664,
+      "max_start_dy": 0.35
+    },
+    {
+      "metal": "Ru",
+      "job": "cov_2OH__2x1_off",
+      "deck_source": "s0_OH",
+      "termination": "OH_full (1 ML *OH_cus)",
+      "calculation": "relax",
+      "sym": "off",
+      "kmesh": "4 4 1",
+      "n_kpt_est": 16,
+      "nk": 4,
+      "np_run": 20,
+      "steps_est": 50,
+      "steps_basis": {
+        "measured_1x1_steps": 33,
+        "source": "runs/Ru_anchor/s0_OH.out",
+        "multiplier": 1.5,
+        "bracket": [
+          1.5,
+          2.0
+        ],
+        "basis": "measured s0_OH 1x1 ionic steps x STEP_MULT_2X1 (assumed, build_cellsym_pilot module docstring)"
+      },
+      "est_hours_np4": 56.1,
+      "est_hours_at_np20": 18.7,
+      "est_hours_bracket_np4": [
+        48.6,
+        86.4
+      ],
+      "max_seconds": 134525,
+      "nspin": 1,
+      "note": "both halves carry the s0_OH relaxed substrate + its *OH; first-half OH yawed +90, second-half -90 (off-plane start on BOTH fragments)",
+      "md5": "ab23a402872f967b9902ebf1465cf41b",
+      "nat": 40,
+      "dmin": 0.981,
+      "z_extent": 9.9248,
+      "vac_gap": 15.4858,
+      "max_start_dy": 0.9044
+    }
+  ]
+}

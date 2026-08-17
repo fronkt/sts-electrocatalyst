@@ -1,0 +1,1395 @@
+
+     Program HP v.7.5 starts on 10Aug2026 at 10:41:12 
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 21 395502 (2009);
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 29 465901 (2017);
+         "P. Giannozzi et al., J. Chem. Phys. 152 154105 (2020);
+          URL http://www.quantum-espresso.org", 
+     in publications or presentations arising from this work. More details at
+     http://www.quantum-espresso.org/quote
+
+     Parallel version (MPI & OpenMP), running on      18 processor cores
+     Number of MPI processes:                18
+     Threads/MPI process:                     1
+
+     MPI processes distributed on     1 nodes
+     K-points division:     npool     =       6
+     R & G space division:  proc/nbgrp/npool/nimage =       3
+     233739 MiB available memory on the printing compute node when the environment starts
+
+
+     =---------------------------------------------------------------------------=
+
+           Calculation of Hubbard parameters using the HP code based on DFPT      
+
+               Please cite the following papers when using this program:          
+
+                 - HP code : Comput. Phys. Commun. 279, 108455 (2022).            
+
+                                                                                  
+
+           For a nonrelativistic, collinear calculation:                          
+
+                 - Theory  : I. Timrov et al, Phys. Rev. B 98,  085127 (2018) and 
+
+                             I. Timrov et al, Phys. Rev. B 103, 045141 (2021).    
+
+                                                                                  
+
+           For a fully-relativistic, and/or noncollinear calculation:             
+
+                 - Theory  : L. Binci et al., Phys. Rev. B 108, 115157 (2023) and 
+
+                             I. Timrov et al, Phys. Rev. B 98,  085127 (2018) 
+
+     =-----------------------------------------------------------------------------=
+
+     Reading xml data from directory:
+
+     ./tmp_crslab_sym/crslab_sym.save/
+     file O.pbe-n-kjpaw_psl.0.1.UPF: wavefunction(s)  2P renormalized
+
+     IMPORTANT: XC functional enforced from input :
+     Exchange-correlation= PBE
+                           (   1   4   3   4   0   0   0)
+     Any further DFT definition will be discarded
+     Please, verify this is what you really want
+
+
+     Parallelization info
+     --------------------
+     sticks:   dense  smooth     PW     G-vecs:    dense   smooth      PW
+     Min        1107     551    156               280417    99137   14968
+     Max        1108     551    158               280424    99145   14977
+     Sum        3323    1653    471               841263   297421   44917
+
+     Using Slab Decomposition
+
+
+     Check: negative core charge=   -0.000001
+
+     negative rho (up, down):  2.422E-03 2.008E-02
+     Reading collected, re-writing distributed wavefunctions
+
+
+     bravais-lattice index     =             0
+     lattice parameter (alat)  =        5.5104 (a.u.)
+     unit-cell volume          =     3076.9124 (a.u.)^3
+     number of atoms/cell      =            18
+     number of atomic types    =             2
+     kinetic-energy cut-off    =         80.00 (Ry)
+     charge density cut-off    =        640.00 (Ry)
+     conv. thresh. for NSCF    =       1.0E-11
+     conv. thresh. for chi     =       1.0E-05
+     Input Hubbard parameters (in eV):
+       U ( 1)                     =   1.00000E-08
+
+     celldm(1) =  5.51044  celldm(2) =  0.00000  celldm(3) =  0.00000
+     celldm(4) =  0.00000  celldm(5) =  0.00000  celldm(6) =  0.00000
+
+     crystal axes: (cart. coord. in units of alat)
+               a(1) = (  1.0000  0.0000  0.0000 )  
+               a(2) = (  0.0000  2.1441  0.0000 )  
+               a(3) = (  0.0000  0.0000  8.5765 )  
+
+     reciprocal axes: (cart. coord. in units 2 pi/alat)
+               b(1) = (  1.0000  0.0000  0.0000 )  
+               b(2) = (  0.0000  0.4664  0.0000 )  
+               b(3) = (  0.0000  0.0000  0.1166 )  
+
+     Atoms inside the unit cell (Cartesian axes):
+     site n.  atom      mass           positions (alat units)
+        1   Cr        51.9960   tau(  1) = (  0.00000  0.53603  3.21617  )
+        2   Cr        51.9960   tau(  2) = (  0.50000  1.60809  3.21617  )
+        3   Cr        51.9960   tau(  3) = ( -0.00000  1.60809  4.31643  )
+        4   Cr        51.9960   tau(  4) = (  0.50000  0.53603  4.29126  )
+        5   Cr        51.9960   tau(  5) = ( -0.00000  0.53603  5.35159  )
+        6   Cr        51.9960   tau(  6) = (  0.50000  1.60809  5.44652  )
+        7   O         15.9990   tau(  7) = (  0.00000  1.60809  3.63427  )
+        8   O         15.9990   tau(  8) = (  0.00000  1.60809  2.79807  )
+        9   O         15.9990   tau(  9) = (  0.50000  0.11793  3.21617  )
+       10   O         15.9990   tau( 10) = (  0.50000  0.95413  3.21617  )
+       11   O         15.9990   tau( 11) = ( -0.00000  0.53603  4.72681  )
+       12   O         15.9990   tau( 12) = (  0.00000  0.53603  3.87013  )
+       13   O         15.9990   tau( 13) = (  0.50000  1.18453  4.30672  )
+       14   O         15.9990   tau( 14) = (  0.50000  2.03164  4.30672  )
+       15   O         15.9990   tau( 15) = ( -0.00000  1.60809  5.83051  )
+       16   O         15.9990   tau( 16) = (  0.00000  1.60809  4.98217  )
+       17   O         15.9990   tau( 17) = (  0.50000  0.12375  5.43601  )
+       18   O         15.9990   tau( 18) = (  0.50000  0.94830  5.43601  )
+
+     Atom which will be perturbed:
+
+        1   Cr        51.9960   tau( 1) = (  0.00000  0.53603  3.21617  )
+
+     =====================================================================
+
+                          PERTURBED ATOM #    1
+
+     site n.  atom      mass           positions (alat units)
+        1   Cr        51.9960   tau( 1) = (  0.00000  0.53603  3.21617  )
+
+     =====================================================================
+
+     The perturbed atom has a type which is not unique!
+     Changing the type of the perturbed atom and recomputing the symmetries...
+     The number of symmetries is the same as in PWscf :
+     nsym =  4  nsym_PWscf =  4
+     Changing the type of the perturbed atom back to its original type...
+
+
+     The grid of q-points ( 3, 2, 1)  (  4 q-points ) :
+       N       xq(1)         xq(2)         xq(3)       wq
+       1   0.000000000   0.000000000   0.000000000   0.166666667
+       2   0.000000000  -0.233196491   0.000000000   0.166666667
+       3   0.333333333   0.000000000   0.000000000   0.333333333
+       4   0.333333333  -0.233196491   0.000000000   0.333333333
+
+
+     =-------------------------------------------------------------=
+
+     Calculation for q #   1 = (   0.0000000   0.0000000   0.0000000 )
+
+     =-------------------------------------------------------------=
+
+                   WRITING LINEAR-RESPONSE SUMMARY:
+
+
+
+
+     Number of symmetries in the small group of q, nsymq =  4
+      + the symmetry q -> -q+G 
+
+     Symmetry matrices (and vectors of fractional translations if f/=0):
+
+     isym =  1     identity                                     
+
+     cryst.   s( 1) = (     1          0          0      )
+                      (     0          1          0      )
+                      (     0          0          1      )
+
+     cart.    s( 1) = (  1.0000000  0.0000000  0.0000000 )
+                      (  0.0000000  1.0000000  0.0000000 )
+                      (  0.0000000  0.0000000  1.0000000 )
+
+
+     isym =  2     180 deg rotation - cart. axis [0,0,1]        
+
+     cryst.   s( 2) = (    -1          0          0      )    f =(  0.0000000 )
+                      (     0         -1          0      )       ( -0.5000000 )
+                      (     0          0          1      )       (  0.0000000 )
+
+     cart.    s( 2) = ( -1.0000000  0.0000000  0.0000000 )    f =(  0.0000000 )
+                      (  0.0000000 -1.0000000  0.0000000 )       ( -1.0720573 )
+                      (  0.0000000  0.0000000  1.0000000 )       (  0.0000000 )
+
+
+     isym =  3     inv. 180 deg rotation - cart. axis [0,1,0]   
+
+     cryst.   s( 3) = (     1          0          0      )    f =(  0.0000000 )
+                      (     0         -1          0      )       ( -0.5000000 )
+                      (     0          0          1      )       (  0.0000000 )
+
+     cart.    s( 3) = (  1.0000000  0.0000000  0.0000000 )    f =(  0.0000000 )
+                      (  0.0000000 -1.0000000  0.0000000 )       ( -1.0720573 )
+                      (  0.0000000  0.0000000  1.0000000 )       (  0.0000000 )
+
+
+     isym =  4     inv. 180 deg rotation - cart. axis [1,0,0]   
+
+     cryst.   s( 4) = (    -1          0          0      )
+                      (     0          1          0      )
+                      (     0          0          1      )
+
+     cart.    s( 4) = ( -1.0000000  0.0000000  0.0000000 )
+                      (  0.0000000  1.0000000  0.0000000 )
+                      (  0.0000000  0.0000000  1.0000000 )
+
+
+     This transformation sends q -> -q+G
+
+     isym =  5     identity                                     
+
+     cryst.   s( 5) = (     1          0          0      )
+                      (     0          1          0      )
+                      (     0          0          1      )
+
+     cart.    s( 5) = (  1.0000000  0.0000000  0.0000000 )
+                      (  0.0000000  1.0000000  0.0000000 )
+                      (  0.0000000  0.0000000  1.0000000 )
+
+
+     G cutoff =  492.2583  ( 280422 G-vectors)     FFT grid: ( 45, 96,384)
+     G cutoff =  246.1291  (  99139 G-vectors)  smooth grid: ( 32, 72,270)
+
+     Number of k (and k+q if q/=0) points =    30  Marzari-Vanderbilt smearing, width (Ry) =  0.0100
+
+                       cart. coord. (in units 2pi/alat)
+        k (    1) = (   0.0000000   0.0000000   0.0000000), wk = 0.0277778
+        k (    2) = (   0.0000000   0.1165982   0.0000000), wk = 0.0555556
+        k (    3) = (   0.0000000  -0.2331965   0.0000000), wk = 0.0277778
+        k (    4) = (   0.1111111   0.0000000   0.0000000), wk = 0.0555556
+        k (    5) = (   0.1111111   0.1165982   0.0000000), wk = 0.1111111
+        k (    6) = (   0.1111111  -0.2331965   0.0000000), wk = 0.0555556
+        k (    7) = (   0.2222222   0.0000000   0.0000000), wk = 0.0555556
+        k (    8) = (   0.2222222   0.1165982   0.0000000), wk = 0.1111111
+        k (    9) = (   0.2222222  -0.2331965   0.0000000), wk = 0.0555556
+        k (   10) = (   0.3333333   0.0000000   0.0000000), wk = 0.0555556
+        k (   11) = (   0.3333333   0.1165982   0.0000000), wk = 0.1111111
+        k (   12) = (   0.3333333  -0.2331965   0.0000000), wk = 0.0555556
+        k (   13) = (   0.4444444   0.0000000   0.0000000), wk = 0.0555556
+        k (   14) = (   0.4444444   0.1165982   0.0000000), wk = 0.1111111
+        k (   15) = (   0.4444444  -0.2331965   0.0000000), wk = 0.0555556
+        k (   16) = (   0.0000000   0.0000000   0.0000000), wk = 0.0277778
+        k (   17) = (   0.0000000   0.1165982   0.0000000), wk = 0.0555556
+        k (   18) = (   0.0000000  -0.2331965   0.0000000), wk = 0.0277778
+        k (   19) = (   0.1111111   0.0000000   0.0000000), wk = 0.0555556
+        k (   20) = (   0.1111111   0.1165982   0.0000000), wk = 0.1111111
+        k (   21) = (   0.1111111  -0.2331965   0.0000000), wk = 0.0555556
+        k (   22) = (   0.2222222   0.0000000   0.0000000), wk = 0.0555556
+        k (   23) = (   0.2222222   0.1165982   0.0000000), wk = 0.1111111
+        k (   24) = (   0.2222222  -0.2331965   0.0000000), wk = 0.0555556
+        k (   25) = (   0.3333333   0.0000000   0.0000000), wk = 0.0555556
+        k (   26) = (   0.3333333   0.1165982   0.0000000), wk = 0.1111111
+        k (   27) = (   0.3333333  -0.2331965   0.0000000), wk = 0.0555556
+        k (   28) = (   0.4444444   0.0000000   0.0000000), wk = 0.0555556
+        k (   29) = (   0.4444444   0.1165982   0.0000000), wk = 0.1111111
+        k (   30) = (   0.4444444  -0.2331965   0.0000000), wk = 0.0555556
+
+                       cryst. coord.
+        k (    1) = (   0.0000000   0.0000000   0.0000000), wk = 0.0277778
+        k (    2) = (   0.0000000   0.2500000   0.0000000), wk = 0.0555556
+        k (    3) = (   0.0000000  -0.5000000   0.0000000), wk = 0.0277778
+        k (    4) = (   0.1111111   0.0000000   0.0000000), wk = 0.0555556
+        k (    5) = (   0.1111111   0.2500000   0.0000000), wk = 0.1111111
+        k (    6) = (   0.1111111  -0.5000000   0.0000000), wk = 0.0555556
+        k (    7) = (   0.2222222   0.0000000   0.0000000), wk = 0.0555556
+        k (    8) = (   0.2222222   0.2500000   0.0000000), wk = 0.1111111
+        k (    9) = (   0.2222222  -0.5000000   0.0000000), wk = 0.0555556
+        k (   10) = (   0.3333333   0.0000000   0.0000000), wk = 0.0555556
+        k (   11) = (   0.3333333   0.2500000   0.0000000), wk = 0.1111111
+        k (   12) = (   0.3333333  -0.5000000   0.0000000), wk = 0.0555556
+        k (   13) = (   0.4444444   0.0000000   0.0000000), wk = 0.0555556
+        k (   14) = (   0.4444444   0.2500000   0.0000000), wk = 0.1111111
+        k (   15) = (   0.4444444  -0.5000000   0.0000000), wk = 0.0555556
+        k (   16) = (   0.0000000   0.0000000   0.0000000), wk = 0.0277778
+        k (   17) = (   0.0000000   0.2500000   0.0000000), wk = 0.0555556
+        k (   18) = (   0.0000000  -0.5000000   0.0000000), wk = 0.0277778
+        k (   19) = (   0.1111111   0.0000000   0.0000000), wk = 0.0555556
+        k (   20) = (   0.1111111   0.2500000   0.0000000), wk = 0.1111111
+        k (   21) = (   0.1111111  -0.5000000   0.0000000), wk = 0.0555556
+        k (   22) = (   0.2222222   0.0000000   0.0000000), wk = 0.0555556
+        k (   23) = (   0.2222222   0.2500000   0.0000000), wk = 0.1111111
+        k (   24) = (   0.2222222  -0.5000000   0.0000000), wk = 0.0555556
+        k (   25) = (   0.3333333   0.0000000   0.0000000), wk = 0.0555556
+        k (   26) = (   0.3333333   0.2500000   0.0000000), wk = 0.1111111
+        k (   27) = (   0.3333333  -0.5000000   0.0000000), wk = 0.0555556
+        k (   28) = (   0.4444444   0.0000000   0.0000000), wk = 0.0555556
+        k (   29) = (   0.4444444   0.2500000   0.0000000), wk = 0.1111111
+        k (   30) = (   0.4444444  -0.5000000   0.0000000), wk = 0.0555556
+
+     Atomic wfc used for the projector on the Hubbard manifold are NOT orthogonalized
+
+     Total time spent up to now is:
+     HP           :      8.45s CPU      9.61s WALL
+
+      =--------------------------------------------=
+                 SOLVE THE LINEAR SYSTEM
+      =--------------------------------------------=
+
+      atom #  1   q point #   1   iter #   1
+
+     Pert. #  1: Fermi energy shift (Ry) =     8.5489E-02     0.0000E+00
+      chi:   1  -0.7952816322
+      chi:   2   0.1551473008
+      chi:   3   0.0288007165
+      chi:   4   0.0503485852
+      chi:   5   0.0669056414
+      chi:   6   0.0938667189
+      Average number of iter. to solve lin. system:   49.8
+      Total CPU time :   370.1 s
+
+      atom #  1   q point #   1   iter #   2
+
+     Pert. #  1: Fermi energy shift (Ry) =     1.1651E-01     0.0000E+00
+      chi:   1   3.7707362686   residue:    4.5660179009
+      chi:   2   0.9737907293   residue:    0.8186434285
+      chi:   3  -0.0504617534   residue:    0.0792624699
+      chi:   4  -0.2076332279   residue:    0.2579818131
+      chi:   5  -2.0208141560   residue:    2.0877197974
+      chi:   6  -2.7350711813   residue:    2.8289379002
+      Average number of iter. to solve lin. system:   18.8
+      Total CPU time :   530.4 s
+
+      atom #  1   q point #   1   iter #   3
+
+     Pert. #  1: Fermi energy shift (Ry) =     1.7757E-01     0.0000E+00
+      chi:   1   1.7080865431   residue:    2.0626497255
+      chi:   2  -1.8455380112   residue:    2.8193287404
+      chi:   3  -0.1662679708   residue:    0.1158062174
+      chi:   4  -0.1675334217   residue:    0.0400998062
+      chi:   5   0.2210499701   residue:    2.2418641261
+      chi:   6   0.2916801494   residue:    3.0267513307
+      Average number of iter. to solve lin. system:   10.9
+      Total CPU time :   642.6 s
+
+      atom #  1   q point #   1   iter #   4
+
+     Pert. #  1: Fermi energy shift (Ry) =    -2.5036E-02     0.0000E+00
+      chi:   1  -0.4021973759   residue:    2.1102839190
+      chi:   2   0.9147803146   residue:    2.7603183258
+      chi:   3  -0.0372156473   residue:    0.1290523235
+      chi:   4  -0.1461643396   residue:    0.0213690821
+      chi:   5  -0.0908506139   residue:    0.3119005840
+      chi:   6  -0.1225747403   residue:    0.4142548897
+      Average number of iter. to solve lin. system:   15.8
+      Total CPU time :   782.8 s
+
+      atom #  1   q point #   1   iter #   5
+
+     Pert. #  1: Fermi energy shift (Ry) =     2.8654E-03     0.0000E+00
+      chi:   1  -0.2158083403   residue:    0.1863890355
+      chi:   2  -0.2575624608   residue:    1.1723427754
+      chi:   3   0.2607146794   residue:    0.2979303267
+      chi:   4   0.3806986271   residue:    0.5268629667
+      chi:   5  -0.1020020409   residue:    0.0111514270
+      chi:   6  -0.2261793322   residue:    0.1036045919
+      Average number of iter. to solve lin. system:   14.8
+      Total CPU time :   916.4 s
+
+      atom #  1   q point #   1   iter #   6
+
+     Pert. #  1: Fermi energy shift (Ry) =     1.0254E-01     0.0000E+00
+      chi:   1  -0.2671602044   residue:    0.0513518641
+      chi:   2  -0.2808871388   residue:    0.0233246781
+      chi:   3  -0.0173241195   residue:    0.2780387989
+      chi:   4   0.1234689207   residue:    0.2572297064
+      chi:   5  -0.0278097375   residue:    0.0741923034
+      chi:   6   0.0997239307   residue:    0.3259032629
+      Average number of iter. to solve lin. system:   14.8
+      Total CPU time :  1050.6 s
+
+      atom #  1   q point #   1   iter #   7
+
+     Pert. #  1: Fermi energy shift (Ry) =     5.8936E-02     0.0000E+00
+      chi:   1  -0.1690660689   residue:    0.0980941356
+      chi:   2  -0.0402739208   residue:    0.2406132181
+      chi:   3   0.0197364598   residue:    0.0370605793
+      chi:   4  -0.0400727901   residue:    0.1635417108
+      chi:   5   0.0810846490   residue:    0.1088943865
+      chi:   6  -0.0419860179   residue:    0.1417099487
+      Average number of iter. to solve lin. system:   14.3
+      Total CPU time :  1180.5 s
+
+      atom #  1   q point #   1   iter #   8
+
+     Pert. #  1: Fermi energy shift (Ry) =     3.0191E-02     0.0000E+00
+      chi:   1  -0.1304893926   residue:    0.0385766763
+      chi:   2   0.0965655243   residue:    0.1368394451
+      chi:   3  -0.0227703614   residue:    0.0425068213
+      chi:   4  -0.0237474531   residue:    0.0163253370
+      chi:   5  -0.0688167865   residue:    0.1499014355
+      chi:   6   0.0615624590   residue:    0.1035484769
+      Average number of iter. to solve lin. system:   16.8
+      Total CPU time :  1326.5 s
+
+      atom #  1   q point #   1   iter #   9
+
+     Pert. #  1: Fermi energy shift (Ry) =     5.6270E-02     0.0000E+00
+      chi:   1  -0.0748959799   residue:    0.0555934127
+      chi:   2  -0.1115276860   residue:    0.2080932103
+      chi:   3  -0.0248991146   residue:    0.0021287531
+      chi:   4   0.0702638552   residue:    0.0940113083
+      chi:   5   0.0131055725   residue:    0.0819223590
+      chi:   6  -0.0236641419   residue:    0.0852266008
+      Average number of iter. to solve lin. system:   16.4
+      Total CPU time :  1471.0 s
+
+      atom #  1   q point #   1   iter #  10
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.6166E-02     0.0000E+00
+      chi:   1  -0.1401283135   residue:    0.0652323336
+      chi:   2   0.0002138994   residue:    0.1117415854
+      chi:   3   0.0091579681   residue:    0.0340570827
+      chi:   4   0.0119483790   residue:    0.0583154762
+      chi:   5  -0.0050884600   residue:    0.0181940325
+      chi:   6  -0.0119270863   residue:    0.0117370556
+      Average number of iter. to solve lin. system:   16.1
+      Total CPU time :  1612.9 s
+
+      atom #  1   q point #   1   iter #  11
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.0250E-02     0.0000E+00
+      chi:   1  -0.1221158922   residue:    0.0180124213
+      chi:   2   0.0135310635   residue:    0.0133171641
+      chi:   3   0.0026583453   residue:    0.0064996228
+      chi:   4  -0.0081669933   residue:    0.0201153723
+      chi:   5  -0.0073202906   residue:    0.0022318306
+      chi:   6   0.0011462361   residue:    0.0130733224
+      Average number of iter. to solve lin. system:   16.6
+      Total CPU time :  1757.4 s
+
+      atom #  1   q point #   1   iter #  12
+
+     Pert. #  1: Fermi energy shift (Ry) =     3.9768E-02     0.0000E+00
+      chi:   1  -0.1372546624   residue:    0.0151387702
+      chi:   2   0.0186501441   residue:    0.0051190807
+      chi:   3  -0.0012684878   residue:    0.0039268331
+      chi:   4   0.0037237442   residue:    0.0118907375
+      chi:   5  -0.0342716603   residue:    0.0269513698
+      chi:   6   0.0275083457   residue:    0.0263621096
+      Average number of iter. to solve lin. system:   15.2
+      Total CPU time :  1893.7 s
+
+      atom #  1   q point #   1   iter #  13
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.9607E-02     0.0000E+00
+      chi:   1  -0.1570441021   residue:    0.0197894397
+      chi:   2   0.0205066009   residue:    0.0018564567
+      chi:   3  -0.0318151161   residue:    0.0305466283
+      chi:   4  -0.0159495021   residue:    0.0196732462
+      chi:   5   0.0647642306   residue:    0.0990358909
+      chi:   6  -0.0209988912   residue:    0.0485072369
+      Average number of iter. to solve lin. system:   18.6
+      Total CPU time :  2051.2 s
+
+      atom #  1   q point #   1   iter #  14
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.0883E-02     0.0000E+00
+      chi:   1  -0.1404584740   residue:    0.0165856281
+      chi:   2   0.0108339255   residue:    0.0096726754
+      chi:   3   0.0298734076   residue:    0.0616885237
+      chi:   4  -0.0339417910   residue:    0.0179922889
+      chi:   5   0.0216767401   residue:    0.0430874905
+      chi:   6  -0.0161020973   residue:    0.0048967939
+      Average number of iter. to solve lin. system:   15.4
+      Total CPU time :  2188.0 s
+
+      atom #  1   q point #   1   iter #  15
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.7693E-02     0.0000E+00
+      chi:   1  -0.0797056600   residue:    0.0607528140
+      chi:   2  -0.0968835213   residue:    0.1077174468
+      chi:   3  -0.0230836120   residue:    0.0529570197
+      chi:   4   0.0346715466   residue:    0.0686133375
+      chi:   5   0.0094384938   residue:    0.0122382463
+      chi:   6   0.0151361514   residue:    0.0312382487
+      Average number of iter. to solve lin. system:   19.1
+      Total CPU time :  2348.8 s
+
+      atom #  1   q point #   1   iter #  16
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.5845E-02     0.0000E+00
+      chi:   1  -0.1536578827   residue:    0.0739522227
+      chi:   2  -0.0132221654   residue:    0.0836613559
+      chi:   3  -0.0022994255   residue:    0.0207841866
+      chi:   4   0.0297941968   residue:    0.0048773498
+      chi:   5   0.0057232015   residue:    0.0037152923
+      chi:   6  -0.0149993222   residue:    0.0301354737
+      Average number of iter. to solve lin. system:   14.3
+      Total CPU time :  2479.4 s
+
+      atom #  1   q point #   1   iter #  17
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.9893E-02     0.0000E+00
+      chi:   1  -0.0810101663   residue:    0.0726477164
+      chi:   2  -0.0632819644   residue:    0.0500597990
+      chi:   3  -0.0038430967   residue:    0.0015436712
+      chi:   4   0.0026482875   residue:    0.0271459092
+      chi:   5   0.0357281880   residue:    0.0300049866
+      chi:   6  -0.0327538397   residue:    0.0177545175
+      Average number of iter. to solve lin. system:   17.5
+      Total CPU time :  2630.0 s
+
+      atom #  1   q point #   1   iter #  18
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.1493E-02     0.0000E+00
+      chi:   1  -0.1136594270   residue:    0.0326492607
+      chi:   2   0.0121514683   residue:    0.0754334327
+      chi:   3  -0.0543374288   residue:    0.0504943321
+      chi:   4   0.0297274342   residue:    0.0270791467
+      chi:   5  -0.1454246832   residue:    0.1811528712
+      chi:   6   0.1417655446   residue:    0.1745193843
+      Average number of iter. to solve lin. system:   18.8
+      Total CPU time :  2790.0 s
+
+      atom #  1   q point #   1   iter #  19
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2654E-02     0.0000E+00
+      chi:   1  -0.1432267764   residue:    0.0295673494
+      chi:   2   0.0252941134   residue:    0.0131426450
+      chi:   3  -0.0211459244   residue:    0.0331915043
+      chi:   4   0.0025494038   residue:    0.0271780304
+      chi:   5   0.0187058110   residue:    0.1641304941
+      chi:   6  -0.0110352954   residue:    0.1528008400
+      Average number of iter. to solve lin. system:   16.3
+      Total CPU time :  2934.8 s
+
+      atom #  1   q point #   1   iter #  20
+
+     Pert. #  1: Fermi energy shift (Ry) =     3.9551E-02     0.0000E+00
+      chi:   1  -0.1254916199   residue:    0.0177351566
+      chi:   2   0.0219856822   residue:    0.0033084312
+      chi:   3   0.0537721320   residue:    0.0749180564
+      chi:   4  -0.0676932445   residue:    0.0702426483
+      chi:   5   0.0006960752   residue:    0.0180097358
+      chi:   6  -0.0003911716   residue:    0.0106441237
+      Average number of iter. to solve lin. system:   18.3
+      Total CPU time :  3089.1 s
+
+      atom #  1   q point #   1   iter #  21
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.1498E-02     0.0000E+00
+      chi:   1  -0.1345183065   residue:    0.0090266867
+      chi:   2   0.0091306592   residue:    0.0128550230
+      chi:   3  -0.0001179101   residue:    0.0538900421
+      chi:   4  -0.0176065785   residue:    0.0500866660
+      chi:   5   0.0076413608   residue:    0.0069452856
+      chi:   6   0.0111223986   residue:    0.0115135703
+      Average number of iter. to solve lin. system:   16.0
+      Total CPU time :  3229.7 s
+
+      atom #  1   q point #   1   iter #  22
+
+     Pert. #  1: Fermi energy shift (Ry) =     3.3315E-02     0.0000E+00
+      chi:   1  -0.1999051988   residue:    0.0653868923
+      chi:   2   0.0421758756   residue:    0.0330452164
+      chi:   3  -0.0028754671   residue:    0.0027575571
+      chi:   4   0.0665236821   residue:    0.0841302606
+      chi:   5  -0.0673902547   residue:    0.0750316156
+      chi:   6   0.0242740603   residue:    0.0131516616
+      Average number of iter. to solve lin. system:   17.8
+      Total CPU time :  3383.6 s
+
+      atom #  1   q point #   1   iter #  23
+
+     Pert. #  1: Fermi energy shift (Ry) =     5.3382E-02     0.0000E+00
+      chi:   1  -0.0490097185   residue:    0.1508954803
+      chi:   2  -0.1495665106   residue:    0.1917423862
+      chi:   3   0.0109187785   residue:    0.0137942456
+      chi:   4   0.0229870318   residue:    0.0435366502
+      chi:   5   0.0218898849   residue:    0.0892801396
+      chi:   6  -0.0100229270   residue:    0.0342969872
+      Average number of iter. to solve lin. system:   17.3
+      Total CPU time :  3534.9 s
+
+      atom #  1   q point #   1   iter #  24
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.5285E-02     0.0000E+00
+      chi:   1  -0.1242091069   residue:    0.0751993884
+      chi:   2  -0.0209791627   residue:    0.1285873479
+      chi:   3  -0.0045442783   residue:    0.0154630568
+      chi:   4   0.0072360802   residue:    0.0157509516
+      chi:   5  -0.0188927412   residue:    0.0407826261
+      chi:   6   0.0212810320   residue:    0.0313039590
+      Average number of iter. to solve lin. system:   14.6
+      Total CPU time :  3668.4 s
+
+      atom #  1   q point #   1   iter #  25
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.6112E-02     0.0000E+00
+      chi:   1  -0.1140490160   residue:    0.0101600909
+      chi:   2  -0.0127910288   residue:    0.0081881339
+      chi:   3  -0.0326700968   residue:    0.0281258185
+      chi:   4   0.0292301079   residue:    0.0219940277
+      chi:   5   0.0906544179   residue:    0.1095471591
+      chi:   6  -0.1001995873   residue:    0.1214806193
+      Average number of iter. to solve lin. system:   18.7
+      Total CPU time :  3828.3 s
+
+      atom #  1   q point #   1   iter #  26
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.3726E-02     0.0000E+00
+      chi:   1  -0.1170121301   residue:    0.0029631141
+      chi:   2  -0.0147581609   residue:    0.0019671321
+      chi:   3   0.0359223277   residue:    0.0685924246
+      chi:   4  -0.0316265565   residue:    0.0608566644
+      chi:   5   0.0064835944   residue:    0.0841708235
+      chi:   6  -0.0103680635   residue:    0.0898315239
+      Average number of iter. to solve lin. system:   16.2
+      Total CPU time :  3972.4 s
+
+      atom #  1   q point #   1   iter #  27
+
+     Pert. #  1: Fermi energy shift (Ry) =     3.8042E-02     0.0000E+00
+      chi:   1  -0.1666424721   residue:    0.0496303420
+      chi:   2   0.0542193586   residue:    0.0689775196
+      chi:   3  -0.0002141711   residue:    0.0361364988
+      chi:   4  -0.0124648451   residue:    0.0191617114
+      chi:   5   0.0259330247   residue:    0.0194494303
+      chi:   6  -0.0228751136   residue:    0.0125070501
+      Average number of iter. to solve lin. system:   18.2
+      Total CPU time :  4128.4 s
+
+      atom #  1   q point #   1   iter #  28
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.0314E-02     0.0000E+00
+      chi:   1  -0.1399505732   residue:    0.0266918989
+      chi:   2   0.0108653043   residue:    0.0433540544
+      chi:   3  -0.0032706444   residue:    0.0030564733
+      chi:   4   0.0093930157   residue:    0.0218578608
+      chi:   5  -0.0124459807   residue:    0.0383790054
+      chi:   6   0.0046500109   residue:    0.0275251245
+      Average number of iter. to solve lin. system:   16.3
+      Total CPU time :  4271.8 s
+
+      atom #  1   q point #   1   iter #  29
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.1479E-02     0.0000E+00
+      chi:   1  -0.1375637444   residue:    0.0023868288
+      chi:   2   0.0046645934   residue:    0.0062007109
+      chi:   3   0.0009385792   residue:    0.0042092236
+      chi:   4   0.0014534278   residue:    0.0079395879
+      chi:   5   0.0032999091   residue:    0.0157458898
+      chi:   6  -0.0037587446   residue:    0.0084087555
+      Average number of iter. to solve lin. system:   15.0
+      Total CPU time :  4407.6 s
+
+      atom #  1   q point #   1   iter #  30
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.8335E-02     0.0000E+00
+      chi:   1  -0.1106225362   residue:    0.0269412082
+      chi:   2  -0.0316323281   residue:    0.0362969215
+      chi:   3  -0.0122271548   residue:    0.0131657340
+      chi:   4  -0.0014290204   residue:    0.0028824483
+      chi:   5  -0.0017557911   residue:    0.0050557001
+      chi:   6   0.0159720490   residue:    0.0197307936
+      Average number of iter. to solve lin. system:   20.1
+      Total CPU time :  4575.2 s
+
+      atom #  1   q point #   1   iter #  31
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.3462E-02     0.0000E+00
+      chi:   1  -0.1325960374   residue:    0.0219735013
+      chi:   2  -0.0057720032   residue:    0.0258603249
+      chi:   3   0.0008323995   residue:    0.0130595543
+      chi:   4   0.0017620483   residue:    0.0031910687
+      chi:   5   0.0017562140   residue:    0.0035120051
+      chi:   6  -0.0017206808   residue:    0.0176927298
+      Average number of iter. to solve lin. system:   15.0
+      Total CPU time :  4710.9 s
+
+      atom #  1   q point #   1   iter #  32
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2523E-02     0.0000E+00
+      chi:   1  -0.1284437278   residue:    0.0041523096
+      chi:   2  -0.0011115637   residue:    0.0046604396
+      chi:   3   0.0051179725   residue:    0.0042855730
+      chi:   4  -0.0075774410   residue:    0.0093394893
+      chi:   5   0.0003920378   residue:    0.0013641762
+      chi:   6   0.0001516029   residue:    0.0018722837
+      Average number of iter. to solve lin. system:   17.4
+      Total CPU time :  4861.9 s
+
+      atom #  1   q point #   1   iter #  33
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.3390E-02     0.0000E+00
+      chi:   1  -0.1358647807   residue:    0.0074210529
+      chi:   2  -0.0008583828   residue:    0.0002531809
+      chi:   3  -0.0004190069   residue:    0.0055369794
+      chi:   4   0.0015259953   residue:    0.0091034363
+      chi:   5   0.0020001229   residue:    0.0016080851
+      chi:   6  -0.0021931309   residue:    0.0023447338
+      Average number of iter. to solve lin. system:   17.4
+      Total CPU time :  5012.4 s
+
+      atom #  1   q point #   1   iter #  34
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2038E-02     0.0000E+00
+      chi:   1  -0.1332883396   residue:    0.0025764411
+      chi:   2   0.0018703977   residue:    0.0027287805
+      chi:   3  -0.0052492337   residue:    0.0048302269
+      chi:   4   0.0052577046   residue:    0.0037317093
+      chi:   5  -0.0093053187   residue:    0.0113054417
+      chi:   6   0.0079181086   residue:    0.0101112395
+      Average number of iter. to solve lin. system:   19.7
+      Total CPU time :  5177.7 s
+
+      atom #  1   q point #   1   iter #  35
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.1964E-02     0.0000E+00
+      chi:   1  -0.1341597831   residue:    0.0008714435
+      chi:   2   0.0047385206   residue:    0.0028681229
+      chi:   3  -0.0011740860   residue:    0.0040751477
+      chi:   4  -0.0011711522   residue:    0.0064288568
+      chi:   5   0.0000270478   residue:    0.0093323665
+      chi:   6   0.0003034885   residue:    0.0076146201
+      Average number of iter. to solve lin. system:   16.7
+      Total CPU time :  5323.8 s
+
+      atom #  1   q point #   1   iter #  36
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2456E-02     0.0000E+00
+      chi:   1  -0.1343747803   residue:    0.0002149971
+      chi:   2   0.0014067782   residue:    0.0033317424
+      chi:   3   0.0005321786   residue:    0.0017062647
+      chi:   4  -0.0008395166   residue:    0.0003316355
+      chi:   5  -0.0009276975   residue:    0.0009547453
+      chi:   6   0.0012589368   residue:    0.0009554483
+      Average number of iter. to solve lin. system:   14.3
+      Total CPU time :  5454.3 s
+
+      atom #  1   q point #   1   iter #  37
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.1759E-02     0.0000E+00
+      chi:   1  -0.1308561550   residue:    0.0035186253
+      chi:   2   0.0012735803   residue:    0.0001331979
+      chi:   3  -0.0016853660   residue:    0.0022175446
+      chi:   4   0.0009914483   residue:    0.0018309649
+      chi:   5   0.0017903113   residue:    0.0027180088
+      chi:   6  -0.0024986981   residue:    0.0037576350
+      Average number of iter. to solve lin. system:   18.6
+      Total CPU time :  5613.6 s
+
+      atom #  1   q point #   1   iter #  38
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.3010E-02     0.0000E+00
+      chi:   1  -0.1304401326   residue:    0.0004160223
+      chi:   2  -0.0038892221   residue:    0.0051628023
+      chi:   3  -0.0008931913   residue:    0.0007921746
+      chi:   4  -0.0001938387   residue:    0.0011852870
+      chi:   5   0.0015458180   residue:    0.0002444933
+      chi:   6   0.0002145316   residue:    0.0027132297
+      Average number of iter. to solve lin. system:   15.0
+      Total CPU time :  5748.4 s
+
+      atom #  1   q point #   1   iter #  39
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.3012E-02     0.0000E+00
+      chi:   1  -0.1346140859   residue:    0.0041739533
+      chi:   2  -0.0021083599   residue:    0.0017808622
+      chi:   3  -0.0005878700   residue:    0.0003053213
+      chi:   4   0.0025070229   residue:    0.0027008616
+      chi:   5   0.0007535318   residue:    0.0007922862
+      chi:   6  -0.0009369834   residue:    0.0011515150
+      Average number of iter. to solve lin. system:   15.8
+      Total CPU time :  5888.3 s
+
+      atom #  1   q point #   1   iter #  40
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2986E-02     0.0000E+00
+      chi:   1  -0.1326747443   residue:    0.0019393416
+      chi:   2  -0.0029928738   residue:    0.0008845139
+      chi:   3   0.0009342598   residue:    0.0015221298
+      chi:   4   0.0002327748   residue:    0.0022742481
+      chi:   5   0.0002250675   residue:    0.0005284643
+      chi:   6  -0.0001181233   residue:    0.0008188602
+      Average number of iter. to solve lin. system:   16.1
+      Total CPU time :  6030.3 s
+
+      atom #  1   q point #   1   iter #  41
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2887E-02     0.0000E+00
+      chi:   1  -0.1329885534   residue:    0.0003138091
+      chi:   2  -0.0020323154   residue:    0.0009605584
+      chi:   3   0.0002245403   residue:    0.0007097195
+      chi:   4   0.0005027401   residue:    0.0002699652
+      chi:   5   0.0001736221   residue:    0.0000514453
+      chi:   6  -0.0000488877   residue:    0.0000692355
+      Average number of iter. to solve lin. system:   13.5
+      Total CPU time :  6156.4 s
+
+      atom #  1   q point #   1   iter #  42
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2396E-02     0.0000E+00
+      chi:   1  -0.1338603762   residue:    0.0008718228
+      chi:   2   0.0016731751   residue:    0.0037054905
+      chi:   3   0.0002319885   residue:    0.0000074481
+      chi:   4  -0.0009335157   residue:    0.0014362557
+      chi:   5   0.0008576575   residue:    0.0006840354
+      chi:   6  -0.0007620302   residue:    0.0007131425
+      Average number of iter. to solve lin. system:   17.5
+      Total CPU time :  6308.7 s
+
+      atom #  1   q point #   1   iter #  43
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2448E-02     0.0000E+00
+      chi:   1  -0.1335767054   residue:    0.0002836708
+      chi:   2   0.0007005344   residue:    0.0009726407
+      chi:   3  -0.0003411813   residue:    0.0005731698
+      chi:   4   0.0000801755   residue:    0.0010136912
+      chi:   5  -0.0004773542   residue:    0.0013350117
+      chi:   6   0.0005526263   residue:    0.0013146566
+      Average number of iter. to solve lin. system:   14.8
+      Total CPU time :  6442.2 s
+
+      atom #  1   q point #   1   iter #  44
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2630E-02     0.0000E+00
+      chi:   1  -0.1331016858   residue:    0.0004750195
+      chi:   2  -0.0006667801   residue:    0.0013673145
+      chi:   3  -0.0000721249   residue:    0.0002690564
+      chi:   4   0.0002189485   residue:    0.0001387730
+      chi:   5   0.0002082845   residue:    0.0006856387
+      chi:   6  -0.0000728157   residue:    0.0006254421
+      Average number of iter. to solve lin. system:   15.0
+      Total CPU time :  6578.6 s
+
+      atom #  1   q point #   1   iter #  45
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2546E-02     0.0000E+00
+      chi:   1  -0.1339949286   residue:    0.0008932428
+      chi:   2   0.0002158054   residue:    0.0008825856
+      chi:   3  -0.0001083351   residue:    0.0000362102
+      chi:   4   0.0005507645   residue:    0.0003318160
+      chi:   5  -0.0000098648   residue:    0.0002181493
+      chi:   6  -0.0001414114   residue:    0.0000685956
+      Average number of iter. to solve lin. system:   18.0
+      Total CPU time :  6733.6 s
+
+      atom #  1   q point #   1   iter #  46
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2598E-02     0.0000E+00
+      chi:   1  -0.1334076598   residue:    0.0005872688
+      chi:   2  -0.0002275399   residue:    0.0004433453
+      chi:   3   0.0000575219   residue:    0.0001658570
+      chi:   4  -0.0000075178   residue:    0.0005582823
+      chi:   5   0.0001564220   residue:    0.0001662867
+      chi:   6   0.0000145268   residue:    0.0001559382
+      Average number of iter. to solve lin. system:   15.1
+      Total CPU time :  6869.6 s
+
+      atom #  1   q point #   1   iter #  47
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2710E-02     0.0000E+00
+      chi:   1  -0.1332409280   residue:    0.0001667318
+      chi:   2  -0.0010851435   residue:    0.0008576037
+      chi:   3   0.0002189515   residue:    0.0001614296
+      chi:   4   0.0002526398   residue:    0.0002601576
+      chi:   5   0.0000531649   residue:    0.0001032570
+      chi:   6   0.0000311498   residue:    0.0000166229
+      Average number of iter. to solve lin. system:   16.7
+      Total CPU time :  7015.0 s
+
+      atom #  1   q point #   1   iter #  48
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2662E-02     0.0000E+00
+      chi:   1  -0.1334439683   residue:    0.0002030403
+      chi:   2  -0.0006302775   residue:    0.0004548660
+      chi:   3  -0.0002500015   residue:    0.0004689530
+      chi:   4   0.0004771057   residue:    0.0002244659
+      chi:   5   0.0001058025   residue:    0.0000526375
+      chi:   6   0.0000770057   residue:    0.0000458559
+      Average number of iter. to solve lin. system:   16.7
+      Total CPU time :  7160.6 s
+
+      atom #  1   q point #   1   iter #  49
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2668E-02     0.0000E+00
+      chi:   1  -0.1332868109   residue:    0.0001571574
+      chi:   2  -0.0007931031   residue:    0.0001628256
+      chi:   3   0.0000935124   residue:    0.0003435139
+      chi:   4   0.0002213372   residue:    0.0002557685
+      chi:   5   0.0001726289   residue:    0.0000668264
+      chi:   6  -0.0000624384   residue:    0.0001394441
+      Average number of iter. to solve lin. system:   16.8
+      Total CPU time :  7306.5 s
+
+      atom #  1   q point #   1   iter #  50
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2659E-02     0.0000E+00
+      chi:   1  -0.1333111963   residue:    0.0000243855
+      chi:   2  -0.0007437074   residue:    0.0000493957
+      chi:   3   0.0000624330   residue:    0.0000310794
+      chi:   4   0.0002481398   residue:    0.0000268026
+      chi:   5   0.0000111804   residue:    0.0001614485
+      chi:   6   0.0000851902   residue:    0.0001476286
+      Average number of iter. to solve lin. system:   17.7
+      Total CPU time :  7459.0 s
+
+      atom #  1   q point #   1   iter #  51
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2627E-02     0.0000E+00
+      chi:   1  -0.1336259033   residue:    0.0003147069
+      chi:   2  -0.0004037795   residue:    0.0003399279
+      chi:   3   0.0001122263   residue:    0.0000497934
+      chi:   4   0.0002855865   residue:    0.0000374466
+      chi:   5   0.0000526484   residue:    0.0000414679
+      chi:   6  -0.0000586305   residue:    0.0001438207
+      Average number of iter. to solve lin. system:   19.0
+      Total CPU time :  7619.3 s
+
+      atom #  1   q point #   1   iter #  52
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2652E-02     0.0000E+00
+      chi:   1  -0.1333452907   residue:    0.0002806125
+      chi:   2  -0.0006808576   residue:    0.0002770781
+      chi:   3   0.0000738436   residue:    0.0000383827
+      chi:   4   0.0002033159   residue:    0.0000822705
+      chi:   5   0.0001288729   residue:    0.0000762245
+      chi:   6  -0.0000095279   residue:    0.0000491026
+      Average number of iter. to solve lin. system:   15.2
+      Total CPU time :  7755.9 s
+
+      atom #  1   q point #   1   iter #  53
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2647E-02     0.0000E+00
+      chi:   1  -0.1334330940   residue:    0.0000878033
+      chi:   2  -0.0006988770   residue:    0.0000180194
+      chi:   3   0.0001112490   residue:    0.0000374054
+      chi:   4   0.0002641828   residue:    0.0000608669
+      chi:   5   0.0000713873   residue:    0.0000574856
+      chi:   6   0.0000395913   residue:    0.0000491192
+      Average number of iter. to solve lin. system:   17.3
+      Total CPU time :  7906.7 s
+
+      atom #  1   q point #   1   iter #  54
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2665E-02     0.0000E+00
+      chi:   1  -0.1333664245   residue:    0.0000666695
+      chi:   2  -0.0007899482   residue:    0.0000910712
+      chi:   3  -0.0000663909   residue:    0.0001776399
+      chi:   4   0.0004177822   residue:    0.0001535994
+      chi:   5   0.0000972999   residue:    0.0000259126
+      chi:   6   0.0000096084   residue:    0.0000299829
+      Average number of iter. to solve lin. system:   16.5
+      Total CPU time :  8051.8 s
+
+      atom #  1   q point #   1   iter #  55
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2665E-02     0.0000E+00
+      chi:   1  -0.1333329527   residue:    0.0000334718
+      chi:   2  -0.0007988224   residue:    0.0000088741
+      chi:   3   0.0000992214   residue:    0.0001656123
+      chi:   4   0.0002474354   residue:    0.0001703468
+      chi:   5   0.0000960192   residue:    0.0000012808
+      chi:   6   0.0000080321   residue:    0.0000015764
+      Average number of iter. to solve lin. system:   16.3
+      Total CPU time :  8195.8 s
+
+      atom #  1   q point #   1   iter #  56
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2657E-02     0.0000E+00
+      chi:   1  -0.1333882718   residue:    0.0000553191
+      chi:   2  -0.0006826754   residue:    0.0001161470
+      chi:   3   0.0000424671   residue:    0.0000567543
+      chi:   4   0.0002531276   residue:    0.0000056921
+      chi:   5   0.0000690591   residue:    0.0000269601
+      chi:   6   0.0000421355   residue:    0.0000341035
+      Average number of iter. to solve lin. system:   16.0
+      Total CPU time :  8337.7 s
+
+      atom #  1   q point #   1   iter #  57
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2641E-02     0.0000E+00
+      chi:   1  -0.1334402440   residue:    0.0000519722
+      chi:   2  -0.0006204203   residue:    0.0000622551
+      chi:   3   0.0000914568   residue:    0.0000489897
+      chi:   4   0.0003390846   residue:    0.0000859570
+      chi:   5   0.0000599630   residue:    0.0000090961
+      chi:   6  -0.0001014397   residue:    0.0001435752
+      Average number of iter. to solve lin. system:   18.3
+      Total CPU time :  8493.5 s
+
+      atom #  1   q point #   1   iter #  58
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2652E-02     0.0000E+00
+      chi:   1  -0.1333885590   residue:    0.0000516850
+      chi:   2  -0.0006507607   residue:    0.0000303404
+      chi:   3   0.0000647514   residue:    0.0000267055
+      chi:   4   0.0002193863   residue:    0.0001196982
+      chi:   5   0.0002216325   residue:    0.0001616696
+      chi:   6  -0.0001145623   residue:    0.0000131226
+      Average number of iter. to solve lin. system:   14.0
+      Total CPU time :  8623.2 s
+
+      atom #  1   q point #   1   iter #  59
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2648E-02     0.0000E+00
+      chi:   1  -0.1334145189   residue:    0.0000259599
+      chi:   2  -0.0006478735   residue:    0.0000028872
+      chi:   3   0.0000569139   residue:    0.0000078375
+      chi:   4   0.0002594417   residue:    0.0000400554
+      chi:   5   0.0000854535   residue:    0.0001361790
+      chi:   6   0.0000070097   residue:    0.0001215720
+      Average number of iter. to solve lin. system:   16.0
+      Total CPU time :  8764.8 s
+
+      atom #  1   q point #   1   iter #  60
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2661E-02     0.0000E+00
+      chi:   1  -0.1333617281   residue:    0.0000527908
+      chi:   2  -0.0007687387   residue:    0.0001208652
+      chi:   3  -0.0000080593   residue:    0.0000649732
+      chi:   4   0.0003409429   residue:    0.0000815012
+      chi:   5   0.0000997872   residue:    0.0000143337
+      chi:   6   0.0000101377   residue:    0.0000031280
+      Average number of iter. to solve lin. system:   17.5
+      Total CPU time :  8918.1 s
+
+      atom #  1   q point #   1   iter #  61
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2667E-02     0.0000E+00
+      chi:   1  -0.1333265273   residue:    0.0000352009
+      chi:   2  -0.0008285499   residue:    0.0000598112
+      chi:   3   0.0001333876   residue:    0.0001414469
+      chi:   4   0.0002161349   residue:    0.0001248080
+      chi:   5   0.0001119289   residue:    0.0000121417
+      chi:   6   0.0000018619   residue:    0.0000082758
+      Average number of iter. to solve lin. system:   17.1
+      Total CPU time :  9066.5 s
+
+      atom #  1   q point #   1   iter #  62
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2663E-02     0.0000E+00
+      chi:   1  -0.1333563516   residue:    0.0000298243
+      chi:   2  -0.0007602607   residue:    0.0000682892
+      chi:   3   0.0000606649   residue:    0.0000727227
+      chi:   4   0.0002613143   residue:    0.0000451794
+      chi:   5   0.0000943327   residue:    0.0000175963
+      chi:   6   0.0000128674   residue:    0.0000110055
+      Average number of iter. to solve lin. system:   14.8
+      Total CPU time :  9200.8 s
+
+      atom #  1   q point #   1   iter #  63
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2654E-02     0.0000E+00
+      chi:   1  -0.1333983279   residue:    0.0000419763
+      chi:   2  -0.0006983151   residue:    0.0000619456
+      chi:   3   0.0000597596   residue:    0.0000009053
+      chi:   4   0.0002681541   residue:    0.0000068397
+      chi:   5   0.0001024872   residue:    0.0000081545
+      chi:   6  -0.0000084602   residue:    0.0000213276
+      Average number of iter. to solve lin. system:   16.1
+      Total CPU time :  9343.3 s
+
+      atom #  1   q point #   1   iter #  64
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2648E-02     0.0000E+00
+      chi:   1  -0.1334251779   residue:    0.0000268500
+      chi:   2  -0.0006317483   residue:    0.0000665668
+      chi:   3   0.0000388574   residue:    0.0000209022
+      chi:   4   0.0002502063   residue:    0.0000179477
+      chi:   5   0.0000889999   residue:    0.0000134873
+      chi:   6   0.0000192249   residue:    0.0000276851
+      Average number of iter. to solve lin. system:   18.6
+      Total CPU time :  9500.5 s
+
+      atom #  1   q point #   1   iter #  65
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2656E-02     0.0000E+00
+      chi:   1  -0.1333758929   residue:    0.0000492850
+      chi:   2  -0.0007231708   residue:    0.0000914225
+      chi:   3   0.0000551542   residue:    0.0000162968
+      chi:   4   0.0002647790   residue:    0.0000145726
+      chi:   5   0.0001088888   residue:    0.0000198889
+      chi:   6  -0.0000070918   residue:    0.0000263167
+      Average number of iter. to solve lin. system:   15.9
+      Total CPU time :  9642.3 s
+
+      atom #  1   q point #   1   iter #  66
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2655E-02     0.0000E+00
+      chi:   1  -0.1334271995   residue:    0.0000513066
+      chi:   2  -0.0007011732   residue:    0.0000219976
+      chi:   3   0.0000389485   residue:    0.0000162058
+      chi:   4   0.0003017298   residue:    0.0000369508
+      chi:   5   0.0000689542   residue:    0.0000399346
+      chi:   6   0.0000304481   residue:    0.0000375399
+      Average number of iter. to solve lin. system:   19.5
+      Total CPU time :  9805.2 s
+
+      atom #  1   q point #   1   iter #  67
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2661E-02     0.0000E+00
+      chi:   1  -0.1333921608   residue:    0.0000350387
+      chi:   2  -0.0007447532   residue:    0.0000435801
+      chi:   3   0.0000897577   residue:    0.0000508092
+      chi:   4   0.0002532796   residue:    0.0000484502
+      chi:   5   0.0000887353   residue:    0.0000197811
+      chi:   6   0.0000087380   residue:    0.0000217101
+      Average number of iter. to solve lin. system:   17.2
+      Total CPU time :  9953.7 s
+
+      atom #  1   q point #   1   iter #  68
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2655E-02     0.0000E+00
+      chi:   1  -0.1333945087   residue:    0.0000023479
+      chi:   2  -0.0007075690   residue:    0.0000371843
+      chi:   3   0.0000501047   residue:    0.0000396530
+      chi:   4   0.0002781754   residue:    0.0000248959
+      chi:   5   0.0001020963   residue:    0.0000133609
+      chi:   6  -0.0000116148   residue:    0.0000203528
+      Average number of iter. to solve lin. system:   17.0
+      Total CPU time : 10100.5 s
+
+      atom #  1   q point #   1   iter #  69
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2657E-02     0.0000E+00
+      chi:   1  -0.1333871240   residue:    0.0000073847
+      chi:   2  -0.0007118130   residue:    0.0000042440
+      chi:   3   0.0000431274   residue:    0.0000069774
+      chi:   4   0.0002657174   residue:    0.0000124581
+      chi:   5   0.0001180476   residue:    0.0000159513
+      chi:   6  -0.0000081434   residue:    0.0000034714
+      Average number of iter. to solve lin. system:   15.4
+      Total CPU time : 10238.8 s
+
+      atom #  1   q point #   1   iter #  70
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2653E-02     0.0000E+00
+      chi:   1  -0.1333783953   residue:    0.0000087287
+      chi:   2  -0.0007024980   residue:    0.0000093150
+      chi:   3   0.0000403609   residue:    0.0000027665
+      chi:   4   0.0002645750   residue:    0.0000011424
+      chi:   5   0.0000705879   residue:    0.0000474597
+      chi:   6   0.0000306216   residue:    0.0000387650
+      Average number of iter. to solve lin. system:   18.9
+      Total CPU time : 10398.8 s
+
+      atom #  1   q point #   1   iter #  71
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2654E-02     0.0000E+00
+      chi:   1  -0.1334098596   residue:    0.0000314643
+      chi:   2  -0.0006817429   residue:    0.0000207552
+      chi:   3   0.0000577387   residue:    0.0000173778
+      chi:   4   0.0002585580   residue:    0.0000060169
+      chi:   5   0.0001061604   residue:    0.0000355725
+      chi:   6  -0.0000098294   residue:    0.0000404510
+      Average number of iter. to solve lin. system:   17.1
+      Total CPU time : 10548.4 s
+
+      atom #  1   q point #   1   iter #  72
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2653E-02     0.0000E+00
+      chi:   1  -0.1334097689   residue:    0.0000000907
+      chi:   2  -0.0006895605   residue:    0.0000078177
+      chi:   3   0.0000390490   residue:    0.0000186897
+      chi:   4   0.0002822443   residue:    0.0000236862
+      chi:   5   0.0000940615   residue:    0.0000120989
+      chi:   6   0.0000037203   residue:    0.0000135497
+      Average number of iter. to solve lin. system:   15.3
+      Total CPU time : 10684.3 s
+
+      atom #  1   q point #   1   iter #  73
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2658E-02     0.0000E+00
+      chi:   1  -0.1333914661   residue:    0.0000183028
+      chi:   2  -0.0007503971   residue:    0.0000608366
+      chi:   3   0.0001136895   residue:    0.0000746404
+      chi:   4   0.0002353879   residue:    0.0000468564
+      chi:   5   0.0000944702   residue:    0.0000004087
+      chi:   6   0.0000109073   residue:    0.0000071870
+      Average number of iter. to solve lin. system:   18.9
+      Total CPU time : 10845.1 s
+
+      atom #  1   q point #   1   iter #  74
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2660E-02     0.0000E+00
+      chi:   1  -0.1333787757   residue:    0.0000126904
+      chi:   2  -0.0007516731   residue:    0.0000012761
+      chi:   3   0.0000622662   residue:    0.0000514232
+      chi:   4   0.0002745165   residue:    0.0000391286
+      chi:   5   0.0001137612   residue:    0.0000192910
+      chi:   6  -0.0000136126   residue:    0.0000245199
+      Average number of iter. to solve lin. system:   15.0
+      Total CPU time : 10981.0 s
+
+      atom #  1   q point #   1   iter #  75
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2659E-02     0.0000E+00
+      chi:   1  -0.1334051808   residue:    0.0000264052
+      chi:   2  -0.0007077101   residue:    0.0000439631
+      chi:   3   0.0000484052   residue:    0.0000138610
+      chi:   4   0.0002572847   residue:    0.0000172319
+      chi:   5   0.0001235290   residue:    0.0000097678
+      chi:   6  -0.0000051537   residue:    0.0000084590
+      Average number of iter. to solve lin. system:   16.0
+      Total CPU time : 11123.5 s
+
+      atom #  1   q point #   1   iter #  76
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2659E-02     0.0000E+00
+      chi:   1  -0.1333694228   residue:    0.0000357580
+      chi:   2  -0.0007418592   residue:    0.0000341491
+      chi:   3   0.0000580312   residue:    0.0000096260
+      chi:   4   0.0002579619   residue:    0.0000006773
+      chi:   5   0.0000755366   residue:    0.0000479924
+      chi:   6   0.0000316016   residue:    0.0000367552
+      Average number of iter. to solve lin. system:   16.4
+      Total CPU time : 11268.9 s
+
+      atom #  1   q point #   1   iter #  77
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2659E-02     0.0000E+00
+      chi:   1  -0.1333833593   residue:    0.0000139365
+      chi:   2  -0.0007203521   residue:    0.0000215071
+      chi:   3   0.0000894211   residue:    0.0000313898
+      chi:   4   0.0002320628   residue:    0.0000258991
+      chi:   5   0.0001214067   residue:    0.0000458701
+      chi:   6  -0.0000262864   residue:    0.0000578880
+      Average number of iter. to solve lin. system:   17.1
+      Total CPU time : 11418.2 s
+
+      atom #  1   q point #   1   iter #  78
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2643E-02     0.0000E+00
+      chi:   1  -0.1334698028   residue:    0.0000864435
+      chi:   2  -0.0005948019   residue:    0.0001255502
+      chi:   3   0.0000188276   residue:    0.0000705935
+      chi:   4   0.0003085090   residue:    0.0000764462
+      chi:   5   0.0000264908   residue:    0.0000949159
+      chi:   6   0.0000366963   residue:    0.0000629827
+      Average number of iter. to solve lin. system:   18.9
+      Total CPU time : 11578.7 s
+
+      atom #  1   q point #   1   iter #  79
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2655E-02     0.0000E+00
+      chi:   1  -0.1333940274   residue:    0.0000757754
+      chi:   2  -0.0007012164   residue:    0.0001064145
+      chi:   3   0.0000485400   residue:    0.0000297124
+      chi:   4   0.0002648605   residue:    0.0000436485
+      chi:   5   0.0001032410   residue:    0.0000767502
+      chi:   6  -0.0000026090   residue:    0.0000393053
+      Average number of iter. to solve lin. system:   15.1
+      Total CPU time : 11716.1 s
+
+      atom #  1   q point #   1   iter #  80
+
+     Pert. #  1: Fermi energy shift (Ry) =     4.2652E-02     0.0000E+00
+      chi:   1  -0.1334409121   residue:    0.0000468847
+      chi:   2  -0.0007036275   residue:    0.0000024111
+      chi:   3   0.0000688397   residue:    0.0000202997
+      chi:   4   0.0002988441   residue:    0.0000339836
+      chi:   5   0.0000833584   residue:    0.0000198826
+      chi:   6   0.0000027064   residue:    0.0000053153
+      Average number of iter. to solve lin. system:   18.3
+      Total CPU time : 11870.9 s
+
+      Convergence has not been reached after  80 iterations!
+      The best overall accuracy which was reached :
+      diff =    0.0000159513  iter =  69
+
+      Stopping...
+
+
+     Called by init_run:
+
+     Called by electrons:
+     v_of_rho     :      1.06s CPU      1.22s WALL (       1 calls)
+     v_h          :      0.04s CPU      0.05s WALL (       1 calls)
+     v_xc         :      1.03s CPU      1.17s WALL (       1 calls)
+     newd         :      0.30s CPU      0.40s WALL (       1 calls)
+     PAW_pot      :      0.14s CPU      0.14s WALL (       1 calls)
+
+     Called by c_bands:
+     init_us_2    :     10.01s CPU     10.23s WALL (     415 calls)
+
+     Called by sum_band:
+
+     Called by *egterg:
+     h_psi        :   5480.10s CPU   5654.59s WALL (   24926 calls)
+     s_psi        :   1050.19s CPU   1050.78s WALL (   50257 calls)
+
+     Called by h_psi:
+     h_psi:calbec :    567.01s CPU    569.56s WALL (   24926 calls)
+     vloc_psi     :   4107.52s CPU   4278.15s WALL (   24926 calls)
+                                        0.00s GPU  (   24926 calls)
+     add_vuspsi   :    519.08s CPU    519.37s WALL (   24926 calls)
+     vhpsi        :    246.99s CPU    247.68s WALL (   24926 calls)
+
+     General routines
+     calbec       :   1280.56s CPU   1285.46s WALL (   75593 calls)
+     fft          :     59.48s CPU     65.46s WALL (    2673 calls)
+     ffts         :      5.80s CPU      6.18s WALL (     758 calls)
+     fftw         :   3657.66s CPU   3824.78s WALL ( 1529892 calls)
+     interpolate  :     11.29s CPU     12.20s WALL (     324 calls)
+     davcio       :      5.84s CPU     61.15s WALL (   28699 calls)
+
+     Parallel routines
+
+     Hubbard U routines
+     vhpsi        :    246.99s CPU    247.68s WALL (   24926 calls)
+
+     PAW routines
+     PAW_pot      :      0.14s CPU      0.14s WALL (       1 calls)
+
+     init_vloc    :      0.04s CPU      0.04s WALL (       1 calls)
+     init_us_1    :      0.16s CPU      0.16s WALL (       1 calls)
+     newd         :      0.30s CPU      0.40s WALL (       1 calls)
+     add_vuspsi   :    519.08s CPU    519.37s WALL (   24926 calls)
+
+     PRINTING TIMING FROM HP ROUTINES: 
+
+     hp_setup_q   :      3.84s CPU      4.40s WALL (       1 calls)
+     hp_init_q    :      1.52s CPU      1.61s WALL (       1 calls)
+     hp_solve_lin :  11554.42s CPU  11861.34s WALL (       1 calls)
+     hp_dvpsi_per :      0.09s CPU      0.14s WALL (       5 calls)
+     hp_dnsq      :     25.21s CPU     29.54s WALL (      80 calls)
+     hp_symdnsq   :      0.02s CPU      0.03s WALL (      80 calls)
+     ef_shift     :      7.64s CPU      8.36s WALL (      80 calls)
+     hp_psymdvscf :     40.46s CPU     43.64s WALL (      80 calls)
+
+     PRINTING TIMING FROM LR MODULE: 
+
+     sth_kernel   :   9393.07s CPU   9661.42s WALL (      80 calls)
+     apply_dpot_b :    230.52s CPU    240.44s WALL (     395 calls)
+     ortho        :     76.93s CPU     77.08s WALL (     400 calls)
+     cgsolve      :   8116.25s CPU   8356.63s WALL (     400 calls)
+     ch_psi       :   7838.45s CPU   8062.09s WALL (   24926 calls)
+     incdrhoscf   :    290.90s CPU    300.71s WALL (     400 calls)
+                                        0.00s GPU  (     400 calls)
+     localdos     :     14.48s CPU     14.88s WALL (       1 calls)
+     dv_of_drho   :     68.42s CPU     79.60s WALL (      80 calls)
+     mix_pot      :     11.51s CPU     21.22s WALL (      80 calls)
+     setup_dgc    :      2.97s CPU      3.44s WALL (       1 calls)
+     setup_dmuxc  :      0.53s CPU      0.60s WALL (       1 calls)
+     setup_nbnd_o :      0.00s CPU      0.00s WALL (       1 calls)
+     lr_orthoUwfc :      0.88s CPU      0.92s WALL (       1 calls)
+     cft_wave     :    199.46s CPU    209.08s WALL (   68572 calls)
+
+     USPP ROUTINES: 
+
+     newdq        :    765.01s CPU    768.35s WALL (      80 calls)
+     adddvscf     :    145.94s CPU    146.05s WALL (     395 calls)
+     addusdbec    :     23.43s CPU     23.54s WALL (     400 calls)
+     addusldos    :      9.07s CPU      9.15s WALL (       1 calls)
+
+     HP           :      3h12m CPU      3h17m WALL
+
+
+   This run was terminated on:  13:59: 3  10Aug2026            
+
+=------------------------------------------------------------------------------=
+   JOB DONE.
+=------------------------------------------------------------------------------=
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+STOP 1
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+STOP 1
+STOP 1
+STOP 1
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+STOP 1
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+STOP 1
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+STOP 1
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+STOP 1
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+STOP 1
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+STOP 1
+STOP 1
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+STOP 1
+STOP 1
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+STOP 1
+STOP 1
+STOP 1
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+STOP 1
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+STOP 1
+--------------------------------------------------------------------------
+prterun detected that one or more processes exited with non-zero status,
+thus causing the job to be terminated. The first process to do so was:
+
+   Process name: [prterun-be2d195a3225-27739@1,13]
+   Exit code:    1
+--------------------------------------------------------------------------

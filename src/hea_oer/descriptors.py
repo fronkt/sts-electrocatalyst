@@ -13,13 +13,18 @@ Theoretical overpotential:  η = max(ΔG1..4) / e  - 1.23   (V).
 
 The well-known scaling relation ΔG(*OOH) ≈ ΔG(*OH) + 3.2 eV (≈ 0.2 eV scatter)
 pins conventional catalysts to a volcano whose apex is η ≈ 0.37 V at the optimal
-descriptor ΔG(*O) - ΔG(*OH) ≈ 1.6 eV — the scaling-relation floor this project
-aims to circumvent with high-entropy disorder.
+descriptor ΔG(*O) - ΔG(*OH) ≈ 1.6 eV. Note (docs/43 Amendment 5, A5.1e): merely
+breaking the 3.2 eV relation is not itself an activity gain — Razzaq & Exner,
+ACS Catal. 13 (2023) 1740, §3.1 show a broken-scaling case whose G_max worsens,
+with the statistical optimum at the asymmetric intercept 2.76 eV — so this
+module treats the relation as a descriptor constraint to be measured against,
+not a floor to be circumvented.
 
 References
 ----------
 Man et al., ChemCatChem 3 (2011) 1159.
 Rossmeisl et al., J. Electroanal. Chem. 607 (2007) 83.
+Razzaq & Exner, ACS Catal. 13 (2023) 1740.
 """
 from __future__ import annotations
 
