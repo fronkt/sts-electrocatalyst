@@ -7,3 +7,7 @@
 *.in text eol=lf
 # ...and the restart/attempt/snapshot variants, which get scp'd and run the same way
 *.in.* text eol=lf
+# Queue manifests (m_*.txt) are read line-by-line by queue_r1.sh on the box; a
+# trailing  lands in the nk column and breaks the launch. Force LF.
+m_*.txt text eol=lf
+**/m_*.txt text eol=lf
