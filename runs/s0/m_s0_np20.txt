@@ -1,0 +1,36 @@
+# S0 capability wave -- queue_r1.sh manifest (queue_s0.sh NOT used: verified defects
+# 2026-08-16 -- RUNS path, no preflight, no --oversubscribe, shared ./tmp at NCONC=4).
+# Authority: docs/43 AMENDMENT 7 (A7.4), Zenodo 10.5281/zenodo.21963144; runs/s0/README.md.
+# Launch preconditions: TWO QUEUE_ALL_DONE lines in /workspace/queue_r1.log (LIT-2 + LIT-3).
+# Order = registered launch order b,e,h,c,d,i(TiO2),a(i-iii),f,g at NCONC=1.
+# NP=20 NCONC=1
+#   bash queue_r1.sh m_s0_np20.txt 20 1
+s0/b_noinv s0_OOH__2x1v_off__noinvT .in 4
+s0/b_noinv s0_OOH__2x1v_off__noinvF .in 2
+s0/e_proj s0_O__u715_atomic .in 4
+s0/e_proj s0_O__u715_ortho .in 4
+s0/h_afm_anchor ref__2x1v__afm .in 4
+s0/h_afm_anchor s0_O__2x1v_off__afm .in 4
+s0/h_afm_anchor s0_OH__2x1v_off__afm .in 4
+s0/h_afm_anchor s0_OOH__2x1v_off__afm .in 4
+s0/c_nosym_mir s0_OOH__2x1v_mir__nosym .in 4
+s0/d_hess_timing s0_OOH__2x1v_mir__hess_a37xp .in 4
+s0/i_cutoff_ladder tio2__ecut60 .in 2
+s0/i_cutoff_ladder tio2__ecut80 .in 2
+s0/i_cutoff_ladder tio2__ecut100 .in 2
+s0/i_cutoff_ladder tio2__ecut120 .in 2
+s0/a_beef slab__beefens .in 4
+s0/a_beef slab__beefcalc .in 4
+s0/a_beef slab__beefctl .in 4
+s0/f_gate1_uladder s0_OOH__u0.0__g1 .in 4
+s0/f_gate1_uladder s0_OOH__u0.5__g1 .in 4
+s0/f_gate1_uladder s0_OOH__base__g1 .in 4
+s0/f_gate1_uladder s0_OOH__u1.35__g1 .in 4
+s0/f_gate1_uladder s0_OOH__u0.0+spin1.0__g1 .in 4
+s0/f_gate1_uladder s0_OOH__u1.35+spin1.0__g1 .in 4
+s0/g_tio2_timing s0_OOH__2x1v_off .in 4
+# s0/i_cutoff_ladder sno2__ecut60 .in 2   # SnO2 arm: Sn UPF not on box (PSEUDOS_NEEDED.txt) -- uncomment only after pseudo verified
+# s0/i_cutoff_ladder sno2__ecut80 .in 2   # SnO2 arm: Sn UPF not on box (PSEUDOS_NEEDED.txt) -- uncomment only after pseudo verified
+# s0/i_cutoff_ladder sno2__ecut100 .in 2   # SnO2 arm: Sn UPF not on box (PSEUDOS_NEEDED.txt) -- uncomment only after pseudo verified
+# s0/i_cutoff_ladder sno2__ecut120 .in 2   # SnO2 arm: Sn UPF not on box (PSEUDOS_NEEDED.txt) -- uncomment only after pseudo verified
+# s0/a_beef slab__beefhub .in 4   # SELECT-WINNER wave 2: deck does not exist until (i)-(iii) drain
