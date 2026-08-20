@@ -11,3 +11,8 @@
 # trailing  lands in the nk column and breaks the launch. Force LF.
 m_*.txt text eol=lf
 **/m_*.txt text eol=lf
+
+# Slurm batch scripts are scp'd to Anvil and executed by bash there: same CRLF
+# trap as *.sh. So is the conda explicit lock, whose URLs a trailing \r corrupts.
+*.slurm text eol=lf
+qe75-explicit.txt text eol=lf

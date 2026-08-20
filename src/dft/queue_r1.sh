@@ -22,10 +22,15 @@ NCONC=${3:-8}
 # overridable ONLY so the pre-flight below can be exercised against a scratch
 # tree without writing into the real runs mirror. Default is unchanged.
 RUNS=${RUNS:-/workspace/sts/runs}
-export PATH=/workspace/qe/env/bin:${PATH:-}
-export LD_LIBRARY_PATH=/workspace/qe/env/lib:${LD_LIBRARY_PATH:-}
+# QE_PREFIX/LOG overridable so the SAME driver runs unchanged on Anvil, where
+# there is no /workspace and $HOME is 25 GB (anvil/README.md). Defaults are
+# the Vast box's exact paths, so an un-set environment behaves bit-identically
+# to every wave banked so far -- the migration must not change a number.
+QE_PREFIX=${QE_PREFIX:-/workspace/qe/env}
+export PATH=$QE_PREFIX/bin:${PATH:-}
+export LD_LIBRARY_PATH=$QE_PREFIX/lib:${LD_LIBRARY_PATH:-}
 export OMP_NUM_THREADS=1
-LOG=/workspace/queue_r1.log
+LOG=${LOG:-/workspace/queue_r1.log}
 
 # ------------------------------------------------------------------ preflight ---
 # Finding [8](ii), adjudications 2026-08-09. Read the manifest ONCE and refuse to
@@ -61,6 +66,7 @@ PREFLIGHT_ONLY=${PREFLIGHT_ONLY:-0}
 preflight() {
   local nline=0 nbad=0 nstale=0 nskip=0 nrun=0
   local d job suf nk extra dir inp out calc ok seen mesh nprod
+  local pdir upf ppbad
   local want_np want_nconc expect_cap cores quota period
 
   # Manifest directives (finding N6): every max_seconds in the decks was
@@ -161,6 +167,24 @@ preflight() {
       echo "PREFLIGHT_BAD crlf-input $inp (hard rule 1: a CRLF deck dies silently)"
       nbad=$((nbad + 1)); continue
     fi
+    # missing pseudopotential (MEASURED 2026-08-20). The S0 TiO2 legs name
+    # ti_pbe_v1.4.uspp.F.UPF, but the live pseudo_dir held only five UPFs --
+    # H/Ir/O/Ru/Cr. Five queued decks would each have taken a slot and died at
+    # ATOMIC_SPECIES, two to four days into the wave, one after another. Nothing
+    # upstream looked: the dir existed, the deck existed, the deck parsed clean.
+    # Checked against the EFFECTIVE dir (PSEUDO_DIR if set, else the deck's own),
+    # because a freshly staged cluster tree is exactly where a UPF goes missing.
+    pdir=${PSEUDO_DIR:-$(grep -am1 'pseudo_dir' "$inp" | sed "s/.*= *'\([^']*\)'.*/\1/")}
+    ppbad=0
+    if [ -n "$pdir" ]; then
+      for upf in $(grep -aoE '[A-Za-z0-9_.+-]+\.(UPF|upf)' "$inp" | sort -u); do
+        if [ ! -f "$pdir/$upf" ]; then
+          echo "PREFLIGHT_BAD missing-pseudo $d/$job: '$upf' not found in $pdir"
+          ppbad=1
+        fi
+      done
+    fi
+    if [ "$ppbad" = 1 ]; then nbad=$((nbad + 1)); continue; fi
     # gross nk sanity (finding N5(a)): nk can never exceed the full k-mesh
     # product (symmetry only ever reduces it further). This is a LOWER bound
     # on trouble -- a symmetric deck can still have fewer irreducible points
@@ -259,7 +283,16 @@ run_one() {
   rm -rf "$scratch"; mkdir -p "$scratch"
   local t0; t0=$(date +%s)
   # each job gets its own outdir so concurrent jobs cannot collide on ./tmp
-  sed "s#outdir *= *'[^']*'#outdir = '${scratch}'#" "${job}${suf}" > "${job}.run.in"
+  # PSEUDO_DIR (Anvil): the decks name an ABSOLUTE pseudo_dir, there is no root
+  # on a cluster to create it, and an explicit pseudo_dir in the input overrides
+  # $ESPRESSO_PSEUDO -- so the only correct rewrite point is here, in the same
+  # derived .run.in that already carries the outdir rewrite. The registered .in
+  # is never touched. Unset => byte-identical to every wave banked so far.
+  local -a sedargs=( -e "s#outdir *= *'[^']*'#outdir = '${scratch}'#" )
+  if [ -n "${PSEUDO_DIR:-}" ]; then
+    sedargs+=( -e "s#pseudo_dir *= *'[^']*'#pseudo_dir = '${PSEUDO_DIR}'#" )
+  fi
+  sed "${sedargs[@]}" "${job}${suf}" > "${job}.run.in"
   # --bind-to none, NOT --bind-to core/--map-by numa: hwloc cannot see the real
   # topology inside a Vast container, so PRTE fails the bind ("tried to bind a
   # process but failed") and the ranks end up migrating across sockets and
