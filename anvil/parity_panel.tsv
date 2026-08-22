@@ -1,0 +1,15 @@
+# Anvil parity panel -- banked Vast references for spin-POLARIZED decks.
+# Columns: deck_rel <TAB> ref_child(Vast __g1) <TAB> ref_parent(Vast relax) <TAB> parent_totmag <TAB> class
+#
+# WHY A PANEL AND NOT ONE DECK. 30_parity.slurm asked the platform question of
+# probe/Cr_lit3/oosh__1x1_off_magp__g1 -- which is one of the two rows the LIT-3
+# GATE-1 review had already flagged BASIN_DRIFT (child 8.29 meV ABOVE its own
+# parent, totmag 11.00 -> 14.90). Measuring parity against a drifted child
+# measures the drift, not the platform. The panel re-asks it of the AGREE rows,
+# which are spin-polarized and have a unique solution, and re-asks it of the
+# drifted rows against BOTH their child and their parent.
+probe/Cr_lit3/oosh__1x1_off_magm__g1	-1636.57116516	-1636.57116531	11.00	AGREE
+probe/Cr_lit3/s0_OOH__1x1_yaw270_magp__g1	-1636.56975161	-1636.56975169	11.00	AGREE
+probe/Cr_lit3/s0_OOH__1x1_yaw270_magm__g1	-1636.56955277	-1636.56955293	11.00	AGREE
+probe/Cr_lit3/s0_OOH__1x1_yaw90_magm__g1	-1636.56610153	-1636.56961270	11.00	BASIN_DRIFT
+probe/Cr_lit3/oosh__1x1_off_magp__g1	-1636.57057718	-1636.57118655	11.00	BASIN_DRIFT

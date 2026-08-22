@@ -94,6 +94,14 @@ U = 0 is Ti's registered value (gen_rutile.py: MP applies no U to Ti). Same for 
   (GBRV ultrasoft), consistent with the GBRV uspp family already in production
   (ti/cr/mn/ni_pbe_v*.uspp.F.UPF). MUST be verified present by an `ls` of
   /usr/share/espresso/pseudo before the SnO2 arm launches — see PSEUDOS_NEEDED.txt.
+  **RESOLVED 2026-08-22 (Anvil).** The guess was right about the pseudopotential and
+  wrong about its case: SSSP 1.3.0 ships it as `Sn_pbe_v1.uspp.F.UPF` (capital S),
+  md5 `4cf58ce39ec5d5d420df3dd08604eb00`, Element Sn, PBE, Z valence 14.0, ultrasoft —
+  i.e. exactly the GBRV file intended. The four decks were edited to the real name
+  under the substitution procedure PSEUDOS_NEEDED.txt had pre-authorised. None of the
+  four had ever produced a `.out`, so the edit moves no banked number. Note the search
+  path is now `$PROJECT/pseudo` on Anvil, not `/usr/share/espresso/pseudo`; the driver
+  rewrites `pseudo_dir` at launch, so the deck text still carries the old path.
   SnO2 energies are non-comparable to any future run made with a different Sn pseudo.
   Sn mass 118.710 in ATOMIC_SPECIES = standard atomic weight, supplied by builder
   (no repo source; inert for SCF total energies).

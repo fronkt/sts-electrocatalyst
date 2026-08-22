@@ -15,3 +15,28 @@ sn_pbe_v1.uspp.F.UPF            # Sn, GBRV ultrasoft, the SSSP-Efficiency PBE ch
 #   line of the four sno2__ecut*.in decks to the actual name and record the substitution in this
 #   file and in README.md (a filename fix, not a protocol change). Do NOT launch the SnO2 arm
 #   until the file is physically present.
+
+# ------------------------------------------------------------------------------
+# RESOLVED 2026-08-22 on Purdue Anvil (allocation CHE260157).
+#
+#   guessed:  sn_pbe_v1.uspp.F.UPF     (lowercase s -- builder's adopted name)
+#   actual:   Sn_pbe_v1.uspp.F.UPF     (capital S)
+#   md5       4cf58ce39ec5d5d420df3dd08604eb00
+#   header    Element Sn / SLA PW PBE PBE / Z valence 14.00000000000 / ultrasoft
+#
+# Case-only mismatch. The builder identified the correct SSSP-Efficiency GBRV file;
+# only the capitalisation was wrong, and on the case-sensitive cluster filesystem a
+# case-only mismatch is a hard file-not-found, which is why the driver's pseudo
+# preflight would have refused the arm rather than silently substituting anything.
+#
+# ACTION TAKEN, exactly the one this file pre-authorised: the ATOMIC_SPECIES line of
+# sno2__ecut{60,80,100,120}.in was edited from the guessed name to the actual name.
+# A filename fix, not a protocol change. None of the four decks had ever produced a
+# .out file, so no banked energy depends on the old string.
+#
+# STILL TRUE: SnO2 energies are non-comparable to any run made with a different Sn
+# pseudopotential. The md5 above is the one to check against.
+#
+# PATH CHANGE: pseudo_dir is $PROJECT/pseudo on Anvil (12 UPFs), not
+# /usr/share/espresso/pseudo. queue_r1.sh rewrites the deck's pseudo_dir at launch,
+# so the .in text still reads the old Vast path by design.
