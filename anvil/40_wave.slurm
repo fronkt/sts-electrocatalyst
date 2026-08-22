@@ -14,6 +14,14 @@
 # Charging: `shared` bills max(cores, ceil(mem_GB/2)) SU per hour. 20 cores with
 # the default ~2 GB/core is 20 SU/h; measured pw.x RSS is ~0.5 GB/rank, so cores
 # dominate and the rate is 20 SU/h flat.
+#
+# RANK COUNT IS A SUBMIT-TIME CHOICE, not a constant. The -n below is only the
+# default; 41_submit_wave.sh passes -n $NP and exports NP, and the driver is
+# invoked at that same NP so the manifest's own NP guard still fires. See the
+# Anvil sizing measurement (docs/48) for why 20 is not automatically right: on
+# this hardware the deck's 16 k-points parallelise nearly free, so a wider job
+# finishes several times sooner for a modest SU premium -- and `shared` bills
+# cores x hours, so wall-clock and cost are separate knobs here.
 #SBATCH -p shared
 #SBATCH -N 1
 #SBATCH -n 20
@@ -41,8 +49,9 @@ export QE_PREFIX RUNS
 export LOG="${RUNS}/../logs/queue_r1.${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}.log"
 mkdir -p "$(dirname "$LOG")"
 
-echo "TASK ${SLURM_ARRAY_TASK_ID} row='${row}' node=$(hostname) $(date -u)"
-bash "${DRIVER:?DRIVER must be exported}" "$task_manifest" 20 1
+NP=${NP:-20}
+echo "TASK ${SLURM_ARRAY_TASK_ID} row='${row}' np=$NP node=$(hostname) cpus=${SLURM_CPUS_ON_NODE:-?} $(date -u)"
+bash "${DRIVER:?DRIVER must be exported}" "$task_manifest" "$NP" 1
 rc=$?
 rm -f "$task_manifest"
 echo "TASK ${SLURM_ARRAY_TASK_ID} driver_rc=$rc $(date -u)"

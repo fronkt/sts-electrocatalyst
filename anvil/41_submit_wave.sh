@@ -1,14 +1,20 @@
 #!/usr/bin/env bash
 # Anvil bring-up step 4: submit a registered manifest as a Slurm array.
 #
-#   bash 41_submit_wave.sh $PROJECT/sts/runs/s0/m_s0_np20.txt [max_concurrent]
+#   bash 41_submit_wave.sh $PROJECT/sts/runs/s0/m_s0_np20.txt [max_concurrent] [ranks]
 #
 # Refuses unless the parity gate has passed, because the ONLY thing that makes
 # an Anvil number comparable to a Vast number is that gate.
 set -euo pipefail
 
-MANIFEST=${1:?usage: 41_submit_wave.sh <manifest> [max_concurrent]}
+MANIFEST=${1:?usage: 41_submit_wave.sh <manifest> [max_concurrent] [ranks]}
 CONC=${2:-8}
+# Ranks per deck. The driver refuses any NP that disagrees with the manifest's
+# own '# NP=<n> NCONC=<n>' directive, so widening a wave is a deliberate two-step:
+# edit the directive, then pass the matching NP here. That is the guard working,
+# not an obstacle -- a manifest's max_seconds were sized at its declared NP.
+NP=${3:-20}
+export NP
 
 export QE_PREFIX=${QE_PREFIX:-$PROJECT/qe/env}
 export PSEUDO_DIR=${PSEUDO_DIR:-$PROJECT/pseudo}
@@ -39,11 +45,11 @@ N=$(wc -l < "${MANIFEST}.lines")
 # node, launching nothing. Catches missing dirs, stale .out, CRLF decks, bad nk
 # and missing pseudopotentials before the array exists.
 echo "== preflight (nothing launched)"
-PREFLIGHT_ONLY=1 LOG=/dev/stdout bash "$DRIVER" "$MANIFEST" 20 1 || {
+PREFLIGHT_ONLY=1 LOG=/dev/stdout bash "$DRIVER" "$MANIFEST" "$NP" 1 || {
   echo "REFUSE: preflight failed -- fix the refusals above before submitting." >&2; exit 2; }
 
-echo "== submitting array 1-$N%$CONC  (20 cores each, 20 SU/h each)"
-echo "   worst-case burn at 48 h walltime: $((N * 20 * 48)) SU"
-sbatch -A "$ACCT" --array=1-"$N"%"$CONC" \
-       --export=ALL,MANIFEST,RUNS,QE_PREFIX,PSEUDO_DIR,DRIVER \
+echo "== submitting array 1-$N%$CONC  ($NP cores each, $NP SU/h each)"
+echo "   worst-case burn at 48 h walltime: $((N * NP * 48)) SU"
+sbatch -A "$ACCT" -n "$NP" --array=1-"$N"%"$CONC" \
+       --export=ALL,MANIFEST,RUNS,QE_PREFIX,PSEUDO_DIR,DRIVER,NP \
        "$(dirname "$0")/40_wave.slurm"
