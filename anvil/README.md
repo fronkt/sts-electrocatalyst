@@ -134,3 +134,67 @@ Still open: SSSP ships `Sn_pbe_v1.uspp.F.UPF` (capital S) while the deferred
 SnO2 decks name `sn_pbe_v1.uspp.F.UPF` (lowercase). Left alone — un-deferring
 SnO2 is a registered decision, not a staging step — but it will bite on a
 case-sensitive filesystem the moment those decks go live.
+
+
+## First-run log (2026-08-22) -- what the runbook got wrong
+
+Recorded because a runbook that hides its own misses is worth less than one that
+does not.
+
+**1. The OnDemand shell URL was wrong.** Step 0 said
+`ondemand.anvil.rcac.purdue.edu/pun/sys/shell/ssh/anvil`. That path resolves but the
+terminal then dies with *"Failed to establish a websocket connection."* The cluster is
+registered under its FQDN; the working URL is
+`/pun/sys/shell/ssh/anvil.rcac.purdue.edu`. Do not hand-write it -- open the dashboard
+and use **Clusters -> Anvil Shell Access**, which carries the correct href.
+
+**2. The ACCESS-profile SSH key is not the Anvil key.** Adding a public key to the
+ACCESS profile does nothing for Anvil. The only path is `~/.ssh/authorized_keys`
+created from the OnDemand shell (Step 0). Verified working: `x-fcai3@login03`,
+`$PROJECT=/anvil/projects/x-che260157`, `$SCRATCH=/anvil/scratch/x-fcai3`.
+
+**3. `10_bootstrap.sh` verified the env with `pw.x -h`, which is not a flag.** pw.x
+starts anyway, reads stdin, hits EOF and exits non-zero; under `set -euo pipefail`
+that aborted the script *after* the env had built correctly, so it never printed
+`BOOTSTRAP_OK`. Fixed to feed empty stdin and swallow the status. The env itself was
+always fine: pw.x **v.7.5**, OpenBLAS 0.3.34, ELPA 19.4.1, Open MPI 5.0.10, 1.6 GB at
+`$PROJECT/qe/env`.
+
+**4. `20_stage.sh` is now dead as written.** It pulls `runs/` and the pseudopotential
+tree *from Vast box 47662258* -- which was destroyed after S0 drained (zero instances,
+confirmed 2026-08-22). Staging is now local -> Anvil:
+
+    tar -czf /tmp/sts_runs.tgz runs src/dft/queue_r1.sh
+    scp /tmp/sts_runs.tgz x-fcai3@anvil.rcac.purdue.edu:$PROJECT/
+    ssh ... 'tar -xzf $PROJECT/sts_runs.tgz -C $PROJECT/sts'
+
+Verify by md5 on both ends, and count (`342 .out`, `524 .in`, 345 MB) -- a live
+`tar | ssh` pipe silently truncated at 56 MB on the first attempt and reported success.
+
+**5. Line endings.** This checkout has `core.autocrlf=true`, so 33 `.in` files sit in
+the worktree as CRLF even though `.gitattributes` says `eol=lf` and the index holds LF
+(`git ls-files --eol` shows `i/lf w/crlf`). The driver refuses CRLF inputs by design.
+After extracting on Anvil, run:
+
+    find runs \( -name '*.in' -o -name '*.in.*' -o -name 'm_*.txt' \) -print0 | xargs -0 sed -i 's/$//'
+
+This restores the exact bytes the box ran; it is not a content change.
+
+**6. Pseudopotentials were recovered, not re-approximated.** They lived only on the
+destroyed box. Refetched on Anvil from the same source the box used --
+`quantum-espresso-data-sssp` **1.3.0-3build1** from the Ubuntu universe pool (a zstd
+`.deb`; `tar --zstd` is unavailable on Anvil, use `ar x` + `unzstd`). 11 of the 12
+required UPFs came straight out of it, and the check that matters:
+
+    ti_pbe_v1.4.uspp.F.UPF   md5 88a00a6731bd790ddea75d31a80cb452
+
+is **byte-identical** to the file hashed on the Vast box on 2026-08-20. Staged at
+`$PROJECT/pseudo` (12 files).
+
+**7. The Sn filename mismatch is now staged but still unfixed.** SSSP ships
+`Sn_pbe_v1.uspp.F.UPF` (capital S, md5 `4cf58ce39ec5d5d420df3dd08604eb00`); the four
+`runs/s0/i_cutoff_ladder/sno2__ecut*.in` decks name `sn_pbe_v1.uspp.F.UPF` (lowercase).
+Those decks have **no `.out`** -- they never ran, so no banked number depends on the
+resolution. The capital-S file is staged; the decks still need editing (or a lowercase
+link) before SnO2 un-defers. The driver's missing-pseudo preflight will refuse them
+until then, which is the intended behaviour.

@@ -41,8 +41,11 @@ fi
 
 # --- verify -------------------------------------------------------------------
 echo "== verifying"
-"$PREFIX/bin/pw.x" -h 2>&1 | grep -m1 "PWSCF" || true
-ver=$("$PREFIX/bin/pw.x" -h 2>&1 | grep -om1 "v\.[0-9.]*" | head -1)
+# NB: pw.x has no -h/--help. Given an unknown flag it starts anyway, reads stdin,
+# hits EOF and exits NONZERO -- which under `set -euo pipefail` aborted this script
+# after the env had built correctly (first Anvil run, 2026-08-22). Feed it an empty
+# stdin and swallow the exit code; the banner on stderr is what we actually want.
+ver=$( { printf '' | "$PREFIX/bin/pw.x" 2>&1 | grep -oEm1 "v\.[0-9.]+"; } || true )
 echo "== pw.x reports: ${ver:-UNKNOWN}"
 if [ "$ver" != "v.7.5" ]; then
   echo "REFUSE: expected v.7.5, got '${ver:-UNKNOWN}' -- do not run science on this env" >&2
