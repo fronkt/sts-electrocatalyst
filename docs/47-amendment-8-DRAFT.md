@@ -143,7 +143,37 @@ jobs and are priced in A8.6, not in S0's closed budget.
 
 ## A8.6 — Measured Anvil cost
 
-*(filled from jobs 20083509–20083514; see docs/48)*
+Measured 2026-08-22 on the gate (g) deck itself, five arms, docs/48. The arms are on the
+same BFGS path as the banked Vast run (forces agree step for step to 4 significant
+figures), so the timings compare like with like.
+
+| shape | wall per 2×1v relax | SU per relax |
+|---|---|---|
+| 20 ranks, −nk 4, unbound — today's production shape | ~12 h | ~237 |
+| 128 ranks, −nk 16, bound — one whole node | **~1.5–2.1 h** | ~194–269 |
+
+Three facts the schedule now rests on, none of them estimates:
+
+1. Zen 3 is **1.52×** Zen 2 at identical shape (Vast 2745.5 s per first ionic step,
+   Anvil 1801.1 s).
+2. **SU per ionic step is flat** from 40 to 128 ranks (6.6–7.5 SU) while wall-clock per
+   step falls 3×. On `shared`, which bills cores × hours and nothing else, wall-clock is
+   therefore nearly free to buy.
+3. `--bind-to core` is worth **18%** against the driver's inherited `--bind-to none`, and
+   cannot move a number — it changes rank placement, not rank count or reduction order.
+
+**THRESHOLD (proposed):** S3 relaxations run at **128 ranks, −nk 16, `-N 1`**, with the
+walltime cap raised from 48 h to a value the entrant sets — `shared` reports
+`MaxTime=UNLIMITED`, so 48 h was never a limit, and at the measured rate a 60-step relax
+lands inside 4 h anyway.
+
+**Not proposed, flagged instead:** whether `--bind-to core` becomes the driver's default.
+It is free and provably number-neutral, but `queue_r1.sh` is shared with every banked run
+and changing it is a decision rather than a measurement.
+
+**Consequence for the budget.** At ~270 SU per relax the remaining 99,707 SU buys about
+370 of them, eight at a time on eight of `shared`'s 250 nodes. Compute is no longer the
+constraint on S3; the deck count this amendment fixes is.
 
 ## A8.7 — What this amendment does NOT license
 

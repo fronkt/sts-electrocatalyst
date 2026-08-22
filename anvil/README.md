@@ -91,18 +91,25 @@ the preflight — see below.
 `shared` bills `max(cores, ceil(mem_GB/2))` SU per hour. At 20 cores with ~0.5 GB
 per rank measured, cores dominate: **20 SU/h flat**.
 
+**Superseded 2026-08-22 by measurement — see docs/48.** The table below was built on a
+4 h/relax estimate that S0 gate (g) had already falsified (8 h at 20 ranks and not
+converged). The measured figures are:
+
 | Stage | Work | SU |
 |---|---|---|
-| S0 | 24 decks × ~6 h | ~2,900 |
-| S3–S5 | 300–500 box-h | 6,000–10,000 |
-| Parity + bring-up | | <100 |
-| **Total** | | **~13,000 of 100,000** |
+| S0 remainder | 19 Cr Hessian SCFs, ~2.7 h each at 20 ranks | ~1,030 |
+| one 2×1v relax | 25–35 ionic steps | **~200–270** |
+| S3–S5 | deck count is A8's to fix; the allocation buys ~370 relaxes | ≤ 99,707 |
+| Parity + sizing + bring-up | actually spent | **293** |
 
-**~87% headroom.** Compute stopped being the binding constraint on this project.
+**~99.7% of the allocation is still unspent.** Compute stopped being the binding
+constraint on this project; the deck count and the Oct 15 freeze are what bind now.
 
-The wall-clock win is larger than the SU win: S0 is ~6 days serial on Vast and
-about a day as an array; S3's 300–500 box-hours go from ~2–3 weeks to ~2–3 days.
-Against the Oct 15 freeze that is the whole difference.
+The wall-clock win is larger than the SU win, and larger than first assumed. Per ionic
+step the SU cost is flat from 40 to 128 ranks (6.6–7.5 SU) while wall-clock falls 3×, so
+a relax that takes ~12 h at today's 20-rank shape takes **~2 h on a whole node for about
+the same spend**. Zen 3 alone is 1.52× Zen 2 at identical shape, and `--bind-to core`
+is a further 18% for free. Against the Oct 15 freeze that is the whole difference.
 
 ## Governance
 
