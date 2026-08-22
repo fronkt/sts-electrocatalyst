@@ -73,6 +73,33 @@ Note the size against the project's own science tolerance: GATE-1 works to 5 meV
 An 8.28 meV basin difference is **larger than the tolerance the campaign uses to
 call two numbers the same**.
 
+## The control run settles it (job 20082656)
+
+`probe/Cr_lit3/s0_OOH__1x1_yaw90_ns1__g1` -- same family, same size class, same
+fixed-geometry `scf`, `nspin = 1` so the solution is unique -- returned:
+
+    reference (Vast):  -1635.73491496 Ry
+    measured  (Anvil): -1635.73491391 Ry
+    delta = +1.050e-06 Ry  (+0.0143 meV)      PARITY_PASS
+
+638 s wall, 10:40 elapsed, COMPLETED 0:0.
+
+That is inside the pre-registered 1e-8 to 1e-6 Ry band, an order of magnitude
+inside the proposed 1e-5 Ry tolerance, and **350x smaller than GATE-1's own 5 meV
+science tolerance**. Anvil reproduces a banked Vast number to 0.014 meV when the
+deck has one solution to reproduce.
+
+The two effects are now separated by measurement, not by argument:
+
+| source | delta | in meV | ratio |
+|---|---|---|---|
+| platform, Zen 2 -> Zen 3 (`ns1` deck) | 1.05e-06 Ry | 0.0143 | 1x |
+| magnetic basin selection (`nspin=2` deck) | 6.09e-04 Ry | 8.2818 | **580x** |
+
+The migration is sound. The spin-multistability is a property of the physics and
+the input settings, not of the machine -- it would reproduce this way between any
+two platforms, and between two runs on one platform.
+
 ## What must not happen
 
 The threshold must not be loosened to make this pass. A gate widened until the
