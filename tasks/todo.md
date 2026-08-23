@@ -491,3 +491,6 @@ ranking would contaminate the campaign's central contribution.
 ## Standing non-technical (carried over)
 - [ ] STS sponsor of record still unresolved (docs/16 §10) — highest-priority
       non-technical item; **application due Nov 5, 2026, 8pm ET**
+
+---
+2026-08-23 (evening): **docs/52-decision-sheet-2026-08-23.md** is the walkable index of every open decision above — 66 rows, 52 verdict-bearing, each with file:line + options as drafted. Compiled by 9-agent workflow, adversarially verified (19 findings applied). Line-number citations in it were verified against THIS file at 2026-08-23; insert new todo lines at the very end only.
