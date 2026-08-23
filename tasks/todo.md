@@ -1,5 +1,24 @@
 # STS 2027 — TODO
 
+## 2026-08-23 — current plan (the program board is docs/45 §E; this block is the day's checklist)
+
+Compute: Purdue Anvil (ACCESS CHE260157), ~1,085 of 100,000 SU used; Vast box gone.
+
+- [x] Block 1C Cr Hessian, both δ — banked, docs/49 (verdict label = Frank's σ_F decision, docs/47 A8.7)
+- [x] σ_F estimator block split (docs/49 §4b, `hessian_asym_blocks.py`); lessons.md entry
+- [x] Triage of the 51 staged decks without outputs — docs/51 (stale dupes moved aside; hp nosym / Co *OOH / Cu superseded; gate-(h) relaxations HOLD on A8)
+- [x] S0 gate (i) SnO₂ arm — job 20094699 **PASS** 1.188 meV/atom (admission PENDING A7.5 Sep 1); TiO₂ record corrected to 1.092
+- [x] LIT-2: Cr outputs banked; Cr `__g1` children launched (20094768); Ru `cov_2OH` re-run as fresh realisation (20094762)
+- [x] A8 draft complete incl. A8.7 instrument question + P-SYMCOV both-outcomes (docs/47) — **Frank re-authors thresholds + deposits by Aug 24**
+- [x] A9 DRAFTED (docs/50) + 2026-08-15 sampling artefacts filed — **Frank: 15 listed decisions, then deposit (overdue since Aug 22)**
+- [ ] `src/dft/lit2_readout.py` (A5.2 scorer) — building (workflow), then run when 20094762/20094768 land; bank LIT-2 verdict
+- [ ] Mirror 20094762 / 20094768 outputs into the repo when they land (md5 both ends)
+- [ ] Gate (h) four RuO₂ 2×1v AFM relaxations (+ 4 `__g1`): build AFTER A8 deposit (needs a committed builder; A8.1/A8.5 collision to settle)
+- [ ] S3 decks: build after A8 deposit, launch Aug 26 (docs/45 §E)
+- [ ] S1 silentgate core: **Frank writes**; CI + in-house controls may be built now (A9.6)
+- [ ] `--bind-to core` driver default — decision flagged in docs/48 (free 18 %, number-neutral)
+
+
 ## HEADLINE WITHDRAWN (2026-08-08) — read docs/41 §6c first
 
 **"Earth-abundant rutiles (Cr, Co) outperform RuO₂/IrO₂ in this tier" is withdrawn.**
