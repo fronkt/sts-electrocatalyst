@@ -47,6 +47,13 @@ re-deposit (due Aug 24); the external census (S1/S2) waits on A9.
   the machine change is registered in A8.5 (draft). Both the SnO₂ arm and the LIT-2
   re-run are pre-A8 runs of deposited-amendment work on Anvil under PARITY_PASS, with the
   block 1C waves as precedent; A8.5 should name them.
+- §1's probe_new row said the family was "never committed, so no history changes" —
+  wrong for four files: `runs/probe_new/{Co_uladder,Fe_audit,Mn_audit,Ni_audit}/probe_manifest.json`
+  were tracked (935311f). The deletions are committed with this correction (2026-08-23);
+  the files persist in git history and inside both moved-aside copies (scratchpad and
+  `$PROJECT/xfer/stale/probe_new-2026-08-23`). The 31 deck files themselves were untracked
+  as stated. The ~120 `.run.in` driver artifacts the same rsyncs deposited are now
+  gitignored (sources of record are the committed `.in` decks).
 - A5.2's readout (PASS/FAIL of the coarsened-Qiu ladder → label on the Cr termination
   column) has **no scorer** yet (the builder's docstring: "The readout (not built here)").
   It becomes scoreable once 20094762 and 20094768 land; writing it is owed.
