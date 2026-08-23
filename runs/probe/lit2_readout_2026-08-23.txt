@@ -1,0 +1,326 @@
+====================================================================================================
+LIT-2 READOUT -- static CHE surface Pourbaix -- docs/43 A5.2 (+A5.7), GATE-1 am.4 §2, §1 sign rule, §0a.2 off-plane record
+====================================================================================================
+manifest : runs\probe\lit2_manifest.json  (mtime 2026-08-23T13:44:57)
+prereg   : docs\43-prereg-week1-factorial.md  (mtime 2026-08-16T02:27:28; docs/43 wins wherever this program disagrees with it)
+tier     : data\tiers\tier_v2.json  version=tier_v2  (mtime 2026-08-09T13:33:05)
+run date : 2026-08-23T16:10:02-04:00   GATE-1 drift mode: am4s2 (C9)
+anchors  : all 19 registered-number anchor phrases found in docs/43
+
+REGISTERED NUMBERS (read, not set):
+  Qiu brackets 1.50 V (O_full/mixed), 1.24 V (mixed/OH_full), tolerance +/-0.25 V        [A5.2]
+  Cr rule: > 0.1 eV per site at U* = 1.23 V + eta(Cr)                      [A5.2]
+  GATE-1: |E_child - E_parent| <= 5 meV; else BASIN_DRIFT scored from the child (am.4 §2) / re-relax owed (§5, 4 meV residual); magnetisation channels 0.1 mu_B   [§2-A.3(b), am.4 §2/§3, §5]
+  Sign rule: dE_sym = E_off - E_mir > +20 meV voids the off arm                 [§1]
+  Off-plane start: y-translation >= 0.30 A + nosym/noinv; cite measured max|F_y|   [§2-A.1, §0a.2, A5.7]
+  N_SITES = 2 cus sites per 2x1 cell (per-site = per-cell / 2) -- an interpretation, C8 (docs/43 does not define 'site')
+  this file's tolerances (not registered): child positions <= 0.0001 A, cell <= 0.001 A, sigma_y partner window 0.3 A
+
+GATE PROVENANCE (coded rule -> docs/43 clause):
+  QC               lessons.md three incidents / qe_qc.py: a '!' total energy, no 'convergence NOT achieved', 'bfgs converged' on relax decks, free-atom fmax under threshold. 'JOB DONE' alone is never success.
+  GATE-1           docs/43 §2-A.3(b) + amendment 4 §2 + §5 (P16): every Cr relaxation has a __g1 fresh-density fixed-geometry SCF at its own final coordinates, at the parent's own symmetry/k-mesh/cell. am.4 §2: 'verdict AGREE within tolerance [<= 5 meV], else BASIN_DRIFT, in which case the GATE-1 SCF energy is the corrected value ... and the pair is scored from it' -> the CHILD is the energy of record (AGREE or drift; default). §5: 'If that SCF lands >= 5 meV lower, the state is re-relaxed from it and the loop repeats' and the GATE-1 energy may be quoted 'with a stated 4 meV residual' -> the §5-strict reading (NOT SCOREABLE, re-relax owed) is printed beside it (C9, --gate1-drift). No scoreable child -> PENDING_GATE1 (am.4 §2: 'a precondition of the readout'). LIT-2 scores GATE-1-passed Cr energies only (manifest gate1_note; A5.7).
+  GATE-1-CHILD-ID  am.4 §2 ('a GATE-1 child that changes nosym or the k-set at the same time attributes nothing') + am.4 §4 ('a control that cannot fail controls nothing'): the child is verified to be THE registered child -- calculation scf; fresh density (superposition of free atoms, no startingpot/startingwfc=file); nosym/noinv, symmetry line, K_POINTS + nk, CELL_PARAMETERS, nat, nspin, ecutwfc/ecutrho, pseudos, HUBBARD equal to the parent's; ATOMIC_POSITIONS = parent's 'Begin final coordinates' to 1e-4 A. Else CHILD NOT THE REGISTERED CHILD -> NOT SCOREABLE.
+  MAG              docs/43 amendment 4 §3: total AND absolute magnetisation, 0.1 mu_B channels, recorded for every Cr job. REPORTED for child-vs-parent and arm-vs-arm here; gating on it is registered for pairs/GATE C, not for GATE-1.
+  CHE              docs/43 A5.2 'static CHE surface Pourbaix'; formulas = hea_oer.referencing (ZPE_TS_CORRECTION OH 0.35 / O 0.05), gas references = manifest geometry.gas_references (A5.2 reuse rule).
+  COMPOSITION      docs/43 A5.2 names the rungs; n_O/n_OH are derived from the START deck, cross-checked against the nominal composition, and the termination identity is re-verified on the parent's FINAL geometry (added atoms still above the clean top layer; every added H still bonded to an ADDED O, i.e. no H migration to a lattice O) (this file, stated rule).
+  BENCH-(i)        docs/43 A5.2: 'the ordering with falling potential is full-O -> mixed -> full-*OH' (judged on the analytic envelope over the registered terminations, clean included, C3; the clean-ignoring alternative reading printed beside it).
+  BENCH-(ii)       docs/43 A5.2: 'the full-O/mixed and mixed/full-*OH transition potentials fall within +/-0.25 V of Qiu's AIMD brackets (~1.50 V and ~1.24 V)'.
+  BENCH-OUTCOME    docs/43 A5.2: PASS -> Cr 'validated-by-proxy'; FAIL -> Cr 'vacuum-CHE-only' with the measured RuO2 discrepancy attached. Neither gates any 1A/1B/1C result.
+  CR-RULE          docs/43 A5.2: 'if Cr prefers an O-covered termination by > 0.1 eV per site at U = 1.23 V + eta(Cr), every clean-termination Cr energetics row ... carries a conditional-on-termination flag. The flag qualifies; it does not retract.' 'O-covered' read as O_full/mixed (C2, default) with the inclusive reading printed; 'per site' = per cus site (C8) with the per-cell reading printed.
+  CONTEXT          manifest registered_ambiguities: ref__2x1o is NOT a registered rung (printed with its dG0 and its value at U*; never scored; C7); cov_Ovac = 'one bridging O removed' (A5.2's O-depleted variant, the O unnamed).
+  ARM              docs/43 §1 (P12): 'dE_sym = E(off-plane, GATE-1-passed) - E(mirror, GATE-1-passed) <= 0 by construction ... Any dE_sym > +0.02 eV is a failure of the search or of the comparison, not a physical result, and voids that arm'. Applied on the energies of record when both arms are scoreable: off arm VOID -> mirror arm is the rung, entrant to confirm comparability. Within +/-0.02 eV: lowest-energy scoreable arm (C1 default, A5.2 silent). Flagged in every case.
+  OFF-PLANE RECORD docs/43 A5.7 ('every new relaxation of any metal follows the off-plane/nosym standing protocol with measured max|F_y| recorded') + §0a.2 ('Any claim that a state was searched off-plane must cite its measured max|F_y|, never the presence of the flag') + §2-A.1 (y-translation >= 0.30 A plus nosym/noinv): deck flags, measured start dy, first-step max|F_y|, start->final |dy| printed per row; 'off (measured)' only when all three are present. Recorded, not gated.
+
+GAS REFERENCES (manifest geometry.gas_references; reuse is exact but they must pass QC):
+  Ru  H2O  runs\Ru_anchor\H2O.out           QC=TRUSTWORTHY  E=   -599.211013 eV  isolated=mt  mtime=2026-07-31T01:33:52
+  Ru  H2   runs\Ru_anchor\H2.out            QC=TRUSTWORTHY  E=    -31.745323 eV  isolated=mt  mtime=2026-07-31T01:33:52
+  Cr  H2O  runs\Cr_slab\H2O.out             QC=TRUSTWORTHY  E=   -599.211013 eV  isolated=mt  mtime=2026-07-24T00:15:37
+  Cr  H2   runs\Cr_slab\H2.out              QC=TRUSTWORTHY  E=    -31.745323 eV  isolated=mt  mtime=2026-07-24T00:15:37
+
+eta(Cr) = 0.3302830425896852  V  from data\tiers\tier_v2.json [tier_v2] -- tier_v1 with the three basin restarts of docs/41 s6f applied (commit a44417d). Each restart re-relaxed from its own final geometry with a fresh atomic-superposition density and reproduced its audit SCF at ionic step 1 to better than 0.02 meV. Drifts: Cr *OOH -178.58 meV, Co *OH -406.51 meV, Ni *OH -175.85 meV. Frozen 2026-08-09 under docs/43 s0.
+N_SITES check Ru: clean cell a_x = 6.2140 A vs 2*a1(manifest) = 6.2140 A -> OK
+N_SITES check Cr: clean cell a_x = 5.8320 A vs 2*a1(manifest) = 5.8320 A -> OK
+
+----------------------------------------------------------------------------------------------------
+Ru: TERMINATION LADDER -- every rung on the manifest, with status (E_rec = energy of record; E_par = parent relax)
+----------------------------------------------------------------------------------------------------
+rung            arm  job                                 origin             QC               E_par (eV)     E_rec (eV)  M_tot  M_abs  GATE-1                                          status
+clean           -    probe/Ru_cellsym/ref__2x1v          reused (block 1A)  TRUSTWORTHY     -44372.7293    -44372.7293      -      -  n/a                                             SCORED
+                       E_rec provenance: parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 §2 + A5.7 name Cr))
+O_full          mir  probe/Ru_cellsym/s0_O__2x1o_mir     reused (block 1A)  TRUSTWORTHY     -45504.3758    -45504.3758      -      -  n/a                                             SCORED
+                       E_rec provenance: parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 §2 + A5.7 name Cr))
+O_full          off  probe/Ru_cellsym/s0_O__2x1o_off     reused (block 1A)  TRUSTWORTHY     -45504.3888    -45504.3888      -      -  n/a                                             SCORED
+                       E_rec provenance: parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 §2 + A5.7 name Cr))
+mixed_OH_O      mir  probe/Ru_cellsym/s0_OH__2x1o_mir    reused (block 1A)  TRUSTWORTHY     -45521.5588    -45521.5588      -      -  n/a                                             SCORED
+                       E_rec provenance: parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 §2 + A5.7 name Cr))
+mixed_OH_O      off  probe/Ru_cellsym/s0_OH__2x1o_off    reused (block 1A)  TRUSTWORTHY     -45521.5703    -45521.5703      -      -  n/a                                             SCORED
+                       E_rec provenance: parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 §2 + A5.7 name Cr))
+CONTEXT_half_O  -    probe/Ru_cellsym/ref__2x1o          reused (block 1A)  TRUSTWORTHY     -44938.6763    -44938.6763      -      -  n/a                                             CONTEXT (never scored)
+                       E_rec provenance: parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 §2 + A5.7 name Cr))
+                       note: manifest recorded 'PENDING (no .out on disk)' but the .out is on disk now
+OH_full         off  probe/Ru_lit2/cov_2OH__2x1_off      new (LIT-2)        TRUSTWORTHY     -45538.5798    -45538.5798      -      -  n/a                                             SCORED
+                       E_rec provenance: parent relax (GATE-1 not required: manifest: GATE-1 children registered for the two Cr rows only (am.4 §2 + A5.7 name Cr; §5 P16 / A5.2 read broader -- C10); deck nspin=1 (no magnetic basin to drift))
+
+Ru: COMPOSITION (START deck vs clean ref__2x1v; rule: stoichiometric delta, n_OH = dH, n_O = dO - dH;
+     cross-checks: added atoms > 0.3 A above the clean top layer, each H within 1.15 A of an O, removed atoms matched to clean top-layer O within 0.6 A; then compared to nominal.
+     FINAL = identity re-verified on 'Begin final coordinates': added atoms still above; every added H still on an ADDED O -- no H migration to a lattice O)
+rung            arm  deck counts                 dO  dH  n_O n_OH above removed  nominal   start     final
+clean           -    O24 Ru12                     0   0    0    0     0       0  O+0 OH+0  OK        OK
+O_full          mir  O26 Ru12                     2   0    2    0     2       0  O+2 OH+0  OK        OK
+O_full          off  O26 Ru12                     2   0    2    0     2       0  O+2 OH+0  OK        OK
+mixed_OH_O      mir  H1 O26 Ru12                  2   1    1    1     3       0  O+1 OH+1  OK        OK
+mixed_OH_O      off  H1 O26 Ru12                  2   1    1    1     3       0  O+1 OH+1  OK        OK
+CONTEXT_half_O  -    O25 Ru12                     1   0    1    0     1       0  O+1 OH+0  OK        OK
+OH_full         off  H2 O26 Ru12                  2   2    0    2     4       0  O+0 OH+2  OK        OK
+
+Ru: OFF-PLANE RECORD (A5.7 + §0a.2 + §2-A.1: measured, never the flag; kicked = started >= 0.3 A off-plane)
+rung            arm  nosym  noinv   start dy max manifest dy  kicked    Fy1 kicked  Fy1 free  FyN free |dy| kicked final off  label
+clean           -    True   True           0.000           -  -                  -  7.54e-04  7.54e-04           -         -  - (nosym/noinv)
+O_full          mir  False  False          0.000           -  -                  -  5.15e-04  5.15e-04           -         -  mir
+O_full          off  True   True           0.350           -  O37         3.14e-02  3.14e-02  1.88e-03       0.216     0.134  off (measured)
+mixed_OH_O      mir  False  False          0.000           -  -                  -  6.53e-03  4.93e-04           -         -  mir
+mixed_OH_O      off  True   True           0.904           -  H38         3.46e-03  7.70e-03  1.28e-03       0.006     0.910  off (measured)
+CONTEXT_half_O  -    True   True           0.350           -  O37         3.25e-02  3.25e-02  1.38e-03       0.294     0.056  - (nosym/noinv)
+OH_full         off  True   True           0.904       0.904  H38,H40     4.98e-03  5.10e-03  1.79e-03       0.003     0.908  off (measured)
+  (Fy in Ry/au at the first / last ionic step; 'start dy' = per-atom half y-gap to the sigma_y image partner, 0 on-plane; planes verified on the clean deck: {True})
+
+Ru: ARM CHOICE (C1 + docs/43 §1 on the energies of record; both arms printed; ENTRANT DECISION where §1 is silent)
+  O_full         chosen=off   rule=C1 default (within the §1 tolerance)
+      reason: |dE_sym| = 13.0 meV <= 20 meV (§1 tolerance): lowest-energy scoreable arm taken (C1 default) = off
+      mir  probe/Ru_cellsym/s0_O__2x1o_mir      E_rec=   -45504.3758 (parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 §2 + A5.7 name Cr)))  M_tot=     - M_abs=     -  [mir]  SCORED
+      off  probe/Ru_cellsym/s0_O__2x1o_off      E_rec=   -45504.3888 (parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 §2 + A5.7 name Cr)))  M_tot=     - M_abs=     -  [off (measured)]  SCORED
+  mixed_OH_O     chosen=off   rule=C1 default (within the §1 tolerance)
+      reason: |dE_sym| = 11.5 meV <= 20 meV (§1 tolerance): lowest-energy scoreable arm taken (C1 default) = off
+      mir  probe/Ru_cellsym/s0_OH__2x1o_mir     E_rec=   -45521.5588 (parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 §2 + A5.7 name Cr)))  M_tot=     - M_abs=     -  [mir]  SCORED
+      off  probe/Ru_cellsym/s0_OH__2x1o_off     E_rec=   -45521.5703 (parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 §2 + A5.7 name Cr)))  M_tot=     - M_abs=     -  [off (measured)]  SCORED
+
+Ru: CHE LADDER  dG(U) = dG0 - n_e*U  (RHE; clean = 0; per site = per cell / 2 [C8]; per ads = per cell / (|n_O|+|n_OH|) -- equals per site only at full coverage)
+rung                            arm   n_O n_OH n_e  dG0/cell eV  dG0/site eV  dG0/ads eV  status
+clean (ref__2x1v)               -       0    0   0       0.0000       0.0000           -  SCORED
+O_full  (1 ML *O_cus)           off     2    0   4       3.3719       1.6860      1.6860  SCORED
+mixed   (1:1 *OH-*O)            off     1    1   3       2.3631       1.1815      1.1815  SCORED
+OH_full (1 ML *OH_cus)          off     0    2   2       1.5263       0.7631      0.7631  SCORED
+  CONTEXT (never scored; C7):
+CONTEXT ref__2x1o (1/2 ML *O)   -       1    0   2       1.5687       0.7843      1.5687  CONTEXT -- context only; never enters the ladder, the envelope or a verdict (C7)
+
+Ru: ENVELOPE (analytic, all U; registered terminations incl. clean, CONTEXT excluded; rungs with a dG0: ['clean', 'O_full', 'mixed_OH_O', 'OH_full'])
+  sequence with falling U: O_full -> mixed_OH_O -> OH_full -> clean
+  crossings: O_full -> mixed_OH_O at 1.009 V; mixed_OH_O -> OH_full at 0.837 V; OH_full -> clean at 0.763 V
+  table (printed only, 2.00 -> 0.80 V):
+   U (V)         clean      O_full  mixed_OH_O     OH_full   lowest      (dG per site, eV)
+    2.00         0.000      -2.314      -1.818      -1.237   O_full
+    1.90         0.000      -2.114      -1.668      -1.137   O_full
+    1.80         0.000      -1.914      -1.518      -1.037   O_full
+    1.70         0.000      -1.714      -1.368      -0.937   O_full
+    1.60         0.000      -1.514      -1.218      -0.837   O_full
+    1.50         0.000      -1.314      -1.068      -0.737   O_full
+    1.40         0.000      -1.114      -0.918      -0.637   O_full
+    1.30         0.000      -0.914      -0.768      -0.537   O_full
+    1.20         0.000      -0.714      -0.618      -0.437   O_full
+    1.10         0.000      -0.514      -0.468      -0.337   O_full
+    1.00         0.000      -0.314      -0.318      -0.237   mixed_OH_O
+    0.90         0.000      -0.114      -0.168      -0.137   mixed_OH_O
+    0.80         0.000       0.086      -0.018      -0.037   OH_full
+  analytic transitions (V):  O_full/mixed=1.009  mixed/OH_full=0.837  OH_full/clean=0.763  O_full/clean=0.843  mixed/clean=0.788
+
+----------------------------------------------------------------------------------------------------
+Cr: TERMINATION LADDER -- every rung on the manifest, with status (E_rec = energy of record; E_par = parent relax)
+----------------------------------------------------------------------------------------------------
+rung            arm  job                                 origin             QC               E_par (eV)     E_rec (eV)  M_tot  M_abs  GATE-1                                          status
+clean           -    probe/Cr_cellsym/ref__2x1v          reused (block 1A)  TRUSTWORTHY     -42237.8247    -42237.8247  24.00  38.77  AGREE (+0.003 meV <= 5 meV); E_rec = child (am.4 §2)  SCORED
+                       E_rec provenance: gate1 SCF (am.4 §2; AGREE); child E = -42237.8247 eV
+                       GATE-1 child identity: OK -- compared: calculation; fresh density (superposition of free atoms; no startingpot/startingwfc=file); nosym/noinv; pw.x symmetry line; K_POINTS card + printed k count; CELL_PARAMETERS (<= 0.001 A); nat, nspin, ecutwfc, ecutrho, pseudopotentials, HUBBARD; ATOMIC_POSITIONS vs parent 'Begin final coordinates' (<= 0.0001 A, same unit)
+O_full          mir  probe/Cr_cellsym/s0_O__2x1o_mir     reused (block 1A)  TRUSTWORTHY     -43366.6986    -43366.6986  20.00  36.83  AGREE (+0.001 meV <= 5 meV); E_rec = child (am.4 §2)  SCORED
+                       E_rec provenance: gate1 SCF (am.4 §2; AGREE); child E = -43366.6986 eV
+                       GATE-1 child identity: OK -- compared: calculation; fresh density (superposition of free atoms; no startingpot/startingwfc=file); nosym/noinv; pw.x symmetry line; K_POINTS card + printed k count; CELL_PARAMETERS (<= 0.001 A); nat, nspin, ecutwfc, ecutrho, pseudopotentials, HUBBARD; ATOMIC_POSITIONS vs parent 'Begin final coordinates' (<= 0.0001 A, same unit)
+O_full          off  probe/Cr_cellsym/s0_O__2x1o_off     reused (block 1A)  TRUSTWORTHY     -43366.6979    -43366.6979  20.00  36.87  AGREE (+0.005 meV <= 5 meV); E_rec = child (am.4 §2)  SCORED
+                       E_rec provenance: gate1 SCF (am.4 §2; AGREE); child E = -43366.6979 eV
+                       GATE-1 child identity: OK -- compared: calculation; fresh density (superposition of free atoms; no startingpot/startingwfc=file); nosym/noinv; pw.x symmetry line; K_POINTS card + printed k count; CELL_PARAMETERS (<= 0.001 A); nat, nspin, ecutwfc, ecutrho, pseudopotentials, HUBBARD; ATOMIC_POSITIONS vs parent 'Begin final coordinates' (<= 0.0001 A, same unit)
+                       note: manifest recorded 'PENDING (no .out on disk)' but the .out is on disk now
+mixed_OH_O      mir  probe/Cr_cellsym/s0_OH__2x1o_mir    reused (block 1A)  TRUSTWORTHY     -43384.3931    -43384.3931  21.00  37.10  AGREE (+0.005 meV <= 5 meV); E_rec = child (am.4 §2)  SCORED
+                       E_rec provenance: gate1 SCF (am.4 §2; AGREE); child E = -43384.3931 eV
+                       GATE-1 child identity: OK -- compared: calculation; fresh density (superposition of free atoms; no startingpot/startingwfc=file); nosym/noinv; pw.x symmetry line; K_POINTS card + printed k count; CELL_PARAMETERS (<= 0.001 A); nat, nspin, ecutwfc, ecutrho, pseudopotentials, HUBBARD; ATOMIC_POSITIONS vs parent 'Begin final coordinates' (<= 0.0001 A, same unit)
+mixed_OH_O      off  probe/Cr_cellsym/s0_OH__2x1o_off    reused (block 1A)  TRUSTWORTHY     -43384.3245    -43384.3245  21.00  37.06  AGREE (+0.005 meV <= 5 meV); E_rec = child (am.4 §2)  SCORED
+                       E_rec provenance: gate1 SCF (am.4 §2; AGREE); child E = -43384.3245 eV
+                       GATE-1 child identity: OK -- compared: calculation; fresh density (superposition of free atoms; no startingpot/startingwfc=file); nosym/noinv; pw.x symmetry line; K_POINTS card + printed k count; CELL_PARAMETERS (<= 0.001 A); nat, nspin, ecutwfc, ecutrho, pseudopotentials, HUBBARD; ATOMIC_POSITIONS vs parent 'Begin final coordinates' (<= 0.0001 A, same unit)
+CONTEXT_half_O  -    probe/Cr_cellsym/ref__2x1o          reused (block 1A)  TRUSTWORTHY     -42802.6235    -42802.6235  22.00  37.08  AGREE (+0.003 meV <= 5 meV) [INFO: child on disk, not required -- parent stays the energy of record, C10]  CONTEXT (never scored)
+                       E_rec provenance: parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 §2 + A5.7 name Cr)); child E = -42802.6235 eV
+                       GATE-1 child identity: OK -- compared: calculation; fresh density (superposition of free atoms; no startingpot/startingwfc=file); nosym/noinv; pw.x symmetry line; K_POINTS card + printed k count; CELL_PARAMETERS (<= 0.001 A); nat, nspin, ecutwfc, ecutrho, pseudopotentials, HUBBARD; ATOMIC_POSITIONS vs parent 'Begin final coordinates' (<= 0.0001 A, same unit)
+OH_full         off  probe/Cr_lit2/cov_2OH__2x1_off      new (LIT-2)        TRUSTWORTHY     -43401.8751    -43401.8751  22.00  39.23  AGREE (+0.004 meV <= 5 meV); E_rec = child (am.4 §2)  SCORED
+                       E_rec provenance: gate1 SCF (am.4 §2; AGREE); child E = -43401.8751 eV
+                       GATE-1 child identity: OK -- compared: calculation; fresh density (superposition of free atoms; no startingpot/startingwfc=file); nosym/noinv; pw.x symmetry line; K_POINTS card + printed k count; CELL_PARAMETERS (<= 0.001 A); nat, nspin, ecutwfc, ecutrho, pseudopotentials, HUBBARD; ATOMIC_POSITIONS vs parent 'Begin final coordinates' (<= 0.0001 A, same unit)
+cov_Ovac        off  probe/Cr_lit2/cov_Ovac__2x1_off     new (LIT-2)        TRUSTWORTHY     -41672.4381    -41672.4381  26.00  38.88  AGREE (+0.003 meV <= 5 meV); E_rec = child (am.4 §2)  SCORED
+                       E_rec provenance: gate1 SCF (am.4 §2; AGREE); child E = -41672.4381 eV
+                       GATE-1 child identity: OK -- compared: calculation; fresh density (superposition of free atoms; no startingpot/startingwfc=file); nosym/noinv; pw.x symmetry line; K_POINTS card + printed k count; CELL_PARAMETERS (<= 0.001 A); nat, nspin, ecutwfc, ecutrho, pseudopotentials, HUBBARD; ATOMIC_POSITIONS vs parent 'Begin final coordinates' (<= 0.0001 A, same unit)
+
+Cr: COMPOSITION (START deck vs clean ref__2x1v; rule: stoichiometric delta, n_OH = dH, n_O = dO - dH;
+     cross-checks: added atoms > 0.3 A above the clean top layer, each H within 1.15 A of an O, removed atoms matched to clean top-layer O within 0.6 A; then compared to nominal.
+     FINAL = identity re-verified on 'Begin final coordinates': added atoms still above; every added H still on an ADDED O -- no H migration to a lattice O)
+rung            arm  deck counts                 dO  dH  n_O n_OH above removed  nominal   start     final
+clean           -    Cr12 O24                     0   0    0    0     0       0  O+0 OH+0  OK        OK
+O_full          mir  Cr12 O26                     2   0    2    0     2       0  O+2 OH+0  OK        OK
+O_full          off  Cr12 O26                     2   0    2    0     2       0  O+2 OH+0  OK        OK
+mixed_OH_O      mir  Cr12 H1 O26                  2   1    1    1     3       0  O+1 OH+1  OK        OK
+mixed_OH_O      off  Cr12 H1 O26                  2   1    1    1     3       0  O+1 OH+1  OK        OK
+CONTEXT_half_O  -    Cr12 O25                     1   0    1    0     1       0  O+1 OH+0  OK        OK
+OH_full         off  Cr12 H2 O26                  2   2    0    2     4       0  O+0 OH+2  OK        OK
+cov_Ovac        off  Cr12 O23                    -1   0   -1    0     0       1  O-1 OH+0  OK        OK
+                       removed (start): O at (x=2.92, y=4.69, z=17.00), 0.00 A below the clean top layer (bridging-O row)
+
+Cr: OFF-PLANE RECORD (A5.7 + §0a.2 + §2-A.1: measured, never the flag; kicked = started >= 0.3 A off-plane)
+rung            arm  nosym  noinv   start dy max manifest dy  kicked    Fy1 kicked  Fy1 free  FyN free |dy| kicked final off  label
+clean           -    True   True           0.000           -  -                  -  2.78e-04  2.78e-04           -         -  - (nosym/noinv)
+O_full          mir  False  False          0.000           -  -                  -  1.59e-03  1.59e-03           -         -  mir
+O_full          off  True   True           0.350           -  O37         4.29e-02  4.29e-02  1.88e-03       0.279     0.071  off (measured)
+mixed_OH_O      mir  False  False          0.000           -  -                  -  2.07e-02  1.19e-03           -         -  mir
+mixed_OH_O      off  True   True           0.912           -  H38         1.04e-02  2.02e-02  9.69e-04       0.004     0.916  off (measured)
+CONTEXT_half_O  -    True   True           0.350           -  O37         3.75e-02  3.75e-02  1.22e-03       0.315     0.035  - (nosym/noinv)
+OH_full         off  True   True           0.912       0.912  H38,H40     8.93e-03  8.93e-03  1.02e-03       0.006     0.918  off (measured)
+cov_Ovac        off  True   True           0.350       0.350  O15         6.43e-02  6.43e-02  9.42e-04       0.321     0.029  off (measured)
+  (Fy in Ry/au at the first / last ionic step; 'start dy' = per-atom half y-gap to the sigma_y image partner, 0 on-plane; planes verified on the clean deck: {True})
+
+Cr: ARM CHOICE (C1 + docs/43 §1 on the energies of record; both arms printed; ENTRANT DECISION where §1 is silent)
+  O_full         chosen=mir   rule=C1 default (within the §1 tolerance)
+      reason: |dE_sym| = 0.7 meV <= 20 meV (§1 tolerance): lowest-energy scoreable arm taken (C1 default) = mir
+      mir  probe/Cr_cellsym/s0_O__2x1o_mir      E_rec=   -43366.6986 (gate1 SCF (am.4 §2; AGREE))  M_tot= 20.00 M_abs= 36.83  [mir]  SCORED
+      off  probe/Cr_cellsym/s0_O__2x1o_off      E_rec=   -43366.6979 (gate1 SCF (am.4 §2; AGREE))  M_tot= 20.00 M_abs= 36.87  [off (measured)]  SCORED
+      comparability: dM_tot=+0.00, dM_abs=-0.04 mu_B (within 0.1: True); final compositions both nominal: True
+      !! arms degenerate within 0.7 meV (below the relaxation's resolution); choice immaterial
+  mixed_OH_O     chosen=mir   rule=docs/43 §1: off arm VOID
+      reason: dE_sym = E_off - E_mir = +68.6 meV > +20 meV: the off arm is VOID (docs/43 §1 sign constraint: 'a failure of the search or of the comparison, not a physical result'); the mirror arm is the rung
+      mir  probe/Cr_cellsym/s0_OH__2x1o_mir     E_rec=   -43384.3931 (gate1 SCF (am.4 §2; AGREE))  M_tot= 21.00 M_abs= 37.10  [mir]  SCORED
+      off  probe/Cr_cellsym/s0_OH__2x1o_off     E_rec=   -43384.3245 (gate1 SCF (am.4 §2; AGREE))  M_tot= 21.00 M_abs= 37.06  [off (measured)]  SCORED
+      comparability: dM_tot=+0.00, dM_abs=+0.04 mu_B (within 0.1: True); final compositions both nominal: True
+      !! off arm VOID under docs/43 §1 (dE_sym = +68.6 meV > +20 meV); mirror arm taken. ENTRANT TO CONFIRM the pair is comparable -- same spectator arrangement / final composition and magnetisation within 0.1 mu_B (printed in the arm-choice block): if NOT comparable the mirror arm simply stands alone as the rung; if comparable the off-plane search failed and a re-search of the off arm is owed. 'Higher local minimum' is NOT an admissible reading (§1: 'not a physical result')
+
+Cr: CHE LADDER  dG(U) = dG0 - n_e*U  (RHE; clean = 0; per site = per cell / 2 [C8]; per ads = per cell / (|n_O|+|n_OH|) -- equals per site only at full coverage)
+rung                            arm   n_O n_OH n_e  dG0/cell eV  dG0/site eV  dG0/ads eV  status
+clean (ref__2x1v)               -       0    0   0       0.0000       0.0000           -  SCORED
+O_full  (1 ML *O_cus)           mir     2    0   4       6.1574       3.0787      3.0787  SCORED
+mixed   (1:1 *OH-*O)            mir     1    1   3       4.6356       2.3178      2.3178  SCORED
+OH_full (1 ML *OH_cus)          off     0    2   2       3.3263       1.6631      1.6631  SCORED
+cov_Ovac (clean - 1 bridging O) off    -1    0  -2      -2.1291      -1.0645     -2.1291  SCORED
+  CONTEXT (never scored; C7):
+CONTEXT ref__2x1o (1/2 ML *O)   -       1    0   2       2.7168       1.3584      2.7168  CONTEXT -- context only; never enters the ladder, the envelope or a verdict (C7)
+
+Cr: ENVELOPE (analytic, all U; registered terminations incl. clean, CONTEXT excluded; rungs with a dG0: ['clean', 'O_full', 'mixed_OH_O', 'OH_full', 'cov_Ovac'])
+  sequence with falling U: O_full -> clean -> cov_Ovac
+  crossings: O_full -> clean at 1.539 V; clean -> cov_Ovac at 1.065 V
+  table (printed only, 2.00 -> 0.80 V):
+   U (V)         clean      O_full  mixed_OH_O     OH_full    cov_Ovac   lowest      (dG per site, eV)
+    2.00         0.000      -0.921      -0.682      -0.337       0.935   O_full
+    1.90         0.000      -0.721      -0.532      -0.237       0.835   O_full
+    1.80         0.000      -0.521      -0.382      -0.137       0.735   O_full
+    1.70         0.000      -0.321      -0.232      -0.037       0.635   O_full
+    1.60         0.000      -0.121      -0.082       0.063       0.535   O_full
+    1.50         0.000       0.079       0.068       0.163       0.435   clean
+    1.40         0.000       0.279       0.218       0.263       0.335   clean
+    1.30         0.000       0.479       0.368       0.363       0.235   clean
+    1.20         0.000       0.679       0.518       0.463       0.135   clean
+    1.10         0.000       0.879       0.668       0.563       0.035   clean
+    1.00         0.000       1.079       0.818       0.663      -0.065   cov_Ovac
+    0.90         0.000       1.279       0.968       0.763      -0.165   cov_Ovac
+    0.80         0.000       1.479       1.118       0.863      -0.265   cov_Ovac
+  analytic transitions (V):  O_full/mixed=1.522  mixed/OH_full=1.309  OH_full/clean=1.663  O_full/clean=1.539  mixed/clean=1.545  clean/cov_Ovac=1.065
+
+====================================================================================================
+RuO2 BENCHMARK (docs/43 A5.2, two-sided)
+====================================================================================================
+  dG(U) = dG(0) - n_e*U, n_e = 4/3/2/0 for O_full/mixed/OH_full/clean; the most oxidised termination is stable at HIGH U, so FALLING U reads O_full -> mixed -> OH_full; U(O_full/mixed) is the higher transition (bracket ~1.50 V), U(mixed/OH_full) the lower (~1.24 V)
+  U(O_full/mixed)  =    1.009 V   bracket 1.25..1.75 V (~1.50 +/- 0.25)   discrepancy -0.491 V   (ii)(a)=False
+  U(mixed/OH_full) =    0.837 V   bracket 0.99..1.49 V (~1.24 +/- 0.25)   discrepancy -0.403 V   (ii)(b)=False
+  U(OH_full/clean) =    0.763 V   U(mixed/clean) = 0.788 V   (context; clean coupling of (i), C3)
+  ordering observed with falling U (analytic): O_full -> mixed_OH_O -> OH_full -> clean   (i)=True   (i, clean ignored)=True
+  (i) readings: DEFAULT (C3): analytic envelope incl. clean -> O_full -> mixed -> OH_full is a subsequence: True  [mixed on the envelope iff U(O_full/mixed) > max(U(mixed/OH_full), U(mixed/clean)) = 1.009 > max(0.837, 0.788); OH_full follows iff U(mixed/OH_full) > U(OH_full/clean) = 0.837 > 0.763]  |  ALTERNATIVE (clean ignored): U(O_full/mixed) > U(mixed/OH_full): True
+  VERDICT: FAIL   [complete ladder]
+  reason : (ii)(a) U(O_full/mixed) = 1.009 V is -0.491 V from ~1.50 V, outside +/-0.25 V; (ii)(b) U(mixed/OH_full) = 0.837 V is -0.403 V from ~1.24 V, outside +/-0.25 V
+  held   : FAIL
+  Cr column label: vacuum-CHE-only (RuO2 discrepancy attached as systematic error: dU(O_full/mixed) = -0.491 V; dU(mixed/OH_full) = -0.403 V)
+
+====================================================================================================
+Cr DECISION RULE (docs/43 A5.2)
+====================================================================================================
+  eta(Cr) = 0.3303 V from data\tiers\tier_v2.json [tier_v2]
+  U* = 1.23 V + eta(Cr) = 1.5603 V
+    dG(O_full        ) at U* =   -0.0419 eV per site  =   -0.0837 eV per cell
+    dG(mixed_OH_O    ) at U* =   -0.0226 eV per site  =   -0.0453 eV per cell
+    dG(OH_full       ) at U* =    0.1029 eV per site  =    0.2057 eV per cell  (context, C2)
+    dG(cov_Ovac      ) at U* =    0.4957 eV per site  =    0.9915 eV per cell  (context, C2)
+    dG(CONTEXT_half_O) at U* =   -0.2019 eV per site  =   -0.4037 eV per cell  (context, C7: NOT a registered rung; if admitted by amendment the flag would read ON)
+    dG(clean         ) at U* =    0.0000 eV per site  =    0.0000 eV per cell
+  best O-covered (C2 default): O_full  ->  -0.0419 eV per site vs clean; threshold < -0.1 eV per site
+  CONDITIONAL-ON-TERMINATION FLAG = OFF   [basis: comparator rungs scored: O_full, mixed_OH_O (C2 default, per cus site C8); context rungs scored: OH_full, cov_Ovac; energies of record: O_full: mir arm, gate1 SCF (am.4 §2; AGREE); mixed_OH_O: mir arm, gate1 SCF (am.4 §2; AGREE)]
+  at U* = 1.560 V the best O-covered termination (O_full) sits -0.042 eV per site relative to clean; threshold is < -0.1 eV per site (A5.2). No flag. The flag qualifies, it does not retract (A5.2).
+  under the inclusive reading (OH_full counted; C2 alternative): best=O_full, dG=-0.0419 eV per site, FLAG=OFF -- OH_full counted as O-covered (Cao's O-covered/stoichiometric/O-depleted classes do not exclude it): best = O_full at -0.0419 eV per site
+  under the per-cell reading (C8 alternative): best=O_full, dG=-0.0837 eV per cell, FLAG=OFF
+  C7: ref__2x1o (1/2 ML *O) is NOT a registered rung (manifest registered_ambiguities); never enters the verdict; printed because it is the most decision-relevant Cr number on disk -- if admitted by amendment the flag would read ON (-0.2019 eV per site at U*; NOT applied)
+  sensitivity: context only: the flag would first turn ON for U* >= 1.589 V (set by O_full; per rung: O_full 1.589 V, mixed_OH_O 1.612 V), i.e. eta(Cr) >= 0.359 V (tier of record gives 0.330 V); not a registered quantity
+
+WHAT IS MISSING FOR A FULL READOUT (exact paths expected):
+  nothing -- the ladder is complete
+
+ENTRANT DECISIONS FLAGGED (docs/43 A5.2 is silent or gives two readings; defaults applied and stated, alternatives printed):
+  C1 arm choice: O_full/mixed rungs have _mir and _off arms; A5.2 silent on which is the rung, docs/43 §1 not silent on the comparison (dE_sym = E_off - E_mir > +20 meV voids the off arm). Applied on the energies of record when both arms score; lowest-energy scoreable arm within the §1 tolerance (default). Ru O_full: chosen=off [C1 default (within the §1 tolerance); dE_sym=-13.0 meV]; Ru mixed_OH_O: chosen=off [C1 default (within the §1 tolerance); dE_sym=-11.5 meV]; Cr O_full: chosen=mir [C1 default (within the §1 tolerance); dE_sym=0.7 meV] !! arms degenerate within 0.7 meV (below the relaxation's resolution); choice immaterial; Cr mixed_OH_O: chosen=mir [docs/43 §1: off arm VOID; dE_sym=68.6 meV] !! off arm VOID under docs/43 §1 (dE_sym = +68.6 meV > +20 meV); mirror arm taken. ENTRANT TO CONFIRM the pair is comparable -- same spectator arrangement / final composition and magnetisation within 0.1 mu_B (printed in the arm-choice block): if NOT comparable the mirror arm simply stands alone as the rung; if comparable the off-plane search failed and a re-search of the off arm is owed. 'Higher local minimum' is NOT an admissible reading (§1: 'not a physical result')
+  C2 'O-covered': DEFAULT: the *O-bearing rungs (O_full, mixed) -> CONDITIONAL-ON-TERMINATION FLAG = OFF; INCLUSIVE reading (OH_full counted): FLAG=OFF (best O_full); cov_Ovac = registered rung, context for the rule; 1/2 ML *O context rung at U*: -0.2019 eV per site -> if admitted by amendment the flag would read ON (NOT applied; needs its own amendment)
+  C3 ordering (i): judged on the ANALYTIC lower envelope over all U (clean included: mixed is on the envelope iff U(O_full/mixed) > max(U(mixed/OH_full), U(mixed/clean)); OH_full follows iff U(mixed/OH_full) > U(OH_full/clean) -- if clean undercuts mixed first, OH_full never appears); the clean-ignored alternative 'U(O_full/mixed) > U(mixed/OH_full)' is printed beside it; the 2.0 -> 0.8 V scan is a printed table only; transition potentials are analytic line crossings. Today: (i)=True, (i, clean ignored)=True
+  C4 partial verdict: a falsified conjunct of the PASS rule yields FAIL on a partial ladder (PASS unreachable); holding the public verdict until the ladder completes is a reporting choice -- the outcome cannot change
+  C5 Ovac ZPE: n_O*corr_O applied literally with n_O = -1 (-0.05 eV); A5.2 registers no separate correction for a removed lattice O
+  C6 eta(Cr): from data\tiers\tier_v2.json [tier_v2] (frozen tier of record, docs/43 §0); eta(Cr) = 0.3302830425896852
+  C7 context rung: ref__2x1o (1/2 ML *O) printed (dG0 and value at U*), never scored; 1/2 ML *O context rung at U*: -0.2019 eV per site -> if admitted by amendment the flag would read ON (NOT applied; needs its own amendment)
+  C8 'per site': per cus site, N_SITES = 2 (docs/43 does not define 'site'); per-cell reading: FLAG=OFF at -0.0837 eV per cell
+  C9 GATE-1 drift: BASIN_DRIFT rows: am.4 §2 ('the GATE-1 SCF energy is the corrected value ... scored from it') vs §5-strict ('re-relaxed from it and the loop repeats'; the GATE-1 energy may be quoted with a stated 4 meV residual). DEFAULT applied: am4s2; both readings printed per row and per rung (--gate1-drift swaps). AGREE rows quote the child as the energy of record (as the block-1A evaluator does). Rows drifting today: none
+  C10 Ru GATE-1: Ru GATE-1 child not required (manifest gate1_required=false; am.4 §2 + A5.7 name Cr; §5 P16 and A5.2's unqualified 'a __g1 GATE-1 child' sentence read broader; Ru decks run nspin=1 so there is no magnetic basin to drift). Ru __g1.out on disk today: none (reported if one appears; never substituted)
+
+INPUT FILES READ (mtimes):
+  runs\Ru_anchor\H2O.out                                       2026-07-31T01:33:52
+  runs\Ru_anchor\H2.out                                        2026-07-31T01:33:52
+  runs\Cr_slab\H2O.out                                         2026-07-24T00:15:37
+  runs\Cr_slab\H2.out                                          2026-07-24T00:15:37
+  runs\probe\Ru_cellsym\ref__2x1v.out                          2026-08-11T02:21:59
+  runs\probe\Ru_cellsym\ref__2x1v.in                           2026-08-09T17:57:57
+  runs\probe\Ru_cellsym\s0_O__2x1o_mir.out                     2026-08-10T23:01:07
+  runs\probe\Ru_cellsym\s0_O__2x1o_mir.in                      2026-08-09T17:57:57
+  runs\probe\Ru_cellsym\s0_O__2x1o_off.out                     2026-08-11T13:29:11
+  runs\probe\Ru_cellsym\s0_O__2x1o_off.in                      2026-08-09T17:57:57
+  runs\probe\Ru_cellsym\s0_OH__2x1o_mir.out                    2026-08-12T04:52:59
+  runs\probe\Ru_cellsym\s0_OH__2x1o_mir.in                     2026-08-09T17:57:57
+  runs\probe\Ru_cellsym\s0_OH__2x1o_off.out                    2026-08-11T15:40:45
+  runs\probe\Ru_cellsym\s0_OH__2x1o_off.in                     2026-08-09T17:57:57
+  runs\probe\Ru_cellsym\ref__2x1o.out                          2026-08-12T03:57:19
+  runs\probe\Ru_cellsym\ref__2x1o.in                           2026-08-09T17:57:57
+  runs\probe\Ru_lit2\cov_2OH__2x1_off.out                      2026-08-23T16:08:17
+  runs\probe\Ru_lit2\cov_2OH__2x1_off.in                       2026-08-12T14:25:43
+  runs\probe\Cr_cellsym\ref__2x1v.out                          2026-08-09T20:01:19
+  runs\probe\Cr_cellsym\ref__2x1v.in                           2026-08-09T17:57:57
+  runs\probe\Cr_cellsym\ref__2x1v__g1.out                      2026-08-13T03:10:17
+  runs\probe\Cr_cellsym\ref__2x1v__g1.in                       2026-08-13T15:33:35
+  runs\probe\Cr_cellsym\s0_O__2x1o_mir.out                     2026-08-10T09:22:00
+  runs\probe\Cr_cellsym\s0_O__2x1o_mir.in                      2026-08-09T17:57:57
+  runs\probe\Cr_cellsym\s0_O__2x1o_mir__g1.out                 2026-08-13T04:15:11
+  runs\probe\Cr_cellsym\s0_O__2x1o_mir__g1.in                  2026-08-13T15:33:35
+  runs\probe\Cr_cellsym\s0_O__2x1o_off.out                     2026-08-11T17:27:25
+  runs\probe\Cr_cellsym\s0_O__2x1o_off.in                      2026-08-09T17:57:57
+  runs\probe\Cr_cellsym\s0_O__2x1o_off__g1.out                 2026-08-13T05:15:00
+  runs\probe\Cr_cellsym\s0_O__2x1o_off__g1.in                  2026-08-13T15:33:35
+  runs\probe\Cr_cellsym\s0_OH__2x1o_mir.out                    2026-08-10T09:05:25
+  runs\probe\Cr_cellsym\s0_OH__2x1o_mir.in                     2026-08-09T17:57:57
+  runs\probe\Cr_cellsym\s0_OH__2x1o_mir__g1.out                2026-08-13T05:51:35
+  runs\probe\Cr_cellsym\s0_OH__2x1o_mir__g1.in                 2026-08-13T15:33:35
+  runs\probe\Cr_cellsym\s0_OH__2x1o_off.out                    2026-08-10T03:15:58
+  runs\probe\Cr_cellsym\s0_OH__2x1o_off.in                     2026-08-09T17:57:57
+  runs\probe\Cr_cellsym\s0_OH__2x1o_off__g1.out                2026-08-13T06:59:14
+  runs\probe\Cr_cellsym\s0_OH__2x1o_off__g1.in                 2026-08-13T15:33:35
+  runs\probe\Cr_cellsym\ref__2x1o.out                          2026-08-10T03:16:29
+  runs\probe\Cr_cellsym\ref__2x1o.in                           2026-08-09T17:57:57
+  runs\probe\Cr_cellsym\ref__2x1o__g1.out                      2026-08-13T03:39:46
+  runs\probe\Cr_cellsym\ref__2x1o__g1.in                       2026-08-13T15:33:35
+  runs\probe\Cr_lit2\cov_2OH__2x1_off.out                      2026-08-19T15:37:42
+  runs\probe\Cr_lit2\cov_2OH__2x1_off.in                       2026-08-19T15:37:32
+  runs\probe\Cr_lit2\cov_2OH__2x1_off__g1.out                  2026-08-23T14:34:39
+  runs\probe\Cr_lit2\cov_2OH__2x1_off__g1.in                   2026-08-23T13:43:16
+  runs\probe\Cr_lit2\cov_Ovac__2x1_off.out                     2026-08-19T15:37:47
+  runs\probe\Cr_lit2\cov_Ovac__2x1_off.in                      2026-08-19T15:37:34
+  runs\probe\Cr_lit2\cov_Ovac__2x1_off__g1.out                 2026-08-23T14:24:07
+  runs\probe\Cr_lit2\cov_Ovac__2x1_off__g1.in                  2026-08-23T13:43:16
+
+-> runs/probe/lit2_readout_2026-08-23.json

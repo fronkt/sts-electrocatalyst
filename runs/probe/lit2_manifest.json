@@ -19,7 +19,7 @@
           "OH_full"
         ],
         "clause": "docs/43-prereg-week1-factorial.md A5.2",
-        "anchor": "clean / 1 ML *O_cus / mixed 1:1 *OH\u2013*O / 1 ML *OH"
+        "anchor": "clean / 1 ML *O_cus / mixed 1:1 *OH–*O / 1 ML *OH"
       },
       "cr_o_depleted_variant": {
         "value": true,
@@ -34,7 +34,7 @@
       "qiu_tolerance_V": {
         "value": 0.25,
         "clause": "docs/43-prereg-week1-factorial.md A5.2",
-        "anchor": "within **\u00b10.25 V** of Qiu's AIMD brackets"
+        "anchor": "within **±0.25 V** of Qiu's AIMD brackets"
       },
       "qiu_brackets_V": {
         "value": [
@@ -47,7 +47,7 @@
       "qiu_ordering": {
         "value": true,
         "clause": "docs/43-prereg-week1-factorial.md A5.2",
-        "anchor": "full-O \u2192 mixed \u2192 full-*OH"
+        "anchor": "full-O → mixed → full-*OH"
       },
       "cr_flag_threshold_eV_per_site": {
         "value": 0.1,
@@ -57,7 +57,7 @@
       "offplane_min_dy_A": {
         "value": 0.3,
         "clause": "docs/43-prereg-week1-factorial.md s2-A.1",
-        "anchor": "y-translation of \u2265 0.30 \u00c5"
+        "anchor": "y-translation of ≥ 0.30 Å"
       },
       "gate1_children_cr": {
         "value": true,
@@ -332,5 +332,12 @@
       "vac_gap": 15.4858,
       "max_start_dy": 0.9044
     }
-  ]
+  ],
+  "readout_2026-08-23": {
+    "verdict": "RuO2 benchmark FAIL (complete ladder): (i) ordering TRUE (O_full -> mixed -> OH_full with falling U, analytic envelope incl. clean); (ii) FALSE on both transitions: U(O_full/mixed)=1.009 V (-0.491 from ~1.50), U(mixed/OH_full)=0.837 V (-0.403 from ~1.24), both outside +/-0.25 V",
+    "cr_column_label": "vacuum-CHE-only, RuO2 discrepancy attached as systematic error (dU = -0.491 / -0.403 V)",
+    "cr_conditional_on_termination_flag": "OFF (best O-covered = O_full at -0.042 eV per cus site vs clean at U* = 1.560 V; threshold < -0.1; sensitivity: ON at eta(Cr) >= 0.359 V; context half-ML *O rung would read ON if ever admitted by amendment)",
+    "ru_ooh_rerun": "cov_2OH__2x1_off fresh realisation on Anvil job 20094762 (2h24m, 11 BFGS steps, E=-3347.02387808 Ry, tarball md5 29919027aee62cd7d1d5856bc66a387f); the lost Vast run (ledger F_LAST 0.005640, 14801 s) was never banked",
+    "scorer": "src/dft/lit2_readout.py (commit 40daff0); full text runs/probe/lit2_readout_2026-08-23.txt, JSON runs/probe/lit2_readout_2026-08-23.json; entrant decisions C1-C10 flagged therein (none moves this verdict: the arm ambiguities are <=20 meV against 0.4-0.5 V discrepancies)"
+  }
 }

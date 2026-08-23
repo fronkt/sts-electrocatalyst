@@ -1,0 +1,3895 @@
+{
+ "manifest_path": "runs\\probe\\lit2_manifest.json",
+ "prereg_path": "docs\\43-prereg-week1-factorial.md",
+ "tier_path": "data\\tiers\\tier_v2.json",
+ "tier_version": "tier_v2",
+ "tier_provenance": "tier_v1 with the three basin restarts of docs/41 s6f applied (commit a44417d). Each restart re-relaxed from its own final geometry with a fresh atomic-superposition density and reproduced its audit SCF at ionic step 1 to better than 0.02 meV. Drifts: Cr *OOH -178.58 meV, Co *OH -406.51 meV, Ni *OH -175.85 meV. Frozen 2026-08-09 under docs/43 s0.",
+ "date": "2026-08-23T16:10:02-04:00",
+ "gate1_drift_mode": "am4s2",
+ "eta_Cr_V": 0.3302830425896852,
+ "anchor_warnings": [],
+ "registered": {
+  "QIU_TOL_V": 0.25,
+  "QIU_U_OFULL_MIXED_V": 1.5,
+  "QIU_U_MIXED_OHFULL_V": 1.24,
+  "CR_FLAG_EV_PER_SITE": 0.1,
+  "U_EQ_V": 1.23,
+  "GATE1_TOL_EV": 0.005,
+  "GATE1_RESIDUAL_EV": 0.004,
+  "MAG_TOL_MUB": 0.1,
+  "SIGN_RULE_MAX_DE_SYM_EV": 0.02,
+  "OFFPLANE_MIN_DY_A": 0.3,
+  "N_SITES": 2,
+  "ZPE_TS_CORRECTION": {
+   "OH": 0.35,
+   "O": 0.05,
+   "OOH": 0.4
+  },
+  "RY_EV": 13.605693122
+ },
+ "file_tolerances": {
+  "CHILD_POS_TOL_A": 0.0001,
+  "CELL_TOL_A": 0.001,
+  "SYM_XZ_TOL_A": 0.3
+ },
+ "gate_provenance": {
+  "QC": "lessons.md three incidents / qe_qc.py: a '!' total energy, no 'convergence NOT achieved', 'bfgs converged' on relax decks, free-atom fmax under threshold. 'JOB DONE' alone is never success.",
+  "GATE-1": "docs/43 \u00a72-A.3(b) + amendment 4 \u00a72 + \u00a75 (P16): every Cr relaxation has a __g1 fresh-density fixed-geometry SCF at its own final coordinates, at the parent's own symmetry/k-mesh/cell. am.4 \u00a72: 'verdict AGREE within tolerance [<= 5 meV], else BASIN_DRIFT, in which case the GATE-1 SCF energy is the corrected value ... and the pair is scored from it' -> the CHILD is the energy of record (AGREE or drift; default). \u00a75: 'If that SCF lands >= 5 meV lower, the state is re-relaxed from it and the loop repeats' and the GATE-1 energy may be quoted 'with a stated 4 meV residual' -> the \u00a75-strict reading (NOT SCOREABLE, re-relax owed) is printed beside it (C9, --gate1-drift). No scoreable child -> PENDING_GATE1 (am.4 \u00a72: 'a precondition of the readout'). LIT-2 scores GATE-1-passed Cr energies only (manifest gate1_note; A5.7).",
+  "GATE-1-CHILD-ID": "am.4 \u00a72 ('a GATE-1 child that changes nosym or the k-set at the same time attributes nothing') + am.4 \u00a74 ('a control that cannot fail controls nothing'): the child is verified to be THE registered child -- calculation scf; fresh density (superposition of free atoms, no startingpot/startingwfc=file); nosym/noinv, symmetry line, K_POINTS + nk, CELL_PARAMETERS, nat, nspin, ecutwfc/ecutrho, pseudos, HUBBARD equal to the parent's; ATOMIC_POSITIONS = parent's 'Begin final coordinates' to 1e-4 A. Else CHILD NOT THE REGISTERED CHILD -> NOT SCOREABLE.",
+  "MAG": "docs/43 amendment 4 \u00a73: total AND absolute magnetisation, 0.1 mu_B channels, recorded for every Cr job. REPORTED for child-vs-parent and arm-vs-arm here; gating on it is registered for pairs/GATE C, not for GATE-1.",
+  "CHE": "docs/43 A5.2 'static CHE surface Pourbaix'; formulas = hea_oer.referencing (ZPE_TS_CORRECTION OH 0.35 / O 0.05), gas references = manifest geometry.gas_references (A5.2 reuse rule).",
+  "COMPOSITION": "docs/43 A5.2 names the rungs; n_O/n_OH are derived from the START deck, cross-checked against the nominal composition, and the termination identity is re-verified on the parent's FINAL geometry (added atoms still above the clean top layer; every added H still bonded to an ADDED O, i.e. no H migration to a lattice O) (this file, stated rule).",
+  "BENCH-(i)": "docs/43 A5.2: 'the ordering with falling potential is full-O -> mixed -> full-*OH' (judged on the analytic envelope over the registered terminations, clean included, C3; the clean-ignoring alternative reading printed beside it).",
+  "BENCH-(ii)": "docs/43 A5.2: 'the full-O/mixed and mixed/full-*OH transition potentials fall within +/-0.25 V of Qiu's AIMD brackets (~1.50 V and ~1.24 V)'.",
+  "BENCH-OUTCOME": "docs/43 A5.2: PASS -> Cr 'validated-by-proxy'; FAIL -> Cr 'vacuum-CHE-only' with the measured RuO2 discrepancy attached. Neither gates any 1A/1B/1C result.",
+  "CR-RULE": "docs/43 A5.2: 'if Cr prefers an O-covered termination by > 0.1 eV per site at U = 1.23 V + eta(Cr), every clean-termination Cr energetics row ... carries a conditional-on-termination flag. The flag qualifies; it does not retract.' 'O-covered' read as O_full/mixed (C2, default) with the inclusive reading printed; 'per site' = per cus site (C8) with the per-cell reading printed.",
+  "CONTEXT": "manifest registered_ambiguities: ref__2x1o is NOT a registered rung (printed with its dG0 and its value at U*; never scored; C7); cov_Ovac = 'one bridging O removed' (A5.2's O-depleted variant, the O unnamed).",
+  "ARM": "docs/43 \u00a71 (P12): 'dE_sym = E(off-plane, GATE-1-passed) - E(mirror, GATE-1-passed) <= 0 by construction ... Any dE_sym > +0.02 eV is a failure of the search or of the comparison, not a physical result, and voids that arm'. Applied on the energies of record when both arms are scoreable: off arm VOID -> mirror arm is the rung, entrant to confirm comparability. Within +/-0.02 eV: lowest-energy scoreable arm (C1 default, A5.2 silent). Flagged in every case.",
+  "OFF-PLANE RECORD": "docs/43 A5.7 ('every new relaxation of any metal follows the off-plane/nosym standing protocol with measured max|F_y| recorded') + \u00a70a.2 ('Any claim that a state was searched off-plane must cite its measured max|F_y|, never the presence of the flag') + \u00a72-A.1 (y-translation >= 0.30 A plus nosym/noinv): deck flags, measured start dy, first-step max|F_y|, start->final |dy| printed per row; 'off (measured)' only when all three are present. Recorded, not gated."
+ },
+ "gas": {
+  "Ru": {
+   "H2O": {
+    "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Ru_anchor\\H2O.out",
+    "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Ru_anchor\\H2O.in",
+    "exists": true,
+    "verdict": "TRUSTWORTHY",
+    "qc_pass": true,
+    "calculation": "relax",
+    "energy_ev": -599.2110126041732,
+    "energy_ry": -44.04119711,
+    "n_ionic": 4,
+    "bfgs_converged": true,
+    "job_done": true,
+    "n_scf_fail": 0,
+    "fmax_free_ev_ang": 0.01851732122418092,
+    "nat": 3,
+    "reasons": [],
+    "mtime": "2026-07-31T01:33:52",
+    "assume_isolated": "mt"
+   },
+   "H2": {
+    "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Ru_anchor\\H2.out",
+    "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Ru_anchor\\H2.in",
+    "exists": true,
+    "verdict": "TRUSTWORTHY",
+    "qc_pass": true,
+    "calculation": "relax",
+    "energy_ev": -31.74532261815729,
+    "energy_ry": -2.3332381771,
+    "n_ionic": 3,
+    "bfgs_converged": true,
+    "job_done": true,
+    "n_scf_fail": 0,
+    "fmax_free_ev_ang": 0.004402501909228109,
+    "nat": 2,
+    "reasons": [],
+    "mtime": "2026-07-31T01:33:52",
+    "assume_isolated": "mt"
+   },
+   "a1_manifest": 3.107
+  },
+  "Cr": {
+   "H2O": {
+    "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Cr_slab\\H2O.out",
+    "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Cr_slab\\H2O.in",
+    "exists": true,
+    "verdict": "TRUSTWORTHY",
+    "qc_pass": true,
+    "calculation": "relax",
+    "energy_ev": -599.2110126041732,
+    "energy_ry": -44.04119711,
+    "n_ionic": 4,
+    "bfgs_converged": true,
+    "job_done": true,
+    "n_scf_fail": 0,
+    "fmax_free_ev_ang": 0.01851732122418092,
+    "nat": 3,
+    "reasons": [],
+    "mtime": "2026-07-24T00:15:37",
+    "assume_isolated": "mt"
+   },
+   "H2": {
+    "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Cr_slab\\H2.out",
+    "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Cr_slab\\H2.in",
+    "exists": true,
+    "verdict": "TRUSTWORTHY",
+    "qc_pass": true,
+    "calculation": "relax",
+    "energy_ev": -31.74532261815729,
+    "energy_ry": -2.3332381771,
+    "n_ionic": 3,
+    "bfgs_converged": true,
+    "job_done": true,
+    "n_scf_fail": 0,
+    "fmax_free_ev_ang": 0.004402501909228109,
+    "nat": 2,
+    "reasons": [],
+    "mtime": "2026-07-24T00:15:37",
+    "assume_isolated": "mt"
+   },
+   "a1_manifest": 2.916
+  }
+ },
+ "metals": {
+  "Ru": {
+   "metal": "Ru",
+   "rows": [
+    {
+     "metal": "Ru",
+     "rung": "clean",
+     "rung_manifest": "clean",
+     "job": "probe/Ru_cellsym/ref__2x1v",
+     "arm": "-",
+     "origin": "reused (block 1A)",
+     "manifest_status": "CONVERGED",
+     "gate1_required": false,
+     "gate1_not_required_reason": "manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr)",
+     "manifest_max_start_dy": null,
+     "manifest_nspin": null,
+     "out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\ref__2x1v.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\ref__2x1v.in",
+     "g1_out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\ref__2x1v__g1.out",
+     "g1_in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\ref__2x1v__g1.in",
+     "qc": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\ref__2x1v.out",
+      "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\ref__2x1v.in",
+      "exists": true,
+      "verdict": "TRUSTWORTHY",
+      "qc_pass": true,
+      "calculation": "relax",
+      "energy_ev": -44372.72933513102,
+      "energy_ry": -3261.335452538,
+      "n_ionic": 1,
+      "bfgs_converged": true,
+      "job_done": true,
+      "n_scf_fail": 0,
+      "fmax_free_ev_ang": 0.03469421892167691,
+      "nat": 36,
+      "reasons": [],
+      "mtime": "2026-08-11T02:21:59"
+     },
+     "extras": {
+      "mag_tot": null,
+      "mag_abs": null,
+      "nk": 16,
+      "symmetry": "No symmetry found",
+      "fresh_density": true
+     },
+     "deck_exists": true,
+     "deck_mtime": "2026-08-09T17:57:57",
+     "kpoints": "4 4 1 0 0 0",
+     "composition": {
+      "ok": true,
+      "notes": [],
+      "n_O": 0,
+      "n_OH": 0,
+      "counts_clean": {
+       "Ru": 12,
+       "O": 24
+      },
+      "counts_deck": {
+       "Ru": 12,
+       "O": 24
+      },
+      "dO": 0,
+      "dH": 0,
+      "cell_max_dev_A": 0.0,
+      "z_top_clean_A": 17.13147323,
+      "n_above": 0,
+      "above": [],
+      "removed": []
+     },
+     "final_check": {
+      "ok": true,
+      "notes": [],
+      "added": [],
+      "checked": "added-atoms-above-clean-top + H-within-1.15A-of-an-ADDED-O, on the final geometry"
+     },
+     "nominal": {
+      "n_O": 0,
+      "n_OH": 0
+     },
+     "composition_matches_nominal": true,
+     "final_check_ok": true,
+     "n_O": 0,
+     "n_OH": 0,
+     "offplane": {
+      "nosym": true,
+      "noinv": true,
+      "y_mirror_A": 1.588161,
+      "planes_verified_on_clean": true,
+      "start_dy_max_A": 9.199999997377972e-07,
+      "start_dy_max_atom": 21,
+      "kicked": [],
+      "n_unpaired_start": 0,
+      "first_step_max_Fy_kicked_ry_au": null,
+      "first_step_max_Fy_free_ry_au": 0.00075376,
+      "last_step_max_Fy_free_ry_au": 0.00075376,
+      "n_force_blocks": 1,
+      "final_dy_max_kicked_A": null,
+      "final_offplane_kicked_A": null,
+      "final_dy_max_free_A": 0.0,
+      "manifest_max_start_dy_A": null,
+      "arm_label": "- (nosym/noinv)",
+      "notes": []
+     },
+     "arm_label": "- (nosym/noinv)",
+     "energy_parent_ev": -44372.72933513102,
+     "E_rec": -44372.72933513102,
+     "E_rec_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+     "gate1": {
+      "required": false,
+      "status": "n/a",
+      "verdict": null,
+      "dE_meV": null,
+      "child_energy_ev": null,
+      "child_qc": null,
+      "child_identity": null,
+      "dM_tot": null,
+      "dM_abs": null,
+      "mag_flags": [],
+      "am4s2_reading": null,
+      "s5_strict_reading": null,
+      "applied": null,
+      "child_on_disk": false
+     },
+     "blockers": [],
+     "scoreable": true,
+     "enters_ladder": true,
+     "status": "SCORED"
+    },
+    {
+     "metal": "Ru",
+     "rung": "O_full",
+     "rung_manifest": "O_full",
+     "job": "probe/Ru_cellsym/s0_O__2x1o_mir",
+     "arm": "mir",
+     "origin": "reused (block 1A)",
+     "manifest_status": "CONVERGED",
+     "gate1_required": false,
+     "gate1_not_required_reason": "manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr)",
+     "manifest_max_start_dy": null,
+     "manifest_nspin": null,
+     "out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_O__2x1o_mir.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_O__2x1o_mir.in",
+     "g1_out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_O__2x1o_mir__g1.out",
+     "g1_in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_O__2x1o_mir__g1.in",
+     "qc": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_O__2x1o_mir.out",
+      "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_O__2x1o_mir.in",
+      "exists": true,
+      "verdict": "TRUSTWORTHY",
+      "qc_pass": true,
+      "calculation": "relax",
+      "energy_ev": -45504.3758282155,
+      "energy_ry": -3344.5099356707,
+      "n_ionic": 1,
+      "bfgs_converged": true,
+      "job_done": true,
+      "n_scf_fail": 0,
+      "fmax_free_ev_ang": 0.04853782164877724,
+      "nat": 38,
+      "reasons": [],
+      "mtime": "2026-08-10T23:01:07"
+     },
+     "extras": {
+      "mag_tot": null,
+      "mag_abs": null,
+      "nk": 9,
+      "symmetry": "2 Sym. Ops. (no inversion) found",
+      "fresh_density": true
+     },
+     "deck_exists": true,
+     "deck_mtime": "2026-08-09T17:57:57",
+     "kpoints": "4 4 1 0 0 0",
+     "composition": {
+      "ok": true,
+      "notes": [],
+      "n_O": 2,
+      "n_OH": 0,
+      "counts_clean": {
+       "Ru": 12,
+       "O": 24
+      },
+      "counts_deck": {
+       "Ru": 12,
+       "O": 26
+      },
+      "dO": 2,
+      "dH": 0,
+      "cell_max_dev_A": 0.0,
+      "z_top_clean_A": 17.13147323,
+      "n_above": 2,
+      "above": [
+       {
+        "species": "O",
+        "x": 0.0,
+        "y": 1.58816183,
+        "z": 17.75586255,
+        "dz_above_top": 0.6243893199999988
+       },
+       {
+        "species": "O",
+        "x": 3.107,
+        "y": 1.58816183,
+        "z": 17.75586255,
+        "dz_above_top": 0.6243893199999988
+       }
+      ],
+      "removed": []
+     },
+     "final_check": {
+      "ok": true,
+      "notes": [],
+      "added": [
+       {
+        "atom": 37,
+        "species": "O"
+       },
+       {
+        "atom": 38,
+        "species": "O"
+       }
+      ],
+      "checked": "added-atoms-above-clean-top + H-within-1.15A-of-an-ADDED-O, on the final geometry"
+     },
+     "nominal": {
+      "n_O": 2,
+      "n_OH": 0
+     },
+     "composition_matches_nominal": true,
+     "final_check_ok": true,
+     "n_O": 2,
+     "n_OH": 0,
+     "offplane": {
+      "nosym": false,
+      "noinv": false,
+      "y_mirror_A": 1.588161,
+      "planes_verified_on_clean": true,
+      "start_dy_max_A": 8.300000002847696e-07,
+      "start_dy_max_atom": 34,
+      "kicked": [],
+      "n_unpaired_start": 0,
+      "first_step_max_Fy_kicked_ry_au": null,
+      "first_step_max_Fy_free_ry_au": 0.00051462,
+      "last_step_max_Fy_free_ry_au": 0.00051462,
+      "n_force_blocks": 1,
+      "final_dy_max_kicked_A": null,
+      "final_offplane_kicked_A": null,
+      "final_dy_max_free_A": 0.0,
+      "manifest_max_start_dy_A": null,
+      "arm_label": "mir",
+      "notes": []
+     },
+     "arm_label": "mir",
+     "energy_parent_ev": -45504.3758282155,
+     "E_rec": -45504.3758282155,
+     "E_rec_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+     "gate1": {
+      "required": false,
+      "status": "n/a",
+      "verdict": null,
+      "dE_meV": null,
+      "child_energy_ev": null,
+      "child_qc": null,
+      "child_identity": null,
+      "dM_tot": null,
+      "dM_abs": null,
+      "mag_flags": [],
+      "am4s2_reading": null,
+      "s5_strict_reading": null,
+      "applied": null,
+      "child_on_disk": false
+     },
+     "blockers": [],
+     "scoreable": true,
+     "enters_ladder": true,
+     "status": "SCORED"
+    },
+    {
+     "metal": "Ru",
+     "rung": "O_full",
+     "rung_manifest": "O_full",
+     "job": "probe/Ru_cellsym/s0_O__2x1o_off",
+     "arm": "off",
+     "origin": "reused (block 1A)",
+     "manifest_status": "CONVERGED",
+     "gate1_required": false,
+     "gate1_not_required_reason": "manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr)",
+     "manifest_max_start_dy": null,
+     "manifest_nspin": null,
+     "out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_O__2x1o_off.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_O__2x1o_off.in",
+     "g1_out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_O__2x1o_off__g1.out",
+     "g1_in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_O__2x1o_off__g1.in",
+     "qc": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_O__2x1o_off.out",
+      "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_O__2x1o_off.in",
+      "exists": true,
+      "verdict": "TRUSTWORTHY",
+      "qc_pass": true,
+      "calculation": "relax",
+      "energy_ev": -45504.38878380956,
+      "energy_ry": -3344.5108878893,
+      "n_ionic": 19,
+      "bfgs_converged": true,
+      "job_done": true,
+      "n_scf_fail": 0,
+      "fmax_free_ev_ang": 0.04893840091571643,
+      "nat": 38,
+      "reasons": [],
+      "mtime": "2026-08-11T13:29:11"
+     },
+     "extras": {
+      "mag_tot": null,
+      "mag_abs": null,
+      "nk": 16,
+      "symmetry": "No symmetry found",
+      "fresh_density": true
+     },
+     "deck_exists": true,
+     "deck_mtime": "2026-08-09T17:57:57",
+     "kpoints": "4 4 1 0 0 0",
+     "composition": {
+      "ok": true,
+      "notes": [],
+      "n_O": 2,
+      "n_OH": 0,
+      "counts_clean": {
+       "Ru": 12,
+       "O": 24
+      },
+      "counts_deck": {
+       "Ru": 12,
+       "O": 26
+      },
+      "dO": 2,
+      "dH": 0,
+      "cell_max_dev_A": 0.0,
+      "z_top_clean_A": 17.13147323,
+      "n_above": 2,
+      "above": [
+       {
+        "species": "O",
+        "x": 0.0,
+        "y": 1.93816183,
+        "z": 17.75586255,
+        "dz_above_top": 0.6243893199999988
+       },
+       {
+        "species": "O",
+        "x": 3.107,
+        "y": 1.58816183,
+        "z": 17.75586255,
+        "dz_above_top": 0.6243893199999988
+       }
+      ],
+      "removed": []
+     },
+     "final_check": {
+      "ok": true,
+      "notes": [],
+      "added": [
+       {
+        "atom": 37,
+        "species": "O"
+       },
+       {
+        "atom": 38,
+        "species": "O"
+       }
+      ],
+      "checked": "added-atoms-above-clean-top + H-within-1.15A-of-an-ADDED-O, on the final geometry"
+     },
+     "nominal": {
+      "n_O": 2,
+      "n_OH": 0
+     },
+     "composition_matches_nominal": true,
+     "final_check_ok": true,
+     "n_O": 2,
+     "n_OH": 0,
+     "offplane": {
+      "nosym": true,
+      "noinv": true,
+      "y_mirror_A": 1.588161,
+      "planes_verified_on_clean": true,
+      "start_dy_max_A": 0.35000083000000015,
+      "start_dy_max_atom": 37,
+      "kicked": [
+       {
+        "atom": 37,
+        "species": "O",
+        "start_dy_A": 0.35000083000000015
+       }
+      ],
+      "n_unpaired_start": 0,
+      "first_step_max_Fy_kicked_ry_au": 0.03143442,
+      "first_step_max_Fy_free_ry_au": 0.03143442,
+      "last_step_max_Fy_free_ry_au": 0.00188025,
+      "n_force_blocks": 19,
+      "final_dy_max_kicked_A": 0.2163138172000001,
+      "final_offplane_kicked_A": 0.13368701280000006,
+      "final_dy_max_free_A": 0.2163138172000001,
+      "manifest_max_start_dy_A": null,
+      "arm_label": "off (measured)",
+      "notes": []
+     },
+     "arm_label": "off (measured)",
+     "energy_parent_ev": -45504.38878380956,
+     "E_rec": -45504.38878380956,
+     "E_rec_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+     "gate1": {
+      "required": false,
+      "status": "n/a",
+      "verdict": null,
+      "dE_meV": null,
+      "child_energy_ev": null,
+      "child_qc": null,
+      "child_identity": null,
+      "dM_tot": null,
+      "dM_abs": null,
+      "mag_flags": [],
+      "am4s2_reading": null,
+      "s5_strict_reading": null,
+      "applied": null,
+      "child_on_disk": false
+     },
+     "blockers": [],
+     "scoreable": true,
+     "enters_ladder": true,
+     "status": "SCORED"
+    },
+    {
+     "metal": "Ru",
+     "rung": "mixed_OH_O",
+     "rung_manifest": "mixed_OH_O",
+     "job": "probe/Ru_cellsym/s0_OH__2x1o_mir",
+     "arm": "mir",
+     "origin": "reused (block 1A)",
+     "manifest_status": "CONVERGED",
+     "gate1_required": false,
+     "gate1_not_required_reason": "manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr)",
+     "manifest_max_start_dy": null,
+     "manifest_nspin": null,
+     "out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_OH__2x1o_mir.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_OH__2x1o_mir.in",
+     "g1_out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_OH__2x1o_mir__g1.out",
+     "g1_in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_OH__2x1o_mir__g1.in",
+     "qc": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_OH__2x1o_mir.out",
+      "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_OH__2x1o_mir.in",
+      "exists": true,
+      "verdict": "TRUSTWORTHY",
+      "qc_pass": true,
+      "calculation": "relax",
+      "energy_ev": -45521.55882846067,
+      "energy_ry": -3345.7728628947,
+      "n_ionic": 19,
+      "bfgs_converged": true,
+      "job_done": true,
+      "n_scf_fail": 0,
+      "fmax_free_ev_ang": 0.054427309732573106,
+      "nat": 39,
+      "reasons": [],
+      "mtime": "2026-08-12T04:52:59"
+     },
+     "extras": {
+      "mag_tot": null,
+      "mag_abs": null,
+      "nk": 9,
+      "symmetry": "2 Sym. Ops. (no inversion) found ( 1 have fractional translation)",
+      "fresh_density": true
+     },
+     "deck_exists": true,
+     "deck_mtime": "2026-08-09T17:57:57",
+     "kpoints": "4 4 1 0 0 0",
+     "composition": {
+      "ok": true,
+      "notes": [],
+      "n_O": 1,
+      "n_OH": 1,
+      "counts_clean": {
+       "Ru": 12,
+       "O": 24
+      },
+      "counts_deck": {
+       "Ru": 12,
+       "O": 26,
+       "H": 1
+      },
+      "dO": 2,
+      "dH": 1,
+      "cell_max_dev_A": 0.0,
+      "z_top_clean_A": 17.13147323,
+      "n_above": 3,
+      "above": [
+       {
+        "species": "O",
+        "x": -0.08198568,
+        "y": 1.58816183,
+        "z": 17.83502225,
+        "dz_above_top": 0.7035490200000005
+       },
+       {
+        "species": "H",
+        "x": 0.82245507,
+        "y": 1.58816183,
+        "z": 18.21501946,
+        "dz_above_top": 1.0835462299999996
+       },
+       {
+        "species": "O",
+        "x": 3.107,
+        "y": 1.58816183,
+        "z": 17.75586255,
+        "dz_above_top": 0.6243893199999988
+       }
+      ],
+      "removed": []
+     },
+     "final_check": {
+      "ok": true,
+      "notes": [],
+      "added": [
+       {
+        "atom": 37,
+        "species": "O"
+       },
+       {
+        "atom": 38,
+        "species": "H"
+       },
+       {
+        "atom": 39,
+        "species": "O"
+       }
+      ],
+      "checked": "added-atoms-above-clean-top + H-within-1.15A-of-an-ADDED-O, on the final geometry"
+     },
+     "nominal": {
+      "n_O": 1,
+      "n_OH": 1
+     },
+     "composition_matches_nominal": true,
+     "final_check_ok": true,
+     "n_O": 1,
+     "n_OH": 1,
+     "offplane": {
+      "nosym": false,
+      "noinv": false,
+      "y_mirror_A": 1.588161,
+      "planes_verified_on_clean": true,
+      "start_dy_max_A": 8.300000002847696e-07,
+      "start_dy_max_atom": 34,
+      "kicked": [],
+      "n_unpaired_start": 0,
+      "first_step_max_Fy_kicked_ry_au": null,
+      "first_step_max_Fy_free_ry_au": 0.00652981,
+      "last_step_max_Fy_free_ry_au": 0.0004934,
+      "n_force_blocks": 19,
+      "final_dy_max_kicked_A": null,
+      "final_offplane_kicked_A": null,
+      "final_dy_max_free_A": 0.014860023899999963,
+      "manifest_max_start_dy_A": null,
+      "arm_label": "mir",
+      "notes": []
+     },
+     "arm_label": "mir",
+     "energy_parent_ev": -45521.55882846067,
+     "E_rec": -45521.55882846067,
+     "E_rec_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+     "gate1": {
+      "required": false,
+      "status": "n/a",
+      "verdict": null,
+      "dE_meV": null,
+      "child_energy_ev": null,
+      "child_qc": null,
+      "child_identity": null,
+      "dM_tot": null,
+      "dM_abs": null,
+      "mag_flags": [],
+      "am4s2_reading": null,
+      "s5_strict_reading": null,
+      "applied": null,
+      "child_on_disk": false
+     },
+     "blockers": [],
+     "scoreable": true,
+     "enters_ladder": true,
+     "status": "SCORED"
+    },
+    {
+     "metal": "Ru",
+     "rung": "mixed_OH_O",
+     "rung_manifest": "mixed_OH_O",
+     "job": "probe/Ru_cellsym/s0_OH__2x1o_off",
+     "arm": "off",
+     "origin": "reused (block 1A)",
+     "manifest_status": "CONVERGED",
+     "gate1_required": false,
+     "gate1_not_required_reason": "manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr)",
+     "manifest_max_start_dy": null,
+     "manifest_nspin": null,
+     "out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_OH__2x1o_off.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_OH__2x1o_off.in",
+     "g1_out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_OH__2x1o_off__g1.out",
+     "g1_in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_OH__2x1o_off__g1.in",
+     "qc": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_OH__2x1o_off.out",
+      "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\s0_OH__2x1o_off.in",
+      "exists": true,
+      "verdict": "TRUSTWORTHY",
+      "qc_pass": true,
+      "calculation": "relax",
+      "energy_ev": -45521.57031198132,
+      "energy_ry": -3345.7737069179,
+      "n_ionic": 9,
+      "bfgs_converged": true,
+      "job_done": true,
+      "n_scf_fail": 0,
+      "fmax_free_ev_ang": 0.062290070932045784,
+      "nat": 39,
+      "reasons": [],
+      "mtime": "2026-08-11T15:40:45"
+     },
+     "extras": {
+      "mag_tot": null,
+      "mag_abs": null,
+      "nk": 16,
+      "symmetry": "No symmetry found",
+      "fresh_density": true
+     },
+     "deck_exists": true,
+     "deck_mtime": "2026-08-09T17:57:57",
+     "kpoints": "4 4 1 0 0 0",
+     "composition": {
+      "ok": true,
+      "notes": [],
+      "n_O": 1,
+      "n_OH": 1,
+      "counts_clean": {
+       "Ru": 12,
+       "O": 24
+      },
+      "counts_deck": {
+       "Ru": 12,
+       "O": 26,
+       "H": 1
+      },
+      "dO": 2,
+      "dH": 1,
+      "cell_max_dev_A": 0.0,
+      "z_top_clean_A": 17.13147323,
+      "n_above": 3,
+      "above": [
+       {
+        "species": "O",
+        "x": -0.08198568,
+        "y": 1.58816183,
+        "z": 17.83502225,
+        "dz_above_top": 0.7035490200000005
+       },
+       {
+        "species": "H",
+        "x": -0.08198568,
+        "y": 2.49260258,
+        "z": 18.21501946,
+        "dz_above_top": 1.0835462299999996
+       },
+       {
+        "species": "O",
+        "x": 3.107,
+        "y": 1.58816183,
+        "z": 17.75586255,
+        "dz_above_top": 0.6243893199999988
+       }
+      ],
+      "removed": []
+     },
+     "final_check": {
+      "ok": true,
+      "notes": [],
+      "added": [
+       {
+        "atom": 37,
+        "species": "O"
+       },
+       {
+        "atom": 38,
+        "species": "H"
+       },
+       {
+        "atom": 39,
+        "species": "O"
+       }
+      ],
+      "checked": "added-atoms-above-clean-top + H-within-1.15A-of-an-ADDED-O, on the final geometry"
+     },
+     "nominal": {
+      "n_O": 1,
+      "n_OH": 1
+     },
+     "composition_matches_nominal": true,
+     "final_check_ok": true,
+     "n_O": 1,
+     "n_OH": 1,
+     "offplane": {
+      "nosym": true,
+      "noinv": true,
+      "y_mirror_A": 1.588161,
+      "planes_verified_on_clean": true,
+      "start_dy_max_A": 0.9044415799999999,
+      "start_dy_max_atom": 38,
+      "kicked": [
+       {
+        "atom": 38,
+        "species": "H",
+        "start_dy_A": 0.9044415799999999
+       }
+      ],
+      "n_unpaired_start": 0,
+      "first_step_max_Fy_kicked_ry_au": 0.00346048,
+      "first_step_max_Fy_free_ry_au": 0.00770106,
+      "last_step_max_Fy_free_ry_au": 0.00128464,
+      "n_force_blocks": 9,
+      "final_dy_max_kicked_A": 0.005745913500000199,
+      "final_offplane_kicked_A": 0.9101874935,
+      "final_dy_max_free_A": 0.05584175530000035,
+      "manifest_max_start_dy_A": null,
+      "arm_label": "off (measured)",
+      "notes": []
+     },
+     "arm_label": "off (measured)",
+     "energy_parent_ev": -45521.57031198132,
+     "E_rec": -45521.57031198132,
+     "E_rec_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+     "gate1": {
+      "required": false,
+      "status": "n/a",
+      "verdict": null,
+      "dE_meV": null,
+      "child_energy_ev": null,
+      "child_qc": null,
+      "child_identity": null,
+      "dM_tot": null,
+      "dM_abs": null,
+      "mag_flags": [],
+      "am4s2_reading": null,
+      "s5_strict_reading": null,
+      "applied": null,
+      "child_on_disk": false
+     },
+     "blockers": [],
+     "scoreable": true,
+     "enters_ladder": true,
+     "status": "SCORED"
+    },
+    {
+     "metal": "Ru",
+     "rung": "CONTEXT_half_O",
+     "rung_manifest": "CONTEXT-ONLY (1/2 ML O; not a registered rung)",
+     "job": "probe/Ru_cellsym/ref__2x1o",
+     "arm": "-",
+     "origin": "reused (block 1A)",
+     "manifest_status": "PENDING (no .out on disk)",
+     "gate1_required": false,
+     "gate1_not_required_reason": "manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr)",
+     "manifest_max_start_dy": null,
+     "manifest_nspin": null,
+     "out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\ref__2x1o.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\ref__2x1o.in",
+     "g1_out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\ref__2x1o__g1.out",
+     "g1_in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\ref__2x1o__g1.in",
+     "qc": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\ref__2x1o.out",
+      "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_cellsym\\ref__2x1o.in",
+      "exists": true,
+      "verdict": "TRUSTWORTHY",
+      "qc_pass": true,
+      "calculation": "relax",
+      "energy_ev": -44938.67633269384,
+      "energy_ry": -3302.9317896366,
+      "n_ionic": 17,
+      "bfgs_converged": true,
+      "job_done": true,
+      "n_scf_fail": 0,
+      "fmax_free_ev_ang": 0.04474572577739949,
+      "nat": 37,
+      "reasons": [],
+      "mtime": "2026-08-12T03:57:19"
+     },
+     "extras": {
+      "mag_tot": null,
+      "mag_abs": null,
+      "nk": 16,
+      "symmetry": "No symmetry found",
+      "fresh_density": true
+     },
+     "deck_exists": true,
+     "deck_mtime": "2026-08-09T17:57:57",
+     "kpoints": "4 4 1 0 0 0",
+     "composition": {
+      "ok": true,
+      "notes": [],
+      "n_O": 1,
+      "n_OH": 0,
+      "counts_clean": {
+       "Ru": 12,
+       "O": 24
+      },
+      "counts_deck": {
+       "Ru": 12,
+       "O": 25
+      },
+      "dO": 1,
+      "dH": 0,
+      "cell_max_dev_A": 0.0,
+      "z_top_clean_A": 17.13147323,
+      "n_above": 1,
+      "above": [
+       {
+        "species": "O",
+        "x": 3.107,
+        "y": 1.93816183,
+        "z": 17.75586255,
+        "dz_above_top": 0.6243893199999988
+       }
+      ],
+      "removed": []
+     },
+     "final_check": {
+      "ok": true,
+      "notes": [],
+      "added": [
+       {
+        "atom": 37,
+        "species": "O"
+       }
+      ],
+      "checked": "added-atoms-above-clean-top + H-within-1.15A-of-an-ADDED-O, on the final geometry"
+     },
+     "nominal": {
+      "n_O": 1,
+      "n_OH": 0
+     },
+     "composition_matches_nominal": true,
+     "final_check_ok": true,
+     "n_O": 1,
+     "n_OH": 0,
+     "offplane": {
+      "nosym": true,
+      "noinv": true,
+      "y_mirror_A": 1.588161,
+      "planes_verified_on_clean": true,
+      "start_dy_max_A": 0.35000083000000015,
+      "start_dy_max_atom": 37,
+      "kicked": [
+       {
+        "atom": 37,
+        "species": "O",
+        "start_dy_A": 0.35000083000000015
+       }
+      ],
+      "n_unpaired_start": 0,
+      "first_step_max_Fy_kicked_ry_au": 0.03246383,
+      "first_step_max_Fy_free_ry_au": 0.03246383,
+      "last_step_max_Fy_free_ry_au": 0.00138099,
+      "n_force_blocks": 17,
+      "final_dy_max_kicked_A": 0.29407273050000016,
+      "final_offplane_kicked_A": 0.055928099499999995,
+      "final_dy_max_free_A": 0.29407273050000016,
+      "manifest_max_start_dy_A": null,
+      "arm_label": "- (nosym/noinv)",
+      "notes": []
+     },
+     "arm_label": "- (nosym/noinv)",
+     "energy_parent_ev": -44938.67633269384,
+     "E_rec": -44938.67633269384,
+     "E_rec_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+     "gate1": {
+      "required": false,
+      "status": "n/a",
+      "verdict": null,
+      "dE_meV": null,
+      "child_energy_ev": null,
+      "child_qc": null,
+      "child_identity": null,
+      "dM_tot": null,
+      "dM_abs": null,
+      "mag_flags": [],
+      "am4s2_reading": null,
+      "s5_strict_reading": null,
+      "applied": null,
+      "child_on_disk": false
+     },
+     "blockers": [],
+     "scoreable": true,
+     "enters_ladder": false,
+     "status": "CONTEXT (never scored)"
+    },
+    {
+     "metal": "Ru",
+     "rung": "OH_full",
+     "rung_manifest": "OH_full (1 ML *OH_cus)",
+     "job": "probe/Ru_lit2/cov_2OH__2x1_off",
+     "arm": "off",
+     "origin": "new (LIT-2)",
+     "manifest_status": "deployed (see manifest.status)",
+     "gate1_required": false,
+     "gate1_not_required_reason": "manifest: GATE-1 children registered for the two Cr rows only (am.4 \u00a72 + A5.7 name Cr; \u00a75 P16 / A5.2 read broader -- C10); deck nspin=1 (no magnetic basin to drift)",
+     "manifest_max_start_dy": 0.9044,
+     "manifest_nspin": 1,
+     "out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_lit2\\cov_2OH__2x1_off.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_lit2\\cov_2OH__2x1_off.in",
+     "g1_out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_lit2\\cov_2OH__2x1_off__g1.out",
+     "g1_in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_lit2\\cov_2OH__2x1_off__g1.in",
+     "qc": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_lit2\\cov_2OH__2x1_off.out",
+      "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Ru_lit2\\cov_2OH__2x1_off.in",
+      "exists": true,
+      "verdict": "TRUSTWORTHY",
+      "qc_pass": true,
+      "calculation": "relax",
+      "energy_ev": -45538.579757149215,
+      "energy_ry": -3347.023878079,
+      "n_ionic": 11,
+      "bfgs_converged": true,
+      "job_done": true,
+      "n_scf_fail": 0,
+      "fmax_free_ev_ang": 0.06109780299919719,
+      "nat": 40,
+      "reasons": [],
+      "mtime": "2026-08-23T16:08:17"
+     },
+     "extras": {
+      "mag_tot": null,
+      "mag_abs": null,
+      "nk": 16,
+      "symmetry": "No symmetry found",
+      "fresh_density": true
+     },
+     "deck_exists": true,
+     "deck_mtime": "2026-08-12T14:25:43",
+     "kpoints": "4 4 1 0 0 0",
+     "composition": {
+      "ok": true,
+      "notes": [],
+      "n_O": 0,
+      "n_OH": 2,
+      "counts_clean": {
+       "Ru": 12,
+       "O": 24
+      },
+      "counts_deck": {
+       "Ru": 12,
+       "O": 26,
+       "H": 2
+      },
+      "dO": 2,
+      "dH": 2,
+      "cell_max_dev_A": 0.0,
+      "z_top_clean_A": 17.13147323,
+      "n_above": 4,
+      "above": [
+       {
+        "species": "O",
+        "x": -0.08198568,
+        "y": 1.58816183,
+        "z": 17.83502225,
+        "dz_above_top": 0.7035490200000005
+       },
+       {
+        "species": "H",
+        "x": -0.08198568,
+        "y": 2.49260258,
+        "z": 18.21501946,
+        "dz_above_top": 1.0835462299999996
+       },
+       {
+        "species": "O",
+        "x": 3.02501432,
+        "y": 1.58816183,
+        "z": 17.83502225,
+        "dz_above_top": 0.7035490200000005
+       },
+       {
+        "species": "H",
+        "x": 3.02501432,
+        "y": 0.68372108,
+        "z": 18.21501946,
+        "dz_above_top": 1.0835462299999996
+       }
+      ],
+      "removed": []
+     },
+     "final_check": {
+      "ok": true,
+      "notes": [],
+      "added": [
+       {
+        "atom": 37,
+        "species": "O"
+       },
+       {
+        "atom": 38,
+        "species": "H"
+       },
+       {
+        "atom": 39,
+        "species": "O"
+       },
+       {
+        "atom": 40,
+        "species": "H"
+       }
+      ],
+      "checked": "added-atoms-above-clean-top + H-within-1.15A-of-an-ADDED-O, on the final geometry"
+     },
+     "nominal": {
+      "n_O": 0,
+      "n_OH": 2
+     },
+     "composition_matches_nominal": true,
+     "final_check_ok": true,
+     "n_O": 0,
+     "n_OH": 2,
+     "offplane": {
+      "nosym": true,
+      "noinv": true,
+      "y_mirror_A": 1.588161,
+      "planes_verified_on_clean": true,
+      "start_dy_max_A": 0.9044415799999999,
+      "start_dy_max_atom": 38,
+      "kicked": [
+       {
+        "atom": 38,
+        "species": "H",
+        "start_dy_A": 0.9044415799999999
+       },
+       {
+        "atom": 40,
+        "species": "H",
+        "start_dy_A": 0.9044399200000001
+       }
+      ],
+      "n_unpaired_start": 0,
+      "first_step_max_Fy_kicked_ry_au": 0.00497864,
+      "first_step_max_Fy_free_ry_au": 0.00509779,
+      "last_step_max_Fy_free_ry_au": 0.00179052,
+      "n_force_blocks": 11,
+      "final_dy_max_kicked_A": 0.0033856506999999647,
+      "final_offplane_kicked_A": 0.9078265020000003,
+      "final_dy_max_free_A": 0.05427208690000018,
+      "manifest_max_start_dy_A": 0.9044,
+      "arm_label": "off (measured)",
+      "notes": []
+     },
+     "arm_label": "off (measured)",
+     "energy_parent_ev": -45538.579757149215,
+     "E_rec": -45538.579757149215,
+     "E_rec_provenance": "parent relax (GATE-1 not required: manifest: GATE-1 children registered for the two Cr rows only (am.4 \u00a72 + A5.7 name Cr; \u00a75 P16 / A5.2 read broader -- C10); deck nspin=1 (no magnetic basin to drift))",
+     "gate1": {
+      "required": false,
+      "status": "n/a",
+      "verdict": null,
+      "dE_meV": null,
+      "child_energy_ev": null,
+      "child_qc": null,
+      "child_identity": null,
+      "dM_tot": null,
+      "dM_abs": null,
+      "mag_flags": [],
+      "am4s2_reading": null,
+      "s5_strict_reading": null,
+      "applied": null,
+      "child_on_disk": false
+     },
+     "blockers": [],
+     "scoreable": true,
+     "enters_ladder": true,
+     "status": "SCORED"
+    }
+   ],
+   "gas": {
+    "H2O": {
+     "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Ru_anchor\\H2O.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Ru_anchor\\H2O.in",
+     "exists": true,
+     "verdict": "TRUSTWORTHY",
+     "qc_pass": true,
+     "calculation": "relax",
+     "energy_ev": -599.2110126041732,
+     "energy_ry": -44.04119711,
+     "n_ionic": 4,
+     "bfgs_converged": true,
+     "job_done": true,
+     "n_scf_fail": 0,
+     "fmax_free_ev_ang": 0.01851732122418092,
+     "nat": 3,
+     "reasons": [],
+     "mtime": "2026-07-31T01:33:52",
+     "assume_isolated": "mt"
+    },
+    "H2": {
+     "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Ru_anchor\\H2.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Ru_anchor\\H2.in",
+     "exists": true,
+     "verdict": "TRUSTWORTHY",
+     "qc_pass": true,
+     "calculation": "relax",
+     "energy_ev": -31.74532261815729,
+     "energy_ry": -2.3332381771,
+     "n_ionic": 3,
+     "bfgs_converged": true,
+     "job_done": true,
+     "n_scf_fail": 0,
+     "fmax_free_ev_ang": 0.004402501909228109,
+     "nat": 2,
+     "reasons": [],
+     "mtime": "2026-07-31T01:33:52",
+     "assume_isolated": "mt"
+    },
+    "a1_manifest": 3.107
+   },
+   "ladder": {
+    "clean": {
+     "rung": "clean",
+     "label": "clean (ref__2x1v)",
+     "arm": "-",
+     "arm_label": "- (nosym/noinv)",
+     "job": "probe/Ru_cellsym/ref__2x1v",
+     "E_ev": -44372.72933513102,
+     "E_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+     "E_parent_ev": -44372.72933513102,
+     "n_O": 0,
+     "n_OH": 0,
+     "n_e": 0,
+     "n_ads": 0,
+     "dG0_cell": 0.0,
+     "dG0_site": 0.0,
+     "dG0_ads": null,
+     "dG0_cell_parent": null,
+     "dG0_cell_child": null,
+     "status": "SCORED",
+     "context_only": false,
+     "provisional": false
+    },
+    "O_full": {
+     "rung": "O_full",
+     "label": "O_full  (1 ML *O_cus)",
+     "arm": "off",
+     "arm_label": "off (measured)",
+     "job": "probe/Ru_cellsym/s0_O__2x1o_off",
+     "E_ev": -45504.38878380956,
+     "E_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+     "E_parent_ev": -45504.38878380956,
+     "n_O": 2,
+     "n_OH": 0,
+     "n_e": 4,
+     "n_ads": 2,
+     "dG0_cell": 3.3719312934921164,
+     "dG0_site": 1.6859656467460582,
+     "dG0_ads": 1.6859656467460582,
+     "dG0_cell_parent": null,
+     "dG0_cell_child": null,
+     "status": "SCORED",
+     "context_only": false,
+     "provisional": false
+    },
+    "mixed_OH_O": {
+     "rung": "mixed_OH_O",
+     "label": "mixed   (1:1 *OH-*O)",
+     "arm": "off",
+     "arm_label": "off (measured)",
+     "job": "probe/Ru_cellsym/s0_OH__2x1o_off",
+     "E_ev": -45521.57031198132,
+     "E_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+     "E_parent_ev": -45521.57031198132,
+     "n_O": 1,
+     "n_OH": 1,
+     "n_e": 3,
+     "n_ads": 2,
+     "dG0_cell": 2.3630644308134605,
+     "dG0_site": 1.1815322154067303,
+     "dG0_ads": 1.1815322154067303,
+     "dG0_cell_parent": null,
+     "dG0_cell_child": null,
+     "status": "SCORED",
+     "context_only": false,
+     "provisional": false
+    },
+    "OH_full": {
+     "rung": "OH_full",
+     "label": "OH_full (1 ML *OH_cus)",
+     "arm": "off",
+     "arm_label": "off (measured)",
+     "job": "probe/Ru_lit2/cov_2OH__2x1_off",
+     "E_ev": -45538.579757149215,
+     "E_provenance": "parent relax (GATE-1 not required: manifest: GATE-1 children registered for the two Cr rows only (am.4 \u00a72 + A5.7 name Cr; \u00a75 P16 / A5.2 read broader -- C10); deck nspin=1 (no magnetic basin to drift))",
+     "E_parent_ev": -45538.579757149215,
+     "n_O": 0,
+     "n_OH": 2,
+     "n_e": 2,
+     "n_ads": 2,
+     "dG0_cell": 1.5262805719959942,
+     "dG0_site": 0.7631402859979971,
+     "dG0_ads": 0.7631402859979971,
+     "dG0_cell_parent": null,
+     "dG0_cell_child": null,
+     "status": "SCORED",
+     "context_only": false,
+     "provisional": false
+    }
+   },
+   "context": {
+    "CONTEXT_half_O": {
+     "rung": "CONTEXT_half_O",
+     "label": "CONTEXT ref__2x1o (1/2 ML *O)",
+     "arm": "-",
+     "arm_label": "- (nosym/noinv)",
+     "job": "probe/Ru_cellsym/ref__2x1o",
+     "E_ev": -44938.67633269384,
+     "E_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+     "E_parent_ev": -44938.67633269384,
+     "n_O": 1,
+     "n_OH": 0,
+     "n_e": 2,
+     "n_ads": 1,
+     "dG0_cell": 1.5686924231996955,
+     "dG0_site": 0.7843462115998477,
+     "dG0_ads": 1.5686924231996955,
+     "dG0_cell_parent": null,
+     "dG0_cell_child": null,
+     "status": "CONTEXT",
+     "context_only": true,
+     "provisional": false,
+     "dG0_cell_note": "context only; never enters the ladder, the envelope or a verdict (C7)"
+    }
+   },
+   "arm_choice": {
+    "clean": {
+     "arms": {
+      "-": {
+       "job": "probe/Ru_cellsym/ref__2x1v",
+       "status": "SCORED",
+       "E_parent_ev": -44372.72933513102,
+       "E_rec_ev": -44372.72933513102,
+       "E_rec_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+       "arm_label": "- (nosym/noinv)",
+       "scoreable": true,
+       "mag_tot": null,
+       "mag_abs": null,
+       "gate1": "n/a"
+      }
+     },
+     "chosen": "-",
+     "reason": "single arm on disk (manifest: new terminations emitted off-plane only; clean/context have one arm)",
+     "flag": null,
+     "rule": "single arm",
+     "dE_sym_meV": null,
+     "provisional": false
+    },
+    "O_full": {
+     "arms": {
+      "mir": {
+       "job": "probe/Ru_cellsym/s0_O__2x1o_mir",
+       "status": "SCORED",
+       "E_parent_ev": -45504.3758282155,
+       "E_rec_ev": -45504.3758282155,
+       "E_rec_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+       "arm_label": "mir",
+       "scoreable": true,
+       "mag_tot": null,
+       "mag_abs": null,
+       "gate1": "n/a"
+      },
+      "off": {
+       "job": "probe/Ru_cellsym/s0_O__2x1o_off",
+       "status": "SCORED",
+       "E_parent_ev": -45504.38878380956,
+       "E_rec_ev": -45504.38878380956,
+       "E_rec_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+       "arm_label": "off (measured)",
+       "scoreable": true,
+       "mag_tot": null,
+       "mag_abs": null,
+       "gate1": "n/a"
+      }
+     },
+     "chosen": "off",
+     "reason": "|dE_sym| = 13.0 meV <= 20 meV (\u00a71 tolerance): lowest-energy scoreable arm taken (C1 default) = off",
+     "flag": null,
+     "rule": "C1 default (within the \u00a71 tolerance)",
+     "dE_sym_meV": -12.955594058439601,
+     "provisional": false,
+     "arms_final_composition_ok": true
+    },
+    "mixed_OH_O": {
+     "arms": {
+      "mir": {
+       "job": "probe/Ru_cellsym/s0_OH__2x1o_mir",
+       "status": "SCORED",
+       "E_parent_ev": -45521.55882846067,
+       "E_rec_ev": -45521.55882846067,
+       "E_rec_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+       "arm_label": "mir",
+       "scoreable": true,
+       "mag_tot": null,
+       "mag_abs": null,
+       "gate1": "n/a"
+      },
+      "off": {
+       "job": "probe/Ru_cellsym/s0_OH__2x1o_off",
+       "status": "SCORED",
+       "E_parent_ev": -45521.57031198132,
+       "E_rec_ev": -45521.57031198132,
+       "E_rec_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+       "arm_label": "off (measured)",
+       "scoreable": true,
+       "mag_tot": null,
+       "mag_abs": null,
+       "gate1": "n/a"
+      }
+     },
+     "chosen": "off",
+     "reason": "|dE_sym| = 11.5 meV <= 20 meV (\u00a71 tolerance): lowest-energy scoreable arm taken (C1 default) = off",
+     "flag": null,
+     "rule": "C1 default (within the \u00a71 tolerance)",
+     "dE_sym_meV": -11.483520647743717,
+     "provisional": false,
+     "arms_final_composition_ok": true
+    },
+    "OH_full": {
+     "arms": {
+      "off": {
+       "job": "probe/Ru_lit2/cov_2OH__2x1_off",
+       "status": "SCORED",
+       "E_parent_ev": -45538.579757149215,
+       "E_rec_ev": -45538.579757149215,
+       "E_rec_provenance": "parent relax (GATE-1 not required: manifest: GATE-1 children registered for the two Cr rows only (am.4 \u00a72 + A5.7 name Cr; \u00a75 P16 / A5.2 read broader -- C10); deck nspin=1 (no magnetic basin to drift))",
+       "arm_label": "off (measured)",
+       "scoreable": true,
+       "mag_tot": null,
+       "mag_abs": null,
+       "gate1": "n/a"
+      }
+     },
+     "chosen": "off",
+     "reason": "single arm on disk (manifest: new terminations emitted off-plane only; clean/context have one arm)",
+     "flag": null,
+     "rule": "single arm",
+     "dE_sym_meV": null,
+     "provisional": false
+    },
+    "CONTEXT_half_O": {
+     "arms": {
+      "-": {
+       "job": "probe/Ru_cellsym/ref__2x1o",
+       "status": "CONTEXT (never scored)",
+       "E_parent_ev": -44938.67633269384,
+       "E_rec_ev": -44938.67633269384,
+       "E_rec_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+       "arm_label": "- (nosym/noinv)",
+       "scoreable": true,
+       "mag_tot": null,
+       "mag_abs": null,
+       "gate1": "n/a"
+      }
+     },
+     "chosen": "-",
+     "reason": "single arm on disk (manifest: new terminations emitted off-plane only; clean/context have one arm)",
+     "flag": null,
+     "rule": "single arm",
+     "dE_sym_meV": null,
+     "provisional": false
+    }
+   },
+   "missing": [],
+   "notes": [],
+   "E_clean_ev": -44372.72933513102,
+   "E_clean_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+   "envelope": {
+    "method": "analytic lower envelope over all U (C3); U_scan table is printed only",
+    "U_scan": {
+     "from_V": 2.0,
+     "to_V": 0.8,
+     "step_V": 0.01
+    },
+    "sequence_with_falling_U": [
+     "O_full",
+     "mixed_OH_O",
+     "OH_full",
+     "clean"
+    ],
+    "crossings_with_falling_U": [
+     {
+      "from": "O_full",
+      "to": "mixed_OH_O",
+      "U_V": 1.0088668626786559
+     },
+     {
+      "from": "mixed_OH_O",
+      "to": "OH_full",
+      "U_V": 0.8367838588174663
+     },
+     {
+      "from": "OH_full",
+      "to": "clean",
+      "U_V": 0.7631402859979971
+     }
+    ],
+    "table_every_0p1V": [
+     {
+      "U_V": 2.0,
+      "lowest": "O_full",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -2.314034353253942,
+       "mixed_OH_O": -1.8184677845932697,
+       "OH_full": -1.2368597140020028
+      }
+     },
+     {
+      "U_V": 1.9,
+      "lowest": "O_full",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -2.114034353253942,
+       "mixed_OH_O": -1.6684677845932694,
+       "OH_full": -1.1368597140020027
+      }
+     },
+     {
+      "U_V": 1.8,
+      "lowest": "O_full",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -1.914034353253942,
+       "mixed_OH_O": -1.51846778459327,
+       "OH_full": -1.036859714002003
+      }
+     },
+     {
+      "U_V": 1.7,
+      "lowest": "O_full",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -1.7140343532539417,
+       "mixed_OH_O": -1.3684677845932696,
+       "OH_full": -0.9368597140020029
+      }
+     },
+     {
+      "U_V": 1.6,
+      "lowest": "O_full",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -1.514034353253942,
+       "mixed_OH_O": -1.21846778459327,
+       "OH_full": -0.836859714002003
+      }
+     },
+     {
+      "U_V": 1.5,
+      "lowest": "O_full",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -1.3140343532539418,
+       "mixed_OH_O": -1.0684677845932697,
+       "OH_full": -0.7368597140020029
+      }
+     },
+     {
+      "U_V": 1.4,
+      "lowest": "O_full",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -1.1140343532539416,
+       "mixed_OH_O": -0.9184677845932694,
+       "OH_full": -0.6368597140020028
+      }
+     },
+     {
+      "U_V": 1.3,
+      "lowest": "O_full",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -0.9140343532539419,
+       "mixed_OH_O": -0.7684677845932699,
+       "OH_full": -0.5368597140020029
+      }
+     },
+     {
+      "U_V": 1.2,
+      "lowest": "O_full",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -0.7140343532539417,
+       "mixed_OH_O": -0.6184677845932696,
+       "OH_full": -0.43685971400200285
+      }
+     },
+     {
+      "U_V": 1.1,
+      "lowest": "O_full",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -0.514034353253942,
+       "mixed_OH_O": -0.4684677845932699,
+       "OH_full": -0.336859714002003
+      }
+     },
+     {
+      "U_V": 1.0,
+      "lowest": "mixed_OH_O",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -0.3140343532539418,
+       "mixed_OH_O": -0.31846778459326974,
+       "OH_full": -0.2368597140020029
+      }
+     },
+     {
+      "U_V": 0.9,
+      "lowest": "mixed_OH_O",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -0.11403435325394184,
+       "mixed_OH_O": -0.16846778459326983,
+       "OH_full": -0.13685971400200292
+      }
+     },
+     {
+      "U_V": 0.8,
+      "lowest": "OH_full",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": 0.08596564674605811,
+       "mixed_OH_O": -0.01846778459326992,
+       "OH_full": -0.03685971400200294
+      }
+     }
+    ],
+    "rungs_in_envelope": [
+     "clean",
+     "O_full",
+     "mixed_OH_O",
+     "OH_full"
+    ]
+   },
+   "transitions_V": {
+    "O_full/mixed": 1.0088668626786559,
+    "mixed/OH_full": 0.8367838588174663,
+    "OH_full/clean": 0.7631402859979971,
+    "O_full/clean": 0.8429828233730291,
+    "mixed/clean": 0.7876881436044868
+   }
+  },
+  "Cr": {
+   "metal": "Cr",
+   "rows": [
+    {
+     "metal": "Cr",
+     "rung": "clean",
+     "rung_manifest": "clean",
+     "job": "probe/Cr_cellsym/ref__2x1v",
+     "arm": "-",
+     "origin": "reused (block 1A)",
+     "manifest_status": "CONVERGED",
+     "gate1_required": true,
+     "gate1_not_required_reason": null,
+     "manifest_max_start_dy": null,
+     "manifest_nspin": null,
+     "out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\ref__2x1v.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\ref__2x1v.in",
+     "g1_out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\ref__2x1v__g1.out",
+     "g1_in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\ref__2x1v__g1.in",
+     "qc": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\ref__2x1v.out",
+      "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\ref__2x1v.in",
+      "exists": true,
+      "verdict": "TRUSTWORTHY",
+      "qc_pass": true,
+      "calculation": "relax",
+      "energy_ev": -42237.8246598118,
+      "energy_ry": -3104.4228530713,
+      "n_ionic": 1,
+      "bfgs_converged": true,
+      "job_done": true,
+      "n_scf_fail": 0,
+      "fmax_free_ev_ang": 0.04838047106678751,
+      "nat": 36,
+      "reasons": [],
+      "mtime": "2026-08-09T20:01:19"
+     },
+     "extras": {
+      "mag_tot": 24.0,
+      "mag_abs": 38.77,
+      "nk": 16,
+      "symmetry": "No symmetry found",
+      "fresh_density": true
+     },
+     "deck_exists": true,
+     "deck_mtime": "2026-08-09T17:57:57",
+     "kpoints": "4 4 1 0 0 0",
+     "composition": {
+      "ok": true,
+      "notes": [],
+      "n_O": 0,
+      "n_OH": 0,
+      "counts_clean": {
+       "Cr": 12,
+       "O": 24
+      },
+      "counts_deck": {
+       "Cr": 12,
+       "O": 24
+      },
+      "dO": 0,
+      "dH": 0,
+      "cell_max_dev_A": 0.0,
+      "z_top_clean_A": 17.00176126,
+      "n_above": 0,
+      "above": [],
+      "removed": []
+     },
+     "final_check": {
+      "ok": true,
+      "notes": [],
+      "added": [],
+      "checked": "added-atoms-above-clean-top + H-within-1.15A-of-an-ADDED-O, on the final geometry"
+     },
+     "nominal": {
+      "n_O": 0,
+      "n_OH": 0
+     },
+     "composition_matches_nominal": true,
+     "final_check_ok": true,
+     "n_O": 0,
+     "n_OH": 0,
+     "offplane": {
+      "nosym": true,
+      "noinv": true,
+      "y_mirror_A": 1.56306,
+      "planes_verified_on_clean": true,
+      "start_dy_max_A": 4.999999998478444e-07,
+      "start_dy_max_atom": 29,
+      "kicked": [],
+      "n_unpaired_start": 0,
+      "first_step_max_Fy_kicked_ry_au": null,
+      "first_step_max_Fy_free_ry_au": 0.00027787,
+      "last_step_max_Fy_free_ry_au": 0.00027787,
+      "n_force_blocks": 1,
+      "final_dy_max_kicked_A": null,
+      "final_offplane_kicked_A": null,
+      "final_dy_max_free_A": 0.0,
+      "manifest_max_start_dy_A": null,
+      "arm_label": "- (nosym/noinv)",
+      "notes": []
+     },
+     "arm_label": "- (nosym/noinv)",
+     "energy_parent_ev": -42237.8246598118,
+     "E_rec": -42237.82465652875,
+     "E_rec_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+     "gate1": {
+      "required": true,
+      "status": "AGREE (+0.003 meV <= 5 meV); E_rec = child (am.4 \u00a72)",
+      "verdict": "AGREE",
+      "dE_meV": 0.0032830503187142313,
+      "child_energy_ev": -42237.82465652875,
+      "child_qc": {
+       "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\ref__2x1v__g1.out",
+       "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\ref__2x1v__g1.in",
+       "exists": true,
+       "verdict": "TRUSTWORTHY",
+       "qc_pass": true,
+       "calculation": "scf",
+       "energy_ev": -42237.82465652875,
+       "energy_ry": -3104.42285283,
+       "n_ionic": 1,
+       "bfgs_converged": false,
+       "job_done": true,
+       "n_scf_fail": 0,
+       "fmax_free_ev_ang": 0.04800200799287689,
+       "nat": 36,
+       "reasons": [],
+       "mtime": "2026-08-13T03:10:17"
+      },
+      "child_identity": {
+       "ok": true,
+       "compared": [
+        "calculation",
+        "fresh density (superposition of free atoms; no startingpot/startingwfc=file)",
+        "nosym/noinv",
+        "pw.x symmetry line",
+        "K_POINTS card + printed k count",
+        "CELL_PARAMETERS (<= 0.001 A)",
+        "nat, nspin, ecutwfc, ecutrho, pseudopotentials, HUBBARD",
+        "ATOMIC_POSITIONS vs parent 'Begin final coordinates' (<= 0.0001 A, same unit)"
+       ],
+       "fail": [],
+       "deck_missing": false,
+       "child_pos_vs_parent_final_max_A": null
+      },
+      "dM_tot": 0.0,
+      "dM_abs": 0.0,
+      "mag_flags": [],
+      "am4s2_reading": null,
+      "s5_strict_reading": null,
+      "applied": "child energy of record (am.4 \u00a72; parent identical to <= 5 meV)",
+      "child_on_disk": true,
+      "child_mag_tot": 24.0,
+      "child_mag_abs": 38.77
+     },
+     "blockers": [],
+     "scoreable": true,
+     "enters_ladder": true,
+     "status": "SCORED"
+    },
+    {
+     "metal": "Cr",
+     "rung": "O_full",
+     "rung_manifest": "O_full",
+     "job": "probe/Cr_cellsym/s0_O__2x1o_mir",
+     "arm": "mir",
+     "origin": "reused (block 1A)",
+     "manifest_status": "CONVERGED",
+     "gate1_required": true,
+     "gate1_not_required_reason": null,
+     "manifest_max_start_dy": null,
+     "manifest_nspin": null,
+     "out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_O__2x1o_mir.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_O__2x1o_mir.in",
+     "g1_out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_O__2x1o_mir__g1.out",
+     "g1_in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_O__2x1o_mir__g1.in",
+     "qc": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_O__2x1o_mir.out",
+      "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_O__2x1o_mir.in",
+      "exists": true,
+      "verdict": "TRUSTWORTHY",
+      "qc_pass": true,
+      "calculation": "relax",
+      "energy_ev": -43366.69863039354,
+      "energy_ry": -3187.3935595586,
+      "n_ionic": 1,
+      "bfgs_converged": true,
+      "job_done": true,
+      "n_scf_fail": 0,
+      "fmax_free_ev_ang": 0.06191598647556599,
+      "nat": 38,
+      "reasons": [],
+      "mtime": "2026-08-10T09:22:00"
+     },
+     "extras": {
+      "mag_tot": 20.0,
+      "mag_abs": 36.83,
+      "nk": 9,
+      "symmetry": "2 Sym. Ops. (no inversion) found",
+      "fresh_density": true
+     },
+     "deck_exists": true,
+     "deck_mtime": "2026-08-09T17:57:57",
+     "kpoints": "4 4 1 0 0 0",
+     "composition": {
+      "ok": true,
+      "notes": [],
+      "n_O": 2,
+      "n_OH": 0,
+      "counts_clean": {
+       "Cr": 12,
+       "O": 24
+      },
+      "counts_deck": {
+       "Cr": 12,
+       "O": 26
+      },
+      "dO": 2,
+      "dH": 0,
+      "cell_max_dev_A": 0.0,
+      "z_top_clean_A": 17.00176126,
+      "n_above": 2,
+      "above": [
+       {
+        "species": "O",
+        "x": 0.0,
+        "y": 1.56305954,
+        "z": 17.64181591,
+        "dz_above_top": 0.6400546499999997
+       },
+       {
+        "species": "O",
+        "x": 2.916,
+        "y": 1.56305954,
+        "z": 17.64181591,
+        "dz_above_top": 0.6400546499999997
+       }
+      ],
+      "removed": []
+     },
+     "final_check": {
+      "ok": true,
+      "notes": [],
+      "added": [
+       {
+        "atom": 37,
+        "species": "O"
+       },
+       {
+        "atom": 38,
+        "species": "O"
+       }
+      ],
+      "checked": "added-atoms-above-clean-top + H-within-1.15A-of-an-ADDED-O, on the final geometry"
+     },
+     "nominal": {
+      "n_O": 2,
+      "n_OH": 0
+     },
+     "composition_matches_nominal": true,
+     "final_check_ok": true,
+     "n_O": 2,
+     "n_OH": 0,
+     "offplane": {
+      "nosym": false,
+      "noinv": false,
+      "y_mirror_A": 1.56306,
+      "planes_verified_on_clean": true,
+      "start_dy_max_A": 4.600000003129878e-07,
+      "start_dy_max_atom": 34,
+      "kicked": [],
+      "n_unpaired_start": 0,
+      "first_step_max_Fy_kicked_ry_au": null,
+      "first_step_max_Fy_free_ry_au": 0.00159437,
+      "last_step_max_Fy_free_ry_au": 0.00159437,
+      "n_force_blocks": 1,
+      "final_dy_max_kicked_A": null,
+      "final_offplane_kicked_A": null,
+      "final_dy_max_free_A": 0.0,
+      "manifest_max_start_dy_A": null,
+      "arm_label": "mir",
+      "notes": []
+     },
+     "arm_label": "mir",
+     "energy_parent_ev": -43366.69863039354,
+     "E_rec": -43366.69862986836,
+     "E_rec_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+     "gate1": {
+      "required": true,
+      "status": "AGREE (+0.001 meV <= 5 meV); E_rec = child (am.4 \u00a72)",
+      "verdict": "AGREE",
+      "dE_meV": 0.0005251786205917597,
+      "child_energy_ev": -43366.69862986836,
+      "child_qc": {
+       "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_O__2x1o_mir__g1.out",
+       "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_O__2x1o_mir__g1.in",
+       "exists": true,
+       "verdict": "TRUSTWORTHY",
+       "qc_pass": true,
+       "calculation": "scf",
+       "energy_ev": -43366.69862986836,
+       "energy_ry": -3187.39355952,
+       "n_ionic": 1,
+       "bfgs_converged": false,
+       "job_done": true,
+       "n_scf_fail": 0,
+       "fmax_free_ev_ang": 0.06149571932005374,
+       "nat": 38,
+       "reasons": [],
+       "mtime": "2026-08-13T04:15:11"
+      },
+      "child_identity": {
+       "ok": true,
+       "compared": [
+        "calculation",
+        "fresh density (superposition of free atoms; no startingpot/startingwfc=file)",
+        "nosym/noinv",
+        "pw.x symmetry line",
+        "K_POINTS card + printed k count",
+        "CELL_PARAMETERS (<= 0.001 A)",
+        "nat, nspin, ecutwfc, ecutrho, pseudopotentials, HUBBARD",
+        "ATOMIC_POSITIONS vs parent 'Begin final coordinates' (<= 0.0001 A, same unit)"
+       ],
+       "fail": [],
+       "deck_missing": false,
+       "child_pos_vs_parent_final_max_A": null
+      },
+      "dM_tot": 0.0,
+      "dM_abs": 0.0,
+      "mag_flags": [],
+      "am4s2_reading": null,
+      "s5_strict_reading": null,
+      "applied": "child energy of record (am.4 \u00a72; parent identical to <= 5 meV)",
+      "child_on_disk": true,
+      "child_mag_tot": 20.0,
+      "child_mag_abs": 36.83
+     },
+     "blockers": [],
+     "scoreable": true,
+     "enters_ladder": true,
+     "status": "SCORED"
+    },
+    {
+     "metal": "Cr",
+     "rung": "O_full",
+     "rung_manifest": "O_full",
+     "job": "probe/Cr_cellsym/s0_O__2x1o_off",
+     "arm": "off",
+     "origin": "reused (block 1A)",
+     "manifest_status": "PENDING (no .out on disk)",
+     "gate1_required": true,
+     "gate1_not_required_reason": null,
+     "manifest_max_start_dy": null,
+     "manifest_nspin": null,
+     "out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_O__2x1o_off.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_O__2x1o_off.in",
+     "g1_out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_O__2x1o_off__g1.out",
+     "g1_in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_O__2x1o_off__g1.in",
+     "qc": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_O__2x1o_off.out",
+      "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_O__2x1o_off.in",
+      "exists": true,
+      "verdict": "TRUSTWORTHY",
+      "qc_pass": true,
+      "calculation": "relax",
+      "energy_ev": -43366.69791451367,
+      "energy_ry": -3187.3935069424,
+      "n_ionic": 14,
+      "bfgs_converged": true,
+      "job_done": true,
+      "n_scf_fail": 0,
+      "fmax_free_ev_ang": 0.04860965714278947,
+      "nat": 38,
+      "reasons": [],
+      "mtime": "2026-08-11T17:27:25"
+     },
+     "extras": {
+      "mag_tot": 20.0,
+      "mag_abs": 36.87,
+      "nk": 16,
+      "symmetry": "No symmetry found",
+      "fresh_density": true
+     },
+     "deck_exists": true,
+     "deck_mtime": "2026-08-09T17:57:57",
+     "kpoints": "4 4 1 0 0 0",
+     "composition": {
+      "ok": true,
+      "notes": [],
+      "n_O": 2,
+      "n_OH": 0,
+      "counts_clean": {
+       "Cr": 12,
+       "O": 24
+      },
+      "counts_deck": {
+       "Cr": 12,
+       "O": 26
+      },
+      "dO": 2,
+      "dH": 0,
+      "cell_max_dev_A": 0.0,
+      "z_top_clean_A": 17.00176126,
+      "n_above": 2,
+      "above": [
+       {
+        "species": "O",
+        "x": 0.0,
+        "y": 1.91305954,
+        "z": 17.64181591,
+        "dz_above_top": 0.6400546499999997
+       },
+       {
+        "species": "O",
+        "x": 2.916,
+        "y": 1.56305954,
+        "z": 17.64181591,
+        "dz_above_top": 0.6400546499999997
+       }
+      ],
+      "removed": []
+     },
+     "final_check": {
+      "ok": true,
+      "notes": [],
+      "added": [
+       {
+        "atom": 37,
+        "species": "O"
+       },
+       {
+        "atom": 38,
+        "species": "O"
+       }
+      ],
+      "checked": "added-atoms-above-clean-top + H-within-1.15A-of-an-ADDED-O, on the final geometry"
+     },
+     "nominal": {
+      "n_O": 2,
+      "n_OH": 0
+     },
+     "composition_matches_nominal": true,
+     "final_check_ok": true,
+     "n_O": 2,
+     "n_OH": 0,
+     "offplane": {
+      "nosym": true,
+      "noinv": true,
+      "y_mirror_A": 1.56306,
+      "planes_verified_on_clean": true,
+      "start_dy_max_A": 0.34999954,
+      "start_dy_max_atom": 37,
+      "kicked": [
+       {
+        "atom": 37,
+        "species": "O",
+        "start_dy_A": 0.34999954
+       }
+      ],
+      "n_unpaired_start": 0,
+      "first_step_max_Fy_kicked_ry_au": 0.04289587,
+      "first_step_max_Fy_free_ry_au": 0.04289587,
+      "last_step_max_Fy_free_ry_au": 0.001884,
+      "n_force_blocks": 14,
+      "final_dy_max_kicked_A": 0.2793768688999998,
+      "final_offplane_kicked_A": 0.0706226711000002,
+      "final_dy_max_free_A": 0.2793768688999998,
+      "manifest_max_start_dy_A": null,
+      "arm_label": "off (measured)",
+      "notes": []
+     },
+     "arm_label": "off (measured)",
+     "energy_parent_ev": -43366.69791451367,
+     "E_rec": -43366.69790958297,
+     "E_rec_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+     "gate1": {
+      "required": true,
+      "status": "AGREE (+0.005 meV <= 5 meV); E_rec = child (am.4 \u00a72)",
+      "verdict": "AGREE",
+      "dE_meV": 0.004930705472361296,
+      "child_energy_ev": -43366.69790958297,
+      "child_qc": {
+       "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_O__2x1o_off__g1.out",
+       "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_O__2x1o_off__g1.in",
+       "exists": true,
+       "verdict": "TRUSTWORTHY",
+       "qc_pass": true,
+       "calculation": "scf",
+       "energy_ev": -43366.69790958297,
+       "energy_ry": -3187.39350658,
+       "n_ionic": 1,
+       "bfgs_converged": false,
+       "job_done": true,
+       "n_scf_fail": 0,
+       "fmax_free_ev_ang": 0.048575941514915955,
+       "nat": 38,
+       "reasons": [],
+       "mtime": "2026-08-13T05:15:00"
+      },
+      "child_identity": {
+       "ok": true,
+       "compared": [
+        "calculation",
+        "fresh density (superposition of free atoms; no startingpot/startingwfc=file)",
+        "nosym/noinv",
+        "pw.x symmetry line",
+        "K_POINTS card + printed k count",
+        "CELL_PARAMETERS (<= 0.001 A)",
+        "nat, nspin, ecutwfc, ecutrho, pseudopotentials, HUBBARD",
+        "ATOMIC_POSITIONS vs parent 'Begin final coordinates' (<= 0.0001 A, same unit)"
+       ],
+       "fail": [],
+       "deck_missing": false,
+       "child_pos_vs_parent_final_max_A": null
+      },
+      "dM_tot": 0.0,
+      "dM_abs": 0.0,
+      "mag_flags": [],
+      "am4s2_reading": null,
+      "s5_strict_reading": null,
+      "applied": "child energy of record (am.4 \u00a72; parent identical to <= 5 meV)",
+      "child_on_disk": true,
+      "child_mag_tot": 20.0,
+      "child_mag_abs": 36.87
+     },
+     "blockers": [],
+     "scoreable": true,
+     "enters_ladder": true,
+     "status": "SCORED"
+    },
+    {
+     "metal": "Cr",
+     "rung": "mixed_OH_O",
+     "rung_manifest": "mixed_OH_O",
+     "job": "probe/Cr_cellsym/s0_OH__2x1o_mir",
+     "arm": "mir",
+     "origin": "reused (block 1A)",
+     "manifest_status": "CONVERGED",
+     "gate1_required": true,
+     "gate1_not_required_reason": null,
+     "manifest_max_start_dy": null,
+     "manifest_nspin": null,
+     "out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_OH__2x1o_mir.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_OH__2x1o_mir.in",
+     "g1_out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_OH__2x1o_mir__g1.out",
+     "g1_in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_OH__2x1o_mir__g1.in",
+     "qc": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_OH__2x1o_mir.out",
+      "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_OH__2x1o_mir.in",
+      "exists": true,
+      "verdict": "TRUSTWORTHY",
+      "qc_pass": true,
+      "calculation": "relax",
+      "energy_ev": -43384.39312082235,
+      "energy_ry": -3188.6940806177,
+      "n_ionic": 17,
+      "bfgs_converged": true,
+      "job_done": true,
+      "n_scf_fail": 0,
+      "fmax_free_ev_ang": 0.05706879377239181,
+      "nat": 39,
+      "reasons": [],
+      "mtime": "2026-08-10T09:05:25"
+     },
+     "extras": {
+      "mag_tot": 21.0,
+      "mag_abs": 37.1,
+      "nk": 9,
+      "symmetry": "2 Sym. Ops. (no inversion) found ( 1 have fractional translation)",
+      "fresh_density": true
+     },
+     "deck_exists": true,
+     "deck_mtime": "2026-08-09T17:57:57",
+     "kpoints": "4 4 1 0 0 0",
+     "composition": {
+      "ok": true,
+      "notes": [],
+      "n_O": 1,
+      "n_OH": 1,
+      "counts_clean": {
+       "Cr": 12,
+       "O": 24
+      },
+      "counts_deck": {
+       "Cr": 12,
+       "O": 26,
+       "H": 1
+      },
+      "dO": 2,
+      "dH": 1,
+      "cell_max_dev_A": 0.0,
+      "z_top_clean_A": 17.00176126,
+      "n_above": 3,
+      "above": [
+       {
+        "species": "O",
+        "x": -0.06124732,
+        "y": 1.56305954,
+        "z": 17.63178354,
+        "dz_above_top": 0.6300222800000022
+       },
+       {
+        "species": "H",
+        "x": 0.85040131,
+        "y": 1.56305954,
+        "z": 18.00575698,
+        "dz_above_top": 1.0039957200000025
+       },
+       {
+        "species": "O",
+        "x": 2.916,
+        "y": 1.56305954,
+        "z": 17.64181591,
+        "dz_above_top": 0.6400546499999997
+       }
+      ],
+      "removed": []
+     },
+     "final_check": {
+      "ok": true,
+      "notes": [],
+      "added": [
+       {
+        "atom": 37,
+        "species": "O"
+       },
+       {
+        "atom": 38,
+        "species": "H"
+       },
+       {
+        "atom": 39,
+        "species": "O"
+       }
+      ],
+      "checked": "added-atoms-above-clean-top + H-within-1.15A-of-an-ADDED-O, on the final geometry"
+     },
+     "nominal": {
+      "n_O": 1,
+      "n_OH": 1
+     },
+     "composition_matches_nominal": true,
+     "final_check_ok": true,
+     "n_O": 1,
+     "n_OH": 1,
+     "offplane": {
+      "nosym": false,
+      "noinv": false,
+      "y_mirror_A": 1.56306,
+      "planes_verified_on_clean": true,
+      "start_dy_max_A": 4.600000003129878e-07,
+      "start_dy_max_atom": 34,
+      "kicked": [],
+      "n_unpaired_start": 0,
+      "first_step_max_Fy_kicked_ry_au": null,
+      "first_step_max_Fy_free_ry_au": 0.02068587,
+      "last_step_max_Fy_free_ry_au": 0.00119124,
+      "n_force_blocks": 17,
+      "final_dy_max_kicked_A": null,
+      "final_offplane_kicked_A": null,
+      "final_dy_max_free_A": 0.02990897140000026,
+      "manifest_max_start_dy_A": null,
+      "arm_label": "mir",
+      "notes": []
+     },
+     "arm_label": "mir",
+     "energy_parent_ev": -43384.39312082235,
+     "E_rec": -43384.3931159556,
+     "E_rec_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+     "gate1": {
+      "required": true,
+      "status": "AGREE (+0.005 meV <= 5 meV); E_rec = child (am.4 \u00a72)",
+      "verdict": "AGREE",
+      "dE_meV": 0.004866749804932624,
+      "child_energy_ev": -43384.3931159556,
+      "child_qc": {
+       "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_OH__2x1o_mir__g1.out",
+       "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_OH__2x1o_mir__g1.in",
+       "exists": true,
+       "verdict": "TRUSTWORTHY",
+       "qc_pass": true,
+       "calculation": "scf",
+       "energy_ev": -43384.3931159556,
+       "energy_ry": -3188.69408026,
+       "n_ionic": 1,
+       "bfgs_converged": false,
+       "job_done": true,
+       "n_scf_fail": 0,
+       "fmax_free_ev_ang": 0.05613088653614652,
+       "nat": 39,
+       "reasons": [],
+       "mtime": "2026-08-13T05:51:35"
+      },
+      "child_identity": {
+       "ok": true,
+       "compared": [
+        "calculation",
+        "fresh density (superposition of free atoms; no startingpot/startingwfc=file)",
+        "nosym/noinv",
+        "pw.x symmetry line",
+        "K_POINTS card + printed k count",
+        "CELL_PARAMETERS (<= 0.001 A)",
+        "nat, nspin, ecutwfc, ecutrho, pseudopotentials, HUBBARD",
+        "ATOMIC_POSITIONS vs parent 'Begin final coordinates' (<= 0.0001 A, same unit)"
+       ],
+       "fail": [],
+       "deck_missing": false,
+       "child_pos_vs_parent_final_max_A": null
+      },
+      "dM_tot": 0.0,
+      "dM_abs": 0.0,
+      "mag_flags": [],
+      "am4s2_reading": null,
+      "s5_strict_reading": null,
+      "applied": "child energy of record (am.4 \u00a72; parent identical to <= 5 meV)",
+      "child_on_disk": true,
+      "child_mag_tot": 21.0,
+      "child_mag_abs": 37.1
+     },
+     "blockers": [],
+     "scoreable": true,
+     "enters_ladder": true,
+     "status": "SCORED"
+    },
+    {
+     "metal": "Cr",
+     "rung": "mixed_OH_O",
+     "rung_manifest": "mixed_OH_O",
+     "job": "probe/Cr_cellsym/s0_OH__2x1o_off",
+     "arm": "off",
+     "origin": "reused (block 1A)",
+     "manifest_status": "CONVERGED",
+     "gate1_required": true,
+     "gate1_not_required_reason": null,
+     "manifest_max_start_dy": null,
+     "manifest_nspin": null,
+     "out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_OH__2x1o_off.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_OH__2x1o_off.in",
+     "g1_out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_OH__2x1o_off__g1.out",
+     "g1_in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_OH__2x1o_off__g1.in",
+     "qc": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_OH__2x1o_off.out",
+      "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_OH__2x1o_off.in",
+      "exists": true,
+      "verdict": "TRUSTWORTHY",
+      "qc_pass": true,
+      "calculation": "relax",
+      "energy_ev": -43384.32448697415,
+      "energy_ry": -3188.6890361229,
+      "n_ionic": 17,
+      "bfgs_converged": true,
+      "job_done": true,
+      "n_scf_fail": 0,
+      "fmax_free_ev_ang": 0.04863775229781757,
+      "nat": 39,
+      "reasons": [],
+      "mtime": "2026-08-10T03:15:58"
+     },
+     "extras": {
+      "mag_tot": 21.0,
+      "mag_abs": 37.06,
+      "nk": 16,
+      "symmetry": "No symmetry found",
+      "fresh_density": true
+     },
+     "deck_exists": true,
+     "deck_mtime": "2026-08-09T17:57:57",
+     "kpoints": "4 4 1 0 0 0",
+     "composition": {
+      "ok": true,
+      "notes": [],
+      "n_O": 1,
+      "n_OH": 1,
+      "counts_clean": {
+       "Cr": 12,
+       "O": 24
+      },
+      "counts_deck": {
+       "Cr": 12,
+       "O": 26,
+       "H": 1
+      },
+      "dO": 2,
+      "dH": 1,
+      "cell_max_dev_A": 0.0,
+      "z_top_clean_A": 17.00176126,
+      "n_above": 3,
+      "above": [
+       {
+        "species": "O",
+        "x": -0.06124732,
+        "y": 1.56305954,
+        "z": 17.63178354,
+        "dz_above_top": 0.6300222800000022
+       },
+       {
+        "species": "H",
+        "x": -0.06124732,
+        "y": 2.47470816,
+        "z": 18.00575698,
+        "dz_above_top": 1.0039957200000025
+       },
+       {
+        "species": "O",
+        "x": 2.916,
+        "y": 1.56305954,
+        "z": 17.64181591,
+        "dz_above_top": 0.6400546499999997
+       }
+      ],
+      "removed": []
+     },
+     "final_check": {
+      "ok": true,
+      "notes": [],
+      "added": [
+       {
+        "atom": 37,
+        "species": "O"
+       },
+       {
+        "atom": 38,
+        "species": "H"
+       },
+       {
+        "atom": 39,
+        "species": "O"
+       }
+      ],
+      "checked": "added-atoms-above-clean-top + H-within-1.15A-of-an-ADDED-O, on the final geometry"
+     },
+     "nominal": {
+      "n_O": 1,
+      "n_OH": 1
+     },
+     "composition_matches_nominal": true,
+     "final_check_ok": true,
+     "n_O": 1,
+     "n_OH": 1,
+     "offplane": {
+      "nosym": true,
+      "noinv": true,
+      "y_mirror_A": 1.56306,
+      "planes_verified_on_clean": true,
+      "start_dy_max_A": 0.9116481600000002,
+      "start_dy_max_atom": 38,
+      "kicked": [
+       {
+        "atom": 38,
+        "species": "H",
+        "start_dy_A": 0.9116481600000002
+       }
+      ],
+      "n_unpaired_start": 0,
+      "first_step_max_Fy_kicked_ry_au": 0.01044654,
+      "first_step_max_Fy_free_ry_au": 0.02019054,
+      "last_step_max_Fy_free_ry_au": 0.00096857,
+      "n_force_blocks": 17,
+      "final_dy_max_kicked_A": 0.004258114599999807,
+      "final_offplane_kicked_A": 0.9159062746,
+      "final_dy_max_free_A": 0.03426964879999961,
+      "manifest_max_start_dy_A": null,
+      "arm_label": "off (measured)",
+      "notes": []
+     },
+     "arm_label": "off (measured)",
+     "energy_parent_ev": -43384.32448697415,
+     "E_rec": -43384.32448244482,
+     "E_rec_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+     "gate1": {
+      "required": true,
+      "status": "AGREE (+0.005 meV <= 5 meV); E_rec = child (am.4 \u00a72)",
+      "verdict": "AGREE",
+      "dE_meV": 0.004529327270574868,
+      "child_energy_ev": -43384.32448244482,
+      "child_qc": {
+       "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_OH__2x1o_off__g1.out",
+       "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\s0_OH__2x1o_off__g1.in",
+       "exists": true,
+       "verdict": "TRUSTWORTHY",
+       "qc_pass": true,
+       "calculation": "scf",
+       "energy_ev": -43384.32448244482,
+       "energy_ry": -3188.68903579,
+       "n_ionic": 1,
+       "bfgs_converged": false,
+       "job_done": true,
+       "n_scf_fail": 0,
+       "fmax_free_ev_ang": 0.04915355164121182,
+       "nat": 39,
+       "reasons": [],
+       "mtime": "2026-08-13T06:59:14"
+      },
+      "child_identity": {
+       "ok": true,
+       "compared": [
+        "calculation",
+        "fresh density (superposition of free atoms; no startingpot/startingwfc=file)",
+        "nosym/noinv",
+        "pw.x symmetry line",
+        "K_POINTS card + printed k count",
+        "CELL_PARAMETERS (<= 0.001 A)",
+        "nat, nspin, ecutwfc, ecutrho, pseudopotentials, HUBBARD",
+        "ATOMIC_POSITIONS vs parent 'Begin final coordinates' (<= 0.0001 A, same unit)"
+       ],
+       "fail": [],
+       "deck_missing": false,
+       "child_pos_vs_parent_final_max_A": null
+      },
+      "dM_tot": 0.0,
+      "dM_abs": 0.0,
+      "mag_flags": [],
+      "am4s2_reading": null,
+      "s5_strict_reading": null,
+      "applied": "child energy of record (am.4 \u00a72; parent identical to <= 5 meV)",
+      "child_on_disk": true,
+      "child_mag_tot": 21.0,
+      "child_mag_abs": 37.06
+     },
+     "blockers": [],
+     "scoreable": true,
+     "enters_ladder": true,
+     "status": "SCORED"
+    },
+    {
+     "metal": "Cr",
+     "rung": "CONTEXT_half_O",
+     "rung_manifest": "CONTEXT-ONLY (1/2 ML O; not a registered rung)",
+     "job": "probe/Cr_cellsym/ref__2x1o",
+     "arm": "-",
+     "origin": "reused (block 1A)",
+     "manifest_status": "CONVERGED",
+     "gate1_required": false,
+     "gate1_not_required_reason": "manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr)",
+     "manifest_max_start_dy": null,
+     "manifest_nspin": null,
+     "out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\ref__2x1o.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\ref__2x1o.in",
+     "g1_out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\ref__2x1o__g1.out",
+     "g1_in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\ref__2x1o__g1.in",
+     "qc": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\ref__2x1o.out",
+      "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\ref__2x1o.in",
+      "exists": true,
+      "verdict": "TRUSTWORTHY",
+      "qc_pass": true,
+      "calculation": "relax",
+      "energy_ev": -42802.62350761977,
+      "energy_ry": -3145.9348027194,
+      "n_ionic": 23,
+      "bfgs_converged": true,
+      "job_done": true,
+      "n_scf_fail": 0,
+      "fmax_free_ev_ang": 0.05680356952914584,
+      "nat": 37,
+      "reasons": [],
+      "mtime": "2026-08-10T03:16:29"
+     },
+     "extras": {
+      "mag_tot": 22.0,
+      "mag_abs": 37.08,
+      "nk": 16,
+      "symmetry": "No symmetry found",
+      "fresh_density": true
+     },
+     "deck_exists": true,
+     "deck_mtime": "2026-08-09T17:57:57",
+     "kpoints": "4 4 1 0 0 0",
+     "composition": {
+      "ok": true,
+      "notes": [],
+      "n_O": 1,
+      "n_OH": 0,
+      "counts_clean": {
+       "Cr": 12,
+       "O": 24
+      },
+      "counts_deck": {
+       "Cr": 12,
+       "O": 25
+      },
+      "dO": 1,
+      "dH": 0,
+      "cell_max_dev_A": 0.0,
+      "z_top_clean_A": 17.00176126,
+      "n_above": 1,
+      "above": [
+       {
+        "species": "O",
+        "x": 2.916,
+        "y": 1.91305954,
+        "z": 17.64181591,
+        "dz_above_top": 0.6400546499999997
+       }
+      ],
+      "removed": []
+     },
+     "final_check": {
+      "ok": true,
+      "notes": [],
+      "added": [
+       {
+        "atom": 37,
+        "species": "O"
+       }
+      ],
+      "checked": "added-atoms-above-clean-top + H-within-1.15A-of-an-ADDED-O, on the final geometry"
+     },
+     "nominal": {
+      "n_O": 1,
+      "n_OH": 0
+     },
+     "composition_matches_nominal": true,
+     "final_check_ok": true,
+     "n_O": 1,
+     "n_OH": 0,
+     "offplane": {
+      "nosym": true,
+      "noinv": true,
+      "y_mirror_A": 1.56306,
+      "planes_verified_on_clean": true,
+      "start_dy_max_A": 0.34999954,
+      "start_dy_max_atom": 37,
+      "kicked": [
+       {
+        "atom": 37,
+        "species": "O",
+        "start_dy_A": 0.34999954
+       }
+      ],
+      "n_unpaired_start": 0,
+      "first_step_max_Fy_kicked_ry_au": 0.03748919,
+      "first_step_max_Fy_free_ry_au": 0.03748919,
+      "last_step_max_Fy_free_ry_au": 0.00122245,
+      "n_force_blocks": 23,
+      "final_dy_max_kicked_A": 0.3145338284999999,
+      "final_offplane_kicked_A": 0.03546571150000011,
+      "final_dy_max_free_A": 0.3145338284999999,
+      "manifest_max_start_dy_A": null,
+      "arm_label": "- (nosym/noinv)",
+      "notes": []
+     },
+     "arm_label": "- (nosym/noinv)",
+     "energy_parent_ev": -42802.62350761977,
+     "E_rec": -42802.62350761977,
+     "E_rec_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+     "gate1": {
+      "required": false,
+      "status": "AGREE (+0.003 meV <= 5 meV) [INFO: child on disk, not required -- parent stays the energy of record, C10]",
+      "verdict": "AGREE",
+      "dE_meV": 0.0029850925784558058,
+      "child_energy_ev": -42802.62350463468,
+      "child_qc": {
+       "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\ref__2x1o__g1.out",
+       "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_cellsym\\ref__2x1o__g1.in",
+       "exists": true,
+       "verdict": "TRUSTWORTHY",
+       "qc_pass": true,
+       "calculation": "scf",
+       "energy_ev": -42802.62350463468,
+       "energy_ry": -3145.9348025,
+       "n_ionic": 1,
+       "bfgs_converged": false,
+       "job_done": true,
+       "n_scf_fail": 0,
+       "fmax_free_ev_ang": 0.05644059791738436,
+       "nat": 37,
+       "reasons": [],
+       "mtime": "2026-08-13T03:39:46"
+      },
+      "child_identity": {
+       "ok": true,
+       "compared": [
+        "calculation",
+        "fresh density (superposition of free atoms; no startingpot/startingwfc=file)",
+        "nosym/noinv",
+        "pw.x symmetry line",
+        "K_POINTS card + printed k count",
+        "CELL_PARAMETERS (<= 0.001 A)",
+        "nat, nspin, ecutwfc, ecutrho, pseudopotentials, HUBBARD",
+        "ATOMIC_POSITIONS vs parent 'Begin final coordinates' (<= 0.0001 A, same unit)"
+       ],
+       "fail": [],
+       "deck_missing": false,
+       "child_pos_vs_parent_final_max_A": null
+      },
+      "dM_tot": 0.0,
+      "dM_abs": 0.0,
+      "mag_flags": [],
+      "am4s2_reading": null,
+      "s5_strict_reading": null,
+      "applied": "child energy of record (am.4 \u00a72; parent identical to <= 5 meV)",
+      "child_on_disk": true,
+      "child_mag_tot": 22.0,
+      "child_mag_abs": 37.08
+     },
+     "blockers": [],
+     "scoreable": true,
+     "enters_ladder": false,
+     "status": "CONTEXT (never scored)"
+    },
+    {
+     "metal": "Cr",
+     "rung": "OH_full",
+     "rung_manifest": "OH_full (1 ML *OH_cus)",
+     "job": "probe/Cr_lit2/cov_2OH__2x1_off",
+     "arm": "off",
+     "origin": "new (LIT-2)",
+     "manifest_status": "deployed (see manifest.status)",
+     "gate1_required": true,
+     "gate1_not_required_reason": null,
+     "manifest_max_start_dy": 0.9116,
+     "manifest_nspin": 2,
+     "out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_lit2\\cov_2OH__2x1_off.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_lit2\\cov_2OH__2x1_off.in",
+     "g1_out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_lit2\\cov_2OH__2x1_off__g1.out",
+     "g1_in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_lit2\\cov_2OH__2x1_off__g1.in",
+     "qc": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_lit2\\cov_2OH__2x1_off.out",
+      "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_lit2\\cov_2OH__2x1_off.in",
+      "exists": true,
+      "verdict": "TRUSTWORTHY",
+      "qc_pass": true,
+      "calculation": "relax",
+      "energy_ev": -43401.8750667405,
+      "energy_ry": -3189.9789799434,
+      "n_ionic": 9,
+      "bfgs_converged": true,
+      "job_done": true,
+      "n_scf_fail": 0,
+      "fmax_free_ev_ang": 0.043907421564545045,
+      "nat": 40,
+      "reasons": [],
+      "mtime": "2026-08-19T15:37:42"
+     },
+     "extras": {
+      "mag_tot": 22.0,
+      "mag_abs": 39.23,
+      "nk": 16,
+      "symmetry": "No symmetry found",
+      "fresh_density": true
+     },
+     "deck_exists": true,
+     "deck_mtime": "2026-08-19T15:37:32",
+     "kpoints": "4 4 1 0 0 0",
+     "composition": {
+      "ok": true,
+      "notes": [],
+      "n_O": 0,
+      "n_OH": 2,
+      "counts_clean": {
+       "Cr": 12,
+       "O": 24
+      },
+      "counts_deck": {
+       "Cr": 12,
+       "O": 26,
+       "H": 2
+      },
+      "dO": 2,
+      "dH": 2,
+      "cell_max_dev_A": 0.0,
+      "z_top_clean_A": 17.00176126,
+      "n_above": 4,
+      "above": [
+       {
+        "species": "O",
+        "x": -0.06124732,
+        "y": 1.56305954,
+        "z": 17.63178354,
+        "dz_above_top": 0.6300222800000022
+       },
+       {
+        "species": "H",
+        "x": -0.06124732,
+        "y": 2.47470816,
+        "z": 18.00575698,
+        "dz_above_top": 1.0039957200000025
+       },
+       {
+        "species": "O",
+        "x": 2.85475268,
+        "y": 1.56305954,
+        "z": 17.63178354,
+        "dz_above_top": 0.6300222800000022
+       },
+       {
+        "species": "H",
+        "x": 2.85475268,
+        "y": 0.65141092,
+        "z": 18.00575698,
+        "dz_above_top": 1.0039957200000025
+       }
+      ],
+      "removed": []
+     },
+     "final_check": {
+      "ok": true,
+      "notes": [],
+      "added": [
+       {
+        "atom": 37,
+        "species": "O"
+       },
+       {
+        "atom": 38,
+        "species": "H"
+       },
+       {
+        "atom": 39,
+        "species": "O"
+       },
+       {
+        "atom": 40,
+        "species": "H"
+       }
+      ],
+      "checked": "added-atoms-above-clean-top + H-within-1.15A-of-an-ADDED-O, on the final geometry"
+     },
+     "nominal": {
+      "n_O": 0,
+      "n_OH": 2
+     },
+     "composition_matches_nominal": true,
+     "final_check_ok": true,
+     "n_O": 0,
+     "n_OH": 2,
+     "offplane": {
+      "nosym": true,
+      "noinv": true,
+      "y_mirror_A": 1.56306,
+      "planes_verified_on_clean": true,
+      "start_dy_max_A": 0.9116490799999999,
+      "start_dy_max_atom": 40,
+      "kicked": [
+       {
+        "atom": 38,
+        "species": "H",
+        "start_dy_A": 0.9116481600000002
+       },
+       {
+        "atom": 40,
+        "species": "H",
+        "start_dy_A": 0.9116490799999999
+       }
+      ],
+      "n_unpaired_start": 0,
+      "first_step_max_Fy_kicked_ry_au": 0.00892928,
+      "first_step_max_Fy_free_ry_au": 0.00892928,
+      "last_step_max_Fy_free_ry_au": 0.0010179,
+      "n_force_blocks": 9,
+      "final_dy_max_kicked_A": 0.005853379199999953,
+      "final_offplane_kicked_A": 0.9175024591999998,
+      "final_dy_max_free_A": 0.0820322280000001,
+      "manifest_max_start_dy_A": 0.9116,
+      "arm_label": "off (measured)",
+      "notes": []
+     },
+     "arm_label": "off (measured)",
+     "energy_parent_ev": -43401.8750667405,
+     "E_rec": -43401.87506234041,
+     "E_rec_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+     "gate1": {
+      "required": true,
+      "status": "AGREE (+0.004 meV <= 5 meV); E_rec = child (am.4 \u00a72)",
+      "verdict": "AGREE",
+      "dE_meV": 0.0044000844354741275,
+      "child_energy_ev": -43401.87506234041,
+      "child_qc": {
+       "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_lit2\\cov_2OH__2x1_off__g1.out",
+       "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_lit2\\cov_2OH__2x1_off__g1.in",
+       "exists": true,
+       "verdict": "TRUSTWORTHY",
+       "qc_pass": true,
+       "calculation": "scf",
+       "energy_ev": -43401.87506234041,
+       "energy_ry": -3189.97897962,
+       "n_ionic": 1,
+       "bfgs_converged": false,
+       "job_done": true,
+       "n_scf_fail": 0,
+       "fmax_free_ev_ang": 0.04464952480774436,
+       "nat": 40,
+       "reasons": [],
+       "mtime": "2026-08-23T14:34:39"
+      },
+      "child_identity": {
+       "ok": true,
+       "compared": [
+        "calculation",
+        "fresh density (superposition of free atoms; no startingpot/startingwfc=file)",
+        "nosym/noinv",
+        "pw.x symmetry line",
+        "K_POINTS card + printed k count",
+        "CELL_PARAMETERS (<= 0.001 A)",
+        "nat, nspin, ecutwfc, ecutrho, pseudopotentials, HUBBARD",
+        "ATOMIC_POSITIONS vs parent 'Begin final coordinates' (<= 0.0001 A, same unit)"
+       ],
+       "fail": [],
+       "deck_missing": false,
+       "child_pos_vs_parent_final_max_A": null
+      },
+      "dM_tot": 0.0,
+      "dM_abs": 0.0,
+      "mag_flags": [],
+      "am4s2_reading": null,
+      "s5_strict_reading": null,
+      "applied": "child energy of record (am.4 \u00a72; parent identical to <= 5 meV)",
+      "child_on_disk": true,
+      "child_mag_tot": 22.0,
+      "child_mag_abs": 39.23
+     },
+     "blockers": [],
+     "scoreable": true,
+     "enters_ladder": true,
+     "status": "SCORED"
+    },
+    {
+     "metal": "Cr",
+     "rung": "cov_Ovac",
+     "rung_manifest": "O_depleted (2x1 clean minus one bridging O)",
+     "job": "probe/Cr_lit2/cov_Ovac__2x1_off",
+     "arm": "off",
+     "origin": "new (LIT-2)",
+     "manifest_status": "deployed (see manifest.status)",
+     "gate1_required": true,
+     "gate1_not_required_reason": null,
+     "manifest_max_start_dy": 0.35,
+     "manifest_nspin": 2,
+     "out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_lit2\\cov_Ovac__2x1_off.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_lit2\\cov_Ovac__2x1_off.in",
+     "g1_out": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_lit2\\cov_Ovac__2x1_off__g1.out",
+     "g1_in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_lit2\\cov_Ovac__2x1_off__g1.in",
+     "qc": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_lit2\\cov_Ovac__2x1_off.out",
+      "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_lit2\\cov_Ovac__2x1_off.in",
+      "exists": true,
+      "verdict": "TRUSTWORTHY",
+      "qc_pass": true,
+      "calculation": "relax",
+      "energy_ev": -41672.438067477684,
+      "energy_ry": -3062.8677049973,
+      "n_ionic": 17,
+      "bfgs_converged": true,
+      "job_done": true,
+      "n_scf_fail": 0,
+      "fmax_free_ev_ang": 0.04921416306975614,
+      "nat": 35,
+      "reasons": [],
+      "mtime": "2026-08-19T15:37:47"
+     },
+     "extras": {
+      "mag_tot": 26.0,
+      "mag_abs": 38.88,
+      "nk": 16,
+      "symmetry": "No symmetry found",
+      "fresh_density": true
+     },
+     "deck_exists": true,
+     "deck_mtime": "2026-08-19T15:37:34",
+     "kpoints": "4 4 1 0 0 0",
+     "composition": {
+      "ok": true,
+      "notes": [],
+      "n_O": -1,
+      "n_OH": 0,
+      "counts_clean": {
+       "Cr": 12,
+       "O": 24
+      },
+      "counts_deck": {
+       "Cr": 12,
+       "O": 23
+      },
+      "dO": -1,
+      "dH": 0,
+      "cell_max_dev_A": 0.0,
+      "z_top_clean_A": 17.00176126,
+      "n_above": 0,
+      "above": [],
+      "removed": [
+       {
+        "species": "O",
+        "x": 2.91599995,
+        "y": 4.68917864,
+        "z": 17.00176126,
+        "dz_below_top": 0.0
+       }
+      ]
+     },
+     "final_check": {
+      "ok": true,
+      "notes": [],
+      "added": [],
+      "checked": "added-atoms-above-clean-top + H-within-1.15A-of-an-ADDED-O, on the final geometry"
+     },
+     "nominal": {
+      "n_O": -1,
+      "n_OH": 0
+     },
+     "composition_matches_nominal": true,
+     "final_check_ok": true,
+     "n_O": -1,
+     "n_OH": 0,
+     "offplane": {
+      "nosym": true,
+      "noinv": true,
+      "y_mirror_A": 1.56306,
+      "planes_verified_on_clean": true,
+      "start_dy_max_A": 0.3499995600000001,
+      "start_dy_max_atom": 15,
+      "kicked": [
+       {
+        "atom": 15,
+        "species": "O",
+        "start_dy_A": 0.3499995600000001
+       }
+      ],
+      "n_unpaired_start": 0,
+      "first_step_max_Fy_kicked_ry_au": 0.06425344,
+      "first_step_max_Fy_free_ry_au": 0.06425344,
+      "last_step_max_Fy_free_ry_au": 0.00094226,
+      "n_force_blocks": 17,
+      "final_dy_max_kicked_A": 0.32054429610000046,
+      "final_offplane_kicked_A": 0.02945526389999964,
+      "final_dy_max_free_A": 0.32054429610000046,
+      "manifest_max_start_dy_A": 0.35,
+      "arm_label": "off (measured)",
+      "notes": []
+     },
+     "arm_label": "off (measured)",
+     "energy_parent_ev": -41672.438067477684,
+     "E_rec": -41672.43806492934,
+     "E_rec_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+     "gate1": {
+      "required": true,
+      "status": "AGREE (+0.003 meV <= 5 meV); E_rec = child (am.4 \u00a72)",
+      "verdict": "AGREE",
+      "dE_meV": 0.0025483459467068315,
+      "child_energy_ev": -41672.43806492934,
+      "child_qc": {
+       "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_lit2\\cov_Ovac__2x1_off__g1.out",
+       "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\probe\\Cr_lit2\\cov_Ovac__2x1_off__g1.in",
+       "exists": true,
+       "verdict": "TRUSTWORTHY",
+       "qc_pass": true,
+       "calculation": "scf",
+       "energy_ev": -41672.43806492934,
+       "energy_ry": -3062.86770481,
+       "n_ionic": 1,
+       "bfgs_converged": false,
+       "job_done": true,
+       "n_scf_fail": 0,
+       "fmax_free_ev_ang": 0.04973363788686254,
+       "nat": 35,
+       "reasons": [],
+       "mtime": "2026-08-23T14:24:07"
+      },
+      "child_identity": {
+       "ok": true,
+       "compared": [
+        "calculation",
+        "fresh density (superposition of free atoms; no startingpot/startingwfc=file)",
+        "nosym/noinv",
+        "pw.x symmetry line",
+        "K_POINTS card + printed k count",
+        "CELL_PARAMETERS (<= 0.001 A)",
+        "nat, nspin, ecutwfc, ecutrho, pseudopotentials, HUBBARD",
+        "ATOMIC_POSITIONS vs parent 'Begin final coordinates' (<= 0.0001 A, same unit)"
+       ],
+       "fail": [],
+       "deck_missing": false,
+       "child_pos_vs_parent_final_max_A": null
+      },
+      "dM_tot": 0.0,
+      "dM_abs": -0.010000000000005116,
+      "mag_flags": [],
+      "am4s2_reading": null,
+      "s5_strict_reading": null,
+      "applied": "child energy of record (am.4 \u00a72; parent identical to <= 5 meV)",
+      "child_on_disk": true,
+      "child_mag_tot": 26.0,
+      "child_mag_abs": 38.87
+     },
+     "blockers": [],
+     "scoreable": true,
+     "enters_ladder": true,
+     "status": "SCORED"
+    }
+   ],
+   "gas": {
+    "H2O": {
+     "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Cr_slab\\H2O.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Cr_slab\\H2O.in",
+     "exists": true,
+     "verdict": "TRUSTWORTHY",
+     "qc_pass": true,
+     "calculation": "relax",
+     "energy_ev": -599.2110126041732,
+     "energy_ry": -44.04119711,
+     "n_ionic": 4,
+     "bfgs_converged": true,
+     "job_done": true,
+     "n_scf_fail": 0,
+     "fmax_free_ev_ang": 0.01851732122418092,
+     "nat": 3,
+     "reasons": [],
+     "mtime": "2026-07-24T00:15:37",
+     "assume_isolated": "mt"
+    },
+    "H2": {
+     "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Cr_slab\\H2.out",
+     "in": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Cr_slab\\H2.in",
+     "exists": true,
+     "verdict": "TRUSTWORTHY",
+     "qc_pass": true,
+     "calculation": "relax",
+     "energy_ev": -31.74532261815729,
+     "energy_ry": -2.3332381771,
+     "n_ionic": 3,
+     "bfgs_converged": true,
+     "job_done": true,
+     "n_scf_fail": 0,
+     "fmax_free_ev_ang": 0.004402501909228109,
+     "nat": 2,
+     "reasons": [],
+     "mtime": "2026-07-24T00:15:37",
+     "assume_isolated": "mt"
+    },
+    "a1_manifest": 2.916
+   },
+   "ladder": {
+    "clean": {
+     "rung": "clean",
+     "label": "clean (ref__2x1v)",
+     "arm": "-",
+     "arm_label": "- (nosym/noinv)",
+     "job": "probe/Cr_cellsym/ref__2x1v",
+     "E_ev": -42237.82465652875,
+     "E_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+     "E_parent_ev": -42237.8246598118,
+     "n_O": 0,
+     "n_OH": 0,
+     "n_e": 0,
+     "n_ads": 0,
+     "dG0_cell": 0.0,
+     "dG0_site": 0.0,
+     "dG0_ads": null,
+     "dG0_cell_parent": null,
+     "dG0_cell_child": null,
+     "status": "SCORED",
+     "context_only": false,
+     "provisional": false
+    },
+    "O_full": {
+     "rung": "O_full",
+     "label": "O_full  (1 ML *O_cus)",
+     "arm": "mir",
+     "arm_label": "mir",
+     "job": "probe/Cr_cellsym/s0_O__2x1o_mir",
+     "E_ev": -43366.69862986836,
+     "E_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+     "E_parent_ev": -43366.69863039354,
+     "n_O": 2,
+     "n_OH": 0,
+     "n_e": 4,
+     "n_ads": 2,
+     "dG0_cell": 6.1574066324177235,
+     "dG0_site": 3.0787033162088617,
+     "dG0_ads": 3.0787033162088617,
+     "dG0_cell_parent": null,
+     "dG0_cell_child": null,
+     "status": "SCORED",
+     "context_only": false,
+     "provisional": false
+    },
+    "mixed_OH_O": {
+     "rung": "mixed_OH_O",
+     "label": "mixed   (1:1 *OH-*O)",
+     "arm": "mir",
+     "arm_label": "mir",
+     "job": "probe/Cr_cellsym/s0_OH__2x1o_mir",
+     "E_ev": -43384.3931159556,
+     "E_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+     "E_parent_ev": -43384.39312082235,
+     "n_O": 1,
+     "n_OH": 1,
+     "n_e": 3,
+     "n_ads": 2,
+     "dG0_cell": 4.635581854257247,
+     "dG0_site": 2.3177909271286237,
+     "dG0_ads": 2.3177909271286237,
+     "dG0_cell_parent": null,
+     "dG0_cell_child": null,
+     "status": "SCORED",
+     "context_only": false,
+     "provisional": false
+    },
+    "OH_full": {
+     "rung": "OH_full",
+     "label": "OH_full (1 ML *OH_cus)",
+     "arm": "off",
+     "arm_label": "off (measured)",
+     "job": "probe/Cr_lit2/cov_2OH__2x1_off",
+     "E_ev": -43401.87506234041,
+     "E_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+     "E_parent_ev": -43401.8750667405,
+     "n_O": 0,
+     "n_OH": 2,
+     "n_e": 2,
+     "n_ads": 2,
+     "dG0_cell": 3.3262967785251023,
+     "dG0_site": 1.6631483892625512,
+     "dG0_ads": 1.6631483892625512,
+     "dG0_cell_parent": null,
+     "dG0_cell_child": null,
+     "status": "SCORED",
+     "context_only": false,
+     "provisional": false
+    },
+    "cov_Ovac": {
+     "rung": "cov_Ovac",
+     "label": "cov_Ovac (clean - 1 bridging O)",
+     "arm": "off",
+     "arm_label": "off (measured)",
+     "job": "probe/Cr_lit2/cov_Ovac__2x1_off",
+     "E_ev": -41672.43806492934,
+     "E_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+     "E_parent_ev": -41672.438067477684,
+     "n_O": -1,
+     "n_OH": 0,
+     "n_e": -2,
+     "n_ads": 1,
+     "dG0_cell": -2.1290983866057784,
+     "dG0_site": -1.0645491933028892,
+     "dG0_ads": -2.1290983866057784,
+     "dG0_cell_parent": null,
+     "dG0_cell_child": null,
+     "status": "SCORED",
+     "context_only": false,
+     "provisional": false
+    }
+   },
+   "context": {
+    "CONTEXT_half_O": {
+     "rung": "CONTEXT_half_O",
+     "label": "CONTEXT ref__2x1o (1/2 ML *O)",
+     "arm": "-",
+     "arm_label": "- (nosym/noinv)",
+     "job": "probe/Cr_cellsym/ref__2x1o",
+     "E_ev": -42802.62350761977,
+     "E_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+     "E_parent_ev": -42802.62350761977,
+     "n_O": 1,
+     "n_OH": 0,
+     "n_e": 2,
+     "n_ads": 1,
+     "dG0_cell": 2.716838894994157,
+     "dG0_site": 1.3584194474970785,
+     "dG0_ads": 2.716838894994157,
+     "dG0_cell_parent": null,
+     "dG0_cell_child": null,
+     "status": "CONTEXT",
+     "context_only": true,
+     "provisional": false,
+     "dG0_cell_note": "context only; never enters the ladder, the envelope or a verdict (C7)"
+    }
+   },
+   "arm_choice": {
+    "clean": {
+     "arms": {
+      "-": {
+       "job": "probe/Cr_cellsym/ref__2x1v",
+       "status": "SCORED",
+       "E_parent_ev": -42237.8246598118,
+       "E_rec_ev": -42237.82465652875,
+       "E_rec_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+       "arm_label": "- (nosym/noinv)",
+       "scoreable": true,
+       "mag_tot": 24.0,
+       "mag_abs": 38.77,
+       "gate1": "AGREE (+0.003 meV <= 5 meV); E_rec = child (am.4 \u00a72)"
+      }
+     },
+     "chosen": "-",
+     "reason": "single arm on disk (manifest: new terminations emitted off-plane only; clean/context have one arm)",
+     "flag": null,
+     "rule": "single arm",
+     "dE_sym_meV": null,
+     "provisional": false
+    },
+    "O_full": {
+     "arms": {
+      "mir": {
+       "job": "probe/Cr_cellsym/s0_O__2x1o_mir",
+       "status": "SCORED",
+       "E_parent_ev": -43366.69863039354,
+       "E_rec_ev": -43366.69862986836,
+       "E_rec_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+       "arm_label": "mir",
+       "scoreable": true,
+       "mag_tot": 20.0,
+       "mag_abs": 36.83,
+       "gate1": "AGREE (+0.001 meV <= 5 meV); E_rec = child (am.4 \u00a72)"
+      },
+      "off": {
+       "job": "probe/Cr_cellsym/s0_O__2x1o_off",
+       "status": "SCORED",
+       "E_parent_ev": -43366.69791451367,
+       "E_rec_ev": -43366.69790958297,
+       "E_rec_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+       "arm_label": "off (measured)",
+       "scoreable": true,
+       "mag_tot": 20.0,
+       "mag_abs": 36.87,
+       "gate1": "AGREE (+0.005 meV <= 5 meV); E_rec = child (am.4 \u00a72)"
+      }
+     },
+     "chosen": "mir",
+     "reason": "|dE_sym| = 0.7 meV <= 20 meV (\u00a71 tolerance): lowest-energy scoreable arm taken (C1 default) = mir",
+     "flag": "arms degenerate within 0.7 meV (below the relaxation's resolution); choice immaterial",
+     "rule": "C1 default (within the \u00a71 tolerance)",
+     "dE_sym_meV": 0.7202853958006017,
+     "provisional": false,
+     "arm_dM_tot": 0.0,
+     "arm_dM_abs": -0.03999999999999915,
+     "arms_mag_comparable": true,
+     "arms_final_composition_ok": true
+    },
+    "mixed_OH_O": {
+     "arms": {
+      "mir": {
+       "job": "probe/Cr_cellsym/s0_OH__2x1o_mir",
+       "status": "SCORED",
+       "E_parent_ev": -43384.39312082235,
+       "E_rec_ev": -43384.3931159556,
+       "E_rec_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+       "arm_label": "mir",
+       "scoreable": true,
+       "mag_tot": 21.0,
+       "mag_abs": 37.1,
+       "gate1": "AGREE (+0.005 meV <= 5 meV); E_rec = child (am.4 \u00a72)"
+      },
+      "off": {
+       "job": "probe/Cr_cellsym/s0_OH__2x1o_off",
+       "status": "SCORED",
+       "E_parent_ev": -43384.32448697415,
+       "E_rec_ev": -43384.32448244482,
+       "E_rec_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+       "arm_label": "off (measured)",
+       "scoreable": true,
+       "mag_tot": 21.0,
+       "mag_abs": 37.06,
+       "gate1": "AGREE (+0.005 meV <= 5 meV); E_rec = child (am.4 \u00a72)"
+      }
+     },
+     "chosen": "mir",
+     "reason": "dE_sym = E_off - E_mir = +68.6 meV > +20 meV: the off arm is VOID (docs/43 \u00a71 sign constraint: 'a failure of the search or of the comparison, not a physical result'); the mirror arm is the rung",
+     "flag": "off arm VOID under docs/43 \u00a71 (dE_sym = +68.6 meV > +20 meV); mirror arm taken. ENTRANT TO CONFIRM the pair is comparable -- same spectator arrangement / final composition and magnetisation within 0.1 mu_B (printed in the arm-choice block): if NOT comparable the mirror arm simply stands alone as the rung; if comparable the off-plane search failed and a re-search of the off arm is owed. 'Higher local minimum' is NOT an admissible reading (\u00a71: 'not a physical result')",
+     "rule": "docs/43 \u00a71: off arm VOID",
+     "dE_sym_meV": 68.63351078209234,
+     "provisional": false,
+     "arm_dM_tot": 0.0,
+     "arm_dM_abs": 0.03999999999999915,
+     "arms_mag_comparable": true,
+     "arms_final_composition_ok": true
+    },
+    "OH_full": {
+     "arms": {
+      "off": {
+       "job": "probe/Cr_lit2/cov_2OH__2x1_off",
+       "status": "SCORED",
+       "E_parent_ev": -43401.8750667405,
+       "E_rec_ev": -43401.87506234041,
+       "E_rec_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+       "arm_label": "off (measured)",
+       "scoreable": true,
+       "mag_tot": 22.0,
+       "mag_abs": 39.23,
+       "gate1": "AGREE (+0.004 meV <= 5 meV); E_rec = child (am.4 \u00a72)"
+      }
+     },
+     "chosen": "off",
+     "reason": "single arm on disk (manifest: new terminations emitted off-plane only; clean/context have one arm)",
+     "flag": null,
+     "rule": "single arm",
+     "dE_sym_meV": null,
+     "provisional": false
+    },
+    "cov_Ovac": {
+     "arms": {
+      "off": {
+       "job": "probe/Cr_lit2/cov_Ovac__2x1_off",
+       "status": "SCORED",
+       "E_parent_ev": -41672.438067477684,
+       "E_rec_ev": -41672.43806492934,
+       "E_rec_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+       "arm_label": "off (measured)",
+       "scoreable": true,
+       "mag_tot": 26.0,
+       "mag_abs": 38.88,
+       "gate1": "AGREE (+0.003 meV <= 5 meV); E_rec = child (am.4 \u00a72)"
+      }
+     },
+     "chosen": "off",
+     "reason": "single arm on disk (manifest: new terminations emitted off-plane only; clean/context have one arm)",
+     "flag": null,
+     "rule": "single arm",
+     "dE_sym_meV": null,
+     "provisional": false
+    },
+    "CONTEXT_half_O": {
+     "arms": {
+      "-": {
+       "job": "probe/Cr_cellsym/ref__2x1o",
+       "status": "CONTEXT (never scored)",
+       "E_parent_ev": -42802.62350761977,
+       "E_rec_ev": -42802.62350761977,
+       "E_rec_provenance": "parent relax (GATE-1 not required: manifest gate1_required=false (reused block-1A row; am.4 \u00a72 + A5.7 name Cr))",
+       "arm_label": "- (nosym/noinv)",
+       "scoreable": true,
+       "mag_tot": 22.0,
+       "mag_abs": 37.08,
+       "gate1": "AGREE (+0.003 meV <= 5 meV) [INFO: child on disk, not required -- parent stays the energy of record, C10]"
+      }
+     },
+     "chosen": "-",
+     "reason": "single arm on disk (manifest: new terminations emitted off-plane only; clean/context have one arm)",
+     "flag": null,
+     "rule": "single arm",
+     "dE_sym_meV": null,
+     "provisional": false
+    }
+   },
+   "missing": [],
+   "notes": [],
+   "E_clean_ev": -42237.82465652875,
+   "E_clean_provenance": "gate1 SCF (am.4 \u00a72; AGREE)",
+   "envelope": {
+    "method": "analytic lower envelope over all U (C3); U_scan table is printed only",
+    "U_scan": {
+     "from_V": 2.0,
+     "to_V": 0.8,
+     "step_V": 0.01
+    },
+    "sequence_with_falling_U": [
+     "O_full",
+     "clean",
+     "cov_Ovac"
+    ],
+    "crossings_with_falling_U": [
+     {
+      "from": "O_full",
+      "to": "clean",
+      "U_V": 1.5393516581044309
+     },
+     {
+      "from": "clean",
+      "to": "cov_Ovac",
+      "U_V": 1.0645491933028892
+     }
+    ],
+    "table_every_0p1V": [
+     {
+      "U_V": 2.0,
+      "lowest": "O_full",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -0.9212966837911383,
+       "mixed_OH_O": -0.6822090728713763,
+       "OH_full": -0.33685161073744885,
+       "cov_Ovac": 0.9354508066971108
+      }
+     },
+     {
+      "U_V": 1.9,
+      "lowest": "O_full",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -0.7212966837911381,
+       "mixed_OH_O": -0.532209072871376,
+       "OH_full": -0.23685161073744876,
+       "cov_Ovac": 0.8354508066971107
+      }
+     },
+     {
+      "U_V": 1.8,
+      "lowest": "O_full",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -0.5212966837911384,
+       "mixed_OH_O": -0.3822090728713765,
+       "OH_full": -0.1368516107374489,
+       "cov_Ovac": 0.7354508066971108
+      }
+     },
+     {
+      "U_V": 1.7,
+      "lowest": "O_full",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -0.3212966837911382,
+       "mixed_OH_O": -0.23220907287137615,
+       "OH_full": -0.0368516107374488,
+       "cov_Ovac": 0.6354508066971107
+      }
+     },
+     {
+      "U_V": 1.6,
+      "lowest": "O_full",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": -0.12129668379113845,
+       "mixed_OH_O": -0.08220907287137669,
+       "OH_full": 0.06314838926255106,
+       "cov_Ovac": 0.5354508066971109
+      }
+     },
+     {
+      "U_V": 1.5,
+      "lowest": "clean",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": 0.07870331620886173,
+       "mixed_OH_O": 0.06779092712862367,
+       "OH_full": 0.16314838926255115,
+       "cov_Ovac": 0.4354508066971108
+      }
+     },
+     {
+      "U_V": 1.4,
+      "lowest": "clean",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": 0.2787033162088619,
+       "mixed_OH_O": 0.21779092712862402,
+       "OH_full": 0.26314838926255124,
+       "cov_Ovac": 0.3354508066971107
+      }
+     },
+     {
+      "U_V": 1.3,
+      "lowest": "clean",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": 0.47870331620886164,
+       "mixed_OH_O": 0.3677909271286235,
+       "OH_full": 0.3631483892625511,
+       "cov_Ovac": 0.23545080669711083
+      }
+     },
+     {
+      "U_V": 1.2,
+      "lowest": "clean",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": 0.6787033162088618,
+       "mixed_OH_O": 0.5177909271286238,
+       "OH_full": 0.4631483892625512,
+       "cov_Ovac": 0.13545080669711074
+      }
+     },
+     {
+      "U_V": 1.1,
+      "lowest": "clean",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": 0.8787033162088616,
+       "mixed_OH_O": 0.6677909271286235,
+       "OH_full": 0.5631483892625511,
+       "cov_Ovac": 0.03545080669711087
+      }
+     },
+     {
+      "U_V": 1.0,
+      "lowest": "cov_Ovac",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": 1.0787033162088617,
+       "mixed_OH_O": 0.8177909271286237,
+       "OH_full": 0.6631483892625512,
+       "cov_Ovac": -0.06454919330288922
+      }
+     },
+     {
+      "U_V": 0.9,
+      "lowest": "cov_Ovac",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": 1.2787033162088617,
+       "mixed_OH_O": 0.9677909271286236,
+       "OH_full": 0.7631483892625511,
+       "cov_Ovac": -0.1645491933028892
+      }
+     },
+     {
+      "U_V": 0.8,
+      "lowest": "cov_Ovac",
+      "dG_site_eV": {
+       "clean": 0.0,
+       "O_full": 1.4787033162088616,
+       "mixed_OH_O": 1.1177909271286235,
+       "OH_full": 0.8631483892625511,
+       "cov_Ovac": -0.2645491933028892
+      }
+     }
+    ],
+    "rungs_in_envelope": [
+     "clean",
+     "O_full",
+     "mixed_OH_O",
+     "OH_full",
+     "cov_Ovac"
+    ]
+   },
+   "transitions_V": {
+    "O_full/mixed": 1.5218247781604761,
+    "mixed/OH_full": 1.309285075732145,
+    "OH_full/clean": 1.6631483892625512,
+    "O_full/clean": 1.5393516581044309,
+    "mixed/clean": 1.5451939514190824,
+    "clean/cov_Ovac": 1.0645491933028892
+   }
+  }
+ },
+ "n_sites_check": {
+  "Ru": {
+   "a_x": 6.214,
+   "two_a1": 6.214,
+   "ok": true
+  },
+  "Cr": {
+   "a_x": 5.832,
+   "two_a1": 5.832,
+   "ok": true
+  }
+ },
+ "input_mtimes": {
+  "manifest": "2026-08-23T13:44:57",
+  "prereg": "2026-08-16T02:27:28",
+  "tier": "2026-08-09T13:33:05",
+  "runs\\Ru_anchor\\H2O.out": "2026-07-31T01:33:52",
+  "runs\\Ru_anchor\\H2.out": "2026-07-31T01:33:52",
+  "runs\\Cr_slab\\H2O.out": "2026-07-24T00:15:37",
+  "runs\\Cr_slab\\H2.out": "2026-07-24T00:15:37",
+  "runs\\probe\\Ru_cellsym\\ref__2x1v.out": "2026-08-11T02:21:59",
+  "runs\\probe\\Ru_cellsym\\ref__2x1v.in": "2026-08-09T17:57:57",
+  "runs\\probe\\Ru_cellsym\\s0_O__2x1o_mir.out": "2026-08-10T23:01:07",
+  "runs\\probe\\Ru_cellsym\\s0_O__2x1o_mir.in": "2026-08-09T17:57:57",
+  "runs\\probe\\Ru_cellsym\\s0_O__2x1o_off.out": "2026-08-11T13:29:11",
+  "runs\\probe\\Ru_cellsym\\s0_O__2x1o_off.in": "2026-08-09T17:57:57",
+  "runs\\probe\\Ru_cellsym\\s0_OH__2x1o_mir.out": "2026-08-12T04:52:59",
+  "runs\\probe\\Ru_cellsym\\s0_OH__2x1o_mir.in": "2026-08-09T17:57:57",
+  "runs\\probe\\Ru_cellsym\\s0_OH__2x1o_off.out": "2026-08-11T15:40:45",
+  "runs\\probe\\Ru_cellsym\\s0_OH__2x1o_off.in": "2026-08-09T17:57:57",
+  "runs\\probe\\Ru_cellsym\\ref__2x1o.out": "2026-08-12T03:57:19",
+  "runs\\probe\\Ru_cellsym\\ref__2x1o.in": "2026-08-09T17:57:57",
+  "runs\\probe\\Ru_lit2\\cov_2OH__2x1_off.out": "2026-08-23T16:08:17",
+  "runs\\probe\\Ru_lit2\\cov_2OH__2x1_off.in": "2026-08-12T14:25:43",
+  "runs\\probe\\Cr_cellsym\\ref__2x1v.out": "2026-08-09T20:01:19",
+  "runs\\probe\\Cr_cellsym\\ref__2x1v.in": "2026-08-09T17:57:57",
+  "runs\\probe\\Cr_cellsym\\ref__2x1v__g1.out": "2026-08-13T03:10:17",
+  "runs\\probe\\Cr_cellsym\\ref__2x1v__g1.in": "2026-08-13T15:33:35",
+  "runs\\probe\\Cr_cellsym\\s0_O__2x1o_mir.out": "2026-08-10T09:22:00",
+  "runs\\probe\\Cr_cellsym\\s0_O__2x1o_mir.in": "2026-08-09T17:57:57",
+  "runs\\probe\\Cr_cellsym\\s0_O__2x1o_mir__g1.out": "2026-08-13T04:15:11",
+  "runs\\probe\\Cr_cellsym\\s0_O__2x1o_mir__g1.in": "2026-08-13T15:33:35",
+  "runs\\probe\\Cr_cellsym\\s0_O__2x1o_off.out": "2026-08-11T17:27:25",
+  "runs\\probe\\Cr_cellsym\\s0_O__2x1o_off.in": "2026-08-09T17:57:57",
+  "runs\\probe\\Cr_cellsym\\s0_O__2x1o_off__g1.out": "2026-08-13T05:15:00",
+  "runs\\probe\\Cr_cellsym\\s0_O__2x1o_off__g1.in": "2026-08-13T15:33:35",
+  "runs\\probe\\Cr_cellsym\\s0_OH__2x1o_mir.out": "2026-08-10T09:05:25",
+  "runs\\probe\\Cr_cellsym\\s0_OH__2x1o_mir.in": "2026-08-09T17:57:57",
+  "runs\\probe\\Cr_cellsym\\s0_OH__2x1o_mir__g1.out": "2026-08-13T05:51:35",
+  "runs\\probe\\Cr_cellsym\\s0_OH__2x1o_mir__g1.in": "2026-08-13T15:33:35",
+  "runs\\probe\\Cr_cellsym\\s0_OH__2x1o_off.out": "2026-08-10T03:15:58",
+  "runs\\probe\\Cr_cellsym\\s0_OH__2x1o_off.in": "2026-08-09T17:57:57",
+  "runs\\probe\\Cr_cellsym\\s0_OH__2x1o_off__g1.out": "2026-08-13T06:59:14",
+  "runs\\probe\\Cr_cellsym\\s0_OH__2x1o_off__g1.in": "2026-08-13T15:33:35",
+  "runs\\probe\\Cr_cellsym\\ref__2x1o.out": "2026-08-10T03:16:29",
+  "runs\\probe\\Cr_cellsym\\ref__2x1o.in": "2026-08-09T17:57:57",
+  "runs\\probe\\Cr_cellsym\\ref__2x1o__g1.out": "2026-08-13T03:39:46",
+  "runs\\probe\\Cr_cellsym\\ref__2x1o__g1.in": "2026-08-13T15:33:35",
+  "runs\\probe\\Cr_lit2\\cov_2OH__2x1_off.out": "2026-08-19T15:37:42",
+  "runs\\probe\\Cr_lit2\\cov_2OH__2x1_off.in": "2026-08-19T15:37:32",
+  "runs\\probe\\Cr_lit2\\cov_2OH__2x1_off__g1.out": "2026-08-23T14:34:39",
+  "runs\\probe\\Cr_lit2\\cov_2OH__2x1_off__g1.in": "2026-08-23T13:43:16",
+  "runs\\probe\\Cr_lit2\\cov_Ovac__2x1_off.out": "2026-08-19T15:37:47",
+  "runs\\probe\\Cr_lit2\\cov_Ovac__2x1_off.in": "2026-08-19T15:37:34",
+  "runs\\probe\\Cr_lit2\\cov_Ovac__2x1_off__g1.out": "2026-08-23T14:24:07",
+  "runs\\probe\\Cr_lit2\\cov_Ovac__2x1_off__g1.in": "2026-08-23T13:43:16"
+ },
+ "manifest_registered_ambiguities": [
+  "A5.2's cost parenthetical says ~12 relaxations; the registered reuse rule leaves 3 genuinely new. The reuse rule was followed.",
+  "'O-depleted variant' does not name the O: one bridging O of the 2x1 cell was removed (minimal depletion representable at 2x1); the surviving bridging O carries the off-plane kick.",
+  "new terminations are emitted off-plane only (A5.2 lists off-plane starts + nosym/noinv; no mirror partner registered).",
+  "ref__2x1o (1/2 ML O) is on disk but is NOT a registered rung; recorded as context only."
+ ],
+ "ru_benchmark": {
+  "rule": "docs/43 A5.2: PASS iff (i) ordering with falling U is full-O -> mixed -> full-*OH AND (ii) U(O_full/mixed), U(mixed/OH_full) within +/-0.25 V of ~1.50 V, ~1.24 V",
+  "sign_logic": "dG(U) = dG(0) - n_e*U, n_e = 4/3/2/0 for O_full/mixed/OH_full/clean; the most oxidised termination is stable at HIGH U, so FALLING U reads O_full -> mixed -> OH_full; U(O_full/mixed) is the higher transition (bracket ~1.50 V), U(mixed/OH_full) the lower (~1.24 V)",
+  "U_Ofull_mixed_V": 1.0088668626786559,
+  "U_mixed_OHfull_V": 0.8367838588174663,
+  "U_OHfull_clean_V": 0.7631402859979971,
+  "U_mixed_clean_V": 0.7876881436044868,
+  "bracket_Ofull_mixed_V": [
+   1.25,
+   1.75
+  ],
+  "bracket_mixed_OHfull_V": [
+   0.99,
+   1.49
+  ],
+  "discrepancy_Ofull_mixed_V": -0.4911331373213441,
+  "discrepancy_mixed_OHfull_V": -0.4032161411825337,
+  "ordering_observed": [
+   "O_full",
+   "mixed_OH_O",
+   "OH_full",
+   "clean"
+  ],
+  "i_ordering": true,
+  "i_ordering_alt_clean_ignored": true,
+  "i_reading": "DEFAULT (C3): analytic envelope incl. clean -> O_full -> mixed -> OH_full is a subsequence: True  [mixed on the envelope iff U(O_full/mixed) > max(U(mixed/OH_full), U(mixed/clean)) = 1.009 > max(0.837, 0.788); OH_full follows iff U(mixed/OH_full) > U(OH_full/clean) = 0.837 > 0.763]  |  ALTERNATIVE (clean ignored): U(O_full/mixed) > U(mixed/OH_full): True",
+  "ii_a": false,
+  "ii_b": false,
+  "verdict": "FAIL",
+  "verdict_basis": "complete ladder",
+  "pass_reachable": false,
+  "reason": "(ii)(a) U(O_full/mixed) = 1.009 V is -0.491 V from ~1.50 V, outside +/-0.25 V; (ii)(b) U(mixed/OH_full) = 0.837 V is -0.403 V from ~1.24 V, outside +/-0.25 V",
+  "held_verdict": "FAIL",
+  "cr_column_label": "vacuum-CHE-only (RuO2 discrepancy attached as systematic error: dU(O_full/mixed) = -0.491 V; dU(mixed/OH_full) = -0.403 V)"
+ },
+ "cr_decision": {
+  "rule": "docs/43 A5.2: if Cr prefers an O-covered termination by > 0.1 eV per site at U* = 1.23 V + eta(Cr), every clean-termination Cr row carries a conditional-on-termination flag. The flag qualifies; it does not retract.",
+  "eta_Cr_V": 0.3302830425896852,
+  "eta_source": "data\\tiers\\tier_v2.json [tier_v2]",
+  "U_star_V": 1.5602830425896852,
+  "per_site_at_Ustar_eV": {
+   "O_full": -0.04186276897050867,
+   "mixed_OH_O": -0.02263363675590435,
+   "OH_full": 0.10286534667286595,
+   "cov_Ovac": 0.495733849286796,
+   "CONTEXT_half_O": -0.20186359509260665,
+   "clean": 0.0
+  },
+  "per_cell_at_Ustar_eV": {
+   "O_full": -0.08372553794101734,
+   "mixed_OH_O": -0.0452672735118087,
+   "OH_full": 0.2057306933457319,
+   "cov_Ovac": 0.991467698573592,
+   "CONTEXT_half_O": -0.4037271901852133,
+   "clean": 0.0
+  },
+  "best_O_covered": "O_full",
+  "best_dG_site_eV": -0.04186276897050867,
+  "threshold_eV_per_site": -0.1,
+  "flag": "CONDITIONAL-ON-TERMINATION FLAG = OFF",
+  "reason": "at U* = 1.560 V the best O-covered termination (O_full) sits -0.042 eV per site relative to clean; threshold is < -0.1 eV per site (A5.2). No flag. The flag qualifies, it does not retract (A5.2).",
+  "verdict_basis": "comparator rungs scored: O_full, mixed_OH_O (C2 default, per cus site C8); context rungs scored: OH_full, cov_Ovac; energies of record: O_full: mir arm, gate1 SCF (am.4 \u00a72; AGREE); mixed_OH_O: mir arm, gate1 SCF (am.4 \u00a72; AGREE)",
+  "context": {
+   "OH_full_at_Ustar_site_eV": 0.10286534667286595,
+   "cov_Ovac_at_Ustar_site_eV": 0.495733849286796,
+   "half_O_at_Ustar_site_eV": -0.20186359509260665,
+   "half_O_would_flip": true,
+   "half_O_note": "C7: ref__2x1o (1/2 ML *O) is NOT a registered rung (manifest registered_ambiguities); never enters the verdict; printed because it is the most decision-relevant Cr number on disk -- if admitted by amendment the flag would read ON",
+   "note": "OH_full and cov_Ovac are context under C2's default: OH_full is not read as 'O-covered' (the inclusive reading is evaluated separately); cov_Ovac is the registered O-depleted variant, compared for context only"
+  },
+  "flip": {
+   "U_flip_V": 1.589351658104431,
+   "eta_flip_V": 0.3593516581044309,
+   "set_by": "O_full",
+   "per_rung_V": {
+    "O_full": 1.589351658104431,
+    "mixed_OH_O": 1.611860618085749
+   },
+   "note": "context only: the flag would first turn ON for U* >= 1.589 V (set by O_full; per rung: O_full 1.589 V, mixed_OH_O 1.612 V), i.e. eta(Cr) >= 0.359 V (tier of record gives 0.330 V); not a registered quantity"
+  },
+  "inclusive_reading": {
+   "flag": "OFF",
+   "best": "O_full",
+   "best_dG_site_eV": -0.04186276897050867,
+   "reason": "OH_full counted as O-covered (Cao's O-covered/stoichiometric/O-depleted classes do not exclude it): best = O_full at -0.0419 eV per site"
+  },
+  "per_cell_reading": {
+   "flag": "OFF",
+   "best": "O_full",
+   "best_dG_cell_eV": -0.08372553794101734,
+   "reason": "'per site' read as per 2x1 cell: best = O_full at -0.0837 eV per cell vs -0.1 eV"
+  }
+ },
+ "entrant_decisions": {
+  "C1 arm choice": "O_full/mixed rungs have _mir and _off arms; A5.2 silent on which is the rung, docs/43 \u00a71 not silent on the comparison (dE_sym = E_off - E_mir > +20 meV voids the off arm). Applied on the energies of record when both arms score; lowest-energy scoreable arm within the \u00a71 tolerance (default). Ru O_full: chosen=off [C1 default (within the \u00a71 tolerance); dE_sym=-13.0 meV]; Ru mixed_OH_O: chosen=off [C1 default (within the \u00a71 tolerance); dE_sym=-11.5 meV]; Cr O_full: chosen=mir [C1 default (within the \u00a71 tolerance); dE_sym=0.7 meV] !! arms degenerate within 0.7 meV (below the relaxation's resolution); choice immaterial; Cr mixed_OH_O: chosen=mir [docs/43 \u00a71: off arm VOID; dE_sym=68.6 meV] !! off arm VOID under docs/43 \u00a71 (dE_sym = +68.6 meV > +20 meV); mirror arm taken. ENTRANT TO CONFIRM the pair is comparable -- same spectator arrangement / final composition and magnetisation within 0.1 mu_B (printed in the arm-choice block): if NOT comparable the mirror arm simply stands alone as the rung; if comparable the off-plane search failed and a re-search of the off arm is owed. 'Higher local minimum' is NOT an admissible reading (\u00a71: 'not a physical result')",
+  "C2 'O-covered'": "DEFAULT: the *O-bearing rungs (O_full, mixed) -> CONDITIONAL-ON-TERMINATION FLAG = OFF; INCLUSIVE reading (OH_full counted): FLAG=OFF (best O_full); cov_Ovac = registered rung, context for the rule; 1/2 ML *O context rung at U*: -0.2019 eV per site -> if admitted by amendment the flag would read ON (NOT applied; needs its own amendment)",
+  "C3 ordering (i)": "judged on the ANALYTIC lower envelope over all U (clean included: mixed is on the envelope iff U(O_full/mixed) > max(U(mixed/OH_full), U(mixed/clean)); OH_full follows iff U(mixed/OH_full) > U(OH_full/clean) -- if clean undercuts mixed first, OH_full never appears); the clean-ignored alternative 'U(O_full/mixed) > U(mixed/OH_full)' is printed beside it; the 2.0 -> 0.8 V scan is a printed table only; transition potentials are analytic line crossings. Today: (i)=True, (i, clean ignored)=True",
+  "C4 partial verdict": "a falsified conjunct of the PASS rule yields FAIL on a partial ladder (PASS unreachable); holding the public verdict until the ladder completes is a reporting choice -- the outcome cannot change",
+  "C5 Ovac ZPE": "n_O*corr_O applied literally with n_O = -1 (-0.05 eV); A5.2 registers no separate correction for a removed lattice O",
+  "C6 eta(Cr)": "from data\\tiers\\tier_v2.json [tier_v2] (frozen tier of record, docs/43 \u00a70); eta(Cr) = 0.3302830425896852",
+  "C7 context rung": "ref__2x1o (1/2 ML *O) printed (dG0 and value at U*), never scored; 1/2 ML *O context rung at U*: -0.2019 eV per site -> if admitted by amendment the flag would read ON (NOT applied; needs its own amendment)",
+  "C8 'per site'": "per cus site, N_SITES = 2 (docs/43 does not define 'site'); per-cell reading: FLAG=OFF at -0.0837 eV per cell",
+  "C9 GATE-1 drift": "BASIN_DRIFT rows: am.4 \u00a72 ('the GATE-1 SCF energy is the corrected value ... scored from it') vs \u00a75-strict ('re-relaxed from it and the loop repeats'; the GATE-1 energy may be quoted with a stated 4 meV residual). DEFAULT applied: am4s2; both readings printed per row and per rung (--gate1-drift swaps). AGREE rows quote the child as the energy of record (as the block-1A evaluator does). Rows drifting today: none",
+  "C10 Ru GATE-1": "Ru GATE-1 child not required (manifest gate1_required=false; am.4 \u00a72 + A5.7 name Cr; \u00a75 P16 and A5.2's unqualified 'a __g1 GATE-1 child' sentence read broader; Ru decks run nspin=1 so there is no magnetic basin to drift). Ru __g1.out on disk today: none (reported if one appears; never substituted)"
+ }
+}
