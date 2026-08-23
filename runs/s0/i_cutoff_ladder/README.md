@@ -126,6 +126,15 @@ n=8 tier addition already recommended. Scheduling: run the TiO2 arm first if
 scheduling allows (a TiO2 ladder failure voids gate (g)'s tier relevance —
 requirements.md recommendation, not a registration).
 
+**2026-08-23 — the Mom 2014 condition is CONFIRMED** (docs/53, DOI 10.1021/jp409373c):
+the stoichiometric SnO₂ rows are on-top-of-metal (cus) adsorption per the paper's own
+methods text, with reduced SnO₂ the sole bridge-site exception; two independent
+adversarial refuters failed to refute. One terminology caveat (the literal word "cus"
+never appears — the identification is definitional; docs/53 §4.1) and one physics
+caveat (binding at the stoich cus site is robust only in unrestricted DFT; docs/53
+§4.2) are recorded. Both A7.5 preconditions are now discharged; admission remains a
+separate entrant declaration.
+
 ## Launch
 
 Queue-manifest lines (queue_r1.sh idiom, `<dir> <job> .in <nk>`; also in
