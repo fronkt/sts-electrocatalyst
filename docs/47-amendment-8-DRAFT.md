@@ -10,7 +10,8 @@ a registration only when he writes it.
 
 **Deadline:** Aug 24 2026, before the first S3 deck launches (docs/45 §D).
 **Governs:** S3 — `tier_v3` crossed coverage × symmetry × basin over 8 metals; the dy
-ladder; GATE-1 depth; the CONFOUND rule; P-SYMCOV; the convergence-failure budget.
+ladder; GATE-1 depth; the CONFOUND rule; P-SYMCOV; the convergence-failure budget; and, added
+2026-08-23, block 1C's σ_F instrument question (A8.7).
 **Also carries, because docs/45 §D and anvil/README.md both assign it here:** the
 migration of all remaining compute from Vast box 47662258 to Purdue Anvil.
 
@@ -175,7 +176,78 @@ and changing it is a decision rather than a measurement.
 370 of them, eight at a time on eight of `shared`'s 250 nodes. Compute is no longer the
 constraint on S3; the deck count this amendment fixes is.
 
-## A8.7 — What this amendment does NOT license
+## A8.7 — Block 1C's instrument question: what "measured force noise" is, and where amendment 2's escalation leads
+
+**Written 2026-08-23 from docs/49. This section decides nothing. It puts three questions the
+Cr 2×1v Hessian surfaced in front of the entrant with the measured consequences of each
+answer stated — because the verdict label of block 1C turns on them, and a verdict-bearing
+instrument choice is his under P-AUTHORSHIP and A7.7. It is also written with the outcome
+known, and says so: docs/49 shows the spectrum under every option, so whatever is chosen
+here must be chosen for a stated reason that does not reference which verdict it yields,
+and the report must carry both labels if the reason is contestable.**
+
+**What is not in question.** Block 1C ran 38 clean SCFs on Cr *OOH in the 2×1v production
+cell at two displacements; one magnetic basin (M = 23.00 throughout); `conv_thr 1e-10`
+reached on every deck; one out-of-plane, hydrogen-carried imaginary mode at i244.7
+(δ = 0.01 Å) and i242.8 cm⁻¹ (δ = 0.02 Å), 0.8 % apart, f_y = 1.00; eight real modes
+agreeing to ≤ 0.6 %; the hydrogen's out-of-plane energy curvature negative and quadratic
+in δ; the mirror-identity force noise at 1.75e-7 / 2.08e-7 Ry/bohr (docs/49 §3, §4a).
+
+**Question 1 — the σ_F instrument.** docs/43 §3-A.3 registers the floor as max(50 cm⁻¹,
+3σ) "with σ propagated from the measured force noise". `hessian_analyze.py` measures σ_F
+from the Hessian's own asymmetry |H − Hᵀ| (§3-A.4's observable). docs/49 §4–4b measured
+that on this system that asymmetry is truncation error at every block — the (y, xz) cross
+block scales exactly as a forward difference (σ_F ×4.00 when δ doubles), every other block
+exactly as a central difference (×7.85 against an expected ×8) — and nowhere as noise
+(×1). docs/43 §3-A.8 and am.4 §7 item 4 already classify the cross block as "structurally
+zero … measure noise, not physics" and demoted Q5 on that ground; the measurement says it
+is not even noise. The two readings of "measured force noise":
+
+| reading | σ_F (δ 0.01 / 0.02) | 3σ floor on mode #0 | effective floor | block 1C label |
+|---|---|---|---|---|
+| (a) asymmetry-based, as coded | 2.99e-5 / 1.20e-4 | i265 / i374 | i265 / i374 | UNDERPOWERED / VOID; REFUTED and CONFIRMED unreachable at any δ |
+| (b) force noise from identities the SCF does not enforce (the Q6 mirror identities; `hessian_mirror_noise.py`) | 1.75e-7 / 2.08e-7 | ≈ i21 / i15 | **i50** (the declared minimum) | scored against i50, with the mode at i243–i245 and f_y = 1.00 |
+| (c) asymmetry-based on the non-cross pairs only | 1.74e-6 / 1.37e-5 | i64 / i126 | i64 / i126 | passes at δ 0.01, UNDERPOWERED (> i80) at δ 0.02 — still an anharmonicity meter |
+
+**THRESHOLD (proposed):** reading (b) is what "measured force noise" means — σ_F is the rms
+residual of force identities the SCF does not enforce (mirror identities on a
+mirror-symmetric reference), measured on the same decks, reported alongside the
+asymmetry diagnostic; the asymmetry is retained and reported as the truncation-error
+diagnostic it is. Reason offered, independent of outcome: a noise estimator must be
+δ-invariant when the noise is, and (b) is the only one of the three that is (×1.19 vs ×4
+and ×7.85). The entrant may instead keep (a) — in which case block 1C is recorded as
+UNDERPOWERED/VOID by instrument, not by physics, with the mode reported as a measurement
+without a verdict label — or choose (c), or something else. Whatever is chosen, the
+choice and its reason are written in his words.
+
+**Question 2 — amendment 2's escalation collides with Q4.** am.2 routes UNDERPOWERED to a
+rerun at δ = 0.02 Å. But the Q4b absolute floor is 3√2·σ_design/δ — it falls as 1/δ —
+while the forward-difference asymmetry it is tested against grows as δ; and Q4a's σ_F
+grows as δ (cross) or δ² (central). So the registered escalation fires Q4a and Q4b by
+construction once they were anywhere near threshold at δ = 0.01, which is exactly what
+happened (docs/49 §2). Two coherent resolutions, **both proposed, neither chosen here:**
+(i) under reading (b) the floor is δ-independent and am.2's rerun keeps its registered
+meaning — a harmonic-regime test (passed: 0.8 %) that does not touch the noise floor; Q4
+stays a gate on a noise measurement, not on anharmonicity; (ii) alternatively the y rows
+return to central differences (the ym decks enter H after Q6 passes), which zeroes the
+cross-block asymmetry by construction — at the cost of the ym decks' status as an
+independent control, which am.4 §7 fixed for a stated reason. (i) is the smaller change.
+
+**Question 3 — Q4b's standing.** The analyzer labels Q4b "CODE-LEVEL, in no docs/43
+clause (N32/N33) — reported, not registered" and nonetheless counts it toward VOID. Either
+register it here (with its formula and the reading of σ_design it uses) or demote it to
+reported, as Q5 was. **THRESHOLD (proposed):** demote to reported; the gate it duplicates
+(Q4a) carries the registered meaning, and a gate that is not registered must not void a
+state.
+
+**Consequence for S3 (A8.1 "Cr 1C + re-Hessian at escape").** Every re-Hessian in S3 is on
+a mirror-symmetric or near-symmetric reference and will present the same estimator
+behaviour; the answer to Question 1 is therefore an S3 protocol parameter, not a Cr
+footnote, and must be settled in this amendment before the first S3 Hessian is built.
+`hessian_analyze.py` is NOT changed until it is; docs/49 and the banked outputs
+(`runs/probe/Cr_hess`, `runs/probe_d02/Cr_hess`) carry the numbers under every reading.
+
+## A8.8 — What this amendment does NOT license
 
 - It does not reopen any closed S0 gate.
 - It does not license a new tier, a new adsorbate, or an oxyhydroxide phase.
@@ -187,7 +259,7 @@ constraint on S3; the deck count this amendment fixes is.
 - It does not license loosening the parity threshold to accommodate a measurement. A gate
   widened until the data fits is the failure mode this project exists to indict.
 
-## A8.8 — Deposit obligation
+## A8.9 — Deposit obligation
 
 Per A7.8, docs/43 complete (A1–A8) is re-deposited to Zenodo as a new version of record
 10.5281/zenodo.21963144 — restricted access, DOI and timestamp public, files closed until

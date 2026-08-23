@@ -130,6 +130,33 @@ Arithmetic on the registered formula, **not a verdict**: floor_ν ∝ √σ_F at
 with σ_F ≈ 1.9e-7 the 3σ floor on mode #0 is ≈ i21 (δ = 0.01) and ≈ i15 (δ = 0.02) — below
 the declared i50 in both cases, leaving max(50, 3σ) = i50, against a mode at i243–i245.
 
+### 4b. Addendum, same day — the asymmetry estimator, block by block
+
+`src/dft/hessian_asym_blocks.py` (diagnostic, changes nothing) splits the analyzer's own
+|H − Hᵀ| sample by block and asks the scaling question directly. A noise-driven asymmetry
+returns a δ-invariant σ_F under the analyzer's convention (σ_F = rms·δ); truncation does
+not — a forward difference's asymmetry grows as δ (σ_F ×4 when δ doubles), a central
+difference's as δ² (σ_F ×8).
+
+| pairs | δ = 0.01 σ_F | δ = 0.02 σ_F | ratio | noise would give |
+|---|---|---|---|---|
+| all 36 (the analyzer's sample) | 2.99e-5 | 1.20e-4 | **×4.01** | ×1 |
+| (y, xz) cross, 18 | 4.22e-5 | 1.69e-4 | **×4.00** | ×1 |
+| non-cross, 18 | 1.74e-6 | 1.37e-5 | **×7.85** | ×1 |
+| y–y, 3 | 1.07e-7 | 8.34e-7 | ×7.77 | ×1 |
+| xz–xz, 15 | 1.91e-6 | 1.50e-5 | ×7.85 | ×1 |
+| mirror identities (§4a), for comparison | 1.75e-7 | 2.08e-7 | ×1.19 | ×1 |
+
+Every block of the asymmetry sample scales as truncation error — the cross block exactly
+as a forward difference, the rest exactly as central differences — and none as noise. At a
+true force noise of ~2e-7 Ry/bohr there is no usable δ at which |H − Hᵀ| is noise-limited:
+the estimator is an anharmonicity meter on this system, at every block. Dropping the
+cross block (the "non-cross only" arithmetic, last line of the script) does not rescue it:
+the mode-#0 floor would read i64 at δ = 0.01 and i126 at δ = 0.02, still growing with δ
+and crossing the i80 UNDERPOWERED threshold at the registered escalation. The one
+δ-invariant measurement is the mirror-identity one. Banked at
+`runs/probe/Cr_hess/asym_blocks_sigmaF_2026-08-23.txt`.
+
 ## 5. The decision this surfaces — the entrant's
 
 Under the analyzer as written, the block returns UNDERPOWERED at δ = 0.01 and VOID at
@@ -139,7 +166,10 @@ asymmetry, the same 37 SCFs would be scored against an i50 floor. The two readin
 in what the analyzer *means* by "measured force noise", and that is an instrument question
 with verdict consequences — which is exactly the kind of question P-AUTHORSHIP and A7.7
 reserve for Frank. It most naturally lands in A8 (docs/47), alongside the am.2 / Q4a–Q4b
-collision in §4 item 2, which needs resolving regardless.
+collision in §4 item 2, which needs resolving regardless. **Drafted the same day as
+docs/47 §A8.7** — three questions, the measured consequence of each answer, proposals
+tagged THRESHOLD for the entrant to re-author or reject; §4b's block table is the reason
+offered for the proposed reading.
 
 What is **not** in question, and is banked: 37 clean SCFs in one basin at 1e-10; a
 reproducible out-of-plane H-carried imaginary mode at i243–i245 cm⁻¹ at 2×1v, 0.5 ML,
@@ -158,6 +188,7 @@ noise at 1e-8 Ry/bohr. Whatever the verdict label, the numbers are these.
   `hessian_analysis_PREVIEW-18-of-19_2026-08-23.txt` retained. The builder's hardcoded
   `probe/` manifest prefix was fixed the same day so the 0.02 build could live in a separate
   root without overwriting the 0.01 decks (same filenames).
-- Noise diagnostic: `src/dft/hessian_mirror_noise.py`, output banked at
-  `runs/probe/Cr_hess/mirror_noise_sigmaF_2026-08-23.txt`.
+- Noise diagnostics: `src/dft/hessian_mirror_noise.py` (output banked at
+  `runs/probe/Cr_hess/mirror_noise_sigmaF_2026-08-23.txt`) and
+  `src/dft/hessian_asym_blocks.py` (`runs/probe/Cr_hess/asym_blocks_sigmaF_2026-08-23.txt`).
 - Parity and sizing context: docs/46, docs/48.
