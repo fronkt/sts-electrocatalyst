@@ -1,0 +1,48 @@
+
+==============================================================================
+Cr  s0_OOH__2x1v_mir   (runs/probe/Cr_cellsym)
+==============================================================================
+  RULE                   : docs/43 §3 + §3-A (no copy lives in this program; --print-prereg reads it out of the doc)
+  SCOPE                  : q = 0, 2x1 cell, 0.5 ML  [cell 2x1, 0.5 ML, Gamma (q = 0)]
+  min image contact      : 3.983 A O37...H39(+1,+0) — the coverage the scope is about
+  reference geometry     : final, source relaxation E = -43384.5413 eV, M = 23.0 mu_B
+  adsorbate              : ['O', 'O', 'H'] at atoms [37, 38, 39], masses [15.999, 15.999, 1.008] amu
+  mirror plane           : True at y = 1.563060 A (spread 0.0e+00 A)
+  source relax residual  : max|F| component on adsorbate = 1.539e-03 Ry/au IN-PLANE; max|F_y| = 0.0000000000 Ry/au (exactly zero by symmetry, so the y block IS at a stationary point)
+  protocol               : nosym+noinv, conv_thr 1.0d-10, electron_maxstep 120, delta 0.02 A, 16 k-points, nspin 2, U [['Cr-3d', 3.7]]
+  coordinates used       : 9 (a37x, a37y, a37z, a38x, a38y, a38z, a39x, a39y, a39z); the 1C verdict rests on the y coordinates (docs/43 §3-A.8)
+  note   : Q0 energy: reference SCF -43384.541281 eV vs source relaxation -43384.541281 eV, delta = -0.000 meV (tolerance +/-10 meV)
+  note   : Q0 magnetisation: reference 23.000 vs source 23.000 mu_B, delta = +0.000
+  note   : Q3 magnetic guard: reference M = 23.0 mu_B, tolerance 0.1 mu_B, 0 exclusion(s) of 18 (docs/43 §3 voids the state above 2)
+  note   : Q6 mirror-identity gate (N34, CODE-LEVEL — reported, not registered in docs/43): checked 3 yp/ym pair(s) atom-by-atom and 12 self-mirror +/-x,+/-z deck(s) against tolerance 4.2e-05 Ry/bohr derived from the design sigma_F. This is the only test of the Hessian diagonal in the gate set.
+  GATE FAILURES (2):
+    ! Q4a measured sigma_F = 1.20e-04 Ry/bohr > 5 x the 1e-05 design value that justified conv_thr = 1e-10. The SCFs are not as converged as the threshold assumed. Declared escalation: rerun at conv_thr = 1e-12. Do not widen this gate. NOTE, measured 2026-08-09: at conv_thr = 1e-12 the Davidson threshold QE would need is ~2.5 decades below its own MAX(ethr, 1e-13) clamp, so probe ONE job before spending 19 on it.
+    ! Q4b row a38y: mean |H_ij - H_ji| over the row = 1.845e-01 eV/A^2 exceeds the ABSOLUTE floor 5.454e-02 (= 3*sqrt(2)*sigma_F_design/delta). A whole corrupted row is the fingerprint of ONE bad job feeding a38y (wrong magnetic basin below the 0.1 mu_B guard, or an unconverged SCF). CODE-LEVEL gate, reported not registered (N32/N33).
+
+  force noise measured from the Hessian asymmetry: sigma_F = 1.20e-04 Ry/bohr (3.08e-03 eV/A)   [Q4a gate 5e-05, design 1e-05]
+  Hessian symmetry  max|D_ij-D_ji| = 3.098e-01 eV/(A^2 amu), relative 1.10%   [relative is REPORTED not gated, docs/43 §3-A.4]
+  mirror decoupling max|D_(y,xz)| = 3.098e-01   [Q5 REPORTED not gated (am.3 + am.4 §7 item 4); old gate level 6.482e-01; symmetry says exactly 0]
+
+   #   nu (cm^-1)       lambda       floor  f_y(mw)  f_y(ca)  atom wt
+   0       i242.8  -2.1679e-01       373.6    1.000    1.000  0.11 0.11 0.78  (imaginary, below its own floor -> noise, routes to REFUTED)
+   1        100.4   3.7067e-02       107.2    0.998    0.997  0.42 0.58 0.00
+   2        114.3   4.8081e-02        97.9    0.002    0.001  0.21 0.74 0.05
+   3        238.2   2.0873e-01       104.5    0.000    0.000  0.36 0.58 0.07
+   4        282.2   2.9294e-01       217.8    1.000    1.000  0.47 0.31 0.22
+   5        376.9   5.2233e-01       105.3    0.000    0.000  0.88 0.06 0.07
+   6       1018.4   3.8142e+00        76.1    0.000    0.000  0.49 0.50 0.00
+   7       1369.3   6.8946e+00       279.0    0.000    0.000  0.06 0.06 0.88
+   8       3417.1   4.2940e+01       288.6    0.000    0.000  0.00 0.06 0.94
+  'floor' = max(declared i50 cm^-1, 3*sigma propagated per mode from the measured sigma_F; it is mass dependent, so H-carried modes have a higher floor than O-carried ones)
+  worst floor among the y-character modes: i373.6 cm^-1  [UNDERPOWERED above i80, docs/43 §3-A.3]
+
+  VERDICT: VOID
+  2 quality gate(s) failed; see the list. **This is NOT a scientific result and it is not a null.** docs/43 §3-A.1: a state with a failed gate is VOID, the declared response is to rerun the failing jobs, and it may not reach the R3 branch.
+
+==============================================================================
+CAMPAIGN DECISION (docs/43 §3 + §3-A.1)
+==============================================================================
+PILOT INVALID - no campaign decision. VOID: Cr (2 gate failure(s) total). [Cr=VOID]
+  A VOID state is a COMPUTE failure, not a scientific null. The declared response is to rerun the failing jobs and re-score; the R3 branch of docs/43 §3 is NOT reachable from here and block 2B is neither authorised nor cancelled.
+
+wrote runs/probe_d02/Cr_hess/hessian_result_2026-08-23.json

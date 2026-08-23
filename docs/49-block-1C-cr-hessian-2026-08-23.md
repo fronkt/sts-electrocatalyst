@@ -15,7 +15,7 @@ Nothing in this file changes a gate, a threshold, or a line of `hessian_analyze.
 |---|---|---|---|---|---|
 | δ = 0.01 Å | 20085020 | 19 | 19/19 COMPLETED, 0 SCF_FAIL | 404 | ~1 h |
 | δ = 0.02 Å | 20089685 | 19 | 18/19 COMPLETED; task 5 (`a37ym`, a −y deck) died in SCF iteration 1 on node a196 — 41 min, exit 1, no pw.x error block, 7.5 GB RSS where finished tasks reach 24 GB, 41% CPU efficiency; nothing deck-specific (its +y mirror finished cleanly) | 368 | ~1 h |
-| δ = 0.02 Å retry | 20090507 | 1 (`a37ym`) | *pending at time of writing* | | |
+| δ = 0.02 Å retry | 20090507 | 1 (`a37ym`) | COMPLETED on a052, 37 iterations, accuracy 8.9e-11, M = 23.00; E = −3188.70493964 against its +y mirror's −3188.70493963 | 16 | 49 min |
 
 Both sets: 20 ranks / `-nk 4` (the registered shape gate (d) timed), `conv_thr 1.0d-10`
 **reached on every deck** (estimated scf accuracy 2.4e-11 … 9.9e-11), `No symmetry found`
@@ -28,22 +28,27 @@ Gate (d) had timed one of these at 4h05m on Vast. Anvil delivered ~1 h at the sa
 
 ## 2. Gates — both sets
 
-| gate | δ = 0.01 | δ = 0.02 (18/19) |
+| gate | δ = 0.01 | δ = 0.02 (all 19) |
 |---|---|---|
 | Q0 energy: reference SCF vs source relaxation | −0.000 meV | −0.000 meV |
 | Q0 magnetisation | 23.000 = source | 23.000 = source |
-| Q3 magnetic guard (0.1 µB) | 0 of 18 excluded | 1 of 18 — the missing `a37ym` |
+| Q3 magnetic guard (0.1 µB) | 0 of 18 excluded | 0 of 18 excluded |
 | Q4a asymmetry-based σ_F (gate 5e-5, design 1e-5 Ry/bohr) | **2.99e-5 PASS** | **1.20e-4 FAIL** |
 | Q4b row asymmetry vs absolute floor 3√2·σ_design/δ | pass | **a38y row 1.845e-1 > floor 5.454e-2 FAIL** |
-| Q6 mirror identity (yp vs ym, atom by atom) | 3/3 pairs PASS | 2/2 PASS; a37 control VOID (deck missing) |
-| Verdict | **UNDERPOWERED** | **VOID** (3 failures, one of them the missing deck) |
+| Q6 mirror identity (yp vs ym, atom by atom) | 3/3 pairs PASS | 3/3 pairs PASS |
+| Verdict | **UNDERPOWERED** | **VOID** (2 failures: Q4a, Q4b — nothing else) |
+
+With the 19th deck in, the δ = 0.02 set is gate-clean everywhere except the two gates that
+read the asymmetry — which §4 shows is the forward-difference anharmonic term, not noise.
+An 18-deck preview scored before the retry (`hessian_analysis_PREVIEW-18-of-19_…`) had
+three failures; the third was the missing deck itself and it cleared as expected.
 
 Q6 at the energy level, for the record — yp and ym energies are identical to the last
 printed digit at both δ:
 
 | pair | δ = 0.01 | δ = 0.02 |
 |---|---|---|
-| a37 y | −3188.70496258 / −3188.70496258 | −3188.70493963 / (pending) |
+| a37 y | −3188.70496258 / −3188.70496258 | −3188.70493963 / −3188.70493964 |
 | a38 y | −3188.70496514 / −3188.70496514 | −3188.70494983 / −3188.70494983 |
 | a39 y | −3188.70497063 / −3188.70497063 | −3188.70497181 / −3188.70497181 |
 
@@ -114,7 +119,7 @@ identities the SCF does not enforce, so anharmonicity cannot enter:
 |---|---|---|
 | F_y on on-plane atoms, 12 in-plane decks (must be 0) — rms / max | 4.8e-9 / 1.0e-8 | 4.8e-9 / 1.0e-8 |
 | F_y(i) + F_y(σ i) over off-plane pairs — rms / max | 1.6e-8 / 4.0e-8 | 1.4e-8 / 3.0e-8 |
-| yp/ym mirror residual, two independent SCFs → σ_F | **1.75e-7** | **1.94e-7** |
+| yp/ym mirror residual, two independent SCFs → σ_F | **1.75e-7** (3 pairs) | **2.08e-7** (3 pairs) |
 
 QE prints forces to 1e-8 Ry/bohr; the first two rows sit at that digit. Against the design
 σ_F = 1e-5, the measured SCF force noise is **~50× smaller**; against the asymmetry-based
@@ -145,11 +150,14 @@ noise at 1e-8 Ry/bohr. Whatever the verdict label, the numbers are these.
 
 - δ = 0.01: `runs/probe/Cr_hess/*.out` (tarball md5 `b8a3c935702d91a75ff9a42252862166`),
   `hessian_result_2026-08-23.json`, `hessian_analysis_2026-08-23.txt`.
-- δ = 0.02: `runs/probe_d02/Cr_hess/*.out` (18, tarball md5
-  `23419426b6877d1bf8bca4c27963c7d0`; the 19th arrives with job 20090507),
-  `hessian_analysis_PREVIEW-18-of-19_2026-08-23.txt`. The builder's hardcoded `probe/`
-  manifest prefix was fixed the same day so the 0.02 build could live in a separate root
-  without overwriting the 0.01 decks (same filenames).
+- δ = 0.02: `runs/probe_d02/Cr_hess/*.out` (18 in tarball md5
+  `23419426b6877d1bf8bca4c27963c7d0`, the 19th — `a37ym`, job 20090507 — in tarball md5
+  `f34e20fe546cde7e6b865daf947f34c7`; the first attempt's partial output is kept on Anvil
+  as `*.out.attempt1-died-in-scf-iter1-node-a196-job-20089685_5`), scored as
+  `hessian_result_2026-08-23.json` / `hessian_analysis_2026-08-23.txt`, with the 18-deck
+  `hessian_analysis_PREVIEW-18-of-19_2026-08-23.txt` retained. The builder's hardcoded
+  `probe/` manifest prefix was fixed the same day so the 0.02 build could live in a separate
+  root without overwriting the 0.01 decks (same filenames).
 - Noise diagnostic: `src/dft/hessian_mirror_noise.py`, output banked at
   `runs/probe/Cr_hess/mirror_noise_sigmaF_2026-08-23.txt`.
 - Parity and sizing context: docs/46, docs/48.

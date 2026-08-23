@@ -120,3 +120,37 @@ ANALYSER (src/dft/hessian_analyze.py, rule read from docs/43 s3 + s3-A, not copi
 Entrant's note-to-self, not a verdict: the floor scales as sigma_F / delta^2, so
 delta = 0.02 A drops the i265 floor to ~i66 on that mode. If the mode is real it
 survives at ~i245 with room to spare; if it was noise it vanishes.
+  [2026-08-23, later: that expectation was WRONG about the floor and RIGHT about
+  the mode -- see the delta = 0.02 entry below and docs/49 s4.]
+
+----------------------------------------------------------------------
+delta = 0.02 A RERUN (docs/43 amendment 2's registered response to UNDERPOWERED).
+Built into runs/probe_d02/Cr_hess (separate root: same filenames, must not
+overwrite this directory), Anvil job 20089685 + retry 20090507 for the one deck
+(a37ym) whose task died in SCF iteration 1 on a transient node fault. 19/19
+COMPLETED, 384 SU, one basin M = 23.00, conv_thr 1e-10 reached on all.
+
+  mode #0      i242.8 cm^-1  (vs i244.7 at delta 0.01: 0.8% -- amendment 2's
+               harmonic-regime test PASSES); f_y 1.000, H39 0.78. Real modes
+               agree to <= 0.6%. H39 y-curvature from energies: -1.59e-6 Ry
+               (vs -4.1e-7 at 0.01, x3.9 = quadratic).
+  gates        Q0, Q3 (0/18), Q6 (3/3) all PASS.
+               Q4a FAIL: asymmetry-based sigma_F 1.20e-4 > 5e-5.
+               Q4b FAIL: a38y row asymmetry 1.845e-1 > absolute floor 5.454e-2.
+  VERDICT      VOID (2 failures, both Q4).  Analyzer floor on mode #0 ROSE to
+               i373.6 -- because the sigma_F it propagates is H - H^T, and here the
+               max asymmetry IS the (y,xz) block symmetry fixes at zero: column
+               measured 1e-8, row = forward-difference O(delta) anharmonic term,
+               doubled exactly (1.548e-1 -> 3.098e-1). Not noise. The true SCF
+               force noise from mirror identities (src/dft/hessian_mirror_noise.py):
+               on-plane F_y rms 4.8e-9 (QE print digit), yp/ym sigma_F ~ 2e-7
+               Ry/bohr = 50x BELOW the 1e-5 design.
+
+WHAT THIS LEAVES (docs/49 s5): which measurement of sigma_F is the registered
+"measured force noise" (docs/43 s3-A.3) is an instrument question with verdict
+consequences (UNDERPOWERED/VOID vs a floor of i50 against i243) -- the
+ENTRANT's, via A8. Also for A8: amendment 2's larger-delta escalation collides
+with Q4a/Q4b by construction (floor ~ 1/delta, anharmonic asymmetry ~ delta), and
+Q4b is labelled "code-level, reported not registered" yet counts toward VOID.
+NOTHING in hessian_analyze.py was changed. The 38 SCFs and the i243 mode are
+banked regardless of the label.
