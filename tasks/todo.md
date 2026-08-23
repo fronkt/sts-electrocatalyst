@@ -494,3 +494,12 @@ ranking would contaminate the campaign's central contribution.
 
 ---
 2026-08-23 (evening): **docs/52-decision-sheet-2026-08-23.md** is the walkable index of every open decision above — 66 rows, 52 verdict-bearing, each with file:line + options as drafted. Compiled by 9-agent workflow, adversarially verified (19 findings applied). Line-number citations in it were verified against THIS file at 2026-08-23; insert new todo lines at the very end only.
+
+## 2026-08-23 — A8+A9 adopted and DEPOSITED
+- [x] Frank reviewed docs/52 sections 1-2 and adopted every drafted proposal ("they pass with me")
+- [x] A8+A9 appended to docs/43 (2e61bf0), adversarially verified (1 blocker + 6 minors fixed, 1c09c38)
+- [x] **Zenodo DOI 10.5281/zenodo.22072991** (A1-A9, restricted, md5 7e10c620..., 187,187 B)
+- [ ] Frank: AFM-scope collision dated line (A8.1 second-seed vs A8.5 standalone four) — gate-(h) HOLD until then
+- [ ] Frank: LIT-2 C1-C10 sign-offs + SnO2 admission declaration (docs/52 sections 3-5 were NOT covered by the adoption)
+- [ ] Frank: silentgate core (S1); Xu repair (a)/(b); OC20 CI mechanism; P-BUILDER/P-LIT values; six-row + claim sentence by Sep 20
+- [ ] Unblocked now: S3 tier_v3 deck build (launch Aug 26); A9.7 post-DOI acts in order (zip fetch+listing compare, header validation, OC20 download)

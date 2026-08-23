@@ -1770,6 +1770,8 @@ Per A7.8, docs/43 complete (A1–A8) is re-deposited to Zenodo as a new version 
 report submission — **before the first S3 deck launches**. The new version DOI is recorded
 here in a dated line when it exists.
 
+**DOI line (2026-08-23):** docs/43 complete (A1-A9) was deposited and published as Zenodo record **10.5281/zenodo.22072991** (new version of concept 10.5281/zenodo.21963143; restricted access: DOI + timestamp public, file closed until report submission; file `43-prereg-week1-factorial-A1-A9.md`, 187,187 bytes, md5 `7e10c62063fb624c4a70f63ff201cce1`, sha256 `cac535df9b26fa81220a64b5f52ed7b4bf68b5e7033552086dd8dac7e2b9ba5e` — exactly the state committed at 1c09c38). The deposit obligation of A8.9 and A9.7 is discharged in one version, per the ordering rule's second branch. Text added after publication; the deposited file is the frozen artifact.
+
 
 # AMENDMENT 9 — 2026-08-23, adopted by the entrant, before any external corpus is parsed
 
@@ -1965,6 +1967,6 @@ These are scope statements, not wording; the report's sentences are the entrant'
 
 Per A7.8, docs/43 complete through this amendment is re-deposited to Zenodo as a new version of record 10.5281/zenodo.21963144 — restricted access, DOI and timestamp public, files closed until report submission — **before `silentgate` is pointed at any external corpus and before the first S2 table is computed**. The 2026-08-15 sampling is disclosed above and is not repeated before deposit. **The first registered acts after the DOI line, in order:** (1) the Zenodo zip fetched and its listing compared with the hashed mirror listing (A9.3.1) — a listing operation, no content read; (2) the header-format validation on the four named 4-layer files of one metal, taken from the zip (A9.1), outcome logged in a dated line here — the first parse; (3) the OC20 artefact downloaded, its stored force precision recorded in a dated line here, the 500 drawn by the registered rule and their sha256 manifest committed (A9.2.1); (4) the census. **Ordering relative to A8, proposed:** A9 is deposited first and alone if A8 is not ready on the same day, because A9's governed act (the parse) precedes A8's (the first S3 deck, Aug 26) and is already overdue; if both are ready together they go as one version with A8 and A9 in numerical order. [ADOPTION NOTE 2026-08-23: both amendments were ready together and were appended as one version in numerical order (commit 2e61bf0); the second branch of this rule is the one that executed.] The entrant's re-authoring of every THRESHOLD line above is recorded in the commit that appends this text to docs/43. The new version DOI is recorded here in a dated line when it exists.
 
-**DOI line:** — (not yet deposited).
+**DOI line (2026-08-23):** **10.5281/zenodo.22072991** — see the identical dated line at the end of A8.9; one version carries both amendments. Every post-DOI act of A9.7 is now unblocked in its registered order.
 **Header-format validation line:** — (after the DOI line; four paths and forms found).
 **OC20 artefact / precision / manifest line:** — (after the DOI line).
