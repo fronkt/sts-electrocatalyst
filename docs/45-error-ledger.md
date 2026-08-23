@@ -48,8 +48,8 @@ deposit. This ledger tracks what exists and what is owed.
 | A1–A5 | blocks 1A/1B/1C, LIT | committed; no per-amendment DOI was ever recorded — now covered by the combined A1–A7 deposit | done |
 | A6 | A0 cell scope + U-by-cell interaction | committed (2214b68); deposited in the combined A1–A7 record — 6A launch gate DISCHARGED | done 2026-08-16 |
 | A7 | P-PROJ, P-PLS, P-FLOOR-U, nine S0 capability gates, phase-reality ledger | drafted (d1032e5) + **DEPOSITED: 10.5281/zenodo.21963144** (restricted; flip to open at submission) | done 2026-08-16 |
-| **A8** | S3 protocol (off-plane = nosym + displacement, noinv pending S0(b), dy ladder, GATE-1 depth, CONFOUND rule, P-SYMCOV) | NOT DRAFTED | Aug 24, before first S3 deck launches |
-| **A9** | external-census controls (P-CTRL: OC20 negative / own-corpus positive), scope limits | NOT DRAFTED | Aug 22, before any corpus is parsed |
+| **A8** | S3 protocol (off-plane = nosym + displacement, noinv pending S0(b), dy ladder, GATE-1 depth, CONFOUND rule, P-SYMCOV) + Anvil migration + measured cost + block 1C's σ_F instrument question | **DRAFTED** (docs/47, 2026-08-22/23; thresholds tagged for re-authoring); NOT deposited | Aug 24, before first S3 deck launches |
+| **A9** | external-census controls (P-CTRL: OC20 negative / own-corpus positive), scope limits | drafting in progress 2026-08-23 (docs/50) — see that file's status line | Aug 22 (**overdue**), before any corpus is parsed |
 | **A10** | BEEF row | NOT DRAFTED; gated on S0(a) | Sep 18 |
 | **S8 freeze** | melt-set predictions frozen before first melt | registered as rule (round-2 addendum ccb1806); deposit owed before first ingot | before first melt |
 
@@ -71,7 +71,7 @@ Wander/Kitchin, OC22 symmetry arm, MOOH phases, MLIP fine-tuning).
 
 | Stage | Scope (as reconciled) | Governed by | Status |
 |---|---|---|---|
-| S0 | nine capability gates, ~35 box-h | A7 (DEPOSITED) | **DECKS BUILT + ADVERSARIALLY VERIFIED 2026-08-16** (runs/s0/, 29/29 registered jobs, est 33.7 box-h; launch awaits LIT-2/3 drain on box 47662258 — two QUEUE_ALL_DONE lines — or explicit PARK; SnO2 arm additionally gated on the Sn pseudo being present on-box, see runs/s0/i_cutoff_ladder/PSEUDOS_NEEDED.txt; a_beef deck iv is wave-2 after SELECT-WINNER) |
+| S0 | nine capability gates, ~35 box-h | A7 (DEPOSITED) | **CLOSED 2026-08-22** (25/25 runnable jobs on Vast, verdicts a–i recorded; docs/47 A8.0). The SnO₂ arm of gate (i) — precondition-deferred, never closed — **launched on Anvil 2026-08-23, job 20094699** after the Sn pseudo filename fix (docs/51) |
 | S1 | silentgate v0.1: entrant-written core, pluggable readers, CI controls | A9 (owed Aug 22) | blocked on A9 |
 | S2 | external census: Xu 810 lock/direction map, span_U halves, Divanis delta-curve, pymatgen+atomate paired audit; literature-coding audit RESTORED | A9 (owed Aug 22) | blocked on A9 |
 | S3 | tier_v3 crossed coverage x symmetry x basin, 8 metals; second spin seeds RESTORED beyond *OOH-only where triage allows; dy ladder; Cr 1C + re-Hessian at escape | A8 (owed Aug 24) | decks buildable now, launch Aug 26 |
@@ -80,6 +80,7 @@ Wander/Kitchin, OC22 symmetry arm, MOOH phases, MLIP fine-tuning).
 | S6 | floor/excess, four estimators, n=7 statistics repair, P-SYMCOV scoring, r4 re-rank hook for S8 | A7 P-PLS/P-FLOOR-U + A8 | after data |
 | S7 | freeze, figure pack, pre-submission assertions; arXiv preprint RESTORED as post-freeze option | — | Oct 8–15 |
 | S8 | make->measure: re-rank gate -> freeze predictions -> melt 2–4 + poor anchor + IrO2 same-bench -> Purdue OER; ONE figure iff complete by freeze | S8 addendum (ccb1806); freeze deposit owed before first ingot | re-rank gate first |
+| LIT-2 (A5.2/A5.7) | coarsened-Qiu termination ladder: 3 new relaxations + reused 1A rungs; GATE-1 children on the Cr rows | A5 (DEPOSITED) | Cr rows converged 2026-08-14 (banked 2026-08-23); Cr `__g1` children **launched 2026-08-23, job 20094768**; Ru `cov_2OH` output LOST (never pulled before box destroyed) → **re-run as a fresh realisation, job 20094762**; A5.2 readout/scorer NOT YET WRITTEN (docs/51 §3) |
 
 Box-hour repricing of the restored scopes is owed alongside A8 (the restored items
 add roughly 300–500 box-h; still trivially affordable).
