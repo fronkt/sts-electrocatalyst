@@ -184,3 +184,15 @@ NP must be an exact multiple of 2. PRECONDITION: the Sn UPF must exist on the bo
 
 Downstream: S3's TiO2 addition (n=8); the conditional SnO2 9th member; gate (g)
 does not formally wait on (i), but its tier relevance does.
+
+## LAUNCHED — SnO2 arm, 2026-08-23, Purdue Anvil (ACCESS CHE260157)
+
+Slurm array job **20094699** (1-4%4, 20 ranks / -nk 2 each), manifest `runs/s0/m_s0_sno2.txt`,
+submitted through `anvil/41_submit_wave.sh` (PARITY_PASS gate, dry preflight 4/0/0/0). The
+Anvil copies of the four decks still carried the builder-guessed lowercase `sn_pbe_v1` name
+and were re-staged from commit 729c427 before submission (md5 437fe273 / 5125bb67 / b837dda5
+/ 1c4295c7 for 60/80/100/120, identical both ends); `$PROJECT/pseudo/Sn_pbe_v1.uspp.F.UPF`
+md5 4cf58ce39ec5d5d420df3dd08604eb00 confirmed at submit time. Governed by A7.4 row (i)
+(deposited); CAPABILITY/ADMISSION-ONLY — a PASS qualifies the Sn pseudo inside 80/640 and
+leaves SnO2's tier admission PENDING A7.5 (Mom 2014 cus-site confirmation by Sep 1). Scored
+by the recipe above when the four `.out` land; result recorded below this line.

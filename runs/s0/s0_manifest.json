@@ -435,7 +435,7 @@
             "purpose": "SnO2 asymptote/monotonicity witness: 120 Ry / 960 Ry (CAPABILITY-ONLY per A7.5)"
           }
         },
-        "launch_precondition": "PSEUDOS_NEEDED.txt \u2014 sn_pbe_v1.uspp.F.UPF has NO repo precedent and must be verified present (exact filename) in /usr/share/espresso/pseudo before the SnO2 arm launches. TiO2 arm has no precondition and may launch first (requirements.md gate-i scheduling recommendation).",
+        "launch_precondition": "DISCHARGED 2026-08-22 on Anvil (full record in i_cutoff_ladder/manifest.json): the file exists as Sn_pbe_v1.uspp.F.UPF (capital S, md5 4cf58ce39ec5d5d420df3dd08604eb00) under $PROJECT/pseudo and the four sno2__ecut*.in were edited to that name under the PSEUDOS_NEEDED.txt substitution procedure. SnO2 arm LAUNCHED on Anvil 2026-08-23 as job 20094699 (manifest runs/s0/m_s0_sno2.txt). Superseded text kept for the record: PSEUDOS_NEEDED.txt \u2014 sn_pbe_v1.uspp.F.UPF has NO repo precedent and must be verified present (exact filename) in /usr/share/espresso/pseudo before the SnO2 arm launches. TiO2 arm has no precondition and may launch first (requirements.md gate-i scheduling recommendation).",
         "queue_manifest_lines": [
           "s0/i_cutoff_ladder tio2__ecut60 .in 2",
           "s0/i_cutoff_ladder tio2__ecut80 .in 2",
