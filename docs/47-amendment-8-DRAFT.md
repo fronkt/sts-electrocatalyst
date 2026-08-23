@@ -72,6 +72,23 @@ are wrong, and the campaign's own withdrawn headline is what a wrong reading cos
 effect is reported at **both** coverages, or the missing cell is reported as a gap. A
 metal with only one coverage is **not** averaged into any symmetry statistic.
 
+**Both outcomes, stated now (added 2026-08-23 — A9.4 found that round-2 F9's "both
+outcomes … pre-written in Amendment 8" was not in fact here).** P-SYMCOV is a wording
+rule, but it rides on a measurement — the coverage-dependence of the symmetry effect —
+and that measurement has two outcomes. **Claim scope if the effect is coverage-dependent
+on most metals** (the Ir pattern, |ΔΔE(1×1) − ΔΔE(2×1v)| large): the symmetry trap is
+reported as a coverage-conditional effect, the range stated per metal, and the 1×1
+numbers of the literature census (A9) are read as the high-coverage end of that range.
+**Claim scope if the effect is coverage-independent** (the two cells agree within the
+basin CONFOUND tolerance on most metals): the trap is reported as a property of the
+placement, not the cell; the 1×1 legacy numbers stand as-is; and P-SYMCOV reduces to the
+reporting rule with no "range" to state. **THRESHOLD (proposed) for "most":** ≥ 5 of the
+8 metals with both cells measured; a metal with one cell is a gap, as above. Neither
+outcome changes what S3 computes; they change one sentence, and the sentence is the
+entrant's. The solvation × coverage non-additivity row (docs/45 §B row 9) is **carried
+here** as an appendix prediction with its TRANSFERRED status and the swept ΔG_OOH band
+(A9.5 flagged the ownership; A8 takes it — it is a coverage statement, not a census one).
+
 ## A8.3 — The CONFOUND rule, extended to the magnetic basin
 
 §5 and amendment 4 already refuse a symmetry comparison whose two members relaxed into

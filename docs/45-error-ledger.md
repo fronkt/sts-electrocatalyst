@@ -30,7 +30,7 @@ deposit. This ledger tracks what exists and what is owed.
 | 6 | Hubbard-U fragility | 1.12 V on η(Cr); 1.11 eV descriptor span; 0.447 eV intercept span | MEASURED (4-pt ladder; dense grid owed) — **fired P7, withdrew the headline** | docs/41 P7; LIT-1 memo (+ 2026-08-16 correction of record: undoped) | P-FLOOR-U (A7, owed); A6 | S4 (A0) |
 | 7 | Coverage / cell (identical variables in one-cus-site 1x1) | 6/9 rows > 0.10 eV (1A); Ir *OOH −0.285 → −0.018 eV | MEASURED (1A) → crossed design owed | docs/43 1A verdict ADOPT_2X1V | A8 (owed) | S3 contrast leg |
 | 8 | XC functional | not yet measured here | NOT MEASURED (gated on S0(a) four-deck test) | — | A10 (owed, Sep 18) | S5, "XC only" row |
-| 9 | Solvation | ~0.3 eV in c_M at O coverage vs ~0.1 at OH (Gauthier, read from paper) | TRANSFERRED — never measured here; registered as the non-additivity prediction | 10.1021/acs.jpcc.7b02383 | A8/A9 (owed) | zero-compute registration |
+| 9 | Solvation | ~0.3 eV in c_M at O coverage vs ~0.1 at OH (Gauthier, read from paper) | TRANSFERRED — never measured here; registered as the non-additivity prediction | 10.1021/acs.jpcc.7b02383 | **A8 (docs/47 A8.2 carries it as an appendix prediction, 2026-08-23; A9 was the fallback)** | zero-compute registration |
 
 ## C. Structural results (not errors; bounds on what any screen can claim)
 
@@ -49,7 +49,7 @@ deposit. This ledger tracks what exists and what is owed.
 | A6 | A0 cell scope + U-by-cell interaction | committed (2214b68); deposited in the combined A1–A7 record — 6A launch gate DISCHARGED | done 2026-08-16 |
 | A7 | P-PROJ, P-PLS, P-FLOOR-U, nine S0 capability gates, phase-reality ledger | drafted (d1032e5) + **DEPOSITED: 10.5281/zenodo.21963144** (restricted; flip to open at submission) | done 2026-08-16 |
 | **A8** | S3 protocol (off-plane = nosym + displacement, noinv pending S0(b), dy ladder, GATE-1 depth, CONFOUND rule, P-SYMCOV) + Anvil migration + measured cost + block 1C's σ_F instrument question | **DRAFTED** (docs/47, 2026-08-22/23; thresholds tagged for re-authoring); NOT deposited | Aug 24, before first S3 deck launches |
-| **A9** | external-census controls (P-CTRL: OC20 negative / own-corpus positive), scope limits | drafting in progress 2026-08-23 (docs/50) — see that file's status line | Aug 22 (**overdue**), before any corpus is parsed |
+| **A9** | external-census controls (P-CTRL as a gate: OC20 negative / in-house 9-of-9 + 0-of-11 positive), detector scope + authorship boundary, the Xu/Divanis/pymatgen/lit census deliverables, both outcomes pre-stated, scope limits | **DRAFTED** (docs/50, 2026-08-23, 178 lines, 15 decisions listed for the entrant; the 2026-08-15 sampling artefacts filed under docs/research/2026-08-15-sampling); NOT deposited | Aug 22 (**overdue**), before any corpus is parsed |
 | **A10** | BEEF row | NOT DRAFTED; gated on S0(a) | Sep 18 |
 | **S8 freeze** | melt-set predictions frozen before first melt | registered as rule (round-2 addendum ccb1806); deposit owed before first ingot | before first melt |
 
