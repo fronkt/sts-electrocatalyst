@@ -11,8 +11,8 @@ Compute: Purdue Anvil (ACCESS CHE260157), ~1,085 of 100,000 SU used; Vast box go
 - [x] LIT-2: Cr outputs banked; Cr `__g1` children launched (20094768); Ru `cov_2OH` re-run as fresh realisation (20094762)
 - [x] A8 draft complete incl. A8.7 instrument question + P-SYMCOV both-outcomes (docs/47) — **Frank re-authors thresholds + deposits by Aug 24**
 - [x] A9 DRAFTED (docs/50) + 2026-08-15 sampling artefacts filed — **Frank: 15 listed decisions, then deposit (overdue since Aug 22)**
-- [ ] `src/dft/lit2_readout.py` (A5.2 scorer) — building (workflow), then run when 20094762/20094768 land; bank LIT-2 verdict
-- [ ] Mirror 20094762 / 20094768 outputs into the repo when they land (md5 both ends)
+- [x] `src/dft/lit2_readout.py` (A5.2 scorer) built + reviewed; **LIT-2 READOUT COMPLETE: RuO2 benchmark FAIL** (ordering TRUE, both transitions ~0.45 V below Qiu) → Cr = vacuum-CHE-only; Cr flag OFF. Banked 9fd1771
+- [x] 20094762 / 20094768 outputs mirrored + banked (md5 both ends)
 - [ ] Gate (h) four RuO₂ 2×1v AFM relaxations (+ 4 `__g1`): build AFTER A8 deposit (needs a committed builder; A8.1/A8.5 collision to settle)
 - [ ] S3 decks: build after A8 deposit, launch Aug 26 (docs/45 §E)
 - [ ] S1 silentgate core: **Frank writes**; CI + in-house controls may be built now (A9.6)
