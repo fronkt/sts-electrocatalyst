@@ -983,9 +983,16 @@ def main() -> int:
         "*.THROWAWAY-convthr-feasibility-probe-2026-08-09.out so the production reference "
         "is not silently replaced by a job docs/43 amendment 1 forbids reusing.",
     ]
+    # The manifest's directory column is relative to the runs/ mirror the driver is
+    # pointed at, so it must follow --out. It used to be the literal "probe/", which
+    # was only right for the default --out; an amendment-2 delta = 0.02 A rerun has to
+    # go to a SEPARATE root (same filenames as the 0.01 build, which it must not
+    # overwrite -- both deltas are reported together), and a literal prefix would have
+    # sent the driver at the 0.01 decks. Found building the Cr rerun, 2026-08-23.
+    out_rel = os.path.relpath(args.out, "runs").replace(os.sep, "/")
     for name, man in built:
         for rec in man["jobs"]:
-            lines.append(f"probe/{name}_hess {rec['job']} .in {args.nk}")
+            lines.append(f"{out_rel}/{name}_hess {rec['job']} .in {args.nk}")
 
     with open(args.manifest, "w", encoding="utf-8", newline="\n") as fh:
         fh.write("\n".join(lines) + "\n")
