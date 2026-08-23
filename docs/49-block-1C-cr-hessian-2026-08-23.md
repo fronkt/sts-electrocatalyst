@@ -192,3 +192,80 @@ noise at 1e-8 Ry/bohr. Whatever the verdict label, the numbers are these.
   `runs/probe/Cr_hess/mirror_noise_sigmaF_2026-08-23.txt`) and
   `src/dft/hessian_asym_blocks.py` (`runs/probe/Cr_hess/asym_blocks_sigmaF_2026-08-23.txt`).
 - Parity and sizing context: docs/46, docs/48.
+
+## 7. Re-score under the adopted instrument (2026-08-23)
+
+**Appended 2026-08-23, after the entrant's A8.7 adoption** (docs/43 A1–A9 deposited as
+Zenodo record 10.5281/zenodo.22072991). Numbering note: the work order named this section
+"§6", but §6 (Provenance) already existed in this file; the section lands here as §7 with
+the intended title text unchanged.
+
+### 7a. The adoption (docs/43 A8.7)
+
+- **Question 1 = reading (b):** σ_F is the rms residual of force identities the SCF does
+  not enforce — the Q6 mirror identities on the mirror-symmetric reference — measured on
+  the same decks (σ_F = rms/√2, two independent SCFs per residual; the arithmetic of
+  `hessian_mirror_noise.py` part (b)), reported **alongside** the H−Hᵀ asymmetry, which is
+  retained and reported as the truncation-error diagnostic §4/§4b measured it to be.
+  Reason of record, stated independent of outcome: a noise estimator must be
+  δ-invariant when the noise is, and (b) is the only one of the three that is
+  (×1.19 vs ×4.00 and ×7.85).
+- **Question 2 = resolution (i):** under (b) the floor is δ-independent, so am.2's
+  δ = 0.02 Å rerun keeps its registered meaning as a harmonic-regime test (passed:
+  0.8 %); the y rows stay forward differences and the ym decks keep their am.4 §7
+  status as the independent Q6 control.
+- **Question 3:** Q4b demoted to reported — computed and printed, explicitly
+  non-gating; it cannot contribute to any VOID or UNDERPOWERED.
+- The floor stays max(50 cm⁻¹, 3σ) with σ = reading (b). Because the choice was made
+  with the outcome known — A8.7 discloses this — the analyzer prints the reading-(a)
+  label alongside the verdict wherever the (b) verdict is contestable, and this
+  section carries both labels below.
+
+`hessian_analyze.py` was modified the same day to implement the adoption — A8.7's hold
+("NOT changed until it is [settled]") is discharged because it is now settled. The
+asymmetry-based scoring survives inside the analyzer as the truncation-error diagnostic
+block and the reading-(a) label; nothing was deleted.
+
+### 7b. The re-run (banked outputs only — no DFT was re-run)
+
+    PYTHONPATH=src python src/dft/hessian_analyze.py runs/probe/Cr_hess
+    PYTHONPATH=src python src/dft/hessian_analyze.py runs/probe_d02/Cr_hess
+
+| quantity | δ = 0.01 | δ = 0.02 | vs this record |
+|---|---|---|---|
+| σ_F, reading (b) (Ry/bohr; 3 yp/ym pairs, rms/√2) | 1.75e-7 | 2.08e-7 | = §4a |
+| 3σ floor on mode #0, unclamped | i20.3 | i15.6 | ≈ i21 / i15 (§4a) |
+| effective floor | **i50** (declared minimum binds) | **i50** (declared minimum binds) | = §4a arithmetic |
+| mode #0 | **i244.7**, f_y = 1.000 | **i242.8**, f_y = 1.000 | = §3 (0.8 % apart) |
+| eight real modes | = §3 table | = §3 table | agree ≤ 0.6 % |
+| Q4a, gating on the (b) σ_F | pass | pass | — |
+| Q4b (reported only, non-gating) | within floor (9.134e-2 < 1.091e-1) | a38y 1.845e-1 > 5.454e-2, printed, gates nothing | = §2 |
+| truncation diagnostic: σ_F under (a) | 2.99e-5 | 1.20e-4 | = §2/§4b |
+| reading-(a) worst y-mode floor | i264.6 | i373.6 | = §4 item 1 |
+
+### 7c. Verdict under the adopted instrument
+
+**Both displacements: CONFIRMED.** Scored against the i50 floor (the declared minimum,
+since 3σ sits at i20.3/i15.6), the analyzer returns, verbatim: "1 out-of-plane imaginary
+mode(s) at q = 0, 2x1 cell, 0.5 ML: i245 cm^-1 (f_y=1.000, floor i50)" [δ = 0.01; i243 at
+δ = 0.02]. "A negative curvature in a principal submatrix is a negative curvature of the
+full Hessian, so the on-record constrained geometry is a saddle point." This is exactly
+§5's second reading realised: under the registered rule's words, with σ measured as force
+noise rather than as Hessian asymmetry, the same 37 SCFs are scored against an i50 floor
+— and the mode at i243–i245 clears it.
+
+**Reading-(a) label, carried alongside (A8.7's disclosure requirement):** under the
+pre-adoption asymmetry instrument the same data reads **UNDERPOWERED** (δ = 0.01; worst
+y floor i264.6, gates clean) / **VOID** (δ = 0.02; Q4a and Q4b fire) — by instrument,
+not by physics (§4). A label, not a verdict.
+
+Campaign layer: PARTIAL PILOT — no campaign decision from this invocation (Cr scored
+alone; docs/43 §3's consequence is keyed on both registered states, and Ir was not
+scored here). The δ = 0.01 set's pre-adoption campaign line ("RERUN AT δ = 0.02")
+is superseded by the δ = 0.02 set having already run and confirmed.
+
+Provenance of this section: re-scored from the §6-provenance banked `.out` files in
+place; no `.out` was touched and no banked 2026-08-23 analysis file was overwritten
+(A8.8: a re-run is a new measurement reported alongside, never a silent overwrite).
+Banking the re-scored analysis text/JSON alongside the originals is the commit step
+that follows this working-tree change set.

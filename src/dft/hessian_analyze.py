@@ -13,14 +13,49 @@ WHERE THE RULE LIVES
 --------------------
 **docs/43-prereg-week1-factorial.md §3 (P14) and §3-A (amendment 1, 2026-08-09), PLUS the
 later amendments that bind this block: amendment 2 (the δ = 0.02 Å UNDERPOWERED remedy),
-amendment 3 (√2 withdrawal, Q5 reported-not-gated) and amendment 4 §7 (ym decks = Q6
-control only, forward-difference y-block, missing evidence = VOID). Together those are the
-only pre-registration.** An earlier revision of this file carried a module constant named
+amendment 3 (√2 withdrawal, Q5 reported-not-gated), amendment 4 §7 (ym decks = Q6
+control only, forward-difference y-block, missing evidence = VOID) and A8.7 (adopted
+2026-08-23: sigma_F = the mirror-identity force noise, reading (b); Q4b demoted to
+reported). Together those are the only pre-registration.** An earlier revision of this file carried a module constant named
 `PREREG` holding its own copy of the rule. It contradicted docs/43 in six places — including
 one LOOSENING of a registered hard gate — and it is deleted. `--print-prereg` now *reads
 those two sections out of docs/43* and prints them; it holds no copy, so a third version
 cannot appear. If this code and docs/43 ever disagree, **docs/43 wins and this code is the
 defect** (docs/43 amendment 1: "In-code rules must be a pointer to it, never a copy").
+
+THE SIGMA_F INSTRUMENT (docs/43 A8.7, adopted 2026-08-23; measured record: docs/49)
+-----------------------------------------------------------------------------------
+docs/43 §3-A.3's "sigma propagated from the measured force noise" is READING (b) of
+A8.7: sigma_F is the rms residual of force identities the SCF does not enforce -- the Q6
+mirror identities on a mirror-symmetric reference (each ym deck is the exact mirror of
+its yp partner; the residual is a difference of two independent SCFs, so sigma_F =
+rms/sqrt(2)) -- measured on the same decks that build H. The reason of record, offered
+independent of outcome: a noise estimator must be delta-invariant when the noise is,
+and (b) is the only candidate that is (x1.19 when delta doubles, against x4.00 for the
+(y,xz) forward-difference asymmetry and x7.85 for the central-difference blocks --
+docs/49 §4b). Consequences implemented here:
+
+  * The effective floor stays max(50 cm^-1, 3 sigma) with sigma propagated from the
+    mirror-identity sigma_F; the verdict is scored against that floor.
+  * The H - H^T asymmetry is RETAINED and printed as the truncation-error diagnostic
+    docs/49 §4 measured it to be. It enters NO sigma_F, NO floor, NO gate.
+  * Q4a still gates, on the (b) sigma_F (the registered absolute cap, §3-A.4).
+  * Q4b is DEMOTED to reported, NOT gating (A8.7 Question 3): it is computed and
+    printed and can contribute to no VOID or UNDERPOWERED.
+  * Question 2 resolves to (i): under (b) the floor is delta-independent, so
+    amendment 2's delta = 0.02 A rerun keeps its registered meaning as a
+    harmonic-regime test; the y rows stay FORWARD differences and the ym decks keep
+    their am.4 §7 status as the independent Q6 control.
+  * Because the adoption was made with the outcome known -- A8.7 discloses this -- the
+    report carries the READING-(a) LABEL alongside wherever the (b) verdict is
+    contestable: the old asymmetry-based scoring (its sigma_F, its floors, Q4a on it,
+    Q4b gating) is computed in full and printed under the verdict. A label, not a
+    verdict.
+
+The (b) arithmetic is hessian_mirror_noise.py part (b) on the identical residual set;
+it is recomputed on the Q6 loop's own residuals rather than imported, because that
+diagnostic script executes its measurement at module level (importing it would run it
+on this process's argv) and it stays untouched.
 
 The constants below are the numbers docs/43 registers, and each carries the clause it comes
 from. Changing one of them is changing the pre-registration, which this file may not do.
@@ -191,10 +226,16 @@ GATE_PROVENANCE = {
     "Q2": "docs/43 §3 'Method': nosym/noinv on EVERY displacement including the reference, "
           "and an identical k-point set throughout.",
     "Q3": "docs/43 §3 'Magnetic guard', tolerance 0.1 mu_B, >2 exclusions of 18 voids.",
-    "Q4": "Q4a: docs/43 §3-A.4 — the Hessian-symmetry gate, made absolute. "
+    "Q4": "Q4a: docs/43 §3-A.4 — the sigma_F cap, made absolute. Since A8.7 (adopted "
+          "2026-08-23) the sigma_F it tests is the MIRROR-IDENTITY force noise "
+          "(reading (b): rms residual of identities the SCF does not enforce, "
+          "measured on the same decks), not the H - H^T asymmetry — which is "
+          "retained and reported as a truncation-error diagnostic (docs/49 §4/§4b). "
           "Q4b: CODE-LEVEL, in no docs/43 clause (findings N32/N33): per-ROW mean "
-          "asymmetry against an absolute floor 3*sqrt(2)*sigma_F_design/delta — reported, "
-          "not registered. The old same-sample max/rms ratio is demoted to a diagnostic.",
+          "asymmetry against an absolute floor 3*sqrt(2)*sigma_F_design/delta — "
+          "DEMOTED to reported, NOT gating, by A8.7 Question 3 (adopted 2026-08-23: "
+          "an unregistered gate must not void a state). The old same-sample max/rms "
+          "ratio stays a demoted diagnostic.",
     "Q5": "docs/43 §3 'Method' registered this check; docs/43 amendment 3 and am.4 §7 "
           "item 4 DEMOTE it to REPORTED, NOT GATED: the y/xz cross elements are "
           "structurally zero by the same mirror that makes each ym deck the exact image "
@@ -346,6 +387,9 @@ def run_gates(man: dict, outs: dict) -> dict:
     nat = man["n_atoms"]
     fails, notes = [], []
     q6_voided = set()   # ym decks whose Q6 control is voided (am.4 §7 item 3)
+    mirror_resid = []   # A8.7 (2026-08-23): the yp/ym mirror residuals collected by
+    #                   # the Q6 loop below — score_state turns them into the
+    #                   # operative sigma_F (reading (b): rms/sqrt(2)).
 
     def _force_defect(o):
         """None if the force block is usable, else a description string."""
@@ -581,6 +625,15 @@ def run_gates(man: dict, outs: dict) -> dict:
                         for comp, d in (("x", fm[i][0] - fp[j][0]),
                                         ("y", fm[i][1] + fp[j][1]),
                                         ("z", fm[i][2] - fp[j][2])):
+                            # A8.7 (adopted 2026-08-23): these yp/ym residuals ARE
+                            # the sigma_F sample of reading (b) — the identical
+                            # residual set (and arithmetic) of
+                            # hessian_mirror_noise.py part (b), recomputed here
+                            # rather than imported because that diagnostic runs its
+                            # measurement at module level (import executes it) and
+                            # it stays untouched. score_state turns the sample into
+                            # sigma_F = rms/sqrt(2) (two independent SCFs).
+                            mirror_resid.append(d)
                             if abs(d) > worst:
                                 worst, w_at, w_c = abs(d), j + 1, comp
                     n_pairs += 1
@@ -633,7 +686,8 @@ def run_gates(man: dict, outs: dict) -> dict:
                    if q6_voided else ""))
 
     return dict(fails=fails, notes=notes, contaminated=contaminated,
-                q6_control_voided=sorted(q6_voided))
+                q6_control_voided=sorted(q6_voided),
+                mirror_residuals=mirror_resid)
 
 
 # ------------------------------------------------------------------ hessian ---
@@ -860,7 +914,14 @@ def score_state(man: dict, outs: dict) -> dict:
         return void(f"{len(res['gate_failures'])} gate failure(s); the y block is empty. "
                     f"NOT a scientific result: rerun the failing jobs.")
 
-    # ---- Q4: noise, measured from the Hessian's own asymmetry (docs/43 §3-A.4) ----
+    # ---- Q4 + sigma_F (docs/43 §3-A.4, as read by A8.7, adopted 2026-08-23) ----
+    # Two estimators are computed. The OPERATIVE sigma_F is A8.7's reading (b): the
+    # rms residual of the Q6 mirror identities (force identities the SCF does not
+    # enforce), measured on the same decks, sigma_F = rms/sqrt(2). The H - H^T
+    # asymmetry estimator below is RETAINED and reported as the TRUNCATION-ERROR
+    # diagnostic docs/49 §4/§4b measured it to be (every block of the sample scales
+    # as truncation when delta doubles — x4.00 forward, x7.85 central — and none as
+    # noise, x1); it no longer enters sigma_F, the floor, or any gate.
     asym_D = float(np.abs(D - D.T).max())
     asym_H = float(np.abs(H - H.T).max())
     rel = asym_D / float(np.abs(D).max()) if np.abs(D).max() > 0 else float("nan")
@@ -875,8 +936,32 @@ def score_state(man: dict, outs: dict) -> dict:
     off = np.abs(H - H.T)[np.triu_indices_from(H, 1)]
     rms_asym = float(np.sqrt(np.mean(off ** 2))) if off.size else 0.0
     delta_A = man["delta_nominal_angstrom"]
-    sigma_F_eV_A = rms_asym * delta_A
-    sigma_F_ry = sigma_F_eV_A / RY_BOHR_TO_EV_A
+    sigma_F_eV_A_asym = rms_asym * delta_A      # reading (a): truncation diagnostic
+    sigma_F_ry_asym = sigma_F_eV_A_asym / RY_BOHR_TO_EV_A
+    mres = g.get("mirror_residuals") or []
+    if res["mirror_plane"] and mres:
+        # A8.7 reading (b): each residual is a difference of two independent SCFs,
+        # so sigma_F = rms/sqrt(2) (hessian_mirror_noise.py part (b), same sample).
+        sigma_F_ry = (math.sqrt(sum(x * x for x in mres) / len(mres))
+                      / math.sqrt(2.0))
+        sigma_F_eV_A = sigma_F_ry * RY_BOHR_TO_EV_A
+        sigma_F_instrument = ("mirror-identity residuals, reading (b) — docs/43 "
+                              "A8.7, adopted 2026-08-23")
+        n_mirror_pairs = len(mres) // (3 * man["n_atoms"])
+    else:
+        # Reading (b) has no sample here (mirror_plane false, or no usable yp/ym
+        # pair — a broken permutation is already a Q6 gate failure and the state
+        # is VOID regardless). Fall back to the pre-A8.7 asymmetry estimator,
+        # stated out loud rather than silently.
+        sigma_F_ry = sigma_F_ry_asym
+        sigma_F_eV_A = sigma_F_eV_A_asym
+        sigma_F_instrument = ("H-H^T asymmetry FALLBACK (pre-A8.7 instrument) — "
+                              "no mirror-identity sample available on this state")
+        n_mirror_pairs = 0
+        res["gate_notes"].append(
+            "sigma_F instrument: docs/43 A8.7's reading (b) needs mirror identities "
+            "and this state has none usable, so sigma_F falls back to the H-H^T "
+            "asymmetry estimator (the pre-A8.7 instrument), stated here out loud.")
     # U15: the sqrt(2) below is the H_ij/H_ji independence factor of the asymmetry
     # observable above — it is NOT a noise gain bought by the ym decks. Each ym deck is
     # the exact mirror of its yp partner (docs/43 amendment 3), so the +/-y pair carries a
@@ -899,13 +984,20 @@ def score_state(man: dict, outs: dict) -> dict:
     sig_D = (sigma_H * row_scale[:, None]) / np.outer(root_m, root_m)   # per-element sigma of D
     res.update(hessian_asymmetry_D=asym_D, hessian_asymmetry_H_eV_A2=asym_H,
                hessian_asymmetry_relative=rel, lambda_noise_declared=LAMBDA_NOISE,
+               sigma_F_instrument=sigma_F_instrument,
+               sigma_F_mirror_pairs=n_mirror_pairs,
                measured_sigma_F_eV_per_A=sigma_F_eV_A,
                measured_sigma_F_Ry_per_bohr=sigma_F_ry,
+               sigma_F_asym_eV_per_A=sigma_F_eV_A_asym,
+               sigma_F_asym_Ry_per_bohr=sigma_F_ry_asym,
                design_sigma_F_Ry_per_bohr=SIGMA_F_DESIGN)
+
+    n_base_gate_fails = len(res["gate_failures"])   # for the reading-(a) label
 
     if sigma_F_ry > SIGMA_F_FACTOR * SIGMA_F_DESIGN:
         res["gate_failures"].append(
-            f"Q4a measured sigma_F = {sigma_F_ry:.2e} Ry/bohr > {SIGMA_F_FACTOR:.0f} x the "
+            f"Q4a measured sigma_F = {sigma_F_ry:.2e} Ry/bohr "
+            f"({sigma_F_instrument}) > {SIGMA_F_FACTOR:.0f} x the "
             f"{SIGMA_F_DESIGN:.0e} design value that justified conv_thr = 1e-10. The SCFs are "
             f"not as converged as the threshold assumed. Declared escalation: rerun at "
             f"conv_thr = 1e-12. Do not widen this gate. NOTE, measured 2026-08-09: at "
@@ -932,14 +1024,21 @@ def score_state(man: dict, outs: dict) -> dict:
         res.update(q4b_row_mean_asym_max_eV_A2=float(row_mean[r]),
                    q4b_row_mean_asym_row=cr,
                    q4b_abs_floor_eV_A2=q4b_floor)
-        if row_mean[r] > q4b_floor:
-            res["gate_failures"].append(
-                f"Q4b row {cr}: mean |H_ij - H_ji| over the row = {row_mean[r]:.3e} "
-                f"eV/A^2 exceeds the ABSOLUTE floor {q4b_floor:.3e} "
-                f"(= 3*sqrt(2)*sigma_F_design/delta). A whole corrupted row is the "
-                f"fingerprint of ONE bad job feeding {cr} (wrong magnetic basin below the "
-                f"{MAG_TOL_MUB} mu_B guard, or an unconverged SCF). CODE-LEVEL gate, "
-                f"reported not registered (N32/N33).")
+        res["q4b_exceeds_floor"] = bool(row_mean[r] > q4b_floor)
+        if res["q4b_exceeds_floor"]:
+            # docs/43 A8.7 Question 3 (adopted 2026-08-23): Q4b is DEMOTED to
+            # reported — "a gate that is not registered must not void a state".
+            # This note is computed and printed but contributes to NO verdict: it
+            # can neither VOID nor UNDERPOWER the state.
+            res["gate_notes"].append(
+                f"Q4b (REPORTED ONLY, NOT GATING — docs/43 A8.7 Question 3, adopted "
+                f"2026-08-23) row {cr}: mean |H_ij - H_ji| over the row = "
+                f"{row_mean[r]:.3e} eV/A^2 exceeds the absolute floor "
+                f"{q4b_floor:.3e} (= 3*sqrt(2)*sigma_F_design/delta). On a "
+                f"mirror-symmetric reference this statistic reads the "
+                f"forward-difference anharmonic (y,xz) term, not a bad job "
+                f"(docs/49 §4). CODE-LEVEL, in no docs/43 clause (N32/N33); it "
+                f"cannot contribute to a VOID or UNDERPOWERED.")
         if len(off) >= 6 and rms_asym > 0 and asym_H / rms_asym > OUTLIER_FACTOR:
             res["gate_notes"].append(
                 f"reported diagnostic (DEMOTED from a gate, N32/N33): max/rms asymmetry "
@@ -1002,6 +1101,44 @@ def score_state(man: dict, outs: dict) -> dict:
                n_imag_below_floor=len(soft),
                y_mode_worst_floor_cm1=(worst_y["nu_floor_cm1"] if worst_y else None),
                underpowered_threshold_cm1=UNDERPOWERED_NU_CM1)
+
+    # ---- the reading-(a) label (docs/43 A8.7, adopted 2026-08-23) ----
+    # The instrument choice was made with the outcome known, and A8.7 says so; the
+    # report therefore carries the OLD asymmetry-based scoring alongside wherever
+    # the (b) verdict is contestable. Everything below is a LABEL: the pre-A8.7
+    # instrument evaluated in full (sigma_F from H - H^T, its floors, Q4a on that
+    # sigma_F, Q4b gating) under the same §3-A.1 precedence. It decides nothing.
+    if res["mirror_plane"] and n_mirror_pairs:
+        sigma_H_a = sigma_F_eV_A_asym / (math.sqrt(2) * delta_A)
+        sig_D_a = (sigma_H_a * row_scale[:, None]) / np.outer(root_m, root_m)
+        modes_a = spectrum(D, coords, hb["masses"], sig_D_a)
+        oop_a = [m for m in modes_a if m["imaginary"] and m["significant"]
+                 and m["fy_massweighted"] >= FY_MIN]
+        inplane_a = [m for m in modes_a if m["imaginary"] and m["significant"]
+                     and m["fy_massweighted"] < FY_MIN]
+        y_a = [m for m in modes_a if m["fy_massweighted"] >= FY_MIN]
+        worst_y_a = max(y_a, key=lambda m: m["nu_floor_cm1"]) if y_a else None
+        q4a_a = sigma_F_ry_asym > SIGMA_F_FACTOR * SIGMA_F_DESIGN
+        q4b_a = bool(res.get("q4b_exceeds_floor"))
+        n_fails_a = n_base_gate_fails + int(q4a_a) + int(q4b_a)
+        if n_fails_a:
+            verdict_a = "VOID"
+        elif oop_a:
+            verdict_a = "CONFIRMED"
+        elif inplane_a:
+            verdict_a = "AMBIGUOUS"
+        elif (worst_y_a is not None
+              and worst_y_a["nu_floor_cm1"] > UNDERPOWERED_NU_CM1):
+            verdict_a = "UNDERPOWERED"
+        else:
+            verdict_a = "REFUTED"
+        res["reading_a_label"] = dict(
+            verdict=verdict_a,
+            sigma_F_Ry_per_bohr=sigma_F_ry_asym,
+            q4a_fires=q4a_a, q4b_fires=q4b_a,
+            base_gate_failures=n_base_gate_fails,
+            worst_y_floor_cm1=(worst_y_a["nu_floor_cm1"] if worst_y_a else None),
+            mode0_floor_cm1=(modes_a[0]["nu_floor_cm1"] if modes_a else None))
 
     confined = ("Report as: NO UNSTABLE DIRECTION IS CONFINED TO THE ADSORBATE. This is "
                 "weaker than 'the geometry is a minimum' and must be written that way; a "
@@ -1214,18 +1351,37 @@ def report(res: dict, man: dict) -> None:
         for f in res["gate_failures"]:
             print(f"    ! {f}")
     else:
-        # N34: Q6 joined the gate set; am.4 §7 item 4: Q5 left it (reported, not gated)
-        print("  gates  : Q0-Q4, Q6 pass (Q5 is reported, not gated — docs/43 am.3 + "
-              "am.4 §7 item 4)")
+        # N34: Q6 joined the gate set; am.4 §7 item 4: Q5 left it (reported, not
+        # gated); A8.7 Question 3 (2026-08-23): Q4b left it too.
+        print("  gates  : Q0-Q3, Q4a, Q6 pass (Q4b and Q5 are reported, not gated — "
+              "docs/43 A8.7 Question 3 + am.3/am.4 §7 item 4)")
 
     if "hessian_asymmetry_D" in res:
-        print(f"\n  force noise measured from the Hessian asymmetry: sigma_F = "
-              f"{res['measured_sigma_F_Ry_per_bohr']:.2e} Ry/bohr "
-              f"({res['measured_sigma_F_eV_per_A']:.2e} eV/A)   [Q4a gate "
+        print(f"\n  force noise (sigma_F)  : {res['measured_sigma_F_Ry_per_bohr']:.2e} "
+              f"Ry/bohr ({res['measured_sigma_F_eV_per_A']:.2e} eV/A)   [Q4a gate "
               f"{SIGMA_F_FACTOR * SIGMA_F_DESIGN:.0e}, design {SIGMA_F_DESIGN:.0e}]")
-        print(f"  Hessian symmetry  max|D_ij-D_ji| = {res['hessian_asymmetry_D']:.3e} "
-              f"eV/(A^2 amu), relative {res['hessian_asymmetry_relative']:.2%}   "
-              f"[relative is REPORTED not gated, docs/43 §3-A.4]")
+        print(f"  instrument             : {res.get('sigma_F_instrument', '?')}"
+              + (f" — {res['sigma_F_mirror_pairs']} yp/ym pair(s), "
+                 f"sigma_F = rms residual / sqrt(2)"
+                 if res.get("sigma_F_mirror_pairs") else ""))
+        print(f"\n  TRUNCATION-ERROR DIAGNOSTIC (retained and reported per docs/43 "
+              f"A8.7; enters NO sigma_F, NO floor, NO gate — docs/49 §4b measured "
+              f"every block of H - H^T scaling as truncation error, none as noise):")
+        print(f"    asymmetry-based sigma_F [the reading-(a) estimator] = "
+              f"{res['sigma_F_asym_Ry_per_bohr']:.2e} Ry/bohr "
+              f"({res['sigma_F_asym_eV_per_A']:.2e} eV/A)")
+        print(f"    Hessian symmetry  max|D_ij-D_ji| = "
+              f"{res['hessian_asymmetry_D']:.3e} eV/(A^2 amu), relative "
+              f"{res['hessian_asymmetry_relative']:.2%}   [relative is REPORTED not "
+              f"gated, docs/43 §3-A.4]")
+        if "q4b_row_mean_asym_max_eV_A2" in res:
+            print(f"    Q4b (REPORTED ONLY, NOT GATING — docs/43 A8.7 Question 3): "
+                  f"worst row {res['q4b_row_mean_asym_row']} mean |H_ij-H_ji| = "
+                  f"{res['q4b_row_mean_asym_max_eV_A2']:.3e} eV/A^2 vs absolute "
+                  f"floor {res['q4b_abs_floor_eV_A2']:.3e}"
+                  + (" — EXCEEDS the floor; reads the forward-difference anharmonic "
+                     "term (docs/49 §4), cannot void or underpower the state"
+                     if res.get("q4b_exceeds_floor") else " — within the floor"))
         if "mirror_cross_block_max" in res:
             print(f"  mirror decoupling max|D_(y,xz)| = "
                   f"{res['mirror_cross_block_max']:.3e}   [Q5 REPORTED not gated "
@@ -1257,6 +1413,19 @@ def report(res: dict, man: dict) -> None:
 
     print(f"\n  VERDICT: {res['verdict']}")
     print(f"  {res['reason']}")
+    lab = res.get("reading_a_label")
+    if lab:
+        wy = (f"i{lab['worst_y_floor_cm1']:.1f}"
+              if lab["worst_y_floor_cm1"] is not None else "n/a")
+        print(f"\n  READING-(a) LABEL (docs/43 A8.7, adopted 2026-08-23: the "
+              f"instrument choice was made with the outcome known, so the "
+              f"pre-adoption asymmetry-based scoring is carried alongside wherever "
+              f"the (b) verdict is contestable — a label, not a verdict):")
+        print(f"    under (a): sigma_F = {lab['sigma_F_Ry_per_bohr']:.2e} Ry/bohr; "
+              f"worst y-mode floor {wy} cm^-1; "
+              f"Q4a {'FIRES' if lab['q4a_fires'] else 'passes'}; "
+              f"Q4b {'FIRES (gating under (a))' if lab['q4b_fires'] else 'passes'}; "
+              f"label = {lab['verdict']}")
 
 
 def main() -> int:
