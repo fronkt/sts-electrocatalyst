@@ -434,3 +434,22 @@ the outcome are different claims.
 **Rule:** a search is evidenced by what it measured, not by what it was permitted to do. Cite
 the measured off-plane force or displacement, never the input flag. Any off-plane arm must
 carry a *physical displacement* as well as `nosym`/`noinv`.
+
+## A derived "noise" statistic must be shown to scale like noise before it is used as one (2026-08-23, docs/49 s4-4b)
+
+**What happened:** block 1C's analyzer propagates its verdict floor from sigma_F measured as
+the Hessian's own asymmetry |H - H^T|. At delta = 0.01 A that gave UNDERPOWERED; I predicted
+the registered delta = 0.02 A rerun would drop the floor ~4x (floor ~ sigma_F/delta^2) and
+launched 19 SCFs on that expectation. The floor ROSE (i265 -> i374) while the mode itself
+did not move (i244.7 -> i242.8). The asymmetry was never noise: split by block it scales
+x4.00 (forward-difference truncation) and x7.85 (central-difference truncation) with delta,
+and a noise-driven statistic would scale x1.00. The true force noise, measured from
+identities the SCF does not enforce, is 2e-7 Ry/bohr and delta-flat -- 50x below design.
+**Rule:** before predicting how a derived statistic responds to a parameter change, check
+what it actually measures on the data in hand: a noise estimator must be invariant under the
+control it is supposed to be invariant under. One cheap test (here: rerun at 2x delta and
+compare the estimator, per block) settles it; predicting from the formula's *label* does not.
+**Second rule:** when an estimator is found to measure the wrong thing, do NOT repair the
+analyzer and re-score -- the repair is an instrument choice with verdict consequences and
+belongs to the entrant, written with the outcome disclosed (docs/47 A8.7). Bank the numbers
+under every reading and put the choice in front of him.
