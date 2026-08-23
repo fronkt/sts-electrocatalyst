@@ -1,6 +1,6 @@
 # 47 — AMENDMENT 8, DRAFT — the S3 protocol, and the move off Vast
 
-**Status: DRAFT for the entrant's review. Not registered, not deposited, not binding.**
+**Status: ADOPTED by the entrant 2026-08-23 (reviewed via docs/52; "they pass with me") and appended to docs/43 as AMENDMENT 8. The registered text is docs/43's; this file is the historical draft, kept verbatim below this line.**
 
 This file is AI-drafted research infrastructure under A7.7 (amendments are AI-drafted
 and disclosed; the report paraphrases and never copies). **Every threshold below is

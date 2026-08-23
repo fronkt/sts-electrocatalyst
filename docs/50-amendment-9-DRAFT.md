@@ -1,6 +1,6 @@
 # 50 — AMENDMENT 9, DRAFT — the external census: controls, scope, and what may be claimed from someone else's data
 
-**Status: DRAFT for the entrant's review. Not registered, not deposited, not binding.** Revised 2026-08-23 after a three-lens critique (completeness / consistency / governance); the revision is recorded in the AI-use log as AI-drafted.
+**Status: ADOPTED by the entrant 2026-08-23 (reviewed via docs/52; "they pass with me") and appended to docs/43 as AMENDMENT 9. The registered text is docs/43's; this file is the historical draft, kept verbatim below this line.** Revised 2026-08-23 after a three-lens critique (completeness / consistency / governance); the revision is recorded in the AI-use log as AI-drafted.
 
 This file is AI-drafted research infrastructure under A7.7 (docs/43 :1441-1447: amendments are AI-drafted and disclosed; the report paraphrases and never copies). **Every threshold below is marked THRESHOLD and must be re-authored by Frank in his own words before this text is appended to docs/43 and re-deposited.** A number proposed here is a proposal. It becomes a registration only when he writes it. Where a fact needed for a registration does not exist in the repo, this draft says UNKNOWN and names what resolves it; it does not invent one. Every fact cited below points at a repo path, a command run on a stated date, or a hashed file; no tag that resolves only to this draft's own working notes survives into the text.
 
