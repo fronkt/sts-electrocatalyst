@@ -503,3 +503,12 @@ ranking would contaminate the campaign's central contribution.
 - [ ] Frank: LIT-2 C1-C10 sign-offs + SnO2 admission declaration (docs/52 sections 3-5 were NOT covered by the adoption)
 - [ ] Frank: silentgate core (S1); Xu repair (a)/(b); OC20 CI mechanism; P-BUILDER/P-LIT values; six-row + claim sentence by Sep 20
 - [ ] Unblocked now: S3 tier_v3 deck build (launch Aug 26); A9.7 post-DOI acts in order (zip fetch+listing compare, header validation, OC20 download)
+
+## 2026-08-23 — A9.7 acts 1-3 executed + 1C re-scored (post-adoption compute go-ahead)
+- [x] A9.7 act 1: zip fetched on Anvil (md5 matches Zenodo), listing compared — 6,989/6,989 paths+sizes, 815/815 pwscf.out git-blob SHA-1s match; zip = mirror snapshot at c4cb892 (docs/research/xu-verification-2026-08-23/)
+- [x] A9.7 act 2: header-format validation — RuO2 4-layer bare/O-relax/OH-relax/OOH-relax, all four count-first form; no reader fix needed (dated line in docs/43 A9.7)
+- [x] A9.7 act 3: OC20 val_id downloaded (md5 matches registered), 24,945 members, first-500 lexical draw extracted, sha256 manifest committed, stored precision = fixed 8-decimal text eV/A (docs/research/oc20-val_id/)
+- [x] block 1C re-scored under adopted reading (b): CONFIRMED at both delta against i50 floor, reading-(a) label (UNDERPOWERED/VOID) alongside (docs/49 s7; hessian_analyze.py now implements (b))
+- [x] A5.2 LIT-2 readout: confirmed already scored+committed at 9fd1771 (RuO2 benchmark FAIL -> Cr column vacuum-CHE-only, flag OFF); no action needed
+- [ ] A9.7 act 4 (census): waits on Frank's silentgate core (entrant-written)
+- [ ] corpora durability copies to $PROJECT/corpora/ (background cp; verify md5 after copy)
