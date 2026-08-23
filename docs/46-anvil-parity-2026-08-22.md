@@ -217,3 +217,10 @@ exists. The panel is evidence for that decision, not the decision.
 - Whether banked Cr numbers from multistable decks need re-running with the moment
   pinned, and how many decks campaign-wide are affected.
 - Cost: this panel spent 30 SU. The bring-up total stands at 42 SU of 100,000.
+
+---
+
+**Gate opened (2026-08-22, later the same day).** `$PROJECT/parity/PARITY_PASS` was
+created on the entrant's instruction after reviewing the panel above; the file itself
+carries the two job ids and the worst-case deviation as its provenance. First wave through
+the gate: the 19-deck Cr *OOH Hessian (block 1C), Anvil job 20085020.

@@ -31,7 +31,9 @@ if [ ! -f "$PROJECT/parity/PARITY_PASS" ]; then
 fi
 
 # --- account ------------------------------------------------------------------
-ACCT=${ACCT:-$(mybalance 2>/dev/null | awk 'NR>1 && $1 !~ /^-/ {print $1; exit}')}
+# mybalance prints a blank line, then a two-line header, then '====', then the
+# rows; 'NR>1' landed on the word "Allocation". Key on the CPU row instead.
+ACCT=${ACCT:-$(mybalance 2>/dev/null | awk '$2=="CPU" {print $1; exit}')}
 [ -n "${ACCT:-}" ] || { echo "REFUSE: could not resolve account; set ACCT=..." >&2; exit 2; }
 echo "== account:  $ACCT"
 
