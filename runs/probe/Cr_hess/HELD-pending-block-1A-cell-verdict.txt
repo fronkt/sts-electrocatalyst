@@ -88,3 +88,35 @@ RISK NOTED AT LAUNCH: these are nspin=2 Cr decks, and docs/46 measured on
 different magnetic basins (totmag 11.00 vs 14.90, 8.29 meV). A Hessian built
 from 19 SCFs that did not all land in one basin is not a Hessian. The
 analyser's magnetisation gate is what catches it; it must not be waived.
+
+----------------------------------------------------------------------
+DONE.  2026-08-23 01:32Z.  19/19 COMPLETED, 0 SCF_FAIL, 404 SU, ~1 h wall each
+(gate (d) had measured 4h05m for one of these on Vast; Anvil is faster than
+the 1.52x docs/48 predicted for relaxes, by ~4x here -- not explained, recorded).
+
+  basin      ALL 19 at total magnetisation 23.00 -- ONE basin. The risk noted
+             at launch did not fire. (absmag 38.64-38.67.)
+  conv_thr   1e-10 REACHED on all 19 (estimated scf accuracy 2.7E-11 .. 9.5E-11)
+  nosym      'No symmetry found' on all 19; 16 k-points on all 19
+  Q6         yp/ym pair energies IDENTICAL to 1e-8 Ry: a37 -3188.70496258 (both),
+             a38 -3188.70496514 (both), a39 -3188.70497063 (both)
+  outputs    mirrored here from Anvil as a tarball, md5 b8a3c935702d91a75ff9a42252862166
+             verified both ends; JSON + text in hessian_result_2026-08-23.json /
+             hessian_analysis_2026-08-23.txt
+
+ANALYSER (src/dft/hessian_analyze.py, rule read from docs/43 s3 + s3-A, not copied):
+  gates      Q0 energy delta -0.000 meV vs source relax; Q0 M 23.000 = source;
+             Q3 0/18 excluded; Q4a sigma_F 2.99e-05 Ry/bohr (gate 5e-05 PASS,
+             design 1e-05 -- 3x worse than design); Q6 PASS.  ALL GATES PASS.
+  spectrum   mode #0  i244.7 cm^-1  f_y = 1.000  atom weights O37 0.11 O38 0.11
+             H39 0.78  -- an out-of-plane H-carried imaginary mode, the object
+             of the claim -- BUT its own 3-sigma floor is i264.6 cm^-1.
+             All other 8 modes real (99.8 .. 3415.9 cm^-1).
+  VERDICT    UNDERPOWERED (docs/43 s3-A.3). Blindness is not a null; NOT R3.
+             Registered response, and the only registered route to REFUTED or
+             CONFIRMED: amendment 2's rerun at delta = 0.02 A. conv_thr cannot
+             be tightened (ethr already at QE's 1e-13 clamp).
+
+Entrant's note-to-self, not a verdict: the floor scales as sigma_F / delta^2, so
+delta = 0.02 A drops the i265 floor to ~i66 on that mode. If the mode is real it
+survives at ~i245 with room to spare; if it was noise it vanishes.
