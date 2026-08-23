@@ -196,3 +196,33 @@ md5 4cf58ce39ec5d5d420df3dd08604eb00 confirmed at submit time. Governed by A7.4 
 (deposited); CAPABILITY/ADMISSION-ONLY — a PASS qualifies the Sn pseudo inside 80/640 and
 leaves SnO2's tier admission PENDING A7.5 (Mom 2014 cus-site confirmation by Sep 1). Scored
 by the recipe above when the four `.out` land; result recorded below this line.
+
+## RESULTS — gate (i), both arms, scored by the recipe above (2026-08-23)
+
+Scored on Anvil from the `.out` files with the exact script in "Scoring recipe" step 2
+(per-atom normalisation = divide by 6, as registered); outputs mirrored into this directory
+(tarball md5 5e182fb6947365ac2859c2693f6ce0d9). All eight rungs: `scf_fail=0`, a `!` total
+energy, `JOB DONE`; SnO2 rungs took 16–48 s WALL at 20 ranks / -nk 2 (50 k-points, 16 sym.
+ops.), 1.5 SU for the arm.
+
+| oxide | E(60) | E(80) | E(100) | E(120) Ry | \|E80−E100\| | verdict |
+|---|---|---|---|---|---|---|
+| TiO2 (job on Vast, 2026-08-21) | −405.92658780 | −405.93096624 | −405.93144779 | −405.93193757 | 6.55 meV/cell = **1.092 meV/atom** | **PASS** |
+| SnO2 (Anvil job 20094699, 2026-08-23) | −493.27135142 | −493.27615022 | −493.27667433 | −493.27734263 | 7.13 meV/cell = **1.188 meV/atom** | **PASS** |
+
+Context rows (dE/atom vs 120 Ry): TiO2 +12.13 / +2.20 / +1.11 / 0; SnO2 +13.59 / +2.70 /
++1.52 / 0 — both monotonic toward the asymptote, as expected; no threshold applies to them.
+
+**What each PASS means (per "Recorded on pass / on fail"):** TiO2 — pseudo qualified inside
+the frozen 80/640 protocol, admitted to the tier (n = 8). SnO2 — the Sn GBRV USPP
+(`Sn_pbe_v1.uspp.F.UPF`, md5 4cf58ce3…) is qualified inside 80/640; **admission stays
+PENDING A7.5** (Mom 2014 stoichiometric rows confirmed cus-site by Sep 1 — no confirmation
+exists in the repo as of this line). SnO2's geometry provenance (Baur & Khan 1971 values
+supplied by the builder without opening the paper) is still a DEVIATION to close before any
+report use; it does not affect the ladder, which tests only the basis.
+
+**Correction of record:** commit bfc881b's message quoted the TiO2 margin as
+"dE(80,100) −0.364 meV/atom". That figure is 6.55 meV/cell divided by 18 with the sign of
+E80−E100 dropped; the registered recipe (divide by 6, absolute value) gives 1.092 meV/atom.
+The verdict is unchanged (both are far inside 5 meV/atom); the number quoted anywhere
+downstream must be 1.092.
