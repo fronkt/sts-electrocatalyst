@@ -152,6 +152,21 @@ is in docs/46.
 made against the panel in docs/46, and it is enforced mechanically — no wave launches
 until `$PROJECT/parity/PARITY_PASS` exists.
 
+**What ran on Anvil before this amendment's deposit (added 2026-08-23, so the record is
+in one place; every item is a run of already-DEPOSITED-amendment work under the
+PARITY_PASS gate, none of it S3):** the block 1C Cr Hessian waves (jobs 20085020,
+20089685 + retry 20090507 — docs/49); the parity control and 5-deck panel (20082656,
+20082912 — docs/46); the S3 sizing arms (20083509–14 — docs/48); the S0 gate (i) SnO₂
+arm (20094699 — **PASS**, 1.188 meV/atom, docs/51), which anvil/README.md's earlier "S0
+stays on Vast" line predates — the box was destroyed with the arm still
+precondition-deferred, so completing gate (i) on Anvil is the only way it completes; the
+LIT-2 GATE-1 children for the two Cr termination relaxations (20094768 — both AGREE,
++0.004 meV); and the LIT-2 Ru `cov_2OH__2x1_off` **re-run of an unbanked row**
+(20094762) — its Vast output reached `JOB_DONE` 2026-08-14 but was never retrieved
+before the box's destruction; no number was ever banked, so A8.8's no-replacement clause
+does not bite, and the manifest header (`runs/probe/m_lit2_ru_rerun.txt`) records the
+loss. This paragraph is the correction-of-record for that loss.
+
 **A consequence worth registering explicitly.** Gate (h) returned 4/4 ADOPT_AFM on the
 RuO2 anchors (−144, −80, −85, −111 meV against NM, against a −20 meV rule), and the
 adsorption energies move 33–64 meV once the anchor is AFM. Those four AFM points are
