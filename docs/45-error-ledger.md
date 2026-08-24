@@ -114,3 +114,18 @@ array 20107835, ExcNodeList baked in via the new 43_submit EXCLUDE hook (73fa710
 ref__2x1v is load-bearing: if it exhausts the ladder, every Co 2x1v adsorption energy loses
 its reference and the Co 2x1v column is all gaps. A8.4's 20% flag will fire at S6 for Co
 *OH/*OOH and Ni *OOH (the amendment's own predicted population).
+
+**Retry-2 outcome (array 20107835, 2026-08-24): 0/4 — ladder exhausted; wave-1 FINAL 46/55.**
+All four hit electron_maxstep=200 at beta 0.15 with zero ionic steps -> **rung (iii)
+NOT_CONVERGED. Wave-1 gap census (9, all Co/Ni): Co ref__2x1v, Co s0_OH__1x1_off, Co
+s0_O/s0_OH/s0_OOH__2x1v_mir, Co s0_OH/s0_OOH__2x1v_off, Ni s0_OOH__2x1v_mir/off.**
+Failure signatures (from the attempt records): **Co ref__2x1v is a NEAR-MISS, not a
+diverger — monotonic creep to 2.63e-6 vs the 1e-6 threshold at step 200, magnetization
+stable at 22.92 mu_B**; a fresh run at beta 0.15 with electron_maxstep raised (a registered-
+recipe parameter, so an ENTRANT dated line, not a ladder rung) would very likely converge it
+and restore the reference for the whole Co 2x1v column (currently: every Co 2x1v adsorption
+energy is a gap for want of this one deck). Co s0_OH__2x1v_off stalls flat at 2.1e-5; Co
+s0_OOH__2x1v_off at ~6.4e-4; Ni s0_OOH__2x1v_off oscillates 5e-4..1.6e-3 with wandering
+near-zero magnetization (-0.58 -> -0.41) — the classic Ni *OOH frustration A8.4 cites.
+These three look like genuine multistability, not step-starvation. Attempts preserved
+through .attempt1/.attempt2; the .out on disk is the final (beta 0.15) attempt.

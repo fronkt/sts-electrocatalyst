@@ -536,3 +536,9 @@ ranking would contaminate the campaign's central contribution.
 - [x] rung (iii) NOT_CONVERGED gaps recorded (docs/45): Co OH-1x1off, Co O/OH/OOH-2x1v-mir, Ni OOH-2x1v-mir
 - [x] retry-2 (20107835, 4 decks): a024-masked Co ref / Co OH-off / Co OOH-off / Ni OOH-off at rung (ii) beta 0.15; EXCLUDE hook in 43_submit (73fa710); attempts preserved .attempt1/.attempt2
 - [ ] when 20107835 drains: final sweep; failures -> rung (iii); then wave-2 build (__g1 children of converged parents + Cr 19 re-Hessian SCFs); Co ref outcome decides whether the Co 2x1v column has a reference
+
+## 2026-08-24 (final) — wave 1 CLOSED at 46/55; 9 registered gaps
+- [x] retry-2 0/4: ladder exhausted -> rung (iii); gap census: Co x7 (ref, OH-1x1off, O/OH/OOH-mir, OH/OOH-off), Ni x2 (OOH mir+off)
+- [x] failure signatures recorded (docs/45): Co ref = NEAR-MISS creep 2.6e-6 vs 1e-6 at step 200 (stable 22.92 mu_B) — an entrant electron_maxstep line would likely rescue the whole Co 2x1v column; the other three = genuine stall/oscillation
+- [ ] ENTRANT DECISION (new, high-leverage): raise electron_maxstep for Co ref__2x1v re-run? One dated line; restores the Co 2x1v reference
+- [ ] next: wave-2 build — 37 __g1 children of converged relax parents + Cr 19 re-Hessian SCFs (1e-10) at the escaped geometry
