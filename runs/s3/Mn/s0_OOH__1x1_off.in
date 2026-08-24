@@ -1,0 +1,68 @@
+&CONTROL
+  calculation = 'relax'
+  prefix = 's0_OOH__1x1_off'
+  outdir = './tmp'
+  pseudo_dir = '/usr/share/espresso/pseudo'
+  tprnfor = .true.
+  forc_conv_thr = 2.0d-3
+  nstep = 200
+  max_seconds = 165000
+/
+&SYSTEM
+  ibrav = 0
+  nat = 21
+  ntyp = 3
+  ecutwfc = 80.0
+  ecutrho = 640.0
+  occupations = 'smearing'
+  smearing = 'mv'
+  degauss = 0.01
+  nosym = .true.
+  nspin = 2
+  starting_magnetization(1) = 0.0
+  starting_magnetization(2) = 0.5
+  starting_magnetization(3) = 0.0
+/
+&ELECTRONS
+  conv_thr = 1.0d-6
+  mixing_mode = 'local-TF'
+  mixing_beta = 0.3
+  electron_maxstep = 200
+/
+&IONS
+  ion_dynamics = 'bfgs'
+/
+ATOMIC_SPECIES
+  H  1.008  H.pbe-rrkjus_psl.1.0.0.UPF
+  Mn  54.938  mn_pbe_v1.5.uspp.F.UPF
+  O  15.999  O.pbe-n-kjpaw_psl.0.1.UPF
+CELL_PARAMETERS angstrom
+  2.87600000  0.00000000  0.00000000
+  0.00000000  6.22819653  0.00000000
+  0.00000000  0.00000000  24.91278611
+ATOMIC_POSITIONS angstrom
+  Mn  0.00000000  4.67114740  9.34229479  0 0 0
+  Mn  1.43800000  1.55704913  9.34229479  0 0 0
+  Mn  0.00287511  1.55470442  12.51543400  1 1 1
+  Mn  1.43877950  4.66429546  12.49735069  1 1 1
+  Mn  0.00162328  4.67859527  15.66403765  1 1 1
+  Mn  1.43912249  1.57283405  15.74087089  1 1 1
+  O  0.00000000  1.55704913  10.55679312  0 0 0
+  O  0.00000000  1.55704913  8.12779647  0 0 0
+  O  1.43800000  3.45664907  9.34229479  0 0 0
+  O  1.43800000  5.88564572  9.34229479  0 0 0
+  O  0.00069235  4.57645525  13.76233574  1 1 1
+  O  0.00000000  4.67114740  11.24189473  0 0 0
+  O  1.44057936  0.32947491  12.60606683  1 1 1
+  O  1.44048120  2.76432988  12.43779280  1 1 1
+  O  0.00215298  1.53222830  16.94031825  1 1 1
+  O  0.00197298  1.64524769  14.46670414  1 1 1
+  O  1.44105081  3.48129042  15.99248521  1 1 1
+  O  1.44037921  5.89189233  15.81933794  1 1 1
+  O  0.30597599  4.90493575  18.11519715  1 1 1
+  O  0.66126995  4.15494189  19.16040272  1 1 1
+  H  0.51644266  3.17118142  18.71672974  1 1 1
+K_POINTS automatic
+  9 4 1 0 0 0
+HUBBARD (atomic)
+U Mn-3d 3.9000

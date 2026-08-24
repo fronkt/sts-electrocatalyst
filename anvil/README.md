@@ -205,3 +205,35 @@ Those decks have **no `.out`** -- they never ran, so no banked number depends on
 resolution. The capital-S file is staged; the decks still need editing (or a lowercase
 link) before SnO2 un-defers. The driver's missing-pseudo preflight will refuse them
 until then, which is the intended behaviour.
+
+**8. S3 wave-1 staging (added 2026-08-23 by the wave-1 audit fixer).** The item-4
+recipe alone does not put `43_submit_s3_wave1.sh`'s hard preconditions in place.
+Before the Aug 26 launch, stage explicitly:
+
+    # from the local worktree (after src/dft/build_s3.py has been re-run clean):
+    tar -czf /tmp/sts_s3.tgz runs/s3 src/dft/queue_r1.sh \
+        anvil/42_s3_wave1.slurm anvil/43_submit_s3_wave1.sh \
+        anvil/pseudo_md5_preflight_2026-08-23.md
+    scp /tmp/sts_s3.tgz x-fcai3@anvil.rcac.purdue.edu:$PROJECT/
+    ssh ... 'tar -xzf $PROJECT/sts_s3.tgz -C $PROJECT/sts'
+    # 43 expects the driver at $PROJECT/queue_r1.sh (NOT $PROJECT/sts/src/dft/):
+    ssh ... 'cp $PROJECT/sts/src/dft/queue_r1.sh $PROJECT/queue_r1.sh'
+    # 43 refuses unless the pseudo preflight .md sits BESIDE it; keep the two
+    # scripts and the .md together wherever you invoke them, e.g.
+    ssh ... 'mkdir -p $PROJECT/anvil && cp $PROJECT/sts/anvil/4?_s3_wave1.* \
+        $PROJECT/sts/anvil/pseudo_md5_preflight_2026-08-23.md $PROJECT/anvil/'
+
+Then the item-5 LF fix over the fresh tree (this Windows worktree is
+`core.autocrlf=true`; the driver preflight refuses CRLF decks and 43 rejects a
+`\r`-suffixed nk field -- both fail closed, but fix it up front):
+
+    find $PROJECT/sts/runs/s3 \( -name '*.in' -o -name 'm_*.txt' \) -print0 | \
+        xargs -0 sed -i 's/\r$//'
+
+Run 43 from `$PROJECT` (it now `mkdir -p logs` itself, so the cwd only needs to
+be writable). Caveat measured nowhere yet: 43's driver preflight runs on the
+LOGIN node at NP=128, and queue_r1.sh's cgroup oversubscription check reads the
+login session's cpu.max quota -- if that quota is in [20,127) cores the preflight
+refuses with PREFLIGHT_BAD oversubscribed. That is a preflight-environment
+artifact, not a deck problem: do NOT skip the preflight; re-run the submit step
+from a session without the quota (e.g. an interactive compute-node shell).
