@@ -41,7 +41,9 @@ if [ ! -f "$(dirname "$0")/pseudo_md5_preflight_2026-08-23.md" ]; then
 fi
 
 # --- account (same mechanics as 41_submit_wave.sh) ---------------------------
-ACCT=${ACCT:-$(mybalance 2>/dev/null | awk '$2=="CPU" {print $1; exit}')}
+# set +o pipefail inside the substitution: awk's early exit SIGPIPEs mybalance
+# (141) and under set -e/pipefail that killed the whole script on non-tty ssh
+ACCT=${ACCT:-$(set +o pipefail; mybalance 2>/dev/null | awk '$2=="CPU" {print $1; exit}')}
 [ -n "${ACCT:-}" ] || { echo "REFUSE: could not resolve account; set ACCT=..." >&2; exit 2; }
 echo "== account:  $ACCT"
 
