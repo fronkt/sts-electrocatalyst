@@ -1,0 +1,15 @@
+# S3 wave-2 RETRY manifest -- 2026-08-24. (1) 5 decks OOM-killed by node a088
+# (5/5 of its tasks; 51 tasks on other nodes had zero kills -- second sick node
+# after a024; decks unmodified, submit with EXCLUDE=a024,a088). (2) 2 __g1
+# children non-convergent on healthy nodes -> A8.4 rung (ii): each deck's own
+# beta halved (Co s0_O__1x1_off__g1 0.15->0.075; Ni s0_OH__2x1v_off__g1
+# 0.3->0.15); rung (i) unavailable (no retained densities). Prior attempts
+# preserved as .out.attempt1.
+# NP=128 NCONC=1
+s3/Ti s0_OOH__2x1v_mir__g1 .in 8
+s3/Cr s0_OOH__2x1v_esc__hess_a37xp .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a37ym .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a38ym .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a39zp .in 16
+s3/Co s0_O__1x1_off__g1 .retry_bh.in 16
+s3/Ni s0_OH__2x1v_off__g1 .retry_bh.in 8
