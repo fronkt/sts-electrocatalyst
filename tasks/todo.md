@@ -553,3 +553,8 @@ ranking would contaminate the campaign's central contribution.
 - [x] A8.3: Ni s0_O__1x1_off__g1 REFUSED (+85.1 meV) -> retention chain; Fe s0_OOH__1x1_off__g1 (-384.3 meV!) and Mn s0_OOH__2x1v_off__g1 (-20.6 meV) BELOW parents = metastable-parent evidence, banking = ENTRANT call
 - [x] retention chains built+launched (20119469): Ni refusal + 2 Cr_lit3 owed re-runs; replay = parity evidence only
 - [ ] on drains: final census; hess sigma_F readout needs analysis-stage hess_manifest.json (mirror_plane at broken geometry); S6 P-SYMCOV/CONFOUND analysis; failure rates per A8.4
+
+## 2026-08-24 (w2 retry drained) — hess 19/19; child census closed 34/1/2
+- [x] a088 victims 5/5 conv elsewhere; Ti child AGREE +0.002 meV; hess displaced E +~0.9 meV over minimum (sane)
+- [x] rung (iii) for Co s0_O__1x1_off__g1 + Ni s0_OH__2x1v_off__g1 -> parents GATE-1 UNVERIFIED (S6 flag)
+- [ ] awaiting chains 20119469 (Ni A8.3 second attempt + 2 Cr_lit3); then sigma_F readout + S6 analysis

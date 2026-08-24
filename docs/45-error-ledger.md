@@ -152,3 +152,13 @@ scratch retained → child SCF startingpot='file' from the replay's .save. Disch
 Ni refusal above and the 2 owed Cr_lit3 refused-child re-runs (docs/54:324). Replay
 energies are parity evidence only, never banked (A8.8); each replay-vs-banked delta is a
 free A8.5-style same-machine parity datum.
+
+**Wave-2 retry outcome (array 20118525, 2026-08-24): 5/5 a088-OOM decks converged
+unmodified off the sick node** — hess set now **19/19 complete** (displaced energies
++~0.9 meV over the escape minimum, sane), Ti s0_OOH__2x1v_mir__g1 AGREE (+0.002 meV).
+The 2 rung-(ii) children failed again at halved beta → **rung (iii): Co s0_O__1x1_off__g1
+and Ni s0_OH__2x1v_off__g1 NOT_CONVERGED; their parents' GATE-1 status = UNVERIFIED**
+(neither AGREE nor REFUSED — the fresh-density audit cannot run; flag for S6). Wave-2
+child census closes: **34 AGREE / 1 REFUSED-in-chain (Ni s0_O__1x1_off) / 2 UNVERIFIED
+= 37.** Cold-start failures keep clustering on Co/Ni where the parents' warm relax
+trajectories succeeded — consistent with the metastable-electronic-state theme.
