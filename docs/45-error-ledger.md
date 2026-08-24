@@ -101,3 +101,16 @@ retention rider for wave 2 is an entrant call) → rung (ii) `mixing_beta` 0.3 �
 on any `.retry_bh` row goes to rung (iii): NOT_CONVERGED, plotted as a gap. Per-metal
 per-state failure rates land in the S6 report as A8.4 requires. Wave-1 burn ~6.5k SU
 (balance 92.4k).
+
+**Retry-1 outcome (array 20101963, 2026-08-24): 9/18 converged -> 46/55.** All four Ti
+decks, Mn s0_OH 1x1_k8, Ni ref and Ni s0_O mir were pure a024 victims (converged unmodified
+elsewhere); both rung-(ii) 1x1_off decks converged at beta 0.15 (Co s0_O 19 steps, Ni s0_O
+15 steps) — the ladder works where frustration is mild. **Rung (iii) NOT_CONVERGED, recorded
+and plotted as gaps (no further compute under the ladder): Co s0_OH__1x1_off, Co
+s0_O/s0_OH/s0_OOH__2x1v_mir, Ni s0_OOH__2x1v_mir.** Four a024-masked decks whose first real
+attempt (beta 0.3, healthy nodes) then hit electron_maxstep — Co ref__2x1v, Co
+s0_OH/s0_OOH__2x1v_off, Ni s0_OOH__2x1v_off — are fresh class-5 members at rung (ii):
+array 20107835, ExcNodeList baked in via the new 43_submit EXCLUDE hook (73fa710). Co
+ref__2x1v is load-bearing: if it exhausts the ladder, every Co 2x1v adsorption energy loses
+its reference and the Co 2x1v column is all gaps. A8.4's 20% flag will fire at S6 for Co
+*OH/*OOH and Ni *OOH (the amendment's own predicted population).

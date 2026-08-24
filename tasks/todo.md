@@ -530,3 +530,9 @@ ranking would contaminate the campaign's central contribution.
 - [x] 7 Co/Ni SCF non-convergences (healthy nodes) -> A8.4 rung (ii) .retry_bh.in beta 0.15 (rung (i) unavailable: runner deletes scratch densities — recorded docs/45); commit 0f530a7
 - [ ] when 20101963 drains: re-sweep; any .retry_bh failure -> rung (iii) NOT_CONVERGED gap; then __g1 children build (wave 2) + Cr 19 re-Hessian SCFs at escaped geometry
 - [ ] entrant call parked: scratch-retention rider for wave 2 (density survival would make rung (i) real)
+
+## 2026-08-24 (later) — retry-1 drained: 46/55; rung (iii) invoked; retry-2 up
+- [x] retry-1 (20101963) 18/18 Slurm-complete, 0 OOM (exclusion held): 9 converged -> 46/55 total; Ti fully green (a024 was its only problem)
+- [x] rung (iii) NOT_CONVERGED gaps recorded (docs/45): Co OH-1x1off, Co O/OH/OOH-2x1v-mir, Ni OOH-2x1v-mir
+- [x] retry-2 (20107835, 4 decks): a024-masked Co ref / Co OH-off / Co OOH-off / Ni OOH-off at rung (ii) beta 0.15; EXCLUDE hook in 43_submit (73fa710); attempts preserved .attempt1/.attempt2
+- [ ] when 20107835 drains: final sweep; failures -> rung (iii); then wave-2 build (__g1 children of converged parents + Cr 19 re-Hessian SCFs); Co ref outcome decides whether the Co 2x1v column has a reference
