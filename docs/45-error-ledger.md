@@ -129,3 +129,26 @@ s0_OOH__2x1v_off at ~6.4e-4; Ni s0_OOH__2x1v_off oscillates 5e-4..1.6e-3 with wa
 near-zero magnetization (-0.58 -> -0.41) — the classic Ni *OOH frustration A8.4 cites.
 These three look like genuine multistability, not step-starvation. Attempts preserved
 through .attempt1/.attempt2; the .out on disk is the final (beta 0.15) attempt.
+
+**Wave-2 execution record (array 20114094, 2026-08-24): 51/56 Slurm-complete, 5 OOM — ALL
+on node a088** (5/5 kill rate there, 0/51 elsewhere): a SECOND sick node after a024, same
+signature. Retried unmodified in array 20118525 with EXCLUDE=a024,a088 (the 43_submit hook,
+exclusion verified a[024,088]); an RCAC ticket about both nodes is the entrant's call.
+Convergence sweep of the 51: **34/36 __g1 children converged, 15/15 hess SCFs converged.**
+A8.3 scoring (child − parent): **33/34 AGREE within +1 meV** — GATE-1 reproducibility holds
+broadly. One REFUSAL: **Ni s0_O__1x1_off__g1 at +85.10 meV above its (beta-0.15) parent**
+→ the registered second attempt from the parent's converged density is running as a
+retention chain (see below). Two children landed BELOW their parents — **Fe
+s0_OOH__1x1_off__g1 at −384.30 meV and Mn s0_OOH__2x1v_off__g1 at −20.62 meV**: a fresh-
+density SCF at the parent's own final geometry found a DEEPER electronic state, i.e. those
+two parents relaxed in metastable electronic states (the Cr *OOH class of docs/41). A8.3's
+letter refuses only above-parent children; **which number banks for these two rows is an
+interpretive call = entrant's** (precedent: the Cr_basin energy-of-record ruling). Two
+children non-convergent on healthy nodes (Co s0_O__1x1_off__g1, Ni s0_OH__2x1v_off__g1) →
+A8.4 rung (ii), own-beta halved (0.15→0.075, 0.3→0.15), in array 20118525.
+
+**A8.3 density-retention chains (array 20119469, commit 362aa17):** replay parent with
+scratch retained → child SCF startingpot='file' from the replay's .save. Discharges the
+Ni refusal above and the 2 owed Cr_lit3 refused-child re-runs (docs/54:324). Replay
+energies are parity evidence only, never banked (A8.8); each replay-vs-banked delta is a
+free A8.5-style same-machine parity datum.

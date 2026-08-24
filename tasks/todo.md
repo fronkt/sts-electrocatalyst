@@ -547,3 +547,9 @@ ranking would contaminate the campaign's central contribution.
 - [x] wave-2 built via workflow wf_dc0c2bfc (implementer + 4 adversarial auditors + fixer, zero MAJOR): 37 __g1 children (parent-cloned verbatim incl. two beta-0.15 retry parents; Cr escape gets a child) + 19 Cr re-Hessian SCFs at escaped geometry (1e-10, delta exactly 0.01 A, hessian_analyze.py needs ZERO code change — analysis-stage hess_manifest.json is a deliberate deferral: mirror_plane must be declared at the mirror-BROKEN geometry)
 - [x] committed 6e7be4c (58 files), staged md5-matched, submitted with ExcNodeList=a024 baked in; preflight 56/56 clean
 - [ ] when 20114094 drains: A8.3 scoring (child >1 meV above parent -> refused; re-run needs parent density -> density-retention runner, same piece as the 2 deferred Cr_lit3 re-runs); then the re-Hessian sigma_F readout (docs/49 instrument) and the S3 P-SYMCOV/CONFOUND analysis over the full tree
+
+## 2026-08-24 (wave-2 drained) — 49/56 in hand; A8.3 verdicts; chains launched
+- [x] wave-2 sweep: 34/36 __g1 conv + 15/15 hess conv; 33/34 AGREE <= +1 meV; 5 OOM = node a088 (second sick node) -> retry 20118525 (EXCLUDE=a024,a088) with 2 rung-(ii) beta-halved children
+- [x] A8.3: Ni s0_O__1x1_off__g1 REFUSED (+85.1 meV) -> retention chain; Fe s0_OOH__1x1_off__g1 (-384.3 meV!) and Mn s0_OOH__2x1v_off__g1 (-20.6 meV) BELOW parents = metastable-parent evidence, banking = ENTRANT call
+- [x] retention chains built+launched (20119469): Ni refusal + 2 Cr_lit3 owed re-runs; replay = parity evidence only
+- [ ] on drains: final census; hess sigma_F readout needs analysis-stage hess_manifest.json (mirror_plane at broken geometry); S6 P-SYMCOV/CONFOUND analysis; failure rates per A8.4
