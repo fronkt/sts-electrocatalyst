@@ -514,3 +514,12 @@ ranking would contaminate the campaign's central contribution.
 - [x] corpora durability copies to $PROJECT/corpora/ verified (both md5 match after copy)
 - [x] docs/54 S3 deck matrix composed + adversarially verified (3cbd192); A8.5 pseudo md5 preflight 12/12 MATCH (anvil/pseudo_md5_preflight_2026-08-23.md)
 - [ ] S3 wave 1 (46 production-seed relax + 9 SCFs) building via workflow; parked for Frank: __magm/__ns (second-seed recipe sign-off), dy-pilot rungs, Co/Ni *OOH 1x1-off, BUILD-T 55, HOLD 14 (gate-(h) line), Ru/Ir g1 top-up scope, Mn AFM arm, Ti nspin=2 controls, mirror-member ruling (docs/54 s6)
+
+## 2026-08-23 (late) — S3 wave 1 LAUNCHED on Anvil
+- [x] wave-1 tree built: 55 decks (46 relax + 9 SCF), 2x1v mir starts mirror-symmetrized to exact reflection (max shift 0.2338 A < 0.30 refuse bound; off = same base + banked kick, independently verified 3-edit diff); Ti template already exact (1.8e-15 A)
+- [x] orchestrator ruling recorded in manifest + builder: off rows LAUNCH with banked 0.35 A / 90 deg constants (A8.8 no-replacement — results stand as the banked-constant arm; Frank may override by dated line, added rungs = new decks never replacements); dy-pilot rungs remain Frank's
+- [x] committed 2fd3fc1 (61 files) + pushed; staged to Anvil via tarball md5-matched both ends (55b429fb...), LF-fixed, 55/55 decks present
+- [x] canary array 20097663 (Fe s0_O__2x1v_mir / Mn s0_O__1x1_off / Ti ref__2x1v): ALL PASS — Fe mir shows "2 Sym. Ops. (no inversion) found" (the mirror is real), Mn/Ti nosym as registered, k-counts 9/19/16 match the -nk pricing, pseudo MD5s match A8.5 preflight, SCF iterating cleanly
+- [x] rest fleet array 20097688 submitted: 52 decks %6 concurrency, preflight 52/52 clean; PARITY_PASS gate enforced on both submissions; account che260157 (98,840 SU before launch)
+- [x] 43_submit SIGPIPE fix (mybalance|awk under pipefail on non-tty ssh) committed da38d2a, restaged
+- [ ] wave-1 monitoring: __g1 ≥5 meV re-relax loop + A8.4 escalation ladder apply as parents converge; wave 2 (46 __g1 children + 19 Cr re-Hessian SCFs at escaped geometry) builds after parents/escape converge
