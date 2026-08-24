@@ -75,6 +75,8 @@ mkdir -p logs
 
 echo "== submitting array 1-$N%$CONC  ($NP cores each, $NP SU/h each)"
 echo "   worst-case burn at 48 h walltime: $((N * NP * 48)) SU"
-sbatch -A "$ACCT" -N 1 -n "$NP" --array=1-"$N"%"$CONC" \
+# EXCLUDE=nodelist skips sick nodes (Anvil sbatch silently ignores the
+# SBATCH_EXCLUDE env var -- learned on array 20101963, node a024)
+sbatch -A "$ACCT" -N 1 -n "$NP" ${EXCLUDE:+--exclude="$EXCLUDE"} --array=1-"$N"%"$CONC" \
        --export=ALL,MANIFEST,RUNS,QE_PREFIX,PSEUDO_DIR,NP \
        "$(dirname "$0")/42_s3_wave1.slurm"

@@ -86,3 +86,40 @@ hdr = f"""# S3 wave-1 RETRY manifest -- built 2026-08-24 by src/dft/build_s3_ret
 man.write_text(hdr + '\n'.join(rows) + '\n', newline='\n')
 print(f'wrote {man.name}: {len(rows)} rows ({len(OOM)} oom + {len(BH)} bh)')
 for r in rows: print('  ', r)
+
+# --- round 2 (2026-08-24, post-retry-1 sweep) --------------------------------
+# The 4 a024-OOM decks whose FIRST real attempt (beta 0.3, healthy nodes,
+# array 20101963) hit electron_maxstep: fresh A8.4 class-5 members -> rung (ii).
+import sys
+if len(sys.argv) > 1 and sys.argv[1] == 'round2':
+    R2 = [
+        ('s3/Co', 'ref__2x1v', 16),
+        ('s3/Co', 's0_OH__2x1v_off', 8),
+        ('s3/Co', 's0_OOH__2x1v_off', 8),
+        ('s3/Ni', 's0_OOH__2x1v_off', 8),
+    ]
+    rows2 = []
+    for d, job, nk in R2:
+        src = S3 / d.split('/')[1] / f'{job}.in'
+        txt = src.read_text()
+        assert txt.count('  mixing_beta = 0.3\n') == 1, src
+        new = txt.replace('  mixing_beta = 0.3\n', '  mixing_beta = 0.15\n')
+        a = [l for l in txt.splitlines() if 'mixing_beta' not in l]
+        b = [l for l in new.splitlines() if 'mixing_beta' not in l]
+        assert a == b, src
+        (S3 / d.split('/')[1] / f'{job}.retry_bh.in').write_text(new, newline='\n')
+        rows2.append(f'{d} {job} .retry_bh.in {nk}')
+    m2 = S3 / 'm_s3_retry2.txt'
+    hdr2 = """# S3 wave-1 RETRY-2 manifest -- 2026-08-24, build_s3_retries.py round2.
+# The 4 a024-OOM decks whose first real SCF attempt (beta 0.3, healthy nodes,
+# array 20101963) hit electron_maxstep -> fresh A8.4 class-5 -> rung (ii)
+# beta 0.15 (rung (i) remains unavailable). Prior attempts preserved as
+# .out.attempt1 (a024 kill) and .out.attempt2 (beta-0.3 non-convergence).
+# A .retry_bh failure here -> rung (iii) NOT_CONVERGED gap.
+# The 5 rung-(ii) failures of retry-1 are ALREADY at rung (iii): Co
+# s0_OH__1x1_off, Co s0_O/s0_OH/s0_OOH__2x1v_mir, Ni s0_OOH__2x1v_mir --
+# NOT_CONVERGED, plotted as gaps, no further compute under the ladder.
+# NP=128 NCONC=1
+"""
+    m2.write_text(hdr2 + '\n'.join(rows2) + '\n', newline='\n')
+    print(f'wrote {m2.name}: {len(rows2)} rows')

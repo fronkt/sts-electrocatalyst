@@ -1,0 +1,14 @@
+# S3 wave-1 RETRY-2 manifest -- 2026-08-24, build_s3_retries.py round2.
+# The 4 a024-OOM decks whose first real SCF attempt (beta 0.3, healthy nodes,
+# array 20101963) hit electron_maxstep -> fresh A8.4 class-5 -> rung (ii)
+# beta 0.15 (rung (i) remains unavailable). Prior attempts preserved as
+# .out.attempt1 (a024 kill) and .out.attempt2 (beta-0.3 non-convergence).
+# A .retry_bh failure here -> rung (iii) NOT_CONVERGED gap.
+# The 5 rung-(ii) failures of retry-1 are ALREADY at rung (iii): Co
+# s0_OH__1x1_off, Co s0_O/s0_OH/s0_OOH__2x1v_mir, Ni s0_OOH__2x1v_mir --
+# NOT_CONVERGED, plotted as gaps, no further compute under the ladder.
+# NP=128 NCONC=1
+s3/Co ref__2x1v .retry_bh.in 16
+s3/Co s0_OH__2x1v_off .retry_bh.in 8
+s3/Co s0_OOH__2x1v_off .retry_bh.in 8
+s3/Ni s0_OOH__2x1v_off .retry_bh.in 8
