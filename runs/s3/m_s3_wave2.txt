@@ -1,0 +1,82 @@
+# S3 wave-2 manifest -- built 2026-08-24 by src/dft/build_s3_wave2.py
+# Registration of record: deposited A8, DOI 10.5281/zenodo.22072991;
+#   dispositions docs/54-s3-deck-matrix-2026-08-23.md (SS3 SCF families; the
+#   re-Hessian row docs/54:158/:324); __g1 convention docs/43:1575-1592 (A8.3).
+# PARENT WAVE (banked): wave-1 Slurm arrays 20097663 / 20097688 / 20101963 /
+#   20107835; 46/55 decks converged (37 relax + 9 SCF); 9 rung-iii NOT_CONVERGED
+#   gaps stand (A8.4 ladder): Co ref__2x1v, Co s0_OH__1x1_off,
+#   Co s0_O/s0_OH/s0_OOH__2x1v_mir, Co s0_OH/s0_OOH__2x1v_off,
+#   Ni s0_OOH__2x1v_mir, Ni s0_OOH__2x1v_off.
+# WAVE-2 = 37 __g1 children (fresh-density fixed-geometry SCF at each converged
+#   wave-1 relax parent's final coords; converged parent deck cloned verbatim
+#   incl. symmetry flags -- the .retry_bh.in beta-0.15 deck for Co/Ni
+#   s0_O__1x1_off, the plain .in otherwise) + 19 Cr 1C re-Hessian SCFs at the
+#   escaped geometry (1e-10 class, nosym+noinv, docs/54:158).
+# A8.3 THRESHOLD: a __g1 child that lands > 1 meV ABOVE its parent is REFUSED
+#   and re-run from the parent's converged density; a second failure ->
+#   MULTISTABLE, and neither number is banked (docs/43:1589-1592).
+# DEFERRED: the 2 Cr_lit3 A8.3 refused-child re-runs (docs/54:324 row --
+#   oosh__1x1_off_magp, s0_OOH__1x1_yaw90_magm) are NOT in this wave: they
+#   restart from the PARENT'S RETAINED DENSITY and wait on the
+#   density-retention runner (separate piece).
+# EXCLUDE=a024 -- node a024 OOM-killed 11/12 of its wave-1 tasks (docs/45:91);
+#   submit with ExcNodeList=a024.
+# nk per row: children INHERIT the parent's wave-1 row nk; hess rows nk 16
+#   (banked hess ref prints 16 k; 128 % 16 == 0).
+# NP=128 NCONC=1
+s3/Mn ref__2x1v__g1 .in 16
+s3/Mn s0_O__1x1_off__g1 .in 16
+s3/Mn s0_OH__1x1_off__g1 .in 16
+s3/Mn s0_OOH__1x1_off__g1 .in 16
+s3/Mn s0_O__2x1v_mir__g1 .in 8
+s3/Mn s0_O__2x1v_off__g1 .in 8
+s3/Mn s0_OH__2x1v_mir__g1 .in 8
+s3/Mn s0_OH__2x1v_off__g1 .in 8
+s3/Mn s0_OOH__2x1v_mir__g1 .in 8
+s3/Mn s0_OOH__2x1v_off__g1 .in 8
+s3/Fe ref__2x1v__g1 .in 16
+s3/Fe s0_O__1x1_off__g1 .in 16
+s3/Fe s0_OH__1x1_off__g1 .in 16
+s3/Fe s0_OOH__1x1_off__g1 .in 16
+s3/Fe s0_O__2x1v_mir__g1 .in 8
+s3/Fe s0_O__2x1v_off__g1 .in 8
+s3/Fe s0_OH__2x1v_mir__g1 .in 8
+s3/Fe s0_OH__2x1v_off__g1 .in 8
+s3/Fe s0_OOH__2x1v_mir__g1 .in 8
+s3/Fe s0_OOH__2x1v_off__g1 .in 8
+s3/Co s0_O__1x1_off__g1 .in 16
+s3/Co s0_O__2x1v_off__g1 .in 8
+s3/Ni ref__2x1v__g1 .in 16
+s3/Ni s0_O__1x1_off__g1 .in 16
+s3/Ni s0_OH__1x1_off__g1 .in 16
+s3/Ni s0_O__2x1v_mir__g1 .in 8
+s3/Ni s0_O__2x1v_off__g1 .in 8
+s3/Ni s0_OH__2x1v_mir__g1 .in 8
+s3/Ni s0_OH__2x1v_off__g1 .in 8
+s3/Ti ref__2x1v__g1 .in 16
+s3/Ti s0_O__2x1v_mir__g1 .in 8
+s3/Ti s0_O__2x1v_off__g1 .in 8
+s3/Ti s0_OH__2x1v_mir__g1 .in 8
+s3/Ti s0_OH__2x1v_off__g1 .in 8
+s3/Ti s0_OOH__2x1v_mir__g1 .in 8
+s3/Ti s0_OOH__2x1v_off__g1 .in 8
+s3/Cr s0_OOH__2x1v_escape__g1 .in 8
+s3/Cr s0_OOH__2x1v_esc__hess_ref .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a37xp .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a37xm .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a37yp .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a37ym .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a37zp .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a37zm .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a38xp .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a38xm .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a38yp .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a38ym .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a38zp .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a38zm .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a39xp .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a39xm .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a39yp .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a39ym .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a39zp .in 16
+s3/Cr s0_OOH__2x1v_esc__hess_a39zm .in 16

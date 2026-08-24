@@ -1,0 +1,68 @@
+&CONTROL
+  calculation = 'scf'
+  prefix = 's0_OOH__1x1_off__g1'
+  outdir = './tmp'
+  pseudo_dir = '/usr/share/espresso/pseudo'
+  tprnfor = .true.
+  forc_conv_thr = 2.0d-3
+  nstep = 200
+  max_seconds = 165000
+/
+&SYSTEM
+  ibrav = 0
+  nat = 21
+  ntyp = 3
+  ecutwfc = 80.0
+  ecutrho = 640.0
+  occupations = 'smearing'
+  smearing = 'mv'
+  degauss = 0.01
+  nosym = .true.
+  nspin = 2
+  starting_magnetization(1) = 0.0
+  starting_magnetization(2) = 0.5
+  starting_magnetization(3) = 0.0
+/
+&ELECTRONS
+  conv_thr = 1.0d-6
+  mixing_mode = 'local-TF'
+  mixing_beta = 0.3
+  electron_maxstep = 200
+/
+&IONS
+  ion_dynamics = 'bfgs'
+/
+ATOMIC_SPECIES
+  H  1.008  H.pbe-rrkjus_psl.1.0.0.UPF
+  Mn  54.938  mn_pbe_v1.5.uspp.F.UPF
+  O  15.999  O.pbe-n-kjpaw_psl.0.1.UPF
+CELL_PARAMETERS angstrom
+  2.87600000  0.00000000  0.00000000
+  0.00000000  6.22819653  0.00000000
+  0.00000000  0.00000000  24.91278611
+ATOMIC_POSITIONS angstrom
+  Mn  0.00000000  4.67114740  9.34229479  0 0 0
+  Mn  1.43800000  1.55704913  9.34229479  0 0 0
+  Mn  -0.00717026  1.56252281  12.49603113  1 1 1
+  Mn  1.43318780  4.67600553  12.49082604  1 1 1
+  Mn  -0.04321911  4.71143251  15.70561043  1 1 1
+  Mn  1.39272555  1.59864610  15.82485811  1 1 1
+  O  0.00000000  1.55704913  10.55679312  0 0 0
+  O  0.00000000  1.55704913  8.12779647  0 0 0
+  O  1.43800000  3.45664907  9.34229479  0 0 0
+  O  1.43800000  5.88564572  9.34229479  0 0 0
+  O  -0.00912330  4.65260839  13.74189593  1 1 1
+  O  0.00000000  4.67114740  11.24189473  0 0 0
+  O  1.43143598  0.34821220  12.63039940  1 1 1
+  O  1.43112843  2.77405756  12.56003878  1 1 1
+  O  -0.05029623  1.53159361  17.19768723  1 1 1
+  O  -0.03877820  1.68295923  14.60825417  1 1 1
+  O  1.39465829  3.50355166  16.15126341  1 1 1
+  O  1.39445918  5.93211636  15.96490185  1 1 1
+  O  0.02334380  5.13391215  19.13115651  1 1 1
+  O  0.28656324  4.03881080  19.60593861  1 1 1
+  H  -0.06446744  2.39269626  17.65762930  1 1 1
+K_POINTS automatic
+  9 4 1 0 0 0
+HUBBARD (atomic)
+U Mn-3d 3.9000
