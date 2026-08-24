@@ -511,4 +511,6 @@ ranking would contaminate the campaign's central contribution.
 - [x] block 1C re-scored under adopted reading (b): CONFIRMED at both delta against i50 floor, reading-(a) label (UNDERPOWERED/VOID) alongside (docs/49 s7; hessian_analyze.py now implements (b))
 - [x] A5.2 LIT-2 readout: confirmed already scored+committed at 9fd1771 (RuO2 benchmark FAIL -> Cr column vacuum-CHE-only, flag OFF); no action needed
 - [ ] A9.7 act 4 (census): waits on Frank's silentgate core (entrant-written)
-- [ ] corpora durability copies to $PROJECT/corpora/ (background cp; verify md5 after copy)
+- [x] corpora durability copies to $PROJECT/corpora/ verified (both md5 match after copy)
+- [x] docs/54 S3 deck matrix composed + adversarially verified (3cbd192); A8.5 pseudo md5 preflight 12/12 MATCH (anvil/pseudo_md5_preflight_2026-08-23.md)
+- [ ] S3 wave 1 (46 production-seed relax + 9 SCFs) building via workflow; parked for Frank: __magm/__ns (second-seed recipe sign-off), dy-pilot rungs, Co/Ni *OOH 1x1-off, BUILD-T 55, HOLD 14 (gate-(h) line), Ru/Ir g1 top-up scope, Mn AFM arm, Ti nspin=2 controls, mirror-member ruling (docs/54 s6)
