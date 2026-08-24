@@ -28,7 +28,7 @@ deposit. This ledger tracks what exists and what is owed.
 | # | Class | Size | Status | Evidence | Governed by | Addressed in |
 |---|---|---|---|---|---|---|
 | 6 | Hubbard-U fragility | 1.12 V on η(Cr); 1.11 eV descriptor span; 0.447 eV intercept span | MEASURED (4-pt ladder; dense grid owed) — **fired P7, withdrew the headline** | docs/41 P7; LIT-1 memo (+ 2026-08-16 correction of record: undoped) | P-FLOOR-U (A7, owed); A6 | S4 (A0) |
-| 7 | Coverage / cell (identical variables in one-cus-site 1x1) | 6/9 rows > 0.10 eV (1A); Ir *OOH −0.285 → −0.018 eV | MEASURED (1A) → crossed design owed | docs/43 1A verdict ADOPT_2X1V | A8 (owed) | S3 contrast leg |
+| 7 | Coverage / cell (identical variables in one-cus-site 1x1) | 7/9 rows > 0.10 eV (1A; corrected 2026-08-23 from “6/9” — deposited A8.1 docs/43:1514 “7 of 9”, cellsym_readout.json cell rows 7 EXCEEDS / 2 WITHIN; docs/54 §6 item 15); Ir *OOH −0.285 → −0.018 eV | MEASURED (1A) → crossed design owed | docs/43 1A verdict ADOPT_2X1V | A8 (owed) | S3 contrast leg |
 | 8 | XC functional | not yet measured here | NOT MEASURED (gated on S0(a) four-deck test) | — | A10 (owed, Sep 18) | S5, "XC only" row |
 | 9 | Solvation | ~0.3 eV in c_M at O coverage vs ~0.1 at OH (Gauthier, read from paper) | TRANSFERRED — never measured here; registered as the non-additivity prediction | 10.1021/acs.jpcc.7b02383 | **A8 (docs/47 A8.2 carries it as an appendix prediction, 2026-08-23; A9 was the fallback)** | zero-compute registration |
 
