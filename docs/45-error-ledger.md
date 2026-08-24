@@ -84,3 +84,20 @@ Wander/Kitchin, OC22 symmetry arm, MOOH phases, MLIP fine-tuning).
 
 Box-hour repricing of the restored scopes is owed alongside A8 (the restored items
 add roughly 300–500 box-h; still trivially affordable).
+
+**S3 wave-1 execution record (2026-08-24).** Arrays 20097663 (canary 3/3) + 20097688 (52):
+**37/55 converged clean** (all Fe, 13/14 Mn, Cr escape 35-step + basin SCF, Ti ref+OH pair,
+the mirror-symmetrized mir arms verified live — pw.x reports `2 Sym. Ops.` on every mir deck).
+Two failure classes, neither silent (A8.4): (1) **node a024 OOM-killed 11 of its 12 tasks**
+(0/43 kills on 21 other nodes; the survivor was the smallest SCF) — infrastructure, decks
+unmodified, resubmitted as array 20101963 with `ExcNodeList=a024` (the `SBATCH_EXCLUDE` env
+var was silently ignored by Anvil's sbatch — applied post-submit via `scontrol update`;
+failed attempts preserved as `.out.attempt1`). (2) **7 SCF non-convergences on healthy
+nodes, 5x Co / 2x Ni** — error class 5 exactly as A8.4 predicted for the magnetically
+frustrated states. Ladder: rung (i) neighbour-density restart UNAVAILABLE — 42_s3_wave1.slurm
+`rm -rf`s every scratch post-task, so no converged density survives (recorded here; a
+retention rider for wave 2 is an entrant call) → rung (ii) `mixing_beta` 0.3 → 0.15 as
+`.retry_bh.in` decks (only-beta-differs asserted at build; commit 0f530a7). A second failure
+on any `.retry_bh` row goes to rung (iii): NOT_CONVERGED, plotted as a gap. Per-metal
+per-state failure rates land in the S6 report as A8.4 requires. Wave-1 burn ~6.5k SU
+(balance 92.4k).

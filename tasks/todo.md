@@ -523,3 +523,10 @@ ranking would contaminate the campaign's central contribution.
 - [x] rest fleet array 20097688 submitted: 52 decks %6 concurrency, preflight 52/52 clean; PARITY_PASS gate enforced on both submissions; account che260157 (98,840 SU before launch)
 - [x] 43_submit SIGPIPE fix (mybalance|awk under pipefail on non-tty ssh) committed da38d2a, restaged
 - [ ] wave-1 monitoring: __g1 ≥5 meV re-relax loop + A8.4 escalation ladder apply as parents converge; wave 2 (46 __g1 children + 19 Cr re-Hessian SCFs at escaped geometry) builds after parents/escape converge
+
+## 2026-08-24 — wave-1 drained: 37/55 clean; retry array up
+- [x] status sweep (all 55 outs pulled local, md5-matched): 37 converged clean incl. every mir arm live-verified (2 Sym. Ops.) + Cr escape (35 BFGS steps); mir-vs-off deltas range 0.4 meV (Ni OH) to ~1.8-1.9 eV (Mn/Fe OOH — the yaw-90 kick found different conformers; feeds the parked oosh conformer question)
+- [x] 11 OOM = node a024 (11/12 kill rate vs 0/43 elsewhere) — resubmitted unmodified, array 20101963, ExcNodeList=a024 via scontrol (SBATCH_EXCLUDE env silently ignored); attempts preserved as .out.attempt1
+- [x] 7 Co/Ni SCF non-convergences (healthy nodes) -> A8.4 rung (ii) .retry_bh.in beta 0.15 (rung (i) unavailable: runner deletes scratch densities — recorded docs/45); commit 0f530a7
+- [ ] when 20101963 drains: re-sweep; any .retry_bh failure -> rung (iii) NOT_CONVERGED gap; then __g1 children build (wave 2) + Cr 19 re-Hessian SCFs at escaped geometry
+- [ ] entrant call parked: scratch-retention rider for wave 2 (density survival would make rung (i) real)
