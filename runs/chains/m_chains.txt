@@ -1,0 +1,12 @@
+# A8.3 density-retention chains -- built 2026-08-24 by
+# src/dft/build_retention_chains.py (see its docstring). One row = one Slurm
+# task in anvil/44_chain.slurm: replay parent (scratch retained) -> copy .save
+# under the child __fp prefix -> child SCF with startingpot='file'.
+# Replay energies are parity evidence only, never banked (A8.8). The child
+# __fp energy is the A8.3 second attempt: still >1 meV above the banked
+# parent -> the pair is MULTISTABLE, neither banked.
+# row: dir replay_deck replay_prefix fromparent_deck fp_prefix nk
+# NP=128 NCONC=1
+runs/s3/Ni s0_O__1x1_off.replay.in s0_O__1x1_off__replay s0_O__1x1_off__g1.fromparent.in s0_O__1x1_off__g1__fp 16
+runs/probe/Cr_lit3 oosh__1x1_off_magp.replay.in oosh__1x1_off_magp__replay oosh__1x1_off_magp__g1.fromparent.in oosh__1x1_off_magp__g1__fp 16
+runs/probe/Cr_lit3 s0_OOH__1x1_yaw90_magm.replay.in s0_OOH__1x1_yaw90_magm__replay s0_OOH__1x1_yaw90_magm__g1.fromparent.in s0_OOH__1x1_yaw90_magm__g1__fp 16
