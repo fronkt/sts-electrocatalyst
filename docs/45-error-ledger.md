@@ -323,3 +323,131 @@ question away.
 **GATE-1 census unchanged at 38 AGREE / 0 REFUSED / 2 UNVERIFIED** — both round-3 `__g1`
 rescues (`Co s0_O__1x1_off__g1`, `Ni s0_OH__2x1v_off__g1`) failed again, so the two
 UNVERIFIED parents stay UNVERIFIED. A8.4 rung-(iii) count rises accordingly.
+
+---
+
+## CORRECTION (2026-08-25, same day): the round-3 triage above is WRONG, and the reason is an unregistered parameter
+
+The entry above classifies 6 of the 9 round-3 failures as "creepers ... an iteration
+ceiling, not broken decks" and hands the entrant a decision to raise `electron_maxstep`
+from 500 to 1000-1500 across all six. That work was started by trying to *size* the bump —
+fit the tail decay rate of each failure and extrapolate the iterations needed to reach
+`conv_thr`. The fit refused to converge on an answer, which is what exposed the following.
+
+### QE was never holding these runs to the `conv_thr` in the deck
+
+`upscale` is not set in **any** deck in this repository (0 files match). Quantum ESPRESSO's
+default is `upscale = 100`, which means that during a `relax` it **tightens `conv_thr` as
+the forces converge**, down to a floor of `conv_thr/upscale` = 1e-6/100 = **1e-8**,
+printing the new value at the end of each BFGS step:
+
+```
+     scf convergence threshold =      1.0E-06     <- the registered value, block 1
+     new conv_thr            =       0.0000010000 Ry
+     new conv_thr            =       0.0000006572 Ry
+     new conv_thr            =       0.0000002791 Ry   <- block 4 ran under THIS
+```
+
+So `Ni s0_OOH__2x1v_mir` reporting "convergence NOT achieved" after reaching
+**3.2e-7 Ry** — three times *better* than the deck's stated `conv_thr = 1.0d-6` — is not a
+contradiction and not an ethr artifact. By BFGS step 4 it was being held to 2.79e-7 and
+fell 15% short of it. The same mechanism, run to its floor, explains the Mn row: at BFGS
+step 20 `Mn s0_OOH__2x1v_off__basin` was being held to **1.0e-8** and reached 5.0e-7.
+
+**This retracts the "registration slip" paragraph above.** The Mn basin deck's
+`electron_maxstep = 200` was real but was never the binding constraint — re-running it at
+500, the decision parked as ENTRANT DECISION 2, would not have converged it. It was 50x
+short of a threshold that no deck in this project has ever declared.
+
+### What this does to the banked ladder: nothing bad, and the methods text is now wrong in our favour
+
+Effective `conv_thr` at the last SCF of every banked converged S3 relax:
+
+| | rows |
+|---|---|
+| banked converged relaxes | 42 |
+| met a threshold **tighter** than the registered 1e-6 | **39** |
+| tightest effective threshold reached | **1.0e-8 Ry** |
+| met exactly 1e-6 | 3 — `ref__2x1v`-class rows with 0 BFGS steps (no ionic motion → no tightening) |
+
+Every banked number is therefore converged **at least as tightly as advertised, and 39 of
+42 are 100x tighter**. No re-banking is owed and no result is invalidated. What *is* owed
+is a methods correction: the protocol description says the SCF threshold is 1e-6 Ry, and
+the runs actually met 1e-8 almost uniformly. **Frank re-authors that sentence** — it is a
+threshold claim in the report, not infrastructure.
+
+Two causes were checked and cleanly ruled out before landing on this one:
+
+- **`ecutrho` under-convergence for the USPP species.** `ecutrho = 640.0` against
+  `ecutwfc = 80.0` is 8x, correct for ultrasoft. Ruled out.
+- **`negative rho` poisoning the density.** Identical magnitude (3-5e-4) in the failed
+  rows *and* in `Co s0_O__2x1v_off` / `Co s0_OOH__2x1v_mir` / `Co ref__2x1v`, which all
+  converged to 1e-8 in the same cell with the same cutoffs. Ruled out.
+
+That last rule-out carries the important positive result: **the fixed point is reachable
+in these cells.** The failures are not decks that cannot converge; they are decks that
+cannot find it from where they were started.
+
+### Corrected triage — `src/dft/scf_triage.py`
+
+The tool classifies each non-convergent SCF block on the **progress rate of the running
+minimum**, not on flatness (these runs jitter 15-30% between iterations while making no
+progress, so a flatness test misreads them), and against the threshold **actually in
+force** for that block:
+
+```
+deck                                     blk   eff_thr   min_acc  @it      last    n   dM60  class
+Co/s0_O__2x1v_mir.out                      1  1.00e-06  4.29e-05  488  4.31e-05  500   0.41  SLOW
+Co/s0_OH__2x1v_mir.out                     1  1.00e-06  6.37e-06  246  8.80e-05  500   0.08  STALLED
+Co/s0_OH__2x1v_off.out                     1  1.00e-06  1.84e-05  491  1.85e-05  500   0.04  STALLED
+Co/s0_OOH__2x1v_off.out                    1  1.00e-06  1.13e-05  486  1.14e-05  500   0.07  STALLED
+Co/s0_O__1x1_off__g1.out                   1  1.00e-06  9.60e-04  244  6.78e-03  500   0.33  STALLED
+Mn/s0_OOH__2x1v_off__basin.out            20  1.00e-08  5.00e-07   34  5.30e-07  200   0.01  UNREG_THR
+Ni/s0_OOH__2x1v_mir.out                    4  2.79e-07  3.20e-07  125  3.43e-05  500   0.22  UNREG_THR
+Ni/s0_OH__2x1v_off__g1.out                 1  1.00e-06  1.53e-05  123  6.41e-04  500   0.78  BRANCH
+Ni/s0_OOH__2x1v_off.out                    1  1.00e-06  2.55e-03  139  9.43e-02  500   2.41  BRANCH
+```
+
+| class | n | what it means | registered remedy |
+|---|---|---|---|
+| **SLOW** | **1** | running min still improving >2x per 150 iterations | **the only class `electron_maxstep` can fix** |
+| **STALLED** | 4 | min improved <2x over the last 150 it., magnetization stable to <0.1 μB — a self-consistency floor with a saturated Broyden history | **A8.4 rung (i)**, restart from density with a fresh mixing space |
+| **BRANCH** | 2 | magnetization unstable over the tail (0.78 and 2.41 μB) | **A8.3 density retention** from the parent |
+| **UNREG_THR** | 2 | met the *registered* 1e-6 (5.0e-7, 3.2e-7); refused only by the tightened threshold | set `upscale` |
+
+**ENTRANT DECISION 1 as written above is refuted.** It would have spent ~3,000 SU raising
+`electron_maxstep` on six decks of which **one** is iteration-limited. The other five are
+flat or oscillating: `Co s0_OH__2x1v_off` moved from 1.836e-5 to 1.851e-5 across its final
+24 iterations, and `Co s0_OOH__2x1v_off`'s running minimum improved by less than 2x over
+its last 150 — another 1,000 iterations of either buys nothing. **ENTRANT DECISION 2 is
+refuted** for the reason given above.
+
+Note that four of the five STALLED/SLOW rows completed **zero** BFGS steps — the first SCF
+never converged, so no ionic relaxation happened at all. The loss in those decks is not
+energy precision (1.1e-5 Ry = 0.155 meV, already inside the A8.3 ±1 meV gate); it is that
+the geometry never moved.
+
+### Corrected decision set
+
+- **R1 (registered parameter, new):** declare `upscale` explicitly. `upscale = 1.0` holds
+  every relax to the registered `conv_thr = 1e-6` and is what the two UNREG_THR rows need
+  (both are already below 1e-6). Consequence to weigh: the 39 banked rows met 1e-8, so
+  new rows at 1e-6 are 100x looser than their siblings — numerically irrelevant against a
+  1 meV = 7.35e-5 Ry gate, but it is a protocol-uniformity claim and therefore Frank's.
+  Both UNREG_THR rows also need restarting from their last geometry, not from scratch
+  (Mn is 20 BFGS steps in) — `build_restarts.py` / `build_basin_restarts.py` precedent.
+- **R2 (registered parameter):** `electron_maxstep` 500 → 1500 for **`Co s0_O__2x1v_mir`
+  only**. One deck, ~500 SU, replacing a six-deck ~3,000 SU decision.
+- **R3 (A8.8, unchanged):** the Fe/Mn below-parent minima. Round 3 removed the noise
+  option; the Fe gap is 428.5 meV, 400x the gate width. Note the Mn number is now better
+  qualified than it was this morning — it stopped at 5.0e-7 Ry against a 1e-8 goalpost,
+  i.e. it was *converged by the registered criterion* when it was cut off, and it was
+  still descending.
+- **R4 (no ruling needed, registered mechanics):** the 4 STALLED rows to A8.4 rung (i) and
+  the 2 BRANCH rows to A8.3 chains. `Co s0_O__1x1_off__g1` and `Ni s0_OH__2x1v_off__g1`
+  both have banked converged parents, so both take a proper parent→child retention chain
+  — which is the path that closes **GATE-1 UNVERIFIED to zero**.
+
+`Ni s0_OOH__2x1v_off` (BRANCH, dM 2.41 μB) is a primary relax with no parent to seed from
+and is the one row with no registered remedy in hand; it is the natural A8.4 rung-(iii)
+NOT_CONVERGED gap candidate if a self-seeded staged restart fails.

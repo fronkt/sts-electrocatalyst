@@ -588,10 +588,25 @@ ranking would contaminate the campaign's central contribution.
 - [x] 9 failures triaged (docs/45): **6 creepers** (500 it., 1.1e-5–8.8e-5 Ry vs 1e-6 — iteration ceiling, no oscillation), **1 registration slip** (Mn basin re-relax never got maxstep 500; died at 5.3e-7 on QE's ethr restart, bfgs 17, still descending), **2 branch-flips** (Ni OOH-2x1v-off M 4.19 vs ~13; Co O-1x1-off-g1 at beta 0.07)
 - [x] **Both below-parent findings CONFIRMED and DEEPER than their __g1 children**: Fe s0_OOH__1x1_off basin converged at **−428.5 meV vs banked parent** (−44.2 vs child); Mn at −42.4 meV (−21.8 vs child, unconverged)
 - [x] GATE-1 census unchanged 38 / 0 / 2 — both round-3 __g1 rescues failed again
-- [ ] **ENTRANT DECISION 1 (highest leverage, one dated line):** electron_maxstep 500 → 1000-1500 on the 6 creepers. Closes the Co 2x1v column (4 of the 6) — currently ref ✓ + *O-off ✓ + *OOH-mir ✓ with NO complete arm. Cost ~4 h/deck at the observed rate, ~3,000 SU for all 6.
-- [ ] **ENTRANT DECISION 2:** Mn basin re-relax re-run at maxstep 500 (fixes our own build slip, not a physics call)
+- [x] ~~**ENTRANT DECISION 1**~~ **REFUTED same day** — see docs/45 CORRECTION. Only 1 of the 6 is iteration-limited; the other 5 are STALLED/BRANCH and a maxstep bump buys them nothing. Superseded by R2.
+- [x] ~~**ENTRANT DECISION 2**~~ **REFUTED same day** — the Mn basin was held to an effective conv_thr of **1.0e-8** (QE `upscale`=100 default) and reached 5.0e-7; maxstep 200 was never the binding constraint. Superseded by R1.
 - [ ] **ENTRANT DECISION 3 (A8.8):** the Fe/Mn below-parent minima — replace the banked energies-of-record, or bank as a second arm? Round 3 removes "it might be noise"; the −428.5 meV Fe gap is 400x the A8.3 gate width
 - [ ] **ENTRANT DECISION 4:** the 2 branch-flips go to the density-retention instrument (build_retention_chain2.py), not to more iterations
 - [ ] Wave-4 __g1 children owed for the 4 newly converged relaxes (Co ref__2x1v, Co s0_OH__1x1_off, Co s0_OOH__2x1v_mir, Fe basin) — build after decisions 1-3 so one array carries everything
 - [ ] Refresh docs/56 PENDING rows (round 3 + chain-2 both now in hand)
 - [ ] FRANK, still open from 2026-08-24: mirror-member ruling (docs/54:406-411), A8.4 basis choice, A8.1 bin-scheme naming, Cr OH 1x1 CONFOUND check, RCAC ticket send (a024/a088 still in pool, never drained)
+
+## 2026-08-25 (later) — CORRECTION: the round-3 failure mode was an UNREGISTERED PARAMETER, not an iteration ceiling
+- [x] Tried to *size* decision 1 by fitting tail decay rates → the fit refused to converge → found the cause
+- [x] **`upscale` is set in ZERO decks in this repo.** QE's default 100 silently TIGHTENS conv_thr during `relax` toward a 1e-8 floor, printing `new conv_thr` each BFGS step. Runs reporting "NOT achieved" at 3.2e-7 were being held to 2.79e-7, not to the deck's 1e-6.
+- [x] Ruled out `ecutrho` (640 = 8x ecutwfc, correct for USPP) and `negative rho` (same 3-5e-4 in converged rows) — **the fixed point IS reachable in these cells**
+- [x] Census: **39 of 42 banked converged relaxes met 1e-8, not the registered 1e-6.** Nothing invalidated — everything is converged tighter than advertised
+- [x] Wrote `src/dft/scf_triage.py` — classifies on progress rate of the running minimum against the *effective* threshold. Corrected triage: **1 SLOW / 4 STALLED / 2 BRANCH / 2 UNREG_THR** (was "6 creepers")
+- [x] docs/45 CORRECTION section appended (retracts the creeper + registration-slip readings)
+- [ ] **R1 (FRANK, registered parameter, NEW):** declare `upscale` explicitly. `upscale = 1.0` holds relaxes to the registered conv_thr = 1e-6 and is what both UNREG_THR rows need (they are already at 5.0e-7 / 3.2e-7). Weigh: 39 banked rows met 1e-8, so new rows at 1e-6 are 100x looser than siblings — numerically irrelevant vs a 1 meV = 7.35e-5 Ry gate, but it is a protocol-uniformity claim
+- [ ] **R2 (FRANK, registered parameter):** electron_maxstep 500 → 1500 for **`Co s0_O__2x1v_mir` ONLY** — 1 deck / ~500 SU, replacing the refuted 6-deck / ~3,000 SU decision
+- [ ] **R3 (FRANK, A8.8, unchanged):** Fe/Mn below-parent minima — replace the banked energies-of-record or bank as a second arm? Fe gap = 428.5 meV = 400x the gate width. Mn is now better qualified: it was *converged by the registered criterion* (5.0e-7 < 1e-6) when cut off, and still descending
+- [ ] **R4 (no ruling needed — registered mechanics, buildable now):** 4 STALLED → A8.4 rung (i) restart-from-density; 2 BRANCH → A8.3 chains. `Co s0_O__1x1_off__g1` + `Ni s0_OH__2x1v_off__g1` both have banked converged parents → proper parent→child chains → **this is the path that closes GATE-1 UNVERIFIED to zero**
+- [ ] **Methods correction owed (FRANK re-authors — threshold claim, not infrastructure):** the protocol text says SCF threshold 1e-6 Ry; the runs met 1e-8 almost uniformly
+- [ ] `Ni s0_OOH__2x1v_off` (BRANCH, dM 2.41 μB): primary relax, NO parent to seed from — the one row with no registered remedy in hand; A8.4 rung-(iii) NOT_CONVERGED gap candidate if a self-seeded staged restart fails
+- [ ] Wave-4 `__g1` children still owed for the 4 round-3 converged relaxes — build with the R1/R2 array so one submission carries everything
