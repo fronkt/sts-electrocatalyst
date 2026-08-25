@@ -55,9 +55,31 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 SEED_CONV_THR = "1.0d-4"
 
 # (dir, parent_deck, child_deck) -- parent .out must be banked AND converged.
+#
+# The child is the DECK OF RECORD for its last attempt (`.retry_ms`), NOT the
+# wave-2 base deck. Both of these children have already failed three times and
+# the A8.4 ladder escalated their mixing at every rung:
+#
+#   Co s0_O__1x1_off__g1     .in  beta 0.15 / 200  ->  .retry_bh  beta 0.075
+#                                                  ->  .retry_ms  beta 0.075 / 500
+#   Ni s0_OH__2x1v_off__g1   .in  beta 0.30 / 200  ->  .retry_bh  beta 0.15
+#                                                  ->  .retry_ms  beta 0.15  / 500
+#
+# Seeding the BASE deck would hand the parent's converged density to the least
+# robust of three already-failed configurations, and would make the retention
+# test a two-variable one (density AND mixing changed at once). `mixing_beta`
+# and `electron_maxstep` are convergence-PATH parameters: they decide whether
+# the fixed point is reached, never where it is, so choosing the robust one
+# costs nothing and cannot move a banked number. With this choice each child
+# differs from its own last failed attempt in exactly one thing -- where it
+# starts -- which is what makes a negative result here interpretable.
+#
+# This also makes rows 1-2 consistent with rows 3-5, which already seed the
+# `.retry_ms` deck of record. base_of() strips `.retry_ms`, so the emitted
+# filenames and the manifest rows are unchanged either way.
 A83_CHAINS = [
-    ('runs/s3/Co', 's0_O__1x1_off.retry_bh.in', 's0_O__1x1_off__g1.in'),
-    ('runs/s3/Ni', 's0_OH__2x1v_off.in', 's0_OH__2x1v_off__g1.in'),
+    ('runs/s3/Co', 's0_O__1x1_off.retry_bh.in', 's0_O__1x1_off__g1.retry_ms.in'),
+    ('runs/s3/Ni', 's0_OH__2x1v_off.in', 's0_OH__2x1v_off__g1.retry_ms.in'),
 ]
 
 # (dir, deck) -- the STALLED/BRANCH rows with no parent density available.
@@ -158,8 +180,11 @@ for d, pdeck, cdeck in A83_CHAINS:
     (dd / fname).write_text(ftxt, newline='\n')
 
     nks, nk = pick_nk(pot, pout)
+    mix = ' '.join(x.strip() for x in re.findall(
+        r'^  (?:mixing_beta|electron_maxstep) = .*$', ctxt, re.M))
     rows.append(f'{d} {rname} {pprefix}__replay {fname} {cprefix}__fp {nk}')
-    notes.append(f'A8.3   {d}: {rname} -> {fname}  (k={nks} nk={nk})')
+    notes.append(f'A8.3   {d}: {rname} -> {fname}  (k={nks} nk={nk})\n'
+                 f'         child source {cdeck}  [{mix}]')
 
 # ----------------------------------------------------------- staged self-seed
 for d, deck in SELF_SEED:
@@ -226,6 +251,12 @@ hdr = f"""# S3 round 4 -- the R4 group of the docs/45 CORRECTION (2026-08-25), b
 #           UNVERIFIED children. Both parents are banked AND converged, so both
 #           children finally get their registered second attempt. These two rows
 #           are the path that closes GATE-1 UNVERIFIED to zero.
+#           The child deck seeded is each child's OWN LAST FAILED ATTEMPT
+#           (`.retry_ms`, the deck of record after three A8.4 rungs), not the
+#           wave-2 base deck, so the only thing that differs from the run it is
+#           remedying is where the density comes from. mixing_beta and
+#           electron_maxstep cannot move a converged energy, only whether one
+#           is reached.
 # Rows 3-5  A8.4 rung (i) as a STAGED SELF-SEED: step 1 manufactures a density
 #           (same geometry, plain scf, conv_thr = {SEED_CONV_THR} -- disclosed
 #           infrastructure, energy NEVER banked, exactly like an A8.3 replay),

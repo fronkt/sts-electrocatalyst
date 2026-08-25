@@ -6,6 +6,12 @@
 #           UNVERIFIED children. Both parents are banked AND converged, so both
 #           children finally get their registered second attempt. These two rows
 #           are the path that closes GATE-1 UNVERIFIED to zero.
+#           The child deck seeded is each child's OWN LAST FAILED ATTEMPT
+#           (`.retry_ms`, the deck of record after three A8.4 rungs), not the
+#           wave-2 base deck, so the only thing that differs from the run it is
+#           remedying is where the density comes from. mixing_beta and
+#           electron_maxstep cannot move a converged energy, only whether one
+#           is reached.
 # Rows 3-5  A8.4 rung (i) as a STAGED SELF-SEED: step 1 manufactures a density
 #           (same geometry, plain scf, conv_thr = 1.0d-4 -- disclosed
 #           infrastructure, energy NEVER banked, exactly like an A8.3 replay),
