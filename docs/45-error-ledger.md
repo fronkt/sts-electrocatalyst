@@ -717,3 +717,71 @@ handed over yet. It tests the same flawed seed design and is expected to fail th
 way — left to run because it is ~250 SU and a third consistent negative is worth having on
 a pre-registered record. Balance 82,783.0 SU. Nothing from rows 3-5 is bankable; the row-2
 child is the only new number of record, and it is an AGREE, not a new energy.
+
+#### Row 5 — the seed itself failed, for a second and independent reason: loosening `conv_thr` loosens `ethr`
+
+`20135148_5` ended `FAILED` at 02:14:50 with `CHAIN FAIL: replay non-convergent`. The
+child never ran. I predicted in the entry above that row 5 would "fail the same way" as
+rows 3-4 — it did not. Rows 3-4 failed at the child; row 5 failed at the **seed**.
+
+`Co s0_OOH__2x1v_off.seed.out`: 500 iterations, `convergence NOT achieved`, best accuracy
+**3.40e-4**, last 4.42e-3 — it never reached its own 1e-4 target and was wandering upward
+when it stopped. The builder's feasibility assertion had predicted it would cross 1e-4 at
+iteration 260.
+
+**Why the prediction was invalid.** `conv_thr` does not only set the stopping criterion;
+it sets the floor for `ethr`, the iterative-diagonalization accuracy. Measured, same deck,
+same geometry:
+
+| run | `conv_thr` | `ethr` floor reached |
+|---|---|---|
+| cold relax `s0_OOH__2x1v_off.out` | 1.0e-6 | **3.14e-9** |
+| seed `s0_OOH__2x1v_off.seed.out` | 1.0e-4 | **9.43e-8** (30× looser) |
+
+and the trajectories separate accordingly:
+
+| run | it 50 | it 150 | it 300 | min |
+|---|---|---|---|---|
+| cold relax (1e-6) | 1.05e-3 | 2.16e-4 | 3.22e-5 | **1.13e-5** |
+| seed (1e-4) | 1.33e-3 | 6.10e-3 | 2.92e-3 | **3.40e-4** |
+
+The cold run descends; the seed run gets *worse* after iteration 50 and never recovers. A
+30× looser diagonalization floor cannot resolve the near-degenerate states this system
+sits on, so the SCF that a tighter `conv_thr` was successfully descending simply stops
+descending.
+
+This is the mirror image of the `upscale` finding. There, an unset parameter silently
+**tightened** `conv_thr` during relax and made runs look like failures when they had met
+the registered criterion. Here, deliberately **loosening** `conv_thr` broke a run that
+was otherwise progressing. In both cases the lesson is the same: in QE, `conv_thr` is not
+an isolated stopping rule — it propagates into the accuracy of the machinery underneath it.
+
+**The precise bug in my feasibility assertion**, for the lessons file: it predicted the
+seed run's behaviour from the *cold relax's* accuracy history. But that history was
+produced at a 30× tighter `ethr` floor. A 1e-4 run and a 1e-6 run of the same deck are
+not the same dynamical system, so one's trace cannot certify the other's. The assertion
+tested "does a trajectory exist that crosses 1e-4" when the question was "does *this*
+trajectory converge."
+
+#### Round 4 final tally — array 20135148, 1,132.8 SU (83,845.8 → 82,713.0)
+
+| row | deck | result |
+|---|---|---|
+| 1 | `Co s0_O__1x1_off` A8.3 | chain ran clean; replay + child **−77 meV below the banked parent** in a different magnetic branch → **R3 below-parent case, does NOT close GATE-1** |
+| 2 | `Ni s0_OH__2x1v_off` A8.3 | **AGREE +0.005 meV**, converged in 12 iterations from the parent density, correct branch → **GATE-1 UNVERIFIED → AGREE** |
+| 3 | `Co s0_OH__2x1v_mir` rung (i) | FAILED at the child — seed density looser than the cold floor |
+| 4 | `Co s0_OH__2x1v_off` rung (i) | FAILED at the child — same |
+| 5 | `Co s0_OOH__2x1v_off` rung (i) | **FAILED at the seed** — loose `conv_thr` → 30× loose `ethr` |
+
+One row of five did what the manifest said it would. The other four are informative
+rather than productive: one produced a finding that outranks the round's stated purpose
+(branch instability in the banked ladder), and three retired the self-seed idea for good.
+
+**A8.8 status: clean.** Row 5's child deck `s0_OOH__2x1v_off.fromseed.in` never ran and
+its `.out` slot is free; no banked result was touched by any row.
+
+**Housekeeping:** `44_chain.slurm` deliberately keeps scratch on `CHAIN FAIL`, so
+`runs/s3/Co/tmp_chain_s0_OOH__2x1v_off__fs` (**5.6 GB**) is still on `$PROJECT`. It holds
+the seed's non-converged density and has no diagnostic value the `.out` does not already
+carry. `$PROJECT` is at 28.7 GB of 5 TB so there is no pressure, and the runner `rm -rf`s
+the path at the start of any re-run — left in place rather than deleted unprompted.

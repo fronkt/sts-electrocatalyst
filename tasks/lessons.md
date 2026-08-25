@@ -453,3 +453,39 @@ compare the estimator, per block) settles it; predicting from the formula's *lab
 analyzer and re-score -- the repair is an instrument choice with verdict consequences and
 belongs to the entrant, written with the outcome disclosed (docs/47 A8.7). Bank the numbers
 under every reading and put the choice in front of him.
+
+## 2026-08-25 — a feasibility check must test the run you are about to make, not a different one
+
+**What happened.** I built an A8.4 rung-(i) "self-seed": step 1 re-runs a failing deck as a
+plain `scf` at a deliberately loose `conv_thr = 1.0d-4` to manufacture a density, step 2
+reads it back. I added an assertion that the seed threshold was reachable, and proved it
+from the *cold relax's* own accuracy history ("reaches 1.0d-4 at iteration 260"). All three
+seeded rows failed, two at the child and one at the seed itself.
+
+**Why the check was wrong.** `conv_thr` in QE is not an isolated stopping rule — it sets
+the floor for `ethr`, the iterative-diagonalization accuracy. Measured on the same deck:
+`conv_thr = 1e-6` reached `ethr = 3.14e-9`; `conv_thr = 1e-4` reached `9.43e-8`, 30×
+looser. The 1e-4 run and the 1e-6 run are **different dynamical systems**, so one's trace
+cannot certify the other's. My assertion answered "does a trajectory exist that crosses
+1e-4" when the question was "does *this* trajectory converge."
+
+**The second, independent error.** The seed threshold was also *looser than the floor the
+failing runs already reach unaided* — 1e-4 against 6.37e-6 / 1.836e-5 / 1.132e-5, i.e.
+5.4× to 15.7× worse. So even a converging seed would have handed over a density worse than
+the failing run's own endpoint. I never asked whether converging at that threshold was
+worth anything.
+
+**Rules for myself.**
+1. When a check certifies that a run will work, the evidence must come from a run with the
+   **same registered parameters**. A trace from a different threshold, mixing, or cutoff is
+   not evidence about this run.
+2. Before spending compute to "improve" a starting point, compare the proposed starting
+   point against **where the failing run already gets on its own**. If it is worse, the
+   step cannot help regardless of whether it succeeds.
+3. `conv_thr` propagates downward (`ethr`, and via `upscale` it also moves during `relax`).
+   Never treat it as a free knob.
+4. When a remedy changes two things at once — here a fresh Broyden history *and* a
+   degraded density — the result tests neither. Say "untested", not "refuted".
+
+**Related:** the same day's `upscale` discovery (docs/45 CORRECTION) is the mirror case —
+an unset parameter silently tightening `conv_thr` during relax.
