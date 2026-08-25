@@ -619,3 +619,15 @@ ranking would contaminate the campaign's central contribution.
 - [ ] **Send the RCAC ticket** — `anvil/rcac_ticket_draft_2026-08-24.md`. a024 and a088 were both `MIXED` (back in the general pool) at the 2026-08-25 launch, so every array still has to carry `EXCLUDE=a024,a088` by hand. Documented kill rates 11/12 and 5/5 vs 0/51 elsewhere
 - [ ] `Ni s0_OOH__2x1v_off` (BRANCH, dM 2.41 μB): primary relax, NO parent to seed from — the one row with no registered remedy in hand; A8.4 rung-(iii) NOT_CONVERGED gap candidate if a self-seeded staged restart fails
 - [ ] Wave-4 `__g1` children still owed for the 4 round-3 converged relaxes — build with the R1/R2 array so one submission carries everything
+
+## 2026-08-25 (later) — DEFERRED: post-compute stretch parked on its own branch
+- [ ] **Do not start before precondition met.** `docs/57-stretch-generalized-audit-checklist.md`
+      (branch `stretch-checklist-generalization`, not merged) plans packaging the
+      GATE-1 / symmetry-trap / P7 U-ladder / coverage-as-variable battery into a
+      named, portable DFT-screening checklist, plus an optional time-boxed test of
+      that checklist on a system outside this rutile-OER pipeline. Precondition:
+      S3 closed + scored, RuO₂ AFM anchors in hand, physical results in hand, R4
+      write-up drafted. The cheap half (writing up the checklist from evidence
+      already in hand) belongs in the R4 write-up on this line; the expensive half
+      (a second system) stays on the stretch branch, time-boxed, droppable per
+      docs/57 §4.
