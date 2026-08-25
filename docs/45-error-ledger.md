@@ -247,3 +247,13 @@ job 20124032** (runs/chains/m_chains2.txt, builder src/dft/build_retention_chain
 cross-dir variant, decks in runs/probe/Ni_basin/, refused first attempt untouched at
 runs/s3/Ni/s0_OH__basin_g1.out; EXCLUDE=a024,a088). Full-S3 GATE-1 census pending that
 chain: **37 AGREE / 1 REFUSED-in-chain (Ni basin *OH) / 2 UNVERIFIED (round 3).**
+
+**Chain-2 outcome (job 20124032, 2026-08-24): AGREE — the Ni basin refusal discharges.**
+Replay reproduces the banked parent at +0.017 meV in the SAME state (M 4.15; unlike
+chain-1's Ni replay, no branch divergence), and the fromparent child lands **+0.012 meV
+vs the banked parent, M 4.15 → AGREE** (was +177.10 meV / M 7.12 cold-start). The
+docs/54:205 Ni *OH 1×1 mir energy-of-record row STANDS. Replay energy is parity evidence
+only (A8.8). Full-S3 GATE-1 census now: **38 AGREE / 0 REFUSED / 2 UNVERIFIED** — the two
+UNVERIFIED parents await their round-3 maxstep children (array 20123293, in flight). All
+four A8.3 refusals to date have now resolved AGREE via density retention: cold-start
+electronic metastability, zero MULTISTABLE recordings.
