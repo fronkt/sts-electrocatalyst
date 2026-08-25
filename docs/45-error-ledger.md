@@ -523,3 +523,101 @@ being remedied is the starting density.
 Still not launched and still Frank's: **R1** (`upscale`) and **R2** (`electron_maxstep`
 500 → 1500 on `Co s0_O__2x1v_mir` alone), plus `Ni s0_OOH__2x1v_off`, which is gated on
 R1 because its only viable density source is its own mirror arm.
+
+### Round 4 chain 1 RESULT (2026-08-25): the replay found a state 76.7 meV BELOW the banked parent, and this INVERTS the chain-1 reading above
+
+`20135148_1` completed in 40:31. The three numbers, `Co s0_O__1x1_off`:
+
+| | E (Ry) | vs banked parent | BFGS steps | final magtot |
+|---|---|---|---|---|
+| **banked parent** | −2330.66171228 | — | 18 | 11.69 μB |
+| replay | −2330.66734894 | **−76.69 meV** | 17 | 11.24 μB |
+| child `__fp` (from replay density) | −2330.66737233 | **−77.01 meV** | 0 | 11.24 μB |
+
+The child agrees with its density source to **−0.32 meV** — inside the ±1 meV A8.3 gate,
+so density retention did exactly what it is supposed to do. What it agrees *with* is the
+problem: both sit ~77 meV below the energy of record.
+
+**The divergence is at the first SCF, before any ionic motion.** First `!` energies at the
+identical starting geometry are −2330.65270105 (parent) and −2330.65844970 (replay),
+**78.21 meV apart**. The magnetization trajectories are bit-identical for five iterations
+and split at the sixth:
+
+```
+iteration    1      2      3      4      5      6
+parent     26.07  26.74   6.61   8.70   8.67  12.71
+replay     26.07  26.74   6.61   8.70   8.67  12.89   <- split
+```
+
+After that the two ladders relax in parallel, 18 vs 17 BFGS steps, offset by a nearly
+constant 5.6 mRy the whole way down. This is **branch selection, not convergence**: no
+tightening of `conv_thr` reaches it, because both branches are fully converged solutions.
+
+Provenance consistent with the mechanism: the banked parent ran on **a081** (an earlier
+attempt on a033), the replay on **a156**. `--bind-to` appears nowhere in the S3 launch
+path — it is the **A8.6 undecided registration item** (docs/43:1668-1679, docs/48), so
+mpirun binds at its own default and MPI reduction order is not pinned across nodes.
+Five iterations of bit-identical arithmetic followed by a split is the signature of
+floating-point non-associativity amplified by an unstable mixing trajectory.
+
+#### Zero-SU audit: every repeated run of an identical deck in the repository
+
+| deck | banked | repeat | ΔE (meV) | mag banked | mag repeat |
+|---|---|---|---|---|---|
+| `probe/Cr_lit3/oosh__1x1_off_magp` | −1636.57118655 | −1636.57118461 | +0.03 | 11.00 | 11.00 |
+| `probe/Cr_lit3/s0_OOH__1x1_yaw90_magm` | −1636.56961270 | −1636.56965110 | −0.52 | 11.00 | 11.00 |
+| `probe/Ni_basin/s0_OH` | −2599.99940826 | −2599.99940698 | +0.02 | 4.15 | 4.15 |
+| `s3/Ni/s0_OH__2x1v_off` | −5157.23065359 | −5157.23065903 | −0.07 | 14.41 | 14.41 |
+| **`s3/Ni/s0_O__1x1_off`** | −2598.63677322 | −2598.63335298 | **+46.53** | 4.33 | **8.01** |
+| **`s3/Co/s0_O__1x1_off`** | −2330.66171228 | −2330.66734894 | **−76.69** | 11.69 | **11.24** |
+
+The rule is clean and has no exceptions in six pairs: **when the magnetization matches,
+the energy reproduces to ≤0.52 meV; when it differs, the energy differs by tens of meV.**
+pw.x's arithmetic is reproducible here. Which magnetic solution the first SCF falls into
+is not. Two of six repeated decks (33%) landed in a different branch.
+
+#### Why this inverts the reading recorded above
+
+The chain-1 (Ni) entry concluded that a branch-diverged replay *strengthened* the AGREE
+verdict — "even a wrong-branch warm start finds the banked minimum at the parent geometry."
+That held because in the Ni case the divergent branch was **higher** (+46.5 meV, mag 8.01)
+and the child fell back out of it into the banked mag-4.3 state, matching the banked parent
+to +0.019 meV.
+
+The Co case is the mirror image and does not support that conclusion:
+
+- the divergent branch is **lower**, not higher;
+- the child **stays in it** rather than falling back;
+- so the warm start did not find the banked minimum — it found a better one.
+
+The Ni datum is consistent with "the banked parent is right and the divergent branch is a
+metastable artifact." The Co datum says the banked parent **is** the metastable artifact,
+for that deck. One instance of each means the prior sentence generalised from n = 1.
+
+#### What this does to round 4 row 1
+
+Row 1 does **not** close a GATE-1 UNVERIFIED. It converts one into a below-parent
+question. The A8.3 letter — child reproduces the banked energy within 1 meV at the parent
+geometry — is not satisfied at −77.01 meV; it is failed in the direction that says the
+energy of record is too high. The GATE-1 census therefore does **not** go to 38 / 0 / 0 on
+this array; row 2 (`Ni s0_OH__2x1v_off`, replay parity −0.07 meV, clean) can still close
+its own.
+
+**This is a third below-parent case and it belongs to R3**, alongside the Fe (−428.5 meV)
+and Mn rows. It is the strongest of the three as evidence, and different in kind: Fe and
+Mn came from `__basin` decks *built* to re-relax in a deeper state, so a deeper answer was
+the expected outcome. Here **the parent's own deck, re-run unmodified, reached the deeper
+state on its own.** That is not a different question being asked — it is the same question
+returning a different answer.
+
+Nothing is banked and nothing is decided here. R3 now covers three rows, and the entrant
+call it needs has grown a second half: not only *which* energy is of record when a child
+lands below its parent, but whether a banked relax whose deck is demonstrably branch-
+unstable can stand on a single run at all. The related open items are **S0(h)** (RuO2
+anchors run in the wrong magnetic state → ADOPT AFM, re-run owed), the docs/41
+metastable-magnetic class, and **A8.6** (`--bind-to` undecided), which is no longer only a
+performance question — it is the knob that decides reduction order, and reduction order is
+what selected the branch here.
+
+Round 4 continues: `20135148_2` (Ni A8.3, replay parity clean) and `_3`/`_4` (rung-(i)
+self-seeds) running, `_5` pending. Cost so far ~417 SU.
