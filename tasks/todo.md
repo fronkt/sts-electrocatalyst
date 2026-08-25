@@ -580,3 +580,18 @@ ranking would contaminate the campaign's central contribution.
 - [ ] Score chain-2 on land (AGREE / MULTISTABLE)
 - [ ] Refresh docs/56 PENDING rows after round 3 + chain-2
 - [ ] FRANK: mirror-member ruling (docs/54:406-411) — P-SYMCOV 5-of-8 hinges on it; A8.4 basis choice; A8.1 bin-scheme naming; Cr OH 1x1 CONFOUND check; RCAC ticket send
+
+## 2026-08-25 — round 3 drained + banked: 4/13, failure mode NAMED (creep vs branch-flip)
+- [x] Queue empty; array 20123293 13/13 Slurm-COMPLETED (last 06:01:34); outputs pulled md5-matched (265d71ab...) into the 13 A8.8-vacated slots
+- [x] **Co ref__2x1v CONVERGED** — the entrant maxstep-500 ruling delivered; the Co 2x1v reference exists
+- [x] Also converged: Co s0_OH__1x1_off, Co s0_OOH__2x1v_mir, Fe s0_OOH__1x1_off__basin
+- [x] 9 failures triaged (docs/45): **6 creepers** (500 it., 1.1e-5–8.8e-5 Ry vs 1e-6 — iteration ceiling, no oscillation), **1 registration slip** (Mn basin re-relax never got maxstep 500; died at 5.3e-7 on QE's ethr restart, bfgs 17, still descending), **2 branch-flips** (Ni OOH-2x1v-off M 4.19 vs ~13; Co O-1x1-off-g1 at beta 0.07)
+- [x] **Both below-parent findings CONFIRMED and DEEPER than their __g1 children**: Fe s0_OOH__1x1_off basin converged at **−428.5 meV vs banked parent** (−44.2 vs child); Mn at −42.4 meV (−21.8 vs child, unconverged)
+- [x] GATE-1 census unchanged 38 / 0 / 2 — both round-3 __g1 rescues failed again
+- [ ] **ENTRANT DECISION 1 (highest leverage, one dated line):** electron_maxstep 500 → 1000-1500 on the 6 creepers. Closes the Co 2x1v column (4 of the 6) — currently ref ✓ + *O-off ✓ + *OOH-mir ✓ with NO complete arm. Cost ~4 h/deck at the observed rate, ~3,000 SU for all 6.
+- [ ] **ENTRANT DECISION 2:** Mn basin re-relax re-run at maxstep 500 (fixes our own build slip, not a physics call)
+- [ ] **ENTRANT DECISION 3 (A8.8):** the Fe/Mn below-parent minima — replace the banked energies-of-record, or bank as a second arm? Round 3 removes "it might be noise"; the −428.5 meV Fe gap is 400x the A8.3 gate width
+- [ ] **ENTRANT DECISION 4:** the 2 branch-flips go to the density-retention instrument (build_retention_chain2.py), not to more iterations
+- [ ] Wave-4 __g1 children owed for the 4 newly converged relaxes (Co ref__2x1v, Co s0_OH__1x1_off, Co s0_OOH__2x1v_mir, Fe basin) — build after decisions 1-3 so one array carries everything
+- [ ] Refresh docs/56 PENDING rows (round 3 + chain-2 both now in hand)
+- [ ] FRANK, still open from 2026-08-24: mirror-member ruling (docs/54:406-411), A8.4 basis choice, A8.1 bin-scheme naming, Cr OH 1x1 CONFOUND check, RCAC ticket send (a024/a088 still in pool, never drained)

@@ -257,3 +257,69 @@ only (A8.8). Full-S3 GATE-1 census now: **38 AGREE / 0 REFUSED / 2 UNVERIFIED** 
 UNVERIFIED parents await their round-3 maxstep children (array 20123293, in flight). All
 four A8.3 refusals to date have now resolved AGREE via density retention: cold-start
 electronic metastability, zero MULTISTABLE recordings.
+
+## Round 3 drained (array 20123293, 2026-08-25) — 4/13; the failure mode is now NAMED
+
+All 13 tasks Slurm-COMPLETED (last 2026-08-25T06:01:34); outputs pulled md5-matched
+(`s3_round3_outs.tgz` = `265d71ab80da508c8e99eb24009fd44d` both ends), extracted into the
+13 slots vacated at 9ebedff (predecessors preserved `.attempt2`/`.attempt3`, A8.8 clean).
+
+**Converged 4/13.** `Co ref__2x1v` (**the maxstep-500 entrant ruling worked — the Co 2×1v
+reference exists**, −4578.38410421 Ry), `Co s0_OH__1x1_off` (−2331.98669493),
+`Co s0_OOH__2x1v_mir` (−4662.69189747), `Fe s0_OOH__1x1_off__basin` (−2558.16677357).
+
+**The 9 failures are not one population — they split 6 / 1 / 2, and the split is the
+finding.** Ruling 2 (electron_maxstep 200 → 500) did not fail on these rows; it moved them
+from "stall/oscillation" (the 2026-08-24 rung-(iii) reading) to *measurably creeping*:
+
+| deck | it. | last accuracy (Ry) | beta | class |
+|---|---|---|---|---|
+| Co s0_OH__2x1v_mir | 500 | 8.80e-5 | 0.15 | creep |
+| Co s0_O__2x1v_mir | 500 | 4.31e-5 | 0.15 | creep |
+| Ni s0_OOH__2x1v_mir | 500 (bfgs 3) | 3.43e-5 | 0.15 | creep |
+| Co s0_OH__2x1v_off | 500 | 1.85e-5 | 0.15 | creep |
+| Co s0_OOH__2x1v_off | 500 | 1.14e-5 | 0.15 | creep |
+| Ni s0_OH__2x1v_off__g1 | 500 | 6.41e-4 | 0.15 | creep (slow) |
+| Mn s0_OOH__2x1v_off__basin | 200 (bfgs 17) | **5.3e-7** | 0.30 | **never got 500** |
+| Co s0_O__1x1_off__g1 | 500 | 6.78e-3 | 0.07 | sick |
+| Ni s0_OOH__2x1v_off | 500 | **9.43e-2** | 0.15 | sick (M 4.19 vs ~13 — branch flip) |
+
+Six rows sit 11–88× above a 1e-6 Ry `conv_thr` after 500 iterations with no oscillation —
+the Co-ref NEAR-MISS creep signature (docs/45, 2026-08-24 final) generalised to the whole
+Co/Ni 2×1v block. **This is a ceiling on iterations, not a broken deck.** The two "sick"
+rows are different in kind: `Ni s0_OOH__2x1v_off` collapsed to M = 4.19 μB against ~13 μB
+everywhere else on Ni — an electronic-branch flip, the same family as the four A8.3
+cold-start refusals, and the density-retention instrument (`build_retention_chain2.py`) is
+the matching tool, not more iterations.
+
+**`Mn s0_OOH__2x1v_off__basin` is a registration slip, not a physics result:** ruling 1's
+basin re-relaxes were built at the ORIGINAL `electron_maxstep = 200` / beta 0.30 while
+ruling 2 raised the rescue decks to 500. It died at 5.3e-7 Ry — *below* `conv_thr` — on
+QE's tighter-`ethr` restart at iteration 200, after 17 BFGS steps and still descending.
+Any re-run at 500 almost certainly closes it.
+
+**Both below-parent findings are CONFIRMED, and both went deeper than their `__g1` children.**
+The §5-strict re-relaxes were built to test whether the wave-2 below-parent children were
+noise. They are not:
+
+| row | parent (banked) | `__g1` child | §5-strict re-relax | re-relax vs parent |
+|---|---|---|---|---|
+| Fe s0_OOH__1x1_off | −2558.13528265 | −384.3 meV | −2558.16677357 (**converged**) | **−428.5 meV** (−44.2 vs child) |
+| Mn s0_OOH__2x1v_off | −3617.09868891 | −20.6 meV | −3617.10180292 (bfgs 17, not conv.) | −42.4 meV (−21.8 vs child) |
+
+The Fe row is converged and lands **428.5 meV below the banked parent** — the banked
+`Fe s0_OOH__1x1_off` energy-of-record is a metastable-parent artifact, not the minimum,
+and the gap is far outside anything the A8.3 ±1 meV gate was built to police. The Mn row
+reproduces the same direction at 42.4 meV and had not stopped descending. **Banking these
+as replacements is the entrant call already parked on 2026-08-24 (A8.8 no-replacement);
+what round 3 removes is the "it might be noise" option.**
+
+**Co 2×1v column is still not assemblable.** With the reference restored the column holds
+ref ✓, `*O`-off ✓, `*OOH`-mir ✓ — no arm carries `*O`+`*OH`+`*OOH` together (off is missing
+`*OH`/`*OOH`; mir is missing `*O`/`*OH`). All four missing rows are creepers in the table
+above, so the column is one iteration-ceiling ruling away from closing, not one physics
+question away.
+
+**GATE-1 census unchanged at 38 AGREE / 0 REFUSED / 2 UNVERIFIED** — both round-3 `__g1`
+rescues (`Co s0_O__1x1_off__g1`, `Ni s0_OH__2x1v_off__g1`) failed again, so the two
+UNVERIFIED parents stay UNVERIFIED. A8.4 rung-(iii) count rises accordingly.
