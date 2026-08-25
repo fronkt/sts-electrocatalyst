@@ -311,7 +311,17 @@ hdr = f"""# S3 round 5 -- 2026-08-25. Seven remaining S3 failures + the four owe
 # first. The four __g1 children are pure additions.
 #
 # row: d job suffix nk
-# NP=128 NCONC=4
+# NP=128 NCONC=1
+#
+# The directive line above must read EXACTLY that, and no other comment line may
+# mention those two tokens. anvil/43_submit_s3_wave1.sh invokes the driver
+# preflight as `bash $DRIVER $MANIFEST $NP 1`, passing a concurrency of 1
+# unconditionally; queue_r1.sh refuses a manifest whose directive disagrees, and
+# also refuses one where any comment mentions the tokens outside the exact form
+# -- a typo there would silently disarm the wrong-rank refusal (finding N6).
+# That is why every manifest in this repo declares 1. Slurm concurrency is a
+# separate knob: the array throttle in `--array=1-N%C`, under which each task
+# still gets its own full 128 cores.
 """
 man = os.path.join(S3, "m_s3_round5.txt")
 W.write(man, hdr + "\n".join(rows) + "\n")
