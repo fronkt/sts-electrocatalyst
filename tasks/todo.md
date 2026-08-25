@@ -558,3 +558,9 @@ ranking would contaminate the campaign's central contribution.
 - [x] a088 victims 5/5 conv elsewhere; Ti child AGREE +0.002 meV; hess displaced E +~0.9 meV over minimum (sane)
 - [x] rung (iii) for Co s0_O__1x1_off__g1 + Ni s0_OH__2x1v_off__g1 -> parents GATE-1 UNVERIFIED (S6 flag)
 - [ ] awaiting chains 20119469 (Ni A8.3 second attempt + 2 Cr_lit3); then sigma_F readout + S6 analysis
+
+## 2026-08-24 (chains drained) — ALL A8.3 verdicts AGREE; S3 GATE-1 census FINAL
+- [x] chains 3/3: Ni +0.019 meV, Cr oosh +0.002, Cr yaw90 +0.001 vs banked parents -> no MULTISTABLE; LIT-3 BASIN_DRIFT closed; banked energies stand
+- [x] S3 GATE-1 final: 35 AGREE / 0 REFUSED / 2 UNVERIFIED (Co s0_O__1x1_off, Ni s0_OH__2x1v_off — children unconvergeable)
+- [x] all evidence banked (2b93340); Ni replay branch-divergence recorded (>=2 electronic branches on Ni 1x1_off)
+- [ ] in flight: esc re-Hessian sigma_F readout (agent); then S6 P-SYMCOV/CONFOUND analysis + A8.4 failure-rate table

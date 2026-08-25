@@ -162,3 +162,19 @@ and Ni s0_OH__2x1v_off__g1 NOT_CONVERGED; their parents' GATE-1 status = UNVERIF
 child census closes: **34 AGREE / 1 REFUSED-in-chain (Ni s0_O__1x1_off) / 2 UNVERIFIED
 = 37.** Cold-start failures keep clustering on Co/Ni where the parents' warm relax
 trajectories succeeded — consistent with the metastable-electronic-state theme.
+
+**A8.3 chains outcome (array 20119469, 2026-08-24): all three second attempts AGREE —
+no MULTISTABLE recordings; the banked parent energies STAND.** Ni s0_O__1x1_off__g1
+from density: −2598.63677183 = **+0.019 meV** vs banked parent (was +85.10 cold-start);
+Cr oosh__1x1_off_magp__g1: **+0.002 meV** (was +8.29); Cr s0_OOH__1x1_yaw90_magm__g1:
+**+0.001 meV** (was +47.77). **The LIT-3 BASIN_DRIFT question closes: cold-start
+electronic-metastability artifacts, basins fine.** Replay parity data: Cr oosh replay
++0.026 meV and Cr yaw90 replay −0.52 meV vs banked; the **Ni replay branch-diverged**
+(−2598.63335298, mag 8.01, +46.5 meV above banked mag-4.3 state) — same deck, same
+machine, different electronic branch, yet the child STILL relaxed into the banked state
+from that density (which strengthens the AGREE verdict: even a wrong-branch warm start
+finds the banked minimum at the parent geometry; only the atomic-superposition cold start
+does not). Provenance nuance recorded: chain-1's density was the replay's (mag-8 branch),
+not literally the parent's own — the A8.3 letter is satisfied by the child reproducing the
+banked energy within 1 meV at the parent geometry. Ni 1x1_off now has direct evidence of
+>= 2 electronic branches (more Co/Ni metastability, the docs/41 class).
