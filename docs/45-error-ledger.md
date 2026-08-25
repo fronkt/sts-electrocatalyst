@@ -193,3 +193,24 @@ they are the saddle -> minimum pair. Fallback sigma_F 1.66e-6 is 18x below the m
 geometry's 2.99e-5, independently confirming s4b's forward-difference-anharmonicity
 diagnosis. Which energy banks for Cr *OOH 2x1v (mir saddle -3188.70497 / escape minimum
 -3188.71606 / banked off -3188.79232, still 76 meV deeper) = S6/entrant.
+
+**Round-3 launch (array 20123293, 2026-08-24, docs/55).** The entrant delegated the four
+parked calls by criterion ("most scientific impact... if it's compute, no matter, go
+ahead") — rulings recorded in docs/55: (1) Fe/Mn below-parent drift rows take the docs/52
+C9 §5-strict arm (re-relax IN the deeper state: `__basin` decks = the `__g1` child with
+scf→relax, diff vs original parent = exactly {prefix, starting coordinates}); (2) dated
+recipe line `electron_maxstep 200→500` at last-attempted beta on the 9 rung-(iii) gaps +
+2 rung-(iii) `__g1` children (`.retry_ms.in`, one-token diff vs `.retry_bh.in`,
+assert-verified; NOT a ladder rung — ladder exhausted, attempts preserved); (3) Cr *OOH
+2×1v mir arm energy of record = the escape minimum −3188.71606 Ry (saddle −3188.70497
+retained as diagnostic; mir-vs-off gap now quoted minimum-to-minimum, 76.3 meV); (4) RCAC
+ticket DRAFTED (anvil/rcac_ticket_draft_2026-08-24.md) — submission is the entrant's.
+Node check 2026-08-24: a024 ALLOCATED / a088 MIXED — back in the general pool, never
+drained, no evidence of repair; EXCLUDE=a024,a088 verified on 20123293 (ExcNodeList=
+a[024,088]). Mechanics note: the driver's stale-out gate correctly refused the 11 reopened
+rows while their rung-(iii) NOT_CONVERGED records held the canonical `.out` names — those
+records were renamed to the next `.out.attemptN` (nothing deleted; mirrored in git) and
+preflight then passed 13/13. Worst-case burn 79.9k SU at 48 h; expected ~5-13k. Every
+newly converged relax owes a `__g1` child (wave 4). Until the Fe/Mn loop closes, both
+rows are PENDING-RERELAX in S6-facing tables (parent and child both quoted, neither
+final).
