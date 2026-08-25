@@ -178,3 +178,18 @@ does not). Provenance nuance recorded: chain-1's density was the replay's (mag-8
 not literally the parent's own — the A8.3 letter is satisfied by the child reproducing the
 banked energy within 1 meV at the parent geometry. Ni 1x1_off now has direct evidence of
 >= 2 electronic branches (more Co/Ni metastability, the docs/41 class).
+
+**1C esc re-Hessian readout (2026-08-24, runs/s3/Cr/hessian_result_esc_2026-08-24.json):
+i244.7 DOES NOT SURVIVE the escape.** All 9 adsorbate-block modes REAL at the escaped
+geometry (softest 85.3 cm-1, O38-carried; analyzer verdict REFUTED = no unstable adsorbate
+direction, gate-clean 0/0, robust at the docs/49 reading-(b) floor of record i50 AND at the
+fallback asymmetry sigma_F). The mirror geometry was a SADDLE; the escape descended
+-150.8 meV into a genuine minimum in the SAME magnetic state (M = 23.00 everywhere — the
+docs/41 metastable-magnetic trap did not recur; purely geometric). Physical signature: O-H
+stretch 3415.9 -> 2588.4 cm-1 + stiffened H out-of-plane modes = the H found a hydrogen-
+bond acceptor (H y-displacement 0.865 A off the old plane). Semantics: this does NOT
+contradict docs/49 s7c CONFIRMED (which says the MIRROR geometry is a saddle) — together
+they are the saddle -> minimum pair. Fallback sigma_F 1.66e-6 is 18x below the mirror
+geometry's 2.99e-5, independently confirming s4b's forward-difference-anharmonicity
+diagnosis. Which energy banks for Cr *OOH 2x1v (mir saddle -3188.70497 / escape minimum
+-3188.71606 / banked off -3188.79232, still 76 meV deeper) = S6/entrant.
