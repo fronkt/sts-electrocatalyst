@@ -1,0 +1,68 @@
+&CONTROL
+  calculation = 'scf'
+  prefix = 's0_OOH__1x1_off__basin__g1'
+  outdir = './tmp'
+  pseudo_dir = '/usr/share/espresso/pseudo'
+  tprnfor = .true.
+  forc_conv_thr = 2.0d-3
+  nstep = 200
+  max_seconds = 165000
+/
+&SYSTEM
+  ibrav = 0
+  nat = 21
+  ntyp = 3
+  ecutwfc = 80.0
+  ecutrho = 640.0
+  occupations = 'smearing'
+  smearing = 'mv'
+  degauss = 0.01
+  nosym = .true.
+  nspin = 2
+  starting_magnetization(1) = 0.5
+  starting_magnetization(2) = 0.0
+  starting_magnetization(3) = 0.0
+/
+&ELECTRONS
+  conv_thr = 1.0d-6
+  mixing_mode = 'local-TF'
+  mixing_beta = 0.3
+  electron_maxstep = 200
+/
+&IONS
+  ion_dynamics = 'bfgs'
+/
+ATOMIC_SPECIES
+  Fe  55.845  Fe.pbe-spn-kjpaw_psl.0.2.1.UPF
+  H  1.008  H.pbe-rrkjus_psl.1.0.0.UPF
+  O  15.999  O.pbe-n-kjpaw_psl.0.1.UPF
+CELL_PARAMETERS angstrom
+  3.00000000  0.00000000  0.00000000
+  0.00000000  6.36396103  0.00000000
+  0.00000000  0.00000000  25.45584412
+ATOMIC_POSITIONS angstrom
+  Fe  0.00000000  4.77297077  9.54594155  0 0 0
+  Fe  1.50000000  1.59099026  9.54594155  0 0 0
+  Fe  -0.00431582  1.57253196  12.83016144  1 1 1
+  Fe  1.49574536  4.75275664  12.73765214  1 1 1
+  Fe  -0.01651171  4.79027577  15.93913208  1 1 1
+  Fe  1.48647038  1.60910966  16.14226992  1 1 1
+  O  0.00000000  1.59099026  10.78691395  0 0 0
+  O  0.00000000  1.59099026  8.30496915  0 0 0
+  O  1.50000000  3.53199837  9.54594155  0 0 0
+  O  1.50000000  6.01394317  9.54594155  0 0 0
+  O  -0.00787530  4.73493349  14.00304783  1 1 1
+  O  0.00000000  4.77297077  11.48694966  0 0 0
+  O  1.49561500  0.34987682  12.83381998  1 1 1
+  O  1.49565913  2.79265276  12.78990833  1 1 1
+  O  -0.01739889  1.55263537  17.54082346  1 1 1
+  O  -0.01040803  1.63085905  14.90040320  1 1 1
+  O  1.48245860  3.59466613  16.36768276  1 1 1
+  O  1.48539273  5.99609007  16.21744459  1 1 1
+  O  -0.04277910  5.20526855  19.42946410  1 1 1
+  O  0.10602256  4.09262807  19.91396527  1 1 1
+  H  -0.01698842  2.35575281  18.09241707  1 1 1
+K_POINTS automatic
+  8 4 1 0 0 0
+HUBBARD (atomic)
+U Fe-3d 5.3000

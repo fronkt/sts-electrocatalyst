@@ -1,0 +1,41 @@
+# S3 round 5 -- 2026-08-25. Seven remaining S3 failures + the four owed
+# wave-4 __g1 children. Built by src/dft/build_s3_round5.py; run by
+# anvil/42_s3_wave1.slurm via 43_submit_s3_wave1.sh.
+#
+# ONE escalation, applied uniformly: mixing_ndim = 16 (unset in every S3 deck
+# so far -> QE default 8). It is the Broyden history DEPTH, which is the
+# parameter the "saturated history" diagnosis names and the one axis the A8.4
+# ladder never touched -- beta was escalated three times instead. This repo's own
+# R1 slab campaign used ndim=12 as standard and ndim=16 + beta=0.05 as its
+# "attempt4" rung, which converged Cr_slab/s0_OH, Mn_slab/s0_OOH, Co_slab/s0_O.
+# mixing_beta is deliberately left alone so this tests ONE thing.
+#
+# upscale is deliberately NOT declared: its default 100 is what held the 39
+# banked relaxes to an effective 1e-8, so leaving it keeps these rows uniform
+# with their siblings and moves no goalpost. The declaration belongs in the
+# methods text (entrant's).
+#
+# Per-deck riders, each demonstrably binding:
+#   Co s0_O__2x1v_mir           electron_maxstep 500 -> 1500 (the one SLOW row)
+#   Mn s0_OOH__2x1v_off__basin  electron_maxstep 200 ->  500 (the only deck
+#                               below the campaign standard; alignment)
+#   Mn basin / Ni s0_OOH__2x1v_mir  restart from the last banked BFGS geometry
+#                               (19 and 3 ionic steps preserved)
+#
+# A8.8: the seven retry jobs own a .out with JOB DONE and 42_s3_wave1.slurm
+# refuses to overwrite one, so deployment archives each to .out.attempt<N+1>
+# first. The four __g1 children are pure additions.
+#
+# row: d job suffix nk
+# NP=128 NCONC=4
+s3/Co s0_O__2x1v_mir .retry_ndim.in 8
+s3/Co s0_OH__2x1v_mir .retry_ndim.in 8
+s3/Co s0_OH__2x1v_off .retry_ndim.in 8
+s3/Co s0_OOH__2x1v_off .retry_ndim.in 8
+s3/Ni s0_OOH__2x1v_mir .retry_ndim.in 8
+s3/Ni s0_OOH__2x1v_off .retry_ndim.in 8
+s3/Mn s0_OOH__2x1v_off__basin .retry_ndim.in 8
+s3/Co ref__2x1v__g1 .in 16
+s3/Co s0_OH__1x1_off__g1 .in 16
+s3/Co s0_OOH__2x1v_mir__g1 .in 8
+s3/Fe s0_OOH__1x1_off__basin__g1 .in 16
