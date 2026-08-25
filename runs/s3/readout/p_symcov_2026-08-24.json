@@ -1,0 +1,2058 @@
+{
+ "artifact": "P-SYMCOV score over the S3 readout",
+ "claim_scope_branch": {
+  "metals_with_both_coverages_scored_now_any_state_reading": [
+   "Cr",
+   "Mn",
+   "Fe",
+   "Ru",
+   "Ir"
+  ],
+  "resolution": "NOT RESOLVED HERE. The >= 5-of-8 count requires (a) a per-metal symmetry effect whose aggregation over states is unregistered, (b) a numeric cut for 'large' that is unregistered, and (c) rulings on the tier_v2 1x1 mirror-member standing (docs/54:406-411) and on confounded-pair coverage status. The facts needed for the entrant's sentence are in coverage_dependence_DD.rows and per_metal_coverage_table.",
+  "rule": "docs/43:1546-1554"
+ },
+ "convention": "Delta_sym = E(off) - E(mir) per (metal, state, coverage), energies of record from the readout (GATE-1 AGREE rows quote the child, docs/52 C9); meV = Ry x 13605.693. Sign convention verified against docs/54:245 (+0.2475 eV at 1x1, +0.0130 eV at 2x1v for Ru *OH) and docs/54:152 (1.188 eV vs the saddle).",
+ "coverage_dependence_DD": {
+  "definition": "DD = Delta_sym(1x1) - Delta_sym(2x1v) per (metal, state); |DD| is the quantity the docs/43:1546-1547 classifier compares (equal in magnitude to block 1A's I, docs/43:169, opposite sign). Values only \u2014 the registered classifier has no numeric cut for 'large', and the per-metal aggregation of states is not registered; no verdict is emitted.",
+  "rows": [
+   {
+    "abs_dd_ev": 0.0002,
+    "dd_mev": -0.24,
+    "enters_pooled_statistics": true,
+    "metal": "Cr",
+    "state": "*O",
+    "tags": []
+   },
+   {
+    "dd_mev": null,
+    "enters_pooled_statistics": false,
+    "metal": "Cr",
+    "state": "*OH",
+    "why_excluded": "1x1: pair CONFOUNDED \u2014 excluded (docs/43:1566-1569)"
+   },
+   {
+    "dd_mev": null,
+    "enters_pooled_statistics": false,
+    "metal": "Cr",
+    "state": "*OOH",
+    "why_excluded": "1x1: pair CONFOUNDED \u2014 excluded (docs/43:1566-1569)"
+   },
+   {
+    "abs_dd_ev": 0.0497,
+    "dd_mev": -49.74,
+    "enters_pooled_statistics": true,
+    "metal": "Mn",
+    "state": "*O",
+    "tags": [
+     "MIR-MEMBER-STANDING-OPEN"
+    ]
+   },
+   {
+    "abs_dd_ev": 0.0431,
+    "dd_mev": 43.07,
+    "enters_pooled_statistics": true,
+    "metal": "Mn",
+    "state": "*OH",
+    "tags": [
+     "MIR-MEMBER-STANDING-OPEN"
+    ]
+   },
+   {
+    "dd_mev": null,
+    "enters_pooled_statistics": false,
+    "metal": "Mn",
+    "state": "*OOH",
+    "why_excluded": "2x1v: off member is PENDING-RERELAX"
+   },
+   {
+    "abs_dd_ev": 0.1104,
+    "dd_mev": -110.41,
+    "enters_pooled_statistics": true,
+    "metal": "Fe",
+    "state": "*O",
+    "tags": [
+     "MIR-MEMBER-STANDING-OPEN"
+    ]
+   },
+   {
+    "dd_mev": null,
+    "enters_pooled_statistics": false,
+    "metal": "Fe",
+    "state": "*OH",
+    "why_excluded": "1x1: pair CONFOUNDED \u2014 excluded (docs/43:1566-1569)"
+   },
+   {
+    "dd_mev": null,
+    "enters_pooled_statistics": false,
+    "metal": "Fe",
+    "state": "*OOH",
+    "why_excluded": "1x1: off member is PENDING-RERELAX"
+   },
+   {
+    "dd_mev": null,
+    "enters_pooled_statistics": false,
+    "metal": "Co",
+    "state": "*O",
+    "why_excluded": "1x1: off member is UNVERIFIED; 2x1v: mir member is PENDING-RETRY"
+   },
+   {
+    "dd_mev": null,
+    "enters_pooled_statistics": false,
+    "metal": "Co",
+    "state": "*OH",
+    "why_excluded": "1x1: off member is PENDING-RETRY; 2x1v: mir member is PENDING-RETRY; off member is PENDING-RETRY"
+   },
+   {
+    "dd_mev": null,
+    "enters_pooled_statistics": false,
+    "metal": "Co",
+    "state": "*OOH",
+    "why_excluded": "1x1: mir member is GAP; off member is ABSENT; 2x1v: mir member is PENDING-RETRY; off member is PENDING-RETRY"
+   },
+   {
+    "dd_mev": null,
+    "enters_pooled_statistics": false,
+    "metal": "Ni",
+    "state": "*O",
+    "why_excluded": "1x1: off member is UNCLASSIFIED"
+   },
+   {
+    "dd_mev": null,
+    "enters_pooled_statistics": false,
+    "metal": "Ni",
+    "state": "*OH",
+    "why_excluded": "1x1: pair CONFOUNDED \u2014 excluded (docs/43:1566-1569); 2x1v: off member is UNVERIFIED"
+   },
+   {
+    "dd_mev": null,
+    "enters_pooled_statistics": false,
+    "metal": "Ni",
+    "state": "*OOH",
+    "why_excluded": "1x1: mir member is GAP; off member is ABSENT; 2x1v: mir member is PENDING-RETRY; off member is PENDING-RETRY"
+   },
+   {
+    "abs_dd_ev": 0.001,
+    "dd_mev": 0.95,
+    "enters_pooled_statistics": true,
+    "metal": "Ru",
+    "state": "*O",
+    "tags": [
+     "CONFOUND-CHECK-NA"
+    ]
+   },
+   {
+    "abs_dd_ev": 0.2346,
+    "dd_mev": 234.58,
+    "enters_pooled_statistics": true,
+    "metal": "Ru",
+    "state": "*OH",
+    "tags": [
+     "CONFOUND-CHECK-NA"
+    ]
+   },
+   {
+    "abs_dd_ev": 0.0271,
+    "dd_mev": 27.07,
+    "enters_pooled_statistics": true,
+    "metal": "Ru",
+    "state": "*OOH",
+    "tags": [
+     "CONFOUND-CHECK-NA"
+    ]
+   },
+   {
+    "abs_dd_ev": 0.0008,
+    "dd_mev": 0.78,
+    "enters_pooled_statistics": true,
+    "metal": "Ir",
+    "state": "*O",
+    "tags": [
+     "CONFOUND-CHECK-NA"
+    ]
+   },
+   {
+    "abs_dd_ev": 0.0429,
+    "dd_mev": 42.93,
+    "enters_pooled_statistics": true,
+    "metal": "Ir",
+    "state": "*OH",
+    "tags": [
+     "CONFOUND-CHECK-NA"
+    ]
+   },
+   {
+    "abs_dd_ev": 0.2661,
+    "dd_mev": -266.15,
+    "enters_pooled_statistics": true,
+    "metal": "Ir",
+    "state": "*OOH",
+    "tags": [
+     "CONFOUND-CHECK-NA",
+     "OOSH-MEMBER-OPEN"
+    ]
+   },
+   {
+    "dd_mev": null,
+    "enters_pooled_statistics": false,
+    "metal": "Ti",
+    "state": "*O",
+    "why_excluded": "1x1: mir member is ABSENT; off member is ABSENT"
+   },
+   {
+    "dd_mev": null,
+    "enters_pooled_statistics": false,
+    "metal": "Ti",
+    "state": "*OH",
+    "why_excluded": "1x1: mir member is ABSENT; off member is ABSENT"
+   },
+   {
+    "dd_mev": null,
+    "enters_pooled_statistics": false,
+    "metal": "Ti",
+    "state": "*OOH",
+    "why_excluded": "1x1: mir member is ABSENT; off member is ABSENT"
+   }
+  ]
+ },
+ "date": "2026-08-24",
+ "input": "runs/s3/readout/s3_readout_2026-08-24.json",
+ "open_questions_registered_elsewhere": [
+  "Per-metal aggregation of the per-state symmetry effect is unregistered (which state(s) carry the metal's 'symmetry effect' for the >= 5-of-8 count).",
+  "The coverage-DEPENDENT cut ('large') has no registered numeric value; the coverage-INDEPENDENT tolerance cited is 0.05 uB, a magnetisation, applied to an energy comparison (spec-flagged).",
+  "Mn/Fe/Co/Ni tier_v2 1x1 mirror reuse rows are nosym ON_PLANE/EXPLORED \u2014 'neither registered arm' (docs/54:406-411); if they do not stand as mirror members, every 1x1 pair tagged MIR-MEMBER-STANDING-OPEN becomes a gap.",
+  "Whether a CONFOUNDED pair counts as 'measured' for a metal's coverage status is unregistered.",
+  "Ru/Ir (nspin=1) and Ti (d0) print no total magnetisation; whether the 0.05 uB confound check is trivially passed or inapplicable is unregistered (spec-flagged).",
+  "Cr *OH 1x1: the state of record (docs/54:147) marks the pair CONFOUNDED while both readout members print M = 11.00 uB (|dM| = 0.00) \u2014 the record marking is carried; the discrepancy is for the entrant.",
+  "Cr *OOH 1x1: docs/54:150/:400-405 'pair CONFOUNDED either way', member identity OPEN (production M 11.80 vs basin M 11.00); carried as CONFOUNDED.",
+  "Cr *OOH 2x1v: docs/54:152's CONFOUNDED marking was computed against the superseded saddle; on the docs/55 R3 escape-minimum members |dM| = 0.00 uB \u2014 whether the min-to-min pair re-enters contrast statistics is unruled.",
+  "Which member's M enters the 0.05 uB comparison where the __g1 child is the energy of record (spec-flagged); this script used the readout's energy-of-record M per cell.",
+  "Ni *O 1x1 off is UNCLASSIFIED (refused __g1 child +85.10 meV; remedy re-run exists only as the spec-excluded .fromparent.out) and is NOT in array 20123293 \u2014 round 3 cannot deliver this cell."
+ ],
+ "pairs": [
+  {
+   "confound_check": "PASS \u2014 |dM| = 0.00 uB <= 0.05 uB (docs/43:1566-1571)",
+   "coverage": "1x1",
+   "delta_M_uB": 0.0,
+   "delta_sym_ev": -0.0002,
+   "delta_sym_mev": -0.22,
+   "metal": "Cr",
+   "mir": {
+    "M_uB": 10.0,
+    "energy_ry": -1593.69696999,
+    "file": "runs/probe/Cr_cellsym/s0_O__1x1_mir.out",
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 10.0,
+    "energy_ry": -1593.69698646,
+    "file": "runs/probe/Cr_cellsym/s0_O__1x1_off.out",
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*O",
+   "tags": [],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "PASS \u2014 |dM| = 0.00 uB <= 0.05 uB (docs/43:1566-1571)",
+   "coverage": "2x1v",
+   "delta_M_uB": 0.0,
+   "delta_sym_ev": 0.0,
+   "delta_sym_mev": 0.02,
+   "metal": "Cr",
+   "mir": {
+    "M_uB": 22.0,
+    "energy_ry": -3145.93480354,
+    "file": "runs/probe/Cr_cellsym/s0_O__2x1v_mir.out",
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 22.0,
+    "energy_ry": -3145.93480189,
+    "file": "runs/probe/Cr_cellsym/s0_O__2x1v_off.out",
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*O",
+   "tags": [],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "PASS \u2014 |dM| = 0.00 uB <= 0.05 uB (docs/43:1566-1571) ; BUT the state of record marks this pair CONFOUNDED (docs/54 marking carried on the cell) \u2014 the record marking is carried, the readout-member dM discrepancy is flagged for the entrant",
+   "coverage": "1x1",
+   "delta_M_uB": 0.0,
+   "delta_sym_ev": 0.1612,
+   "delta_sym_mev": 161.18,
+   "metal": "Cr",
+   "mir": {
+    "M_uB": 11.0,
+    "energy_ry": -1595.00031719,
+    "file": "runs/probe/Cr_cellsym/s0_OH__1x1_mir.out",
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 11.0,
+    "energy_ry": -1594.98847069,
+    "file": "runs/probe/Cr_cellsym/s0_OH__1x1_off.out",
+    "notes": [
+     "1x1 symmetry pair CONFOUNDED (docs/54:147)"
+    ],
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED-EXCLUDED",
+   "round3_impact": [],
+   "state": "*OH",
+   "tags": [
+    "CONFOUNDED-BY-RECORD"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "PASS \u2014 |dM| = 0.00 uB <= 0.05 uB (docs/43:1566-1571)",
+   "coverage": "2x1v",
+   "delta_M_uB": 0.0,
+   "delta_sym_ev": -0.0021,
+   "delta_sym_mev": -2.11,
+   "metal": "Cr",
+   "mir": {
+    "M_uB": 23.0,
+    "energy_ry": -3147.21581906,
+    "file": "runs/probe/Cr_cellsym/s0_OH__2x1v_mir.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 23.0,
+    "energy_ry": -3147.21597446,
+    "file": "runs/probe/Cr_cellsym/s0_OH__2x1v_off.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*OH",
+   "tags": [],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "PASS \u2014 |dM| = 0.00 uB <= 0.05 uB (docs/43:1566-1571) ; BUT the state of record marks this pair CONFOUNDED (docs/54 marking carried on the cell) \u2014 the record marking is carried, the readout-member dM discrepancy is flagged for the entrant",
+   "coverage": "1x1",
+   "delta_M_uB": 0.0,
+   "delta_sym_ev": -1.1675,
+   "delta_sym_mev": -1167.52,
+   "metal": "Cr",
+   "mir": {
+    "M_uB": 11.0,
+    "energy_ry": -1636.48392809,
+    "file": "runs/s3/Cr/s0_OOH__basin_g1.out",
+    "notes": [
+     "member identity OPEN \u2014 which file is the 1x1-mir production-seed MEMBER is unresolved (docs/54:400-405); pair CONFOUNDED either way \u2014 entrant's call, NOT resolved here"
+    ],
+    "parent_quoted": {
+     "energy_ry": -1636.48392834,
+     "file": "runs/probe/Cr_basin/s0_OOH.out"
+    },
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 11.0,
+    "energy_ry": -1636.56973955,
+    "file": "runs/probe/Cr_cellsym/s0_OOH__1x1_off.out",
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED-EXCLUDED",
+   "round3_impact": [],
+   "state": "*OOH",
+   "tags": [
+    "CONFOUNDED-BY-RECORD",
+    "MEMBER-IDENTITY-OPEN"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "PASS \u2014 |dM| = 0.00 uB <= 0.05 uB (docs/43:1566-1571)",
+   "coverage": "2x1v",
+   "delta_M_uB": 0.0,
+   "delta_sym_ev": -1.0376,
+   "delta_sym_mev": -1037.61,
+   "metal": "Cr",
+   "mir": {
+    "M_uB": 23.0,
+    "energy_ry": -3188.71605541,
+    "file": "runs/s3/Cr/s0_OOH__2x1v_escape.out",
+    "notes": [
+     "mirror saddle carried as DIAGNOSTIC row (runs/probe/Cr_cellsym/s0_OOH__2x1v_mir.out)",
+     "escape __g1 child AGREE (+0.004 meV); docs/55 R3 names the escape minimum FILE as the energy of record, so R3 is applied verbatim and the child is quoted, not substituted"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 23.0,
+    "energy_ry": -3188.7923181,
+    "file": "runs/probe/Cr_cellsym/s0_OOH__2x1v_off.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "r3_note": "docs/55 R3: mir member = escape minimum runs/s3/Cr/s0_OOH__2x1v_escape.out (-3188.71605541 Ry); mir-vs-off gap quoted minimum-to-minimum at 2x1v coverage: -1037.61 meV. The saddle value -3188.70497020 Ry is a DIAGNOSTIC, not a state; docs/54:152's CONFOUNDED marking (Delta_sym 1.188 eV) was computed against that superseded saddle \u2014 whether the min-to-min pair re-enters the contrast statistics is not ruled anywhere; readout members have |dM| = 0.00 uB",
+   "round3_impact": [],
+   "state": "*OOH",
+   "tags": [
+    "R3-ESCAPE-MINIMUM"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "PASS \u2014 |dM| = 0.00 uB <= 0.05 uB (docs/43:1566-1571)",
+   "coverage": "1x1",
+   "delta_M_uB": 0.0,
+   "delta_sym_ev": -0.1571,
+   "delta_sym_mev": -157.09,
+   "metal": "Mn",
+   "mir": {
+    "M_uB": 16.0,
+    "energy_ry": -1807.77357526,
+    "file": "runs/Mn_slab/s0_O.out",
+    "notes": [
+     "nosym ON_PLANE \u2014 whether this row stands as a mirror member is OPEN (docs/54:406-411, section 6 item 5)"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 16.0,
+    "energy_ry": -1807.78512135,
+    "file": "runs/s3/Mn/s0_O__1x1_off__g1.out",
+    "parent_quoted": {
+     "energy_ry": -1807.78512143,
+     "file": "runs/s3/Mn/s0_O__1x1_off.out"
+    },
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*O",
+   "tags": [
+    "MIR-MEMBER-STANDING-OPEN"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "PASS \u2014 |dM| = 0.00 uB <= 0.05 uB (docs/43:1566-1571)",
+   "coverage": "2x1v",
+   "delta_M_uB": 0.0,
+   "delta_sym_ev": -0.1073,
+   "delta_sym_mev": -107.35,
+   "metal": "Mn",
+   "mir": {
+    "M_uB": 34.0,
+    "energy_ry": -3574.11798039,
+    "file": "runs/s3/Mn/s0_O__2x1v_mir__g1.out",
+    "parent_quoted": {
+     "energy_ry": -3574.11798101,
+     "file": "runs/s3/Mn/s0_O__2x1v_mir.out"
+    },
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 34.0,
+    "energy_ry": -3574.12587024,
+    "file": "runs/s3/Mn/s0_O__2x1v_off__g1.out",
+    "parent_quoted": {
+     "energy_ry": -3574.12587068,
+     "file": "runs/s3/Mn/s0_O__2x1v_off.out"
+    },
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*O",
+   "tags": [],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "PASS \u2014 |dM| = 0.01 uB <= 0.05 uB (docs/43:1566-1571)",
+   "coverage": "1x1",
+   "delta_M_uB": 0.01,
+   "delta_sym_ev": 0.0207,
+   "delta_sym_mev": 20.73,
+   "metal": "Mn",
+   "mir": {
+    "M_uB": 16.99,
+    "energy_ry": -1809.11818344,
+    "file": "runs/Mn_slab/s0_OH.out",
+    "notes": [
+     "nosym EXPLORED \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 17.0,
+    "energy_ry": -1809.11665983,
+    "file": "runs/s3/Mn/s0_OH__1x1_off__g1.out",
+    "parent_quoted": {
+     "energy_ry": -1809.11666007,
+     "file": "runs/s3/Mn/s0_OH__1x1_off.out"
+    },
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*OH",
+   "tags": [
+    "MIR-MEMBER-STANDING-OPEN"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "PASS \u2014 |dM| = 0.00 uB <= 0.05 uB (docs/43:1566-1571)",
+   "coverage": "2x1v",
+   "delta_M_uB": 0.0,
+   "delta_sym_ev": -0.0223,
+   "delta_sym_mev": -22.34,
+   "metal": "Mn",
+   "mir": {
+    "M_uB": 35.0,
+    "energy_ry": -3575.45883959,
+    "file": "runs/s3/Mn/s0_OH__2x1v_mir__g1.out",
+    "parent_quoted": {
+     "energy_ry": -3575.45883979,
+     "file": "runs/s3/Mn/s0_OH__2x1v_mir.out"
+    },
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 35.0,
+    "energy_ry": -3575.46048157,
+    "file": "runs/s3/Mn/s0_OH__2x1v_off__g1.out",
+    "parent_quoted": {
+     "energy_ry": -3575.4604819,
+     "file": "runs/s3/Mn/s0_OH__2x1v_off.out"
+    },
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*OH",
+   "tags": [],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "PASS \u2014 |dM| = 0.00 uB <= 0.05 uB (docs/43:1566-1571)",
+   "coverage": "1x1",
+   "delta_M_uB": 0.0,
+   "delta_sym_ev": -1.5643,
+   "delta_sym_mev": -1564.3,
+   "metal": "Mn",
+   "mir": {
+    "M_uB": 17.0,
+    "energy_ry": -1850.60679209,
+    "file": "runs/Mn_slab/s0_OOH.out",
+    "notes": [
+     "nosym EXPLORED \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 17.0,
+    "energy_ry": -1850.72176608,
+    "file": "runs/s3/Mn/s0_OOH__1x1_off__g1.out",
+    "parent_quoted": {
+     "energy_ry": -1850.72176627,
+     "file": "runs/s3/Mn/s0_OOH__1x1_off.out"
+    },
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*OOH",
+   "tags": [
+    "MIR-MEMBER-STANDING-OPEN"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": null,
+   "coverage": "2x1v",
+   "delta_M_uB": null,
+   "delta_sym_ev": null,
+   "delta_sym_mev": null,
+   "metal": "Mn",
+   "mir": {
+    "M_uB": 35.0,
+    "energy_ry": -3616.95791244,
+    "file": "runs/s3/Mn/s0_OOH__2x1v_mir__g1.out",
+    "parent_quoted": {
+     "energy_ry": -3616.95791268,
+     "file": "runs/s3/Mn/s0_OOH__2x1v_mir.out"
+    },
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "child_quoted": {
+     "delta_mev": -20.616,
+     "energy_ry": -3617.10020414,
+     "file": "runs/s3/Mn/s0_OOH__2x1v_off__g1.out"
+    },
+    "energy_ry": null,
+    "file": null,
+    "parent_quoted": {
+     "energy_ry": -3617.09868891,
+     "file": "runs/s3/Mn/s0_OOH__2x1v_off.out"
+    },
+    "status": "PENDING-RERELAX"
+   },
+   "pair_status": "UNSCORED",
+   "round3_impact": [
+    {
+     "member": "Mn|OOH|2x1v|off",
+     "round3": "__basin re-relaxation in flight (docs/55 R1, array 20123293); round 3 delivers the final off-arm member \u2014 until then quote parent AND child, bank neither"
+    }
+   ],
+   "state": "*OOH",
+   "tags": [],
+   "why_unscored": "off member is PENDING-RERELAX"
+  },
+  {
+   "confound_check": "PASS \u2014 |dM| = 0.00 uB <= 0.05 uB (docs/43:1566-1571)",
+   "coverage": "1x1",
+   "delta_M_uB": 0.0,
+   "delta_sym_ev": -0.1188,
+   "delta_sym_mev": -118.81,
+   "metal": "Fe",
+   "mir": {
+    "M_uB": 21.98,
+    "energy_ry": -2515.17456142,
+    "file": "runs/Fe_slab/s0_O.out",
+    "notes": [
+     "nosym ON_PLANE \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 21.98,
+    "energy_ry": -2515.18329369,
+    "file": "runs/s3/Fe/s0_O__1x1_off__g1.out",
+    "parent_quoted": {
+     "energy_ry": -2515.18329395,
+     "file": "runs/s3/Fe/s0_O__1x1_off.out"
+    },
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*O",
+   "tags": [
+    "MIR-MEMBER-STANDING-OPEN"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "PASS \u2014 |dM| = 0.00 uB <= 0.05 uB (docs/43:1566-1571)",
+   "coverage": "2x1v",
+   "delta_M_uB": 0.0,
+   "delta_sym_ev": -0.0084,
+   "delta_sym_mev": -8.4,
+   "metal": "Fe",
+   "mir": {
+    "M_uB": 45.95,
+    "energy_ry": -4988.97969226,
+    "file": "runs/s3/Fe/s0_O__2x1v_mir__g1.out",
+    "parent_quoted": {
+     "energy_ry": -4988.97969255,
+     "file": "runs/s3/Fe/s0_O__2x1v_mir.out"
+    },
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 45.95,
+    "energy_ry": -4988.98030942,
+    "file": "runs/s3/Fe/s0_O__2x1v_off__g1.out",
+    "parent_quoted": {
+     "energy_ry": -4988.98030995,
+     "file": "runs/s3/Fe/s0_O__2x1v_off.out"
+    },
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*O",
+   "tags": [],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "CONFOUNDED \u2014 |dM| = 0.14 uB > 0.05 uB (docs/43:1566-1571); excluded from contrast statistics, reported separately (treatment per docs/43:306-310)",
+   "coverage": "1x1",
+   "delta_M_uB": 0.14,
+   "delta_sym_ev": 0.1082,
+   "delta_sym_mev": 108.18,
+   "metal": "Fe",
+   "mir": {
+    "M_uB": 23.1,
+    "energy_ry": -2516.54646887,
+    "file": "runs/Fe_slab/s0_OH.out",
+    "notes": [
+     "nosym EXPLORED \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 22.96,
+    "energy_ry": -2516.53851756,
+    "file": "runs/s3/Fe/s0_OH__1x1_off__g1.out",
+    "parent_quoted": {
+     "energy_ry": -2516.5385179,
+     "file": "runs/s3/Fe/s0_OH__1x1_off.out"
+    },
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED-EXCLUDED",
+   "round3_impact": [],
+   "state": "*OH",
+   "tags": [
+    "CONFOUNDED",
+    "MIR-MEMBER-STANDING-OPEN"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "PASS \u2014 |dM| = 0.02 uB <= 0.05 uB (docs/43:1566-1571)",
+   "coverage": "2x1v",
+   "delta_M_uB": 0.02,
+   "delta_sym_ev": -0.0625,
+   "delta_sym_mev": -62.48,
+   "metal": "Fe",
+   "mir": {
+    "M_uB": 46.96,
+    "energy_ry": -4990.34123858,
+    "file": "runs/s3/Fe/s0_OH__2x1v_mir__g1.out",
+    "parent_quoted": {
+     "energy_ry": -4990.3412389,
+     "file": "runs/s3/Fe/s0_OH__2x1v_mir.out"
+    },
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 46.94,
+    "energy_ry": -4990.34583064,
+    "file": "runs/s3/Fe/s0_OH__2x1v_off__g1.out",
+    "parent_quoted": {
+     "energy_ry": -4990.34583102,
+     "file": "runs/s3/Fe/s0_OH__2x1v_off.out"
+    },
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*OH",
+   "tags": [],
+   "why_unscored": null
+  },
+  {
+   "confound_check": null,
+   "coverage": "1x1",
+   "delta_M_uB": null,
+   "delta_sym_ev": null,
+   "delta_sym_mev": null,
+   "metal": "Fe",
+   "mir": {
+    "M_uB": 22.98,
+    "energy_ry": -2558.05888124,
+    "file": "runs/Fe_slab/s0_OOH.out",
+    "notes": [
+     "nosym ON_PLANE \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "child_quoted": {
+     "delta_mev": -384.3,
+     "energy_ry": -2558.16352817,
+     "file": "runs/s3/Fe/s0_OOH__1x1_off__g1.out"
+    },
+    "energy_ry": null,
+    "file": null,
+    "parent_quoted": {
+     "energy_ry": -2558.13528265,
+     "file": "runs/s3/Fe/s0_OOH__1x1_off.out"
+    },
+    "status": "PENDING-RERELAX"
+   },
+   "pair_status": "UNSCORED",
+   "round3_impact": [
+    {
+     "member": "Fe|OOH|1x1|off",
+     "round3": "__basin re-relaxation in flight (docs/55 R1, array 20123293); round 3 delivers the final off-arm member \u2014 until then quote parent AND child, bank neither"
+    }
+   ],
+   "state": "*OOH",
+   "tags": [],
+   "why_unscored": "off member is PENDING-RERELAX"
+  },
+  {
+   "confound_check": "PASS \u2014 |dM| = 0.00 uB <= 0.05 uB (docs/43:1566-1571)",
+   "coverage": "2x1v",
+   "delta_M_uB": 0.0,
+   "delta_sym_ev": -1.7642,
+   "delta_sym_mev": -1764.23,
+   "metal": "Fe",
+   "mir": {
+    "M_uB": 46.97,
+    "energy_ry": -5031.84916185,
+    "file": "runs/s3/Fe/s0_OOH__2x1v_mir__g1.out",
+    "parent_quoted": {
+     "energy_ry": -5031.84916224,
+     "file": "runs/s3/Fe/s0_OOH__2x1v_mir.out"
+    },
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 46.97,
+    "energy_ry": -5031.97883034,
+    "file": "runs/s3/Fe/s0_OOH__2x1v_off__g1.out",
+    "parent_quoted": {
+     "energy_ry": -5031.97883058,
+     "file": "runs/s3/Fe/s0_OOH__2x1v_off.out"
+    },
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*OOH",
+   "tags": [],
+   "why_unscored": null
+  },
+  {
+   "confound_check": null,
+   "coverage": "1x1",
+   "delta_M_uB": null,
+   "delta_sym_ev": null,
+   "delta_sym_mev": null,
+   "metal": "Co",
+   "mir": {
+    "M_uB": 11.24,
+    "energy_ry": -2330.66753771,
+    "file": "runs/Co_slab/s0_O.out",
+    "notes": [
+     "nosym EXPLORED \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": null,
+    "file": null,
+    "parent_quoted": {
+     "energy_ry": -2330.66171228,
+     "file": "runs/s3/Co/s0_O__1x1_off.out"
+    },
+    "status": "UNVERIFIED"
+   },
+   "pair_status": "UNSCORED",
+   "round3_impact": [
+    {
+     "member": "Co|O|1x1|off",
+     "round3": "parent UNVERIFIED \u2014 its __g1 child is PENDING-RETRY in array 20123293 (docs/55 R2); a converged AGREE child banks this cell (child quoted per docs/52 C9), a REFUSED child triggers docs/43:1589-1592"
+    }
+   ],
+   "state": "*O",
+   "tags": [],
+   "why_unscored": "off member is UNVERIFIED"
+  },
+  {
+   "confound_check": null,
+   "coverage": "2x1v",
+   "delta_M_uB": null,
+   "delta_sym_ev": null,
+   "delta_sym_mev": null,
+   "metal": "Co",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": null,
+    "file": null,
+    "status": "PENDING-RETRY"
+   },
+   "off": {
+    "M_uB": 25.23,
+    "energy_ry": -4619.85589635,
+    "file": "runs/s3/Co/s0_O__2x1v_off__g1.out",
+    "parent_quoted": {
+     "energy_ry": -4619.85589866,
+     "file": "runs/s3/Co/s0_O__2x1v_off.out"
+    },
+    "status": "BANKED"
+   },
+   "pair_status": "UNSCORED",
+   "round3_impact": [
+    {
+     "member": "Co|O|2x1v|mir",
+     "round3": "rung-(iii) row PENDING-RETRY in array 20123293 (docs/55 R2); a converged round-3 .out would give this cell an energy of record"
+    }
+   ],
+   "state": "*O",
+   "tags": [],
+   "why_unscored": "mir member is PENDING-RETRY"
+  },
+  {
+   "confound_check": null,
+   "coverage": "1x1",
+   "delta_M_uB": null,
+   "delta_sym_ev": null,
+   "delta_sym_mev": null,
+   "metal": "Co",
+   "mir": {
+    "M_uB": 9.92,
+    "energy_ry": -2332.00425006,
+    "file": "runs/s3/Co/s0_OH__basin_g1.out",
+    "parent_quoted": {
+     "energy_ry": -2332.00425138,
+     "file": "runs/probe/Co_basin/s0_OH.out"
+    },
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": null,
+    "file": null,
+    "status": "PENDING-RETRY"
+   },
+   "pair_status": "UNSCORED",
+   "round3_impact": [
+    {
+     "member": "Co|OH|1x1|off",
+     "round3": "rung-(iii) row PENDING-RETRY in array 20123293 (docs/55 R2); a converged round-3 .out would give this cell an energy of record"
+    }
+   ],
+   "state": "*OH",
+   "tags": [],
+   "why_unscored": "off member is PENDING-RETRY"
+  },
+  {
+   "confound_check": null,
+   "coverage": "2x1v",
+   "delta_M_uB": null,
+   "delta_sym_ev": null,
+   "delta_sym_mev": null,
+   "metal": "Co",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": null,
+    "file": null,
+    "status": "PENDING-RETRY"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": null,
+    "file": null,
+    "status": "PENDING-RETRY"
+   },
+   "pair_status": "UNSCORED",
+   "round3_impact": [
+    {
+     "member": "Co|OH|2x1v|mir",
+     "round3": "rung-(iii) row PENDING-RETRY in array 20123293 (docs/55 R2); a converged round-3 .out would give this cell an energy of record"
+    },
+    {
+     "member": "Co|OH|2x1v|off",
+     "round3": "rung-(iii) row PENDING-RETRY in array 20123293 (docs/55 R2); a converged round-3 .out would give this cell an energy of record"
+    }
+   ],
+   "state": "*OH",
+   "tags": [],
+   "why_unscored": "mir member is PENDING-RETRY; off member is PENDING-RETRY"
+  },
+  {
+   "confound_check": null,
+   "coverage": "1x1",
+   "delta_M_uB": null,
+   "delta_sym_ev": null,
+   "delta_sym_mev": null,
+   "metal": "Co",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": null,
+    "file": null,
+    "status": "GAP"
+   },
+   "off": {
+    "note": "no cell of this name exists in the readout",
+    "status": "ABSENT"
+   },
+   "pair_status": "UNSCORED",
+   "round3_impact": [
+    {
+     "member": "Co|OOH|1x1|mir",
+     "round3": "nothing \u2014 GAP by record (docs/54:206/:226), not in array 20123293; reopening it would be an entrant action outside round 3"
+    },
+    {
+     "member": "Co|OOH|1x1|off",
+     "round3": "nothing \u2014 no deck exists for this cell; not in array 20123293"
+    }
+   ],
+   "state": "*OOH",
+   "tags": [],
+   "why_unscored": "mir member is GAP; off member is ABSENT"
+  },
+  {
+   "confound_check": null,
+   "coverage": "2x1v",
+   "delta_M_uB": null,
+   "delta_sym_ev": null,
+   "delta_sym_mev": null,
+   "metal": "Co",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": null,
+    "file": null,
+    "status": "PENDING-RETRY"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": null,
+    "file": null,
+    "status": "PENDING-RETRY"
+   },
+   "pair_status": "UNSCORED",
+   "round3_impact": [
+    {
+     "member": "Co|OOH|2x1v|mir",
+     "round3": "rung-(iii) row PENDING-RETRY in array 20123293 (docs/55 R2); a converged round-3 .out would give this cell an energy of record"
+    },
+    {
+     "member": "Co|OOH|2x1v|off",
+     "round3": "rung-(iii) row PENDING-RETRY in array 20123293 (docs/55 R2); a converged round-3 .out would give this cell an energy of record"
+    }
+   ],
+   "state": "*OOH",
+   "tags": [],
+   "why_unscored": "mir member is PENDING-RETRY; off member is PENDING-RETRY"
+  },
+  {
+   "confound_check": null,
+   "coverage": "1x1",
+   "delta_M_uB": null,
+   "delta_sym_ev": null,
+   "delta_sym_mev": null,
+   "metal": "Ni",
+   "mir": {
+    "M_uB": 8.16,
+    "energy_ry": -2598.63298268,
+    "file": "runs/Ni_slab/s0_O.out",
+    "notes": [
+     "nosym ON_PLANE \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": null,
+    "file": null,
+    "notes": [
+     "no rule quoted in the state of record determines this cell \u2014 FLAGGED"
+    ],
+    "status": "UNCLASSIFIED"
+   },
+   "pair_status": "UNSCORED",
+   "round3_impact": [
+    {
+     "member": "Ni|O|1x1|off",
+     "round3": "nothing \u2014 cell has no rule in the state of record and is not in array 20123293; needs an entrant ruling (for Ni *O 1x1 off: refused __g1 child +85.10 meV, remedy re-run exists only as the spec-excluded .fromparent.out)"
+    }
+   ],
+   "state": "*O",
+   "tags": [],
+   "why_unscored": "off member is UNCLASSIFIED"
+  },
+  {
+   "confound_check": "PASS \u2014 |dM| = 0.00 uB <= 0.05 uB (docs/43:1566-1571)",
+   "coverage": "2x1v",
+   "delta_M_uB": 0.0,
+   "delta_sym_ev": -0.0613,
+   "delta_sym_mev": -61.27,
+   "metal": "Ni",
+   "mir": {
+    "M_uB": 15.48,
+    "energy_ry": -5155.88814696,
+    "file": "runs/s3/Ni/s0_O__2x1v_mir__g1.out",
+    "parent_quoted": {
+     "energy_ry": -5155.88815019,
+     "file": "runs/s3/Ni/s0_O__2x1v_mir.out"
+    },
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 15.48,
+    "energy_ry": -5155.89265042,
+    "file": "runs/s3/Ni/s0_O__2x1v_off__g1.out",
+    "parent_quoted": {
+     "energy_ry": -5155.89265285,
+     "file": "runs/s3/Ni/s0_O__2x1v_off.out"
+    },
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*O",
+   "tags": [],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "CONFOUNDED \u2014 |dM| = 2.71 uB > 0.05 uB (docs/43:1566-1571); excluded from contrast statistics, reported separately (treatment per docs/43:306-310)",
+   "coverage": "1x1",
+   "delta_M_uB": 2.71,
+   "delta_sym_ev": 0.313,
+   "delta_sym_mev": 312.97,
+   "metal": "Ni",
+   "mir": {
+    "M_uB": 4.15,
+    "energy_ry": -2599.99940826,
+    "file": "runs/probe/Ni_basin/s0_OH.out",
+    "notes": [
+     "basin __g1 child runs/s3/Ni/s0_OH__basin_g1.out is +177.10 meV vs parent \u2014 refused-candidate per docs/43:1589-1592: a __g1 child > 1 meV above its parent is refused and re-run from the parent's converged density; second failure records the pair MULTISTABLE; energy of record stays the docs/54 basin file pending the owed re-run \u2014 FLAGGED"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": 6.86,
+    "energy_ry": -2599.97640516,
+    "file": "runs/s3/Ni/s0_OH__1x1_off__g1.out",
+    "parent_quoted": {
+     "energy_ry": -2599.97640691,
+     "file": "runs/s3/Ni/s0_OH__1x1_off.out"
+    },
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED-EXCLUDED",
+   "round3_impact": [],
+   "state": "*OH",
+   "tags": [
+    "CONFOUNDED",
+    "MIR-G1-REFUSED-CANDIDATE"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": null,
+   "coverage": "2x1v",
+   "delta_M_uB": null,
+   "delta_sym_ev": null,
+   "delta_sym_mev": null,
+   "metal": "Ni",
+   "mir": {
+    "M_uB": 14.47,
+    "energy_ry": -5157.23061637,
+    "file": "runs/s3/Ni/s0_OH__2x1v_mir__g1.out",
+    "parent_quoted": {
+     "energy_ry": -5157.23061751,
+     "file": "runs/s3/Ni/s0_OH__2x1v_mir.out"
+    },
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": null,
+    "file": null,
+    "parent_quoted": {
+     "energy_ry": -5157.23065359,
+     "file": "runs/s3/Ni/s0_OH__2x1v_off.out"
+    },
+    "status": "UNVERIFIED"
+   },
+   "pair_status": "UNSCORED",
+   "round3_impact": [
+    {
+     "member": "Ni|OH|2x1v|off",
+     "round3": "parent UNVERIFIED \u2014 its __g1 child is PENDING-RETRY in array 20123293 (docs/55 R2); a converged AGREE child banks this cell (child quoted per docs/52 C9), a REFUSED child triggers docs/43:1589-1592"
+    }
+   ],
+   "state": "*OH",
+   "tags": [],
+   "why_unscored": "off member is UNVERIFIED"
+  },
+  {
+   "confound_check": null,
+   "coverage": "1x1",
+   "delta_M_uB": null,
+   "delta_sym_ev": null,
+   "delta_sym_mev": null,
+   "metal": "Ni",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": null,
+    "file": null,
+    "status": "GAP"
+   },
+   "off": {
+    "note": "no cell of this name exists in the readout",
+    "status": "ABSENT"
+   },
+   "pair_status": "UNSCORED",
+   "round3_impact": [
+    {
+     "member": "Ni|OOH|1x1|mir",
+     "round3": "nothing \u2014 GAP by record (docs/54:206/:226), not in array 20123293; reopening it would be an entrant action outside round 3"
+    },
+    {
+     "member": "Ni|OOH|1x1|off",
+     "round3": "nothing \u2014 no deck exists for this cell; not in array 20123293"
+    }
+   ],
+   "state": "*OOH",
+   "tags": [],
+   "why_unscored": "mir member is GAP; off member is ABSENT"
+  },
+  {
+   "confound_check": null,
+   "coverage": "2x1v",
+   "delta_M_uB": null,
+   "delta_sym_ev": null,
+   "delta_sym_mev": null,
+   "metal": "Ni",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": null,
+    "file": null,
+    "status": "PENDING-RETRY"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": null,
+    "file": null,
+    "status": "PENDING-RETRY"
+   },
+   "pair_status": "UNSCORED",
+   "round3_impact": [
+    {
+     "member": "Ni|OOH|2x1v|mir",
+     "round3": "rung-(iii) row PENDING-RETRY in array 20123293 (docs/55 R2); a converged round-3 .out would give this cell an energy of record"
+    },
+    {
+     "member": "Ni|OOH|2x1v|off",
+     "round3": "rung-(iii) row PENDING-RETRY in array 20123293 (docs/55 R2); a converged round-3 .out would give this cell an energy of record"
+    }
+   ],
+   "state": "*OOH",
+   "tags": [],
+   "why_unscored": "mir member is PENDING-RETRY; off member is PENDING-RETRY"
+  },
+  {
+   "confound_check": "NOT-APPLICABLE \u2014 no converged total magnetisation printed (nspin=1 / d0 row, docs/54:64-66); the registered rule (docs/43:1566-1571) presumes a converged moment \u2014 open question",
+   "coverage": "1x1",
+   "delta_M_uB": null,
+   "delta_sym_ev": 0.0009,
+   "delta_sym_mev": 0.91,
+   "metal": "Ru",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": -1672.25496768,
+    "file": "runs/Ru_anchor/s0_O.out",
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": -1672.25490048,
+    "file": "runs/probe/Ru_cellsym/s0_O__1x1_off.out",
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*O",
+   "tags": [
+    "CONFOUND-CHECK-NA"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "NOT-APPLICABLE \u2014 no converged total magnetisation printed (nspin=1 / d0 row, docs/54:64-66); the registered rule (docs/43:1566-1571) presumes a converged moment \u2014 open question",
+   "coverage": "2x1v",
+   "delta_M_uB": null,
+   "delta_sym_ev": -0.0,
+   "delta_sym_mev": -0.04,
+   "metal": "Ru",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": -3302.93178672,
+    "file": "runs/probe/Ru_cellsym/s0_O__2x1v_mir.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": -3302.93178971,
+    "file": "runs/probe/Ru_cellsym/s0_O__2x1v_off.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*O",
+   "tags": [
+    "CONFOUND-CHECK-NA"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "NOT-APPLICABLE \u2014 no converged total magnetisation printed (nspin=1 / d0 row, docs/54:64-66); the registered rule (docs/43:1566-1571) presumes a converged moment \u2014 open question",
+   "coverage": "1x1",
+   "delta_M_uB": null,
+   "delta_sym_ev": 0.2475,
+   "delta_sym_mev": 247.54,
+   "metal": "Ru",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": -1673.52913839,
+    "file": "runs/Ru_anchor/s0_OH.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": -1673.51094446,
+    "file": "runs/probe/Ru_cellsym/s0_OH__1x1_off.out",
+    "notes": [
+     "1x1 pair SIGN_VIOLATION (docs/54:245)",
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*OH",
+   "tags": [
+    "CONFOUND-CHECK-NA"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "NOT-APPLICABLE \u2014 no converged total magnetisation printed (nspin=1 / d0 row, docs/54:64-66); the registered rule (docs/43:1566-1571) presumes a converged moment \u2014 open question",
+   "coverage": "2x1v",
+   "delta_M_uB": null,
+   "delta_sym_ev": 0.013,
+   "delta_sym_mev": 12.96,
+   "metal": "Ru",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": -3304.19810638,
+    "file": "runs/probe/Ru_cellsym/s0_OH__2x1v_mir.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": -3304.19715356,
+    "file": "runs/probe/Ru_cellsym/s0_OH__2x1v_off.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*OH",
+   "tags": [
+    "CONFOUND-CHECK-NA"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "NOT-APPLICABLE \u2014 no converged total magnetisation printed (nspin=1 / d0 row, docs/54:64-66); the registered rule (docs/43:1566-1571) presumes a converged moment \u2014 open question",
+   "coverage": "1x1",
+   "delta_M_uB": null,
+   "delta_sym_ev": -0.0817,
+   "delta_sym_mev": -81.71,
+   "metal": "Ru",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": -1715.00704045,
+    "file": "runs/Ru_anchor/s0_OOH.out",
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": -1715.01304629,
+    "file": "runs/probe/Ru_orient/s0_OOH__yaw90.out",
+    "notes": [
+     "oosh conformer -1715.02124065 is LOWEST banked; whether oosh becomes the member is OPEN (docs/54:422-424, section 6 item 10) \u2014 entrant's call, NOT resolved here"
+    ],
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*OOH",
+   "tags": [
+    "CONFOUND-CHECK-NA"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "NOT-APPLICABLE \u2014 no converged total magnetisation printed (nspin=1 / d0 row, docs/54:64-66); the registered rule (docs/43:1566-1571) presumes a converged moment \u2014 open question",
+   "coverage": "2x1v",
+   "delta_M_uB": null,
+   "delta_sym_ev": -0.1088,
+   "delta_sym_mev": -108.78,
+   "metal": "Ru",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": -3345.6726476,
+    "file": "runs/probe/Ru_cellsym/s0_OOH__2x1v_mir.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": -3345.68064313,
+    "file": "runs/probe/Ru_cellsym/s0_OOH__2x1v_off.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*OOH",
+   "tags": [
+    "CONFOUND-CHECK-NA"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "NOT-APPLICABLE \u2014 no converged total magnetisation printed (nspin=1 / d0 row, docs/54:64-66); the registered rule (docs/43:1566-1571) presumes a converged moment \u2014 open question",
+   "coverage": "1x1",
+   "delta_M_uB": null,
+   "delta_sym_ev": 0.0009,
+   "delta_sym_mev": 0.92,
+   "metal": "Ir",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": -1631.33923851,
+    "file": "runs/Ir_anchor/s0_O.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": -1631.33917053,
+    "file": "runs/probe/Ir_cellsym/s0_O__1x1_off.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*O",
+   "tags": [
+    "CONFOUND-CHECK-NA"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "NOT-APPLICABLE \u2014 no converged total magnetisation printed (nspin=1 / d0 row, docs/54:64-66); the registered rule (docs/43:1566-1571) presumes a converged moment \u2014 open question",
+   "coverage": "2x1v",
+   "delta_M_uB": null,
+   "delta_sym_ev": 0.0001,
+   "delta_sym_mev": 0.14,
+   "metal": "Ir",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": -3221.09584906,
+    "file": "runs/probe/Ir_cellsym/s0_O__2x1v_mir.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": -3221.09583897,
+    "file": "runs/probe/Ir_cellsym/s0_O__2x1v_off.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*O",
+   "tags": [
+    "CONFOUND-CHECK-NA"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "NOT-APPLICABLE \u2014 no converged total magnetisation printed (nspin=1 / d0 row, docs/54:64-66); the registered rule (docs/43:1566-1571) presumes a converged moment \u2014 open question",
+   "coverage": "1x1",
+   "delta_M_uB": null,
+   "delta_sym_ev": 0.0058,
+   "delta_sym_mev": 5.75,
+   "metal": "Ir",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": -1632.64856529,
+    "file": "runs/Ir_anchor/s0_OH.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": -1632.64814256,
+    "file": "runs/probe/Ir_cellsym/s0_OH__1x1_off.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*OH",
+   "tags": [
+    "CONFOUND-CHECK-NA"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "NOT-APPLICABLE \u2014 no converged total magnetisation printed (nspin=1 / d0 row, docs/54:64-66); the registered rule (docs/43:1566-1571) presumes a converged moment \u2014 open question",
+   "coverage": "2x1v",
+   "delta_M_uB": null,
+   "delta_sym_ev": -0.0372,
+   "delta_sym_mev": -37.18,
+   "metal": "Ir",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": -3222.38878145,
+    "file": "runs/probe/Ir_cellsym/s0_OH__2x1v_mir.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": -3222.39151403,
+    "file": "runs/probe/Ir_cellsym/s0_OH__2x1v_off.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*OH",
+   "tags": [
+    "CONFOUND-CHECK-NA"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "NOT-APPLICABLE \u2014 no converged total magnetisation printed (nspin=1 / d0 row, docs/54:64-66); the registered rule (docs/43:1566-1571) presumes a converged moment \u2014 open question",
+   "coverage": "1x1",
+   "delta_M_uB": null,
+   "delta_sym_ev": -0.2846,
+   "delta_sym_mev": -284.63,
+   "metal": "Ir",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": -1674.09176132,
+    "file": "runs/Ir_anchor/s0_OOH.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": -1674.11268108,
+    "file": "runs/probe/Ir_cellsym/s0_OOH__1x1_off.out",
+    "notes": [
+     "Ir_orient yaw90 -1674.11317317 and oosh -1674.11459651 also banked \u2014 oosh-member question OPEN (docs/54:422-424, section 6 item 10) \u2014 entrant's call, NOT resolved here"
+    ],
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*OOH",
+   "tags": [
+    "CONFOUND-CHECK-NA",
+    "OOSH-MEMBER-OPEN"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": "NOT-APPLICABLE \u2014 no converged total magnetisation printed (nspin=1 / d0 row, docs/54:64-66); the registered rule (docs/43:1566-1571) presumes a converged moment \u2014 open question",
+   "coverage": "2x1v",
+   "delta_M_uB": null,
+   "delta_sym_ev": -0.0185,
+   "delta_sym_mev": -18.48,
+   "metal": "Ir",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": -3263.87194671,
+    "file": "runs/probe/Ir_cellsym/s0_OOH__2x1v_mir.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": -3263.87330531,
+    "file": "runs/probe/Ir_cellsym/s0_OOH__2x1v_off.out",
+    "notes": [
+     "path inferred from docs/54 row grammar"
+    ],
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*OOH",
+   "tags": [
+    "CONFOUND-CHECK-NA"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": null,
+   "coverage": "1x1",
+   "delta_M_uB": null,
+   "delta_sym_ev": null,
+   "delta_sym_mev": null,
+   "metal": "Ti",
+   "mir": {
+    "note": "no cell of this name exists in the readout",
+    "status": "ABSENT"
+   },
+   "off": {
+    "note": "no cell of this name exists in the readout",
+    "status": "ABSENT"
+   },
+   "pair_status": "UNSCORED",
+   "round3_impact": [
+    {
+     "member": "Ti|O|1x1|mir",
+     "round3": "nothing \u2014 no deck exists for this cell; not in array 20123293"
+    },
+    {
+     "member": "Ti|O|1x1|off",
+     "round3": "nothing \u2014 no deck exists for this cell; not in array 20123293"
+    }
+   ],
+   "state": "*O",
+   "tags": [],
+   "why_unscored": "mir member is ABSENT; off member is ABSENT"
+  },
+  {
+   "confound_check": "NOT-APPLICABLE \u2014 no converged total magnetisation printed (nspin=1 / d0 row, docs/54:64-66); the registered rule (docs/43:1566-1571) presumes a converged moment \u2014 open question",
+   "coverage": "2x1v",
+   "delta_M_uB": null,
+   "delta_sym_ev": 0.0012,
+   "delta_sym_mev": 1.22,
+   "metal": "Ti",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": -2476.62219375,
+    "file": "runs/s3/Ti/s0_O__2x1v_mir__g1.out",
+    "parent_quoted": {
+     "energy_ry": -2476.62219381,
+     "file": "runs/s3/Ti/s0_O__2x1v_mir.out"
+    },
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": -2476.62210404,
+    "file": "runs/s3/Ti/s0_O__2x1v_off__g1.out",
+    "parent_quoted": {
+     "energy_ry": -2476.6221042,
+     "file": "runs/s3/Ti/s0_O__2x1v_off.out"
+    },
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*O",
+   "tags": [
+    "CONFOUND-CHECK-NA"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": null,
+   "coverage": "1x1",
+   "delta_M_uB": null,
+   "delta_sym_ev": null,
+   "delta_sym_mev": null,
+   "metal": "Ti",
+   "mir": {
+    "note": "no cell of this name exists in the readout",
+    "status": "ABSENT"
+   },
+   "off": {
+    "note": "no cell of this name exists in the readout",
+    "status": "ABSENT"
+   },
+   "pair_status": "UNSCORED",
+   "round3_impact": [
+    {
+     "member": "Ti|OH|1x1|mir",
+     "round3": "nothing \u2014 no deck exists for this cell; not in array 20123293"
+    },
+    {
+     "member": "Ti|OH|1x1|off",
+     "round3": "nothing \u2014 no deck exists for this cell; not in array 20123293"
+    }
+   ],
+   "state": "*OH",
+   "tags": [],
+   "why_unscored": "mir member is ABSENT; off member is ABSENT"
+  },
+  {
+   "confound_check": "NOT-APPLICABLE \u2014 no converged total magnetisation printed (nspin=1 / d0 row, docs/54:64-66); the registered rule (docs/43:1566-1571) presumes a converged moment \u2014 open question",
+   "coverage": "2x1v",
+   "delta_M_uB": null,
+   "delta_sym_ev": -0.0381,
+   "delta_sym_mev": -38.15,
+   "metal": "Ti",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": -2478.00635789,
+    "file": "runs/s3/Ti/s0_OH__2x1v_mir__g1.out",
+    "parent_quoted": {
+     "energy_ry": -2478.00635822,
+     "file": "runs/s3/Ti/s0_OH__2x1v_mir.out"
+    },
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": -2478.00916156,
+    "file": "runs/s3/Ti/s0_OH__2x1v_off__g1.out",
+    "parent_quoted": {
+     "energy_ry": -2478.00916174,
+     "file": "runs/s3/Ti/s0_OH__2x1v_off.out"
+    },
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*OH",
+   "tags": [
+    "CONFOUND-CHECK-NA"
+   ],
+   "why_unscored": null
+  },
+  {
+   "confound_check": null,
+   "coverage": "1x1",
+   "delta_M_uB": null,
+   "delta_sym_ev": null,
+   "delta_sym_mev": null,
+   "metal": "Ti",
+   "mir": {
+    "note": "no cell of this name exists in the readout",
+    "status": "ABSENT"
+   },
+   "off": {
+    "note": "no cell of this name exists in the readout",
+    "status": "ABSENT"
+   },
+   "pair_status": "UNSCORED",
+   "round3_impact": [
+    {
+     "member": "Ti|OOH|1x1|mir",
+     "round3": "nothing \u2014 no deck exists for this cell; not in array 20123293"
+    },
+    {
+     "member": "Ti|OOH|1x1|off",
+     "round3": "nothing \u2014 no deck exists for this cell; not in array 20123293"
+    }
+   ],
+   "state": "*OOH",
+   "tags": [],
+   "why_unscored": "mir member is ABSENT; off member is ABSENT"
+  },
+  {
+   "confound_check": "NOT-APPLICABLE \u2014 no converged total magnetisation printed (nspin=1 / d0 row, docs/54:64-66); the registered rule (docs/43:1566-1571) presumes a converged moment \u2014 open question",
+   "coverage": "2x1v",
+   "delta_M_uB": null,
+   "delta_sym_ev": 0.1346,
+   "delta_sym_mev": 134.56,
+   "metal": "Ti",
+   "mir": {
+    "M_uB": null,
+    "energy_ry": -2519.46826323,
+    "file": "runs/s3/Ti/s0_OOH__2x1v_mir__g1.out",
+    "parent_quoted": {
+     "energy_ry": -2519.46826336,
+     "file": "runs/s3/Ti/s0_OOH__2x1v_mir.out"
+    },
+    "status": "BANKED"
+   },
+   "off": {
+    "M_uB": null,
+    "energy_ry": -2519.45837304,
+    "file": "runs/s3/Ti/s0_OOH__2x1v_off__g1.out",
+    "parent_quoted": {
+     "energy_ry": -2519.45837361,
+     "file": "runs/s3/Ti/s0_OOH__2x1v_off.out"
+    },
+    "status": "BANKED"
+   },
+   "pair_status": "SCORED",
+   "round3_impact": [],
+   "state": "*OOH",
+   "tags": [
+    "CONFOUND-CHECK-NA"
+   ],
+   "why_unscored": null
+  }
+ ],
+ "per_metal_coverage_table": [
+  {
+   "1x1": {
+    "excluded_confounded": [
+     "*OH",
+     "*OOH"
+    ],
+    "gap_absent_or_unclassified": [],
+    "pending_or_unverified": [],
+    "scored": [
+     "*O"
+    ]
+   },
+   "2x1v": {
+    "excluded_confounded": [],
+    "gap_absent_or_unclassified": [],
+    "pending_or_unverified": [],
+    "scored": [
+     "*O",
+     "*OH",
+     "*OOH"
+    ]
+   },
+   "both_coverages_scored_now_any_state_reading": true,
+   "metal": "Cr",
+   "single_or_zero_coverage_now": false
+  },
+  {
+   "1x1": {
+    "excluded_confounded": [],
+    "gap_absent_or_unclassified": [],
+    "pending_or_unverified": [],
+    "scored": [
+     "*O",
+     "*OH",
+     "*OOH"
+    ]
+   },
+   "2x1v": {
+    "excluded_confounded": [],
+    "gap_absent_or_unclassified": [],
+    "pending_or_unverified": [
+     "*OOH"
+    ],
+    "scored": [
+     "*O",
+     "*OH"
+    ]
+   },
+   "both_coverages_scored_now_any_state_reading": true,
+   "metal": "Mn",
+   "single_or_zero_coverage_now": false
+  },
+  {
+   "1x1": {
+    "excluded_confounded": [
+     "*OH"
+    ],
+    "gap_absent_or_unclassified": [],
+    "pending_or_unverified": [
+     "*OOH"
+    ],
+    "scored": [
+     "*O"
+    ]
+   },
+   "2x1v": {
+    "excluded_confounded": [],
+    "gap_absent_or_unclassified": [],
+    "pending_or_unverified": [],
+    "scored": [
+     "*O",
+     "*OH",
+     "*OOH"
+    ]
+   },
+   "both_coverages_scored_now_any_state_reading": true,
+   "metal": "Fe",
+   "single_or_zero_coverage_now": false
+  },
+  {
+   "1x1": {
+    "excluded_confounded": [],
+    "gap_absent_or_unclassified": [
+     "*OOH"
+    ],
+    "pending_or_unverified": [
+     "*O",
+     "*OH"
+    ],
+    "scored": []
+   },
+   "2x1v": {
+    "excluded_confounded": [],
+    "gap_absent_or_unclassified": [],
+    "pending_or_unverified": [
+     "*O",
+     "*OH",
+     "*OOH"
+    ],
+    "scored": []
+   },
+   "both_coverages_scored_now_any_state_reading": false,
+   "metal": "Co",
+   "single_or_zero_coverage_now": true
+  },
+  {
+   "1x1": {
+    "excluded_confounded": [
+     "*OH"
+    ],
+    "gap_absent_or_unclassified": [
+     "*O",
+     "*OOH"
+    ],
+    "pending_or_unverified": [],
+    "scored": []
+   },
+   "2x1v": {
+    "excluded_confounded": [],
+    "gap_absent_or_unclassified": [],
+    "pending_or_unverified": [
+     "*OH",
+     "*OOH"
+    ],
+    "scored": [
+     "*O"
+    ]
+   },
+   "both_coverages_scored_now_any_state_reading": false,
+   "metal": "Ni",
+   "single_or_zero_coverage_now": true
+  },
+  {
+   "1x1": {
+    "excluded_confounded": [],
+    "gap_absent_or_unclassified": [],
+    "pending_or_unverified": [],
+    "scored": [
+     "*O",
+     "*OH",
+     "*OOH"
+    ]
+   },
+   "2x1v": {
+    "excluded_confounded": [],
+    "gap_absent_or_unclassified": [],
+    "pending_or_unverified": [],
+    "scored": [
+     "*O",
+     "*OH",
+     "*OOH"
+    ]
+   },
+   "both_coverages_scored_now_any_state_reading": true,
+   "metal": "Ru",
+   "single_or_zero_coverage_now": false
+  },
+  {
+   "1x1": {
+    "excluded_confounded": [],
+    "gap_absent_or_unclassified": [],
+    "pending_or_unverified": [],
+    "scored": [
+     "*O",
+     "*OH",
+     "*OOH"
+    ]
+   },
+   "2x1v": {
+    "excluded_confounded": [],
+    "gap_absent_or_unclassified": [],
+    "pending_or_unverified": [],
+    "scored": [
+     "*O",
+     "*OH",
+     "*OOH"
+    ]
+   },
+   "both_coverages_scored_now_any_state_reading": true,
+   "metal": "Ir",
+   "single_or_zero_coverage_now": false
+  },
+  {
+   "1x1": {
+    "excluded_confounded": [],
+    "gap_absent_or_unclassified": [
+     "*O",
+     "*OH",
+     "*OOH"
+    ],
+    "pending_or_unverified": [],
+    "scored": []
+   },
+   "2x1v": {
+    "excluded_confounded": [],
+    "gap_absent_or_unclassified": [],
+    "pending_or_unverified": [],
+    "scored": [
+     "*O",
+     "*OH",
+     "*OOH"
+    ]
+   },
+   "both_coverages_scored_now_any_state_reading": false,
+   "metal": "Ti",
+   "single_or_zero_coverage_now": true
+  }
+ ],
+ "registered_rules_applied": [
+  "docs/43:1539-1541 (THRESHOLD adopted 2026-08-23): P-SYMCOV satisfied when, for every metal in S3, the symmetry effect is reported at both coverages, or the missing cell is reported as a gap; a metal with only one coverage is not averaged into any symmetry statistic.",
+  "docs/43:1546-1554: claim-scope branch; 'most' = >= 5 of the 8 metals with both cells measured; a metal with one cell is a gap. Coverage-DEPENDENT = |DeltaDeltaE(1x1) - DeltaDeltaE(2x1v)| large (NO numeric cut registered); coverage-INDEPENDENT = agreement 'within the basin CONFOUND tolerance' (registered tolerance is 0.05 uB, a magnetisation) \u2014 neither branch is decidable by this script; values are reported, the sentence is the entrant's (docs/43:1554-1556).",
+  "docs/43:1566-1571: pair members differing > 0.05 uB in converged total magnetisation -> CONFOUNDED, excluded from contrast statistics, reported separately (treatment per the geometry precedent docs/43:306-310).",
+  "docs/55 R3: Cr *OOH 2x1v mir energy of record = escape minimum -3188.71606 Ry (runs/s3/Cr/s0_OOH__2x1v_escape.out); saddle -3188.70497 is a diagnostic, not a state.",
+  "docs/55 R1: Fe s0_OOH__1x1_off and Mn s0_OOH__2x1v_off PENDING-RERELAX \u2014 quote parent AND child, bank neither.",
+  "docs/55 R2: 11 rung-(iii) rows PENDING-RETRY in array 20123293.",
+  "docs/54:23-25: the 8 S3 systems = tier_v2 seven + TiO2 (denominator of the >= 5-of-8 count).",
+  "docs/54:37-40: symmetry pairs are mir-vs-off contrasts at each coverage."
+ ],
+ "satisfaction": {
+  "rule": "docs/43:1539-1541",
+  "single_coverage_exclusion": "Metals with a scored (non-excluded) symmetry pair at both coverages right now, any-state reading: Cr, Mn, Fe, Ru, Ir (5 of 8). All other metals are, today, single- or zero-coverage and enter no pooled symmetry statistic (docs/43:1540-1541).",
+  "statement": "Under the reading that a PENDING/UNVERIFIED/ABSENT cell 'reported as a gap' discharges the reporting condition, this artifact reports every one of the 8 metals at both coverages (symmetry effect or explicit gap), so the reporting condition is discharged BY THIS REPORT as of 2026-08-24. Whether a PENDING cell counts as 'a gap' for final-report purposes is not registered \u2014 open."
+ },
+ "script": "session scratchpad p_symcov_score.py (disclosed AI infrastructure)",
+ "wording_rule": "docs/43:1532-1533: no statement of the symmetry-trap magnitude appears in this artifact without the coverage at which it was measured attached in the same sentence/row \u2014 every magnitude below is coverage-indexed."
+}

@@ -1,0 +1,8 @@
+# A8.3 density-retention chain, round 2 -- built 2026-08-24 by
+# src/dft/build_retention_chain2.py (see its docstring). Same row format and
+# runner (anvil/44_chain.slurm) as m_chains.txt. The Ni s0_OH basin __g1
+# child (+177.10 meV above parent, found by the docs/56 verify pass) gets its
+# registered A8.3 second attempt from the parent's converged density.
+# row: dir replay_deck replay_prefix fromparent_deck fp_prefix nk
+# NP=128 NCONC=1
+runs/probe/Ni_basin s0_OH.replay.in s0_OH__replay s0_OH__basin_g1.fromparent.in s0_OH__basin_g1__fp 16

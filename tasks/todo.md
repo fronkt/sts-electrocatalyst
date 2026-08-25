@@ -568,3 +568,15 @@ ranking would contaminate the campaign's central contribution.
 ## 2026-08-24 (readout) — 1C CLOSES: escape is a real minimum
 - [x] esc re-Hessian: i244.7 GONE, 9/9 modes real, gate-clean, floor-robust; M=23.00 unchanged (geometric descent, not magnetic); analysis files banked
 - [ ] S6/entrant: Cr *OOH 2x1v banking (mir saddle / esc minimum / off -76 meV deeper); P-SYMCOV/CONFOUND analysis + A8.4 rate table = next analysis block
+
+## 2026-08-24 — round 3 + S6 analysis block (post-arc)
+- [x] Node check: a024/a088 back in pool, never drained — NOT fixed
+- [x] docs/55 decision sheet (delegated criterion): R1 §5-strict re-relax, R2 maxstep 500, R3 Cr esc minimum, R4 RCAC draft
+- [x] Round 3 built (13 decks, assert-verified) + launched: array 20123293, EXCLUDE verified
+- [x] RCAC ticket drafted (anvil/rcac_ticket_draft_2026-08-24.md) — FRANK SENDS
+- [x] S6 analysis block (wf_2ca82c9d-eaa): readout + 4 dimensions + adversarial verify -> docs/56
+- [x] GATE-1 census correction: Ni s0_OH__basin_g1 REFUSED-candidate +177.10 meV -> chain-2 job 20124032
+- [ ] Bank round 3 on drain; build wave-4 __g1 children for newly converged relaxes
+- [ ] Score chain-2 on land (AGREE / MULTISTABLE)
+- [ ] Refresh docs/56 PENDING rows after round 3 + chain-2
+- [ ] FRANK: mirror-member ruling (docs/54:406-411) — P-SYMCOV 5-of-8 hinges on it; A8.4 basis choice; A8.1 bin-scheme naming; Cr OH 1x1 CONFOUND check; RCAC ticket send

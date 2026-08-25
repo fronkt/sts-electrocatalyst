@@ -214,3 +214,36 @@ preflight then passed 13/13. Worst-case burn 79.9k SU at 48 h; expected ~5-13k. 
 newly converged relax owes a `__g1` child (wave 4). Until the Fe/Mn loop closes, both
 rows are PENDING-RERELAX in S6-facing tables (parent and child both quoted, neither
 final).
+
+**S6 analysis block (workflow wf_2ca82c9d-eaa, 12 agents, 2026-08-24): docs/56 written; every
+dimension adversarially re-derived from raw .outs.** Readout: src/dft/s3_readout.py (byte-
+deterministic, sha-verified twice) -> runs/s3/readout/s3_readout_2026-08-24.json — 149 rows,
+109 cells, 87 with an energy of record; the 57 external docs/54 rows all reproduce to 5e-8 Ry.
+Dimension scripts committed: s3_nonadditivity.py, s3_confound_check.py, p_symcov_score.py.
+Verifier verdicts: P-SYMCOV REPRODUCED; A8.1 bins REPRODUCED; CONFOUND census and A8.4 table
+REFUTED at the summary level only (both artifact files were already correct; corrections
+printed in docs/56 as [CORRECTED] — e.g. cell-pair class 47 not 42, SCF-fail split Co 17 +
+Ni 7 not 18+6). Headlines, all tagged and none interpreted: (1) P-SYMCOV both-coverage count
+= EXACTLY 5 of 8 (Cr, Mn, Fe, Ru, Ir) — sits ON the registered >=5 branch and flips to 3 if
+the OPEN tier_v2 1x1 mirror-member ruling (docs/54:406-411) voids the nosym rows: the single
+highest-leverage open call in the analysis. (2) A8.1: 13 definitive rows -> 6 NON-ADDITIVE
+(exactly the 1A inconclusive set) + 7 at <=0.10 eV with no deposited bin name; Fe *O at
++0.1104 eV rides the same OPEN mirror-member call. (3) CONFOUND census over 137 pairs: 39
+flagged / 42 within / 56 not-evaluable; docs/54:147's Cr *OH 1x1 CONFOUNDED verdict is NOT
+reproducible from the printed moments (both 11.00) — entrant check owed; Cr *OOH 2x1v
+CONFOUND-vs-R3 recorded as RECORD-CONFLICT, unresolved. (4) A8.4 at rung-(iii) close fires
+Co ref / Co *O / *OH / *OOH / Ni *OOH on the row basis; the attempt basis adds Ni *OH at
+25.0% — numerator/denominator basis is unregistered, entrant's call. 25 spec ambiguities
+carried forward in docs/56 (A8.1 bin-scheme coexistence, P-SYMCOV 'large' cut, per-metal
+state aggregation, ref-as-state, infrastructure kills in the rate, ...).
+
+**GATE-1 census CORRECTION (found by the block's verify pass, confirmed independently):
+the three wave-1 basin __g1 children were never in the wave-2 census.** Scored 2026-08-24:
+Co s0_OH__basin_g1 +0.02 meV AGREE, Cr s0_OOH__basin_g1 +0.00 meV AGREE, **Ni
+s0_OH__basin_g1 = +177.10 meV ABOVE its parent (M 7.12 vs parent 4.15) — REFUSED-candidate**
+(docs/43:1589-1592), the same cold-start electronic-branch signature as the three discharged
+chains. Registered second attempt launched from the parent's converged density: **chain-2,
+job 20124032** (runs/chains/m_chains2.txt, builder src/dft/build_retention_chain2.py —
+cross-dir variant, decks in runs/probe/Ni_basin/, refused first attempt untouched at
+runs/s3/Ni/s0_OH__basin_g1.out; EXCLUDE=a024,a088). Full-S3 GATE-1 census pending that
+chain: **37 AGREE / 1 REFUSED-in-chain (Ni basin *OH) / 2 UNVERIFIED (round 3).**

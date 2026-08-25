@@ -1,0 +1,2050 @@
+{
+ "conversion_ry_to_ev": 13.605693,
+ "generated": "2026-08-24",
+ "input": {
+  "file": "runs/s3/readout/s3_readout_2026-08-24.json",
+  "sha256": "6ae13a51aaf0009fc42003f986dd06f80221cf1f9650c147114bfb8a175850e0"
+ },
+ "populations": {
+  "a81_bins_definitive_rows": {
+   "<=0.10 eV (no deposited label)": [
+    "Cr *O (+0.0002 eV)",
+    "Ir *O (-0.0008 eV)",
+    "Ir *OH (-0.0429 eV)",
+    "Mn *O (+0.0497 eV)",
+    "Mn *OH (-0.0431 eV)",
+    "Ru *O (-0.0010 eV)",
+    "Ru *OOH (-0.0271 eV)"
+   ],
+   "NON-ADDITIVE": [
+    "Cr *OH (-0.1633 eV)",
+    "Cr *OOH (+0.1299 eV)",
+    "Fe *O (+0.1104 eV)",
+    "Fe *OH (-0.1707 eV)",
+    "Ir *OOH (+0.2661 eV)",
+    "Ru *OH (-0.2346 eV)"
+   ]
+  },
+  "block1A_bins_definitive_rows_parallel_reading": {
+   "additive (<0.05)": [
+    "Cr *O",
+    "Ir *O",
+    "Ir *OH",
+    "Mn *O",
+    "Mn *OH",
+    "Ru *O",
+    "Ru *OOH"
+   ],
+   "inconclusive (0.05-0.30)": [
+    "Cr *OH",
+    "Cr *OOH",
+    "Fe *O",
+    "Fe *OH",
+    "Ir *OOH",
+    "Ru *OH"
+   ],
+   "not separable (>=0.30)": []
+  },
+  "not_computable": [
+   "Co *O",
+   "Co *OH",
+   "Co *OOH",
+   "Ni *O",
+   "Ni *OH",
+   "Ni *OOH",
+   "Ti *O",
+   "Ti *OH",
+   "Ti *OOH"
+  ],
+  "pending_dual_readings": [
+   "Mn *OOH (both readings: NON-ADDITIVE)",
+   "Fe *OOH (both readings: NON-ADDITIVE)"
+  ]
+ },
+ "registered_rules": {
+  "algebraic_identity": "docs/43:169 \u2014 the double difference equals deltaE_sym(2x1v) - deltaE_sym(1x1), block 1A's I",
+  "confound": "docs/43:1566-1571 (DEPOSITED): pair members differing >0.05 uB total magnetisation are CONFOUNDED, excluded from contrast statistics, reported separately; applied to same-coverage symmetry edges per docs/54:55-58; whether a CONFOUNDED pair voids the A8.1 row is UNSTATED",
+  "corner_mapping": "docs/54-s3-deck-matrix-2026-08-23.md:37-40 (INFRASTRUCTURE, not registration): N=1x1 mir, S=1x1 off, C=2x1v mir, B=2x1v off; bares (ref) are not corners; 'at fixed basin' gloss docs/54:20-21",
+  "energy_of_record": "docs/52 C9 (GATE-1 AGREE rows quote the CHILD) + docs/54 row->file matrix + docs/55 R3 (Cr *OOH 2x1v mir = escape minimum; mirror value is a SADDLE diagnostic)",
+  "parallel_1a_ladder": "docs/43:171-176 (DEPOSITED, prior scheme; inherited verbatim by A6.2, docs/43:1216-1220): <0.05 additive / 0.05-0.30 inconclusive / >=0.30 not separable \u2014 supersession vs coexistence with A8.1 is NOT registered, both reported",
+  "pending_dual_quote": "docs/55 R1 (binding): Fe s0_OOH__1x1_off and Mn s0_OOH__2x1v_off quote parent AND child, bank neither as final",
+  "quantity_and_bin": "docs/43-prereg-week1-factorial.md:1523-1525 (DEPOSITED, 'THRESHOLD (adopted as proposed, 2026-08-23)'): NON-ADDITIVE where |E(both)-E(cell)-E(sym)+E(neither)| exceeds 0.10 eV; the <=0.10 eV side carries NO deposited label"
+ },
+ "rows": [
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": 0.0,
+     "verdict": "within 0.05 uB"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": 0.0,
+     "verdict": "within 0.05 uB"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Cr|O|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -3145.93480189,
+     "file": "runs/probe/Cr_cellsym/s0_O__2x1v_off.out",
+     "m": 22.0,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Cr|O|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -3145.93480354,
+     "file": "runs/probe/Cr_cellsym/s0_O__2x1v_mir.out",
+     "m": 22.0,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Cr|O|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -1593.69696999,
+     "file": "runs/probe/Cr_cellsym/s0_O__1x1_mir.out",
+     "m": 10.0,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Cr|O|1x1|off",
+     "child_quoted": null,
+     "energy_ry": -1593.69698646,
+     "file": "runs/probe/Cr_cellsym/s0_O__1x1_off.out",
+     "m": 10.0,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "BANKED"
+    }
+   },
+   "flags": [
+    "Cr/Mn k-bridge (docs/54:41-43, infrastructure): 1x1<->2x1v corner comparisons carry an unapplied k-bridge correction; whether it cancels inside the double difference is an interpretation, not a registration \u2014 value computed uncorrected"
+   ],
+   "metal": "Cr",
+   "readings": [
+    {
+     "I_ev": 0.000247,
+     "I_ry": 1.812e-05,
+     "a81_bin": "<=0.10 eV (no deposited label)",
+     "abs_I_ev": 0.000247,
+     "block1A_bin": "additive (<0.05)",
+     "informational": false,
+     "label": "energy-of-record"
+    }
+   ],
+   "state": "O",
+   "tags": []
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": 0.0,
+     "verdict": "within 0.05 uB"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": 0.0,
+     "verdict": "within 0.05 uB"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Cr|OH|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -3147.21597446,
+     "file": "runs/probe/Cr_cellsym/s0_OH__2x1v_off.out",
+     "m": 23.0,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Cr|OH|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -3147.21581906,
+     "file": "runs/probe/Cr_cellsym/s0_OH__2x1v_mir.out",
+     "m": 23.0,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Cr|OH|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -1595.00031719,
+     "file": "runs/probe/Cr_cellsym/s0_OH__1x1_mir.out",
+     "m": 11.0,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Cr|OH|1x1|off",
+     "child_quoted": null,
+     "energy_ry": -1594.98847069,
+     "file": "runs/probe/Cr_cellsym/s0_OH__1x1_off.out",
+     "m": 11.0,
+     "notes": [
+      "1x1 symmetry pair CONFOUNDED (docs/54:147)"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    }
+   },
+   "flags": [
+    "corner S: docs/54 designates its pair CONFOUNDED \u2014 docs/54:147 (corner S; 1x1 pair CONFOUNDED per docs/43:1566-1571)",
+    "Cr/Mn k-bridge (docs/54:41-43, infrastructure): 1x1<->2x1v corner comparisons carry an unapplied k-bridge correction; whether it cancels inside the double difference is an interpretation, not a registration \u2014 value computed uncorrected"
+   ],
+   "metal": "Cr",
+   "readings": [
+    {
+     "I_ev": -0.163294,
+     "I_ry": -0.0120019,
+     "a81_bin": "NON-ADDITIVE",
+     "abs_I_ev": 0.163294,
+     "block1A_bin": "inconclusive (0.05-0.30)",
+     "informational": false,
+     "label": "energy-of-record"
+    }
+   ],
+   "state": "OH",
+   "tags": []
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": 0.0,
+     "verdict": "within 0.05 uB"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": 0.0,
+     "verdict": "within 0.05 uB"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Cr|OOH|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -3188.7923181,
+     "file": "runs/probe/Cr_cellsym/s0_OOH__2x1v_off.out",
+     "m": 23.0,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Cr|OOH|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -3188.71605541,
+     "file": "runs/s3/Cr/s0_OOH__2x1v_escape.out",
+     "m": 23.0,
+     "notes": [
+      "mirror saddle carried as DIAGNOSTIC row (runs/probe/Cr_cellsym/s0_OOH__2x1v_mir.out)",
+      "escape __g1 child AGREE (+0.004 meV); docs/55 R3 names the escape minimum FILE as the energy of record, so R3 is applied verbatim and the child is quoted, not substituted"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Cr|OOH|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -1636.48392809,
+     "file": "runs/s3/Cr/s0_OOH__basin_g1.out",
+     "m": 11.0,
+     "notes": [
+      "member identity OPEN \u2014 which file is the 1x1-mir production-seed MEMBER is unresolved (docs/54:400-405); pair CONFOUNDED either way \u2014 entrant's call, NOT resolved here"
+     ],
+     "parent_quoted": {
+      "energy_ry": -1636.48392834,
+      "file": "runs/probe/Cr_basin/s0_OOH.out"
+     },
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Cr|OOH|1x1|off",
+     "child_quoted": null,
+     "energy_ry": -1636.56973955,
+     "file": "runs/probe/Cr_cellsym/s0_OOH__1x1_off.out",
+     "m": 11.0,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "BANKED"
+    }
+   },
+   "flags": [
+    "docs/54:152 designated the 2x1v symmetry pair CONFOUNDED (Delta_sym 1.188 eV) with the MIRROR SADDLE as member; docs/55 R3 (binding) since made the escape minimum the C-corner record, and escape-vs-off DeltaM = 0.0 uB \u2014 whether the CONFOUNDED designation carries to the post-R3 pair is an entrant call, NOT resolved here",
+    "corner N: member identity OPEN \u2014 which file is the 1x1-mir production-seed MEMBER is unresolved (docs/54:400-405); pair CONFOUNDED either way \u2014 entrant's call, NOT resolved here",
+    "Cr/Mn k-bridge (docs/54:41-43, infrastructure): 1x1<->2x1v corner comparisons carry an unapplied k-bridge correction; whether it cancels inside the double difference is an interpretation, not a registration \u2014 value computed uncorrected",
+    "corner N member question OPEN \u2014 informational alternate computed, never binned; the call is the entrant's"
+   ],
+   "metal": "Cr",
+   "readings": [
+    {
+     "I_ev": 0.129918,
+     "I_ry": 0.00954877,
+     "a81_bin": "NON-ADDITIVE",
+     "abs_I_ev": 0.129918,
+     "block1A_bin": "inconclusive (0.05-0.30)",
+     "informational": false,
+     "label": "energy-of-record"
+    },
+    {
+     "I_ev": 0.308491,
+     "I_ry": 0.02267364,
+     "a81_bin": "NON-ADDITIVE",
+     "abs_I_ev": 0.308491,
+     "block1A_bin": "not separable (>=0.30)",
+     "informational": true,
+     "label": "ALT member: production runs/Cr_slab/s0_OOH.out (member identity OPEN, docs/54:150, :400-405)"
+    }
+   ],
+   "state": "OOH",
+   "tags": []
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": 0.0,
+     "verdict": "within 0.05 uB"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": 0.0,
+     "verdict": "within 0.05 uB"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Mn|O|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -3574.12587024,
+     "file": "runs/s3/Mn/s0_O__2x1v_off__g1.out",
+     "m": 34.0,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -3574.12587068,
+      "file": "runs/s3/Mn/s0_O__2x1v_off.out"
+     },
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Mn|O|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -3574.11798039,
+     "file": "runs/s3/Mn/s0_O__2x1v_mir__g1.out",
+     "m": 34.0,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -3574.11798101,
+      "file": "runs/s3/Mn/s0_O__2x1v_mir.out"
+     },
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Mn|O|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -1807.77357526,
+     "file": "runs/Mn_slab/s0_O.out",
+     "m": 16.0,
+     "notes": [
+      "nosym ON_PLANE \u2014 whether this row stands as a mirror member is OPEN (docs/54:406-411, section 6 item 5)"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Mn|O|1x1|off",
+     "child_quoted": null,
+     "energy_ry": -1807.78512135,
+     "file": "runs/s3/Mn/s0_O__1x1_off__g1.out",
+     "m": 16.0,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -1807.78512143,
+      "file": "runs/s3/Mn/s0_O__1x1_off.out"
+     },
+     "status": "BANKED"
+    }
+   },
+   "flags": [
+    "corner N: nosym ON_PLANE \u2014 whether this row stands as a mirror member is OPEN (docs/54:406-411, section 6 item 5)",
+    "Cr/Mn k-bridge (docs/54:41-43, infrastructure): 1x1<->2x1v corner comparisons carry an unapplied k-bridge correction; whether it cancels inside the double difference is an interpretation, not a registration \u2014 value computed uncorrected"
+   ],
+   "metal": "Mn",
+   "readings": [
+    {
+     "I_ev": 0.049746,
+     "I_ry": 0.00365624,
+     "a81_bin": "<=0.10 eV (no deposited label)",
+     "abs_I_ev": 0.049746,
+     "block1A_bin": "additive (<0.05)",
+     "informational": false,
+     "label": "energy-of-record"
+    }
+   ],
+   "state": "O",
+   "tags": []
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": 0.0,
+     "verdict": "within 0.05 uB"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": 0.01,
+     "verdict": "within 0.05 uB"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Mn|OH|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -3575.46048157,
+     "file": "runs/s3/Mn/s0_OH__2x1v_off__g1.out",
+     "m": 35.0,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -3575.4604819,
+      "file": "runs/s3/Mn/s0_OH__2x1v_off.out"
+     },
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Mn|OH|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -3575.45883959,
+     "file": "runs/s3/Mn/s0_OH__2x1v_mir__g1.out",
+     "m": 35.0,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -3575.45883979,
+      "file": "runs/s3/Mn/s0_OH__2x1v_mir.out"
+     },
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Mn|OH|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -1809.11818344,
+     "file": "runs/Mn_slab/s0_OH.out",
+     "m": 16.99,
+     "notes": [
+      "nosym EXPLORED \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Mn|OH|1x1|off",
+     "child_quoted": null,
+     "energy_ry": -1809.11665983,
+     "file": "runs/s3/Mn/s0_OH__1x1_off__g1.out",
+     "m": 17.0,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -1809.11666007,
+      "file": "runs/s3/Mn/s0_OH__1x1_off.out"
+     },
+     "status": "BANKED"
+    }
+   },
+   "flags": [
+    "corner N: nosym EXPLORED \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)",
+    "Cr/Mn k-bridge (docs/54:41-43, infrastructure): 1x1<->2x1v corner comparisons carry an unapplied k-bridge correction; whether it cancels inside the double difference is an interpretation, not a registration \u2014 value computed uncorrected"
+   ],
+   "metal": "Mn",
+   "readings": [
+    {
+     "I_ev": -0.04307,
+     "I_ry": -0.00316559,
+     "a81_bin": "<=0.10 eV (no deposited label)",
+     "abs_I_ev": 0.04307,
+     "block1A_bin": "additive (<0.05)",
+     "informational": false,
+     "label": "energy-of-record"
+    }
+   ],
+   "state": "OH",
+   "tags": []
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": 0.0,
+     "verdict": "within 0.05 uB"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Mn|OOH|2x1v|off",
+     "child_quoted": {
+      "delta_mev": -20.616,
+      "energy_ry": -3617.10020414,
+      "file": "runs/s3/Mn/s0_OOH__2x1v_off__g1.out"
+     },
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -3617.09868891,
+      "file": "runs/s3/Mn/s0_OOH__2x1v_off.out"
+     },
+     "status": "PENDING-RERELAX"
+    },
+    "C": {
+     "cell": "Mn|OOH|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -3616.95791244,
+     "file": "runs/s3/Mn/s0_OOH__2x1v_mir__g1.out",
+     "m": 35.0,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -3616.95791268,
+      "file": "runs/s3/Mn/s0_OOH__2x1v_mir.out"
+     },
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Mn|OOH|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -1850.60679209,
+     "file": "runs/Mn_slab/s0_OOH.out",
+     "m": 17.0,
+     "notes": [
+      "nosym EXPLORED \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Mn|OOH|1x1|off",
+     "child_quoted": null,
+     "energy_ry": -1850.72176608,
+     "file": "runs/s3/Mn/s0_OOH__1x1_off__g1.out",
+     "m": 17.0,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -1850.72176627,
+      "file": "runs/s3/Mn/s0_OOH__1x1_off.out"
+     },
+     "status": "BANKED"
+    }
+   },
+   "flags": [
+    "corner N: nosym EXPLORED \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)",
+    "Cr/Mn k-bridge (docs/54:41-43, infrastructure): 1x1<->2x1v corner comparisons carry an unapplied k-bridge correction; whether it cancels inside the double difference is an interpretation, not a registration \u2014 value computed uncorrected"
+   ],
+   "metal": "Mn",
+   "readings": [
+    {
+     "I_ev": -0.351061,
+     "I_ry": -0.02580248,
+     "a81_bin": "NON-ADDITIVE",
+     "abs_I_ev": 0.351061,
+     "block1A_bin": "not separable (>=0.30)",
+     "informational": false,
+     "label": "reading with B = parent (runs/s3/Mn/s0_OOH__2x1v_off.out = -3617.09868891 Ry) \u2014 docs/55 R1 dual quote, NOT banked"
+    },
+    {
+     "I_ev": -0.371676,
+     "I_ry": -0.02731771,
+     "a81_bin": "NON-ADDITIVE",
+     "abs_I_ev": 0.371676,
+     "block1A_bin": "not separable (>=0.30)",
+     "informational": false,
+     "label": "reading with B = child (runs/s3/Mn/s0_OOH__2x1v_off__g1.out = -3617.10020414 Ry) \u2014 docs/55 R1 dual quote, NOT banked"
+    }
+   ],
+   "state": "OOH",
+   "tags": [
+    "PENDING-RERELAX (docs/55 R1: quote parent AND child, bank neither)"
+   ]
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": 0.0,
+     "verdict": "within 0.05 uB"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": 0.0,
+     "verdict": "within 0.05 uB"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Fe|O|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -4988.98030942,
+     "file": "runs/s3/Fe/s0_O__2x1v_off__g1.out",
+     "m": 45.95,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -4988.98030995,
+      "file": "runs/s3/Fe/s0_O__2x1v_off.out"
+     },
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Fe|O|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -4988.97969226,
+     "file": "runs/s3/Fe/s0_O__2x1v_mir__g1.out",
+     "m": 45.95,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -4988.97969255,
+      "file": "runs/s3/Fe/s0_O__2x1v_mir.out"
+     },
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Fe|O|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -2515.17456142,
+     "file": "runs/Fe_slab/s0_O.out",
+     "m": 21.98,
+     "notes": [
+      "nosym ON_PLANE \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Fe|O|1x1|off",
+     "child_quoted": null,
+     "energy_ry": -2515.18329369,
+     "file": "runs/s3/Fe/s0_O__1x1_off__g1.out",
+     "m": 21.98,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -2515.18329395,
+      "file": "runs/s3/Fe/s0_O__1x1_off.out"
+     },
+     "status": "BANKED"
+    }
+   },
+   "flags": [
+    "corner N: nosym ON_PLANE \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+   ],
+   "metal": "Fe",
+   "readings": [
+    {
+     "I_ev": 0.110412,
+     "I_ry": 0.00811511,
+     "a81_bin": "NON-ADDITIVE",
+     "abs_I_ev": 0.110412,
+     "block1A_bin": "inconclusive (0.05-0.30)",
+     "informational": false,
+     "label": "energy-of-record"
+    }
+   ],
+   "state": "O",
+   "tags": []
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": 0.02,
+     "verdict": "within 0.05 uB"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": 0.14,
+     "verdict": "CONFOUNDED (>0.05 uB, docs/43:1566-1571)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Fe|OH|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -4990.34583064,
+     "file": "runs/s3/Fe/s0_OH__2x1v_off__g1.out",
+     "m": 46.94,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -4990.34583102,
+      "file": "runs/s3/Fe/s0_OH__2x1v_off.out"
+     },
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Fe|OH|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -4990.34123858,
+     "file": "runs/s3/Fe/s0_OH__2x1v_mir__g1.out",
+     "m": 46.96,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -4990.3412389,
+      "file": "runs/s3/Fe/s0_OH__2x1v_mir.out"
+     },
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Fe|OH|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -2516.54646887,
+     "file": "runs/Fe_slab/s0_OH.out",
+     "m": 23.1,
+     "notes": [
+      "nosym EXPLORED \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Fe|OH|1x1|off",
+     "child_quoted": null,
+     "energy_ry": -2516.53851756,
+     "file": "runs/s3/Fe/s0_OH__1x1_off__g1.out",
+     "m": 22.96,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -2516.5385179,
+      "file": "runs/s3/Fe/s0_OH__1x1_off.out"
+     },
+     "status": "BANKED"
+    }
+   },
+   "flags": [
+    "corner N: nosym EXPLORED \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+   ],
+   "metal": "Fe",
+   "readings": [
+    {
+     "I_ev": -0.170661,
+     "I_ry": -0.01254337,
+     "a81_bin": "NON-ADDITIVE",
+     "abs_I_ev": 0.170661,
+     "block1A_bin": "inconclusive (0.05-0.30)",
+     "informational": false,
+     "label": "energy-of-record"
+    }
+   ],
+   "state": "OH",
+   "tags": []
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": 0.0,
+     "verdict": "within 0.05 uB"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Fe|OOH|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -5031.97883034,
+     "file": "runs/s3/Fe/s0_OOH__2x1v_off__g1.out",
+     "m": 46.97,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -5031.97883058,
+      "file": "runs/s3/Fe/s0_OOH__2x1v_off.out"
+     },
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Fe|OOH|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -5031.84916185,
+     "file": "runs/s3/Fe/s0_OOH__2x1v_mir__g1.out",
+     "m": 46.97,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -5031.84916224,
+      "file": "runs/s3/Fe/s0_OOH__2x1v_mir.out"
+     },
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Fe|OOH|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -2558.05888124,
+     "file": "runs/Fe_slab/s0_OOH.out",
+     "m": 22.98,
+     "notes": [
+      "nosym ON_PLANE \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Fe|OOH|1x1|off",
+     "child_quoted": {
+      "delta_mev": -384.3,
+      "energy_ry": -2558.16352817,
+      "file": "runs/s3/Fe/s0_OOH__1x1_off__g1.out"
+     },
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -2558.13528265,
+      "file": "runs/s3/Fe/s0_OOH__1x1_off.out"
+     },
+     "status": "PENDING-RERELAX"
+    }
+   },
+   "flags": [
+    "corner N: nosym ON_PLANE \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+   ],
+   "metal": "Fe",
+   "readings": [
+    {
+     "I_ev": -0.724736,
+     "I_ry": -0.05326708,
+     "a81_bin": "NON-ADDITIVE",
+     "abs_I_ev": 0.724736,
+     "block1A_bin": "not separable (>=0.30)",
+     "informational": false,
+     "label": "reading with S = parent (runs/s3/Fe/s0_OOH__1x1_off.out = -2558.13528265 Ry) \u2014 docs/55 R1 dual quote, NOT banked"
+    },
+    {
+     "I_ev": -0.340436,
+     "I_ry": -0.02502156,
+     "a81_bin": "NON-ADDITIVE",
+     "abs_I_ev": 0.340436,
+     "block1A_bin": "not separable (>=0.30)",
+     "informational": false,
+     "label": "reading with S = child (runs/s3/Fe/s0_OOH__1x1_off__g1.out = -2558.16352817 Ry) \u2014 docs/55 R1 dual quote, NOT banked"
+    }
+   ],
+   "state": "OOH",
+   "tags": [
+    "PENDING-RERELAX (docs/55 R1: quote parent AND child, bank neither)"
+   ]
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Co|O|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -4619.85589635,
+     "file": "runs/s3/Co/s0_O__2x1v_off__g1.out",
+     "m": 25.23,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -4619.85589866,
+      "file": "runs/s3/Co/s0_O__2x1v_off.out"
+     },
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Co|O|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "PENDING-RETRY"
+    },
+    "N": {
+     "cell": "Co|O|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -2330.66753771,
+     "file": "runs/Co_slab/s0_O.out",
+     "m": 11.24,
+     "notes": [
+      "nosym EXPLORED \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Co|O|1x1|off",
+     "child_quoted": null,
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -2330.66171228,
+      "file": "runs/s3/Co/s0_O__1x1_off.out"
+     },
+     "status": "UNVERIFIED"
+    }
+   },
+   "flags": [
+    "corner N: nosym EXPLORED \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)",
+    "corner S is UNVERIFIED but a parent value exists (runs/s3/Co/s0_O__1x1_off.out = -2330.66171228 Ry); GATE-1 child pending \u2014 no reading computed (docs/55 R2; not a docs/55-R1 dual-quote row)"
+   ],
+   "metal": "Co",
+   "missing_corners": {
+    "C": "PENDING-RETRY",
+    "S": "UNVERIFIED"
+   },
+   "readings": [],
+   "state": "O",
+   "tags": [
+    "NOT COMPUTABLE"
+   ]
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Co|OH|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "PENDING-RETRY"
+    },
+    "C": {
+     "cell": "Co|OH|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "PENDING-RETRY"
+    },
+    "N": {
+     "cell": "Co|OH|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -2332.00425006,
+     "file": "runs/s3/Co/s0_OH__basin_g1.out",
+     "m": 9.92,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -2332.00425138,
+      "file": "runs/probe/Co_basin/s0_OH.out"
+     },
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Co|OH|1x1|off",
+     "child_quoted": null,
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "PENDING-RETRY"
+    }
+   },
+   "flags": [],
+   "metal": "Co",
+   "missing_corners": {
+    "B": "PENDING-RETRY",
+    "C": "PENDING-RETRY",
+    "S": "PENDING-RETRY"
+   },
+   "readings": [],
+   "state": "OH",
+   "tags": [
+    "NOT COMPUTABLE"
+   ]
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Co|OOH|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "PENDING-RETRY"
+    },
+    "C": {
+     "cell": "Co|OOH|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "PENDING-RETRY"
+    },
+    "N": {
+     "cell": "Co|OOH|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "GAP"
+    },
+    "S": {
+     "cell": "Co|OOH|1x1|off",
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "status": "ABSENT (no such cell in readout)"
+    }
+   },
+   "flags": [],
+   "metal": "Co",
+   "missing_corners": {
+    "B": "PENDING-RETRY",
+    "C": "PENDING-RETRY",
+    "N": "GAP",
+    "S": "ABSENT (no such cell in readout)"
+   },
+   "readings": [],
+   "state": "OOH",
+   "tags": [
+    "NOT COMPUTABLE"
+   ]
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": 0.0,
+     "verdict": "within 0.05 uB"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Ni|O|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -5155.89265042,
+     "file": "runs/s3/Ni/s0_O__2x1v_off__g1.out",
+     "m": 15.48,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -5155.89265285,
+      "file": "runs/s3/Ni/s0_O__2x1v_off.out"
+     },
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Ni|O|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -5155.88814696,
+     "file": "runs/s3/Ni/s0_O__2x1v_mir__g1.out",
+     "m": 15.48,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -5155.88815019,
+      "file": "runs/s3/Ni/s0_O__2x1v_mir.out"
+     },
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Ni|O|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -2598.63298268,
+     "file": "runs/Ni_slab/s0_O.out",
+     "m": 8.16,
+     "notes": [
+      "nosym ON_PLANE \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Ni|O|1x1|off",
+     "child_quoted": null,
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [
+      "no rule quoted in the state of record determines this cell \u2014 FLAGGED"
+     ],
+     "parent_quoted": null,
+     "status": "UNCLASSIFIED"
+    }
+   },
+   "flags": [
+    "corner N: nosym ON_PLANE \u2014 mirror-member standing OPEN (docs/54:406-411, section 6 item 5)"
+   ],
+   "metal": "Ni",
+   "missing_corners": {
+    "S": "UNCLASSIFIED"
+   },
+   "readings": [],
+   "state": "O",
+   "tags": [
+    "NOT COMPUTABLE"
+   ]
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": 2.71,
+     "verdict": "CONFOUNDED (>0.05 uB, docs/43:1566-1571)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Ni|OH|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -5157.23065359,
+      "file": "runs/s3/Ni/s0_OH__2x1v_off.out"
+     },
+     "status": "UNVERIFIED"
+    },
+    "C": {
+     "cell": "Ni|OH|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -5157.23061637,
+     "file": "runs/s3/Ni/s0_OH__2x1v_mir__g1.out",
+     "m": 14.47,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -5157.23061751,
+      "file": "runs/s3/Ni/s0_OH__2x1v_mir.out"
+     },
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Ni|OH|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -2599.99940826,
+     "file": "runs/probe/Ni_basin/s0_OH.out",
+     "m": 4.15,
+     "notes": [
+      "basin __g1 child runs/s3/Ni/s0_OH__basin_g1.out is +177.10 meV vs parent \u2014 refused-candidate per docs/43:1589-1592: a __g1 child > 1 meV above its parent is refused and re-run from the parent's converged density; second failure records the pair MULTISTABLE; energy of record stays the docs/54 basin file pending the owed re-run \u2014 FLAGGED"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Ni|OH|1x1|off",
+     "child_quoted": null,
+     "energy_ry": -2599.97640516,
+     "file": "runs/s3/Ni/s0_OH__1x1_off__g1.out",
+     "m": 6.86,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -2599.97640691,
+      "file": "runs/s3/Ni/s0_OH__1x1_off.out"
+     },
+     "status": "BANKED"
+    }
+   },
+   "flags": [
+    "corner N: basin __g1 child runs/s3/Ni/s0_OH__basin_g1.out is +177.10 meV vs parent \u2014 refused-candidate per docs/43:1589-1592: a __g1 child > 1 meV above its parent is refused and re-run from the parent's converged density; second failure records the pair MULTISTABLE; energy of record stays the docs/54 basin file pending the owed re-run \u2014 FLAGGED",
+    "corner B is UNVERIFIED but a parent value exists (runs/s3/Ni/s0_OH__2x1v_off.out = -5157.23065359 Ry); GATE-1 child pending \u2014 no reading computed (docs/55 R2; not a docs/55-R1 dual-quote row)"
+   ],
+   "metal": "Ni",
+   "missing_corners": {
+    "B": "UNVERIFIED"
+   },
+   "readings": [],
+   "state": "OH",
+   "tags": [
+    "NOT COMPUTABLE"
+   ]
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Ni|OOH|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "PENDING-RETRY"
+    },
+    "C": {
+     "cell": "Ni|OOH|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "PENDING-RETRY"
+    },
+    "N": {
+     "cell": "Ni|OOH|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "GAP"
+    },
+    "S": {
+     "cell": "Ni|OOH|1x1|off",
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "status": "ABSENT (no such cell in readout)"
+    }
+   },
+   "flags": [],
+   "metal": "Ni",
+   "missing_corners": {
+    "B": "PENDING-RETRY",
+    "C": "PENDING-RETRY",
+    "N": "GAP",
+    "S": "ABSENT (no such cell in readout)"
+   },
+   "readings": [],
+   "state": "OOH",
+   "tags": [
+    "NOT COMPUTABLE"
+   ]
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Ru|O|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -3302.93178971,
+     "file": "runs/probe/Ru_cellsym/s0_O__2x1v_off.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Ru|O|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -3302.93178672,
+     "file": "runs/probe/Ru_cellsym/s0_O__2x1v_mir.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Ru|O|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -1672.25496768,
+     "file": "runs/Ru_anchor/s0_O.out",
+     "m": null,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Ru|O|1x1|off",
+     "child_quoted": null,
+     "energy_ry": -1672.25490048,
+     "file": "runs/probe/Ru_cellsym/s0_O__1x1_off.out",
+     "m": null,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "BANKED"
+    }
+   },
+   "flags": [],
+   "metal": "Ru",
+   "readings": [
+    {
+     "I_ev": -0.000955,
+     "I_ry": -7.019e-05,
+     "a81_bin": "<=0.10 eV (no deposited label)",
+     "abs_I_ev": 0.000955,
+     "block1A_bin": "additive (<0.05)",
+     "informational": false,
+     "label": "energy-of-record"
+    }
+   ],
+   "state": "O",
+   "tags": []
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Ru|OH|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -3304.19715356,
+     "file": "runs/probe/Ru_cellsym/s0_OH__2x1v_off.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Ru|OH|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -3304.19810638,
+     "file": "runs/probe/Ru_cellsym/s0_OH__2x1v_mir.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Ru|OH|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -1673.52913839,
+     "file": "runs/Ru_anchor/s0_OH.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Ru|OH|1x1|off",
+     "child_quoted": null,
+     "energy_ry": -1673.51094446,
+     "file": "runs/probe/Ru_cellsym/s0_OH__1x1_off.out",
+     "m": null,
+     "notes": [
+      "1x1 pair SIGN_VIOLATION (docs/54:245)",
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    }
+   },
+   "flags": [],
+   "metal": "Ru",
+   "readings": [
+    {
+     "I_ev": -0.234577,
+     "I_ry": -0.01724111,
+     "a81_bin": "NON-ADDITIVE",
+     "abs_I_ev": 0.234577,
+     "block1A_bin": "inconclusive (0.05-0.30)",
+     "informational": false,
+     "label": "energy-of-record"
+    }
+   ],
+   "state": "OH",
+   "tags": []
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Ru|OOH|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -3345.68064313,
+     "file": "runs/probe/Ru_cellsym/s0_OOH__2x1v_off.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Ru|OOH|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -3345.6726476,
+     "file": "runs/probe/Ru_cellsym/s0_OOH__2x1v_mir.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Ru|OOH|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -1715.00704045,
+     "file": "runs/Ru_anchor/s0_OOH.out",
+     "m": null,
+     "notes": [],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Ru|OOH|1x1|off",
+     "child_quoted": null,
+     "energy_ry": -1715.01304629,
+     "file": "runs/probe/Ru_orient/s0_OOH__yaw90.out",
+     "m": null,
+     "notes": [
+      "oosh conformer -1715.02124065 is LOWEST banked; whether oosh becomes the member is OPEN (docs/54:422-424, section 6 item 10) \u2014 entrant's call, NOT resolved here"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    }
+   },
+   "flags": [
+    "corner S: oosh conformer -1715.02124065 is LOWEST banked; whether oosh becomes the member is OPEN (docs/54:422-424, section 6 item 10) \u2014 entrant's call, NOT resolved here",
+    "corner S member question OPEN \u2014 informational alternate computed, never binned; the call is the entrant's"
+   ],
+   "metal": "Ru",
+   "readings": [
+    {
+     "I_ev": -0.027071,
+     "I_ry": -0.00198969,
+     "a81_bin": "<=0.10 eV (no deposited label)",
+     "abs_I_ev": 0.027071,
+     "block1A_bin": "additive (<0.05)",
+     "informational": false,
+     "label": "energy-of-record"
+    },
+    {
+     "I_ev": 0.084419,
+     "I_ry": 0.00620467,
+     "a81_bin": "<=0.10 eV (no deposited label)",
+     "abs_I_ev": 0.084419,
+     "block1A_bin": "inconclusive (0.05-0.30)",
+     "informational": true,
+     "label": "ALT member: oosh conformer, lowest banked (oosh-member question OPEN, docs/54:249, :422-424)"
+    }
+   ],
+   "state": "OOH",
+   "tags": []
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Ir|O|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -3221.09583897,
+     "file": "runs/probe/Ir_cellsym/s0_O__2x1v_off.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Ir|O|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -3221.09584906,
+     "file": "runs/probe/Ir_cellsym/s0_O__2x1v_mir.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Ir|O|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -1631.33923851,
+     "file": "runs/Ir_anchor/s0_O.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Ir|O|1x1|off",
+     "child_quoted": null,
+     "energy_ry": -1631.33917053,
+     "file": "runs/probe/Ir_cellsym/s0_O__1x1_off.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    }
+   },
+   "flags": [],
+   "metal": "Ir",
+   "readings": [
+    {
+     "I_ev": -0.000788,
+     "I_ry": -5.789e-05,
+     "a81_bin": "<=0.10 eV (no deposited label)",
+     "abs_I_ev": 0.000788,
+     "block1A_bin": "additive (<0.05)",
+     "informational": false,
+     "label": "energy-of-record"
+    }
+   ],
+   "state": "O",
+   "tags": []
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Ir|OH|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -3222.39151403,
+     "file": "runs/probe/Ir_cellsym/s0_OH__2x1v_off.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Ir|OH|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -3222.38878145,
+     "file": "runs/probe/Ir_cellsym/s0_OH__2x1v_mir.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Ir|OH|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -1632.64856529,
+     "file": "runs/Ir_anchor/s0_OH.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Ir|OH|1x1|off",
+     "child_quoted": null,
+     "energy_ry": -1632.64814256,
+     "file": "runs/probe/Ir_cellsym/s0_OH__1x1_off.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    }
+   },
+   "flags": [],
+   "metal": "Ir",
+   "readings": [
+    {
+     "I_ev": -0.04293,
+     "I_ry": -0.00315531,
+     "a81_bin": "<=0.10 eV (no deposited label)",
+     "abs_I_ev": 0.04293,
+     "block1A_bin": "additive (<0.05)",
+     "informational": false,
+     "label": "energy-of-record"
+    }
+   ],
+   "state": "OH",
+   "tags": []
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Ir|OOH|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -3263.87330531,
+     "file": "runs/probe/Ir_cellsym/s0_OOH__2x1v_off.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Ir|OOH|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -3263.87194671,
+     "file": "runs/probe/Ir_cellsym/s0_OOH__2x1v_mir.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Ir|OOH|1x1|mir",
+     "child_quoted": null,
+     "energy_ry": -1674.09176132,
+     "file": "runs/Ir_anchor/s0_OOH.out",
+     "m": null,
+     "notes": [
+      "path inferred from docs/54 row grammar"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    },
+    "S": {
+     "cell": "Ir|OOH|1x1|off",
+     "child_quoted": null,
+     "energy_ry": -1674.11268108,
+     "file": "runs/probe/Ir_cellsym/s0_OOH__1x1_off.out",
+     "m": null,
+     "notes": [
+      "Ir_orient yaw90 -1674.11317317 and oosh -1674.11459651 also banked \u2014 oosh-member question OPEN (docs/54:422-424, section 6 item 10) \u2014 entrant's call, NOT resolved here"
+     ],
+     "parent_quoted": null,
+     "status": "BANKED"
+    }
+   },
+   "flags": [
+    "corner S: Ir_orient yaw90 -1674.11317317 and oosh -1674.11459651 also banked \u2014 oosh-member question OPEN (docs/54:422-424, section 6 item 10) \u2014 entrant's call, NOT resolved here",
+    "corner S member question OPEN \u2014 informational alternate computed, never binned; the call is the entrant's"
+   ],
+   "metal": "Ir",
+   "readings": [
+    {
+     "I_ev": 0.266143,
+     "I_ry": 0.01956116,
+     "a81_bin": "NON-ADDITIVE",
+     "abs_I_ev": 0.266143,
+     "block1A_bin": "inconclusive (0.05-0.30)",
+     "informational": false,
+     "label": "energy-of-record"
+    },
+    {
+     "I_ev": 0.292204,
+     "I_ry": 0.02147659,
+     "a81_bin": "NON-ADDITIVE",
+     "abs_I_ev": 0.292204,
+     "block1A_bin": "inconclusive (0.05-0.30)",
+     "informational": true,
+     "label": "ALT member: oosh conformer (oosh-member question OPEN, docs/54:264, :422-424)"
+    }
+   ],
+   "state": "OOH",
+   "tags": []
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Ti|O|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -2476.62210404,
+     "file": "runs/s3/Ti/s0_O__2x1v_off__g1.out",
+     "m": null,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -2476.6221042,
+      "file": "runs/s3/Ti/s0_O__2x1v_off.out"
+     },
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Ti|O|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -2476.62219375,
+     "file": "runs/s3/Ti/s0_O__2x1v_mir__g1.out",
+     "m": null,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -2476.62219381,
+      "file": "runs/s3/Ti/s0_O__2x1v_mir.out"
+     },
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Ti|O|1x1|mir",
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "status": "ABSENT (no such cell in readout)"
+    },
+    "S": {
+     "cell": "Ti|O|1x1|off",
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "status": "ABSENT (no such cell in readout)"
+    }
+   },
+   "flags": [],
+   "metal": "Ti",
+   "missing_corners": {
+    "N": "ABSENT (no such cell in readout)",
+    "S": "ABSENT (no such cell in readout)"
+   },
+   "readings": [],
+   "state": "O",
+   "tags": [
+    "NOT COMPUTABLE"
+   ]
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Ti|OH|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -2478.00916156,
+     "file": "runs/s3/Ti/s0_OH__2x1v_off__g1.out",
+     "m": null,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -2478.00916174,
+      "file": "runs/s3/Ti/s0_OH__2x1v_off.out"
+     },
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Ti|OH|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -2478.00635789,
+     "file": "runs/s3/Ti/s0_OH__2x1v_mir__g1.out",
+     "m": null,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -2478.00635822,
+      "file": "runs/s3/Ti/s0_OH__2x1v_mir.out"
+     },
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Ti|OH|1x1|mir",
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "status": "ABSENT (no such cell in readout)"
+    },
+    "S": {
+     "cell": "Ti|OH|1x1|off",
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "status": "ABSENT (no such cell in readout)"
+    }
+   },
+   "flags": [],
+   "metal": "Ti",
+   "missing_corners": {
+    "N": "ABSENT (no such cell in readout)",
+    "S": "ABSENT (no such cell in readout)"
+   },
+   "readings": [],
+   "state": "OH",
+   "tags": [
+    "NOT COMPUTABLE"
+   ]
+  },
+  {
+   "confound_edges": {
+    "C-B (2x1v sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "N-S (1x1 sym pair)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUABLE (a member has no M: nspin=1 row or pending cell)"
+    },
+    "cross-coverage edges (N-C, S-B)": {
+     "delta_m_uB": null,
+     "verdict": "NOT EVALUATED \u2014 members have different atom counts; no registered raw-total-M normalisation exists (spec ambiguity: A8.3 contrast enumeration unstated)"
+    }
+   },
+   "corners": {
+    "B": {
+     "cell": "Ti|OOH|2x1v|off",
+     "child_quoted": null,
+     "energy_ry": -2519.45837304,
+     "file": "runs/s3/Ti/s0_OOH__2x1v_off__g1.out",
+     "m": null,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -2519.45837361,
+      "file": "runs/s3/Ti/s0_OOH__2x1v_off.out"
+     },
+     "status": "BANKED"
+    },
+    "C": {
+     "cell": "Ti|OOH|2x1v|mir",
+     "child_quoted": null,
+     "energy_ry": -2519.46826323,
+     "file": "runs/s3/Ti/s0_OOH__2x1v_mir__g1.out",
+     "m": null,
+     "notes": [],
+     "parent_quoted": {
+      "energy_ry": -2519.46826336,
+      "file": "runs/s3/Ti/s0_OOH__2x1v_mir.out"
+     },
+     "status": "BANKED"
+    },
+    "N": {
+     "cell": "Ti|OOH|1x1|mir",
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "status": "ABSENT (no such cell in readout)"
+    },
+    "S": {
+     "cell": "Ti|OOH|1x1|off",
+     "energy_ry": null,
+     "file": null,
+     "m": null,
+     "notes": [],
+     "status": "ABSENT (no such cell in readout)"
+    }
+   },
+   "flags": [],
+   "metal": "Ti",
+   "missing_corners": {
+    "N": "ABSENT (no such cell in readout)",
+    "S": "ABSENT (no such cell in readout)"
+   },
+   "readings": [],
+   "state": "OOH",
+   "tags": [
+    "NOT COMPUTABLE"
+   ]
+  }
+ ],
+ "task": "A8.1 0.10 eV non-additivity bins over the S3 crossed factorial"
+}

@@ -1,0 +1,3947 @@
+{
+  "counts": {
+    "by_class": {
+      "cell(1x1-vs-2x1v)": 47,
+      "parent-vs-g1-child": 40,
+      "record-vs-superseded-production": 5,
+      "symmetry(mir-vs-off)": 45
+    },
+    "by_verdict": {
+      "CONFOUNDED": 2,
+      "CONFOUNDED(per docs/54:147; not reproduced from printed M)": 1,
+      "CONFOUNDED(per docs/54:150 \"either way\"; basin-member printed M reads 0.00, production-member 0.80 - member OPEN)": 1,
+      "DRIFT-EXCEEDS-0.05uB": 7,
+      "EXCEEDS-PROVISIONAL(UNCLASSIFIED)": 1,
+      "EXCEEDS-PROVISIONAL(UNVERIFIED)": 2,
+      "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)": 22,
+      "NOT-EVALUABLE(PENDING-RETRY)": 5,
+      "NOT-EVALUABLE(child pending)": 2,
+      "NOT-EVALUABLE(member pending/unverified)": 11,
+      "NOT-EVALUABLE(member-absent)": 2,
+      "NOT-EVALUABLE(nspin=1, no M printed)": 36,
+      "RECORD-CONFLICT(docs/54:152 CONFOUNDED vs R3 escape-member printed-M 0.00) - ENTRANT CALL": 1,
+      "SPLIT-PROVISIONAL(PENDING-RERELAX)": 2,
+      "WITHIN": 42
+    },
+    "flagged_beyond_0.05uB": 39,
+    "pairs_total": 137
+  },
+  "flagged_pairs": [
+    "SYM|Cr|OH|1x1",
+    "SYM|Cr|OOH|1x1",
+    "SYM|Cr|OOH|2x1v",
+    "SYM|Mn|OOH|2x1v",
+    "SYM|Fe|OH|1x1",
+    "SYM|Fe|OOH|1x1",
+    "SYM|Co|O|1x1",
+    "SYM|Ni|O|1x1",
+    "SYM|Ni|OH|1x1",
+    "SYM|Ni|OH|2x1v",
+    "CELL|Cr|O|mir",
+    "CELL|Cr|O|off",
+    "CELL|Cr|OH|mir",
+    "CELL|Cr|OH|off",
+    "CELL|Cr|OOH|mir",
+    "CELL|Cr|OOH|off",
+    "CELL|Cr|ref|-",
+    "CELL|Mn|O|mir",
+    "CELL|Mn|O|off",
+    "CELL|Mn|OH|mir",
+    "CELL|Mn|OH|off",
+    "CELL|Mn|OOH|mir",
+    "CELL|Mn|ref|-",
+    "CELL|Fe|O|mir",
+    "CELL|Fe|O|off",
+    "CELL|Fe|OH|mir",
+    "CELL|Fe|OH|off",
+    "CELL|Fe|OOH|mir",
+    "CELL|Fe|ref|-",
+    "CELL|Ni|O|mir",
+    "CELL|Ni|OH|mir",
+    "CELL|Ni|ref|-",
+    "PC|Fe|s0_OOH__1x1_off__g1",
+    "PC|Mn|s0_OOH__2x1v_off__g1",
+    "PC|Ni|s0_OH__basin_g1",
+    "PC|Ni|s0_O__1x1_off__g1",
+    "BP|Co|OH|1x1|mir",
+    "BP|Cr|OOH|1x1|mir",
+    "BP|Ni|OH|1x1|mir"
+  ],
+  "generated_by": "confound_check.py - 0.05 uB magnetic CONFOUND check, state of record 2026-08-24; disclosed AI-drafted infrastructure; reads ONLY runs/s3/readout/s3_readout_2026-08-24.json",
+  "pairs": [
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": 0.22,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 10.0,
+        "cell": "Cr|O|1x1|mir",
+        "energy_ry": -1593.69696999,
+        "file": "runs/probe/Cr_cellsym/s0_O__1x1_mir.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 10.0,
+        "cell": "Cr|O|1x1|off",
+        "energy_ry": -1593.69698646,
+        "file": "runs/probe/Cr_cellsym/s0_O__1x1_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Cr",
+      "notes": [],
+      "pair_id": "SYM|Cr|O|1x1",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": -0.02,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 22.0,
+        "cell": "Cr|O|2x1v|mir",
+        "energy_ry": -3145.93480354,
+        "file": "runs/probe/Cr_cellsym/s0_O__2x1v_mir.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 22.0,
+        "cell": "Cr|O|2x1v|off",
+        "energy_ry": -3145.93480189,
+        "file": "runs/probe/Cr_cellsym/s0_O__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Cr",
+      "notes": [],
+      "pair_id": "SYM|Cr|O|2x1v",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": -161.18,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 11.0,
+        "cell": "Cr|OH|1x1|mir",
+        "energy_ry": -1595.00031719,
+        "file": "runs/probe/Cr_cellsym/s0_OH__1x1_mir.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 11.0,
+        "cell": "Cr|OH|1x1|off",
+        "energy_ry": -1594.98847069,
+        "file": "runs/probe/Cr_cellsym/s0_OH__1x1_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Cr",
+      "notes": [
+        "docs/54:147 records this pair CONFOUNDED; computed |dM| from the readout printed moments is 0.00 - the recorded verdict is NOT reproduced from printed M; carried as recorded, discrepancy FLAGGED for entrant"
+      ],
+      "pair_id": "SYM|Cr|OH|1x1",
+      "state": "OH",
+      "verdict": "CONFOUNDED(per docs/54:147; not reproduced from printed M)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": 2.11,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 23.0,
+        "cell": "Cr|OH|2x1v|mir",
+        "energy_ry": -3147.21581906,
+        "file": "runs/probe/Cr_cellsym/s0_OH__2x1v_mir.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 23.0,
+        "cell": "Cr|OH|2x1v|off",
+        "energy_ry": -3147.21597446,
+        "file": "runs/probe/Cr_cellsym/s0_OH__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Cr",
+      "notes": [],
+      "pair_id": "SYM|Cr|OH|2x1v",
+      "state": "OH",
+      "verdict": "WITHIN"
+    },
+    {
+      "alternate_member_a": {
+        "M_uB": 11.8,
+        "delta_M_uB_vs_off": 0.8,
+        "file": "runs/Cr_slab/s0_OOH.out",
+        "verdict_if_member": "CONFOUNDED"
+      },
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": 1167.52,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 11.0,
+        "cell": "Cr|OOH|1x1|mir",
+        "energy_ry": -1636.48392809,
+        "file": "runs/s3/Cr/s0_OOH__basin_g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 11.0,
+        "cell": "Cr|OOH|1x1|off",
+        "energy_ry": -1636.56973955,
+        "file": "runs/probe/Cr_cellsym/s0_OOH__1x1_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Cr",
+      "notes": [
+        "docs/54:150 + :400-405: mir member identity OPEN (basin -1636.48393 M 11.00 vs production -1636.47080 M 11.80), recorded \"pair CONFOUNDED either way\"; with the basin member printed |dM|=0.00, with the production member |dM|=0.80 > 0.05 - member identity is the entrant call, both computations reported, recorded verdict carried"
+      ],
+      "pair_id": "SYM|Cr|OOH|1x1",
+      "state": "OOH",
+      "verdict": "CONFOUNDED(per docs/54:150 \"either way\"; basin-member printed M reads 0.00, production-member 0.80 - member OPEN)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": 1037.61,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 23.0,
+        "cell": "Cr|OOH|2x1v|mir",
+        "energy_ry": -3188.71605541,
+        "file": "runs/s3/Cr/s0_OOH__2x1v_escape.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 23.0,
+        "cell": "Cr|OOH|2x1v|off",
+        "energy_ry": -3188.7923181,
+        "file": "runs/probe/Cr_cellsym/s0_OOH__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Cr",
+      "notes": [
+        "docs/54:152 recorded the (saddle-mir, off) pair CONFOUNDED (Delta_sym 1.188 eV); docs/55 R3 has since made the escape minimum the mir-arm energy of record and the saddle a DIAGNOSTIC; computed |dM| escape-vs-off = 0.00 (both M 23.0); whether the docs/54:152 CONFOUND survives R3 is an interpretive call - ENTRANT, not resolved here"
+      ],
+      "pair_id": "SYM|Cr|OOH|2x1v",
+      "state": "OOH",
+      "verdict": "RECORD-CONFLICT(docs/54:152 CONFOUNDED vs R3 escape-member printed-M 0.00) - ENTRANT CALL"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": 157.09,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 16.0,
+        "cell": "Mn|O|1x1|mir",
+        "energy_ry": -1807.77357526,
+        "file": "runs/Mn_slab/s0_O.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 16.0,
+        "cell": "Mn|O|1x1|off",
+        "energy_ry": -1807.78512135,
+        "file": "runs/s3/Mn/s0_O__1x1_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "mir member is tier_v2 nosym reuse - whether it stands as a mirror-arm member is OPEN (docs/54:406-411, section 6 item 5); if it does not, this is an A8.2 gap, not a pair"
+      ],
+      "pair_id": "SYM|Mn|O|1x1",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": 107.35,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 34.0,
+        "cell": "Mn|O|2x1v|mir",
+        "energy_ry": -3574.11798039,
+        "file": "runs/s3/Mn/s0_O__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 34.0,
+        "cell": "Mn|O|2x1v|off",
+        "energy_ry": -3574.12587024,
+        "file": "runs/s3/Mn/s0_O__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [],
+      "pair_id": "SYM|Mn|O|2x1v",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": -20.73,
+      "delta_M_uB": 0.01,
+      "member_a": {
+        "M_uB": 16.99,
+        "cell": "Mn|OH|1x1|mir",
+        "energy_ry": -1809.11818344,
+        "file": "runs/Mn_slab/s0_OH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 17.0,
+        "cell": "Mn|OH|1x1|off",
+        "energy_ry": -1809.11665983,
+        "file": "runs/s3/Mn/s0_OH__1x1_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "mir member is tier_v2 nosym reuse - whether it stands as a mirror-arm member is OPEN (docs/54:406-411, section 6 item 5); if it does not, this is an A8.2 gap, not a pair"
+      ],
+      "pair_id": "SYM|Mn|OH|1x1",
+      "state": "OH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": 22.34,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 35.0,
+        "cell": "Mn|OH|2x1v|mir",
+        "energy_ry": -3575.45883959,
+        "file": "runs/s3/Mn/s0_OH__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 35.0,
+        "cell": "Mn|OH|2x1v|off",
+        "energy_ry": -3575.46048157,
+        "file": "runs/s3/Mn/s0_OH__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [],
+      "pair_id": "SYM|Mn|OH|2x1v",
+      "state": "OH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": 1564.3,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 17.0,
+        "cell": "Mn|OOH|1x1|mir",
+        "energy_ry": -1850.60679209,
+        "file": "runs/Mn_slab/s0_OOH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 17.0,
+        "cell": "Mn|OOH|1x1|off",
+        "energy_ry": -1850.72176608,
+        "file": "runs/s3/Mn/s0_OOH__1x1_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "mir member is tier_v2 nosym reuse - whether it stands as a mirror-arm member is OPEN (docs/54:406-411, section 6 item 5); if it does not, this is an A8.2 gap, not a pair"
+      ],
+      "pair_id": "SYM|Mn|OOH|1x1",
+      "state": "OOH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": 35.0,
+        "cell": "Mn|OOH|2x1v|mir",
+        "energy_ry": -3616.95791244,
+        "file": "runs/s3/Mn/s0_OOH__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Mn|OOH|2x1v|off",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RERELAX"
+      },
+      "metal": "Mn",
+      "notes": [
+        "candidate-moment pairings disagree on the 0.05 uB test (member identity / pending outcome decides) - FLAGGED for entrant"
+      ],
+      "pair_id": "SYM|Mn|OOH|2x1v",
+      "provisional_pairings": [
+        {
+          "a": {
+            "M_uB": 35.0,
+            "file": "runs/s3/Mn/s0_OOH__2x1v_mir__g1.out",
+            "which": "record"
+          },
+          "b": {
+            "M_uB": 35.0,
+            "file": "runs/s3/Mn/s0_OOH__2x1v_off.out",
+            "which": "parent"
+          },
+          "delta_M_uB": 0.0,
+          "exceeds_0.05": false
+        },
+        {
+          "a": {
+            "M_uB": 35.0,
+            "file": "runs/s3/Mn/s0_OOH__2x1v_mir__g1.out",
+            "which": "record"
+          },
+          "b": {
+            "M_uB": 34.82,
+            "file": "runs/s3/Mn/s0_OOH__2x1v_off__g1.out",
+            "which": "child"
+          },
+          "delta_M_uB": 0.18,
+          "exceeds_0.05": true
+        },
+        {
+          "a": {
+            "M_uB": 35.0,
+            "file": "runs/s3/Mn/s0_OOH__2x1v_mir.out",
+            "which": "parent"
+          },
+          "b": {
+            "M_uB": 35.0,
+            "file": "runs/s3/Mn/s0_OOH__2x1v_off.out",
+            "which": "parent"
+          },
+          "delta_M_uB": 0.0,
+          "exceeds_0.05": false
+        },
+        {
+          "a": {
+            "M_uB": 35.0,
+            "file": "runs/s3/Mn/s0_OOH__2x1v_mir.out",
+            "which": "parent"
+          },
+          "b": {
+            "M_uB": 34.82,
+            "file": "runs/s3/Mn/s0_OOH__2x1v_off__g1.out",
+            "which": "child"
+          },
+          "delta_M_uB": 0.18,
+          "exceeds_0.05": true
+        }
+      ],
+      "state": "OOH",
+      "verdict": "SPLIT-PROVISIONAL(PENDING-RERELAX)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": 118.81,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 21.98,
+        "cell": "Fe|O|1x1|mir",
+        "energy_ry": -2515.17456142,
+        "file": "runs/Fe_slab/s0_O.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 21.98,
+        "cell": "Fe|O|1x1|off",
+        "energy_ry": -2515.18329369,
+        "file": "runs/s3/Fe/s0_O__1x1_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "mir member is tier_v2 nosym reuse - whether it stands as a mirror-arm member is OPEN (docs/54:406-411, section 6 item 5); if it does not, this is an A8.2 gap, not a pair"
+      ],
+      "pair_id": "SYM|Fe|O|1x1",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": 8.4,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 45.95,
+        "cell": "Fe|O|2x1v|mir",
+        "energy_ry": -4988.97969226,
+        "file": "runs/s3/Fe/s0_O__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 45.95,
+        "cell": "Fe|O|2x1v|off",
+        "energy_ry": -4988.98030942,
+        "file": "runs/s3/Fe/s0_O__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [],
+      "pair_id": "SYM|Fe|O|2x1v",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": -108.18,
+      "delta_M_uB": 0.14,
+      "member_a": {
+        "M_uB": 23.1,
+        "cell": "Fe|OH|1x1|mir",
+        "energy_ry": -2516.54646887,
+        "file": "runs/Fe_slab/s0_OH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 22.96,
+        "cell": "Fe|OH|1x1|off",
+        "energy_ry": -2516.53851756,
+        "file": "runs/s3/Fe/s0_OH__1x1_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "mir member is tier_v2 nosym reuse - whether it stands as a mirror-arm member is OPEN (docs/54:406-411, section 6 item 5); if it does not, this is an A8.2 gap, not a pair"
+      ],
+      "pair_id": "SYM|Fe|OH|1x1",
+      "state": "OH",
+      "verdict": "CONFOUNDED"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": 62.48,
+      "delta_M_uB": 0.02,
+      "member_a": {
+        "M_uB": 46.96,
+        "cell": "Fe|OH|2x1v|mir",
+        "energy_ry": -4990.34123858,
+        "file": "runs/s3/Fe/s0_OH__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 46.94,
+        "cell": "Fe|OH|2x1v|off",
+        "energy_ry": -4990.34583064,
+        "file": "runs/s3/Fe/s0_OH__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [],
+      "pair_id": "SYM|Fe|OH|2x1v",
+      "state": "OH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": 22.98,
+        "cell": "Fe|OOH|1x1|mir",
+        "energy_ry": -2558.05888124,
+        "file": "runs/Fe_slab/s0_OOH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Fe|OOH|1x1|off",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RERELAX"
+      },
+      "metal": "Fe",
+      "notes": [
+        "candidate-moment pairings disagree on the 0.05 uB test (member identity / pending outcome decides) - FLAGGED for entrant"
+      ],
+      "pair_id": "SYM|Fe|OOH|1x1",
+      "provisional_pairings": [
+        {
+          "a": {
+            "M_uB": 22.98,
+            "file": "runs/Fe_slab/s0_OOH.out",
+            "which": "record"
+          },
+          "b": {
+            "M_uB": 24.46,
+            "file": "runs/s3/Fe/s0_OOH__1x1_off.out",
+            "which": "parent"
+          },
+          "delta_M_uB": 1.48,
+          "exceeds_0.05": true
+        },
+        {
+          "a": {
+            "M_uB": 22.98,
+            "file": "runs/Fe_slab/s0_OOH.out",
+            "which": "record"
+          },
+          "b": {
+            "M_uB": 22.98,
+            "file": "runs/s3/Fe/s0_OOH__1x1_off__g1.out",
+            "which": "child"
+          },
+          "delta_M_uB": 0.0,
+          "exceeds_0.05": false
+        }
+      ],
+      "state": "OOH",
+      "verdict": "SPLIT-PROVISIONAL(PENDING-RERELAX)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": 1764.23,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 46.97,
+        "cell": "Fe|OOH|2x1v|mir",
+        "energy_ry": -5031.84916185,
+        "file": "runs/s3/Fe/s0_OOH__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 46.97,
+        "cell": "Fe|OOH|2x1v|off",
+        "energy_ry": -5031.97883034,
+        "file": "runs/s3/Fe/s0_OOH__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [],
+      "pair_id": "SYM|Fe|OOH|2x1v",
+      "state": "OOH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": 11.24,
+        "cell": "Co|O|1x1|mir",
+        "energy_ry": -2330.66753771,
+        "file": "runs/Co_slab/s0_O.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Co|O|1x1|off",
+        "energy_ry": null,
+        "file": null,
+        "status": "UNVERIFIED"
+      },
+      "metal": "Co",
+      "notes": [
+        "every available candidate-moment pairing exceeds 0.05 uB; no banked energy of record on both sides, so no CONFOUNDED verdict is banked - FLAGGED for entrant"
+      ],
+      "pair_id": "SYM|Co|O|1x1",
+      "provisional_pairings": [
+        {
+          "a": {
+            "M_uB": 11.24,
+            "file": "runs/Co_slab/s0_O.out",
+            "which": "record"
+          },
+          "b": {
+            "M_uB": 11.69,
+            "file": "runs/s3/Co/s0_O__1x1_off.out",
+            "which": "parent"
+          },
+          "delta_M_uB": 0.45,
+          "exceeds_0.05": true
+        }
+      ],
+      "state": "O",
+      "verdict": "EXCEEDS-PROVISIONAL(UNVERIFIED)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Co|O|2x1v|mir",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RETRY"
+      },
+      "member_b": {
+        "M_uB": 25.23,
+        "cell": "Co|O|2x1v|off",
+        "energy_ry": -4619.85589635,
+        "file": "runs/s3/Co/s0_O__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Co",
+      "notes": [],
+      "pair_id": "SYM|Co|O|2x1v",
+      "state": "O",
+      "verdict": "NOT-EVALUABLE(PENDING-RETRY)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": 9.92,
+        "cell": "Co|OH|1x1|mir",
+        "energy_ry": -2332.00425006,
+        "file": "runs/s3/Co/s0_OH__basin_g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Co|OH|1x1|off",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RETRY"
+      },
+      "metal": "Co",
+      "notes": [],
+      "pair_id": "SYM|Co|OH|1x1",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(PENDING-RETRY)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Co|OH|2x1v|mir",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RETRY"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Co|OH|2x1v|off",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RETRY"
+      },
+      "metal": "Co",
+      "notes": [],
+      "pair_id": "SYM|Co|OH|2x1v",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(PENDING-RETRY)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Co|OOH|1x1|mir",
+        "energy_ry": null,
+        "file": null,
+        "status": "GAP"
+      },
+      "member_b": {
+        "status": "ABSENT"
+      },
+      "metal": "Co",
+      "notes": [
+        "one member cell absent from the state of record"
+      ],
+      "pair_id": "SYM|Co|OOH|1x1",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(member-absent)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Co|OOH|2x1v|mir",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RETRY"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Co|OOH|2x1v|off",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RETRY"
+      },
+      "metal": "Co",
+      "notes": [],
+      "pair_id": "SYM|Co|OOH|2x1v",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(PENDING-RETRY)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": 8.16,
+        "cell": "Ni|O|1x1|mir",
+        "energy_ry": -2598.63298268,
+        "file": "runs/Ni_slab/s0_O.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ni|O|1x1|off",
+        "energy_ry": null,
+        "file": null,
+        "status": "UNCLASSIFIED"
+      },
+      "metal": "Ni",
+      "notes": [
+        "every available candidate-moment pairing exceeds 0.05 uB; no banked energy of record on both sides, so no CONFOUNDED verdict is banked - FLAGGED for entrant"
+      ],
+      "pair_id": "SYM|Ni|O|1x1",
+      "provisional_pairings": [
+        {
+          "a": {
+            "M_uB": 8.16,
+            "file": "runs/Ni_slab/s0_O.out",
+            "which": "record"
+          },
+          "b": {
+            "M_uB": 4.33,
+            "file": "runs/s3/Ni/s0_O__1x1_off.out",
+            "which": "row-parent"
+          },
+          "delta_M_uB": 3.83,
+          "exceeds_0.05": true
+        },
+        {
+          "a": {
+            "M_uB": 8.16,
+            "file": "runs/Ni_slab/s0_O.out",
+            "which": "record"
+          },
+          "b": {
+            "M_uB": 8.1,
+            "file": "runs/s3/Ni/s0_O__1x1_off__g1.out",
+            "which": "row-child"
+          },
+          "delta_M_uB": 0.06,
+          "exceeds_0.05": true
+        }
+      ],
+      "state": "O",
+      "verdict": "EXCEEDS-PROVISIONAL(UNCLASSIFIED)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": 61.27,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 15.48,
+        "cell": "Ni|O|2x1v|mir",
+        "energy_ry": -5155.88814696,
+        "file": "runs/s3/Ni/s0_O__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 15.48,
+        "cell": "Ni|O|2x1v|off",
+        "energy_ry": -5155.89265042,
+        "file": "runs/s3/Ni/s0_O__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Ni",
+      "notes": [],
+      "pair_id": "SYM|Ni|O|2x1v",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": -312.97,
+      "delta_M_uB": 2.71,
+      "member_a": {
+        "M_uB": 4.15,
+        "cell": "Ni|OH|1x1|mir",
+        "energy_ry": -2599.99940826,
+        "file": "runs/probe/Ni_basin/s0_OH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 6.86,
+        "cell": "Ni|OH|1x1|off",
+        "energy_ry": -2599.97640516,
+        "file": "runs/s3/Ni/s0_OH__1x1_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Ni",
+      "notes": [
+        "member A is the basin-substitution record whose own __g1 child is a refused-candidate (+177.10 meV, docs/43:1589-1592 re-run owed) - the mir-member moment may move; CONFOUNDED stands on the current energy-of-record members"
+      ],
+      "pair_id": "SYM|Ni|OH|1x1",
+      "state": "OH",
+      "verdict": "CONFOUNDED"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": 14.47,
+        "cell": "Ni|OH|2x1v|mir",
+        "energy_ry": -5157.23061637,
+        "file": "runs/s3/Ni/s0_OH__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ni|OH|2x1v|off",
+        "energy_ry": null,
+        "file": null,
+        "status": "UNVERIFIED"
+      },
+      "metal": "Ni",
+      "notes": [
+        "every available candidate-moment pairing exceeds 0.05 uB; no banked energy of record on both sides, so no CONFOUNDED verdict is banked - FLAGGED for entrant",
+        "margin over the threshold is 0.01-0.02 uB on moments printed to 2 decimals - unrounded moments should be checked before any verdict is banked; which member M enters (mir child 14.47 vs mir parent 14.48) is itself the unstated-member ambiguity"
+      ],
+      "pair_id": "SYM|Ni|OH|2x1v",
+      "provisional_pairings": [
+        {
+          "a": {
+            "M_uB": 14.47,
+            "file": "runs/s3/Ni/s0_OH__2x1v_mir__g1.out",
+            "which": "record"
+          },
+          "b": {
+            "M_uB": 14.41,
+            "file": "runs/s3/Ni/s0_OH__2x1v_off.out",
+            "which": "parent"
+          },
+          "delta_M_uB": 0.06,
+          "exceeds_0.05": true
+        },
+        {
+          "a": {
+            "M_uB": 14.48,
+            "file": "runs/s3/Ni/s0_OH__2x1v_mir.out",
+            "which": "parent"
+          },
+          "b": {
+            "M_uB": 14.41,
+            "file": "runs/s3/Ni/s0_OH__2x1v_off.out",
+            "which": "parent"
+          },
+          "delta_M_uB": 0.07,
+          "exceeds_0.05": true
+        }
+      ],
+      "state": "OH",
+      "verdict": "EXCEEDS-PROVISIONAL(UNVERIFIED)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ni|OOH|1x1|mir",
+        "energy_ry": null,
+        "file": null,
+        "status": "GAP"
+      },
+      "member_b": {
+        "status": "ABSENT"
+      },
+      "metal": "Ni",
+      "notes": [
+        "one member cell absent from the state of record"
+      ],
+      "pair_id": "SYM|Ni|OOH|1x1",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(member-absent)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ni|OOH|2x1v|mir",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RETRY"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ni|OOH|2x1v|off",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RETRY"
+      },
+      "metal": "Ni",
+      "notes": [],
+      "pair_id": "SYM|Ni|OOH|2x1v",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(PENDING-RETRY)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": -0.91,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ru|O|1x1|mir",
+        "energy_ry": -1672.25496768,
+        "file": "runs/Ru_anchor/s0_O.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ru|O|1x1|off",
+        "energy_ry": -1672.25490048,
+        "file": "runs/probe/Ru_cellsym/s0_O__1x1_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ru",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M; whether the 0.05 uB rule is trivially satisfied for a metal with no magnetic degrees of freedom is unstated - FLAG"
+      ],
+      "pair_id": "SYM|Ru|O|1x1",
+      "state": "O",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": 0.04,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ru|O|2x1v|mir",
+        "energy_ry": -3302.93178672,
+        "file": "runs/probe/Ru_cellsym/s0_O__2x1v_mir.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ru|O|2x1v|off",
+        "energy_ry": -3302.93178971,
+        "file": "runs/probe/Ru_cellsym/s0_O__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ru",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M; whether the 0.05 uB rule is trivially satisfied for a metal with no magnetic degrees of freedom is unstated - FLAG"
+      ],
+      "pair_id": "SYM|Ru|O|2x1v",
+      "state": "O",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": -247.54,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ru|OH|1x1|mir",
+        "energy_ry": -1673.52913839,
+        "file": "runs/Ru_anchor/s0_OH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ru|OH|1x1|off",
+        "energy_ry": -1673.51094446,
+        "file": "runs/probe/Ru_cellsym/s0_OH__1x1_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ru",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M; whether the 0.05 uB rule is trivially satisfied for a metal with no magnetic degrees of freedom is unstated - FLAG"
+      ],
+      "pair_id": "SYM|Ru|OH|1x1",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": -12.96,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ru|OH|2x1v|mir",
+        "energy_ry": -3304.19810638,
+        "file": "runs/probe/Ru_cellsym/s0_OH__2x1v_mir.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ru|OH|2x1v|off",
+        "energy_ry": -3304.19715356,
+        "file": "runs/probe/Ru_cellsym/s0_OH__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ru",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M; whether the 0.05 uB rule is trivially satisfied for a metal with no magnetic degrees of freedom is unstated - FLAG"
+      ],
+      "pair_id": "SYM|Ru|OH|2x1v",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": 81.71,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ru|OOH|1x1|mir",
+        "energy_ry": -1715.00704045,
+        "file": "runs/Ru_anchor/s0_OOH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ru|OOH|1x1|off",
+        "energy_ry": -1715.01304629,
+        "file": "runs/probe/Ru_orient/s0_OOH__yaw90.out",
+        "status": "BANKED"
+      },
+      "metal": "Ru",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M; whether the 0.05 uB rule is trivially satisfied for a metal with no magnetic degrees of freedom is unstated - FLAG"
+      ],
+      "pair_id": "SYM|Ru|OOH|1x1",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": 108.78,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ru|OOH|2x1v|mir",
+        "energy_ry": -3345.6726476,
+        "file": "runs/probe/Ru_cellsym/s0_OOH__2x1v_mir.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ru|OOH|2x1v|off",
+        "energy_ry": -3345.68064313,
+        "file": "runs/probe/Ru_cellsym/s0_OOH__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ru",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M; whether the 0.05 uB rule is trivially satisfied for a metal with no magnetic degrees of freedom is unstated - FLAG"
+      ],
+      "pair_id": "SYM|Ru|OOH|2x1v",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": -0.92,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ir|O|1x1|mir",
+        "energy_ry": -1631.33923851,
+        "file": "runs/Ir_anchor/s0_O.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ir|O|1x1|off",
+        "energy_ry": -1631.33917053,
+        "file": "runs/probe/Ir_cellsym/s0_O__1x1_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ir",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M; whether the 0.05 uB rule is trivially satisfied for a metal with no magnetic degrees of freedom is unstated - FLAG"
+      ],
+      "pair_id": "SYM|Ir|O|1x1",
+      "state": "O",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": -0.14,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ir|O|2x1v|mir",
+        "energy_ry": -3221.09584906,
+        "file": "runs/probe/Ir_cellsym/s0_O__2x1v_mir.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ir|O|2x1v|off",
+        "energy_ry": -3221.09583897,
+        "file": "runs/probe/Ir_cellsym/s0_O__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ir",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M; whether the 0.05 uB rule is trivially satisfied for a metal with no magnetic degrees of freedom is unstated - FLAG"
+      ],
+      "pair_id": "SYM|Ir|O|2x1v",
+      "state": "O",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": -5.75,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ir|OH|1x1|mir",
+        "energy_ry": -1632.64856529,
+        "file": "runs/Ir_anchor/s0_OH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ir|OH|1x1|off",
+        "energy_ry": -1632.64814256,
+        "file": "runs/probe/Ir_cellsym/s0_OH__1x1_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ir",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M; whether the 0.05 uB rule is trivially satisfied for a metal with no magnetic degrees of freedom is unstated - FLAG"
+      ],
+      "pair_id": "SYM|Ir|OH|1x1",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": 37.18,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ir|OH|2x1v|mir",
+        "energy_ry": -3222.38878145,
+        "file": "runs/probe/Ir_cellsym/s0_OH__2x1v_mir.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ir|OH|2x1v|off",
+        "energy_ry": -3222.39151403,
+        "file": "runs/probe/Ir_cellsym/s0_OH__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ir",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M; whether the 0.05 uB rule is trivially satisfied for a metal with no magnetic degrees of freedom is unstated - FLAG"
+      ],
+      "pair_id": "SYM|Ir|OH|2x1v",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "1x1",
+      "delta_E_meV_a_minus_b": 284.63,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ir|OOH|1x1|mir",
+        "energy_ry": -1674.09176132,
+        "file": "runs/Ir_anchor/s0_OOH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ir|OOH|1x1|off",
+        "energy_ry": -1674.11268108,
+        "file": "runs/probe/Ir_cellsym/s0_OOH__1x1_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ir",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M; whether the 0.05 uB rule is trivially satisfied for a metal with no magnetic degrees of freedom is unstated - FLAG"
+      ],
+      "pair_id": "SYM|Ir|OOH|1x1",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": 18.48,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ir|OOH|2x1v|mir",
+        "energy_ry": -3263.87194671,
+        "file": "runs/probe/Ir_cellsym/s0_OOH__2x1v_mir.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ir|OOH|2x1v|off",
+        "energy_ry": -3263.87330531,
+        "file": "runs/probe/Ir_cellsym/s0_OOH__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ir",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M; whether the 0.05 uB rule is trivially satisfied for a metal with no magnetic degrees of freedom is unstated - FLAG"
+      ],
+      "pair_id": "SYM|Ir|OOH|2x1v",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": -1.22,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ti|O|2x1v|mir",
+        "energy_ry": -2476.62219375,
+        "file": "runs/s3/Ti/s0_O__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ti|O|2x1v|off",
+        "energy_ry": -2476.62210404,
+        "file": "runs/s3/Ti/s0_O__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Ti",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M; whether the 0.05 uB rule is trivially satisfied for a metal with no magnetic degrees of freedom is unstated - FLAG"
+      ],
+      "pair_id": "SYM|Ti|O|2x1v",
+      "state": "O",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": 38.15,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ti|OH|2x1v|mir",
+        "energy_ry": -2478.00635789,
+        "file": "runs/s3/Ti/s0_OH__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ti|OH|2x1v|off",
+        "energy_ry": -2478.00916156,
+        "file": "runs/s3/Ti/s0_OH__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Ti",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M; whether the 0.05 uB rule is trivially satisfied for a metal with no magnetic degrees of freedom is unstated - FLAG"
+      ],
+      "pair_id": "SYM|Ti|OH|2x1v",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "symmetry(mir-vs-off)",
+      "contrast": "2x1v",
+      "delta_E_meV_a_minus_b": -134.56,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ti|OOH|2x1v|mir",
+        "energy_ry": -2519.46826323,
+        "file": "runs/s3/Ti/s0_OOH__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ti|OOH|2x1v|off",
+        "energy_ry": -2519.45837304,
+        "file": "runs/s3/Ti/s0_OOH__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Ti",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M; whether the 0.05 uB rule is trivially satisfied for a metal with no magnetic degrees of freedom is unstated - FLAG"
+      ],
+      "pair_id": "SYM|Ti|OOH|2x1v",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 21119271.43,
+      "delta_M_uB": 12.0,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 2.0,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 10.0,
+        "cell": "Cr|O|1x1|mir",
+        "energy_ry": -1593.69696999,
+        "file": "runs/probe/Cr_cellsym/s0_O__1x1_mir.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 22.0,
+        "cell": "Cr|O|2x1v|mir",
+        "energy_ry": -3145.93480354,
+        "file": "runs/probe/Cr_cellsym/s0_O__2x1v_mir.out",
+        "status": "BANKED"
+      },
+      "metal": "Cr",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Cr|O|mir",
+      "state": "O",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": 21119271.18,
+      "delta_M_uB": 12.0,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 2.0,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 10.0,
+        "cell": "Cr|O|1x1|off",
+        "energy_ry": -1593.69698646,
+        "file": "runs/probe/Cr_cellsym/s0_O__1x1_off.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 22.0,
+        "cell": "Cr|O|2x1v|off",
+        "energy_ry": -3145.93480189,
+        "file": "runs/probe/Cr_cellsym/s0_O__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Cr",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Cr|O|off",
+      "state": "O",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 21118967.59,
+      "delta_M_uB": 12.0,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 1.0,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 11.0,
+        "cell": "Cr|OH|1x1|mir",
+        "energy_ry": -1595.00031719,
+        "file": "runs/probe/Cr_cellsym/s0_OH__1x1_mir.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 23.0,
+        "cell": "Cr|OH|2x1v|mir",
+        "energy_ry": -3147.21581906,
+        "file": "runs/probe/Cr_cellsym/s0_OH__2x1v_mir.out",
+        "status": "BANKED"
+      },
+      "metal": "Cr",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Cr|OH|mir",
+      "state": "OH",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": 21119130.88,
+      "delta_M_uB": 12.0,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 1.0,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 11.0,
+        "cell": "Cr|OH|1x1|off",
+        "energy_ry": -1594.98847069,
+        "file": "runs/probe/Cr_cellsym/s0_OH__1x1_off.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 23.0,
+        "cell": "Cr|OH|2x1v|off",
+        "energy_ry": -3147.21597446,
+        "file": "runs/probe/Cr_cellsym/s0_OH__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Cr",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Cr|OH|off",
+      "state": "OH",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 21119193.79,
+      "delta_M_uB": 12.0,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 1.0,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 11.0,
+        "cell": "Cr|OOH|1x1|mir",
+        "energy_ry": -1636.48392809,
+        "file": "runs/s3/Cr/s0_OOH__basin_g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 23.0,
+        "cell": "Cr|OOH|2x1v|mir",
+        "energy_ry": -3188.71605541,
+        "file": "runs/s3/Cr/s0_OOH__2x1v_escape.out",
+        "status": "BANKED"
+      },
+      "metal": "Cr",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Cr|OOH|mir",
+      "state": "OOH",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": 21119063.87,
+      "delta_M_uB": 12.0,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 1.0,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 11.0,
+        "cell": "Cr|OOH|1x1|off",
+        "energy_ry": -1636.56973955,
+        "file": "runs/probe/Cr_cellsym/s0_OOH__1x1_off.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 23.0,
+        "cell": "Cr|OOH|2x1v|off",
+        "energy_ry": -3188.7923181,
+        "file": "runs/probe/Cr_cellsym/s0_OOH__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Cr",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Cr|OOH|off",
+      "state": "OOH",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "-",
+      "delta_E_meV_a_minus_b": 21118909.92,
+      "delta_M_uB": 12.0,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 0.0,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 12.0,
+        "cell": "Cr|ref|1x1|-",
+        "energy_ry": -1552.21158979,
+        "file": "runs/Cr_slab/slab.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 24.0,
+        "cell": "Cr|ref|2x1v|-",
+        "energy_ry": -3104.42285307,
+        "file": "runs/probe/Cr_cellsym/ref__2x1v.out",
+        "status": "BANKED"
+      },
+      "metal": "Cr",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Cr|ref|-",
+      "state": "ref",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 24032339.71,
+      "delta_M_uB": 18.0,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 2.0,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 16.0,
+        "cell": "Mn|O|1x1|mir",
+        "energy_ry": -1807.77357526,
+        "file": "runs/Mn_slab/s0_O.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 34.0,
+        "cell": "Mn|O|2x1v|mir",
+        "energy_ry": -3574.11798039,
+        "file": "runs/s3/Mn/s0_O__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Mn|O|mir",
+      "state": "O",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": 24032289.96,
+      "delta_M_uB": 18.0,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 2.0,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 16.0,
+        "cell": "Mn|O|1x1|off",
+        "energy_ry": -1807.78512135,
+        "file": "runs/s3/Mn/s0_O__1x1_off__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 34.0,
+        "cell": "Mn|O|2x1v|off",
+        "energy_ry": -3574.12587024,
+        "file": "runs/s3/Mn/s0_O__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Mn|O|off",
+      "state": "O",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 24032288.7,
+      "delta_M_uB": 18.01,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 1.02,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 16.99,
+        "cell": "Mn|OH|1x1|mir",
+        "energy_ry": -1809.11818344,
+        "file": "runs/Mn_slab/s0_OH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 35.0,
+        "cell": "Mn|OH|2x1v|mir",
+        "energy_ry": -3575.45883959,
+        "file": "runs/s3/Mn/s0_OH__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Mn|OH|mir",
+      "state": "OH",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": 24032331.77,
+      "delta_M_uB": 18.0,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 1.0,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 17.0,
+        "cell": "Mn|OH|1x1|off",
+        "energy_ry": -1809.11665983,
+        "file": "runs/s3/Mn/s0_OH__1x1_off__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 35.0,
+        "cell": "Mn|OH|2x1v|off",
+        "energy_ry": -3575.46048157,
+        "file": "runs/s3/Mn/s0_OH__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Mn|OH|off",
+      "state": "OH",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 24032431.07,
+      "delta_M_uB": 18.0,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 1.0,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 17.0,
+        "cell": "Mn|OOH|1x1|mir",
+        "energy_ry": -1850.60679209,
+        "file": "runs/Mn_slab/s0_OOH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 35.0,
+        "cell": "Mn|OOH|2x1v|mir",
+        "energy_ry": -3616.95791244,
+        "file": "runs/s3/Mn/s0_OOH__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Mn|OOH|mir",
+      "state": "OOH",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": 17.0,
+        "cell": "Mn|OOH|1x1|off",
+        "energy_ry": -1850.72176608,
+        "file": "runs/s3/Mn/s0_OOH__1x1_off__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Mn|OOH|2x1v|off",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RERELAX"
+      },
+      "metal": "Mn",
+      "notes": [],
+      "pair_id": "CELL|Mn|OOH|off",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(member pending/unverified)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "-",
+      "delta_E_meV_a_minus_b": 24032529.99,
+      "delta_M_uB": 18.0,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 0.0,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 18.0,
+        "cell": "Mn|ref|1x1|-",
+        "energy_ry": -1766.35807805,
+        "file": "runs/Mn_slab/slab.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 36.0,
+        "cell": "Mn|ref|2x1v|-",
+        "energy_ry": -3532.71646898,
+        "file": "runs/s3/Mn/ref__2x1v__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Mn|ref|-",
+      "state": "ref",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 33657833.15,
+      "delta_M_uB": 23.97,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 1.99,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 21.98,
+        "cell": "Fe|O|1x1|mir",
+        "energy_ry": -2515.17456142,
+        "file": "runs/Fe_slab/s0_O.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 45.95,
+        "cell": "Fe|O|2x1v|mir",
+        "energy_ry": -4988.97969226,
+        "file": "runs/s3/Fe/s0_O__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Fe|O|mir",
+      "state": "O",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": 33657722.74,
+      "delta_M_uB": 23.97,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 1.99,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 21.98,
+        "cell": "Fe|O|1x1|off",
+        "energy_ry": -2515.18329369,
+        "file": "runs/s3/Fe/s0_O__1x1_off__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 45.95,
+        "cell": "Fe|O|2x1v|off",
+        "energy_ry": -4988.98030942,
+        "file": "runs/s3/Fe/s0_O__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Fe|O|off",
+      "state": "O",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 33657692.18,
+      "delta_M_uB": 23.86,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 0.76,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 23.1,
+        "cell": "Fe|OH|1x1|mir",
+        "energy_ry": -2516.54646887,
+        "file": "runs/Fe_slab/s0_OH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 46.96,
+        "cell": "Fe|OH|2x1v|mir",
+        "energy_ry": -4990.34123858,
+        "file": "runs/s3/Fe/s0_OH__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Fe|OH|mir",
+      "state": "OH",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": 33657862.84,
+      "delta_M_uB": 23.98,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 1.02,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 22.96,
+        "cell": "Fe|OH|1x1|off",
+        "energy_ry": -2516.53851756,
+        "file": "runs/s3/Fe/s0_OH__1x1_off__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 46.94,
+        "cell": "Fe|OH|2x1v|off",
+        "energy_ry": -4990.34583064,
+        "file": "runs/s3/Fe/s0_OH__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Fe|OH|off",
+      "state": "OH",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 33657631.1,
+      "delta_M_uB": 23.99,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 1.01,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 22.98,
+        "cell": "Fe|OOH|1x1|mir",
+        "energy_ry": -2558.05888124,
+        "file": "runs/Fe_slab/s0_OOH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 46.97,
+        "cell": "Fe|OOH|2x1v|mir",
+        "energy_ry": -5031.84916185,
+        "file": "runs/s3/Fe/s0_OOH__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Fe|OOH|mir",
+      "state": "OOH",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Fe|OOH|1x1|off",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RERELAX"
+      },
+      "member_b": {
+        "M_uB": 46.97,
+        "cell": "Fe|OOH|2x1v|off",
+        "energy_ry": -5031.97883034,
+        "file": "runs/s3/Fe/s0_OOH__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [],
+      "pair_id": "CELL|Fe|OOH|off",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(member pending/unverified)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "-",
+      "delta_E_meV_a_minus_b": 33657804.58,
+      "delta_M_uB": 23.98,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 0.0,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 23.98,
+        "cell": "Fe|ref|1x1|-",
+        "energy_ry": -2473.80303205,
+        "file": "runs/Fe_slab/slab.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 47.96,
+        "cell": "Fe|ref|2x1v|-",
+        "energy_ry": -4947.60606276,
+        "file": "runs/s3/Fe/ref__2x1v__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Fe|ref|-",
+      "state": "ref",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": 11.24,
+        "cell": "Co|O|1x1|mir",
+        "energy_ry": -2330.66753771,
+        "file": "runs/Co_slab/s0_O.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Co|O|2x1v|mir",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RETRY"
+      },
+      "metal": "Co",
+      "notes": [],
+      "pair_id": "CELL|Co|O|mir",
+      "state": "O",
+      "verdict": "NOT-EVALUABLE(member pending/unverified)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Co|O|1x1|off",
+        "energy_ry": null,
+        "file": null,
+        "status": "UNVERIFIED"
+      },
+      "member_b": {
+        "M_uB": 25.23,
+        "cell": "Co|O|2x1v|off",
+        "energy_ry": -4619.85589635,
+        "file": "runs/s3/Co/s0_O__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Co",
+      "notes": [],
+      "pair_id": "CELL|Co|O|off",
+      "state": "O",
+      "verdict": "NOT-EVALUABLE(member pending/unverified)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": 9.92,
+        "cell": "Co|OH|1x1|mir",
+        "energy_ry": -2332.00425006,
+        "file": "runs/s3/Co/s0_OH__basin_g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Co|OH|2x1v|mir",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RETRY"
+      },
+      "metal": "Co",
+      "notes": [],
+      "pair_id": "CELL|Co|OH|mir",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(member pending/unverified)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Co|OH|1x1|off",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RETRY"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Co|OH|2x1v|off",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RETRY"
+      },
+      "metal": "Co",
+      "notes": [],
+      "pair_id": "CELL|Co|OH|off",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(member pending/unverified)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Co|OOH|1x1|mir",
+        "energy_ry": null,
+        "file": null,
+        "status": "GAP"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Co|OOH|2x1v|mir",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RETRY"
+      },
+      "metal": "Co",
+      "notes": [],
+      "pair_id": "CELL|Co|OOH|mir",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(member pending/unverified)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "-",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": 11.27,
+        "cell": "Co|ref|1x1|-",
+        "energy_ry": -2289.20445721,
+        "file": "runs/Co_slab/slab.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Co|ref|2x1v|-",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RETRY"
+      },
+      "metal": "Co",
+      "notes": [],
+      "pair_id": "CELL|Co|ref|-",
+      "state": "ref",
+      "verdict": "NOT-EVALUABLE(member pending/unverified)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 34793228.69,
+      "delta_M_uB": 7.32,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": -0.84,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 8.16,
+        "cell": "Ni|O|1x1|mir",
+        "energy_ry": -2598.63298268,
+        "file": "runs/Ni_slab/s0_O.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 15.48,
+        "cell": "Ni|O|2x1v|mir",
+        "energy_ry": -5155.88814696,
+        "file": "runs/s3/Ni/s0_O__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Ni",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Ni|O|mir",
+      "state": "O",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ni|O|1x1|off",
+        "energy_ry": null,
+        "file": null,
+        "status": "UNCLASSIFIED"
+      },
+      "member_b": {
+        "M_uB": 15.48,
+        "cell": "Ni|O|2x1v|off",
+        "energy_ry": -5155.89265042,
+        "file": "runs/s3/Ni/s0_O__2x1v_off__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Ni",
+      "notes": [],
+      "pair_id": "CELL|Ni|O|off",
+      "state": "O",
+      "verdict": "NOT-EVALUABLE(member pending/unverified)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 34792902.75,
+      "delta_M_uB": 10.32,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": 6.17,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 4.15,
+        "cell": "Ni|OH|1x1|mir",
+        "energy_ry": -2599.99940826,
+        "file": "runs/probe/Ni_basin/s0_OH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 14.47,
+        "cell": "Ni|OH|2x1v|mir",
+        "energy_ry": -5157.23061637,
+        "file": "runs/s3/Ni/s0_OH__2x1v_mir__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Ni",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Ni|OH|mir",
+      "state": "OH",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": 6.86,
+        "cell": "Ni|OH|1x1|off",
+        "energy_ry": -2599.97640516,
+        "file": "runs/s3/Ni/s0_OH__1x1_off__g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ni|OH|2x1v|off",
+        "energy_ry": null,
+        "file": null,
+        "status": "UNVERIFIED"
+      },
+      "metal": "Ni",
+      "notes": [],
+      "pair_id": "CELL|Ni|OH|off",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(member pending/unverified)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ni|OOH|1x1|mir",
+        "energy_ry": null,
+        "file": null,
+        "status": "GAP"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ni|OOH|2x1v|mir",
+        "energy_ry": null,
+        "file": null,
+        "status": "PENDING-RETRY"
+      },
+      "metal": "Ni",
+      "notes": [],
+      "pair_id": "CELL|Ni|OOH|mir",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(member pending/unverified)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "-",
+      "delta_E_meV_a_minus_b": 34793243.15,
+      "delta_M_uB": 6.55,
+      "descriptive_residual_M2x1v_minus_2xM1x1_uB": -0.01,
+      "descriptive_residual_basis": "NO REGISTERED BASIS - descriptive only",
+      "member_a": {
+        "M_uB": 6.56,
+        "cell": "Ni|ref|1x1|-",
+        "energy_ry": -2557.25622867,
+        "file": "runs/Ni_slab/slab.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 13.11,
+        "cell": "Ni|ref|2x1v|-",
+        "energy_ry": -5114.51245557,
+        "file": "runs/s3/Ni/ref__2x1v__g1.out",
+        "status": "BANKED"
+      },
+      "metal": "Ni",
+      "notes": [
+        "literal docs/43:1566-1569 application across different atom counts flags trivially; no registered text defines a cross-cell M comparison - FLAGGED, not resolved"
+      ],
+      "pair_id": "CELL|Ni|ref|-",
+      "state": "ref",
+      "verdict": "LITERAL-EXCEEDS(cross-cell scope UNREGISTERED - FLAG)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 22186488.18,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ru|O|1x1|mir",
+        "energy_ry": -1672.25496768,
+        "file": "runs/Ru_anchor/s0_O.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ru|O|2x1v|mir",
+        "energy_ry": -3302.93178672,
+        "file": "runs/probe/Ru_cellsym/s0_O__2x1v_mir.out",
+        "status": "BANKED"
+      },
+      "metal": "Ru",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "CELL|Ru|O|mir",
+      "state": "O",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": 22186489.14,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ru|O|1x1|off",
+        "energy_ry": -1672.25490048,
+        "file": "runs/probe/Ru_cellsym/s0_O__1x1_off.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ru|O|2x1v|off",
+        "energy_ry": -3302.93178971,
+        "file": "runs/probe/Ru_cellsym/s0_O__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ru",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "CELL|Ru|O|off",
+      "state": "O",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 22186381.36,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ru|OH|1x1|mir",
+        "energy_ry": -1673.52913839,
+        "file": "runs/Ru_anchor/s0_OH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ru|OH|2x1v|mir",
+        "energy_ry": -3304.19810638,
+        "file": "runs/probe/Ru_cellsym/s0_OH__2x1v_mir.out",
+        "status": "BANKED"
+      },
+      "metal": "Ru",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "CELL|Ru|OH|mir",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": 22186615.94,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ru|OH|1x1|off",
+        "energy_ry": -1673.51094446,
+        "file": "runs/probe/Ru_cellsym/s0_OH__1x1_off.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ru|OH|2x1v|off",
+        "energy_ry": -3304.19715356,
+        "file": "runs/probe/Ru_cellsym/s0_OH__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ru",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "CELL|Ru|OH|off",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 22186335.64,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ru|OOH|1x1|mir",
+        "energy_ry": -1715.00704045,
+        "file": "runs/Ru_anchor/s0_OOH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ru|OOH|2x1v|mir",
+        "energy_ry": -3345.6726476,
+        "file": "runs/probe/Ru_cellsym/s0_OOH__2x1v_mir.out",
+        "status": "BANKED"
+      },
+      "metal": "Ru",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "CELL|Ru|OOH|mir",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": 22186362.71,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ru|OOH|1x1|off",
+        "energy_ry": -1715.01304629,
+        "file": "runs/probe/Ru_orient/s0_OOH__yaw90.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ru|OOH|2x1v|off",
+        "energy_ry": -3345.68064313,
+        "file": "runs/probe/Ru_cellsym/s0_OOH__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ru",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "CELL|Ru|OOH|off",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "-",
+      "delta_E_meV_a_minus_b": 22186364.47,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ru|ref|1x1|-",
+        "energy_ry": -1630.66772646,
+        "file": "runs/Ru_anchor/slab.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ru|ref|2x1v|-",
+        "energy_ry": -3261.33545254,
+        "file": "runs/probe/Ru_cellsym/ref__2x1v.out",
+        "status": "BANKED"
+      },
+      "metal": "Ru",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "CELL|Ru|ref|-",
+      "state": "ref",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 21629740.39,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ir|O|1x1|mir",
+        "energy_ry": -1631.33923851,
+        "file": "runs/Ir_anchor/s0_O.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ir|O|2x1v|mir",
+        "energy_ry": -3221.09584906,
+        "file": "runs/probe/Ir_cellsym/s0_O__2x1v_mir.out",
+        "status": "BANKED"
+      },
+      "metal": "Ir",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "CELL|Ir|O|mir",
+      "state": "O",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": 21629741.18,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ir|O|1x1|off",
+        "energy_ry": -1631.33917053,
+        "file": "runs/probe/Ir_cellsym/s0_O__1x1_off.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ir|O|2x1v|off",
+        "energy_ry": -3221.09583897,
+        "file": "runs/probe/Ir_cellsym/s0_O__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ir",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "CELL|Ir|O|off",
+      "state": "O",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 21629517.33,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ir|OH|1x1|mir",
+        "energy_ry": -1632.64856529,
+        "file": "runs/Ir_anchor/s0_OH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ir|OH|2x1v|mir",
+        "energy_ry": -3222.38878145,
+        "file": "runs/probe/Ir_cellsym/s0_OH__2x1v_mir.out",
+        "status": "BANKED"
+      },
+      "metal": "Ir",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "CELL|Ir|OH|mir",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": 21629560.26,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ir|OH|1x1|off",
+        "energy_ry": -1632.64814256,
+        "file": "runs/probe/Ir_cellsym/s0_OH__1x1_off.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ir|OH|2x1v|off",
+        "energy_ry": -3222.39151403,
+        "file": "runs/probe/Ir_cellsym/s0_OH__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ir",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "CELL|Ir|OH|off",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "mir",
+      "delta_E_meV_a_minus_b": 21630061.14,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ir|OOH|1x1|mir",
+        "energy_ry": -1674.09176132,
+        "file": "runs/Ir_anchor/s0_OOH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ir|OOH|2x1v|mir",
+        "energy_ry": -3263.87194671,
+        "file": "runs/probe/Ir_cellsym/s0_OOH__2x1v_mir.out",
+        "status": "BANKED"
+      },
+      "metal": "Ir",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "CELL|Ir|OOH|mir",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "off",
+      "delta_E_meV_a_minus_b": 21629795.0,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ir|OOH|1x1|off",
+        "energy_ry": -1674.11268108,
+        "file": "runs/probe/Ir_cellsym/s0_OOH__1x1_off.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ir|OOH|2x1v|off",
+        "energy_ry": -3263.87330531,
+        "file": "runs/probe/Ir_cellsym/s0_OOH__2x1v_off.out",
+        "status": "BANKED"
+      },
+      "metal": "Ir",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "CELL|Ir|OOH|off",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "cell(1x1-vs-2x1v)",
+      "contrast": "-",
+      "delta_E_meV_a_minus_b": 21629626.31,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "cell": "Ir|ref|1x1|-",
+        "energy_ry": -1589.74822625,
+        "file": "runs/Ir_anchor/slab.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "cell": "Ir|ref|2x1v|-",
+        "energy_ry": -3179.49645246,
+        "file": "runs/probe/Ir_cellsym/ref__2x1v.out",
+        "status": "BANKED"
+      },
+      "metal": "Ir",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "CELL|Ir|ref|-",
+      "state": "ref",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "1x1/basin",
+      "delta_E_meV_a_minus_b": -0.02,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 9.92,
+        "energy_ry": -2332.00425138,
+        "file": "runs/probe/Co_basin/s0_OH.out",
+        "job": "s0_OH",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 9.92,
+        "energy_ry": -2332.00425006,
+        "file": "runs/s3/Co/s0_OH__basin_g1.out",
+        "job": "s0_OH__basin_g1",
+        "status": "BANKED"
+      },
+      "metal": "Co",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Co|s0_OH__basin_g1",
+      "state": "OH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/off",
+      "delta_E_meV_a_minus_b": -0.03,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 25.23,
+        "energy_ry": -4619.85589866,
+        "file": "runs/s3/Co/s0_O__2x1v_off.out",
+        "job": "s0_O__2x1v_off",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 25.23,
+        "energy_ry": -4619.85589635,
+        "file": "runs/s3/Co/s0_O__2x1v_off__g1.out",
+        "job": "s0_O__2x1v_off__g1",
+        "status": "BANKED"
+      },
+      "metal": "Co",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Co|s0_O__2x1v_off__g1",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "1x1/off",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": 11.69,
+        "energy_ry": -2330.66171228,
+        "file": "runs/s3/Co/s0_O__1x1_off.out",
+        "job": "s0_O__1x1_off",
+        "status": "UNVERIFIED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "energy_ry": null,
+        "file": null,
+        "job": "s0_O__1x1_off__g1",
+        "status": "PENDING-RETRY"
+      },
+      "metal": "Co",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Co|s0_O__1x1_off__g1",
+      "state": "O",
+      "verdict": "NOT-EVALUABLE(child pending)"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/escape",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 23.0,
+        "energy_ry": -3188.71605541,
+        "file": "runs/s3/Cr/s0_OOH__2x1v_escape.out",
+        "job": "s0_OOH__2x1v_escape",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 23.0,
+        "energy_ry": -3188.71605515,
+        "file": "runs/s3/Cr/s0_OOH__2x1v_escape__g1.out",
+        "job": "s0_OOH__2x1v_escape__g1",
+        "status": "BANKED"
+      },
+      "metal": "Cr",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Cr|s0_OOH__2x1v_escape__g1",
+      "state": "OOH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "1x1/basin",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 11.0,
+        "energy_ry": -1636.48392834,
+        "file": "runs/probe/Cr_basin/s0_OOH.out",
+        "job": "s0_OOH",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 11.0,
+        "energy_ry": -1636.48392809,
+        "file": "runs/s3/Cr/s0_OOH__basin_g1.out",
+        "job": "s0_OOH__basin_g1",
+        "status": "BANKED"
+      },
+      "metal": "Cr",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Cr|s0_OOH__basin_g1",
+      "state": "OOH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/-",
+      "delta_E_meV_a_minus_b": 0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 47.96,
+        "energy_ry": -4947.60606271,
+        "file": "runs/s3/Fe/ref__2x1v.out",
+        "job": "ref__2x1v",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 47.96,
+        "energy_ry": -4947.60606276,
+        "file": "runs/s3/Fe/ref__2x1v__g1.out",
+        "job": "ref__2x1v__g1",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Fe|ref__2x1v__g1",
+      "state": "ref",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "1x1/off",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 22.96,
+        "energy_ry": -2516.5385179,
+        "file": "runs/s3/Fe/s0_OH__1x1_off.out",
+        "job": "s0_OH__1x1_off",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 22.96,
+        "energy_ry": -2516.53851756,
+        "file": "runs/s3/Fe/s0_OH__1x1_off__g1.out",
+        "job": "s0_OH__1x1_off__g1",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Fe|s0_OH__1x1_off__g1",
+      "state": "OH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/mir",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 46.96,
+        "energy_ry": -4990.3412389,
+        "file": "runs/s3/Fe/s0_OH__2x1v_mir.out",
+        "job": "s0_OH__2x1v_mir",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 46.96,
+        "energy_ry": -4990.34123858,
+        "file": "runs/s3/Fe/s0_OH__2x1v_mir__g1.out",
+        "job": "s0_OH__2x1v_mir__g1",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Fe|s0_OH__2x1v_mir__g1",
+      "state": "OH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/off",
+      "delta_E_meV_a_minus_b": -0.01,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 46.94,
+        "energy_ry": -4990.34583102,
+        "file": "runs/s3/Fe/s0_OH__2x1v_off.out",
+        "job": "s0_OH__2x1v_off",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 46.94,
+        "energy_ry": -4990.34583064,
+        "file": "runs/s3/Fe/s0_OH__2x1v_off__g1.out",
+        "job": "s0_OH__2x1v_off__g1",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Fe|s0_OH__2x1v_off__g1",
+      "state": "OH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "1x1/off",
+      "delta_E_meV_a_minus_b": 384.3,
+      "delta_M_uB": 1.48,
+      "member_a": {
+        "M_uB": 24.46,
+        "energy_ry": -2558.13528265,
+        "file": "runs/s3/Fe/s0_OOH__1x1_off.out",
+        "job": "s0_OOH__1x1_off",
+        "status": "PENDING-RERELAX"
+      },
+      "member_b": {
+        "M_uB": 22.98,
+        "energy_ry": -2558.16352817,
+        "file": "runs/s3/Fe/s0_OOH__1x1_off__g1.out",
+        "job": "s0_OOH__1x1_off__g1",
+        "status": "PENDING-RERELAX"
+      },
+      "metal": "Fe",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked",
+        "docs/55 R1: quote parent AND child, bank neither as final; __basin re-relaxation in flight (array 20123293)"
+      ],
+      "pair_id": "PC|Fe|s0_OOH__1x1_off__g1",
+      "state": "OOH",
+      "verdict": "DRIFT-EXCEEDS-0.05uB"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/mir",
+      "delta_E_meV_a_minus_b": -0.01,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 46.97,
+        "energy_ry": -5031.84916224,
+        "file": "runs/s3/Fe/s0_OOH__2x1v_mir.out",
+        "job": "s0_OOH__2x1v_mir",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 46.97,
+        "energy_ry": -5031.84916185,
+        "file": "runs/s3/Fe/s0_OOH__2x1v_mir__g1.out",
+        "job": "s0_OOH__2x1v_mir__g1",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Fe|s0_OOH__2x1v_mir__g1",
+      "state": "OOH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/off",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 46.97,
+        "energy_ry": -5031.97883058,
+        "file": "runs/s3/Fe/s0_OOH__2x1v_off.out",
+        "job": "s0_OOH__2x1v_off",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 46.97,
+        "energy_ry": -5031.97883034,
+        "file": "runs/s3/Fe/s0_OOH__2x1v_off__g1.out",
+        "job": "s0_OOH__2x1v_off__g1",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Fe|s0_OOH__2x1v_off__g1",
+      "state": "OOH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "1x1/off",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 21.98,
+        "energy_ry": -2515.18329395,
+        "file": "runs/s3/Fe/s0_O__1x1_off.out",
+        "job": "s0_O__1x1_off",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 21.98,
+        "energy_ry": -2515.18329369,
+        "file": "runs/s3/Fe/s0_O__1x1_off__g1.out",
+        "job": "s0_O__1x1_off__g1",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Fe|s0_O__1x1_off__g1",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/mir",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 45.95,
+        "energy_ry": -4988.97969255,
+        "file": "runs/s3/Fe/s0_O__2x1v_mir.out",
+        "job": "s0_O__2x1v_mir",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 45.95,
+        "energy_ry": -4988.97969226,
+        "file": "runs/s3/Fe/s0_O__2x1v_mir__g1.out",
+        "job": "s0_O__2x1v_mir__g1",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Fe|s0_O__2x1v_mir__g1",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/off",
+      "delta_E_meV_a_minus_b": -0.01,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 45.95,
+        "energy_ry": -4988.98030995,
+        "file": "runs/s3/Fe/s0_O__2x1v_off.out",
+        "job": "s0_O__2x1v_off",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 45.95,
+        "energy_ry": -4988.98030942,
+        "file": "runs/s3/Fe/s0_O__2x1v_off__g1.out",
+        "job": "s0_O__2x1v_off__g1",
+        "status": "BANKED"
+      },
+      "metal": "Fe",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Fe|s0_O__2x1v_off__g1",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/-",
+      "delta_E_meV_a_minus_b": 0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 36.0,
+        "energy_ry": -3532.7164689,
+        "file": "runs/s3/Mn/ref__2x1v.out",
+        "job": "ref__2x1v",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 36.0,
+        "energy_ry": -3532.71646898,
+        "file": "runs/s3/Mn/ref__2x1v__g1.out",
+        "job": "ref__2x1v__g1",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Mn|ref__2x1v__g1",
+      "state": "ref",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "1x1/off",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 17.0,
+        "energy_ry": -1809.11666007,
+        "file": "runs/s3/Mn/s0_OH__1x1_off.out",
+        "job": "s0_OH__1x1_off",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 17.0,
+        "energy_ry": -1809.11665983,
+        "file": "runs/s3/Mn/s0_OH__1x1_off__g1.out",
+        "job": "s0_OH__1x1_off__g1",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Mn|s0_OH__1x1_off__g1",
+      "state": "OH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/mir",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 35.0,
+        "energy_ry": -3575.45883979,
+        "file": "runs/s3/Mn/s0_OH__2x1v_mir.out",
+        "job": "s0_OH__2x1v_mir",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 35.0,
+        "energy_ry": -3575.45883959,
+        "file": "runs/s3/Mn/s0_OH__2x1v_mir__g1.out",
+        "job": "s0_OH__2x1v_mir__g1",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Mn|s0_OH__2x1v_mir__g1",
+      "state": "OH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/off",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 35.0,
+        "energy_ry": -3575.4604819,
+        "file": "runs/s3/Mn/s0_OH__2x1v_off.out",
+        "job": "s0_OH__2x1v_off",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 35.0,
+        "energy_ry": -3575.46048157,
+        "file": "runs/s3/Mn/s0_OH__2x1v_off__g1.out",
+        "job": "s0_OH__2x1v_off__g1",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Mn|s0_OH__2x1v_off__g1",
+      "state": "OH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "1x1/off",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 17.0,
+        "energy_ry": -1850.72176627,
+        "file": "runs/s3/Mn/s0_OOH__1x1_off.out",
+        "job": "s0_OOH__1x1_off",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 17.0,
+        "energy_ry": -1850.72176608,
+        "file": "runs/s3/Mn/s0_OOH__1x1_off__g1.out",
+        "job": "s0_OOH__1x1_off__g1",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Mn|s0_OOH__1x1_off__g1",
+      "state": "OOH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/mir",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 35.0,
+        "energy_ry": -3616.95791268,
+        "file": "runs/s3/Mn/s0_OOH__2x1v_mir.out",
+        "job": "s0_OOH__2x1v_mir",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 35.0,
+        "energy_ry": -3616.95791244,
+        "file": "runs/s3/Mn/s0_OOH__2x1v_mir__g1.out",
+        "job": "s0_OOH__2x1v_mir__g1",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Mn|s0_OOH__2x1v_mir__g1",
+      "state": "OOH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/off",
+      "delta_E_meV_a_minus_b": 20.62,
+      "delta_M_uB": 0.18,
+      "member_a": {
+        "M_uB": 35.0,
+        "energy_ry": -3617.09868891,
+        "file": "runs/s3/Mn/s0_OOH__2x1v_off.out",
+        "job": "s0_OOH__2x1v_off",
+        "status": "PENDING-RERELAX"
+      },
+      "member_b": {
+        "M_uB": 34.82,
+        "energy_ry": -3617.10020414,
+        "file": "runs/s3/Mn/s0_OOH__2x1v_off__g1.out",
+        "job": "s0_OOH__2x1v_off__g1",
+        "status": "PENDING-RERELAX"
+      },
+      "metal": "Mn",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked",
+        "docs/55 R1: quote parent AND child, bank neither as final; __basin re-relaxation in flight (array 20123293)"
+      ],
+      "pair_id": "PC|Mn|s0_OOH__2x1v_off__g1",
+      "state": "OOH",
+      "verdict": "DRIFT-EXCEEDS-0.05uB"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "1x1/off",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 16.0,
+        "energy_ry": -1807.78512143,
+        "file": "runs/s3/Mn/s0_O__1x1_off.out",
+        "job": "s0_O__1x1_off",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 16.0,
+        "energy_ry": -1807.78512135,
+        "file": "runs/s3/Mn/s0_O__1x1_off__g1.out",
+        "job": "s0_O__1x1_off__g1",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Mn|s0_O__1x1_off__g1",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/mir",
+      "delta_E_meV_a_minus_b": -0.01,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 34.0,
+        "energy_ry": -3574.11798101,
+        "file": "runs/s3/Mn/s0_O__2x1v_mir.out",
+        "job": "s0_O__2x1v_mir",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 34.0,
+        "energy_ry": -3574.11798039,
+        "file": "runs/s3/Mn/s0_O__2x1v_mir__g1.out",
+        "job": "s0_O__2x1v_mir__g1",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Mn|s0_O__2x1v_mir__g1",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/off",
+      "delta_E_meV_a_minus_b": -0.01,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 34.0,
+        "energy_ry": -3574.12587068,
+        "file": "runs/s3/Mn/s0_O__2x1v_off.out",
+        "job": "s0_O__2x1v_off",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 34.0,
+        "energy_ry": -3574.12587024,
+        "file": "runs/s3/Mn/s0_O__2x1v_off__g1.out",
+        "job": "s0_O__2x1v_off__g1",
+        "status": "BANKED"
+      },
+      "metal": "Mn",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Mn|s0_O__2x1v_off__g1",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/-",
+      "delta_E_meV_a_minus_b": 0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 13.11,
+        "energy_ry": -5114.51245527,
+        "file": "runs/s3/Ni/ref__2x1v.out",
+        "job": "ref__2x1v",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 13.11,
+        "energy_ry": -5114.51245557,
+        "file": "runs/s3/Ni/ref__2x1v__g1.out",
+        "job": "ref__2x1v__g1",
+        "status": "BANKED"
+      },
+      "metal": "Ni",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Ni|ref__2x1v__g1",
+      "state": "ref",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "1x1/off",
+      "delta_E_meV_a_minus_b": -0.02,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 6.86,
+        "energy_ry": -2599.97640691,
+        "file": "runs/s3/Ni/s0_OH__1x1_off.out",
+        "job": "s0_OH__1x1_off",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 6.86,
+        "energy_ry": -2599.97640516,
+        "file": "runs/s3/Ni/s0_OH__1x1_off__g1.out",
+        "job": "s0_OH__1x1_off__g1",
+        "status": "BANKED"
+      },
+      "metal": "Ni",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Ni|s0_OH__1x1_off__g1",
+      "state": "OH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/mir",
+      "delta_E_meV_a_minus_b": -0.02,
+      "delta_M_uB": 0.01,
+      "member_a": {
+        "M_uB": 14.48,
+        "energy_ry": -5157.23061751,
+        "file": "runs/s3/Ni/s0_OH__2x1v_mir.out",
+        "job": "s0_OH__2x1v_mir",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 14.47,
+        "energy_ry": -5157.23061637,
+        "file": "runs/s3/Ni/s0_OH__2x1v_mir__g1.out",
+        "job": "s0_OH__2x1v_mir__g1",
+        "status": "BANKED"
+      },
+      "metal": "Ni",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Ni|s0_OH__2x1v_mir__g1",
+      "state": "OH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "1x1/basin",
+      "delta_E_meV_a_minus_b": -177.1,
+      "delta_M_uB": 2.97,
+      "member_a": {
+        "M_uB": 4.15,
+        "energy_ry": -2599.99940826,
+        "file": "runs/probe/Ni_basin/s0_OH.out",
+        "job": "s0_OH",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 7.12,
+        "energy_ry": -2599.98639186,
+        "file": "runs/s3/Ni/s0_OH__basin_g1.out",
+        "job": "s0_OH__basin_g1",
+        "status": "UNCLASSIFIED"
+      },
+      "metal": "Ni",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked",
+        "child is +177.10 meV above its parent - refused-candidate under docs/43:1589-1592 (re-run from parent density owed; MULTISTABLE on second failure)"
+      ],
+      "pair_id": "PC|Ni|s0_OH__basin_g1",
+      "state": "OH",
+      "verdict": "DRIFT-EXCEEDS-0.05uB"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "1x1/off",
+      "delta_E_meV_a_minus_b": -85.1,
+      "delta_M_uB": 3.77,
+      "member_a": {
+        "M_uB": 4.33,
+        "energy_ry": -2598.63677322,
+        "file": "runs/s3/Ni/s0_O__1x1_off.out",
+        "job": "s0_O__1x1_off",
+        "status": "UNCLASSIFIED"
+      },
+      "member_b": {
+        "M_uB": 8.1,
+        "energy_ry": -2598.63051848,
+        "file": "runs/s3/Ni/s0_O__1x1_off__g1.out",
+        "job": "s0_O__1x1_off__g1",
+        "status": "UNCLASSIFIED"
+      },
+      "metal": "Ni",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked",
+        "GATE-1 census: child +85.10 meV, refused; remedy re-run exists only as the spec-excluded .fromparent.out (readout builder note); row UNCLASSIFIED"
+      ],
+      "pair_id": "PC|Ni|s0_O__1x1_off__g1",
+      "state": "O",
+      "verdict": "DRIFT-EXCEEDS-0.05uB"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/mir",
+      "delta_E_meV_a_minus_b": -0.04,
+      "delta_M_uB": 0.01,
+      "member_a": {
+        "M_uB": 15.49,
+        "energy_ry": -5155.88815019,
+        "file": "runs/s3/Ni/s0_O__2x1v_mir.out",
+        "job": "s0_O__2x1v_mir",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 15.48,
+        "energy_ry": -5155.88814696,
+        "file": "runs/s3/Ni/s0_O__2x1v_mir__g1.out",
+        "job": "s0_O__2x1v_mir__g1",
+        "status": "BANKED"
+      },
+      "metal": "Ni",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Ni|s0_O__2x1v_mir__g1",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/off",
+      "delta_E_meV_a_minus_b": -0.03,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 15.48,
+        "energy_ry": -5155.89265285,
+        "file": "runs/s3/Ni/s0_O__2x1v_off.out",
+        "job": "s0_O__2x1v_off",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 15.48,
+        "energy_ry": -5155.89265042,
+        "file": "runs/s3/Ni/s0_O__2x1v_off__g1.out",
+        "job": "s0_O__2x1v_off__g1",
+        "status": "BANKED"
+      },
+      "metal": "Ni",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Ni|s0_O__2x1v_off__g1",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/off",
+      "delta_E_meV_a_minus_b": null,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": 14.41,
+        "energy_ry": -5157.23065359,
+        "file": "runs/s3/Ni/s0_OH__2x1v_off.out",
+        "job": "s0_OH__2x1v_off",
+        "status": "UNVERIFIED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "energy_ry": null,
+        "file": null,
+        "job": "s0_OH__2x1v_off__g1",
+        "status": "PENDING-RETRY"
+      },
+      "metal": "Ni",
+      "notes": [
+        "A8.3 registers parent-child handling as the 1 meV refusal rule (docs/43:1589-1592); whether a parent-child moment drift is itself an A8.3 \"contrast pair\" under the 0.05 uB rule is unstated (the A8.3 evidence table is exactly this case, docs/43:1573-1587) - scope FLAGGED, |dM| computed as tasked"
+      ],
+      "pair_id": "PC|Ni|s0_OH__2x1v_off__g1",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(child pending)"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/-",
+      "delta_E_meV_a_minus_b": -0.01,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "energy_ry": -2435.23315746,
+        "file": "runs/s3/Ti/ref__2x1v.out",
+        "job": "ref__2x1v",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "energy_ry": -2435.23315701,
+        "file": "runs/s3/Ti/ref__2x1v__g1.out",
+        "job": "ref__2x1v__g1",
+        "status": "BANKED"
+      },
+      "metal": "Ti",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "PC|Ti|ref__2x1v__g1",
+      "state": "ref",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/mir",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "energy_ry": -2478.00635822,
+        "file": "runs/s3/Ti/s0_OH__2x1v_mir.out",
+        "job": "s0_OH__2x1v_mir",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "energy_ry": -2478.00635789,
+        "file": "runs/s3/Ti/s0_OH__2x1v_mir__g1.out",
+        "job": "s0_OH__2x1v_mir__g1",
+        "status": "BANKED"
+      },
+      "metal": "Ti",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "PC|Ti|s0_OH__2x1v_mir__g1",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/off",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "energy_ry": -2478.00916174,
+        "file": "runs/s3/Ti/s0_OH__2x1v_off.out",
+        "job": "s0_OH__2x1v_off",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "energy_ry": -2478.00916156,
+        "file": "runs/s3/Ti/s0_OH__2x1v_off__g1.out",
+        "job": "s0_OH__2x1v_off__g1",
+        "status": "BANKED"
+      },
+      "metal": "Ti",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "PC|Ti|s0_OH__2x1v_off__g1",
+      "state": "OH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/mir",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "energy_ry": -2519.46826336,
+        "file": "runs/s3/Ti/s0_OOH__2x1v_mir.out",
+        "job": "s0_OOH__2x1v_mir",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "energy_ry": -2519.46826323,
+        "file": "runs/s3/Ti/s0_OOH__2x1v_mir__g1.out",
+        "job": "s0_OOH__2x1v_mir__g1",
+        "status": "BANKED"
+      },
+      "metal": "Ti",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "PC|Ti|s0_OOH__2x1v_mir__g1",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/off",
+      "delta_E_meV_a_minus_b": -0.01,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "energy_ry": -2519.45837361,
+        "file": "runs/s3/Ti/s0_OOH__2x1v_off.out",
+        "job": "s0_OOH__2x1v_off",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "energy_ry": -2519.45837304,
+        "file": "runs/s3/Ti/s0_OOH__2x1v_off__g1.out",
+        "job": "s0_OOH__2x1v_off__g1",
+        "status": "BANKED"
+      },
+      "metal": "Ti",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "PC|Ti|s0_OOH__2x1v_off__g1",
+      "state": "OOH",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/mir",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "energy_ry": -2476.62219381,
+        "file": "runs/s3/Ti/s0_O__2x1v_mir.out",
+        "job": "s0_O__2x1v_mir",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "energy_ry": -2476.62219375,
+        "file": "runs/s3/Ti/s0_O__2x1v_mir__g1.out",
+        "job": "s0_O__2x1v_mir__g1",
+        "status": "BANKED"
+      },
+      "metal": "Ti",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "PC|Ti|s0_O__2x1v_mir__g1",
+      "state": "O",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "parent-vs-g1-child",
+      "contrast": "2x1v/off",
+      "delta_E_meV_a_minus_b": -0.0,
+      "delta_M_uB": null,
+      "member_a": {
+        "M_uB": null,
+        "energy_ry": -2476.6221042,
+        "file": "runs/s3/Ti/s0_O__2x1v_off.out",
+        "job": "s0_O__2x1v_off",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": null,
+        "energy_ry": -2476.62210404,
+        "file": "runs/s3/Ti/s0_O__2x1v_off__g1.out",
+        "job": "s0_O__2x1v_off__g1",
+        "status": "BANKED"
+      },
+      "metal": "Ti",
+      "notes": [
+        "docs/54:64-66: nspin=1 rows print no M"
+      ],
+      "pair_id": "PC|Ti|s0_O__2x1v_off__g1",
+      "state": "O",
+      "verdict": "NOT-EVALUABLE(nspin=1, no M printed)"
+    },
+    {
+      "class": "record-vs-superseded-production",
+      "contrast": "1x1/mir",
+      "delta_E_meV_a_minus_b": -406.49,
+      "delta_M_uB": 1.51,
+      "member_a": {
+        "M_uB": 9.92,
+        "cell": "Co|OH|1x1|mir",
+        "energy_ry": -2332.00425006,
+        "file": "runs/s3/Co/s0_OH__basin_g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 11.43,
+        "energy_ry": -2331.97437355,
+        "file": "runs/Co_slab/s0_OH.out",
+        "status": "SUPERSEDED-PRODUCTION (retained per docs/43:1754-1764 via docs/54:42-43)"
+      },
+      "metal": "Co",
+      "notes": [
+        "record vs superseded production output quoted in parallel (docs/54:400-405); the docs/41 metastable-magnetic class population"
+      ],
+      "pair_id": "BP|Co|OH|1x1|mir",
+      "state": "OH",
+      "verdict": "DRIFT-EXCEEDS-0.05uB"
+    },
+    {
+      "class": "record-vs-superseded-production",
+      "contrast": "1x1/mir",
+      "delta_E_meV_a_minus_b": 0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 11.0,
+        "cell": "Cr|OH|1x1|mir",
+        "energy_ry": -1595.00031719,
+        "file": "runs/probe/Cr_cellsym/s0_OH__1x1_mir.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 11.0,
+        "energy_ry": -1595.00031755,
+        "file": "runs/Cr_slab/s0_OH.out",
+        "status": "SUPERSEDED-PRODUCTION (retained per docs/43:1754-1764 via docs/54:42-43)"
+      },
+      "metal": "Cr",
+      "notes": [
+        "record vs superseded production output quoted in parallel (docs/54:400-405); the docs/41 metastable-magnetic class population"
+      ],
+      "pair_id": "BP|Cr|OH|1x1|mir",
+      "state": "OH",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "record-vs-superseded-production",
+      "contrast": "1x1/mir",
+      "delta_E_meV_a_minus_b": -178.57,
+      "delta_M_uB": 0.8,
+      "member_a": {
+        "M_uB": 11.0,
+        "cell": "Cr|OOH|1x1|mir",
+        "energy_ry": -1636.48392809,
+        "file": "runs/s3/Cr/s0_OOH__basin_g1.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 11.8,
+        "energy_ry": -1636.47080322,
+        "file": "runs/Cr_slab/s0_OOH.out",
+        "status": "SUPERSEDED-PRODUCTION (retained per docs/43:1754-1764 via docs/54:42-43)"
+      },
+      "metal": "Cr",
+      "notes": [
+        "record vs superseded production output quoted in parallel (docs/54:400-405); the docs/41 metastable-magnetic class population"
+      ],
+      "pair_id": "BP|Cr|OOH|1x1|mir",
+      "state": "OOH",
+      "verdict": "DRIFT-EXCEEDS-0.05uB"
+    },
+    {
+      "class": "record-vs-superseded-production",
+      "contrast": "1x1/mir",
+      "delta_E_meV_a_minus_b": 0.0,
+      "delta_M_uB": 0.0,
+      "member_a": {
+        "M_uB": 10.0,
+        "cell": "Cr|O|1x1|mir",
+        "energy_ry": -1593.69696999,
+        "file": "runs/probe/Cr_cellsym/s0_O__1x1_mir.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 10.0,
+        "energy_ry": -1593.69697018,
+        "file": "runs/Cr_slab/s0_O.out",
+        "status": "SUPERSEDED-PRODUCTION (retained per docs/43:1754-1764 via docs/54:42-43)"
+      },
+      "metal": "Cr",
+      "notes": [
+        "record vs superseded production output quoted in parallel (docs/54:400-405); the docs/41 metastable-magnetic class population"
+      ],
+      "pair_id": "BP|Cr|O|1x1|mir",
+      "state": "O",
+      "verdict": "WITHIN"
+    },
+    {
+      "class": "record-vs-superseded-production",
+      "contrast": "1x1/mir",
+      "delta_E_meV_a_minus_b": -175.85,
+      "delta_M_uB": 3.03,
+      "member_a": {
+        "M_uB": 4.15,
+        "cell": "Ni|OH|1x1|mir",
+        "energy_ry": -2599.99940826,
+        "file": "runs/probe/Ni_basin/s0_OH.out",
+        "status": "BANKED"
+      },
+      "member_b": {
+        "M_uB": 7.18,
+        "energy_ry": -2599.98648382,
+        "file": "runs/Ni_slab/s0_OH.out",
+        "status": "SUPERSEDED-PRODUCTION (retained per docs/43:1754-1764 via docs/54:42-43)"
+      },
+      "metal": "Ni",
+      "notes": [
+        "record vs superseded production output quoted in parallel (docs/54:400-405); the docs/41 metastable-magnetic class population"
+      ],
+      "pair_id": "BP|Ni|OH|1x1|mir",
+      "state": "OH",
+      "verdict": "DRIFT-EXCEEDS-0.05uB"
+    }
+  ],
+  "registered_rule": {
+    "M_source": "converged TOTAL magnetisation (not absolute) from each member energy-of-record output, as parsed by the readout (docs/54:64-66; nspin=1 rows print no M)",
+    "citation": "docs/43-prereg-week1-factorial.md:1566-1569 (THRESHOLD adopted as proposed 2026-08-23, DEPOSITED 10.5281/zenodo.22072991, GOVERNS)",
+    "companion_rules": [
+      "docs/43:1589-1592 (__g1 child > 1 meV above parent refused; MULTISTABLE on repeat)",
+      "docs/43:306-308 and docs/43:507-510 (older 0.1 uB rules remain in force for their own scopes - which threshold governs a legacy 1x1 pair reused in S3 is a reading, FLAGGED)"
+    ],
+    "rationale_citation": "docs/43:1569-1571 (0.05 uB sits far below observed drifts 11.00->14.90 / 11.00->14.71 uB, far above SCF noise)",
+    "text": "a pair whose members differ in converged total magnetisation by more than 0.05 uB is CONFOUNDED - its energy difference mixes the intended contrast with a basin change - and is excluded from the contrast statistics and reported separately, exactly as a geometry confound is",
+    "threshold_uB": 0.05,
+    "treatment_precedent": "docs/43:306-310 (geometry confound: own table, excluded from every symmetry-effect statistic, counted in the report)"
+  },
+  "scope_notes_flagged_not_resolved": [
+    "which contrasts the exclusion applies to is not enumerated in the deposited text; symmetry pairs and A8.1 corners are the docs/54 infrastructure application (docs/54:55-58)",
+    "cross-cell (1x1 vs 2x1v) M comparison has no registered rule; literal application flags trivially (atom count doubles); the descriptive doubled-1x1 residual carries NO registered basis",
+    "where GATE-1 AGREE makes the __g1 child the energy of record but parent and child moments differ, which member M enters the comparison is unstated (docs/43:1573-1587 is exactly this case); this check uses the energy-of-record member M for cell-level pairs and reports parent-child drift separately",
+    "nspin=1 systems (Ru, Ir, Ti here) print no M; whether they trivially satisfy or sit outside the rule is unstated",
+    "PENDING/UNVERIFIED/UNCLASSIFIED members give provisional pairings only - nothing is banked from them"
+  ]
+}
