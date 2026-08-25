@@ -451,3 +451,75 @@ the geometry never moved.
 `Ni s0_OOH__2x1v_off` (BRANCH, dM 2.41 μB) is a primary relax with no parent to seed from
 and is the one row with no registered remedy in hand; it is the natural A8.4 rung-(iii)
 NOT_CONVERGED gap candidate if a self-seeded staged restart fails.
+
+### Round 4 LAUNCHED — Anvil array 20135148, 2026-08-25
+
+`runs/chains/m_round4.txt`, 5 rows, `anvil/44_chain.slurm` via `45_submit_chains.sh`,
+array `1-5%3`, `EXCLUDE=a024,a088`. Balance at launch **83,845.8 SU**.
+
+Both sick nodes were checked immediately before submitting and both were `MIXED` —
+still in the general pool, never drained (the RCAC ticket in
+`anvil/rcac_ticket_draft_2026-08-24.md` is still unsent). Their documented kill rates
+are 11/12 on a024 and 5/5 on a088 against 0/51 elsewhere, and a node kill during a
+chain's *replay* step discards the whole task, so the exclusion is not optional here.
+
+**Pre-flight found a real defect in rows 1-2 and it was fixed before any SU was spent**
+(commit `9f9123e`). The two A8.3 children were being built from `__g1.in`, the wave-2
+base deck — but both children have failed three times and the A8.4 ladder escalated
+their mixing at every rung:
+
+| child | attempt 1 (`.in`) | attempt 2 (`.retry_bh`) | attempt 3 (`.retry_ms`) |
+|---|---|---|---|
+| `Co s0_O__1x1_off__g1` | beta 0.15 / maxstep 200 | beta 0.075 | beta 0.075 / 500 |
+| `Ni s0_OH__2x1v_off__g1` | beta 0.30 / maxstep 200 | beta 0.15 | beta 0.15 / 500 |
+
+Seeding the base deck would have handed the parent's converged density to the *least*
+robust of three already-failed configurations, and would have made the retention test a
+two-variable one — density and mixing changed together, so a failure would have been
+uninterpretable. It was also inconsistent with rows 3-5, which already seed the
+`.retry_ms` deck of record. `mixing_beta` and `electron_maxstep` are convergence-*path*
+parameters: they decide whether the fixed point is reached, never where it is, so taking
+the robust one costs nothing and cannot move a banked number. Each child now differs
+from its own last failed attempt in exactly one thing — where it starts. `base_of()`
+strips `.retry_ms`, so all five manifest rows are byte-identical to the previous build.
+
+Verified before launch:
+
+- all 10 decks differ from their source by **prefix + `startingpot = 'file'`** (children)
+  or **prefix only** (replays) or **prefix + `calculation` + `conv_thr`** (seeds), by
+  `difflib` opcode assertion in the builder and again by hand-diff;
+- geometry md5 of `.in` vs `.retry_ms.in` identical for both A8.3 children;
+- the 4 source decks byte-identical local ↔ Anvil; all 11 staged files md5-identical
+  local ↔ Anvil after the push;
+- all 4 referenced UPFs present in `$PROJECT/pseudo` at exact case
+  (`Co_pbe_v1.2.uspp.F.UPF`, `H.pbe-rrkjus_psl.1.0.0.UPF`, `ni_pbe_v1.4.uspp.F.UPF`,
+  `O.pbe-n-kjpaw_psl.0.1.UPF`) — the 2026-08-20 Ti incident and the SnO2 case-mismatch
+  trap are both in this class;
+- all 10 target `.out` slots free on Anvil **and** locally (A8.8);
+- `128 % nk == 0` on every row, `PARITY_PASS` present, pseudo preflight evidence present.
+
+`scf` decks carrying a leftover `&IONS` namelist are not a hazard: QE ignores it and
+275 such decks in this repo already reached `JOB DONE`.
+
+**Replay baselines** — the replay energy is A8.5-style parity evidence and is never
+banked (A8.8). It must reproduce:
+
+| row | banked parent |
+|---|---|
+| `Co s0_O__1x1_off` | `-2330.66171228 Ry` |
+| `Ni s0_OH__2x1v_off` | `-5157.23065359 Ry` |
+
+**Cost.** Measured comparables: the two parents relaxed in 2,487 s and 3,939 s; the three
+prior chain tasks ran 17 min, 35 min, 1 h 30, 1 h 52. Expect ~1.5-3 h per task, i.e.
+**~1,000-2,000 SU for the set**. The ceiling is the 48 h Slurm cap × 5 = 30,720 SU, which
+the per-deck `max_seconds = 165000` makes unreachable in practice.
+
+**What lands.** Rows 1-2 are the two remaining GATE-1 UNVERIFIED children; if both
+converge, the GATE-1 census goes 38 AGREE / 0 REFUSED / **0 UNVERIFIED**. Rows 3-5 test
+whether a manufactured density with a fresh Broyden history rescues the STALLED rows —
+a negative result there is now interpretable, because the only difference from the run
+being remedied is the starting density.
+
+Still not launched and still Frank's: **R1** (`upscale`) and **R2** (`electron_maxstep`
+500 → 1500 on `Co s0_O__2x1v_mir` alone), plus `Ni s0_OOH__2x1v_off`, which is gated on
+R1 because its only viable density source is its own mirror arm.
