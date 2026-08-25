@@ -621,3 +621,99 @@ what selected the branch here.
 
 Round 4 continues: `20135148_2` (Ni A8.3, replay parity clean) and `_3`/`_4` (rung-(i)
 self-seeds) running, `_5` pending. Cost so far ~417 SU.
+
+### Round 4 rows 2-4 scored (2026-08-25). Row 2 is a textbook A8.3 success. Rows 3-4 FAILED, and the failure is partly a defect in how I built the seed.
+
+#### Row 2 — `Ni s0_OH__2x1v_off__g1`: GATE-1 UNVERIFIED → AGREE
+
+| | E (Ry) | mag | SCF iters | outcome |
+|---|---|---|---|---|
+| banked parent | −5157.23065359 | 14.41 | 250 | converged |
+| replay | −5157.23065903 | 14.41 | 249 | **−0.07 meV** vs banked |
+| child, cold start (3rd attempt, `.retry_ms`) | — | **12.24** | 500 | NOT_ACHIEVED |
+| child `__fp`, from parent density | −5157.23065325 | **14.41** | **12** | **+0.005 meV** vs banked |
+
+A child that failed three cold-start attempts converged in **12 iterations** from the
+parent's density and reproduced the banked energy to **5 μeV**. Note the cold start was
+also in the wrong magnetic branch (12.24 vs 14.41 μB) and the density fixed that too —
+the same branch-selection mechanism as the Co row, here caught and corrected rather than
+banked. This is the A8.3 remedy working exactly as written.
+
+#### Rows 3-4 — rung (i) self-seed FAILED, and it could not have succeeded
+
+| deck | phase | min acc | @it | last | n | outcome |
+|---|---|---|---|---|---|---|
+| `Co s0_OH__2x1v_mir` | cold | 6.37e-6 | 246 | 8.80e-5 | 500 | FAILED |
+| `Co s0_OH__2x1v_mir` | **fromseed** | 7.92e-6 | 152 | 4.40e-4 | 500 | **FAILED** |
+| `Co s0_OH__2x1v_off` | cold | 1.836e-5 | 491 | 1.851e-5 | 500 | FAILED |
+| `Co s0_OH__2x1v_off` | **fromseed** | 1.893e-5 | 362 | 1.993e-4 | 500 | **FAILED** |
+
+Both seeded runs reach essentially the same floor as their cold starts (within 25% and 3%)
+and then drift *away* from it. The seeded runs are **less** stable, not more: the
+magnetization span over the tail goes 0.08 → 0.25 μB for `s0_OH__2x1v_off`.
+
+**The reason is a defect in `SEED_CONV_THR`, which is mine.** I set it to `1.0d-4` to
+guarantee the seed step would converge, because a non-convergent replay aborts the whole
+chain task at `44_chain.slurm`. But 1e-4 is **looser than the floor these decks already
+reach unaided**:
+
+| deck | floor reached cold | seed threshold | seed is looser by |
+|---|---|---|---|
+| `s0_OH__2x1v_mir` | 6.37e-6 | 1.0e-4 | **15.7×** |
+| `s0_OH__2x1v_off` | 1.836e-5 | 1.0e-4 | **5.4×** |
+| `s0_OOH__2x1v_off` | 1.132e-5 | 1.0e-4 | **8.8×** |
+
+So the "good density" handed over was *worse* than where the cold run gets on its own. The
+step threw information away. The feasibility assertion I added to the builder proved the
+seed would converge; it never asked whether converging at that threshold was worth
+anything. Those are different questions and I only encoded the first.
+
+**Consequence for the hypothesis.** The ledger entry above attributed the STALLED rows to
+"a saturated mixing history, not a physics problem" and rows 3-5 were built to test it.
+They do **not** test it cleanly: the run changed two things at once — a fresh Broyden
+history (helps) and a degraded starting density (hurts) — and came out flat. The saturated-
+history hypothesis is therefore **untested, not refuted**. Recording it that way rather
+than claiming a refutation.
+
+**What is established.** `Co s0_OH__2x1v_off`'s cold run is a confirmed limit cycle, not a
+slow descent: accuracy oscillates inside a 2% band (1.836e-5 … 1.875e-5) across its last
+~30 iterations while the magnetization sits pinned at 24.24 ± 0.01 μB. The triage's
+STALLED classification holds.
+
+**And self-seeding is dead as a general remedy**, for a reason worth stating plainly:
+*you cannot manufacture a better density from a run that cannot converge.* A self-seed's
+ceiling is the failing run's own floor. It can only ever help when the loose threshold is
+still tighter than where the cold run stalls, which is not this case and, by construction,
+will rarely be. This does not touch the `Ni s0_OOH__2x1v_off` plan, whose seed is a
+*different, converging* deck (its mirror arm) — cross-arm seeding is unaffected.
+
+#### The clean test the ladder never ran — and this repo already knows the answer
+
+`mixing_ndim` is the Broyden history depth. It is **unset in every S3 deck**, so QE's
+default of 8 has been in force throughout — the same shape of omission as `upscale`. The
+A8.4 ladder escalated `mixing_beta` three times (0.3 → 0.15 → 0.075) and never once
+touched the history depth, which is the parameter the "saturated history" diagnosis
+actually names.
+
+The earlier R1 slab campaign in this repository did use it, in 26 decks:
+
+| configuration | where | outcome |
+|---|---|---|
+| `mixing_ndim = 12`, `mixing_beta = 0.2`, `local-TF` | the standard shape (`Co_slab`, `Ni_slab`, stageA/stageB) | converged |
+| **`mixing_ndim = 16`, `mixing_beta = 0.05`, `local-TF`** | **the "attempt4" escalation** | converged `Cr_slab/s0_OH`, `Mn_slab/s0_OOH`, `Co_slab/s0_O` |
+
+So this project's own history has an escalation rung for exactly this failure mode on
+exactly these metals, and S3 never used it. **Recommended as R5 (registered parameter,
+Frank's call): add `mixing_ndim = 16` to the three STALLED decks, at the beta they already
+carry or at the attempt4 pairing of 0.05.** It is one deck-line, it costs ~3 tasks, and
+unlike the self-seed it varies the one thing the diagnosis points at. No doc in `docs/`
+records a rationale for `mixing_ndim`, so the value would need registering rather than
+inheriting.
+
+#### Ledger
+
+Task 5 (`Co s0_OOH__2x1v_off`) still running at the time of writing; its seed had not
+handed over yet. It tests the same flawed seed design and is expected to fail the same
+way — left to run because it is ~250 SU and a third consistent negative is worth having on
+a pre-registered record. Balance 82,783.0 SU. Nothing from rows 3-5 is bankable; the row-2
+child is the only new number of record, and it is an AGREE, not a new energy.
