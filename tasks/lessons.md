@@ -604,3 +604,27 @@ name. I caught it only because I printed each file's size in the guard before mo
    never from the job or stem name by pattern.
 3. After any archive step, re-verify that the results you intended to KEEP are still there
    and still the right size. Cheap, and it closes the loop.
+
+## 2026-08-26 — a selector that was right twice can still be wrong in principle
+
+Round 7's builder picked the geometry to resume from by **most completed ionic steps**. It
+was right for three decks. It was wrong for Mn the moment a resume had already happened:
+attempt1 had 19 steps at E = −3617.10180292, and the round-8 run that *continued from it*
+had only 3 — at E = −3617.10197097, which is deeper. Selecting by count would have silently
+thrown away three converged steps and restarted from further back.
+
+The failure is that step count measures *how much work one run did*, while I needed *how far
+down the trajectory the geometry is*. Those coincide only while every run starts from the
+same place. The first successful resume broke that assumption, and the selector had no way
+to notice.
+
+**Rules for myself.**
+1. State what a selector is a proxy FOR, then ask when the proxy and the target come apart.
+   "Most steps" proxies "deepest geometry" only for runs sharing a starting point.
+2. Prefer a metric measured on the thing you actually care about. Final energy within a
+   magnetic branch measures depth directly; step count measures effort.
+3. Make the builder **assert** the choice rather than compute it silently — "no same-branch
+   run is deeper than the one chosen" would have failed loudly on Mn instead of quietly
+   losing work — and print the full census so a human can audit the pick.
+4. A heuristic that has worked N times has not been tested against the case that breaks it.
+   Being right twice is not evidence of being right.

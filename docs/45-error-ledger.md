@@ -1122,3 +1122,98 @@ wave-4 child, `Co ref__2x1v__g1`.
 explicitly excluded from the archive step — the chain's dead file is
 `ref__2x1v.replay.out` (10,131 B), archived to `.replay.out.attempt1`. Both the banked
 parent and the newly converged `s0_OOH__2x1v_off.out` were verified intact afterwards.
+
+---
+
+## Round 8 scored — arrays 20149862 + 20149866 (2026-08-26). The second resume win, and the replay failures are real.
+
+Balance 79,275.4 → **77,052.1 SU** (2,223.3 spent). All three wave rows completed with **no
+OOM** — the five-node exclude list held.
+
+### `Ni s0_OOH__2x1v_off` CONVERGED — the row that had no remedy
+
+**41 ionic steps, `bfgs converged`**, min accuracy 5.0e-09 at the 1e-08 upscale floor,
+E = −5198.77050468 Ry, magtot 7.89 / magabs 22.05.
+
+This is the row `runs/chains/m_round4.txt` recorded as *"BRANCH, no parent to seed from —
+the one row with no registered remedy in hand; A8.4 rung-(iii) NOT_CONVERGED gap candidate."*
+It had **one** banked ionic step, in attempt2, which four later rungs discarded. Resuming
+from that single step ran 41 more and converged. It never needed a remedy; it needed a
+restart.
+
+Two for two on the resume recipe, on decks that between them survived ten failed attempts.
+
+### The two that did not finish, and why they differ
+
+**`Mn s0_OOH__2x1v_off__basin` is working.** It picked up attempt1's 19th step
+(−3617.10180292) and carried it three further to **−3617.10197097** at identical
+magnetization (34.76 / 47.87), converging every SCF cycle to the 1e-08 floor (min 6.0e-09).
+It stopped in cycle 4. It just needs more ionic steps.
+
+**This breaks the round-7 selector, and the builder now says so.** `deepest_attempt()`
+chose by *most ionic steps*, which would pick attempt1 (19) over the round-8 run (3) and
+silently discard three steps — because **once resumes chain, step count stops tracking
+depth**. `build_s3_round9.py` selects by *lowest final energy within a magnetic branch* and
+asserts no same-branch run is deeper than the one chosen. Its census output makes the choice
+auditable:
+
+```
+s0_OOH__2x1v_off__basin.out            ionic=3   E=-3617.10197097  mag=34.76   <- chosen
+s0_OOH__2x1v_off__basin.out.attempt1   ionic=19  E=-3617.10180292  mag=34.76
+```
+
+**`Ni s0_OOH__2x1v_mir` was hurt by `mixing_ndim = 16`**, and the history is one-way:
+
+| run | ndim | ionic | final magtot | magabs | min accuracy |
+|---|---|---|---|---|---|
+| attempt1 | 8 | 2 | 9.87 | 20.54 | 7.3e-07 |
+| attempt2 | 8 | 2 | 13.72 | 19.21 | 3.8e-07 |
+| attempt3 | 8 | 3 | 13.78 | 19.34 | 3.2e-07 |
+| round 8 | **16** | **0** | **−0.27** | 25.70 | 2.2e-04 |
+
+At ndim 8 it sat in a 9.9–13.8 μB branch and descended to 3.2e-07 against an
+upscale-tightened 2.79e-07 — an UNREG_THR row that is nearly there. At ndim 16 it collapsed
+into a near-compensated state (magtot −0.27 with magabs 25.70: large moments cancelling) and
+completed no ionic steps at all. Round 9 resumes it from attempt3 **using attempt3's own
+deck**, i.e. with ndim removed.
+
+Running score for `mixing_ndim = 16`: **1 converged of 7**, and now two decks made
+measurably worse. It is not a general remedy and should not be added to further decks
+without a specific reason.
+
+### `Co ref__2x1v`'s replay failed too — but it is SLOW, not STALLED
+
+Round 8's replay of the last owed wave-4 child's parent did not converge, but it was still
+descending monotonically when it hit the iteration wall:
+
+```
+... 4.56e-06  4.52e-06  4.45e-06  4.04e-06  3.81e-06   <- iteration 500, target 1e-06
+```
+
+The banked parent converged cycle 1 in **324** iterations; the replay was at 3.81e-06 after
+500. Same first-three magnetization values as the parent (58.53 / 59.99 / 20.08), diverging
+at the fourth (54.82 vs 54.81) — the familiar reduction-order split, here costing
+convergence speed rather than the branch. Round 9 re-runs it at `electron_maxstep = 1500`,
+changing exactly two lines from the parent deck (prefix, maxstep).
+
+### A cheap explanation, tested and discarded
+
+Before building round 9 I checked whether the banked parents had been **warm started** from
+leftover scratch — which would have explained every replay failure at once and put the
+banked numbers' provenance in question. It is false. Both parents and all replays report
+`Initial potential from superposition of free atoms`, and `anvil/42_s3_wave1.slurm` line 59
+`rm -rf`s the scratch directory before every job. **The parents are genuine cold starts and
+the replay failures are real.**
+
+### Round 9 launched — 20150995 (wave, 2 rows) + 20151000 (chain, 1)
+
+`EXCLUDE=a024,a088,a196,a220,a223`, preflight `lines=2 to_run=2 ... bad=0`, 5 files
+md5-verified. Both splices reproduce their source `.out` block with **zero frozen atoms
+moved**; the Ni splice shows one atom differing by 1e-09 / 5e-09 Å, which is the deck's
+8-decimal format against the output's 10 — a rounding artifact at the tolerance boundary,
+not a defect.
+
+**Still open and Frank's:** `Co s0_OOH__2x1v_mir` (two replays failed, ndim made it worse —
+R3/A8.6); `Co s0_O__2x1v_mir` and `Co s0_OH__2x1v_off` (zero ionic steps ever, no geometry
+to resume from — R1 or a new registered call); R1 `upscale` itself, which would directly
+close `Ni s0_OOH__2x1v_mir` and `Co s0_OOH__2x1v_off`-class rows.
