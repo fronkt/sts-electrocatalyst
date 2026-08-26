@@ -32,12 +32,12 @@ input unmodified:
 
 The identical-input/different-node contrast rules out a workload explanation.
 
-### a196 on 2026-08-25 — what `scontrol` shows
+### a196 on 2026-08-25 â€” what `scontrol` shows
 
 Tasks 3, 5 and 6 of array 20141568 were killed `OUT_OF_MEMORY` (exit 0:125) on
 a196 at **MaxRSS 8.65-8.70 GB**, while the *successful* tasks of the same array
 on other nodes peaked at **30.8-46.8 GB**. The killed jobs were therefore using
-roughly a fifth of what a healthy run of the same code uses — they were killed
+roughly a fifth of what a healthy run of the same code uses â€” they were killed
 for the node's lack of free memory, not their own consumption.
 
 At the time of writing, `scontrol show node a196` reports:
