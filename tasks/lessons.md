@@ -489,3 +489,66 @@ worth anything.
 
 **Related:** the same day's `upscale` discovery (docs/45 CORRECTION) is the mirror case —
 an unset parameter silently tightening `conv_thr` during relax.
+
+## 2026-08-26 — separate the cluster's failures from the science's before concluding anything
+
+Round 5 (array 20141568) came back 5 COMPLETED / 3 OUT_OF_MEMORY / 3 RUNNING. Read as a
+score, that is a mediocre round for `mixing_ndim = 16`. Read correctly, the hypothesis was
+never tested on four of the eleven rows: **all three OOM kills, and a fourth job that hung,
+were on the single node a196**, which Slurm had already drained with
+`Reason=NHC: Terminated by signal SIGTERM` and which reported 384 MB free on 128 cores.
+
+The tell was in the numbers, not the state string. The killed jobs died at **MaxRSS
+8.65–8.70 GB**; the same array's successful jobs peaked at **30.8–46.8 GB**. A job killed
+for memory while using a fifth of what its siblings use is not a job with a memory problem.
+Taking `OUT_OF_MEMORY` at face value would have sent me tuning cutoffs, pools or `nbnd`
+against a fault in someone else's hardware.
+
+**Rules for myself.**
+1. When a scheduler reports a resource failure, compare the failing job's resource use
+   against a *successful sibling in the same array* before believing the label. Wildly
+   lower usage means the node, not the job.
+2. Group failures by node before grouping them by deck. One node holding every failure is a
+   hardware hypothesis; the decks having nothing in common is a hint, not the answer.
+3. A job that is RUNNING is not a job that is running. Check `.out` mtime against now and
+   count actual iterations. Zero SCF cycles with a frozen file for 45+ min is a hang, and
+   on a 48 h walltime it will silently burn thousands of SU. Cancel it.
+4. Rows lost to infrastructure are **not evidence** and must be re-run unchanged. Never let
+   them contribute to a verdict on the parameter under test, in either direction.
+
+## 2026-08-26 — score a `__g1` child on magnetization first and energy second
+
+Three `__g1` children landed in round 5: +0.026 meV, +7.395 meV and +747.449 meV against
+their banked parents. Energy alone makes that one pass and two failures of the ±1 meV gate,
+as though two banked numbers were in doubt.
+
+The magnetizations say something else: Δmagtot +0.00, **+4.00** and **+4.73**. Both
+"failures" are cold SCF starts that fell into a different magnetic branch at the *same*
+geometry. That is not a disagreement about the banked energy; it is a different question
+being answered, and the A8.3 density-retention remedy is what makes the child answer the
+intended one.
+
+The Fe row shows why the second column has to be read too: Δmagtot **+4.00** with Δmagabs
+only **+0.03** means the local moments did not change size at all and roughly 2 μB flipped
+from down to up. A ferrimagnetic rearrangement 7.4 meV away is a physics finding;
+"failed the 1 meV gate" would have buried it.
+
+**Rule for myself.** Never score a repeated or child DFT run on energy alone in a
+spin-polarised system. Report ΔE, Δmagtot *and* Δmagabs together, and classify a
+magnetization mismatch as BRANCH MISMATCH — never as agreement and never as refusal. The
+rule this rests on is now 9 for 9 in this repository: matching magnetization reproduces the
+energy to ≤0.52 meV, differing magnetization differs by tens to hundreds of meV.
+
+## 2026-08-26 — on this Windows box, `pathlib.read_text()`/`write_text()` default to cp1252
+
+Editing `anvil/rcac_ticket_draft_2026-08-24.md` with `read_text()` + `write_text()` wrote
+two em dashes as the single byte `0x97` and left the file invalid UTF-8. The round trip is
+silent for characters that already existed (a UTF-8 em dash decodes to three cp1252
+characters and re-encodes to the same three bytes); only text *I* added in the same edit
+was corrupted, and only on the write. A later edit to `tasks/lessons.md` crashed on `Δ`
+instead of corrupting quietly, which is the only reason I looked.
+
+**Rule for myself.** Always pass `encoding='utf-8'` explicitly to `read_text`/`write_text`/
+`open` in this repo, or do the edit with a byte-level `cat >>` heredoc. After any scripted
+edit that adds non-ASCII text, verify with `open(p,'rb').read().decode('utf-8')` before
+committing.
