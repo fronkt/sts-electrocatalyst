@@ -785,3 +785,135 @@ its `.out` slot is free; no banked result was touched by any row.
 the seed's non-converged density and has no diagnostic value the `.out` does not already
 carry. `$PROJECT` is at 28.7 GB of 5 TB so there is no pressure, and the runner `rm -rf`s
 the path at the start of any re-run — left in place rather than deleted unprompted.
+
+---
+
+## Round 5 scored — array 20141568 (2026-08-25/26). `mixing_ndim = 16` works, and one Anvil node destroyed a third of the round.
+
+Launched 2026-08-25 17:16 UTC, 11 tasks, `--array=1-11%4`, `EXCLUDE=a024,a088`.
+Balance 82,713.0 → 81,204.0 SU with three tasks still live.
+
+| # | row | node | result |
+|---|---|---|---|
+| 1 | `Co s0_O__2x1v_mir` ndim16 + maxstep 1500 | a192 | RUNNING — see R2 below |
+| 2 | `Co s0_OH__2x1v_mir` ndim16 | a195 | **CONVERGED**, 18 BFGS steps, scf 8.5e-09 |
+| 3 | `Co s0_OH__2x1v_off` ndim16 | **a196** | OUT_OF_MEMORY — infrastructure, no science |
+| 4 | `Co s0_OOH__2x1v_off` ndim16 | a201 | FAILED, first SCF never converged |
+| 5 | `Ni s0_OOH__2x1v_mir` ndim16 | **a196** | OUT_OF_MEMORY — infrastructure, no science |
+| 6 | `Ni s0_OOH__2x1v_off` ndim16 | **a196** | OUT_OF_MEMORY — infrastructure, no science |
+| 7 | `Mn s0_OOH__2x1v_off__basin` ndim16 | **a196** | CANCELLED by me — hung 1h44m, see below |
+| 8 | `Co ref__2x1v__g1` | a117 | RUNNING |
+| 9 | `Co s0_OH__1x1_off__g1` | a201 | **AGREE +0.026 meV** |
+| 10 | `Co s0_OOH__2x1v_mir__g1` | a201 | BRANCH MISMATCH +747.4 meV |
+| 11 | `Fe s0_OOH__1x1_off__basin__g1` | a091 | BRANCH MISMATCH +7.4 meV |
+
+### The one-line fix worked, and it is a clean controlled experiment
+
+`Co s0_OH__2x1v_mir` had failed three cold attempts and a staged self-seed. With
+`mixing_ndim = 16` it converged in 18 BFGS steps to a final scf accuracy of **8.5e-09**.
+QE echoes the parameter, so the control is visible in the outputs themselves:
+
+| | `number of iterations used` | mixing | threshold | outcome |
+|---|---|---|---|---|
+| `.out.attempt3` | **8** local-TF | beta 0.15 | 1.0e-06 | 500 iters, NOT achieved |
+| `.out` (round 5) | **16** local-TF | beta 0.15 | 1.0e-06 | **bfgs converged** |
+
+Same threshold, same beta, same mixing mode, same geometry. The Broyden history depth is
+the only difference and it is the difference between failure and 8.5e-09. This is the rung
+the A8.4 ladder never had: it escalated `mixing_beta` three times (0.3 → 0.15 → 0.075) and
+never touched the depth, which is the parameter the "saturated history" diagnosis names.
+The saturated-history hypothesis, recorded as **untested** after round 4 confounded it, is
+now **supported** — by the test that varies only the one thing.
+
+`Co s0_OOH__2x1v_off` (row 4) had the same treatment and still failed: one SCF cycle,
+500 iterations, last accuracy 2.0e-3. ndim=16 is not universal. Its next rung is the
+attempt-4 pairing from the R1 slab campaign, `mixing_beta` 0.15 → 0.05, which is the only
+part of that pairing still untried.
+
+### Row 1 answers R2 in the negative, and reclassifies its own triage
+
+`Co s0_O__2x1v_mir` was the single deck triaged **SLOW**, and the maxstep 500 → 1500 rider
+was built to ask whether it merely needed more room. At 746 iterations it has its answer:
+
+| | min accuracy | at iteration | behaviour after |
+|---|---|---|---|
+| `.out.attempt3` (ndim 8, maxstep 500) | 4.287e-05 | — | flat |
+| `.out` (ndim 16, maxstep 1500) | **1.628e-05** | ~100 | drifts *up*, now ~3.5e-04 |
+
+ndim=16 bought a 2.6× lower floor and still fell 16× short of 1e-6, then wandered away from
+its own minimum for 640 iterations. **The deck is STALLED, not SLOW** — the triage
+misclassified it, and the extra 1000 iterations are being spent to establish that rather
+than to converge it. Left running deliberately: it is a pre-registered test on a healthy
+node and stopping it early because the answer looks obvious is precisely the move this
+campaign's discipline exists to prevent. Cost of finishing ≈ 384 SU.
+
+### Node a196 cost four rows and ~430 SU, and it is Slurm's own diagnosis
+
+Tasks 3, 5, 6 all died `OUT_OF_MEMORY` (exit 0:125) on **a196**, at MaxRSS 8.65–8.70 GB —
+while the round's *healthy* runs peaked at 30.8–46.8 GB. They were not using too much
+memory; they were killed early on a node that had none to give:
+
+```
+NodeName=a196  State=ALLOCATED+DRAIN  CPULoad=166.18  RealMemory=257400  FreeMem=384
+Reason=NHC: Terminated by signal SIGTERM. [root@2026-08-25T19:55:48]
+```
+
+A 128-core node at load 166 with **384 MB free**, drained by Purdue's own node health check
+during our array. Task 7 (`Mn s0_OOH__2x1v_off__basin`) was still scheduled onto it, wrote
+a 9,912-byte header and then produced **zero SCF iterations in 1h45m** — the identical
+header-only signature (9,905 / 9,912 / 9,986 bytes) as its two OOM'd siblings, which had
+already been reaped. I cancelled it. It had 46 h of walltime left and would have burned
+~5,900 SU producing nothing.
+
+This is not a science result and none of these four rows tell us anything about
+`mixing_ndim`. They re-run unchanged.
+
+**Consequence for the RCAC ticket** (`anvil/rcac_ticket_draft_2026-08-24.md`, still
+unsent): the draft rested on a024/a088 sitting `MIXED` in the pool, which is suggestive but
+circumstantial. a196 is not circumstantial — it is a drain reason string, a timestamp inside
+our array, three OOM kills at an eighth of normal usage and a fourth job hung to a
+standstill. **a196 joins the EXCLUDE list**, and the ticket now has a concrete incident to
+report rather than an anomaly to describe.
+
+### The `__g1` children: the branch rule holds at 9 pairs and has still never failed
+
+| stem | ΔE (meV) | Δmagtot | Δmagabs | verdict |
+|---|---|---|---|---|
+| `Co s0_OH__1x1_off` | **+0.026** | +0.00 | +0.00 | **AGREE** |
+| `Co s0_OOH__2x1v_mir` | +747.449 | **+4.73** | +3.70 | BRANCH MISMATCH |
+| `Fe s0_OOH__1x1_off__basin` | +7.395 | **+4.00** | +0.03 | BRANCH MISMATCH |
+
+Round 4's audit established the rule over six repeated-deck pairs: *magnetization matches →
+energy reproduces to ≤0.52 meV; magnetization differs → tens of meV.* These three are the
+seventh, eighth and ninth pairs and the rule survives all of them. It is now the single
+most reliable regularity in this campaign, and it is the reason a `__g1` child must never
+be scored on energy alone.
+
+The Fe row is worth reading closely. Δmagtot is **exactly +4.00** while Δmagabs is +0.03 —
+the local moments are unchanged in size and roughly 2 μB of moment has flipped from down to
+up. That is not a convergence artifact; it is a *different magnetic configuration at the same
+geometry*, 7.4 meV away. The Co row, at +4.73/+3.70 and 747 meV, is a genuinely different
+and much worse state.
+
+Neither is a GATE-1 refusal of the banked energy. Both are cold SCF starts landing in the
+wrong basin, which is exactly the failure the A8.3 density-retention remedy exists for and
+exactly what it fixed for `Ni s0_OH__2x1v_off__g1` in round 4 (three cold failures and the
+wrong branch at 12.24 vs 14.41 μB → 12 iterations from the parent density and +0.005 meV).
+Both parents are banked and converged, so both children get that remedy in round 6.
+No parent `.save` survives, so each needs the full replay: ≈371 SU (Co, 2h39m parent) and
+≈111 SU (Fe, 47m parent).
+
+### Round 5 net
+
+**Two rows of eleven produced a bankable answer** — row 2's convergence and row 9's AGREE.
+Four were destroyed by hardware. Two are branch mismatches with a known remedy. One is a
+real negative (row 4). Two are still running.
+
+The round's purpose was to test one hypothesis with one deck-line, and on the rows that
+were allowed to run it did: **`mixing_ndim = 16` converged a deck that four previous
+attempts could not, with every other parameter held fixed.**
+
+**A8.8 status: clean.** Round 5's dead `.out` files land on filenames whose previous
+contents were already archived to `.out.attempt<N>` before launch. Nothing banked was
+touched. The four re-runs and row 4's new rung will archive their round-5 `.out` the same
+way before they start.

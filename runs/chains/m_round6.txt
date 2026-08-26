@@ -1,0 +1,25 @@
+# S3 round 6 chains (2026-08-26), built by src/dft/build_s3_round6.py. Same row
+# format and runner (anvil/44_chain.slurm) as m_round4.txt.
+#
+# GROUP C: A8.3 density retention for the two round-5 `__g1` children that came
+# back in the wrong magnetic branch -- Co s0_OOH__2x1v_mir__g1 at +747.4 meV /
+# Dmagtot +4.73, and Fe s0_OOH__1x1_off__basin__g1 at +7.4 meV / Dmagtot +4.00
+# with Dmagabs only +0.03 (about 2 uB flipped down-to-up at unchanged local
+# moment size: a different magnetic configuration at the same geometry). Neither
+# refuses its banked parent's energy; both are cold SCF starts landing in the
+# wrong basin, the failure A8.3 exists for. It fixed exactly this for
+# Ni s0_OH__2x1v_off__g1 in round 4: three cold failures in the wrong branch,
+# then 12 iterations from the parent density and +0.005 meV.
+#
+# No parent .save survives a completed job, so step 1 replays the parent deck --
+# the one that produced the banked .out, fixed by manifest provenance
+# (m_s3_round3.txt:7 Co `.retry_ms.in`, m_s3_round3.txt:14 Fe `.in`) and asserted
+# against the mixing beta echoed in that .out. The replay energy is parity
+# evidence and is NEVER banked (A8.8), as in every prior chain round.
+#
+# SUBMIT WITH EXCLUDE=a024,a088,a196.
+#
+# row: dir replay_deck replay_prefix child_deck child_prefix nk
+# NP=128 NCONC=1
+runs/s3/Co s0_OOH__2x1v_mir.replay.in s0_OOH__2x1v_mir__replay s0_OOH__2x1v_mir__g1.fromparent.in s0_OOH__2x1v_mir__g1__fp 8
+runs/s3/Fe s0_OOH__1x1_off__basin.replay.in s0_OOH__1x1_off__basin__replay s0_OOH__1x1_off__basin__g1.fromparent.in s0_OOH__1x1_off__basin__g1__fp 16

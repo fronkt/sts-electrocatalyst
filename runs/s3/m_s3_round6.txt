@@ -1,0 +1,24 @@
+# S3 round 6 wave rows (2026-08-26), built by src/dft/build_s3_round6.py.
+#
+# Rows 1-4  GROUP A: the four rows Anvil node a196 destroyed in round 5. a196 was
+#           ALLOCATED+DRAIN with `NHC: Terminated by signal SIGTERM` and 384 MB
+#           free; three rows were OOM-killed at MaxRSS 8.65-8.70 GB while the
+#           round's healthy runs peaked at 30.8-46.8 GB, and the fourth wrote a
+#           header and then produced zero SCF iterations for 1h45m before I
+#           cancelled it. The decks are UNCHANGED round-5 `.retry_ndim.in` files,
+#           re-used byte-for-byte, including the Mn and Ni geometry splices.
+#           SUBMIT WITH EXCLUDE=a024,a088,a196.
+# Row 5     GROUP B: `Co s0_OOH__2x1v_off` failed the full ndim=16 treatment on a
+#           healthy node (a201, 2h00m, one SCF cycle, 500 iterations, last
+#           accuracy 2.0e-3). This row changes exactly one line, mixing_beta
+#           0.15 -> 0.05, the last untried piece of the R1 slab campaign's
+#           attempt-4 pairing. ndim stays 16. Zero ionic steps completed in round
+#           5, so the coordinates are untouched.
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+s3/Co s0_OH__2x1v_off .retry_ndim.in 8
+s3/Ni s0_OOH__2x1v_mir .retry_ndim.in 8
+s3/Ni s0_OOH__2x1v_off .retry_ndim.in 8
+s3/Mn s0_OOH__2x1v_off__basin .retry_ndim.in 8
+s3/Co s0_OOH__2x1v_off .retry_b05.in 8
