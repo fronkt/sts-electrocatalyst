@@ -8,7 +8,8 @@ succeed unmodified on other nodes (account che260157)
 
 Hello RCAC,
 
-We believe compute nodes **a024**, **a088** and **a196** have a hardware or configuration
+We believe a number of compute nodes — **a024**, **a088**, **a196**, **a220** and
+**a223** so far — have a hardware or configuration
 fault. Across four Slurm array submissions on 2026-08-24 (account che260157, user
 x-fcai3), Quantum ESPRESSO pw.x tasks (128 MPI ranks, -N 1, ~standard memory
 footprint for a 36-atom slab at 80 Ry) were OOM-killed on these two nodes and on
@@ -74,3 +75,57 @@ One operational note in case it is intended behavior: `sbatch` on Anvil appears
 to silently ignore the `SBATCH_EXCLUDE` environment variable (job submitted with
 ExcNodeList=(null)); only the `--exclude` flag works. If that is a known quirk,
 a note in the Anvil docs would save users a round of failed jobs.
+
+
+---
+
+## Update 2026-08-26: two more nodes, and a measurement that we think identifies the fault
+
+Since the a196 report we have lost rows on **a220** (2 tasks) and **a223** (4 tasks). We
+have now excluded five nodes by hand and hit a new one on each of the last three
+submissions, so we no longer think this is a handful of individually broken machines.
+
+The measurement that changed our reading: **the kills on each node cluster at a tight,
+node-specific value of MaxRSS.**
+
+| node | tasks killed | MaxRSS at kill | spread |
+|---|---|---|---|
+| a196 | 3 | 8.65, 8.66, 8.70 GB | 0.5 % |
+| a220 | 2 | 35.06, 35.14 GB | 0.24 % |
+| a223 | 4 | 16.93, 16.94, 16.95, 16.95 GB | **0.1 %** |
+
+Every one of these jobs was granted `mem=237G` (`-N 1 -n 128` on `shared`). The identical
+work, when it lands on a healthy node, peaks at **30–48 GB** and completes — for example
+`20148093_3` peaked at 47.7 GB on a157 and converged in 1h34m, while its three siblings
+died on a223 at 16.9 GB.
+
+A job dying at a repeatable 16.94 GB when it has been granted 237 GB, and at 8.7 GB on a
+different node, and at 35.1 GB on a third, is not a job that is using too much memory. It
+looks to us like a per-node gap between the memory Slurm believes is allocatable and the
+memory the node can actually hand out — leftover pressure from a previous tenant, a memory
+cgroup that outlived its job, or failed DIMMs reducing usable RAM below `RealMemory`.
+
+Two supporting details:
+
+- **It is not our own jobs colliding.** On both a196 and a220 every one of our array tasks
+  started within ten seconds of the previous one *ending* on that node; none overlapped.
+- **a196 was in `DRAIN` with `Reason=NHC: Terminated by signal SIGTERM` and `FreeMem=384`
+  while Slurm was still scheduling new array tasks onto it.** a220 and a223, by contrast,
+  showed no DRAIN and no NHC record at all — a223 was plain `ALLOCATED` with `FreeMem=545`
+  when we checked it afterwards. So whatever the health check catches on some of these
+  nodes, it is not catching it on others.
+
+Questions we would appreciate an answer to:
+
+1. Can these five nodes be checked for a shortfall between `RealMemory` and genuinely
+   free memory (stale cgroups, failed DIMMs, prior-tenant leakage)?
+2. Is there a way for users to detect this before burning an allocation on it? We are
+   currently discovering each bad node by losing 1–2 hours of 128-core time to it.
+3. Should a node in `DRAIN` after an NHC failure still receive newly scheduled array
+   tasks? That is what turned three lost jobs into four on a196.
+
+For scale: this has cost us roughly 1,100 SU in kills so far, and one hung job on a196
+would have burned a further ~5,900 SU had we not caught it manually.
+
+Thanks,
+Frank Cai (x-fcai3), allocation CHE260157
