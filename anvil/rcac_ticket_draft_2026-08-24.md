@@ -8,7 +8,7 @@ succeed unmodified on other nodes (account che260157)
 
 Hello RCAC,
 
-We believe compute nodes **a024** and **a088** have a hardware or configuration
+We believe compute nodes **a024**, **a088** and **a196** have a hardware or configuration
 fault. Across four Slurm array submissions on 2026-08-24 (account che260157, user
 x-fcai3), Quantum ESPRESSO pw.x tasks (128 MPI ranks, -N 1, ~standard memory
 footprint for a 36-atom slab at 80 Ry) were OOM-killed on these two nodes and on
@@ -25,12 +25,46 @@ input unmodified:
 - Array 20118525 (resubmission with --exclude=a024,a088): **all 5 former a088
   tasks converged unmodified.**
 
-The identical-input/different-node contrast rules out a workload explanation.
-Both nodes are back in the general pool today (a024 ALLOCATED, a088 MIXED as of
-2026-08-24), so other users' jobs are presumably exposed to the same failure.
+- Array 20141568 on 2026-08-25 (11 tasks, submitted with --exclude=a024,a088):
+  **a196 OOM-killed all three of the tasks it received, and hung a fourth.** The
+  other six nodes in that array killed 0 of 8. Details below, because this one
+  carries a node-side diagnosis we could not obtain for a024/a088.
 
-Could you check these two nodes (memory DIMMs / leftover memory pressure from a
-prior tenant / cgroup memory limits)? Happy to provide job scripts and full
+The identical-input/different-node contrast rules out a workload explanation.
+
+### a196 on 2026-08-25 — what `scontrol` shows
+
+Tasks 3, 5 and 6 of array 20141568 were killed `OUT_OF_MEMORY` (exit 0:125) on
+a196 at **MaxRSS 8.65-8.70 GB**, while the *successful* tasks of the same array
+on other nodes peaked at **30.8-46.8 GB**. The killed jobs were therefore using
+roughly a fifth of what a healthy run of the same code uses — they were killed
+for the node's lack of free memory, not their own consumption.
+
+At the time of writing, `scontrol show node a196` reports:
+
+```
+NodeName=a196  State=ALLOCATED+DRAIN  CPULoad=166.18
+RealMemory=257400  AllocMem=242688  FreeMem=384  MemSpecLimit=12000
+Reason=NHC: Terminated by signal SIGTERM. [root@2026-08-25T19:55:48]
+```
+
+A 128-core node reporting **384 MB free** and a load average of 166. Note that
+Slurm was still scheduling our array onto a196 while it was in this state: task 7
+was placed there, wrote its ~10 KB QE header and then produced **zero SCF
+iterations in 1 h 45 min** before we cancelled it manually. Its output file is
+byte-comparable in size (9,912 B) to the two OOM'd siblings on the same node
+(9,905 B and 9,986 B), i.e. all four died at the same point.
+
+The four lost tasks cost roughly **430 SU**, and the hung one would have burned a
+further ~5,900 SU had it run out its 48 h walltime rather than being caught.
+
+a024 and a088 were back in the general pool as of 2026-08-24 (a024 ALLOCATED,
+a088 MIXED), so other users' jobs are presumably exposed to the same failure.
+
+Could you check these three nodes (memory DIMMs / leftover memory pressure from
+a prior tenant / cgroup memory limits)? For a196 specifically, we would also ask
+whether a node in `DRAIN` after an NHC SIGTERM should still be receiving newly
+scheduled array tasks, since that is what turned three lost jobs into four. Happy to provide job scripts and full
 slurmd logs timestamps if useful.
 
 Thanks,
