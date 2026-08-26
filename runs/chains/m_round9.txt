@@ -1,0 +1,27 @@
+# S3 round 9 chains (2026-08-26), built by src/dft/build_s3_round9.py.
+#
+# Co ref__2x1v, the last owed wave-4 child. Round 8's replay failed, but unlike
+# Co s0_OOH__2x1v_mir it failed while still descending monotonically:
+#
+#     ... 4.56e-06  4.52e-06  4.45e-06  4.04e-06  3.81e-06   <- iteration 500
+#
+# against a 1e-06 target, where the banked parent converged cycle 1 in 324
+# iterations. That is SLOW, not STALLED. This replay deck differs from the parent
+# in exactly two lines: prefix, and electron_maxstep 500 -> 1500.
+#
+# Checked and DISCARDED before building this: the hypothesis that the banked
+# parents were warm started from leftover scratch, which would have explained the
+# replay failures cheaply. Both parent and replay report `Initial potential from
+# superposition of free atoms`, and anvil/42_s3_wave1.slurm rm -rf's the scratch
+# directory before every job. The parents are genuine cold starts.
+#
+# NOT re-run: Co s0_OOH__2x1v_mir. Two independent replays of that parent's own
+# deck have failed to converge, and the deeper Broyden history made it worse
+# (ndim 8 -> 2.477e-05, ndim 16 -> 4.24e-04). That is a reproducibility question
+# for R3 / A8.6, not a convergence-tuning one.
+#
+# SUBMIT WITH EXCLUDE=a024,a088,a196,a220,a223.
+#
+# row: dir replay_deck replay_prefix child_deck child_prefix nk
+# NP=128 NCONC=1
+runs/s3/Co ref__2x1v.replay_ms.in ref__2x1v__replay ref__2x1v__g1.fromparent.in ref__2x1v__g1__fp 16

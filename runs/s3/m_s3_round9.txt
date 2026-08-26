@@ -1,0 +1,26 @@
+# S3 round 9 wave rows (2026-08-26), built by src/dft/build_s3_round9.py.
+#
+# Row 1  Mn s0_OOH__2x1v_off__basin -- SECOND-generation resume. Its round-8 run
+#        picked up attempt1's 19th step (-3617.10180292) and carried it three
+#        steps further to -3617.10197097 at identical magnetization (34.76 /
+#        47.87), converging every cycle to the 1e-08 floor. It stopped in cycle 4.
+#
+#        Note this breaks round 7's selector: `deepest_attempt()` chose by MOST
+#        IONIC STEPS and would have picked attempt1 (19) over the round-8 run (3),
+#        discarding three steps. Once resumes chain, step count stops tracking
+#        depth. This builder selects by LOWEST FINAL ENERGY WITHIN A MAGNETIC
+#        BRANCH and asserts no same-branch run is deeper than the one chosen.
+#
+# Row 2  Ni s0_OOH__2x1v_mir -- resume from attempt3 using ATTEMPT3'S OWN DECK,
+#        which means mixing_ndim = 16 is REMOVED. At ndim 8 this deck sat in a
+#        9.9-13.8 uB branch across three attempts and descended to 3.2e-07 against
+#        an upscale-tightened 2.79e-07. At ndim 16 it collapsed to magtot -0.27
+#        with magabs 25.70 -- large moments cancelling -- and completed no ionic
+#        steps at all. R1 (`upscale`) remains the clean fix for this row.
+#
+# SUBMIT WITH EXCLUDE=a024,a088,a196,a220,a223.
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+s3/Mn s0_OOH__2x1v_off__basin .resume2.in 8
+s3/Ni s0_OOH__2x1v_mir .resume.in 8
