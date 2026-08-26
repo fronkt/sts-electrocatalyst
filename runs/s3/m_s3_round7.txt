@@ -1,0 +1,27 @@
+# S3 round 7 wave rows (2026-08-26), built by src/dft/build_s3_round7.py.
+#
+# Rows 1-2  GROUP A: the two rows node a220 OOM-killed in round 6, at MaxRSS
+#           35.1 GB against a granted mem=237G. a220 carries no DRAIN and no NHC
+#           record, so it is the a024/a088 shape rather than the a196 shape.
+#           Decks are UNCHANGED and already carry their round-5 splices.
+#           SUBMIT WITH EXCLUDE=a024,a088,a196,a220.
+# Rows 3-4  GROUP B: resume from the DEEPEST attempt rather than the last one.
+#           Round 5's builder spliced from `job.out` and never scanned
+#           `job.out.attempt*`, so `Co s0_OOH__2x1v_off` had 14 converged ionic
+#           steps sitting in attempt2 while four later rungs each restarted from
+#           the original geometry and stalled in the first SCF. Both rows resume
+#           from the deck that produced their deepest attempt -- the ORIGINAL
+#           beta 0.3 in both cases -- plus mixing_ndim = 16 and the campaign
+#           standard electron_maxstep = 500.
+#
+#           On row 3, note that attempt2 stopped while being held to
+#           `new conv_thr = 4.10e-8` by the unset `upscale`, 24x tighter than its
+#           registered 1e-6, having reached 3e-8. R1 remains the cleaner fix and
+#           is still Frank's call; this row is what can be done without it.
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+s3/Ni s0_OOH__2x1v_mir .retry_ndim.in 8
+s3/Mn s0_OOH__2x1v_off__basin .retry_ndim.in 8
+s3/Co s0_OOH__2x1v_off .resume.in 8
+s3/Ni s0_OOH__2x1v_off .resume.in 8

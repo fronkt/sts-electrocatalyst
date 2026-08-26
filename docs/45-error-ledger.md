@@ -917,3 +917,128 @@ attempts could not, with every other parameter held fixed.**
 contents were already archived to `.out.attempt<N>` before launch. Nothing banked was
 touched. The four re-runs and row 4's new rung will archive their round-5 `.out` the same
 way before they start.
+
+---
+
+## Round 6 scored — arrays 20143254 + 20143262 (2026-08-26). `mixing_ndim = 16` does NOT generalise, and the retry ladder has been discarding real work.
+
+Round 5's remnants and all of round 6 are now terminal. Balance 81,204.0 → **79,275.4 SU**
+(1,928.6 spent).
+
+### Correction to the round-5 entry above
+
+That entry called `mixing_ndim = 16` a confirmed fix and said the saturated-Broyden
+hypothesis was "now supported". The narrow claim stands — `Co s0_OH__2x1v_mir` converged
+with the history depth as the only change from a failed attempt at identical beta,
+threshold and mixing mode. **The general claim does not.** With five more decks tested at
+ndim = 16, the score is **1 converged of 6**:
+
+| deck | ndim 16 result | min accuracy | best prior |
+|---|---|---|---|
+| `Co s0_OH__2x1v_mir` | **CONVERGED** 8.5e-09 | — | 6.37e-06 |
+| `Co s0_O__2x1v_mir` (+maxstep 1500) | failed | 1.628e-05 | 2.833e-05 |
+| `Co s0_OH__2x1v_off` | failed | 2.470e-05 | 1.836e-05 (**worse**) |
+| `Ni s0_OOH__2x1v_off` | failed | 6.523e-05 | 2.555e-03 |
+| `Co s0_OOH__2x1v_off` (+beta 0.05) | failed | 9.26e-06 | 1.132e-05 |
+| `Mn`, `Ni ..._mir` | lost to node a220 | — | — |
+
+I generalised from one row. The honest statement is that ndim = 16 fixed one deck, helped
+two, and made one worse.
+
+### The finding that matters: the ladder has been throwing away converged ionic steps
+
+Scoring the failures by *ionic* progress rather than by SCF accuracy changes the picture
+completely. Counting completed BFGS steps across every attempt of each failing deck:
+
+| deck | attempt1 | attempt2 | attempt3 | attempt4 | attempt5 | round 6 |
+|---|---|---|---|---|---|---|
+| `Co s0_OOH__2x1v_off` | 0 | **14** | 0 | 0 | 0 | 0 |
+| `Ni s0_OOH__2x1v_off` | 0 | **1** | 0 | 0 | 0 | 0 |
+| `Ni s0_OOH__2x1v_mir` | 2 | 2 | **3** | 0 | — | — |
+| `Mn s0_OOH__2x1v_off__basin` | **19** | 0 | — | — | — | — |
+| `Co s0_O__2x1v_mir` | 0 | 0 | 0 | **0** | — | — |
+| `Co s0_OH__2x1v_off` | 0 | 0 | 0 | 0 | **0** | 0 |
+
+`Co s0_OOH__2x1v_off` got **14 converged ionic steps** on its second attempt, at the
+*original* `mixing_beta = 0.3`. Every rung of the A8.4 ladder since — beta 0.15/200, beta
+0.15/500, ndim 16, ndim 16 + beta 0.05 — restarted from the ORIGINAL geometry and got
+stuck in the first SCF. Four escalations and roughly 1,000 SU were spent re-running the
+hardest step of a trajectory whose 14th step was already sitting in an archived file.
+
+**This is a defect in my own builder, not just in the ladder.** `build_s3_round5.py`
+splices from `job + '.out'` — the most recent attempt — and never scans
+`job + '.out.attempt*'`. It happened to be right for Mn (19 steps, attempt1, which was
+still the current `.out` at the time) and for `Ni ..._mir` (3 steps, attempt3), and wrong
+for the one deck where the deepest attempt had been archived several rungs earlier.
+
+### And attempt2 was not a mixing failure at all
+
+When `Co s0_OOH__2x1v_off` attempt2 stopped, it had completed 14 ionic steps and QE was
+holding it to **`new conv_thr = 4.10e-8`** — the unset `upscale` (default 100) tightening
+the registered 1e-6 by a factor of 24 — with the run having reached 3e-8. It failed the
+15th cycle against a threshold it never agreed to.
+
+That is the **UNREG_THR** mechanism, and it means the row was triaged into STALLED on the
+evidence of later attempts that had been crippled by starting over. `Ni s0_OOH__2x1v_mir`
+is the same shape: 3 ionic steps, held to 2.79e-7, reached 3.2e-7. **R1 — declare
+`upscale` — remains the cleaner fix for these rows and is still Frank's call.** Round 7
+does what can be done without a ruling.
+
+### Two decks have never completed a single ionic step
+
+`Co s0_O__2x1v_mir` (4 attempts at 200/200/500/1500 iterations) and `Co s0_OH__2x1v_off`
+(5 attempts) have **zero** ionic steps between them. There is no geometry to resume from
+and the mixing ladder is exhausted. These need R1, a new registered call (starting
+magnetization, diagonalization algorithm), or acceptance as an A8.4 rung-(iii)
+NOT_CONVERGED gap. Not built into round 7.
+
+R2 is also answered, in the negative: `Co s0_O__2x1v_mir` ran the full 1500 iterations,
+reached its minimum near iteration 100 and drifted upward for the remaining 1400. **The
+deck was misclassified SLOW; it is STALLED.**
+
+### The chains: one clean closure, one reproducibility failure
+
+**`Fe s0_OOH__1x1_off__basin` — GATE-1 CLOSED.**
+
+| | E (Ry) | magtot | magabs | vs banked |
+|---|---|---|---|---|
+| banked parent | −2558.16677357 | 22.98 | 27.59 | — |
+| replay | −2558.16677716 | 22.98 | 27.59 | **−0.049 meV** |
+| child `__fp` | −2558.16677325 | 22.98 | 27.59 | **+0.004 meV** |
+
+A +7.395 meV branch mismatch closed to **4 μeV** with the magnetization identical across
+all three runs. This is the A8.3 remedy working exactly as designed, and it is the second
+clean demonstration after `Ni s0_OH__2x1v_off__g1` in round 4.
+
+**`Co s0_OOH__2x1v_mir` — CHAIN FAIL: replay non-convergent.** The parent's own deck,
+re-run unmodified, reproduced the parent's magnetization trajectory bit-for-bit for three
+values (53.79 / 55.78 / 25.00) and then **failed to converge at all**: 500 iterations in
+cycle 1, min 2.477e-5, ending at magtot 19.98. The parent converged cycle 1 in 135
+iterations and completed 22 cycles.
+
+This is round 4's branch instability with a worse outcome. There, the replay found a
+*different* converged solution; here it finds *no* converged solution. **`Co
+s0_OOH__2x1v_mir`'s banked energy currently cannot be reproduced on demand**, which is
+directly R3's second half — whether a banked relax whose deck is demonstrably unstable
+can stand on a single run — and another argument for settling A8.6 (`--bind-to`).
+
+### The fourth `__g1` child also failed
+
+`Co ref__2x1v__g1` (round 5 task 8, 3h10m): 500 iterations, no convergence, magtot **24.11**
+against the parent's 21.66. Wrong branch and no fixed point. Its parent is banked and
+converged, so it takes the A8.3 remedy in round 7. Wave-4 children stand at **2 closed of
+4** — `Co s0_OH__1x1_off` (+0.026 meV) and `Fe s0_OOH__1x1_off__basin` (+0.004 meV).
+
+### Node a220 — a fourth bad node, and a different shape from a196
+
+Round 6 lost two rows to `OUT_OF_MEMORY` on **a220**, at MaxRSS **35.1 GB** against a
+granted `mem=237G`. Unlike a196, a220 shows no DRAIN and no NHC record — `State=MIXED`,
+`CPULoad=4.35`, 32 GB free when checked afterwards. It is the a024/a088 shape: silently
+bad, still in the general pool.
+
+Checked and ruled out: our own array tasks were **not** co-scheduled. Every task on both
+a196 and a220 started within ten seconds of the previous one *ending* on that node, so the
+kills are not our jobs colliding with each other.
+
+The branch rule is now **10 for 10** with the Fe chain: matching magnetization reproduces
+the energy to ≤0.52 meV; differing magnetization differs by tens to hundreds of meV.

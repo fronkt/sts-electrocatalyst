@@ -1,0 +1,33 @@
+# S3 round 7 chains (2026-08-26), built by src/dft/build_s3_round7.py. Same row
+# format and runner (anvil/44_chain.slurm) as m_round4.txt / m_round6.txt.
+#
+# Round 6 established both what this remedy does and how it fails:
+#   Fe s0_OOH__1x1_off__basin  replay -0.049 meV, child +0.004 meV, magnetization
+#         22.98/27.59 identical across banked / replay / child. A +7.4 meV branch
+#         mismatch closed to 4 ueV. GATE-1 closed.
+#   Co s0_OOH__2x1v_mir  CHAIN FAIL: replay non-convergent. The parent's own deck
+#         matched it bit-for-bit for three magnetization values and then failed to
+#         converge at all (500 iterations in cycle 1, min 2.477e-5, magtot 19.98;
+#         the parent converged cycle 1 in 135 iterations and completed 22).
+#
+# Chain 1 therefore adds `mixing_ndim = 16` TO THE REPLAY. This is a deliberate
+# deviation from a byte-identical replay: mixing parameters decide whether the
+# fixed point is reached, never where it is, which is the same reasoning round 4
+# used when picking each child's most robust deck. The replay energy is parity
+# evidence and is never banked (A8.8).
+#
+# SCORING RULE for chain 1: if the replay converges at a different magnetization
+# than the banked parent, the chain is VOID and the child must not be banked --
+# the density it inherits would be the wrong branch's.
+#
+# Chain 2 is the last owed wave-4 child, Co ref__2x1v__g1, which failed cold in
+# round 5 (500 iterations, no convergence, magtot 24.11 vs the parent's 21.66).
+# Its parent is banked and converged, so it gets the remedy that just worked for
+# Fe. The replay is the honest cost: that parent took 7h47m, about 996 SU.
+#
+# SUBMIT WITH EXCLUDE=a024,a088,a196,a220.
+#
+# row: dir replay_deck replay_prefix child_deck child_prefix nk
+# NP=128 NCONC=1
+runs/s3/Co s0_OOH__2x1v_mir.replay_nd.in s0_OOH__2x1v_mir__replay s0_OOH__2x1v_mir__g1.fromparent.in s0_OOH__2x1v_mir__g1__fp 8
+runs/s3/Co ref__2x1v.replay.in ref__2x1v__replay ref__2x1v__g1.fromparent.in ref__2x1v__g1__fp 16
