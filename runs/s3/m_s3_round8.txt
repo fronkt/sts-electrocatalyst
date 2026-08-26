@@ -1,0 +1,26 @@
+# S3 round 8 wave rows (2026-08-26). Pure re-run: the three wave rows node a223
+# OOM-killed in round 7. NO deck is rebuilt or changed -- these are the exact
+# round-5/round-7 files, re-queued away from a223.
+#
+# a223 is the FIFTH Anvil node to do this to us (a024, a088, a196, a220, a223).
+# All four of its kills landed at MaxRSS 16.93-16.95 GB -- a spread of 0.1% --
+# while the one round-7 row that ran elsewhere peaked at 47.7 GB and converged.
+# a196's three kills clustered at 8.65-8.70 GB and a220's two at 35.06-35.14 GB.
+# Each bad node has its OWN tight ceiling, far below both the 237 GB Slurm grants
+# us and the ~47 GB the job actually needs. That is a per-node shortfall between
+# what Slurm believes is free and what the node can deliver, not a footprint
+# problem on our side.
+#
+# Deliberately NOT mitigated by shrinking the job: the obvious lever, -nk pooling,
+# changes the parallel decomposition and therefore MPI reduction order, and this
+# campaign has already shown (docs/45, round 4) that reduction order is what
+# selects the magnetic branch. Changing it on production rows to dodge a cluster
+# fault would trade a scheduling problem for a physics one.
+#
+# SUBMIT WITH EXCLUDE=a024,a088,a196,a220,a223.
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+s3/Ni s0_OOH__2x1v_mir .retry_ndim.in 8
+s3/Mn s0_OOH__2x1v_off__basin .retry_ndim.in 8
+s3/Ni s0_OOH__2x1v_off .resume.in 8

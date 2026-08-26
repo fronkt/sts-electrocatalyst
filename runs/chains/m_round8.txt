@@ -1,0 +1,21 @@
+# S3 round 8 chains (2026-08-26). Pure re-run of round 7's chain 2, which node
+# a223 OOM-killed 8 minutes in. Decks unchanged.
+#
+# This is the last owed wave-4 child, Co ref__2x1v__g1, which failed cold in
+# round 5 (500 iterations, no convergence, magtot 24.11 vs the parent's 21.66).
+# The parent is banked and converged, so it takes the A8.3 remedy that closed
+# Fe s0_OOH__1x1_off__basin__g1 to +0.004 meV in round 6. The replay is the
+# honest cost: that parent took 7h47m, about 996 SU.
+#
+# NOT re-run here: round 7's chain 1 (Co s0_OOH__2x1v_mir). Adding mixing_ndim=16
+# to its replay made it WORSE, not better -- min accuracy 4.2e-04 against the
+# round-6 replay's 2.5e-05 at the default ndim 8. Two independent replays of that
+# parent's own deck have now failed to converge at all, so it is no longer a
+# convergence-tuning problem: the banked energy cannot be reproduced on demand and
+# the question belongs to R3 and A8.6 (Frank's).
+#
+# SUBMIT WITH EXCLUDE=a024,a088,a196,a220,a223.
+#
+# row: dir replay_deck replay_prefix child_deck child_prefix nk
+# NP=128 NCONC=1
+runs/s3/Co ref__2x1v.replay.in ref__2x1v__replay ref__2x1v__g1.fromparent.in ref__2x1v__g1__fp 16
