@@ -1042,3 +1042,83 @@ kills are not our jobs colliding with each other.
 
 The branch rule is now **10 for 10** with the Fe chain: matching magnetization reproduces
 the energy to ≤0.52 meV; differing magnetization differs by tens to hundreds of meV.
+
+---
+
+## Round 7 scored — arrays 20148093 + 20148101 (2026-08-26). Resuming from the deepest geometry converged a deck six attempts could not.
+
+### The result the round was built to test
+
+**`Co s0_OOH__2x1v_off` CONVERGED.** `bfgs converged`, 22 ionic steps, no NOT-achieved
+cycle, min accuracy **3.9e-09** against a final `new conv_thr` of 1.0e-08, in **1h34m**
+(≈201 SU) on a157.
+
+| | E (Ry) | ionic steps | outcome |
+|---|---|---|---|
+| attempt2 (base deck, beta 0.3) | −4662.65158111 | 14 | stopped at `new conv_thr = 4.10e-8` |
+| attempts 3–6 (the A8.4 ladder) | — | **0 each** | stuck in the first SCF |
+| **round 7 resume** | **−4662.68039155** | **22** | **converged** |
+
+The resumed run descended a further **392 meV** below attempt2's last banked ionic energy,
+so those 14 steps were genuinely partway rather than nearly done. Six attempts and roughly
+1,000 SU of mixing escalation failed on this deck; resuming it from the geometry it had
+already reached converged it on the first try at the *original* `mixing_beta = 0.3`.
+
+This confirms the round-6 diagnosis in the strongest form available: **the deck was never a
+mixing problem. It was a restart problem.** The A8.4 ladder had been re-running the hardest
+step of a trajectory that was most of the way down.
+
+### Round 7's chain 1 makes the `Co s0_OOH__2x1v_mir` reproducibility failure worse
+
+Adding `mixing_ndim = 16` to the replay did not rescue it — it made it worse:
+
+| replay | ndim | min accuracy | outcome |
+|---|---|---|---|
+| round 6 | 8 (default) | 2.477e-05 | 500 iterations, no convergence |
+| round 7 | 16 | **4.24e-04** | 480+ iterations, wandering (5.5e-3 → 9.8e-3 → 6.6e-3 → 1.2e-2) |
+
+**Two independent replays of that parent's own deck have now failed to converge at all.**
+This is no longer a convergence-tuning problem to escalate: the banked energy for
+`Co s0_OOH__2x1v_mir` cannot be reproduced on demand, which is R3's second half and a
+direct argument for settling A8.6 (`--bind-to`). Not re-run in round 8.
+
+### Node a223 — the fifth, and the measurement that identifies the fault
+
+Four of round 7's six rows died `OUT_OF_MEMORY` on **a223**. The kills are not random:
+
+| node | tasks killed | MaxRSS at kill | spread |
+|---|---|---|---|
+| a196 | 3 | 8.65 / 8.66 / 8.70 GB | 0.5 % |
+| a220 | 2 | 35.06 / 35.14 GB | 0.24 % |
+| a223 | 4 | 16.93 / 16.94 / 16.95 / 16.95 GB | **0.1 %** |
+
+Each bad node kills at its own tight ceiling. Every one of these jobs was granted
+`mem=237G`, and the same work on a healthy node peaks at 30–48 GB and finishes —
+`20148093_3` peaked at **47.7 GB** on a157 and converged while its three siblings died on
+a223 at 16.9 GB. A repeatable 16.94 GB kill under a 237 GB grant is a **per-node shortfall
+between the memory Slurm believes is allocatable and the memory the node can deliver**, not
+a footprint problem on our side.
+
+Five nodes are now excluded (a024, a088, a196, a220, a223) and each of the last three
+submissions has found a new one, so exclusion is not converging. Running tally: roughly
+**1,100 SU lost to kills**, plus the ~5,900 SU the a196 hang would have burned unattended.
+
+**Deliberately NOT mitigated by shrinking the job.** The obvious lever is `-nk` pooling,
+which would cut memory several-fold. It also changes the parallel decomposition and
+therefore MPI reduction order — and round 4 established that reduction order is what selects
+the magnetic branch here. Changing it on production rows to dodge a cluster fault would
+trade a scheduling problem for a physics one. `disk_io` is the one memory knob that cannot
+move a number, and it is held in reserve.
+
+The RCAC ticket draft now leads with the ceiling table.
+
+### Round 8 launched — arrays 20149862 (wave, 3 rows) + 20149866 (chain, 1)
+
+Pure re-runs of what a223 killed, decks unchanged, `EXCLUDE=a024,a088,a196,a220,a223`.
+Preflight `lines=3 to_run=3 already_done=0 stale=0 bad=0`. The chain is the last owed
+wave-4 child, `Co ref__2x1v__g1`.
+
+**A8.8 note:** `runs/s3/Co/ref__2x1v.out` is the **banked parent** (1,847,613 B) and was
+explicitly excluded from the archive step — the chain's dead file is
+`ref__2x1v.replay.out` (10,131 B), archived to `.replay.out.attempt1`. Both the banked
+parent and the newly converged `s0_OOH__2x1v_off.out` were verified intact afterwards.

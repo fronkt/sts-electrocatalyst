@@ -586,3 +586,21 @@ ranking two different quantities against each other and calling the result a lad
 5. When a run stops, read what threshold it was actually being held to at that moment. This
    one stopped at `new conv_thr = 4.10e-8`, 24× tighter than the 1e-6 it registered — a
    threshold problem wearing a mixing problem's clothes.
+
+## 2026-08-26 — when a name looks like a dead file, check what is actually in it
+
+Archiving round 7's failures, my first archive list contained
+`runs/s3/Co/ref__2x1v.out`, because the row that failed was the `Co ref__2x1v` chain and
+that is the file the job name points at. It is the **banked parent** — 1.85 MB, converged,
+irreplaceable at ~996 SU. The chain's actual dead output was `ref__2x1v.replay.out`, a
+10 KB header-only OOM stub, because chain steps write under the *deck* name, not the job
+name. I caught it only because I printed each file's size in the guard before moving it.
+
+**Rules for myself.**
+1. An archive/delete guard must print **what is in each file** — size, and ideally whether
+   it carries `JOB DONE` — not just that the path exists and the target is free. A guard
+   that only checks names cannot catch a right-name/wrong-file mistake.
+2. Derive the file to archive from the thing that actually ran (the deck, the log line),
+   never from the job or stem name by pattern.
+3. After any archive step, re-verify that the results you intended to KEEP are still there
+   and still the right size. Cheap, and it closes the loop.
