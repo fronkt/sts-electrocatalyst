@@ -552,3 +552,37 @@ instead of corrupting quietly, which is the only reason I looked.
 `open` in this repo, or do the edit with a byte-level `cat >>` heredoc. After any scripted
 edit that adds non-ASCII text, verify with `open(p,'rb').read().decode('utf-8')` before
 committing.
+
+## 2026-08-26 — measure progress in the units the calculation actually makes progress in
+
+Six S3 decks were triaged, escalated four times each, and scored — all on **SCF accuracy**.
+Every rung of the A8.4 ladder compared "minimum estimated scf accuracy reached" across
+attempts and chose the next mixing parameter from it.
+
+Scoring the same runs by **completed ionic steps** inverted the picture in one line.
+`Co s0_OOH__2x1v_off` had 14 converged BFGS steps sitting in attempt2 — at the *original*
+`mixing_beta = 0.3`, the setting the ladder had escalated away from — while attempts 3, 4,
+5 and 6 each restarted from the original geometry and died in the first SCF with 0 steps.
+Four escalations and roughly 1,000 SU went into re-running the single hardest step of a
+trajectory that had already been walked most of the way.
+
+Worse, comparing "min accuracy" across those attempts was never meaningful: a run that
+completes 14 ionic steps reports low accuracies from late cycles that start from an
+already-good density, while a run stuck in cycle 1 reports only cycle-1 values. I was
+ranking two different quantities against each other and calling the result a ladder.
+
+**Rules for myself.**
+1. For a relaxation, the primary progress metric is **completed ionic steps**, not SCF
+   accuracy. Report it first in every triage table.
+2. Never compare a scalar aggregate (min, mean, last) across runs that did different
+   amounts of work. Normalise to the same stage — first-cycle-only, or per-cycle — or do
+   not compare.
+3. Before escalating a parameter, check whether an EARLIER setting made more progress. If
+   it did, the ladder is walking the wrong way and the next move is to resume from that
+   run, not to escalate further.
+4. When restarting from a previous run's geometry, scan **all** archived attempts and take
+   the DEEPEST, never the most recent. `build_s3_round5.py` read `job + '.out'` and never
+   looked at `job + '.out.attempt*'`; it was right twice by luck and wrong once expensively.
+5. When a run stops, read what threshold it was actually being held to at that moment. This
+   one stopped at `new conv_thr = 4.10e-8`, 24× tighter than the 1e-6 it registered — a
+   threshold problem wearing a mixing problem's clothes.
