@@ -1,0 +1,51 @@
+# The 20 production adsorbate relaxations of the POSITIVE control, A9.2.2.
+#
+# Transcribed from the registered threshold, docs/43-prereg-week1-factorial.md
+# :1864 (deposited :1862), which enumerates them by file against
+# docs/figs/symops_audit.csv at commit 137010b (docs/41 :1050).
+#
+# CORRECTION OF RECORD THAT THIS FILE ENCODES (:1862, verbatim):
+#   "The 20-nosym-absent population does not exist."
+# Round-2 :214/:481 and round-1 :183 word the positive control as ">=95 %
+# LOCKED over this campaign's own 20 nosym-absent production relaxations". The
+# record is 20 production adsorbate relaxations IN TOTAL: 9 nosym-absent (all 9
+# LOCKED) and 11 nosym-present (0 LOCKED). "20-for-20" is the flag->class
+# PARTITION, not a LOCKED rate. ":1862 -- A literal >=95 %-of-20 gate would void
+# the campaign's own finding on day one."
+#
+#   ANY CI TEST ASSERTING ">=95 % OF 20 LOCKED" IS WRONG AND MUST NOT BE WRITTEN.
+#
+# The four missing cells of the 24-cell table, registered at :1864:
+#   Co *OOH, Ni *OOH  -- absent by record
+#   Cu *O             -- absent by record
+#   Cu *OH            -- present as runs/Cu_slab/s0_OH.out but an scf with 0
+#                        force blocks; unscorable (docs/41 :955-962)
+#
+# Columns:  set  path
+#   nosym_absent -- expect 9/9 LOCKED, scored two-witness AND force-only  (:1864)
+#   nosym_present -- expect 0/11 LOCKED, scored FORCE-ONLY, header ignored (:1858)
+#                    the same 11 runs serve as the QE-reader negative control
+#                    and as the nosym-present half of the partition: two roles,
+#                    one population, stated once (:1858).
+
+nosym_absent   runs/Cr_slab/s0_O.out
+nosym_absent   runs/Cr_slab/s0_OH.out
+nosym_absent   runs/Cr_slab/s0_OOH.out
+nosym_absent   runs/Ir_anchor/s0_O.out
+nosym_absent   runs/Ir_anchor/s0_OH.out
+nosym_absent   runs/Ir_anchor/s0_OOH.out
+nosym_absent   runs/Ru_anchor/s0_O.out
+nosym_absent   runs/Ru_anchor/s0_OH.out
+nosym_absent   runs/Ru_anchor/s0_OOH.out
+
+nosym_present  runs/Co_slab/s0_O.out
+nosym_present  runs/Co_slab/s0_OH.out
+nosym_present  runs/Cu_slab/s0_OOH.out
+nosym_present  runs/Fe_slab/s0_O.out
+nosym_present  runs/Fe_slab/s0_OH.out
+nosym_present  runs/Fe_slab/s0_OOH.out
+nosym_present  runs/Mn_slab/s0_O.out
+nosym_present  runs/Mn_slab/s0_OH.out
+nosym_present  runs/Mn_slab/s0_OOH.out
+nosym_present  runs/Ni_slab/s0_O.out
+nosym_present  runs/Ni_slab/s0_OH.out

@@ -1,0 +1,82 @@
+# Packaging metadata for `silentgate`.
+#
+# THE PERMISSION THIS FILE IS WRITTEN UNDER, verbatim from the registered text
+# (docs/43-prereg-week1-factorial.md :1840, deposited :1838):
+#
+#   '"packaging" means `pyproject` metadata, the version string and the
+#    console-script entry-point declaration only -- flagged: this is one word
+#    wider than round-2 :218's "test scaffolding, CI and review," and the entrant
+#    decides whether even that is allowed.
+#    [ADOPTION NOTE 2026-08-23: allowed as defined here -- pyproject metadata,
+#    the version string and the entry-point declaration, nothing wider.]'
+#
+# So: metadata, version, entry-point. Nothing wider. In particular this file
+# declares NO dependencies -- a dependency pin that encoded reader behaviour
+# would be packaging in name only.
+#
+# NOTE ON THE PACKAGE ITSELF: `silentgate/` does not exist yet and nothing here
+# creates it. The core is "written and committed only by the entrant" (:1840).
+# No file under silentgate/ was authored by AI, including __init__.py -- which
+# is not in the five-entry core list and could technically have been written,
+# but writing any part of the package the project is named after would defeat
+# the rule rather than satisfy its letter. Until the entrant commits the core,
+# a build from this file fails, and that is the correct state.
+#
+# ==> FLAGGED FOR THE ENTRANT, one stretch beyond the literal permission <==
+#     The [build-system] table and the [tool.setuptools] package list below are
+#     neither metadata, version, nor entry-point on a strict reading. Without
+#     them the project is not installable and CI cannot invoke the CLI at all,
+#     so they are here rather than shipping a file that cannot build. They are
+#     the whole of the stretch -- two stanzas, both marked. Keep them, rewrite
+#     them yourself, or delete them and build another way; the decision is
+#     registered as an open question at tests/silentgate/spec_rulings.toml
+#     (id = "pyproject_build_system") and CI will not let it be forgotten.
+
+# ---- FLAGGED STANZA 1 of 2 -------------------------------------------------
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+# ---------------------------------------------------------------------------
+
+[project]
+name = "silentgate"
+version = "0.1.0.dev0"
+description = "Detects when a relaxation was confined by a symmetry the code kept silently."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Frank Cai", email = "frankyc11223@gmail.com" }]
+keywords = [
+  "quantum-espresso",
+  "density-functional-theory",
+  "symmetry",
+  "relaxation",
+  "reproducibility",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: Chemistry",
+  "Topic :: Scientific/Engineering :: Physics",
+  "Programming Language :: Python :: 3",
+]
+# No dependencies, deliberately. See the header.
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/fronkt/sts-electrocatalyst"
+
+# The console-script entry-point declaration -- explicitly permitted.
+# `silentgate.cli` is the module the registered core list names (:1840). The
+# function name `main` is the one free choice in this file; rename it if your
+# CLI uses another.
+[project.scripts]
+silentgate = "silentgate.cli:main"
+
+# ---- FLAGGED STANZA 2 of 2 -------------------------------------------------
+# Explicit, not auto-discovery: this repo has several top-level directories
+# (runs/, docs/, src/, anvil/, tests/, results/, data/) and flat-layout
+# auto-discovery would either error or sweep them into the distribution.
+[tool.setuptools]
+packages = ["silentgate"]
+# ---------------------------------------------------------------------------

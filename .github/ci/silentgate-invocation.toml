@@ -1,0 +1,101 @@
+# HOW CI INVOKES `silentgate`  --  entrant-declared, deliberately blank.
+#
+# WHY THIS FILE EXISTS
+# --------------------
+# The A9.2.3 controls "live in CI and re-run on every commit" (docs/43:1868), so
+# CI has to invoke the tool somehow. But `silentgate/cli.py` is CORE (:1840) and
+# the entrant writes it. If this workflow hard-coded a command line and a JSON
+# shape, it would be designing the core's interface by the back door.
+#
+# So the split is: AI wrote the MECHANISM (the runner, the gates, the status
+# face); the entrant declares the INTERFACE here, once, after he writes the core.
+# Every value below is empty on purpose. While they are empty the controls report
+# NOT MEASURED and the build is not green -- which is the registered state of a
+# gate whose instrument does not exist yet, not a bug.
+#
+# The commented suggestions are review comments (permitted, :1840). They are NOT
+# defaults: nothing here is used until the entrant fills the real value in.
+
+[cli]
+# Command that runs the in-house controls. Receives the placeholder {paths_file},
+# a newline-delimited list of repo-relative pw.x output paths, and must write the
+# JSON described under [schema] to stdout.
+#   suggestion only:  "silentgate census --paths-from {paths_file} --json"
+census_cmd = ""
+
+# Command that runs the OC20 negative control (A9.2.1). Receives {sample_dir},
+# the directory holding the 500 drawn trajectories, and must write the same JSON
+# shape to stdout with one entry per trajectory.
+#   suggestion only:  "silentgate census --oc20 {sample_dir} --json"
+oc20_cmd = ""
+
+# Optional: a command printing the version string, recorded on the status face.
+#   suggestion only:  "silentgate --version"
+version_cmd = ""
+
+
+[schema]
+# The runner needs a small number of REGISTERED quantities out of whatever JSON
+# the core emits. The names on the LEFT are fixed -- each is a quantity docs/43
+# names, with its citation. The values on the RIGHT are JSON pointers into the
+# core's own output, and are the entrant's to fill, so the core's field names
+# stay the core's business.
+#
+# Pointer syntax: "/runs" then per-run keys relative to each run object, e.g.
+#   runs_array   = "/runs"
+#   path         = "/path"
+#
+# If a pointer is left empty, the runner reports NOT MEASURED for every gate that
+# needs it and names the missing quantity. It never guesses.
+
+# Array of per-run result objects.
+runs_array = ""
+
+# Repo-relative path of the output the run describes.                :1864
+path = ""
+
+# Size of the symmetry group the code kept (header witness); 1 for
+# "No symmetry found".                                                :1826
+n_symops = ""
+
+# Whether the run's DECK carries nosym = .true. -- the partition key.  :1864
+nosym_in_deck = ""
+
+# Run-level LOCKED verdict scored with BOTH witnesses.                :1864
+locked_two_witness = ""
+
+# Run-level LOCKED verdict scored FORCE-ONLY, header ignored. Both the
+# 9/9 and the 0/11 gates are scored in this mode.              :1858, :1864
+locked_force_only = ""
+
+# The set of lateral axes exactly zero on every step, for the direction
+# map -- e.g. ["x","y"], [], ["y"].                                    :1826
+locked_axes = ""
+
+# Count of adsorbate atoms the registered identification rule found;
+# UNIDENTIFIED runs are reported, never silently dropped.              :1834
+n_adsorbate = ""
+
+# True when the adsorbate rule could not be applied (reported, not dropped). :1834
+unidentified = ""
+
+# Count of atoms excluded because they carry if_pos = 0. Registered to be
+# reported. NOTE the correction of record filed 2026-08-27: pw.x 7.5 prints
+# the RAW, unmasked force for these atoms (49 frozen atoms across 5 metals,
+# 704 force observations over every ionic step, 0 masked), so :1834's stated
+# rationale -- "pw.x prints the if_pos-
+# masked force, so a fixed coordinate reads exactly zero" -- is false for
+# this code. The exclusion is still correct and conservative; only its
+# reason changes. Do not let a reader depend on the false premise. :1834
+n_if_pos_excluded = ""
+
+# The header text form encountered, which :1836 registers must be logged
+# per file. Four count-first forms occur in this repo's own corpus; see
+# tests/silentgate/fixtures/manifest.toml.                             :1836
+header_form = ""
+
+# OC20 ONLY. The per-trajectory count of exactly-zero force components over all
+# unconstrained atoms and axes. :1856 registers the pass condition as the 0.00 %
+# rate AND this count "reported alongside", so run_oc20.py refuses to report
+# MEASURED without it -- half a threshold is not the threshold.        :1856
+per_step_exact_zero_count = ""

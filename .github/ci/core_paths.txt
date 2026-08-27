@@ -1,0 +1,24 @@
+# The `silentgate` CORE path list.
+#
+# Transcribed from the registered text, docs/43-prereg-week1-factorial.md :1840
+# (deposited :1838; Zenodo 10.5281/zenodo.22072991, 2026-08-23):
+#
+#   "the core is the named module set `silentgate/readers/*` (pw.x force/header/
+#    energy/deck readers, the OC20 trajectory reader), `silentgate/census.py`,
+#    `silentgate/classify.py`, `silentgate/direction.py` and `silentgate/cli.py`
+#    -- written and committed only by the entrant."
+#
+# FIVE entries, and deliberately NOT a wider `silentgate/**` glob. A9.1 :1828
+# requires that any legacy detector the entrant lifts go into `silentgate/legacy/`
+# "lifted as-is with its existing authorship recorded in the AI-use log" -- so a
+# legally-lifted legacy file appears in the log by design. Globbing the whole
+# package here would make the disjointness assertion self-fail on a permitted act.
+# The registered phrase is "named module set"; this file is that set and no more.
+#
+# Syntax: one fnmatch pattern per line, POSIX separators, repo-relative.
+# Lines beginning with '#' and blank lines are ignored.
+silentgate/readers/*
+silentgate/census.py
+silentgate/classify.py
+silentgate/direction.py
+silentgate/cli.py

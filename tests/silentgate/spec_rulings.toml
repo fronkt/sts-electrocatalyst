@@ -1,0 +1,208 @@
+# OPEN REGISTERED DECISIONS THAT `silentgate` v0.1 CANNOT BE SCORED WITHOUT.
+#
+# Each entry is a question the registered text leaves to the entrant. None of
+# them is answered here, and none of them may be answered here: a registered
+# parameter is elected by a DATED LINE in docs/43, by the entrant, and this file
+# only records that the line exists so CI can see it.
+#
+# Fill `ruling` with what you decided and `dated_line` with where you wrote it
+# (e.g. "docs/43:1975, 2026-08-28"). tests/silentgate/test_open_questions.py
+# fails on any question still blank once `silentgate/` exists -- before that it
+# skips, because a question about how to score the core cannot bind before the
+# core is written.
+#
+# AUTHORSHIP: written by AI as "tests and fixtures" under the A9.1 :1840
+# permitted list. The questions are transcribed from the registered text; the
+# answers are not AI's to give, and leaving them blank is the point.
+
+[[question]]
+id = "adsorbate_quantifier"
+question = "ANY adsorbate atom, or ALL adsorbate atoms, for the run-level LOCKED verdict?"
+registered_at = "docs/43:1858 (any) vs :1830 (all)"
+why = """
+:1858 words the negative control as "0 of the 11 has ANY adsorbate atom with a
+lateral force component exactly 0.0 in every printed step". :1830's run-level
+rule words the positive side as "at least one lateral axis is exactly zero on
+every step for EVERY adsorbate atom". The two quantifiers disagree on runs where
+one adsorbate atom sits on the mirror line and another does not.
+"""
+decides = """
+The registered n/n two-witness agreement count. Over the 96 classifiable rows of
+symops_audit.csv the survey of 2026-08-27 measured 96/96 under ALL-atoms and
+95/96 under ANY-atom. The single flip is runs/probe/Ru/s0_OH__dipole.out, where
+atom 19 prints -0.00000000 on y and atom 20 does not. Pin the quantifier before
+CI first runs, or the registered "n/n" fails by exactly one row.
+
+NOTE the deciding token is `-0.00000000`. A string comparison against
+"0.00000000" misses it, and 117 of 480 outputs carry the negative-zero token.
+"""
+fixture = "runs/probe/Ru/s0_OH__dipole.out"
+options = ["any", "all"]
+ruling = ""
+dated_line = ""
+
+[[question]]
+id = "truncated_force_block"
+question = "Is a force block missing its leading atoms scorable, or unscorable?"
+registered_at = "docs/43:1864 (raw force evidence wins over the archived CSV)"
+why = """
+Eighteen tracked outputs have MPI abort text spliced into the middle, leaving a
+NUL byte at the splice. In nine of them the `Forces acting on atoms` header is
+destroyed and the block starts partway through the atom list -- e.g.
+runs/probe/Cr/s0_OOH__base.out runs atoms 12-21 of 21.
+"""
+decides = """
+Three rows archived as LOCKED in symops_audit.csv rest on truncated blocks. The
+adsorbate atoms are present and are exactly zero on y in all three, so the
+verdicts are defensible -- but a detector that requires a complete 1..nat block
+drops them and changes the LOCKED count. Either answer is defensible; leaving it
+implicit is not, because the answer is currently whatever the parser happens to
+do.
+
+A related trap: a NUL byte makes grep treat the file as binary and skip it
+silently, which is how this family stayed invisible.
+"""
+fixture = "runs/probe/Cr/s0_OOH__base.out"
+options = ["scorable", "unscorable", "scorable-if-all-adsorbate-atoms-present"]
+ruling = ""
+dated_line = ""
+
+[[question]]
+id = "oc20_ci_mechanism"
+question = "Release asset with a pinned hash, or a self-hosted runner on the STS machine?"
+registered_at = "docs/43:1868 -- THRESHOLD explicitly left open at adoption"
+why = """
+Verbatim: "THRESHOLD (open at adoption 2026-08-23 -- entrant's call between two
+mechanisms, written once in a dated line before the OC20 control first runs in
+CI): (a) the 500-file sample is published as a sha256-pinned release asset of
+the public repo ... and the workflow downloads and hash-checks it; or (b) a
+self-hosted runner on the STS machine holds the sample. Under either, a commit
+on which the OC20 job did not execute is not green."
+"""
+decides = """
+Whether the OC20 control can execute at all. Both mechanisms are implemented in
+.github/ci/run_oc20.py and NEITHER is defaulted; until $S1_OC20_MECHANISM is set
+the job reports NOT MEASURED and the face is not green. This one already blocks
+CI today, before the core exists.
+"""
+fixture = "docs/research/oc20-val_id/first500.SHA256SUMS"
+options = ["release-asset", "self-hosted"]
+ruling = ""
+dated_line = ""
+
+[[question]]
+id = "ai_use_log_path"
+question = "Where does the AI-use log live, and is it one file or many?"
+registered_at = "docs/43:1322, :1443, :1445, :1828, :1840 -- named five times, never given a path"
+why = """
+:1840 makes the log the input to a registered CI assertion: "CI asserts that the
+AI-use log's file list and the core path list are disjoint". The assertion
+cannot run against a file that has no agreed location.
+"""
+decides = """
+Whether the disjointness assertion can ever pass. .github/ci/check_disjoint.py
+fails closed on a missing log -- an absent log leaves the file list UNDEFINED,
+not empty -- so this blocks CI today. Set $S1_AI_USE_LOG, or give the log a
+filename matching /ai[-_]?use|ai[-_]?log|use[-_]?log/ so it is found. The
+extractor is format-agnostic; no schema needs registering.
+"""
+fixture = ""
+options = []
+ruling = ""
+dated_line = ""
+
+[[question]]
+id = "if_pos_parenthetical"
+question = "File the correction of record against A9.1's if_pos rationale?"
+registered_at = "docs/43:1834"
+why = """
+:1834 states, as the reason for excluding fixed atoms: "pw.x prints the
+if_pos-masked force, so a fixed coordinate reads exactly zero for a reason that
+is not symmetry."
+
+Re-measured 2026-08-27 over five deck/output pairs in five metals -- 49 frozen
+atoms, every ionic step of each run, 704 frozen-atom force observations: NOT ONE
+prints all three components exactly zero. runs/s3/Mn/ref__2x1v.in atom 12,
+flagged `0 0 0`, prints z = 0.04355221 Ry/bohr; the largest frozen-atom
+component seen is 0.08723744 in runs/Cr_slab/s0_O.out. QE 7.5 prints the RAW,
+unmasked force. If the mask were applied a `0 0 0` atom would read 0.00000000 on
+all three axes, and none does.
+
+A frozen atom CAN print an exact zero on one axis -- runs/Cr_slab/s0_O.out atom 1
+reads `0.00000000 0.00000000 0.08723744` -- but that is the symmetry witness
+doing its job, which is the opposite of what the parenthetical claims.
+"""
+decides = """
+Nothing about the ACTION -- excluding if_pos = 0 atoms stays correct and
+conservative, and adsorbate atoms are always `1 1 1`, so no production verdict
+changes. What changes is a risk assessment: frozen atoms were registered as a
+source of false LOCKED, and in QE 7.5 they cannot be one. The silentgate reader
+must not be built on the false premise, and the report must not repeat it.
+"""
+fixture = "runs/Co_slab/s0_O.out"
+options = ["file-the-correction", "leave-as-registered"]
+ruling = ""
+dated_line = ""
+
+[[question]]
+id = "pyproject_build_system"
+question = "Does 'packaging' stretch to a [build-system] table and package discovery?"
+registered_at = "docs/43:1840 ADOPTION NOTE -- 'pyproject metadata, the version string and the entry-point declaration, nothing wider'"
+why = """
+The adopted permission is metadata, version and entry-point. A [build-system]
+table and a package-discovery entry are neither, strictly read -- but without
+them the package is not installable and CI cannot invoke the CLI at all.
+
+pyproject.toml carries them, flagged inline, because the alternative was to ship
+a file that cannot build. It is one line beyond the literal permission and the
+entrant decides whether to keep it or write it himself.
+"""
+decides = """
+Whether two stanzas of pyproject.toml are AI-authored inside the permitted set
+or must be replaced by the entrant's own. Either is cheap; the risk is only in
+leaving it unexamined.
+"""
+fixture = "pyproject.toml"
+options = ["keep-as-ai-authored", "entrant-rewrites", "drop-and-use-another-build-path"]
+ruling = ""
+dated_line = ""
+
+[[question]]
+id = "ai_x_census_disclosure"
+question = "How is the AI's 2026-08-27 force-only x census of the P-CTRL populations disposed of?"
+registered_at = "docs/43:1858 ('unmeasured on x until v0.1 reports it') and :1864 ('x INFERRED ... reported by v0.1')"
+why = """
+An AI script (docs/research/ai-survey-2026-08-27/sweep.py, written 16:51 on
+2026-08-27, ~40 minutes before the first CI file) parsed every pw.x force block
+under runs/ per atom, per axis, over every ionic step, to choose the thirteen
+fixtures. Writing it was permitted and anticipated -- :1445 lists "sweeps" among
+what the AI-use log records, and nothing under silentgate/ was written.
+
+But it measured two quantities the registered text calls not-yet-measured:
+
+  :1858  "it passes today on y ... and is unmeasured on x until v0.1 reports it"
+  :1864  "F_x was never censused by the current code and is reported by v0.1"
+
+Over the 20 registered P-CTRL runs: 3 of the 9 nosym-absent lock x (the three
+n_symops = 4 1x1 *O runs, exactly the class :1864 predicts), and 0 of the 11
+nosym-present lock x. The y figures (9/9, 0/11) are NOT new -- :1858, :1864 and
+:1964 already register them as the published record. The x half is.
+"""
+decides = """
+Whether the force-only x results are reported as v0.1's measurement or as an
+AI measurement that preceded it. F4 (:1848) makes P-CTRL a gate BECAUSE "every
+number flows through code written by the person who believes the trap is real";
+a control whose expected answer is already published before the detector exists
+is weaker than one whose answer is not. That is a reason to disclose, not a
+reason the numbers are wrong -- and the 1x1 *O x-lock the sweep found is exactly
+what :1864 predicted, which is evidence for the registered reasoning, not
+against it.
+
+Nothing in CI is scored against these numbers and no test asserts them. The
+survey is preserved at docs/research/ai-survey-2026-08-27/ so the disposition can
+be made on the evidence rather than on a summary.
+"""
+fixture = "docs/research/ai-survey-2026-08-27/README.md"
+options = ["dated-line-and-proceed", "report-x-as-ai-measured", "other"]
+ruling = ""
+dated_line = ""

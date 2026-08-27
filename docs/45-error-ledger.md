@@ -1847,3 +1847,186 @@ patch committed under the entrant's name would violate it. AI may write tests, f
 the CI workflow, review comments, and `pyproject` metadata / version string /
 entry-point declaration and "nothing wider." A CI helper that parses `pwscf.out` force
 blocks is a reader; writing one under any name would be authoring core.
+
+---
+
+## S1 CI harness BUILT, 2026-08-27 — and two registered facts corrected on the way
+
+The S1 line above is now superseded in one respect: `.github/` exists. Nineteen files
+were written under the A9.1 :1840 permitted list (tests, fixtures, the CI workflow,
+narrow packaging) and one hand-off document, `docs/57-s1-ci-handoff-2026-08-27.md`,
+which carries the file list for the AI-use log, the six open decisions, and the
+golden-file protocol. Nothing under `silentgate/` was written — not one file, including
+`__init__.py`, which is not on the five-entry core list and could have been written
+inside the letter of the rule. What is unchanged from the line above: **the core is
+still entrant-written, and the controls still cannot run without it.**
+
+The face is red and says exactly why: `core_present ABSENT`, `disjointness FAIL`
+(no AI-use log exists and its path is unregistered), and six controls `NOT MEASURED` in
+the registered vocabulary of :1868. Two of the six open decisions block CI today — the
+OC20 transport (:1868, open at adoption) and the AI-use log's path (named as an
+obligation five times in docs/43, given a path nowhere).
+
+**The design rule that shaped all of it: no shadow reader.** The obvious test suite
+computes the expected census independently and asserts the core reproduces it. That
+would have meant writing a per-atom / per-axis / per-step force-block parser — which is
+`silentgate/readers/*` — and would have put a second, unreviewed detector in the repo,
+leaving *whose census is right?* with no registered answer. So the fixture manifest
+records structural facts only (hashes, byte counts, marker lines, block counts) and
+numeric expectations enter later as golden files the entrant generates and reviews. The
+same rule is why `.github/ci/silentgate-invocation.toml` is entirely blank: hard-coding
+a command line and a JSON shape would design `cli.py`'s interface, and `cli.py` is core.
+
+### (a) A9.1 :1834's `if_pos` rationale is false for QE 7.5 — re-measured, and stronger
+
+The section above reported this from a 78-atom check. Re-measured from scratch
+2026-08-27 over five deck/output pairs in five metals, **every ionic step of each run:
+704 frozen-atom force observations, and not one prints all three components exactly
+zero.** `runs/s3/Mn/ref__2x1v.in` atom 12, flagged `0 0 0`, prints z = 0.04355221
+Ry/bohr; the largest frozen-atom component observed is 0.08723744 in
+`runs/Cr_slab/s0_O.out`. If the mask were applied, a `0 0 0` atom would read
+`0.00000000` on all three axes.
+
+Sharper than before: a frozen atom **can** print an exact zero on one axis —
+`runs/Cr_slab/s0_O.out` atom 1 reads `0.00000000 0.00000000 0.08723744` — but that is
+the symmetry witness doing its job, which is the *opposite* of what the parenthetical
+claims. Disposition unchanged and still the entrant's.
+
+### (b) The pw.x symmetry header has FOUR textual forms here, and the registered "both forms" has never been tested
+
+A9.1 :1830 registers that the reader "accepts both forms by regex and logs the form
+encountered per file", where "both" means pw.x 7.5's count-first form and the
+count-**last** form shown in `symops_audit.py`'s own docstring. Censused over all 515
+tracked outputs:
+
+| form | files |
+|---|---|
+| `N Sym. Ops. (no inversion) found ( N have fractional translation)` | 128 |
+| `N Sym. Ops., with inversion, found` | 21 |
+| `N Sym. Ops. (no inversion) found` | 13 |
+| `N Sym. Ops., with inversion, found ( N have fractional translation)` | 11 |
+| `No symmetry found` (no header line) | 312 |
+| neither marker | 30 |
+
+**Zero** use the count-last form. A regex anchored on `(no inversion)` misses 32 of the
+173 files carrying a header; the legacy `SYMOPS = r"^\s*(\d+)\s+Sym\. Ops\."` survives
+all four, which is worth knowing before v0.1 rewrites it. And A9.7's act-2 dated line
+(2026-08-23, the first parse) already looked for the count-last form in the Xu deposit
+and recorded that all four validated RuO2 files are count-first. So the both-forms rule
+stands but has been exercised against **no real count-last data anywhere** — 0 in-house,
+0 in the four Xu files read — and P-XU's six blind metals cannot rule it out. Pinned in
+the fixture manifest so "accepts both forms" is never read as "tested on both forms".
+
+### Two bugs the harness found in itself
+
+Writing the end-to-end tests surfaced two defects in the AI-written CI, both fixed:
+`run_controls.py` substituted paths into the command string *before* `shlex.split`, so a
+Windows path reached the tool with its backslashes eaten; and `core_present` tested only
+that `silentgate/` was a directory, so an **empty** directory would have read PRESENT
+and let the face claim an instrument that does not exist. It now names all five module
+paths. Both are recorded because the second is the exact failure shape A9.2 exists to
+catch — a gate reporting a state it has not verified.
+
+### The tripwires are one-sided on purpose
+
+S3 is live and adding outputs. A corpus check that fired on every legitimate new run
+would train the reader to ignore CI, and being ignored is the only way a gate actually
+fails. So the suite fails when a tracked output **disappears**, when a fixture's content
+changes, or when an **unrecognised symmetry-header form appears**; ordinary growth is
+printed and allowed. Regenerate the manifest with
+`tests/silentgate/fixtures/regenerate_manifest.py` and commit the diff.
+
+State: `pytest tests/silentgate` → 40 passed, 6 skipped (the six skips are the open
+decisions, which bind once the core exists). Whole repo → 129 passed, 6 skipped; the
+pre-existing 100 unchanged. `run_controls.py`, `run_oc20.py` and `check_disjoint.py` all
+exit 1, as a registered gate whose instrument is unwritten should.
+
+### The harness was audited adversarially, and 24 findings held
+
+A 42-agent audit (5 finders x 4 dimensions + paired refuters, every finding sent to a
+verifier told to refute it) returned **24 confirmed, 13 refuted**. All 24 are fixed. The
+three that matter:
+
+**(1) The one assertion :1840 registers CI to perform was evadable by a backslash.**
+`check_disjoint.py`'s token regex excluded `\`, so a core path written the way Windows
+prints it -- `silentgate\census.py`, and the entrant's machine is Windows -- was chopped
+into fragments that matched nothing, and the assertion PASSED. The `normalise()` call that
+folds backslashes to slashes was unreachable dead code. Prefixed forms evaded it too
+(`a/silentgate/cli.py` from a pasted diff). Both fixed, with regression tests. Also fixed:
+an AI-use log that EXISTS but names no file used to pass with "0 path token(s)" -- the same
+vacuous pass a MISSING log is refused for, reached through the front door -- and `find_log`
+returned only the FIRST matching log, silently answering the open question "is it one file
+or many" and letting a core path in log #2 through.
+
+**(2) A green gate over an empty set.** `populations.txt` was read without validating its
+size while every printed denominator was a string literal. Deleting the 11 `nosym_present`
+lines made the face print "force-only LOCKED 0/11", "20/20 partition" and "20/20 agree" as
+MEASURED/PASS, RESULT: GREEN, exit 0, with zero of the registered QE negative-control runs
+scored. Sizes are now asserted against the registered 9 and 11 and every denominator is
+computed. This is the exact fail-open shape A9.2 exists to catch, found inside the thing
+built to catch it.
+
+**(3) Half the OC20 threshold was unimplemented, and the verified sample was never tied to
+the scored one.** :1856 registers the 0.00 % rate *"and the per-step exact-zero count over
+all unconstrained atoms and axes is reported alongside"*; the count had no schema field and
+no consumer. Separately, `run_oc20.py` hash-verified the 500 drawn files and then accepted
+any 500 records as "the val_id first-500" -- verification and measurement never met. Both
+fixed; the census must now name the same 500 files.
+
+Also fixed: seven wrong line citations (the registered "accepts both forms by regex" rule is
+at **:1836**, not :1830, cited wrongly in five files; the run-level ALL-atoms rule is at
+**:1830**, not :1826; the AI-use log's five mentions are :1322/:1443/:1445/:1828/:1840, and
+:1447 was double-counting one sentence); a malformed `disjoint.json` crashed the face before
+printing anything, exactly when the disjointness check is what misbehaved; on `pull_request`
+the face stamped the ephemeral merge SHA, which exists in no branch and is garbage-collected,
+defeating :1868's "carries the commit hash ... at that commit"; `upload-artifact@v4` 409s on
+a job re-run without `overwrite: true`, which is the interaction the entrant will use most
+while the face is red; a test asserted core ABSENCE unconditionally and would have failed the
+day the core landed; and three registered "reported alongside" quantities (`unidentified`,
+`n_if_pos_excluded`, `header_form`) were declared in the schema with no consumer, so filling
+them in would have changed nothing. The face now prints them.
+
+**And the audit's fairest hit: this was the repo's first CI and it ran none of the repo's
+own tests.** The only green signal was "the new harness is internally consistent." A
+`repo-tests` job now runs the fourteen pre-existing modules that cover the code which
+produced the campaign's numbers, in its own job so a failure there is never mistaken for a
+control regression.
+
+### DISCLOSURE: an AI script censused F_x on the P-CTRL populations before v0.1 exists
+
+The audit's most important finding is not a bug. Choosing the thirteen fixtures required
+knowing which files carry which trap, and an AI survey script -- written 16:51 on
+2026-08-27, about forty minutes before the first CI file -- got that by parsing every pw.x
+force block under `runs/` per atom, per axis, over every ionic step. It is preserved with
+its output at `docs/research/ai-survey-2026-08-27/`.
+
+Writing it was permitted and, in terms, anticipated: **:1445 lists "sweeps" among what the
+AI-use log records**, and nothing under `silentgate/` was written. What needs the entrant's
+ruling is narrower: the sweep measured two quantities the registered text calls
+not-yet-measured.
+
+> :1858 -- "it passes today on y ... and is **unmeasured on x** until v0.1 reports it."
+> :1864 -- "**F_x was never censused by the current code and is reported by v0.1**."
+
+Over the 20 registered P-CTRL runs: **3 of the 9** `nosym`-absent lock x on every step --
+`Cr_slab/s0_O.out`, `Ir_anchor/s0_O.out`, `Ru_anchor/s0_O.out`, all `n_symops = 4`, exactly
+the 1x1 *O class :1864 predicts locks x by inference -- and **0 of the 11** `nosym`-present
+lock x. The registered prediction is confirmed. The y figures (9/9, 0/11) are NOT new;
+:1858, :1864 and :1964 already register them as the published record. The x half is what
+changed status.
+
+Why it is worth a dated line: F4 (:1848) makes P-CTRL a gate precisely because "the detector
+is wrong in the same direction as the finding; every number flows through code written by
+the person who believes the trap is real." A control whose expected answer is published
+before the detector is written is weaker than one whose answer is not. That is a reason to
+disclose, not a reason the numbers are wrong. Nothing in CI is scored against them, no test
+asserts them, and a test forbids the harness from referencing the survey at all. Registered
+as the seventh open question, `ai_x_census_disclosure`.
+
+The same survey is why the fixture manifest's `pins` prose says things like "LOCKED on both
+lateral axes". An earlier draft of that file claimed in its header to contain no verdicts
+while its own prose stated several; the header now says where the prose came from and that
+no test reads it.
+
+State after the audit: `pytest tests/silentgate` -> 46 passed, 7 skipped; whole repo -> 146
+passed, 7 skipped, the pre-existing 100 unchanged. 22 AI-produced files plus the hand-off.

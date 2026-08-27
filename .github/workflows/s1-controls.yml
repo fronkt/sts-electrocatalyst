@@ -1,0 +1,168 @@
+# A9.2 P-CTRL -- the two registered controls, plus the A9.1 disjointness
+# assertion, on every commit.
+#
+#   docs/43-prereg-week1-factorial.md :1868, verbatim:
+#     "Both controls live in CI and re-run on every commit; the amendment records
+#      their status at the moment each audit number is generated."
+#     "... a commit on which the OC20 job did not execute is not green."
+#     "a control regression fails the build and marks every number produced after
+#      the last green commit VOID."
+#   :1840, verbatim:
+#     "CI asserts that the AI-use log's file list and the core path list are
+#      disjoint, and prints the assertion's status next to the controls."
+#
+# EXPECT THIS WORKFLOW TO BE RED UNTIL THE ENTRANT COMMITS THE CORE.
+# `silentgate/` does not exist yet; the core is "written and committed only by
+# the entrant" (:1840). A registered gate whose instrument does not exist is not
+# green, and saying so is this workflow's job. The `face` step names which of the
+# two it is -- core absent, or a control that regressed -- so a red run is never
+# ambiguous.
+#
+# AUTHORSHIP: written by AI as "the CI workflow" under the A9.1 :1840 permitted
+# list ("AI may write tests and fixtures, the CI workflow, and review comments").
+# Nothing here parses a pw.x output; every parse happens inside the entrant's
+# core, which this workflow only invokes.
+
+name: S1 controls (A9.2 P-CTRL)
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: s1-controls-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # The OC20 negative control runs in its own job because its transport is an
+  # OPEN registered decision (:1868) and mechanism (b) needs a self-hosted
+  # runner. The runner label is a repository variable so electing (b) is a
+  # settings change, not a workflow edit -- but the MECHANISM itself is never
+  # defaulted here. See .github/ci/run_oc20.py.
+  oc20:
+    name: OC20 negative control (A9.2.1)
+    runs-on: ${{ vars.S1_OC20_RUNNER || 'ubuntu-latest' }}
+    continue-on-error: true # its verdict is carried to `face`, which is the gate
+    steps:
+      # On pull_request, the default checkout is the ephemeral MERGE commit, and
+      # :1868 requires each face to carry "the commit hash ... at that commit".
+      # A merge-commit SHA exists in no branch and is garbage-collected, so pin
+      # the PR head instead.
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run the OC20 control
+        env:
+          S1_OC20_MECHANISM: ${{ vars.S1_OC20_MECHANISM }}
+          S1_OC20_ASSET_URL: ${{ vars.S1_OC20_ASSET_URL }}
+          S1_OC20_SAMPLE_DIR: ${{ vars.S1_OC20_SAMPLE_DIR }}
+        run: python .github/ci/run_oc20.py --out-json oc20-status.json
+      - name: Publish the OC20 status
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: oc20-status
+          path: oc20-status.json
+          if-no-files-found: warn
+          overwrite: true
+
+  # ---------------------------------------------------------------------------
+  # The status face. This job IS the gate: it prints the disjointness assertion
+  # next to the controls on one commit-stamped face and fails unless every row
+  # is green. It runs even when `oc20` failed, because a missing OC20 verdict is
+  # itself a registered NOT-GREEN condition rather than a reason to skip.
+  face:
+    name: Control status face
+    needs: [oc20]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch the OC20 status
+        if: always()
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: oc20-status
+          path: oc20
+
+      - name: Disjointness assertion (A9.1)
+        if: always()
+        continue-on-error: true
+        env:
+          S1_AI_USE_LOG: ${{ vars.S1_AI_USE_LOG }}
+        run: python .github/ci/check_disjoint.py --json disjoint.json
+
+      - name: Print the face and gate on it
+        if: always()
+        run: |
+          python .github/ci/run_controls.py \
+            --disjoint-json disjoint.json \
+            --oc20-json oc20/oc20-status.json \
+            --out-json control-face.json
+
+      - name: Publish the face
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: control-face
+          path: |
+            control-face.json
+            disjoint.json
+          if-no-files-found: warn
+          overwrite: true
+
+  # ---------------------------------------------------------------------------
+  # The S1 test suite. Separate from the face so a test failure and a control
+  # regression are never confused for one another, and separate from `repo-tests`
+  # so "the harness is sound" and "the campaign's own code still passes" stay two
+  # distinct signals.
+  tests:
+    name: S1 test suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pytest
+        run: python -m pip install --quiet 'pytest>=7.4'
+      - name: Run the S1 suite
+        run: python -m pytest tests/silentgate -v --tb=short
+
+  # ---------------------------------------------------------------------------
+  # The repo's own test suite. This is the repository's first CI, and a CI whose
+  # only green signal is "the new harness is internally consistent" would be
+  # testing itself and nothing else. These fourteen modules cover src/dft and
+  # src/hea_oer -- the code that produced the campaign's numbers. Kept in its own
+  # job so a failure here is never mistaken for a control regression.
+  repo-tests:
+    name: Pre-existing test suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install requirements
+        run: python -m pip install --quiet -r requirements.txt
+      - name: Run the pre-existing suite
+        run: python -m pytest tests --ignore=tests/silentgate -q
