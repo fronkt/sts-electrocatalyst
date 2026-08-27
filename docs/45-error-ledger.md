@@ -72,9 +72,9 @@ Wander/Kitchin, OC22 symmetry arm, MOOH phases, MLIP fine-tuning).
 | Stage | Scope (as reconciled) | Governed by | Status |
 |---|---|---|---|
 | S0 | nine capability gates, ~35 box-h | A7 (DEPOSITED) | **CLOSED 2026-08-22** (25/25 runnable jobs on Vast, verdicts a–i recorded; docs/47 A8.0). The SnO₂ arm of gate (i) — precondition-deferred, never closed — **launched on Anvil 2026-08-23, job 20094699** after the Sn pseudo filename fix (docs/51); **PASS 1.188 meV/atom banked same day**; A7.5's Mom-2014 cus-site condition **CONFIRMED 2026-08-23 (docs/53)** — SnO₂ admission now awaits only the entrant's declaration |
-| S1 | silentgate v0.1: entrant-written core, pluggable readers, CI controls | A9 (owed Aug 22) | blocked on A9 |
-| S2 | external census: Xu 810 lock/direction map, span_U halves, Divanis delta-curve, pymatgen+atomate paired audit; literature-coding audit RESTORED | A9 (owed Aug 22) | blocked on A9 |
-| S3 | tier_v3 crossed coverage x symmetry x basin, 8 metals; second spin seeds RESTORED beyond *OOH-only where triage allows; dy ladder; Cr 1C + re-Hessian at escape | A8 (owed Aug 24) | decks buildable now, launch Aug 26 |
+| S1 | silentgate v0.1: entrant-written core, pluggable readers, CI controls | A9 (**DEPOSITED 2026-08-23**, DOI 10.5281/zenodo.22072991) | **UNBLOCKED 2026-08-23** — no longer blocked on A9; now gated only on the entrant-written core (A9.1 authorship boundary). AI-permitted here: tests, fixtures, CI workflow, packaging metadata |
+| S2 | external census: Xu 810 lock/direction map, span_U halves, Divanis delta-curve, pymatgen+atomate paired audit; literature-coding audit RESTORED | A9 (**DEPOSITED 2026-08-23**, DOI 10.5281/zenodo.22072991) | **UNBLOCKED 2026-08-23.** A9.7 post-DOI acts 1-3 DONE same day (zip 6,989/6,989 blobs + 815/815 SHA-1s; header validation 4/4 count-first on RuO2; OC20 `is2res_val_id_trajectories.tar` md5-matched, 24,945 members, first-500 drawn + sha256 manifest). **Act 4 (the census) waits on the entrant's silentgate** |
+| S3 | tier_v3 crossed coverage x symmetry x basin, 8 metals; second spin seeds RESTORED beyond *OOH-only where triage allows; dy ladder; Cr 1C + re-Hessian at escape | A8 (**DEPOSITED 2026-08-23**, DOI 10.5281/zenodo.22072991) | **LAUNCHED** — waves 1-4 + rounds 3-11 ran Aug 23-27 under the deposited protocol. Open in the deposited text: gate-(h)/AFM scope (**HOLD, 0 built**), `--bind-to`, walltime value |
 | S4 | A0 dense U grid 1x1 + Cr 2x1v cell rider RESTORED + bulk hp.x Cr+Ti RESTORED (atomic projector) + slab hp.x one relaunch under 72 h cap RESTORED | A6 + A7 (DEPOSITED) | clear after S0(e)/P-PROJ |
 | S5 | BEEF-vdW sigma, Ru/Ir/Ti; extension to +U metals if clean | A10 (owed Sep 18, gated S0(a)) | gated |
 | S6 | floor/excess, four estimators, n=7 statistics repair, P-SYMCOV scoring, r4 re-rank hook for S8 | A7 P-PLS/P-FLOOR-U + A8 | after data |
@@ -1705,3 +1705,42 @@ low branch the intended target instead of a 3-in-5 lottery, at ~13 SU for a
 single-SCF child. It changes a registered input and must be declared as a
 branch-selection aid rather than a result, so it is Frank's call and is NOT
 taken here.
+
+## Correction of record, 2026-08-27: three stale stage rows that read as a blocked critical path
+
+**The error.** On 2026-08-27 this ledger's own §E table still carried `A9 (owed Aug 22)`
+/ `blocked on A9` on rows S1 and S2, and `A8 (owed Aug 24)` / `launch Aug 26` on S3.
+Read together with the filenames `docs/47-amendment-8-DRAFT.md` and
+`docs/50-amendment-9-DRAFT.md`, and with `docs/52`'s 66 open decision rows, this
+supports a confident and entirely wrong conclusion: that the campaign's critical path
+was stalled on two undeposited amendments, five and three days overdue.
+
+**The fact.** A8 and A9 were both **ADOPTED by the entrant and DEPOSITED on 2026-08-23**
+as one Zenodo version, **DOI 10.5281/zenodo.22072991**, appended to `docs/43` at commit
+2e61bf0 (verified 1c09c38). All 18 `A8.*`/`A9.*` sections are present in the registered
+`docs/43` (1,973 lines). Rows :51-52 of this same ledger say so explicitly. Both DRAFT
+files carry, in their own headers, `Status: ADOPTED by the entrant 2026-08-23 (reviewed
+via docs/52; "they pass with me") and appended to docs/43`. `docs/52` was compiled
+2026-08-23 **before** that adoption and is a historical index, not a live queue.
+
+**Three traps, worth naming because each is re-triggerable.**
+1. A `-DRAFT` suffix survives adoption here by convention — the draft file is kept
+   verbatim as the historical artifact and the registered text moves into `docs/43`.
+   **The filename is not the status; the file's own header line is.**
+2. A status TABLE goes stale silently while the prose sections around it are appended
+   to. This ledger is append-only by habit, so its tables are the one part that rots.
+3. A decision sheet compiled before an adoption reads exactly like an open queue after
+   it. `docs/52` has no adoption stamp on its face.
+
+**What was actually open on 2026-08-27**, from the deposited text rather than the stale
+rows: in A8 — the gate-(h)/AFM scope line (**HOLD, 0 built**, docs/43:1645), `--bind-to`,
+the walltime value; in A9 — the CI mechanism, the Xu repair (a)/(b) election, P-BUILDER
+and P-LIT values, the six-row displacement and claim sentence (Sep 20), the two molecule
+jobs. S1 is gated on the entrant-written core, not on a deposit. S2's A9.7 acts 1-3 were
+discharged 2026-08-23; **act 4, the census, waits on `silentgate`.**
+
+**Rule adopted here:** before reporting any stage as blocked, the block must be read
+from the DEPOSITED text (`docs/43`) or from a file header carrying a status line —
+never from a filename, and never from a table cell alone.
+
+The three §E rows are corrected in place with this entry as their provenance.

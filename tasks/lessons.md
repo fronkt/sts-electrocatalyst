@@ -724,3 +724,48 @@ a file I had not opened.
    conclusion about a banked step-10 energy (110.8 meV).
 4. Run the refutation pass **before** telling the user, not after. Three of
    these had already reached the user as findings.
+
+---
+
+## 2026-08-27 — I reported a blocked critical path from a filename and a stale table
+
+I told Frank the campaign was stalled on two undeposited amendments, that A9 was
+five days overdue, that S1's window closed that day, and that he should spend the
+day re-authoring A9 thresholds. **All of it was wrong.** A8 and A9 were adopted and
+deposited together on 2026-08-23, DOI 10.5281/zenodo.22072991, and he had already
+cleared all 66 decision rows with "they pass with me."
+
+Three sources agreed with each other and all three were misleading:
+
+- `docs/47-amendment-8-DRAFT.md` and `docs/50-amendment-9-DRAFT.md` — the `-DRAFT`
+  suffix **survives adoption** in this repo. The draft is kept verbatim as the
+  historical artifact; the registered text moves into `docs/43`. Both files say
+  `Status: ADOPTED ... appended to docs/43` in their **first six lines**, which I
+  did not read because the filename had already answered the question.
+- `docs/45 §E` — a status TABLE inside a file I have been appending to for days.
+  Append-only habits rot tables specifically: the prose grows, the table does not.
+- `docs/52` — a decision sheet compiled *before* the adoption it precedes, with no
+  adoption stamp on its face. After the fact it reads exactly like a live queue.
+
+The disconfirming evidence was two rows further down **the same file I was quoting
+from** (`docs/45:51-52`: "ADOPTED + DEPOSITED 2026-08-23"). I had `sed`'d lines
+70-82 and never looked up.
+
+This is the same shape as the four refuted claims of 2026-08-26: the dramatic
+reading of a real document, with the refutation already on disk in a place I had
+not looked. The difference is that this one reached Frank as a recommendation to
+spend a day of his time.
+
+**Rules for myself.**
+1. **A filename is not a status.** Before citing any document's state, open its
+   header. `-DRAFT`, `-FINAL`, `-v2` are naming conventions, not lifecycle facts.
+2. **Read the whole table, then look for its own contradiction.** If a table row
+   says "blocked," grep the same file for the thing it says is blocking; a status
+   table and a status paragraph in one file will disagree eventually.
+3. **Registration status is read from the deposited text only** — `docs/43`, or a
+   DOI line. Never from a tracking doc, a decision sheet, or a plan file.
+4. **A deadline I compute myself gets verified before it becomes advice.** Saying
+   "overdue" and "your window ends today" moves someone's whole day. That claim
+   needs the same refute-pass as a physics claim, and I gave it none.
+5. When about to recommend that Frank change what he is doing, that recommendation
+   IS the finding — run rule 4 of the 2026-08-26 block on it before sending.
