@@ -1217,3 +1217,196 @@ not a defect.
 R3/A8.6); `Co s0_O__2x1v_mir` and `Co s0_OH__2x1v_off` (zero ionic steps ever, no geometry
 to resume from — R1 or a new registered call); R1 `upscale` itself, which would directly
 close `Ni s0_OOH__2x1v_mir` and `Co s0_OOH__2x1v_off`-class rows.
+
+## Round 9 scored, and the diagnosis inverted -- arrays 20150995 (wave, 2) + 20151000 (chain, killed)
+
+Round 9 returned two wave rows and one chain that had to be killed. Scoring them
+truthfully required re-measuring the whole S3 tree, and that re-measurement
+overturned three things this ledger has been asserting, including one I asserted
+earlier the same day. The corrections are set out at the end of this section.
+
+### What the two wave rows did
+
+`Mn s0_OOH__2x1v_off__basin` -- **converged, in the wrong branch, and should be
+refused.** 13 ionic steps, `bfgs converged`, JOB DONE, notconv 0, minimum SCF
+accuracy 3.3e-09. But magtot sits at **35.00** for all 13 steps against the
+34.76 of the trajectory it was spliced from, and its step 1 came back at
+-3617.09797298 against attempt5's step-3 -3617.10197097 -- **+54.395 meV at
+essentially the same geometry**, one BFGS step apart. A descending BFGS step
+cannot raise the energy by 54 meV, so the branch changed at step 1. Its final
+energy is +39.167 meV above attempt5's and +36.880 meV above attempt1's.
+
+Under A8.3 (`docs/43:1589-1592`), a result landing more than 1 meV above is
+**refused**, not banked. This one is 39x that. It is not the continuation it was
+asked for and it does not supersede the 34.76 numbers.
+
+`Ni s0_OOH__2x1v_mir` -- **failed, informatively.** Resuming from attempt3's own
+geometry with attempt3's own deck collapsed magtot from 27.94 to 3.23 inside 41
+iterations, then oscillated between 1.37 and 2.16 for the remaining ~460 and
+completed no ionic step. Best accuracy 2.2e-04.
+
+### The chain was killed at 9 h 50 m, and killing it was right
+
+`Co ref__2x1v`'s replay at `electron_maxstep 1500` reached ionic step 3 in 9 h
+50 m (~1250 SU) and was heading for the 48 h wall (~6144 SU). Its step-1 SCF is
+bit-identical to the banked parent's for three iterations (58.53, 59.99, 20.08)
+and splits at **iteration 4 of 325** -- 496 iterations before `electron_maxstep
+= 500` could ever bind. So the raised maxstep was not the operative variable and
+never could have been. By step 3 it sat 110.839 meV **above** the banked energy
+of record at magtot 23.60 against 21.66.
+
+`docs/43:1584-1588` already rules on exactly this shape: a fixed-geometry re-run
+sitting *above* its own relaxed parent is "backwards, **so it is a diagnostic,
+not a result**". The chain could not have produced a scoreable child, because
+the child would have been measured against a replay that is not the parent.
+Killed; the replay output is preserved as `ref__2x1v.replay_ms.out.attempt1`
+(1,320,015 B). The banked parent `ref__2x1v.out` is untouched at 1,847,613 B,
+md5 `0a81fd3a86484b988c4fb476fbcf2521`.
+
+### GATE-1 measured across all 35 pairs on disk
+
+A GATE-1 child is an `scf` at its parent's final relaxed geometry, so child and
+parent are at byte-identical coordinates by construction and every pair is an
+exact replicate. Measured over all 35:
+
+| population | n | min \|dE\| | median | max |
+|---|---|---|---|---|
+| dmagtot <= 0.01 | 29 | 0.0007 meV | 0.004 meV | **0.044 meV** |
+| dmagtot >= 0.18 | 6 | **7.394 meV** | 78 meV | 747 meV |
+
+**Zero overlap; the gap is a factor of 168.** Magnetization agreement is not
+merely correlated with energy agreement, it is equivalent to it. The branch rule
+is no longer a tally of anecdotes -- it is a measured bimodal separation with
+the decision boundary anywhere in [0.044, 7.394] meV. The 0.05 uB tolerance in
+use sits inside the empty gap and is therefore not a tuned number.
+
+### Three banked parents are in an EXCITED magnetic branch
+
+Of the six mismatches, three have the child **below** its parent, at the
+parent's own geometry, with both sides converged (notconv 0) and geometry
+verified byte-identical to full precision, 0 differing atoms:
+
+| row | parent E (Ry) | child E (Ry) | child - parent | magtot parent -> child |
+|---|---|---|---|---|
+| `Fe s0_OOH__1x1_off` | -2558.13528265 | -2558.16352817 | **-384.300 meV** | 24.46 -> 22.98 |
+| `Co s0_O__1x1_off` | -2330.66171228 | -2330.66737233 | **-77.009 meV** | 11.69 -> 11.24 |
+| `Mn s0_OOH__2x1v_off` | -3617.09868891 | -3617.10020414 | **-20.616 meV** | 35.00 -> 34.82 |
+
+This is the pre-registered BASIN_DRIFT case, and the protocol already says what
+happens next (`docs/43:311-314`): "If that SCF lands >= 5 meV lower, the state is
+re-relaxed from it and the loop repeats until GATE-1 passes", with the GATE-1
+SCF energy becoming the corrected value (`docs/43:787-790`). All three clear the
+5 meV trigger by 4x, 15x and 77x. Every dG computed from those three parents
+inherits the error; the Fe row at 0.384 eV is larger than the overpotential
+differences the study exists to resolve.
+
+Note this contradicts the campaign census recorded at `docs/45:255-256`
+("38 AGREE / 0 REFUSED / 2 UNVERIFIED"). Reconciling the two is owed.
+
+### THE HEADLINE: the retry ladder has been chasing an undeclared threshold
+
+QE's `upscale` (an `&IONS` variable, default 100, never set in any deck)
+silently tightens `conv_thr` between ionic steps toward a 1e-08 floor. Every S3
+deck registers `conv_thr = 1.0d-6`. Measured directly from the raw iteration
+traces of the three rows that have consumed the retry ladder:
+
+| run | failing cycle | iterations burned | min accuracy reached | threshold actually in force | iterations that MET the registered 1.0e-06 | first at |
+|---|---|---|---|---|---|---|
+| `Ni s0_OOH__2x1v_mir` att3 | 4 | 500 | 3.2e-07 | 2.791e-07 | **40** | iter 52 |
+| `Mn s0_OOH__2x1v_off__basin` att1 | 20 | 200 | 5.0e-07 | 1.0e-08 | **124** | iter 11 |
+| `Mn s0_OOH__2x1v_off__basin` att5 | 4 | 500 | 6.0e-08 | 1.0e-08 | **489** | iter 9 |
+
+Read the last two columns. **Each of these runs had already satisfied the
+threshold the protocol registered -- 40, 124 and 489 times -- and was refused
+each time by a threshold up to 100x tighter that no deck ever declared.** Mn
+attempt5 met the registered criterion on 489 of its 500 iterations.
+
+QE tests `estimated scf accuracy < conv_thr` at every iteration and exits at the
+first crossing. With `upscale = 1.0` holding each run to its own registered
+1.0e-06, `Ni s0_OOH__2x1v_mir` closes at cycle 4 iteration 52 and
+`Mn s0_OOH__2x1v_off__basin` closes at cycle 20 iteration 11 -- **in the 34.76
+branch, the lower one**. Neither is a physics failure. Neither ever was.
+
+Rounds 4 through 9 spent roughly 6,800 SU on beta scans, `mixing_ndim` scans,
+geometry resumes, replays and density chains against rows that were converging
+all along by the registered criterion.
+
+**R1 (`upscale = 1.0`) is a registered call and remains the entrant's.** The
+change is one line in `&IONS`. It alters no functional, cell, cutoff or k-mesh;
+it restores conformance with the `conv_thr` the protocol deposited rather than
+departing from it. This ledger records the measurement, not the ruling.
+
+### Infrastructure amendment (2026-08-26): converged densities are now retained
+
+`anvil/42_s3_wave1.slurm` and `anvil/44_chain.slurm` deleted every charge
+density they ever produced -- an unconditional `rm -rf` on the scratch. That
+density is the only thing that pins a magnetic branch for a child run, so A8.3
+has had to re-derive it by replaying a whole parent relax. Measured on this
+tree: a parent replay costs 41 min to 7 h 47 m (Co ref__2x1v ~1000 SU) against
+a median 6 min (~13 SU) for the child SCF itself, and lands in the parent's
+branch 2 times in 5.
+
+Both scripts now keep `<prefix>.save` (~76 MB; the multi-GB bulk is `.mix*` /
+`.wfc*` and still goes with the scratch) for any run whose every SCF converged.
+Cost is ~0.0015% of the 5 TB project quota per run, currently at 0.8% used. No
+calculation changes. This is why the one A8.3 chain that failed --
+`Co s0_O__1x1_off__g1.fromparent`, -77.009 meV at dmagtot 0.45 -- failed: its
+replay was 0.45 off the parent and the seeded child faithfully inherited the
+replay's branch, the same 0.45, exactly as a correctly seeded child should.
+
+### Round 10 launched -- array 20161825, 5 rows, `1-5%1`
+
+`EXCLUDE=a024,a088,a196,a220,a223`; preflight `lines=5 to_run=5 already_done=0
+stale=0 bad=0`; 8 files md5-verified both sides. Every row is a GATE-1 child
+re-rolled under a new prefix, each deck differing from the one on disk in
+exactly one line -- the prefix -- verified line-by-line at build time, so
+nothing is overwritten (A8.8).
+
+*Group A, bank the anchor (3 rows).* Re-run the child that already found the
+lower state, on the three BASIN_DRIFT rows above. Confirms the lower state
+reproduces and retains its density as the seed for the registered re-relax.
+
+*Group B, re-roll for the parent's branch (2 rolls, 1 row).*
+`Co s0_OOH__2x1v_mir__g1` is the mirror case: the parent is right (magtot 20.13,
+bfgs converged) and the child sits 747.449 meV above it at 24.86. A8.3's
+registered remedy is a re-run *from the parent's density*, which does not exist
+and whose replay has now failed three times; these two cold rolls are therefore
+evidence toward the MULTISTABLE disposition A8.3 names, not the registered
+remedy itself.
+
+Not built: `Co ref__2x1v__g1` -- its cold child ran 500 iterations, completed no
+SCF cycle, and sat at magtot 24.11 against the parent's 21.66; three later
+attempts have all fallen into a 23.5-24.1 region that will not converge. It
+wants a `starting_magnetization` near the parent's converged moments, which is a
+new registered call.
+
+### Corrections to this ledger and to statements made earlier today
+
+1. **"R1 would not close `Ni s0_OOH__2x1v_mir`" -- WITHDRAWN.** Said earlier
+   today on the basis of that row's *last* printed accuracy (3.431e-05 at
+   iteration 500). QE converges on the *first* iteration below threshold, and
+   the cycle's minimum is 3.2e-07 with 40 iterations below the registered
+   1.0e-06. The ledger's original claim was right and stands.
+
+2. **"The lower 34.76 branch is the one that will not converge" -- WITHDRAWN.**
+   It converges readily: attempt1 shows 19 consecutive converged SCF cycles,
+   cycles 4-19 reaching the 1e-08 floor in 9 to 15 iterations each. It dies on
+   the iteration budget against the undeclared threshold, not on the physics.
+
+3. **"The banked `Co ref__2x1v` reference cannot be reproduced" -- WITHDRAWN as
+   stated.** Round 8's replay (`ref__2x1v.replay.out`, same maxstep as the
+   banked deck) reaches E = -4578.38296625 and magtot 22.58 at step 1 against
+   the banked -4578.38297855 and 22.50: **0.167 meV and 0.08 uB**. It was marked
+   non-convergent only because its residual was still descending. One of two
+   replays reproduces the reference; the correct statement is that reproduction
+   is unreliable, not impossible.
+
+4. **The branch rule's tight bound was quoted as 0.52 meV.** Measured over all
+   29 matched-magnetization GATE-1 pairs it is **0.044 meV**, twelve times
+   tighter.
+
+5. **A first pass at a replicate census grouped relax parents with their SCF
+   children** -- its geometry hash collided on the frozen `0 0 0` atoms, which
+   are identical between a parent's initial and final coordinates. Any
+   "replicate" statistic derived from it is void; the numbers above come from
+   full-precision all-atom comparison with the calculation type held fixed.

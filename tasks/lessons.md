@@ -628,3 +628,99 @@ to notice.
    losing work — and print the full census so a human can audit the pick.
 4. A heuristic that has worked N times has not been tested against the case that breaks it.
    Being right twice is not evidence of being right.
+
+---
+
+## 2026-08-26 -- I read the LAST value of a converging series as if it were the minimum
+
+**What happened.** `Ni s0_OOH__2x1v_mir` attempt3 died with
+`convergence NOT achieved after 500 iterations`, and its last printed
+`estimated scf accuracy` was 3.431e-05. I read that as the cycle's floor,
+concluded the row had genuinely stalled two orders of magnitude short, and
+told the user that R1 (`upscale`) "would NOT have closed" it -- explicitly
+retracting a correct earlier claim.
+
+An adversarial pass sent me back to the raw trace. The cycle's **minimum** was
+3.2e-07 at iteration 125, and **40 of its 500 iterations sat below the deck's
+registered `conv_thr = 1.0e-06`**, the first at iteration 52. QE tests
+convergence at every iteration and exits at the first crossing, so it never
+reaches iteration 125, let alone the 3.431e-05 tail. R1 closes the row at
+iteration 52. The same check on `Mn s0_OOH__2x1v_off__basin` found 124 and
+**489** qualifying iterations in its two failing cycles.
+
+The last value of a non-monotonic series carries no information about whether a
+threshold was ever crossed. I used it as though it did, and it was the single
+load-bearing number under a retraction.
+
+**Rules for myself.**
+1. For any convergence question, compute `min(series)` and
+   `count(series < threshold)` and `argmin`. Never quote the tail value.
+2. Before deciding a run "stalled", state the threshold **actually in force** at
+   that moment separately from the one the input declares. Here they differed by
+   up to 100x and the gap was the whole story.
+3. When a tool reports failure, ask what criterion it applied -- not whether it
+   failed. `convergence NOT achieved` meant "not against a threshold no deck
+   registered", which is a different sentence entirely.
+4. A retraction deserves at least the evidence the original claim had. I
+   retracted on one number read off a tail; the original had been right.
+
+---
+
+## 2026-08-26 -- my geometry hash collided on the atoms that never move
+
+**What happened.** To measure run-to-run reproducibility I grouped runs by a
+hash of the starting geometry QE echoes back, then compared energies within each
+group. It reported a clean, striking result -- and it was wrong. The hash
+captured too few lines, and the leading atoms of every slab are **frozen**
+(`0 0 0`), hence byte-identical between a parent's initial and final
+coordinates. So relax parents grouped with their own SCF children, which sit at
+a *different* geometry by construction, and I was comparing energies across
+geometries while calling them replicates.
+
+I caught it only because a downstream number looked odd (a "78 meV branch split"
+at dmagtot 0.06) and I chased it instead of reporting it.
+
+**Rules for myself.**
+1. When hashing a structure for identity, hash **all** of it at full precision
+   and assert the atom count. Print the count next to the hash.
+2. Ask what fraction of the hashed content can vary at all. If most of the atoms
+   in a slab are frozen, a structure hash is mostly hashing a constant.
+3. Validate a grouping by checking a pair you already know the answer for,
+   before deriving statistics from it.
+4. A number that surprises me is a signal to re-derive, not to report with a
+   caveat. Both of my first two censuses produced confident, quotable, wrong
+   statistics.
+
+---
+
+## 2026-08-26 -- I built the strongest version of a claim I wanted to be true
+
+**What happened.** Three claims I put to an adversarial panel came back refuted
+3/3, and on the substance the panel was right each time:
+
+- "The banked `Co ref__2x1v` reference cannot be reproduced." I had measured one
+  replay (99.5 meV off) and never opened the *other* replay sitting in the same
+  directory, which reproduces the parent to **0.167 meV and 0.08 uB**.
+- "The lower 34.76 branch is the one that will not converge." It shows 19
+  consecutive converged SCF cycles reaching the 1e-08 floor in 9-15 iterations
+  each.
+- "Splicing a geometry does not carry the magnetic state, so resumes cannot fix
+  branch failures." True of every resume in the campaign **including the
+  successes**, where the moment jumped 4.45 and 4.36 uB against the failure's
+  0.24. A constant cannot be a cause.
+
+The pattern is one thing: each claim was the dramatic reading of a real
+measurement, and in each case the disconfirming evidence was already on disk in
+a file I had not opened.
+
+**Rules for myself.**
+1. Before calling something irreproducible, enumerate **every** attempt on disk
+   and score all of them. `ls` the directory; do not reason from the two files
+   already in context.
+2. State the mechanism, then check it is absent from the cases that worked. A
+   mechanism present in the successes explains nothing.
+3. Anchor a comparison to the value of record, not to whichever endpoint makes
+   the gap quotable. I compared step-1 to step-1 (99.5 meV) while asserting a
+   conclusion about a banked step-10 energy (110.8 meV).
+4. Run the refutation pass **before** telling the user, not after. Three of
+   these had already reached the user as findings.
