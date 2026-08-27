@@ -1610,3 +1610,98 @@ the separate `%$CONC` second argument (line 76). Every prior manifest declares
 `NCONC=1`, and round 8 ran `1-3%3` with that declaration. The header was
 corrected and the three decks regenerate byte-identical (md5 unchanged). The
 guard did exactly its job.
+
+## Round 11 -- array 20166408. Zero seeds from three rolls; a refuted correlation; and the real bottleneck is not compute
+
+Three re-anchor rolls, all COMPLETED in Slurm, none usable. Slurm COMPLETED is
+not convergence and `JOB DONE` is not success (docs/26 s4): all three printed
+`convergence NOT achieved`, so the retention gate (`scf_fail -eq 0`) correctly
+kept nothing. Cost ~1,103 SU; balance 75,207.7 -> 74,104.9.
+
+| roll | nk | ionic steps | plateau magtot | outcome |
+|---|---|---|---|---|
+| `s0_OOH__2x1v_mir__reanchor` | 8 | **8 converged**, 9th failed | **20.37 (LOW)** | stalled cycle 9 at 500 iters |
+| `s0_OOH__2x1v_mir__reanchor__b` | 8 | 0 | 21.90 | first SCF stalled, 500 iters |
+| `ref__2x1v__reanchor` | 16 | 0 | 23.39 | first SCF stalled, 500 iters |
+
+### Row 1 reached the low branch and then stalled anyway
+
+`__reanchor` tracked the banked parent closely -- magtot 21.47 -> 19.98 -> 19.86
+-> 20.24 ... -> 20.37 against the parent's 19.81 -> 20.13 -- and converged eight
+consecutive ionic steps, every one of them cleanly. Cycle 9 then ran 500
+iterations with **min accuracy 6.8e-06 and zero iterations below the registered
+1.0e-06**. So this failure is NOT the upscale pattern: the registered threshold
+was never met, and R1 would not have rescued it.
+
+The upscale tightening is nonetheless visible and measured here for the first
+time on a healthy run. `new conv_thr` walked 1.0e-06 -> 5.526e-07 -> 3.250e-07
+-> 1.416e-07 -> 1.345e-07 -> 8.66e-08 -> 7.12e-08 -> 4.16e-08, so cycle 9 was
+being asked for 24x the registered tolerance. Iterations run vs first crossing
+of the registered 1e-6, per cycle:
+
+| cycle | ran | crossed 1e-6 at | wasted |
+|---|---|---|---|
+| 1 | 69 | 69 | 0 |
+| 2 | 20 | 20 | 0 |
+| 3 | 39 | 37 | 2 |
+| 4 | 18 | 16 | 2 |
+| 5 | 22 | 15 | 7 |
+| 6 | 17 | 12 | 5 |
+| 7 | 23 | 16 | 7 |
+| 8 | 28 | 16 | 12 |
+| 9 | 500 | never | -- |
+
+**35 of 236 iterations wasted, 15 %.** That is the honest size of R1 on a run
+that converges: a modest efficiency win, growing with ionic step as upscale
+tightens, and worth nothing on a genuine stall. This CORRECTS the framing that
+R1 is "the highest-value registered call": it rescues the ~10 of 60 outputs that
+did cross the registered threshold and were failed anyway, and it trims ~15 %
+off the healthy ones. It does not fix rows 2 and 3, whose FIRST SCF -- run at
+the deck's own 1e-6, before any upscale tightening exists -- stalled at 5.6e-05
+and 1.0e-05 with zero crossings.
+
+### A correlation proposed and REFUTED by its own data
+
+Working hypothesis on seeing rows 2 and 3 roll high and stall: in this cell the
+high-spin branch is the non-convergent one, so "wrong branch" and "does not
+converge" are one phenomenon. **Refuted.** Censused all 24 Co `2x1v` outputs:
+`s0_O__2x1v_off` (25.23), `s0_OH__2x1v_mir` (24.31), `ref__2x1v.replay_ms`
+(23.59) and `s0_OOH__2x1v_mir__g1__r3` (23.93) are all high and ALL CONVERGED,
+while `s0_OOH__2x1v_mir.replay` (20.16) is low and FAILED. Plateau magnetization
+is not comparable across adsorbates in the first place -- ref, *O, *OH and *OOH
+carry genuinely different moments -- and within a single row both branches both
+converge and fail. No correlation. Recorded because it was nearly asserted.
+
+### Infrastructure: a 5.2 GB save the corrected patch did not catch
+
+`Co/dens/s0_OOH__2x1v_mir__g1__r3.save` was retained at **5.2 GB**, wavefunctions
+included, after the density-only correction was already in the repo. Cause:
+Slurm snapshots the batch script at SUBMIT time, and round 10 was submitted
+before the correction landed, so that array ran the uncorrected block. Trimmed
+in place, **5.2 G -> 79 M**, and verified: the schema's `etot`
+(-2.331313948596418E+003) doubles to -4662.62789719 Ry, exactly the run's own
+final energy. Rule of record: **a mid-flight patch to a `.slurm` file does not
+reach an already-submitted array.**
+
+### Disposition: the seeding attempt has run out of registered moves
+
+Rounds 5, 10 and 11 have now tried to put `Co s0_OOH__2x1v_mir__g1` and
+`Co ref__2x1v__g1` on their parents' branch by cold SCF (3 attempts, all high),
+by re-anchor (3 rolls, none convergent), and by replay (5 attempts across both
+rows). Round 10 established the mechanism: the reachable branch is a property of
+the geometry the SCF cold-starts from, and no cold start at the relaxed geometry
+has ever reached the parent's branch. **GATE-1 as registered -- a cold
+fresh-density SCF at the relaxation's own final coordinates -- therefore cannot
+be satisfied for these two rows, and the obstruction is in the test, not in the
+parents.** That is a finding about a registered instrument and its disposition
+is the entrant's, not an AI's. A8.3's named outcome for exactly this case is
+MULTISTABLE: both numbers recorded, neither banked (docs/43:1589-1592), and it
+costs 0 SU.
+
+The one untried lever remains one line and is registered input, not
+infrastructure: every attempt has used the COLD `starting_magnetization`
+(Co 0.4). Setting it near the parent's converged per-site moments would make the
+low branch the intended target instead of a 3-in-5 lottery, at ~13 SU for a
+single-SCF child. It changes a registered input and must be declared as a
+branch-selection aid rather than a result, so it is Frank's call and is NOT
+taken here.
