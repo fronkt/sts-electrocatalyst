@@ -1410,3 +1410,49 @@ new registered call.
    are identical between a parent's initial and final coordinates. Any
    "replicate" statistic derived from it is void; the numbers above come from
    full-precision all-atom comparison with the calculation type held fixed.
+
+### Addendum -- how much of the campaign the `upscale` trap actually touches
+
+Swept every `.out` under `runs/` carrying `convergence NOT achieved`, and for
+each one asked a single question: in the cycle that failed, did the run ever
+reach the threshold **its own deck registered**, while being held to a tighter
+one QE had silently substituted?
+
+**60 non-convergent outputs. 10 of them -- 17% -- had already met the registered
+`conv_thr = 1.0e-06`, and were refused anyway.** Across five elements and both
+the S3 tree and the older `*_slab` probe trees:
+
+| dir | file | iters | min acc | held to | declared | iters meeting declared | first at | run after |
+|---|---|---|---|---|---|---|---|---|
+| `s3/Mn` | `s0_OOH__2x1v_off__basin.out.attempt5` | 500 | 6.0e-08 | 1.00e-08 | 1.0e-06 | **489** | 9 | 491 |
+| `Co_slab` | `s0_O.out.attempt3` | 500 | 1.1e-07 | 8.99e-08 | 1.0e-06 | **471** | 30 | 470 |
+| `Cr_slab` | `s0_OH.out.attempt2` | 500 | 7.4e-07 | 5.87e-08 | 1.0e-06 | 3 | 33 | 467 |
+| `s3/Ni` | `s0_OOH__2x1v_mir.out.attempt3` | 500 | 3.2e-07 | 2.79e-07 | 1.0e-06 | **40** | 52 | 448 |
+| `s3/Mn` | `s0_OOH__2x1v_off__basin.out.attempt1` | 200 | 5.0e-07 | 1.00e-08 | 1.0e-06 | **124** | 11 | 189 |
+| `Co_slab` | `s0_OOH.out.attempt1` | 200 | 2.6e-07 | 1.27e-07 | 1.0e-06 | **47** | 15 | 185 |
+| `Cu_slab` | `s0_OOH.out` | 200 | 5.7e-07 | 2.18e-07 | 1.0e-06 | 12 | 36 | 164 |
+| `Cr_slab` | `s0_OH.out.attempt1` | 200 | 9.6e-07 | 9.66e-08 | 1.0e-06 | 2 | 40 | 160 |
+| `s3/Ni` | `s0_OOH__2x1v_mir.out.attempt2` | 200 | 8.8e-07 | 6.57e-07 | 1.0e-06 | 1 | 94 | 106 |
+| `Co_slab` | `s0_OH.out.attempt1` | 200 | 7.5e-07 | 1.13e-07 | 1.0e-06 | 16 | 185 | 15 |
+
+**2,695 SCF iterations were run after the registered criterion had already been
+met** -- order 1,900-5,700 SU on these cells.
+
+Two honest qualifications, because the rows are not equivalent:
+
+- **Five would close solidly under R1**, with the registered threshold met on
+  40 to 489 iterations: both `Mn s0_OOH__2x1v_off__basin` attempts,
+  `Ni s0_OOH__2x1v_mir` attempt3, `Co_slab s0_O` attempt3, `Co_slab s0_OOH`
+  attempt1.
+- **Five would close marginally**, meeting it on only 1 to 16 iterations
+  (`Cr_slab s0_OH` x2, `Cu_slab s0_OOH`, `Ni s0_OOH__2x1v_mir` attempt2,
+  `Co_slab s0_OH` attempt1). R1 would declare these converged, but on a
+  criterion they only just satisfy; they should be re-run rather than banked
+  from the existing output.
+
+Worth separate note: `Cu_slab s0_OOH.out` is on this list. The campaign record
+has Cu carrying no usable data; its `*OOH` run met the registered threshold 12
+times before being refused.
+
+The remaining 50 non-convergent outputs are genuine -- they never reached
+1.0e-06 at all -- and R1 does nothing for them.
