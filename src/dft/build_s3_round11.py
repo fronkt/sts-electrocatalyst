@@ -186,8 +186,13 @@ HDR_BOT = """\
 # MaxRSS 33.62 GB at kill -- the sixth node, and it was not previously excluded).
 #
 # row: dir job suffix nk
-# NP=128 NCONC=3
+# NP=128 NCONC=1
 """
+# NCONC in this header is the DRIVER's concurrency, which anvil/43_submit_s3_wave1.sh
+# invokes with a hardcoded 1 (line 68). The Slurm ARRAY concurrency is a separate
+# thing, the script's second positional argument (`%$CONC`, line 76). Round 8 ran
+# 1-3%3 with NCONC=1 declared. Declaring anything else here is refused by the
+# preflight as wrong-np-for-manifest (finding N6), which is how this was caught.
 
 
 def main():
@@ -201,7 +206,7 @@ def main():
     hdr = HDR + ''.join(body) + HDR_BOT
 
     hits = [l for l in hdr.splitlines() if 'NP=' in l or 'NCONC=' in l]
-    if hits != ['# NP=128 NCONC=3']:
+    if hits != ['# NP=128 NCONC=1']:
         W.die('manifest header must mention NP=/NCONC= exactly once, on the '
               'directive line; found %r' % hits)
 
