@@ -1538,3 +1538,75 @@ both still verify: the schema's `etot` doubles to exactly the run's own Ry
 energy (-2558.16352818 and -3617.10020423) at matching magnetization
 (22.977, 34.823). The original "76 MB" number was accidentally right about the
 density and wrong about what the patch actually copied.
+
+### Round 10 Group B closed: the children are not losing a lottery, they cannot win it
+
+`s0_OOH__2x1v_mir__g1__r3` converged in 273 iterations, `notconv 0`, JOB DONE, at
+E = -4662.62789719 and magtot **23.95** / magabs 26.23. Against the banked parent
+(-4662.69189747, magtot 20.13, magabs 22.91) that is **+870.768 meV** at
+dmagtot 3.82 -- a BRANCH MISMATCH, and *worse* than the original cold child's
++747.449 meV at 24.86.
+
+So three independent cold `scf` runs at that parent's final relaxed geometry:
+
+| run | result |
+|---|---|
+| `__g1` (round 5) | magtot 24.86, **+747.449 meV** |
+| `__g1__r2` (round 10) | OOM-killed on a050 at 13 iterations |
+| `__g1__r3` (round 10) | magtot 23.95, **+870.768 meV** |
+
+**and the SCF magnetization trajectories say why.** Every cold start at the
+relaxed geometry is inside the 23-25 uB region by roughly iteration 30 and never
+leaves it (`__g1` 24.56 at it 30; `__r3` 24.32 at it 30, settling 23.4-23.9 for
+240 more). The parent, by contrast, reached magtot **19.81 at ionic step 1** --
+cold, first try, from the ORIGINAL geometry -- and then walked 19.81 -> 20.13
+across 22 ionic steps carrying its own density forward. `Co ref__2x1v` has the
+identical shape: 22.50 at step 1 from the original geometry, 21.66 by step 10.
+
+**The reachable magnetic branch is a property of the geometry the SCF cold-starts
+from.** From the original geometry the low branch is reachable and has been
+reached repeatedly -- mir at 19.81 / 19.79 / 19.98 (3 of 5), ref at 22.50 / 22.58
+(2 of 3). From the relaxed geometry it has never been reached, in three tries.
+
+This retires the "R3 / A8.6, the banked energy cannot be reproduced on demand"
+framing for this row. The branch **is** reproducible from the geometry that
+reaches it; what is not reproducible is reaching it from somewhere else. Note
+also that `s0_OOH__2x1v_mir.replay.out`, which this ledger recorded as a failed
+replay, in fact landed at magtot 19.98 -- **in the parent's branch**. It failed
+on convergence (stalled at 2.5e-05, and genuinely stalled: its accuracy rose
+after iteration 100 rather than descending), not on branch.
+
+### Round 11 launched -- array 20166408, 3 rows, `1-3%3`
+
+Re-anchor runs. Each re-runs the deck of record for one open wave-4 parent under
+a new prefix; nothing is replaced (A8.8) and the banked `.out` files were
+md5-verified untouched before submission (`s0_OOH__2x1v_mir.out` 2,164,902 B
+`09481705...`, `ref__2x1v.out` 1,847,613 B `0a81fd37...`). The point is not to
+restate a parent's energy -- it is to produce, and this time KEEP, a converged
+density at the relaxed geometry in the parent's own branch.
+
+| row | nk | seeks | cost |
+|---|---|---|---|
+| `Co s0_OOH__2x1v_mir__reanchor` | 8 | magtot ~19.8 | ~340 SU |
+| `Co s0_OOH__2x1v_mir__reanchor__b` | 8 | magtot ~19.8 | ~340 SU |
+| `Co ref__2x1v__reanchor` | 16 | magtot ~22.5 | ~1000 SU |
+
+Two rolls of `mir` because it is cheap and lands low 3 times in 5; one of `ref`
+because it is 7 h 47 m. A roll that lands high is banked as evidence and no child
+is run from it. Round 12 then runs the `__g1.fromparent` children, which already
+exist on disk carrying `startingpot='file'` (both verified at build time),
+against whichever seeds landed -- and a seeded child inherits its seed's branch,
+which is what the two A8.3 successes demonstrated (Fe to 0.004 meV, Ni to 0.019
+meV, both at matching magnetization).
+
+`EXCLUDE=a024,a050,a088,a196,a220,a223` -- a050 added after it OOM-killed
+round 10's `__r2` at MaxRSS 33.62 GB while three siblings completed on a095.
+
+**Process note.** The first submission was REFUSED by the driver preflight:
+`wrong-np-for-manifest ... declares NP=128 NCONC=3, invoked with NP=128 NCONC=1`.
+`NCONC` in a manifest header is the DRIVER's concurrency, which
+`anvil/43_submit_s3_wave1.sh:68` hardcodes to 1; the Slurm ARRAY concurrency is
+the separate `%$CONC` second argument (line 76). Every prior manifest declares
+`NCONC=1`, and round 8 ran `1-3%3` with that declaration. The header was
+corrected and the three decks regenerate byte-identical (md5 unchanged). The
+guard did exactly its job.
