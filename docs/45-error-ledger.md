@@ -1456,3 +1456,85 @@ times before being refused.
 
 The remaining 50 non-convergent outputs are genuine -- they never reached
 1.0e-06 at all -- and R1 does nothing for them.
+
+## Round 10 -- array 20161825. BASIN_DRIFT independently confirmed; a sixth bad node; and my retention patch was 30-60x wrong
+
+Five GATE-1 children re-rolled under new prefixes, each deck differing from the
+one on disk in exactly one line. 3 completed, 1 OOM-killed on a new node, 1 was
+still running when this was written.
+
+### Group A -- the BASIN_DRIFT rows reproduce exactly
+
+| row | re-roll E (Ry) | vs first child | dmagtot | vs BANKED PARENT |
+|---|---|---|---|---|
+| `Fe s0_OOH__1x1_off__g1__r2` | -2558.16352818 | **-0.0001 meV** | 0.000 | **-384.300 meV** |
+| `Mn s0_OOH__2x1v_off__g1__r2` | -3617.10020423 | **-0.0012 meV** | 0.000 | **-20.617 meV** |
+| `Co s0_O__1x1_off__g1__r2` | (no `!` energy) | -- | -- | -- |
+
+Fe converged in 26 iterations and Mn in 28, both `notconv 0`, both landing on
+their first child's energy to **0.1 and 1.2 micro-eV** at identical
+magnetization. Two independent runs, on a different day, agreeing to a part in
+10^10 of the total energy.
+
+**So the BASIN_DRIFT finding is confirmed, not an artifact.** `Fe
+s0_OOH__1x1_off` and `Mn s0_OOH__2x1v_off` are banked 384.300 meV and 20.617 meV
+**above** a reproducible state at their own final geometry. Under
+`docs/43:311-314` both trigger the registered re-relax loop, and under
+`docs/43:787-790` the GATE-1 SCF energy is the corrected value. The anchor
+densities for that re-relax are now on disk.
+
+`Co s0_O__1x1_off__g1__r2` did **not** reproduce: 200 iterations, `convergence
+NOT achieved`, no `!` energy at all, and magtot 11.95 against the first child's
+11.24 and the parent's 11.69 -- a *third* state at the same geometry. Its
+density was correctly not retained (the gate requires every SCF converged). The
+-77.009 meV result for that row therefore stands on one observation only, and
+is the weakest of the three.
+
+### Group B -- `Co s0_OOH__2x1v_mir` is heading for MULTISTABLE
+
+`__r2` was OOM-killed on **a050** at 13 iterations. `__r3` reached iteration 212
+at magtot **23.74** against the parent's 20.13, accuracy 5.3e-05 against a 1e-06
+target -- the same 23.5-24.9 high-spin region every other attempt on this cell
+has fallen into (`__g1` cold 24.86, `ref__2x1v` replays 23.56 / 23.60 / 24.11).
+A8.3's registered remedy is a re-run from the parent's density, which does not
+exist and whose replay has now failed three times; the disposition A8.3 names
+for that case is MULTISTABLE, both numbers recorded, neither banked.
+
+### A sixth bad node: a050
+
+| node | tasks killed | MaxRSS at kill | spread |
+|---|---|---|---|
+| a196 | 3 | 8.65, 8.66, 8.70 GB | 0.5 % |
+| a220 | 2 | 35.06, 35.14 GB | 0.24 % |
+| a223 | 4 | 16.93, 16.94, 16.95, 16.95 GB | 0.1 % |
+| **a050** | **1** | **33.62 GB** | (single sample) |
+
+a050 was not in the exclusion list and killed a job whose three siblings had
+just completed on a095. Six nodes now, a new one on each of the last four
+submissions. `anvil/rcac_ticket_draft_2026-08-24.md` updated.
+
+### CORRECTION -- the retention patch was 30-60x wrong on size
+
+Earlier today I patched `anvil/42_s3_wave1.slurm` and `anvil/44_chain.slurm` to
+retain `<prefix>.save`, and justified it at "~76 MB, ~0.0015% of quota per run".
+**That figure came from inspecting FAILED runs' scratch saves, which are
+incomplete.** The first two real retentions came in at **2.4 GB and 4.5 GB**,
+because a completed run's save carries the wavefunctions:
+
+| | whole `.save` | `wfc*.hdf5` | density payload |
+|---|---|---|---|
+| Fe `s0_OOH__1x1_off__g1__r2` | 2.4 GB | 2.505 GB (36 files) | **42 MB** |
+| Mn `s0_OOH__2x1v_off__g1__r2` | 4.5 GB | 4.744 GB (20 files) | **72 MB** |
+
+`startingpot='file'` reads only the charge density. Wavefunctions would serve
+`startingwfc='file'` and `restart_mode='restart'`, **both of which this campaign
+forbids** (`build_s3_wave2.py:FORBIDDEN_RESTART`). So retaining them was not
+just 30-60x too expensive, it was storing the one thing the protocol bans using.
+
+Both scripts now copy every file in the save except `wfc*`, and verify
+`data-file-schema.xml` landed before swapping the copy into place. The two
+existing saves were trimmed in place, **2.4 G -> 44 M and 4.5 G -> 74 M**, and
+both still verify: the schema's `etot` doubles to exactly the run's own Ry
+energy (-2558.16352818 and -3617.10020423) at matching magnetization
+(22.977, 34.823). The original "76 MB" number was accidentally right about the
+density and wrong about what the patch actually copied.

@@ -8,8 +8,8 @@ succeed unmodified on other nodes (account che260157)
 
 Hello RCAC,
 
-We believe a number of compute nodes — **a024**, **a088**, **a196**, **a220** and
-**a223** so far — have a hardware or configuration
+We believe a number of compute nodes — **a024**, **a088**, **a196**, **a220**,
+**a223** and **a050** so far — have a hardware or configuration
 fault. Across four Slurm array submissions on 2026-08-24 (account che260157, user
 x-fcai3), Quantum ESPRESSO pw.x tasks (128 MPI ranks, -N 1, ~standard memory
 footprint for a 36-atom slab at 80 Ry) were OOM-killed on these two nodes and on
@@ -81,8 +81,10 @@ a note in the Anvil docs would save users a round of failed jobs.
 
 ## Update 2026-08-26: two more nodes, and a measurement that we think identifies the fault
 
-Since the a196 report we have lost rows on **a220** (2 tasks) and **a223** (4 tasks). We
-have now excluded five nodes by hand and hit a new one on each of the last three
+Since the a196 report we have lost rows on **a220** (2 tasks), **a223** (4 tasks) and,
+on 2026-08-26, **a050** (1 task, MaxRSS 33.62 GB — killed even though a050 was not
+in our exclusion list, on a job whose successful siblings on a095 peaked far lower). We
+have now excluded six nodes by hand and hit a new one on each of the last four
 submissions, so we no longer think this is a handful of individually broken machines.
 
 The measurement that changed our reading: **the kills on each node cluster at a tight,
@@ -93,6 +95,7 @@ node-specific value of MaxRSS.**
 | a196 | 3 | 8.65, 8.66, 8.70 GB | 0.5 % |
 | a220 | 2 | 35.06, 35.14 GB | 0.24 % |
 | a223 | 4 | 16.93, 16.94, 16.95, 16.95 GB | **0.1 %** |
+| a050 | 1 | 33.62 GB | (single sample) |
 
 Every one of these jobs was granted `mem=237G` (`-N 1 -n 128` on `shared`). The identical
 work, when it lands on a healthy node, peaks at **30–48 GB** and completes — for example
