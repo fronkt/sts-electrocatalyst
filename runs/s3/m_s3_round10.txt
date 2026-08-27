@@ -1,0 +1,53 @@
+# S3 round 10 wave rows (2026-08-26), built by src/dft/build_s3_round10.py.
+#
+# Every row is a GATE-1 child scf RE-ROLLED under a new prefix. Each deck
+# differs from the child deck already on disk in exactly one line -- the
+# prefix -- verified line-by-line at build time, so each row is an independent
+# sample of the same calculation and nothing on disk is overwritten (A8.8).
+#
+# WHY THE CHILD AND NOT THE PARENT. A GATE-1 child is an scf at the parent's
+# final geometry. Across all 35 GATE-1 pairs on disk, 29 agree to <= 0.044 meV
+# with dmagtot <= 0.01 and 6 disagree by >= 7.39 meV with dmagtot >= 0.18 --
+# zero overlap, a factor of 168. So a child that lands in the parent's magnetic
+# branch reproduces its energy, and one that does not, does not. Re-rolling the
+# child costs ~13 SU (median 6 min); replaying the parent to re-derive its
+# density costs 500-1000 SU and lands in the parent's branch 2 times in 5.
+#
+# anvil/42_s3_wave1.slurm now retains <prefix>.save (~76 MB) for any run whose
+# every SCF converged, so a winning roll is also a permanent branch anchor and
+# round 11 can re-relax the parent from it with no lottery.
+#
+# SCORING. Report dE, dmagtot and dmagabs together. A magnetization mismatch is
+# a BRANCH MISMATCH -- never agreement, and never a refusal to score.
+#
+# GROUP A -- bank the anchor: the child already found a state BELOW its parent; re-run it to confirm and to retain its density
+#
+#   Fe  s0_OOH__1x1_off__g1__r2                  nk=16 
+#        parent -2558.13528265 is 384.300 meV ABOVE this state at its own geometry
+#        target: E=-2558.16352817 Ry  magtot=22.98  magabs=27.39  (mag tol 0.05)
+#   Mn  s0_OOH__2x1v_off__g1__r2                 nk=8  
+#        parent -3617.09868891 is 20.616 meV ABOVE this state at its own geometry
+#        target: E=-3617.10020414 Ry  magtot=34.82  magabs=47.88  (mag tol 0.05)
+#   Co  s0_O__1x1_off__g1__r2                    nk=16 
+#        parent -2330.66171228 is 77.009 meV ABOVE this state at its own geometry
+#        target: E=-2330.66737233 Ry  magtot=11.24  magabs=12.02  (mag tol 0.05)
+#
+# GROUP B -- re-roll for the parent branch: the parent is right and the child is the one in the excited state
+#
+#   Co  s0_OOH__2x1v_mir__g1__r2                 nk=8  
+#        child -4662.63696095 is 747.449 meV ABOVE the parent; roll for the parent
+#        target: E=-4662.69189747 Ry  magtot=20.13  magabs=22.91  (mag tol 0.05)
+#   Co  s0_OOH__2x1v_mir__g1__r3                 nk=8  
+#        child -4662.63696095 is 747.449 meV ABOVE the parent; roll for the parent
+#        target: E=-4662.69189747 Ry  magtot=20.13  magabs=22.91  (mag tol 0.05)
+#
+#
+# SUBMIT WITH EXCLUDE=a024,a088,a196,a220,a223.
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+s3/Fe s0_OOH__1x1_off__g1__r2 .in 16
+s3/Mn s0_OOH__2x1v_off__g1__r2 .in 8
+s3/Co s0_O__1x1_off__g1__r2 .in 16
+s3/Co s0_OOH__2x1v_mir__g1__r2 .in 8
+s3/Co s0_OOH__2x1v_mir__g1__r3 .in 8

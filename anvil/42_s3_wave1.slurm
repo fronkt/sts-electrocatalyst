@@ -85,6 +85,30 @@ done_=$(grep -ac "JOB DONE" "$out" || true)
 final=$(grep -a "^!" "$out" | tail -1)
 echo "TASK ${SLURM_ARRAY_TASK_ID} $d/$job rc=$rc wall=$((t1-t0))s bfgs_conv=$conv scf_fail=$scffail job_done=$done_ $(date -u)"
 echo "   final: ${final:-NA}"
+
+# A8.3 enabler (infrastructure amendment, 2026-08-26). The converged charge
+# density is the only thing that pins the magnetic branch for a child run: the
+# same deck at the same geometry has landed in branches 39-111 meV apart on
+# Mn/Ni/Co (docs/45, round 9). Until now this line deleted every density we
+# ever produced, which is why the banked Co ref__2x1v state cannot be
+# regenerated. A <prefix>.save is ~76 MB; the .mix*/.wfc* Broyden files are the
+# multi-GB bulk. Keep the density of a run whose every SCF converged, drop the
+# rest -- ~0.0015% of the 5 TB project quota per run. Changes no calculation.
+prefix=$(sed -n "s/^[[:space:]]*prefix[[:space:]]*=[[:space:]]*'\([^']*\)'.*/\1/p" "${job}.run.in" | head -1)
+if [ "${scffail:-1}" -eq 0 ] && [ "${done_:-0}" -ge 1 ] && [ -n "${prefix:-}" ] && [ -d "$scratch/${prefix}.save" ]; then
+  mkdir -p ./dens
+  rm -rf "./dens/${prefix}.save.new"
+  if cp -r "$scratch/${prefix}.save" "./dens/${prefix}.save.new"; then
+    rm -rf "./dens/${prefix}.save"
+    mv "./dens/${prefix}.save.new" "./dens/${prefix}.save"
+    echo "   retained density: $d/dens/${prefix}.save ($(du -sh "./dens/${prefix}.save" | cut -f1))"
+  else
+    rm -rf "./dens/${prefix}.save.new"
+    echo "   density retention FAILED for ${prefix} (any previous copy left intact)"
+  fi
+else
+  echo "   no density retained (scf_fail=${scffail:-?} job_done=${done_:-?} prefix=${prefix:-NA})"
+fi
 rm -rf "$scratch"
 seff "${SLURM_JOB_ID}" 2>/dev/null || true
 exit $rc

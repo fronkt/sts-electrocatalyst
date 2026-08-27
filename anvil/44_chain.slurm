@@ -63,5 +63,24 @@ mpirun --oversubscribe -np "$NP" pw.x -nk "$nk" -in "${fdeck%.in}.run.in" > "$fo
 grep -aq "JOB DONE" "$fout" || { echo "CHAIN FAIL: child died (scratch kept)"; exit 1; }
 fE=$(grep -a "^!" "$fout" | tail -1)
 echo "   child-from-density final: $fE"
+
+# Retain the replay density on success (infrastructure amendment, 2026-08-26;
+# same rationale as 42_s3_wave1.slurm). A converged replay .save is the branch
+# anchor that lets a later child skip the replay entirely -- and the replay is
+# the step that keeps failing. ~76 MB; the .mix*/.wfc* bulk is dropped with the
+# scratch. Changes no calculation.
+mkdir -p ./dens
+for pfx in "$rprefix" "$fprefix"; do
+  [ -d "$scratch/${pfx}.save" ] || continue
+  rm -rf "./dens/${pfx}.save.new"
+  if cp -r "$scratch/${pfx}.save" "./dens/${pfx}.save.new"; then
+    rm -rf "./dens/${pfx}.save"
+    mv "./dens/${pfx}.save.new" "./dens/${pfx}.save"
+    echo "   retained density: $d/dens/${pfx}.save ($(du -sh "./dens/${pfx}.save" | cut -f1))"
+  else
+    rm -rf "./dens/${pfx}.save.new"
+    echo "   density retention FAILED for ${pfx} (any previous copy left intact)"
+  fi
+done
 rm -rf "$scratch"
 echo "CHAIN ${SLURM_ARRAY_TASK_ID} DONE $(date -u)"
