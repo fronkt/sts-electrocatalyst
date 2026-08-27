@@ -1,0 +1,82 @@
+# A0-cell: the registered Cr 2x1v U ladder, 16 of the 20 SCFs.
+# Built 2026-08-27 by src/dft/build_a0cell.py.
+#
+# A6.1(b), verbatim: "A Cr-only 2x1v arm: four states (`ref`, `*O`, `*OH`,
+# `*OOH`) x five U points = 20 fixed-geometry SCFs, run on block 1A's
+# already-relaxed 2x1v Cr geometries. The builder must take those geometries
+# from the production set that defines `tier_v3`, not re-pick them -- a
+# different 2x1v geometry would confound the cell comparison with a geometry
+# comparison."
+#
+# SIXTEEN HERE, NOT TWENTY. The fifth U point (7.15 eV) is gated by A7.1:
+# "Before any A0 deck is built on the fifth grid point" the projector pairing
+# must run. That is array 20178163, in flight. The 7.15 rung is built after it
+# scores -- and if P-PROJ fires (|d-eta| > 0.10 V), :1338 says the fifth point is
+# labelled PROJECTOR-MISMATCHED and the whole grid runs in ONE projector.
+#
+# ARM SELECTION, the one determination this builder made. Block 1A crossed
+# cell x symmetry, so each adsorbate state has a `_mir` (symmetry ON) and an
+# `_off` (nosym+noinv) arm, and A6.1 does not name one. It is fixed by the leg
+# A6.2 subtracts: the 1x1 ladder decks carry no nosym and no noinv, so the
+# like-for-like 2x1v counterpart is `_mir`. Taking `_off` would move symmetry
+# and cell in one step -- the confound A6.1 forbids. The bare reference matches
+# the other way: 1x1 slab__base and 2x1v ref__2x1v both carry nosym+noinv.
+#
+# *OOH uses the ESCAPE minimum, not the mir relax. docs/45: "Cr *OOH 2x1v mir
+# arm energy of record = the escape minimum -3188.71606 Ry (saddle -3188.70497
+# retained as diagnostic)". The mir relax sits on a saddle 150.8 meV above it.
+# The escape deck's `nosym` is inherited, not chosen: that geometry is off-mirror
+# by construction. NOTE the registered I_U test uses D = dG_O - dG_OH and does
+# NOT involve *OOH, so this choice cannot move the A6.2 number.
+#
+# SCORING (A6.2). D(cell) = dG_O - dG_OH per U point; span = max_U D - min_U D;
+# I_U = span(2x1v) - span(1x1). Thresholds inherited verbatim from the block-1A
+# interaction bins and NOT re-derived: |I_U| < 0.05 eV additive; >= 0.30 eV not
+# separable; 0.05-0.30 inconclusive, "not rounded toward either". Prior on
+# record: additive. Second readout from the same arm, no extra compute: if the
+# two cells place the volcano-apex crossing at U values differing by more than
+# 1.0 eV, A0's "the crossing is located rather than bracketed" claim is
+# cell-conditional and must be reported as such.
+#
+# These are FIXED-GEOMETRY SINGLE POINTS on already-relaxed structures.
+# Relaxation under the changed U is not included; they must never be reported as
+# relaxed.
+#
+# SUBMIT WITH EXCLUDE=a024,a050,a088,a196,a220,a223
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+#
+#   ref__2x1v__u0.0                        nat=36  nk=8   Cr 2x1v ref, u0.0, U=0 (no HUBBARD card)
+#   ref__2x1v__u0.5                        nat=36  nk=8   Cr 2x1v ref, u0.5, U=1.8500
+#   ref__2x1v__base                        nat=36  nk=8   Cr 2x1v ref, base, U=3.7000
+#   ref__2x1v__u1.35                       nat=36  nk=8   Cr 2x1v ref, u1.35, U=4.9950
+#   s0_O__2x1v_mir__u0.0                   nat=37  nk=8   Cr 2x1v s0_O, u0.0, U=0 (no HUBBARD card)
+#   s0_O__2x1v_mir__u0.5                   nat=37  nk=8   Cr 2x1v s0_O, u0.5, U=1.8500
+#   s0_O__2x1v_mir__base                   nat=37  nk=8   Cr 2x1v s0_O, base, U=3.7000
+#   s0_O__2x1v_mir__u1.35                  nat=37  nk=8   Cr 2x1v s0_O, u1.35, U=4.9950
+#   s0_OH__2x1v_mir__u0.0                  nat=38  nk=8   Cr 2x1v s0_OH, u0.0, U=0 (no HUBBARD card)
+#   s0_OH__2x1v_mir__u0.5                  nat=38  nk=8   Cr 2x1v s0_OH, u0.5, U=1.8500
+#   s0_OH__2x1v_mir__base                  nat=38  nk=8   Cr 2x1v s0_OH, base, U=3.7000
+#   s0_OH__2x1v_mir__u1.35                 nat=38  nk=8   Cr 2x1v s0_OH, u1.35, U=4.9950
+#   s0_OOH__2x1v_escape__u0.0              nat=39  nk=8   Cr 2x1v s0_OOH, u0.0, U=0 (no HUBBARD card)
+#   s0_OOH__2x1v_escape__u0.5              nat=39  nk=8   Cr 2x1v s0_OOH, u0.5, U=1.8500
+#   s0_OOH__2x1v_escape__base              nat=39  nk=8   Cr 2x1v s0_OOH, base, U=3.7000
+#   s0_OOH__2x1v_escape__u1.35             nat=39  nk=8   Cr 2x1v s0_OOH, u1.35, U=4.9950
+#
+a0/cell ref__2x1v__u0.0 .in 8
+a0/cell ref__2x1v__u0.5 .in 8
+a0/cell ref__2x1v__base .in 8
+a0/cell ref__2x1v__u1.35 .in 8
+a0/cell s0_O__2x1v_mir__u0.0 .in 8
+a0/cell s0_O__2x1v_mir__u0.5 .in 8
+a0/cell s0_O__2x1v_mir__base .in 8
+a0/cell s0_O__2x1v_mir__u1.35 .in 8
+a0/cell s0_OH__2x1v_mir__u0.0 .in 8
+a0/cell s0_OH__2x1v_mir__u0.5 .in 8
+a0/cell s0_OH__2x1v_mir__base .in 8
+a0/cell s0_OH__2x1v_mir__u1.35 .in 8
+a0/cell s0_OOH__2x1v_escape__u0.0 .in 8
+a0/cell s0_OOH__2x1v_escape__u0.5 .in 8
+a0/cell s0_OOH__2x1v_escape__base .in 8
+a0/cell s0_OOH__2x1v_escape__u1.35 .in 8
