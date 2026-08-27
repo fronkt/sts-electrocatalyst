@@ -1,0 +1,192 @@
+# A0-main: the registered dense eta(U) grid, 140 fixed-geometry SCFs.
+# Built 2026-08-27 by src/dft/build_a0main.py.
+#
+# Block 6A / A6.1(a): "Dense eta(U) grid, U = 0-9 eV, fixed geometry, 1x1 cell,
+# pw.x only, ~140 SCFs". Its registered job, quoted: "P7 -- the withdrawn eta(Cr)
+# headline, the 1.122 V swing -- was measured in the 1x1 cell. A0's registered
+# job is to bound THAT claim."
+#
+# A6.3 extends it: "A0-main spans U for Ru and Ir as well as the 3d metals, over
+# the same 0-9 eV range, with Xu's computed values marked as declared anchor
+# points", carrying the falsifiable prediction "the reference ordering Ir < Ru is
+# stable across U in [0, 9] eV. If it inverts anywhere in the band, then the
+# anchors against which every 3d result in this campaign is reported are
+# themselves U-conditional".
+#
+# THE ALLOCATION, chosen before any A0 number existed. The registered text fixes
+# range, cell, calculation, metals and scale (~140) but NOT a step.
+#   Cr  4 states x 19 points (0.0-9.0 by 0.5)                  =  76
+#   Ru  4 states x (7 points 0.0-9.0 by 1.5 + 6.73 Xu anchor)  =  32
+#   Ir  4 states x (7 points 0.0-9.0 by 1.5 + 5.91 Xu anchor)  =  32
+# Cr is a LOCATION question (bound P7's swing; 0.5 eV pins the transition to
+# +/-0.25 eV, inside A6.2's 1.0 eV threshold). Ru/Ir are an ORDERING question,
+# which needs coverage rather than resolution. Metal set is an inference from the
+# ~140 budget and is flagged as one in the builder docstring.
+#
+# NO POST-HOC REFINEMENT. A6.6: "an interaction test registered after the grid is
+# read is not a test." A second tranche's trigger is declared before this grid is
+# read, not after.
+#
+# ESCALATION, registered at A6.5(2) and NOT built in here: on a non-convergent
+# point, (i) restart from the converged neighbouring-U density as `startingpot`;
+# (ii) halve mixing beta; (iii) failing both, record NOT_CONVERGED and plot as a
+# gap -- "never interpolated across, never silently dropped. A grid with holes is
+# reportable. A grid with invented points is not." Remedy (i) is registered FOR
+# A0 and is precisely what S3 forbids; the prohibition is stage-specific.
+#
+# RUNNER: anvil/46_a0.slurm, which runs projwfc.x in the same job. A6.5(1)
+# requires every A0 point to retain its .save or project inline, and the S3
+# runner trims wavefunctions the projection needs.
+#
+# These are FIXED-GEOMETRY SINGLE POINTS on already-relaxed structures; nothing
+# here is relaxed and none of it may be reported as relaxed.
+#
+# SUBMIT WITH EXCLUDE=a024,a050,a088,a196,a220,a223
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+#
+#   Cr  Cr-3d: 0.00, 0.50, 1.00, 1.50, 2.00, 2.50, 3.00, 3.50, 4.00, 4.50, 5.00, 5.50, 6.00, 6.50, 7.00, 7.50, 8.00, 8.50, 9.00
+#   Ru  Ru-4d: 0.00, 1.50, 3.00, 4.50, 6.00, 7.50, 9.00, 6.73
+#   Ir  Ir-5d: 0.00, 1.50, 3.00, 4.50, 6.00, 7.50, 9.00, 5.91
+#
+a0/main/Cr slab__u000 .in 4
+a0/main/Cr slab__u050 .in 4
+a0/main/Cr slab__u100 .in 4
+a0/main/Cr slab__u150 .in 4
+a0/main/Cr slab__u200 .in 4
+a0/main/Cr slab__u250 .in 4
+a0/main/Cr slab__u300 .in 4
+a0/main/Cr slab__u350 .in 4
+a0/main/Cr slab__u400 .in 4
+a0/main/Cr slab__u450 .in 4
+a0/main/Cr slab__u500 .in 4
+a0/main/Cr slab__u550 .in 4
+a0/main/Cr slab__u600 .in 4
+a0/main/Cr slab__u650 .in 4
+a0/main/Cr slab__u700 .in 4
+a0/main/Cr slab__u750 .in 4
+a0/main/Cr slab__u800 .in 4
+a0/main/Cr slab__u850 .in 4
+a0/main/Cr slab__u900 .in 4
+a0/main/Cr s0_O__u000 .in 4
+a0/main/Cr s0_O__u050 .in 4
+a0/main/Cr s0_O__u100 .in 4
+a0/main/Cr s0_O__u150 .in 4
+a0/main/Cr s0_O__u200 .in 4
+a0/main/Cr s0_O__u250 .in 4
+a0/main/Cr s0_O__u300 .in 4
+a0/main/Cr s0_O__u350 .in 4
+a0/main/Cr s0_O__u400 .in 4
+a0/main/Cr s0_O__u450 .in 4
+a0/main/Cr s0_O__u500 .in 4
+a0/main/Cr s0_O__u550 .in 4
+a0/main/Cr s0_O__u600 .in 4
+a0/main/Cr s0_O__u650 .in 4
+a0/main/Cr s0_O__u700 .in 4
+a0/main/Cr s0_O__u750 .in 4
+a0/main/Cr s0_O__u800 .in 4
+a0/main/Cr s0_O__u850 .in 4
+a0/main/Cr s0_O__u900 .in 4
+a0/main/Cr s0_OH__u000 .in 4
+a0/main/Cr s0_OH__u050 .in 4
+a0/main/Cr s0_OH__u100 .in 4
+a0/main/Cr s0_OH__u150 .in 4
+a0/main/Cr s0_OH__u200 .in 4
+a0/main/Cr s0_OH__u250 .in 4
+a0/main/Cr s0_OH__u300 .in 4
+a0/main/Cr s0_OH__u350 .in 4
+a0/main/Cr s0_OH__u400 .in 4
+a0/main/Cr s0_OH__u450 .in 4
+a0/main/Cr s0_OH__u500 .in 4
+a0/main/Cr s0_OH__u550 .in 4
+a0/main/Cr s0_OH__u600 .in 4
+a0/main/Cr s0_OH__u650 .in 4
+a0/main/Cr s0_OH__u700 .in 4
+a0/main/Cr s0_OH__u750 .in 4
+a0/main/Cr s0_OH__u800 .in 4
+a0/main/Cr s0_OH__u850 .in 4
+a0/main/Cr s0_OH__u900 .in 4
+a0/main/Cr s0_OOH__u000 .in 4
+a0/main/Cr s0_OOH__u050 .in 4
+a0/main/Cr s0_OOH__u100 .in 4
+a0/main/Cr s0_OOH__u150 .in 4
+a0/main/Cr s0_OOH__u200 .in 4
+a0/main/Cr s0_OOH__u250 .in 4
+a0/main/Cr s0_OOH__u300 .in 4
+a0/main/Cr s0_OOH__u350 .in 4
+a0/main/Cr s0_OOH__u400 .in 4
+a0/main/Cr s0_OOH__u450 .in 4
+a0/main/Cr s0_OOH__u500 .in 4
+a0/main/Cr s0_OOH__u550 .in 4
+a0/main/Cr s0_OOH__u600 .in 4
+a0/main/Cr s0_OOH__u650 .in 4
+a0/main/Cr s0_OOH__u700 .in 4
+a0/main/Cr s0_OOH__u750 .in 4
+a0/main/Cr s0_OOH__u800 .in 4
+a0/main/Cr s0_OOH__u850 .in 4
+a0/main/Cr s0_OOH__u900 .in 4
+a0/main/Ru slab__u000 .in 4
+a0/main/Ru slab__u150 .in 4
+a0/main/Ru slab__u300 .in 4
+a0/main/Ru slab__u450 .in 4
+a0/main/Ru slab__u600 .in 4
+a0/main/Ru slab__u750 .in 4
+a0/main/Ru slab__u900 .in 4
+a0/main/Ru slab__u673 .in 4
+a0/main/Ru s0_O__u000 .in 4
+a0/main/Ru s0_O__u150 .in 4
+a0/main/Ru s0_O__u300 .in 4
+a0/main/Ru s0_O__u450 .in 4
+a0/main/Ru s0_O__u600 .in 4
+a0/main/Ru s0_O__u750 .in 4
+a0/main/Ru s0_O__u900 .in 4
+a0/main/Ru s0_O__u673 .in 4
+a0/main/Ru s0_OH__u000 .in 4
+a0/main/Ru s0_OH__u150 .in 4
+a0/main/Ru s0_OH__u300 .in 4
+a0/main/Ru s0_OH__u450 .in 4
+a0/main/Ru s0_OH__u600 .in 4
+a0/main/Ru s0_OH__u750 .in 4
+a0/main/Ru s0_OH__u900 .in 4
+a0/main/Ru s0_OH__u673 .in 4
+a0/main/Ru s0_OOH__u000 .in 4
+a0/main/Ru s0_OOH__u150 .in 4
+a0/main/Ru s0_OOH__u300 .in 4
+a0/main/Ru s0_OOH__u450 .in 4
+a0/main/Ru s0_OOH__u600 .in 4
+a0/main/Ru s0_OOH__u750 .in 4
+a0/main/Ru s0_OOH__u900 .in 4
+a0/main/Ru s0_OOH__u673 .in 4
+a0/main/Ir slab__u000 .in 4
+a0/main/Ir slab__u150 .in 4
+a0/main/Ir slab__u300 .in 4
+a0/main/Ir slab__u450 .in 4
+a0/main/Ir slab__u600 .in 4
+a0/main/Ir slab__u750 .in 4
+a0/main/Ir slab__u900 .in 4
+a0/main/Ir slab__u591 .in 4
+a0/main/Ir s0_O__u000 .in 4
+a0/main/Ir s0_O__u150 .in 4
+a0/main/Ir s0_O__u300 .in 4
+a0/main/Ir s0_O__u450 .in 4
+a0/main/Ir s0_O__u600 .in 4
+a0/main/Ir s0_O__u750 .in 4
+a0/main/Ir s0_O__u900 .in 4
+a0/main/Ir s0_O__u591 .in 4
+a0/main/Ir s0_OH__u000 .in 4
+a0/main/Ir s0_OH__u150 .in 4
+a0/main/Ir s0_OH__u300 .in 4
+a0/main/Ir s0_OH__u450 .in 4
+a0/main/Ir s0_OH__u600 .in 4
+a0/main/Ir s0_OH__u750 .in 4
+a0/main/Ir s0_OH__u900 .in 4
+a0/main/Ir s0_OH__u591 .in 4
+a0/main/Ir s0_OOH__u000 .in 4
+a0/main/Ir s0_OOH__u150 .in 4
+a0/main/Ir s0_OOH__u300 .in 4
+a0/main/Ir s0_OOH__u450 .in 4
+a0/main/Ir s0_OOH__u600 .in 4
+a0/main/Ir s0_OOH__u750 .in 4
+a0/main/Ir s0_OOH__u900 .in 4
+a0/main/Ir s0_OOH__u591 .in 4

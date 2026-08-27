@@ -1,0 +1,78 @@
+{
+  "arm": "A0-main (block 6A / A6.1a, extended to Ru+Ir by A6.3)",
+  "registered_at": "docs/43-prereg-week1-factorial.md:283, :1184-1204, :1236-1245",
+  "built": 140,
+  "registered_total": 140,
+  "calculation": "scf",
+  "cell": "1x1",
+  "range_eV": [
+    0.0,
+    9.0
+  ],
+  "nk": 4,
+  "allocation_chosen_by": "the entrant, 2026-08-27 (Cr 19 / Ru 7+1 / Ir 7+1)",
+  "note": "FIXED-GEOMETRY single points on already-relaxed structures. Relaxation under the changed U is NOT included and these must not be reported as relaxed.",
+  "escalation_A6_5_2": [
+    "startingpot from converged neighbouring-U density",
+    "halve mixing_beta",
+    "NOT_CONVERGED, plotted as a gap"
+  ],
+  "metals": {
+    "Cr": {
+      "orbital": "3d",
+      "points_eV": [
+        0.0,
+        0.5,
+        1.0,
+        1.5,
+        2.0,
+        2.5,
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        5.0,
+        5.5,
+        6.0,
+        6.5,
+        7.0,
+        7.5,
+        8.0,
+        8.5,
+        9.0
+      ],
+      "xu_anchor_eV": null,
+      "why": "location arm: bounds P7's 1.122 V swing, 0.5 eV -> transition to +/-0.25 eV"
+    },
+    "Ru": {
+      "orbital": "4d",
+      "points_eV": [
+        0.0,
+        1.5,
+        3.0,
+        4.5,
+        6.0,
+        7.5,
+        9.0,
+        6.73
+      ],
+      "xu_anchor_eV": 6.73,
+      "why": "ordering arm: A6.3's Ir < Ru stability test; 6.73 eV is Xu's declared anchor"
+    },
+    "Ir": {
+      "orbital": "5d",
+      "points_eV": [
+        0.0,
+        1.5,
+        3.0,
+        4.5,
+        6.0,
+        7.5,
+        9.0,
+        5.91
+      ],
+      "xu_anchor_eV": 5.91,
+      "why": "ordering arm: A6.3's Ir < Ru stability test; 5.91 eV is Xu's declared anchor"
+    }
+  }
+}
