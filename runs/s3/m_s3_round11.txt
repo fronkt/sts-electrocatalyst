@@ -1,0 +1,43 @@
+# S3 round 11 wave rows (2026-08-27), built by src/dft/build_s3_round11.py.
+#
+# RE-ANCHOR RUNS. Each row re-runs the deck of record for one banked wave-4
+# parent under a NEW prefix. Nothing is replaced: the banked .out files are
+# untouched and these are named __reanchor. The point is not to restate the
+# parent's energy -- it is to produce, and this time KEEP, a converged density
+# at the relaxed geometry in the parent's own magnetic branch.
+#
+# WHY. Three independent cold scf runs at Co s0_OOH__2x1v_mir's FINAL geometry
+# (__g1 24.86, __r2 OOM, __r3 23.95) all locked into the 23-25 uB region by
+# iteration 30 and none reached the parent's 20.13. But the parent itself hit
+# magtot 19.81 at ionic step 1, cold, from the ORIGINAL geometry, and relaxed
+# to 20.13 carrying its density forward. The reachable branch is a property of
+# the geometry the SCF cold-starts from: low is reachable from the original
+# geometry (mir 3 of 5, ref 2 of 3) and has never been reached from the relaxed
+# one in three tries. Re-rolling the child is the one move the evidence rules
+# out; re-anchoring the parent is the one that has worked before.
+#
+# anvil/42_s3_wave1.slurm now retains <prefix>.save minus wavefunctions (40-75
+# MB) for any run whose every SCF converged, so a roll that lands low leaves a
+# permanent seed. Round 12 runs the existing __g1.fromparent children, which
+# already carry startingpot='file', against those seeds.
+#
+# SCORING. Score on magtot FIRST. A roll landing near the parent's step-1 value
+# is a usable anchor; one landing high is banked as evidence and no child is run
+# from it. Report dE, dmagtot and dmagabs together; a magnetization mismatch is
+# a BRANCH MISMATCH, never agreement and never a refusal to score.
+#
+#   Co  s0_OOH__2x1v_mir__reanchor         nk=8    seeks magtot ~19.81 (parent step 1); parent final magtot 20.13 / magabs 22.91, E=-4662.69189747
+#        3 of 5 runs from this geometry landed low (19.79-19.98)
+#   Co  s0_OOH__2x1v_mir__reanchor__b      nk=8    seeks magtot ~19.81 (parent step 1); parent final magtot 20.13 / magabs 22.91, E=-4662.69189747
+#        3 of 5 runs from this geometry landed low (19.79-19.98)
+#   Co  ref__2x1v__reanchor                nk=16   seeks magtot ~22.50 (parent step 1); parent final magtot 21.66 / magabs 24.38, E=-4578.38410421
+#        2 of 3 runs from this geometry landed near 22.5
+#
+# SUBMIT WITH EXCLUDE=a024,a050,a088,a196,a220,a223   (a050 added 2026-08-26,
+# MaxRSS 33.62 GB at kill -- the sixth node, and it was not previously excluded).
+#
+# row: dir job suffix nk
+# NP=128 NCONC=3
+s3/Co s0_OOH__2x1v_mir__reanchor .in 8
+s3/Co s0_OOH__2x1v_mir__reanchor__b .in 8
+s3/Co ref__2x1v__reanchor .in 16
