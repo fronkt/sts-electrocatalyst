@@ -1,0 +1,56 @@
+# P-PROJ: the remaining 6 of the 8 registered projector-pairing SCFs.
+# Built 2026-08-27 by src/dft/build_pproj.py.
+#
+# A7.1 (docs/43 :1325-1345), verbatim: "Test: two Cr fixed-geometry SCF sets at
+# U = 7.15 eV, 1x1 (matching A0), `HUBBARD (atomic)` vs `(ortho-atomic)`, all
+# four states. PREDICTION (blind): |d-eta(Cr)| > 0.10 V. FALSIFIED below 0.03 V,
+# in which case the projector is not a live variable at this U and Xu's
+# supercell linear-response value may be imported as a literature anchor."
+#
+# TWO OF THE EIGHT ARE ALREADY BANKED. runs/s0/e_proj/README.md: "the full
+# 4-state pairing (2 projector sets x {slab, *OH, *O, *OOH} = 8 SCFs) runs LATER
+# under the A0 budget per A7.1 -- these 2 S0 decks are reused as 2 of those 8;
+# the remaining 6 SCFs are A0 jobs, NOT S0 jobs." The *O pair converged with no
+# error block, both at magtot 10.00, E_atomic - E_ortho = +0.27021297 Ry
+# (+3676.6 meV) at identical geometry and U. These six are the other three
+# states, both legs.
+#
+# WHY NOW. P-PROJ gates the fifth A0 grid point and through it S4, which the
+# ledger lists as "clear after S0(e)/P-PROJ" and which has zero decks built.
+# The queue is empty; this is the cheapest thing on the critical path.
+#
+# DECKS. Each differs from runs/probe/Cr/<state>__base.in in exactly 2 lines
+# (atomic: prefix, U 3.7000 -> 7.1500) or 3 (ortho: + HUBBARD (atomic) ->
+# (ortho-atomic)), asserted at build time against the banked pair's own
+# transformation. Fixed-geometry single points on the final BFGS geometry of
+# runs/Cr_slab/<state>.out -- NEVER to be reported as relaxed.
+#
+# SCORING. Score per state: converged (no "convergence NOT achieved", a final
+# "!" energy) and no "Error in routine" block; then dE = E_atomic - E_ortho at
+# identical geometry and U, and the magnetization pair alongside. The eta
+# consequence -- the thing A7.1 predicts on -- is assembled from all four states
+# by the CHE ladder, not from any single dE. Report the four dE values and the
+# resulting |d-eta| together; a magnetization mismatch between the legs of a
+# pair is a BRANCH MISMATCH and is reported as such, never averaged away.
+#
+# nk = 4 matches the registered manifest lines in runs/s0/e_proj/manifest.json
+# (15 irreducible k-points; NP must be an exact multiple of nk).
+#
+# SUBMIT WITH EXCLUDE=a024,a050,a088,a196,a220,a223
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+#
+#   slab__u715_atomic        nat=18  nk=4   Cr slab, U=7.1500, HUBBARD (atomic)
+#   slab__u715_ortho         nat=18  nk=4   Cr slab, U=7.1500, HUBBARD (ortho)
+#   s0_OH__u715_atomic       nat=20  nk=4   Cr s0_OH, U=7.1500, HUBBARD (atomic)
+#   s0_OH__u715_ortho        nat=20  nk=4   Cr s0_OH, U=7.1500, HUBBARD (ortho)
+#   s0_OOH__u715_atomic      nat=21  nk=4   Cr s0_OOH, U=7.1500, HUBBARD (atomic)
+#   s0_OOH__u715_ortho       nat=21  nk=4   Cr s0_OOH, U=7.1500, HUBBARD (ortho)
+#
+a0/p_proj slab__u715_atomic .in 4
+a0/p_proj slab__u715_ortho .in 4
+a0/p_proj s0_OH__u715_atomic .in 4
+a0/p_proj s0_OH__u715_ortho .in 4
+a0/p_proj s0_OOH__u715_atomic .in 4
+a0/p_proj s0_OOH__u715_ortho .in 4
