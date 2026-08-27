@@ -86,22 +86,33 @@ final=$(grep -a "^!" "$out" | tail -1)
 echo "TASK ${SLURM_ARRAY_TASK_ID} $d/$job rc=$rc wall=$((t1-t0))s bfgs_conv=$conv scf_fail=$scffail job_done=$done_ $(date -u)"
 echo "   final: ${final:-NA}"
 
-# A8.3 enabler (infrastructure amendment, 2026-08-26). The converged charge
-# density is the only thing that pins the magnetic branch for a child run: the
-# same deck at the same geometry has landed in branches 39-111 meV apart on
-# Mn/Ni/Co (docs/45, round 9). Until now this line deleted every density we
-# ever produced, which is why the banked Co ref__2x1v state cannot be
-# regenerated. A <prefix>.save is ~76 MB; the .mix*/.wfc* Broyden files are the
-# multi-GB bulk. Keep the density of a run whose every SCF converged, drop the
-# rest -- ~0.0015% of the 5 TB project quota per run. Changes no calculation.
+# A8.3 enabler (infrastructure amendment, 2026-08-26; corrected same day). The
+# converged charge density is the only thing that pins the magnetic branch for a
+# child run: across all 35 GATE-1 pairs, dmagtot <= 0.01 gives |dE| <= 0.044 meV
+# and dmagtot >= 0.18 gives |dE| >= 7.394 meV, with no overlap (docs/45).
+# Until now this line deleted every density we ever produced, which is why
+# re-deriving one costs a 500-1000 SU parent replay against ~13 SU for the child.
+#
+# Retain the DENSITY ONLY, never the wavefunctions. Measured on the first
+# retention (Fe s0_OOH__1x1_off__g1__r2): the whole .save is 2.4 GB, of which
+# wfc*.hdf5 is 2.505 GB across 36 files and the density payload
+# (charge-density.hdf5 + data-file-schema.xml + paw.txt + occup.txt + the UPFs)
+# is 42 MB; Mn's is 72 MB. `startingpot='file'` reads only the charge density --
+# wavefunctions serve `startingwfc='file'` and `restart_mode='restart'`, both of
+# which this campaign FORBIDS (build_s3_wave2.py:FORBIDDEN_RESTART). So dropping
+# them is 30-60x cheaper AND removes the ability to accidentally restart from a
+# forbidden source. Changes no calculation.
 prefix=$(sed -n "s/^[[:space:]]*prefix[[:space:]]*=[[:space:]]*'\([^']*\)'.*/\1/p" "${job}.run.in" | head -1)
 if [ "${scffail:-1}" -eq 0 ] && [ "${done_:-0}" -ge 1 ] && [ -n "${prefix:-}" ] && [ -d "$scratch/${prefix}.save" ]; then
   mkdir -p ./dens
   rm -rf "./dens/${prefix}.save.new"
-  if cp -r "$scratch/${prefix}.save" "./dens/${prefix}.save.new"; then
+  if mkdir -p "./dens/${prefix}.save.new" && \
+     find "$scratch/${prefix}.save" -maxdepth 1 -type f ! -name 'wfc*' \
+          -exec cp -p {} "./dens/${prefix}.save.new/" \; && \
+     [ -f "./dens/${prefix}.save.new/data-file-schema.xml" ]; then
     rm -rf "./dens/${prefix}.save"
     mv "./dens/${prefix}.save.new" "./dens/${prefix}.save"
-    echo "   retained density: $d/dens/${prefix}.save ($(du -sh "./dens/${prefix}.save" | cut -f1))"
+    echo "   retained density: $d/dens/${prefix}.save ($(du -sh "./dens/${prefix}.save" | cut -f1), wavefunctions dropped)"
   else
     rm -rf "./dens/${prefix}.save.new"
     echo "   density retention FAILED for ${prefix} (any previous copy left intact)"

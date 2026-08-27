@@ -65,15 +65,20 @@ fE=$(grep -a "^!" "$fout" | tail -1)
 echo "   child-from-density final: $fE"
 
 # Retain the replay density on success (infrastructure amendment, 2026-08-26;
-# same rationale as 42_s3_wave1.slurm). A converged replay .save is the branch
-# anchor that lets a later child skip the replay entirely -- and the replay is
-# the step that keeps failing. ~76 MB; the .mix*/.wfc* bulk is dropped with the
-# scratch. Changes no calculation.
+# corrected same day; same rationale as 42_s3_wave1.slurm). A converged replay
+# density is the branch anchor that lets a later child skip the replay entirely
+# -- and the replay is the step that keeps failing. DENSITY ONLY: wfc*.hdf5 is
+# 2.5 GB of a 2.4 GB-plus .save while the density payload is 42-72 MB, and
+# `startingpot='file'` reads only the density. Wavefunctions would serve
+# `startingwfc`/`restart_mode`, which this campaign forbids. Changes nothing.
 mkdir -p ./dens
 for pfx in "$rprefix" "$fprefix"; do
   [ -d "$scratch/${pfx}.save" ] || continue
   rm -rf "./dens/${pfx}.save.new"
-  if cp -r "$scratch/${pfx}.save" "./dens/${pfx}.save.new"; then
+  if mkdir -p "./dens/${pfx}.save.new" && \
+     find "$scratch/${pfx}.save" -maxdepth 1 -type f ! -name 'wfc*' \
+          -exec cp -p {} "./dens/${pfx}.save.new/" \; && \
+     [ -f "./dens/${pfx}.save.new/data-file-schema.xml" ]; then
     rm -rf "./dens/${pfx}.save"
     mv "./dens/${pfx}.save.new" "./dens/${pfx}.save"
     echo "   retained density: $d/dens/${pfx}.save ($(du -sh "./dens/${pfx}.save" | cut -f1))"
