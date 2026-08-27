@@ -1744,3 +1744,106 @@ from the DEPOSITED text (`docs/43`) or from a file header carrying a status line
 never from a filename, and never from a table cell alone.
 
 The three §E rows are corrected in place with this entry as their provenance.
+
+## S3 remaining-work inventory, 2026-08-27 (14-agent fan-out, adversarially verified)
+
+`docs/54`'s matrix predates waves 1-4 and rounds 3-11, so it is stale on exactly the
+rows that matter. Six inventory agents (one per metal) were each refuted by a paired
+verifier. **The verify pass caught a fabricated evidence line** -- one agent reported
+"Final scf block present" on all ten Mn relaxations; `grep -ic 'final scf'` returns 0 on
+every one of them and `grep -ril` returns nothing repo-wide. Four of six metals came
+back CORRECTED. Nothing below is relayed on an agent's word alone; every number here
+was re-measured directly.
+
+| metal | BUILD rows | converged | failed | built-not-run | deck missing |
+|---|---|---|---|---|---|
+| Cr | 23 | 20 | 0 | 0 | 3 |
+| Mn | 16 | 14 | 0 | 0 | 2 |
+| Fe | 11 | 10 | 0 | 0 | 1 |
+| Co | 10 | 7 | 2 | 0 | 1 |
+| Ni | 10 | 8 | 1 | 0 | 1 |
+| Ti | 7 | 7 | 0 | 0 | 0 |
+| **total** | **77** | **66** | **3** | **0** | **8** |
+
+**Nothing is built-and-waiting.** Every deck that exists has been run.
+
+### All 8 missing decks are blocked on an open registration decision -- none is mine to build
+
+| family | count | blocked by |
+|---|---|---|
+| `__magm` second seed (Mn, Fe, Co, Ni) | 4 | no registered numeric recipe. A8.1 names none (docs/43:1516); the implemented LIT-3 reading `starting_magnetization(O) = -0.5` is flagged NEEDS FRANK'S SIGN-OFF (`runs/probe/lit3_manifest.json:71`); BUILD-T is launchable only after the triage line (docs/54 s6 items 2-3) |
+| `__ns` (Cr, Mn) | 2 | the decks' class (SCF vs relax) is unstated, so they cannot be built as specified (docs/54 s6 item 2); parked at `m_s3_wave1.txt:8`. `starting_ns_eigenvalue` appears in ZERO decks repo-wide |
+| dy-ladder rungs (Cr) | 2 | rungs {0.10, 0.25, 0.50} A live only in synthesis:258; deposited A8 carries the ladder by name alone (docs/43:1483-1484), and mapping a y-translation ladder onto a polyatomic *OOH start is unspecified (docs/54 s6 item 7) |
+
+Building any of these would mean inventing a registered parameter. They are held.
+
+### The 3 remaining failures are ONE failure class, and R1 does not touch it
+
+| row | iters | min accuracy | crossed registered 1e-6 |
+|---|---|---|---|
+| `Co s0_O__2x1v_mir` (corner C) | 1500 | 1.628e-05 | **0** |
+| `Co s0_OH__2x1v_off` (corner B) | 500 | 2.470e-05 | **0** |
+| `Ni s0_OOH__2x1v_mir` (corner C, att7) | 500 | 2.172e-04 | **0** |
+
+All three die on their **first** SCF cycle, at the deck's own registered `conv_thr =
+1.0d-6`, with **no `new conv_thr` line yet printed** -- upscale has not engaged, so
+`upscale = 1.0` (R1) is irrelevant to every one of them. R1 remains worth its one line
+for the ~10 of 60 outputs that did cross and were failed anyway, and for the ~15 %
+iteration trim measured on `__reanchor`; it is not a fix for these.
+
+**What HAS been tried on `Ni s0_OOH__2x1v_mir`, across seven attempts:** `mixing_beta`
+0.3 -> 0.15 (all four retry variants), `electron_maxstep` 200 -> 500 (three), `mixing_ndim`
+= 16 (one), and a displaced geometry (two). **`starting_magnetization` was never moved**
+-- it reads `(1)=0.0 (2)=0.3 (3)=0.0` in the base deck and in all seven attempts.
+
+That is the same lever left untried on the two open Co children. **Every remaining S3
+failure and both open GATE-1 rows now point at one line of registered input.** It is a
+registered-input change and therefore the entrant's call, not infrastructure.
+
+### CORRECTION -- a false alarm on a banked reference, resolved
+
+The Mn verifier reported that `runs/s3/Mn/ref__2x1v.out` "performed NO relaxation" --
+`bfgs converged in 1 scf cycles and 0 bfgs steps` on a `calculation = 'relax'` deck --
+and implied the banked -3532.71646890 Ry is unsound. **The run is legitimately
+converged.** QE's own report: `Energy error = 2.4E-05 Ry` (< 1.0E-04) and `Gradient
+error = 1.7E-03 Ry/Bohr` (< 2.0E-03). Atoms 1, 2, 7, 9, 10 and 12 carry `0 0 0` in the
+deck, and the max |force| over FREE coordinates only is **0.001721 Ry/bohr** -- exactly
+QE's reported gradient error. The input geometry was already at the minimum for its free
+coordinates. Zero bfgs steps is the correct outcome, not a defect.
+
+### But it exposes a registered premise that is FALSE in QE 7.5
+
+Chasing that alarm required checking whether pw.x masks frozen-atom forces. The
+registered A9.1 reader rule (docs/43:1834) states, as its reason:
+
+> "atoms with any `if_pos = 0` are excluded from every exact-zero count and their number
+> reported (**pw.x prints the if_pos-masked force, so a fixed coordinate reads exactly
+> zero for a reason that is not symmetry**)."
+
+**Measured, 5 outputs across 5 metals, 78 frozen atoms: not one prints all-three-exactly-
+zero.** `Mn/ref__2x1v` 14 frozen / 0 zero; `Cr/s0_OOH__2x1v_escape` 14/0; `Ti/ref__2x1v`
+14/0; `Fe/s0_O__2x1v_mir` 14/0; `Ni/s0_OH__2x1v_mir` 22/0. Frozen atoms print their full
+unmasked force -- e.g. Mn atom 12 (`0 0 0`) prints z = 0.04355221 Ry/bohr.
+
+The clause's **action** is unaffected and remains conservative: a frozen atom's force is
+not evidence about symmetry either way, so excluding it is right. What is wrong is the
+stated **reason**, and it inverts a risk assessment: frozen atoms were named as a source
+of false LOCKED positives, and in this build they cannot be one. The live risk runs the
+other way -- any detector that *infers* which atoms are frozen from exact-zero forces
+would find none. This matters now because `silentgate`'s registered adsorbate rule is
+built on it and the entrant is about to write that reader. **Disposition is the
+entrant's: this is a factual correction to a deposited clause's parenthetical, not a
+threshold, and it is reported, not acted on.**
+
+### S1 harness state (AI-permitted work, none of it started)
+
+`.github/` does not exist; there is no `pyproject.toml`, `setup.py` or `silentgate/`
+package -- re-verified 2026-08-27, still true four days after A9.0 recorded it. Both
+registered CI controls are therefore unwritten, and A9.2 makes them a GATE that "voids
+rather than caveats." The authorship boundary, quoted at docs/43:1840: core =
+`silentgate/readers/*`, `census.py`, `classify.py`, `direction.py`, `cli.py`, "written
+and committed only by the entrant" -- the constraint binds the COMMIT, so an AI-authored
+patch committed under the entrant's name would violate it. AI may write tests, fixtures,
+the CI workflow, review comments, and `pyproject` metadata / version string /
+entry-point declaration and "nothing wider." A CI helper that parses `pwscf.out` force
+blocks is a reader; writing one under any name would be authoring core.
