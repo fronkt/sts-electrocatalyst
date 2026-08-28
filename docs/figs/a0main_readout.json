@@ -6,10 +6,10 @@
         "H2": -31.74532261815729
       },
       "rerun_determinism_check_meV": {
-        "slab": 0.0038095940029484903,
-        "s0_O": 0.0034014213386754488,
-        "s0_OH": 0.0024490236113324394,
-        "s0_OOH": -0.0036735385105751113
+        "slab": 0.0038095940026701704,
+        "s0_O": 0.003401421338426949,
+        "s0_OH": 0.0024490236111535195,
+        "s0_OOH": -0.0036735385103067314
       },
       "control_ok": true,
       "control_note": "same-deck re-run: the A0 u000 decks are byte-identical to the probe u0.0/base decks except the prefix line, so this drift measures SCF re-run determinism, not a geometry round-trip; the genuine extraction control (SCF vs source relaxation) lives in the a0cell readout",
@@ -254,198 +254,114 @@
         "H2": -31.74532261815729
       },
       "rerun_determinism_check_meV": {
-        "slab": 0.0047619917302915,
-        "s0_O": -0.005714392551210962,
-        "s0_OH": null,
-        "s0_OOH": null
+        "slab": 0.0047619917299436005,
+        "s0_O": -0.005714392550793482,
+        "s0_OH": -0.0023129681187900805,
+        "s0_OOH": -0.0027211376894568495
       },
-      "control_ok": false,
+      "control_ok": true,
       "control_note": "same-deck re-run: the A0 u000 decks are byte-identical to the probe u0.0/base decks except the prefix line, so this drift measures SCF re-run determinism, not a geometry round-trip; the genuine extraction control (SCF vs source relaxation) lives in the a0cell readout",
       "rows": [
         {
           "u": 0.0,
-          "gap": [
-            "s0_OH",
-            "s0_OOH"
-          ],
-          "gap_why": [
-            "absent",
-            "absent"
-          ]
+          "dG_OH": 0.5291275412665527,
+          "dG_O": 1.6924410811481494,
+          "dG_OOH": 3.709209257925431,
+          "D": 1.1633135398815968,
+          "eta": 0.7867681767772816,
+          "pls": 3,
+          "closed_form_dev": 0.0,
+          "anchor": false
         },
         {
           "u": 1.5,
-          "gap": [
-            "s0_OH",
-            "s0_OOH"
-          ],
-          "gap_why": [
-            "absent",
-            "absent"
-          ]
+          "dG_OH": 0.5791918660207557,
+          "dG_O": 1.7664104726610959,
+          "dG_OOH": 3.722689642614023,
+          "D": 1.1872186066403403,
+          "eta": 0.726279169952927,
+          "pls": 3,
+          "closed_form_dev": 1.1102230246251565e-16,
+          "anchor": false
         },
         {
           "u": 3.0,
-          "gap": [
-            "s0_OH",
-            "s0_OOH"
-          ],
-          "gap_why": [
-            "absent",
-            "absent"
-          ]
+          "dG_OH": 0.6316207241826305,
+          "dG_O": 1.8613958980533198,
+          "dG_OOH": 3.741021545352305,
+          "D": 1.2297751738706895,
+          "eta": 0.6496256472989852,
+          "pls": 3,
+          "closed_form_dev": 1.1102230246251565e-16,
+          "anchor": false
         },
         {
           "u": 4.5,
-          "gap": [
-            "s0_OH",
-            "s0_OOH"
-          ],
-          "gap_why": [
-            "absent",
-            "absent"
-          ]
+          "dG_OH": 0.6939462274595826,
+          "dG_O": 1.9804270730675626,
+          "dG_OOH": 3.771765921930091,
+          "D": 1.2864808456079802,
+          "eta": 0.5613388488625286,
+          "pls": 3,
+          "closed_form_dev": 1.1102230246251565e-16,
+          "anchor": false
         },
         {
           "u": 6.0,
-          "gap": [
-            "s0_OH",
-            "s0_OOH"
-          ],
-          "gap_why": [
-            "absent",
-            "absent"
-          ]
+          "dG_OH": 0.7717450773589917,
+          "dG_O": 2.126829909397361,
+          "dG_OOH": 3.8204707658254846,
+          "D": 1.355084832038369,
+          "eta": 0.4636408564281238,
+          "pls": 3,
+          "closed_form_dev": 0.0,
+          "anchor": false
         },
         {
           "u": 6.73,
-          "gap": [
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          "gap_why": [
-            "absent",
-            "absent",
-            "absent"
-          ]
+          "dG_OH": 0.8159705189092165,
+          "dG_O": 2.208353725956999,
+          "dG_OOH": 3.851355825273822,
+          "D": 1.3923832070477826,
+          "eta": 0.41300209931682286,
+          "pls": 3,
+          "closed_form_dev": 0.0,
+          "anchor": true,
+          "label": "XU-ANCHOR [PROJECTOR-MISMATCHED]",
+          "label_why": "Xu 2015's linear-response U was derived under a different Hubbard projector than this grid's HUBBARD (atomic); P-PROJ measured the eta consequence at |d-eta| = 0.487 V (A7.1 FIRED, docs/figs/pproj_readout.json). Excluded from every single-projector claim, including the A6.3 test."
         },
         {
           "u": 7.5,
-          "gap": [
-            "s0_OH",
-            "s0_OOH"
-          ],
-          "gap_why": [
-            "absent",
-            "absent"
-          ]
+          "dG_OH": 0.8674237128135246,
+          "dG_O": 2.3015044236309903,
+          "dG_OOH": 3.889209992844735,
+          "D": 1.4340807108174656,
+          "eta": 0.35770556921374475,
+          "pls": 3,
+          "closed_form_dev": 0.0,
+          "anchor": false
         },
         {
           "u": 9.0,
-          "gap": [
-            "s0_OH",
-            "s0_OOH"
-          ],
-          "gap_why": [
-            "absent",
-            "absent"
-          ]
+          "dG_OH": 0.9838491254878136,
+          "dG_O": 2.5037707392913715,
+          "dG_OOH": 3.9794345141011944,
+          "D": 1.5199216138035578,
+          "eta": 0.28992161380355785,
+          "pls": 2,
+          "closed_form_dev": 0.0,
+          "anchor": false
         }
       ],
-      "gaps": [
-        [
-          0.0,
-          [
-            "s0_OH",
-            "s0_OOH"
-          ],
-          [
-            "absent",
-            "absent"
-          ]
-        ],
-        [
-          1.5,
-          [
-            "s0_OH",
-            "s0_OOH"
-          ],
-          [
-            "absent",
-            "absent"
-          ]
-        ],
-        [
-          3.0,
-          [
-            "s0_OH",
-            "s0_OOH"
-          ],
-          [
-            "absent",
-            "absent"
-          ]
-        ],
-        [
-          4.5,
-          [
-            "s0_OH",
-            "s0_OOH"
-          ],
-          [
-            "absent",
-            "absent"
-          ]
-        ],
-        [
-          6.0,
-          [
-            "s0_OH",
-            "s0_OOH"
-          ],
-          [
-            "absent",
-            "absent"
-          ]
-        ],
-        [
-          6.73,
-          [
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          [
-            "absent",
-            "absent",
-            "absent"
-          ]
-        ],
+      "gaps": [],
+      "pls_flips": [
         [
           7.5,
-          [
-            "s0_OH",
-            "s0_OOH"
-          ],
-          [
-            "absent",
-            "absent"
-          ]
-        ],
-        [
           9.0,
-          [
-            "s0_OH",
-            "s0_OOH"
-          ],
-          [
-            "absent",
-            "absent"
-          ]
+          3,
+          2
         ]
-      ],
-      "pls_flips": []
+      ]
     },
     "Ir": {
       "gas": {
@@ -453,264 +369,257 @@
         "H2": -31.74532261815729
       },
       "rerun_determinism_check_meV": {
-        "slab": null,
-        "s0_O": null,
-        "s0_OH": null,
-        "s0_OOH": null
+        "slab": -0.0020408540404867506,
+        "s0_O": -0.00802735757600711,
+        "s0_OH": -0.0019047954545468593,
+        "s0_OOH": -0.00421776357333694
       },
-      "control_ok": false,
+      "control_ok": true,
       "control_note": "same-deck re-run: the A0 u000 decks are byte-identical to the probe u0.0/base decks except the prefix line, so this drift measures SCF re-run determinism, not a geometry round-trip; the genuine extraction control (SCF vs source relaxation) lives in the a0cell readout",
       "rows": [
         {
           "u": 0.0,
-          "gap": [
-            "slab",
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          "gap_why": [
-            "absent",
-            "absent",
-            "absent",
-            "absent"
-          ]
+          "dG_OH": -0.0004971931856744272,
+          "dG_O": 1.6411398628298912,
+          "dG_OOH": 3.651786702215213,
+          "D": 1.6416370560155658,
+          "eta": 0.7806468393853216,
+          "pls": 3,
+          "closed_form_dev": 0.0,
+          "anchor": false
         },
         {
           "u": 1.5,
-          "gap": [
-            "slab",
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          "gap_why": [
-            "absent",
-            "absent",
-            "absent",
-            "absent"
-          ]
+          "dG_OH": 0.037035880031089596,
+          "dG_O": 1.7344840334664469,
+          "dG_OOH": 3.664160535884912,
+          "D": 1.6974481534353574,
+          "eta": 0.699676502418465,
+          "pls": 3,
+          "closed_form_dev": 1.1102230246251565e-16,
+          "anchor": false
         },
         {
           "u": 3.0,
-          "gap": [
-            "slab",
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          "gap_why": [
-            "absent",
-            "absent",
-            "absent",
-            "absent"
-          ]
+          "dG_OH": 0.09897430134433305,
+          "dG_O": 1.8537114025750043,
+          "dG_OOH": 3.702184910678079,
+          "D": 1.7547371012306714,
+          "eta": 0.6184735081030748,
+          "pls": 3,
+          "closed_form_dev": 1.1102230246251565e-16,
+          "anchor": false
         },
         {
           "u": 4.5,
-          "gap": [
-            "slab",
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          "gap_why": [
-            "absent",
-            "absent",
-            "absent",
-            "absent"
-          ]
+          "dG_OH": 0.1734892811465215,
+          "dG_O": 1.9862715346063624,
+          "dG_OOH": 3.7544875080051496,
+          "D": 1.812782253459841,
+          "eta": 0.582782253459841,
+          "pls": 2,
+          "closed_form_dev": 1.1102230246251565e-16,
+          "anchor": false
         },
         {
           "u": 5.91,
-          "gap": [
-            "slab",
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          "gap_why": [
-            "absent",
-            "absent",
-            "absent",
-            "absent"
-          ]
+          "dG_OH": 0.24747105384367385,
+          "dG_O": 2.1148022045637616,
+          "dG_OOH": 3.8092332796508344,
+          "D": 1.8673311507200876,
+          "eta": 0.6373311507200876,
+          "pls": 2,
+          "closed_form_dev": 0.0,
+          "anchor": true,
+          "label": "XU-ANCHOR [PROJECTOR-MISMATCHED]",
+          "label_why": "Xu 2015's linear-response U was derived under a different Hubbard projector than this grid's HUBBARD (atomic); P-PROJ measured the eta consequence at |d-eta| = 0.487 V (A7.1 FIRED, docs/figs/pproj_readout.json). Excluded from every single-projector claim, including the A6.3 test."
         },
         {
           "u": 6.0,
-          "gap": [
-            "slab",
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          "gap_why": [
-            "absent",
-            "absent",
-            "absent",
-            "absent"
-          ]
+          "dG_OH": 0.2521988961480929,
+          "dG_O": 2.1230022197489005,
+          "dG_OOH": 3.812788311209624,
+          "D": 1.8708033236008075,
+          "eta": 0.6408033236008075,
+          "pls": 2,
+          "closed_form_dev": 0.0,
+          "anchor": false
         },
         {
           "u": 7.5,
-          "gap": [
-            "slab",
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          "gap_why": [
-            "absent",
-            "absent",
-            "absent",
-            "absent"
-          ]
+          "dG_OH": 0.3296007319177988,
+          "dG_O": 2.257688513444168,
+          "dG_OOH": 3.871511026947155,
+          "D": 1.928087781526369,
+          "eta": 0.6980877815263691,
+          "pls": 2,
+          "closed_form_dev": 0.0,
+          "anchor": false
         },
         {
           "u": 9.0,
-          "gap": [
-            "slab",
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          "gap_why": [
-            "absent",
-            "absent",
-            "absent",
-            "absent"
-          ]
+          "dG_OH": 0.40234343413894746,
+          "dG_O": 2.386397281923723,
+          "dG_OOH": 3.9272059317476304,
+          "D": 1.9840538477847756,
+          "eta": 0.7540538477847756,
+          "pls": 2,
+          "closed_form_dev": 0.0,
+          "anchor": false
         }
       ],
-      "gaps": [
-        [
-          0.0,
-          [
-            "slab",
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          [
-            "absent",
-            "absent",
-            "absent",
-            "absent"
-          ]
-        ],
-        [
-          1.5,
-          [
-            "slab",
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          [
-            "absent",
-            "absent",
-            "absent",
-            "absent"
-          ]
-        ],
+      "gaps": [],
+      "pls_flips": [
         [
           3.0,
-          [
-            "slab",
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          [
-            "absent",
-            "absent",
-            "absent",
-            "absent"
-          ]
-        ],
-        [
           4.5,
-          [
-            "slab",
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          [
-            "absent",
-            "absent",
-            "absent",
-            "absent"
-          ]
-        ],
-        [
-          5.91,
-          [
-            "slab",
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          [
-            "absent",
-            "absent",
-            "absent",
-            "absent"
-          ]
-        ],
-        [
-          6.0,
-          [
-            "slab",
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          [
-            "absent",
-            "absent",
-            "absent",
-            "absent"
-          ]
-        ],
-        [
-          7.5,
-          [
-            "slab",
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          [
-            "absent",
-            "absent",
-            "absent",
-            "absent"
-          ]
-        ],
-        [
-          9.0,
-          [
-            "slab",
-            "s0_O",
-            "s0_OH",
-            "s0_OOH"
-          ],
-          [
-            "absent",
-            "absent",
-            "absent",
-            "absent"
-          ]
+          3,
+          2
         ]
-      ],
-      "pls_flips": []
+      ]
     }
   },
   "ordering": {
-    "shared_points": [],
-    "inversions": [],
-    "complete": false,
-    "verdict": "WITHHELD"
+    "shared_points": [
+      0.0,
+      1.5,
+      3.0,
+      4.5,
+      6.0,
+      7.5,
+      9.0
+    ],
+    "inversions": [
+      4.5,
+      6.0,
+      7.5,
+      9.0
+    ],
+    "complete": true,
+    "verdict": "INVERTED",
+    "margins_V": {
+      "0.0": -0.006121337391959969,
+      "1.5": -0.026602667534461943,
+      "3.0": -0.031152139195910422,
+      "4.5": 0.02144340459731242,
+      "6.0": 0.1771624671726837,
+      "7.5": 0.34038221231262433,
+      "9.0": 0.4641322339812177
+    },
+    "margin_context": {
+      "4.5": {
+        "margin_V": 0.02144340459731242,
+        "inside_error_classes": [
+          "1x1 cell/coverage spread, 1A verdict (docs/45, ADOPT_2X1V)",
+          "NM-vs-AFM adsorption sensitivity, gate (h) (re-run owed)",
+          "Ir *OOH mirror-plane saddle depth (docs/45 row 1)"
+        ]
+      },
+      "6.0": {
+        "margin_V": 0.1771624671726837,
+        "inside_error_classes": [
+          "1x1 cell/coverage spread, 1A verdict (docs/45, ADOPT_2X1V)",
+          "Ir *OOH mirror-plane saddle depth (docs/45 row 1)"
+        ]
+      },
+      "7.5": {
+        "margin_V": 0.34038221231262433,
+        "inside_error_classes": [
+          "1x1 cell/coverage spread, 1A verdict (docs/45, ADOPT_2X1V)"
+        ]
+      },
+      "9.0": {
+        "margin_V": 0.4641322339812177,
+        "inside_error_classes": []
+      }
+    },
+    "error_classes": [
+      [
+        "1x1 cell/coverage spread, 1A verdict (docs/45, ADOPT_2X1V)",
+        0.11,
+        0.36
+      ],
+      [
+        "NM-vs-AFM adsorption sensitivity, gate (h) (re-run owed)",
+        0.033,
+        0.064
+      ],
+      [
+        "Ir *OOH mirror-plane saddle depth (docs/45 row 1)",
+        0.291,
+        0.291
+      ]
+    ],
+    "inversions_clearing_every_error_class": [
+      9.0
+    ],
+    "holds_below_distinguishability_floor": true,
+    "distinguishability_floor_eV": 0.2,
+    "consequence": "the anchors against which every 3d result in this campaign is reported are themselves U-conditional, and every ranking claim in the report -- including the ones that survived P7 -- inherits that caveat (docs/43 A6.3, verbatim; sensitivity, not correction)"
+  },
+  "a7_2": {
+    "prediction": ">=3 of 6 metals (Cr, Mn, Fe, Ru, Ir, Ti) show a pls flip inside the registered A0 grid",
+    "status": "CONFIRMED",
+    "metals_with_flip": [
+      "Cr",
+      "Ir",
+      "Ru"
+    ],
+    "flip_brackets": {
+      "Cr": [
+        [
+          3.5,
+          4.0,
+          3,
+          2
+        ]
+      ],
+      "Ru": [
+        [
+          7.5,
+          9.0,
+          3,
+          2
+        ]
+      ],
+      "Ir": [
+        [
+          3.0,
+          4.5,
+          3,
+          2
+        ]
+      ]
+    },
+    "unrun_blind_metals": [
+      "Mn",
+      "Fe",
+      "Ti"
+    ],
+    "note": "the Ir bracket is saddle-conditional (see caveats.ir_ooh_basin); the EXISTENCE of an Ir flip inside the grid survives the saddle correction, so the CONFIRMED status does not rest on the bracket"
+  },
+  "caveats": {
+    "fixed_geometry": "A6.4, registered: every point is a fixed-geometry single-point SCF on the production-tier geometry (relaxed at each tier's own U -- Ru/Ir tier carries no U, Cr tier U = 3.70). A0 measures the U-response of energies at frozen geometry and cannot see a U-driven geometry change; where A0 and a relaxed point disagree, the relaxed point wins and the discrepancy is reported, not averaged. NOTHING in this readout is a relaxed result; no relaxed Ru/Ir point at U > 0 exists anywhere in the campaign.",
+    "spin_state": "MEASURED CONSTRAINT: the Ru/Ir columns are nspin=1 nonmagnetic by construction, while gate (h) measured 4/4 ADOPT_AFM on the RuO2 anchors with 0.033-0.064 eV adsorption-energy movement (AFM re-run owed, S0(h)). Margins smaller than that class -- the U <= 4.5 ordering rows and the Ir flip bracket's low edge -- are spin-state-conditional. Cr runs nspin=2, so any Cr-vs-anchor comparison additionally crosses spin treatments.",
+    "ir_ooh_basin": "MEASURED: the Ir chain inherits the 1x1 *OOH geometry convicted as a mirror-plane saddle 0.291 eV high (docs/45 row 1). It CANNOT manufacture the A6.3 inversion: every inverted point has Ir on pls 2, where dG_OOH does not enter eta, and correcting the saddle LOWERS eta(Ir) at low U -- the opposite direction. It does condition Ir's pls-3 rows (U <= 3) and the Ir flip bracket [3, 4.5]: under a rigid -0.291 eV shift the flip moves earlier (approx. [0, 1.5]) but still occurs inside the grid.",
+    "cell": "REGISTERED CHOICE: this grid lives in the 1x1 cell the campaign retired for production (1A verdict ADOPT_2X1V); A6.1(a)/A6.3 chose it knowingly, after that verdict, to bound the 1x1-era claims. The 2x1v ordering at U > 0 is unmeasured.",
+    "coverage_shortfall": "A6.3 registers the grid over 'Ru and Ir as well as the 3d metals' and A7.2/A7.3 name Mn, Fe, Ti as blind metals; as built, the arm runs Cr/Ru/Ir only (allocation Cr 19 / Ru 7+1 / Ir 7+1 chosen by the entrant 2026-08-27 with no dated amendment -- a dated correction of record is owed; docs/45). Nothing exists for Mn/Fe/Ti; their A7.2/A7.3 rows are unrun, not failed. Under A7.7's disposition rule, whatever stays unscored at freeze is WITHDRAWN-UNSCORED, not quietly dropped.",
+    "u000_decks": "the U = 0 decks drop the HUBBARD card entirely rather than carrying U = 0 explicitly -- physically equivalent, but a second silent difference at the U = 0 endpoint (projector machinery off vs on-with-zero), disclosed here."
+  },
+  "gas_reference_disclosure": {
+    "identical_across_metals": true,
+    "md5": {
+      "H2O": {
+        "Cr": "734ea52728d60833b19b14ddd94a5d36",
+        "Ru": "734ea52728d60833b19b14ddd94a5d36",
+        "Ir": "734ea52728d60833b19b14ddd94a5d36"
+      },
+      "H2": {
+        "Cr": "4ea3e2861a662fbb78c3126f47d2f784",
+        "Ru": "4ea3e2861a662fbb78c3126f47d2f784",
+        "Ir": "4ea3e2861a662fbb78c3126f47d2f784"
+      }
+    },
+    "note": "one calculation per species, copied into each metal's reference directory; physically metal-independent, disclosed so nothing counts them as independent runs. Identical references cannot create a spurious cross-metal difference; same-pls comparisons are reference-free, but different-pls comparisons (every INVERTED A6.3 point) inherit the absolute H2O reference one-for-one"
   }
 }

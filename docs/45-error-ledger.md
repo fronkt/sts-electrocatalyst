@@ -2115,3 +2115,56 @@ branch hops behind the smooth eta(U); the OOM-retried cell u0.0 SCF is the same
 branch as the killed attempt (iteration-1 energy equal to 2e-8 Ry). Stray
 runs/probe/Cr/CRASH is a leftover mkdir failure from an earlier s0_OOH__u0.0
 attempt; the surviving output passes QC -- file kept as-is.
+
+## A0 wave 3 -- the full grid, A6.3 INVERTED, and a correction of record owed (2026-08-28)
+
+Array 20183040 completed 140/140 (zero SCF failures, zero A6.5(2) events; the
+wave-2 "staged but not yet run" Ru s0_O u673 anchor ran 28 Aug 08:00 and feeds
+the banked row). `a0main_readout` scored the two remaining registered readouts;
+four adversarial verifiers (rederive / registration / qc-mag / refute,
+wf_5bd5616f-7e4) audited BEFORE banking: 0 BLOCKER, 6 MAJOR (all
+disclosure/robustness, all fixed same-day -- full reports and the fix list in
+docs/figs/a0_verification_findings_2026-08-28.txt, wave-3 section).
+
+**A6.3 VERDICT: INVERTED at U = {4.5, 6.0, 7.5, 9.0}** (margins +0.021 /
++0.177 / +0.340 / +0.464 V). Only U=9.0 clears the top of every measured error
+class, so the binary registered prediction rides on that point outright; the
+holds-side margins (<=0.031 V) are all below A5.1(b)'s registered 0.20 eV
+floor, so the ordering was never POSITIVELY resolved at any U -- production
+U=0 included. Refuter's verdict: INVERTED SURVIVES, and is in-model volcano
+physics (Ir starts on the 1.6 eV apex, D=1.642 at U=0, and climbs the
+weak-binding leg pls 2; Ru approaches the apex from the strong-binding side),
+corroborated by the Xu anchor rows reproducing Xu 2015's ordering restoration.
+**A7.2: CONFIRMED** (>=3 of 6 metals flip: Cr [3.5,4], Ir [3,4.5] --
+saddle-conditional bracket -- and Ru [7.5,9]; unrun metals can only add flips).
+
+**CORRECTION OF RECORD OWED (Frank):** A6.3 registers the grid over "Ru and Ir
+as well as the 3d metals", and A7.2/A7.3 name Mn, Fe, Ti as blind metals; the
+arm as built runs Cr/Ru/Ir only. The Cr 19 / Ru 7+1 / Ir 7+1 allocation was
+chosen by the entrant 2026-08-27 with no dated amendment, against docs/43's
+own scope-change rule (:279). The readout now discloses the shortfall
+(caveats.coverage_shortfall); a dated correction/amendment recording the
+roster decision is owed, and whatever stays unscored at the Oct 15 freeze is
+WITHDRAWN-UNSCORED under A7.7, not quietly dropped.
+
+New traps for the pattern file:
+1. **A binary "X at points P" verdict hides that the points are not equally
+   credible.** Bank the per-point margins and name which points carry the
+   verdict against the measured error classes; do not present four inversions
+   when one clears the error bar.
+2. **A "cancels by construction" claim has a regime.** "Identical gas refs =>
+   no cross-metal eta difference" is true only when both metals share a pls;
+   every inverted A6.3 point pairs Ir pls 2 with Ru pls 3, where the absolute
+   H2O reference enters one-for-one. State the scope of a cancellation, not
+   just the cancellation.
+3. **Labels must travel is not once-per-campaign** -- the same trap banked in
+   wave 2 for a0cell recurred the SAME DAY in a0main (anchor rows were bare
+   `anchor: true` in the JSON). Check every artifact a scorer writes, not the
+   one the trap was found in.
+4. **A duplicated physical constant is a fork in the road** -- qe_qc's
+   truncated RY_EV (13.605693122) is what every banked eV number used, while
+   the scorer declared the full 13.605693122994 for one print. Single-source
+   it (done); never let two precisions of one constant coexist.
+5. **nspin=1 is a measured caveat, not a default** -- gate (h) had already
+   adopted AFM with a 33-64 meV class; margins under that class are
+   state-conditional and must say so where the number is used.

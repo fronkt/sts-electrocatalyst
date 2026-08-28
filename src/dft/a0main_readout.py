@@ -47,6 +47,13 @@ Fixed-geometry single points everywhere: A6.4 -- "A0 measures the U-response
 of energies at frozen geometry; it cannot see a U-driven geometry change.
 Where A0 and a relaxed point disagree, the relaxed point wins."
 
+DISCLOSURE (wave-3 audit, 2026-08-28): the U = 0 decks drop the HUBBARD card
+entirely rather than carrying an explicit U = 0 -- physically equivalent (and
+what makes the determinism control byte-identical), but a second silent
+difference at the U = 0 endpoint, so the "one variable across the grid"
+discipline is exact only for U > 0. The Ru/Ir columns are nspin=1 nonmagnetic;
+Cr is nspin=2 -- see the caveats block this script prints and banks.
+
 Usage:  PYTHONPATH=src python src/dft/a0main_readout.py [--json docs/figs/a0main_readout.json]
 """
 from __future__ import annotations
@@ -58,7 +65,6 @@ import os
 import re
 import sys
 
-RY_EV = 13.605693122994
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 
@@ -143,7 +149,10 @@ def main():
                 drift[st] = None
                 ok = False
                 continue
-            d = (a0 - pb) * RY_EV * 1000
+            # qc.RY_EV is THE pipeline constant (every banked eV number used
+            # it); a second higher-precision literal used to live here and was
+            # a drift hazard (wave-3 audit) -- delta < 1e-9 V on any dG/eta.
+            d = (a0 - pb) * qc.RY_EV * 1000
             drift[st] = d
             if abs(d) > args.tol_mev:
                 ok = False
@@ -186,10 +195,21 @@ def main():
                 c_m = dg["OOH"] - dg["OH"]
                 eta_cf = (c_m / 2 - 1.23) + abs(r.dG2 - r.dG3) / 2
                 ident = abs(eta_cf - r.overpotential)
-            rows.append(dict(u=u, dG_OH=dg["OH"], dG_O=dg["O"], dG_OOH=dg["OOH"],
-                             D=dg["O"] - dg["OH"], eta=r.overpotential,
-                             pls=r.potential_limiting_step, closed_form_dev=ident,
-                             anchor=(u == cfg["anchor"])))
+            row = dict(u=u, dG_OH=dg["OH"], dG_O=dg["O"], dG_OOH=dg["OOH"],
+                       D=dg["O"] - dg["OH"], eta=r.overpotential,
+                       pls=r.potential_limiting_step, closed_form_dev=ident,
+                       anchor=(u == cfg["anchor"]))
+            if row["anchor"]:
+                # A7.1 fired, so the label must live in the artifact, not just
+                # the stdout header (docs/45 wave-2 trap 4: labels travel).
+                row["label"] = "XU-ANCHOR [PROJECTOR-MISMATCHED]"
+                row["label_why"] = (
+                    "Xu 2015's linear-response U was derived under a different "
+                    "Hubbard projector than this grid's HUBBARD (atomic); "
+                    "P-PROJ measured the eta consequence at |d-eta| = 0.487 V "
+                    "(A7.1 FIRED, docs/figs/pproj_readout.json). Excluded from "
+                    "every single-projector claim, including the A6.3 test.")
+            rows.append(row)
 
         hdr = (f"{'U (eV)':>7s} {'dG_OH':>7s} {'dG_O':>7s} {'dG_OOH':>7s} "
                f"{'D':>7s} {'eta':>7s} {'pls':>4s}")
@@ -296,13 +316,15 @@ def main():
     ru = {r["u"]: r for r in result["metals"]["Ru"]["rows"] if "gap" not in r and not r["anchor"]}
     ir = {r["u"]: r for r in result["metals"]["Ir"]["rows"] if "gap" not in r and not r["anchor"]}
     shared = sorted(set(ru) & set(ir))
-    inversions = []
+    inversions, margins = [], {}
     for u in shared:
-        rel = "<" if ir[u]["eta"] < ru[u]["eta"] else ">="
+        m = ir[u]["eta"] - ru[u]["eta"]   # > 0 (and exact tie) counts INVERTED:
+        margins[u] = m                    # conservative toward firing the caveat
+        rel = "<" if m < 0 else ">="
         if rel == ">=":
             inversions.append(u)
         print(f"  U = {u:4.1f}:  eta(Ir) {ir[u]['eta']:.3f} {rel} eta(Ru) {ru[u]['eta']:.3f}"
-              f"{'   INVERTED' if rel == '>=' else ''}")
+              f"   margin {m:+.3f} V{'   INVERTED' if rel == '>=' else ''}")
     have_all = len(shared) == len(REF_GRID)
     if not have_all:
         print(f"  ({len(shared)}/{len(REF_GRID)} shared points measured -- "
@@ -313,16 +335,186 @@ def main():
               "prediction is over U in [0, 9] and cannot be scored on nothing.")
     elif inversions:
         verdict63 = "INVERTED"
-        print(f"A6.3 VERDICT: INVERTED at U = {inversions} -- the reference anchors are "
-              f"U-conditional; every ranking claim in the report inherits that caveat.")
+        print(f"A6.3 VERDICT: INVERTED at U = {inversions} -- per the registration, "
+              f"verbatim: the anchors against which every 3d result in this campaign "
+              f"is reported are themselves U-conditional, and every ranking claim in "
+              f"the report -- including the ones that survived P7 -- inherits that "
+              f"caveat. (Blast radius as registered: reported as a sensitivity, not "
+              f"applied as a correction; production stays at each tier's own U.)")
     else:
         verdict63 = "stable" if have_all else "stable-partial"
         print(f"A6.3 VERDICT: ordering Ir < Ru stable on all {len(shared)} measured "
               f"shared points"
               + ("" if have_all else " (grid incomplete -- partial, not the registered verdict)")
               + ".")
-    result["ordering"] = dict(shared_points=shared, inversions=inversions,
-                              complete=have_all, verdict=verdict63)
+
+    # Margin credibility: each margin against the campaign's MEASURED error
+    # classes (no new thresholds invented here -- the classes are prior banked
+    # measurements, the 0.20 eV floor is A5.1(b)'s registered one).
+    ERROR_CLASSES = [
+        ("1x1 cell/coverage spread, 1A verdict (docs/45, ADOPT_2X1V)", 0.11, 0.36),
+        ("NM-vs-AFM adsorption sensitivity, gate (h) (re-run owed)", 0.033, 0.064),
+        ("Ir *OOH mirror-plane saddle depth (docs/45 row 1)", 0.291, 0.291),
+    ]
+    DISTINGUISH_FLOOR = 0.20   # A5.1(b), registered (Exner 2020)
+    margin_ctx = {}
+    if inversions:
+        print("\nINVERSION MARGINS vs measured error classes "
+              "(a margin below a class top cannot individually rule that error out):")
+        for u in inversions:
+            m = margins[u]
+            inside = [name for name, lo, hi in ERROR_CLASSES if m <= hi]
+            margin_ctx[u] = dict(margin_V=m, inside_error_classes=inside)
+            print(f"  U = {u:4.1f}: +{m:.3f} V -- "
+                  + (f"inside: {'; '.join(inside)}" if inside
+                     else "clears the top of EVERY measured error class"))
+        clear = [u for u in inversions
+                 if not margin_ctx[u]["inside_error_classes"]]
+        carried = (f"carried outright by U = {clear}; the other inverted points "
+                   f"are context, not independent evidence"
+                   if clear else
+                   "NOT carried outright by any single point -- every margin sits "
+                   "inside at least one measured error class; the verdict is "
+                   "error-class-conditional")
+        print(f"  => the binary registered prediction ('inverts anywhere in the "
+              f"band') is {carried}.")
+    holds = [u for u in shared if u not in inversions]
+    holds_below_floor = bool(holds) and all(
+        abs(margins[u]) < DISTINGUISH_FLOOR for u in holds)
+    if holds and holds_below_floor:
+        worst = max(abs(margins[u]) for u in holds)
+        print(f"  Symmetric note: every 'holds' margin (largest {worst:.3f} V) is "
+              f"below A5.1(b)'s registered {DISTINGUISH_FLOOR:.2f} eV distinguishability "
+              f"floor -- the ordering was never POSITIVELY resolved at any measured U, "
+              f"production U = 0 included. The report may not claim Ir < Ru holds "
+              f"anywhere; this strengthens the U-conditionality consequence.")
+    result["ordering"] = dict(
+        shared_points=shared, inversions=inversions, complete=have_all,
+        verdict=verdict63, margins_V=margins,
+        margin_context={str(k): v for k, v in margin_ctx.items()},
+        error_classes=[list(c) for c in ERROR_CLASSES],
+        inversions_clearing_every_error_class=[
+            u for u in inversions if not margin_ctx[u]["inside_error_classes"]],
+        holds_below_distinguishability_floor=holds_below_floor,
+        distinguishability_floor_eV=DISTINGUISH_FLOOR,
+        consequence=("the anchors against which every 3d result in this campaign "
+                     "is reported are themselves U-conditional, and every ranking "
+                     "claim in the report -- including the ones that survived P7 -- "
+                     "inherits that caveat (docs/43 A6.3, verbatim; sensitivity, "
+                     "not correction)") if verdict63 == "INVERTED" else None)
+
+    # --- A7.2 prediction status (registered, already decidable) ---------------
+    flips_by_metal = {m: result["metals"][m].get("pls_flips", [])
+                      for m in result["metals"]}
+    metals_with_flip = sorted(m for m, f in flips_by_metal.items() if f)
+    A72_ROSTER = ["Cr", "Mn", "Fe", "Ru", "Ir", "Ti"]
+    unrun = [m for m in A72_ROSTER if m not in result["metals"]]
+    a72_status = "CONFIRMED" if len(metals_with_flip) >= 3 else "OPEN"
+    print("\nA7.2 PREDICTION STATUS: registered '>=3 of 6 metals (Cr, Mn, Fe, Ru, "
+          "Ir, Ti) show a pls flip inside the registered A0 grid'. Metals run with "
+          f"a flip: {metals_with_flip} ({len(metals_with_flip)} of the "
+          f"{len(result['metals'])} run) -> {a72_status}"
+          + (f" regardless of the unrun {unrun} -- additional metals can only add "
+             f"flips, never remove one." if a72_status == "CONFIRMED" else
+             f"; awaiting {unrun}."))
+    result["a7_2"] = dict(
+        prediction=">=3 of 6 metals (Cr, Mn, Fe, Ru, Ir, Ti) show a pls flip "
+                   "inside the registered A0 grid",
+        status=a72_status, metals_with_flip=metals_with_flip,
+        flip_brackets={m: f for m, f in flips_by_metal.items() if f},
+        unrun_blind_metals=unrun,
+        note="the Ir bracket is saddle-conditional (see caveats.ir_ooh_basin); "
+             "the EXISTENCE of an Ir flip inside the grid survives the saddle "
+             "correction, so the CONFIRMED status does not rest on the bracket")
+
+    # --- registered + measured caveats (travel with every table above) --------
+    caveats = dict(
+        fixed_geometry=(
+            "A6.4, registered: every point is a fixed-geometry single-point SCF "
+            "on the production-tier geometry (relaxed at each tier's own U -- "
+            "Ru/Ir tier carries no U, Cr tier U = 3.70). A0 measures the "
+            "U-response of energies at frozen geometry and cannot see a "
+            "U-driven geometry change; where A0 and a relaxed point disagree, "
+            "the relaxed point wins and the discrepancy is reported, not "
+            "averaged. NOTHING in this readout is a relaxed result; no relaxed "
+            "Ru/Ir point at U > 0 exists anywhere in the campaign."),
+        spin_state=(
+            "MEASURED CONSTRAINT: the Ru/Ir columns are nspin=1 nonmagnetic by "
+            "construction, while gate (h) measured 4/4 ADOPT_AFM on the RuO2 "
+            "anchors with 0.033-0.064 eV adsorption-energy movement (AFM re-run "
+            "owed, S0(h)). Margins smaller than that class -- the U <= 4.5 "
+            "ordering rows and the Ir flip bracket's low edge -- are "
+            "spin-state-conditional. Cr runs nspin=2, so any Cr-vs-anchor "
+            "comparison additionally crosses spin treatments."),
+        ir_ooh_basin=(
+            "MEASURED: the Ir chain inherits the 1x1 *OOH geometry convicted as "
+            "a mirror-plane saddle 0.291 eV high (docs/45 row 1). It CANNOT "
+            "manufacture the A6.3 inversion: every inverted point has Ir on "
+            "pls 2, where dG_OOH does not enter eta, and correcting the saddle "
+            "LOWERS eta(Ir) at low U -- the opposite direction. It does "
+            "condition Ir's pls-3 rows (U <= 3) and the Ir flip bracket "
+            "[3, 4.5]: under a rigid -0.291 eV shift the flip moves earlier "
+            "(approx. [0, 1.5]) but still occurs inside the grid."),
+        cell=(
+            "REGISTERED CHOICE: this grid lives in the 1x1 cell the campaign "
+            "retired for production (1A verdict ADOPT_2X1V); A6.1(a)/A6.3 chose "
+            "it knowingly, after that verdict, to bound the 1x1-era claims. The "
+            "2x1v ordering at U > 0 is unmeasured."),
+        coverage_shortfall=(
+            "A6.3 registers the grid over 'Ru and Ir as well as the 3d metals' "
+            "and A7.2/A7.3 name Mn, Fe, Ti as blind metals; as built, the arm "
+            "runs Cr/Ru/Ir only (allocation Cr 19 / Ru 7+1 / Ir 7+1 chosen by "
+            "the entrant 2026-08-27 with no dated amendment -- a dated "
+            "correction of record is owed; docs/45). Nothing exists for "
+            "Mn/Fe/Ti; their A7.2/A7.3 rows are unrun, not failed. Under "
+            "A7.7's disposition rule, whatever stays unscored at freeze is "
+            "WITHDRAWN-UNSCORED, not quietly dropped."),
+        u000_decks=(
+            "the U = 0 decks drop the HUBBARD card entirely rather than "
+            "carrying U = 0 explicitly -- physically equivalent, but a second "
+            "silent difference at the U = 0 endpoint (projector machinery off "
+            "vs on-with-zero), disclosed here."))
+    print("\nCAVEATS (registered + measured; they travel with every table above):")
+    for k, v in caveats.items():
+        print(f"  [{k}] {v}")
+    result["caveats"] = caveats
+
+    # --- gas-reference disclosure (owed since wave 2) -------------------------
+    # The three metals' gas references are one calculation, copied: H2O.out and
+    # H2.out under Cr_slab/, Ru_anchor/ and Ir_anchor/ are md5-identical files.
+    # Physically that is what SHOULD be true (a gas molecule in a box knows no
+    # metal), so no eta difference can come from the references -- but a reader
+    # counting "independent" gas runs would over-count, so it is said here and
+    # measured live rather than asserted.
+    import hashlib
+    sigs = {}
+    for m, cfg in METALS.items():
+        for g in ("H2O", "H2"):
+            gp = os.path.join(ROOT, "runs", cfg["gas_run"], f"{g}.out")
+            sigs.setdefault(g, {})[m] = hashlib.md5(open(gp, "rb").read()).hexdigest()
+    identical = all(len(set(d.values())) == 1 for d in sigs.values())
+    print("\nGAS-REFERENCE DISCLOSURE: the three metals' H2O/H2 reference outputs "
+          + ("are md5-identical copies of ONE calculation each"
+             if identical else
+             "DIFFER across metals -- UNEXPECTED, investigate before quoting eta")
+          + " (metal-independent by construction; identical references cannot "
+            "CREATE a spurious cross-metal difference, and none of them is an "
+            "independent replication. Scope: same-pls comparisons are "
+            "reference-free; different-pls comparisons -- every INVERTED A6.3 "
+            "point pairs Ir pls 2 with Ru pls 3 -- inherit the absolute H2O "
+            "reference one-for-one via eta(Ir)-eta(Ru) = dG2(Ir)-dG3(Ru).)")
+    for g, d in sigs.items():
+        vals = sorted(set(d.values()))
+        print(f"  {g}: md5 {vals[0] if len(vals) == 1 else d}")
+    result["gas_reference_disclosure"] = dict(
+        identical_across_metals=identical, md5=sigs,
+        note=("one calculation per species, copied into each metal's reference "
+              "directory; physically metal-independent, disclosed so nothing "
+              "counts them as independent runs. Identical references cannot "
+              "create a spurious cross-metal difference; same-pls comparisons "
+              "are reference-free, but different-pls comparisons (every "
+              "INVERTED A6.3 point) inherit the absolute H2O reference "
+              "one-for-one"))
 
     if any_missing:
         print("\nNOTE: the grid has holes; registered bounds quoted from a "
