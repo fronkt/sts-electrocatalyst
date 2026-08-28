@@ -809,3 +809,30 @@ measured by me, and my own documentation asserted the opposite of the fact.
   evadable by a Windows backslash. I had written both, and both survived my own
   review. Adversarial verification is not optional on work whose whole purpose is to
   be un-foolable.
+
+## 2026-08-27 — I ran A0 work under an S3 job name and made the queue lie
+
+Launching P-PROJ and A0-cell, I reused `anvil/43_submit_s3_wave1.sh` because it
+carried the gates I wanted (PARITY_PASS, pseudo md5, the dry preflight). Its
+runner hardcodes `#SBATCH -J s3-wave1`, so two A0 arrays sat in the queue
+labelled as S3 wave-1 work. Frank saw `s3-wave1 CANCELLED` and reasonably asked
+whether real campaign work had been killed. It had not — both arrays were mine,
+submitted minutes earlier, still PENDING at 00:00:00 elapsed, and the genuine S3
+arrays had COMPLETED hours before — but the queue could not be read to show that.
+
+The label only got fixed by accident: I wrote `46_a0.slurm` for an unrelated
+reason (A6.5(1) needs projwfc.x inline) and gave it `-J a0`.
+
+**Rules.**
+
+- **The job name is part of the launch, not decoration.** Reusing a submitter
+  means inheriting its `-J`. If the work is not that stage, rename it in the same
+  commit that reuses the script — before submitting, not three steps later.
+- **`scancel` by ID is safe; a queue that misidentifies work is not.** The risk
+  was never my command, which named two explicit IDs. It was that anyone reading
+  `squeue`, or reaching for `scancel -n <name>`, would have been misled.
+- **When someone asks "was that supposed to happen?", answer from `sacct`, not
+  from memory.** Submit times, elapsed times and states settle it in one command
+  and leave a record they can check themselves.
+- **A shared launch path is a shared namespace.** The gates in a submitter are
+  worth reusing; its identity is not. Copy the gates, set your own name.
