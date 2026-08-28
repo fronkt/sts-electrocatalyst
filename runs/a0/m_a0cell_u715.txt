@@ -1,0 +1,24 @@
+# A0-cell fifth rung: the four registered U = 7.15 eV SCFs (20 = 16 + these 4).
+# Built 2026-08-28 by src/dft/build_a0cell_u715.py, AFTER P-PROJ scored.
+#
+# P-PROJ VERDICT (docs/figs/pproj_readout.json): |d-eta(Cr)| = 0.487 V -- FIRES
+# (threshold 0.10 V; atomic 1.155 V pls 2, ortho 1.642 V pls 1, all four pairs
+# branch-matched). Per A7.1 this rung is labelled PROJECTOR-MISMATCHED: U=7.15
+# eV is Xu 2015's linear-response value, derived under a different projector.
+# The rung runs in the ladder's own projector, HUBBARD (atomic), so the ladder
+# stays single-projector; the 0.487 V delta is its own labelled sub-row and any
+# result at this U carries the label in every S6-facing table.
+#
+# Decks: each state's __base deck with exactly {prefix, U 3.7000->7.1500}
+# changed, asserted at build time. Fixed-geometry single points; never to be
+# reported as relaxed.
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+#
+a0/cell ref__2x1v__u715 .in 8
+a0/cell s0_O__2x1v_mir__u715 .in 8
+a0/cell s0_OH__2x1v_mir__u715 .in 8
+a0/cell s0_OOH__2x1v_escape__u715 .in 8
