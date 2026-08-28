@@ -2030,3 +2030,47 @@ no test reads it.
 
 State after the audit: `pytest tests/silentgate` -> 46 passed, 7 skipped; whole repo -> 146
 passed, 7 skipped, the pre-existing 100 unchanged. 22 AI-produced files plus the hand-off.
+
+## A0 wave 1 — arrays 20178325 + 20178326 (2026-08-27), and what "the A0 compute is done" actually covered (2026-08-28)
+
+**The premise correction first.** The session opened on "the A0 compute is done." It was not:
+`sacct` since 2026-08-27 showed exactly 22 `a0` tasks — A0-cell's 16 (20178325) and
+P-PROJ's 6 (20178326) — an empty queue, and `runs/a0/main/` holding 140 staged `.in`
+with zero `.out`. Commit `74323dd` says so in its own subject line ("staged, not yet
+submitted"); nothing after it submitted. The registered core of block 6A — the 140-SCF
+eta(U) grid — had never run. **Submitted 2026-08-28 as array `20183040` (1-140%6),**
+preflight `lines=140 to_run=140 stale=0 bad=0`. The trap for the ledger: *a commit that
+builds and stages a manifest reads, a day later, as a commit that launched it.* The only
+cure is the one used here — read the queue and the `.out` census, not the commit log.
+
+**P-PROJ scored: the A7.1 prediction FIRES at 5x threshold.** |d-eta(Cr)| = **0.487 V**
+against the registered 0.10 V trigger — atomic eta 1.155 V (pls 2) vs ortho-atomic
+1.642 V (pls 1) at byte-identical geometry and U = 7.15 eV. The projector choice moves
+eta by half a volt AND flips which step limits. All four pairs branch-matched (magtot
+12/12, 11/11, 10/10, 11/11); per-state dE(atomic-ortho) spans +3.02 to +4.00 eV; the
+banked S0 *O pair's +0.27021297 Ry reproduced to <0.0001 meV. Consequences, per the
+registration: the fifth grid point is PROJECTOR-MISMATCHED, the whole grid runs in ONE
+projector (atomic), the projector delta is its own labelled sub-row — and the label now
+extends by the same logic to the Ru 6.73 / Ir 5.91 Xu anchor rows of A0-main.
+`src/dft/pproj_readout.py`, `docs/figs/pproj_readout.json`.
+
+**A0-cell wave 1: 15/16 clean; the 16th is a NEW bad node, a049.** Task 9
+(`s0_OH__2x1v_mir__u0.0`) died OUT_OF_MEMORY at SCF iteration 5 — 3 oom_kills on a
+237 GB grant against QE's own 29.21 GB estimate, while its 15 siblings finished in
+6-13 min on other nodes. That is the docs/45 per-node-ceiling signature, and a049 is
+**bad node #7** (a024, a050, a088, a196, a220, a223, now a049). Attempt preserved as
+`.out.oom_attempt1`; retry = `20183041_9` with a049 excluded. Extraction control on the
+15: every base SCF reproduces its source relaxation to <=0.01 meV.
+
+**A6.2 partial signal, verdict withheld.** On the three complete shared U points the
+2x1v descriptor sits below the 1x1 one and the gap GROWS with U: dD = -0.233 / -0.304 /
+-0.346 eV at U = 1.85 / 3.70 / 5.00. If the trend holds to the endpoints, I_U lands
+negative past the -0.30 bin — **"not separable", against the registered additive
+prior.** `a0cell_readout.py` refuses to print a span over a subset; the verdict waits
+for the u0.0 retry and the u715 rung (array `20183150`, built AFTER P-PROJ scored,
+labelled PROJECTOR-MISMATCHED, atomic projector).
+
+**One number worth its own line:** the 1x1 leg (inherited ladder + P-PROJ atomic fifth
+point) reproduces P7's withdrawn headline exactly — eta(U=0) - eta(base) = 1.452 -
+0.330 = **1.122 V** on five points. A0-main's 19-point Cr arm now has to locate the
+crossing inside it.
