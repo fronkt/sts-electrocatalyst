@@ -74,5 +74,46 @@
       "xu_anchor_eV": 5.91,
       "why": "ordering arm: A6.3's Ir < Ru stability test; 5.91 eV is Xu's declared anchor"
     }
+  },
+  "tranche_2": {
+    "built": 59,
+    "date": "2026-08-28",
+    "trigger": "entrant direction 2026-08-28, post-tranche-1 readout; Mn/Fe/Ti are A7.2's blind metals and nothing of theirs has been read -- full record in build_a0main_w2.py and the dated correction docs/59",
+    "metals": {
+      "Mn": {
+        "orbital": "3d",
+        "points_eV": [
+          0.0,
+          1.5,
+          3.0,
+          3.9,
+          4.5,
+          6.0,
+          7.5,
+          9.0
+        ],
+        "production_u": 3.9,
+        "why": "blind A7.2/A7.3 metal; audit clean all four states (<=0.005 meV, docs/41 s6d)",
+        "decks": 32
+      },
+      "Fe": {
+        "orbital": "3d",
+        "points_eV": [
+          0.0,
+          1.5,
+          3.0,
+          4.5,
+          5.3,
+          6.0,
+          7.5,
+          9.0
+        ],
+        "production_u": 5.3,
+        "why": "blind A7.2/A7.3 metal; s0_OOH cold start is a measured trap (+276.60 meV) -> pilot protocol, see docstring",
+        "decks": 27
+      }
+    },
+    "fe_s0_OOH_protocol": "3-pilot starting-guess selection at u530 against the banked relax reference -34804.1641 eV, tolerance 5 meV, declared before any pilot ran; ladder gated on it (build_a0main_w2b.py)",
+    "ti_plan": "tranche 3, gated on geometry: qe_slab.py build Ti, relax slab + 3 adslabs (d0, nspin=1, U=0 MP convention), then a 7-point REF_GRID ladder (28 SCFs)"
   }
 }

@@ -31,6 +31,9 @@ from .surfaces import _adsorbate, _decorate_symbols
 #: rutile MO2 lattice constants (a, c) in Å. CrO2 / β-MnO2 are experimental rutile;
 #: Fe/Co/Ni/Cu/Al are model values on the rutile trend (a≈4.45, c≈3.0).
 RUTILE_AC = {
+    # experimental rutile TiO2 (gen_rutile.py's constants; d0, the A7.2 census
+    # control metal -- added 2026-08-28 for the A0 tranche-3 chain)
+    "Ti": (4.5937, 2.9587),
     "Cr": (4.421, 2.916), "Mn": (4.404, 2.876),
     "Fe": (4.500, 3.000), "Co": (4.460, 2.990), "Ni": (4.440, 2.985),
     "Cu": (4.470, 3.000), "Al": (4.480, 2.950),

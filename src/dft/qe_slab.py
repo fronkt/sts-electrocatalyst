@@ -35,6 +35,10 @@ RY_EV = 13.605693122
 ELEMENTS = {
     "O":  dict(pseudo="O.pbe-n-kjpaw_psl.0.1.UPF",          U=0.0,  mag=0.0, mass=15.999),
     "H":  dict(pseudo="H.pbe-rrkjus_psl.1.0.0.UPF",         U=0.0,  mag=0.0, mass=1.008),   # verify name on box
+    # TiO2: d0 closed-shell control metal; NO U by the same MP convention that
+    # sets Ru/Ir to zero (gen_rutile.py), mag=0 -> nonmagnetic; pseudo is the one
+    # the S0 hp_tio2/ecut80 work verified (runs/hp_tio2/scf__atomic.in).
+    "Ti": dict(pseudo="ti_pbe_v1.4.uspp.F.UPF",             U=0.0,  mag=0.0, mass=47.867),
     "Cr": dict(pseudo="cr_pbe_v1.5.uspp.F.UPF",             U=3.7,  mag=0.6, mass=51.996),
     "Mn": dict(pseudo="mn_pbe_v1.5.uspp.F.UPF",             U=3.9,  mag=0.5, mass=54.938),
     "Fe": dict(pseudo="Fe.pbe-spn-kjpaw_psl.0.2.1.UPF",     U=5.3,  mag=0.5, mass=55.845),

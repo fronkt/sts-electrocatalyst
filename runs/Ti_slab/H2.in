@@ -1,0 +1,32 @@
+&CONTROL
+  calculation = 'relax'
+  prefix = 'H2'
+  outdir = './tmp'
+  pseudo_dir = '/usr/share/espresso/pseudo'
+  tprnfor = .true.
+  forc_conv_thr = 2.0d-3
+  nstep = 100
+/
+&SYSTEM
+  ibrav = 1
+  celldm(1) = 22.67671
+  nat = 2
+  ntyp = 1
+  ecutwfc = 80.0
+  ecutrho = 640.0
+  assume_isolated = 'mt'
+  nspin = 1
+/
+&ELECTRONS
+  conv_thr = 1.0d-6
+  mixing_beta = 0.5
+/
+&IONS
+  ion_dynamics = 'bfgs'
+/
+ATOMIC_SPECIES
+  H  1.008  H.pbe-rrkjus_psl.1.0.0.UPF
+ATOMIC_POSITIONS angstrom
+  H  6.000000  6.000000  5.629500
+  H  6.000000  6.000000  6.370500
+K_POINTS gamma

@@ -1,0 +1,21 @@
+# A0 tranche 3, stage 1: the TiO2(110) 1x1 geometry chain -- slab + 3 adslabs,
+# calculation='relax'. Built 2026-08-28 by src/dft/qe_slab.py build Ti
+# --supercell 1 (production builder; d0, nspin=1, U=0 by the MP convention that
+# sets Ru/Ir to zero; pseudo ti_pbe_v1.4.uspp.F.UPF, the S0-verified one).
+# Record: build_a0main_w2.py docstring "TI PLAN" + docs/59.
+#
+# H2O/H2 in runs/Ti_slab are COPIES of the banked single gas calculation
+# (md5-identical, the same convention every metal uses, disclosed in the
+# a0main readout) -- they are NOT jobs and are not rows here.
+#
+# On convergence: probe-style base SCF decks at the final geometries, then the
+# 7-point REF_GRID ladder (28 SCFs; U = 0 IS TiO2's production point).
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+Ti_slab slab .in 8
+Ti_slab s0_O .in 8
+Ti_slab s0_OH .in 8
+Ti_slab s0_OOH .in 8

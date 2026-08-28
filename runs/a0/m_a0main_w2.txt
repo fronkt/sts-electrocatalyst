@@ -1,0 +1,79 @@
+# A0-main TRANCHE 2: Mn + Fe eta(U) grids + the Fe s0_OOH branch pilot.
+# Built 2026-08-28 by src/dft/build_a0main_w2.py -- READ ITS DOCSTRING: the
+# trigger (entrant direction, post-tranche-1), the blindness argument, the
+# production-U control points, and the REGISTERED Fe s0_OOH pilot selection
+# rule all live there and were committed before any of these jobs ran.
+#
+#   Mn  4 states x (REF_GRID 7 + u390 production point) = 32
+#   Fe  3 states x (REF_GRID 7 + u530 production point) = 24
+#   Fe  s0_OOH pilots at u530 (m010/m030/m070)          =  3
+#
+# Fe s0_OOH's 8-rung ladder is GATED on the pilot (build_a0main_w2b.py),
+# the same pattern A0-cell used for its A7.1-gated u715 rung.
+#
+# FIXED-GEOMETRY SINGLE POINTS on already-relaxed structures; nothing here is
+# relaxed and none of it may be reported as relaxed (A6.4).
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+a0/main/Mn slab__u000 .in 4
+a0/main/Mn slab__u150 .in 4
+a0/main/Mn slab__u300 .in 4
+a0/main/Mn slab__u390 .in 4
+a0/main/Mn slab__u450 .in 4
+a0/main/Mn slab__u600 .in 4
+a0/main/Mn slab__u750 .in 4
+a0/main/Mn slab__u900 .in 4
+a0/main/Mn s0_O__u000 .in 4
+a0/main/Mn s0_O__u150 .in 4
+a0/main/Mn s0_O__u300 .in 4
+a0/main/Mn s0_O__u390 .in 4
+a0/main/Mn s0_O__u450 .in 4
+a0/main/Mn s0_O__u600 .in 4
+a0/main/Mn s0_O__u750 .in 4
+a0/main/Mn s0_O__u900 .in 4
+a0/main/Mn s0_OH__u000 .in 4
+a0/main/Mn s0_OH__u150 .in 4
+a0/main/Mn s0_OH__u300 .in 4
+a0/main/Mn s0_OH__u390 .in 4
+a0/main/Mn s0_OH__u450 .in 4
+a0/main/Mn s0_OH__u600 .in 4
+a0/main/Mn s0_OH__u750 .in 4
+a0/main/Mn s0_OH__u900 .in 4
+a0/main/Mn s0_OOH__u000 .in 4
+a0/main/Mn s0_OOH__u150 .in 4
+a0/main/Mn s0_OOH__u300 .in 4
+a0/main/Mn s0_OOH__u390 .in 4
+a0/main/Mn s0_OOH__u450 .in 4
+a0/main/Mn s0_OOH__u600 .in 4
+a0/main/Mn s0_OOH__u750 .in 4
+a0/main/Mn s0_OOH__u900 .in 4
+a0/main/Fe slab__u000 .in 4
+a0/main/Fe slab__u150 .in 4
+a0/main/Fe slab__u300 .in 4
+a0/main/Fe slab__u450 .in 4
+a0/main/Fe slab__u530 .in 4
+a0/main/Fe slab__u600 .in 4
+a0/main/Fe slab__u750 .in 4
+a0/main/Fe slab__u900 .in 4
+a0/main/Fe s0_O__u000 .in 4
+a0/main/Fe s0_O__u150 .in 4
+a0/main/Fe s0_O__u300 .in 4
+a0/main/Fe s0_O__u450 .in 4
+a0/main/Fe s0_O__u530 .in 4
+a0/main/Fe s0_O__u600 .in 4
+a0/main/Fe s0_O__u750 .in 4
+a0/main/Fe s0_O__u900 .in 4
+a0/main/Fe s0_OH__u000 .in 4
+a0/main/Fe s0_OH__u150 .in 4
+a0/main/Fe s0_OH__u300 .in 4
+a0/main/Fe s0_OH__u450 .in 4
+a0/main/Fe s0_OH__u530 .in 4
+a0/main/Fe s0_OH__u600 .in 4
+a0/main/Fe s0_OH__u750 .in 4
+a0/main/Fe s0_OH__u900 .in 4
+a0/main/Fe s0_OOH__pilot530_m010 .in 4
+a0/main/Fe s0_OOH__pilot530_m030 .in 4
+a0/main/Fe s0_OOH__pilot530_m070 .in 4
