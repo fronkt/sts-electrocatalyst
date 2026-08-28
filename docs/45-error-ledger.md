@@ -2074,3 +2074,44 @@ labelled PROJECTOR-MISMATCHED, atomic projector).
 point) reproduces P7's withdrawn headline exactly — eta(U=0) - eta(base) = 1.452 -
 0.330 = **1.122 V** on five points. A0-main's 19-point Cr arm now has to locate the
 crossing inside it.
+
+## A0 wave 2 -- the verdicts, the four-verifier audit, and three traps (2026-08-28)
+
+The cell arrays (20183041_9 retry + 20183150 u715 rung) and A0-main's Cr block
+(76/76) landed overnight; both readouts were scored and then adversarially
+verified by four independent agents before banking
+(docs/figs/a0_verification_findings_2026-08-28.txt). Zero numeric errors; five
+distinct defects, all fixed same-day. The traps worth remembering:
+
+1. **`| grep` eats exit codes.** a0main_readout.py crashed on Ru's gap rows
+   (a 2-tuple unpack over 3-tuples introduced by the gap_why patch) and the
+   banked JSON was silently a stale revision -- unnoticed because the run was
+   piped through `grep -E "GAPS|VERDICT|..."`, whose exit code masked the
+   ValueError and whose pattern dropped the traceback. Run readouts PLAIN,
+   check `$?`, and only then filter.
+2. **A control between byte-identical decks is a determinism check, not a
+   control.** The A0-main u000 decks differ from the probe u0.0/base decks only
+   in the prefix line, so the 0.003-meV "extraction control" measured SCF
+   re-run determinism. Renamed honestly in script + JSON; the genuine
+   geometry round-trip control is the a0cell one (base SCF vs source
+   relaxation, drifts <= 0.01 meV).
+3. **A bound quoted across two windows is not a confirmation.** The grid's
+   1.177 V swing lives on U in [0,9]; P7's withdrawn 1.122 V headline lived on
+   [0,7.15], where the 0.5-step grid reads only 1.072 V (it straddles the eta
+   minimum near the 3.87 eV crossing). And eta is still rising at the U=9
+   edge, so 1.177 is itself edge-limited. The readout now prints both windows
+   and refuses the "confirms" phrasing.
+4. **Labels must travel into the artifact, not just the stdout header.** The
+   2x1v apex crossing (5.33 eV) is interpolated INTO the PROJECTOR-MISMATCHED
+   U=7.15 rung -- on clean points D(2x1v) never reaches 1.6. The
+   CELL-CONDITIONAL verdict survives without the rung (clean-point shift
+   bound >= 1.13 eV > 1.0; clean-point I_U = -0.155, same INCONCLUSIVE bin),
+   and the JSONs now carry the label + robustness fields so no reader has to
+   open pproj_readout.json to learn it.
+
+Also recorded: Cr grid magnetization is integer-pinned across all 19 U points
+(slab 12, s0_O 10, s0_OH 11, s0_OOH 11; absolute magnetization smooth) -- no
+branch hops behind the smooth eta(U); the OOM-retried cell u0.0 SCF is the same
+branch as the killed attempt (iteration-1 energy equal to 2e-8 Ry). Stray
+runs/probe/Cr/CRASH is a leftover mkdir failure from an earlier s0_OOH__u0.0
+attempt; the surviving output passes QC -- file kept as-is.

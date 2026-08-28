@@ -1,22 +1,24 @@
 {
   "arm": "A0-cell (A6.1b)",
   "registered_at": "docs/43-prereg-week1-factorial.md:1198-1204",
-  "built": 16,
+  "built": 20,
   "registered_total": 20,
-  "fifth_point_gated_by": "A7.1 P-PROJ (array 20178163); U = 7.15 eV not built here",
+  "fifth_point_gated_by": "A7.1 P-PROJ -- GATE DISCHARGED 2026-08-28: scored FIRES (|d-eta| = 0.487 V, docs/figs/pproj_readout.json), so the u715 rung was built AFTER scoring by src/dft/build_a0cell_u715.py in the ladder's own atomic projector and every u715 row carries the PROJECTOR-MISMATCHED label (Xu 2015's U derived under a different projector)",
   "calculation": "scf",
   "note": "FIXED-GEOMETRY single points on already-relaxed structures. Relaxation under the changed U is NOT included and these must not be reported as relaxed.",
   "variants": [
     "u0.0",
     "u0.5",
     "base",
-    "u1.35"
+    "u1.35",
+    "u715"
   ],
   "u_values": {
     "u0.0": "0 (no HUBBARD card)",
     "u0.5": "1.8500",
     "base": "3.7000",
-    "u1.35": "4.9950"
+    "u1.35": "4.9950",
+    "u715": "7.1500 [PROJECTOR-MISMATCHED]"
   },
   "nk": 8,
   "states": {
@@ -29,7 +31,8 @@
         "ref__2x1v__u0.0",
         "ref__2x1v__u0.5",
         "ref__2x1v__base",
-        "ref__2x1v__u1.35"
+        "ref__2x1v__u1.35",
+        "ref__2x1v__u715"
       ]
     },
     "s0_O": {
@@ -41,7 +44,8 @@
         "s0_O__2x1v_mir__u0.0",
         "s0_O__2x1v_mir__u0.5",
         "s0_O__2x1v_mir__base",
-        "s0_O__2x1v_mir__u1.35"
+        "s0_O__2x1v_mir__u1.35",
+        "s0_O__2x1v_mir__u715"
       ]
     },
     "s0_OH": {
@@ -53,7 +57,8 @@
         "s0_OH__2x1v_mir__u0.0",
         "s0_OH__2x1v_mir__u0.5",
         "s0_OH__2x1v_mir__base",
-        "s0_OH__2x1v_mir__u1.35"
+        "s0_OH__2x1v_mir__u1.35",
+        "s0_OH__2x1v_mir__u715"
       ]
     },
     "s0_OOH": {
@@ -65,7 +70,8 @@
         "s0_OOH__2x1v_escape__u0.0",
         "s0_OOH__2x1v_escape__u0.5",
         "s0_OOH__2x1v_escape__base",
-        "s0_OOH__2x1v_escape__u1.35"
+        "s0_OOH__2x1v_escape__u1.35",
+        "s0_OOH__2x1v_escape__u715"
       ]
     }
   }

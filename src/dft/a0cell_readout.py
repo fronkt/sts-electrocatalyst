@@ -26,7 +26,7 @@ THE TWO LEGS.
         __2x1v_escape.
 
 U = 7.15 eV carries the PROJECTOR-MISMATCHED label on BOTH legs (A7.1 fired at
-0.487 V, results/pproj_readout.json); the label travels with every number
+0.487 V, docs/figs/pproj_readout.json); the label travels with every number
 derived from that rung, including this test's fifth column.
 
 GATES, run before any number is reported:
@@ -128,15 +128,19 @@ def main():
         gas[g] = e
 
     # --- extraction controls --------------------------------------------------
-    print("extraction control, 2x1v leg (base SCF vs source relaxation, tol 5 meV)")
+    print("extraction control, 2x1v leg (base SCF vs source relaxation, tol 5 meV;")
+    print("  the tolerance is script-level QC, not a registered threshold; the 1x1")
+    print("  leg's control is inherited from probe-time GATE 1, not re-run here)")
     ctrl_ok = True
+    ctrl_drift = {}
     for st, (base, src) in CONTROLS_2X1V.items():
         eb, er = _final_ry(os.path.join(ROOT, base)), _final_ry(os.path.join(ROOT, src))
         if eb is None or er is None:
-            print(f"  {st:7s} -- control not available"); ctrl_ok = False; continue
+            print(f"  {st:7s} -- control not available"); ctrl_ok = False; ctrl_drift[st] = None; continue
         d = (eb - er) * RY_EV * 1000
         ok = abs(d) <= 5.0
         ctrl_ok &= ok
+        ctrl_drift[st] = d
         print(f"  {st:7s} drift {d:+7.2f} meV  {'OK' if ok else 'DRIFT'}")
     # the 1x1 probe leg ran its own GATE 1 in probe_eta.py at probe time; the
     # P-PROJ fifth point was asserted byte-identical to probe decks at build time.
@@ -208,7 +212,20 @@ def main():
                   eta={u: {leg: (None if r is None else
                                  dict(eta=r.overpotential, pls=r.potential_limiting_step))
                            for leg, r in e.items()} for u, e in etas.items()},
-                  gaps=[list(g) for g in gaps])
+                  gaps=[list(g) for g in gaps],
+                  extraction_control_2x1v_meV=ctrl_drift, control_ok=ctrl_ok,
+                  control_note=("2x1v leg only (base SCF vs source relaxation); the 1x1 "
+                                "leg's control is probe-time GATE 1; 5 meV tolerance is "
+                                "script-level QC, not registered"),
+                  labels={"7.15": ("PROJECTOR-MISMATCHED: U = 7.15 eV is Xu 2015's "
+                                   "linear-response value, derived under a different "
+                                   "Hubbard projector; A7.1 FIRED (|d-eta| = 0.487 V, "
+                                   "docs/figs/pproj_readout.json). Both legs run in the "
+                                   "ladder's own atomic projector; the label marks the U "
+                                   "value's provenance."),
+                          "u_points": ("the 4.995 eV point is the u1.35 ladder rung "
+                                       "(1.35 x 3.70); the registration's '5.00 eV' at "
+                                       "docs/43:1200 is a rounding of the same rung")})
     complete = all(rows[u][leg] is not None for u in U_SHARED for leg in ("1x1", "2x1v"))
     if not complete:
         print("\nVERDICT WITHHELD: the five shared points are not all banked yet; "
@@ -234,13 +251,62 @@ def main():
             else:
                 s = "no crossing of D = 1.6 eV inside the five-point band"
             print(f"crossing({leg}): {s}")
+        # robustness of the verdicts to the PROJECTOR-MISMATCHED U = 7.15 rung:
+        # every quantity that depends on that rung is recomputed on the four
+        # clean points so the verdict never rests silently on the labelled point.
+        U_CLEAN = [u for u in U_SHARED if u != 7.15]
+        span_c = {leg: max(rows[u][leg] for u in U_CLEAN) - min(rows[u][leg] for u in U_CLEAN)
+                  for leg in ("1x1", "2x1v")}
+        iu_c = span_c["2x1v"] - span_c["1x1"]
+        bin_c = ("additive" if abs(iu_c) < 0.05 else
+                 "not separable" if abs(iu_c) >= 0.30 else "inconclusive")
+        print(f"robustness (clean points only, U = {{0, 1.85, 3.70, 4.995}}): "
+              f"I_U = {iu_c:+.3f} eV -> {bin_c.upper()}"
+              + ("  (same bin: the I_U verdict does not rest on the mismatched rung)"
+                 if bin_c == bin_ else "  (BIN CHANGES if the mismatched rung is dropped)"))
+        result.update(I_U_clean=iu_c, span_clean=span_c, verdict_clean=bin_c)
+
         if cx["1x1"] and cx["2x1v"]:
             shift = abs(cx["1x1"][0][0] - cx["2x1v"][0][0])
             cond = "CELL-CONDITIONAL" if shift > 1.0 else "not cell-conditional"
+            # which crossings run through the mismatched rung?
+            mm = {leg: any(7.15 in br for _, br in cx[leg]) for leg in cx}
+            cx_c = {leg: crossing(U_CLEAN, [rows[u][leg] for u in U_CLEAN])
+                    for leg in ("1x1", "2x1v")}
             print(f"crossing shift = {shift:.2f} eV -> the located-crossing claim is {cond} "
                   f"(threshold 1.0 eV)")
+            for leg in ("1x1", "2x1v"):
+                if mm[leg]:
+                    print(f"  crossing({leg}) is interpolated into the PROJECTOR-MISMATCHED "
+                          f"U = 7.15 rung -- the label travels with it")
+            if mm["2x1v"] and not cx_c["2x1v"] and cx_c["1x1"]:
+                # 2x1v never reaches the apex on clean points: the clean-point
+                # statement is a bound, and it is what the verdict may rest on.
+                lb = U_CLEAN[-1] - cx_c["1x1"][0][0]
+                print(f"  robustness: on clean points D(2x1v) tops out at "
+                      f"{max(rows[u]['2x1v'] for u in U_CLEAN):.3f} < 1.6, so the 2x1v "
+                      f"crossing lies above U = {U_CLEAN[-1]:g} and the shift is >= "
+                      f"{lb:.2f} eV{' > 1.0 -> CELL-CONDITIONAL stands on clean points alone' if lb > 1.0 else ' (below threshold: the verdict RESTS on the mismatched rung)'}")
+                result["crossing_shift_clean_lower_bound_eV"] = lb
             result["crossing_shift_eV"] = shift
+            result["crossing_shift_label"] = (
+                "shift uses the 2x1v crossing interpolated into the PROJECTOR-MISMATCHED "
+                "U=7.15 rung" if mm["2x1v"] else "clean")
         result["crossings"] = {leg: [[u, list(br)] for u, br in cx[leg]] for leg in cx}
+        result["crossings_use_mismatched_rung"] = {
+            leg: any(7.15 in br for _, br in cx[leg]) for leg in cx}
+
+        # A7.1's "the projector delta becomes its own labelled sub-row":
+        pp = os.path.join(ROOT, "docs", "figs", "pproj_readout.json")
+        if os.path.exists(pp):
+            with open(pp) as fh:
+                ppd = json.load(fh)
+            result["projector_delta_sub_row"] = dict(
+                abs_d_eta_V=ppd["abs_d_eta_V"], verdict=ppd["verdict"],
+                label="PROJECTOR-MISMATCHED sub-row (A7.1): eta consequence of the "
+                      "projector mismatch at U = 7.15 eV, Cr 1x1")
+            print(f"projector-delta sub-row (A7.1): |d-eta| = {ppd['abs_d_eta_V']:.3f} V "
+                  f"[PROJECTOR-MISMATCHED]")
 
     if args.json:
         os.makedirs(os.path.dirname(args.json), exist_ok=True)

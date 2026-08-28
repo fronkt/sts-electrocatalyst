@@ -1,0 +1,137 @@
+{
+  "gas": {
+    "H2O": -599.2110126041732,
+    "H2": -31.74532261815729
+  },
+  "D": {
+    "0.0": {
+      "1x1": 0.7614051746505311,
+      "2x1v": 0.5704519928195396
+    },
+    "1.85": {
+      "1x1": 1.1334501319370927,
+      "2x1v": 0.9000820181400513
+    },
+    "3.7": {
+      "1x1": 1.5602848072495132,
+      "2x1v": 1.256440971826191
+    },
+    "4.995": {
+      "1x1": 1.8727790063031304,
+      "2x1v": 1.5269611994236354
+    },
+    "7.15": {
+      "1x1": 2.3854030190314686,
+      "2x1v": 1.9931609545320268
+    }
+  },
+  "eta": {
+    "0.0": {
+      "1x1": {
+        "eta": 1.4522714718138974,
+        "pls": 3
+      },
+      "2x1v": {
+        "eta": 1.6098807733312657,
+        "pls": 3
+      }
+    },
+    "1.85": {
+      "1x1": {
+        "eta": 0.90405442165024,
+        "pls": 3
+      },
+      "2x1v": {
+        "eta": 1.0243253474279714,
+        "pls": 3
+      }
+    },
+    "3.7": {
+      "1x1": {
+        "eta": 0.33028480724951326,
+        "pls": 2
+      },
+      "2x1v": {
+        "eta": 0.38976997013628134,
+        "pls": 3
+      }
+    },
+    "4.995": {
+      "1x1": {
+        "eta": 0.6427790063031305,
+        "pls": 2
+      },
+      "2x1v": {
+        "eta": 0.5020487757161574,
+        "pls": 1
+      }
+    },
+    "7.15": {
+      "1x1": {
+        "eta": 1.1554030190314686,
+        "pls": 2
+      },
+      "2x1v": {
+        "eta": 0.9239810476816457,
+        "pls": 1
+      }
+    }
+  },
+  "gaps": [],
+  "extraction_control_2x1v_meV": {
+    "slab": 0.0010884563132928407,
+    "s0_O": 0.0031293072603522385,
+    "s0_OH": 0.004898047222664879,
+    "s0_OOH": 0.006122565215484003
+  },
+  "control_ok": true,
+  "control_note": "2x1v leg only (base SCF vs source relaxation); the 1x1 leg's control is probe-time GATE 1; 5 meV tolerance is script-level QC, not registered",
+  "labels": {
+    "7.15": "PROJECTOR-MISMATCHED: U = 7.15 eV is Xu 2015's linear-response value, derived under a different Hubbard projector; A7.1 FIRED (|d-eta| = 0.487 V, docs/figs/pproj_readout.json). Both legs run in the ladder's own atomic projector; the label marks the U value's provenance.",
+    "u_points": "the 4.995 eV point is the u1.35 ladder rung (1.35 x 3.70); the registration's '5.00 eV' at docs/43:1200 is a rounding of the same rung"
+  },
+  "span": {
+    "1x1": 1.6239978443809373,
+    "2x1v": 1.422708961712487
+  },
+  "I_U": -0.20128888266845024,
+  "verdict": "inconclusive",
+  "I_U_clean": -0.1548646250485034,
+  "span_clean": {
+    "1x1": 1.1113738316525992,
+    "2x1v": 0.9565092066040958
+  },
+  "verdict_clean": "inconclusive",
+  "crossing_shift_clean_lower_bound_eV": 1.1304171860865293,
+  "crossing_shift_eV": 1.4680377307508459,
+  "crossing_shift_label": "shift uses the 2x1v crossing interpolated into the PROJECTOR-MISMATCHED U=7.15 rung",
+  "crossings": {
+    "1x1": [
+      [
+        3.864582813913471,
+        [
+          3.7,
+          4.995
+        ]
+      ]
+    ],
+    "2x1v": [
+      [
+        5.332620544664317,
+        [
+          4.995,
+          7.15
+        ]
+      ]
+    ]
+  },
+  "crossings_use_mismatched_rung": {
+    "1x1": false,
+    "2x1v": true
+  },
+  "projector_delta_sub_row": {
+    "abs_d_eta_V": 0.48685617462435893,
+    "verdict": "FIRES",
+    "label": "PROJECTOR-MISMATCHED sub-row (A7.1): eta consequence of the projector mismatch at U = 7.15 eV, Cr 1x1"
+  }
+}

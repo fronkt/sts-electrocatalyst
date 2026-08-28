@@ -30,9 +30,16 @@ GATES.
   - Every point passes qe_qc.trusted_energy_ev strict; a failing point is a
     GAP, reported with the A6.5(2) escalation state -- "never interpolated
     across, never silently dropped. A grid with holes is reportable."
-  - Extraction control per metal: the production-U A0 point (Cr u370, Ru/Ir
-    u000) re-runs the probe base deck's SCF; it must land within 5 meV of the
-    probe base energy, which itself passed GATE 1 against the relaxation.
+  - Extraction control per metal: the A0 grid's U = 0 point re-runs an SCF the
+    probe campaign already banked at U = 0 (Cr: the probe u-ladder's u0.0 rung;
+    Ru/Ir: the probe base itself, whose production tier carries no U). The two
+    must land within 5 meV. Cr's grid steps by 0.5 eV so it has NO 3.70 point;
+    an earlier revision compared a u370 token that cannot exist -- the control
+    now uses the only registered-grid overlap, U = 0, all four states.
+    CAVEAT (2026-08-28 adversarial review): the compared decks are byte-identical
+    except the prefix line, so this measures SCF re-run determinism only. The
+    genuine geometry-extraction control (base SCF vs source relaxation) is the
+    a0cell readout's; this one is kept, honestly named, as a determinism check.
   - Gas references per metal from each probe's own source run (runs/Cr_slab,
     runs/Ru_anchor, runs/Ir_anchor), QC'd; legs never mix calculators.
 
@@ -59,9 +66,12 @@ STATES = ("slab", "s0_O", "s0_OH", "s0_OOH")
 CR_GRID = [round(0.5 * i, 2) for i in range(19)]
 REF_GRID = [0.0, 1.5, 3.0, 4.5, 6.0, 7.5, 9.0]
 METALS = {
-    "Cr": dict(grid=CR_GRID, anchor=None, gas_run="Cr_slab", production_u=3.70),
-    "Ru": dict(grid=REF_GRID, anchor=6.73, gas_run="Ru_anchor", production_u=0.0),
-    "Ir": dict(grid=REF_GRID, anchor=5.91, gas_run="Ir_anchor", production_u=0.0),
+    "Cr": dict(grid=CR_GRID, anchor=None, gas_run="Cr_slab", production_u=3.70,
+               control=("u000", "u0.0")),
+    "Ru": dict(grid=REF_GRID, anchor=6.73, gas_run="Ru_anchor", production_u=0.0,
+               control=("u000", "base")),
+    "Ir": dict(grid=REF_GRID, anchor=5.91, gas_run="Ir_anchor", production_u=0.0,
+               control=("u000", "base")),
 }
 APEX = 1.6      # eV, descriptor at the volcano apex
 G_TOTAL = 4.92  # eV, 4 x 1.23
@@ -123,12 +133,12 @@ def main():
             gas[g] = e
 
         # --- extraction control ------------------------------------------------
-        tok = u_token(cfg["production_u"])
+        tok, probe_sfx = cfg["control"]
         drift = {}
         ok = True
         for st in STATES:
             a0 = _final_ry(os.path.join(ROOT, "runs", "a0", "main", metal, f"{st}__{tok}.out"))
-            pb = _final_ry(os.path.join(ROOT, "runs", "probe", metal, f"{st}__base.out"))
+            pb = _final_ry(os.path.join(ROOT, "runs", "probe", metal, f"{st}__{probe_sfx}.out"))
             if a0 is None or pb is None:
                 drift[st] = None
                 ok = False
@@ -139,7 +149,8 @@ def main():
                 ok = False
         ds = ", ".join(f"{st} {('%+.2f' % d) if d is not None else 'NA'}"
                        for st, d in drift.items())
-        print(f"extraction control ({tok} vs probe base, meV): {ds}  "
+        print(f"re-run determinism check ({tok} vs probe {probe_sfx}; decks identical "
+              f"except prefix, NOT a geometry round-trip control; meV): {ds}  "
               f"{'OK' if ok else 'FAIL'}")
         if not ok:
             print(f"  {metal}: control failed or incomplete -- this metal's rows "
@@ -150,17 +161,21 @@ def main():
         rows, gaps = [], []
         for u in sorted(points):
             E = {}
+            why = {}
             for st in STATES:
                 p = os.path.join(ROOT, "runs", "a0", "main", metal, f"{st}__{u_token(u)}.out")
                 if not os.path.exists(p):
                     E[st] = None
+                    why[st] = "absent"
                     continue
                 E[st] = qc.trusted_energy_ev(p, strict=True)
+                if E[st] is None:
+                    why[st] = "qc-fail"
             missing = [st for st in STATES if E[st] is None]
             if missing:
-                gaps.append((u, missing))
+                gaps.append((u, missing, [why[st] for st in missing]))
                 any_missing = True
-                rows.append(dict(u=u, gap=missing))
+                rows.append(dict(u=u, gap=missing, gap_why=[why[st] for st in missing]))
                 continue
             dg = {sp: delta_G(E["slab"], E[f"s0_{sp}"], sp, gas["H2O"], gas["H2"])
                   for sp in ("OH", "O", "OOH")}
@@ -191,29 +206,75 @@ def main():
                   f"{r['dG_OOH']:7.3f} {r['D']:7.3f} {r['eta']:7.3f} "
                   f"{r['pls']:4d}{tag}{cf}")
         if gaps:
-            print(f"GAPS: {len(gaps)} point(s) -- A6.5(2) escalation owed: "
-                  f"(i) startingpot from converged neighbour, (ii) halve beta, "
-                  f"(iii) NOT_CONVERGED, plotted as a hole.")
+            n_fail = sum(1 for _, _, ws in gaps if "qc-fail" in ws)
+            n_abs = len(gaps) - n_fail
+            msg = f"GAPS: {len(gaps)} point(s)"
+            if n_abs:
+                msg += f" -- {n_abs} with no output banked (not yet run; not a convergence event)"
+            if n_fail:
+                msg += (f" -- {n_fail} QC-FAILED: A6.5(2) escalation owed: "
+                        f"(i) startingpot from converged neighbour, (ii) halve beta, "
+                        f"(iii) NOT_CONVERGED, plotted as a hole")
+            print(msg + ".")
 
         full = [r for r in rows if "gap" not in r]
-        m_out = dict(gas=gas, extraction_control_meV=drift, control_ok=ok,
-                     rows=rows, gaps=[[u, ms] for u, ms in gaps])
+        m_out = dict(gas=gas, rerun_determinism_check_meV=drift, control_ok=ok,
+                     control_note=("same-deck re-run: the A0 u000 decks are byte-identical "
+                                   "to the probe u0.0/base decks except the prefix line, so "
+                                   "this drift measures SCF re-run determinism, not a "
+                                   "geometry round-trip; the genuine extraction control "
+                                   "(SCF vs source relaxation) lives in the a0cell readout"),
+                     rows=rows, gaps=[[u, ms, ws] for u, ms, ws in gaps])
 
         grid_rows = [r for r in full if not r["anchor"]]
         if metal == "Cr" and grid_rows:
             etas = [r["eta"] for r in grid_rows]
             swing = max(etas) - min(etas)
-            print(f"\nP7 BOUND: eta swing over measured grid points = {swing:.3f} V "
-                  f"(P7's withdrawn headline: 1.122 V){' -- grid has holes' if gaps else ''}")
+            u_max = grid_rows[max(range(len(etas)), key=lambda i: etas[i])]["u"]
+            u_min = grid_rows[min(range(len(etas)), key=lambda i: etas[i])]["u"]
+            # P7's withdrawn 1.122 V headline was measured on the probe ladder's
+            # window U in [0, 7.15]; the grid's swing over its own [0, 9] window
+            # is a different quantity and the two are never quoted as one bound.
+            in_win = [r["eta"] for r in grid_rows if r["u"] <= 7.15]
+            swing_w = (max(in_win) - min(in_win)) if in_win else None
+            edge = grid_rows[-1]["eta"] > grid_rows[-2]["eta"] if len(grid_rows) > 1 else False
+            print(f"\nP7 BOUND: eta swing = {swing:.3f} V over the grid's own window "
+                  f"U in [0, 9] (max {max(etas):.3f} at U={u_max:g}, min {min(etas):.3f} "
+                  f"at U={u_min:g})"
+                  + (" -- ETA STILL RISING AT THE U=9 GRID EDGE: edge-limited" if edge else "")
+                  + (" -- grid has holes" if gaps else ""))
+            if swing_w is not None:
+                print(f"  restricted to P7's own window U in [0, 7.15]: swing = "
+                      f"{swing_w:.3f} V vs the withdrawn five-point headline 1.122 V "
+                      f"(the 0.5-step grid straddles the eta minimum, so the windows "
+                      f"and samplings differ; neither number confirms the other)")
             cx = crossings([r["u"] for r in grid_rows], [r["D"] for r in grid_rows])
+            cell_cond = None
+            cell_json = os.path.join(ROOT, "docs", "figs", "a0cell_readout.json")
+            if os.path.exists(cell_json):
+                with open(cell_json) as fh:
+                    cj = json.load(fh)
+                s = cj.get("crossing_shift_eV")
+                if s is not None:
+                    cell_cond = s > 1.0
             if cx:
                 for u, (a, b) in cx:
-                    print(f"apex crossing (D = 1.6): U = {u:.2f} eV, bracket "
-                          f"[{a:g}, {b:g}] -> located to +/-0.25 eV")
+                    if cell_cond:
+                        tag = ("  [CELL-CONDITIONAL per A6.2: the 2x1v cell moves this "
+                               "crossing by more than the 1.0 eV threshold -- see "
+                               "a0cell_readout]")
+                    elif cell_cond is None:
+                        tag = "  [cell-conditionality unscored: a0cell readout not found]"
+                    else:
+                        tag = ""
+                    print(f"apex crossing (D = 1.6): inside bracket [{a:g}, {b:g}] "
+                          f"(0.5 eV grid step); linear interpolation {u:.2f} eV{tag}")
             else:
                 print("apex crossing: D = 1.6 eV not crossed inside the measured band")
-            m_out.update(swing_V=(max(etas) - min(etas)) if etas else None,
-                         crossings=[[u, list(br)] for u, br in cx])
+            m_out.update(swing_V=swing, swing_window="[0, 9]",
+                         swing_p7_window_V=swing_w, swing_edge_limited=bool(edge),
+                         crossings=[[u, list(br)] for u, br in cx],
+                         crossing_cell_conditional=cell_cond)
 
         flips = []
         seq = [r for r in full if not r["anchor"]]
@@ -246,14 +307,22 @@ def main():
     if not have_all:
         print(f"  ({len(shared)}/{len(REF_GRID)} shared points measured -- "
               f"verdict below is over the measured points only)")
-    if inversions:
+    if not shared:
+        verdict63 = "WITHHELD"
+        print("A6.3 VERDICT WITHHELD: no shared measured points -- the registered "
+              "prediction is over U in [0, 9] and cannot be scored on nothing.")
+    elif inversions:
+        verdict63 = "INVERTED"
         print(f"A6.3 VERDICT: INVERTED at U = {inversions} -- the reference anchors are "
               f"U-conditional; every ranking claim in the report inherits that caveat.")
     else:
+        verdict63 = "stable" if have_all else "stable-partial"
         print(f"A6.3 VERDICT: ordering Ir < Ru stable on all {len(shared)} measured "
-              f"shared points{'' if have_all else ' (grid incomplete)'}.")
+              f"shared points"
+              + ("" if have_all else " (grid incomplete -- partial, not the registered verdict)")
+              + ".")
     result["ordering"] = dict(shared_points=shared, inversions=inversions,
-                              complete=have_all)
+                              complete=have_all, verdict=verdict63)
 
     if any_missing:
         print("\nNOTE: the grid has holes; registered bounds quoted from a "
