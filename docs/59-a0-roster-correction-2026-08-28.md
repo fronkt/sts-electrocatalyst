@@ -8,7 +8,10 @@ any tranche-2/3 job ran, which is the property that matters.
 
 ## 1. What went wrong (the correction proper)
 
-docs/43:279 sets the scope rule: changes happen "only through its own dated amendment."
+docs/43:932 (Amendment 5) sets the scope rule: changes happen "only through its
+own dated amendment." (An earlier draft of this document cited docs/43:279, which
+is a row of the 1B hp.x internal-gate table and says nothing about scope -- corrected
+2026-08-29 after the wave-4 audit.)
 A6.1(a) registered A0-main's range (0–9 eV), cell (1×1), calculation (fixed-geometry
 SCF), metal set ("Ru and Ir as well as the 3d metals", A6.3:1244) and scale (~140 SCFs),
 but **not a step**. On 2026-08-27 the entrant chose the allocation **Cr 19 / Ru 7+1 /
@@ -109,9 +112,10 @@ response to each is registered in `src/dft/build_a0main_w2c.py` -- committed and
 pushed before either job was submitted, which is again the property that matters.
 
 **Fe s0_O at U = 4.5 -- inside the ladder.** Rung (i) (density seed from u530)
-held totmag 21.98 and plateaued at ~1.5e-5 Ry against conv_thr 1e-6 for all 200
-iterations, while its sibling u300 (seeded from u150) converged in 202 s at
-totmag 22.90. The measured moments say why: the s0_O ladder runs 18.91, 21.36,
+oscillated between ~1e-4 and ~8e-2 Ry for most of its 200 iterations and settled
+to ~1.2-4e-5 Ry only over the final ~17, never reaching conv_thr 1e-6, with totmag
+pinned at 21.98 throughout; its sibling u300 (seeded from u150) converged in 202 s
+at totmag 22.90. The measured moments say why: the s0_O ladder runs 18.91, 21.36,
 22.90 up to u300 and 21.98, 21.99, 22.00, 21.99 from u530 on, so u450 sits on the
 crossing between two nearly degenerate branches -- the exact failure mode A6.5(2)
 was written for. Rung (ii) halves the mixing beta on top of the seed, and because
@@ -126,7 +130,9 @@ reader can see which branch every point is on.
 
 **Ti s0_OOH -- the ladder is exhausted, and the cause is geometric.** Rung (i)
 never applied to a relaxation; rung (ii) banked two ionic steps and then
-limit-cycled at ~1.3e-4 Ry. Switching the mixer is not available -- `local-TF` is
+limit-cycled at ~1.3e-4 Ry (its two banked steps took the force 0.173 -> 0.125
+Ry/bohr, continuing a walk that began at 0.281 in the failed first run).
+Switching the mixer is not available -- `local-TF` is
 already on for every slab deck in the campaign (`qe_slab.py:175`). What the
 geometry shows: `qe_slab.py` starts every Ti adsorbate ~3.1-3.2 A off the nearest
 Ti, and where *O and *OH walked DOWN into Ti-O bonds of 1.735 A and 1.829 A over
@@ -141,8 +147,12 @@ rung (ii)'s own walk from its last geometry, and `s0_OOH_r3` restarts from the
 built deck with the adsorbate rigidly translated -- orientation and internal
 geometry preserved exactly -- so the anchor O begins at the mean of Ti's OWN two
 converged Ti-O bond lengths (1.734553 and 1.829256 A -> 1.781905 A), read off the
-relaxed outputs by the builder rather than typed in. A relaxation's answer is its
-local minimum, so moving where the walk starts cannot bias where it ends.
+relaxed outputs by the builder rather than typed in. The start DOES select which local minimum BFGS reaches -- that is the
+point of r3, and it is why the selection rule has a basin gap to report at all.
+What makes it not outcome-tuning is narrower: the re-anchor distance is computed
+mechanically from Ti's own two converged states, the rule choosing between r2 and
+r3 was fixed before either ran, and neither deck's energy was known when either
+was chosen.
 
 **The one thing here that is NOT in the registration** is `mixing_ndim` 8 -> 16
 and `electron_maxstep` 200 -> 400, which A6.5(2) does not name. They are declared
@@ -160,6 +170,29 @@ the nspin = 1 answer with totmag -> 0 -- and would remove the radical-state
 pathology at its root rather than routing around it. It is not done here because
 it is a CONVENTION change across all four Ti states and 24 already-banked SCFs,
 and conventions are the entrant's to set, not the assistant's.
+
+**Calculation-class disclosure (added 2026-08-29, after the wave-4 audit).** The
+scale overage in §2 was disclosed against A6.6's "~140 SCFs"; the same A6.6 sentence
+carries a second clause that was not addressed, and is addressed here. A6.6
+(docs/43:1283-1289) registers block 6A as "**~160 fixed-geometry SCFs and zero
+relaxations**" and states it "does **not** license ... any relaxation in any cell."
+The Ti arm is built on relaxations: 4 in tranche 3 (slab + 3 adslabs) and 3
+escalation repairs (`s0_OOH_r1`/`r2`/`r3`), seven in total, all in the 1×1 cell.
+A7.4's gate (g) licenses exactly ONE TiO₂ relaxation, in the 2×1v cell, for timing —
+not these. So they are new compute outside A6.6's declared footprint, and are stated
+here rather than absorbed.
+
+What they are and are not: they are the geometry INPUT the Ti ladder stands on, not
+A0 points. Every Ti number this campaign scores is a fixed-geometry single-point SCF,
+and A6.4 is untouched. Their warrant is later and registered: A7.2/A7.3 (deposited
+2026-08-16) register a six-metal A0 census that names Ti a blind metal, and A7.3
+conditions its own denominator on "a converged *OOH geometry" — which presupposes
+that a Ti *OOH geometry can exist. TiO₂ had none anywhere in the campaign, so the
+relaxations are the only route to the rows those two predictions require. That is an
+explanation of why they were run, not a licence; the licence is the entrant's to
+grant or withhold when countersigning this document. If withheld, the consequence is
+already registered: A7.3's denominator shrinks and the Ti rows are WITHDRAWN-UNSCORED
+under A7.7.
 
 **Scale update:** the ~246 above becomes ~250 with this round (2 Fe SCF restarts
 + 2 Ti relaxations). Same disclosure stance: stated, not absorbed.

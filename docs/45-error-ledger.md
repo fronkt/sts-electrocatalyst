@@ -2231,8 +2231,9 @@ New traps for the pattern file:
 **Rung (i) worked once and failed once, and the difference is physical.**
 Fe s0_O u300, seeded from the retained u150 density, converged in 202 s and
 landed at totmag 22.90 -- off the 22.25 the unseeded run had been drifting
-toward. u450, seeded from u530, held 21.98 and plateaued at ~1.5e-5 Ry for
-all 200 iterations. The moments across the whole ladder say why: 18.91,
+toward. u450, seeded from u530, held 21.98 and oscillated between ~1e-4 and
+~8e-2 Ry for most of its 200 iterations, reaching ~1.2-4e-5 Ry only over the
+final ~17 and never conv_thr 1e-6. The moments across the whole ladder say why: 18.91,
 21.36, 22.90 up to u300, then 21.98, 21.99, 22.00, 21.99 from u530 on. u450
 is the crossing point between two nearly degenerate branches, and a density
 seed can put a point ON a branch but cannot break a tie between two. Rung
@@ -2281,3 +2282,71 @@ New traps for the pattern file:
    %2 is the campaign's established (if unobvious) pattern. The refusal was
    loud and cost nothing, which is the system working -- but the header now
    says what the field is, so the next reader does not have to rediscover it.
+
+## Wave-4 audit before banking tranche 2c (2026-08-29)
+
+59 agents: 5 auditors on distinct dimensions, one adversarial refuter per
+finding, one completeness critic. 53 findings raised, **38 refuted, 15
+survived**, plus 9 from the sweep. The refutation rate (72%) is the point of
+the pattern: most plausible-sounding findings die on contact with the files,
+and the ones that live are worth the whole run.
+
+**The BLOCKER, found independently by three dimensions.** The readout's
+repair-selection branch collapsed "has not run yet" into "failed", so a row
+whose registered repairs were still in flight banked the sentence *"all 3
+registered repairs also failed"* — i.e. that the A6.5(2) ladder was EXHAUSTED
+and rung (iii) NOT_CONVERGED had been reached. The `lost` list already carried
+the distinction; the message threw it away and used `len(cand)`. The same
+script got it right for Ti two hundred lines away. Fixed: pending and failed
+are now counted and phrased separately, and only an all-failed set may say
+"A6.5(2)(iii)".
+
+**A prediction was being omitted while its sibling was reported.** A7.2 and
+A7.3 are scored from the SAME banked rows. The readout computed and reported
+A7.2 (CONFIRMED) and computed no A7.3 at all — and A7.3, once computed, stands
+at 3 of 5 against a registered threshold of ≥4. Reporting the one that passes
+and silently omitting the one that does not is the exact failure pre-
+registration exists to prevent, and no auditor was even assigned to it: the
+completeness critic found it by asking what nobody had been asked. A7.3 now
+scores in the artifact, and Ti's *OOH convergence is named as the deciding
+metal.
+
+New traps for the pattern file:
+12. **"Not yet run" and "failed" are different claims, and code that merges
+   them will eventually publish the wrong one.** The distinction survived all
+   the way to the message-formatting line and died there. When a status string
+   is assembled from a richer structure, check that every distinction the
+   structure makes is still present in the string.
+13. **Fixing a conflation can create its own.** Splitting "control FAIL" from
+   "control INCOMPLETE" introduced a third case neither branch handled: a
+   control deck that RAN and produced no energy. `_final_ry` returns None for a
+   missing file and for a file whose SCF died, so a convergence event was about
+   to be reported as pending data — the mirror image of the bug just fixed, in
+   the code written to fix it.
+14. **An affirmative claim over an empty measurement.** With zero scored rows
+   Ti printed "no pls flip inside the measured band" and banked `pls_flips: []`
+   — byte-identical to what a complete, genuinely flat grid banks. A consumer
+   reading that field could not tell "measured, no flip" from "nothing
+   measured".
+15. **A causal claim the instrument cannot see.** The gap line asserted "not
+   yet run; not a convergence event" for holes whose actual cause was two
+   failed relaxations upstream. The readout reads one directory and cannot
+   know why a deck is absent; it now says only what it can see, and looks up
+   the relaxation when there is one to look up.
+16. **Check a number's interval before quoting it as a plateau.** "Plateaued at
+   ~1.5e-5 Ry for all 200 iterations" was written from the tail of the file.
+   The run actually oscillated between ~1e-4 and ~8e-2 Ry for most of those 200
+   iterations and only reached ~1.5e-5 in the last ~17. Reading the last screen
+   of a log and describing it as the whole run is a distinct error from
+   misreading a number.
+17. **A defence that contradicts the design two sentences later.** "Changing
+   where the walk STARTS cannot bias where it ENDS" was written to show the
+   re-anchored Ti deck was not outcome-tuned — immediately above a selection
+   rule that exists to report the basin gap between two different starts. If
+   the start could not bias the end there would be no gap and no reason to
+   build the deck. The true defence is narrower and checkable: the distance is
+   computed mechanically, the rule was fixed first, and no energy was known.
+
+Note on scope: `runs/a0/m_a0_repairs2.txt` is left exactly as launched, with
+its original header wording, because it is the record of what actually ran.
+The corrections above are made in the builder docstring, docs/59 and here.

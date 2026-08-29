@@ -60,6 +60,8 @@ from __future__ import annotations
 
 import argparse
 import importlib.util
+import datetime
+import glob
 import json
 import os
 import re
@@ -77,8 +79,11 @@ REF_GRID = [0.0, 1.5, 3.0, 4.5, 6.0, 7.5, 9.0]
 # <state>__<probe_suffix>, so the energy drift measures re-run agreement.
 # control_class says WHICH agreement: Cr/Ru/Ir and Ti re-run on the same
 # machine (determinism); Mn/Fe re-run Vast audit decks on Anvil (A8.5
-# cross-machine parity, threshold 1e-5 Ry = 0.014 meV -- tighter than the
-# 5 meV extraction tolerance, reported against both).
+# cross-machine parity, threshold 1e-5 Ry = 0.136 meV using this
+# pipeline's own RY_EV -- tighter than the 5 meV extraction tolerance).
+# Only the 5 meV tolerance is ENFORCED here (--tol-mev); the 1e-5 Ry
+# figure is quoted for scale and is not separately gated, so it is
+# stated as context rather than as a second implemented check.
 # control_override redirects ONE state's comparator: Fe s0_OOH's probe base is
 # the MEASURED trapped branch (+276.60 meV, docs/41 s6d), so comparing the
 # mag-0.1 u530 rung against it would manufacture a fake failure; the honest
@@ -131,6 +136,58 @@ def _final_ry(path):
     return e
 
 
+def _totmag(path):
+    """Final `total magnetization` in Bohr mag/cell, or None for nspin=1.
+
+    A0's two repaired Fe points sit on a near-degenerate crossing between two
+    magnetic branches (docs/59 s3c), so which branch a row landed on is part
+    of the reading, not a footnote. Reported for every spin-polarised row.
+    """
+    if not os.path.exists(path):
+        return None
+    m = None
+    for line in open(path, errors="replace"):
+        if "total magnetization" in line:
+            hit = re.search(r"=\s*([-\d.]+)", line)
+            if hit:
+                m = float(hit.group(1))
+    return m
+
+
+def _upstream_block(runsdir, state):
+    """Why a state has no A0 deck: unrun, or blocked by a failed relaxation.
+
+    Every A0 point is a fixed-geometry SCF standing on a relaxed geometry from
+    runs/<metal>_slab/<state>.out. If that relaxation never converged, the A0
+    deck was never built -- and calling the resulting hole "not yet run" would
+    hide the campaign's most consequential non-convergence behind a queue
+    position. Returns (reason, attempts) or (None, []).
+    """
+    base = os.path.join(ROOT, "runs", runsdir)
+    if not os.path.isdir(base):
+        return None, []
+    attempts = []
+    for fn in sorted(os.listdir(base)):
+        if not fn.endswith(".out"):
+            continue
+        stem = fn[:-4]
+        if stem != state and not stem.startswith(state + "_r"):
+            continue
+        txt = open(os.path.join(base, fn), errors="replace").read()
+        ok = "bfgs converged" in txt and "convergence NOT achieved" not in txt
+        attempts.append((stem, "converged" if ok else "NOT CONVERGED"))
+    if not attempts:
+        return None, []
+    if any(s == "converged" for _, s in attempts):
+        return None, attempts
+    return ("UPSTREAM GEOMETRY BLOCKED: the %s relaxation has not converged "
+            "(%s); no A0 deck can be built on it, so this is a convergence "
+            "event upstream, NOT an unrun point. See runs/a0/main/manifest.json "
+            "and docs/59." % (state,
+                              ", ".join("%s %s" % a for a in attempts)),
+            attempts)
+
+
 def crossings(us, ds, level=APEX):
     hits = []
     pts = [(u, d) for u, d in zip(us, ds) if d is not None]
@@ -159,14 +216,19 @@ def main():
     # escalation requires travels into the row from the manifest itself
     # (single source; nothing hard-coded here).
     repairs = {}
-    rman = os.path.join(ROOT, "runs", "a0", "m_a0_repairs.txt")
-    if os.path.exists(rman):
+    for rman in sorted(glob.glob(os.path.join(ROOT, "runs", "a0",
+                                              "m_a0_repairs*.txt"))):
         for line in open(rman):
             line = line.strip()
             if not line or line.startswith("#"):
                 continue
             d, job, _suf, _nk, parent = line.split()
-            repairs[(os.path.basename(d), job)] = parent
+            key = (os.path.basename(d), job)
+            if key in repairs and repairs[key] != parent:
+                raise SystemExit("REFUSING TO SCORE: %s registers %s twice "
+                                 "with different parents (%s, %s)"
+                                 % (rman, job, repairs[key], parent))
+            repairs[key] = parent
 
     for metal, cfg in METALS.items():
         print("=" * 72)
@@ -186,21 +248,40 @@ def main():
         drift = {}
         override_notes = {}
         ok = True
+        uncompared = {}
+        control_failed = {}
         for st in STATES:
-            a0 = _final_ry(os.path.join(ROOT, "runs", "a0", "main", metal, f"{st}__{tok}.out"))
+            a0p = os.path.join(ROOT, "runs", "a0", "main", metal,
+                               f"{st}__{tok}.out")
+            a0 = _final_ry(a0p)
             ov = cfg.get("control_override", {}).get(st)
             if ov is not None:
                 # comparator redirected (see METALS comment); path under a0/main
                 _, ov_stem, ov_why = ov
-                pb = _final_ry(os.path.join(ROOT, "runs", "a0", "main", metal,
-                                            f"{ov_stem}.out"))
+                cmpp = os.path.join(ROOT, "runs", "a0", "main", metal,
+                                    f"{ov_stem}.out")
                 override_notes[st] = f"comparator {ov_stem}: {ov_why}"
             else:
-                pb = _final_ry(os.path.join(ROOT, "runs", "probe", probe_dir,
-                                            f"{st}__{probe_sfx}.out"))
+                cmpp = os.path.join(ROOT, "runs", "probe", probe_dir,
+                                    f"{st}__{probe_sfx}.out")
+            pb = _final_ry(cmpp)
             if a0 is None or pb is None:
+                # THREE cases, not two. _final_ry returns None both for a file
+                # that is absent and for one that exists but never printed a
+                # final energy -- which is exactly what an SCF that hit
+                # electron_maxstep leaves behind. A deck that RAN AND DIED is a
+                # convergence event (A8.4), never pending data.
                 drift[st] = None
-                ok = False
+                dead = [os.path.relpath(q, ROOT).replace("\\", "/")
+                        for q, v in ((a0p, a0), (cmpp, pb))
+                        if v is None and os.path.exists(q)]
+                if dead:
+                    ok = False
+                    control_failed[st] = dead
+                else:
+                    uncompared[st] = [
+                        os.path.relpath(q, ROOT).replace("\\", "/")
+                        for q, v in ((a0p, a0), (cmpp, pb)) if v is None]
                 continue
             # qc.RY_EV is THE pipeline constant (every banked eV number used
             # it); a second higher-precision literal used to live here and was
@@ -211,15 +292,39 @@ def main():
                 ok = False
         ds = ", ".join(f"{st} {('%+.2f' % d) if d is not None else 'NA'}"
                        for st, d in drift.items())
+        n_cmp = len(STATES) - len(uncompared) - len(control_failed)
+        if not ok:
+            verdict = "FAIL"
+        elif uncompared:
+            verdict = f"INCOMPLETE ({n_cmp}/{len(STATES)} states compared)"
+        else:
+            verdict = "OK"
         print(f"re-run agreement check ({tok} vs probe {probe_dir}/{probe_sfx}; "
               f"decks identical except prefix, NOT a geometry round-trip control; "
-              f"class: {cfg['control_class']}; meV): {ds}  "
-              f"{'OK' if ok else 'FAIL'}")
+              f"class: {cfg['control_class']}; meV): {ds}  {verdict}")
         for st, note in override_notes.items():
             print(f"  control override [{st}]: {note}")
-        if not ok:
-            print(f"  {metal}: control failed or incomplete -- this metal's rows "
-                  f"are reported but marked UNTRUSTED until reconciled.")
+        if control_failed:
+            print(f"  {metal}: control deck(s) RAN AND PRODUCED NO ENERGY "
+                  f"{sorted(control_failed)} -- an SCF failure (A8.4), not "
+                  f"pending data; files: "
+                  f"{sorted(f for v in control_failed.values() for f in v)}. "
+                  f"This metal's rows are reported but marked UNTRUSTED until "
+                  f"reconciled.")
+        elif not ok:
+            print(f"  {metal}: control DISAGREES beyond {args.tol_mev} meV -- "
+                  f"this metal's rows are reported but marked UNTRUSTED until "
+                  f"reconciled.")
+        if uncompared:
+            # Say WHICH side is missing. "completes when those states run" is
+            # false when the comparator itself is blocked upstream.
+            for st, miss in sorted(uncompared.items()):
+                blocked, _att = _upstream_block(cfg["gas_run"], st)
+                tail = (" BLOCKED UPSTREAM: " + blocked) if blocked else                        " -- the control completes when these run."
+                print(f"  {metal}: control not evaluable for {st}; no final "
+                      f"energy in {miss}.{tail}")
+            print(f"  {metal}: the {n_cmp} state(s) that COULD be compared all "
+                  f"agree -- not a disagreement.")
 
         # --- the grid ----------------------------------------------------------
         points = list(cfg["grid"]) + ([cfg["anchor"]] if cfg["anchor"] else [])
@@ -228,35 +333,92 @@ def main():
             E = {}
             why = {}
             repaired = {}
+            totmag = {}
             for st in STATES:
                 p = os.path.join(ROOT, "runs", "a0", "main", metal, f"{st}__{u_token(u)}.out")
                 if not os.path.exists(p):
                     E[st] = None
-                    why[st] = "absent"
+                    blocked, _att = _upstream_block(cfg["gas_run"], st)
+                    why[st] = blocked or "absent"
                     continue
                 E[st] = qc.trusted_energy_ev(p, strict=True)
+                if E[st] is not None:
+                    mg = _totmag(p)
+                    if mg is not None:
+                        totmag[st] = mg
                 if E[st] is None:
                     why[st] = "qc-fail"
                     # A6.5(2)(i): a registered repair may stand in for a
                     # QC-failed point -- never for a passing one, and only if
                     # the repair itself passes strict QC. The failed .out
                     # stays on disk and in the A8.4 failure count.
-                    r1 = f"{st}__{u_token(u)}__r1"
-                    if (metal, r1) in repairs:
+                    stem = f"{st}__{u_token(u)}__"
+                    cand = sorted(j for (m, j) in repairs
+                                  if m == metal and j.startswith(stem))
+                    won, lost = [], []
+                    for j in cand:
                         rp = os.path.join(ROOT, "runs", "a0", "main", metal,
-                                          f"{r1}.out")
-                        if os.path.exists(rp):
-                            er = qc.trusted_energy_ev(rp, strict=True)
-                            if er is not None:
-                                E[st] = er
-                                del why[st]
-                                repaired[st] = (
-                                    "A6.5(2)-i RESTART FROM %s DENSITY "
-                                    "(original SCF failed at 200 iterations; "
-                                    "failed .out retained, A8.4)"
-                                    % repairs[(metal, r1)])
-                            else:
-                                why[st] = "qc-fail (repair r1 also failed QC)"
+                                          f"{j}.out")
+                        if not os.path.exists(rp):
+                            lost.append((j, None, "not run"))
+                            continue
+                        er = qc.trusted_energy_ev(rp, strict=True)
+                        if er is None:
+                            lost.append((j, None, "failed QC"))
+                        else:
+                            won.append((er, j, _totmag(rp)))
+                    if won:
+                        # Pre-declared before either deck ran
+                        # (build_a0main_w2c.py): where more than one registered
+                        # repair converges, the LOWER total energy is the
+                        # banked point and the difference is REPORTED as the
+                        # measured branch splitting. Never the higher one.
+                        won.sort()
+                        er, j, mag = won[0]
+                        E[st] = er
+                        why.pop(st, None)
+                        note = ("A6.5(2) REPAIR %s, RESTARTED FROM %s DENSITY "
+                                "(original SCF failed at 200 iterations; "
+                                "failed .out retained, A8.4)"
+                                % (j, repairs[(metal, j)]))
+                        if mag is not None:
+                            note += "; totmag %.2f" % mag
+                            totmag[st] = mag
+                        if len(won) > 1:
+                            gapmeV = (won[1][0] - won[0][0]) * 1000.0
+                            note += ("; %d registered repairs converged, "
+                                     "LOWER wins by %.1f meV over %s "
+                                     "(measured branch splitting)"
+                                     % (len(won), gapmeV, won[1][1]))
+                        # "did not converge" and "has not run" are DIFFERENT
+                        # claims. Collapsing them would report a launched-but-
+                        # pending deck as a convergence failure -- an A8.4
+                        # quantity -- purely because its output has not landed.
+                        bad = [a for a, _b, c in lost if c == "failed QC"]
+                        pend = [a for a, _b, c in lost if c == "not run"]
+                        if bad:
+                            note += "; did not converge: %s" % ", ".join(bad)
+                        if pend:
+                            note += "; still pending: %s" % ", ".join(pend)
+                        repaired[st] = note
+                    elif cand:
+                        bad = [a for a, _b, c in lost if c == "failed QC"]
+                        pend = [a for a, _b, c in lost if c == "not run"]
+                        if pend:
+                            # The ladder is NOT exhausted while a registered
+                            # repair is still in flight, so this row must not
+                            # read as rung (iii) NOT_CONVERGED.
+                            why[st] = ("qc-fail (%d of %d registered repairs "
+                                       "failed: %s; %d NOT YET RUN, so the "
+                                       "A6.5(2) ladder is NOT exhausted: %s)"
+                                       % (len(bad), len(cand),
+                                          ", ".join(bad) or "none",
+                                          len(pend), ", ".join(pend)))
+                        else:
+                            why[st] = ("qc-fail (all %d registered repairs also "
+                                       "failed: %s -- A6.5(2)(iii) "
+                                       "NOT_CONVERGED)"
+                                       % (len(cand), ", ".join(cand)))
             missing = [st for st in STATES if E[st] is None]
             if missing:
                 gaps.append((u, missing, [why[st] for st in missing]))
@@ -278,6 +440,8 @@ def main():
                        anchor=(u == cfg["anchor"]))
             if repaired:
                 row["repaired"] = repaired
+            if totmag:
+                row["totmag"] = {k: round(v, 2) for k, v in totmag.items()}
             if row["anchor"]:
                 # A7.1 fired, so the label must live in the artifact, not just
                 # the stdout header (docs/45 wave-2 trap 4: labels travel).
@@ -304,15 +468,40 @@ def main():
             cf = ""
             if r["closed_form_dev"] is not None and r["closed_form_dev"] > 1e-9:
                 cf = f"  CLOSED-FORM DEV {r['closed_form_dev']:.2e}"
+            elif r["closed_form_dev"] is None:
+                # A7.2's identity is defined only for pls in {2,3}. On a
+                # pls 1 or 4 row there is no check running at all, and
+                # those are exactly the rows where the dG ladder has gone
+                # non-monotonic -- including the upper endpoint of Fe's
+                # contribution to the A7.2 census. Say so rather than
+                # letting a blank column read as "checked and clean".
+                cf = "  [no closed-form check: defined only for pls 2/3]"
             print(f"{r['u']:7.2f} {r['dG_OH']:7.3f} {r['dG_O']:7.3f} "
                   f"{r['dG_OOH']:7.3f} {r['D']:7.3f} {r['eta']:7.3f} "
                   f"{r['pls']:4d}{tag}{cf}")
         if gaps:
-            n_fail = sum(1 for _, _, ws in gaps if "qc-fail" in ws)
-            n_abs = len(gaps) - n_fail
+            # `ws` is a LIST of why-strings, so `"qc-fail" in ws` was an
+            # exact-element test: it matched the bare "qc-fail" but NOT
+            # "qc-fail (all 3 registered repairs also failed: ...)", which
+            # silently reported a real convergence event as "not yet run".
+            # A8.4 makes the failure rate a reported quantity, so this had to
+            # be a substring test over the elements.
+            n_fail = sum(1 for _, _, ws in gaps
+                         if any("qc-fail" in w for w in ws))
+            n_block = sum(1 for _, _, ws in gaps
+                          if any("UPSTREAM GEOMETRY BLOCKED" in w for w in ws))
+            n_abs = len(gaps) - n_fail - n_block
             msg = f"GAPS: {len(gaps)} point(s)"
             if n_abs:
-                msg += f" -- {n_abs} with no output banked (not yet run; not a convergence event)"
+                # This readout sees only runs/a0/main/<metal>; it can say a
+                # deck is absent, and (via _upstream_block) that a relaxation
+                # blocked it, but it may not assert WHY an otherwise-absent
+                # point is absent.
+                msg += (f" -- {n_abs} with no A0 deck present in "
+                        f"runs/a0/main/{metal}")
+            if n_block:
+                msg += (f" -- {n_block} BLOCKED UPSTREAM by a non-convergent "
+                        f"relaxation (a convergence event, not an unrun point)")
             if n_fail:
                 msg += (f" -- {n_fail} QC-FAILED: A6.5(2) escalation owed: "
                         f"(i) startingpot from converged neighbour, (ii) halve beta, "
@@ -321,6 +510,9 @@ def main():
 
         full = [r for r in rows if "gap" not in r]
         m_out = dict(gas=gas, rerun_determinism_check_meV=drift, control_ok=ok,
+                     control_uncompared_states=sorted(uncompared),
+                     control_uncompared_missing_files=uncompared,
+                     control_decks_ran_and_failed=control_failed,
                      control_class=cfg["control_class"],
                      control_note=("same-deck re-run: the A0 control deck is identical "
                                    "to its probe comparator except the prefix line "
@@ -392,9 +584,17 @@ def main():
         if flips:
             for a, b, p1, p2 in flips:
                 print(f"pls flip {p1} -> {p2} between U = {a:g} and {b:g} eV")
+        elif len(seq) < 2:
+            # "no flip" is a measurement; with fewer than two scored rows there
+            # is nothing to measure, and banking [] would be indistinguishable
+            # from a complete, genuinely flat grid.
+            print(f"NO FLIP STATEMENT POSSIBLE: {len(seq)} scored non-anchor "
+                  f"row(s) -- a flip needs two consecutive ones")
         else:
             print("no pls flip inside the measured band")
         m_out["pls_flips"] = [list(f) for f in flips]
+        m_out["pls_flips_measurable"] = len(seq) >= 2
+        m_out["scored_rows"] = len(seq)
         result["metals"][metal] = m_out
         print()
 
@@ -523,12 +723,92 @@ def main():
              "the EXISTENCE of an Ir flip inside the grid survives the saddle "
              "correction, so the CONFIRMED status does not rest on the bracket")
 
+    # --- A7.3 P-FLOOR-U ------------------------------------------------------
+    # docs/43:1361-1379, quoted: "Quantity: span(c_M)/2 in volts, at FIXED
+    # endpoints U = 0 and U = U_max -- never max-minus-min over a grid.
+    # PREDICTION: span(c_M)/2 exceeds 0.10 V on >=4 of the 6 metals with a
+    # converged *OOH geometry. FALSIFIED if <=1 of 6 exceeds 0.10 V".
+    # Every quantity here is registered; nothing is set locally. This block
+    # exists because A7.2 and A7.3 are siblings scored off the SAME banked rows,
+    # and reporting only the one that CONFIRMED would be selective.
+    A73_FLOOR = 0.10          # V, registered
+    A73_NEEDED = 4            # metals, registered
+    A73_FALSIFY_AT = 1        # <= this many, registered
+    a73_rows, a73_pending = {}, []
+    for m, cfg in METALS.items():
+        rows = {r["u"]: r for r in result["metals"][m]["rows"] if "gap" not in r}
+        u_max = max(cfg["grid"])
+        lo, hi = rows.get(0.0), rows.get(u_max)
+        if lo is None or hi is None:
+            a73_pending.append(m)
+            continue
+        c_lo = lo["dG_OOH"] - lo["dG_OH"]
+        c_hi = hi["dG_OOH"] - hi["dG_OH"]
+        half = abs(c_lo - c_hi) / 2.0
+        a73_rows[m] = dict(u_lo=0.0, u_hi=u_max, c_M_lo=c_lo, c_M_hi=c_hi,
+                           span_over_2_V=half, exceeds_floor=half > A73_FLOOR)
+    over = sorted(m for m, r in a73_rows.items() if r["exceeds_floor"])
+    if len(over) >= A73_NEEDED:
+        a73_status = "CONFIRMED"
+    elif len(a73_rows) - len(over) > len(METALS) - A73_FALSIFY_AT - 1             and len(over) <= A73_FALSIFY_AT and not a73_pending:
+        a73_status = "FALSIFIED"
+    elif a73_pending:
+        a73_status = "NOT YET MET -- UNDECIDED (pending metals could still reach it)"
+    else:
+        a73_status = "NOT MET"
+    print("")
+    print("A7.3 P-FLOOR-U: registered 'span(c_M)/2 exceeds 0.10 V on >=4 of "
+          "the 6 metals with a converged *OOH geometry' (c_M = dG_OOH - dG_OH, "
+          "at the FIXED endpoints U = 0 and U = U_max, never max-minus-min).")
+    for m in sorted(a73_rows):
+        r = a73_rows[m]
+        print("  %-3s c_M(0)=%.4f  c_M(%.1f)=%.4f  span/2=%.4f V  %s"
+              % (m, r["c_M_lo"], r["u_hi"], r["c_M_hi"], r["span_over_2_V"],
+                 "EXCEEDS" if r["exceeds_floor"] else "below floor"))
+    for m in a73_pending:
+        print("  %-3s NO ENDPOINTS SCORED -- excluded from the denominator by "
+              "the registration's own conditioning ('with a converged *OOH "
+              "geometry')" % m)
+    print("A7.3 VERDICT: %d of %d scorable metals exceed %.2f V -> %s"
+          % (len(over), len(a73_rows), A73_FLOOR, a73_status))
+    if a73_pending and len(over) < A73_NEEDED:
+        print("  DECIDING METAL(S): %s. With %d already over the floor and a "
+              "threshold of >=%d, the prediction turns on whether the pending "
+              "metal(s) clear it. Reported here NOT MET rather than omitted: "
+              "A7.2 and A7.3 are scored off the same banked rows and only one "
+              "of them currently passes." % (a73_pending, len(over), A73_NEEDED))
+    print("  DISCLOSED NON-BLIND (registered): Cr. The registration quotes Cr "
+          "at 0.223 V over U = 0 -> 5.00; this grid's registered endpoints are "
+          "U = 0 -> %.1f, which is a DIFFERENT interval and gives %.4f V. The "
+          "two are not the same measurement and neither replaces the other."
+          % (max(METALS["Cr"]["grid"]),
+             a73_rows["Cr"]["span_over_2_V"] if "Cr" in a73_rows else float("nan")))
+    result["a7_3"] = dict(
+        prediction="span(c_M)/2 exceeds 0.10 V on >=4 of the 6 metals with a "
+                   "converged *OOH geometry; FALSIFIED if <=1 of 6 exceeds it",
+        quantity="span(c_M)/2 at FIXED endpoints U = 0 and U = U_max, "
+                 "c_M = dG_OOH - dG_OH",
+        floor_V=A73_FLOOR, needed=A73_NEEDED, status=a73_status,
+        per_metal=a73_rows, exceeds=over,
+        denominator=len(a73_rows), pending_no_endpoints=a73_pending,
+        blind=["Mn", "Fe", "Ru", "Ir", "Ti"], disclosed_non_blind=["Cr"],
+        note="the registration's disclosed Cr value (0.223 V) is measured over "
+             "U = 0 -> 5.00, not this grid's U = 0 -> 9.0 endpoints; both are "
+             "reported and neither is substituted for the other")
+
     # --- registered + measured caveats (travel with every table above) --------
     caveats = dict(
         fixed_geometry=(
             "A6.4, registered: every point is a fixed-geometry single-point SCF "
-            "on the production-tier geometry (relaxed at each tier's own U -- "
-            "Ru/Ir tier carries no U, Cr tier U = 3.70). A0 measures the "
+            "on a geometry relaxed at that metal's own production U "
+            "(Cr 3.70, Mn 3.90, Fe 5.30; Ru/Ir/Ti carry no U by the MP "
+            "convention). For Cr/Ru/Ir/Mn/Fe that geometry is the banked "
+            "production tier. Ti's is NOT inherited: TiO2 had no slab or "
+            "adsorbate geometry anywhere in the campaign, so its slab, *O "
+            "and *OH geometries were built and relaxed inside tranche 3 "
+            "(2026-08-28/29, docs/59 s3) and its *OOH geometry does not "
+            "exist at all -- which is why the Ti grid scores 0 of 7. "
+            "A0 measures the "
             "U-response of energies at frozen geometry and cannot see a "
             "U-driven geometry change; where A0 and a relaxed point disagree, "
             "the relaxed point wins and the discrepancy is reported, not "
@@ -545,8 +825,30 @@ def main():
             "Fe's s0_OOH column runs at the pilot-selected starting guess "
             "(mag 0.1, the relax branch -- manifest tranche_2b; the 0.5 "
             "cold start is a measured +276.60 meV trap). Ti runs nspin=1 "
-            "as a d0 closed shell by construction (production convention; "
-            "no moment to order, unlike the RuO2 case gate (h) measured)."),
+            "by construction (gen_rutile.py emits the spin block only "
+            "where a species carries a non-zero starting magnetization, "
+            "and TiO2 is entered mag=0.0). That is a SUBSTRATE d0 "
+            "argument and it does NOT extend to the adsorbates: pw.x "
+            "reports 144/150/151/157 electrons for Ti slab/*O/*OH/*OOH, "
+            "so *OH and *OOH are ODD-electron and nspin=1 cannot "
+            "spin-split them. docs/59 s3c registers exactly that as the "
+            "diagnosis of the Ti *OOH relaxation failure and leaves "
+            "nspin=2 for the Ti arm as an OPEN question for the entrant; "
+            "every Ti row is spin-convention-conditional in a way the "
+            "nspin=2 Cr/Mn/Fe rows are not."),
+        mn_afm=(
+            "REGISTERED CONDITION, CURRENTLY UNMET (A7.5, quoted): "
+            "'beta-MnO2 is antiferromagnetic and gen_rutile.py initialises it FM -- either the AFM arm runs or every materials-facing Mn sentence is struck.' gen_rutile.py enters MnO2 at mag=0.5 (FM) and "
+            "no AFM arm has been run, so the 8-point absolute eta(U) "
+            "column banked here for Mn is FM-initialised. Under A7.5 it "
+            "may be used for the within-metal, U-response claims it was "
+            "registered for (A7.2's flip census, A7.3's span) but NOT "
+            "as a materials-facing absolute eta for beta-MnO2. Same "
+            "amendment's tier strata: TiO2/beta-MnO2/RuO2/IrO2 = "
+            "REAL-AMBIENT-UNDISTORTED, CrO2 = "
+            "REAL-UNDISTORTED-METASTABLE, FeO2 = MODEL PHASE (method "
+            "test system only) -- so the Cr and Fe absolute eta columns "
+            "are likewise not materials claims."),
         ir_ooh_basin=(
             "MEASURED: the Ir chain inherits the 1x1 *OOH geometry convicted as "
             "a mirror-plane saddle 0.291 eV high (docs/45 row 1). It CANNOT "
@@ -569,8 +871,11 @@ def main():
             "correction of record is docs/59, drafted for the entrant to "
             "countersign and deposit). REMEDIATION: the entrant directed the "
             "extension 2026-08-28 ('Do them over Mn/Fe/Ti then'); tranches "
-            "2/2b/3 (build_a0main_w2/_w2b/_w3, each committed pre-launch) "
-            "cover the blind metals. Live status at scoring time: "
+            "2/2b/3/2c (build_a0main_w2/_w2b/_w3/_w2c, each committed "
+            "pre-launch) cover the blind metals -- 2c is the escalation "
+            "round that produced the banked Fe U = 4.5 point via "
+            "A6.5(2)(ii), and is therefore the reason Fe can be called "
+            "complete at all. Live status at scoring time: "
             + "; ".join(
                 (f"{m} scored" + (f" with {len(result['metals'][m]['gaps'])} "
                                   f"hole(s)" if result['metals'][m]['gaps']
@@ -634,6 +939,28 @@ def main():
               "holed grid are lower bounds on the swing, and say so.")
 
     if args.json:
+        # The caveats above are explicitly time-live ("Live status at
+        # scoring time"), and repair arrays can land between two runs of
+        # this script. An artifact that says "live" without saying WHEN
+        # cannot be compared against its own successor.
+        import subprocess
+        def _git(*a):
+            try:
+                return subprocess.run(("git",) + a, cwd=ROOT,
+                                      capture_output=True, text=True,
+                                      timeout=30).stdout.strip() or None
+            except Exception:
+                return None
+        result["provenance"] = dict(
+            scored_at_utc=datetime.datetime.now(
+                datetime.timezone.utc).replace(microsecond=0).isoformat(),
+            commit=_git("rev-parse", "HEAD"),
+            branch=_git("rev-parse", "--abbrev-ref", "HEAD"),
+            dirty=bool(_git("status", "--porcelain")),
+            scorer="src/dft/a0main_readout.py",
+            note="caveats.coverage_shortfall and the A7.2/A7.3 status "
+                 "fields are live at this timestamp; a later run with "
+                 "more landed repairs can legitimately differ")
         os.makedirs(os.path.dirname(args.json), exist_ok=True)
         with open(args.json, "w") as fh:
             json.dump(result, fh, indent=2, default=str)

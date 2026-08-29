@@ -15,8 +15,7 @@ density as `startingpot`; (ii) halve the mixing beta; (iii) failing both,
 the point is recorded NOT_CONVERGED and plotted as a gap".
 
 Rung (i) ran as array 20204306 task 2: seeded from dens/s0_O__u530.save, it
-held totmag 21.98 and plateaued at ~1.5e-5 Ry against conv_thr 1e-6 for all
-200 iterations. Its sibling, u300 seeded from u150, converged in 202 s and
+O. Its sibling, u300 seeded from u150, converged in 202 s andscillated between ~1e-4 and ~8e-2 Ry for most of its 200 iterations and only settled to ~1.2-4e-5 Ry over the final ~17, never reaching conv_thr 1e-6, with totmag pinned at 21.98 throughout
 landed at totmag 22.90.
 
 WHY u450 IS THE HARD ONE. The measured s0_O moment along the ladder:
@@ -65,7 +64,8 @@ escalation here or anywhere else in this project.
 Rung (i) never applied (a relaxation has no neighbouring-U density, and the
 failed run retained none). Rung (ii) ran as array 20204308: mixing_beta
 0.15 banked TWO ionic steps -- the energy fell 0.023 Ry and the total force
-fell 0.281 -> 0.125 Ry/bohr -- and then the third step's SCF limit-cycled,
+fell 0.173 -> 0.125 Ry/bohr, continuing a walk that began at 0.281 in the
+FAILED first run -- and then the third step's SCF limit-cycled,
 descending cleanly to ~1.2e-4 Ry by iteration 13 and never improving over
 the remaining 187, with periodic spikes to ~5e-3.
 
@@ -112,10 +112,13 @@ WHAT IS BUILT -- two relaxations, identical numerics, different starts:
                 as r2. This starts the walk inside the bonded basin instead
                 of 1.4 A outside it.
 
-    A relaxation's answer is its local minimum; changing where the walk
-    STARTS cannot bias where it ENDS, and the re-anchor distance is
-    computed mechanically from Ti's own converged states, not chosen to
-    produce an outcome.
+    The start DOES select which local minimum BFGS reaches -- that is the
+    point of r3, and it is why the selection rule below has a basin gap to
+    report at all. What makes this not outcome-tuning is narrower and
+    checkable: the re-anchor distance is computed mechanically from Ti's own
+    two converged states, the rule that picks between r2 and r3 was fixed
+    before either ran, and neither deck's energy was known when either was
+    chosen.
 
 SELECTION RULE, FIXED HERE BEFORE EITHER RUNS. If both converge, the LOWER
 total energy is the banked s0_OOH geometry (docs/41 s6d, A6.4) and the
@@ -448,8 +451,10 @@ def build_ti_r3():
 
 HDR_FE = """\
 # A0-main A6.5(2)(ii) ESCALATION, Fe s0_O U = 4.5. Rung (i) (density seed
-# from u530) held totmag 21.98 and plateaued at ~1.5e-5 Ry vs conv_thr 1e-6
-# for all 200 iterations; its sibling u300 (seeded from u150) converged.
+# from u530) oscillated between ~1e-4 and ~8e-2 Ry for most of its 200
+# iterations, settling to ~1.2-4e-5 Ry only over the final ~17 and never
+# reaching conv_thr 1e-6, with totmag pinned at 21.98; its sibling u300
+# (seeded from u150) converged.
 # u450 sits on the crossing between the 22.90 branch (u300) and the 21.98
 # branch (u530+). Rung (ii) halves the mixing beta, applied CUMULATIVELY on
 # top of the seed, from BOTH converged neighbours -- both are legal rung-(i)
