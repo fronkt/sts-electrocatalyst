@@ -2272,3 +2272,12 @@ New traps for the pattern file:
    it fails the recorded outcome is byte-for-byte what (iii) alone would
    have recorded. Bound the amendment by what it can change, not by
    promising restraint.
+11. **A gate token that looks like a parameter.** `43_submit_s3_wave1.sh`
+   runs the driver's dry preflight with concurrency hard-coded to 1, and the
+   driver then refuses any manifest whose header declares a different
+   `NCONC` -- so the header's NCONC is a preflight TOKEN, unrelated to the
+   `%cap` the array is actually submitted at. A manifest honestly declaring
+   the concurrency it wanted (2) was refused; declaring 1 and submitting at
+   %2 is the campaign's established (if unobvious) pattern. The refusal was
+   loud and cost nothing, which is the system working -- but the header now
+   says what the field is, so the next reader does not have to rediscover it.

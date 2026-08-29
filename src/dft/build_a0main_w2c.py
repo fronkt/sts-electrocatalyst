@@ -491,8 +491,14 @@ HDR_TI = """\
 #
 # SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223  (43_submit_s3_wave1.sh)
 #
+# NCONC below is the token 43's DRY PREFLIGHT checks, not the array cap:
+# 43 invokes the driver with concurrency 1 unconditionally, so every
+# manifest routed through it declares 1. The array itself is submitted at
+# whatever %cap the caller passes (here 2 -- the two decks are independent
+# and we want both answers in the same wall-clock window).
+#
 # row: dir job suffix nk
-# NP=128 NCONC=2
+# NP=128 NCONC=1
 """
 
 
