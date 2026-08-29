@@ -1,0 +1,19 @@
+# A0-main A6.5(2)(ii) ESCALATION, Fe s0_O U = 4.5. Rung (i) (density seed
+# from u530) held totmag 21.98 and plateaued at ~1.5e-5 Ry vs conv_thr 1e-6
+# for all 200 iterations; its sibling u300 (seeded from u150) converged.
+# u450 sits on the crossing between the 22.90 branch (u300) and the 21.98
+# branch (u530+). Rung (ii) halves the mixing beta, applied CUMULATIVELY on
+# top of the seed, from BOTH converged neighbours -- both are legal rung-(i)
+# parents and the registration does not pick one.
+#
+# SELECTION RULE (fixed before launch, build_a0main_w2c.py docstring): if
+# both converge the LOWER total energy is the banked point and the gap is
+# reported as the branch splitting at U = 4.5; if one converges it is the
+# point; if neither, A6.5(2)(iii) NOT_CONVERGED, plotted as a gap.
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223  (49_submit_repairs.sh)
+#
+# row: dir job suffix nk parent_density_prefix
+# NP=128 NCONC=2
+a0/main/Fe s0_O__u450__r2 .in 4 s0_O__u530
+a0/main/Fe s0_O__u450__r2b .in 4 s0_O__u300__r1

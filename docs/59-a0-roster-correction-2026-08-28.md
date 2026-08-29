@@ -102,6 +102,68 @@ was written before results existed stays intact:
 - **Scale update:** the ≈243 above becomes ≈246 with the three repair jobs (2 Fe SCF
   restarts + 1 Ti relax continuation). Same disclosure stance: stated, not absorbed.
 
+## 3c. The second escalation round (added 2026-08-29, before it ran)
+
+Two of tranche 2b/3's points did not converge, for different reasons, and the
+response to each is registered in `src/dft/build_a0main_w2c.py` -- committed and
+pushed before either job was submitted, which is again the property that matters.
+
+**Fe s0_O at U = 4.5 -- inside the ladder.** Rung (i) (density seed from u530)
+held totmag 21.98 and plateaued at ~1.5e-5 Ry against conv_thr 1e-6 for all 200
+iterations, while its sibling u300 (seeded from u150) converged in 202 s at
+totmag 22.90. The measured moments say why: the s0_O ladder runs 18.91, 21.36,
+22.90 up to u300 and 21.98, 21.99, 22.00, 21.99 from u530 on, so u450 sits on the
+crossing between two nearly degenerate branches -- the exact failure mode A6.5(2)
+was written for. Rung (ii) halves the mixing beta on top of the seed, and because
+BOTH neighbours are now converged and rung (i) says "the converged neighbouring-U
+density" without naming one, both legal parents run: `__r2` from u530 (21.98) and
+`__r2b` from u300__r1 (22.90). The selection rule is fixed before launch: lower
+converged energy is the banked point, the difference is reported as the measured
+branch splitting at U = 4.5, one converged means that one (labelled with its
+branch), neither means A6.5(2)(iii). Disclosed limit: the other seven s0_O rungs
+were not branch-searched, and each row's totmag travels into the readout so a
+reader can see which branch every point is on.
+
+**Ti s0_OOH -- the ladder is exhausted, and the cause is geometric.** Rung (i)
+never applied to a relaxation; rung (ii) banked two ionic steps and then
+limit-cycled at ~1.3e-4 Ry. Switching the mixer is not available -- `local-TF` is
+already on for every slab deck in the campaign (`qe_slab.py:175`). What the
+geometry shows: `qe_slab.py` starts every Ti adsorbate ~3.1-3.2 A off the nearest
+Ti, and where *O and *OH walked DOWN into Ti-O bonds of 1.735 A and 1.829 A over
+36 and 56 ionic steps, *OOH is walking UP (3.167 -> 3.263 -> 3.325 -> 3.414 A)
+into the desorbed-radical region, where the chain's nspin = 1 convention cannot
+spin-split the resulting half-occupied state. The SCF failure is a symptom of the
+starting geometry, not a mixing problem; and three steps is far too short a walk
+to conclude TiO2 does not bind *OOH.
+
+Two relaxations run, identical numerics, different starts: `s0_OOH_r2` continues
+rung (ii)'s own walk from its last geometry, and `s0_OOH_r3` restarts from the
+built deck with the adsorbate rigidly translated -- orientation and internal
+geometry preserved exactly -- so the anchor O begins at the mean of Ti's OWN two
+converged Ti-O bond lengths (1.734553 and 1.829256 A -> 1.781905 A), read off the
+relaxed outputs by the builder rather than typed in. A relaxation's answer is its
+local minimum, so moving where the walk starts cannot bias where it ends.
+
+**The one thing here that is NOT in the registration** is `mixing_ndim` 8 -> 16
+and `electron_maxstep` 200 -> 400, which A6.5(2) does not name. They are declared
+as a dated extension of the ladder for relaxations: numerics only, with conv_thr,
+forc_conv_thr, degauss, smearing, nspin, mixing_mode and mixing_beta untouched.
+Its authority is bounded by construction -- the only thing this round can do is
+FILL a gap that (iii) would otherwise leave. If both decks fail, the recorded
+outcome is identical to what (iii) alone would have recorded, so the extension
+cannot move a threshold, change a convergence criterion, or flip a verdict.
+
+**An open question for the entrant, deliberately not settled here.** The Ti arm
+runs nspin = 1, inherited from `qe_slab.py`'s d0 path. Running it nspin = 2
+throughout would be strictly more general -- a closed-shell system converges to
+the nspin = 1 answer with totmag -> 0 -- and would remove the radical-state
+pathology at its root rather than routing around it. It is not done here because
+it is a CONVENTION change across all four Ti states and 24 already-banked SCFs,
+and conventions are the entrant's to set, not the assistant's.
+
+**Scale update:** the ~246 above becomes ~250 with this round (2 Fe SCF restarts
++ 2 Ti relaxations). Same disclosure stance: stated, not absorbed.
+
 ## 4. What the extension can and cannot change
 
 - **A6.3's ordering verdict (INVERTED) is untouched** — it is a Ru/Ir statement, scored

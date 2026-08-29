@@ -2225,3 +2225,50 @@ New traps for the pattern file:
    exactly the points (magnetically frustrated, mid-U) where the valence
    story matters most. When a side path substitutes for the main path, diff
    their guarantees, not just their outputs.
+
+## A0 tranche 2c -- the second escalation round (2026-08-29)
+
+**Rung (i) worked once and failed once, and the difference is physical.**
+Fe s0_O u300, seeded from the retained u150 density, converged in 202 s and
+landed at totmag 22.90 -- off the 22.25 the unseeded run had been drifting
+toward. u450, seeded from u530, held 21.98 and plateaued at ~1.5e-5 Ry for
+all 200 iterations. The moments across the whole ladder say why: 18.91,
+21.36, 22.90 up to u300, then 21.98, 21.99, 22.00, 21.99 from u530 on. u450
+is the crossing point between two nearly degenerate branches, and a density
+seed can put a point ON a branch but cannot break a tie between two. Rung
+(ii) (halve beta) now runs from BOTH converged neighbours, with the lower
+converged energy pre-declared as the banked point.
+
+**The diagnosis that mattered was geometric, and grep found it, not the SCF
+log.** The Ti s0_OOH relax kept failing its SCF, which reads like a numerics
+problem. It is not. `qe_slab.py` starts every Ti adsorbate ~3.1-3.2 A off
+the nearest Ti; *O and *OH walked DOWN into 1.735 A and 1.829 A bonds over
+36 and 56 ionic steps, while *OOH walked UP -- 3.167 -> 3.263 -> 3.325 ->
+3.414 A over its three steps -- into the desorbed-radical region, where the
+chain's nspin = 1 convention cannot spin-split the half-occupied state. The
+plateau-with-spikes limit cycle is the symptom; the starting height is the
+cause. Fix: re-anchor the adsorbate to the mean of Ti's own two converged
+Ti-O bond lengths and restart, alongside a plain continuation.
+
+New traps for the pattern file:
+8. **Check whether the "fix" is already on before proposing it.** The
+   obvious escalation for a charge-sloshing SCF is `mixing_mode =
+   'local-TF'`. It had been on campaign-wide since `qe_slab.py:175` -- a
+   grep that took ten seconds and would have made the whole escalation a
+   no-op had it been shipped. An earlier grep of the same deck had MISSED
+   it, because the pattern listed `mixing_beta` and not `mixing_mode`; the
+   absence of a hit for a key you never searched for reads exactly like the
+   key being absent. When a diagnosis rests on a setting NOT being present,
+   grep for that setting by name.
+9. **A convergence failure can be a measurement, not an error.** Three
+   ionic steps of a relaxation is not evidence that a species does not
+   bind -- the two states that DID converge on the same surface needed 36
+   and 56. But the direction of travel over those three steps was the whole
+   diagnosis. Read the trajectory, not just the last line.
+10. **Escalating a ladder past its last registered rung is a decision, not
+   a repair.** `mixing_ndim` and `electron_maxstep` are not rungs A6.5(2)
+   names. They are declared as a dated extension whose authority is bounded
+   by construction: it can only FILL the gap rung (iii) would leave, so if
+   it fails the recorded outcome is byte-for-byte what (iii) alone would
+   have recorded. Bound the amendment by what it can change, not by
+   promising restraint.

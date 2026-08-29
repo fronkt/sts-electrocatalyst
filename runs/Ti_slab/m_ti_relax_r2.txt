@@ -1,0 +1,28 @@
+# TiO2 s0_OOH, second escalation round. Rung (i) never applied (no
+# neighbouring-U density for a relaxation); rung (ii) (beta 0.15) banked two
+# ionic steps and then limit-cycled at ~1.3e-4 Ry. The cause is geometric:
+# qe_slab.py starts every Ti adsorbate ~3.2 A off the nearest Ti, and where
+# *O and *OH walked DOWN to 1.735 A / 1.829 A over 36 / 56 steps, *OOH walked
+# UP (3.167 -> 3.414 A) into the desorbed-radical region that nspin=1 cannot
+# describe. Three steps is far too short a walk to call it unbound.
+#
+#   s0_OOH_r2   continue rung (ii)'s walk from its last geometry
+#   s0_OOH_r3   restart from a re-anchored geometry: the adsorbate rigidly
+#               translated (orientation + internal geometry preserved) so the
+#               anchor O starts at the mean of Ti's OWN converged Ti-O bond
+#               lengths, read off s0_O.out / s0_OH.out by the builder
+#
+# Both add mixing_ndim = 16 and electron_maxstep = 400 -- numerics only, a
+# dated extension of the ladder for relaxations (docs/59 s3c), bounded so
+# that it can only FILL the gap (iii) would otherwise leave.
+#
+# SELECTION RULE (fixed before launch): lower converged total energy is the
+# banked geometry; one converged = that one, labelled; neither = A6.5(2)(iii)
+# NOT_CONVERGED and A7.3's own text shrinks the span denominator.
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223  (43_submit_s3_wave1.sh)
+#
+# row: dir job suffix nk
+# NP=128 NCONC=2
+Ti_slab s0_OOH_r2 .in 8
+Ti_slab s0_OOH_r3 .in 8

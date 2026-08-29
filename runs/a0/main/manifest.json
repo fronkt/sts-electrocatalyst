@@ -199,5 +199,79 @@
       }
     },
     "s0_OOH_gate": "base + 7 rungs built only after s0_OOH_r1 reaches bfgs converged; if r1 fails, A6.5(2)(iii): NOT_CONVERGED, A7.3's denominator shrinks per its own registered conditioning, A7.2 census runs on the states that exist"
+  },
+  "tranche_2c": {
+    "built": "2026-08-29",
+    "builder": "src/dft/build_a0main_w2c.py",
+    "rederived_facts": {
+      "fe_u450_r1_failed": true,
+      "fe_u450_r1_totmag": 21.98,
+      "fe_u300_r1_totmag": 22.9,
+      "ti_r1_ionic_steps": 2
+    },
+    "fe_s0_O_u450": {
+      "rung": "A6.5(2)(ii), cumulative on rung (i)'s density seed",
+      "mixing_beta": [
+        0.3,
+        0.15
+      ],
+      "decks": [
+        {
+          "stem": "s0_O__u450__r2",
+          "parent_density": "s0_O__u530"
+        },
+        {
+          "stem": "s0_O__u450__r2b",
+          "parent_density": "s0_O__u300__r1"
+        }
+      ],
+      "branch_context": {
+        "u300__r1": 22.9,
+        "u450__r1_failed_at": 21.98,
+        "u530": 21.98
+      },
+      "selection_rule": "both converge -> lower total energy is the banked point, difference reported as the branch splitting at U=4.5; one converges -> that one, labelled with its branch; neither -> A6.5(2)(iii) NOT_CONVERGED gap",
+      "disclosed_limit": "the other seven s0_O rungs were not branch-searched; every row's totmag travels into the readout"
+    },
+    "ti_s0_OOH": {
+      "rungs_exhausted": [
+        "(i) inapplicable to a relaxation",
+        "(ii) beta 0.15 limit-cycled at ~1.3e-4 Ry"
+      ],
+      "diagnosis": "geometric: built 3.167 A off the nearest Ti and walking UP (3.167 -> 3.414 A over 3 steps) into the desorbed-radical region; *O and *OH walked DOWN to 1.735 / 1.829 A over 36 / 56 steps",
+      "ladder_extension": {
+        "class": "numerics only, dated, disclosed (docs/59 s3c)",
+        "mixing_ndim": [
+          8,
+          16
+        ],
+        "electron_maxstep": [
+          200,
+          400
+        ],
+        "untouched": [
+          "conv_thr",
+          "forc_conv_thr",
+          "degauss",
+          "smearing",
+          "nspin",
+          "mixing_mode",
+          "mixing_beta"
+        ],
+        "bounded_by": "can only FILL the gap (iii) would leave; cannot move a threshold or flip a verdict"
+      },
+      "decks": {
+        "s0_OOH_r2": "continuation of rung (ii)'s own walk",
+        "s0_OOH_r3": "re-anchored start",
+        "anchor": {
+          "built_A": 3.1668,
+          "target_A": 1.781905,
+          "from_s0_O_A": 1.734553,
+          "from_s0_OH_A": 1.829256
+        }
+      },
+      "selection_rule": "lower converged total energy is the banked geometry; one converges -> that one, labelled; neither -> A6.5(2)(iii)",
+      "entrant_decision_open": "whether the Ti arm should run nspin=2 throughout -- a convention change across 4 states and 24 banked SCFs"
+    }
   }
 }
