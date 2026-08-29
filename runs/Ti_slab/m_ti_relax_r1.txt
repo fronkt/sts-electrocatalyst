@@ -1,0 +1,13 @@
+# A6.5(2)(ii) repair of the TiO2 s0_OOH relax (array 20196856 task 4: the
+# SCF after the first ionic step stopped at 200 iterations, accuracy 0.0097
+# Ry vs conv_thr 1e-6; zero bfgs steps banked; failed .out retained --
+# A8.4). s0_OOH_r1.in = same deck, mixing_beta 0.3 -> 0.15, continuing from
+# the last trajectory geometry (spliced verbatim, pw.x's own constraint
+# flags). Record: build_a0main_w3.py docstring. Runner 42_s3_wave1.slurm
+# via 43_submit_s3_wave1.sh.
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+Ti_slab s0_OOH_r1 .in 8

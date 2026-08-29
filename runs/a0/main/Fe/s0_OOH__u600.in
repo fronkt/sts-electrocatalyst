@@ -1,0 +1,68 @@
+&CONTROL
+  calculation = 'scf'
+  prefix = 's0_OOH__u600'
+  outdir = './tmp'
+  pseudo_dir = '/usr/share/espresso/pseudo'
+  tprnfor = .true.
+  forc_conv_thr = 2.0d-3
+  nstep = 200
+/
+&SYSTEM
+  ibrav = 0
+  nat = 21
+  ntyp = 3
+  ecutwfc = 80.0
+  ecutrho = 640.0
+  occupations = 'smearing'
+  smearing = 'mv'
+  degauss = 0.01
+  nosym = .true.
+  noinv = .true.
+  nspin = 2
+  starting_magnetization(1) = 0.1
+  starting_magnetization(2) = 0.0
+  starting_magnetization(3) = 0.0
+/
+&ELECTRONS
+  conv_thr = 1.0d-6
+  mixing_mode = 'local-TF'
+  mixing_beta = 0.3
+  electron_maxstep = 200
+/
+&IONS
+  ion_dynamics = 'bfgs'
+/
+ATOMIC_SPECIES
+  Fe  55.845  Fe.pbe-spn-kjpaw_psl.0.2.1.UPF
+  H  1.008  H.pbe-rrkjus_psl.1.0.0.UPF
+  O  15.999  O.pbe-n-kjpaw_psl.0.1.UPF
+CELL_PARAMETERS angstrom
+  3.00000000  0.00000000  0.00000000
+  0.00000000  6.36396103  0.00000000
+  0.00000000  0.00000000  25.45584412
+ATOMIC_POSITIONS angstrom
+  Fe  0.00000000  4.77297077  9.54594155  0 0 0
+  Fe  1.50000000  1.59099026  9.54594155  0 0 0
+  Fe  -0.00513225  1.59100546  12.82033419  1 1 1
+  Fe  1.49833940  4.77297062  12.73800641  1 1 1
+  Fe  -0.00814422  4.77307284  15.95409097  1 1 1
+  Fe  1.49276036  1.59112733  16.11404340  1 1 1
+  O  0.00000000  1.59099026  10.78691395  0 0 0
+  O  0.00000000  1.59099026  8.30496915  0 0 0
+  O  1.50000000  3.53199837  9.54594155  0 0 0
+  O  1.50000000  6.01394317  9.54594155  0 0 0
+  O  -0.00334148  4.77295185  13.98727097  1 1 1
+  O  0.00000000  4.77297077  11.48694966  0 0 0
+  O  1.49533837  0.37250676  12.81180878  1 1 1
+  O  1.49533840  2.80949752  12.81194499  1 1 1
+  O  -0.00620822  1.59081678  17.27913392  1 1 1
+  O  -0.00644443  1.59151604  14.85948757  1 1 1
+  O  1.49309672  3.57750210  16.17757454  1 1 1
+  O  1.49308145  5.96880850  16.17626712  1 1 1
+  O  0.30545639  4.77473795  18.48723457  1 1 1
+  O  -0.48424940  4.77200834  19.55730163  1 1 1
+  H  -1.46842983  4.77305633  19.10815018  1 1 1
+K_POINTS automatic
+  8 4 1 0 0 0
+HUBBARD (atomic)
+U Fe-3d 6.0000

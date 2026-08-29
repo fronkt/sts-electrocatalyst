@@ -1,0 +1,18 @@
+# A0-main TRANCHE 2b: the Fe s0_OOH 8-rung ladder, GATED on the branch pilot
+# and built only after the pilot verdict (build_a0main_w2b.py docstring: all
+# three guesses PASS, m010 closest -> starting_magnetization(1) = 0.1 on every
+# rung). The u530 rung is byte-identical to the accepted pilot deck except the
+# prefix line -- the same-machine re-run determinism control.
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+a0/main/Fe s0_OOH__u000 .in 4
+a0/main/Fe s0_OOH__u150 .in 4
+a0/main/Fe s0_OOH__u300 .in 4
+a0/main/Fe s0_OOH__u450 .in 4
+a0/main/Fe s0_OOH__u530 .in 4
+a0/main/Fe s0_OOH__u600 .in 4
+a0/main/Fe s0_OOH__u750 .in 4
+a0/main/Fe s0_OOH__u900 .in 4

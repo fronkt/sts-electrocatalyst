@@ -77,6 +77,31 @@ U = 0 is TiO2's production point, so the u000 rung is the determinism control). 
 references are the campaign's single banked calculation, copied md5-identical as for
 every other metal and disclosed live by the readout.
 
+## 3b. Outcomes recorded post-launch (added 2026-08-29, after both arrays drained)
+
+Dated additions, kept separate from the pre-launch text above so the record of what
+was written before results existed stays intact:
+
+- **Fe *OOH pilot: all three guesses PASS** (0.019–0.023 meV from the −34804.1641 eV
+  reference, gate 5 meV; all at the relax branch's totmag 22.98). Closest wins → m010;
+  the 8-rung ladder runs at starting_magnetization 0.1 (`build_a0main_w2b.py`, which
+  re-derives the verdict from the outputs and refuses to build on disagreement). The
+  ladder's u530 rung is byte-identical to the winning pilot deck except the prefix
+  line — the determinism control.
+- **The campaign's first A0 convergence failures:** Fe s0_O u300 and u450 stopped at
+  200 iterations (magnetic oscillation, mid-U window — where A6.5(2) predicted).
+  Escalation rung (i) applied: `__r1` restarts from the retained u150/u530 neighbour
+  densities (runner `48_a0_repair.slurm`, which keeps the inline projwfc so the
+  repaired points still carry Löwdin populations). Failed .outs retained; A8.4 reports
+  the 2/8 = 25% pre-repair rate either way.
+- **Ti s0_OOH relax failed** (SCF after the first ionic step; zero BFGS steps banked).
+  Rung (i) is inapplicable to a relaxation, so rung (ii): `s0_OOH_r1` halves
+  mixing_beta and continues from the last trajectory geometry (spliced verbatim). Its
+  base + 7 rungs are gated on r1 converging; if r1 fails, rung (iii) NOT_CONVERGED and
+  A7.3's own registered conditioning shrinks the span denominator.
+- **Scale update:** the ≈243 above becomes ≈246 with the three repair jobs (2 Fe SCF
+  restarts + 1 Ti relax continuation). Same disclosure stance: stated, not absorbed.
+
 ## 4. What the extension can and cannot change
 
 - **A6.3's ordering verdict (INVERTED) is untouched** — it is a Ru/Ir statement, scored

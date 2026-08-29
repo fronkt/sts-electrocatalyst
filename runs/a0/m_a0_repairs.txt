@@ -1,0 +1,14 @@
+# A0-main A6.5(2)(i) REPAIRS: Fe s0_O u300/u450 failed SCF after 200
+# iterations (the campaign's first A0 convergence failures; evidence in the
+# failed .out files, which stay on disk -- A8.4 reports failure rates).
+# Escalation rung (i): restart from the converged neighbouring-U density as
+# startingpot. Runner 48_a0_repair.slurm seeds scratch/<child>.save from
+# dens/<parent>.save, then runs pw.x + inline projwfc (A6.5(1)) exactly as
+# 46_a0.slurm does. Record: build_a0main_w2b.py docstring.
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223  (49_submit_repairs.sh)
+#
+# row: dir job suffix nk parent_density_prefix
+# NP=128 NCONC=1
+a0/main/Fe s0_O__u300__r1 .in 4 s0_O__u150
+a0/main/Fe s0_O__u450__r1 .in 4 s0_O__u530

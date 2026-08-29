@@ -1,0 +1,41 @@
+# A0-main TRANCHE 3, stage 2: TiO2 base SCFs + eta(U) ladder for the three
+# CONVERGED stage-1 geometries (slab, s0_O, s0_OH). Built 2026-08-29 by
+# src/dft/build_a0main_w3.py -- READ ITS DOCSTRING: the s0_OOH relax FAILED
+# and is being repaired under A6.5(2)(ii) in a separate manifest
+# (runs/Ti_slab/m_ti_relax_r1.txt); its base + 7 rungs are built only after
+# that relax converges. u000 IS TiO2's production point (U = 0, MP
+# convention) and each u000 rung is byte-identical to its base deck except
+# the prefix line -- the determinism control.
+#
+#   3 base SCFs (probe/Ti_audit)  +  3 states x 7 REF_GRID rungs = 24 rows
+#
+# FIXED-GEOMETRY SINGLE POINTS on stage-1's relaxed structures (A6.4).
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+probe/Ti_audit slab__base .in 8
+probe/Ti_audit s0_O__base .in 8
+probe/Ti_audit s0_OH__base .in 8
+a0/main/Ti slab__u000 .in 8
+a0/main/Ti slab__u150 .in 8
+a0/main/Ti slab__u300 .in 8
+a0/main/Ti slab__u450 .in 8
+a0/main/Ti slab__u600 .in 8
+a0/main/Ti slab__u750 .in 8
+a0/main/Ti slab__u900 .in 8
+a0/main/Ti s0_O__u000 .in 8
+a0/main/Ti s0_O__u150 .in 8
+a0/main/Ti s0_O__u300 .in 8
+a0/main/Ti s0_O__u450 .in 8
+a0/main/Ti s0_O__u600 .in 8
+a0/main/Ti s0_O__u750 .in 8
+a0/main/Ti s0_O__u900 .in 8
+a0/main/Ti s0_OH__u000 .in 8
+a0/main/Ti s0_OH__u150 .in 8
+a0/main/Ti s0_OH__u300 .in 8
+a0/main/Ti s0_OH__u450 .in 8
+a0/main/Ti s0_OH__u600 .in 8
+a0/main/Ti s0_OH__u750 .in 8
+a0/main/Ti s0_OH__u900 .in 8

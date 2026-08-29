@@ -2168,3 +2168,60 @@ New traps for the pattern file:
 5. **nspin=1 is a measured caveat, not a default** -- gate (h) had already
    adopted AFM with a 33-64 meV class; margins under that class are
    state-conditional and must say so where the number is used.
+
+## A0 tranches 2b/3 -- the first convergence failures, the pilot verdict, and a one-byte lesson (2026-08-29)
+
+Array 20196817 (tranche 2, Mn/Fe, 59 tasks) and array 20196856 (tranche 3
+stage 1, TiO2 geometry chain, 4 tasks) both drained COMPLETED. Strict QC: 57
+of 59 tranche-2 SCFs clean with Lowdin populations; 3 of 4 Ti relaxations
+cleanly converged.
+
+**Fe s0_OOH pilot verdict (rule registered pre-launch in build_a0main_w2.py):
+ALL THREE GUESSES PASS.** m010/m030/m070 all land 0.019-0.023 meV from the
+banked relax reference -34804.1641 eV (gate: 5 meV), all at totmag 22.98 --
+the relax branch; the 0.5-start trap (+276.60 meV, totmag 23.86) is escaped by
+ANY of the three guesses, and the three collapse to one state within 0.004
+meV. Closest wins mechanically: m010 -> starting_magnetization(1) = 0.1 on all
+8 ladder rungs (build_a0main_w2b.py re-derives the verdict from the outputs
+via strict qe_qc and refuses to build on disagreement). The ladder's u530 rung
+is byte-identical to the winning pilot deck except the prefix line -- the
+determinism control.
+
+**First A0 convergence failures (A6.5(2) finally fires, where it predicted):**
+Fe s0_O u300 (accuracy ~1e-3 Ry oscillating, totmag drifting 22.44 -> 22.25)
+and u450 (oscillating 1.8e-6 -> 1.1e-5 Ry around conv_thr 1e-6) both stopped
+at 200 iterations -- mid-window between U = 1.5 and 5.3, exactly where
+A6.5(2) registered that convergence would be worst. Escalation rung (i)
+applied: s0_O__u300__r1 restarts from the retained u150 density,
+s0_O__u450__r1 from u530 (u300/u450 are each other's nearest neighbours but
+both failed). Runner 48_a0_repair.slurm = 46 + a density-seeding step, KEEPING
+the inline projwfc -- routing repairs through the S3 chain runner would have
+silently reproduced the LIT-1 no-Lowdin failure A6.5(1) exists to prevent.
+A8.4 note: Fe s0_O pre-repair failure rate is 2/8 = 25%, over the 20% line;
+reported either way, and the failed .outs stay on disk.
+
+**Ti s0_OOH relax failed** (SCF after the first ionic step, 200 iterations,
+accuracy 0.0097 Ry and still falling; zero bfgs steps). Rung (i) is
+inapplicable to a relaxation (no neighbouring-U point exists; the failed run
+retained no density), so rung (ii): s0_OOH_r1 halves mixing_beta to 0.15 and
+continues from the last trajectory geometry, spliced VERBATIM with pw.x's own
+constraint flags (14/21 atoms had moved, max 0.076 A -- the walk had started).
+If r1 fails too: rung (iii), NOT_CONVERGED; A7.3's registered text already
+conditions its denominator on "a converged *OOH geometry", so the readout
+shrinks instead of blocking.
+
+New traps for the pattern file:
+6. **A line-wise diff cannot certify "byte-identical".** `U_LINE`'s `\s*$`
+   swallows the file's final newline when the U card is the last line, so
+   every tranche-2 nonzero-U deck is one byte short of its source -- and the
+   zip-over-splitlines assert was structurally blind to it. QE is indifferent
+   and every energy stands; but the production-U decks' "byte-identical
+   except the prefix line" claim was literally false by one byte.
+   Tranches 2b/3 restore the newline and assert `a == b` on full strings.
+   When the claim is bytes, compare bytes.
+7. **A repair path can silently lose an invariant the main path carries.**
+   The obvious repair route (44_chain.slurm) has no projwfc step; using it
+   would have stripped exactly the Lowdin populations A6.5(1) mandates, on
+   exactly the points (magnetically frustrated, mid-U) where the valence
+   story matters most. When a side path substitutes for the main path, diff
+   their guarantees, not just their outputs.

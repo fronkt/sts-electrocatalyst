@@ -115,5 +115,89 @@
     },
     "fe_s0_OOH_protocol": "3-pilot starting-guess selection at u530 against the banked relax reference -34804.1641 eV, tolerance 5 meV, declared before any pilot ran; ladder gated on it (build_a0main_w2b.py)",
     "ti_plan": "tranche 3, gated on geometry: qe_slab.py build Ti, relax slab + 3 adslabs (d0, nspin=1, U=0 MP convention), then a 7-point REF_GRID ladder (28 SCFs)"
+  },
+  "tranche_2b": {
+    "date": "2026-08-29",
+    "fe_pilot_verdict": {
+      "rule": "registered in build_a0main_w2.py before any pilot ran: accept iff |E - -34804.1641 eV| <= 5.0 meV, closest wins",
+      "deltas_meV": {
+        "m010": -0.019355,
+        "m030": -0.023165,
+        "m070": -0.020444
+      },
+      "all_pass": true,
+      "winner": "m010",
+      "applied_mag": 0.1,
+      "note": "all three pilots escape the +276.60 meV cold-start trap (final totmag 22.98 vs the trapped 23.86) and agree to 0.004 meV; the ladder's u530 rung is byte-identical to the winning pilot deck except the prefix line and is the re-run determinism control"
+    },
+    "ladder": {
+      "state": "s0_OOH",
+      "points_eV": [
+        0.0,
+        1.5,
+        3.0,
+        4.5,
+        5.3,
+        6.0,
+        7.5,
+        9.0
+      ],
+      "manifest": "runs/a0/m_a0main_w2b.txt"
+    },
+    "repairs_a652i": {
+      "events": [
+        {
+          "point": "Fe s0_O u300",
+          "stop": "convergence NOT achieved after 200 iterations; accuracy ~1e-3 Ry oscillating; totmag drifting 22.44 -> 22.25",
+          "parent": "s0_O__u150"
+        },
+        {
+          "point": "Fe s0_O u450",
+          "stop": "convergence NOT achieved after 200 iterations; accuracy oscillating 1.8e-6 -> 1.1e-5 Ry around conv_thr 1e-6",
+          "parent": "s0_O__u530"
+        }
+      ],
+      "escalation": "A6.5(2)(i) startingpot restart from the converged neighbouring-U density; next rung (ii) halve mixing_beta; then NOT_CONVERGED plotted as a gap",
+      "a84_rate": "Fe s0_O pre-repair failure rate 2/8 = 25% (> 20% A8.4 line); reported either way, label travels",
+      "manifest": "runs/a0/m_a0_repairs.txt",
+      "runner": "anvil/48_a0_repair.slurm"
+    }
+  },
+  "tranche_3": {
+    "date": "2026-08-29",
+    "stage_1": {
+      "array": "20196856",
+      "converged": {
+        "slab": true,
+        "s0_O": true,
+        "s0_OH": true
+      },
+      "s0_OOH": "FAILED -- SCF after first ionic step hit 200 iterations at accuracy 0.0097 Ry (conv_thr 1e-6), still falling; A6.5(2)(ii) repair s0_OOH_r1 (beta 0.15, last trajectory geometry) in runs/Ti_slab/m_ti_relax_r1.txt; failed .out retained per A8.4"
+    },
+    "stage_2": {
+      "manifest": "runs/a0/m_a0_ti.txt",
+      "states": [
+        "slab",
+        "s0_O",
+        "s0_OH"
+      ],
+      "points_eV": [
+        0.0,
+        1.5,
+        3.0,
+        4.5,
+        6.0,
+        7.5,
+        9.0
+      ],
+      "production_u": 0.0,
+      "note": "U = 0 is the production point (MP convention, as Ru/Ir); u000 rung byte-identical to its probe-style base deck except the prefix line = determinism control; nonzero rungs append HUBBARD (atomic) U Ti-3d; d0, nspin=1 throughout",
+      "base_relax_reference_ev": {
+        "slab": -16566.521364000397,
+        "s0_O": -17129.117437464465,
+        "s0_OH": -17148.26075000193
+      }
+    },
+    "s0_OOH_gate": "base + 7 rungs built only after s0_OOH_r1 reaches bfgs converged; if r1 fails, A6.5(2)(iii): NOT_CONVERGED, A7.3's denominator shrinks per its own registered conditioning, A7.2 census runs on the states that exist"
   }
 }
