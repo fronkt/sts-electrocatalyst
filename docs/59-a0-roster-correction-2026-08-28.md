@@ -197,6 +197,53 @@ under A7.7.
 **Scale update:** the ~246 above becomes ~250 with this round (2 Fe SCF restarts
 + 2 Ti relaxations). Same disclosure stance: stated, not absorbed.
 
+## 3d. What the escalation returned (added 2026-08-29, after it ran)
+
+**Fe s0_O at U = 4.5 -- exactly one of the two converged.** `__r2b`, seeded from
+the 22.90 branch, converged in 18 iterations at totmag 23.44 and
+E = -2515.36930103 Ry. `__r2`, seeded from the 21.98 branch, failed at 200
+iterations still pinned at 21.98 -- the third failure on that branch, after the
+original run and the rung-(i) restart. The pre-declared rule ("if exactly one
+converges it is the point, labelled with the branch it landed on") settles it
+without judgement. The reading is sharper than "two branches, take the lower":
+the 21.98 solution appears not to EXIST at U = 4.5, so the SCF failures were the
+ladder falling off the end of a branch that terminates between 4.5 and 5.3. The
+banked row lands on the ladder's own trend (dG_O 3.981 -> 4.437 -> 4.628 across
+U = 3.0/4.5/5.3; eta 0.993 -> 1.196 -> 1.264) and the total energies stay smooth
+and monotone across the branch change, so the two branches are near-degenerate
+to within the curve's own smoothness. **Fe now scores 8 of 8 with no holes.**
+
+**Ti s0_OOH -- the diagnosis was right, and the plain continuation was not
+enough.** `s0_OOH_r2`, continuing the old walk, failed again after 19 ionic
+steps. `s0_OOH_r3`, restarted from the re-anchored geometry, **converged**: 52
+ionic steps, ZERO SCF failures anywhere in the walk, final force 0.003092
+Ry/bohr, 367 meV below where r2 stalled. The relaxed adsorbate sits at
+
+    d(anchor O, nearest Ti) = 2.041 A     O-O = 1.371 A     O-H = 0.986 A
+
+against *O at 1.735 A and *OH at 1.829 A on the same surface. **TiO2 binds
+*OOH**, a little more weakly than *O and *OH, as OER scaling expects. The
+original chain missed it only because every Ti adsorbate starts ~3.2 A out --
+1.1 A beyond the bond. Had the campaign stopped at A6.5(2)(iii), it would have
+banked a gap where a bound state exists, and the *OOH-does-not-bind reading
+would have been available to anyone reading the failure. It was wrong.
+
+The numerics that made the relaxation converge do not reach any banked number:
+`probe_decks.write_probe` emits its own `&ELECTRONS`, so every Ti A0 SCF runs
+the campaign's standard conv_thr 1e-6 / local-TF / beta 0.3 / maxstep 200. The
+builder asserts this, and separately proves the base-deck machinery has not
+drifted by rebuilding an already-committed deck byte-for-byte before writing
+anything.
+
+**What the last 8 jobs decide.** A7.2 is already CONFIRMED and cannot be harmed
+(more metals can only add flips). A7.3 (P-FLOOR-U) is genuinely at stake: it
+stands at **3 of 5 against a registered threshold of >=4**, with Cr 0.3435,
+Fe 0.6102 and Mn 0.6307 over the 0.10 V floor and Ru 0.0922 and Ir 0.0637 under
+it. Ti is the only metal left. That currently-failing state was scored, printed
+and banked BEFORE these decks were built (`docs/figs/a0main_readout.json`,
+provenance stamp 2026-08-29), which is what makes the eventual number
+believable either way.
+
 ## 4. What the extension can and cannot change
 
 - **A6.3's ordering verdict (INVERTED) is untouched** — it is a Ru/Ir statement, scored

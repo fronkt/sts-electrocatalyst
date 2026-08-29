@@ -1,0 +1,37 @@
+# A0-main TRANCHE 3, stage 3: the TiO2 *OOH base SCF + 7-point REF_GRID ladder,
+# unblocked by the tranche-2c escalation. Built 2026-08-29 by
+# src/dft/build_a0main_w3b.py -- READ ITS DOCSTRING.
+#
+# The s0_OOH relaxation converged only from the RE-ANCHORED start (s0_OOH_r3:
+# bfgs converged, 52 ionic steps, ZERO SCF failures, force 0.003092 Ry/bohr);
+# the plain continuation s0_OOH_r2 failed again after 19 steps. Tranche 2c's
+# selection rule, fixed before either ran, says exactly-one-converged means
+# that one is the geometry. The relaxed adsorbate sits at d(O,Ti) = 2.041 A
+# (vs *O 1.735 and *OH 1.829 on the same surface): TiO2 binds *OOH, and the
+# original chain missed it only because every Ti adsorbate starts ~3.2 A out.
+#
+# u000 IS TiO2's production point and is byte-identical to its base deck except
+# the prefix line -- the determinism control. write_probe emits its own
+# &ELECTRONS, so the relaxation's escalation numerics do not reach these SCFs.
+#
+# THESE 8 JOBS DECIDE A7.3 (P-FLOOR-U), which stands at 3 of 5 against a
+# registered threshold of >=4 with Ti the only metal left. The currently-failing
+# state was scored and banked BEFORE these decks were built
+# (docs/figs/a0main_readout.json, provenance stamp 2026-08-29).
+#
+#   1 base SCF (probe/Ti_audit)  +  7 REF_GRID rungs = 8 rows
+#
+# FIXED-GEOMETRY SINGLE POINTS on the converged r3 structure (A6.4).
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+probe/Ti_audit s0_OOH__base .in 8
+a0/main/Ti s0_OOH__u000 .in 8
+a0/main/Ti s0_OOH__u150 .in 8
+a0/main/Ti s0_OOH__u300 .in 8
+a0/main/Ti s0_OOH__u450 .in 8
+a0/main/Ti s0_OOH__u600 .in 8
+a0/main/Ti s0_OOH__u750 .in 8
+a0/main/Ti s0_OOH__u900 .in 8

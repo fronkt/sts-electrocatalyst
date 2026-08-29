@@ -273,5 +273,40 @@
       "selection_rule": "lower converged total energy is the banked geometry; one converges -> that one, labelled; neither -> A6.5(2)(iii)",
       "entrant_decision_open": "whether the Ti arm should run nspin=2 throughout -- a convention change across 4 states and 24 banked SCFs"
     }
+  },
+  "tranche_3b": {
+    "built": "2026-08-29",
+    "builder": "src/dft/build_a0main_w3b.py",
+    "selection_rule_outcome": {
+      "winner": "s0_OOH_r3",
+      "winner_energy_eV": -17712.319507586788,
+      "did_not_converge": [
+        "s0_OOH_r2"
+      ],
+      "rule": "tranche 2c, fixed before either ran: exactly one converged, so it is the geometry, labelled with its provenance"
+    },
+    "geometry": {
+      "source": "runs/Ti_slab/s0_OOH_r3.out",
+      "provenance": "final",
+      "d_O_Ti_final_A": 2.041,
+      "O_O_A": 1.371,
+      "O_H_A": 0.986,
+      "comparison": "*O relaxed to 1.735 A, *OH to 1.829 A on the same surface; the built start was 3.167 A and the re-anchor moved it to 1.781905 A",
+      "reading": "TiO2 binds *OOH; the earlier 'desorbing' walk was a starting guess 1.1 A outside the bond, not a physical unbinding"
+    },
+    "decks": {
+      "base": "runs/probe/Ti_audit/s0_OOH__base.in",
+      "rungs": [
+        "s0_OOH__u000",
+        "s0_OOH__u150",
+        "s0_OOH__u300",
+        "s0_OOH__u450",
+        "s0_OOH__u600",
+        "s0_OOH__u750",
+        "s0_OOH__u900"
+      ]
+    },
+    "numerics_isolation": "write_probe emits its own &ELECTRONS, so the relaxation's mixing_beta 0.15 / mixing_ndim 16 / electron_maxstep 400 do not reach any banked SCF; asserted in the builder",
+    "decides": "A7.3 P-FLOOR-U, which stood at 3 of 5 vs a registered >=4 when these were built (banked docs/figs/a0main_readout.json). A7.2 is already CONFIRMED and cannot be harmed: more metals can only add flips."
   }
 }
