@@ -71,13 +71,40 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 STATES = ("slab", "s0_O", "s0_OH", "s0_OOH")
 CR_GRID = [round(0.5 * i, 2) for i in range(19)]
 REF_GRID = [0.0, 1.5, 3.0, 4.5, 6.0, 7.5, 9.0]
+# control = (a0_token, probe_dir, probe_suffix): the A0 deck at a0_token is
+# byte-identical (except the prefix line; tranche 2's nonzero-U decks are also
+# one trailing byte short -- docs/45 trap 6) to runs/probe/<probe_dir>/
+# <state>__<probe_suffix>, so the energy drift measures re-run agreement.
+# control_class says WHICH agreement: Cr/Ru/Ir and Ti re-run on the same
+# machine (determinism); Mn/Fe re-run Vast audit decks on Anvil (A8.5
+# cross-machine parity, threshold 1e-5 Ry = 0.014 meV -- tighter than the
+# 5 meV extraction tolerance, reported against both).
+# control_override redirects ONE state's comparator: Fe s0_OOH's probe base is
+# the MEASURED trapped branch (+276.60 meV, docs/41 s6d), so comparing the
+# mag-0.1 u530 rung against it would manufacture a fake failure; the honest
+# same-machine pair is the u530 rung vs the accepted pilot deck (byte-identical
+# except prefix, both Anvil).
 METALS = {
     "Cr": dict(grid=CR_GRID, anchor=None, gas_run="Cr_slab", production_u=3.70,
-               control=("u000", "u0.0")),
+               control=("u000", "Cr", "u0.0"), control_class="same-machine"),
     "Ru": dict(grid=REF_GRID, anchor=6.73, gas_run="Ru_anchor", production_u=0.0,
-               control=("u000", "base")),
+               control=("u000", "Ru", "base"), control_class="same-machine"),
     "Ir": dict(grid=REF_GRID, anchor=5.91, gas_run="Ir_anchor", production_u=0.0,
-               control=("u000", "base")),
+               control=("u000", "Ir", "base"), control_class="same-machine"),
+    "Mn": dict(grid=sorted(set(REF_GRID) | {3.90}), anchor=None,
+               gas_run="Mn_slab", production_u=3.90,
+               control=("u390", "Mn_audit", "base"),
+               control_class="cross-machine (Vast audit deck re-run on Anvil, A8.5)"),
+    "Fe": dict(grid=sorted(set(REF_GRID) | {5.30}), anchor=None,
+               gas_run="Fe_slab", production_u=5.30,
+               control=("u530", "Fe_audit", "base"),
+               control_class="cross-machine (Vast audit deck re-run on Anvil, A8.5)",
+               control_override={"s0_OOH": ("a0", "s0_OOH__pilot530_m010",
+                                            "same-machine (u530 rung vs accepted "
+                                            "pilot; probe base is the measured "
+                                            "trapped branch, docs/41 s6d)")}),
+    "Ti": dict(grid=REF_GRID, anchor=None, gas_run="Ti_slab", production_u=0.0,
+               control=("u000", "Ti_audit", "base"), control_class="same-machine"),
 }
 APEX = 1.6      # eV, descriptor at the volcano apex
 G_TOTAL = 4.92  # eV, 4 x 1.23
@@ -127,9 +154,25 @@ def main():
     result = {"metals": {}}
     any_missing = False
 
+    # A6.5(2)(i) repair registry: rows of runs/a0/m_a0_repairs.txt map a
+    # repaired stem to the parent density it restarted from, so the label the
+    # escalation requires travels into the row from the manifest itself
+    # (single source; nothing hard-coded here).
+    repairs = {}
+    rman = os.path.join(ROOT, "runs", "a0", "m_a0_repairs.txt")
+    if os.path.exists(rman):
+        for line in open(rman):
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            d, job, _suf, _nk, parent = line.split()
+            repairs[(os.path.basename(d), job)] = parent
+
     for metal, cfg in METALS.items():
         print("=" * 72)
-        print(f"{metal}  ({'location arm' if metal == 'Cr' else 'ordering arm'})")
+        arm = {"Cr": "location arm", "Ru": "ordering arm", "Ir": "ordering arm"}\
+            .get(metal, "blind-metal arm (A7.2/A7.3; tranche 2/3, docs/59)")
+        print(f"{metal}  ({arm})")
         gas = {}
         for g in ("H2O", "H2"):
             p = os.path.join(ROOT, "runs", cfg["gas_run"], f"{g}.out")
@@ -139,12 +182,22 @@ def main():
             gas[g] = e
 
         # --- extraction control ------------------------------------------------
-        tok, probe_sfx = cfg["control"]
+        tok, probe_dir, probe_sfx = cfg["control"]
         drift = {}
+        override_notes = {}
         ok = True
         for st in STATES:
             a0 = _final_ry(os.path.join(ROOT, "runs", "a0", "main", metal, f"{st}__{tok}.out"))
-            pb = _final_ry(os.path.join(ROOT, "runs", "probe", metal, f"{st}__{probe_sfx}.out"))
+            ov = cfg.get("control_override", {}).get(st)
+            if ov is not None:
+                # comparator redirected (see METALS comment); path under a0/main
+                _, ov_stem, ov_why = ov
+                pb = _final_ry(os.path.join(ROOT, "runs", "a0", "main", metal,
+                                            f"{ov_stem}.out"))
+                override_notes[st] = f"comparator {ov_stem}: {ov_why}"
+            else:
+                pb = _final_ry(os.path.join(ROOT, "runs", "probe", probe_dir,
+                                            f"{st}__{probe_sfx}.out"))
             if a0 is None or pb is None:
                 drift[st] = None
                 ok = False
@@ -158,9 +211,12 @@ def main():
                 ok = False
         ds = ", ".join(f"{st} {('%+.2f' % d) if d is not None else 'NA'}"
                        for st, d in drift.items())
-        print(f"re-run determinism check ({tok} vs probe {probe_sfx}; decks identical "
-              f"except prefix, NOT a geometry round-trip control; meV): {ds}  "
+        print(f"re-run agreement check ({tok} vs probe {probe_dir}/{probe_sfx}; "
+              f"decks identical except prefix, NOT a geometry round-trip control; "
+              f"class: {cfg['control_class']}; meV): {ds}  "
               f"{'OK' if ok else 'FAIL'}")
+        for st, note in override_notes.items():
+            print(f"  control override [{st}]: {note}")
         if not ok:
             print(f"  {metal}: control failed or incomplete -- this metal's rows "
                   f"are reported but marked UNTRUSTED until reconciled.")
@@ -171,6 +227,7 @@ def main():
         for u in sorted(points):
             E = {}
             why = {}
+            repaired = {}
             for st in STATES:
                 p = os.path.join(ROOT, "runs", "a0", "main", metal, f"{st}__{u_token(u)}.out")
                 if not os.path.exists(p):
@@ -180,6 +237,26 @@ def main():
                 E[st] = qc.trusted_energy_ev(p, strict=True)
                 if E[st] is None:
                     why[st] = "qc-fail"
+                    # A6.5(2)(i): a registered repair may stand in for a
+                    # QC-failed point -- never for a passing one, and only if
+                    # the repair itself passes strict QC. The failed .out
+                    # stays on disk and in the A8.4 failure count.
+                    r1 = f"{st}__{u_token(u)}__r1"
+                    if (metal, r1) in repairs:
+                        rp = os.path.join(ROOT, "runs", "a0", "main", metal,
+                                          f"{r1}.out")
+                        if os.path.exists(rp):
+                            er = qc.trusted_energy_ev(rp, strict=True)
+                            if er is not None:
+                                E[st] = er
+                                del why[st]
+                                repaired[st] = (
+                                    "A6.5(2)-i RESTART FROM %s DENSITY "
+                                    "(original SCF failed at 200 iterations; "
+                                    "failed .out retained, A8.4)"
+                                    % repairs[(metal, r1)])
+                            else:
+                                why[st] = "qc-fail (repair r1 also failed QC)"
             missing = [st for st in STATES if E[st] is None]
             if missing:
                 gaps.append((u, missing, [why[st] for st in missing]))
@@ -199,6 +276,8 @@ def main():
                        D=dg["O"] - dg["OH"], eta=r.overpotential,
                        pls=r.potential_limiting_step, closed_form_dev=ident,
                        anchor=(u == cfg["anchor"]))
+            if repaired:
+                row["repaired"] = repaired
             if row["anchor"]:
                 # A7.1 fired, so the label must live in the artifact, not just
                 # the stdout header (docs/45 wave-2 trap 4: labels travel).
@@ -219,6 +298,9 @@ def main():
                 print(f"{r['u']:7.2f}    GAP ({', '.join(r['gap'])})")
                 continue
             tag = "  XU-ANCHOR [PROJECTOR-MISMATCHED]" if r["anchor"] else ""
+            if r.get("repaired"):
+                tag += "  [" + "; ".join(f"{st}: {note}"
+                                         for st, note in r["repaired"].items()) + "]"
             cf = ""
             if r["closed_form_dev"] is not None and r["closed_form_dev"] > 1e-9:
                 cf = f"  CLOSED-FORM DEV {r['closed_form_dev']:.2e}"
@@ -239,11 +321,17 @@ def main():
 
         full = [r for r in rows if "gap" not in r]
         m_out = dict(gas=gas, rerun_determinism_check_meV=drift, control_ok=ok,
-                     control_note=("same-deck re-run: the A0 u000 decks are byte-identical "
-                                   "to the probe u0.0/base decks except the prefix line, so "
-                                   "this drift measures SCF re-run determinism, not a "
-                                   "geometry round-trip; the genuine extraction control "
-                                   "(SCF vs source relaxation) lives in the a0cell readout"),
+                     control_class=cfg["control_class"],
+                     control_note=("same-deck re-run: the A0 control deck is identical "
+                                   "to its probe comparator except the prefix line "
+                                   "(tranche-2 nonzero-U decks also one trailing byte "
+                                   "short, docs/45 trap 6), so this drift measures SCF "
+                                   "re-run agreement in the named class, not a geometry "
+                                   "round-trip; the genuine extraction control "
+                                   "(SCF vs source relaxation) lives in the a0cell "
+                                   "readout for Cr/Ru/Ir and in probe_manifest "
+                                   "relax_reference_ev for Mn/Fe/Ti"),
+                     control_overrides=override_notes or None,
                      rows=rows, gaps=[[u, ms, ws] for u, ms, ws in gaps])
 
         grid_rows = [r for r in full if not r["anchor"]]
@@ -409,19 +497,27 @@ def main():
     metals_with_flip = sorted(m for m, f in flips_by_metal.items() if f)
     A72_ROSTER = ["Cr", "Mn", "Fe", "Ru", "Ir", "Ti"]
     unrun = [m for m in A72_ROSTER if m not in result["metals"]]
+    # a metal whose grid is ALL holes is configured but pending data -- it has
+    # not been "run" in any sense the census may count
+    pending = [m for m in A72_ROSTER if m in result["metals"] and
+               not any("gap" not in r for r in result["metals"][m]["rows"])]
+    measured = [m for m in A72_ROSTER
+                if m in result["metals"] and m not in pending]
     a72_status = "CONFIRMED" if len(metals_with_flip) >= 3 else "OPEN"
     print("\nA7.2 PREDICTION STATUS: registered '>=3 of 6 metals (Cr, Mn, Fe, Ru, "
-          "Ir, Ti) show a pls flip inside the registered A0 grid'. Metals run with "
-          f"a flip: {metals_with_flip} ({len(metals_with_flip)} of the "
-          f"{len(result['metals'])} run) -> {a72_status}"
-          + (f" regardless of the unrun {unrun} -- additional metals can only add "
-             f"flips, never remove one." if a72_status == "CONFIRMED" else
-             f"; awaiting {unrun}."))
+          "Ir, Ti) show a pls flip inside the registered A0 grid'. Metals measured "
+          f"with a flip: {metals_with_flip} ({len(metals_with_flip)} of "
+          f"{len(measured)} measured) -> {a72_status}"
+          + (f" -- additional metals or grid points can only add flips, never "
+             f"remove one" if a72_status == "CONFIRMED" else "")
+          + (f"; pending data: {pending}" if pending else "")
+          + (f"; unrun: {unrun}" if unrun else "") + ".")
     result["a7_2"] = dict(
         prediction=">=3 of 6 metals (Cr, Mn, Fe, Ru, Ir, Ti) show a pls flip "
                    "inside the registered A0 grid",
         status=a72_status, metals_with_flip=metals_with_flip,
         flip_brackets={m: f for m, f in flips_by_metal.items() if f},
+        metals_measured=measured, pending_data=pending,
         unrun_blind_metals=unrun,
         note="the Ir bracket is saddle-conditional (see caveats.ir_ooh_basin); "
              "the EXISTENCE of an Ir flip inside the grid survives the saddle "
@@ -444,8 +540,13 @@ def main():
             "anchors with 0.033-0.064 eV adsorption-energy movement (AFM re-run "
             "owed, S0(h)). Margins smaller than that class -- the U <= 4.5 "
             "ordering rows and the Ir flip bracket's low edge -- are "
-            "spin-state-conditional. Cr runs nspin=2, so any Cr-vs-anchor "
-            "comparison additionally crosses spin treatments."),
+            "spin-state-conditional. Cr, Mn and Fe run nspin=2, so any "
+            "3d-vs-anchor comparison additionally crosses spin treatments; "
+            "Fe's s0_OOH column runs at the pilot-selected starting guess "
+            "(mag 0.1, the relax branch -- manifest tranche_2b; the 0.5 "
+            "cold start is a measured +276.60 meV trap). Ti runs nspin=1 "
+            "as a d0 closed shell by construction (production convention; "
+            "no moment to order, unlike the RuO2 case gate (h) measured)."),
         ir_ooh_basin=(
             "MEASURED: the Ir chain inherits the 1x1 *OOH geometry convicted as "
             "a mirror-plane saddle 0.291 eV high (docs/45 row 1). It CANNOT "
@@ -462,13 +563,24 @@ def main():
             "2x1v ordering at U > 0 is unmeasured."),
         coverage_shortfall=(
             "A6.3 registers the grid over 'Ru and Ir as well as the 3d metals' "
-            "and A7.2/A7.3 name Mn, Fe, Ti as blind metals; as built, the arm "
-            "runs Cr/Ru/Ir only (allocation Cr 19 / Ru 7+1 / Ir 7+1 chosen by "
-            "the entrant 2026-08-27 with no dated amendment -- a dated "
-            "correction of record is owed; docs/45). Nothing exists for "
-            "Mn/Fe/Ti; their A7.2/A7.3 rows are unrun, not failed. Under "
-            "A7.7's disposition rule, whatever stays unscored at freeze is "
-            "WITHDRAWN-UNSCORED, not quietly dropped."),
+            "and A7.2/A7.3 name Mn, Fe, Ti as blind metals; tranche 1 ran "
+            "Cr/Ru/Ir only (allocation Cr 19 / Ru 7+1 / Ir 7+1 chosen by the "
+            "entrant 2026-08-27 with no dated amendment -- the dated "
+            "correction of record is docs/59, drafted for the entrant to "
+            "countersign and deposit). REMEDIATION: the entrant directed the "
+            "extension 2026-08-28 ('Do them over Mn/Fe/Ti then'); tranches "
+            "2/2b/3 (build_a0main_w2/_w2b/_w3, each committed pre-launch) "
+            "cover the blind metals. Live status at scoring time: "
+            + "; ".join(
+                (f"{m} scored" + (f" with {len(result['metals'][m]['gaps'])} "
+                                  f"hole(s)" if result['metals'][m]['gaps']
+                                  else " complete"))
+                if m in result["metals"] and
+                   any("gap" not in r for r in result["metals"][m]["rows"])
+                else f"{m} NOT YET SCORED"
+                for m in ("Mn", "Fe", "Ti"))
+            + ". Under A7.7's disposition rule, whatever stays unscored at "
+              "freeze is WITHDRAWN-UNSCORED, not quietly dropped."),
         u000_decks=(
             "the U = 0 decks drop the HUBBARD card entirely rather than "
             "carrying U = 0 explicitly -- physically equivalent, but a second "
@@ -480,8 +592,9 @@ def main():
     result["caveats"] = caveats
 
     # --- gas-reference disclosure (owed since wave 2) -------------------------
-    # The three metals' gas references are one calculation, copied: H2O.out and
-    # H2.out under Cr_slab/, Ru_anchor/ and Ir_anchor/ are md5-identical files.
+    # Every metal's gas references are one calculation, copied: the H2O.out and
+    # H2.out under each gas_run directory are md5-identical files (measured
+    # live below over the whole METALS dict, so it extends automatically).
     # Physically that is what SHOULD be true (a gas molecule in a box knows no
     # metal), so no eta difference can come from the references -- but a reader
     # counting "independent" gas runs would over-count, so it is said here and
@@ -493,7 +606,7 @@ def main():
             gp = os.path.join(ROOT, "runs", cfg["gas_run"], f"{g}.out")
             sigs.setdefault(g, {})[m] = hashlib.md5(open(gp, "rb").read()).hexdigest()
     identical = all(len(set(d.values())) == 1 for d in sigs.values())
-    print("\nGAS-REFERENCE DISCLOSURE: the three metals' H2O/H2 reference outputs "
+    print(f"\nGAS-REFERENCE DISCLOSURE: the {len(METALS)} metals' H2O/H2 reference outputs "
           + ("are md5-identical copies of ONE calculation each"
              if identical else
              "DIFFER across metals -- UNEXPECTED, investigate before quoting eta")
