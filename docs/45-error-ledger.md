@@ -2432,3 +2432,48 @@ were re-checked by hand rather than counted as refuted. Traps 18–24 below.
     so losing any one still leaves a flip. Membership rests on a single row only
     when there are exactly two pls values and one is a singleton (Fe, Ru).
     Guard: test the counterfactual, not the shape.
+
+## A0-SPIN Stage 0 (2026-08-30) — two traps from a control set that ran, converged, and could not be scored
+
+Array `20221409`, 10/10 COMPLETED. Full readout: docs/62. The machinery passed
+(index rule 8/8, symmetry/k-set guard 10/10, P11 reproduction 8/8 to 0.0437 meV
+across a 32× decomposition change, Δc_M(0) to 0.052 meV against a 15.5 meV
+decision, variational floor fired once on the Ir slab exactly as predicted).
+These two traps are what it cost to find that out.
+
+25. **A control's acceptance criterion can be unsatisfiable by a property of the
+    state it runs on — and the job will still run, converge, and exit 0:0.**
+    docs/61 §A11.7 required both null-seed Ti decks to "reproduce the banked
+    nspin = 1 Ti energies with totmag ≈ 0". `Ti slab` (144 electrons, closed
+    shell) did exactly that: totmag −0.00 at all 25 iterations, +0.339 meV.
+    `Ti s0_OOH` (157 electrons, odd) **cannot**: its unpolarised solution is
+    unstable, so from a genuinely zero seed the SCF broke symmetry on QE's own
+    randomised starting wavefunctions (totmag 0.00 → 0.43 → 1.00, locked 1.04)
+    and fell 153.07 meV. Calling that a FAIL is a category error — the deck did
+    not violate the control, the control was not a statement that could be true
+    of that deck. Nothing in the exit code, the convergence, or the guard output
+    says so; only reading the electron count and the totmag trajectory does.
+    **Guard: before registering a control criterion, check it is satisfiable
+    against each deck's own physics — here, electron parity and the stability of
+    the reference solution — not merely against the code path.** The corollary
+    is the good news: a criterion that cannot be met is often measuring something
+    better, and the honest move is to re-register it as what it is (docs/62
+    §5.2 splits it into an index-rule leg that passes and a stability leg that is
+    reported, not scored), never to score the run against the words as written.
+
+26. **The metal with the smallest margin is not the metal with the most
+    information, and an amendment written around the former can sequence the
+    latter last.** docs/61 is built end to end around Ru's 15.5 meV: §A11.0 opens
+    on it, §A11.1's reframe exists to keep a large spin effect from being read as
+    a large score change on it, §A11.10 sequences Ru first and Ti last. Stage 0
+    then measured a 153.07 meV single-state spin instability on **Ti**, which is
+    larger than the entire 112.5 meV Ti would have to travel to cross the floor,
+    against Ru's total measured c_M effect of 7.094 meV. Proximity to a threshold
+    ranked the metals; sensitivity to the treatment being tested did not, and
+    nobody had measured it. **Guard: when an arm exists to price a treatment,
+    rank the legs by the expected size of the treatment effect, not by each leg's
+    distance to the threshold — and if the two rankings disagree, say so in the
+    registration.** Note what this does *not* license: the A11.1 cancellation is
+    arithmetic and still binds, three of D_Ti's four terms are unrun, and a
+    U-independent offset cancels exactly. The trap is about *where to look*, not
+    about what has been shown.
