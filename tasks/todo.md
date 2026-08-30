@@ -783,3 +783,39 @@ ranking would contaminate the campaign's central contribution.
 - [x] **ARRAY `20238023` SUBMITTED 2026-08-30, 1-4%4, 128 ranks, EXCLUDE=a024,a049,a050,a088,a196,a220,a223.** Worst-case cap 24,576 SU at the 48h walltime; realistic well under (banked cold SCFs ran 1.4-3.3h on 20 cores; these start from the banked AFM densities' own converged branch via the same seeds, warm BFGS extrapolation after step 1)
 - [ ] **When `20238023` drains:** QC each .out (converged / no "convergence NOT achieved" / JOB DONE; totmag & absmag trajectory vs the parent SCF's -2.09/-1.62/-1.21/-0.24 — a basin flip mid-relax is the A8.3 CONFOUND case); pull md5-verified; then `build_h_afm_relax.py --gate1` builds the 4 fresh-density `__g1` children (deposited rule docs/43:311-314, >= 5 meV BASIN_DRIFT re-relax loop, A8.3's 1 meV above-parent refusal); THEN re-derive the relaxed Δc_M against docs/63 §4's fixed-geometry −25.9 meV — the P11-limit-(ii) lower bound becomes a measured relaxed number
 - [ ] **Scoring reminder (docs/63 §4.3, unchanged by the launch):** these four CANNOT bound A7.3's error — U=0, 2x1v. Only docs/61 item 10's Ru AFM probe acts on A7.3, and it needs both U endpoints
+
+## 2026-08-30 landing (wave 1 of the S0(h) AFM relaxations)
+
+- [x] **Array 20238023 drained 3/4.** ref/s0_OH/s0_OOH COMPLETED (17m/45m/2h49m); all three
+  `bfgs converged` in 2-3 steps, no `convergence NOT achieved`, JOB DONE. Basin continuity
+  CLEAN (per-ionic-step converged totmag): ref -2.09→-2.11, s0_OH -1.23→-1.27,
+  s0_OOH -0.22→-0.12 — same sign throughout, no A8.3 CONFOUND.
+- [x] **Task 2 (s0_O) OOM-killed on a120 at 07:46** during first-SCF wfc init (last line
+  "Starting wfcs are 220 randomized atomic wfcs"; MaxRSS sampled 18G of 237G — spike or
+  node fault, NOT a deck problem: both bigger adsorbate decks finished at ~50G on other
+  nodes). Partial .out preserved as `.out.attempt1-oom-a120`; **retry = array 20241317**,
+  1-row manifest (mirrored at runs/s0/m_h_afm_relax_retry2.txt), a120 added to EXCLUDE.
+  Running healthy on a131 (past the kill point).
+- [x] **Three .outs pulled md5-verified** (tar 57f8f7e7... 5/5 match) and banked.
+- [x] **Relaxed panel derived** (comparators verified against primary sources — README E_NM
+  = final BFGS energies of runs/probe/Ru_cellsym/*.out, all four match to every digit):
+  gains vs the anchor SCFs -2.4/-2.2/-8.8 meV (ref/OH/OOH), max displacement
+  0.006/0.007/0.023 A. P11 limit (ii)'s "lower bound" is now a measured 2-9 meV correction.
+- [x] **Relaxed Δc_M = -32.5 meV** (vs docs/63 §4's fixed-geometry -25.9; deepened -6.6 meV
+  because *OOH relaxes 4x more than *OH). Still a LEVEL at U=0 — the §4.1 swing-vs-level
+  caveat travels unchanged; still cannot bound A7.3.
+- [x] **P-SPIN-DELTA wrinkle for docs/61 item 3** (Frank's decision): the relaxed c_M level
+  is 0.033 eV — numerically the ORIGINAL proposed threshold, but via the correct quantity.
+  Options now: 0.026 (fixed-geom c_M level) or 0.033 (relaxed c_M level, keeps the number,
+  fixes the justification). Both are levels standing proxy for a swing; say so either way.
+- [x] **--gate1 IMPLEMENTED** (was a stub that refused unconditionally): each __g1 child =
+  the ANCHOR deck at the relaxation's final coordinates, fresh prefix, nothing else — G1-G10
+  assertions (scoreability, committed-blob, label sequence, frozen rows byte-identical +
+  unmoved <1e-5 A, moving rows <0.1 A, diff shape, prefix==stem, byte hygiene, destination,
+  totmag basin continuity). All-four-or-none refusal (lit2 idiom). Manifest carries the
+  relaxation comparators + the landing scoring rules (>=5 meV below -> BASIN_DRIFT re-relax;
+  >1 meV above -> A8.3 refusal; >0.1 mu_B totmag move -> CONFOUNDED). Tests: refusal pinned
+  on a synthetic tree; the build-path test auto-activates when all four land. 167 pass.
+- [ ] **When 20241317 drains:** QC s0_O (same checks; parent totmag -1.62), pull md5-verified,
+  run --gate1 (builds 4 children + m_h_afm_g1.txt), COMMIT+PUSH, stage, submit the g1 array,
+  extend the relaxed panel with the s0_O row.

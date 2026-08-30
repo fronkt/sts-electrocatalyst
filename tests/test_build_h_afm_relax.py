@@ -147,11 +147,67 @@ def test_pair_finder_refuses_when_there_is_no_unique_pair():
         ])
 
 
-def test_gate1_refuses_while_the_relaxations_are_unrun():
+def test_gate1_refuses_while_any_relaxation_is_unrun(tmp_path, monkeypatch, capsys):
+    """All four or none (the lit2 --gate1 idiom): 3 of 4 landed is still a refusal.
+
+    Synthetic tree so this pins the SEMANTICS, not the current state of the real
+    run directory (which flips from 3-of-4 to 4-of-4 when the OOM retry lands).
+    """
+    for s in B.STEMS[:3]:
+        (tmp_path / (s + "__relax.out")).write_text("stub", encoding="utf-8")
+    monkeypatch.setattr(B, "OUT_DIR", str(tmp_path))
+    assert B.cmd_gate1() == 1
+    out = capsys.readouterr().out
+    assert "REFUSED" in out and B.STEMS[3] + "__relax" in out
+
+
+ALL_FOUR_LANDED = all(
+    os.path.exists(os.path.join(REPO, "runs", "s0", "h_afm_relax", s + "__relax.out"))
+    for s in ["ref__2x1v__afm", "s0_O__2x1v_off__afm",
+              "s0_OH__2x1v_off__afm", "s0_OOH__2x1v_off__afm"]
+)
+
+
+@pytest.mark.skipif(not ALL_FOUR_LANDED, reason="the four relaxations have not all landed")
+def test_gate1_builds_the_four_children_and_their_diff_shape():
+    """Post-landing: --gate1 exits 0, and each child is its ANCHOR deck with the
+    prefix line plus only moving-atom coordinate lines changed -- frozen rows
+    byte-identical, labels and constraint flags preserved on every changed line."""
     env = dict(os.environ, PYTHONPATH=os.path.join(REPO, "src"))
     r = subprocess.run(
         [sys.executable, os.path.join(REPO, "src", "dft", "build_h_afm_relax.py"), "--gate1"],
         cwd=REPO, env=env, capture_output=True, text=True,
     )
-    assert r.returncode == 1
-    assert "REFUSED" in r.stdout
+    assert r.returncode == 0, f"expected 0 with all four landed\n{r.stdout}{r.stderr}"
+    assert "MANIFEST WRITTEN" in r.stdout
+
+    man = os.path.join(REPO, "runs", "s0", "m_h_afm_g1.txt")
+    lines = [ln for ln in open(man).read().split("\n") if ln and not ln.startswith("#")]
+    assert lines == [
+        f"s0/h_afm_relax {s}__relax__g1 .in {16 if s.startswith('ref') else 8}"
+        for s in B.STEMS
+    ]
+
+    src = os.path.join(REPO, "runs", "s0", "h_afm_anchor")
+    dst = os.path.join(REPO, "runs", "s0", "h_afm_relax")
+    for stem in B.STEMS:
+        parent = open(os.path.join(src, stem + ".in")).read().split("\n")
+        child = open(os.path.join(dst, stem + "__relax__g1.in")).read().split("\n")
+        assert len(parent) == len(child)
+        labels = {s[0] for s in B.species_block("\n".join(parent))}
+        n_prefix = n_pos = 0
+        for a, b in zip(parent, child):
+            if a == b:
+                continue
+            if re.match(r"^\s*prefix\s*=", a):
+                n_prefix += 1
+                assert stem + "__relax__g1" in b
+            else:
+                pa, pb = a.split(), b.split()
+                assert pa[0] in labels and pa[0] == pb[0] and pa[4:] == pb[4:], (stem, a, b)
+                assert pa[4:7] != ["0", "0", "0"], f"{stem}: a frozen row changed: {a!r}"
+                n_pos += 1
+        assert n_prefix == 1
+        assert n_pos >= 1, f"{stem}: no coordinate moved -- relaxation was a no-op?"
+        # calculation stays 'scf' -- the child is a fixed-geometry SCF
+        assert re.search(r"calculation\s*=\s*'scf'", "\n".join(child))

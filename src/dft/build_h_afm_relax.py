@@ -334,6 +334,220 @@ def build_one(stem: str) -> dict:
                 child_md5=hashlib.md5(new_raw).hexdigest())
 
 
+RY_MEV = 13605.693122994  # meV per Ry
+
+
+def last_magnetization(otxt: str) -> tuple[float, float]:
+    """Final converged (totmag, absmag) -- the last printed pair in the .out."""
+    tot = re.findall(r"total magnetization\s*=\s*([-\d.]+)", otxt)
+    ab = re.findall(r"absolute magnetization\s*=\s*([-\d.]+)", otxt)
+    if not tot or not ab:
+        fail("G10", "no magnetization lines in .out")
+    return float(tot[-1]), float(ab[-1])
+
+
+def final_coordinates(otxt: str) -> list[tuple[str, tuple[float, float, float], str]]:
+    """(label, xyz, flags) per atom from the LAST final-coordinates block.
+
+    QE prints flags only on constrained atoms in this block; unconstrained rows
+    come back with flags == '1 1 1' to match constraint_flags()'s convention.
+    """
+    if "Begin final coordinates" not in otxt:
+        fail("G1", "no `Begin final coordinates` block")
+    block = otxt.split("Begin final coordinates")[-1].split("End final coordinates")[0]
+    rows = []
+    for line in block.split("\n"):
+        p = line.split()
+        if len(p) >= 4 and re.match(r"^[A-Z][a-z]?[0-9]?$", p[0]):
+            xyz = (float(p[1]), float(p[2]), float(p[3]))
+            flags = " ".join(p[4:7]) if len(p) >= 7 else "1 1 1"
+            rows.append((p[0], xyz, flags))
+    if not rows:
+        fail("G1", "final-coordinates block parsed to zero atoms")
+    return rows
+
+
+def gate1_one(stem: str) -> dict:
+    """One GATE-1 child: the banked anchor SCF deck at the relaxation's final
+    geometry, fresh prefix, nothing else touched.
+
+    The deposited rule (docs/43:311-314): every relaxation gets a fresh-density
+    fixed-geometry SCF at its own final coordinates. Building from the ANCHOR
+    deck (already calculation = 'scf', already carrying the full AFM machinery)
+    keeps the diff auditable: one prefix line + the moving-atom coordinate
+    lines, and the frozen rows stay byte-identical to the committed parent.
+    """
+    src_in = os.path.join(SRC_DIR, stem + ".in")
+    relax_out = os.path.join(OUT_DIR, stem + "__relax.out")
+
+    # G1 -- the relaxation is scoreable
+    rtxt = open(relax_out, errors="replace").read()
+    if "convergence NOT achieved" in rtxt:
+        fail("G1", f"{stem}__relax: an SCF inside the relaxation failed")
+    if "End of BFGS Geometry Optimization" not in rtxt:
+        fail("G1", f"{stem}__relax: BFGS never converged")
+    if "JOB DONE" not in rtxt:
+        fail("G1", f"{stem}__relax: no JOB DONE")
+    fe = re.findall(r"Final energy\s*=\s*(-\d+\.\d+)\s*Ry", rtxt)
+    if len(fe) != 1:
+        fail("G1", f"{stem}__relax: {len(fe)} `Final energy` lines, expected exactly 1")
+    e_relax = float(fe[0])
+
+    # G2 -- the anchor deck this child derives from is the committed artifact
+    raw = open(src_in, "rb").read()
+    rel = os.path.relpath(src_in, REPO).replace(os.sep, "/")
+    blob = committed_blob(rel)
+    if blob is None or hashlib.md5(blob).hexdigest() != hashlib.md5(raw).hexdigest():
+        fail("G2", f"{stem}: anchor .in is not the committed blob at HEAD ({rel})")
+    txt = raw.decode()
+    labels = {s[0] for s in species_block(txt)}
+
+    # G10 -- basin continuity BEFORE building anything: a sign flip between the
+    # anchor SCF and the relaxation's final state is the A8.3 CONFOUND case and
+    # a child of a flipped state would score the wrong basin.
+    atot, _ = last_magnetization(open(os.path.join(SRC_DIR, stem + ".out"),
+                                      errors="replace").read())
+    rtot, rabs = last_magnetization(rtxt)
+    if atot * rtot < 0 and (abs(atot) > 0.05 or abs(rtot) > 0.05):
+        fail("G10", f"{stem}: totmag sign flipped {atot} -> {rtot} across the relaxation")
+
+    fin = final_coordinates(rtxt)
+
+    # G3 -- label sequence preserved
+    plines = [ln for ln in positions_block(txt).split("\n")[1:]
+              if len(ln.split()) >= 4 and ln.split()[0] in labels]
+    if [p.split()[0] for p in plines] != [r[0] for r in fin]:
+        fail("G3", f"{stem}: final-coordinates label sequence differs from the deck")
+
+    # G4/G5 -- frozen rows unmoved, moving rows bounded
+    new_plines, max_disp = [], 0.0
+    for ln, (label, xyz, oflags) in zip(plines, fin):
+        p = ln.split()
+        old = tuple(float(v) for v in p[1:4])
+        dflags = " ".join(p[4:7]) if len(p) >= 7 else "1 1 1"
+        d = max(abs(a - b) for a, b in zip(old, xyz))
+        if dflags == "0 0 0":
+            if d > 1e-5:
+                fail("G4", f"{stem}: frozen atom {label} moved {d:.2e} A")
+            if oflags != "0 0 0":
+                fail("G4", f"{stem}: .out flags {oflags!r} on a frozen row")
+            new_plines.append(ln)  # byte-identical
+        else:
+            if d > 0.1:
+                fail("G5", f"{stem}: {label} moved {d:.4f} A > 0.1 A in a "
+                           "converged-basin relaxation")
+            max_disp = max(max_disp, d)
+            head = ln[: len(ln) - len(ln.lstrip())]
+            tail = f"  {' '.join(p[4:7])}" if len(p) >= 7 else ""
+            new_plines.append(f"{head}{p[0]}  {xyz[0]:.10f}  {xyz[1]:.10f}"
+                              f"  {xyz[2]:.10f}{tail}")
+
+    # ---- the transformation: prefix + moving coordinates, nothing else
+    new_stem = stem + "__relax__g1"
+    it = iter(new_plines)
+    out_lines, prefix_changed = [], 0
+    in_pos = False
+    for ln in txt.split("\n"):
+        if re.match(r"^\s*prefix\s*=", ln):
+            out_lines.append(ln.replace(stem, new_stem))
+            prefix_changed += 1
+        elif ln.startswith("ATOMIC_POSITIONS"):
+            in_pos = True
+            out_lines.append(ln)
+        elif in_pos and len(ln.split()) >= 4 and ln.split()[0] in labels:
+            out_lines.append(next(it))
+        else:
+            if in_pos and ln.strip() and not ln[0].isspace():
+                in_pos = False
+            out_lines.append(ln)
+    new_txt = "\n".join(out_lines)
+
+    # G6 -- diff shape: the prefix line plus position lines only, and each
+    # changed position line changes only its three coordinate fields
+    if prefix_changed != 1:
+        fail("G6", f"{stem}: {prefix_changed} prefix lines changed")
+    old_lines = txt.split("\n")
+    if len(old_lines) != len(out_lines):
+        fail("G6", f"{stem}: line count changed")
+    pos_set = set(plines)
+    for a, b in zip(old_lines, out_lines):
+        if a == b:
+            continue
+        if re.match(r"^\s*prefix\s*=", a):
+            continue
+        if a not in pos_set:
+            fail("G6", f"{stem}: unexpected changed line {a!r}")
+        pa, pb = a.split(), b.split()
+        if pa[0] != pb[0] or pa[4:] != pb[4:]:
+            fail("G6", f"{stem}: a position line changed label or flags: {a!r} -> {b!r}")
+
+    # G7 -- prefix == filename stem (the runner rm -rf's dens/${prefix}.save)
+    pm = re.search(r"^\s*prefix\s*=\s*'([^']+)'", new_txt, re.M)
+    if not pm or pm.group(1) != new_stem:
+        fail("G7", f"{stem}: prefix {pm and pm.group(1)!r} != {new_stem!r}")
+
+    # G8 -- byte hygiene; G9 -- destination
+    new_raw = new_txt.encode()
+    if raw.endswith(b"\n") != new_raw.endswith(b"\n") or (b"\r\n" in raw) != (b"\r\n" in new_raw):
+        fail("G8", f"{stem}: newline/CR bytes changed")
+    dest = os.path.join(OUT_DIR, new_stem + ".in")
+    if os.path.commonpath([os.path.abspath(dest), os.path.abspath(SRC_DIR)]) == os.path.abspath(SRC_DIR):
+        fail("G9", f"{stem}: child would land inside the banked gate-(h) tree")
+
+    with open(dest, "wb") as fh:
+        fh.write(new_raw)
+
+    e_anchor_m = re.findall(r"^!\s*total energy\s*=\s*(-\d+\.\d+)\s*Ry",
+                            open(os.path.join(SRC_DIR, stem + ".out"),
+                                 errors="replace").read(), re.M)
+    return dict(stem=new_stem, e_relax_ry=e_relax,
+                gain_mev=(e_relax - float(e_anchor_m[-1])) * RY_MEV,
+                totmag=rtot, absmag=rabs, max_disp=max_disp,
+                md5=hashlib.md5(new_raw).hexdigest())
+
+
+def cmd_gate1() -> int:
+    missing = [s for s in STEMS
+               if not os.path.exists(os.path.join(OUT_DIR, s + "__relax.out"))]
+    if missing:
+        print("GATE-1 children: REFUSED -- "
+              f"{len(missing)} of {len(STEMS)} relaxations have not run yet.")
+        for s in missing:
+            print(f"  unrun: {s}__relax")
+        print("\nThe deposited GATE-1 rule (docs/43:311-314) builds each __g1 child from its\n"
+              "parent's CONVERGED final geometry. Refusing to emit a partial family --\n"
+              "all four or none, the lit2 --gate1 idiom.")
+        return 1
+
+    rows = [gate1_one(s) for s in STEMS]
+    print(f"Built {len(rows)} GATE-1 children under "
+          f"{os.path.relpath(OUT_DIR, REPO).replace(os.sep, '/')}/\n")
+    print(f"{'stem':<36}{'E_relax (Ry)':>18}{'gain (meV)':>12}{'totmag':>9}{'maxdisp A':>11}")
+    for r in rows:
+        print(f"{r['stem']:<36}{r['e_relax_ry']:>18.8f}{r['gain_mev']:>12.3f}"
+              f"{r['totmag']:>9.2f}{r['max_disp']:>11.4f}")
+
+    man = os.path.join(REPO, "runs", "s0", "m_h_afm_g1.txt")
+    with open(man, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write("# S0 gate (h) GATE-1 children -- src/dft/build_h_afm_relax.py --gate1\n")
+        fh.write("# Deposited rule docs/43:311-314: one fresh-density fixed-geometry SCF\n")
+        fh.write("# per relaxation at its own final coordinates. Scoring at landing:\n")
+        fh.write("#   * >= 5 meV BELOW its relaxation -> BASIN_DRIFT, re-relax and loop;\n")
+        fh.write("#   * > 1 meV ABOVE its relaxation -> A8.3 refusal (density-history\n")
+        fh.write("#     artifact), the pair is quarantined;\n")
+        fh.write("#   * totmag moving > 0.1 mu_B off the relaxation's final value ->\n")
+        fh.write("#     CONFOUNDED (docs/43:305-309), own table, excluded from statistics.\n")
+        fh.write("# Comparators (relaxation final energy, Ry / final totmag):\n")
+        for r in rows:
+            fh.write(f"#   {r['stem']}: {r['e_relax_ry']:.8f} / {r['totmag']:.2f}\n")
+        fh.write("#   dir job suffix nk  (nk = m_s3_wave1.txt's 2x1v convention)\n")
+        for r in rows:
+            nk = 16 if r["stem"].startswith("ref") else 8
+            fh.write(f"s0/h_afm_relax {r['stem']} .in {nk}\n")
+    print(f"\nMANIFEST WRITTEN: {os.path.relpath(man, REPO).replace(os.sep, '/')}")
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--gate1", action="store_true",
@@ -341,15 +555,7 @@ def main() -> int:
     args = ap.parse_args()
 
     if args.gate1:
-        missing = [s for s in STEMS
-                   if not os.path.exists(os.path.join(OUT_DIR, s + "__relax.out"))]
-        print("GATE-1 children: REFUSED -- "
-              f"{len(missing)} of {len(STEMS)} relaxations have not run yet.")
-        for s in missing:
-            print(f"  unrun: {s}__relax")
-        print("\nThe deposited GATE-1 rule (docs/43:311-314) builds each __g1 child from its\n"
-              "parent's CONVERGED final geometry. There is nothing to build from yet.")
-        return 1
+        return cmd_gate1()
 
     rows = [build_one(s) for s in STEMS]
 
