@@ -837,7 +837,7 @@ ranking would contaminate the campaign's central contribution.
 - [x] **3 GATE-1 children built** (ref/OH/OOH at their relaxed geometries, quarantine
   recorded in m_h_afm_g1.txt header with comparators) **+ 1 repair deck** __relax__r1
   (m_h_afm_relax_repair.txt). s0_O's g1 child DEFERRED, owed iff r1 converges.
-- [ ] **Submit both arrays** (children CONC=3, repair CONC=1) after commit+push.
+- [x] **BOTH ARRAYS SUBMITTED 2026-08-30:** g1 children = 20243152 (1-3%3), s0_O r1 repair = 20243153 (1-1%1); preflights green, a120 stays excluded, decks md5-verified both ends (g1 md5s = the sandbox dry-run md5s exactly — deterministic construction).
 - [ ] **When the g1 children drain:** score vs manifest comparators (BASIN_DRIFT ≥5 meV
   below → re-relax loop; >1 meV above → A8.3 refusal; >0.1 μ_B totmag → CONFOUNDED).
 - [ ] **When r1 drains:** converged → QC (moment drift goes to the A8.3/CONFOUND discussion
