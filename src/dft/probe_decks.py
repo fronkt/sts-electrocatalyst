@@ -59,7 +59,15 @@ import re
 
 RY_EV = 13.605693122
 
-_ELEMENT_RE = re.compile(r"^[A-Z][a-z]?$")
+# A QE species LABEL is not an element symbol. The AFM sublattice idiom registered
+# for gate (h) (docs/43:1391; runs/s0/h_afm_anchor/) splits the metal into two labels
+# `Ru1`/`Ru2` carrying identical mass and pseudo but opposite starting_magnetization.
+# The old `^[A-Z][a-z]?$` matched neither, so every ATOMIC_POSITIONS line of an AFM
+# deck was silently skipped and the deck parsed with ZERO atoms -- no error, just an
+# empty structure (docs/51:25, "probe_decks.py cannot parse the Ru1/Ru2 species").
+# Where the deck declares its own ATOMIC_SPECIES we key off that set instead of any
+# pattern; this regex is the fallback for .out parsing, where no such block is at hand.
+_SPECIES_RE = re.compile(r"^[A-Z][a-z]?[0-9]?$")
 
 
 # ---------------------------------------------------------------- parsing ---
@@ -91,11 +99,17 @@ def parse_input_deck(path: str) -> dict:
             species.append((p[0], float(p[1]), p[2]))
 
     positions, flags = [], []
+    # Accept exactly the labels this deck declares. Falls back to the pattern only if
+    # the ATOMIC_SPECIES block failed to parse, so an AFM deck's Ru1/Ru2 are read from
+    # the deck rather than guessed at (the same read-it-from-the-deck rule as the
+    # spin-seed species index in build_a0spin.py assertion A1).
+    declared = {s[0] for s in species}
     m = re.search(r"ATOMIC_POSITIONS\s+\S*\s*\n((?:.*\n)+?)(?=K_POINTS|CELL_PARAMETERS|HUBBARD|\Z)", txt)
     if m:
         for line in m.group(1).rstrip().split("\n"):
             p = line.split()
-            if len(p) >= 4 and _ELEMENT_RE.match(p[0]):
+            ok = (p[0] in declared) if declared else bool(_SPECIES_RE.match(p[0] if p else ""))
+            if len(p) >= 4 and ok:
                 positions.append((p[0], float(p[1]), float(p[2]), float(p[3])))
                 flags.append(" ".join(p[4:7]) if len(p) >= 7 else "1 1 1")
 
@@ -141,7 +155,7 @@ def parse_final_coordinates(outfile: str):
     m = re.search(r"Begin final coordinates(.*?)End final coordinates", txt, re.S)
     provenance = "final"
     if not m:
-        blocks = list(re.finditer(r"ATOMIC_POSITIONS\s+\(?\w*\)?\s*\n((?:\s*[A-Z][a-z]?\s+[-\d.eE+]+.*\n)+)", txt))
+        blocks = list(re.finditer(r"ATOMIC_POSITIONS\s+\(?\w*\)?\s*\n((?:\s*[A-Z][a-z]?[0-9]?\s+[-\d.eE+]+.*\n)+)", txt))
         if not blocks:
             return None, None
         m = blocks[-1]
@@ -150,7 +164,7 @@ def parse_final_coordinates(outfile: str):
     out = []
     for line in body.strip().split("\n"):
         p = line.split()
-        if len(p) >= 4 and _ELEMENT_RE.match(p[0]):
+        if len(p) >= 4 and _SPECIES_RE.match(p[0]):
             out.append((p[0], float(p[1]), float(p[2]), float(p[3])))
     return (out or None), provenance
 
