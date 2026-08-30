@@ -1,0 +1,27 @@
+# A0-SPIN STAGE 0 -- machinery controls. Built 2026-08-29 by
+# src/dft/build_a0spin.py -- READ ITS DOCSTRING and docs/61 (Amendment 11).
+#
+# 8 jobs must reproduce the banked P11 nspin=2 energies at
+# runs/probe/{Ru,Ir}_spin/<state>__spin0.5.out (also a cross-machine
+# determinism control on a spin-polarised code path, which this campaign
+# does not otherwise have). 2 null-seed decks -- ONE OF EACH ntyp CLASS --
+# must reproduce the banked nspin=1 Ti energies at totmag ~ 0; an
+# all-ntyp-3 control set would be structurally blind to the index rule.
+#
+# NOTHING HERE IS A SCORED A7.3 ROW. Stage 1 is held until these are read,
+# and Ti beyond this stage is held until docs/59 s3c is countersigned.
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+a0/spin/Ru slab__u000__sp2m050 .in 4
+a0/spin/Ru s0_O__u000__sp2m050 .in 4
+a0/spin/Ru s0_OH__u000__sp2m050 .in 4
+a0/spin/Ru s0_OOH__u000__sp2m050 .in 4
+a0/spin/Ir slab__u000__sp2m050 .in 4
+a0/spin/Ir s0_O__u000__sp2m050 .in 4
+a0/spin/Ir s0_OH__u000__sp2m050 .in 4
+a0/spin/Ir s0_OOH__u000__sp2m050 .in 4
+a0/spin/Ti slab__u900__sp2null .in 8
+a0/spin/Ti s0_OOH__u900__sp2null .in 8
