@@ -161,11 +161,111 @@ def test_gate1_refuses_while_any_relaxation_is_unrun(tmp_path, monkeypatch, caps
     assert "REFUSED" in out and B.STEMS[3] + "__relax" in out
 
 
-ALL_FOUR_LANDED = all(
-    os.path.exists(os.path.join(REPO, "runs", "s0", "h_afm_relax", s + "__relax.out"))
-    for s in ["ref__2x1v__afm", "s0_O__2x1v_off__afm",
-              "s0_OH__2x1v_off__afm", "s0_OOH__2x1v_off__afm"]
+RELAX_DIR = os.path.join(REPO, "runs", "s0", "h_afm_relax")
+LANDED = [s for s in ["ref__2x1v__afm", "s0_O__2x1v_off__afm",
+                      "s0_OH__2x1v_off__afm", "s0_OOH__2x1v_off__afm"]
+          if os.path.exists(os.path.join(RELAX_DIR, s + "__relax.out"))]
+ALL_FOUR_LANDED = len(LANDED) == 4
+S0_O_QUARANTINED = (
+    "s0_O__2x1v_off__afm" not in LANDED
+    and any(f.startswith("s0_O__2x1v_off__afm__relax.out.attempt")
+            for f in os.listdir(RELAX_DIR))
+    and len(LANDED) == 3
 )
+
+
+def check_child_shape(stem):
+    """The child is its ANCHOR deck with the prefix line plus only moving-atom
+    coordinate lines changed; frozen rows byte-identical, labels/flags preserved."""
+    src = os.path.join(REPO, "runs", "s0", "h_afm_anchor")
+    parent = open(os.path.join(src, stem + ".in")).read().split("\n")
+    child = open(os.path.join(RELAX_DIR, stem + "__relax__g1.in")).read().split("\n")
+    assert len(parent) == len(child)
+    labels = {s[0] for s in B.species_block("\n".join(parent))}
+    n_prefix = n_pos = 0
+    for a, b in zip(parent, child):
+        if a == b:
+            continue
+        if re.match(r"^\s*prefix\s*=", a):
+            n_prefix += 1
+            assert stem + "__relax__g1" in b
+        else:
+            pa, pb = a.split(), b.split()
+            assert pa[0] in labels and pa[0] == pb[0] and pa[4:] == pb[4:], (stem, a, b)
+            assert pa[4:7] != ["0", "0", "0"], f"{stem}: a frozen row changed: {a!r}"
+            n_pos += 1
+    assert n_prefix == 1
+    assert n_pos >= 1, f"{stem}: no coordinate moved -- relaxation was a no-op?"
+    assert re.search(r"calculation\s*=\s*'scf'", "\n".join(child))
+
+
+def test_quarantine_refuses_a_converged_relaxation():
+    """Q2: a stem with a scoreable .out cannot be quarantined -- its child is owed."""
+    with pytest.raises(SystemExit):
+        B.cmd_gate1(quarantine=["ref__2x1v__afm"])
+
+
+def test_quarantine_refuses_without_casualty_evidence(tmp_path, monkeypatch):
+    """Q3: quarantine records a casualty; it never excuses a job that simply
+    has not run (no .out, no .out.attempt* either)."""
+    monkeypatch.setattr(B, "OUT_DIR", str(tmp_path))
+    with pytest.raises(SystemExit):
+        B.cmd_gate1(quarantine=["s0_O__2x1v_off__afm"])
+
+
+@pytest.mark.skipif(not S0_O_QUARANTINED,
+                    reason="live tree is not in the 3-landed + s0_O-casualty state")
+def test_gate1_partial_build_with_s0_O_quarantined():
+    """The three owed children build; the casualty is recorded in the manifest
+    header, never silently dropped."""
+    env = dict(os.environ, PYTHONPATH=os.path.join(REPO, "src"))
+    r = subprocess.run(
+        [sys.executable, os.path.join(REPO, "src", "dft", "build_h_afm_relax.py"),
+         "--gate1", "--quarantine", "s0_O__2x1v_off__afm"],
+        cwd=REPO, env=env, capture_output=True, text=True,
+    )
+    assert r.returncode == 0, f"{r.stdout}{r.stderr}"
+    man = open(os.path.join(REPO, "runs", "s0", "m_h_afm_g1.txt")).read()
+    lines = [ln for ln in man.split("\n") if ln and not ln.startswith("#")]
+    assert lines == [
+        f"s0/h_afm_relax {s}__relax__g1 .in {16 if s.startswith('ref') else 8}"
+        for s in LANDED
+    ]
+    assert "QUARANTINED" in man and "s0_O__2x1v_off__afm__relax" in man
+    for s in LANDED:
+        check_child_shape(s)
+
+
+@pytest.mark.skipif(not S0_O_QUARANTINED,
+                    reason="live tree is not in the 3-landed + s0_O-casualty state")
+def test_repair_mixing_deck_is_a_two_line_diff():
+    """__relax__r1 = the committed relax deck with mixing_beta halved and a
+    fresh prefix -- exactly two lines, nothing else."""
+    env = dict(os.environ, PYTHONPATH=os.path.join(REPO, "src"))
+    r = subprocess.run(
+        [sys.executable, os.path.join(REPO, "src", "dft", "build_h_afm_relax.py"),
+         "--repair-mixing", "s0_O__2x1v_off__afm"],
+        cwd=REPO, env=env, capture_output=True, text=True,
+    )
+    assert r.returncode == 0, f"{r.stdout}{r.stderr}"
+    relax = open(os.path.join(RELAX_DIR, "s0_O__2x1v_off__afm__relax.in")).read().split("\n")
+    rep = open(os.path.join(RELAX_DIR, "s0_O__2x1v_off__afm__relax__r1.in")).read().split("\n")
+    assert len(relax) == len(rep)
+    diff = [(a, b) for a, b in zip(relax, rep) if a != b]
+    assert len(diff) == 2, diff
+    joined = " ".join(a for a, _ in diff)
+    assert "prefix" in joined and "mixing_beta" in joined
+    assert any(re.search(r"mixing_beta\s*=\s*0\.15\b", b) for _, b in diff)
+    assert any("s0_O__2x1v_off__afm__relax__r1" in b for _, b in diff)
+    man = open(os.path.join(REPO, "runs", "s0", "m_h_afm_relax_repair.txt")).read()
+    assert "s0/h_afm_relax s0_O__2x1v_off__afm__relax__r1 .in 8" in man
+    assert "NOT_CONVERGED" in man  # rung (iii) exit is stated in the manifest itself
+
+
+def test_repair_mixing_refuses_a_converged_relaxation():
+    """R2: repairing a stem whose relaxation converged is nonsense."""
+    with pytest.raises(SystemExit):
+        B.cmd_repair_mixing("ref__2x1v__afm")
 
 
 @pytest.mark.skipif(not ALL_FOUR_LANDED, reason="the four relaxations have not all landed")

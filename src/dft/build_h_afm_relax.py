@@ -506,20 +506,42 @@ def gate1_one(stem: str) -> dict:
                 md5=hashlib.md5(new_raw).hexdigest())
 
 
-def cmd_gate1() -> int:
-    missing = [s for s in STEMS
+def cmd_gate1(quarantine: list[str] | None = None) -> int:
+    """Default: all four or none (the lit2 idiom). --quarantine STEM excuses a
+    named casualty EXPLICITLY: the stem must have no scoreable .out AND must
+    carry .out.attempt* evidence that it ran and failed -- a quarantine is a
+    recorded casualty, never a shortcut past an unrun job. The deposited rule
+    (docs/43:311-314) owes a child per RELAXATION WITH A FINAL GEOMETRY; a
+    relaxation that died mid-SCF has none yet, so its child is deferred, not
+    skipped -- it becomes owed the moment a repair attempt converges.
+    """
+    quarantine = quarantine or []
+    for s in quarantine:
+        if s not in STEMS:
+            fail("Q1", f"--quarantine {s}: not one of this family's stems")
+        if os.path.exists(os.path.join(OUT_DIR, s + "__relax.out")):
+            fail("Q2", f"--quarantine {s}: a scoreable .out EXISTS -- a converged "
+                       "relaxation cannot be quarantined, its child is owed")
+        ev = [f for f in os.listdir(OUT_DIR)
+              if f.startswith(s + "__relax.out.attempt")]
+        if not ev:
+            fail("Q3", f"--quarantine {s}: no .out.attempt* evidence on disk -- "
+                       "quarantine records a casualty, it does not excuse an unrun job")
+
+    live = [s for s in STEMS if s not in quarantine]
+    missing = [s for s in live
                if not os.path.exists(os.path.join(OUT_DIR, s + "__relax.out"))]
     if missing:
         print("GATE-1 children: REFUSED -- "
-              f"{len(missing)} of {len(STEMS)} relaxations have not run yet.")
+              f"{len(missing)} of {len(live)} non-quarantined relaxations have not run yet.")
         for s in missing:
             print(f"  unrun: {s}__relax")
         print("\nThe deposited GATE-1 rule (docs/43:311-314) builds each __g1 child from its\n"
               "parent's CONVERGED final geometry. Refusing to emit a partial family --\n"
-              "all four or none, the lit2 --gate1 idiom.")
+              "every non-quarantined relaxation, or none.")
         return 1
 
-    rows = [gate1_one(s) for s in STEMS]
+    rows = [gate1_one(s) for s in live]
     print(f"Built {len(rows)} GATE-1 children under "
           f"{os.path.relpath(OUT_DIR, REPO).replace(os.sep, '/')}/\n")
     print(f"{'stem':<36}{'E_relax (Ry)':>18}{'gain (meV)':>12}{'totmag':>9}{'maxdisp A':>11}")
@@ -537,6 +559,11 @@ def cmd_gate1() -> int:
         fh.write("#     artifact), the pair is quarantined;\n")
         fh.write("#   * totmag moving > 0.1 mu_B off the relaxation's final value ->\n")
         fh.write("#     CONFOUNDED (docs/43:305-309), own table, excluded from statistics.\n")
+        for s in quarantine:
+            ev = sorted(f for f in os.listdir(OUT_DIR)
+                        if f.startswith(s + "__relax.out.attempt"))
+            fh.write(f"# QUARANTINED (no child owed yet -- no converged final geometry):\n"
+                     f"#   {s}__relax; evidence: {', '.join(ev)}\n")
         fh.write("# Comparators (relaxation final energy, Ry / final totmag):\n")
         for r in rows:
             fh.write(f"#   {r['stem']}: {r['e_relax_ry']:.8f} / {r['totmag']:.2f}\n")
@@ -548,14 +575,102 @@ def cmd_gate1() -> int:
     return 0
 
 
+def cmd_repair_mixing(stem: str) -> int:
+    """One repair attempt on a relaxation that died mid-SCF: the committed relax
+    deck with mixing_beta HALVED and a fresh prefix -- nothing else.
+
+    This transplants rung (ii) of the A6.5(2) repair ladder ("halve the mixing
+    beta"), registered for non-convergent A0 points, to this family BY ANALOGY
+    -- the A0 registration does not cover S0(h), and this function does not
+    claim it does. mixing_beta is solver machinery, not a registered quantity;
+    halving it changes the SCF path, never the physics. If the repair also
+    fails, rung (iii) is the licensed exit: the row is recorded NOT_CONVERGED
+    and reported as a gap.
+    """
+    if stem not in STEMS:
+        fail("R1", f"{stem}: not one of this family's stems")
+    relax_in = os.path.join(OUT_DIR, stem + "__relax.in")
+    if os.path.exists(os.path.join(OUT_DIR, stem + "__relax.out")):
+        fail("R2", f"{stem}__relax.out exists and is scoreable -- a repair of a "
+                   "converged relaxation is nonsense")
+    if not [f for f in os.listdir(OUT_DIR)
+            if f.startswith(stem + "__relax.out.attempt")]:
+        fail("R3", f"{stem}: no .out.attempt* evidence -- repair follows a recorded "
+                   "failure, it does not preempt one")
+
+    raw = open(relax_in, "rb").read()
+    rel = os.path.relpath(relax_in, REPO).replace(os.sep, "/")
+    blob = committed_blob(rel)
+    if blob is None or hashlib.md5(blob).hexdigest() != hashlib.md5(raw).hexdigest():
+        fail("R4", f"{stem}: relax .in is not the committed blob at HEAD ({rel})")
+
+    txt = raw.decode()
+    old_stem, new_stem = stem + "__relax", stem + "__relax__r1"
+    bm = re.search(r"^(\s*mixing_beta\s*=\s*)([\d.]+)\s*$", txt, re.M)
+    if not bm:
+        fail("R5", f"{stem}: no mixing_beta line to halve")
+    beta = float(bm.group(2))
+    out_lines, changed = [], []
+    for ln in txt.split("\n"):
+        if re.match(r"^\s*prefix\s*=", ln):
+            out_lines.append(ln.replace(old_stem, new_stem))
+            changed.append("prefix")
+        elif re.match(r"^\s*mixing_beta\s*=", ln):
+            out_lines.append(f"{bm.group(1)}{beta / 2:g}")
+            changed.append("mixing_beta")
+        else:
+            out_lines.append(ln)
+    new_txt = "\n".join(out_lines)
+
+    # R6 -- diff shape: exactly prefix + mixing_beta
+    if sorted(changed) != ["mixing_beta", "prefix"] or \
+       sum(1 for a, b in zip(txt.split("\n"), out_lines) if a != b) != 2:
+        fail("R6", f"{stem}: changed lines are {sorted(changed)}, expected exactly "
+                   "mixing_beta + prefix")
+    pm = re.search(r"^\s*prefix\s*=\s*'([^']+)'", new_txt, re.M)
+    if not pm or pm.group(1) != new_stem:
+        fail("R7", f"{stem}: prefix {pm and pm.group(1)!r} != {new_stem!r}")
+    new_raw = new_txt.encode()
+    if raw.endswith(b"\n") != new_raw.endswith(b"\n") or (b"\r\n" in raw) != (b"\r\n" in new_raw):
+        fail("R8", f"{stem}: newline/CR bytes changed")
+
+    dest = os.path.join(OUT_DIR, new_stem + ".in")
+    with open(dest, "wb") as fh:
+        fh.write(new_raw)
+    print(f"REPAIR DECK WRITTEN: {os.path.relpath(dest, REPO).replace(os.sep, '/')}")
+    print(f"  mixing_beta {beta:g} -> {beta / 2:g} (A6.5(2) rung (ii), BY ANALOGY -- "
+          "see docstring); everything else byte-identical to the committed relax deck.")
+
+    man = os.path.join(REPO, "runs", "s0", "m_h_afm_relax_repair.txt")
+    nk = 16 if stem.startswith("ref") else 8
+    with open(man, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write(f"# repair attempt (r1) for {old_stem}: attempt 2 died at\n")
+        fh.write("# `convergence NOT achieved after 200 iterations` in its 3rd SCF --\n")
+        fh.write("# magnetic oscillation (totmag sloshing -1.6..-2.6, acc touched 1.45e-6\n")
+        fh.write("# at it 21 then bounced). Rung (ii) of the A6.5(2) ladder BY ANALOGY:\n")
+        fh.write("# halve mixing_beta. If this fails too, rung (iii): the row is recorded\n")
+        fh.write("# NOT_CONVERGED and reported as a gap -- no third solver attempt.\n")
+        fh.write(f"s0/h_afm_relax {new_stem} .in {nk}\n")
+    print(f"MANIFEST WRITTEN: {os.path.relpath(man, REPO).replace(os.sep, '/')}")
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--gate1", action="store_true",
                     help="build the GATE-1 __g1 children (refuses until the relaxations converge)")
+    ap.add_argument("--quarantine", action="append", default=[], metavar="STEM",
+                    help="with --gate1: excuse a recorded casualty (needs .out.attempt* "
+                         "evidence and no scoreable .out); its child is deferred, not skipped")
+    ap.add_argument("--repair-mixing", metavar="STEM",
+                    help="emit a __relax__r1 repair deck: mixing_beta halved, fresh prefix, "
+                         "nothing else (A6.5(2) rung (ii) by analogy)")
     args = ap.parse_args()
 
+    if args.repair_mixing:
+        return cmd_repair_mixing(args.repair_mixing)
     if args.gate1:
-        return cmd_gate1()
+        return cmd_gate1(args.quarantine)
 
     rows = [build_one(s) for s in STEMS]
 

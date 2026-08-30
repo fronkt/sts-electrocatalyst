@@ -819,3 +819,27 @@ ranking would contaminate the campaign's central contribution.
 - [ ] **When 20241317 drains:** QC s0_O (same checks; parent totmag -1.62), pull md5-verified,
   run --gate1 (builds 4 children + m_h_afm_g1.txt), COMMIT+PUSH, stage, submit the g1 array,
   extend the relaxed panel with the s0_O row.
+
+## 2026-08-30 s0_O casualty + GATE-1 wave (post-retry)
+
+- [x] **Retry 20241317 "COMPLETED" but FAILED QC:** 3rd SCF hit electron_maxstep=200
+  ("convergence NOT achieved ... stopping"; JOB DONE still printed — the docs/26 §4 trap).
+  Moment walked −1.62→−1.70→−1.98 over steps 1-2; the 3rd SCF touched acc 1.45e-6 at it 21
+  (conv_thr 1e-6), bounced, spin-sloshed −1.6↔−2.6 for 180 iterations. Magnetic-solution
+  oscillation = the campaign's 2nd state-property SCF instability (trap-25 pattern, cf. Ti).
+  Evidence banked md5-verified as `.out.attempt2-scf-maxstep`.
+- [x] **--gate1 extended with --quarantine** (Q1-Q3: must be a recorded casualty with
+  .out.attempt* evidence and NO scoreable .out — never a shortcut past an unrun job) and
+  **--repair-mixing** (R1-R8: committed relax deck + mixing_beta halved + fresh prefix,
+  exactly 2 lines — A6.5(2) rung (ii) BY ANALOGY, stated as such; rung (iii) NOT_CONVERGED
+  is the exit if r1 fails, no third solver attempt). Full attempt history + governance
+  framing in runs/s0/h_afm_relax/README.md.
+- [x] **3 GATE-1 children built** (ref/OH/OOH at their relaxed geometries, quarantine
+  recorded in m_h_afm_g1.txt header with comparators) **+ 1 repair deck** __relax__r1
+  (m_h_afm_relax_repair.txt). s0_O's g1 child DEFERRED, owed iff r1 converges.
+- [ ] **Submit both arrays** (children CONC=3, repair CONC=1) after commit+push.
+- [ ] **When the g1 children drain:** score vs manifest comparators (BASIN_DRIFT ≥5 meV
+  below → re-relax loop; >1 meV above → A8.3 refusal; >0.1 μ_B totmag → CONFOUNDED).
+- [ ] **When r1 drains:** converged → QC (moment drift goes to the A8.3/CONFOUND discussion
+  regardless), pull, --gate1 for the s0_O child, extend the relaxed panel; failed →
+  rung (iii): s0_O relaxed row recorded NOT_CONVERGED, family reports 3+1 gap.

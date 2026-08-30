@@ -1,0 +1,18 @@
+# S0 gate (h) GATE-1 children -- src/dft/build_h_afm_relax.py --gate1
+# Deposited rule docs/43:311-314: one fresh-density fixed-geometry SCF
+# per relaxation at its own final coordinates. Scoring at landing:
+#   * >= 5 meV BELOW its relaxation -> BASIN_DRIFT, re-relax and loop;
+#   * > 1 meV ABOVE its relaxation -> A8.3 refusal (density-history
+#     artifact), the pair is quarantined;
+#   * totmag moving > 0.1 mu_B off the relaxation's final value ->
+#     CONFOUNDED (docs/43:305-309), own table, excluded from statistics.
+# QUARANTINED (no child owed yet -- no converged final geometry):
+#   s0_O__2x1v_off__afm__relax; evidence: s0_O__2x1v_off__afm__relax.out.attempt1-oom-a120, s0_O__2x1v_off__afm__relax.out.attempt2-scf-maxstep
+# Comparators (relaxation final energy, Ry / final totmag):
+#   ref__2x1v__afm__relax__g1: -3261.34621314 / -2.11
+#   s0_OH__2x1v_off__afm__relax__g1: -3304.20358815 / -1.27
+#   s0_OOH__2x1v_off__afm__relax__g1: -3345.68946738 / -0.12
+#   dir job suffix nk  (nk = m_s3_wave1.txt's 2x1v convention)
+s0/h_afm_relax ref__2x1v__afm__relax__g1 .in 16
+s0/h_afm_relax s0_OH__2x1v_off__afm__relax__g1 .in 8
+s0/h_afm_relax s0_OOH__2x1v_off__afm__relax__g1 .in 8
