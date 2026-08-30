@@ -386,11 +386,16 @@ def main() -> int:
         fh.write(f"# S0 gate (h) AFM relaxations -- built by src/dft/build_h_afm_relax.py\n")
         fh.write(f"# scope resolved {date}: {scope} (docs/43 AFM-SCOPE line)\n")
         fh.write(f"# family is >= 8 decks: these 4 relaxations + 4 GATE-1 __g1 children\n")
+        fh.write("# 4-field rows for anvil/42_s3_wave1.slurm via 43_submit_s3_wave1.sh:\n")
+        fh.write("#   dir job suffix nk\n")
+        fh.write("# nk follows m_s3_wave1.txt's measured 2x1v convention: clean ref 16,\n")
+        fh.write("# adsorbate rows 8 (same cell, same 4 4 1 mesh, same nspin = 2 class).\n")
         if scope == "SECOND_SEED_CROSSED":
             fh.write("# NOTE: these four are the 2x1v/off arm only; the remaining crossed\n"
                      "#       arms are owed from the S3 builder, not from this one.\n")
         for r in rows:
-            fh.write(r["path"] + "\n")
+            nk = 16 if r["stem"].startswith("ref") else 8
+            fh.write(f"s0/h_afm_relax {r['stem']} .in {nk}\n")
     print(f"MANIFEST WRITTEN ({scope}, resolved {date}): "
           f"{os.path.relpath(man, REPO).replace(os.sep, '/')}")
     return 0

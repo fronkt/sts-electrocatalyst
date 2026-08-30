@@ -1,0 +1,11 @@
+# S0 gate (h) AFM relaxations -- built by src/dft/build_h_afm_relax.py
+# scope resolved 2026-08-30: STANDALONE_FOUR (docs/43 AFM-SCOPE line)
+# family is >= 8 decks: these 4 relaxations + 4 GATE-1 __g1 children
+# 4-field rows for anvil/42_s3_wave1.slurm via 43_submit_s3_wave1.sh:
+#   dir job suffix nk
+# nk follows m_s3_wave1.txt's measured 2x1v convention: clean ref 16,
+# adsorbate rows 8 (same cell, same 4 4 1 mesh, same nspin = 2 class).
+s0/h_afm_relax ref__2x1v__afm__relax .in 16
+s0/h_afm_relax s0_O__2x1v_off__afm__relax .in 8
+s0/h_afm_relax s0_OH__2x1v_off__afm__relax .in 8
+s0/h_afm_relax s0_OOH__2x1v_off__afm__relax .in 8

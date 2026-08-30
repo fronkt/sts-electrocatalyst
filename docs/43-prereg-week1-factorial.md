@@ -1971,3 +1971,40 @@ Per A7.8, docs/43 complete through this amendment is re-deposited to Zenodo as a
 **Zip-listing comparison line (2026-08-23, act 1):** `rutile-OER-v1.0.zip` fetched from 10.5281/zenodo.12635 (572,402,421 bytes, md5 `e193c56cf17c6d98827bbb19752d04b3`, matching the Zenodo record's checksum). The zip's single top-level directory is `zhongnanxu-rutile-OER-c4cb892/` — the deposit is the mirror snapshot at the very commit `xu_tree.json` hashed. Comparison per A9.3.1's registered unit: 6,989/6,989 blob paths and sizes identical (0 only-in-zip, 0 only-in-tree, 0 size mismatches); 815/815 `pwscf.out` git-blob SHA-1s recomputed from the zip bytes match the mirror listing. The listings do not differ, so the zip is the population AND every count formerly “per the GitHub mirror at `c4cb892`” is a count of the zip. Report + script: `docs/research/xu-verification-2026-08-23/`. A listing operation; no content parsed (A9.6).
 **Header-format validation line (2026-08-23, act 2 — the first parse):** metal chosen RuO₂, the metal already seen by record (A9.0), so P-XU's six blind metals stay unread. The four paths (under `zhongnanxu-rutile-OER-c4cb892/supporting-data/RuO2/Eads-4-layers/` in the zip): `bare/pwscf.out` → `4 Sym. Ops. (no inversion) found` (l.101); `O-relax/pwscf.out` → `4 Sym. Ops. (no inversion) found` (l.99); `OH-relax/pwscf.out` → `2 Sym. Ops. (no inversion) found` (l.110); `OOH-relax/pwscf.out` → `2 Sym. Ops. (no inversion) found` (l.111). Outcome: all four are the count-first form; the older docstring form was not encountered; no reader fix is needed and the both-forms-by-regex rule stands, the form logged per file. Record: `docs/research/xu-verification-2026-08-23/README.md`.
 **OC20 artefact / precision / manifest line (2026-08-23, act 3):** `is2res_val_id_trajectories.tar` downloaded (6,296,166,400 bytes; **md5 `fcb71363018fb1e7127db2500e39e11a` — matches the registered value**; CC-BY-4.0). Member count as found: **24,945** `random*.extxyz.xz` xz-compressed extended-XYZ trajectories (the documentation's own note says ~25K / 24,943 systems; the artefact fact is recorded as found). The 500 drawn by the registered rule (first 500 member names, ascending lexical): `docs/research/oc20-val_id/first500.txt`; their sha256 manifest is committed at `docs/research/oc20-val_id/first500.SHA256SUMS`. **Stored force precision, the dated fact: fixed-point decimal text, exactly 8 digits after the point, eV/Å** (extxyz `forces:R:3`; verified on all 141,435 force components of 5 of the 500, draw indices 1/100/250/400/500) — “exactly zero at the stored precision” means the literal token `0.00000000` / `-0.00000000`. Forces are stored raw (nonzero on `move_mask F` atoms), constraint mask and `tags` are in-file columns. Files outside git on Anvil scratch with a durability copy at `$PROJECT/corpora/oc20/` (A9.2.1); no census was run — act 4 waits on the entrant's `silentgate`. Record: `docs/research/oc20-val_id/README.md`.
+
+---
+
+## Dated addendum — 2026-08-30: the gate-(h) AFM scope, resolved
+
+**[AFM-SCOPE RESOLVED 2026-08-30: STANDALONE_FOUR]** — decided by the entrant
+2026-08-30 (recorded from his explicit selection in-session; AI-drafted disclosed
+infrastructure per A7.7, the decision his, this text the scribe's). This is the dated
+line the ADOPTION NOTE at docs/43:1645 says the resolution requires, placed here
+because nothing above the deposit line may be edited in place.
+
+**Resolution.** The four 2x1v AFM relaxations owed by A8.5 stand alone as S3-class
+jobs: `ref__2x1v__afm__relax`, `s0_O__2x1v_off__afm__relax`, `s0_OH__2x1v_off__afm__relax`,
+`s0_OOH__2x1v_off__afm__relax` (decks committed under `runs/s0/h_afm_relax/`, built by
+`src/dft/build_h_afm_relax.py` from the banked gate-(h) SCF parents with exactly two
+lines changed each). The family is >= 8 decks under the deposited GATE-1 rule
+(:311-314): each relaxation gets a fresh-density fixed-geometry `__g1` child, with the
+>= 5 meV BASIN_DRIFT re-relax loop and A8.3's 1 meV above-parent refusal.
+
+**A8.1's crossed reading is DEFERRED, not silently dropped.** The magnetic-basin row's
+"second seed ... wherever triage allows" is resolved for the AFM Ru family as: the
+2x1v/off arm runs now (the four above); the crossing with cell (1x1) and symmetry
+(mirror) — up to 12 further relaxations — is deferred with its reason stated: (i) the
+crossed family costs ~16,000–30,000 SU against ~4,000–7,600 for the standalone four
+(balance 70,851.6 SU, measured 2026-08-30), and competes directly with A0-SPIN Stage 1
+and the docs/61-item-10 Ru AFM probe inside the Oct 15 freeze; (ii) no registered
+prediction scores an AFM cell- or symmetry-crossing, so the crossed arms would buy
+coverage no scorer consumes; (iii) docs/63 §4.3 records that NO version of this family
+— crossed included — can bound A7.3's error (it is U = 0 in 2x1v; A7.3 scores the 1x1
+grid across U ∈ [0, 9]), so the larger family does not buy the one thing that would
+justify its cost. If the crossed arms are wanted later they are a new dated line, not a
+reinterpretation of this one.
+
+**What this line licenses:** the four relaxations above and their four GATE-1 children,
+S3-class, priced under A8.6. **What it does not license:** any other AFM relaxation, any
+AFM deck in 1x1 or mirror, any change to the banked gate-(h) SCFs or their 4/4
+ADOPT_AFM verdict, or any A7.3 claim from this family (docs/63 §6).

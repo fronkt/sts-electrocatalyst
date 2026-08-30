@@ -27,9 +27,14 @@ pytestmark = pytest.mark.skipif(
 
 # ----------------------------------------------------------------- the gate ---
 
-def test_hold_stands_on_the_real_prereg():
-    """As deposited today, docs/43 carries no resolution line -- the HOLD is live."""
-    assert B.afm_scope_resolution() is None
+def test_the_real_prereg_resolves_standalone_four():
+    """The entrant resolved the scope 2026-08-30 (docs/43 dated addendum).
+
+    Before that line existed this test asserted the HOLD was live; it now pins the
+    resolution so a botched edit to docs/43 cannot silently change the scope or
+    re-open the HOLD without this suite noticing.
+    """
+    assert B.afm_scope_resolution() == ("2026-08-30", "STANDALONE_FOUR")
 
 
 @pytest.mark.parametrize("scope", ["STANDALONE_FOUR", "SECOND_SEED_CROSSED"])
@@ -60,17 +65,35 @@ def test_near_miss_lines_do_not_lift_the_gate(tmp_path, monkeypatch, line):
     assert B.afm_scope_resolution() is None, f"gate lifted by {line!r}"
 
 
-def test_builder_exits_2_and_writes_no_manifest_while_held():
-    man = os.path.join(REPO, "runs", "s0", "m_h_afm_relax.txt")
-    before = os.path.exists(man)
+def test_builder_exits_0_and_manifest_names_the_four_decks():
+    """With the scope resolved, the builder emits the manifest and it is exact."""
     env = dict(os.environ, PYTHONPATH=os.path.join(REPO, "src"))
     r = subprocess.run(
         [sys.executable, os.path.join(REPO, "src", "dft", "build_h_afm_relax.py")],
         cwd=REPO, env=env, capture_output=True, text=True,
     )
-    assert r.returncode == 2, f"expected HOLD exit 2, got {r.returncode}\n{r.stdout}{r.stderr}"
-    assert "MANIFEST: NOT WRITTEN" in r.stdout
-    assert os.path.exists(man) == before, "a manifest appeared while the scope is on HOLD"
+    assert r.returncode == 0, f"expected 0 post-resolution, got {r.returncode}\n{r.stdout}{r.stderr}"
+    assert "MANIFEST WRITTEN (STANDALONE_FOUR" in r.stdout
+    man = os.path.join(REPO, "runs", "s0", "m_h_afm_relax.txt")
+    lines = [ln for ln in open(man).read().split("\n") if ln and not ln.startswith("#")]
+    # 4-field rows in 42_s3_wave1.slurm's format, nk per m_s3_wave1's measured
+    # 2x1v convention (clean ref 16, adsorbate rows 8).
+    assert lines == [
+        f"s0/h_afm_relax {s}__relax .in {16 if s.startswith('ref') else 8}"
+        for s in B.STEMS
+    ]
+    for ln in lines:
+        d, job, suf, nk = ln.split()
+        assert os.path.exists(os.path.join(REPO, "runs", d, job + suf))
+        assert 128 % int(nk) == 0  # the runner's hard rule 4
+
+
+def test_builder_holds_when_the_resolution_line_is_absent(tmp_path, monkeypatch):
+    """The HOLD path stays exercised even now the real prereg is resolved."""
+    doc = tmp_path / "43.md"
+    doc.write_text("deposited text with no resolution line\n", encoding="utf-8")
+    monkeypatch.setattr(B, "PREREG", str(doc))
+    assert B.afm_scope_resolution() is None
 
 
 # ------------------------------------------------------------ the transform ---
