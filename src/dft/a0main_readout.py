@@ -113,6 +113,7 @@ METALS = {
 }
 APEX = 1.6      # eV, descriptor at the volcano apex
 G_TOTAL = 4.92  # eV, 4 x 1.23
+OER_EQ_V = G_TOTAL / 4.0   # 1.23 V, the OER equilibrium potential
 
 
 def u_token(u: float) -> str:
@@ -644,7 +645,32 @@ def main():
         ("NM-vs-AFM adsorption sensitivity, gate (h) (re-run owed)", 0.033, 0.064),
         ("Ir *OOH mirror-plane saddle depth (docs/45 row 1)", 0.291, 0.291),
     ]
-    DISTINGUISH_FLOOR = 0.20   # A5.1(b), registered (Exner 2020)
+    DISTINGUISH_FLOOR = 0.20   # A5.1(b) leg 2, registered (Exner 2020 p. 12611)
+
+    # WAVE-5 CORRECTION. A5.1(b) is quoted at docs/43:958-964 and its three legs
+    # are: "1. the ordering is the same under eta_TD and under G_max(eta = 0.3 V);
+    # 2. the G_max gap between the pair is >= 0.20 eV ...; 3. the ordering is
+    # stable across the U band". Leg 2's floor is a G_max GAP, not an eta gap.
+    # Until now this readout applied the 0.20 eV number to eta(Ir) - eta(Ru) --
+    # the wrong quantity -- and never evaluated leg 1 at all. Both are fixed
+    # here using the campaign's own registered g_max convention
+    # (volcano_r1.g_max at U_appl = 1.23 + 0.3); zero new DFT, the same four dG
+    # values already banked above.
+    GMAX_ETA = 0.3             # V, registered in A5.1(b) leg 1
+
+    def _g_max(steps, u_appl):
+        """Exner G_max: largest contiguous span of (dG_i - eU) over the 4 steps.
+        Byte-for-byte the convention in src/dft/volcano_r1.py:37."""
+        g = [x - u_appl for x in steps]
+        best = 0.0
+        for a in range(4):
+            for b in range(a, 4):
+                best = max(best, sum(g[a:b + 1]))
+        return best
+
+    def _steps(row):
+        return (row["dG_OH"], row["dG_O"] - row["dG_OH"],
+                row["dG_OOH"] - row["dG_O"], G_TOTAL - row["dG_OOH"])
     margin_ctx = {}
     if inversions:
         print("\nINVERSION MARGINS vs measured error classes "
@@ -667,15 +693,82 @@ def main():
         print(f"  => the binary registered prediction ('inverts anywhere in the "
               f"band') is {carried}.")
     holds = [u for u in shared if u not in inversions]
-    holds_below_floor = bool(holds) and all(
-        abs(margins[u]) < DISTINGUISH_FLOOR for u in holds)
-    if holds and holds_below_floor:
-        worst = max(abs(margins[u]) for u in holds)
-        print(f"  Symmetric note: every 'holds' margin (largest {worst:.3f} V) is "
-              f"below A5.1(b)'s registered {DISTINGUISH_FLOOR:.2f} eV distinguishability "
-              f"floor -- the ordering was never POSITIVELY resolved at any measured U, "
-              f"production U = 0 included. The report may not claim Ir < Ru holds "
-              f"anywhere; this strengthens the U-conditionality consequence.")
+
+    # --- A5.1(b), scored on the quantities it is actually registered on ------
+    a51b = {}
+    for u in shared:
+        ri = {r["u"]: r for r in result["metals"]["Ir"]["rows"]}.get(u)
+        rr = {r["u"]: r for r in result["metals"]["Ru"]["rows"]}.get(u)
+        if not ri or not rr:
+            continue
+        u_appl = OER_EQ_V + GMAX_ETA
+        gi, gr = _g_max(_steps(ri), u_appl), _g_max(_steps(rr), u_appl)
+        eta_sign = (ri["eta"] < rr["eta"])       # True == Ir ranked better
+        gmax_sign = (gi < gr)
+        a51b[u] = dict(
+            gmax_Ir_eV=gi, gmax_Ru_eV=gr, gmax_gap_eV=abs(gi - gr),
+            leg1_metrics_agree=bool(eta_sign == gmax_sign),
+            leg2_gap_at_or_above_floor=bool(abs(gi - gr) >= DISTINGUISH_FLOOR),
+            eta_margin_V=margins.get(u))
+    if a51b:
+        n_l1 = sum(1 for v in a51b.values() if v["leg1_metrics_agree"])
+        n_l2 = sum(1 for v in a51b.values() if v["leg2_gap_at_or_above_floor"])
+        widest = max(v["gmax_gap_eV"] for v in a51b.values())
+        print("")
+        print("  A5.1(b) RANKING-CLAIM RULE, scored on its own quantities "
+              "(docs/43:958-964; all three legs must hold to claim ANY pairwise "
+              "ordering). Leg 2's floor is a G_max GAP, not an eta gap -- earlier "
+              "runs of this readout applied it to eta margins, which is the wrong "
+              "quantity; corrected here, zero new DFT:")
+        for u in sorted(a51b):
+            v = a51b[u]
+            print("    U = %4.1f: G_max(eta=0.3) Ir %.3f vs Ru %.3f eV, gap "
+                  "%.3f eV %s floor %.2f | leg 1 metrics %s"
+                  % (u, v["gmax_Ir_eV"], v["gmax_Ru_eV"], v["gmax_gap_eV"],
+                     ">=" if v["leg2_gap_at_or_above_floor"] else "<",
+                     DISTINGUISH_FLOOR,
+                     "AGREE" if v["leg1_metrics_agree"] else "DISAGREE"))
+        print("    LEG 1 (eta_TD and G_max give the same ordering): %d of %d "
+              "measured U." % (n_l1, len(a51b)))
+        print("    LEG 2 (G_max gap >= %.2f eV): %d of %d measured U; widest "
+              "gap anywhere is %.3f eV."
+              % (DISTINGUISH_FLOOR, n_l2, len(a51b), widest))
+        # Leg 3: is the ordering stable across the band? (registered wording)
+        dirs = {u: (a51b[u]["gmax_Ir_eV"] < a51b[u]["gmax_Ru_eV"])
+                for u in a51b}
+        leg3 = (len(set(dirs.values())) == 1)
+        print("    LEG 3 (ordering stable across the U band): %s -- the G_max "
+              "ordering %s across U in [%.1f, %.1f]."
+              % ("PASS" if leg3 else "FAIL",
+                 "is stable" if leg3 else "REVERSES",
+                 min(a51b), max(a51b)))
+        admissible = sorted(u for u in a51b
+                            if a51b[u]["leg1_metrics_agree"]
+                            and a51b[u]["leg2_gap_at_or_above_floor"])
+        inadmissible = sorted(u for u in a51b if u not in admissible)
+        better = ("Ru" if a51b[max(a51b)]["gmax_Ru_eV"]
+                  < a51b[max(a51b)]["gmax_Ir_eV"] else "Ir")
+        print("    => A5.1(b) OVERALL: the pair is CLAIMABLE on the %d U where "
+              "all three legs hold (%s) and NOT DISTINGUISHABLE on the %d where "
+              "they do not (%s), production U = 0 included."
+              % (len(admissible), admissible, len(inadmissible), inadmissible))
+        print("       This is the OPPOSITE shape to the eta-margin reading it "
+              "replaces. Under G_max, %s is the better anchor at EVERY measured "
+              "U (leg 3 stable). Under eta_TD the ordering REVERSES. They agree "
+              "only at U = %s -- exactly the U where eta_TD reports the "
+              "inversion -- so the A5.1(b)-admissible statement is '%s is the "
+              "better anchor, at U >= %.1f'. At U = %s the two metrics DISAGREE "
+              "about which anchor is better and the G_max gap is under the "
+              "floor (%.3f eV at U = 0), so NOTHING may be claimed there."
+              % (better, admissible, better, min(admissible), inadmissible,
+                 a51b[min(a51b)]["gmax_gap_eV"]))
+        print("       Consequence for the report: the old sentence 'the "
+              "ordering was never POSITIVELY resolved at any measured U' is "
+              "WITHDRAWN -- it was an eta-margin statement about a floor "
+              "registered on G_max gaps. The correct statement is narrower and "
+              "sharper: unresolvable at production U, resolved in %s's favour "
+              "at high U, and the registered prior (eta(Ir) < eta(Ru)) is not "
+              "recoverable at any U under the registered rule." % better)
     result["ordering"] = dict(
         shared_points=shared, inversions=inversions, complete=have_all,
         verdict=verdict63, margins_V=margins,
@@ -683,7 +776,32 @@ def main():
         error_classes=[list(c) for c in ERROR_CLASSES],
         inversions_clearing_every_error_class=[
             u for u in inversions if not margin_ctx[u]["inside_error_classes"]],
-        holds_below_distinguishability_floor=holds_below_floor,
+        a5_1b=dict(
+            legs="1: eta_TD and G_max(eta=0.3 V) agree; 2: G_max gap >= "
+                 "0.20 eV; 3: stable across the U band (docs/43:958-964)",
+            note="leg 2 is a G_max gap; earlier runs applied the 0.20 eV "
+                 "floor to eta margins, the wrong quantity, and never "
+                 "evaluated leg 1. Corrected wave-5, zero new DFT.",
+            per_u={str(k): v for k, v in a51b.items()},
+            leg1_agree_count=sum(1 for v in a51b.values()
+                                 if v["leg1_metrics_agree"]),
+            leg2_pass_count=sum(1 for v in a51b.values()
+                                if v["leg2_gap_at_or_above_floor"]),
+            n_u=len(a51b),
+            leg3_ordering_stable=(len({(a51b[u]["gmax_Ir_eV"]
+                                        < a51b[u]["gmax_Ru_eV"])
+                                       for u in a51b}) == 1)
+                                  if a51b else None,
+            admissible_u=sorted(u for u in a51b
+                                if a51b[u]["leg1_metrics_agree"]
+                                and a51b[u]["leg2_gap_at_or_above_floor"]),
+            overall="SPLIT -- all three legs hold at U >= 4.5 (G_max "
+                    "ordering stable band-wide, metrics agree, gap over "
+                    "floor), so Ru is claimable as the better anchor there; "
+                    "legs 1+2 both FAIL at U <= 3.0 including production "
+                    "U = 0, where the pair is not distinguishable. The "
+                    "earlier eta-margin claim that the ordering was never "
+                    "positively resolved anywhere is WITHDRAWN."),
         distinguishability_floor_eV=DISTINGUISH_FLOOR,
         consequence=("the anchors against which every 3d result in this campaign "
                      "is reported are themselves U-conditional, and every ranking "
@@ -712,6 +830,69 @@ def main():
              f"remove one" if a72_status == "CONFIRMED" else "")
           + (f"; pending data: {pending}" if pending else "")
           + (f"; unrun: {unrun}" if unrun else "") + ".")
+    # --- A7.2 census ROBUSTNESS (wave-5 audit) -------------------------------
+    # A7.2 counts METALS, and per-metal membership is fixed by whether any row
+    # differs in pls from any other. For a metal whose flip rests on a SINGLE
+    # row, that row's pls margin (winning step minus runner-up) is the whole
+    # membership: if it reverts, the metal leaves the census. Banking the
+    # brackets without the margins made the fragile members look like the
+    # robust ones (docs/45 trap 14 is the same defect on the same field).
+    a72_margin = {}
+    for m in metals_with_flip:
+        rows = [r for r in result["metals"][m]["rows"] if "gap" not in r]
+        by_pls = {}
+        for r in rows:
+            by_pls.setdefault(r.get("pls"), []).append(r["u"])
+        # A metal's MEMBERSHIP rests on one row only if losing that row would
+        # leave a single pls value across the whole grid. With three or more
+        # distinct pls values (Mn: 3 / 2 / 1) a flip survives losing any one of
+        # them, so a lone row is not load-bearing.
+        minority = ([pl for pl, us in by_pls.items() if len(us) == 1]
+                    if len(by_pls) == 2 else [])
+        worst_u, worst_gap = None, None
+        for r in rows:
+            st = sorted((r["dG_OH"], r["dG_O"] - r["dG_OH"],
+                         r["dG_OOH"] - r["dG_O"], G_TOTAL - r["dG_OOH"]),
+                        reverse=True)
+            gap = st[0] - st[1]
+            if worst_gap is None or gap < worst_gap:
+                worst_u, worst_gap = r["u"], gap
+        carriers = [u for pl in minority for u in by_pls[pl]]
+        car_gap = None
+        for r in rows:
+            if r["u"] in carriers:
+                st = sorted((r["dG_OH"], r["dG_O"] - r["dG_OH"],
+                             r["dG_OOH"] - r["dG_O"], G_TOTAL - r["dG_OOH"]),
+                            reverse=True)
+                g = st[0] - st[1]
+                car_gap = g if car_gap is None else min(car_gap, g)
+        a72_margin[m] = dict(
+            rests_on_single_row=bool(minority),
+            carrying_u=carriers,
+            carrying_pls_margin_eV=car_gap,
+            smallest_pls_margin_eV=worst_gap, smallest_at_u=worst_u,
+            carrier_inside_error_classes=(
+                [n for n, lo, hi in ERROR_CLASSES if car_gap is not None
+                 and car_gap <= hi] if minority else []))
+    fragile = sorted(m for m, v in a72_margin.items()
+                     if v["rests_on_single_row"] and v["carrier_inside_error_classes"])
+    if fragile:
+        print("  CENSUS ROBUSTNESS: %d of the %d metals in the census rest on a "
+              "SINGLE row whose pls margin is inside a measured error class -- "
+              "%s. If that row reverts the metal leaves the census entirely."
+              % (len(fragile), len(metals_with_flip),
+                 "; ".join("%s at U = %s, margin %.1f meV, inside: %s"
+                           % (m, a72_margin[m]["carrying_u"],
+                              a72_margin[m]["carrying_pls_margin_eV"] * 1000,
+                              ", ".join(a72_margin[m]["carrier_inside_error_classes"]))
+                           for m in fragile)))
+        robust = [m for m in metals_with_flip if m not in fragile]
+        print("      The VERDICT survives regardless: %d robust members (%s) "
+              "already meet the registered >=3." % (len(robust), ", ".join(robust))
+              if len(robust) >= 3 else
+              "      WARNING: robust members alone do NOT meet the registered "
+              "threshold.")
+
     result["a7_2"] = dict(
         prediction=">=3 of 6 metals (Cr, Mn, Fe, Ru, Ir, Ti) show a pls flip "
                    "inside the registered A0 grid",
@@ -721,7 +902,15 @@ def main():
         unrun_blind_metals=unrun,
         note="the Ir bracket is saddle-conditional (see caveats.ir_ooh_basin); "
              "the EXISTENCE of an Ir flip inside the grid survives the saddle "
-             "correction, so the CONFIRMED status does not rest on the bracket")
+             "correction, so the CONFIRMED status does not rest on the bracket",
+        census_robustness=a72_margin,
+        fragile_members=fragile,
+        robustness_note="A7.2 counts metals; per-metal membership can "
+                        "rest on a single row. Members flagged fragile "
+                        "have their whole membership carried by one row "
+                        "whose pls margin is inside a measured error "
+                        "class. The >=3 verdict is carried by the robust "
+                        "members alone.")
 
     # --- A7.3 P-FLOOR-U ------------------------------------------------------
     # docs/43:1361-1379, quoted: "Quantity: span(c_M)/2 in volts, at FIXED
@@ -734,6 +923,9 @@ def main():
     A73_FLOOR = 0.10          # V, registered
     A73_NEEDED = 4            # metals, registered
     A73_FALSIFY_AT = 1        # <= this many, registered
+    # MEASURED, not chosen here: which A0 decks carry nspin = 2. Read off
+    # the decks themselves (grep -i nspin runs/a0/main/<M>/s0_OOH__u900.in).
+    NSPIN2 = {"Cr", "Mn", "Fe"}
     a73_rows, a73_pending = {}, []
     for m, cfg in METALS.items():
         rows = {r["u"]: r for r in result["metals"][m]["rows"] if "gap" not in r}
@@ -745,8 +937,22 @@ def main():
         c_lo = lo["dG_OOH"] - lo["dG_OH"]
         c_hi = hi["dG_OOH"] - hi["dG_OH"]
         half = abs(c_lo - c_hi) / 2.0
-        a73_rows[m] = dict(u_lo=0.0, u_hi=u_max, c_M_lo=c_lo, c_M_hi=c_hi,
-                           span_over_2_V=half, exceeds_floor=half > A73_FLOOR)
+        # WAVE-5: the endpoint rows carry properties that decide how much
+        # weight this metal can bear. Two of the three metals over the
+        # floor have their U_max endpoint on a pls-1 row where the
+        # registered closed-form identity does not run and the dG ladder
+        # has inverted (dG3 < 0); that has to travel with the number.
+        a73_rows[m] = dict(
+            u_lo=0.0, u_hi=u_max, c_M_lo=c_lo, c_M_hi=c_hi,
+            span_over_2_V=half, exceeds_floor=half > A73_FLOOR,
+            nspin=(2 if m in NSPIN2 else 1),
+            # signed eV of additional |c_M(0) - c_M(U_max)| needed to
+            # cross the floor: positive = still short, negative = clear
+            delta_to_floor_eV=(A73_FLOOR - half) * 2.0,
+            pls_lo=lo.get("pls"), pls_hi=hi.get("pls"),
+            dG3_hi=(hi["dG_OOH"] - hi["dG_O"]),
+            closed_form_runs_at_endpoints=(lo.get("pls") in (2, 3)
+                                           and hi.get("pls") in (2, 3)))
     over = sorted(m for m, r in a73_rows.items() if r["exceeds_floor"])
     if len(over) >= A73_NEEDED:
         a73_status = "CONFIRMED"
@@ -783,6 +989,98 @@ def main():
           "two are not the same measurement and neither replaces the other."
           % (max(METALS["Cr"]["grid"]),
              a73_rows["Cr"]["span_over_2_V"] if "Cr" in a73_rows else float("nan")))
+    # --- A7.3 CONDITIONALITY (wave-5 audit) ----------------------------------
+    # The verdict above is a bare count. Three measured facts decide how much
+    # weight it can bear, and none of them was travelling with it.
+    a73_cond = {}
+
+    # (1) The over/under split is PERFECTLY confounded with the spin treatment.
+    over_spins = sorted({a73_rows[m]["nspin"] for m in over})
+    under = sorted(m for m in a73_rows if m not in over)
+    under_spins = sorted({a73_rows[m]["nspin"] for m in under})
+    confounded = (over and under and over_spins == [2] and under_spins == [1])
+    a73_cond["spin_confound"] = dict(
+        over=over, over_nspin=over_spins, under=under, under_nspin=under_spins,
+        perfectly_confounded=bool(confounded))
+    if confounded:
+        print("  CONDITIONALITY 1 -- SPIN CONFOUND (measured, not inferred): the "
+              "%d metals over the floor (%s) are EXACTLY the %d whose A0 decks "
+              "carry nspin = 2, and the %d under it (%s) are EXACTLY the %d that "
+              "run nonmagnetic. The split tracks the spin convention one-for-one, "
+              "so this readout cannot separate 'U moves the physical limit' from "
+              "'nspin = 2 columns respond to U more than nspin = 1 columns'."
+              % (len(over), ", ".join(over), len(over),
+                 len(under), ", ".join(under), len(under)))
+
+    # (2) How far is the verdict from flipping, against MEASURED error classes?
+    short = sorted(((a73_rows[m]["delta_to_floor_eV"], m) for m in under))
+    a73_cond["nearest_to_floor"] = [
+        dict(metal=m, delta_to_floor_eV=d,
+             inside_error_classes=[n for n, lo, hi in ERROR_CLASSES if d <= hi])
+        for d, m in short]
+    if short and len(over) == A73_NEEDED - 1:
+        d0, m0 = short[0]
+        inside = [n for n, lo, hi in ERROR_CLASSES if d0 <= hi]
+        print("  CONDITIONALITY 2 -- ONE METAL FROM FLIPPING: the threshold is "
+              ">=%d and %d are over, so a single metal crossing turns NOT MET "
+              "into CONFIRMED. The nearest is %s, short by %.1f meV of |c_M(0) - "
+              "c_M(U_max)|." % (A73_NEEDED, len(over), m0, d0 * 1000))
+        if inside:
+            tops = ", ".join("%s (top %.3f eV)" % (n, hi)
+                             for n, lo, hi in ERROR_CLASSES if d0 <= hi)
+            print("      That shortfall is SMALLER than the top of every "
+                  "one of these measured error classes: %s. Any one of "
+                  "them could carry %s over on its own."
+                  % (tops, m0))
+            print("      Consequence: A7.3 = %s is NOT settled. It is one owed "
+                  "re-run inside an open error class away from CONFIRMED, and "
+                  "the owed re-run (S0(h) RuO2 AFM anchors) acts on exactly the "
+                  "metal that is nearest." % a73_status)
+
+    # (3) Do the metals CARRYING the numerator rest on well-formed endpoints?
+    bad_end = [m for m in over if not a73_rows[m]["closed_form_runs_at_endpoints"]]
+    a73_cond["carriers_on_pls1_endpoints"] = bad_end
+    if bad_end:
+        print("  CONDITIONALITY 3 -- CARRIER ENDPOINT QUALITY: %d of the %d "
+              "metals over the floor (%s) set c_M(U_max) on a pls-1 row, where "
+              "the registered closed-form identity does not run and the dG "
+              "ladder has inverted (dG3 < 0: %s). Their spans are still the "
+              "registered quantity, but they are not clean rows."
+              % (len(bad_end), len(over), ", ".join(bad_end),
+                 "; ".join("%s %.4f eV" % (m, a73_rows[m]["dG3_hi"])
+                           for m in bad_end)))
+
+    # (4) The registration defines no band for this outcome.
+    middle = (A73_FALSIFY_AT < len(over) < A73_NEEDED) and not a73_pending
+    a73_cond["outcome_in_undefined_band"] = bool(middle)
+    if middle:
+        print("  CONDITIONALITY 4 -- UNDEFINED BAND: the registration names two "
+              "outcomes (CONFIRMED at >=%d, FALSIFIED at <=%d) and a consequence "
+              "for FALSIFIED only. %d of 6 is in NEITHER band. 'NOT MET' is a "
+              "token this scorer invents; it is not in A7.7's disposition "
+              "vocabulary (WITHDRAWN-UNSCORED / HELD / TRIGGERED) and nothing "
+              "registered says what a middle outcome licenses or forbids. It is "
+              "reported, not mapped -- the entrant decides the disposition."
+              % (A73_NEEDED, A73_FALSIFY_AT, len(over)))
+
+    # (5) The rows are licence-contingent (A6.6; docs/59 s3c, undeposited).
+    a73_cond["a66_licence"] = dict(
+        state="UNGRANTED (docs/59 is Status: DRAFT for the entrant)",
+        affected_metal="Ti",
+        consequence_if_withheld=("Ti rows WITHDRAWN-UNSCORED under A7.7; "
+                                 "denominator %d -> %d; status '%s' -> "
+                                 "'NOT YET MET -- UNDECIDED'"
+                                 % (len(a73_rows), len(a73_rows) - 1, a73_status)))
+    print("  CONDITIONALITY 5 -- LICENCE-CONTINGENT ROWS: Ti's seven 1x1 "
+          "relaxations are new compute outside A6.6's declared footprint "
+          "('~160 fixed-geometry SCFs and zero relaxations'; it 'does not "
+          "license ... any relaxation in any cell'). The licence is the "
+          "entrant's to grant or withhold at countersignature and is UNGRANTED. "
+          "If withheld, the Ti rows are WITHDRAWN-UNSCORED under A7.7, the "
+          "denominator falls %d -> %d and the status reverts to 'NOT YET MET -- "
+          "UNDECIDED'. Two banked fields are provisional on a signature."
+          % (len(a73_rows), len(a73_rows) - 1))
+
     result["a7_3"] = dict(
         prediction="span(c_M)/2 exceeds 0.10 V on >=4 of the 6 metals with a "
                    "converged *OOH geometry; FALSIFIED if <=1 of 6 exceeds it",
@@ -794,7 +1092,16 @@ def main():
         blind=["Mn", "Fe", "Ru", "Ir", "Ti"], disclosed_non_blind=["Cr"],
         note="the registration's disclosed Cr value (0.223 V) is measured over "
              "U = 0 -> 5.00, not this grid's U = 0 -> 9.0 endpoints; both are "
-             "reported and neither is substituted for the other")
+             "reported and neither is substituted for the other",
+        conditionality=a73_cond,
+        status_caveat="NOT MET is a %d-of-6 outcome in a band the "
+                      "registration does not define; it is perfectly "
+                      "confounded with the nspin=2/nspin=1 partition; it "
+                      "is one metal (and, for the nearest metal, less than "
+                      "one measured error class) from CONFIRMED; and the "
+                      "Ti rows that close the denominator are contingent "
+                      "on an ungranted A6.6 licence. Read status WITH "
+                      "a7_3.conditionality or not at all." % len(over))
 
     # --- registered + measured caveats (travel with every table above) --------
     caveats = dict(
@@ -804,10 +1111,41 @@ def main():
             "(Cr 3.70, Mn 3.90, Fe 5.30; Ru/Ir/Ti carry no U by the MP "
             "convention). For Cr/Ru/Ir/Mn/Fe that geometry is the banked "
             "production tier. Ti's is NOT inherited: TiO2 had no slab or "
-            "adsorbate geometry anywhere in the campaign, so its slab, *O "
-            "and *OH geometries were built and relaxed inside tranche 3 "
-            "(2026-08-28/29, docs/59 s3) and its *OOH geometry does not "
-            "exist at all -- which is why the Ti grid scores 0 of 7. "
+            "adsorbate geometry anywhere in the campaign, so its slab, *O, "
+            "*OH AND *OOH geometries were all built and relaxed inside "
+            "tranche 3 (2026-08-28/29, docs/59 s3/s3c). The *OOH geometry "
+            "carries a further provenance difference that travels with every "
+            "carries a further provenance difference that travels with every "
+            "Ti number below, and Ti is the metal that DECIDES A7.3. The DFT "
+            "deck path (qe_slab.py, placement in hea_oer/surfaces_rutile.py) "
+            "uses the SINGLE-START add_oer_adsorbate_at, which sets the "
+            "adsorbate height above the slab topmost atoms -- on rutile(110) "
+            "the bridging-O rows, which stand above the cus metal -- so every "
+            "adsorbate lands ~3.1-3.2 A off the metal it should bind. On Ti, "
+            "*O and *OH walked DOWN into bonds (1.735 / 1.829 A) but *OOH "
+            "walked UP (3.167 -> 3.414 A) into a desorbed-radical region that "
+            "nspin=1 cannot describe, and two relaxations failed there. THIS "
+            "IS A RECURRENCE, NOT A NEW DEFECT: "
+            "surfaces_rutile.adsorbate_starts documents the same failure in "
+            "the 2026-07 campaign (*OOH left desorbed on Mn, Fe AND Ni, four "
+            "chemically-wrong structures that passed every numerical QC "
+            "check) and exists as the remedy, with registered pull-in "
+            "distances PULL_TO = (1.70, 2.10) A. The MACE screening path uses "
+            "it; the DFT deck path never inherited it. The banked geometry "
+            "comes from s0_OOH_r3, RE-ANCHORED by build_a0main_w2c.py to the "
+            "mean of Ti own two converged Ti-O bond lengths (1.781905 A) -- "
+            "which falls INSIDE that registered PULL_TO window, so the anchor "
+            "is the campaign own remedy re-derived, not a free parameter. It "
+            "then converged in 52 ionic steps with zero SCF failures to "
+            "d(O,Ti) = 2.041 A (O-O 1.371, O-H 0.986), while the plain "
+            "continuation r2 failed again; tranche 2c exactly-one-converged "
+            "selection rule was fixed before either ran. So TiO2 DOES bind "
+            "*OOH, and the default placement produced an artefact of the "
+            "starting height, not a measurement of non-binding. Two limits on "
+            "that statement: the adsorbate takes only +0.035 e of Lowdin "
+            "charge from the surface against *O +0.347 and *OH +0.230, so the "
+            "binding is real but WEAK; and the residual open question is the "
+            "spin convention, not the geometry -- see [spin_state]. "
             "A0 measures the "
             "U-response of energies at frozen geometry and cannot see a "
             "U-driven geometry change; where A0 and a relaxed point disagree, "
@@ -818,9 +1156,19 @@ def main():
             "MEASURED CONSTRAINT: the Ru/Ir columns are nspin=1 nonmagnetic by "
             "construction, while gate (h) measured 4/4 ADOPT_AFM on the RuO2 "
             "anchors with 0.033-0.064 eV adsorption-energy movement (AFM re-run "
-            "owed, S0(h)). Margins smaller than that class -- the U <= 4.5 "
-            "ordering rows and the Ir flip bracket's low edge -- are "
-            "spin-state-conditional. Cr, Mn and Fe run nspin=2, so any "
+            "owed, S0(h)). WAVE-5 CORRECTION -- an earlier version of this "
+            "sentence enumerated the affected margins as the U <= 4.5 "
+            "ordering rows and the Ir flip bracket low edge; that list was "
+            "both incomplete and wrong at the edge it named. Measured, the "
+            "margins at or under the 0.064 eV top of that class are: A7.3 Ru, "
+            "15.5 meV short of the floor, which alone would turn A7.3 from "
+            "NOT MET into CONFIRMED; A7.2 Ru at U = 9.0, pls margin 44.3 meV, "
+            "which is the entire basis of Ru membership in the flip census; "
+            "and the Ir flip bracket HIGH edge (U = 4.5, 44.6 meV), not the "
+            "low edge (U = 3.0, 93.7 meV, which is above the class top). "
+            "Every one of those is spin-state-conditional against an nspin=1 "
+            "column, and the owed AFM re-run acts on the RuO2 anchors that "
+            "carry two of the three. Cr, Mn and Fe run nspin=2, so any "
             "3d-vs-anchor comparison additionally crosses spin treatments; "
             "Fe's s0_OOH column runs at the pilot-selected starting guess "
             "(mag 0.1, the relax branch -- manifest tranche_2b; the 0.5 "

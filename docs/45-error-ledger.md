@@ -19,15 +19,15 @@ deposit. This ledger tracks what exists and what is owed.
 |---|---|---|---|---|---|---|
 | 1 | Symmetry trap (mirror-plane saddle) | 0.291 V on Ir η (1x1); collapses to −0.018 eV at 2x1v half-coverage (verified from raw outputs 2026-08-16). **Cr 2x1v, 0.5 ML (block 1C, 2026-08-23): an out-of-plane H-carried imaginary mode at i244.7 / i242.8 cm⁻¹ at δ = 0.01 / 0.02 Å — reproducible to 0.8 %, 37 SCFs in one basin at conv_thr 1e-10; H y-curvature negative and quadratic in δ. Analyzer verdict UNDERPOWERED (δ 0.01) / VOID (δ 0.02) because its σ_F is propagated from H−Hᵀ, which here is the forward-difference anharmonic (y,xz) block (doubles exactly with δ), not force noise (measured 2e-7 Ry/bohr from mirror identities). Instrument question ADOPTED 2026-08-23 (docs/43 A8.7, DOI 10.5281/zenodo.22072991): σ_F = mirror-identity reading (b), Q4b demoted to reported; re-scored docs/49 §7 — CONFIRMED at both δ against the i50 floor, reading-(a) label (UNDERPOWERED/VOID) carried alongside** | MEASURED, coverage-conditional | 1C Hessian i167 cm⁻¹ (Ir 1x1); **docs/49 (Cr 2x1v)**; runs/probe/*_cellsym; round-2 synthesis provenance header | P-SYMCOV (A8, owed); **σ_F estimator + am.2/Q4 collision (drafted as docs/47 §A8.7 2026-08-23; entrant's re-authoring owed)** | S3 |
 | 2 | Magnetic multistability (basin set at step 1, dragged by pot_extrapolation) | 175 meV Cr *OOH; −405 meV Co *OH; 1.86 µB / −1.19 eV Cr *OOH off-arm confound. **Same-machine, run-to-run (2026-08-22, docs/46): one Cr *OOH deck, two Anvil runs bit-identical at SCF iteration 1, converged to M = 11.00 and 14.90 µB, 8.29 meV apart — not reproducible on a fixed platform; GATE-1 children above their parents by 8.29 / 47.77 meV are this** | MEASURED (in-house); prevalence TRANSFERRED (Fahmy >7,843 MP entries, arXiv:2509.05909) | GATE-1 audits; docs/41; **docs/46 panel + addendum** | A5 spin-seed rules; A8 (owed — basin CONFOUND rule drafted docs/47 §A8.3) | S3 + S0(h) |
-| 3 | Estimator bias (η = max − mean exactly, ≥0 by construction, under imposed 4.92 eV) | exact identity; excess vanishes at pls crossing; Cr production U 7 meV from a crossing | MEASURED (algebraic + curves) | LIT-1 ladder; round-2 §6 item 4 | P-PLS (A7, owed) | S6 |
-| 4 | Projector pairing (atomic vs ortho-atomic at same U) | +1.45 eV in U value; η consequence BLIND | NOT MEASURED (fires this week) | build history; Xu Table 1 | P-PROJ (A7, owed) | S0(e) |
+| 3 | Estimator bias (η = max − mean exactly, ≥0 by construction, under imposed 4.92 eV) | exact identity; excess vanishes at pls crossing; Cr production U 7 meV from a crossing | MEASURED (algebraic + curves) | LIT-1 ladder; round-2 §6 item 4 | **P-PLS (A7.2) SCORED 2026-08-29: CONFIRMED, 5 of 6 metals flip (Cr, Fe, Ir, Mn, Ru); Ti flat. Robustness banked: Fe and Ru rest on a SINGLE row each, inside a measured error class, so the >=3 threshold is carried by exactly 3 robust members (Cr, Ir, Mn) with zero margin** | S6 |
+| 4 | Projector pairing (atomic vs ortho-atomic at same U) | +1.45 eV in U value; **η consequence MEASURED: 0.4869 V at Xu's Cr U** | **MEASURED — docs/figs/pproj_readout.json verdict FIRES; the A0 readout uses it to stamp PROJECTOR-MISMATCHED on every Xu-anchor row and exclude them from the A6.3 test (a0main_readout.py)** | build history; Xu Table 1; pproj_readout.json | P-PROJ (A7) FIRED | S0(e) |
 | 5 | Convergence-failure selection (unconverged states silently dropped) | Co *OOH 4 failures, Ni *OOH 5 | MEASURED as counts; rate now a registered budget row | run logs | A8 (owed) | S3 |
 
 ## B. Known-but-unpriced errors (the field knows; nobody prices them)
 
 | # | Class | Size | Status | Evidence | Governed by | Addressed in |
 |---|---|---|---|---|---|---|
-| 6 | Hubbard-U fragility | 1.12 V on η(Cr); 1.11 eV descriptor span; 0.447 eV intercept span | MEASURED (4-pt ladder; dense grid owed) — **fired P7, withdrew the headline** | docs/41 P7; LIT-1 memo (+ 2026-08-16 correction of record: undoped) | P-FLOOR-U (A7, owed); A6 | S4 (A0) |
+| 6 | Hubbard-U fragility | 1.12 V on η(Cr); 1.11 eV descriptor span; 0.447 eV intercept span (4-pt ladder) — **dense grid now measures Cr's intercept span at 0.687 eV over U = 0 → 9** | **MEASURED — dense grid CLOSED 2026-08-29 at 6 metals; P-FLOOR-U (A7.3) SCORED: NOT MET at 3 of 6 vs registered ≥4. Read with a7_3.conditionality: the 3-over/3-under split is exactly the nspin=2/nspin=1 partition, and Ru is 15.5 meV from flipping the verdict — inside the still-open NM-vs-AFM class (33–64 meV) whose re-run is owed** — **fired P7, withdrew the headline** | docs/41 P7; LIT-1 memo (+ 2026-08-16 correction of record: undoped) | P-FLOOR-U (A7, owed); A6 | S4 (A0) |
 | 7 | Coverage / cell (identical variables in one-cus-site 1x1) | 7/9 rows > 0.10 eV (1A; corrected 2026-08-23 from “6/9” — deposited A8.1 docs/43:1514 “7 of 9”, cellsym_readout.json cell rows 7 EXCEEDS / 2 WITHIN; docs/54 §6 item 15); Ir *OOH −0.285 → −0.018 eV | MEASURED (1A) → crossed design owed | docs/43 1A verdict ADOPT_2X1V | A8 (owed) | S3 contrast leg |
 | 8 | XC functional | not yet measured here | NOT MEASURED (gated on S0(a) four-deck test) | — | A10 (owed, Sep 18) | S5, "XC only" row |
 | 9 | Solvation | ~0.3 eV in c_M at O coverage vs ~0.1 at OH (Gauthier, read from paper) | TRANSFERRED — never measured here; registered as the non-additivity prediction | 10.1021/acs.jpcc.7b02383 | **A8 (docs/47 A8.2 carries it as an appendix prediction, 2026-08-23; A9 was the fallback)** | zero-compute registration |
@@ -75,7 +75,7 @@ Wander/Kitchin, OC22 symmetry arm, MOOH phases, MLIP fine-tuning).
 | S1 | silentgate v0.1: entrant-written core, pluggable readers, CI controls | A9 (**DEPOSITED 2026-08-23**, DOI 10.5281/zenodo.22072991) | **UNBLOCKED 2026-08-23** — no longer blocked on A9; now gated only on the entrant-written core (A9.1 authorship boundary). AI-permitted here: tests, fixtures, CI workflow, packaging metadata |
 | S2 | external census: Xu 810 lock/direction map, span_U halves, Divanis delta-curve, pymatgen+atomate paired audit; literature-coding audit RESTORED | A9 (**DEPOSITED 2026-08-23**, DOI 10.5281/zenodo.22072991) | **UNBLOCKED 2026-08-23.** A9.7 post-DOI acts 1-3 DONE same day (zip 6,989/6,989 blobs + 815/815 SHA-1s; header validation 4/4 count-first on RuO2; OC20 `is2res_val_id_trajectories.tar` md5-matched, 24,945 members, first-500 drawn + sha256 manifest). **Act 4 (the census) waits on the entrant's silentgate** |
 | S3 | tier_v3 crossed coverage x symmetry x basin, 8 metals; second spin seeds RESTORED beyond *OOH-only where triage allows; dy ladder; Cr 1C + re-Hessian at escape | A8 (**DEPOSITED 2026-08-23**, DOI 10.5281/zenodo.22072991) | **LAUNCHED** — waves 1-4 + rounds 3-11 ran Aug 23-27 under the deposited protocol. Open in the deposited text: gate-(h)/AFM scope (**HOLD, 0 built**), `--bind-to`, walltime value |
-| S4 | A0 dense U grid 1x1 + Cr 2x1v cell rider RESTORED + bulk hp.x Cr+Ti RESTORED (atomic projector) + slab hp.x one relaunch under 72 h cap RESTORED | A6 + A7 (DEPOSITED) | clear after S0(e)/P-PROJ |
+| S4 | A0 dense U grid 1x1 + Cr 2x1v cell rider RESTORED + bulk hp.x Cr+Ti RESTORED (atomic projector) + slab hp.x one relaunch under 72 h cap RESTORED | A6 + A7 (DEPOSITED) | **EXECUTED — A0-main closed 2026-08-29 at 6 metals x 4 states; A6.3 INVERTED, A7.2 CONFIRMED, A7.3 NOT MET, A5.1(b) scored on its own quantities. S0(e)/P-PROJ fired and is banked** |
 | S5 | BEEF-vdW sigma, Ru/Ir/Ti; extension to +U metals if clean | A10 (owed Sep 18, gated S0(a)) | gated |
 | S6 | floor/excess, four estimators, n=7 statistics repair, P-SYMCOV scoring, r4 re-rank hook for S8 | A7 P-PLS/P-FLOOR-U + A8 | after data |
 | S7 | freeze, figure pack, pre-submission assertions; arXiv preprint RESTORED as post-freeze option | — | Oct 8–15 |
@@ -2142,10 +2142,25 @@ saddle-conditional bracket -- and Ru [7.5,9]; unrun metals can only add flips).
 as well as the 3d metals", and A7.2/A7.3 name Mn, Fe, Ti as blind metals; the
 arm as built runs Cr/Ru/Ir only. The Cr 19 / Ru 7+1 / Ir 7+1 allocation was
 chosen by the entrant 2026-08-27 with no dated amendment, against docs/43's
-own scope-change rule (:279). The readout now discloses the shortfall
+own scope-change rule (~~:279~~ — see CORRECTION below). The readout now discloses the shortfall
 (caveats.coverage_shortfall); a dated correction/amendment recording the
 roster decision is owed, and whatever stays unscored at the Oct 15 freeze is
 WITHDRAWN-UNSCORED under A7.7, not quietly dropped.
+
+> **CORRECTION 2026-08-29 (wave-5 audit).** The citation `docs/43:279` above is
+> **retracted**. Line 279 is the fourth row of the 1B hp.x internal-gate table
+> ("symmetry-equivalent perturbed atoms | agree within 0.05 eV | an inconsistent
+> projector or k-set") and says nothing about scope. The governing rule is
+> **docs/43:4-5** — "Nothing in this document may be edited after that deposit;
+> corrections go in a dated addendum at the bottom with the reason" — which is
+> what makes an undated roster change a defect. (Amendment 5 at docs/43:932 was
+> proposed as the replacement pointer and is **also wrong for this purpose**: it
+> governs the five DEFERRED literature items D3/D5/D7/D9/D10, not scope
+> generally. docs/59 §1 currently cites 932 alone; that citation is narrower
+> than the claim it supports and should read 4-5.) The underlying finding — the
+> allocation was chosen with no dated amendment — **stands unchanged**; only the
+> registration pointer was wrong. Wave-4 fixed this in docs/59 and did not look
+> for the second copy here, because its finding was scoped to that file alone.
 
 New traps for the pattern file:
 1. **A binary "X at points P" verdict hides that the points are not equally
@@ -2350,3 +2365,70 @@ New traps for the pattern file:
 Note on scope: `runs/a0/m_a0_repairs2.txt` is left exactly as launched, with
 its original header wording, because it is the record of what actually ran.
 The corrections above are made in the builder docstring, docs/59 and here.
+
+## A0 wave 5 (Ti stage 3 landed; A7.2/A7.3 closed) — 2026-08-29
+
+47-agent adversarial audit over the Ti *OOH landing and the two verdicts scored
+off its rows: 38 findings raised, 26 refuted, 7 survived, 7 more from the
+completeness critic. Five verifier agents died on API safeguards; their findings
+were re-checked by hand rather than counted as refuted. Traps 18–24 below.
+
+18. **A self-test that re-derives NUMBERS will sail over a corrupted NARRATIVE.**
+    `build_a0main_w2c.rederive()` re-derives every quantitative docstring claim
+    from disk and dies on disagreement — and it passed while the surrounding
+    prose said the *opposite* of what happened, attributing the u530 branch's
+    non-convergence to the sibling that converged. The corruption was introduced
+    by *applying trap 16's correction*: a two-line string replacement collapsed
+    into `"converged in 202 s andscillated"`. Guard: after applying a text
+    correction, **re-read the replaced span**. The edit succeeding is not
+    evidence the result is well-formed, and a numeric self-test will not catch it.
+
+19. **A registered threshold applied to the wrong quantity still looks
+    registered.** A5.1(b) leg 2's 0.20 eV floor is a **G_max gap**
+    (docs/43:958-964); the readout applied it to `eta(Ir) - eta(Ru)` and never
+    evaluated leg 1 at all. Because the *number* was registered, nobody re-read
+    what it was registered **on**. Scoring it correctly reversed the shape of the
+    finding: legs 1+2 pass exactly where the ordering INVERTS (U ≥ 4.5) and fail
+    exactly where it "holds", so the banked sentence "the ordering was never
+    positively resolved at any measured U" was withdrawn. Guard: when quoting a
+    registered threshold, quote the **quantity** in the same breath.
+
+20. **A verdict that is a bare count can hide a perfect confound.** A7.3 scored
+    3 of 6 over the floor. The 3 over are *exactly* the 3 nspin=2 decks; the 3
+    under are *exactly* the 3 nspin=1 decks. A count cannot show that, and the
+    status field read as settled while Ru sat 15.5 meV from flipping the verdict
+    — inside a measured, still-open error class (33–64 meV) whose re-run is owed.
+    Guard: bank the partition and the distance-to-threshold beside any count.
+
+21. **Bypassing the canonical path silently drops the side effect that path
+    owns.** `build_a0main_w3b` wrote a probe deck through `write_probe` instead
+    of `cmd_build`, which is the only code that appends to `probe_manifest.json`.
+    The state that DECIDES A7.3 was therefore invisible to `probe_eta.py` and
+    escaped GATE 1 entirely, while a live script printed "No variant has a
+    complete slab + OH + O + OOH set yet" with the converged output on disk.
+    Guard: if you bypass a builder, enumerate its side effects and reproduce them.
+
+22. **"Not emitted by X" is vacuous when nothing is emitted by X.** A hand-written
+    caveat isolated the Ti *OOH provenance as "the only geometry not emitted by
+    `gen_rutile.py`" — but `gen_rutile.py` emits 6-atom bulk SCF cells and no
+    slab or adsorbate at all, so the sentence was true of every row and isolated
+    nothing. The real module is `qe_slab.py`, placement in
+    `hea_oer/surfaces_rutile.py`. Guard: a uniqueness claim needs the negative
+    case checked, not just the positive one.
+
+23. **A fixed defect can recur in a sibling path that never inherited the fix.**
+    `surfaces_rutile.adsorbate_starts` documents *OOH left desorbed on Mn, Fe and
+    Ni in the 2026-07 campaign and exists as the remedy, with registered pull-in
+    distances `PULL_TO = (1.70, 2.10)`. The MACE screening path uses it; the DFT
+    deck path (`qe_slab.py`) calls single-start `add_oer_adsorbate_at` and never
+    inherited it — which is why TiO2 *OOH failed twice at ~3.2 Å. The repair
+    anchor (1.7819 Å) landed inside the registered `PULL_TO` window, i.e. the
+    campaign's own remedy re-derived by hand. Guard: when a defect recurs, grep
+    for an existing fix before building a new one.
+
+24. **A fragility test must ask what happens if the row is REMOVED.** The first
+    version of the A7.2 census-robustness check flagged any pls value occurring
+    exactly once, which marked Mn fragile — but Mn has three distinct pls values,
+    so losing any one still leaves a flip. Membership rests on a single row only
+    when there are exactly two pls values and one is a singleton (Fe, Ru).
+    Guard: test the counterfactual, not the shape.

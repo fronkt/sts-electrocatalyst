@@ -15,9 +15,10 @@ density as `startingpot`; (ii) halve the mixing beta; (iii) failing both,
 the point is recorded NOT_CONVERGED and plotted as a gap".
 
 Rung (i) ran as array 20204306 task 2: seeded from dens/s0_O__u530.save, it
-O. Its sibling, u300 seeded from u150, converged in 202 s andscillated between ~1e-4 and ~8e-2 Ry for most of its 200 iterations and only settled to ~1.2-4e-5 Ry over the final ~17, never reaching conv_thr 1e-6, with totmag pinned at 21.98 throughout
-landed at totmag 22.90.
-
+oscillated between ~1e-4 and ~8e-2 Ry for most of its 200 iterations and only
+settled to ~1.2-4e-5 Ry over the final ~17, never reaching conv_thr 1e-6, with
+totmag pinned at 21.98 throughout. Its sibling, u300 seeded from u150,
+converged in 202 s and landed at totmag 22.90.
 WHY u450 IS THE HARD ONE. The measured s0_O moment along the ladder:
 
     u000 18.91 | u150 21.36 | u300 22.90 | u450 ????

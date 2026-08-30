@@ -8,10 +8,18 @@ any tranche-2/3 job ran, which is the property that matters.
 
 ## 1. What went wrong (the correction proper)
 
-docs/43:932 (Amendment 5) sets the scope rule: changes happen "only through its
-own dated amendment." (An earlier draft of this document cited docs/43:279, which
-is a row of the 1B hp.x internal-gate table and says nothing about scope -- corrected
-2026-08-29 after the wave-4 audit.)
+docs/43:4-5 sets the rule this correction rests on: "Nothing in this document may
+be edited after that deposit; corrections go in a dated addendum at the bottom with
+the reason." Amendment 5 (docs/43:932) says changes happen "only through its own
+dated amendment", but its subject is the five DEFERRED literature items
+(D3/D5/D7/D9/D10), so it is narrower than the claim made here and is cited only as
+supporting language. (Two earlier pointers are retracted: this document first cited
+docs/43:279, a row of the 1B hp.x internal-gate table that says nothing about scope
+-- corrected 2026-08-29 after the wave-4 audit; the replacement pointer 932 was
+itself too narrow and is corrected here, 2026-08-29, after the wave-5 audit. The
+finding is unchanged in both cases -- the roster allocation was chosen with no dated
+amendment -- only the registration pointer moved. The same retraction is recorded at
+the ledger's own copy, docs/45 "A0 wave 3".)
 A6.1(a) registered A0-main's range (0–9 eV), cell (1×1), calculation (fixed-geometry
 SCF), metal set ("Ru and Ir as well as the 3d metals", A6.3:1244) and scale (~140 SCFs),
 but **not a step**. On 2026-08-27 the entrant chose the allocation **Cr 19 / Ru 7+1 /
