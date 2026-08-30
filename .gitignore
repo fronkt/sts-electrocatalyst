@@ -37,3 +37,11 @@ docs/research/papers/*.pdf
 # next to each deck). The sources of record are the committed .in decks; these are
 # machine artifacts pulled back with output rsyncs. Never bankable.
 *.run.in
+
+# projwfc.x projection bodies. The registered Lowdin artifact is the few-kB
+# `<job>.lowdin.txt` extract (A6.5(1)); the full `.projwfc.out` bodies and the
+# per-orbital pdos files are ~25-54k lines each and are retained on Anvil beside
+# their decks, not in git. This rule encodes the 2026-08-28 banking choice so a
+# bulk `runs/` add cannot silently reverse it.
+*.projwfc.out
+*.pdos_atm*
