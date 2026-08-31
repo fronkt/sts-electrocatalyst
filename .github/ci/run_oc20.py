@@ -69,8 +69,9 @@ $S1_OC20_MECHANISM is not set, so the OC20 control did not execute.
    commit on which the OC20 job did not execute is not green."
 
   To elect (a):  write the dated line, publish the 500-file sample as a release
-                 asset, then set repository variable S1_OC20_MECHANISM=release-asset
-                 and S1_OC20_ASSET_URL=<url of the archive>.
+                 asset, then set repository variables S1_OC20_MECHANISM=release-asset,
+                 S1_OC20_ASSET_URL=<url of the archive> and
+                 S1_OC20_ASSET_SHA256=<its sha256> (:1868 "sha256-pinned").
   To elect (b):  write the dated line, register the STS machine as a self-hosted
                  runner, then set S1_OC20_MECHANISM=self-hosted and
                  S1_OC20_SAMPLE_DIR=<directory holding the 500 files>.
@@ -175,6 +176,19 @@ def main():
         if not url:
             return finish(args.out_json, NOT_MEASURED,
                           "S1_OC20_MECHANISM=release-asset but S1_OC20_ASSET_URL is unset")
+        # :1868 registers mechanism (a) as a "sha256-pinned release asset ... and
+        # the workflow downloads and hash-checks it". Verifying the 500 members
+        # afterwards is strictly stronger, but the archive pin is what is
+        # registered: an unpinned election refuses before anything is fetched,
+        # and a pin mismatch fails before anything is unpacked.
+        pin = os.environ.get("S1_OC20_ASSET_SHA256", "").strip().lower()
+        if not pin:
+            return finish(
+                args.out_json, NOT_MEASURED,
+                "S1_OC20_MECHANISM=release-asset but S1_OC20_ASSET_SHA256 is unset. "
+                ":1868 registers the asset as sha256-PINNED and the workflow as "
+                "hash-checking it; an unpinned download is not that mechanism.",
+            )
         sample_dir = os.environ.get("S1_OC20_SAMPLE_DIR", "").strip() or os.path.join(
             ROOT, ".oc20-sample")
         os.makedirs(sample_dir, exist_ok=True)
@@ -183,6 +197,14 @@ def main():
         if rc != 0:
             return finish(args.out_json, NOT_MEASURED,
                           "download of the release asset failed (curl rc=%d): %s" % (rc, url))
+        got = sha256_file(archive)
+        if got != pin:
+            return finish(
+                args.out_json, NOT_MEASURED,
+                "the release asset does not match its pin: expected %s, got %s. "
+                "The draw is fixed (:1854); a mismatch is a transport failure to "
+                "fix, never a reason to re-draw." % (pin, got),
+            )
         rc = subprocess.run(["tar", "-xf", archive, "-C", sample_dir]).returncode
         if rc != 0:
             return finish(args.out_json, NOT_MEASURED,

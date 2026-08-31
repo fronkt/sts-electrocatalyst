@@ -63,6 +63,7 @@ jobs:
         env:
           S1_OC20_MECHANISM: ${{ vars.S1_OC20_MECHANISM }}
           S1_OC20_ASSET_URL: ${{ vars.S1_OC20_ASSET_URL }}
+          S1_OC20_ASSET_SHA256: ${{ vars.S1_OC20_ASSET_SHA256 }}
           S1_OC20_SAMPLE_DIR: ${{ vars.S1_OC20_SAMPLE_DIR }}
         run: python .github/ci/run_oc20.py --out-json oc20-status.json
       - name: Publish the OC20 status
