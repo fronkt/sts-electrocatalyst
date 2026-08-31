@@ -880,3 +880,40 @@ ranking would contaminate the campaign's central contribution.
   keeps the registered number, fixes the justification; vs 0.026 fixed-geom); the s0_O
   flat-moment finding is new evidence for the docs/59 §3c discussion; docs/61 item 10 (Ru AFM
   probe, both U endpoints) remains the only live path to A7.3.
+
+## 2026-08-31 launch-readiness session (plan)
+
+All scored compute is entrant-gated (docs/59 §3c uncountersigned; docs/61 decisions 1-4 open;
+item 10 open). Anvil queue EMPTY, 69,783.7 SU. Plan: submit NOTHING; make every arm launch-ready.
+
+- [x] CI: S1_OC20_ASSET_SHA256 pin FINISHED + hardened (pin-unset now refuses BEFORE the
+      download; verbatim-quote discipline vs docs/43:1868). All 5 registered paths + 5
+      adversarial variants proven locally; silentgate suite 46 passed / 7 skipped (the
+      docs/57 §7 baseline). Verify verdict CLEAN, 0 edits needed.
+- [x] Stage-1 A0-SPIN decks: 20 built (10 Ru + 10 Ir; s0_OH/s0_OOH × u000/u900 × proposed
+      seeds, minus the 4 banked Stage-0 u000-sp050 rungs) by src/dft/build_a0spin_s1.py
+      under A1–A12 + S1-a..g; manifest runs/a0/m_a0spin_s1.txt (4-field row grammar,
+      md5s as header comments). Ti hard-refused pending §3c. Verify CLEAN: every deck =
+      exactly prefix-line + (1+ntyp) inserted lines vs parent; determinism re-proven. NOT submitted.
+- [x] Ru AFM probe: 4 decks ({s0_OH,s0_OOH} × {AFM,NM} @ U=9.0, 2×1v NM-relaxed fixed
+      geometry; U=0 legs banked, not re-run) by src/dft/build_ru_afm_probe.py; manifest
+      runs/s0/m_h_afm_probe.txt with a QUESTION-FOR-THE-ENTRANT (the 4-SCF enumeration is
+      DERIVED; geometry choice is a live option). AFM HUBBARD card names BOTH sublattice
+      labels (Ru1/Ru2). Verify CLEAN. NOT submitted.
+- [x] Löwdin extractor: src/dft/extract_lowdin.py + tests/test_extract_lowdin.py; both
+      nspin shapes, validated over all committed Stage-0 *.projwfc.out; nothing written
+      under runs/ (registered ordering: extract only after the commit). Verify FIXED
+      (one --check --report KeyError on a mismatching artifact — fixed).
+- [x] docs/65-decision-sheet-2026-08-31.md: 19 rows + 3 FYI — every owed signature
+      (docs/59 both acts incl. §3c; docs/61 items 1–12; docs/62 §9; A7.7; A7.5 Mn arm;
+      Ti nspin=2 question; deposit vehicle), each with the one dated line that discharges
+      it; SU arithmetic re-derived (76 gated SCFs ≈ 380–1,420 SU ≈ 0.5–2% of balance).
+      Citation-audited adversarially (5 findings, all fixed at assembly). Assets section filled.
+- [x] Assembly done 2026-08-31: 15-agent workflow (recon→build→verify × 5 tracks),
+      0 agent errors; committed per-deliverable + pushed.
+
+### Review — what the entrant should read first
+docs/65 top-to-bottom, then sign rows in the critical-path order it opens with:
+Row 1 (docs/59 §3c — gates Ti, the arm's most informative half, docs/62 §6) →
+Rows 3–5 (Stage-1 Ru/Ir submit) → Row 15 (the ONLY deck set that acts on A7.3).
+The queue is empty and every deck is pre-staged: each signature is ≈20–370 SU from data.
