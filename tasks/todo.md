@@ -938,10 +938,30 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
       docs/66 §2; the grant stands]` (or override any docs/66 row). Ti submits then.
 - [ ] Zenodo deposit (OWN VERSION NOW, new version off id 22072991, restricted) →
       DOI lines filled in docs/59 §5 + docs/43 A11.R5, with per-file manifest
-- [ ] builders: Ti Stage-1 (12), Ti re-read slab/s0_O (12), probe robustness (6),
-      CMF seed search (28), Family C slab/s0_O (20), Mn order (4); pipeline guards
-      (licence-grep + EXCLUDE-check on all five array submitters 41/43/45/47/49);
-      a7_3_spin census readout script
-- [ ] submit wave A + non-Ti wave B after the deposit; EXCLUDE = manifest list +
-      a120 + a200; Ti families wait on Frank's confirmation line, then s0_OH@u900
-      first among Ti; record array IDs here at bank time
+- [x] builders + decks DONE 2026-08-31 (commit f4ba6e9): 74 new decks / 6 families
+      — Ti S1 12 (m_a0spin_s1_ti.txt, s0_OH@u900 rows first, nk 8 = the banked Ti
+      convention, deviation flagged), re-read Ru/Ir 20 (m_a0spin_reread.txt, Ir
+      slab rows carry the Row-7 contingency comment) + Ti 12 (m_a0spin_reread_ti),
+      CMF 28 (m_cmf_seed_search), probe robustness 6 (m_h_afm_robust), Mn AFM
+      order 4 (m_mn_afm_order); shared licence gate src/dft/a0spin_ti_licence.py;
+      fail-closed guards on all five submitters (41/43/45/47/49, full refusal
+      matrix proven vs a stubbed sbatch); a7_3_spin census readout + 16 tests.
+      EVERY family independently adversarially verified (4 CLEAN, Ti-families
+      FIXED: the S1 builder's stale header repaired, 21/21 byte-identical again).
+      Suite 210 passed / 8 skipped.
+- [x] STAGED TO ANVIL 2026-08-31: 119 files (all decks + manifests + guarded
+      submitters + the 2 relicensed manifests) tar→scp→extracted at
+      /anvil/projects/x-che260157/sts; per-file md5 ALL_119_FILES_MATCH both
+      ends; submitters chmod +x, bash -n clean remotely; PARITY_PASS present.
+      NOTHING SUBMITTED — A11.R5 gates every deck on the deposit publishing.
+- [ ] AFTER Frank publishes the deposit (zenodo.org/deposit/22213117): fill DOI
+      lines (docs/59 §5 + docs/43 A11.R5, per-file manifest from
+      docs/deposits/2026-08-31-A11.manifest.txt + real record values), commit,
+      then submit on Anvil from /anvil/projects/x-che260157/sts with
+      EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a120,a200:
+      wave A = m_a0spin_s1.txt (47_submit_a0.sh) + m_h_afm_probe.txt (queue_r1
+      consumer per its header); non-Ti wave B = m_a0spin_reread.txt +
+      m_cmf_seed_search.txt (47) + m_h_afm_robust.txt + m_mn_afm_order.txt
+      (queue_r1 consumer). Record array IDs here at bank time.
+- [ ] AFTER Frank's [§3c CONFIRMED …] line additionally: submit
+      m_a0spin_s1_ti.txt (s0_OH@u900 rows lead) + m_a0spin_reread_ti.txt.
