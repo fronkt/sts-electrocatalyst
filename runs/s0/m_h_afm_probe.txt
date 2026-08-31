@@ -1,0 +1,70 @@
+# NOT LICENSED FOR SUBMISSION — docs/61 decision item 10 (the entrant) is OPEN. Recorded either way; does not enter the A7.3 score. Both-U-endpoint AFM/NM probe on the gate-(h) recipe.
+# Ru AFM probe, U = 9.0 endpoint -- 4 decks built by src/dft/build_ru_afm_probe.py
+# (deterministic; parent and deck md5s below). Do NOT stage or submit while item 10 is open.
+#
+# The 4 SCFs = {s0_OH, s0_OOH} x {AFM, NM} at U = 9.0 eV, fixed geometry, 2x1v cell, on the
+# NM-relaxed OFF-arm final BFGS geometries the banked gate-(h) family used (h_afm_anchor
+# README; P11 limit (ii)). DERIVED enumeration -- item 10 gives only '4 SCFs, gate-(h)
+# recipe'; see QUESTION-FOR-THE-ENTRANT below. The U = 0 endpoint is BANKED, not re-run:
+#   AFM  runs/s0/h_afm_anchor/{s0_OH,s0_OOH}__2x1v_off__afm.out   -3304.20342621 / -3345.68881990 Ry
+#   NM   runs/probe/Ru_cellsym/{s0_OH,s0_OOH}__2x1v_off.out final BFGS  -3304.19715356 / -3345.68064313 Ry
+#   dc_M(0) = -25.91 meV (docs/63 section 4; re-derived from these pins at build time).
+# Deliverable: D_M = dc_M(9.0) - dc_M(0), dc_M(U) = [E_AFM(OOH,U)-E_AFM(OH,U)] -
+# [E_NM(OOH,U)-E_NM(OH,U)]; slab and gas references cancel in c_M (docs/61 A11.1), so only
+# *OH/*OOH run; s0_O is excluded by design (measured flat-moment instability, docs/64 s4).
+#
+# Parentage (each child from the committed parent of its OWN magnetic class):
+#   AFM children <- runs/s0/h_afm_anchor/<state>__2x1v_off__afm.in; diff = prefix line +
+#     appended 3-line HUBBARD card ONLY (parent already calculation='scf' -- no calc change).
+#   NM children  <- runs/probe/Ru_cellsym/<state>__2x1v_off.in (a RELAX deck); diff = prefix
+#     line + calculation 'relax'->'scf' + moving-atom coordinates refreshed to that parent's
+#     OWN .out final BFGS values (frozen '0 0 0' rows byte-identical; coordinate strings
+#     asserted equal to the AFM twin's to <= 2e-8 A, so the pair is coordinate-identical) +
+#     appended 2-line HUBBARD card. Parent max_seconds kept verbatim (134525 /
+#     274431 s -- inert runner machinery for an SCF).
+# HUBBARD card read from EACH DECK'S OWN ATOMIC_SPECIES (build_a0spin read-it-from-the-deck
+#   rule): the AFM decks split Ru into TWO labels, so their card carries BOTH
+#   'U Ru1-4d 9.0000' AND 'U Ru2-4d 9.0000' -- QE raises no error for a U-less species; a
+#   one-label card would silently leave the other sublattice at U = 0. NM decks carry the
+#   single 'U Ru-4d 9.0000' (syntax precedent runs/a0/main/Ru/s0_OH__u900.in).
+#
+# Scoring at landing: gate-(h) recipe exactly (h_afm_anchor README) -- converged iff
+#   'convergence has been achieved' >= 1 AND 'convergence NOT achieved' == 0 AND a final '^!'
+#   line exists (success is NEVER 'JOB DONE' alone); E = last '^!'; totmag/absmag = last
+#   printed pair; meV = dRy * 13605.693122994. Guards (adapted docs/61 A11.7): (1) k-count/
+#   symmetry match NM-vs-AFM at U=9 (expect 16/16, 'No symmetry found' both); (2) E_AFM vs its
+#   NM twin recorded either way (no adoption rule exists for this probe); (3) branch
+#   continuity vs the banked U=0 moments (OH totmag/absmag -1.21/3.85, OOH -0.24/4.79) --
+#   collapse or sign flip marks D_M branch-conditional. Context, NEVER a score: Ru sits
+#   15.5 meV from the A7.3 floor; crossing would need dc_M(9.0) <= -41.4 meV
+#   (docs/figs/a0main_readout.json) -- item 10 says the probe does not re-score A7.3 either way.
+#
+# QUESTION-FOR-THE-ENTRANT (genuine reading ambiguity -- decide when electing item 10):
+#   docs/61 item 10 names only '4 SCFs, gate-(h) recipe'; the enumeration above is DERIVED
+#   (any other assignment duplicates banked rows, cannot form D_M, or crosses cell/k/symmetry
+#   treatments), and 'both U endpoints' is docs/63 s4.3 / docs/64 s3 wording, not item 10's.
+#   ALTERNATIVE READING: since docs/64 the AFM-RELAXED OH/OOH geometries exist
+#   (runs/s0/h_afm_relax), and the probe could run on those instead -- that reading pairs with
+#   dc_M(0) = -32.5 meV (docs/64 s2), re-opens which NM comparator is like-for-like, and needs
+#   BOTH endpoints rebuilt consistently on the new geometry. These decks implement the
+#   NM-relaxed reading (the recipe as banked). Electing item 10 should countersign the
+#   enumeration and the geometry choice (or direct a rebuild), and settle the docs/61 A11.11
+#   deposit question for this probe (own dated docs/43 line vs inside the A11 deposit).
+#
+# Parent md5s (each byte-identical to its committed blob at HEAD, asserted):
+#   46078a2895e0b505c359a34039ee824f  runs/s0/h_afm_anchor/s0_OH__2x1v_off__afm.in
+#   2ec32ad6d67c00c990c91432a8308496  runs/s0/h_afm_anchor/s0_OOH__2x1v_off__afm.in
+#   7c374255d94937e7c7f9618bfe0a33d2  runs/probe/Ru_cellsym/s0_OH__2x1v_off.in
+#   30d59ff50ba3168bc9ab5aee4e53997c  runs/probe/Ru_cellsym/s0_OOH__2x1v_off.in
+# Deck md5s (build is deterministic; double-build verified):
+#   2cd8f53740f44c169769b34e5c0429a2  s0_OH__2x1v_off__afm__u900.in
+#   0e2e8eaecba8eafbed736b6f065cf285  s0_OOH__2x1v_off__afm__u900.in
+#   e1ccb72f3a6f06cc69eb64436eee9bdc  s0_OH__2x1v_off__u900.in
+#   1fdb791c3a8043239e7d30e88e53a8f0  s0_OOH__2x1v_off__u900.in
+# 4-field rows for queue_r1.sh (dir job suffix nk); nk = 4 per the h_afm_anchor README runner
+# note (4 4 1 + nosym/noinv -> 16 k >= 12; NP an exact multiple of 4). If routed through the
+# Anvil m_h_afm_relax.txt consumer instead, that file's 2x1v adsorbate convention is nk = 8.
+s0/h_afm_probe s0_OH__2x1v_off__afm__u900 .in 4
+s0/h_afm_probe s0_OOH__2x1v_off__afm__u900 .in 4
+s0/h_afm_probe s0_OH__2x1v_off__u900 .in 4
+s0/h_afm_probe s0_OOH__2x1v_off__u900 .in 4
