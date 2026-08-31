@@ -1,0 +1,61 @@
+# A0-SPIN STAGE 1 -- Ru + Ir production seed ladders (20 decks). Built
+# 2026-08-31 by src/dft/build_a0spin_s1.py -- READ ITS DOCSTRING, the
+# build_a0spin.py docstring (assertions A1-A12), and docs/61 (Amendment 11).
+#
+# STAGE 1 — NOT LICENSED FOR SUBMISSION. docs/61 decisions 1-4 (headline census election, seed set + tolerances, P-SPIN-DELTA thresholds, docs/59 §3c countersignature) are OPEN. Seed set below is the PROPOSED set of docs/61 §A11.6 and is rebuilt trivially if re-authored. Ti is refused by this builder until docs/59 §3c is countersigned.
+#
+# 10 Ru rows then 10 Ir rows (docs/61 §A11.10 Ru-first sequencing).
+# States s0_OH/s0_OOH only -- slab + s0_O are held (docs/61 decision item 8).
+# U endpoints u000/u900 only -- the Xu anchor rungs u673 (Ru) / u591 (Ir)
+# are registered-excluded (docs/61 §A11.2).
+# Ti is ABSENT pending the docs/59 §3c countersignature (docs/61 decision 4).
+# The 4 u000-seed-0.50 rungs are INHERITED FROM STAGE 0, banked at
+# runs/a0/spin/{Ru,Ir}/{s0_OH,s0_OOH}__u000__sp2m050.{in,out} -- not rebuilt
+# and not rows here.
+#
+# deck md5s (an independent rebuild must reproduce these byte-for-byte):
+# md5 b7788fd487a210f11e1cae31dcbd7738 a0/spin/Ru/s0_OH__u000__sp2m010.in
+# md5 bf8fba287ffac6e2d87b9005026622e3 a0/spin/Ru/s0_OH__u000__sp2m030.in
+# md5 9c8e0a5d1953f23bd36932a658a01566 a0/spin/Ru/s0_OH__u900__sp2m010.in
+# md5 40eefab8433e3664abe932928d4a6285 a0/spin/Ru/s0_OH__u900__sp2m030.in
+# md5 582e2069b6a445c79376abe3d27a2406 a0/spin/Ru/s0_OH__u900__sp2m050.in
+# md5 813968cb800ba57cedcba6f8fa699339 a0/spin/Ru/s0_OOH__u000__sp2m010.in
+# md5 363a0add7b9fe946f529d429b295b86f a0/spin/Ru/s0_OOH__u000__sp2m030.in
+# md5 4fb324d2d62ee4ddce2bd4e463700d63 a0/spin/Ru/s0_OOH__u900__sp2m010.in
+# md5 6561a4ee0cd4ef55ff4b2ccfa1835edb a0/spin/Ru/s0_OOH__u900__sp2m030.in
+# md5 2cdd45a077f7a723ad4f1571e88d585c a0/spin/Ru/s0_OOH__u900__sp2m050.in
+# md5 ab96688fd718f7bd202d41e0735be1ac a0/spin/Ir/s0_OH__u000__sp2m010.in
+# md5 9d35eaa1942e96ad3c26ba033442070e a0/spin/Ir/s0_OH__u000__sp2m030.in
+# md5 c0bf4d28c144c968693745cc456d97ca a0/spin/Ir/s0_OH__u900__sp2m010.in
+# md5 369c2a0c95e6896c385deeae39eba7b1 a0/spin/Ir/s0_OH__u900__sp2m030.in
+# md5 e49158c006dc7ff63ead435fa5303317 a0/spin/Ir/s0_OH__u900__sp2m050.in
+# md5 38f35516a3d5f644157d9ca181d6ee3d a0/spin/Ir/s0_OOH__u000__sp2m010.in
+# md5 2e95498e7edd16b143c3f50fbd60ec0c a0/spin/Ir/s0_OOH__u000__sp2m030.in
+# md5 6cb6c58d77a4352a81ae4111e9c19aea a0/spin/Ir/s0_OOH__u900__sp2m010.in
+# md5 32688bdceaa923822ff410bc3cacc64e a0/spin/Ir/s0_OOH__u900__sp2m030.in
+# md5 1dadb20887c8384df8e9d690f45adc62 a0/spin/Ir/s0_OOH__u900__sp2m050.in
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+a0/spin/Ru s0_OH__u000__sp2m010 .in 4
+a0/spin/Ru s0_OH__u000__sp2m030 .in 4
+a0/spin/Ru s0_OH__u900__sp2m010 .in 4
+a0/spin/Ru s0_OH__u900__sp2m030 .in 4
+a0/spin/Ru s0_OH__u900__sp2m050 .in 4
+a0/spin/Ru s0_OOH__u000__sp2m010 .in 4
+a0/spin/Ru s0_OOH__u000__sp2m030 .in 4
+a0/spin/Ru s0_OOH__u900__sp2m010 .in 4
+a0/spin/Ru s0_OOH__u900__sp2m030 .in 4
+a0/spin/Ru s0_OOH__u900__sp2m050 .in 4
+a0/spin/Ir s0_OH__u000__sp2m010 .in 4
+a0/spin/Ir s0_OH__u000__sp2m030 .in 4
+a0/spin/Ir s0_OH__u900__sp2m010 .in 4
+a0/spin/Ir s0_OH__u900__sp2m030 .in 4
+a0/spin/Ir s0_OH__u900__sp2m050 .in 4
+a0/spin/Ir s0_OOH__u000__sp2m010 .in 4
+a0/spin/Ir s0_OOH__u000__sp2m030 .in 4
+a0/spin/Ir s0_OOH__u900__sp2m010 .in 4
+a0/spin/Ir s0_OOH__u900__sp2m030 .in 4
+a0/spin/Ir s0_OOH__u900__sp2m050 .in 4
