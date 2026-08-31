@@ -852,3 +852,12 @@ ranking would contaminate the campaign's central contribution.
   (m_h_afm_g1_retry1.txt), a200 added to EXCLUDE. OH/OOH g1 children still running.
 - [ ] Consider an RCAC ticket naming a120+a200 if a fourth early OOM lands (the draft at
   anvil/rcac_ticket_draft_2026-08-24.md already exists for an earlier node issue).
+
+## 2026-08-30 GATE-1 verdicts
+
+- [x] **GATE-1 PASSES 3/3:** E_g1 − E_relax = +0.028 / −0.090 / +0.302 meV (ref/OH/OOH),
+  Δtotmag ≤ 0.03 μ_B. No BASIN_DRIFT, no A8.3, no CONFOUND. The relaxed panel incl.
+  Δc_M = −32.5 meV is now GATE-1-confirmed. Outputs pulled md5-verified and banked.
+  (ref g1 needed the 20243319 retry after the a200 OOM; completed 9m25s.)
+- [ ] **Still pending: r1 repair (20243153)** — monitor armed; converged → QC + pull +
+  s0_O g1 child; failed → rung (iii) NOT_CONVERGED recorded, family reports 3+1 gap.

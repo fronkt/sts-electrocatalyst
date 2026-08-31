@@ -65,3 +65,21 @@ parent, moving rows changed only in their three coordinate fields.
 Scoring at landing (also in m_h_afm_g1.txt's header): ≥ 5 meV below its
 relaxation → BASIN_DRIFT re-relax loop; > 1 meV above → A8.3 refusal;
 totmag > 0.1 μ_B off the relaxation's final value → CONFOUNDED.
+
+## GATE-1 verdicts (landed 2026-08-30, arrays 20243152 + retry 20243319)
+
+ref g1's first task was OOM-killed on a200 at 03:52 (the family's third
+early-phase OOM, third distinct node; evidence `.out.attempt1-oom-a200`);
+the retry completed in 9m25s. All three children converged, fresh density,
+single SCF each:
+
+| child | E_g1 − E_relax (meV) | Δtotmag (μ_B) | verdict |
+|---|---|---|---|
+| ref__..__g1    | +0.028 | +0.00 | **PASS** |
+| s0_OH__..__g1  | −0.090 | +0.02 | **PASS** |
+| s0_OOH__..__g1 | +0.302 | −0.03 | **PASS** |
+
+No BASIN_DRIFT (nothing ≥ 5 meV below), no A8.3 refusal (nothing > 1 meV
+above), no CONFOUND (all Δtotmag ≤ 0.03 μ_B). The three banked relaxed rows —
+and the relaxed Δc_M = −32.5 meV — are GATE-1-confirmed. The s0_O child stays
+deferred pending the r1 repair.
