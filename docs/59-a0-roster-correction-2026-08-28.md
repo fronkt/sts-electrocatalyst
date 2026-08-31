@@ -306,9 +306,19 @@ exactly as docs/60 §6 fact 5 left it (provisional on a signature) and no Ti dec
 submits. Act 2: vehicle elected OWN VERSION NOW (docs/66 §2 row 18); the dated DOI
 line below is act 2's discharge when the deposit publishes.
 
-**Entrant confirmation line (2026-__-__):** _reserved — one dated line in the
-entrant's own hand confirming the §3c grant (or overriding it), e.g._
-`[§3c CONFIRMED 2026-__-__ — read docs/66 §2; the grant stands]`.
+**[§3c CONFIRMED 2026-08-31]** — the entrant, in session, replying to the
+two-acts summary that named this gate explicitly ("Confirm the §3c grant — one
+dated line in docs/59 §5 … Ti's 24 decks submit the moment that line exists"):
+"i published the deposit, submit everything" (verbatim). The grant stands; the
+countersignature is complete; the Ti manifests may submit. (Recorded by the
+scribe from the entrant's words, the docs/66 §1 instrument; override open as
+always by a later dated line.)
 
-**DOI line (2026-__-__):** _reserved for the dated fill at publication (docs/61
-§A11.11 pattern)._
+**DOI line (2026-08-31):** **10.5281/zenodo.22213117** — docs/59 in its
+countersigned state deposited as part of the A11 new version of concept record
+10.5281/zenodo.21963143 (restricted access: DOI + timestamp public, files
+closed until report submission; file `59-a0-roster-correction-2026-08-28.md`,
+20,993 bytes, md5 `2dba12d4eb2e44e0d941038ea867bd68`, the working-tree
+serialization of commit `6fe167b` per `docs/deposits/2026-08-31-A11.manifest.txt`).
+Act 2 of §5 is discharged. Text added after publication; the deposited file is
+the frozen artifact.

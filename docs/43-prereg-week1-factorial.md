@@ -2227,6 +2227,21 @@ points of docs/66 §6) ride THIS deposit, so their later triggering needs no new
 version. The new-version DOI is recorded here in a dated line when it exists, with
 the per-file manifest (name, bytes, md5, sha256, commit).
 
+**DOI line (2026-08-31):** **10.5281/zenodo.22213117** — docs/43 complete through
+this amendment (A1–A9 + A11 + both dated addenda; A10 pending, gated on S0(a))
+published 2026-08-31 as a new version of concept record 10.5281/zenodo.21963143,
+restricted access (DOI + timestamp public, files closed until report submission).
+Fileset: 9 files — this document as `43-prereg-week1-factorial-A1-A11.md`
+(212,852 bytes, md5 `b16aa3b9639bbae505ab524feb42b1d4`) plus docs/59
+(countersigned), docs/61 (adopted draft, historical), and docs/62–67 — each the
+working-tree serialization of commit `6fe167b`, per-file bytes/md5/sha256 in the
+committed manifest `docs/deposits/2026-08-31-A11.manifest.txt`, and every
+uploaded md5 verified against the published record. The deposit obligation of
+A11.R5 is discharged; every deck this amendment licenses may now be submitted in
+the A11.R5 ordering (the Ti manifests additionally carried the docs/59 §5
+confirmation gate, discharged by the entrant's dated line there the same day).
+Text added after publication; the deposited files are the frozen artifacts.
+
 ---
 
 ## Dated addendum — 2026-08-31: P-DISPOSITION date, amended
