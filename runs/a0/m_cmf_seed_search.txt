@@ -1,0 +1,97 @@
+# CR/MN/FE SEED SEARCH -- the A0-SPIN seed-grid completion on the three
+# nspin=2 metals (28 decks). Built 2026-08-31 by
+# src/dft/build_cmf_seed_search.py -- READ ITS DOCSTRING (assertions
+# CMF-a..CMF-m), the build_a0spin.py docstring, and docs/43 AMENDMENT 11.
+#
+# LICENSED 2026-08-31 -- docs/43 A11.R3, the dated line [CR/MN/FE SEED SEARCH
+# 2026-08-31: RUNS]: "exactly 28 SCFs (Cr 12: banked seed 0.6 is off-grid in
+# every cell; Mn 8: banked 0.5 = m050 covers all four cells; Fe 8: banked
+# s0_OH 0.5 and s0_OOH 0.1 cover four cells)" (elections docs/66 §2 row 12;
+# the A11.R5 deposit precedes submission).
+# winners enter the a7_3_spin sensitivity census ONLY; no banked A0 row is replaced (§A11.9)
+#
+# TRANSFORMATION: seed REPLACEMENT, not insertion -- every parent
+# runs/a0/main/{Cr,Mn,Fe}/{s0_OH,s0_OOH}__{u000,u900}.in is ALREADY nspin=2
+# FM-uniform; each child differs from its parent in EXACTLY 2 lines (prefix +
+# starting_magnetization(<metal idx>), the index read from EACH PARENT'S OWN
+# ATOMIC_SPECIES: Mn at 2, Cr/Fe at 1 -- asserted, never assumed).
+# FM-uniform-seed only; this family never touches the A7.5 Mn AFM condition
+# (docs/43:1406-1407 untouched, per the A11.R3 line).
+#
+# COVERAGE (registered): a banked seed equal to a grid member covers that cell
+# AT BOTH ENDPOINTS; banked u900 seeds re-verified identical to u000 at build
+# time, off the parents' own starting_magnetization. Derived plan (die-on-drift
+# against the registered literals):
+#   Cr s0_OH,s0_OOH banked 0.6 off-grid -> m010 m030 m050 x u000/u900 = 12
+#   Mn s0_OH,s0_OOH banked 0.5 (=m050)  -> m010 m030      x u000/u900 =  8
+#   Fe s0_OH        banked 0.5 (=m050)  -> m010 m030      x u000/u900 =  4
+#   Fe s0_OOH       banked 0.1 (=m010)  -> m030 m050      x u000/u900 =  4
+#
+# SELECTION (A11.6-ANALOGUE, registered): lowest converged total energy per
+# (metal, state, U) across the grid seeds AND the banked FM row as incumbent
+# (no nspin=1 floor on these metals; incumbent .out convergence verified at
+# build time), ties within 1 meV to the smallest |seed|.
+#
+# deck md5s (an independent rebuild must reproduce these byte-for-byte):
+# md5 046a56d0e98b65270d352af176b60b11 a0/spin/Cr/s0_OH__u000__sp2m010.in
+# md5 b040a7503677fa2aa6058676a8444bcd a0/spin/Cr/s0_OH__u000__sp2m030.in
+# md5 3fcd5562568cc7575dfe27e2032419b7 a0/spin/Cr/s0_OH__u000__sp2m050.in
+# md5 6a6294ec0e6621a111595effb3969031 a0/spin/Cr/s0_OH__u900__sp2m010.in
+# md5 2eb00b063e57d29b5b6cea166cdc96ef a0/spin/Cr/s0_OH__u900__sp2m030.in
+# md5 6cfbb733809488ae6ec3071a7910024e a0/spin/Cr/s0_OH__u900__sp2m050.in
+# md5 200b247f3d904b61e51bffd6b8b1197a a0/spin/Cr/s0_OOH__u000__sp2m010.in
+# md5 f6b9288af9e6e264e334233b8444c22a a0/spin/Cr/s0_OOH__u000__sp2m030.in
+# md5 d93d160533d1a9264a7aaf6abd6b9083 a0/spin/Cr/s0_OOH__u000__sp2m050.in
+# md5 39590db176f0ea581f80047cac5c2b11 a0/spin/Cr/s0_OOH__u900__sp2m010.in
+# md5 5ca897bd6c07b3749107ae540d51af29 a0/spin/Cr/s0_OOH__u900__sp2m030.in
+# md5 a6eea9858ba2efe331aeed67e71eee72 a0/spin/Cr/s0_OOH__u900__sp2m050.in
+# md5 5fe270e5b5559519c670154a0a2188cf a0/spin/Mn/s0_OH__u000__sp2m010.in
+# md5 6f38fe463caee022d83210abfcfafecb a0/spin/Mn/s0_OH__u000__sp2m030.in
+# md5 7d3fbb9bee487ff2eab6b24d1b1feb78 a0/spin/Mn/s0_OH__u900__sp2m010.in
+# md5 2bd3ece9e214710991d186834c861581 a0/spin/Mn/s0_OH__u900__sp2m030.in
+# md5 b1c9c15f0975cf8a403734de56ba43bb a0/spin/Mn/s0_OOH__u000__sp2m010.in
+# md5 4d04a9fd171f317dee3fe360bcb02952 a0/spin/Mn/s0_OOH__u000__sp2m030.in
+# md5 22fceadb45a7eeff85a69bdd3226f35e a0/spin/Mn/s0_OOH__u900__sp2m010.in
+# md5 bb012c5cd8e97a3143541da904383168 a0/spin/Mn/s0_OOH__u900__sp2m030.in
+# md5 a386786ce9516f3a19278672c2d4d06e a0/spin/Fe/s0_OH__u000__sp2m010.in
+# md5 75446b95c11f7294f1ae9e8181577a3a a0/spin/Fe/s0_OH__u000__sp2m030.in
+# md5 b849e8aef511ca8b5861e97a89f19277 a0/spin/Fe/s0_OH__u900__sp2m010.in
+# md5 b2153f25a0f09e44540e3ba5c83f2a79 a0/spin/Fe/s0_OH__u900__sp2m030.in
+# md5 fb1e43bfb0367dbfec970c034ab89f43 a0/spin/Fe/s0_OOH__u000__sp2m030.in
+# md5 6062c0338d8fc1c3156479427867a26c a0/spin/Fe/s0_OOH__u000__sp2m050.in
+# md5 2ef1e4ab68d9aa15569a4ab8e22a8672 a0/spin/Fe/s0_OOH__u900__sp2m030.in
+# md5 8ab0f5ce260e32e773668a722f92e118 a0/spin/Fe/s0_OOH__u900__sp2m050.in
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223
+# (submit-time list additionally + a120,a200 per [EXCLUDE EXTENDED 2026-08-31], docs/66 §4)
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+a0/spin/Cr s0_OH__u000__sp2m010 .in 4
+a0/spin/Cr s0_OH__u000__sp2m030 .in 4
+a0/spin/Cr s0_OH__u000__sp2m050 .in 4
+a0/spin/Cr s0_OH__u900__sp2m010 .in 4
+a0/spin/Cr s0_OH__u900__sp2m030 .in 4
+a0/spin/Cr s0_OH__u900__sp2m050 .in 4
+a0/spin/Cr s0_OOH__u000__sp2m010 .in 4
+a0/spin/Cr s0_OOH__u000__sp2m030 .in 4
+a0/spin/Cr s0_OOH__u000__sp2m050 .in 4
+a0/spin/Cr s0_OOH__u900__sp2m010 .in 4
+a0/spin/Cr s0_OOH__u900__sp2m030 .in 4
+a0/spin/Cr s0_OOH__u900__sp2m050 .in 4
+a0/spin/Mn s0_OH__u000__sp2m010 .in 4
+a0/spin/Mn s0_OH__u000__sp2m030 .in 4
+a0/spin/Mn s0_OH__u900__sp2m010 .in 4
+a0/spin/Mn s0_OH__u900__sp2m030 .in 4
+a0/spin/Mn s0_OOH__u000__sp2m010 .in 4
+a0/spin/Mn s0_OOH__u000__sp2m030 .in 4
+a0/spin/Mn s0_OOH__u900__sp2m010 .in 4
+a0/spin/Mn s0_OOH__u900__sp2m030 .in 4
+a0/spin/Fe s0_OH__u000__sp2m010 .in 4
+a0/spin/Fe s0_OH__u000__sp2m030 .in 4
+a0/spin/Fe s0_OH__u900__sp2m010 .in 4
+a0/spin/Fe s0_OH__u900__sp2m030 .in 4
+a0/spin/Fe s0_OOH__u000__sp2m030 .in 4
+a0/spin/Fe s0_OOH__u000__sp2m050 .in 4
+a0/spin/Fe s0_OOH__u900__sp2m030 .in 4
+a0/spin/Fe s0_OOH__u900__sp2m050 .in 4

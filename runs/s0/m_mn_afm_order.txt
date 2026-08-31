@@ -1,0 +1,40 @@
+# MN-AFM-ORDER stage 1 -- the A7.5 Mn AFM ordering measurement, 2x1 frame
+# (4 decks: FM, P-A, P-B1, P-B2). Built 2026-08-31 by
+# src/dft/build_mn_afm_order.py -- READ ITS DOCSTRING, docs/67 (design of
+# record), and docs/43 A11.R3.
+#
+# LICENSED: docs/43 A11.R3 line "[MN AFM ARM 2026-08-31: IN SCOPE]" --
+# "Staged program and triggers per docs/67 §5: MN-AFM-ORDER 4 (licensed
+# now)"; that line IS the arm's licence (docs/43:2008 excludes any AFM deck
+# in 1x1 from the gate-(h) licence, so nothing prior covers this family).
+# Submission additionally waits on the docs/43 A11.R5 Zenodo deposit.
+#
+# Geometry: the banked FM production slab runs/a0/main/Mn/slab__u390.in
+# (frozen, md5 08ad1c86cd099dc47d9f937d69e8110c) tiled x2 along its 2.876 A in-plane
+# [001] axis -> 5.752 A; 12 Mn / 24 O; fixed-geometry SCFs (docs/67 E3
+# fixed-first); K_POINTS 4 4 1 (E2); U Mn-3d 3.9 on every Mn label -- the
+# AFM decks carry BOTH 'U Mn1-3d 3.9000' AND 'U Mn2-3d 3.9000' (a one-label
+# card would silently leave a sublattice at U = 0, docs/67 E7).
+#
+# E4 adoption rule, in-frame (FM reference = slab__2x1__fm of this set),
+# fixed before any AFM energy exists; M_abs is the witness that an AFM
+# solution was actually held:
+#   >20 meV lower -> AFM ADOPTED; |dE|<=20 -> MULTISTABLE; collapse/higher -> measured null, FM stands
+# firewalled from A7.2/A7.3 (docs/67 §1: no number from this arm enters
+# the banked scores; the A7.5 strike lifts by RUNNING, on any outcome).
+#
+# deck md5s (an independent rebuild must reproduce these byte-for-byte):
+# md5 8d376cb545f5c6b8e2ae8d32aa3eb64d s0/mn_afm/slab__2x1__fm.in
+# md5 34813f0310b7df8a99c8bc9de872146f s0/mn_afm/slab__2x1__afm_pa.in
+# md5 f10db692da3bffb1442d4ebed144ca4d s0/mn_afm/slab__2x1__afm_pb1.in
+# md5 969bb8658e1c406dff911fec68de893a s0/mn_afm/slab__2x1__afm_pb2.in
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223
+# (submit-time list additionally + a120,a200 per docs/66 §4)
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+s0/mn_afm slab__2x1__fm .in 4
+s0/mn_afm slab__2x1__afm_pa .in 4
+s0/mn_afm slab__2x1__afm_pb1 .in 4
+s0/mn_afm slab__2x1__afm_pb2 .in 4

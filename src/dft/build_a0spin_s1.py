@@ -1,7 +1,14 @@
 #!/usr/bin/env python3
 """A0-SPIN STAGE 1: the Ru + Ir production seed ladders (20 decks, launch-ready).
 
-STAGE 1 — NOT LICENSED FOR SUBMISSION. docs/61 decisions 1-4 (headline census election, seed set + tolerances, P-SPIN-DELTA thresholds, docs/59 §3c countersignature) are OPEN. Seed set below is the PROPOSED set of docs/61 §A11.6 and is rebuilt trivially if re-authored. Ti is refused by this builder until docs/59 §3c is countersigned.
+STAGE 1 — LICENSED 2026-08-31. docs/61 decisions 1-4 are ELECTED: [A11.5 HEADLINE
+CENSUS: AS-BUILT 3-of-6], [A11.6 SEEDS+SELECTION: AS PROPOSED + riders], [A11.3
+THRESHOLD: 0.026; FALSIFICATION 0.005], [docs/59 §3c LICENCE: GRANTED-EXECUTED,
+confirmation pending] — docs/43 AMENDMENT 11 (A11.R1) + docs/59 §3c + docs/66 §2.
+Submission gated on the A11.R5 deposit (licence) and the docs/66 §4 pipeline
+guards + EXCLUDE list (operational). Ti rows are built separately after the §3c
+line (Ti manifest owed; tasks/todo.md) and submit only after the entrant's
+docs/59 §5 confirmation line.
 
 READ src/dft/build_a0spin.py's docstring first: this builder is its Stage-1
 continuation and inherits its registration, its blocker analysis (the
@@ -18,10 +25,13 @@ INHERITED, never rebuilt, and this builder refuses to touch them. Net: 20
 new decks under runs/a0/spin/{Ru,Ir}/, all ntyp = 3 with the metal at
 starting_magnetization index 2.
 
-NOT buildable here, by registration: slab + s0_O (docs/61 decision item 8),
-the Xu anchor rungs u673 (Ru) / u591 (Ir) (docs/61 §A11.2), and every Ti
-deck (docs/59 §3c uncountersigned — any Ti request is hard-refused, and a
-post-build sweep dies if any non-null Ti deck exists under runs/a0/spin/Ti/).
+NOT buildable here, by registration: slab + s0_O (docs/61 decision item 8;
+the licensed slab/s0_O ladders are build_a0spin_reread.py's, per docs/43
+A11.R3), the Xu anchor rungs u673 (Ru) / u591 (Ir) (docs/61 §A11.2), and
+every Ti deck — Ti Stage-1 is build_a0spin_s1_ti.py's under the docs/59 §3c
+line of 2026-08-31; any Ti request here is still hard-refused, and the
+post-build sweep dies on any Ti file beyond the banked null controls and the
+2026-08-31 licensed stems (a0spin_ti_licence, the shared gate + sweep).
 
 HOW IT BUILDS, AND WHAT IS FATAL
 --------------------------------
@@ -44,8 +54,11 @@ S1-c  no planned stem collides with banked evidence (a .out under the repo's
 S1-d  the four inherited Stage-0 rungs exist on disk with converged .out
       files (inheritance is verified, not assumed)
 S1-e  no child path is written unless it ends runs/a0/spin/<M>/<stem>.in
-S1-f  a Ti sweep after the build: only the two banked __sp2null controls may
-      exist under runs/a0/spin/Ti/
+S1-f  a Ti sweep after the build — SUPERSEDED 2026-08-31: docs/59 §3c is
+      granted-executed, so the sweep (now a0spin_ti_licence.ti_sweep) passes
+      the two banked __sp2null controls PLUS the 24 licensed Ti stems, and
+      any OTHER Ti .in still dies; absent the docs/59 licence line it
+      reduces exactly to the original nulls-only refusal
 S1-g  per-deck md5s are recorded in the manifest header; an independent
       rebuild (--sandbox <dir>) must reproduce them byte-for-byte
 
@@ -81,6 +94,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 
 import build_a0spin as B  # origin of A1-A12: build_one, rederive, read/write/md5
+import a0spin_ti_licence as TL  # 2026-08-31: the shared Ti gate + sweep (S1-f)
 import qe_qc
 
 METALS_S1 = ("Ru", "Ir")          # Ru first, then Ir: docs/61 §A11.10
@@ -88,11 +102,19 @@ STATES_S1 = ("s0_OH", "s0_OOH")   # slab + s0_O held: docs/61 decision item 8
 UTOKS_S1 = ("u000", "u900")       # fixed A7.3 endpoints; Xu anchors excluded (§A11.2)
 SEEDS_S1 = B.SEEDS                # PROPOSED (0.10, 0.30, 0.50): docs/61 §A11.6
 
-#: The verbatim not-licensed notice, extracted from this module's docstring so
-#: the manifest header can never drift from it.
-_notice_hits = [l for l in __doc__.splitlines() if l.startswith("STAGE 1 ")]
-assert len(_notice_hits) == 1, "docstring must carry the notice exactly once"
-NOTICE = _notice_hits[0]
+#: The verbatim licence notice, extracted from this module's docstring so the
+#: manifest header can never drift from it: the block from the "STAGE 1 " line
+#: to the next blank line. Commit 6fe167b amended the BANKED manifest's notice
+#: to the licensed text (so the docs/66 §4 'NOT LICENSED' pipeline guard does
+#: not refuse wave A); this docstring carries the same bytes, so a --sandbox
+#: rebuild reproduces the banked manifest byte-for-byte (decks AND header).
+_dl = __doc__.splitlines()
+_starts = [i for i, l in enumerate(_dl) if l.startswith("STAGE 1 ")]
+assert len(_starts) == 1, "docstring must carry the notice exactly once"
+_end = _starts[0]
+while _end < len(_dl) and _dl[_end].strip():
+    _end += 1
+NOTICE_LINES = tuple(_dl[_starts[0]:_end])
 
 
 def stem_of(state: str, utok: str, seed: float) -> str:
@@ -100,9 +122,10 @@ def stem_of(state: str, utok: str, seed: float) -> str:
 
 
 def refuse_ti() -> None:
-    B.die("Ti is refused by this builder until docs/59 §3c is countersigned "
-          "(docs/61 decision item 4; docs/59 §3c sets the denominator this "
-          "arm is scored against and is the entrant's to countersign)")
+    B.die("Ti is not this builder's to build: the licensed Ti Stage-1 decks "
+          "are build_a0spin_s1_ti.py's, under the docs/59 section-3c line of "
+          "2026-08-31 (grant executed, countersignature pending; NO Ti deck "
+          "submits before the entrant's confirmation line in docs/59 section 5)")
 
 
 def inherited(utok: str, seed: float) -> bool:
@@ -146,7 +169,9 @@ def main(argv):
 
     B.RY_EV = qe_qc.RY_EV
     out_spin = os.path.join(out_root, "runs", "a0", "spin")
-    print("NOT LICENSED FOR SUBMISSION -- see the docstring notice and docs/61.")
+    print("LICENSED 2026-08-31 (docs/43 A11.R1; docs/66 section 2) -- "
+          "submission gated on the A11.R5 deposit and the docs/66 section-4 "
+          "pipeline guards; see the docstring notice.")
     if os.path.normcase(out_root) != os.path.normcase(ROOT):
         print("SANDBOX rebuild into %s (parents/evidence still read from the repo)"
               % out_root)
@@ -223,15 +248,14 @@ def main(argv):
             B.die("child outside runs/a0/spin: %s" % d)
     print("  A12 all %d children under runs/a0/spin/" % built)
 
-    # S1-f -- Ti sweep: only the two banked null controls may exist
-    for tidir in {os.path.join(B.SPIN, "Ti"), os.path.join(out_spin, "Ti")}:
-        if not os.path.isdir(tidir):
-            continue
-        for f in sorted(os.listdir(tidir)):
-            if f.endswith(".in") and not f[:-3].endswith("__sp2null"):
-                B.die("non-null Ti deck exists: %s (docs/59 §3c is not "
-                      "countersigned)" % os.path.join(tidir, f))
-    print("  S1-f Ti sweep clean: no Ti deck beyond the 2 banked __sp2null controls")
+    # S1-f -- Ti sweep, SUPERSEDED 2026-08-31 (docs/59 §3c granted-executed):
+    # the shared sweep passes the 2 banked null controls plus the 24 licensed
+    # Ti stems (a0spin_ti_licence); any OTHER Ti .in still dies, and absent
+    # the docs/59 licence line it reduces to the original nulls-only refusal.
+    lic = TL.ti_sweep(B.die, {os.path.join(B.SPIN, "Ti"),
+                              os.path.join(out_spin, "Ti")})
+    print("  S1-f Ti sweep clean: banked __sp2null controls%s only"
+          % (" + 2026-08-31 licensed stems" if lic else ""))
 
     man = os.path.join(out_root, "runs", "a0", "m_a0spin_s1.txt")
     hdr = [
@@ -239,13 +263,14 @@ def main(argv):
         "# 2026-08-31 by src/dft/build_a0spin_s1.py -- READ ITS DOCSTRING, the",
         "# build_a0spin.py docstring (assertions A1-A12), and docs/61 (Amendment 11).",
         "#",
-        "# " + NOTICE,
+    ] + ["# " + l for l in NOTICE_LINES] + [
         "#",
         "# 10 Ru rows then 10 Ir rows (docs/61 §A11.10 Ru-first sequencing).",
         "# States s0_OH/s0_OOH only -- slab + s0_O are held (docs/61 decision item 8).",
         "# U endpoints u000/u900 only -- the Xu anchor rungs u673 (Ru) / u591 (Ir)",
         "# are registered-excluded (docs/61 §A11.2).",
-        "# Ti is ABSENT pending the docs/59 §3c countersignature (docs/61 decision 4).",
+        "# Ti is ABSENT from this manifest by design -- the 12 Ti Stage-1 rows take their own",
+        "# manifest under the docs/59 §3c licence (GRANTED-EXECUTED 2026-08-31, confirmation pending).",
         "# The 4 u000-seed-0.50 rungs are INHERITED FROM STAGE 0, banked at",
         "# runs/a0/spin/{Ru,Ir}/{s0_OH,s0_OOH}__u000__sp2m050.{in,out} -- not rebuilt",
         "# and not rows here.",
@@ -261,10 +286,14 @@ def main(argv):
     if sum(1 for l in hdr if l == "# NP=128 NCONC=1") != 1:
         B.die("manifest must carry exactly one '# NP=128 NCONC=1' line")
     body = ["%s %s .in %d" % (d, s_, nk) for d, s_, nk in rows]
-    B.write(man, "\n".join(hdr + body) + "\n")
+    txt_man = "\n".join(hdr + body) + "\n"
+    if "not licensed" in txt_man.lower():
+        B.die("manifest text matches the docs/66 §4 'NOT LICENSED' refusal")
+    B.write(man, txt_man)
     print("  wrote %s (%d rows)" % (os.path.relpath(man, out_root), len(rows)))
     print("\nBUILD OK -- %d decks, 0 relaxations, 0 parents touched. "
-          "NOT LICENSED FOR SUBMISSION." % built)
+          "Submission gated on the A11.R5 deposit and the docs/66 section-4 "
+          "pipeline guards." % built)
 
 
 if __name__ == "__main__":

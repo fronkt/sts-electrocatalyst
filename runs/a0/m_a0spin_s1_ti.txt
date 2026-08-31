@@ -1,0 +1,66 @@
+# A0-SPIN STAGE 1, TI ARM -- the 12 licensed Ti production seed-ladder
+# decks. Built 2026-08-31 by src/dft/build_a0spin_s1_ti.py -- READ ITS
+# DOCSTRING (assertions T-a..T-l), the build_a0spin.py docstring
+# (A1-A12), and docs/43 AMENDMENT 11.
+#
+# LICENSED-EXECUTED 2026-08-31 -- docs/43 A11.R1 (the elections: [A11.5
+# HEADLINE CENSUS 2026-08-31], [A11.6 SEEDS+SELECTION 2026-08-31: AS
+# PROPOSED, with two dated riders], [A11.3 THRESHOLD 2026-08-31: 0.026 eV;
+# FALSIFICATION 0.005 eV]; A11.R4 prices this family "Ti Stage-1 12";
+# enumeration docs/62:215-216) + the docs/59 §3c dated line
+# [§3c LICENCE 2026-08-31: GRANTED — EXECUTED UNDER DIRECTIVE,
+# COUNTERSIGNATURE PENDING; s0_OH@u900 FIRST among Ti compute]
+# (elections docs/66 §2 row 1; the A11.R5 deposit precedes submission).
+#
+# SUBMITS ONLY AFTER the entrant confirmation line ([§3c CONFIRMED) exists in docs/59 §5.
+# Building banks nothing (docs/59 §3c); the confirmation gate is the
+# entrant's, read off docs/59 §5 at submit time.
+#
+# ROW ORDER = SUBMISSION ORDER: the s0_OH__u900 rows come FIRST --
+# docs/59 §3c registers 's0_OH@u900 FIRST among Ti compute' (docs/62 §9
+# item 3; a Ti-internal ordering, not a reordering of §A11.10).
+#
+# SELECTION (A11.6, registered): lowest converged total energy per
+# (state, U) across the three seeds AND the banked nspin=1 energy as hard
+# variational floor ("must be <= 0" -- equality passes; no additional
+# tolerance), ties within 1 meV to the smallest |seed|; both
+# magnetizations reported. RIDER 2: at (s0_OOH, u900) the banked
+# null-seed row -1298.17043625 Ry (totmag 1.04,
+# runs/a0/spin/Ti/s0_OOH__u900__sp2null.out) is the NAMED free fifth
+# candidate under the same rule -- re-derived off disk at build time.
+#
+# nk 8: every banked a0/{main,spin}/Ti manifest row carries nk 8,
+# re-derived at build time (T-h; the build directive's 'nk 4' note is a
+# FLAGGED deviation, banked convention followed).
+#
+# deck md5s (an independent rebuild must reproduce these byte-for-byte):
+# md5 9d19379051eb18389204a79d33825161 a0/spin/Ti/s0_OH__u900__sp2m010.in
+# md5 5bb613318a81a93f85c8ba73926daebe a0/spin/Ti/s0_OH__u900__sp2m030.in
+# md5 3dc5b8ca14bf4451efaa5314e1ee5426 a0/spin/Ti/s0_OH__u900__sp2m050.in
+# md5 5019f8f95b606095b5bc0e5495c03fb8 a0/spin/Ti/s0_OH__u000__sp2m010.in
+# md5 4bbc2fb6ecfeb27d272b9e4f92c7e538 a0/spin/Ti/s0_OH__u000__sp2m030.in
+# md5 1e219002d5aa52f81ff6d83640fff942 a0/spin/Ti/s0_OH__u000__sp2m050.in
+# md5 707a45e1f9e8b571d23e2658e5a0b188 a0/spin/Ti/s0_OOH__u000__sp2m010.in
+# md5 ff4c37f785cf8db5a43170dce3a3a730 a0/spin/Ti/s0_OOH__u000__sp2m030.in
+# md5 17f949e3ae4d64cffadd9ac9e940c757 a0/spin/Ti/s0_OOH__u000__sp2m050.in
+# md5 5e473abad19da33de673aed7eedf75e0 a0/spin/Ti/s0_OOH__u900__sp2m010.in
+# md5 7d6fd56dd1b6da93ebb5745a243f026f a0/spin/Ti/s0_OOH__u900__sp2m030.in
+# md5 f540242f7bb850786ef2f26d25d3bd73 a0/spin/Ti/s0_OOH__u900__sp2m050.in
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223
+# (submit-time list additionally + a120,a200 per docs/66 §4)
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+a0/spin/Ti s0_OH__u900__sp2m010 .in 8
+a0/spin/Ti s0_OH__u900__sp2m030 .in 8
+a0/spin/Ti s0_OH__u900__sp2m050 .in 8
+a0/spin/Ti s0_OH__u000__sp2m010 .in 8
+a0/spin/Ti s0_OH__u000__sp2m030 .in 8
+a0/spin/Ti s0_OH__u000__sp2m050 .in 8
+a0/spin/Ti s0_OOH__u000__sp2m010 .in 8
+a0/spin/Ti s0_OOH__u000__sp2m030 .in 8
+a0/spin/Ti s0_OOH__u000__sp2m050 .in 8
+a0/spin/Ti s0_OOH__u900__sp2m010 .in 8
+a0/spin/Ti s0_OOH__u900__sp2m030 .in 8
+a0/spin/Ti s0_OOH__u900__sp2m050 .in 8

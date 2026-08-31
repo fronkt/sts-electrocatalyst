@@ -1,0 +1,87 @@
+# A0-SPIN EQUALISED RE-READ, FAMILY C -- the 20 Ru/Ir slab/s0_O ladder
+# decks. Built 2026-08-31 by src/dft/build_a0spin_reread.py -- READ ITS
+# DOCSTRING (assertions R-a..R-n), the build_a0spin.py docstring
+# (A1-A12), and docs/43 AMENDMENT 11.
+#
+# LICENSED 2026-08-31 -- docs/43 A11.R3, the dated line
+# [A7.2 EQUALISED RE-READ 2026-08-31: RE-READ]: "Scope: Ru/Ir now --
+# which requires Family C, 20 SCFs: {slab, s0_O} x {u000, u900} x
+# {0.10, 0.30, 0.50} x {Ru, Ir} minus the 4 already-run Stage-0
+# u000-seed-0.50 rungs"
+# (elections docs/66 §2 row 13; a family docs/65's 76-SCF tally omitted,
+# priced in A11.R3; the A11.R5 deposit precedes submission).
+# Per §A11.9 no banked A0 row is replaced, and A7.2 is re-read on the
+# same rows the A7.3 equalised census reads (docs/66 §9's trap).
+# REGISTERED LIMITATION: endpoint-only -- detects pls(0) != pls(9) but
+# CANNOT locate the crossing U; the interior ladder is a registered
+# phase-2 decision point (docs/66 §6), outside this family's licence.
+#
+# The 4 u000-seed-0.50 rungs are INHERITED FROM STAGE 0 at
+# runs/a0/spin/{Ru,Ir}/{slab,s0_O}__u000__sp2m050.{in,out} -- not
+# rebuilt and not rows here. Three are banked at-or-below their
+# nspin=1 floors; the Ir slab rung is the registered REJECT (+0.583
+# meV, docs/62 §4), inherited as a recorded attempt.
+#
+# SELECTION (A11.6, registered): lowest converged total energy per
+# (metal, state, U) across the seeds AND the banked nspin=1 energy as
+# hard variational floor ("must be <= 0" -- equality passes), ties
+# within 1 meV to the smallest |seed|; both magnetizations reported.
+#
+# 10 Ru rows then 10 Ir rows (§A11.10 Ru-first sequencing). nk 4 (the
+# banked Ru/Ir convention, re-derived R-h).
+#
+# deck md5s (an independent rebuild must reproduce these byte-for-byte):
+# md5 ebc13be5215c40717c042bffe51a0619 a0/spin/Ru/slab__u000__sp2m010.in
+# md5 6b7876f191383ae7a269f4e566e3ae6a a0/spin/Ru/slab__u000__sp2m030.in
+# md5 f6f209dbd1cf93f00b559b455f5faf65 a0/spin/Ru/slab__u900__sp2m010.in
+# md5 30c98534f94c31a94d6a05c6c6281f15 a0/spin/Ru/slab__u900__sp2m030.in
+# md5 de622ec63548f5e0158d2882d236c0f4 a0/spin/Ru/slab__u900__sp2m050.in
+# md5 8b2877388a8682f89b6ac5f9699af5bc a0/spin/Ru/s0_O__u000__sp2m010.in
+# md5 f7b0aad652a0a264d4499e0eb6e3f5d6 a0/spin/Ru/s0_O__u000__sp2m030.in
+# md5 9a167a996bb814978228d594b1cd1912 a0/spin/Ru/s0_O__u900__sp2m010.in
+# md5 7397ff9eeb4a70ca5919492ccfe69967 a0/spin/Ru/s0_O__u900__sp2m030.in
+# md5 d15b788510c0a854ac47609c75ed9d55 a0/spin/Ru/s0_O__u900__sp2m050.in
+# md5 866646a10b542288690f3eecd627ad83 a0/spin/Ir/slab__u000__sp2m010.in
+# md5 46662ea5cf8299a92ff8fd15f2dab9cf a0/spin/Ir/slab__u000__sp2m030.in
+# md5 4351eed9f459ce4d91a46a1b42051f46 a0/spin/Ir/slab__u900__sp2m010.in
+# md5 6a599e08a773c59ea868ad87deba5b1d a0/spin/Ir/slab__u900__sp2m030.in
+# md5 bd26b29c90c0c28e0aee097440f98570 a0/spin/Ir/slab__u900__sp2m050.in
+# md5 82322b65267a42e001953a8bb0f3adbc a0/spin/Ir/s0_O__u000__sp2m010.in
+# md5 3b6b06b8d50730362d2c7057d3a11fd4 a0/spin/Ir/s0_O__u000__sp2m030.in
+# md5 cbcefe17614c09eed60ec2516c4718e1 a0/spin/Ir/s0_O__u900__sp2m010.in
+# md5 d50e11b4cbfa4bb976973f28fb7d6215 a0/spin/Ir/s0_O__u900__sp2m030.in
+# md5 7a87ca08c40867113f55363ddaeffaa2 a0/spin/Ir/s0_O__u900__sp2m050.in
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223
+# (submit-time list additionally + a120,a200 per docs/66 §4)
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+a0/spin/Ru slab__u000__sp2m010 .in 4
+a0/spin/Ru slab__u000__sp2m030 .in 4
+a0/spin/Ru slab__u900__sp2m010 .in 4
+a0/spin/Ru slab__u900__sp2m030 .in 4
+a0/spin/Ru slab__u900__sp2m050 .in 4
+a0/spin/Ru s0_O__u000__sp2m010 .in 4
+a0/spin/Ru s0_O__u000__sp2m030 .in 4
+a0/spin/Ru s0_O__u900__sp2m010 .in 4
+a0/spin/Ru s0_O__u900__sp2m030 .in 4
+a0/spin/Ru s0_O__u900__sp2m050 .in 4
+# The 5 Ir slab rows below carry the Row-7 contingency (docs/66 §2 row
+# 7; docs/43 A11.R3 [IR-SLAB CONTINGENCY 2026-08-31: EXTENDED-SEEDS(0.05)
+# THEN EQUALISED-BY-SELECTION(nspin=1)]): if none of {0.10, 0.30, 0.50}
+# lands at or below the banked nspin=1 Ir slab energy, the PRE-NAMED
+# extension seed 0.05 runs (Ir slab cells only, u000 + u900 = 2 SCFs);
+# if that also lands above, the cell resolves EQUALISED-BY-
+# SELECTION(nspin=1) with the full rejection record. The u000 seed-0.50
+# attempt is already banked REJECT (+0.583 meV, docs/62 §4).
+a0/spin/Ir slab__u000__sp2m010 .in 4
+a0/spin/Ir slab__u000__sp2m030 .in 4
+a0/spin/Ir slab__u900__sp2m010 .in 4
+a0/spin/Ir slab__u900__sp2m030 .in 4
+a0/spin/Ir slab__u900__sp2m050 .in 4
+a0/spin/Ir s0_O__u000__sp2m010 .in 4
+a0/spin/Ir s0_O__u000__sp2m030 .in 4
+a0/spin/Ir s0_O__u900__sp2m010 .in 4
+a0/spin/Ir s0_O__u900__sp2m030 .in 4
+a0/spin/Ir s0_O__u900__sp2m050 .in 4

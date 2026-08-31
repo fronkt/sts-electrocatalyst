@@ -1,0 +1,97 @@
+# LICENSED 2026-08-31 -- the robustness sentence of [RU AFM PROBE 2026-08-31: RUNS,
+# both U endpoints] (docs/43 A11.R3): "Robustness arm, its own line: +6 SCFs on the
+# AFM-relaxed geometries (runs/s0/h_afm_relax finals): NM u000 (2), AFM u900 (2),
+# NM u900 (2); the AFM u000 legs are the banked __g1 fresh-density children"
+# (elections docs/66 §2 row 15; deposit per A11.R5 precedes submission). The arm
+# inherits the no-A7.3-score limit: "The robustness arm inherits item 10's
+# no-A7.3-score limit verbatim." (A11.R3) -- recorded either way; NEVER enters the
+# A7.3 score.
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223
+# (submit-time list additionally + a120,a200 per [EXCLUDE EXTENDED 2026-08-31], docs/66 §4)
+# NP=128 NCONC=1
+#
+# Ru AFM probe ROBUSTNESS ARM -- 6 decks built by src/dft/build_h_afm_robust.py
+# (deterministic; parent and deck md5s below). All six run at the AFM-RELAXED
+# geometries: the runs/s0/h_afm_relax/{s0_OH,s0_OOH}__2x1v_off__afm__relax.out final
+# BFGS coordinates, carried verbatim as the banked __g1 children's fixed-geometry
+# coordinate strings (asserted equal to the relax finals to <= 2e-8 A at build time).
+# Stems carry __afmgeo__ so no stem/prefix collides with the primary arm
+# (runs/s0/h_afm_probe, m_h_afm_probe.txt; the runner rm -rf's dens/${prefix}.save).
+#
+# The 6 SCFs (A11.R3 enumeration order = row order below):
+#   NM  u000  {s0_OH,s0_OOH}__2x1v_off__afmgeo__u000       completes dc_M(0)|afmgeo
+#   AFM u900  {s0_OH,s0_OOH}__2x1v_off__afm__afmgeo__u900
+#   NM  u900  {s0_OH,s0_OOH}__2x1v_off__afmgeo__u900
+# The AFM u000 legs are BANKED, not re-run -- the __g1 fresh-density children (the
+# ELECTED legs, pre-stated in A11.R3 before any U = 9 result exists):
+#   runs/s0/h_afm_relax/{s0_OH,s0_OOH}__2x1v_off__afm__relax__g1.out
+#   -3304.20359479 / -3345.68944522 Ry
+# Deliverable: D_M|afmgeo = dc_M(9.0)|afmgeo - dc_M(0)|afmgeo, dc_M(U) =
+#   [E_AFM(OOH,U)-E_AFM(OH,U)] - [E_NM(OOH,U)-E_NM(OH,U)], all four legs of each
+#   dc_M at the SAME AFM-relaxed coordinates; slab and gas references cancel in c_M
+#   (docs/61 A11.1), so only *OH/*OOH run; s0_O stays excluded by design (measured
+#   flat-moment instability, docs/64 s4).
+# Context, NEVER a score: relaxed-AFM-vs-NM-relaxed Dc_M(0) = -32.12 meV via the g1
+#   children, -32.51 meV via the relax finals (docs/43 A11.R3; both re-derived from
+#   the banked pins at build time); the NM u000 legs complete the fixed-AFM-geometry
+#   dc_M(0)|afmgeo, which no banked pair yet measures. The arm never enters the
+#   A7.3 score on any outcome.
+#
+# Parentage (each child from the committed parent of its OWN magnetic class):
+#   AFM u900 <- runs/s0/h_afm_relax/<state>__2x1v_off__afm__relax__g1.in (already
+#     calculation='scf' at the AFM-relaxed coords); diff = prefix line + appended
+#     3-line HUBBARD card ONLY: 'U Ru1-4d 9.0000' + 'U Ru2-4d 9.0000', BOTH sublattice
+#     labels, read from THAT deck's own ATOMIC_SPECIES (QE raises no error for a
+#     U-less species; a one-label card would silently leave the other sublattice at
+#     U = 0).
+#   NM u000 <- runs/probe/Ru_cellsym/<state>__2x1v_off.in (a RELAX deck; the NM
+#     namelist shape of record -- single Ru label, nspin unset: the AFM sublattice
+#     split stripped back to the NM class); diff = calculation 'relax'->'scf' +
+#     prefix line + moving-atom coordinate fields replaced by the __g1 deck's
+#     coordinate STRINGS (frozen '0 0 0' rows asserted string-identical between the
+#     two parents and kept byte-identical). NO HUBBARD card -- this IS the u000 leg.
+#     Parent max_seconds kept verbatim (134525 / 274431 s --
+#     inert runner machinery for an SCF; primary-arm precedent).
+#   NM u900 = the NM u000 deck + prefix + appended 2-line HUBBARD card
+#     'U Ru-4d 9.0000' (single label, read from the deck; syntax precedent
+#     runs/a0/main/Ru/s0_OH__u900.in); asserted byte-identical to its u000 sibling
+#     everywhere else.
+#   Twin coordinate identity asserted <= 2e-8 A (in fact string-identical) across
+#   all three children of each state; CELL_PARAMETERS and K_POINTS string-identical
+#   across all 6 decks; k-set/symmetry match NM-vs-AFM: 4 4 1 + nosym/noinv -> 16 k,
+#   as the h_afm family (the g1 outs print 16 k / 'No symmetry found').
+#
+# Scoring at landing: gate-(h) recipe exactly (h_afm_anchor README) -- converged iff
+#   'convergence has been achieved' >= 1 AND 'convergence NOT achieved' == 0 AND a
+#   final '^!' line exists (success is NEVER 'JOB DONE' alone); E = last '^!';
+#   totmag/absmag = last printed pair; meV = dRy * 13605.693122994. Guards (the
+#   m_h_afm_probe.txt set, adapted): (1) k-count/symmetry match NM-vs-AFM at each U
+#   (expect 16/16, 'No symmetry found' both); (2) E_AFM vs its NM twin recorded
+#   either way (no adoption rule exists for this arm); (3) BRANCH CONTINUITY vs the
+#   g1 reference moments -- the AFM u900 legs read against the banked __g1 (U = 0)
+#   totmag/absmag pairs: OH -1.25/3.76, OOH -0.15/4.97 (extracted from the
+#   g1 .outs at build time) -- collapse or sign flip marks D_M|afmgeo
+#   branch-conditional.
+#
+# Parent md5s (each byte-identical to its committed blob at HEAD, asserted):
+#   fe3d3517e2292eb76b12fbe35902207c  runs/s0/h_afm_relax/s0_OH__2x1v_off__afm__relax__g1.in
+#   7c374255d94937e7c7f9618bfe0a33d2  runs/probe/Ru_cellsym/s0_OH__2x1v_off.in
+#   38710bcf3f4c8f9ad92d3cf889ff8f84  runs/s0/h_afm_relax/s0_OOH__2x1v_off__afm__relax__g1.in
+#   30d59ff50ba3168bc9ab5aee4e53997c  runs/probe/Ru_cellsym/s0_OOH__2x1v_off.in
+# Deck md5s (build is deterministic; double-build verified byte-identical):
+# md5 c3dab7b290c5abd0477221e3c0c07f50 s0/h_afm_robust/s0_OH__2x1v_off__afmgeo__u000.in
+# md5 a9ba450c1f674bef8abaf9e2031ac365 s0/h_afm_robust/s0_OOH__2x1v_off__afmgeo__u000.in
+# md5 177213f406ee25edb5c0646e163fdaba s0/h_afm_robust/s0_OH__2x1v_off__afm__afmgeo__u900.in
+# md5 35e402143434c6b1cc452b8ba0cf57aa s0/h_afm_robust/s0_OOH__2x1v_off__afm__afmgeo__u900.in
+# md5 94662df821329c7810b8c86680fb578f s0/h_afm_robust/s0_OH__2x1v_off__afmgeo__u900.in
+# md5 4fd57d768fd6201bf3024cc7be497a95 s0/h_afm_robust/s0_OOH__2x1v_off__afmgeo__u900.in
+# 4-field rows (dir job suffix nk; trailing fields are fatal in
+# anvil/47_submit_a0.sh); nk = 4 pre-stated by A11.R3 for both arms (the
+# h_afm_anchor README runner note: 4 4 1 + nosym/noinv -> 16 k >= 12; NP an exact
+# multiple of 4).
+s0/h_afm_robust s0_OH__2x1v_off__afmgeo__u000 .in 4
+s0/h_afm_robust s0_OOH__2x1v_off__afmgeo__u000 .in 4
+s0/h_afm_robust s0_OH__2x1v_off__afm__afmgeo__u900 .in 4
+s0/h_afm_robust s0_OOH__2x1v_off__afm__afmgeo__u900 .in 4
+s0/h_afm_robust s0_OH__2x1v_off__afmgeo__u900 .in 4
+s0/h_afm_robust s0_OOH__2x1v_off__afmgeo__u900 .in 4

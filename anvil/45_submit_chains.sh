@@ -16,6 +16,33 @@ export MANIFEST NP
 [ -f "$(dirname "$0")/pseudo_md5_preflight_2026-08-23.md" ] || { echo "REFUSE: pseudo preflight evidence missing" >&2; exit 2; }
 ACCT=${ACCT:-$(set +o pipefail; mybalance 2>/dev/null | awk '$2=="CPU" {print $1; exit}')}
 [ -n "${ACCT:-}" ] || { echo "REFUSE: no account" >&2; exit 2; }
+# --- licence + EXCLUDE guards (docs/66 section 4, PIPELINE-GUARDS 2026-08-31) --
+# (1) a manifest whose header carries a NOT LICENSED notice never submits.
+#     Fail-closed; there is NO override variable (the no-FORCE posture).
+if grep -qai 'NOT LICENSED' "$MANIFEST"; then
+  echo "REFUSE: manifest $MANIFEST carries a 'NOT LICENSED' notice." >&2
+  echo "        No override exists; licence the manifest first (docs/66 section 4)." >&2
+  exit 2
+fi
+# (2) the manifest MUST name its sick-node list ('# SUBMIT WITH EXCLUDE=<list>')
+#     and this invocation's $EXCLUDE must contain every node named there
+#     (submit-time list additionally + a120,a200 per docs/66 section 4).
+#     Fail-closed: a manifest LACKING the header is refused, not waved through.
+MEXCL=$(awk -F= '/^# SUBMIT WITH EXCLUDE=/{gsub(/[ \r]/,"",$2); print $2; exit}' "$MANIFEST")
+if [ -z "$MEXCL" ]; then
+  echo "REFUSE: manifest $MANIFEST lacks a '# SUBMIT WITH EXCLUDE=' header." >&2
+  exit 2
+fi
+_have=",$(printf '%s' "${EXCLUDE:-}" | tr -d ' '),"
+for _node in $(printf '%s\n' "$MEXCL" | tr ',' ' '); do
+  case "$_have" in
+    *,"$_node",*) ;;
+    *)
+      echo "REFUSE: EXCLUDE=${EXCLUDE:-<unset>} is missing node $_node" >&2
+      echo "        (manifest requires EXCLUDE to contain: $MEXCL)." >&2
+      exit 2 ;;
+  esac
+done
 grep -vE '^\s*(#|$)' "$MANIFEST" > "${MANIFEST}.lines"
 N=$(wc -l < "${MANIFEST}.lines")
 [ "$N" -gt 0 ] || { echo "REFUSE: empty" >&2; exit 2; }
