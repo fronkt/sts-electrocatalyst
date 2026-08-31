@@ -954,14 +954,31 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
       /anvil/projects/x-che260157/sts; per-file md5 ALL_119_FILES_MATCH both
       ends; submitters chmod +x, bash -n clean remotely; PARITY_PASS present.
       NOTHING SUBMITTED — A11.R5 gates every deck on the deposit publishing.
-- [ ] AFTER Frank publishes the deposit (zenodo.org/deposit/22213117): fill DOI
-      lines (docs/59 §5 + docs/43 A11.R5, per-file manifest from
-      docs/deposits/2026-08-31-A11.manifest.txt + real record values), commit,
-      then submit on Anvil from /anvil/projects/x-che260157/sts with
-      EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a120,a200:
-      wave A = m_a0spin_s1.txt (47_submit_a0.sh) + m_h_afm_probe.txt (queue_r1
-      consumer per its header); non-Ti wave B = m_a0spin_reread.txt +
-      m_cmf_seed_search.txt (47) + m_h_afm_robust.txt + m_mn_afm_order.txt
-      (queue_r1 consumer). Record array IDs here at bank time.
-- [ ] AFTER Frank's [§3c CONFIRMED …] line additionally: submit
-      m_a0spin_s1_ti.txt (s0_OH@u900 rows lead) + m_a0spin_reread_ti.txt.
+- [x] DEPOSIT PUBLISHED by Frank 2026-08-31: **DOI 10.5281/zenodo.22213117**
+      (all 9 file md5s verified against the published record); DOI lines filled
+      in docs/43 A11.R5 + docs/59 §5 (commit ad19bdf). §3c CONFIRMED by Frank's
+      in-session line ("i published the deposit, submit everything", verbatim,
+      recorded in docs/59 §5 with its context). Every submission gate discharged.
+- [x] **ALL EIGHT ARRAYS SUBMITTED 2026-08-31 (106 SCFs), EXCLUDE=
+      a024,a049,a050,a088,a196,a220,a223,a120,a200:**
+      **20262064** m_a0spin_s1 (Ru/Ir S1, 1-20%6) · **20262088** m_a0spin_reread
+      (Ru/Ir slab/s0_O, 1-20%6) · **20262090** m_cmf_seed_search (1-28%6) ·
+      **20262091** m_a0spin_s1_ti (1-12%6, s0_OH@u900 rows lead) · **20262104**
+      m_a0spin_reread_ti (1-12%6) · **20262287** m_h_afm_probe (1-4%4) ·
+      **20262289** m_h_afm_robust (1-6%4) · **20262290** m_mn_afm_order (1-4%4).
+      squeue confirmed 27 queued entries (arrays collapsed), all PD/Priority at
+      submit time. Two infra facts found at launch: (a) anvil/41_submit_wave.sh
+      still carries the mybalance-SIGPIPE ACCT bug 43/47 fixed (silent exit on
+      non-tty ssh) — worked around with ACCT=che260157 env; a one-line fix is
+      owed next maintenance pass; (b) 40_wave.slurm was absent from
+      $PROJECT/sts/anvil/ — the repo's NP-argument version (cdb9fd5, md5
+      03620b63…) scp'd there; the old $PROJECT/anvil/ copy hard-codes 20 ranks
+      and must not be used with NP=128 manifests.
+- [ ] Collect outputs when arrays land (tar/scp + md5 both ends, the docs/62
+      shape); extract via a0spin_census.py (Ti now scorable — the §3c CONFIRMED
+      line exists) + extract_lowdin.py --check; bank + readout docs.
+- [ ] Mn AFM: when 20262290 lands, execute the E1 adoption rule (±20 meV,
+      pre-stated in m_mn_afm_order.txt) → countersign the measured pattern
+      (docs/67 §7 item 3) → build MN-AFM-CORE on its trigger.
+- [ ] Row-7 watch: if Ir slab 0.10/0.30 (in 20262088) fail the floor, the
+      pre-named 0.05 extension fires (2 decks), then EQUALISED-BY-SELECTION.
