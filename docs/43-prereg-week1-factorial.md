@@ -2008,3 +2008,284 @@ reinterpretation of this one.
 S3-class, priced under A8.6. **What it does not license:** any other AFM relaxation, any
 AFM deck in 1x1 or mirror, any change to the banked gate-(h) SCFs or their 4/4
 ADOPT_AFM verdict, or any A7.3 claim from this family (docs/63 §6).
+
+---
+
+# AMENDMENT 11 — 2026-08-31, adopted by the entrant (directive of record: docs/66), before any A0-SPIN Stage-1 deck is submitted
+
+**Adoption instrument.** This amendment ADOPTS docs/61 (`61-amendment-11-DRAFT.md`,
+§A11.0–§A11.11, at the commit that appends this text) as registered text, with the
+re-authorings and additions enumerated below. Where this section and docs/61
+disagree, this section wins; everywhere else docs/61's drafted sentence is the
+registered sentence. The entrant's re-authoring of every THRESHOLD line is recorded
+in the commit that appends this text to docs/43 (the A9.7 pattern). Numbering note:
+A10 (P-BEEF) remains gated on S0(a) and undrafted; amendment numbering is by
+identity, not append order. The election authority for every dated line below is the
+entrant's 2026-08-31 directive, quoted verbatim and scoped in docs/66 §1; the entrant
+may override any line by a later dated line.
+
+## A11.R1 — The elections (re-authorings of docs/61's PROPOSED values)
+
+**[A11.5 HEADLINE CENSUS 2026-08-31: AS-BUILT 3-of-6]** — the as-built 3 of 6 remains
+the registered score of A7.3 and remains the headline; the spin-equalised census is a
+registered sensitivity whose only power is to select which caveat sentence is true;
+it cannot promote A7.3 to CONFIRMED (docs/61:120-122, adopted as drafted and
+recommended).
+
+**[A11.6 SEEDS+SELECTION 2026-08-31: AS PROPOSED, with two dated riders]** — seed set
+S = {0.10, 0.30, 0.50}; selection = lowest converged total energy per (metal, state,
+U) across the three seeds AND the banked nspin = 1 energy, hard variational floor
+("must be ≤ 0" — equality passes; no additional tolerance is introduced), ties within
+1 meV to the smallest |seed|; both magnetizations reported. Rider 1: **extension seed
+0.05 is pre-named NOW, for the Ir-slab contingency only** (see A11.R3); it is not a
+member of S for any other cell. Rider 2: at the (Ti, s0_OOH, u900) cell the banked
+null-seed row **−1298.17043625 Ry (totmag 1.04)** is NAMED into the candidate pool as
+the free fifth candidate (docs/62:220-222), under the same selection rule. This is
+not selection after the fact: the rule is lowest-converged-energy regardless of pool,
+so adding a candidate whose value is already banked can only lower, never raise, the
+selected minimum; the value entered the record as the A11.7 CONTROL, its three
+competitors are unrun, and excluding a known lower converged solution — not
+including it — would be the choice this rule exists to forbid. The same sentence
+governs the A11.6-ANALOGUE incumbent rows of the Cr/Mn/Fe search.
+
+**[A11.3 THRESHOLD 2026-08-31: 0.026 eV; FALSIFICATION 0.005 eV]** — P-SPIN-DELTA's
+movement threshold is |D_M| ≥ 0.026 eV on ≥2 of the licensed metals: the gate-(h)
+class re-anchored through c_M (docs/63 §4.2), stated as a LEVEL standing proxy for a
+SWING (docs/64 §3's requirement); the relaxed level 0.0325 eV is disclosed alongside
+and the original 0.033-with-adsorption-class citation is ineligible (docs/63:176-177).
+Falsification band: all licensed metals show |D_M| < 0.005 eV (≈100× the measured
+0.052 meV cross-decomposition floor). **Middle band, mapped before the fact:** any
+outcome not meeting the ≥2-crossing threshold and not in the falsification band —
+i.e., exactly one metal crossing, or zero metals crossing with at least one
+|D_M| ≥ 0.005 eV — maps to SCORED — MIDDLE BAND / NOT MET (the A11.R2 vocabulary),
+never to either registered column. **Denominator rule:** "of the licensed metals" means metals whose equalised
+rows are licensed and not withdrawn (3 with Ti licensed; if Ti's rows had been
+withdrawn: ≥2 of 2 for the threshold, both-of-2 for falsification — the confirmation
+bar never falls under a withdrawal).
+
+**[A11.4 RE-WORDED 2026-08-31]** — the P-SPIN-DELTA row of the both-outcomes table now
+reads: HELD → "the spin convention is worth ≥26 meV of U-dependent movement in c_M
+(|D_M| ≥ 0.026 eV) on ≥2 licensed metals; every A0 span on an nspin = 1 metal is
+spin-treatment-conditional at that size, and the caveat quotes it." FALSIFIED → "the
+spin convention's U-dependent movement is |D_M| < 5 meV on every licensed metal — the
+SWING is bounded, not any endpoint level — so the 3/3 split is not a spin artifact
+at the swing scale, and the confound, while real as a correlation, carries no
+measured U-dependent consequence for A7.3." (The drafted FALSIFIED cell's "worth
+<5 meV on c_M at both endpoints" was licensable-false — a swing criterion cannot
+license an endpoint-level sentence.)
+
+**[A11.7 NULL-SEED RE-REGISTRATION 2026-08-31: AUTHORISED]** — docs/62 §5.2's
+replacement is authorised as drafted: (a) the index-rule leg PASSES as run; (b) the
+stability leg is reported, not scored — Ti s0_OOH at U = 9.0: BREAKS, ≥153.07 meV,
+SPIN-UNSTABLE. Numeric tolerance for the leg-(a) reproduction: within ≤25× conv_thr
+with absmag ≈ 0, as measured on the even-electron control. The criterion as
+originally drafted is UNSATISFIABLE on an odd-electron state whose unpolarised
+solution is unstable (docs/62:139-141) — declining would have deadlocked scoring, not
+preserved it.
+
+## A11.R2 — The middle band and the denominator (A7.3 scoring instruments)
+
+**[A7.7 MIDDLE-BAND DISPOSITION 2026-08-31]** — a count strictly between the
+FALSIFIED bound and the CONFIRMED threshold of the operative denominator row (table
+below) is **SCORED — MIDDLE BAND / NOT MET**: a registered prediction that failed to
+reach its registered threshold. It is reported with its count and the banked
+a7_3.conditionality attached and is never quoted bare; it licenses no registered
+consequence; it is neither HELD, nor TRIGGERED, nor WITHDRAWN-UNSCORED. This line
+SUPPLEMENTS A7.7's ledger vocabulary for the middle band only, in the old census and
+the new one alike.
+
+**[A7.3 DENOMINATOR RULE 2026-08-31: TABLE]**
+
+| denominator (metals with a converged *OOH geometry, licensed and not withdrawn) | CONFIRMED | MIDDLE BAND (disposition above) | FALSIFIED (licenses the registered U-invariant-denominator reframe) |
+|---|---|---|---|
+| 6 (Ti rows licensed under docs/59 §3c) | ≥4 of 6 exceed 0.10 V | 2–3 of 6 | ≤1 of 6 |
+| 5 (Ti rows WITHDRAWN-UNSCORED) | ≥4 of 5 exceed 0.10 V | 2–3 of 5 | ≤1 of 5 |
+
+Rules fixed with the table: (i) the CONFIRMED threshold never falls under a
+withdrawal (4/5 = 0.80 ≥ 4/6 ≈ 0.667); (ii) the FALSIFIED bound stays the registered
+absolute ≤1; (iii) the denominator is set solely by the docs/59 §3c
+countersignature, never by this table; (iv) any denominator not enumerated here
+requires a new dated line BEFORE scoring; (v) disclosure written with the table: at
+either denominator the census when this line was written (3 over: Cr, Mn, Fe) lies
+in the MIDDLE BAND, so no choice available in this table can flip a verdict between
+CONFIRMED and FALSIFIED — checkable from the banked artifact.
+
+## A11.R3 — Licensed compute additions (each its own dated line; every count exact)
+
+**[IR-SLAB CONTINGENCY 2026-08-31: EXTENDED-SEEDS(0.05) THEN
+EQUALISED-BY-SELECTION(nspin=1)]** — if none of {0.10, 0.30, 0.50} lands at or below
+the banked nspin = 1 Ir slab energy, stage A runs the pre-named extension seed 0.05
+(the Ir slab cells only, u000 + u900 = 2 SCFs); if that also lands above, the (Ir,
+slab, U) cell resolves BY THE SELECTION RULE — the banked nspin = 1 energy is in the
+candidate set (A11.6) and the floor passes equality — so the equalised row EXISTS,
+equals the banked nspin = 1 row, and is reported as EQUALISED-BY-SELECTION(nspin=1)
+with the full rejection record. §A11.6's candidate-set reading is adopted over
+docs/62:109-110's "no row" sentence; STATED-OMISSION survives only as fallback
+wording if a later dated line adopts the stricter reading. State at writing,
+disclosed: the u000 seed-0.50 attempt is already banked REJECT (+0.583 meV,
+docs/62 §4, called in advance from P11); the other five attempts are unrun. The
+resolution is fixed now, before any of them exists, and
+EQUALISED-BY-SELECTION(nspin=1) is the conservative branch — it reports zero
+spin-polarisation effect on the Ir slab and can manufacture none.
+
+**[CR/MN/FE SEED SEARCH 2026-08-31: RUNS]** — exactly 28 SCFs (Cr 12: banked seed 0.6
+is off-grid in every cell; Mn 8: banked 0.5 = m050 covers all four cells; Fe 8:
+banked s0_OH 0.5 and s0_OOH 0.1 cover four cells). Coverage convention, registered:
+a banked seed equal to a grid member covers that cell AT BOTH ENDPOINTS (banked u900
+seeds verified identical to u000). FM-uniform-seed only — this family never touches
+the A7.5 Mn AFM condition (the registered either/or at :1406-1407 is untouched by
+it). Selection: the A11.6-ANALOGUE rule — lowest converged total energy per (metal,
+state, U) across the grid seeds AND the banked FM row as incumbent (these metals
+have no nspin = 1 floor; the banked FM energy is the incumbent candidate), ties
+within 1 meV to the smallest |seed|. Winners enter the a7_3_spin sensitivity census
+ONLY; no banked A0 row is replaced (§A11.9).
+
+**[A7.2 EQUALISED RE-READ 2026-08-31: RE-READ]** — per §A11.9, the equalised rows
+read for A7.3 have A7.2 re-read on the same rows. Scope: Ru/Ir now — which requires
+**Family C, 20 SCFs**: {slab, s0_O} × {u000, u900} × {0.10, 0.30, 0.50} × {Ru, Ir}
+minus the 4 already-run Stage-0 u000-seed-0.50 rungs (three banked; the Ir slab rung
+is the registered REJECT, its energy recorded in the rejection record — a family
+docs/65's 76-SCF tally omitted; priced here); Ti under the §3c grant (+12: {slab, s0_O} × {u000, u900} ×
+3 seeds, docs/62:217-218). Limitation stated before the fact: an endpoint-only
+re-read detects pls(0) ≠ pls(9) but CANNOT locate the crossing U — the registered
+flip-U crossing deliverable (docs/43:1352-1353) needs the interior ladder, which is a
+registered phase-2 decision point (docs/66 §6), not licensed here.
+
+**[RU AFM PROBE 2026-08-31: RUNS, both U endpoints]** — item 10's probe runs as
+drafted: the 4 pre-staged NM-relaxed-geometry decks (`runs/s0/h_afm_probe/`), whose
+DERIVED enumeration and NM-relaxed geometry choice the entrant countersigns with
+this line; recorded either way, not entering the A7.3 score. **Robustness arm, its
+own line:** +6 SCFs on the AFM-relaxed geometries (`runs/s0/h_afm_relax` finals): NM
+u000 (2), AFM u900 (2), NM u900 (2); the AFM u000 legs are the banked `__g1`
+fresh-density children (relaxed-AFM-vs-NM-relaxed Δc_M(0) = −32.12 meV via the g1
+children, −32.51 via the relax finals; the fixed-AFM-geometry Δc_M(0) is what the
+arm's NM u000 legs will complete; the g1 children are the elected legs, pre-stated
+here before any U = 9 result exists). The robustness arm inherits item 10's
+no-A7.3-score limit verbatim. nk pre-stated: 4 (the h_afm_anchor runner note), for
+both arms. Citation correction of record: the manifest's "−41.4 meV
+(docs/figs/a0main_readout.json)" is a DERIVED sum (−25.9 banked dc_M(0) − 15.5 floor
+distance); of these quantities the JSON stores only delta_to_floor_eV =
+0.015503671954502363 (0.0155 rounded); neither −41.4 nor −25.9 appears in it.
+
+**[MN AFM ARM 2026-08-31: IN SCOPE]** — design of record docs/67 (adopted with this
+line); this line IS the arm's licence (docs/43:2008 excludes any AFM deck in 1×1
+from the gate-(h) licence, so nothing prior covers it). Staged program and triggers
+per docs/67 §5: MN-AFM-ORDER 4 (licensed now) → MN-AFM-CORE 12 (on the measured
+ordering winner) → MN-AFM-RELAX 4+4 (GATE-1) → contingent MN-KBRIDGE 4 /
+MN-AFM-PROD-2X1 4 (+8 in-frame E4 FM twins if P-B wins). Protocol thresholds reused from gate-(h) verbatim (±20 meV,
+frozen u390 FM comparator, M_abs witness), fixed before any AFM energy exists.
+Firewalled from A7.2/A7.3. The strike on materials-facing Mn sentences lifts only by
+this arm RUNNING, on any outcome.
+
+**[LEDGER PLACEMENT 2026-08-31]** — this amendment is numbered A11; P-FLOOR-U-SPIN
+and P-SPIN-DELTA take APPENDIX ledger rows with the same HELD/TRIGGERED/WITHDRAWN
+vocabulary and the P-DISPOSITION sweep; the body-figure ledger stays at the
+registered six (P7, P-PROJ, P-PLS, P-FLOOR-U, P-SYMCOV, P-BEEF). The docs/52 row 63
+displacement decision remains open and owed in writing before Sep 20.
+
+**[DOCS/60 §6 FACT 2 RESTATED 2026-08-31]** — the sentence of record is now: "Ru's
+A7.3 shortfall is 15.5 meV of required additional swing in |Δc_M| across U = 0 → 9 —
+a change in D_M = Δc_M(U_max) − Δc_M(0). The AFM re-anchor numbers (−25.9 meV
+fixed-geometry, −32.5 meV relaxed) are levels of Δc_M at U = 0 only; by the A11.1
+arithmetic (Δ[span/2] = −D_M/2) a U-independent level cancels exactly at any size,
+so neither level bounds, closes, or widens the 15.5 meV. What the levels establish
+is that the NM-vs-AFM class is real on exactly the nearest metal at a magnitude
+comparable to the shortfall, while its U-dependence is unmeasured. 'NOT MET is not
+settled' therefore stands — on the unmeasured U-dependence, not on 25.9 > 15.5 —
+pending the item-10 probe, the only measurement that acts on A7.3." The original
+sentence's 2–4× comparison and the 33–64 meV class do not travel; conclusion
+unchanged (docs/63:230); this supersedes docs/63 §6's "exceeds … so not settled"
+phrasing on the same point (dated row in the error ledger).
+
+## A11.R4 — Scale disclosure (A6.6, running total)
+
+A6.6 registered "~160 fixed-geometry SCFs and zero relaxations"; docs/59 disclosed
+the running total at ~250 (and the seven 1×1 Ti relaxations, licensed by the §3c
+line of 2026-08-31). This amendment adds, all fixed-geometry SCFs: Ru/Ir Stage-1 20
++ Ti Stage-1 12 + Family C 20 + Ti re-read 12 + Cr/Mn/Fe 28 + probe 4 + robustness 6
+= 102, plus Mn stage-1 4 (docs/67; its later families on their own triggers), plus
+contingents (Ir-slab 0.05: 2; Mn core 12, k-bridge 4, prod-2×1 4 — up to 12 with the
+E4 FM twins if P-B wins — and the relax family's 4 `__g1` SCF children, per docs/67
+§5). Running fixed-geometry total: **~250 → ~356 licensed now, up to ~395 at full
+contingent trigger** — stated, not absorbed; the same disclosure stance as docs/59
+§3c. Relaxations beyond the seven and the gate-(h) STANDALONE_FOUR family (licensed
+2026-08-30, run and banked) remain unlicensed except the MN-AFM-RELAX family under
+its docs/67 trigger.
+
+## A11.R5 — Deposit obligation
+
+Per A7.8, docs/43 complete through this amendment (A1–A9 + A11 + both dated addenda;
+A10 pending, gated on S0(a)) is re-deposited to Zenodo as a new version of record
+10.5281/zenodo.21963144 — restricted access, DOI and timestamp public, files closed
+until report submission — **before any deck this amendment licenses is submitted**
+(vehicle: OWN VERSION NOW, elected in docs/66 §2 row 18; the new version drafts off
+the latest published version id 22072991). The deposit fileset: docs/43 (this
+state), docs/59 (countersigned), docs/61 (the adopted draft, historical), docs/62–67.
+Contingent lines above (Ir-slab 0.05; the docs/67 §5 contingent families — core,
+relax, k-bridge, prod-2×1; the phase-2 decision
+points of docs/66 §6) ride THIS deposit, so their later triggering needs no new
+version. The new-version DOI is recorded here in a dated line when it exists, with
+the per-file manifest (name, bytes, md5, sha256, commit).
+
+---
+
+## Dated addendum — 2026-08-31: P-DISPOSITION date, amended
+
+**[P-DISPOSITION DATE AMENDED 2026-08-31: OCT 15 → REPORT LOCK, BACKSTOP NOV 5 2026
+8:00 PM ET]** — decided by the entrant 2026-08-31, recorded from his directive
+verbatim: "Freeze is not Oct 15. We go until we cant anymore. Verify the oens that
+are the most rigorous and most compute / better for STS 2027 application. If it is
+not the most rigorous, amend so it is. remember, we are trying to be impactful and
+most rigor". (AI-drafted disclosed infrastructure per A7.7, the decision his, this
+text the scribe's; placed here because corrections go in a dated addendum at the
+bottom — :4-5 — and nothing above the deposit line may be edited in place.)
+
+**Resolution.** A7.7 P-DISPOSITION (:1437-1440) is amended in its date only: "Oct 15"
+now reads "**the entrant's dated REPORT LOCK line — the dated line, written in this
+addendum's style, that declares the report's data complete — and in no case later
+than Nov 5 2026 8:00 pm ET (the STS 2027 submission deadline)**". The FIRST REPORT
+LOCK line governs; it is irrevocable — the docs/66 override right does not reach
+it — a second such line is void, and the line takes effect only when committed, its
+commit hash recorded beside it. The rule stays
+self-executing: if no REPORT LOCK line exists when the backstop instant arrives, the
+sweep executes AT the backstop, automatically, exactly as the original rule executed
+by date. The disposition sweep executes exactly once, at whichever instant governs:
+any prediction not scored when it executes is marked WITHDRAWN-UNSCORED with its
+date, exactly as registered. The same date substitution reads through every
+registered restatement of the P-DISPOSITION date — :1930's A9 sweep clause ("any A9
+prediction not scored by Oct 15") and :1999's scheduling reference — which restate
+A7.7's rule and carry no independent date; the Sep 20 displacement decision at
+:1930 and A10's Sep 18 are dates of other rules and stay unchanged. Nothing else
+moves — no threshold, scoring rule,
+sample, consequence, or other registered date (A10's Sep 18; the Sep 20 displacement
+decision at :1930 — both independent and unchanged); the S7 window (docs/45:81)
+re-keys to end at the amended date by a dated row in docs/45.
+
+**Prospectivity and state at amendment.** No banked verdict depends on the old date:
+the banked A0 artifact reads "whatever stays unscored at freeze" with no literal
+date (docs/figs/a0main_readout.json; src/dft/a0main_readout.py), and no prediction
+has been marked WITHDRAWN-UNSCORED under the Oct 15 rule — every use in the record
+is conditional/prospective. Ledger state when this line was written: A7.2 CONFIRMED
+5/6; A7.3 at 3-of-6 middle band with Ru +15.5 meV from the floor and the item-10
+probe undecided — the 3-over/3-under split coincides exactly with the
+nspin=2/nspin=1 partition (the confound the equalised census instruments). The
+extension is uniform over every unscored prediction and both outcome directions —
+more time to fail as well as to pass — and the pre-extension census stands banked.
+No compute this session licenses can move any banked verdict: the equalised census
+cannot promote A7.3 (A11.5), no banked A0 row is replaced (§A11.9), and the item-10
+probe is firewalled from the score — so the extension cannot act on the 15.5 meV
+margin it discloses. This is a date amendment, not a gate widening (A9.6's :1960
+indicts thresholds moved to fit data; this moves a calendar, before it arrives,
+uniformly, with every threshold untouched).
+
+**What the original date bought, disclosed.** The Oct 15 date served a writing
+window — "results must be complete, not proposed; hold the mid-October freeze so
+there's ~3 weeks left for Frank to write" (docs/44:129-130). The amendment
+transfers that scheduling risk to the entrant knowingly: compute may now run into
+the writing window, and the REPORT LOCK line is his instrument for closing it.
+
+**Deposit.** Per A7.8 this addendum deposits with the next Zenodo version (the A11.R5
+deposit) and in any case before any job or scoring act dated after Oct 15 relies on
+it. **Report discloses:** the original date, this amendment's date + DOI, the ledger
+state above, the uniform-extension fact, the writing-window rationale, and the
+AI-use log entry (paraphrased per A7.7).

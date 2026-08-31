@@ -917,3 +917,31 @@ docs/65 top-to-bottom, then sign rows in the critical-path order it opens with:
 Row 1 (docs/59 §3c — gates Ti, the arm's most informative half, docs/62 §6) →
 Rows 3–5 (Stage-1 Ru/Ir submit) → Row 15 (the ONLY deck set that acts on A7.3).
 The queue is empty and every deck is pre-staged: each signature is ≈20–370 SU from data.
+
+## 2026-08-31 (later) — the entrant's directive: freeze amended, all elections executed
+
+- Directive verbatim + election record: **docs/66**. Freeze: P-DISPOSITION Oct 15 →
+  REPORT LOCK, backstop Nov 5 2026 8:00 pm ET (docs/43 dated addendum). docs/59 §3c
+  GRANTED (retroactive over the 7 banked Ti relaxations, non-precedent clause).
+  docs/43 AMENDMENT 11 appended (all docs/61 elections + A11.4 re-word + middle-band
+  token + denominator table + CMF / re-read+Family-C / probe-robustness / Mn-arm
+  licences + scale disclosure ~356→~395). Mn AFM arm design of record: **docs/67**.
+  Verification: 13-agent session wf_3866bd01-d35 (3 candidates AMENDED, adopted) +
+  4-auditor pre-commit pass wf_4ac7a2ec-f94 (44 findings, all applied — incl. the
+  legitimacy one: §3c is EXECUTED-UNDER-DIRECTIVE, completes at Frank's own
+  confirmation line in docs/59 §5; no Ti deck submits before it).
+- Facts of record for docs/66 §5: Anvil checks this session (ssh): queue EMPTY
+  (`squeue -u $USER -h | wc -l` → 0), balance 69,783.7 CPU SU + 150 GPU-h
+  (mybalance), remote tree `/anvil/projects/x-che260157/sts` present (sacct
+  WorkDir of the a0 arrays + ls: anvil/ logs/ runs/ src/).
+- [ ] **FRANK: one dated line in docs/59 §5** — `[§3c CONFIRMED 2026-__-__ — read
+      docs/66 §2; the grant stands]` (or override any docs/66 row). Ti submits then.
+- [ ] Zenodo deposit (OWN VERSION NOW, new version off id 22072991, restricted) →
+      DOI lines filled in docs/59 §5 + docs/43 A11.R5, with per-file manifest
+- [ ] builders: Ti Stage-1 (12), Ti re-read slab/s0_O (12), probe robustness (6),
+      CMF seed search (28), Family C slab/s0_O (20), Mn order (4); pipeline guards
+      (licence-grep + EXCLUDE-check on all five array submitters 41/43/45/47/49);
+      a7_3_spin census readout script
+- [ ] submit wave A + non-Ti wave B after the deposit; EXCLUDE = manifest list +
+      a120 + a200; Ti families wait on Frank's confirmation line, then s0_OH@u900
+      first among Ti; record array IDs here at bank time

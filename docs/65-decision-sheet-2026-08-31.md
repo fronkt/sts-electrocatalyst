@@ -13,6 +13,18 @@ consolidates the decisions live in the docs/58–64 arc plus tasks/todo.md's 202
 (:884-895). The older docs/52 / docs/55 layer is NOT re-verified here; those sheets remain
 the index for their own rows.
 
+> **[SHEET DISCHARGED 2026-08-31, later the same day]** — every verdict-bearing row
+> on this sheet was elected under the entrant's 2026-08-31 directive; the elections,
+> their adversarial verification, and the instruments that carry the dated lines are
+> indexed in **docs/66** (docs/43 Amendment 11 + the P-DISPOSITION addendum; docs/59
+> §3c GRANTED; docs/67). Corrections to THIS sheet recorded there (docs/66 §7): the
+> status header's "Oct 15 hard freeze" line is superseded (REPORT LOCK, backstop
+> Nov 5 8:00 pm ET); the 76-SCF tally omitted Family C's 20 Ru/Ir slab/s0_O decks;
+> the SU tops read 532/228/380/76 at the sheet's own band (the 28/12/20/4-SCF sets)
+> and the closing 380–1,420 reads 380–1,444; Row 9's "24 banked SCFs" is 28 (4
+> states × 7 U rungs). This sheet stays as the historical index; the drafts +
+> docs/66 govern.
+
 **Status header — facts of record, 2026-08-31:**
 
 - **Oct 15 hard freeze.** Per the registered P-DISPOSITION rule, any prediction not scored

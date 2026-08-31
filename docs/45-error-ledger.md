@@ -2496,3 +2496,31 @@ automatically comparable to its siblings -- check the moment's STATIONARITY
 deeper relaxation compounds the drift and the BFGS walks -- recording
 NOT_CONVERGED beats escalating to a rung that "succeeds" by banking an
 unpinned row silently.
+
+## The 2026-08-31 directive session — freeze amended, every open election executed, and one supersession
+
+**Dated correction rows (2026-08-31):**
+
+- **S7 re-key.** The §E S7 row's "Oct 8–15" window re-keys to the amended
+  P-DISPOSITION date: S7 (freeze, figure pack, pre-submission assertions) now ends at
+  the entrant's REPORT LOCK line, backstop Nov 5 2026 8:00 pm ET (docs/43 dated
+  addendum of 2026-08-31, recorded from the entrant's verbatim directive; docs/66 §1).
+  The sweep stays self-executing at the backstop.
+- **Ledger-wide re-key.** Every "Oct 15" elsewhere in this ledger (the §E S7 row
+  above; the narrative use at :2147) reads through the same amendment; no threshold,
+  scoring rule, or other registered date moved (Sep 18 A10 and the Sep 20
+  displacement decision are independent and unchanged).
+- **Supersession (docs/60 §10).** docs/60 §10's MAY-NOT "treat 'NOT MET' as an A7.7
+  disposition" is narrowed by docs/43 A11.R2's dated supplement: the bare status
+  token still takes no disposition row; the registered middle-band disposition is
+  SCORED — MIDDLE BAND / NOT MET, reported only with its count and
+  a7_3.conditionality, never bare.
+- **Supersession (docs/63 §6).** docs/63 §6's MAY bullet — the "exceeds … so 'NOT MET
+  is not settled'" phrasing — is superseded on that point by the restated
+  level-vs-swing sentence of record (docs/43 A11.R3, [DOCS/60 §6 FACT 2 RESTATED
+  2026-08-31]): the AFM levels (−25.9/−32.5 meV at U = 0) neither bound nor close
+  Ru's 15.5 meV required SWING; "not settled" stands on the unmeasured U-dependence,
+  pending the item-10 probe. Conclusion unchanged (docs/63:230).
+- **Elections index.** All docs/65 rows elected under the entrant's 2026-08-31
+  directive; record and verification provenance in docs/66; instruments: docs/43
+  A11 + addendum, docs/59 §3c GRANTED, docs/67 (Mn AFM arm design).

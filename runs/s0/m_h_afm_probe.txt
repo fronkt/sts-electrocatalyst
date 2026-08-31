@@ -1,6 +1,10 @@
-# NOT LICENSED FOR SUBMISSION — docs/61 decision item 10 (the entrant) is OPEN. Recorded either way; does not enter the A7.3 score. Both-U-endpoint AFM/NM probe on the gate-(h) recipe.
+# LICENSED 2026-08-31 — [RU AFM PROBE 2026-08-31: RUNS, both U endpoints] (docs/43 A11.R3;
+# elections docs/66 §2 row 15; deposit per A11.R5 precedes submission). Recorded either way;
+# does not enter the A7.3 score. Both-U-endpoint AFM/NM probe on the gate-(h) recipe.
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223
+# (submit-time list additionally + a120,a200 per [EXCLUDE EXTENDED 2026-08-31], docs/66 §4)
 # Ru AFM probe, U = 9.0 endpoint -- 4 decks built by src/dft/build_ru_afm_probe.py
-# (deterministic; parent and deck md5s below). Do NOT stage or submit while item 10 is open.
+# (deterministic; parent and deck md5s below).
 #
 # The 4 SCFs = {s0_OH, s0_OOH} x {AFM, NM} at U = 9.0 eV, fixed geometry, 2x1v cell, on the
 # NM-relaxed OFF-arm final BFGS geometries the banked gate-(h) family used (h_afm_anchor
@@ -36,10 +40,18 @@
 #   NM twin recorded either way (no adoption rule exists for this probe); (3) branch
 #   continuity vs the banked U=0 moments (OH totmag/absmag -1.21/3.85, OOH -0.24/4.79) --
 #   collapse or sign flip marks D_M branch-conditional. Context, NEVER a score: Ru sits
-#   15.5 meV from the A7.3 floor; crossing would need dc_M(9.0) <= -41.4 meV
-#   (docs/figs/a0main_readout.json) -- item 10 says the probe does not re-score A7.3 either way.
+#   15.5 meV from the A7.3 floor (docs/figs/a0main_readout.json /a7_3/per_metal/Ru/
+#   delta_to_floor_eV = 0.015503671954502363, quoted at 0.0155 -- of these quantities
+#   the JSON's only stored pin); crossing would need
+#   dc_M(9.0) <= -41.4 meV, a DERIVED sum (-25.91 banked dc_M(0) - 15.5), not a stored
+#   value (citation corrected 2026-08-31, docs/66 §7) -- item 10 says the probe does not
+#   re-score A7.3 either way.
 #
-# QUESTION-FOR-THE-ENTRANT (genuine reading ambiguity -- decide when electing item 10):
+# QUESTION-FOR-THE-ENTRANT -- ANSWERED 2026-08-31 (docs/43 A11.R3): the DERIVED 4-SCF
+# enumeration and the NM-relaxed geometry choice are COUNTERSIGNED as the PRIMARY; the
+# AFM-relaxed reading runs as a separately-registered 6-SCF ROBUSTNESS ARM (AFM u000
+# legs = the banked __g1 children, pre-stated); deposit vehicle = A11.R5 (OWN VERSION
+# NOW). The original question is kept below for the record:
 #   docs/61 item 10 names only '4 SCFs, gate-(h) recipe'; the enumeration above is DERIVED
 #   (any other assignment duplicates banked rows, cannot form D_M, or crosses cell/k/symmetry
 #   treatments), and 'both U endpoints' is docs/63 s4.3 / docs/64 s3 wording, not item 10's.

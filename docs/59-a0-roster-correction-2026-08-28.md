@@ -202,6 +202,29 @@ grant or withhold when countersigning this document. If withheld, the consequenc
 already registered: A7.3's denominator shrinks and the Ti rows are WITHDRAWN-UNSCORED
 under A7.7.
 
+**[§3c LICENCE 2026-08-31: GRANTED — EXECUTED UNDER DIRECTIVE, COUNTERSIGNATURE
+PENDING; s0_OH@u900 FIRST among Ti compute]** — executed 2026-08-31 under the
+entrant's recorded directive (docs/66 §1, quoted verbatim there; the mapping
+AI-drafted and adversarially verified, docs/66 §2 row 1; the entrant may override by
+a later dated line). **Because this is the one signature that MOVES A BANKED VERDICT
+(the A7.3 denominator, docs/60 §6 fact 5; docs/43 A11.R2 rule (iii) makes it the
+sole denominator authority), it completes only at the entrant's own dated
+confirmation line in §5 below — and NO TI DECK SUBMITS BEFORE THAT LINE EXISTS.**
+The grant as executed covers EXACTLY the seven named relaxations of 2026-08-28/29
+(slab, s0_O, s0_OH, s0_OOH, s0_OOH_r1/r2/r3, all 1×1, all already run and banked in
+`runs/Ti_slab/`) — **retroactive legitimation of those seven and NOTHING ELSE; it
+sets no precedent for out-of-footprint compute and licenses no future relaxation in
+any cell. No future out-of-footprint compute acquires a grant/withhold decision
+point this way: this one existed because §3c registered the election with the
+withhold consequence priced (:200-203); absent such a pre-registered election,
+out-of-licence compute is a VIOLATION recorded in the error ledger and its rows are
+unusable.** Consequences in force at confirmation: A7.3's denominator stays 6; the
+banked NOT MET 3/6 stands scored; every Ti Stage-1 SCF remains additionally gated on
+docs/43 A11's items 1–3 elections and the A11.R5 deposit; `s0_OH@u900` runs first
+among Ti compute (docs/62 §9 item 3 — a Ti-internal ordering, not a reordering of
+§A11.10's Ru-first sequencing). Ti decks may be BUILT and committed under this
+executed line (building banks nothing); submission waits.
+
 **Scale update:** the ~246 above becomes ~250 with this round (2 Fe SCF restarts
 + 2 Ti relaxations). Same disclosure stance: stated, not absorbed.
 
@@ -274,3 +297,18 @@ believable either way.
 2. Deposit it (own Zenodo record, or alongside A10 on Sep 18 — entrant's choice; the
    registration's own instrument is the dated deposit).
 3. The RCAC ticket and the S1 CI files remain open from before (tasks/todo.md).
+
+**[COUNTERSIGN EXECUTED UNDER DIRECTIVE 2026-08-31 — CONFIRMATION PENDING]** — act 1
+was executed under the entrant's recorded directive (docs/66 §1); because the §3c
+grant moves a banked verdict, the countersignature COMPLETES only at the entrant's
+own dated confirmation line below. Until that line exists, the Ti rows' status stays
+exactly as docs/60 §6 fact 5 left it (provisional on a signature) and no Ti deck
+submits. Act 2: vehicle elected OWN VERSION NOW (docs/66 §2 row 18); the dated DOI
+line below is act 2's discharge when the deposit publishes.
+
+**Entrant confirmation line (2026-__-__):** _reserved — one dated line in the
+entrant's own hand confirming the §3c grant (or overriding it), e.g._
+`[§3c CONFIRMED 2026-__-__ — read docs/66 §2; the grant stands]`.
+
+**DOI line (2026-__-__):** _reserved for the dated fill at publication (docs/61
+§A11.11 pattern)._
