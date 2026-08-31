@@ -843,3 +843,12 @@ ranking would contaminate the campaign's central contribution.
 - [ ] **When r1 drains:** converged → QC (moment drift goes to the A8.3/CONFOUND discussion
   regardless), pull, --gate1 for the s0_O child, extend the relaxed panel; failed →
   rung (iii): s0_O relaxed row recorded NOT_CONVERGED, family reports 3+1 gap.
+
+## 2026-08-30 g1 wave interim
+
+- [x] **ref g1 (20243152_1) OOM-killed on a200 at 03:52** — third early-phase OOM, third
+  distinct node (a120, a200), sampled RSS well under the allocation each time; node-fault
+  pattern. Evidence preserved as `.out.attempt1-oom-a200`; **retry = array 20243319**
+  (m_h_afm_g1_retry1.txt), a200 added to EXCLUDE. OH/OOH g1 children still running.
+- [ ] Consider an RCAC ticket naming a120+a200 if a fourth early OOM lands (the draft at
+  anvil/rcac_ticket_draft_2026-08-24.md already exists for an earlier node issue).
