@@ -68,8 +68,9 @@ totmag > 0.1 μ_B off the relaxation's final value → CONFOUNDED.
 
 ## GATE-1 verdicts (landed 2026-08-30, arrays 20243152 + retry 20243319)
 
-ref g1's first task was OOM-killed on a200 at 03:52 (the family's third
-early-phase OOM, third distinct node; evidence `.out.attempt1-oom-a200`);
+ref g1's first task was OOM-killed on a200 at 03:52 (the family's SECOND
+early-phase OOM, second distinct node — an earlier note said third, a
+miscount; evidence `.out.attempt1-oom-a200`);
 the retry completed in 9m25s. All three children converged, fresh density,
 single SCF each:
 
@@ -83,3 +84,30 @@ No BASIN_DRIFT (nothing ≥ 5 meV below), no A8.3 refusal (nothing > 1 meV
 above), no CONFOUND (all Δtotmag ≤ 0.03 μ_B). The three banked relaxed rows —
 and the relaxed Δc_M = −32.5 meV — are GATE-1-confirmed. The s0_O child stays
 deferred pending the r1 repair.
+
+## Rung (iii) EXECUTED — the s0_O relaxed row is NOT_CONVERGED (2026-08-30)
+
+- **attempt 3 / r1** (`__relax__r1.out`, array 20243153, a200, 1h44m QE WALL):
+  `convergence NOT achieved after 200 iterations` — in the **2nd** SCF, one
+  earlier than attempt 2. Its first SCF, at the byte-identical geometry where
+  the anchor found totmag −1.62 (E = −3302.93769258 Ry) and attempt 2 found
+  −1.70 (−0.151 meV vs anchor), "converged" at **−1.90** (−0.710 meV) with
+  the moment still drifting monotonically when the energy criterion fired.
+  The verification pass on docs/64 REFUTED the first-draft reading (mixing
+  selects a distinct solution): the correct diagnosis is ONE nearly-flat
+  magnetization landscape — a 0.28 μ_B moment spread costs 0.71 meV, so
+  conv_thr = 1.0e-6 Ry cannot pin the moment and every solver path stops
+  somewhere else along the drift. A property of the state (docs/45 trap 27,
+  as corrected).
+
+Per the pre-stated exit in m_h_afm_relax_repair.txt's own header: **the s0_O
+relaxed row is recorded NOT_CONVERGED and reported as a gap. No third solver
+attempt.** The s0_O GATE-1 child is never owed (no converged final geometry).
+The family's final state: **3 relaxed rows, GATE-1-confirmed + 1 recorded
+NOT_CONVERGED gap with a two-attempt repair trail.** The banked fixed-geometry
+s0_O AFM anchor SCF (h_afm_anchor, −80.3 meV vs NM) is unaffected and remains
+the family's s0_O number, now carrying the caveat that its relaxed correction
+is unmeasurable at this protocol.
+
+Family SU cost, measured: 1,067.9 SU (70,851.6 → 69,783.7), vs the 4,000–7,600
+STANDALONE_FOUR estimate.

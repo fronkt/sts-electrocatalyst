@@ -2477,3 +2477,22 @@ These two traps are what it cost to find that out.
     arithmetic and still binds, three of D_Ti's four terms are unrun, and a
     U-independent offset cancels exactly. The trap is about *where to look*, not
     about what has been shown.
+
+**27. An energy-only conv_thr can "converge" an SCF at very different magnetic
+moments when the magnetization landscape is flat -- the converged flag does not
+pin the magnetic state.** (2026-08-30, S0(h) s0_O AFM; mechanism corrected by
+the docs/64 verification pass, which REFUTED the first draft's "mixing selects
+a distinct solution" reading.) Three formally converged endpoints exist at the
+byte-identical geometry: anchor totmag -1.62 (E = -3302.93769258 Ry),
+attempt-2 -1.70 (-0.151 meV vs anchor), r1 under halved mixing -1.90
+(-0.710 meV vs anchor) -- a 0.28 mu_B moment spread across 0.71 meV, with r1's
+moment still drifting monotonically (-1.82 -> -1.90 over its last ~20
+iterations) when conv_thr = 1.0e-6 Ry (0.014 meV) fired. The moment is nearly
+a zero mode: shifting it ~0.3 mu_B costs under 1 meV, so the energy criterion
+cannot pin it, and where the SCF stops depends on solver path and run history.
+Corollaries: (a) a converged energy from a repaired or re-mixed deck is not
+automatically comparable to its siblings -- check the moment's STATIONARITY
+(plateau over the closing iterations), not just the flag; (b) on such a state,
+deeper relaxation compounds the drift and the BFGS walks -- recording
+NOT_CONVERGED beats escalating to a rung that "succeeds" by banking an
+unpinned row silently.

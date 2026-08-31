@@ -861,3 +861,22 @@ ranking would contaminate the campaign's central contribution.
   (ref g1 needed the 20243319 retry after the a200 OOM; completed 9m25s.)
 - [ ] **Still pending: r1 repair (20243153)** — monitor armed; converged → QC + pull +
   s0_O g1 child; failed → rung (iii) NOT_CONVERGED recorded, family reports 3+1 gap.
+
+## 2026-08-30 family CLOSED OUT (docs/64)
+
+- [x] **r1 repair FAILED (rung iii EXECUTED):** 2nd SCF hit 200-iteration ceiling; first SCF
+  "converged" at totmag −1.90 with the moment still drifting. **s0_O relaxed row = NOT_CONVERGED,
+  recorded gap, no third attempt** (pre-stated exit). s0_O g1 child never owed. Family final:
+  3 relaxed+GATE-1-confirmed rows + 1 recorded gap. Cost 1,067.9 SU.
+- [x] **6-agent verification workflow over docs/64 (78 findings):** all banked numbers CONFIRMED
+  independently (panel, Δc_M −32.5 fixed −25.9, GATE-1 verdicts, citations, comparator premise).
+  **One load-bearing inference REFUTED and corrected:** trap 27's "mixing selects a distinct
+  solution" → actually ONE flat magnetization landscape (3 converged flags at one geometry span
+  0.28 μ_B across 0.71 meV; r1's moment non-stationary at the flag). Trap 27 rewritten; README
+  + docs/64 reframed. Also fixed: my OOM miscount (2 on 2 nodes, not "three/third" — caught
+  pre-workflow), sloshing band extremes (−1.29↔−2.61), rounding chain digits, elapsed-vs-clock
+  wording, sacct/mybalance transcription sourcing, QE WALL times substituted for Slurm elapsed.
+- [ ] **Frank:** docs/61 item 3 gains a third option (0.033 eV via the RELAXED c_M level —
+  keeps the registered number, fixes the justification; vs 0.026 fixed-geom); the s0_O
+  flat-moment finding is new evidence for the docs/59 §3c discussion; docs/61 item 10 (Ru AFM
+  probe, both U endpoints) remains the only live path to A7.3.
