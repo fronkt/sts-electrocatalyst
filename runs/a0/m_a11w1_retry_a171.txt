@@ -1,0 +1,40 @@
+# A11 WAVE-1 RETRY -- the four node-a171 casualties of the 2026-08-31 launch
+# (4 decks, BYTE-IDENTICAL to their licensed parents; nothing rebuilt, no new
+# deck, seed, cell or rule). Written 2026-09-01.
+#
+# WHY. Every task Slurm placed on a171 died or hung, and nothing placed
+# elsewhere did: 20262064_3, 20262064_6 and 20262090_1 were OOM-killed
+# ("Detected N oom_kill events", 0 SCF iterations each, 3-9 min wall) and
+# 20262091_1 sat RUNNING 19h11m with 0 SCF iterations (.out untouched for
+# 23 h while its 11 sibling rows finished in 4-8 min; scontrol show node:
+# FreeMem=333 MB of 257 GB, CPULoad 325 on 128 CPUs). Cancelled 2026-09-01
+# 19:06 EDT after ~2,450 SU of idle burn. Each partial .out was moved aside
+# as <stem>.out.a171_2026-08-31 BEFORE this retry, so this is a recorded
+# SECOND attempt, not a first (docs/45 lesson: a re-run must never read as
+# an original). a171 is added to the EXCLUDE list here and at submit time.
+#
+# LICENCE: inherited row-for-row from the licensed parent manifests --
+#   rows 1-2 <- runs/a0/m_a0spin_s1.txt rows 3 and 6   (docs/43 A11.R1, Stage 1)
+#   row 3    <- runs/a0/m_cmf_seed_search.txt row 1     (docs/43 A11.R3, CR/MN/FE SEED SEARCH)
+#   row 4    <- runs/a0/m_a0spin_s1_ti.txt row 1        (docs/43 A11.R1 Ti arm; docs/59 SS3c
+#               GRANTED + the entrant's SS5 confirmation line of 2026-08-31)
+# Same A11.6 selection rule, same a7_3_spin census, same nk convention
+# (4 for Ru/Cr, 8 for Ti). Row 4 is the leading Ti row (s0_OH@u900, seed 0.10);
+# its two sibling seeds already converged to the same energy (-1256.69667 Ry).
+#
+# deck md5s (identical to the parents' header lines; an independent rebuild
+# must reproduce these byte-for-byte):
+# md5 9c8e0a5d1953f23bd36932a658a01566 a0/spin/Ru/s0_OH__u900__sp2m010.in
+# md5 813968cb800ba57cedcba6f8fa699339 a0/spin/Ru/s0_OOH__u000__sp2m010.in
+# md5 046a56d0e98b65270d352af176b60b11 a0/spin/Cr/s0_OH__u000__sp2m010.in
+# md5 9d19379051eb18389204a79d33825161 a0/spin/Ti/s0_OH__u900__sp2m010.in
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171
+# (submit-time list additionally + a120,a200 per docs/66 section 4)
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+a0/spin/Ru s0_OH__u900__sp2m010 .in 4
+a0/spin/Ru s0_OOH__u000__sp2m010 .in 4
+a0/spin/Cr s0_OH__u000__sp2m010 .in 4
+a0/spin/Ti s0_OH__u900__sp2m010 .in 8
