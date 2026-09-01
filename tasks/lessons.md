@@ -836,3 +836,24 @@ reason (A6.5(1) needs projwfc.x inline) and gave it `-J a0`.
   and leave a record they can check themselves.
 - **A shared launch path is a shared namespace.** The gates in a submitter are
   worth reusing; its identity is not. Copy the gates, set your own name.
+
+## 2026-09-01 — I wrote Python source through a Python string inside a heredoc and lost my backslashes
+
+Appending a test and patching a guard, I generated both edits from a Python script fed
+through a heredoc, with the new source held in a `'''...'''` literal. `"\n"` inside that
+literal became a real newline in the written test (SyntaxError: unterminated string), and
+a `\`-newline continuation in the guard's condition was silently swallowed into one long
+line. The census ran and matched run A, so nothing scored was wrong; the test file was
+uncompilable until the user said "retry".
+
+**Rules.**
+
+- **Source code goes through exactly one layer of quoting.** Write new source with a
+  plain `cat > file <<'EOF'` heredoc (or the Write tool), never as a string literal
+  inside another program. If a patch must be programmatic, build backslashes with
+  `chr(92)` and assert the written text compiles (`py_compile`) in the same command.
+- **Run the tests in the same command as the edit.** The failure was caught only because
+  pytest ran immediately; a later session would have inherited a broken suite with a
+  green-looking commit.
+- **A self-inflicted syntax error is a correction event.** It cost a user turn; it belongs
+  here, not just in the fix.

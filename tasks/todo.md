@@ -982,3 +982,35 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
       (docs/67 §7 item 3) → build MN-AFM-CORE on its trigger.
 - [ ] Row-7 watch: if Ir slab 0.10/0.30 (in 20262088) fail the floor, the
       pre-named 0.05 extension fires (2 decks), then EQUALISED-BY-SELECTION.
+
+## 2026-09-01 — A11 wave 1 DRAINED (docs/68): 102/106 ran, 86 converged, Ru spin@U=9 = 0/15, a171 sick
+
+- [x] sacct census of all 8 arrays: 102 COMPLETED, 3 OOM (a171), 1 hung 19h11m at 0 iterations
+      (a171) → **scancel 20262091_1** (≈2,450 SU idle burn); partial .outs preserved as
+      `.out.a171_2026-08-31`; balance **65,096.2 SU**.
+- [x] Retry of the 4 a171 casualties, byte-identical: `runs/a0/m_a11w1_retry_a171.txt`
+      (commit a077ab2) → **array 20300641** (1-4%4, EXCLUDE + a171). PENDING (Priority) at 19:20 EDT.
+- [x] Pull: 484 files, per-file md5 ALL MATCH; `.run.in` over-pull deleted; slurm logs to scratchpad.
+- [x] Löwdin: 76 new + 10 Stage-0 `.lowdin.txt` extracted, 86/86 `--check` PASS.
+- [x] Census run A (as committed, sidecars aside) = run B2 (CEN-d widened by class, test S8,
+      115 passed) on every scored field. Reports: `tasks/review/a7_3_spin_census_2026-09-01_run{A,B2,C}*.json`.
+      Mn/Fe FINAL = as-built; Ir FINAL-provisional span/2 0.0591 V (guard-3 REVIEW-REQUIRED);
+      Cr/Ru/Ti PENDING on the 4 retry rows only.
+- [x] **0 of 15 spin-polarised Ru SCFs converge at U=9** (11 FM 1×1 + 4 AFM 2×1v; sloshing, not
+      creep) → every (Ru,*,u900) cell EQUALISED-BY-SELECTION(nspin=1); Ru will be BRANCH-CONDITIONAL
+      when final; A7.3 fact (2) is now a measured sentence (docs/68 §2). NOT a rescue target.
+- [x] Ir slab u000 contingency FIRES (+0.590/+0.597/+0.583 meV) → `src/dft/build_ir_slab_ext.py`
+      built `slab__u000__sp2m005` (census CEN-d PASS, run C identical on per_metal); manifest
+      `runs/a0/m_ir_slab_ext005.txt`; u900 does NOT fire (Rider 1: no deck).
+- [x] Mn E1 executed: P-A +664.6 meV, P-B1/2 +1,219.5 meV above FM, AFM held (M_abs 42–43) →
+      measured null, FM stands, MN-AFM-CORE does not trigger, arm stops; A7.5 strike lifts by running.
+- [ ] Submit `m_ir_slab_ext005.txt` (1 SCF) after commit+push — ID recorded below when done.
+- [ ] When 20300641 + the ext array land: pull (docs/62 shape) → `extract_lowdin.py` on the new
+      projwfc.out (+ `--check`) → `python src/dft/a0spin_census.py tasks/review/a7_3_spin_census_<date>_FINAL.json`
+      → bank + readout addendum to docs/68; expect Cr/Ru/Ti FINAL and Ir slab resolved.
+- [ ] **FRANK D1:** β-rung (unregistered) on the 15 Ru U=9 spin rows? Recommend NO (docs/68 §2).
+- [ ] **FRANK D2:** guard-3 adjudication for Ir (and Ru once final) — one dated line each.
+- [ ] **FRANK D3:** Mn E1 countersign (docs/67 §7 item 3) — one dated line; then update
+      `a0main_readout.py` mn_afm text ("RUN 2026-09-01 — FM stands (measured null)").
+- [ ] **FRANK D4:** RCAC ticket on a171 (text in docs/45) — send or skip.
+- [ ] docs/58 fact (2) restatement; docs/60 §6 / docs/63 §6 pointers to docs/68 §2.

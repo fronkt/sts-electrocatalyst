@@ -449,3 +449,31 @@ def test_s7b_all_zero_seed_block_on_grid_stem_fatal(fixdir, monkeypatch):
     with pytest.raises(SystemExit) as e:
         ac.build_cell("Ru", "s0_OH", "u000")
     assert "CEN-d" in str(e.value)
+
+
+def test_s8_sidecar_classes_tolerated_stray_class_fatal(fixdir, monkeypatch):
+    # 2026-09-01: the wave-1 drain leaves three sidecar classes beside the
+    # evidence -- the A6.5(1) Loewdin artifact, the runner's projwfc.in, and a
+    # preserved failed attempt (.out.<tag>_YYYY-MM-DD). CEN-d tolerates them by
+    # CLASS and still dies on anything else.
+    _mk_cell(fixdir, "Ru", "s0_OH", "u000", -100.00000000,
+             [("sp2m010", -100.00100000, 0.3)], monkeypatch)
+    d = os.path.join(fixdir, "spin", "Ru")
+    for side in ("s0_OH__u000__sp2m010.lowdin.txt",
+                 "s0_OH__u000__sp2m010.projwfc.in",
+                 "s0_OH__u000__sp2m010.out.a171_2026-08-31"):
+        _w(os.path.join(d, side), "sidecar\n")
+    found = ac.scan_spin_tree()
+    assert found[("Ru", "s0_OH", "u000")] == ["s0_OH__u000__sp2m010"]
+    # an attempt file whose tag lacks the date is NOT the registered class
+    _w(os.path.join(d, "s0_OH__u000__sp2m010.out.attempt1"), "x\n")
+    with pytest.raises(SystemExit) as e:
+        ac.scan_spin_tree()
+    assert "unregistered file class" in str(e.value)
+    os.remove(os.path.join(d, "s0_OH__u000__sp2m010.out.attempt1"))
+    # a genuinely unregistered class is fatal
+    _w(os.path.join(d, "s0_OH__u000__sp2m010.csv"), "x\n")
+    with pytest.raises(SystemExit) as e:
+        ac.scan_spin_tree()
+    assert "unregistered file class" in str(e.value)
+

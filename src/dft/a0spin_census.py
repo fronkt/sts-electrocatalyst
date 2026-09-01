@@ -455,6 +455,20 @@ def scan_spin_tree() -> dict:
         for f in sorted(os.listdir(d)):
             if f.endswith(".projwfc.out"):
                 continue
+            # 2026-09-01 (A11 wave-1 drain): the arm's tree now also carries
+            # the registered A6.5(1) Loewdin artifact <stem>.lowdin.txt (the
+            # class runs/a0/main/ has banked since tranche 1), the runner's
+            # <stem>.projwfc.in, and preserved failed attempts
+            # <stem>.out.<tag>_YYYY-MM-DD (docs/45: a re-run must never read
+            # as a first attempt). None is evidence this census reads; they are
+            # tolerated by CLASS, never by name, and every other class still
+            # dies. No number can depend on this line -- the whitelist gates
+            # presence only -- and run A (this code as first committed, with
+            # the sidecars moved aside) and run B (this code) are compared in
+            # tasks/review/a7_3_spin_census_2026-09-01_run{A,B}*.json.
+            if (f.endswith(".lowdin.txt") or f.endswith(".projwfc.in")
+                    or re.search(r"\.out\.[A-Za-z0-9]+_\d{4}-\d{2}-\d{2}$", f)):
+                continue
             stem, ext = os.path.splitext(f)
             if ext not in (".in", ".out"):
                 die("CEN-d unregistered file class under the arm's tree: %s"

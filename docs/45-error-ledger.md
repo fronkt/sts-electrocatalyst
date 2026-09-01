@@ -2524,3 +2524,50 @@ unpinned row silently.
 - **Elections index.** All docs/65 rows elected under the entrant's 2026-08-31
   directive; record and verification provenance in docs/66; instruments: docs/43
   A11 + addendum, docs/59 §3c GRANTED, docs/67 (Mn AFM arm design).
+
+## A11 wave-1 drain — a sick node, an instrument whose whitelist predated its own evidence, and an over-pull (2026-09-01)
+
+**Dated correction rows (2026-09-01):**
+
+- **Node a171 is sick; exclude it.** Every one of the four tasks Slurm placed on a171 on
+  2026-08-31 died or hung, and none of the other 102 did: 20262064_3 / 20262064_6 /
+  20262090_1 were OOM-killed at zero SCF iterations (Slurm epilogue: `error: Detected 2
+  oom_kill events in StepId=20262071.batch` and `Detected 1 oom_kill event in
+  StepId=20265928.batch`; `prterun noticed that process rank 0 ... exited on signal 9`),
+  and 20262091_1 ran 19 h 11 min at zero iterations with its `.out` untouched for 23 h
+  (`scontrol show node a171`: FreeMem=333 MB of RealMemory 257,400 MB, CPULoad 325.17 on
+  128 CPUs — something outside our job held the node's memory). Cancelled by hand at
+  2026-09-01 19:06 EDT after ≈2,450 SU of idle burn; the standing EXCLUDE list is now
+  `a024,a049,a050,a088,a196,a220,a223,a171` (+ a120,a200 at submit time). **Rule:** a task
+  whose wall-clock exceeds its siblings' by an order of magnitude with zero iterations is
+  not "slow", it is dead — check `.out` mtime and `scontrol show node` at the first status
+  read, not the second day. **Rule:** the four partial `.out`s were moved to
+  `<stem>.out.a171_2026-08-31` BEFORE re-queueing; a re-run overwriting a first attempt
+  would have deleted the only evidence that there was one (the 2026-08-29 lesson, applied).
+  RCAC ticket text, for the entrant to send if wanted: "Node a171 in the shared partition
+  had FreeMem 333 MB with CPULoad 325 while allocated to a single 128-rank job at
+  2026-09-01 23:04 UTC; three prior jobs on it were OOM-killed at start (IDs above). Please
+  check for leaked processes / drain it."
+- **The census whitelist predated the evidence it would read.** `a0spin_census.py` CEN-d
+  admitted only `.in`/`.out` (+ skipped `.projwfc.out`) under `runs/a0/spin/<M>/`, so the
+  first census on the drained tree REFUSED on `<stem>.lowdin.txt` — the campaign's own
+  registered A6.5(1) artifact, banked 235× under runs/a0/main. Also unlisted: the runner's
+  `.projwfc.in` and the attempt class above. Fixed by CLASS (test S8; a stray `.csv` and an
+  undated `.attempt1` still die), and controlled: run A = the census as first committed with
+  the sidecars moved aside; run B2 = the widened code on the full tree; **identical on every
+  scored field.** **Rule:** when you commit a readout before its evidence exists, enumerate
+  the classes the *pipeline* will deposit beside that evidence (extractor outputs, runner
+  inputs, preserved attempts), not just the classes that exist at commit time — and keep a
+  run-A/run-B identity check as the price of any post-hoc widening.
+- **Over-pull.** The pull list took `*.run.in` (the runner's per-job scratch copy with
+  `outdir`/`pseudo_dir` rewritten) — 106 files no banked tree carries. Deleted locally; the
+  docs/62 pull shape (`.out`, `.projwfc.out`, `.projwfc.in`, and now `.lowdin.txt` produced
+  here) is the shape. Slurm logs are not a repo class either; they live in the session
+  scratchpad and their decisive lines are quoted above.
+- **Physics rows banked today** (numbers in docs/68): 0 of 15 spin-polarised Ru SCFs
+  converge at U = 9 (11 FM-seeded 1×1 + 4 AFM 2×1v), resolving every (Ru, state, u900)
+  cell to EQUALISED-BY-SELECTION(nspin=1) under the registered rule and making A7.3
+  conditionality fact (2) a measured sentence; Ir slab u000 contingency FIRES (three seeds
+  +0.58–0.60 meV above the floor) → 0.05 extension built and queued, u900 does not fire;
+  Mn E1: P-A +664.6 meV, P-B +1,219.5 meV above FM with AFM solutions genuinely held →
+  measured null, FM stands, MN-AFM-CORE does not trigger.
