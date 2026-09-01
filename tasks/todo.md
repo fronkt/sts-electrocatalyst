@@ -1004,7 +1004,7 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
       `runs/a0/m_ir_slab_ext005.txt`; u900 does NOT fire (Rider 1: no deck).
 - [x] Mn E1 executed: P-A +664.6 meV, P-B1/2 +1,219.5 meV above FM, AFM held (M_abs 42–43) →
       measured null, FM stands, MN-AFM-CORE does not trigger, arm stops; A7.5 strike lifts by running.
-- [ ] Submit `m_ir_slab_ext005.txt` (1 SCF) after commit+push — ID recorded below when done.
+- [x] Submitted `m_ir_slab_ext005.txt` (1 SCF, commit 9d5d7d6) → **array 20301497** (1-1%1, EXCLUDE + a171); deck md5 verified on Anvil (3bd9fd10…). At 19:33 EDT: 20300641_1 RUNNING on a113, _2/_3/_4 PD (Resources), 20301497 PD.
 - [ ] When 20300641 + the ext array land: pull (docs/62 shape) → `extract_lowdin.py` on the new
       projwfc.out (+ `--check`) → `python src/dft/a0spin_census.py tasks/review/a7_3_spin_census_<date>_FINAL.json`
       → bank + readout addendum to docs/68; expect Cr/Ru/Ti FINAL and Ir slab resolved.
