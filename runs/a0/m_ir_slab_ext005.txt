@@ -1,0 +1,27 @@
+# IR-SLAB CONTINGENCY stage A -- the pre-named extension seed 0.05, u000 cell
+# only (1 deck). Built 2026-09-01 by src/dft/build_ir_slab_ext.py -- READ ITS
+# DOCSTRING (X-a..X-e), docs/43 A11.R3 [IR-SLAB CONTINGENCY 2026-08-31] and
+# A11.R1 [A11.6 SEEDS+SELECTION] Rider 1, and docs/68 (the wave-1 drain).
+#
+# TRIGGER (re-derived from disk by the builder): every grid seed at (Ir, slab,
+# u000) landed ABOVE the banked nspin=1 energy -1589.74822617 Ry --
+# 0.10 +0.590 meV, 0.30 +0.597 meV, 0.50 +0.583 meV (Stage-0 banked REJECT) --
+# so stage A runs the pre-named 0.05 seed. (Ir, slab, u900) did NOT fire
+# (0.10 -15.14 meV and 0.30 -15.15 meV are admitted; 0.50 +2835 meV rejected),
+# and Rider 1 keeps 0.05 out of S there: no u900 deck. If this deck also lands
+# above the floor, the cell resolves EQUALISED-BY-SELECTION(nspin=1) with the
+# full rejection record; the census (src/dft/a0spin_census.py) applies that
+# rule itself.
+#
+# LICENCE: docs/43 A11.R3 [IR-SLAB CONTINGENCY 2026-08-31] (pre-named, counted
+# in the 2-SCF worst case); A11.R5 deposit published (10.5281/zenodo.22213117).
+#
+# deck md5 (an independent rebuild must reproduce it byte-for-byte):
+# md5 3bd9fd1052acdaed8424182bf4e83b33 a0/spin/Ir/slab__u000__sp2m005.in
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171
+# (submit-time list additionally + a120,a200 per docs/66 section 4)
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+a0/spin/Ir slab__u000__sp2m005 .in 4
