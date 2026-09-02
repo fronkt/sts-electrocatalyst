@@ -2571,3 +2571,37 @@ unpinned row silently.
   +0.58–0.60 meV above the floor) → 0.05 extension built and queued, u900 does not fire;
   Mn E1: P-A +664.6 meV, P-B +1,219.5 meV above FM with AFM solutions genuinely held →
   measured null, FM stands, MN-AFM-CORE does not trigger.
+
+## A11.R6 — the pre-named ladder ran and returned nothing; a negative that had to be bought (2026-09-02)
+
+**Dated rows (2026-09-02):**
+
+- **The ladder is exhausted and the cells did not move.** 16 rows × 2 rungs, 32 SCFs,
+  5,216.7 SU: rung 1 (β 0.15 / 400 steps) 0 of 16; rung 2 (β 0.075 / ndim 16 / 600 steps)
+  0 of 16. Every (Ru, state, u900) cell stays EQUALISED-BY-SELECTION(nspin=1); the
+  a7_3_spin table is byte-identical to the pre-ladder FINAL census. Outcome (a) of the
+  three A11.R6 pre-interpreted it. **The registration bought exactly what it was written
+  to buy: the right to say "and two pre-registered escalations" instead of "we did not
+  try".** Cost of that clause: 5,216.7 SU, 8 % of the remaining balance.
+- **The decisive number is a control, not the failures.** The nspin = 1 twins in the same
+  cell, geometry, code and threshold converge in **25 iterations at 5.9e-7 Ry**, while the
+  spin-polarised rows spend 1,200 iterations across three mixing settings and never come
+  within **595×** of the same threshold. Without that twin the result reads as "our mixer
+  struggled"; with it, it is a statement about the solution space. **Rule: when reporting a
+  non-convergence, always find and quote the nearest converging neighbour that differs in
+  exactly one setting.** The campaign already had this control on disk (it was the NM leg
+  of the S0(h) probe) and nearly wrote the weaker sentence.
+- **Deeper mixing history is not monotone.** Rung 2's best accuracy beat rung 1's on 10 of
+  16 rows and was **worse on 6**. A ladder whose rungs are "more of the same damping" cannot
+  be assumed to improve a row; the ladder's value was that both rungs were **named before
+  either ran**, so the 6 regressions are data rather than an invitation to a third rung.
+- **A pre-interpreted registration removes the temptation at the moment it appears.** When
+  16 of 16 failed a second time the obvious next move (occupation-matrix control, a smaller
+  U, a different mixer) was already out of scope by the entrant's own dated line. That is
+  the mechanism working: the decision was made when nothing was known, so the outcome could
+  not select the method. Any further rung now requires a new dated line and must disclose
+  that it was chosen after seeing this.
+- **The 15→16 count.** docs/68 §2 quoted "0 of 15" while the sixteenth row was still
+  running; corrected the same day in docs/68 §2/§8, docs/58, docs/60, docs/63 and
+  tasks/todo.md. **Rule: never quote a census whose population still has a job in the
+  queue — say "0 of 15 terminal, 1 running".**

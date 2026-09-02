@@ -1061,3 +1061,23 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
 - [ ] When 20315861 + 20315873 drain: pull → census (`..._rung2-landed.json`) → docs/68 §11:
       either the sentence hardens to "β 0.3 / 0.15 / 0.075 with local-TF, up to 600 steps" or a
       converged candidate meets the floor + guards → D2 on Ru.
+
+## 2026-09-02 — A11.R6 LADDER EXHAUSTED (docs/68 §11): 0/16 at both rungs; AMENDMENT 11 fully run
+
+- [x] Rung 2 (β 0.075 / ndim 16 / 600 steps, arrays 20315861 + 20315873): **0 of 16 converged**,
+      3,045.9 SU. Ladder total 5,216.7 SU. Pulled, md5 ALL MATCH, installed, banked.
+- [x] **A6.5(2)(iii) NOT_CONVERGED** on all 16; every (Ru,*,u900) cell stays
+      EQUALISED-BY-SELECTION(nspin=1); census `..._LADDER-EXHAUSTED.json` is byte-identical to
+      the pre-ladder FINAL table — {Cr, Mn, Fe} over the floor, 3 of 6. Outcome (a) of A11.R6.
+- [x] Key measurement: 19,200 SCF iterations, closest approach **595× the threshold**, while the
+      **nspin=1 twins in the same cell converge in 25 iterations at 5.9e-7 Ry**. Rung 2 beat rung 1
+      on 10 of 16 rows and was worse on 6 → no systematic gain from deeper damping.
+- [x] **THE LADDER ENDS HERE.** A third rung (occupation-matrix control, U-ramp, different mixer)
+      requires a NEW dated line and must disclose it was chosen after seeing this outcome.
+- [x] Balance **59,761.1 SU**; queue EMPTY; **nothing in AMENDMENT 11 is unrun** (A11.R4 total ~388).
+- [ ] **FRANK D2 (now unblocked, one dated line):** Ru **BRANCH-CONDITIONAL** (magnetic at U=0,
+      no spin-polarised solution obtainable at U=9 under three mixing settings), Ir
+      BRANCH-CONDITIONAL, Cr and Ti SAME-BRANCH. Suggested line in docs/68 §11.
+- [ ] Report methods sentence: the hardened docs/68 §11 wording (48 attempts / 19,200 iterations /
+      0 converged / 595× / NM twins 25 iterations) replaces the docs/68 §2 draft.
+- [ ] docs/70 (workflow wf_10c6483e-8a7) — third resume running; read its completeness critic first.
