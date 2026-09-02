@@ -882,3 +882,25 @@ downgraded the `upscale` call from "highest-value" to a 15 % trim. The risk stat
 were sound. **Rule:** an AI summary of your own repo is a claim like any other — run the
 same refute-pass on it that [[feedback_verify_ai_literature_claims]] demands for papers,
 and only then let it set priorities.
+
+## 2026-09-02 — I recommended against the rung ladder, the user overruled me, and the user was right
+
+Asked which D1 option served rigor and STS placement, I first recommended NOT running the
+β ladder (rescue optics), then reversed myself when I actually modelled the reader: a
+computational chemist reads "0 of 16 SCFs converged" and asks "did you lower the mixing?"
+The user chose B. The ladder returned 0 of 16 twice — no new physics — and was still worth
+5,216.7 SU, because the report sentence changed from *"did not converge under our settings"*
+to *"did not converge under three mixing settings across 19,200 iterations, while the
+non-magnetic twins converge in 25."* The value was never in the chance of converging.
+
+**Rules.**
+
+- **Price a negative control by the sentence it buys, not by its chance of changing the
+  result.** "We tried the obvious remedy and it failed too" is a different claim from "we
+  did not try", and only compute can buy it.
+- **A pre-registration's job is to make the decision before the outcome can bias it.**
+  Registering both rungs and all three outcome readings BEFORE building any deck is what
+  let 0-of-16-twice be reported as a result instead of an invitation to a third rung.
+- **When recommending for or against an experiment, state the sentence each outcome
+  produces.** My first answer weighed optics; the correct frame was what a skeptical
+  reader can and cannot say afterwards.
