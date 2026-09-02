@@ -256,3 +256,12 @@ registered motivating prior that the intercept stays U-robust.
 
 **Owed compute:** S0(h) RuO₂ AFM re-anchors — which act on exactly the metal nearest to
 A7.3's floor, so this re-run can change a banked verdict.
+
+> **UPDATED 2026-09-02 → docs/68.** "Owed compute: S0(h) RuO₂ AFM re-anchors … can change a
+> banked verdict" — it ran and it cannot: the U = 9 AFM legs, like all 11 FM-seeded Ru rows
+> at U = 9, do not converge (0 of 15), so the Ru cell equalises by selection to the nspin = 1
+> row. §6's conditionality fact (1) (the nspin = 2 / nspin = 1 partition) is weakened by
+> measurement: the spin-equalised sensitivity census keeps the same 3-over/3-under split
+> (Cr, Mn, Fe over; Ru 0.0957 V, Ir 0.0591 V, Ti 0.0522 V under), all four non-Mn/Fe rows
+> guard-3 flagged pending the entrant's adjudication. Fact (2) is closed as unpriceable at
+> U = 9. The as-built 3-of-6 remains the headline (A11.5).

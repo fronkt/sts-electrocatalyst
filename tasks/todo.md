@@ -1005,9 +1005,14 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
 - [x] Mn E1 executed: P-A +664.6 meV, P-B1/2 +1,219.5 meV above FM, AFM held (M_abs 42–43) →
       measured null, FM stands, MN-AFM-CORE does not trigger, arm stops; A7.5 strike lifts by running.
 - [x] Submitted `m_ir_slab_ext005.txt` (1 SCF, commit 9d5d7d6) → **array 20301497** (1-1%1, EXCLUDE + a171); deck md5 verified on Anvil (3bd9fd10…). At 19:33 EDT: 20300641_1 RUNNING on a113, _2/_3/_4 PD (Resources), 20301497 PD.
-- [ ] When 20300641 + the ext array land: pull (docs/62 shape) → `extract_lowdin.py` on the new
-      projwfc.out (+ `--check`) → `python src/dft/a0spin_census.py tasks/review/a7_3_spin_census_<date>_FINAL.json`
-      → bank + readout addendum to docs/68; expect Cr/Ru/Ti FINAL and Ir slab resolved.
+- [x] **2026-09-02 01:10 UTC — ALL LANDED, FINAL CENSUS BANKED** (docs/68 §8;
+      `tasks/review/a7_3_spin_census_2026-09-02_FINAL.json`, n_final_rows 6, 119 tests pass).
+      Ru s0_OH u900 m010: 200 iters NOT converged → **Ru 0/15 final**; Ir slab 0.05 → +0.474 meV
+      REJECT → cell EQUALISED-BY-SELECTION(nspin=1) with 4 rejects; delta pull 18 files md5 ALL MATCH;
+      90 Löwdin artifacts. **Equalised sensitivity = {Cr, Mn, Fe} over the floor = the same 3 of 6**
+      (Ru 0.0957 V, Ir 0.0591 V, Ti 0.0522 V under); guard 3 flags Cr/Ru/Ir/Ti REVIEW-REQUIRED.
+      Balance **64,977.8 SU**; queue EMPTY; nothing in AMENDMENT 11 remains unrun.
+- [x] Pointer notes appended: docs/58 §8, docs/60 §11, docs/63 §6 → docs/68.
 - [ ] **FRANK D1:** β-rung (unregistered) on the 15 Ru U=9 spin rows? Recommend NO (docs/68 §2).
 - [ ] **FRANK D2:** guard-3 adjudication for Ir (and Ru once final) — one dated line each.
 - [ ] **FRANK D3:** Mn E1 countersign (docs/67 §7 item 3) — one dated line; then update
