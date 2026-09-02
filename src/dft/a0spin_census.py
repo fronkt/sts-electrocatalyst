@@ -206,6 +206,15 @@ UTOKS = ("u000", "u900")
 GRID = (0.10, 0.30, 0.50)
 #: Rider-1 extension seed, (Ir, slab, U) only.
 EXT_SEED = 0.05
+#: A11.R6 (2026-09-02): the two pre-named rungs for the sixteen unconverged Ru
+#: U = 9 spin rows. Parameters are READ from each rung deck and compared to
+#: this table; a rung stem anywhere but a (Ru, state, u900) cell is fatal; a
+#: rung-2 deck whose rung-1 twin is missing or converged is fatal. Lexicographic
+#: stem order already realises "residual ties to the lowest rung"
+#: (stem < stem__rung1 < stem__rung2), so the tie-break code is unchanged.
+RUNG_TABLE = {1: dict(beta=0.15, ndim=8.0, maxstep=400.0),
+              2: dict(beta=0.075, ndim=16.0, maxstep=600.0)}
+RUNG_METAL, RUNG_UTOK = "Ru", "u900"
 #: registered a7_3 floor (docs/43:1361-1379) and A11.3 context (docs/43 A11.R1).
 A73_FLOOR_V = 0.10
 A113_THRESHOLD_EV = 0.026
@@ -355,13 +364,62 @@ def deck_info(path: str, metal: str) -> dict:
 
 
 def seed_of_stem(stem: str):
-    """('sp2m050' -> 0.50, 'sp2null' -> None). Grammar of build_a0spin/_s1."""
-    m = re.match(r"^(slab|s0_O|s0_OH|s0_OOH)__(u\d{3})__sp2(m(\d{3})|null)$", stem)
+    """('sp2m050' -> 0.50, 'sp2null' -> None). Grammar of build_a0spin/_s1,
+    plus the A11.R6 rung suffix '__rung1' / '__rung2' (2026-09-02): rung=0 for
+    a plain stem, parent=the stem without its suffix."""
+    m = re.match(r"^(slab|s0_O|s0_OH|s0_OOH)__(u\d{3})__sp2(m(\d{3})|null)"
+                 r"(?:__rung([12]))?$", stem)
     if not m:
         return None
+    rung = int(m.group(5)) if m.group(5) else 0
     return dict(state=m.group(1), utok=m.group(2),
                 null=(m.group(3) == "null"),
-                seed=(None if m.group(3) == "null" else int(m.group(4)) / 100.0))
+                seed=(None if m.group(3) == "null" else int(m.group(4)) / 100.0),
+                rung=rung,
+                parent=(stem[:-len("__rung%d" % rung)] if rung else stem))
+
+
+def check_rung_deck(metal: str, path: str, p: dict) -> None:
+    """A11.R6 CEN-d for a rung stem: cell scope, parameters against the
+    registered table, byte-identity to the rung-0 parent outside the licensed
+    lines (prefix, mixing_beta, mixing_ndim, electron_maxstep), and the
+    rung-2-only-after-rung-1-failed rule."""
+    if not (metal == RUNG_METAL and p["utok"] == RUNG_UTOK):
+        die("CEN-d %s: A11.R6 rung stem outside the twelve (Ru, state, u900) "
+            "cells" % path)
+    want = RUNG_TABLE[p["rung"]]
+    txt = read_logged(path)
+
+    def num(key, default=None):
+        m = re.search(r"^\s*%s\s*=\s*([-+\d.dDeE]+)" % key, txt, re.M)
+        if not m:
+            return default
+        return float(m.group(1).replace("d", "e").replace("D", "e"))
+
+    got = dict(beta=num("mixing_beta"), ndim=num("mixing_ndim", 8.0),
+               maxstep=num("electron_maxstep"))
+    for k in ("beta", "ndim", "maxstep"):
+        if got[k] is None or abs(got[k] - want[k]) > 1e-9:
+            die("CEN-d %s: rung %d %s = %r, registered %r (A11.R6)"
+                % (path, p["rung"], k, got[k], want[k]))
+    ppath = os.path.join(os.path.dirname(path), p["parent"] + ".in")
+    if not os.path.exists(ppath):
+        die("CEN-d %s: rung deck without its rung-0 parent %s" % (path, ppath))
+    ptxt = read_logged(ppath)
+    lic = re.compile(r"^\s*(prefix|mixing_beta|mixing_ndim|electron_maxstep)\s*=")
+    if [l for l in txt.splitlines() if not lic.match(l)] != \
+            [l for l in ptxt.splitlines() if not lic.match(l)]:
+        die("CEN-d %s: a line outside the licensed rung lines differs from the "
+            "rung-0 parent (A11.R6)" % path)
+    m = re.search(r"^\s*prefix\s*=\s*'([^']+)'", txt, re.M)
+    if not m or m.group(1) != "%s__rung%d" % (p["parent"], p["rung"]):
+        die("CEN-d %s: rung prefix does not equal the rung stem" % path)
+    if p["rung"] == 2:
+        r1 = os.path.join(os.path.dirname(path), p["parent"] + "__rung1.out")
+        if not os.path.exists(r1) or parse_pw_out(read_logged(r1))["converged"]:
+            die("CEN-d %s: rung 2 exists but rung 1 is missing or CONVERGED -- "
+                "A11.R6 licenses rung 2 only on rows rung 1 leaves unconverged"
+                % path)
 
 
 def check_candidate_deck(metal: str, path: str, stem: str) -> dict:
@@ -405,6 +463,8 @@ def check_candidate_deck(metal: str, path: str, stem: str) -> dict:
         if p["seed"] not in GRID and abs(p["seed"] - EXT_SEED) > 1e-9:
             die("CEN-d %s: seed %s is not in the registered set S nor the "
                 "pre-named extension" % (path, p["seed"]))
+        if p["rung"]:
+            check_rung_deck(metal, path, p)          # A11.R6, 2026-09-02
     return dict(stem_parse=p, info=info)
 
 
@@ -530,7 +590,9 @@ def build_cell(metal: str, state: str, utok: str) -> dict:
         seed = 0.0 if p["null"] else p["seed"]
         cand = dict(stem=stem, seed=seed,
                     kind=("null-seed row, NAMED into this pool (A11.R1 Rider 2)"
-                          if rider2 else "grid seed"))
+                          if rider2 else
+                          ("rung-%d candidate (A11.R6)" % p["rung"] if p["rung"]
+                           else "grid seed")))
         opath = os.path.join(SPIN, metal, stem + ".out")
         if not os.path.exists(opath):
             cand["status"] = "PENDING-RUN"

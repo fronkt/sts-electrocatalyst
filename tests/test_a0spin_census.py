@@ -477,3 +477,65 @@ def test_s8_sidecar_classes_tolerated_stray_class_fatal(fixdir, monkeypatch):
         ac.scan_spin_tree()
     assert "unregistered file class" in str(e.value)
 
+
+def _rung_child(parent_txt, parent_stem, rung):
+    """A11.R6 rung deck from a synthetic parent: prefix + the licensed lines."""
+    beta, ndim, maxstep = {1: (0.15, None, 400), 2: (0.075, 16, 600)}[rung]
+    lines = parent_txt.split("\n")
+    out = []
+    for l in lines:
+        out.append(l)
+        if l == "&CONTROL":
+            out.append("  prefix = '%s__rung%d'" % (parent_stem, rung))
+        if l == "  conv_thr = 1.0d-6":
+            out.append("  mixing_beta = %s" % beta)
+            if ndim:
+                out.append("  mixing_ndim = %d" % ndim)
+            out.append("  electron_maxstep = %d" % maxstep)
+    return "\n".join(out)
+
+
+def test_s9_rung_candidates_a11r6(fixdir, monkeypatch):
+    # rung-0 seed unconverged, rung-1 twin converged below the floor -> the
+    # rung candidate is admitted, labelled, and wins the cell
+    _mk_cell(fixdir, "Ru", "s0_OH", "u900", -100.00000000,
+             [("sp2m010", "UNCONVERGED", 20.0)], monkeypatch)
+    d = os.path.join(fixdir, "spin", "Ru")
+    parent = "s0_OH__u900__sp2m010"
+    ptxt = io.open(os.path.join(d, parent + ".in"), encoding="utf-8").read()
+    _w(os.path.join(d, parent + "__rung1.in"), _rung_child(ptxt, parent, 1))
+    _w(os.path.join(d, parent + "__rung1.out"), _out(-100.00100000, totmag=2.0))
+    cell = ac.build_cell("Ru", "s0_OH", "u900")
+    c = _cand(cell, "__rung1")
+    assert c["status"] == "ADMITTED" and c["kind"].startswith("rung-1 candidate")
+    assert cell["selection"]["winner"] == parent + "__rung1"
+    # residual tie -> lowest rung: a converged rung-0 twin at the same energy wins
+    _w(os.path.join(d, parent + ".out"), _out(-100.00100000, totmag=2.0))
+    cell = ac.build_cell("Ru", "s0_OH", "u900")
+    assert cell["selection"]["winner"] == parent
+    # wrong beta is fatal
+    bad = _rung_child(ptxt, parent, 1).replace("mixing_beta = 0.15", "mixing_beta = 0.2")
+    _w(os.path.join(d, parent + "__rung1.in"), bad)
+    with pytest.raises(SystemExit) as e:
+        ac.build_cell("Ru", "s0_OH", "u900")
+    assert "registered" in str(e.value)
+    _w(os.path.join(d, parent + "__rung1.in"), _rung_child(ptxt, parent, 1))
+    # rung 2 without an unconverged rung 1 is fatal
+    _w(os.path.join(d, parent + "__rung2.in"), _rung_child(ptxt, parent, 2))
+    with pytest.raises(SystemExit) as e:
+        ac.build_cell("Ru", "s0_OH", "u900")
+    assert "rung 1 is missing or CONVERGED" in str(e.value)
+    os.remove(os.path.join(d, parent + "__rung2.in"))
+
+
+def test_s9b_rung_stem_outside_the_twelve_cells_fatal(fixdir, monkeypatch):
+    _mk_cell(fixdir, "Ru", "s0_OH", "u000", -100.00000000,
+             [("sp2m010", "UNCONVERGED", 20.0)], monkeypatch)
+    d = os.path.join(fixdir, "spin", "Ru")
+    parent = "s0_OH__u000__sp2m010"
+    ptxt = io.open(os.path.join(d, parent + ".in"), encoding="utf-8").read()
+    _w(os.path.join(d, parent + "__rung1.in"), _rung_child(ptxt, parent, 1))
+    with pytest.raises(SystemExit) as e:
+        ac.build_cell("Ru", "s0_OH", "u000")
+    assert "outside the twelve" in str(e.value)
+
