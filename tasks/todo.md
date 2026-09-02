@@ -1044,3 +1044,20 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
       converged rows → floor/guard verdicts; AFM rows → docs/63 U=9 level. Then docs/68 §11.
 - [ ] **FRANK D2** after the ladder returns (Cr/Ti SAME-BRANCH, Ir BRANCH-CONDITIONAL likely; Ru
       depends on rung outcome).
+
+## 2026-09-02 05:30 UTC — rung 1 LANDED (0/16 converged); rung 2 LAUNCHED; workflow resumed
+
+- [x] **Rung 1: 16/16 still unconverged** at β 0.15 / 400 steps (scf accuracy ~1e-2 Ry at step 400,
+      moments 19–24 μB on 1×1, 2.6–3.5 on 2×1v AFM); ~2,170 SU; outputs pulled (32 files md5 ALL
+      MATCH), census records rung-1 UNCONVERGED, Ru row unchanged at 0.0957 V (5fa695a).
+- [x] **Rung 2 built and SUBMITTED per A11.R6** (β 0.075, ndim 16, maxstep 600, all 16 rows):
+      arrays **20315861** (12 a0 rows, 1-12%6) + **20315873** (4 AFM rows, 1-4%4); 18 files
+      md5-verified on Anvil. Ladder ENDS here: a row unconverged after rung 2 is NOT_CONVERGED
+      (A6.5 rung iii); no further rung may be run without a new dated line. Balance 62,807 SU
+      before rung 2; worst case ~3,300 SU more.
+- [x] Workflow wf_10c6483e-8a7 first pass: 61/100 agents done, 39 died on the session limit
+      (31 verifiers, all 6 ideation lenses, synthesis, critic) → docs/70 NOT written. Resumed
+      2026-09-02 05:32 UTC from cache (only the 39 re-run). Read its completeness critic first.
+- [ ] When 20315861 + 20315873 drain: pull → census (`..._rung2-landed.json`) → docs/68 §11:
+      either the sentence hardens to "β 0.3 / 0.15 / 0.075 with local-TF, up to 600 steps" or a
+      converged candidate meets the floor + guards → D2 on Ru.
