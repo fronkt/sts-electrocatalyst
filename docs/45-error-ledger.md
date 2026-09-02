@@ -2605,3 +2605,35 @@ unpinned row silently.
   running; corrected the same day in docs/68 §2/§8, docs/58, docs/60, docs/63 and
   tasks/todo.md. **Rule: never quote a census whose population still has a job in the
   queue — say "0 of 15 terminal, 1 running".**
+
+## 2026-09-02 (later) — I mixed two conventions for the same distance, in the paragraph that names both (2026-09-02)
+
+docs/68 §8 reported the spin-equalised census and wrote "Ru gains 3.5 meV and stops 4.3 meV
+short", "Ti gains 8.4 meV", "Ir loses 4.6 meV". Those are `0.10 V − span/2` read as meV.
+The campaign's distance-to-floor convention, set in docs/60 §6 and used for the number
+every later document quotes, is **twice** that: `2 × (0.10 V − span/2)`, the change in
+|Δc_M| the metal would need — which is why Ru's as-built distance is **15.5 meV** and not
+7.8. So the paragraph put 4.3 meV in the reader's hand while the sentence beside it, and
+every other document, said 15.5 — a factor-of-two comparison the reader is invited to make
+and cannot make correctly. docs/63 §6 and docs/60 §6 both *forbid* exactly this
+level-vs-swing mixing, in the same campaign, about the same metal.
+
+Worse, the table one line above carried `D_M` in eV, and under the correct convention **the
+change in distance IS D_M** (Ru −0.0070 eV → 15.5 → 8.5 meV). The right numbers were
+already in the row; the prose restated them in a different unit and lost the identity.
+
+Found by the docs/70 completeness critic, then re-derived from the banked census before
+anything was changed. Corrected in place with a dated note (docs/68 §8, docs/70 §8.5).
+
+**Rules.**
+
+- **A distance needs its convention stated at the point of use, not inferred from a sibling
+  document.** One clause — "distances are 2 × (0.10 V − span/2) throughout" — would have
+  made the error impossible and is now in the text.
+- **When a table already carries a quantity, the prose must reuse it, not re-derive it.**
+  The re-derivation is where the unit slipped; the identity `Δdistance = D_M` would have
+  caught it instantly.
+- **A convention error survives every numerical check.** The census was byte-identical
+  across three runs, all assertions PASS, and the arithmetic was right — the error lived
+  entirely in what the number was *called*. Verification that only re-runs the pipeline
+  cannot see this class; only a reader comparing two documents can.

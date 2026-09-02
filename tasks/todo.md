@@ -1081,3 +1081,28 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
 - [ ] Report methods sentence: the hardened docs/68 §11 wording (48 attempts / 19,200 iterations /
       0 converged / 595× / NM twins 25 iterations) replaces the docs/68 §2 draft.
 - [ ] docs/70 (workflow wf_10c6483e-8a7) — third resume running; read its completeness critic first.
+
+## 2026-09-02 — docs/70 landed (135 agents), critiqued, and corrected; docs/68 convention error fixed
+
+- [x] Workflow `wf_10c6483e-8a7` COMPLETE after 3 resumes (2 session-limit stalls): 135/135 agents,
+      10 lit dimensions, **64 claims survived source-verification / 16 refuted**, 35 ideas, 18 surviving.
+      **docs/70** (832 lines) + **§8 corrections** appended after I re-verified the critic against the tree.
+- [x] **MY ERROR, corrected in place:** docs/68 §8 quoted Ru "4.3 meV short" — half-distance in the volt
+      convention, not commensurate with docs/60's 15.5 meV. Correct: **Ru 15.5 → 8.5 meV, Ti 112.5 → 95.6,
+      Ir 72.6 → 81.7; each change is exactly D_M.** Ledger entry added (convention errors survive every
+      numerical check).
+- [x] docs/70 §8.1 kills 9 of its own claims, incl. a **mis-scoped load-bearing citation** (Lee *Adv. Sci.*
+      is hollandite IrO2 grand-canonical, cited backwards to support a KILL) and **6 unverified STS-precedent
+      attributions** that all carry Q-5. **Do not mine §§2-7 without §8.**
+- [ ] **NEW TOP HOLE, verified, 0 SU to disposition: BASIN_DRIFT.** Three banked parents sit in an excited
+      magnetic branch (Fe `s0_OOH__1x1_off` **−384.3 meV**, Co −77.0, Mn −20.6), clearing the registered
+      5 meV trigger by 77x/15x/4x; the deposited remedy (docs/43:311-314 re-relax loop) is **not executed**;
+      every ΔG built on those three inherits it; the Fe row is **~45x the Ru-to-floor distance**. This is
+      entrant decisions R3/A8.8 (todo:593, :608, :683) and docs/70 missed it entirely.
+- [ ] Also owed, 0 SU: A5.1(a)+(c) (no script reads a `.lowdin.txt`; Ru/Ir/Ti have no other valence tracker
+      and are exactly A7.3's under-floor set); the docs/45:255-256 census contradiction, to be reconciled
+      **before any readout is quoted**.
+- [ ] **S-4 (crossing-locator spike) must be re-specified before it is offered**: registers a 9th ledger
+      claimant over cap, prediction not evaluable by its own decks, denominator 5 vs 6, ±0.2 eV
+      near-unfalsifiable on Cr's 0.5 eV bracket, and drops the spin-equalisation docs/66 §6 item 1 requires.
+- [ ] **FRANK D2** still the only banked-verdict line owed (Ru + Ir BRANCH-CONDITIONAL, Cr + Ti SAME-BRANCH).
