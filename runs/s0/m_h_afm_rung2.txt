@@ -1,0 +1,26 @@
+# A11.R6 RUNG 2 -- beta 0.075 / mixing_ndim 16 / maxstep 600. Built 2026-09-02 by src/dft/build_ru_rung.py (READ ITS
+# DOCSTRING, R-a..R-f) under docs/43 A11.R6 [RU U9 SPIN RUNG LADDER 2026-09-02:
+# LICENSED], registered before any rung deck existed. Scope: the unconverged Ru
+# U = 9 spin rows only; every deck differs from its rung-0 parent in exactly the
+# licensed lines (prefix, mixing_beta, electron_maxstep, mixing_ndim).
+# Interpretation of every outcome is fixed in A11.R6; a converged candidate enters
+# the a7_3_spin SENSITIVITY census only (a0 rows) or the S0(h) readout (s0 rows);
+# the as-built A7.3 headline cannot move (A11.5).
+#
+# submit via anvil/41_submit_wave.sh (40_wave.slurm, NP=128)
+#
+# deck md5s (an independent rebuild must reproduce them byte-for-byte):
+# md5 ce2cea9a844a46e861d198cb4f253d69 s0/h_afm_probe/s0_OH__2x1v_off__afm__u900__rung2.in
+# md5 6c301a93cbe2ac656a89fdd508ad4543 s0/h_afm_probe/s0_OOH__2x1v_off__afm__u900__rung2.in
+# md5 1e1a8339b0feb40bbfdc5cb9e5974c0a s0/h_afm_robust/s0_OH__2x1v_off__afm__afmgeo__u900__rung2.in
+# md5 b6e0e28eea5f7975571f5039a43ef808 s0/h_afm_robust/s0_OOH__2x1v_off__afm__afmgeo__u900__rung2.in
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171
+# (submit-time list additionally + a120,a200 per docs/66 section 4)
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+s0/h_afm_probe s0_OH__2x1v_off__afm__u900__rung2 .in 4
+s0/h_afm_probe s0_OOH__2x1v_off__afm__u900__rung2 .in 4
+s0/h_afm_robust s0_OH__2x1v_off__afm__afmgeo__u900__rung2 .in 4
+s0/h_afm_robust s0_OOH__2x1v_off__afm__afmgeo__u900__rung2 .in 4

@@ -1,0 +1,42 @@
+# A11.R6 RUNG 2 -- beta 0.075 / mixing_ndim 16 / maxstep 600. Built 2026-09-02 by src/dft/build_ru_rung.py (READ ITS
+# DOCSTRING, R-a..R-f) under docs/43 A11.R6 [RU U9 SPIN RUNG LADDER 2026-09-02:
+# LICENSED], registered before any rung deck existed. Scope: the unconverged Ru
+# U = 9 spin rows only; every deck differs from its rung-0 parent in exactly the
+# licensed lines (prefix, mixing_beta, electron_maxstep, mixing_ndim).
+# Interpretation of every outcome is fixed in A11.R6; a converged candidate enters
+# the a7_3_spin SENSITIVITY census only (a0 rows) or the S0(h) readout (s0 rows);
+# the as-built A7.3 headline cannot move (A11.5).
+#
+# submit via anvil/47_submit_a0.sh (projwfc inline, A6.5(1))
+#
+# deck md5s (an independent rebuild must reproduce them byte-for-byte):
+# md5 bb29bc207d77c9bbc46f91813e7f8b5e a0/spin/Ru/slab__u900__sp2m010__rung2.in
+# md5 5f1819413643eab470325ef794dc0080 a0/spin/Ru/slab__u900__sp2m030__rung2.in
+# md5 ddc4f2e3cd88e60a5c4e88696377119b a0/spin/Ru/slab__u900__sp2m050__rung2.in
+# md5 59dad4d04baaf57da00ff312a5536b45 a0/spin/Ru/s0_O__u900__sp2m010__rung2.in
+# md5 7473c3d7f9c07bccbf0420c25a7ea41a a0/spin/Ru/s0_O__u900__sp2m030__rung2.in
+# md5 4a0a6bce0d65ce6996d691669bd7d8b0 a0/spin/Ru/s0_O__u900__sp2m050__rung2.in
+# md5 ce88c2c16c0cf09d3764b5adbafaa317 a0/spin/Ru/s0_OH__u900__sp2m010__rung2.in
+# md5 2cbbbe3d8f534e2cdb6fb552051d47d2 a0/spin/Ru/s0_OH__u900__sp2m030__rung2.in
+# md5 30b3a6aa286419e42edcb6b20388f55b a0/spin/Ru/s0_OH__u900__sp2m050__rung2.in
+# md5 b85bc44bccfbb05e1b2a5bb96ffb35d3 a0/spin/Ru/s0_OOH__u900__sp2m010__rung2.in
+# md5 f85957285e10130ef0455941bc01f791 a0/spin/Ru/s0_OOH__u900__sp2m030__rung2.in
+# md5 2ec059752904f8e590cfeae9326567af a0/spin/Ru/s0_OOH__u900__sp2m050__rung2.in
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171
+# (submit-time list additionally + a120,a200 per docs/66 section 4)
+#
+# row: dir job suffix nk
+# NP=128 NCONC=1
+a0/spin/Ru slab__u900__sp2m010__rung2 .in 4
+a0/spin/Ru slab__u900__sp2m030__rung2 .in 4
+a0/spin/Ru slab__u900__sp2m050__rung2 .in 4
+a0/spin/Ru s0_O__u900__sp2m010__rung2 .in 4
+a0/spin/Ru s0_O__u900__sp2m030__rung2 .in 4
+a0/spin/Ru s0_O__u900__sp2m050__rung2 .in 4
+a0/spin/Ru s0_OH__u900__sp2m010__rung2 .in 4
+a0/spin/Ru s0_OH__u900__sp2m030__rung2 .in 4
+a0/spin/Ru s0_OH__u900__sp2m050__rung2 .in 4
+a0/spin/Ru s0_OOH__u900__sp2m010__rung2 .in 4
+a0/spin/Ru s0_OOH__u900__sp2m030__rung2 .in 4
+a0/spin/Ru s0_OOH__u900__sp2m050__rung2 .in 4
