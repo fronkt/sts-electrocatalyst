@@ -1019,3 +1019,28 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
       `a0main_readout.py` mn_afm text ("RUN 2026-09-01 — FM stands (measured null)").
 - [ ] **FRANK D4:** RCAC ticket on a171 (text in docs/45) — send or skip.
 - [ ] docs/58 fact (2) restatement; docs/60 §6 / docs/63 §6 pointers to docs/68 §2.
+
+## 2026-09-02 — A11.R6 rung 1 LAUNCHED; D3 signed; D2 held; D4 drafted; lit/ideation workflow running
+
+- [x] **A11.R6 registered (f4ae5d3) BEFORE any deck**: two pre-named rungs on the 16 unconverged
+      Ru U=9 spin rows (12 nspin=2 + 4 AFM 2×1v). Rung 1 β 0.15 / maxstep 400; rung 2 β 0.075 /
+      ndim 16 / maxstep 600 only on rung-1 failures. Pool widens only inside the twelve
+      (Ru,*,u900) cells; AFM rows → docs/63 readout only. **Count corrected 15→16** everywhere.
+- [x] Census extension (2183a5e): `__rung[12]` stems parsed, table-checked, twelve-cell scope,
+      rung-2-only-after-rung-1-failed; tests S9/S9b; 121 passed. `build_ru_rung.py 1` → 16 decks
+      byte-identical except the licensed lines; census CEN-d PASS on the 12 a0 decks.
+- [x] **SUBMITTED 2026-09-02 00:48 UTC: array 20305768** (`m_ru_rung1`, 12 rows, 1-12%6, via 47)
+      and **array 20305769** (`m_h_afm_rung1`, 4 rows, 1-4%4, via 41/40_wave); 18 files md5-verified
+      on Anvil; EXCLUDE + a171. Expected 30–70 min per 1×1 row, ~2.5 h per AFM row.
+- [x] **D3 SIGNED** (docs/67 §7 dated line; docs/43 A11.R3 pointer; `a0main_readout.py` mn_afm
+      text; banked JSON not regenerated). **D2 HELD** (docs/43 line). **D4 drafted** as Gmail
+      draft r1072822063942699521 to rcac-help@purdue.edu — FRANK SENDS.
+- [x] External note audited: Co U-ladder RAN (12/12 converged; no s0_OOH row); RPBE 10/10 per
+      metal; ZPE−TΔS already in referencing.py; upscale already downgraded in docs/45. Lessons added.
+- [ ] Workflow `wf_10c6483e-8a7` (lit review ×10 dims + source-verification + 6 ideation lenses +
+      critics + synthesis) → writes docs/70; read its completeness critic before trusting it.
+- [ ] When 20305768 + 20305769 drain: pull (delta shape) → census (rung-1 rows enter the twelve
+      cells) → per A11.R6: rows still unconverged → `build_ru_rung.py 2` → commit → submit;
+      converged rows → floor/guard verdicts; AFM rows → docs/63 U=9 level. Then docs/68 §11.
+- [ ] **FRANK D2** after the ladder returns (Cr/Ti SAME-BRANCH, Ir BRANCH-CONDITIONAL likely; Ru
+      depends on rung outcome).

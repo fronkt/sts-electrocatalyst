@@ -857,3 +857,28 @@ uncompilable until the user said "retry".
   green-looking commit.
 - **A self-inflicted syntax error is a correction event.** It cost a user turn; it belongs
   here, not just in the fix.
+
+## 2026-09-02 — two heredoc commands died at the same offset: the Bash tool caps a command near 10 KB
+
+Twice in one session a long `cat > file <<'EOF'` command failed with "unexpected EOF while
+looking for matching `''" at "line 87" / "line 91" — the same byte offset both times, inside
+a quoted heredoc where bash cannot be parsing quotes at all. The wrapper truncates the
+command; bash then sees an unterminated string and runs NOTHING (the earlier steps in the
+chain silently never happened). The Write tool succeeded on the identical text.
+
+**Rules.**
+- **Anything over ~6 KB goes through the Write tool** (to the target, or to a scratch file
+  that a one-line Bash then `cat >>`s). Never a long heredoc.
+- **When a chained command fails at parse time, assume zero of it ran** and re-check the
+  first step's effect before re-running the rest.
+
+## 2026-09-02 — an external assistant's repo audit was one-third stale; verify before acting
+
+A note listing "cheap, high-value, still-open" compute items read plausibly and cited the
+repo. Checked against the tree: the Co U-ladder had run and converged (12/12; what is
+missing is an s0_OOH row, not a submission); the RPBE probe had 10/10 outputs per metal;
+ZPE−TΔS corrections were already applied in `referencing.py`; the ledger had already
+downgraded the `upscale` call from "highest-value" to a 15 % trim. The risk statements
+were sound. **Rule:** an AI summary of your own repo is a claim like any other — run the
+same refute-pass on it that [[feedback_verify_ai_literature_claims]] demands for papers,
+and only then let it set priorities.
