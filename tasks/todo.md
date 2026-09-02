@@ -996,7 +996,7 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
       115 passed) on every scored field. Reports: `tasks/review/a7_3_spin_census_2026-09-01_run{A,B2,C}*.json`.
       Mn/Fe FINAL = as-built; Ir FINAL-provisional span/2 0.0591 V (guard-3 REVIEW-REQUIRED);
       Cr/Ru/Ti PENDING on the 4 retry rows only.
-- [x] **0 of 15 spin-polarised Ru SCFs converge at U=9** (11 FM 1×1 + 4 AFM 2×1v; sloshing, not
+- [x] **0 of 16 spin-polarised Ru SCFs converge at U=9** (12 FM 1×1 + 4 AFM 2×1v; sloshing, not
       creep) → every (Ru,*,u900) cell EQUALISED-BY-SELECTION(nspin=1); Ru will be BRANCH-CONDITIONAL
       when final; A7.3 fact (2) is now a measured sentence (docs/68 §2). NOT a rescue target.
 - [x] Ir slab u000 contingency FIRES (+0.590/+0.597/+0.583 meV) → `src/dft/build_ir_slab_ext.py`
@@ -1007,13 +1007,13 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
 - [x] Submitted `m_ir_slab_ext005.txt` (1 SCF, commit 9d5d7d6) → **array 20301497** (1-1%1, EXCLUDE + a171); deck md5 verified on Anvil (3bd9fd10…). At 19:33 EDT: 20300641_1 RUNNING on a113, _2/_3/_4 PD (Resources), 20301497 PD.
 - [x] **2026-09-02 01:10 UTC — ALL LANDED, FINAL CENSUS BANKED** (docs/68 §8;
       `tasks/review/a7_3_spin_census_2026-09-02_FINAL.json`, n_final_rows 6, 119 tests pass).
-      Ru s0_OH u900 m010: 200 iters NOT converged → **Ru 0/15 final**; Ir slab 0.05 → +0.474 meV
+      Ru s0_OH u900 m010: 200 iters NOT converged → **Ru 0/16 final**; Ir slab 0.05 → +0.474 meV
       REJECT → cell EQUALISED-BY-SELECTION(nspin=1) with 4 rejects; delta pull 18 files md5 ALL MATCH;
       90 Löwdin artifacts. **Equalised sensitivity = {Cr, Mn, Fe} over the floor = the same 3 of 6**
       (Ru 0.0957 V, Ir 0.0591 V, Ti 0.0522 V under); guard 3 flags Cr/Ru/Ir/Ti REVIEW-REQUIRED.
       Balance **64,977.8 SU**; queue EMPTY; nothing in AMENDMENT 11 remains unrun.
 - [x] Pointer notes appended: docs/58 §8, docs/60 §11, docs/63 §6 → docs/68.
-- [ ] **FRANK D1:** β-rung (unregistered) on the 15 Ru U=9 spin rows? Recommend NO (docs/68 §2).
+- [ ] **FRANK D1:** β-rung on the 16 Ru U=9 spin rows → **LICENSED 2026-09-02 as A11.R6** (Frank: "Lets go ahead with B").
 - [ ] **FRANK D2:** guard-3 adjudication for Ir (and Ru once final) — one dated line each.
 - [ ] **FRANK D3:** Mn E1 countersign (docs/67 §7 item 3) — one dated line; then update
       `a0main_readout.py` mn_afm text ("RUN 2026-09-01 — FM stands (measured null)").

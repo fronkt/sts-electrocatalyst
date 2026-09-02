@@ -136,3 +136,16 @@ quote the §3 literature values before the entrant verifies them.
    total energies and moments (gate-(h) recipe reads).
 3. The E1 measurement executes its own adoption rule; the entrant countersigns the
    outcome as a dated line when the stage-1 energies land.
+
+> **[MN E1 COUNTERSIGNED 2026-09-02]** — the entrant's directive of 2026-09-02, verbatim
+> *"Sign D3"*, given after docs/68 §4 and the D3 elaboration (the frame-bound reading:
+> FM-relaxed geometry, collinear patterns, a 2×1 cell that cannot hold the screw ordering,
+> U = 3.9, and no scored quantity depending on it) were put to the entrant. Outcome
+> countersigned: **measured null, FM stands.** P-A +664.6 meV and P-B1/P-B2 +1,219.5 meV
+> above FM in the 2×1 FM-relaxed frame, AFM solutions genuinely held (M_abs 42.5 / 43.1 vs
+> 46.2 μB; M_tot 4.33 / 0.00 vs 36.00). MN-AFM-CORE not triggered; the arm closes at stage 1;
+> the A7.5 strike is lifted by running; the E6 limitation travels with every Mn magnetic
+> sentence. Item 1 above (verify the §3 literature values before the report quotes them)
+> remains open. Reflected in `a0main_readout.py`'s `mn_afm` text the same day; the banked
+> readout JSON is NOT regenerated (its numbers are unchanged; its `mn_afm` sentence is
+> superseded by this line).

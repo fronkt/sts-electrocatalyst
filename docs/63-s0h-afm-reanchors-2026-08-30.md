@@ -237,7 +237,7 @@ refuses today and says why).
 
 > **UPDATED 2026-09-02 → docs/68 §2.** The probe's U = 9 AFM legs (2×1v off-plane, NM-relaxed
 > and AFM-relaxed geometries alike) hit `electron_maxstep = 200` without converging, as did
-> every FM-seeded Ru row at U = 9 (0 of 15). The U-dependence §6 calls "unmeasured" is
+> every FM-seeded Ru row at U = 9 (0 of 16). The U-dependence §6 calls "unmeasured" is
 > therefore **unmeasurable under the registered numerics**: the −25.9 meV level at U = 0
 > stands, its U = 9 partner does not exist, and the family can neither move nor settle A7.3.
 > The NM legs at U = 9 converged and agree across the two geometries to 0.1 / 0.8 meV.

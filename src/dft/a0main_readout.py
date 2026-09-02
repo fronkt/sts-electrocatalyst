@@ -1185,13 +1185,13 @@ def main():
             "every Ti row is spin-convention-conditional in a way the "
             "nspin=2 Cr/Mn/Fe rows are not."),
         mn_afm=(
-            "REGISTERED CONDITION, CURRENTLY UNMET (A7.5, quoted): "
+            "REGISTERED CONDITION, MET BY RUNNING 2026-09-01, countersigned 2026-09-02 (docs/67 SS7 dated line; docs/68 SS4) (A7.5, quoted): "
             "'beta-MnO2 is antiferromagnetic and gen_rutile.py initialises it FM -- either the AFM arm runs or every materials-facing Mn sentence is struck.' gen_rutile.py enters MnO2 at mag=0.5 (FM) and "
-            "no AFM arm has been run, so the 8-point absolute eta(U) "
+            "the AFM arm RAN (MN-AFM-ORDER: 2x1 FM-relaxed frame, U = 3.9, collinear; P-A +664.6 meV and P-B +1,219.5 meV ABOVE FM with the AFM solutions genuinely held) -> measured null, FM stands, MN-AFM-CORE not triggered; the strike is lifted and the E6 limitation (collinear, fixed FM geometry, 2x1, U = 3.9) travels with every Mn magnetic sentence. The 8-point absolute eta(U) "
             "column banked here for Mn is FM-initialised. Under A7.5 it "
             "may be used for the within-metal, U-response claims it was "
-            "registered for (A7.2's flip census, A7.3's span) but NOT "
-            "as a materials-facing absolute eta for beta-MnO2. Same "
+            "registered for (A7.2's flip census, A7.3's span) and, the arm having run, "
+            "as a materials-facing absolute eta for beta-MnO2 ONLY with the E6 limitation stated. Same "
             "amendment's tier strata: TiO2/beta-MnO2/RuO2/IrO2 = "
             "REAL-AMBIENT-UNDISTORTED, CrO2 = "
             "REAL-UNDISTORTED-METASTABLE, FeO2 = MODEL PHASE (method "

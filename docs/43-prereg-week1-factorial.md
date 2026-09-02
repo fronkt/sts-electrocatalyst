@@ -2304,3 +2304,62 @@ deposit) and in any case before any job or scoring act dated after Oct 15 relies
 it. **Report discloses:** the original date, this amendment's date + DOI, the ledger
 state above, the uniform-extension fact, the writing-window rationale, and the
 AI-use log entry (paraphrased per A7.7).
+
+## A11.R6 — Rung ladder for the sixteen unconverged Ru U = 9 spin rows (2026-09-02)
+
+**[RU U9 SPIN RUNG LADDER 2026-09-02: LICENSED]** — on the entrant's directive of
+2026-09-02, verbatim: *"Lets go ahead with B. Does it also widen the candidate pool? Wait
+for D2 until after D1."* Context: docs/68 §2 and §8 (0 of 16 spin-polarised Ru SCFs converge
+at U = 9 under the registered numerics) and the D1 elaboration put to the entrant the same
+day (docs/68 §10). This line is written before any rung deck exists.
+
+*Trigger and scope.* Exactly the sixteen rows that hit `electron_maxstep = 200` at U = 9.0:
+the twelve nspin = 2 rows `runs/a0/spin/Ru/{slab,s0_O,s0_OH,s0_OOH}__u900__sp2m{010,030,050}`
+and the four AFM 2×1v rows `runs/s0/h_afm_probe/{s0_OH,s0_OOH}__2x1v_off__afm__u900` and
+`runs/s0/h_afm_robust/{s0_OH,s0_OOH}__2x1v_off__afm__afmgeo__u900`. No converged row is
+re-run. No other metal, state, U, seed or cell gains a row.
+
+*The ladder — both rungs pre-named now; nothing may follow it.*
+- **Rung 1 = A6.5(2)(ii) literally:** `mixing_beta` 0.3 → 0.15 and `electron_maxstep`
+  200 → 400; every other byte of the deck identical to its rung-0 parent (which already
+  carries `mixing_mode = 'local-TF'`, `mixing_ndim` at the default 8, `conv_thr = 1.0d-6`).
+  Stem and prefix gain the suffix `__rung1`.
+- **Rung 2, only on rows rung 1 leaves unconverged:** `mixing_beta` 0.075, `mixing_ndim` 16,
+  `electron_maxstep` 600, suffix `__rung2`, otherwise identical to the rung-0 parent.
+- A row unconverged after rung 2 is NOT_CONVERGED under A6.5(2)(iii): recorded, never
+  interpolated, and its cell stays EQUALISED-BY-SELECTION(nspin=1). `startingpot` and
+  `startingwfc` remain forbidden on every spin deck (build_a0spin A10), so rung (i) has no
+  spin-arm form.
+
+*Interpretation, fixed before any rung runs.*
+(a) Still unconverged after the ladder → docs/68 §2's sentence hardens to "at β = 0.3, 0.15
+and 0.075 with local-TF mixing"; nothing else changes.
+(b) Converged but above the banked nspin = 1 energy → REJECT-FLOOR under guard 2; the cell is
+unchanged; the rejection is recorded with the candidate's moment.
+(c) Converged at or below the floor → enters that (Ru, state, u900) cell's pool as a **rung
+candidate** under A11.6 unchanged: lowest converged energy across the pool AND the incumbent;
+ties within 1 meV to the smallest |seed|, residual ties to the lowest rung; guards 1 (k-set /
+symmetry) and 3 (branch) apply as written. A rung-converged magnetic U = 9 winner may make the
+Ru endpoint pair same-branch; that is REPORTED by the census and adjudicated only by the
+entrant's D2 line, which the entrant has HELD until this ladder returns.
+
+*Pool widening — the entrant's question, answered.* The candidate pool widens ONLY inside the
+twelve (Ru, state, u900) cells, by at most one rung candidate per row per rung, and only for
+candidates that converge. The seed set S, the incumbents, every other cell, the as-built
+census and the headline are untouched (A11.5, A11.9). The four AFM 2×1v rows never enter the
+a7_3_spin census: they feed the S0(h) family's readout (docs/63) with the U = 9 level that
+docs/63 §6 calls unmeasured.
+
+*Census.* The a7_3_spin readout is extended to parse `__rung[12]` stems, to verify each rung
+deck against this table (β, ndim, maxstep, byte-identity elsewhere, same seed and species
+index as its parent) and to refuse a rung stem in any cell outside the twelve — committed
+BEFORE any rung deck runs (commit hash recorded in docs/68 §10).
+
+*Cost and disclosure.* ≤ 16 + 16 fixed-geometry SCFs; measured band ≈ 1,100–4,400 SU.
+A11.R4 running total: ~356 → ~372 licensed now, ~388 at full rung-2 trigger.
+
+**[MN AFM ARM STAGE 1 COUNTERSIGNED 2026-09-02]** → docs/67 §7's dated line. Measured null,
+FM stands; MN-AFM-CORE does not trigger; no further Mn family in A11.R4's contingents will run.
+
+**[D2 GUARD-3 ADJUDICATION 2026-09-02: HELD]** — by the entrant's directive ("Wait for D2
+until after D1"); the four flags of docs/68 §8 stand un-adjudicated until A11.R6 returns.
