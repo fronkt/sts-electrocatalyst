@@ -1,8 +1,20 @@
 #!/usr/bin/env python
-"""A11.R9 - the n = 18 statement as seven separate n = 18 tests across the common U grid.
+"""A11.R9 - the n = 18 statement as one n = 18 test per rung of the common U grid.
 
 Registered in docs/43 **A11.R9** (2026-09-03) at commit **01a76df**, which carried no
 script and no result.
+
+GRID CORRECTION, 2026-09-03 (docs/43:3090 `[A11.R9 GRID CORRECTED: FIVE RUNGS, NOT SEVEN]`).
+The registration said "exactly seven rungs" and named u000, u150, u300, u450, u600, u750,
+u900.  That was wrong when written: it took the UNION of the three step states per metal
+where the rule requires the INTERSECTION.  Fe has no `s0_O` at u300 or u450, so both rungs
+leave the common grid.  The grid is **five** rungs -- u000, u150, u600, u750, u900 -- one
+post-hoc and **four** out-of-sample, not six.  The rule, the anti-selection clause, the
+pooling refusal and the binding are all unaffected.
+
+Every count below and in the emitted readout is DERIVED from the grid, never spelled out
+as a word.  The prose that said "seven"/"six" survived the correction once already,
+inside a countersigned deliverable, because it was hardcoded.
 
 WHY THIS EXISTS.  The entrant asked for the n = 18 test.  A11.R8's R8-P2 already carries
 an n = 18 number and may NOT be used as one -- its own registration forecloses promotion,
@@ -11,17 +23,19 @@ promote it.  It rebuilds the n = 18 statement out of material that is mostly UNS
 
   * SEEN      -- the n = 18 correlation at u000 (A11.R7 post-hoc rho -0.3808; A11.R8
                  nspin=2 rho -0.3148).
-  * NOT SEEN  -- the n = 18 correlation at u150, u300, u450, u600, u750, u900.
+  * NOT SEEN  -- the n = 18 correlation at u150, u600, u750, u900.
 
-Post-hoc at one rung, out-of-sample at six.  That asymmetry is the evidential content and
-it was written down before these numbers existed.
+Post-hoc at one rung, out-of-sample at the rest.  That asymmetry is the evidential content
+and it was written down before these numbers existed.
 
-WHAT IS REFUSED.  The 7 x 18 = 126 pairs are NEVER pooled.  Pooling is pseudo-replication:
-the response span_U(dG_i) is one number per (metal, step), so it would be repeated seven
-times against seven correlated predictors and the p would fall for an arithmetic reason.
-Seven separate tests are reported; one pooled n = 126 test is not computed.
+WHAT IS REFUSED.  The n_rungs x 18 pairs are NEVER pooled.  Pooling is pseudo-replication:
+the response span_U(dG_i) is one number per (metal, step), so it would be repeated once per
+rung against that many correlated predictors and the p would fall for an arithmetic reason.
+One test per rung is reported; no pooled statistic is computed.  The registration refused
+pooling at n = 126 (7 x 18, the as-registered grid); on the corrected five-rung grid the
+pooled figure would be 90.  The refusal stands at either size and is not a function of it.
 
-ANTI-SELECTION.  All seven rungs are reported, always, as a distribution.  No rung may be
+ANTI-SELECTION.  EVERY rung is reported, always, as a distribution.  No rung may be
 quoted alone.  Multiplicity is printed with the result.
 
 BINDING.  CONFIRMATORY-INELIGIBLE.  Scores nothing; cannot move A7.2 or A7.3.
@@ -151,10 +165,15 @@ def main(argv=None):
             "posthoc_rung": POSTHOC_RUNG,
             "out_of_sample_rungs": [r["u"] for r in oos],
         },
-        "pooling_refused": ("the 7 x 18 = 126 pairs are NEVER pooled: span_U is one number "
-                            "per (metal, step), so pooling repeats the response seven times "
-                            "against seven correlated predictors and the p falls for an "
-                            "arithmetic reason. No pooled n=126 statistic is computed here."),
+        "pooling_refused": ("the %d x 18 = %d pairs are NEVER pooled: span_U is one number "
+                            "per (metal, step), so pooling repeats the response %d times "
+                            "against %d correlated predictors and the p falls for an "
+                            "arithmetic reason. No pooled n=%d statistic is computed here. "
+                            "(The registration refused pooling at n=126, the 7 x 18 of the "
+                            "as-registered seven-rung grid; docs/43:3090 corrects the grid "
+                            "to five rungs. The refusal is not a function of the size.)"
+                            % (len(grid), len(grid) * 18, len(grid), len(grid),
+                               len(grid) * 18)),
         "rungs": rungs,
         "distribution": {
             "rho_min": min(rhos), "rho_median": med(rhos), "rho_max": max(rhos),
@@ -222,7 +241,7 @@ def _write_md(path, out):
     A("")
     A("> **%s**" % out["binding"])
     A("")
-    A("## The seven tests")
+    A("## The %d tests" % len(out["rungs"]))
     A("")
     A("Each row is its own n = 18 test. **They are never pooled** - %s"
       % out["pooling_refused"])
@@ -236,17 +255,17 @@ def _write_md(path, out):
     A("")
     A("## The distribution, which is the only thing that may be quoted")
     A("")
-    A("- rho across all seven rungs: **min %+.4f, median %+.4f, max %+.4f**"
-      % (d["rho_min"], d["rho_median"], d["rho_max"]))
+    A("- rho across all %d rungs: **min %+.4f, median %+.4f, max %+.4f**"
+      % (len(out["rungs"]), d["rho_min"], d["rho_median"], d["rho_max"]))
     A("- sign: %d negative, %d positive, %d zero - **sign holds across the grid: %s**"
       % (d["signs"]["negative"], d["signs"]["positive"], d["signs"]["zero"],
          d["sign_holds_across_grid"]))
     A("- rungs reaching nominal p < 0.05: **%d of %d**"
       % (d["n_rungs_nominal_p_below_0.05"], len(out["rungs"])))
     o = d["out_of_sample_only"]
-    A("- **out-of-sample rungs only** (the six never computed before): n = %d, rho min "
+    A("- **out-of-sample rungs only** (the %d never computed before): n = %d, rho min "
       "%+.4f, median %+.4f, max %+.4f; %d reach nominal p < 0.05"
-      % (o["n_rungs"], o["rho_min"], o["rho_median"], o["rho_max"],
+      % (o["n_rungs"], o["n_rungs"], o["rho_min"], o["rho_median"], o["rho_max"],
          o["n_nominal_p_below_0.05"]))
     A("")
     A("**Multiplicity.** %s" % out["multiplicity"])
