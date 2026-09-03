@@ -279,11 +279,21 @@ nothing is countersigned here.**
 
 §7c closed with: *"Banking the re-scored analysis text/JSON alongside the originals is the
 commit step that follows this working-tree change set."* **That commit never happened**, and
-docs/73 §6 found the consequence: for eleven days the campaign's second-strongest positive
-result existed only as prose in this file, while **every machine-readable artifact under
+docs/73 §6 found the consequence: for eleven days **every machine-readable artifact under
 `runs/` said UNDERPOWERED, VOID or REFUTED**. `grep -ranI 'VERDICT:' runs` returned five
 artifacts and not one of them said CONFIRMED. That is the most citable inconsistency an
 auditor could have found in this repo, and it cost one commit to close.
+
+**[SELF-CORRECTION, SAME DAY]** — an earlier draft of this addendum said the CONFIRMED verdict
+"existed only as prose in this file". **That is wrong, and the protocol written hours later in
+`tasks/lessons.md` is what refuted it.** The verdict also stands in **docs/45 §B row 1**, and in
+the message of **commit `a575a70` (2026-08-23 19:17)** — *"re-run on banked Cr_hess outputs
+reproduces every docs/49 number — verdict CONFIRMED at both delta … i244.7/i242.8 f_y=1.000"*.
+That commit changed docs/45, docs/49 and `hessian_analyze.py` and **added nothing under `runs/`**,
+which is exactly the gap: the re-score was recorded in three human-readable places and in **zero
+machine-readable ones**. The substantive claim is unchanged and is the one that mattered; the
+"only as prose" phrasing was a negative existence claim that skipped git history — the very hole
+this session documented.
 
 **Discharged.** `src/dft/hessian_analyze.py` already implements the adopted A8.7 reading-(b)
 instrument, so the re-score is regenerable rather than recoverable. Re-run on the same banked

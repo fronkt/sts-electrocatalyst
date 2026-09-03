@@ -234,9 +234,15 @@ fixed, per the project's convention.
    PILOT**. Three reconcile (docs/49:259 declares UNDERPOWERED/VOID "a label, not a verdict"
    under the superseded pre-A8.7 instrument; the REFUTED is a *different state*). The unresolved
    part: docs/49:262-266 says banking the re-scored analysis "is the commit step" — **that commit
-   appears not to have happened.** So the campaign's second-strongest positive lives in one
-   document's prose while every machine-readable artifact on disk disagrees. **This is the single
+   did not happen.** So the campaign's second-strongest positive lived in three human-readable
+   places — docs/49's prose, docs/45 §B row 1, and the message of commit `a575a70` — and in
+   **zero machine-readable ones**, while every artifact on disk disagreed. **This is the single
    most citable inconsistency an auditor could find, and it costs one commit to fix.**
+   **[DISCHARGED 2026-09-03, commit `ad85a15`]** — re-run under the adopted A8.7 instrument and
+   banked alongside the originals per A8.8: both displacements **CONFIRMED** (i245 / i243,
+   f_y = 1.000, floor i50), reading-(a) labels UNDERPOWERED / VOID carried alongside, originals
+   byte-unchanged, campaign layer still PARTIAL PILOT. `grep -ranI 'VERDICT:' runs` now returns
+   both instruments side by side with the adopted one named in its filename.
 2. **`P-FLOOR-U` is one token string with two live verdicts.**
    `docs/research/2026-08-15-lit-sweep-round2-synthesis.md:55` says **WITHDRAWN** while five
    locations score it **NOT MET at 3 of 6**. Both are right about *different quantities*:
@@ -302,16 +308,20 @@ message**. Every "grep the whole tree" protocol in this repo misses it. Add `git
    (P15) plus one near-miss (P-DIVANIS, deadline Sep 15), not nine. Everything else needs a
    *dated entrant line* — a scarcer resource than a paragraph.
 2. **Score P15 as a BULK GO with its three riders.** It is the cheapest genuine scored row
-   available and it is currently under-claimed by its own assessment.
-3. **Commit P14's re-scored artifact** (§6 item 1). One commit removes the most citable
-   inconsistency in the repo.
+   available and it is currently under-claimed by its own assessment. **The readout now exists
+   (`src/dft/p15_readout.py`, commit `198f67a`)** — it parses the gate out of docs/43 rather than
+   copying it, and emits BULK GO / SLAB NO-GO. **The dated scoring line is still Frank's.**
+3. ~~**Commit P14's re-scored artifact** (§6 item 1).~~ **DONE 2026-09-03 (`ad85a15`).**
 4. **Decide P-BEEF before Sep 18.** Either elect one of the two conflicting criteria in a dated
    line and draft A10, or withdraw the body row deliberately. Note the gate it is "blocked on"
    already passed.
 5. **Accept WITHDRAWN-UNSCORED deliberately for the rest, and name the pattern in the report.**
    A preregistered report that says "these nine were registered, measured or not, and here is
    why each was not scored" is stronger than one where a reviewer finds nine dated withdrawals.
-6. **Add `git log --grep` to the resolution-token protocol** (§8).
+6. ~~**Add `git log --grep` to the resolution-token protocol** (§8).~~ **DONE (`45d4fa4`),
+   and it immediately refuted a sentence in this file's own §6** — see the self-correction in
+   docs/49's addendum. A verdict can live in a commit message; a negative existence claim that
+   skips git history is incomplete.
 
 ---
 
