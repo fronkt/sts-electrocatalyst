@@ -1422,3 +1422,76 @@ still not been tested against the present state."
 - [ ] **Price and outline S-5.** 30 days (Oct 6 -> Nov 5) for 20 pages, no outline in the tree.
 - [ ] **One-pager follow-up, only if Q-5 is no-go** — `docs/outreach/one-pager.md` promised
       mentors "a real measurement before the project's mid-October data freeze."
+
+## 2026-09-03 (fifth block) — prediction-ledger census: the unscored pile is NOT cheap (docs/73)
+
+**Not a registration. AI-drafted; nothing scored. Compute: ZERO. Balance unchanged at
+59,761.1 SU, queue empty. Suite 341 passed / 8 skipped.**
+
+**THE FINDING.** docs/72 §9 decision 4 said to close the unscored pile because "9+ predictions
+are measured-but-unscored" and §8's items are free rows closable with a paragraph. **Tested with
+51 agents over two workflows: of 14 candidate free rows, 13 are REFUTED and 1 survives.** The
+pile is mostly a *dated entrant line* away, or unreachable — not a paragraph away. Full census,
+with the per-family reason and every `path:line`, in **docs/73**.
+
+- **P15 is the one real free row, and it is BIGGER than docs/72 thought.** Two verdicts are
+  available today at 0 SU and they point opposite ways: **BULK = GO** (U(Ti-3d) 4.2245 / 4.2251 /
+  4.2245 eV inside the registered [3.0, 7.0]; q-mesh spread 0.0006 eV against a 0.2 eV bar;
+  `find_atpert=4` agreement 0.0000 eV against 0.05) and **SLAB = NO-GO** (4/4 non-converged, no U
+  produced). docs/72:242's scope limit is FALSE — check 4′ ran, converged, and matches the
+  registered spec term for term (U(Cr-3d) = 6.1635 eV), and **commit `dc38c23` recorded it on
+  Aug 10**, so that claim was contradicted by the repo's own history for 24 days. Why P15 alone
+  was never scored: **there is no hp readout script** — block 1B has a builder only, while every
+  scored family has a `*_readout.py`.
+- **Two of docs/72 §8's three named free rows do not exist.** P-SPIN-DELTA's registered
+  population is exactly {Ti, Ru, Ir}; `[D2 GUARD-3 ADJUDICATED 2026-09-03]` makes Ru and Ir
+  unscoreable into a span and docs/43:2816-2819 enforced that against this very quantity hours
+  later → operative denominator **1**, unenumerated, and at n=1 the "≥2" bar is unsatisfiable.
+  P-FLOOR-U-SPIN lands at denominator **4**, also unenumerated; rule (iv) at docs/43:2107
+  requires a dated line BEFORE scoring.
+- **P-BEEF is not a registered prediction at all** yet holds one of the six body ledger rows.
+  Amendment 10 exists nowhere as registered text — only in the two lit-sweep syntheses, which are
+  in **no Zenodo deposit fileset**, and they give **conflicting criteria** with no election. And
+  **"gated on S0(a)" is stale**: that gate physically passed weeks ago; only the verdict line is
+  missing. **A10's deadline is Sep 18.**
+- **One third of the body-figure ledger is unreachable** (P-BEEF, P-SYMCOV, plus P-LIT in the
+  appendix with four blank fields). No REPORT LOCK line exists yet, so nothing is withdrawn.
+- **P14/block 1C's `CONFIRMED` exists only in prose** — every machine-readable artifact under
+  `runs/` says UNDERPOWERED, VOID or REFUTED, and docs/49:262-266's "commit step" never happened.
+  **One commit removes the most citable inconsistency in the repo.**
+- **A new hiding place for resolution tokens: git commit messages.** A7.4 gate (f)'s verdict was
+  written by the entrant on 2026-08-21 *in git history*, which no working-tree grep reaches. Add
+  `git log --all --grep` to the resolution-token protocol.
+
+### Closed this block (all 0 SU)
+
+- **H-9 CLOSED BY DISCLOSURE** (`0b1912d`) — docs/45 §B gains row 10, the pseudopotential class
+  the ledger never had. Re-measured UPF census: the six metals span **three** families, not two.
+  The confound does not explain A7.3's 3-of-6 split, but **Ru is 4.3 meV under the 0.100 V floor
+  and is the only norm-conserving metal** — the one metal that could flip the headline negative
+  result is the one whose PP family is unreplicated. Licenses nothing; A7.3 stays NOT MET at 3 of 6.
+- **A11.R9 readout de-hardcoded** (`d4419d1`) — the countersigned deliverable was still printing
+  "the seven tests" and "the six never computed before" over data that says 5 and 4, because those
+  counts were English words while the line beside them already derived its own. All counts now
+  derive from the grid. Exactly one JSON field changes; no measured number moves.
+- **docs/71's three measured traps corrected** (`caf9ff8`) — it is the spec the core is written
+  from, so a wrong trap propagates into entrant-written code. `263 of 1,042 .out` → **196** (263 is
+  the all-file-types count, from a malformed grep where `--` demotes `--include` to a path
+  operand); "32 of 173 in the fixture corpus" → the number is right, the corpus is the **515
+  git-tracked outputs**; and "grep skips the NUL file silently" is **false in the dangerous
+  direction** — `-c` returns 13 and `-l` names the file, because grep suppresses the *lines*. The
+  old wording would have taught an auditor to distrust the one form of evidence that still works.
+
+### Owed — all Frank's, all decisions or dated lines
+
+- [ ] **Score P15 as BULK GO + SLAB NO-GO** with its three riders (slab stays a separate gate; the
+      Xu side-check, TiO₂ 4.95 eV so the offset is **−0.73 eV**, which *exceeds* the 0.5 eV figure
+      used in the §9 falsifier at docs/43:410; χ-symmetry still PENDING but demoted, never gated).
+- [ ] **Commit P14's re-scored artifact** — the one-commit fix above.
+- [ ] **P-BEEF before Sep 18** — elect one of the two conflicting criteria and draft A10, or
+      withdraw the body row deliberately.
+- [ ] **P-DIVANIS** — the only A9 member whose corpus is fully local and whose denominator is
+      already fixed by written default. Zero compute; registered deadline **Sep 15**.
+- [ ] **Rewrite docs/72 §9 decision 4** on the corrected premise.
+- [ ] Dated lines for the P-SPIN-DELTA n=1 and P-FLOOR-U-SPIN n=4 denominators, if either is to be
+      scored at all.
