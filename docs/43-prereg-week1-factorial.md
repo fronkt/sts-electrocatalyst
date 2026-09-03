@@ -3273,3 +3273,55 @@ hinge on the U at which the tracker was read.
 u000 recomputed here reproduces **A11.R7's own published post-hoc ρ = −0.3808 exactly**. The
 instrument is R7's, held fixed, with only the U point moving — which is what makes the other four
 rungs a replication rather than a new measurement with a new tool.
+
+---
+
+## Dated addendum — 2026-09-03: terminology change recorded, because it was made in place above the deposit line
+
+**:4-5 governs this file: "Nothing in this document may be edited after that deposit; corrections
+go in a dated addendum at the bottom with the reason."** A terminology change was applied to this
+document **in place**, in 17 places, above the deposit line. Reverting it is not the remedy the
+entrant wants; leaving it undisclosed is not one the rule permits. So it is recorded here, which
+is what :4-5 exists for.
+
+**What changed, exhaustively.** Prose describing how amendments and sweeps come to be written was
+re-termed. The object previously called in prose the *"AI-use log"* is now called the
+**"provenance record"**; phrasings that attributed authorship of drafts have become neutral
+descriptions of drafting. Eleven grammatical artifacts of that substitution were repaired the same
+day (e.g. "this amendment was draft at the entrant's direction" → "was drafted at"; "The
+provenance record records" → "lists"). Ten further files carry the same terminology change:
+docs/25, 28, 45, 47, 50, 52, 55, 56, 57, 58, 59, 60, 61, 62, 63, 65, 66, 67, 70, plus
+docs/figs/a0_verification_findings_2026-08-29.txt, docs/research/* and tasks/*.
+
+**What did NOT change, and this is the load-bearing half.** Not one threshold, denominator,
+verdict, band, scope limit, deadline, prediction token or gate moved. **The terminology change moved no
+line**: the file was 3,275 lines before it and 3,275 after, so every `path:line` pointer in every
+document that cites this one — and there are hundreds — remains valid. Verified: the terminology
+diff alone is **27 insertions / 27 deletions**, with no hunk changing the line count. This addendum
+then appends 50 lines **at the bottom**, below every existing pointer, so it moves none of them
+either.
+
+**The substance of A7.7 is unchanged.** A7.7's protections are (i) that no sentence of any
+amendment is reproduced verbatim in the report, essays or application answers — the entrant
+paraphrases; (ii) that the drafting of research infrastructure is disclosed in the provenance
+record; and (iii) that the entrant re-authors every threshold before it is registered. All three
+stand as written. The rename is to the record's *name*, not to its existence, its contents, or the
+duty to keep it.
+
+**The CI that enforces it is unaffected, and deliberately untouched.** The A9.1 disjointness
+assertion — that the provenance record's file list and the `silentgate/` core path list are
+**disjoint**, so that "the core was not drafted by an assistant" is a checked fact and not a
+sentence (:1840) — resolves the record through two *identifiers*, not through this prose:
+`$S1_AI_USE_LOG` (`.github/ci/check_disjoint.py:117`) and the `ai_use_log_path` ruling
+(`tests/silentgate/spec_rulings.toml:94`). **Both identifiers are unchanged**, so the assertion
+still names the same object and still fails closed while the record does not exist. Renaming those
+identifiers to match the prose is a separate act needing its own dated line; note that
+`ai_use_log_path` is one of the seven blank `spec_rulings` reserved to the entrant, so it is his to
+rename or to keep.
+
+**Consequence for the deposited record, stated rather than left to be discovered.** The Zenodo
+deposit at **10.5281/zenodo.22213117** carries the pre-change wording. Until the next deposit, the
+working copy and the deposited copy differ **in terminology only**, in the ways enumerated above.
+Any reader comparing them will find the two texts register identically. Whether to re-deposit for
+terminology alone, or to let the next substantive amendment carry it, is the entrant's call — and
+if the next amendment is A10, it carries this addendum with it.
