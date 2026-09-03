@@ -2886,3 +2886,79 @@ failing to.
 Owed from the entrant, as with every dated line. If he declines it, the readout and its output are
 withdrawn from the report and this section stands as the record of what was registered and not
 used.
+
+## Item 6 — the Cr `oosh` state: neither "finding" nor "artifact" is claimed
+
+**[CR OOSH DISPOSITION 2026-09-03: 1x1-CONDITIONAL OBSERVATION, NOT A FINDING]** — decided
+under the entrant's directive ("Continue items 6, 7, 8") and his maximum-rigor criterion.
+
+The measurement is settled and is not reopened here (docs/54 dated correction, docs/45 H-10):
+the Cr `oosh` row relaxes to **O-O 1.227 A with both oxygens 3.09 and 3.78 A from the nearest
+Cr** — against this campaign's own measured Cr-O bond of 1.856 A — and **the H on a different
+O**, both spin seeds agreeing to 0.0004 A over 41 and 42 ionic steps. It is a desorbed O2 plus a
+surface hydroxyl and **is not scored as an `*OOH` member**. Ir and Ru, from the identical
+starting construction, relax to bound superoxo and are unaffected.
+
+**What is decided:** the state is recorded as a **1x1-conditional observation**. The report says
+what was measured, in which cell, and stops there.
+
+**What is deliberately NOT claimed, and why.** The tempting sentence — "rutile CrO2(110) does not
+support a bridge-protonated `*OOH`" — is a claim about a *surface*, and it cannot be carried by
+**one cell**. At 1x1 the adsorbate sees its own periodic images at the lattice spacing; a
+desorption under that lateral pressure is consistent both with a real surface property and with a
+coverage artifact, and nothing in the banked set distinguishes them. Asserting the surface
+property from a single 1x1 cell is exactly the kind of over-read this campaign exists to indict,
+and it would be the weakest sentence in the report for a reviewer to pull.
+
+**The test that would decide it is named and not proposed.** An oosh-seeded Cr deck in the 2x1v
+cell would separate the two readings; docs/54 §6 item 10 records that **no such deck exists
+anywhere**. Building one is new compute against a registered ledger already at its claimant cap,
+it is not proposed here, and this line does not license it. If it is ever wanted it takes its own
+dated line under A11.R3.
+
+**Nothing banked moves:** no dG, no eta, no census, no verdict.
+
+## Item 7 — the Co BASIN_DRIFT row: the earlier diagnosis is WITHDRAWN and the finding is worse
+
+**[CO BASIN_DRIFT PROVENANCE 2026-09-03: NO CONVERGED ARTIFACT EXISTS, ANYWHERE]** —
+established by exhaustive search under the entrant's directive to continue item 7.
+
+**Correction of my own record, made the same day it was written.** The 2026-09-03 census note
+(docs/45, `tasks/todo.md`) said of the Co −77.009 meV BASIN_DRIFT row that *"the fromparent run
+happened on Anvil and its output was never pulled … the fix is a file transfer, not compute."*
+**That is wrong.** Searched this date:
+
+- **Locally:** `runs/s3/Co/s0_O__1x1_off__g1.out` and both `.attempt` files report
+  "convergence NOT achieved" and print no `!` total energy;
+  `runs/s3/Co/s0_O__1x1_off__g1.fromparent.in` exists with **no `.out`**.
+- **On Anvil (`x-fcai3@anvil.rcac.purdue.edu`):** the run tree is not on scratch; the banks live
+  as tarballs in `$HOME`. **Every** tarball was listed. `s0_O__1x1_off__g1.fromparent.out` exists
+  for **Ni** (`s3_bank2.tgz`) and for two `Cr_lit3` rows — and **not for Co**, in any archive.
+  The only Co copies of the parent are `s3_bank2.tgz` and `s3_round3_outs.tgz`, and the round-3
+  copy was extracted and read: **0 occurrences of "convergence has been achieved", 1 of
+  "convergence NOT achieved", no `!` energy** (md5 cffbcfd2a2e9df3dfb4afd73b8aed646).
+
+**The corrected finding.** The Co row's GATE-1 remedy was **never executed**, not merely never
+retrieved. The registered remedy at :311-314 (re-relax from the GATE-1 geometry until it passes)
+has not run, and the affordability escape at :317-320 (quote the GATE-1 energy with a stated
+4 meV residual) is **also unavailable**, because Co's GATE-1 SCF never converged and so has no
+energy to quote. **There is no artifact from which the −77.009 meV can be re-derived.**
+
+**A second reason the escape does not reach this family, stated for the record.** The 4 meV
+residual at :317-320 is calibrated on docs/41 §6f, where relaxing on the corrected surface bought
+3.46 / 1.99 / 2.81 meV. The Fe row of this same family sits **384.3 meV** below its parent. A
+drop two orders of magnitude outside the calibration set is a **basin change, not a density
+correction**, and the residual bound does not transfer to it. That is true whatever is decided
+about Co.
+
+**Disposition, and what this line does NOT do.** The row is recorded as a **recorded gap** with
+the provenance above — the same class as `s0_O__2x1v_off__afm__relax` in the gate-(h) family. It
+is **not withdrawn** and its number is **not quoted as re-derived**.
+
+**Recommended, and requiring the entrant's own dated line before it runs:** one
+fixed-geometry SCF from the parent density on `s0_O__1x1_off__g1.fromparent.in`, at the repo's
+measured band of **5-19 SU** — roughly 0.02 % of the 59,761.1 SU balance. It would close a
+registered remedy that is currently unexecuted on a row every dG built on it inherits. **It is
+not launched here.** A11.R3 requires each licensed compute addition to carry its own dated line,
+and a submission to a shared allocation is not a scribe's act; the deck is staged and one command
+away.
