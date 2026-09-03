@@ -2840,3 +2840,47 @@ It moves **no banked verdict**. A7.2 stays CONFIRMED 5/6, **A7.3 stays NOT MET a
 the as-built headline (A11.5), the selection rule (A11.6) and tier_v2 are untouched. The
 countersignature on A11.R7 is owed; if the entrant declines it, the readout is withdrawn from
 the report and A11.R7 stands as the record of what was registered and not used.
+
+## Correction of record, 2026-09-03: a deposited prediction was built on a premise this project had refuted three days earlier
+
+**The error.** docs/43 §7 prediction 3 (P18), in place by 2026-08-09, registers that *"`omat` is
+trained on OMat24, **which does not share that convention**"* and makes the discriminating test
+**Δρ(MACE) more negative than Δρ(omat)**. `docs/40-predictor-reference-independence.md` §1.4, dated
+**2026-08-06**, had already quoted OMat24's own paper — *"…following **Materials Project
+defaults**", "generated using the **MPRelaxSet** class"* — checked every U value against
+`MPRelaxSet.yaml` locally, and concluded in bold: **"Independence gained on the U axis by switching
+MACE → omat is zero."** Three days, same author, same two models, opposite claims. No withdrawal
+existed anywhere in docs/44–70 or `tasks/todo.md` until today.
+
+**Verified externally, and the direction inverts.** Warford, Thiemann & Csányi, arXiv:2601.21056
+(preprint, 28 Jan 2026, **no journal ref**; abstract opened 2026-09-03): fMLIPs trained on *"MPtrj,
+Alexandria, and **OMat24**"* all encode the Materials Project's selective U, and **"OMAT-trained
+models are most affected."** Prediction 3 says MACE should degrade more; the only external source
+on the question says `omat` is the more affected.
+
+**Closure.** A dated **disclosure** — not a revision, since §7 forbids revision after deposit —
+appended to docs/43: prediction 3 stands as deposited, its differential test **cannot score the
+shared-convention mechanism in either direction** (a contrast between two models that do not differ
+on the axis under test measures nothing about that axis), §7's own "if MACE degrades less … that is
+a refutation of our own mechanism" clause is **unsound and unavailable**, and Δρ(MACE)/Δρ(omat) are
+reported as **descriptive, not discriminating**. Predictions 1, 2 and 4 are untouched. **No joint
+replacement prediction is registered**, because writing one now with docs/40 and Warford in hand
+would be fitting a prediction to what is already known; if the entrant wants one it needs a new
+dated line disclosing that it was written afterwards.
+
+**Rules.**
+
+- **A pre-registration must be cross-read against the project's own finished documents before
+  deposit, not just against the literature.** The refuting evidence here was in-house, recomputed,
+  and bolded in a numbered document. The deposit froze a premise the repo had already killed.
+- **The deposit is what makes this severe.** An ordinary document can be corrected; a deposited
+  pre-registration can only be disclosed against. **Every factual clause in a section about to be
+  deposited gets a search of the repo for its own negation** — cheap, and it is the last moment at
+  which the claim is still editable.
+- **When a differential prediction's two arms turn out not to differ, say the test is void rather
+  than reporting whichever way it lands.** The temptation is to keep the number and let the reader
+  infer a mechanism from it. Both orderings are uninformative here and the disclosure says so
+  before the number exists.
+
+*Surfaced as docs/70 hole H-2; dates, quotes and the absent withdrawal re-verified against the tree,
+and the Warford abstract opened directly rather than carried from the workflow.*

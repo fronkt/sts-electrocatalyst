@@ -2506,3 +2506,78 @@ on disk.
 Owed from the entrant, as with every dated line. If he declines it, the readout and its output are
 withdrawn from the report and this section stands as the record of what was registered and not
 used.
+
+## Dated disclosure — 2026-09-03: §7's prediction 3 rested on a premise this project had already refuted three days before the deposit
+
+**This is a disclosure, not a revision.** §7 closes with "Nothing in this section may be revised
+after the deposit", and nothing in it is revised here. Prediction 3 stands exactly as written and
+as deposited. What follows records what was already known at deposit time and what the prediction
+can therefore still score.
+
+### The premise, and the refutation that preceded it
+
+§7 prediction 3 registers, verbatim: *"MACE-MPA-0 trains on MPtrj at exactly the Materials Project
+U set, with U = 0 on Ru and Ir — the identical partition this campaign uses. Its current agreement
+is therefore partly a shared Hubbard convention rather than shared physics. **`omat` is trained on
+OMat24, which does not share that convention.** So if `tier_v3` adopts a DFPT U, **Δρ(MACE) must be
+more negative than Δρ(omat)**."
+
+`docs/40-predictor-reference-independence.md` §1.4 is dated **2026-08-06**. §7 was in place by
+**2026-08-09** (`docs/43-…-archive-2026-08-09-pre-amendment-1.md:348`). docs/40 §1.4 reads OMat24's
+own paper (arXiv:2410.12771 §4.2) and quotes it: *"…PBE with Hubbard U corrections for oxide and
+fluoride materials containing Co, Cr, Fe, Mn, Mo, Ni, V, or W, **following Materials Project
+defaults**,"* with *"VASP input sets … generated using the **MPRelaxSet** class."* It checks the
+values against `pymatgen/io/vasp/MPRelaxSet.yaml` locally — every one matches, and the three zeros
+(Cu, Ru, Ir) match three absences. Its conclusion, in bold in the source: **"Independence gained on
+the U axis by switching MACE → omat is zero."**
+
+So the clause "which does not share that convention" was false when it was written, and this
+project had established that it was false, in its own numbered document, three days earlier.
+
+### External corroboration, and it points the other way
+
+Warford, Thiemann & Csányi, *"Better without U: Impact of Selective Hubbard U Correction on
+Foundational MLIPs"*, **arXiv:2601.21056** (preprint, 28 January 2026; **no journal reference** —
+opened and read 2026-09-03): *"fMLIPs trained on large datasets such as MPtrj, Alexandria, and
+**OMat24** encode inconsistencies from the Materials Project's selective use of the Hubbard U
+correction."* It goes further than docs/40 needs: it links the severity to oxygen number density in
+the U-corrected training configurations and concludes that **"OMAT-trained models are most
+affected."**
+
+Prediction 3 asserts MACE should degrade *more* than `omat`. The only external source on the
+question says `omat` is the more affected of the two, by a mechanism prediction 3 does not
+consider.
+
+### What prediction 3 can and cannot now score
+
+- **It cannot score the shared-convention mechanism, in either direction.** The differential test
+  Δρ(MACE) vs Δρ(omat) was built as a contrast between a model that shares the U partition and one
+  that does not. Both share it. A contrast between two things that do not differ on the axis under
+  test measures nothing about that axis — so **neither** ordering of Δρ bears on the mechanism, and
+  in particular §7's own clause *"If instead MACE degrades less than `omat`, the shared-convention
+  explanation is wrong and that is reported as a refutation of our own mechanism"* is **unsound and
+  is not available as a refutation route.**
+- **It can still be reported as a measurement.** Δρ(MACE) and Δρ(omat) against `tier_v3` remain
+  well-defined numbers and will be reported as deposited, with this disclosure attached. They are
+  descriptive, not discriminating.
+- **What is NOT registered here.** Under the corrected premise the shared-convention hypothesis
+  implies both models degrade together, which is a *joint* prediction rather than a differential
+  one. Registering that now — after the premise is known false and with docs/40 and Warford both
+  in hand — would be fitting a prediction to what is already known, and this section deliberately
+  does **not** do it. If the entrant wants a joint test, it needs a new dated line that discloses
+  it was written after this paragraph.
+- **§7 predictions 1, 2 and 4 are untouched.** Nothing above bears on the point predictions, the
+  MAE band, or the "falsifier that would be good news".
+
+### Why this was not caught
+
+docs/40 and §7 were written three days apart, by the same person, about the same two models, and
+§7's premise contradicts docs/40's headline sentence. The failure was not of evidence — the
+evidence was in the repo, recomputed and bolded — but of **cross-reading between a finished
+analysis document and a pre-registration being drafted beside it**. A pre-registration is exactly
+where a stale premise does the most damage, because the deposit freezes it. Recorded as a rule in
+docs/45.
+
+*Surfaced by the docs/70 ideation round as hole H-2 (`docs/70:117-131`); dates, quotes and the
+absence of any prior withdrawal re-verified against the tree on 2026-09-03, and the Warford
+abstract opened directly rather than carried from the workflow.*
