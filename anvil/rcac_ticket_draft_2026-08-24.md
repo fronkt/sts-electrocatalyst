@@ -16,7 +16,7 @@ We believe a number of compute nodes — **a024**, **a088**, **a196**, **a220**,
 **a223** and **a050** so far — have a hardware or configuration
 fault. Across four Slurm array submissions on 2026-08-24 (account che260157, user
 x-fcai3), Quantum ESPRESSO pw.x tasks (128 MPI ranks, -N 1, ~standard memory
-footprint for a 36-atom slab at 80 Ry) were OOM-killed on these two nodes and on
+footprint for a 36-atom slab at 80 Ry) were OOM-killed on the affected nodes and on
 no others — and every killed task later completed on a different node with the
 input unmodified:
 
@@ -66,7 +66,7 @@ further ~5,900 SU had it run out its 48 h walltime rather than being caught.
 a024 and a088 were back in the general pool as of 2026-08-24 (a024 ALLOCATED,
 a088 MIXED), so other users' jobs are presumably exposed to the same failure.
 
-Could you check these three nodes (memory DIMMs / leftover memory pressure from
+Could you check these nodes (memory DIMMs / leftover memory pressure from
 a prior tenant / cgroup memory limits)? For a196 specifically, we would also ask
 whether a node in `DRAIN` after an NHC SIGTERM should still be receiving newly
 scheduled array tasks, since that is what turned three lost jobs into four. Happy to provide job scripts and full
@@ -122,7 +122,7 @@ Two supporting details:
   when we checked it afterwards. So whatever the health check catches on some of these
   nodes, it is not catching it on others.
 
-### a171 on 2026-09-01 — a sixth node, and the most expensive one
+### a171 on 2026-09-01 — a seventh node, and the most expensive one
 
 Array 20300641 (the retry of four tasks lost to an earlier bad node) placed all four on
 **a171**. Three were OOM-killed at **0 SCF iterations**; the fourth **hung for 19 h 11 m,
@@ -144,7 +144,7 @@ further ~5,900 SU had the hung task run out its walltime.
 
 Questions we would appreciate an answer to:
 
-1. Can these five nodes be checked for a shortfall between `RealMemory` and genuinely
+1. Can these seven nodes (a024, a088, a196, a220, a223, a050, a171) be checked for a shortfall between `RealMemory` and genuinely
    free memory (stale cgroups, failed DIMMs, prior-tenant leakage)?
 2. Is there a way for users to detect this before burning an allocation on it? We are
    currently discovering each bad node by losing 1–2 hours of 128-core time to it.
