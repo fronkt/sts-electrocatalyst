@@ -2756,7 +2756,7 @@ question behind the headline. Zero SU.
 
 ## A11.R8 — the same valence tracker on both sides of the nspin confound, via the already-banked A0-SPIN Löwdin populations (2026-09-03)
 
-**[A0-SPIN LÖWDIN VALENCE TRACKER 2026-09-03: REGISTERED — COUNTERSIGNATURE OWED]** — written
+**[A0-SPIN LÖWDIN VALENCE TRACKER 2026-09-03: REGISTERED — COUNTERSIGNED 2026-09-03, see the countersignature at the end of this file]** — written
 before a single Löwdin number has been read out of the A0-SPIN arm. The commit carrying this
 section contains **no readout script and no result**; the script and its output land in a later
 commit, and the two hashes are the proof of order. Registered under the entrant's directive of
@@ -2962,3 +2962,36 @@ registered remedy that is currently unexecuted on a row every dG built on it inh
 not launched here.** A11.R3 requires each licensed compute addition to carry its own dated line,
 and a submission to a shared allocation is not a scribe's act; the deck is staged and one command
 away.
+
+---
+
+## A11.R8 — countersigned
+
+**[A0-SPIN LÖWDIN VALENCE TRACKER COUNTERSIGNED 2026-09-03]** — the entrant, in session:
+*"I counter sign the A11.R8"*. The readout at `docs/research/2026-09-03-a11r8-spin-valence.md`
+and `docs/figs/a0spin_valence.json` **enters the report.**
+
+**What is countersigned, stated so it cannot be over-read:**
+
+- **R8-P1 = DOES NOT SEPARATE**, and it is the deliverable. With every metal's predictor read
+  from a spin-polarised calculation, |δq_c| still interleaves the two A7.3 groups completely —
+  Mn 0.0069 OVER, Ti 0.0094 under, Ir 0.0209 under, Cr 0.0399 OVER, Ru 0.0714 under, Fe 0.0735
+  OVER; largest under-floor 0.0714 against smallest over-floor 0.0069, a gap of **−0.0645**.
+  **The last surviving rescue of R7-P3 is falsified:** R7-P3's failure was not an artifact of
+  Ti/Ru/Ir having been read from decks that carry no `nspin` card.
+- **The registered asymmetry holds and is quoted with the result.** A separation would have
+  proved nothing; only a failure to separate carries information, and that is what was observed.
+- **R8-P3, reported never scored:** the spin convention moves the tracker by **at most 0.0044
+  electrons** (Ir +0.0044, Ru +0.0019, Ti −0.0002), and **the ordering of all six metals is
+  unchanged** from A11.R7.
+- **R8-P2 stays REPORTED, NEVER SCORED**, exactly as registered, and its n = 18 figure
+  (ρ = −0.3148, nominal p = 0.2046) may not be promoted to a scored test by this or any later
+  line — nine of its eighteen pairs were seen before it was written. See A11.R9 below for the
+  only form in which an n = 18 statement may be made.
+- **Self-checks passed:** carry-over identity exact at **0.0** for Cr, Mn and Fe; **zero**
+  exclusions; every seed witness STABLE at spreads of 0.0002–0.0004; parser identity with A11.R7
+  enforced by import. 11 tests.
+
+**Binding, restated with the signature:** A11.R8 moves no banked verdict. **A7.2 stays CONFIRMED
+at 5 of 6; A7.3 stays NOT MET at 3 of 6 at denominator 6.** It acts on the *explanation* of the
+split and never on the count.

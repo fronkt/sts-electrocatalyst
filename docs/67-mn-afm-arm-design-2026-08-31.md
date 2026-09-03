@@ -198,3 +198,39 @@ the physics paragraph of an arm that has already been countersigned and closed.
 above and striking "~129 deg per c"; or `STRUCK` (no literature magnetic-structure number is
 quoted at all); or `DEFERRED` to report-writing. Discharging it closes docs/67 §7 entirely and
 with it the last thread of the Mn AFM arm.
+
+### **[MN AFM §3 LITERATURE 2026-09-03: VERIFIED AS CORRECTED]**
+
+The entrant, in session 2026-09-03: *"Mn adopt"*. The verification above is adopted and **§7
+item 1 is discharged; docs/67 §7 is closed entirely, and with it the last thread of the Mn AFM
+arm.**
+
+**The operative sentence, and the only form in which the report may state this.** β-MnO₂ orders
+below **T_N = 92 K** in an incommensurate helical (screw) magnetic structure with propagation
+vector **q = (0, 0, ≈2/7)** — a pitch of **7/2 c**, i.e. **≈103° of rotation per c** along the
+[001] chains (Yoshimori 1959; Regulski *et al.* 2003, 2004).
+
+**Struck, and struck permanently: "turn angle ≈129° per c".** It is wrong as written; both
+independent full texts give the propagation vector, and 360° × 2/7 = 102.9°, not 129°.
+
+**The near-miss is recorded and is NOT licensed for use.** 129° is close to 180° − 360/7 =
+128.6°, the angle between *nearest-neighbour* Mn moments if the two rutile sublattices (offset by
+c/2) are counted in sequence rather than the advance per c. That reconstruction is the scribe's
+arithmetic, **no source read here states it**, and it therefore may not be quoted, cited, or
+paraphrased into the report in any form. If a nearest-neighbour angle is ever wanted it takes a
+citation that actually prints one.
+
+**Citations, in the form the report will use:**
+
+- A. Yoshimori, *A New Type of Antiferromagnetic Structure in the Rutile Type Crystal*,
+  **J. Phys. Soc. Jpn. 14, 807 (1959)** — DOI 10.1143/jpsj.14.807.
+- M. Regulski, R. Przeniosło, I. Sosnowska, J.-U. Hoffmann, *Incommensurate magnetic structure of
+  β-MnO₂*, **Phys. Rev. B 68, 172401 (2003)** — DOI 10.1103/physrevb.68.172401.
+- M. Regulski, R. Przeniosło, I. Sosnowska, J.-U. Hoffmann, **J. Phys. Soc. Jpn. 73, 3444
+  (2004)**.
+
+**What this does not change.** The arm's physics election and its measured null are untouched:
+AFM sits **+664.6 meV** (P-A) and **+1,219.5 meV** (P-B) above FM with the AFM solutions
+genuinely held, MN-AFM-CORE does not trigger, and **FM stands as Mn's magnetic row**. The
+corrected literature sentence is the *justification* for treating every collinear pattern as an
+approximant; it was never the basis of a number.
