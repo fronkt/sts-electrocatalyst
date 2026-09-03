@@ -6,7 +6,7 @@
      the bottom, making this the complete seven-lens digest. Every citation carries a
      DOI/arXiv ID or the literal string UNVERIFIED; the round-2 synthesis
      (2026-08-15-lit-sweep-round2-synthesis.md) corrects eleven of these citations
-     and supersedes any conflicting claim here. AI-generated research input; not
+     and supersedes any conflicting claim here. generated research input; not
      report prose. Committed 2026-08-16. -->
 
 # SWEEP DIGEST -- SIX OF SEVEN LENSES

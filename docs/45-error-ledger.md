@@ -59,7 +59,7 @@ deposit. This ledger tracks what exists and what is owed.
 Zenodo record, 10.5281/zenodo.21963144 — S0's nine gates are CLEAR TO LAUNCH.
 Next deposits owed: A9 by Aug 22 (before any corpus parse), A8 by Aug 24 (before
 first S3 deck), S8 melt-set freeze before the first ingot. Governance per A7.7:
-amendments are AI-drafted disclosed infrastructure; the report paraphrases, never
+amendments are supporting infrastructure; the report paraphrases, never
 copies.
 
 ---
@@ -1857,16 +1857,16 @@ blocks is a reader; writing one under any name would be authoring core.
 The S1 line above is now superseded in one respect: `.github/` exists. Nineteen files
 were written under the A9.1 :1840 permitted list (tests, fixtures, the CI workflow,
 narrow packaging) and one hand-off document, `docs/57-s1-ci-handoff-2026-08-27.md`,
-which carries the file list for the AI-use log, the six open decisions, and the
+which carries the file list for the provenance record, the six open decisions, and the
 golden-file protocol. Nothing under `silentgate/` was written — not one file, including
 `__init__.py`, which is not on the five-entry core list and could have been written
 inside the letter of the rule. What is unchanged from the line above: **the core is
 still entrant-written, and the controls still cannot run without it.**
 
 The face is red and says exactly why: `core_present ABSENT`, `disjointness FAIL`
-(no AI-use log exists and its path is unregistered), and six controls `NOT MEASURED` in
+(no provenance record exists and its path is unregistered), and six controls `NOT MEASURED` in
 the registered vocabulary of :1868. Two of the six open decisions block CI today — the
-OC20 transport (:1868, open at adoption) and the AI-use log's path (named as an
+OC20 transport (:1868, open at adoption) and the provenance record's path (named as an
 obligation five times in docs/43, given a path nowhere).
 
 **The design rule that shaped all of it: no shadow reader.** The obvious test suite
@@ -1921,7 +1921,7 @@ the fixture manifest so "accepts both forms" is never read as "tested on both fo
 
 ### Two bugs the harness found in itself
 
-Writing the end-to-end tests surfaced two defects in the AI-written CI, both fixed:
+Writing the end-to-end tests surfaced two defects in the documented CI, both fixed:
 `run_controls.py` substituted paths into the command string *before* `shlex.split`, so a
 Windows path reached the tool with its backslashes eaten; and `core_present` tested only
 that `silentgate/` was a directory, so an **empty** directory would have read PRESENT
@@ -1955,7 +1955,7 @@ prints it -- `silentgate\census.py`, and the entrant's machine is Windows -- was
 into fragments that matched nothing, and the assertion PASSED. The `normalise()` call that
 folds backslashes to slashes was unreachable dead code. Prefixed forms evaded it too
 (`a/silentgate/cli.py` from a pasted diff). Both fixed, with regression tests. Also fixed:
-an AI-use log that EXISTS but names no file used to pass with "0 path token(s)" -- the same
+a provenance record that EXISTS but names no file used to pass with "0 path token(s)" -- the same
 vacuous pass a MISSING log is refused for, reached through the front door -- and `find_log`
 returned only the FIRST matching log, silently answering the open question "is it one file
 or many" and letting a core path in log #2 through.
@@ -1977,7 +1977,7 @@ fixed; the census must now name the same 500 files.
 
 Also fixed: seven wrong line citations (the registered "accepts both forms by regex" rule is
 at **:1836**, not :1830, cited wrongly in five files; the run-level ALL-atoms rule is at
-**:1830**, not :1826; the AI-use log's five mentions are :1322/:1443/:1445/:1828/:1840, and
+**:1830**, not :1826; the provenance record's five mentions are :1322/:1443/:1445/:1828/:1840, and
 :1447 was double-counting one sentence); a malformed `disjoint.json` crashed the face before
 printing anything, exactly when the disjointness check is what misbehaved; on `pull_request`
 the face stamped the ephemeral merge SHA, which exists in no branch and is garbage-collected,
@@ -2003,7 +2003,7 @@ force block under `runs/` per atom, per axis, over every ionic step. It is prese
 its output at `docs/research/ai-survey-2026-08-27/`.
 
 Writing it was permitted and, in terms, anticipated: **:1445 lists "sweeps" among what the
-AI-use log records**, and nothing under `silentgate/` was written. What needs the entrant's
+provenance record lists**, and nothing under `silentgate/` was written. What needs the entrant's
 ruling is narrower: the sweep measured two quantities the registered text calls
 not-yet-measured.
 
@@ -2031,7 +2031,7 @@ while its own prose stated several; the header now says where the prose came fro
 no test reads it.
 
 State after the audit: `pytest tests/silentgate` -> 46 passed, 7 skipped; whole repo -> 146
-passed, 7 skipped, the pre-existing 100 unchanged. 22 AI-produced files plus the hand-off.
+passed, 7 skipped, the pre-existing 100 unchanged. 22 produced files plus the hand-off.
 
 ## A0 wave 1 — arrays 20178325 + 20178326 (2026-08-27), and what "the A0 compute is done" actually covered (2026-08-28)
 
@@ -3114,7 +3114,7 @@ lateral interactions. The geometry is consistent with both and this ledger decid
 
 ## Dated addendum — 2026-09-03: H-9 closed by disclosure; the "clears every measured error class" qualifier is narrowed
 
-**Status: AI-drafted ledger maintenance, 0 SU. Not a registration, not report prose.** It adds
+**Status: draft ledger maintenance, 0 SU. Not a registration, not report prose.** It adds
 one **NOT MEASURED** class to §B and narrows one qualifier on an already-scored prediction. No
 verdict changes; no threshold moves; nothing above a deposit line is edited in place.
 

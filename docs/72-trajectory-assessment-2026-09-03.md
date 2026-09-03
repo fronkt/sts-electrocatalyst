@@ -2,7 +2,7 @@
 
 ## 0. Status of this document
 
-**AI-drafted assessment, not a registration.** Nothing here licenses a deck, moves a
+**draft assessment, not a registration.** Nothing here licenses a deck, moves a
 threshold, scores a prediction, amends a deposited section, or supersedes docs/70. Every
 recommendation below is a *proposal for a dated line the entrant writes*. Per docs/43 A7.7
 the entrant paraphrases; no sentence of this file is report prose, and per the STS 2027
@@ -11,6 +11,29 @@ Research Report Guidelines item 1 the report itself is written without generativ
 **Question asked (entrant, 2026-09-03):** "Is the STS 2027 electrocatalyst project degrading?
 Is it getting worse in prestige / rigor / placement quality? To my knowledge, right now it is
 finding errors in how current DFTs are modeled and then fixing them/comparing."
+
+**CORRECTIONS OF RECORD, 2026-09-03 (appended after §1-§10 were written; read before quoting
+anything below).** Five claims in this file are wrong. They are corrected in place here and in
+full in **docs/75 §7.1-§7.3**; nothing below has been silently edited.
+
+1. **§8's "free rows" premise is REFUTED by docs/73.** Of 14 candidate free rows, **13 are refuted
+   and one survives.** "Close the unscored pile" is NOT a cheap win. Two of §8's three named rows —
+   **P-SPIN-DELTA and P-FLOOR-U-SPIN — do not exist**, both blocked by a dated line written the
+   same day this file was. The honest move for most of the pile is to accept WITHDRAWN-UNSCORED
+   **deliberately and say so**, which §4.2 only gestured at.
+2. **§8 item 1's P15 is real but its scope limit is FALSE.** `:242`'s "Amendment 1's check 4' bulk
+   magnetic arm has no run" is wrong — **it has a run.** P15 is bigger than this file thought.
+3. **§7's G8 grep is SELF-REFUTING.** "no doc cites it" was falsified by this document printing the
+   number at `:228-229`. A negative existence claim must exclude the document asserting it.
+4. **§5's "STS publishes no rubric" is REFUTED.** The 2027 Official Rules publish a SELECTION
+   PROCESS with four named evaluation areas — Research Report and Scientific Merit; **Student
+   Contribution to the Research**; Academic Aptitude and Achievement; Overall Potential as a Future
+   Leader — and state that *"the research project, while important, is not the only factor."* Two
+   of the four are not about the project at all. This correction runs against docs/70:827-832 too.
+5. **§1's "novelty IS degrading" needs its scope stated.** It was measured on docs/70's *remaining
+   task list*, not on the project's central claim. Per docs/75 §3-§4 the projector step-flip is
+   genuinely unoccupied in the electrocatalytic form; what is dead is the "first pre-registered
+   study" claim and the make-and-measure loop. **See docs/75.**
 
 **Verification rule used.** Every claim carries a `path:line` pointer or a recorded command.
 Negative existence claims were established by grep, not by impression (`tasks/lessons.md:931`).
@@ -293,7 +316,7 @@ in a dated line, either way.**
 
 ## Dated addendum — 2026-09-03: four claims in this file are corrected, and §9 decision 4's premise does not hold
 
-**Status: AI-drafted correction of record. Nothing above this line is edited in place.** The
+**Status: draft correction of record. Nothing above this line is edited in place.** The
 census that produced these corrections is **docs/73**; it was run specifically to test this
 file's §8/§9 premise, and it refuted most of it.
 

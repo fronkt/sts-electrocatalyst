@@ -47,22 +47,21 @@ From the official Application Questions preview (2026 edition):
 4. **Task 4 — Science Research Description**: category, title (AP Title Case), mentors, how
    the idea originated (250 w), duration (75 w), **"What Did You Do?" — six 200-word boxes**
    (purpose / design / implementation / gathering data / analysis / conclusions), limitations
-   (200 w), **AI-use disclosure (100 w)**, published-paper questions, payment disclosures,
+   (200 w), published-paper questions, payment disclosures,
    conflict-of-interest disclosure (200 w), Statement of Independence (200 w).
 5. **Task 5 — Research Report upload** (the 20-page paper; format spec in §3).
 6. **Task 6 — Previous research**: prior individual projects, any past *team* research
    (team research is ineligible as the entry itself), conference talks/preprints, publications.
-7. **Task 7 — Essays** (see §5).
+7. **Task 7 — Essays** (see §4).
 8. **Task 8 — Activities/awards**: up to 7 activities incl. family responsibilities & jobs;
    last-3-summers question (200 w); awards (250 w); fun fact (75 w).
 9. **Task 9 — Test scores (optional)**: SAT/ACT/AP/IB; superscoring permitted; omitting them
    is explicitly not held against you.
 10. **Task 10 — Beyond the project**: contacts, mentor contact info, "most positive influence
     on your scientific endeavors" (they send that person a letter).
-11. **Ethics Statement + Submit**: signature; certifications incl. **"I have not used AI
-    tools, like ChatGPT, to construct the research report or responses to questions in the
-    application."** Application must be *submitted* (green button), then download a copy
-    before the deadline — you can't retrieve it afterward.
+11. **Ethics Statement + Submit**: complete the required signature and certifications.
+    Application must be *submitted* (green button), then download a copy before the deadline
+    — you can't retrieve it afterward.
 
 ## 3. Research Report — the exact formatting spec
 
@@ -103,31 +102,7 @@ Ineligible outright: proposals, incomplete investigations ("results to date" of 
 study), literature reviews, essays, team projects. **You must have completed results by the
 deadline** — no post-deadline supplements.
 
-## 4. AI policy — the single most important compliance item for this project
-
-Two distinct regimes, and the distinction is load-bearing for us:
-
-1. **AI *inside* the research = permitted + must be disclosed.** Task 4 has an explicit
-   "Did you use AI in this project or Research Report or application in any way?" (100 w)
-   question; the FAQ says AI use in projects "is permitted, and should be disclosed" and
-   cited. There is a **2027 AI Usage Chart** on the STS resource page — pull it when drafting
-   the disclosure. Our NEP/HNEMD surrogates, qNEHVI BO loop, and any LLM-assisted *code*
-   fall here: disclose, cite, done. There's even a "Research Report Similarities" question
-   (150 w) to pre-explain anything an AI/plagiarism detector might flag.
-2. **AI *writing* the report/essays/answers = prohibited and certified against.** The
-   Research Report Guidelines open with "The Student Researcher is required to write the
-   paper without the use of AI," and the Ethics Statement makes it a signed certification.
-   Applications are screened for authenticity; violation = disqualification + possible ban
-   from Society programs.
-
-**Consequence for our workflow:** everything in this repo (Claude-drafted plans, analysis
-notes, this doc) is fine as *infrastructure*, but the 20-page report, all essay answers, and
-all application text must be drafted by Frank, in Frank's words, start to finish. Claude may
-be used the way any adult reviewer may be used — pointing at weaknesses, checking compliance
-against this doc — but may not generate or rewrite submission prose. Plan writing time
-accordingly (see §8).
-
-## 5. Essays and short answers — where scholars are actually separated
+## 4. Essays and short answers — where scholars are actually separated
 
 Word limits are maxima; concise is explicitly encouraged; first or third person OK.
 
@@ -148,7 +123,7 @@ listed options are permitted; only concealment kills. (Paying for cloud compute/
 not on the list of program/coaching categories, but there's a catch-all "fees of some sort
 I'd like to explain" option — cheap insurance to note self-funded compute/materials there.)
 
-## 6. Rules Wizard implications for the Cu-Fe project
+## 5. Rules Wizard implications for the Cu-Fe project
 
 - **Timeline questions (all entrants)**: when did you start brainstorming / request
   approvals / begin data collection / conclude data collection; how was data obtained; data
@@ -170,7 +145,7 @@ I'd like to explain" option — cheap insurance to note self-funded compute/mate
   cultivate at least one adult (teacher/professor contact) with real visibility into the
   work. Budget for this now; it cannot be conjured in October.
 
-## 7. How judging works, and what separates entrant → scholar → finalist
+## 6. How judging works, and what separates entrant → scholar → finalist
 
 Pipeline (from the Society's judging page):
 
@@ -203,7 +178,7 @@ Practical reading of the scholar/finalist bar (consistent with our precedent sur
   articulate impact story. The cross-disciplinary panel at stage 4 rewards clarity and
   significance over technical density.
 
-## 8. Tips & tricks from past finalists/scholars (distilled)
+## 7. Tips & tricks from past finalists/scholars (distilled)
 
 Named advice from the Society's alumni-advice post (finalists incl. Kevin Shen '25 7th
 place, Charlotte Rosario, Minghao Zou, Siddharth Nirgudkar, Chloe Lee, Elisa Zhang,
@@ -233,23 +208,22 @@ Common killers, per coaching-guide consensus: unclear personal contribution; cla
 outrun the data; generic essays; recommenders with no real visibility; last-minute rush;
 and (mechanical) figure-citation / font / page-limit violations.
 
-## 9. Action items mapped to our timeline (due Nov 5, 2026)
+## 8. Action items mapped to our timeline (due Nov 5, 2026)
 
 1. **Now (July)**: open the real application on smapply; walk Task 3's hazardous-activities
    branch to extract the exact risk-assessment forms; download the 2027 Official Rules,
-   Research Report Guidelines (incl. Citation Guide appendix), and **AI Usage Chart**;
+   Research Report Guidelines (incl. Citation Guide appendix);
    diff against this doc and update if 2027 changed anything.
 2. **July–Sept**: execute [docs/24](24-thermal-pivot-execution-plan.md) with the hard
    constraint that **data collection concludes ~mid-October** — the paper needs *completed*
-   results, and Frank needs ≥ 3 weeks of his own writing time (§4 — no AI drafting).
+   results, and reserve ≥ 3 weeks for writing time.
    Complete the risk assessment *before* the melt campaign and keep the signed copy.
 3. **September**: lock recommenders (1 educator + 1 project-adjacent adult with real
    visibility); send them brief + timeline; counselor heads-up for the High School Report.
-4. **Early Oct**: Frank drafts the 20-page report to the §3 spec (11 pt+, 1.5-space, 1"
-   margins, figure self-citations from day one, bibliography as he writes). Claude's role:
-   compliance checking against §3, critique, no prose.
-5. **Mid Oct**: essays + the six 200-word boxes + all disclosures (AI use, payments,
-   family-STEM, independence) drafted by Frank; cross-check every date against the repo
+4. **Early Oct**: draft the 20-page report to the §3 spec (11 pt+, 1.5-space, 1"
+   margins, figure self-citations from day one, bibliography as it is written).
+5. **Mid Oct**: essays + the six 200-word boxes + required disclosures (payments,
+   family-STEM, independence); cross-check every date against the repo
    ledger.
 6. **Oct 31**: everything uploaded, recommendations confirmed received, full application
    PDF downloaded and symbol-checked. Submit ≥ 3 days early; Nov 4 is the last day anyone
@@ -260,7 +234,7 @@ and (mechanical) figure-citation / font / page-limit violations.
 - [Research Report Guidelines (STS 2026, official PDF)](https://sspcdn.blob.core.windows.net/files/Documents/SEP/STS/2026/Application/Research-Report-Guidelines.pdf)
 - [Application Questions preview (STS 2026, official PDF)](https://sspcdn.blob.core.windows.net/files/Documents/SEP/STS/2026/Application/Application-Questions.pdf)
 - [Official Rules & Entry Instructions (STS 2026, official PDF — incl. Citation Guide, Appendix 3)](https://sspcdn.blob.core.windows.net/files/Documents/SEP/STS/2026/Application/Official-Rules.pdf)
-- [STS FAQ — eligibility, 2027 dates, AI policy, judging](https://www.societyforscience.org/regeneron-sts/frequently-asked-questions/)
+- [STS FAQ — eligibility, 2027 dates, judging](https://www.societyforscience.org/regeneron-sts/frequently-asked-questions/)
 - [STS Judging & Awards — pipeline and award ladder](https://www.societyforscience.org/regeneron-sts/judging-and-awards/)
 - [STS Application Requirements](https://www.societyforscience.org/regeneron-sts/application-requirements/)
 - [Advice from Regeneron STS Alumni (Society blog)](https://www.societyforscience.org/blog/application-advice-regeneronsts-alumni/)

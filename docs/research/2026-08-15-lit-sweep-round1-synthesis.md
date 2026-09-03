@@ -6,7 +6,7 @@
      coverage-conditional, and withdrew several of this document's recommendations
      (arXiv preprint, P-FLOOR-U ratio form, the 0.12 V code-level floor,
      "structurally zero" anchor rows). Kept because a superseded plan's earlier
-     state must stay readable (lessons.md, 2026-07-01). AI-generated research
+     state must stay readable (lessons.md, 2026-07-01). generated research
      input; not report prose. Committed 2026-08-16. -->
 
 # RECOMMENDED PROGRAM — STS 2027, sts-electrocatalyst, Aug 15 → Oct 15 freeze

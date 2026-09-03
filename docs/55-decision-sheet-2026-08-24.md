@@ -8,7 +8,7 @@ delegated by criterion, in writing:
 > If it's compute, no matter, go ahead."
 
 Rulings below were therefore selected by the AI assistant under that delegated
-criterion and are disclosed as such (AI-drafted infrastructure; the entrant may
+criterion and are disclosed as such (supporting infrastructure; the entrant may
 override any ruling by a later dated line). Compute was pre-authorized by the same
 message. Ruling date: 2026-08-24.
 

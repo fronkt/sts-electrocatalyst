@@ -274,7 +274,7 @@ that follows this working-tree change set.
 
 ## Dated addendum — 2026-09-03: the §7c commit step is DISCHARGED
 
-**Status: AI-drafted banking of an already-registered re-score. 0 SU. No verdict changes;
+**Status: draft banking of an already-registered re-score. 0 SU. No verdict changes;
 nothing is countersigned here.**
 
 §7c closed with: *"Banking the re-scored analysis text/JSON alongside the originals is the

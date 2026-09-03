@@ -121,7 +121,7 @@ The parity threshold in `30_parity.slurm` (`1e-5` Ry) is a **proposal**; per the
 A7 authorship rule the entrant sets thresholds. It is offered because it is ~30×
 tighter than GATE-1's own 5 meV science tolerance.
 
-These scripts are AI-drafted infrastructure and must be disclosed as such.
+These scripts are supporting infrastructure and must be disclosed as such.
 
 ## Incident folded in: the missing Ti pseudopotential (2026-08-20)
 

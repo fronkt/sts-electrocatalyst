@@ -1,6 +1,6 @@
 # 59 — Correction of record: the A0-main metal roster, and its completion — 2026-08-28
 
-**Status: DRAFT for the entrant.** AI-drafted disclosed infrastructure (per the AI-use
+**Status: DRAFT for the entrant.** supporting infrastructure (per the AI-use
 log convention of A7.0/A9); the entrant re-authors and deposits. Nothing in this document
 invents a threshold; every rule it cites is quoted from an already-deposited registration.
 **Until deposited, its authority is its commit timestamp** — committed and pushed before
@@ -205,7 +205,7 @@ under A7.7.
 **[§3c LICENCE 2026-08-31: GRANTED — EXECUTED UNDER DIRECTIVE, COUNTERSIGNATURE
 PENDING; s0_OH@u900 FIRST among Ti compute]** — executed 2026-08-31 under the
 entrant's recorded directive (docs/66 §1, quoted verbatim there; the mapping
-AI-drafted and adversarially verified, docs/66 §2 row 1; the entrant may override by
+draft and adversarially verified, docs/66 §2 row 1; the entrant may override by
 a later dated line). **Because this is the one signature that MOVES A BANKED VERDICT
 (the A7.3 denominator, docs/60 §6 fact 5; docs/43 A11.R2 rule (iii) makes it the
 sole denominator authority), it completes only at the entrant's own dated

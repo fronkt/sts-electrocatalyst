@@ -1,6 +1,6 @@
 # 61 — AMENDMENT 11 (DRAFT): spin-treatment equalisation on the three nspin = 1 metals, and whether the spin effect on c_M is U-dependent
 
-**Status: DRAFT for the entrant.** AI-drafted disclosed infrastructure. Every threshold
+**Status: DRAFT for the entrant.** supporting infrastructure. Every threshold
 below is marked **PROPOSED** and is the entrant's to re-author before deposit; the
 measurements, the deck mechanics and the guards are not opinions and are cited to files.
 

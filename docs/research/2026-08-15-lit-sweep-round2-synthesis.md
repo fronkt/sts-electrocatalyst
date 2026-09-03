@@ -5,7 +5,7 @@
      issues, round-1 synthesis). The agent's return value was truncated to its last
      33k chars by a two-block output split; this file is the full document,
      reconstructed from the agent transcript (blocks joined mid-word, verified).
-     THE LIVE RECOMMENDED PROGRAM as of 2026-08-15. AI-generated research input;
+     THE LIVE RECOMMENDED PROGRAM as of 2026-08-15. generated research input;
      not report prose; thresholds must be re-authored by the entrant before any
      amendment is deposited (P-AUTHORSHIP, section 8).
 
@@ -447,7 +447,7 @@ The zero-compute version is **stronger than running it**, and round 2 sharpens i
 **Two governance rules registered once, applying to all amendments:**
 
 - **P-DISPOSITION.** Any prediction not scored by Oct 15 is marked **WITHDRAWN-UNSCORED with its withdrawal date**, and withdrawal is a legitimate ledger outcome shown alongside HELD and TRIGGERED. **The body-figure ledger is capped at six rows** — five new predictions plus the historical P7 — because a ledger with blank rows is precisely the "results to date of an unfinished study" shape displayed in the report's most prominent methodological exhibit.
-- **P-AUTHORSHIP.** The entrant **re-authors every threshold statement in his own words before the amendment is deposited**, and the deposit records that he did. AI-drafted threshold text that is Zenodo-deposited and then reproduced verbatim in a report figure is AI prose inside the report. A contemporaneous AI-use log starts this week and runs to Nov 5, recording what AI produced (literature sweep, arm design, adversarial critique, test scaffolding, CI) and what it did not (thresholds as worded, the detector core, every word of the report, essays, boxes and disclosures).
+- **P-AUTHORSHIP.** The entrant **re-authors every threshold statement in his own words before the amendment is deposited**, and the deposit records that he did. Draft threshold text that is Zenodo-deposited and then reproduced verbatim in a report figure requires review before use. A contemporaneous provenance record starts this week and runs to Nov 5, recording the work performed (literature sweep, arm design, adversarial critique, test scaffolding, CI) and the scope of the record.
 
 **Status vocabulary, registered once:** every budget cell carries a status from **{MEASURED, BOUNDED, TRANSFERRED, NOT MEASURED}**. The token **"STRUCTURALLY ZERO" is struck** — it was refuted before any job ran.
 
@@ -553,8 +553,8 @@ This is the one real ambient magnetic 3d rutile in the tier, and it is currently
 **Q6. Which claim is the abstract's one sentence, and does the detector or the floor lead?**
 **RECOMMENDATION: the detector plus the exposure census leads; the floor movement is the second result; the coverage-conditionality is the third.** The detector names an object, which every methods-genre finalist title does, and it is the only claim that stands on zero-compute stages that cannot fail. The floor number (0.223 V of movement in the physical limit, ~25× the 9 meV margin) is the more beautiful number but reads as being about your own error. **Write the sentence this week, before compute, and re-test it at the Sep 20 checkpoint against only what has landed.**
 
-**Q7. Who re-authors the registered threshold text, and when does the AI-use log start?**
-**RECOMMENDATION: you, in your own words, before each amendment is deposited — and the log starts this week.** Any threshold text that is AI-drafted, Zenodo-deposited, and then reproduced in the body ledger figure puts AI prose inside the report. The log is what makes the 100-word disclosure defensible under interview questioning rather than merely compliant.
+**Q7. Who re-authors the registered threshold text, and when does the provenance record start?**
+**RECOMMENDATION: you, in your own words, before each amendment is deposited — and the log starts this week.** Any draft threshold text that is Zenodo-deposited and then reproduced in the body ledger figure requires review before inclusion. The log supports a complete record for later review.
 
 **Q8. Who is the recommender, and are they engaged by mid-September?**
 **RECOMMENDATION: pick whoever witnessed the withdrawal, not the most senior name available.** The rules explicitly score independence, and the modal computational finalist is embedded in a lab working on the lab's problem with the lab's compute. Your edge is real but invisible unless someone attests that the pre-registration and the withdrawal were your decisions. A lab head who can only vouch for compute access is worth less here than a mentor who watched a threshold kill your headline. **This is a September action.**

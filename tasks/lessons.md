@@ -1092,3 +1092,8 @@ A5.1(c) is unscored — a line this repo had **already logged as an error** and 
 `:1196`. Only the per-token adversarial refutation pass caught it. **Do not report a census
 without a refutation pass over its own output**; the pass changed the headline from "9+ free
 rows" to "one".
+
+## Documentation wording (2026-09-03)
+
+Do not include tool-authorship or provenance labels in project documents unless Frank explicitly
+requests them. Keep documentation focused on the work, evidence, and decisions.

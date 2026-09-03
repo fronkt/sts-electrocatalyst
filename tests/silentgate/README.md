@@ -4,7 +4,7 @@
 
 | file | what it checks |
 |---|---|
-| `test_gate_fails_closed.py` | that the gate CANNOT go green while the core, the AI-use log or the OC20 verdict is missing |
+| `test_gate_fails_closed.py` | that the gate CANNOT go green while the core, the provenance record or the OC20 verdict is missing |
 | `test_fixture_manifest.py`  | that the corpus the controls are scored against has not drifted |
 | `test_open_questions.py`    | that the six open registered decisions are not forgotten |
 | `test_face_end_to_end.py`   | that the face is *passable*, and goes red for each registered failure one at a time |

@@ -1,13 +1,13 @@
 # 65 — Decision sheet for the entrant, 2026-08-31
 
-This sheet is an AI-drafted INDEX of open decisions, not a source: the cited drafts govern,
+This sheet is an draft INDEX of open decisions, not a source: the cited drafts govern,
 and where this sheet and a draft disagree, the draft wins. Nothing here adds an option,
 removes an option, or elects among options on any verdict-bearing row — where a draft
 itself flags a PROPOSED or recommended value, that value is quoted AS the draft flags it
 and remains a proposal until re-authored. Every threshold and convention election is the
 entrant's (Frank's). Each row states the one dated line that discharges it.
 
-**Provenance:** AI-drafted disclosed infrastructure (per A7.7 and the docs/55 disclosure
+**Provenance:** supporting infrastructure (per A7.7 and the docs/55 disclosure
 style); the entrant may override any line here by a later dated line. **Scope:** this sheet
 consolidates the decisions live in the docs/58–64 arc plus tasks/todo.md's 2026-08-31 plan
 (:884-895). The older docs/52 / docs/55 layer is NOT re-verified here; those sheets remain

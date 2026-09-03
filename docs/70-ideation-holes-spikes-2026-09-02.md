@@ -2,7 +2,7 @@
 
 ## 0. Status of this document
 
-**This is AI-drafted infrastructure, not a registration.** Nothing here licenses a deck, moves a
+**This is supporting infrastructure, not a registration.** Nothing here licenses a deck, moves a
 threshold, scores a prediction, or amends a deposited section. Every registration-shaped sentence
 below is a *proposal for a dated line the entrant writes*, and is marked as such. Per docs/43 A7.7
 the entrant paraphrases; no sentence of this file is report prose, and per the STS 2027 Research
@@ -835,7 +835,7 @@ including docs/18's original one, is inference from precedent.
 
 §1's rule was that every claim in this file is re-checkable. A completeness critic was run over the
 finished file and the project brief; **I then re-verified its load-bearing findings against the tree
-myself before recording any of them here** (the campaign's own rule for AI-produced claims: an
+myself before recording any of them here** (the campaign's own rule for produced claims: an
 AI summary of your own repo is a claim like any other). What follows is what survived that
 re-verification. Nothing above this section has been silently edited; read §§2–7 through this one.
 

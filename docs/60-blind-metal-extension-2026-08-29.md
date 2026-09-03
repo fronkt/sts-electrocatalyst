@@ -1,6 +1,6 @@
 # 60 — The blind-metal extension: Mn, Fe, Ti, and the two predictions off their rows — 2026-08-29
 
-**Provenance:** AI-drafted disclosed infrastructure (analysis narrative over banked,
+**Provenance:** supporting infrastructure (analysis narrative over banked,
 adversarially verified artifacts; every number below is quoted from a committed JSON or
 raw output). Evidence: commits `7c84ec9` → `bb17152` plus this change set; banked
 artifact `docs/figs/a0main_readout.json`; verification records

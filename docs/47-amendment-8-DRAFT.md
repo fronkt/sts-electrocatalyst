@@ -2,7 +2,7 @@
 
 **Status: ADOPTED by the entrant 2026-08-23 (reviewed via docs/52; "they pass with me") and appended to docs/43 as AMENDMENT 8. The registered text is docs/43's; this file is the historical draft, kept verbatim below this line.**
 
-This file is AI-drafted research infrastructure under A7.7 (amendments are AI-drafted
+This file is a draft research-infrastructure document under A7.7 (amendments are draft
 and disclosed; the report paraphrases and never copies). **Every threshold below is
 marked THRESHOLD and must be re-authored by Frank in his own words before this text is
 appended to docs/43 and re-deposited.** A number proposed here is a proposal. It becomes

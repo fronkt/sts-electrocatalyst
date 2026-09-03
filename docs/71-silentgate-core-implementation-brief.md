@@ -1,6 +1,6 @@
 # 71 — silentgate v0.1 core: implementation brief for the entrant
 
-**Status:** AI-drafted disclosed infrastructure per A7.7 — *specification and review only*.
+**Status:** supporting infrastructure per A7.7 — *specification and review only*.
 **This document contains no implementation code and none may be added to it.** The five core
 paths are reserved to the entrant by `docs/43:1840` and enforced by
 `.github/ci/run_controls.py` and `tests/silentgate/`. What follows is the contract those
@@ -45,7 +45,7 @@ drift worth fixing while you are in there.)
 | `truncated_force_block` | is a NUL-spliced / truncated output *unscorable*, or scored on what survives? | decides whether `runs/probe/Cr/s0_OOH__base.out` enters any denominator |
 | `if_pos_parenthetical` | file a correction of record against `docs/43:1834`? | **the registration's stated rationale is measurably false — see §4** |
 | `oc20_ci_mechanism` | published release asset vs self-hosted runner for the 500-file sample | `docs/43:1868`: a commit where the OC20 job did not execute **is not green** |
-| `ai_use_log_path` | where the AI-use log lives | the suite forbids any core path appearing in it, in any spelling |
+| `ai_use_log_path` | where the provenance record lives | the suite forbids any core path appearing in it, in any spelling |
 | `pyproject_build_system` | packaging backend | pip-installability is the S1 deliverable |
 | `ai_x_census_disclosure` | how AI involvement is disclosed on the census face | every figure carries commit + control status (`docs/43:1868`) |
 

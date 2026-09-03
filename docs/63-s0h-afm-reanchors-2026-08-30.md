@@ -1,6 +1,6 @@
 # 63 — The owed S0(h) AFM re-anchors: built, held by the deposited registration, and the 33–64 meV class re-projected onto the quantity A7.3 actually scores — 2026-08-30
 
-**Provenance:** AI-drafted disclosed infrastructure. Every energy below is read from a
+**Provenance:** supporting infrastructure. Every energy below is read from a
 committed `.out` under `runs/s0/h_afm_anchor/` (the banked gate-(h) SCFs, commit
 `946c3aa`, 4/4 ADOPT_AFM) or from the NM parent energies tabulated in that directory's
 own README. **Zero new compute was run for this document.** Registration: docs/43

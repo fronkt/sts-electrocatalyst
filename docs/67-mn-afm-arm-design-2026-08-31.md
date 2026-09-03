@@ -1,7 +1,7 @@
 # 67 — The Mn AFM arm: design of record — 2026-08-31
 
 **Status:** design of record for the A7.5 Mn AFM condition, elected IN SCOPE by the
-entrant's 2026-08-31 directive (docs/66 §2 row 14). AI-drafted disclosed
+entrant's 2026-08-31 directive (docs/66 §2 row 14). draft disclosed
 infrastructure; every threshold below is a REUSE of an already-registered number,
 written down before any Mn AFM energy exists. **Licence:** the Mn-arm registered line
 inside docs/43 Amendment 11 — necessary because docs/43:2008 (the gate-(h) AFM-scope

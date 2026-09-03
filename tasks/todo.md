@@ -1,5 +1,11 @@
 # STS 2027 — TODO
 
+## Documentation maintenance (2026-09-03)
+
+- [x] Add the standing project wording rule to `CLAUDE.md`.
+- [x] Remove authorship and provenance labels from project documentation.
+- [x] Record the wording lesson, validate the cleanup, and push the scoped changes.
+
 ## 2026-08-23 — current plan (the program board is docs/45 §E; this block is the day's checklist)
 
 Compute: Purdue Anvil (ACCESS CHE260157), ~1,085 of 100,000 SU used; Vast box gone.
@@ -1425,7 +1431,7 @@ still not been tested against the present state."
 
 ## 2026-09-03 (fifth block) — prediction-ledger census: the unscored pile is NOT cheap (docs/73)
 
-**Not a registration. AI-drafted; nothing scored. Compute: ZERO. Balance unchanged at
+**Not a registration. draft; nothing scored. Compute: ZERO. Balance unchanged at
 59,761.1 SU, queue empty. Suite 341 passed / 8 skipped.**
 
 **THE FINDING.** docs/72 §9 decision 4 said to close the unscored pile because "9+ predictions
@@ -1495,3 +1501,71 @@ with the per-family reason and every `path:line`, in **docs/73**.
 - [ ] **Rewrite docs/72 §9 decision 4** on the corrected premise.
 - [ ] Dated lines for the P-SPIN-DELTA n=1 and P-FLOOR-U-SPIN n=4 denominators, if either is to be
       scored at all.
+
+## 2026-09-03 (fifth block) — two verified sweeps: novelty landscape + STS precedent (docs/75)
+
+Two background workflows, both with adversarial verification and a completeness critic:
+`wf_3eae95f0-7c0` (42 agents, 7.34 M tokens, 113 findings survived refutation / 57 killed,
+**118 enumerated empty searches**) and `wf_b343eb85-932` (18 agents, 2.10 M tokens, 6 STS cohorts
+verified, 22 corrections raised by its own critic). Full record: **docs/75**.
+
+### THE FINDING THAT REORDERS THE PLAN
+
+**The Xu census is NOT blocked on silentgate.** An agent fetched the public mirror
+(`github.com/zhongnanxu/rutile-OER`, commit c4cb892605): **it is Quantum ESPRESSO — our own code**
+— 815 `pwscf.in`/`.out`/`.run`, 10 oxides x 4 CHE states x 17 U. Twenty raw decks parsed at
+U = 3.5: `U_projection_type='atomic'` **20/20**; `&ELECTRONS` EMPTY + `calculation='relax'`
+**20/20** (the `upscale` precondition, live in every file); no `nosym` **20/20** *plus* the
+adsorbate O frozen in x by selective dynamics; and `tot_magnetization` **hard-constrained to a
+hand-picked integer that changes per CHE leg** (CrO2 16/14/15/15, MnO2 24/22/23/23). The deposit
+runs nspin=2 for Cr/Mn and nspin=1 for Ti/Ru/Ir — **the same partition confounded with A7.3's
+3-over/3-under split, in independent decade-old external data.** Fe is absent from the deposit.
+**A four-keyword grep over 815 plain-text files, 6-10 h, 0 SU** — and it converts the report from
+a self-audit into a statement about the field's reference dataset.
+
+### VERDICTS
+
+- **C2 projector step-flip is the strongest claim** (3.67, 3/3). **C7 make-and-measure is LAST**
+  (1.67, **0/3**) and **scooped outright** by Lun et al., Adv. Energy Mater. 2025 (DFT screen ->
+  Mg0.23Ir0.13Ru0.64O2 -> 191 mV -> PEMWE device).
+- **"First pre-registered DFT study" is DEAD** — Wu & Chen Zenodo 21880229 predates our first
+  deposit by five days. The surviving residue is one sentence: A7.1 registers a threshold on a
+  method's disagreement **with itself**.
+- **The C6 thesis sentence is a NON SEQUITUR as written** (3/3 lenses). An absolute budget does not
+  defeat a ranking if it cancels. Must be rebuilt as **non-cancellation** (material-correlated
+  error) and that needs the rank-inversion table.
+- **STS archetype question ANSWERED: methods/critique projects DO place** — Cong 2nd 2024, Beaumont
+  5th 2019, plus 3 Finalists. **Modality buys nothing** (zero-experiment took 1st in 2024/25/26).
+  Closest analogue **Frances Liang 2026 = Finalist, not Top 10**; ceiling template Cong. **The only
+  structural difference between the two tiers is whose data the defect is demonstrated in.**
+- Placement read (inference): **Scholar likely, Finalist near-even, Top 10 low** as it stands;
+  **Finalist becomes the base case with the census run and the framing flipped.**
+
+### FRANK OWES (docs/75 §9)
+
+- [ ] **Action A — the Xu settings census.** 6-10 h, 0 SU, not blocked. Highest novelty-per-hour.
+- [ ] **Action I — OPEN the three Zenodo deposits** (or publish an open companion with hashes).
+      All three are RESTRICTED; a judge clicking the DOI in November hits a permission wall. **1 h.**
+- [ ] **The claim sentence**, re-authored from docs/75 §2 in his own words. Overdue.
+- [ ] **S8 dated line, either way.** The evidence is now one-sided (docs/75 §8). Action M
+      (n>=7 IrO2 replicates, NO ingot, on the booked potentiostat) decides it with his own number.
+- [ ] **Action B — rank-inversion / Kendall-tau table**, or rewrite the C6 thesis sentence.
+- [ ] **READ Bajaj & Kulik, JCTC 18, 1142 (2022), DOI 10.1021/acs.jctc.1c01178** — projector choice
+      on rutile TiO2(110) O-adsorption. **Not in the ledger anywhere; the most dangerous omission.**
+- [ ] **Fix the conv_thr documentation defect** (registered 1e-6 = 13.6 meV vs meV-level claims;
+      runs met 1e-8). Already open at `:616`. A judge finds it in ten minutes.
+- [ ] **Fix the magnetic class arithmetic + units** — "5 of 7 magnetic 3d endmembers" is impossible
+      with three 3d metals; and Meredig is meV/**atom**, ours is meV/**cell**.
+- [ ] **Reference hygiene, every entry opened by hand.** Top published 2026 disqualification reason
+      is "Fake references and/or citations." **Both sweeps today produced fabricated or mis-scoped
+      citations that their own critics caught.**
+
+### CORRECTIONS OF RECORD (docs/75 §7, and appended into docs/72's header)
+
+**"STS publishes no rubric" is REFUTED** — the 2027 Official Rules publish four named evaluation
+areas, two of which are not about the project at all; docs/70:827-832 and docs/72 §5 are both wrong
+on this. **"15-person cross-disciplinary panel" is not published.** A published line bears directly
+on S8: *"Evaluators consider student circumstances and access to labs."* A **second finalist judging
+stage** exists that nothing has prepared for: *"panel judging… general scientific knowledge."*
+And docs/72's own errors, per docs/73: the free-rows premise refuted 13/14, two named rows do not
+exist, `:242` false, the G8 grep self-refuting.

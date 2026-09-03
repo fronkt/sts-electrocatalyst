@@ -1,6 +1,6 @@
 # 52 — Decision sheet for the entrant, 2026-08-23
 
-This sheet is an AI-drafted INDEX of open decisions, not a source: the cited drafts govern, and where this sheet and a draft disagree, the draft wins. Nothing here adds an option, removes an option, or recommends among options on any verdict-bearing row — where a draft itself proposes a value, that proposal is quoted as drafted and remains a proposal until re-authored. Each row points at the exact text that must be re-authored, confirmed, or rejected in the entrant's own words. Decisions already made and banked (e.g. the migration certification — `PARITY_PASS` created on the entrant's instruction 2026-08-22, docs/46:223 — and the applied RuO2 benchmark FAIL consequence, lit2 readout :235-238) are excluded.
+This sheet is an draft INDEX of open decisions, not a source: the cited drafts govern, and where this sheet and a draft disagree, the draft wins. Nothing here adds an option, removes an option, or recommends among options on any verdict-bearing row — where a draft itself proposes a value, that proposal is quoted as drafted and remains a proposal until re-authored. Each row points at the exact text that must be re-authored, confirmed, or rejected in the entrant's own words. Decisions already made and banked (e.g. the migration certification — `PARITY_PASS` created on the entrant's instruction 2026-08-22, docs/46:223 — and the applied RuO2 benchmark FAIL consequence, lit2 readout :235-238) are excluded.
 
 Hard boundary: nothing under `docs/research/2026-08-15-sampling/` was read in compiling this sheet.
 
@@ -28,13 +28,13 @@ Deadline: overdue since Aug 22 (pre-deposit).
 Where: docs/50-amendment-9-DRAFT.md:48, 156
 Decides: The AI-authorship boundary for silentgate — whether AI may write pyproject metadata, the version string and the entry-point declaration.
 Options as drafted: "'packaging' means `pyproject` metadata, the version string and the console-script entry-point declaration only — flagged: this is one word wider than round-2 :218's 'test scaffolding, CI and review,' and the entrant decides whether even that is allowed."
-Blocks: The who-writes-it registration in the deposit text; the CI disjointness assertion between the AI-use log file list and the core path list.
+Blocks: The who-writes-it registration in the deposit text; the CI disjointness assertion between the provenance record file list and the core path list.
 Deadline: overdue since Aug 22 (pre-deposit).
 
 **4. Confirm the "five existing detectors" list and any legacy/ lift** *(operational, non-verdict-bearing — drafted default stands unless changed)*
 Where: docs/50-amendment-9-DRAFT.md:36, 156
 Decides: Which legacy modules count as the five detectors and whether any is lifted into silentgate/legacy/.
-Options as drafted: "the candidates in `src/dft/` are `symops_audit.py`, `orient_starts.py`, `qe_qc.py`, `adsorbate_qc.py`, and `hessian_mirror_noise.py` / `hessian_analyze.py` — the entrant confirms the list"; "any legacy detector he wants in the package goes into a clearly separated `silentgate/legacy/` sub-module, lifted as-is with its existing authorship recorded in the AI-use log, and is not exercised by the controls"
+Options as drafted: "the candidates in `src/dft/` are `symops_audit.py`, `orient_starts.py`, `qe_qc.py`, `adsorbate_qc.py`, and `hessian_mirror_noise.py` / `hessian_analyze.py` — the entrant confirms the list"; "any legacy detector he wants in the package goes into a clearly separated `silentgate/legacy/` sub-module, lifted as-is with its existing authorship recorded in the provenance record, and is not exercised by the controls"
 Blocks: v0.1 package composition in S1 (the scope-narrowing paragraph is deposit text).
 Deadline: overdue since Aug 22 (pre-deposit).
 
@@ -162,7 +162,7 @@ Deadline: overdue since Aug 22 (pre-deposit).
 
 **22. Re-author every A8 THRESHOLD and deposit to Zenodo (umbrella)**
 Where: docs/47-amendment-8-DRAFT.md:6-11, 294-299 (A8.9); docs/45-error-ledger.md:51; tasks/todo.md:13; docs/51-anvil-queue-triage-2026-08-23.md:31-33; docs/49-block-1C-cr-hessian-2026-08-23.md:169-172
-Decides: Whether the AI-drafted amendment becomes a registration at all — "re-author or reject" each THRESHOLD-tagged proposal (docs/49:171), then deposit.
+Decides: Whether the draft amendment becomes a registration at all — "re-author or reject" each THRESHOLD-tagged proposal (docs/49:171), then deposit.
 Options as drafted: "Every threshold below is marked THRESHOLD and must be re-authored by Frank in his own words before this text is appended to docs/43 and re-deposited. A number proposed here is a proposal. It becomes a registration only when he writes it." A8.9: "docs/43 complete (A1–A8) is re-deposited to Zenodo as a new version of record 10.5281/zenodo.21963144 — restricted access, DOI and timestamp public, files closed until report submission — before the first S3 deck launches. The new version DOI is recorded here in a dated line when it exists."
 Blocks: "The next compute that can launch without a decision is none — S3, the gate-(h) relaxations and the Co *OOH re-attempt all wait on A8's re-authoring and re-deposit (due Aug 24)" (docs/51:31-33); A8.9 gates the first S3 deck launch on the deposit. S3 itself — tier_v3 (crossed coverage × symmetry × basin, 8 metals), the critical-path compute — is otherwise executable and dated: "decks buildable now, launch Aug 26" (docs/45 §E :77); "S3 decks: build after A8 deposit, launch Aug 26 (docs/45 §E)" (tasks/todo.md:18). This deposit is the only Frank-owned gate in front of the S3 launch.
 Deadline: Aug 24, before the first S3 deck launches; S3 launch itself is dated Aug 26.
@@ -349,7 +349,7 @@ Blocks: Nothing stated — an election that remains open after the discharge.
 **49. Disclosure-wording conflict: verbatim rule-sentence vs own words** *(non-verdict-bearing — drafted resolution exists; wording is Frank's)*
 Where: docs/50-amendment-9-DRAFT.md:48
 Decides: How the authorship-rule sentence appears in the Task 4 disclosure given A7.7's verbatim ban.
-Options as drafted: "round-2 :218 says the rule-sentence 'goes verbatim in the 100-word disclosure,' while A7.7 forbids reproducing any amendment sentence verbatim in an application answer (docs/43 :1443-1445). The proposed resolution is that the entrant writes the rule in his own words in the Task 4 disclosure (docs/25 :110-120; docs/44 :125-126) and cites the AI-use log; this draft does not supply disclosure wording."
+Options as drafted: "round-2 :218 says the rule-sentence 'goes verbatim in the 100-word disclosure,' while A7.7 forbids reproducing any amendment sentence verbatim in an application answer (docs/43 :1443-1445). The proposed resolution is that the entrant writes the rule in his own words in the Task 4 disclosure (docs/25 :110-120; docs/44 :125-126) and cites the provenance record; this draft does not supply disclosure wording."
 Blocks: Task 4 disclosure drafting (Frank-authored; the draft supplies no wording).
 
 **50. Verify the atomate ISYM commits before the pairing sentence is cited** *(verification obligation — non-verdict-bearing: both outcomes are drafted, cited-after-verification or narrowed to a stated date)*
@@ -436,7 +436,7 @@ Deadline: Sep 15.
 
 **62. A10 — the BEEF amendment**
 Where: docs/45-error-ledger.md:32, 53, 79; docs/47-amendment-8-DRAFT.md:26-30
-Decides: Drafting, re-authoring and depositing A10, which governs the S5 BEEF-vdW stage and error-class 8 (XC functional, NOT MEASURED). Per A7.7 the amendment is AI-drafted but every threshold is Frank's to re-author, and the deposit is his.
+Decides: Drafting, re-authoring and depositing A10, which governs the S5 BEEF-vdW stage and error-class 8 (XC functional, NOT MEASURED). Per A7.7 the amendment is a draft but every threshold is Frank's to re-author, and the deposit is his.
 Options as drafted: docs/45 §D row: "A10 | BEEF row | NOT DRAFTED; gated on S0(a) | Sep 18".
 Context (not part of the drafted options): the S0(a) gate it waits on is settled — "BEEF is reachable only through `calculation='ensemble'`" (docs/47:26-30). The +U capability probe (PROBE-U, deck (iv) winner + HUBBARD card — "a capability placeholder, not a physics claim", runs/s0/a_beef/README.md:46) has its raw record at runs/s0/a_beef/slab__beefhub.out, which contains the ensemble block ("BEEFens 2000 ensemble energies"); no doc-level verdict line for the probe exists in the repo.
 Blocks: S5 "BEEF-vdW sigma, Ru/Ir/Ti; extension to +U metals if clean" — status "gated" (docs/45:79).
@@ -451,7 +451,7 @@ Deadline: before Sep 20.
 
 **64. Is the docs/44 sentence the abstract's claim sentence?**
 Where: docs/50-amendment-9-DRAFT.md:140, 156
-Decides: The entrant's own claim sentence — AI-drafted candidates exist; "what does not exist is the entrant's own claim sentence." ("'Results to date of an unfinished study' is ineligible.")
+Decides: The entrant's own claim sentence — draft candidates exist; "what does not exist is the entrant's own claim sentence." ("'Results to date of an unfinished study' is ineligible.")
 Options as drafted: "The entrant says whether the docs/44 sentence is the abstract's claim sentence or only the narrative; if the latter, he writes the claim sentence into docs/45 §D as a dated line, and on Sep 20 redrafts it against only what has landed; if it does not stand, a stage is cut rather than hoped for."
 Blocks: The Sep 20 re-test; the F3 kill criterion; possible stage cut; the report abstract.
 Deadline: Sep 20 (re-test).

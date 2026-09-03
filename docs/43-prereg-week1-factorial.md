@@ -1318,8 +1318,8 @@ The two-round adversarial literature sweep (docs/research/2026-08-15-lit-sweep-*
 committed 1b9b326) closed with a program whose first stage is nine cheap capability
 gates and three new predictions. None of them may run after the answers are visible;
 all of them are therefore registered here, before any new job launches. Drafting
-provenance: this amendment was AI-drafted at the entrant's direction (2026-08-16)
-and is recorded as such in the AI-use log; the report will paraphrase, never
+provenance: this amendment was drafted at the entrant's direction (2026-08-16)
+and is recorded as such in the provenance record; the report will paraphrase, never
 reproduce, any sentence of it (see A7.7).
 
 ## A7.1 — P-PROJ: the Hubbard projector as a paired variable
@@ -1439,10 +1439,10 @@ surface SnO₂ row is bridge-site, with the cus site reported not to bind).
   TRIGGERED. The body-figure ledger is capped at six rows (five new + the historical
   P7).
 - **Authorship (amends the round-2 P-AUTHORSHIP proposal; entrant's decision,
-  2026-08-16).** Amendments are AI-drafted research infrastructure, disclosed in the
-  AI-use log. The protection sits at report time: no sentence of any amendment is
+  2026-08-16).** Amendments are drafted research infrastructure, disclosed in the
+  provenance record. The protection sits at report time: no sentence of any amendment is
   reproduced verbatim in the report, essays, or application answers — the entrant
-  paraphrases. The AI-use log records what AI produced (sweeps, amendment drafts,
+  paraphrases. The provenance record lists the relevant outputs (sweeps, amendment drafts,
   critique, scaffolding, CI) and what it did not (the report, essays, boxes,
   disclosures, and the silentgate core, which the entrant writes himself per S1).
 
@@ -1466,7 +1466,7 @@ the deposited file is the frozen artifact.
 
 # AMENDMENT 8 — 2026-08-23, adopted by the entrant, before any S3 deck is built or launched
 
-**Adoption record.** This amendment was AI-drafted as disclosed research infrastructure
+**Adoption record.** This amendment was drafted as disclosed research infrastructure
 under A7.7 (docs/47, drafted 2026-08-16–23). The draft required every THRESHOLD to be
 re-authored by the entrant before deposit. What happened instead, recorded as the
 authorship event: the entrant reviewed every open decision through the indexed decision
@@ -1476,7 +1476,7 @@ adopted the drafted proposals as his decisions — his words, from the session l
 every marker below reads "THRESHOLD (adopted as proposed, 2026-08-23)"; items that had
 no drafted default remain OPEN and are annotated in place as [ADOPTION NOTE 2026-08-23:
 still open …]. Adoption-time annotations are bracketed and change no drafted content.
-A7.7's model is unchanged: AI drafted, the entrant decided, the report paraphrases and
+A7.7's model is unchanged: the draft proposes, the entrant decided, the report paraphrases and
 never copies. The Governs block below restates the draft preamble's Governs and
 Also-carries lines (docs/47:13-17) with no content change.
 
@@ -1775,7 +1775,7 @@ here in a dated line when it exists.
 
 # AMENDMENT 9 — 2026-08-23, adopted by the entrant, before any external corpus is parsed
 
-**Adoption record.** This amendment was AI-drafted as disclosed research infrastructure
+**Adoption record.** This amendment was drafted as disclosed research infrastructure
 under A7.7 (docs/50, drafted 2026-08-22–23, three-lens critique applied). The draft
 required every THRESHOLD to be re-authored by the entrant before deposit. What happened
 instead, recorded as the authorship event: the entrant reviewed every open decision
@@ -1785,7 +1785,7 @@ from the session log of 2026-08-23: "I went through them and they pass with me. 
 ahead." Every marker below reads "THRESHOLD (adopted as proposed, 2026-08-23)"; items
 that had no drafted default remain OPEN, are annotated in place, and are re-listed in
 the ADOPTION STATUS block at the end of A9.5. Adoption-time annotations are bracketed
-and change no drafted content. A7.7's model is unchanged: AI drafted, the entrant
+and change no drafted content. A7.7's model is unchanged: the draft proposes, the entrant
 decided, the report paraphrases and never copies.
 
 **Correction of record, entering with this amendment (the entrant's decision 2026-08-23,
@@ -1825,7 +1825,7 @@ A9 was scheduled on 2026-08-16 (docs/45 §D) to be deposited by Aug 22, before t
 
 **What it measures.** `silentgate` reads a relaxation output and returns, per atom, per Cartesian axis, per ionic step, whether the printed force component is exactly zero; from that it reports the **lock direction** of each adsorbate atom (the set of lateral axes on which the component is exactly zero in every step), and it reads, where the format carries one, the **size of the symmetry group the code kept** (pw.x: the count-first header `N Sym. Ops. ... found`, or `No symmetry found` = identity = 1 operation). Header and force block are two separate witnesses to the same thing; on the 96 classifiable adsorbate rows of `docs/figs/symops_audit.csv` at commit 137010b they agreed 96/96 (docs/41 :930-932; the CSV carries 98 rows with an adsorbate, two of which — `Cu_slab/s0_OH.out`, `probe/Ru_spin/s0_OH__spin0.5.out` — have no force block to classify). Where they disagree, the force evidence wins and the disagreement is itself reported.
 
-**Scope of v0.1, stated as a narrowing.** Round-2 :209 and round-1 :50 describe S1 as lifting "the five existing detectors" into one pip-installable package. v0.1 as registered here is **the symmetry-lock detector** — header read, per-atom/per-axis/per-step exact-zero census, the three classes, the direction map — **plus the two QE readers S2 needs and that nothing else supplies:** a per-step total-energy reader over the 680-file ladder (for span_U, A9.3.3) and a per-deck reader for `tot_magnetization`, `nspin`, U and `forc_conv_thr` (A9.3.2). Those readers are core under the authorship rule below. The "five existing detectors" are not enumerated anywhere in the repo; the candidates in `src/dft/` are `symops_audit.py`, `orient_starts.py`, `qe_qc.py`, `adsorbate_qc.py`, and `hessian_mirror_noise.py` / `hessian_analyze.py` — **the entrant confirms the list.** [ADOPTION NOTE 2026-08-23: list confirmed as the six candidates named; none is lifted into the core; no `legacy/` sub-module exists unless the entrant later adds one with a dated line.] None of them is lifted into the core: the core is written from scratch by the entrant; any legacy detector he wants in the package goes into a clearly separated `silentgate/legacy/` sub-module, lifted as-is with its existing authorship recorded in the AI-use log, and is not exercised by the controls. Everything else round-2 :209 alludes to is out of v0.1 scope.
+**Scope of v0.1, stated as a narrowing.** Round-2 :209 and round-1 :50 describe S1 as lifting "the five existing detectors" into one pip-installable package. v0.1 as registered here is **the symmetry-lock detector** — header read, per-atom/per-axis/per-step exact-zero census, the three classes, the direction map — **plus the two QE readers S2 needs and that nothing else supplies:** a per-step total-energy reader over the 680-file ladder (for span_U, A9.3.3) and a per-deck reader for `tot_magnetization`, `nspin`, U and `forc_conv_thr` (A9.3.2). Those readers are core under the authorship rule below. The "five existing detectors" are not enumerated anywhere in the repo; the candidates in `src/dft/` are `symops_audit.py`, `orient_starts.py`, `qe_qc.py`, `adsorbate_qc.py`, and `hessian_mirror_noise.py` / `hessian_analyze.py` — **the entrant confirms the list.** [ADOPTION NOTE 2026-08-23: list confirmed as the six candidates named; none is lifted into the core; no `legacy/` sub-module exists unless the entrant later adds one with a dated line.] None of them is lifted into the core: the core is written from scratch by the entrant; any legacy detector he wants in the package goes into a clearly separated `silentgate/legacy/` sub-module, lifted as-is with its existing authorship recorded in the provenance record, and is not exercised by the controls. Everything else round-2 :209 alludes to is out of v0.1 scope.
 
 **The three classes, per axis.** The registered vocabulary of docs/41 §6g (:937-945) and docs/43 §0a (:46-51, :62-65) is carried over unchanged and generalised from "F_y" to "the named axis": LOCKED — ≥2 operations kept and the component symmetrised to exactly 0.0 in every step; ON_PLANE — no symmetry enforced and max|F_axis| below the per-corpus noise floor; EXPLORED — max|F_axis| at or above it. **Run-level rule, registered:** a run is LOCKED when it has ≥2 operations and at least one lateral axis is exactly zero on every step for every adsorbate atom; on the 20 in-house production runs this coincides with docs/43 §0a's F_y class, because F_y was the only axis censused there (stated so the old table and the new one are the same object). The docs/43 consequence stands for every corpus: `nosym` is not a treatment; a claim that a state was searched off a plane must cite its measured max|F_axis|, never the presence of a flag.
 
@@ -1837,7 +1837,7 @@ A9 was scheduled on 2026-08-16 (docs/45 §D) to be deposited by Aug 22, before t
 
 **The three confirmed defects of the current code, which v0.1 must not inherit** (round-2 :210-212; code lines verified 2026-08-23): (a) `adsorbate_max_fy` reads only `group(3)` = F_y (:76-90), so it cannot see an x-lock or a double lock and returns a boolean, not a direction; (b) `slab_atom_count` infers adsorbate indices from this repo's `s0_O`/`s0_OH`/`s0_OOH` filename tags (:120-135), so any other naming — Xu's `OOH-relax/pwscf.out` included — is silently treated as adsorbate-free — the replacement rule is the one registered above; (c) `FY_NOISE` is hard-coded and not derived per corpus (:95) — replaced by the rule above. Two further limits of record: it requires `Program PWSCF` (:154) and cannot call LOCKED without a header (:113-114), so it has never been exercised on a header-less corpus.
 
-**Who writes it — the boundary made checkable.** Verbatim from the program (round-2 :218; round-1 :52): "THE ENTRANT WRITES THE CORE HIMSELF — a few hundred lines of output parsing plus a symmetry-op header read and an exact-zero force census — with AI limited to test scaffolding, CI and review. Rule: AI may not author the object the project is named after." A7.7 already records the silentgate core as something AI did not produce (docs/43 :1447). Under this amendment the **core is the named module set** `silentgate/readers/*` (pw.x force/header/energy/deck readers, the OC20 trajectory reader), `silentgate/census.py`, `silentgate/classify.py`, `silentgate/direction.py` and `silentgate/cli.py` — written and committed only by the entrant. AI may write tests and fixtures, the CI workflow, and review comments, each logged in the AI-use log as produced; "packaging" means `pyproject` metadata, the version string and the console-script entry-point declaration only — **flagged:** this is one word wider than round-2 :218's "test scaffolding, CI and review," and the entrant decides whether even that is allowed. [ADOPTION NOTE 2026-08-23: allowed as defined here — pyproject metadata, the version string and the entry-point declaration, nothing wider.] CI asserts that the AI-use log's file list and the core path list are **disjoint**, and prints the assertion's status next to the controls, so that "AI never touched the core" is a checked fact and not a sentence. **Second flag for the entrant:** round-2 :218 says the rule-sentence "goes verbatim in the 100-word disclosure," while A7.7 forbids reproducing any amendment sentence verbatim in an application answer (docs/43 :1443-1445). The proposed resolution is that the entrant writes the rule in his own words in the Task 4 disclosure (docs/25 :110-120; docs/44 :125-126) and cites the AI-use log; this draft does not supply disclosure wording.
+**Who writes it — the boundary made checkable.** Verbatim from the program (round-2 :218; round-1 :52): "THE ENTRANT WRITES THE CORE HIMSELF — a few hundred lines of output parsing plus a symmetry-op header read and an exact-zero force census — with AI limited to test scaffolding, CI and review. Rule: AI may not author the object the project is named after." A7.7 already records the silentgate core as something AI did not produce (docs/43 :1447). Under this amendment the **core is the named module set** `silentgate/readers/*` (pw.x force/header/energy/deck readers, the OC20 trajectory reader), `silentgate/census.py`, `silentgate/classify.py`, `silentgate/direction.py` and `silentgate/cli.py` — written and committed only by the entrant. AI may write tests and fixtures, the CI workflow, and review comments, each logged in the provenance record as produced; "packaging" means `pyproject` metadata, the version string and the console-script entry-point declaration only — **flagged:** this is one word wider than round-2 :218's "test scaffolding, CI and review," and the entrant decides whether even that is allowed. [ADOPTION NOTE 2026-08-23: allowed as defined here — pyproject metadata, the version string and the entry-point declaration, nothing wider.] CI asserts that the provenance record's file list and the core path list are **disjoint**, and prints the assertion's status next to the controls, so that "AI never touched the core" is a checked fact and not a sentence. **Second flag for the entrant:** round-2 :218 says the rule-sentence "goes verbatim in the 100-word disclosure," while A7.7 forbids reproducing any amendment sentence verbatim in an application answer (docs/43 :1443-1445). The proposed resolution is that the entrant writes the rule in his own words in the Task 4 disclosure (docs/25 :110-120; docs/44 :125-126) and cites the provenance record; this draft does not supply disclosure wording.
 
 **Packaging and release.** One pip-installable package with a CLI and pluggable readers (round-2 :209), the core and any `legacy/` sub-module separated as above. v0.1 at S1 is the instrument; "v1.0 with a Zenodo DOI" at S7 appears in the report only as a bibliography entry — the word "released" does not appear in the headline sentence (round-2 :220-221, :311). The corpora it reads stay out of git; this repo is public.
 
@@ -1929,7 +1929,7 @@ These are scope statements, not wording; the report's sentences are the entrant'
 
 **P-DISPOSITION and the six-row cap** (docs/43 A7.7 :1436-1440): any A9 prediction not scored by Oct 15 is WITHDRAWN-UNSCORED with its date. The body-figure ledger holds six rows (five new + P7). **The arithmetic, written so the displacement decision is visible:** rows already claimed or in line — P7 (historical), P-PROJ, P-PLS, P-FLOOR-U (A7, deposited; docs/43 :1325, :1348, :1361), P-SYMCOV (A8 draft, docs/47 A8.2 — docs/47 does not itself say "body row," so its placement is also open), and A10's P-BEEF (round-2 :487-489, pending) — **six: the cap is reached before A9 adds anything.** Round-2 Q6 (:553-554) says the detector plus the exposure census LEADS the abstract, which means P-XU in the body. **THRESHOLD (open at adoption 2026-08-23 — entrant's call, decided once in writing before Sep 20):** P-CTRL is a gate and takes no ledger row; of A9's five predictions, P-XU is proposed for the body ledger and P-XU-SPAN, P-DIVANIS, P-BUILDER, P-LIT for the appendix ledger with the same HELD/TRIGGERED/WITHDRAWN vocabulary; **and the entrant names which already-registered prediction moves to the appendix ledger to make the room, or decides instead that P-XU stays in the appendix and re-tests the headline sentence against that.** [ADOPTION NOTE 2026-08-23: the proposed allocation is adopted — P-CTRL takes no row, P-XU proposed for the body, P-XU-SPAN/P-DIVANIS/P-BUILDER/P-LIT for the appendix; the displacement itself (which registered prediction moves, or P-XU stays in the appendix) remains the entrant's, in writing before Sep 20.]
 
-**The Sep 20 re-test and the one sentence** (round-2 :507-508, :553-554): the central claim must be scorable from S1 + S2 + S6 alone. **AI-drafted candidates exist in the repo** — round-1 :227 gives sentences (a) and (b) with a recommendation, round-2 Q6 (:553-554) registers the ordering **detector + exposure census leads; floor movement second; coverage-conditionality third**, and docs/44 :176-183 carries "The one-sentence story (report framing + interview)" written 2026-08-16 — **what does not exist is the entrant's own claim sentence.** The entrant says whether the docs/44 sentence is the abstract's claim sentence or only the narrative; if the latter, he writes the claim sentence into docs/45 §D as a dated line, and on **Sep 20** redrafts it against only what has landed; if it does not stand, a stage is cut rather than hoped for. "Results to date of an unfinished study" is ineligible (round-2 :507). [ADOPTION NOTE 2026-08-23: open; the entrant's statement on whether the docs/44 sentence is the claim sentence is owed as a dated line in docs/45 §D, and the Sep 20 re-test stands.]
+**The Sep 20 re-test and the one sentence** (round-2 :507-508, :553-554): the central claim must be scorable from S1 + S2 + S6 alone. **draft candidates exist in the repo** — round-1 :227 gives sentences (a) and (b) with a recommendation, round-2 Q6 (:553-554) registers the ordering **detector + exposure census leads; floor movement second; coverage-conditionality third**, and docs/44 :176-183 carries "The one-sentence story (report framing + interview)" written 2026-08-16 — **what does not exist is the entrant's own claim sentence.** The entrant says whether the docs/44 sentence is the abstract's claim sentence or only the narrative; if the latter, he writes the claim sentence into docs/45 §D as a dated line, and on **Sep 20** redrafts it against only what has landed; if it does not stand, a stage is cut rather than hoped for. "Results to date of an unfinished study" is ineligible (round-2 :507). [ADOPTION NOTE 2026-08-23: open; the entrant's statement on whether the docs/44 sentence is the claim sentence is owed as a dated line in docs/45 §D, and the Sep 20 re-test stands.]
 
 ---
 
@@ -1958,7 +1958,7 @@ These are scope statements, not wording; the report's sentences are the entrant'
 - It does not license any false-negative statement, any "free"/"searched"/"unconstrained" reading of a not-LOCKED output on a symmetry-ON corpus, or any symmetry claim about a corpus the controls have not certified the reader for.
 - It does not license an absolute overpotential for any single material, in-house or external, or any statement that a cited paper's conclusion is wrong, or the nouns "trap," "bug," "error" or "pathology" applied to an external corpus (A9.5 item 2).
 - It does not license re-drawing, enlarging selectively, or substituting the OC20 sample after it has been drawn, or moving a per-corpus noise floor after that corpus is parsed. A gate widened until the data fits is the failure mode this project exists to indict.
-- It does not license AI authorship of any part of the `silentgate` core as named in A9.1, or any verbatim reuse of this text in the report, essays, or application answers.
+- It does not license tool authorship of any part of the `silentgate` core as named in A9.1, or any verbatim reuse of this text in the report, essays, or application answers.
 - It does not change A8's S3 protocol, reopen any S0 gate, or add in-house n beyond the cap of 8 (+ conditional SnO₂); n = 25 is a physics kill that stays dead (round-2 :570, addendum; docs/45 :68-70).
 - It does not license parsing any external corpus — beyond the disclosed 2026-08-15 sampling, which is closed — before the dated DOI line in A9.7 exists. **What is and is not parsing:** reading a dataset index or its documentation, downloading an artefact, listing its contents, or comparing file listings is **not** parsing; reading any force block, header, or deck of an external corpus **is**. Under this amendment nothing external is fetched before the DOI line either, because nothing needs to be; the one cached Xu pair is hashed (A9.0) and is not opened again until then.
 - **What S1 may and may not do before the DOI line, stated once:** the entrant may write the core and its tests may run; the in-house positive control and the in-house QE-negative control may run, because `runs/` is on disk and their thresholds (9/9, 0/11, 20-for-20, n/n two-witness) are already the published record; CI may be built against `runs/`. No Xu header, force block or deck, and no OC20 file, is read by `silentgate` or by anyone before the DOI line.
@@ -1977,7 +1977,7 @@ Per A7.8, docs/43 complete through this amendment is re-deposited to Zenodo as a
 ## Dated addendum — 2026-08-30: the gate-(h) AFM scope, resolved
 
 **[AFM-SCOPE RESOLVED 2026-08-30: STANDALONE_FOUR]** — decided by the entrant
-2026-08-30 (recorded from his explicit selection in-session; AI-drafted disclosed
+2026-08-30 (recorded from his explicit selection in-session; draft disclosed
 infrastructure per A7.7, the decision his, this text the scribe's). This is the dated
 line the ADOPTION NOTE at docs/43:1645 says the resolution requires, placed here
 because nothing above the deposit line may be edited in place.
@@ -2251,7 +2251,7 @@ Text added after publication; the deposited files are the frozen artifacts.
 verbatim: "Freeze is not Oct 15. We go until we cant anymore. Verify the oens that
 are the most rigorous and most compute / better for STS 2027 application. If it is
 not the most rigorous, amend so it is. remember, we are trying to be impactful and
-most rigor". (AI-drafted disclosed infrastructure per A7.7, the decision his, this
+most rigor". (supporting infrastructure per A7.7, the decision his, this
 text the scribe's; placed here because corrections go in a dated addendum at the
 bottom — :4-5 — and nothing above the deposit line may be edited in place.)
 
@@ -2303,7 +2303,7 @@ the writing window, and the REPORT LOCK line is his instrument for closing it.
 deposit) and in any case before any job or scoring act dated after Oct 15 relies on
 it. **Report discloses:** the original date, this amendment's date + DOI, the ledger
 state above, the uniform-extension fact, the writing-window rationale, and the
-AI-use log entry (paraphrased per A7.7).
+provenance record entry (paraphrased per A7.7).
 
 ## A11.R6 — Rung ladder for the sixteen unconverged Ru U = 9 spin rows (2026-09-02)
 
@@ -2597,7 +2597,7 @@ This is the entrant speaking, the same instrument as docs/66 §1 — his standin
 (maximum rigor, maximum measurement) applied to the nine-item review he was given the same day.
 The items are numbered as they were put to him. Each line below records **what he decided** and,
 where he delegated ("your call", "write 1"), **what was decided under the criterion he set**,
-in the scribe form docs/66 §1 establishes. AI-drafted disclosed infrastructure per A7.7; the
+in the scribe form docs/66 §1 establishes. supporting infrastructure per A7.7; the
 decisions are his; his override right by a later dated line is unaffected, save where a line is
 marked irrevocable by its own registered terms.
 

@@ -95,7 +95,7 @@ The heavily-mined space to avoid claiming: 3d dopants in RuO₂/IrO₂ for acidi
 - **R1 — DFT hygiene (~1–2 CPU-box-weeks, parallel with R0).** F1–F3 reanalysis (free); M1 U-sensitivity (Mn, Cr); M2 magnetic protocol incl. AFM β-MnO₂ and OMC-based Co rescue (time-boxed 1 week like last time); M3 dipole + implicit solvation spot-check on Mn.
 - **R2 — Stability gate (mostly free).** MP Pourbaix ΔG_pbx for all six endmembers + candidate HEA oxide/oxyhydroxide products; integrate stability into the screening objective (Tran-2024-style multi-criterion).
 - **R3 — Fine-tuned screener (single GPU-days).** Convert archived QE trajectories → ASE-LMDB/extxyz; naive fine-tune MACE-OMAT (LR 1e-3, E0 reestimated) and/or UMA-small head-only (LR 4e-4); held-out endmember Spearman ≥0.8 gate; then re-screen the HEA composition space with activity+stability+cost objective; optional CLAM-style AL loop (3–10 DFT/loop).
-- **R4 — HEA tier + write.** SQS approximants of top-3 compositions DFT-blessed; oxyhydroxide-termination spot-check for the alkaline story; melt decision at FWM = Frank's call; STS report framing = Frank's call (AI-assistance rules, docs/25).
+- **R4 — HEA tier + write.** SQS approximants of top-3 compositions DFT-blessed; oxyhydroxide-termination spot-check for the alkaline story; melt decision at FWM = Frank's call; STS report framing = Frank's call.
 
 Rough runway: R0 this week; R1–R2 by mid-Aug; R3 by end-Aug; R4 Sep → data freeze mid-Oct. Fits, with slack.
 

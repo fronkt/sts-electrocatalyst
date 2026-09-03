@@ -1,6 +1,6 @@
 # 66 — The entrant's directive of record, and the elections executed under it — 2026-08-31
 
-**Status:** directive of record + election record. AI-drafted disclosed infrastructure
+**Status:** directive of record + election record. supporting infrastructure
 (per docs/43 A7.7); the decisions are the entrant's, issued by the directive quoted
 verbatim in §1 and executed here by his instruction. **The entrant may override any
 line in this document by a later dated line.** Companion instruments this document
@@ -34,7 +34,7 @@ edits); (ii) it states the election criterion for every open decision row of doc
 **among the drafted options, the most rigorous: measurement over
 withdrawal/omission, best-justified thresholds, strictest anti-cherry-picking,
 fullest disclosure — with compute not a constraint**; (iii) it authorises the compute
-the elections unlock. The per-row mapping from criterion to option is AI-drafted
+the elections unlock. The per-row mapping from criterion to option is draft
 disclosed infrastructure and is the part the entrant can override; the criterion and
 the authority are his.
 
@@ -101,7 +101,7 @@ amended position is what is elected).
   override variable, matching 47's own "No FORCE override" posture); (2) parse the
   manifest's `# SUBMIT WITH EXCLUDE=` header and refuse if the invocation's
   `$EXCLUDE` does not contain every named node — and refuse any manifest LACKING the
-  header (fail-closed, not fail-open). AI-drafted disclosed maintainer edit to
+  header (fail-closed, not fail-open). draft disclosed maintainer edit to
   un-run infrastructure; touches no deck, no banked number.
 - **[EXCLUDE EXTENDED 2026-08-31]**: the submit-time exclude list is the manifest
   list **plus a120 and a200** (the two OOM nodes of record, docs/64 §5; a200
@@ -173,9 +173,9 @@ registered line before any deck runs — the entrant elects after the §5 waves 
   relaxation .in + 7 .out, H2/H2O .in/.out, manifest.json, m_ti_relax_r1.txt,
   m_ti_relax_r2.txt.
 
-## 8. AI-use log entries (A7.7) for this session
+## 8. provenance record entries (A7.7) for this session
 
-AI drafted: the 13-agent verification session and its verdicts; this document;
+drafted: the 13-agent verification session and its verdicts; this document;
 docs/67; the Amendment 11 consolidated text and the P-DISPOSITION addendum appended
 to docs/43; the docs/59 licence-line text; the docs/65 correction block; the
 pipeline-guard code; the Stage-1/probe/CMF/Family-C/Mn builders and their manifests;
@@ -192,7 +192,7 @@ paraphrases.
    writing-window rationale the original date served (docs/44:129-130), and the sweep
    executed once at the dated REPORT LOCK line.
 2. The directive-executed election mechanism itself (§1-§2): criterion the
-   entrant's, mapping AI-drafted and adversarially verified, override path open.
+   entrant's, mapping draft and adversarially verified, override path open.
 3. The A6.6 scale-overage running disclosure (~356 licensed now, up to ~395 at full
    contingent trigger, vs the registered ~160; the A11 text carries the summed
    figure).

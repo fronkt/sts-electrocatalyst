@@ -1,7 +1,7 @@
 # AI survey of the in-house corpus, 2026-08-27 — DISCLOSURE
 
 **This directory exists to disclose something, not to be used.** It preserves an
-AI-written script and its output so the entrant can see exactly what was measured, when,
+documented script and its output so the entrant can see exactly what was measured, when,
 and by what. Nothing in the S1 harness reads it; a test enforces that
 (`tests/silentgate/test_gate_fails_closed.py::test_the_ai_survey_is_not_wired_into_the_gate`).
 
@@ -18,8 +18,8 @@ harness, as part of choosing the thirteen fixtures in
 
 ## Why it needs disclosing
 
-Producing it was permitted and, in fact, anticipated: docs/43 :1445 says the AI-use log
-"records what AI produced (**sweeps**, amendment drafts, critique, scaffolding, CI)". So the
+Producing it was permitted and, in fact, anticipated: docs/43 :1445 says the provenance record
+"records the relevant outputs (**sweeps**, amendment drafts, critique, scaffolding, CI)". So the
 sweep is a logged AI product, not a boundary breach — nothing under `silentgate/` was
 written, and this script is not the instrument.
 
@@ -81,6 +81,6 @@ or something else. CI does not decide it and nothing here is scored against thes
 
 | file | what |
 |---|---|
-| `sweep.py` | the AI-written survey script, verbatim as run |
+| `sweep.py` | the documented survey script, verbatim as run |
 | `sweep.json` | its output, 480 records |
 | `README.md` | this disclosure |

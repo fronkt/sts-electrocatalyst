@@ -2,7 +2,7 @@
 
 ## 0. Status of this document
 
-**AI-drafted census, not a registration.** Nothing here scores a prediction, moves a
+**draft census, not a registration.** Nothing here scores a prediction, moves a
 threshold, licenses a deck, amends a deposited section, or supersedes docs/43. Every verdict
 below is a *proposal for a dated line the entrant writes*. Per docs/43 A7.7 the entrant
 paraphrases; no sentence of this file is report prose, and the report itself is written
