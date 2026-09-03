@@ -3103,3 +3103,111 @@ guard raised on the discrepancy rather than reporting a short rung, which is why
 before a number was quoted. The registered reading, the anti-selection clause, the pooling
 refusal and the binding are all unaffected. The out-of-sample claim weakens from six rungs to
 four and is restated at four here.
+
+---
+
+## Item 7 CLOSED — 2026-09-03: the Co BASIN_DRIFT artifact was found, and my own line above is WITHDRAWN
+
+**[CO BASIN_DRIFT PROVENANCE 2026-09-03: WITHDRAWN — THE ARTIFACT EXISTS AND THE NUMBER
+RE-DERIVES]**
+
+### The withdrawal, first
+
+`**[CO BASIN_DRIFT PROVENANCE 2026-09-03: NO CONVERGED ARTIFACT EXISTS, ANYWHERE]**` — written
+earlier today in Item 7 above — **is false and is withdrawn in full.** So are the sentences it
+carried: *"The Co row's GATE-1 remedy was never executed, not merely never retrieved"* and
+*"There is no artifact from which the −77.009 meV can be re-derived."* The same withdrawal
+applies to the `[SUPERSEDED SAME DAY]` note at `tasks/todo.md:683`.
+
+**Why it was wrong.** The search behind it covered the Anvil `$HOME` tarballs and
+`/anvil/scratch/x-fcai3`, and concluded from their silence. **It never searched
+`/anvil/projects/x-che260157/`** — which is where the campaign's actual run tree lives, along
+with 372 retained `.save` directories. The word "exhaustive" was applied to a search that had
+missed the primary location. Surfaced by an adversarial verifier in the closure workflow, then
+confirmed by hand.
+
+**The original diagnosis was right and my correction of it was wrong.** The first note —
+*"the fromparent run happened on Anvil and its output was never pulled … the fix is a file
+transfer, not compute"* — was **correct**. It is now executed.
+
+### The transfer
+
+Seven files pulled from `/anvil/projects/x-che260157/sts/runs/s3/Co/`, **md5-verified on both
+ends, all seven identical**:
+
+| file | md5 | note |
+|---|---|---|
+| `s0_O__1x1_off__g1.fromparent.out` | `b0d7c43ddb10c546819e2e9672231de8` | **the missing artifact** |
+| `s0_O__1x1_off__g1__r2.out` | `1641c8d7554fe2330e1628019bcd5913` | the re-roll |
+| `s0_O__1x1_off.replay.out` | `b98397f65c2237b1a2e1a681381d72c9` | **the parent replay** |
+| + 4 `.run.in` / `.replay.in` decks | (recorded in the commit) | provenance |
+
+### The row, now fully re-derived from this repository
+
+| run | converged | E (Ry) | magtot | ΔE vs banked parent |
+|---|---|---|---|---|
+| **parent** `s0_O__1x1_off.out` | yes | −2330.66171228 | **11.69** | — |
+| `__g1.out` (cold, fresh density) | **no** | none | 11.97 | n/a |
+| `__g1__r2.out` (re-roll) | **no** | none | 11.95 | n/a |
+| **`__g1.fromparent.out`** | **yes** | **−2330.66737233** | **11.24** | **−77.009 meV** |
+| **`s0_O__1x1_off.replay.out`** | **yes** | −2330.66734894 | **11.24** | **−76.691 meV** |
+
+Re-derived here: **−77.0089 meV**, against the ledger's **−77.009** (docs/45:1293). The child
+energy matches the ledger's recorded value to the last digit.
+
+### What the transfer bought beyond the missing number
+
+**A second, independent converged observation — and it is the stronger evidence.**
+`s0_O__1x1_off.replay.out` is not a GATE-1 SCF at all; it is a **full re-run of the parent
+relaxation**. It landed at **magtot 11.24** and **76.691 meV below the banked parent** — the same
+branch the GATE-1 child found, agreeing with it to **0.318 meV**.
+
+So the −77 meV is **not an artifact of the fixed-geometry GATE-1 step**. Re-running the
+relaxation itself, from scratch, walks into the same lower branch. **The banked Co parent sits in
+an excited magnetic branch, and that is now established by two independent routes** rather than
+one observation. The row went from the weakest of the three to the best-corroborated.
+
+Note also what the two non-converged runs say: the cold `__g1` reaches magtot 11.97 and `__r2`
+reaches 11.95, neither converging. Three distinct magnetisations appear at one geometry —
+11.24 (twice, converged), ~11.96 (twice, not converged), 11.69 (the banked parent). That is a
+multi-basin surface, and it is why the cold start could not settle.
+
+### Census
+
+`src/dft/gate1_census.py` re-run on the enlarged tree: **89 `__g1` children, 89 paired, zero
+orphans**, and **three BASIN_DRIFT rows, all three now re-deriving from this repository**:
+
+| row | ΔE (meV) | Δmagtot (μ_B) |
+|---|---|---|
+| `s3/Fe/s0_OOH__1x1_off__g1` | −384.300 | −1.48 |
+| `s3/Co/s0_O__1x1_off__g1.fromparent` | **−77.009** | **−0.45** |
+| `s3/Mn/s0_OOH__2x1v_off__g1` | −20.616 | −0.18 |
+
+`tasks/todo.md:683`'s original claim of **three** rows is vindicated exactly as written. The
+2026-09-03 note saying only two reproduce is superseded by the transfer, not by a re-measurement.
+
+### What is closed and what is not
+
+- **Closed:** the provenance. Every number in the BASIN_DRIFT table now has a converged,
+  md5-verified artifact in this repository, and the Co row has two.
+- **Not closed, and left as the entrant's:** the registered remedy at `docs/43:311-314` is *"the
+  state is re-relaxed from it and the loop repeats until GATE-1 passes."* The re-relax leg has in
+  effect run once — the replay — and it **confirms** the child's branch. What a formal discharge
+  still wants is a GATE-1 SCF on the replay's final geometry. That is a single fixed-geometry SCF
+  and the replay's density is **not** retained (it predates the 2026-08-26 retention amendment),
+  so it is a cold start in the single-SCF band. **Not launched here.**
+- **Deliberately NOT claimed:** that these rows are CONFOUNDED under the >0.1 μ_B rule at
+  `docs/43:306-310`. That rule is defined *"between the constrained and the free solution"* — the
+  symmetry pairing that feeds the symmetry-effect statistic — **not** parent-versus-GATE-1-child.
+  All three rows do carry large magnetisation changes, and that is reported descriptively, but
+  importing a rule across pairings would be exactly the kind of move this ledger exists to catch.
+
+### Rule
+
+**Twice in one day I made a false negative-existence claim about this same row, and the second
+time I wrote it into a registration.** The first missed the remote entirely; the second searched
+the remote in two places and called it exhaustive. A negative existence claim is only as strong
+as the *enumeration of places searched*, and that enumeration must be written down beside the
+claim so a reader can see what was not looked at. **"Exhaustive" is a claim about coverage, and
+it requires a list.** For this cluster the list is: local tree, `$HOME` tarballs,
+`/anvil/scratch`, **and `/anvil/projects/x-che260157` — the one that actually holds the runs.**

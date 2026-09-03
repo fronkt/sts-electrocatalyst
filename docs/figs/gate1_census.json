@@ -8,7 +8,7 @@
   "different_branch_ge_0p18": {
    "max_abs_dE_meV": 747.4494323708059,
    "min_abs_dE_meV": 3.384144048295455,
-   "n": 8
+   "n": 9
   },
   "same_branch_le_0p01": {
    "max_abs_dE_meV": 0.04394638188591634,
@@ -18,32 +18,32 @@
  },
  "counts_all": {
   "AGREE": 77,
-  "BASIN_DRIFT": 2,
+  "BASIN_DRIFT": 3,
   "REFUSED": 6,
   "UNVERIFIED": 3
  },
  "counts_all_post_discharge": {
   "AGREE": 77,
   "AGREE (refusal discharged)": 5,
-  "BASIN_DRIFT": 2,
+  "BASIN_DRIFT": 3,
   "REFUSED": 1,
   "UNVERIFIED": 3
  },
  "counts_s3_only": {
   "AGREE": 37,
-  "BASIN_DRIFT": 2,
+  "BASIN_DRIFT": 3,
   "REFUSED": 4,
   "UNVERIFIED": 3
  },
  "counts_s3_post_discharge": {
   "AGREE": 37,
   "AGREE (refusal discharged)": 3,
-  "BASIN_DRIFT": 2,
+  "BASIN_DRIFT": 3,
   "REFUSED": 1,
   "UNVERIFIED": 3
  },
- "n_children": 88,
- "n_paired": 88,
+ "n_children": 89,
+ "n_paired": 89,
  "orphans": [],
  "purpose": "Reconciles docs/45:255-256 (38 AGREE / 0 REFUSED / 2 UNVERIFIED) with tasks/todo.md's 29-vs-6 branch split. Measured from disk; decides nothing, banks nothing, re-runs nothing.",
  "rows": [
@@ -690,6 +690,20 @@
    "parent_converged": true,
    "resolved_by": "__g1",
    "verdict": "REFUSED"
+  },
+  {
+   "attempt": "second (fromparent)",
+   "branch_changed": true,
+   "child": "s3/Co/s0_O__1x1_off__g1.fromparent.out",
+   "child_converged": true,
+   "dE_meV": -77.00890336335688,
+   "discharged_by_second_attempt": false,
+   "dmagtot": -0.4499999999999993,
+   "family": "s3/Co",
+   "parent": "s3/Co/s0_O__1x1_off.out",
+   "parent_converged": true,
+   "resolved_by": "__g1.fromparent",
+   "verdict": "BASIN_DRIFT"
   },
   {
    "attempt": "first (cold)",

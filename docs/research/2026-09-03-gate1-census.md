@@ -8,25 +8,26 @@ Registered thresholds, quoted not invented: a child **>= 5 meV below** its paren
 
 | population | AGREE | BASIN_DRIFT | REFUSED | UNVERIFIED |
 |---|---|---|---|---|
-| all paired children (n = 88) | 77 | 2 | 6 | 3 |
-| `runs/s3/` only (n = 46) | 37 | 2 | 4 | 3 |
+| all paired children (n = 89) | 77 | 3 | 6 | 3 |
+| `runs/s3/` only (n = 47) | 37 | 3 | 4 | 3 |
 
 **Post-discharge reading** — A8.3 orders a refused child re-run from the parent's converged density, so a refusal with an AGREEing `.fromparent` sibling is discharged, not standing:
 
-- all paired children: AGREE 77, AGREE (refusal discharged) 5, BASIN_DRIFT 2, REFUSED 1, UNVERIFIED 3
-- `runs/s3/` only: AGREE 37, AGREE (refusal discharged) 3, BASIN_DRIFT 2, REFUSED 1, UNVERIFIED 3
+- all paired children: AGREE 77, AGREE (refusal discharged) 5, BASIN_DRIFT 3, REFUSED 1, UNVERIFIED 3
+- `runs/s3/` only: AGREE 37, AGREE (refusal discharged) 3, BASIN_DRIFT 3, REFUSED 1, UNVERIFIED 3
 
 ## The branch split
 
 - **|dmagtot| <= 0.01**: n = 66, |dE| from 0.0000 to 0.0439 meV
 - **0.01 < |dmagtot| < 0.18**: n = 3, |dE| from 0.0903 to 20.6158 meV
-- **|dmagtot| >= 0.18**: n = 8, |dE| from 3.3841 to 747.4494 meV
+- **|dmagtot| >= 0.18**: n = 9, |dE| from 3.3841 to 747.4494 meV
 
 ## Every non-AGREE row
 
 | family | child | attempt | dE (meV) | dmagtot | verdict | discharged |
 |---|---|---|---|---|---|---|
 | `s3/Fe` | `s0_OOH__1x1_off__g1.out` | first (cold) | -384.300 | -1.480 | **BASIN_DRIFT** | - |
+| `s3/Co` | `s0_O__1x1_off__g1.fromparent.out` | second (fromparent) | -77.009 | -0.450 | **BASIN_DRIFT** | - |
 | `s3/Mn` | `s0_OOH__2x1v_off__g1.out` | first (cold) | -20.616 | -0.180 | **BASIN_DRIFT** | - |
 | `s3/Fe` | `s0_OOH__1x1_off__basin__g1.out` | first (cold) | +7.395 | +4.000 | **REFUSED** | **yes** |
 | `probe/Cr_lit3` | `oosh__1x1_off_magp__g1.out` | first (cold) | +8.291 | +3.900 | **REFUSED** | **yes** |
