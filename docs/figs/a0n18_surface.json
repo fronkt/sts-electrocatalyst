@@ -1,0 +1,651 @@
+{
+  "artifact": "a11_r9 -- the n=18 robustness surface across the common U grid",
+  "binding": "CONFIRMATORY-INELIGIBLE. Scores nothing; cites as no registered test; cannot move A7.2 or A7.3. A7.2 stays CONFIRMED 5 of 6; A7.3 stays NOT MET at 3 of 6 at denominator 6.",
+  "distribution": {
+    "n_rungs_nominal_p_below_0.05": 0,
+    "out_of_sample_only": {
+      "n_nominal_p_below_0.05": 0,
+      "n_rungs": 4,
+      "rho_max": -0.34984520123839,
+      "rho_median": -0.391124871001032,
+      "rho_min": -0.413828689370485
+    },
+    "rho_max": -0.34984520123839,
+    "rho_median": -0.3869969040247678,
+    "rho_min": -0.413828689370485,
+    "sign_holds_across_grid": true,
+    "signs": {
+      "negative": 5,
+      "positive": 0,
+      "zero": 0
+    }
+  },
+  "grid": {
+    "n_rungs": 5,
+    "out_of_sample_rungs": [
+      "u150",
+      "u600",
+      "u750",
+      "u900"
+    ],
+    "posthoc_rung": "u000",
+    "rule": "every U token banked for ALL SIX metals and no other; rungs present for one metal only (Mn u390, Fe u530, Ir u591, Ru u673) and Cr's finer ladder are excluded because a rung missing a metal is not an n=18 test",
+    "rungs": [
+      "u000",
+      "u150",
+      "u600",
+      "u750",
+      "u900"
+    ]
+  },
+  "multiplicity": "5 tests at alpha=0.05 give a 23% chance of at least one nominal hit under the null IF they were independent. They are not: the predictor varies smoothly in U, so that figure is an UPPER BOUND and the effective number of tests is smaller than 5.",
+  "p_is_nominal": "the three steps of one metal share that metal's slab reference and are not independent; every p here is NOMINAL, carried from A11.R7 unchanged",
+  "pooling_refused": "the 7 x 18 = 126 pairs are NEVER pooled: span_U is one number per (metal, step), so pooling repeats the response seven times against seven correlated predictors and the p falls for an arithmetic reason. No pooled n=126 statistic is computed here.",
+  "registered": "docs/43 A11.R9, commit 01a76df (no script, no result in it)",
+  "registered_reading": "A sign that FLIPS across the grid would mean the u000 result carries no information about U-robustness and the report must say so. A sign that HOLDS at every rung with comparable magnitude is consistent with A11.R7 and adds nothing to it -- the tracker still fails to explain the A7.3 split, at every U. NEITHER outcome can rescue the valence explanation: R7-P3 and R8-P1 are separation tests, this is a correlation surface, and a correlation among 18 heterogeneous (metal, step) pairs is not a mechanism.",
+  "rungs": [
+    {
+      "method": "sampled (200000 permutations, seed 20260903)",
+      "n": 18,
+      "p_nominal": 0.12087939560302198,
+      "pairs": [
+        {
+          "abs_dq_step": 0.060699999999999754,
+          "metal": "Cr",
+          "span_dG_eV": 1.0518649789628398,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.0508999999999995,
+          "metal": "Cr",
+          "span_dG_eV": 2.0266484001695058,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.01100000000000012,
+          "metal": "Cr",
+          "span_dG_eV": 2.713596988702193,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.008600000000000385,
+          "metal": "Mn",
+          "span_dG_eV": 1.5695368398955907,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.04290000000000038,
+          "metal": "Mn",
+          "span_dG_eV": 0.8335206796800776,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.036000000000000476,
+          "metal": "Mn",
+          "span_dG_eV": 2.0949638098463765,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.06590000000000007,
+          "metal": "Fe",
+          "span_dG_eV": 1.2766549753650906,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 9.999999999976694e-05,
+          "metal": "Fe",
+          "span_dG_eV": 0.45717795606469736,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.07359999999999989,
+          "metal": "Fe",
+          "span_dG_eV": 1.661225333737093,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.02389999999999981,
+          "metal": "Ti",
+          "span_dG_eV": 0.09233966231477098,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.0798000000000001,
+          "metal": "Ti",
+          "span_dG_eV": 0.2458849432914576,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.07020000000000026,
+          "metal": "Ti",
+          "span_dG_eV": 0.33339676145624253,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.17900000000000027,
+          "metal": "Ru",
+          "span_dG_eV": 0.45472158422126085,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.13539999999999974,
+          "metal": "Ru",
+          "span_dG_eV": 0.35660807392196103,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.2049000000000003,
+          "metal": "Ru",
+          "span_dG_eV": 0.5411044019674587,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.17359999999999953,
+          "metal": "Ir",
+          "span_dG_eV": 0.4028406273246219,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.1565000000000003,
+          "metal": "Ir",
+          "span_dG_eV": 0.3424167917692098,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.17300000000000004,
+          "metal": "Ir",
+          "span_dG_eV": 0.4698381895614143,
+          "step": 3
+        }
+      ],
+      "rho": -0.3808049535603715,
+      "seen_before": true,
+      "u": "u000"
+    },
+    {
+      "method": "sampled (200000 permutations, seed 20260903)",
+      "n": 18,
+      "p_nominal": 0.11497942510287448,
+      "pairs": [
+        {
+          "abs_dq_step": 0.0602999999999998,
+          "metal": "Cr",
+          "span_dG_eV": 1.0518649789628398,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.05630000000000024,
+          "metal": "Cr",
+          "span_dG_eV": 2.0266484001695058,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.012299999999999756,
+          "metal": "Cr",
+          "span_dG_eV": 2.713596988702193,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.011700000000000266,
+          "metal": "Mn",
+          "span_dG_eV": 1.5695368398955907,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.04520000000000035,
+          "metal": "Mn",
+          "span_dG_eV": 0.8335206796800776,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.03670000000000062,
+          "metal": "Mn",
+          "span_dG_eV": 2.0949638098463765,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.001000000000000334,
+          "metal": "Fe",
+          "span_dG_eV": 1.2766549753650906,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.11979999999999968,
+          "metal": "Fe",
+          "span_dG_eV": 0.45717795606469736,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.1440999999999999,
+          "metal": "Fe",
+          "span_dG_eV": 1.661225333737093,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.02320000000000011,
+          "metal": "Ti",
+          "span_dG_eV": 0.09233966231477098,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.0815999999999999,
+          "metal": "Ti",
+          "span_dG_eV": 0.2458849432914576,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.07299999999999995,
+          "metal": "Ti",
+          "span_dG_eV": 0.33339676145624253,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.18069999999999986,
+          "metal": "Ru",
+          "span_dG_eV": 0.45472158422126085,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.14229999999999965,
+          "metal": "Ru",
+          "span_dG_eV": 0.35660807392196103,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.2138,
+          "metal": "Ru",
+          "span_dG_eV": 0.5411044019674587,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.16959999999999997,
+          "metal": "Ir",
+          "span_dG_eV": 0.4028406273246219,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.15629999999999988,
+          "metal": "Ir",
+          "span_dG_eV": 0.3424167917692098,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.17220000000000013,
+          "metal": "Ir",
+          "span_dG_eV": 0.4698381895614143,
+          "step": 3
+        }
+      ],
+      "rho": -0.3869969040247678,
+      "seen_before": false,
+      "u": "u150"
+    },
+    {
+      "method": "sampled (200000 permutations, seed 20260903)",
+      "n": 18,
+      "p_nominal": 0.08994955025224874,
+      "pairs": [
+        {
+          "abs_dq_step": 0.028900000000000148,
+          "metal": "Cr",
+          "span_dG_eV": 1.0518649789628398,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.03620000000000001,
+          "metal": "Cr",
+          "span_dG_eV": 2.0266484001695058,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.005399999999999849,
+          "metal": "Cr",
+          "span_dG_eV": 2.713596988702193,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.02119999999999944,
+          "metal": "Mn",
+          "span_dG_eV": 1.5695368398955907,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.043999999999999595,
+          "metal": "Mn",
+          "span_dG_eV": 0.8335206796800776,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.026399999999999757,
+          "metal": "Mn",
+          "span_dG_eV": 2.0949638098463765,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.0506000000000002,
+          "metal": "Fe",
+          "span_dG_eV": 1.2766549753650906,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.006099999999999994,
+          "metal": "Fe",
+          "span_dG_eV": 0.45717795606469736,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.04600000000000026,
+          "metal": "Fe",
+          "span_dG_eV": 1.661225333737093,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.01970000000000005,
+          "metal": "Ti",
+          "span_dG_eV": 0.09233966231477098,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.08479999999999999,
+          "metal": "Ti",
+          "span_dG_eV": 0.2458849432914576,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.08099999999999996,
+          "metal": "Ti",
+          "span_dG_eV": 0.33339676145624253,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.19860000000000078,
+          "metal": "Ru",
+          "span_dG_eV": 0.45472158422126085,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.13009999999999966,
+          "metal": "Ru",
+          "span_dG_eV": 0.35660807392196103,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.21750000000000025,
+          "metal": "Ru",
+          "span_dG_eV": 0.5411044019674587,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.13350000000000062,
+          "metal": "Ir",
+          "span_dG_eV": 0.4028406273246219,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.14969999999999928,
+          "metal": "Ir",
+          "span_dG_eV": 0.3424167917692098,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.16279999999999983,
+          "metal": "Ir",
+          "span_dG_eV": 0.4698381895614143,
+          "step": 3
+        }
+      ],
+      "rho": -0.413828689370485,
+      "seen_before": false,
+      "u": "u600"
+    },
+    {
+      "method": "sampled (200000 permutations, seed 20260903)",
+      "n": 18,
+      "p_nominal": 0.10657946710266449,
+      "pairs": [
+        {
+          "abs_dq_step": 0.011400000000000077,
+          "metal": "Cr",
+          "span_dG_eV": 1.0518649789628398,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.029499999999999638,
+          "metal": "Cr",
+          "span_dG_eV": 2.0266484001695058,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.012599999999999945,
+          "metal": "Cr",
+          "span_dG_eV": 2.713596988702193,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.021300000000000097,
+          "metal": "Mn",
+          "span_dG_eV": 1.5695368398955907,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.03939999999999966,
+          "metal": "Mn",
+          "span_dG_eV": 0.8335206796800776,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.019899999999999807,
+          "metal": "Mn",
+          "span_dG_eV": 2.0949638098463765,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.050799999999999734,
+          "metal": "Fe",
+          "span_dG_eV": 1.2766549753650906,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.0035999999999996035,
+          "metal": "Fe",
+          "span_dG_eV": 0.45717795606469736,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.04770000000000074,
+          "metal": "Fe",
+          "span_dG_eV": 1.661225333737093,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.016699999999999937,
+          "metal": "Ti",
+          "span_dG_eV": 0.09233966231477098,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.08440000000000003,
+          "metal": "Ti",
+          "span_dG_eV": 0.2458849432914576,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.08360000000000012,
+          "metal": "Ti",
+          "span_dG_eV": 0.33339676145624253,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.20920000000000005,
+          "metal": "Ru",
+          "span_dG_eV": 0.45472158422126085,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.11350000000000016,
+          "metal": "Ru",
+          "span_dG_eV": 0.35660807392196103,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.21480000000000032,
+          "metal": "Ru",
+          "span_dG_eV": 0.5411044019674587,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.11629999999999985,
+          "metal": "Ir",
+          "span_dG_eV": 0.4028406273246219,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.14529999999999976,
+          "metal": "Ir",
+          "span_dG_eV": 0.3424167917692098,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.15799999999999947,
+          "metal": "Ir",
+          "span_dG_eV": 0.4698381895614143,
+          "step": 3
+        }
+      ],
+      "rho": -0.39525283797729616,
+      "seen_before": false,
+      "u": "u750"
+    },
+    {
+      "method": "sampled (200000 permutations, seed 20260903)",
+      "n": 18,
+      "p_nominal": 0.15561422192889035,
+      "pairs": [
+        {
+          "abs_dq_step": 0.0022999999999999687,
+          "metal": "Cr",
+          "span_dG_eV": 1.0518649789628398,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.032399999999999984,
+          "metal": "Cr",
+          "span_dG_eV": 2.0266484001695058,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.02659999999999929,
+          "metal": "Cr",
+          "span_dG_eV": 2.713596988702193,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.020999999999999908,
+          "metal": "Mn",
+          "span_dG_eV": 1.5695368398955907,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.03370000000000051,
+          "metal": "Mn",
+          "span_dG_eV": 0.8335206796800776,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.014300000000000423,
+          "metal": "Mn",
+          "span_dG_eV": 2.0949638098463765,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.052400000000000446,
+          "metal": "Fe",
+          "span_dG_eV": 1.2766549753650906,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.000700000000000145,
+          "metal": "Fe",
+          "span_dG_eV": 0.45717795606469736,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.054400000000000226,
+          "metal": "Fe",
+          "span_dG_eV": 1.661225333737093,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.011600000000000055,
+          "metal": "Ti",
+          "span_dG_eV": 0.09233966231477098,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.08230000000000004,
+          "metal": "Ti",
+          "span_dG_eV": 0.2458849432914576,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.08499999999999996,
+          "metal": "Ti",
+          "span_dG_eV": 0.33339676145624253,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.22380000000000067,
+          "metal": "Ru",
+          "span_dG_eV": 0.45472158422126085,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.08789999999999942,
+          "metal": "Ru",
+          "span_dG_eV": 0.35660807392196103,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.2120999999999995,
+          "metal": "Ru",
+          "span_dG_eV": 0.5411044019674587,
+          "step": 3
+        },
+        {
+          "abs_dq_step": 0.09799999999999986,
+          "metal": "Ir",
+          "span_dG_eV": 0.4028406273246219,
+          "step": 1
+        },
+        {
+          "abs_dq_step": 0.13970000000000038,
+          "metal": "Ir",
+          "span_dG_eV": 0.3424167917692098,
+          "step": 2
+        },
+        {
+          "abs_dq_step": 0.15120000000000022,
+          "metal": "Ir",
+          "span_dG_eV": 0.4698381895614143,
+          "step": 3
+        }
+      ],
+      "rho": -0.34984520123839,
+      "seen_before": false,
+      "u": "u900"
+    }
+  ],
+  "seen_before_context": {
+    "u000_a11r7_posthoc": {
+      "note": "all-six post-hoc figure, already reported",
+      "p": 0.1209,
+      "rho": -0.3808
+    },
+    "u000_a11r8_nspin2": {
+      "note": "R8-P2, REPORTED NEVER SCORED, not promoted here",
+      "p_nominal": 0.2046,
+      "rho": -0.3148
+    }
+  },
+  "zero_su": true
+}

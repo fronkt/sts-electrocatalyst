@@ -3084,3 +3084,22 @@ its post-hoc rung named.
 
 Owed from the entrant. If declined, the readout is withdrawn and this section stands as the
 record of what was registered and not used.
+
+### Correction to this section, same day, before the result was quoted anywhere
+
+**[A11.R9 GRID CORRECTED 2026-09-03: FIVE RUNGS, NOT SEVEN]** — the registration above states
+*"exactly seven rungs"* and names u000, u150, u300, u450, u600, u750, u900. **That was wrong when
+written.** It was derived from the *union* of the three step states per metal rather than their
+*intersection*, and the rule as registered requires all three — a rung missing a state is not an
+n = 18 test.
+
+**Measured:** **Fe has no `s0_O` at u300 or u450** (`docs/figs/a0lowdin_valence.json`,
+`per_metal.Fe.dq_d`), while Ti, Ru, Ir and Mn all do. Both rungs therefore leave the common grid.
+The correct grid is **five rungs: u000, u150, u600, u750, u900** — one post-hoc and **four
+out-of-sample**, not six.
+
+**Nothing else moves.** The rule itself is unchanged and was applied as written; the script's own
+guard raised on the discrepancy rather than reporting a short rung, which is why this was caught
+before a number was quoted. The registered reading, the anti-selection clause, the pooling
+refusal and the binding are all unaffected. The out-of-sample claim weakens from six rungs to
+four and is restated at four here.
