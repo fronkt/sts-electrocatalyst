@@ -69,8 +69,15 @@ Parse pw.x output. The traps are in §4; the hard requirements:
   header plus **six** contribution blocks printed in the identical `atom N type M force =`
   format. A regex sweep of the whole file reads `7 × nat` lines and silently inflates every count.
 - **Normalise CRLF/LF before any content comparison.**
-- **Never shell out to `grep`.** One corpus file contains a NUL byte and `grep` skips it silently
-  — a zero-line answer that looks like a clean negative.
+- **Never shell out to `grep`.** One corpus file contains a NUL byte. **[REASON CORRECTED
+  2026-09-03 — the instruction stands, its stated mechanism was wrong, and wrong in the
+  dangerous direction.]** `grep` does **not** skip the file and does **not** return a clean
+  zero: on `runs/probe/Cr/s0_OOH__base.out`, `grep -c force` returns **13** and `grep -l` names
+  the file. What it does is detect binary, **suppress the matching lines**, and print
+  `Binary file ... matches` instead. So `-c` and `-l` are *reliable* here — the original wording
+  would teach an auditor to distrust exactly the file-list evidence that still works — while
+  `-n`, `-o`, any content read, and **anything piped downstream** lose the lines. A second
+  `grep` in a pipe needs its own `-a`; that is where a false negative is actually manufactured.
 - **Two S2 readers are core too** (`docs/43:1828`): a per-step total-energy reader over the
   680-file ladder (for `span_U`, A9.3.3) and a per-deck reader returning `tot_magnetization`,
   `nspin`, `U`, `forc_conv_thr` (A9.3.2).
@@ -151,15 +158,30 @@ exits fatally naming "not the registered N".
 
 These are the failure modes an obvious implementation walks into. Each is measured.
 
-1. **The exact-zero token is `-0.00000000`, not `0.00000000`.** Measured this date: the negative
-   form appears in **263 of 1,042** `.out` files in `runs/`. A string comparison against
-   `"0.00000000"` misses all of them. Parse to float, or match both spellings.
-2. **`(no inversion)` is not a safe anchor** — anchoring the header read on it misses 32 of 173
-   files in the fixture corpus.
+1. **The exact-zero token is `-0.00000000`, not `0.00000000`.** A string comparison against
+   `"0.00000000"` misses it. Parse to float, or match both spellings. **[COUNT CORRECTED
+   2026-09-03: 196, NOT 263.]** The negative form appears in **196 of the 1,042** `.out` files
+   under `runs/` (`grep -arl --include='*.out' -e '-0.00000000' runs`). The 263 first recorded
+   here is the count over **all file types**, not `.out` files, so pairing it with 1,042 — which
+   *is* the `.out` count — was a category error. It reproduces only under
+   `grep -arl -- "-0.00000000" runs --include='*.out'`, where the `--` ends option parsing and
+   demotes `--include` to a path operand, so the filter silently applies to nothing. **That
+   malformed form is itself a trap worth keeping:** it looks like a filtered count and is not.
+2. **`(no inversion)` is not a safe anchor** — anchoring the header read on it misses **32 of the
+   173** header-bearing files. **[CORPUS CORRECTED 2026-09-03: the 515 git-tracked outputs, NOT
+   "the fixture corpus".]** The 32/173 is docs/45:1898-1913's census over all 515 tracked outputs
+   (header forms 128 + 21 + 13 + 11 = 173; the 32 missed are the two `, with inversion, found`
+   spellings). `tests/silentgate/fixtures/` holds three files, all generators, and exhibits none
+   of this. Over all `.out` under `runs/` the same anchor misses **33 of 360** — a different
+   population with a nearly identical ratio, which is exactly how the two get conflated.
 3. **Contribution blocks masquerade as force blocks** — 11 files, 6 decoys each, identical format.
-4. **One file contains a NUL byte.** Verified: `runs/probe/Cr/s0_OOH__base.out` — 1 NUL,
-   **0** `Forces acting on atoms` headers, **10** force lines, `nat = 21`, and the surviving block
-   starts at atom 12. Read bytes, not `grep`.
+4. **One file contains a NUL byte.** Re-verified 2026-09-03 by byte read: `runs/probe/Cr/
+   s0_OOH__base.out` is 84,708 bytes with **exactly 1** NUL at offset 81,105, **0**
+   `Forces acting on atoms` headers, **10** per-atom force lines (atoms 12–21), `nat = 21`, and
+   the surviving block starts at atom 12. Read bytes, not `grep` — but see the corrected reason
+   above. **Note the 10 against trap 3:** a naive sweep for `force =` returns **11** lines here,
+   because QE's `Total force =` trailer matches the same substring. The eleventh line is not an
+   atom row, and a reader that counts it will be off by one on every truncated file.
 5. **`docs/43:1834`'s if_pos rationale is FALSE, and the ruling is owed.** It states "pw.x prints
    the if_pos-masked force, so a fixed coordinate reads exactly zero for a reason that is not
    symmetry." Re-measured over **49 frozen atoms across five metals, every ionic step, 704
