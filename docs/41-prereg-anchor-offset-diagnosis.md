@@ -1059,3 +1059,89 @@ count, the deck's `nosym` state, max|F_y|, and the class.
   are stated as *movements* of ≥ 0.30 eV precisely so they do not depend on the exact
   centre of either literature band.
 - Nothing here touches the melt list, which remains unfrozen and Frank's decision.
+
+## Correction of record — 2026-09-03: the RuO₂ antiferromagnetism premise is refuted, and this document asserted it as fact
+
+**This document is a pre-registration and is not rewritten.** The paragraphs corrected below stand
+as written; this section is the correction of record, in the same discipline as every other dated
+correction in this campaign. Nothing in §§1–7 above has been edited.
+
+### What this document asserted
+
+Three places, all resting on one 2017 citation:
+
+- **`:268-271`** — "**And the literature names the fix, in Ru's exact coordinate.** RuO₂ is
+  **antiferromagnetic** — Berlijn et al., PRL 118, 077201 (2017), itinerant AFM from neutron
+  diffraction."
+- **`:275-277`** — of `qe_slab.py:44-48`'s comment *"RuO2/IrO2 are 4d/5d rutile metals, itinerant
+  and non-magnetic"*: "**For RuO₂ that is factually wrong**, and it is the single best-supported
+  candidate for the descriptor deficit §2 localised."
+- **`:512-515`** — "it does not make `qe_slab.py:44-48`'s 'itinerant and non-magnetic' comment
+  correct — RuO₂ is still experimentally AFM."
+
+The same premise is asserted in deck-generating code at `src/dft/probe_decks.py:250-253`.
+
+### What the literature says now — three sources, each opened and read this session
+
+| source | what it measures | result |
+|---|---|---|
+| Hiraishi, Okabe, Koda, Kadono, Muroi, Hirai & Hiroi, **PRL 132, 166702 (2024)**, arXiv:2403.10028 | μSR on **single-crystal** RuO₂, 5–400 K; muon sites computed from first principles (dilute H as pseudo-hydrogen) to rule out accidental cancellation of B_loc | no spontaneous internal field; upper limit **\|m_Ru\| ≤ 4.8(2)×10⁻⁴ μ_B**. Verbatim: "*These results indicate that the AFM order, as reported, is unlikely to exist in the bulk crystal.*" |
+| Keßler, Garcia-Gassull, Suter, Prokscha, Salman, Khalyavin, Manuel, Orlandi, Mazin, Valentí & Moser, **arXiv:2405.10820** | μSR **and** neutron diffraction, bulk crystals and epitaxial films | **bulk ≤ 1.4×10⁻⁴ μ_B/Ru**, films ≤ 7.5×10⁻⁴ μ_B/Ru; the earlier neutron peak attributed to **multiple scattering** |
+| Smolyanyuk, Mazin, Garcia-Gassull & Valentí, **PRB 109, 134424 (2024)**, arXiv:2310.06909 | DFT+U survey of where RuO₂'s magnetism comes from | stoichiometric RuO₂'s electronic properties are described by a **smaller U than the U required to have magnetism**; Ru vacancies can aid a magnetic state |
+
+Against the ≈ 0.05 μ_B that diffraction suggested and that Hiraishi's abstract names explicitly,
+those bounds are **104× (Hiraishi), 357× (Keßler bulk) and 67× (Keßler films)** below it.
+
+### The correction
+
+1. **The sentence "RuO₂ is antiferromagnetic … for RuO₂ that is factually wrong" is WITHDRAWN.**
+   For the **bulk**, `qe_slab.py`'s "itinerant and non-magnetic" — the comment this document
+   rebuked — is the reading the 2024 measurements support. The rebuke was wrong, not the comment.
+2. **Scope, stated so the correction does not over-claim in the other direction.** What is refuted
+   is **bulk long-range order**. Surface moments on a (110) slab are a separate question and are
+   *not* excluded by a bulk μSR bound. Any sentence in the report saying "RuO₂ is non-magnetic"
+   must carry "in the bulk"; the campaign's production convention for Ru (nspin = 1, U = 0) is a
+   **modelling choice that the bulk evidence supports**, not a measured surface fact.
+3. **Liang, Bieberle-Hütter & Brocks, JPCC 126, 1337 (2022) is downgraded, not withdrawn.** Its
+   0.41–0.49 V is a calculation on an AFM ordering that the bulk evidence now excludes. This
+   document used it as "the literature names the fix"; it is demoted to *a hypothesis about
+   surface magnetism*, and the ~0.3 eV it attributes to the moment on the bare/\*OH/\*OOH cus Ru
+   can no longer be cited as a known mechanism for the descriptor deficit.
+4. **No measurement in this campaign changes.** Every P7 and S0(h) number stands: they are
+   measurements of what a magnetic SCF solution does to adsorption energies at this protocol, and
+   that is true regardless of which solution nature picks. What changes is their **label**.
+
+### What this does to gate (h) — and it strengthens the campaign
+
+Gate (h) returned **4/4 ADOPT_AFM** on the RuO₂ anchors: the AFM solution sits **80–144 meV below**
+the NM one under this campaign's Hamiltonian, and adsorption energies move **33–64 meV** when the
+anchor is AFM (docs/43:1638-1644). Read with the 2024 measurements, that is no longer an
+adoption of the experimental ground state. It is **an in-house instance of this campaign's own
+thesis, with a literature-verified ground truth**: the electronic-structure method prefers, by
+80–144 meV, a magnetic state that experiment excludes at 10⁻⁴ μ_B — two to three orders of
+magnitude below the moment that solution carries — and the answer moves 33–64 meV because of it.
+Smolyanyuk 2024 supplies the mechanism: the U that makes RuO₂ magnetic in DFT+U is larger than
+the U its electronic properties want.
+
+This is the strongest single example the campaign has of a **silent premise error with an
+independent experimental check**, and it is on the benchmark anchor rather than on a proxy.
+
+### Two things this correction does NOT decide
+
+- **The four gate-(h) 2×1v AFM relaxations remain on HOLD** (0 built; docs/43:1645 ADOPTION NOTE,
+  scope resolved 2026-08-30 as STANDALONE_FOUR). Their *justification* has changed — they would
+  relax into a state the bulk evidence excludes — so they are now a **sensitivity arm**, not a
+  ground-state adoption. Whether that changes the entrant's launch decision is a dated line he
+  owes; this correction supplies the new information and decides nothing.
+- **A post-hoc observation, flagged as post-hoc and registered against nothing.** A11.R6's result
+  — 0 of 16 spin-polarised Ru SCFs converging at U = 9 across three mixing settings, while the
+  nspin = 1 twins converge in 25 iterations at 5.9e-7 Ry (docs/68 §2, §11) — is *consistent* with
+  Smolyanyuk's picture of RuO₂ magnetism as a high-U artifact. It was observed after the fact, no
+  prediction scores it, and it is recorded here as an observation only.
+
+### Provenance
+
+Surfaced by the docs/70 ideation round as hole H-1 (`docs/70:96-114`). The three sources above were
+opened and their abstracts read in this session before this section was written; the 104× / 357× /
+67× ratios were computed here from the bounds each abstract states against the 0.05 μ_B that
+Hiraishi's abstract names. Ledger row: docs/45 §A row 6 and the dated section beneath it.

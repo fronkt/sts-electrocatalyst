@@ -257,6 +257,25 @@ def parse_variant(v: str):
             # NOT on the already-low-spin *O one, raising dG(*O) by up to ~0.3 eV.
             # That is this campaign's exact signature (0.787 V, pls 3, nspin 1) and
             # the exact coordinate Ru's descriptor is short in.
+            #
+            # [CORRECTION OF RECORD 2026-09-03 -- the premise above is REFUTED for
+            # the bulk; the paragraph is kept verbatim because it is the record of
+            # why these decks were built, not because it is true.  Two 2024 muSR
+            # studies bound any ordered moment in RuO2 at 4.8(2)e-4 muB (Hiraishi
+            # et al., PRL 132, 166702 (2024), arXiv:2403.10028) and 1.4e-4 muB in
+            # bulk / 7.5e-4 muB in films (Kessler et al., arXiv:2405.10820, which
+            # re-assigns Berlijn's neutron peak to multiple scattering) -- 67x to
+            # 357x below the ~0.05 muB diffraction value.  Smolyanyuk/Mazin/
+            # Garcia-Gassull/Valenti, PRB 109, 134424 (2024), arXiv:2310.06909,
+            # add that stoichiometric RuO2 needs a LARGER U to be magnetic than
+            # its electronic properties want.  Scope: BULK long-range order only;
+            # surface moments on (110) are not excluded.  qe_slab.py's "itinerant
+            # and non-magnetic" comment, which this block rebukes, is the reading
+            # the bulk evidence supports.  Full correction: docs/41 "Correction of
+            # record -- 2026-09-03"; docs/45 SA row 6.  NOTHING BELOW CHANGES: the
+            # spin variant still emits exactly the decks it always did, and every
+            # banked probe number stands as a measurement of what a magnetic SCF
+            # solution does to adsorption energies.]
             spec["spin"] = float(tok[4:]) if len(tok) > 4 else 0.5
         elif tok.startswith("vac"):
             spec["vac"] = float(tok[3:])

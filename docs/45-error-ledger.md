@@ -22,6 +22,7 @@ deposit. This ledger tracks what exists and what is owed.
 | 3 | Estimator bias (η = max − mean exactly, ≥0 by construction, under imposed 4.92 eV) | exact identity; excess vanishes at pls crossing; Cr production U 7 meV from a crossing | MEASURED (algebraic + curves) | LIT-1 ladder; round-2 §6 item 4 | **P-PLS (A7.2) SCORED 2026-08-29: CONFIRMED, 5 of 6 metals flip (Cr, Fe, Ir, Mn, Ru); Ti flat. Robustness banked: Fe and Ru rest on a SINGLE row each, inside a measured error class, so the >=3 threshold is carried by exactly 3 robust members (Cr, Ir, Mn) with zero margin** | S6 |
 | 4 | Projector pairing (atomic vs ortho-atomic at same U) | +1.45 eV in U value; **η consequence MEASURED: 0.4869 V at Xu's Cr U** | **MEASURED — docs/figs/pproj_readout.json verdict FIRES; the A0 readout uses it to stamp PROJECTOR-MISMATCHED on every Xu-anchor row and exclude them from the A6.3 test (a0main_readout.py)** | build history; Xu Table 1; pproj_readout.json | P-PROJ (A7) FIRED | S0(e) |
 | 5 | Convergence-failure selection (unconverged states silently dropped) | Co *OOH 4 failures, Ni *OOH 5 | MEASURED as counts; rate now a registered budget row | run logs | A8 (owed) | S3 |
+| 6 | **Literature-premise reversal** (a cited *experimental* ground state is overturned after the premise is baked into decks and prose) | RuO2 bulk ordered moment: asserted ~0.05 muB (Berlijn 2017, neutron); measured **<=4.8(2)e-4 muB** (Hiraishi, PRL 132, 166702 (2024), muSR) and **<=1.4e-4 muB bulk** (Kessler, arXiv:2405.10820, muSR+neutron, re-assigning the neutron peak to multiple scattering) -- **67-357x below**. Consequence measured in-house: gate (h) puts AFM **80-144 meV below NM** and moves adsorption energies **33-64 meV** (docs/43:1638-1644) | **MEASURED (literature) + MEASURED (in-house consequence)**; scope = BULK long-range order, surface (110) moments NOT excluded | Hiraishi arXiv:2403.10028; Kessler arXiv:2405.10820; Smolyanyuk PRB 109, 134424 (2024) | docs/41 "Correction of record -- 2026-09-03" (rebuke of `qe_slab.py:44-48` WITHDRAWN; Liang 2022 downgraded to hypothesis); gate-(h) relaxations remain HOLD, now as a **sensitivity arm** -- entrant's dated line owed | S0(h) + the report |
 
 ## B. Known-but-unpriced errors (the field knows; nobody prices them)
 
@@ -2637,3 +2638,78 @@ anything was changed. Corrected in place with a dated note (docs/68 §8, docs/70
   across three runs, all assertions PASS, and the arithmetic was right — the error lived
   entirely in what the number was *called*. Verification that only re-runs the pipeline
   cannot see this class; only a reader comparing two documents can.
+
+## Correction of record, 2026-09-03: the RuO₂ magnetic ground state — the literature reversed in 2024 and this repo still asserted the 2017 claim as fact
+
+**The error.** In three places — `docs/41:268-271`, `docs/41:275-277`, `docs/41:512-515` — and in
+**deck-generating code** at `src/dft/probe_decks.py:250-253`, the campaign asserted as established
+fact that RuO₂ is an itinerant antiferromagnet, on Berlijn et al., PRL 118, 077201 (2017). docs/41
+went further and used the premise to call `qe_slab.py:44-48`'s "itinerant and non-magnetic" comment
+**"factually wrong"**. A grep for `altermagnet|muSR|Hiraishi|Kessler|Smolyanyuk` across `docs/`
+returned exactly one hit before today — `docs/68:311`, a *prohibition* on discussing altermagnetism,
+not a citation. The 2024 reversal was absent from the record for roughly two years of literature.
+
+**What the measurements say.** Three sources, each opened and its abstract read on 2026-09-03
+before this row was written:
+
+| source | bound on the ordered Ru moment | vs the ≈ 0.05 μ_B diffraction value |
+|---|---|---|
+| Hiraishi et al., **PRL 132, 166702 (2024)** (arXiv:2403.10028), μSR on single crystals, 5–400 K, muon sites computed to exclude accidental cancellation | **≤ 4.8(2)×10⁻⁴ μ_B** | **104× below** |
+| Keßler et al., **arXiv:2405.10820**, μSR **+** neutron diffraction | **≤ 1.4×10⁻⁴ μ_B** (bulk), ≤ 7.5×10⁻⁴ μ_B (films); prior neutron peak re-assigned to **multiple scattering** | **357× / 67× below** |
+| Smolyanyuk, Mazin, Garcia-Gassull & Valentí, **PRB 109, 134424 (2024)** (arXiv:2310.06909), DFT+U | stoichiometric RuO₂ is described by a **smaller U than the U required to have magnetism**; Ru vacancies aid a magnetic state | supplies the mechanism |
+
+Hiraishi's verbatim conclusion: "*the AFM order, as reported, is unlikely to exist in the bulk
+crystal.*"
+
+**Scope, so the correction does not over-claim in the other direction.** What is refuted is **bulk
+long-range order**. Surface moments on a (110) slab are a different question and a bulk μSR bound
+does not exclude them. Every sentence in the report reading "RuO₂ is non-magnetic" must carry
+"in the bulk".
+
+**What changes.** docs/41's "for RuO₂ that is factually wrong" is **WITHDRAWN** — the code comment
+it rebuked is the reading the bulk evidence supports. Liang, Bieberle-Hütter & Brocks, JPCC 126,
+1337 (2022) is **downgraded from mechanism to hypothesis**: its 0.41–0.49 V rests on an AFM
+ordering the bulk evidence excludes, so its ~0.3 eV can no longer be cited as the known cause of
+the Ru descriptor deficit. The production convention for Ru — nspin = 1, U = 0 — is **unchanged and
+better supported than when it was chosen**.
+
+**What does not change.** No banked number moves. Every P7 and S0(h) energy is a measurement of
+what a magnetic SCF solution does to adsorption energies at this protocol, and that stays true
+whichever solution nature picks. The `spin` deck variant emits byte-identical decks: the two code
+edits made today are **comment-only, 28 inserted lines and 0 deleted**, verified by
+`git diff --unified=0 | grep -vc '^+\s*#'` returning 0 and by the full suite at 293 passed / 8
+skipped.
+
+**And it strengthens the campaign.** Gate (h) returned **4/4 ADOPT_AFM** on the RuO₂ anchors — the
+AFM solution **80–144 meV below** NM under this campaign's Hamiltonian — and adsorption energies
+move **33–64 meV** when the anchor is AFM (docs/43:1638-1644). That is no longer an adoption of an
+experimental ground state. It is **the campaign's own thesis instantiated on its benchmark anchor,
+with an independent experimental check**: the method prefers, by 80–144 meV, a magnetic state that
+experiment excludes at the 10⁻⁴ μ_B level, and the answer moves 33–64 meV because of it. It is the
+strongest silent-premise example in the ledger, and it is not on a proxy.
+
+**Open, and the entrant's to write.** The four gate-(h) 2×1v AFM relaxations stay on HOLD
+(0 built; scope resolved 2026-08-30 as STANDALONE_FOUR). Their justification has changed — they
+would relax into a state the bulk evidence excludes — so they are now a **sensitivity arm** rather
+than a ground-state adoption. This row supplies the new information and decides nothing.
+
+**Flagged post-hoc, registered against nothing.** A11.R6's 0-of-16 non-convergence of spin-polarised
+Ru at U = 9, against nspin = 1 twins converging in 25 iterations (docs/68 §2, §11), is *consistent*
+with Smolyanyuk's high-U-artifact picture. Observed after the fact; no prediction scores it.
+
+**Rules.**
+
+- **A cited experimental fact has a shelf life, and a pre-registration freezes the citation, not
+  the world.** This premise was three years old at deposit and two years stale at the time of
+  writing. **Any load-bearing experimental claim in the report gets a re-check of its citing
+  literature before submission** — not a re-read of the original paper, which will not have
+  changed, but a forward search for what cited it since.
+- **A premise asserted in code outlives the document that justified it.** The claim survived in
+  `probe_decks.py` where no document audit would look. **Deck-generating comments that assert
+  physics are part of the record and get audited with it.**
+- **Withdraw the rebuke, not just the claim.** The most damaging sentence was not "RuO₂ is AFM" but
+  "for RuO₂ that is *factually wrong*" aimed at a correct comment — an error that reads as
+  authority. Corrections must name the sentence that was aimed at someone else's work.
+
+*Surfaced by the docs/70 ideation round as hole H-1 (docs/70:96-114). Sources verified this session,
+not carried from the workflow.*

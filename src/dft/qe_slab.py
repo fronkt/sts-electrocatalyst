@@ -48,6 +48,15 @@ ELEMENTS = {
     # Benchmark-electrode anchors (docs/29 s2). No +U: RuO2/IrO2 are 4d/5d rutile
     # metals, itinerant and non-magnetic, and the rutile-OER literature we compare
     # against (Rossmeisl 2007, Man 2011) runs them at plain GGA.
+    # [2026-09-03: docs/41:275-277 called "itinerant and non-magnetic" factually
+    # wrong for RuO2 on Berlijn et al., PRL 118, 077201 (2017).  That rebuke is
+    # WITHDRAWN: two 2024 muSR studies bound RuO2's ordered moment at 4.8(2)e-4
+    # muB (Hiraishi, PRL 132, 166702) and 1.4e-4 muB in bulk (Kessler,
+    # arXiv:2405.10820, re-assigning the neutron peak to multiple scattering),
+    # 67-357x below the ~0.05 muB diffraction value.  For the BULK this line is
+    # the supported reading; surface moments on (110) are a separate, open
+    # question and this comment does not settle them.  See docs/41 "Correction of
+    # record -- 2026-09-03" and docs/45 SA row 6.]
     "Ru": dict(pseudo="Ru_ONCV_PBE-1.0.oncvpsp.upf",        U=0.0,  mag=0.0, mass=101.070),
     "Ir": dict(pseudo="Ir_pbe_v1.2.uspp.F.UPF",             U=0.0,  mag=0.0, mass=192.217),
 }
