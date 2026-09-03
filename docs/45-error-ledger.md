@@ -2747,7 +2747,7 @@ was scored on.
 | Ru | 0.0695 | under | 0.1845 | no |
 | Fe | 0.0735 | **OVER** | 1.2204 | yes |
 
-The two groups **interleave completely**. The response separates them by 4–14× (0.09–0.18 eV
+The two groups **interleave completely**. The response separates them cleanly with no overlap — the largest under-floor span is 0.1845 eV and the smallest over-floor span 0.6869 eV, a **3.7× gap between the groups** and up to 14.4× across them (0.09–0.18 eV
 under, 0.69–1.26 eV over); the predictor does not separate them at all — the metal with the
 *largest* U-span, Mn, has the *smallest* valence change. **R7-P3: DOES NOT SEPARATE. The
 valence-change explanation of the A7.3 split is FALSIFIED on this tracker.**

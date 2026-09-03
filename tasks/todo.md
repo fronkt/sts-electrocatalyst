@@ -1166,7 +1166,7 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
       The two hashes are the proof of order. **0 SU.**
       - **R7-P3 fires.** |δq_c| **interleaves** the two A7.3 groups completely — Mn 0.0069 OVER,
         Ti 0.0096 under, Ir 0.0165 under, Cr 0.0399 OVER, Ru 0.0695 under, Fe 0.0735 OVER — while
-        their spans differ **4–14×**. The metal with the largest U-span has the smallest valence
+        their spans do not overlap at all (largest under-floor 0.1845 eV, smallest over-floor 0.6869 eV — a **3.7× gap**). The metal with the largest U-span has the smallest valence
         change. **The valence-change explanation of the A7.3 split is falsified on this tracker.**
       - What still separates the six perfectly is **nspin = 2 / nspin = 1**, and the one valence
         quantity that exists on both sides does not track it — a sharper statement of the confound

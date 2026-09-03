@@ -879,7 +879,7 @@ re-verification. Nothing above this section has been silently edited; read §§2
   0 of 32, 0 of 32), so the sphere moment A5.1(a) makes primary is structurally unavailable on exactly
   the A7.3 under-the-floor set. **CLOSED 2026-09-03 by A11.R7** (docs/43, registered at `afb9692`;
   `src/dft/a0lowdin_valence.py`; 230 banked Löwdin artifacts, 0 SU): R7-P3's registered falsification
-  fired — |δq_c| interleaves the two A7.3 groups completely while their spans differ 4–14×, so the
+  fired — |δq_c| interleaves the two A7.3 groups completely while their spans do not overlap at all (largest under-floor 0.1845 eV, smallest over-floor 0.6869 eV — a 3.7× gap), so the
   valence-change explanation of the split is falsified on this tracker.
 - **The census contradiction is owed**: `docs/45:255-256` records "38 AGREE / 0 REFUSED / 2
   UNVERIFIED" against 6 measured mismatches, to be reconciled *before any readout is quoted* — and
