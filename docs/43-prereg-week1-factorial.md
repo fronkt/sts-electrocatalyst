@@ -2363,3 +2363,146 @@ FM stands; MN-AFM-CORE does not trigger; no further Mn family in A11.R4's contin
 
 **[D2 GUARD-3 ADJUDICATION 2026-09-02: HELD]** — by the entrant's directive ("Wait for D2
 until after D1"); the four flags of docs/68 §8 stand un-adjudicated until A11.R6 returns.
+
+## A11.R7 — A5.1(a)'s valence tracker on the A0 grid, via the already-banked Löwdin populations (2026-09-03)
+
+**[A0 LÖWDIN VALENCE TRACKER 2026-09-03: REGISTERED — COUNTERSIGNATURE OWED]** — written
+before a single Löwdin number has been read out of the A0 bank. Nothing below was chosen after
+seeing a value of the predictor it registers. The commit that carries this section contains **no
+readout script and no result**; the script and its output land in a later commit, and the two
+hashes are the proof of order.
+
+### Why this exists, and why it is not a new claim
+
+A5.1(a) already registers exactly this analysis: *"Every existing (metal × adsorbate × U) output is
+post-processed for the active-site **local magnetic moment vs the bare slab** … as the primary
+valence tracker, supplemented by **Löwdin populations from projwfc.x** where charge densities are
+regenerated … budget ≤ ~150 cheap SCFs if the full A0 grid is covered"* (docs/43:946-952).
+
+Two things have changed since that was written, both matters of fact:
+
+1. **The regeneration SCFs were already spent.** The A0 main grid carries **235 banked
+   `<job>.lowdin.txt` artifacts** alongside their decks — Cr 76, Mn 32, Fe 35, Ti 28, Ru 32, Ir 32 —
+   produced by the projwfc.x runs that the A0 campaign paid for. The supplement A5.1(a) priced at
+   ≤ 150 SCFs is **already on disk at zero marginal cost**.
+2. **The primary tracker does not exist for half the grid.** The A0 main decks for **Ti, Ru and Ir
+   carry no `nspin` card at all** (0 of 28, 0 of 32, 0 of 32 — verified by grep across the decks),
+   so pw.x prints no moment for them. The sphere-integrated moment A5.1(a) makes primary is
+   **identically unavailable** on those three metals.
+
+And those three metals are exactly the A7.3 under-the-floor set. **The banked Löwdin grid is the
+only measured valence quantity in this campaign that exists on both sides of the nspin = 2 /
+nspin = 1 partition** — the partition with which A7.3's 3-over / 3-under split is perfectly
+confounded (docs/60, docs/63). It cannot un-confound that split. It can test whether the mechanism
+A5.1(a) posits survives contact with the metals the moment tracker cannot see.
+
+This section registers the numeric criterion A5.1(a) left unstated for the Löwdin leg. The 0.5 μ_B
+threshold A5.1(a) fixes is a **moment** criterion (`lit1_urobustness.py:95-111`) and does not
+transfer to a Löwdin charge; nothing below reuses it.
+
+**Already delivered, and not re-opened:** A5.1 items (a), (c) and (d) are implemented in
+`src/dft/lit1_urobustness.py` and scored for **tranche 1** — the P7 fixed-geometry U-ladders for
+**Cr and Co**, 4 U points each — and banked at `docs/research/lit1_tranche1_uladder.json` and
+`docs/research/2026-08-12-lit1-tranche1-uladder.md`, which states in its own scope section that
+"Löwdin populations (projwfc.x) are **not in this tranche**". A11.R7 extends the same registered
+item to the A0 grid with the tracker tranche 1 could not use. Tranche 1's numbers are untouched.
+
+### Scope — fixed here, drift-proof by construction
+
+Exactly the banked `runs/a0/main/<M>/<state>__<utok>.lowdin.txt` artifacts for
+M ∈ {Cr, Mn, Fe, Ti, Ru, Ir}, state ∈ {slab, s0_OH, s0_O, s0_OOH}, and **U tokens matching
+`^u\d{3}$`** — the production ladder. Every file the rule excludes (Fe's `pilot530_m*`, `r1`, `r2b`
+seed-study rows are the known cases) is **named individually in the readout's census with its
+reason**; a file excluded silently is a failure of the readout, not a scope decision. Zero new DFT.
+No deck is re-run. No banked energy is recomputed.
+
+### The tracked quantity
+
+For metal M, state s, U point u:
+
+- **Active site A(M).** The metal atom index nearest the adsorbate's binding oxygen, determined
+  **once** from the `s0_OH__u000` deck's `ATOMIC_POSITIONS` (minimum-image distance), and used
+  unchanged for every state and every U of that metal. The A0 decks list the six metal atoms first
+  and append adsorbate atoms last, so the index is stable across states; the readout **asserts**
+  this rather than assuming it.
+- **q_d(M, s, u)** = the Löwdin **d-channel** charge on atom A(M): the single `d =` value for an
+  nspin = 1 file, and **spin-up d + spin-down d** for an nspin = 2 file.
+- **Δq_d(M, s, u) = q_d(M, s, u) − q_d(M, slab, u)** — the adsorbate-induced d-occupancy change at
+  the active site, referenced to the bare slab **at the same U**. This is A5.1(a)'s construction
+  with Löwdin d in place of the sphere moment.
+
+### The predictor — evaluated at U = 0 only, and why
+
+All predictors are read at **u000**: the one point common to all six metals, free of the Hubbard
+parameter, and **outside the U-span it is used to predict** (evaluating the predictor inside its own
+response would be circular). Per metal:
+
+- step-level: δq₁ = Δq_d(\*OH), δq₂ = Δq_d(\*O) − Δq_d(\*OH), δq₃ = Δq_d(\*OOH) − Δq_d(\*O);
+- on the A7.3 quantity: **δq_c(M) = Δq_d(\*OOH, u000) − Δq_d(\*OH, u000)**, the Löwdin analogue of
+  c_M = ΔG_OOH − ΔG_OH.
+
+### The response — banked, not recomputed
+
+span_U(ΔG_i) per (metal, step) and span_U(c_M) per metal, over that metal's production ladder,
+computed by **importing** `src/dft/a0main_readout.py`'s existing per-U ΔG rows. `g_max`,
+`delta_G`, `oer_overpotential` and the QC gate are imported, never reimplemented — the tranche-1
+rule. span_U is invariant to any U-independent offset, so the gas references cannot enter it.
+
+### Registered predictions
+
+- **R7-P1 (primary; n = 18 (metal, step) pairs).** Spearman ρ between |δq_i| and span_U(ΔG_i).
+  **CORROBORATED** iff ρ ≥ +0.50 **and** two-sided permutation p < 0.05; **REFUTED** iff ρ ≤ 0;
+  **INCONCLUSIVE** in between. The three steps of one metal share that metal's slab reference and
+  are not independent; the p-value is therefore reported as **nominal**, with the by-metal
+  leave-one-metal-out range of ρ printed beside it. Registered now, so that range cannot be
+  presented as a robustness check chosen after the fact.
+- **R7-P2 (the A7.3 quantity; n = 6).** Spearman ρ between |δq_c(M)| and span_U(c_M), reported with
+  its exact permutation p. **No threshold, and not scoreable as pass/fail** — at n = 6 the smallest
+  attainable two-sided p is 1/360 ≈ 0.0028 and a single metal moves ρ by ~0.3. Registered as
+  *reported, never scored*, so it cannot be promoted to a result later.
+- **R7-P3 (the falsification that earns this its place).** A7.3's 3-over / 3-under split is
+  perfectly confounded with nspin = 2 / nspin = 1. Registered question: do the six |δq_c(M)| values
+  place the three A7.3-over metals on one side of the three under? **A separation proves nothing** —
+  no 3-vs-3 comparison can break a perfect confound, and this line says so in advance. **A failure
+  to separate falsifies** the claim that the A7.3 split is a valence-change effect, and that
+  falsification is the deliverable. Reported as six numbers and two group ranges; no p-value, no
+  threshold, no rescue.
+
+### Stability witness, and the flag it can raise
+
+Mirroring A5.1(a)'s supplementary check: for each metal, **range_U(Δq_d)** across the production
+ladder, per state. If a metal's range_U(Δq_d) for either \*OH or \*OOH **exceeds |δq_c(M)| itself**,
+the tracker is **UNSTABLE across U** for that metal — an SCF-solution change somewhere on the
+ladder — and that metal's row is **flagged and excluded from R7-P1 and R7-P2**, with the exclusion
+named and the metal reported separately. Fixed now, before any range is known.
+
+### Self-checks the readout must pass, or it reports nothing
+
+1. Every artifact passes `python src/dft/extract_lowdin.py --check`.
+2. For every parsed atom, the printed `total charge` equals s + p + d to within **1e-3 e**.
+3. For every nspin = 2 atom, spin-up d + spin-down d equals the total d to within **1e-3 e**.
+4. A(M) resolves to the same integer for all four states of a metal, and to a **metal** species.
+5. The census prints realized counts per metal and names every excluded file with its reason.
+
+A failure of any check is fatal: the readout exits non-zero and publishes nothing. The parser is
+written fresh rather than reaching into `extract_lowdin.py`'s private validators, and check 2 is
+what makes that safe — the file's own printed total is an independent witness of the parse.
+
+### What this may not do
+
+It moves **no banked verdict**. The A7.2 and A7.3 census, the as-built headline (A11.5), the
+selection rule (A11.6), tier_v2 and every ΔG stand exactly as they are. R7 is a **mechanism
+readout reported alongside them**, and an outcome favourable to the campaign cannot convert a
+failed registered prediction into a passed one. In particular: **A7.3 remains NOT MET at 3 of 6
+whatever R7 returns.**
+
+### Cost
+
+**0 SU. Zero new DFT.** The compute this analysis needs was spent by the A0 campaign and is sitting
+on disk.
+
+### Countersignature
+
+Owed from the entrant, as with every dated line. If he declines it, the readout and its output are
+withdrawn from the report and this section stands as the record of what was registered and not
+used.
