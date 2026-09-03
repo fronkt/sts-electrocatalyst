@@ -300,6 +300,17 @@ Two that bite hardest:
 message**. Every "grep the whole tree" protocol in this repo misses it. Add `git log --all
 --grep` to the resolution-token search, or the next stale-list audit will repeat this one.
 
+**[SWEEP RUN 2026-09-03, and it is a bounded negative.]** The extended protocol was then applied
+to the unscored set: `git log --all --grep=<token> -i` over **P15, P-SPIN-DELTA, P-FLOOR-U-SPIN,
+P-SYMCOV, P-BEEF, P-XU, P-DIVANIS, P-LIT, P-CTRL, P-BUILDER, P12, P18, P19, A5.4, A7.5**, plus a
+vocabulary sweep of every commit subject in the repo carrying a prediction token together with a
+verdict word. **No further hidden verdict was found** — every hit is a registration, an adoption,
+a draft or a session record. So the history hole cost exactly three things, all now closed: A7.4
+gate (f)'s verdict, the check-4′ run that docs/72 said did not exist (commit `dc38c23`), and
+**one sentence in this file's own §6**, which asserted P14's CONFIRMED "lives in one document's
+prose" when commit `a575a70` and docs/45 §B row 1 also carry it. That third one was written
+*after* the protocol was, and caught by it — recorded rather than quietly fixed.
+
 ---
 
 ## 9. What this changes for the plan
