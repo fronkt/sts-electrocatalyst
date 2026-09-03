@@ -945,3 +945,46 @@ the grid that matters.
 **How to apply.** Any sentence of the form "nothing in the repo does X" gets a literal search
 pasted beside it before it is committed. And when the search does find something, do not
 delete the bullet — the corrected, narrower claim is usually the stronger finding.
+
+## 2026-09-03 — three lessons from the nine-item review
+
+### An owed-list goes stale because nobody re-reads it, not because items stay open
+
+Four of nine "dated lines owed" were already discharged, one of them three days earlier, and I
+had restated the whole list to the user as live an hour before checking it. The closing line
+always lives in a **different document** from the note that says the item is open — docs/59 §5
+closed §3c while docs/60 still read "the licence is ungranted" in the present tense; docs/43:1979
+closed the AFM scope while docs/43:1645 still said "still open" in its own frozen 2026-08-23
+voice.
+
+**Rule:** before repeating any "owed / open / HOLD / ungranted / not built" clause, grep for its
+own **resolution token** (`AFM-SCOPE RESOLVED`, `§3c CONFIRMED`, `COUNTERSIGNED`) and check the
+artifacts on disk. A count of built decks is an `ls`, not a recollection. A registration says
+"still open" forever; only a later dated line can close it, and the registration will never
+mention it.
+
+### More n is not more rigor unless the extra n is independent
+
+Asked whether A11.R7 should be re-run at higher n, the tempting answer was yes — read the
+predictor at all seven U rungs and take n from 18 to 126. That is **pseudo-replication**: the
+response `span_U` is one number per (metal, step), so the same y would be repeated seven times
+against seven correlated x's, and the p-value would fall for an arithmetic reason rather than a
+physical one. It looks like rigor and is the opposite.
+
+**Rule:** before increasing n, ask what the *unit of independent observation* is. If the response
+is defined per unit, you cannot get more units by subdividing the predictor. The real upgrade is
+almost never more of the same sample — here it was a **different** sample that did not contain
+the confound (the A0-SPIN arm, already banked, 0 SU), which turned a correlational question into
+a falsification.
+
+### A negative artifact claim is not finished until the remote has been searched too
+
+I told the user the Co BASIN_DRIFT row needed "a file transfer, not compute", on the strength of
+a local search. The remote had it too, I assumed. It did not: every Anvil `$HOME` tarball was
+listed and the file exists for Ni and two Cr rows and **not for Co**. The remedy had never been
+executed at all, which is a materially worse finding and a different fix.
+
+**Rule:** "the output was never pulled" and "the run never happened" are different claims with
+different remedies, and only one of them is cheap. Do not name the fix until the search has
+covered every place the artifact could live — and on an HPC workflow that means the tarballs in
+`$HOME`, not just the scratch tree.

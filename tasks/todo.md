@@ -1249,3 +1249,87 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
 
 S5 BEEF-vdW (A10, **Sep 18**); S8 make-and-measure (the largest open fork, Q-5 in docs/70 §7);
 **Oct 15 hard freeze**.
+
+## 2026-09-03 (second block) — the nine-item review executed under Frank's directive
+
+**Directive, verbatim:** *"make the decisions in that it ends in best rigor and STS placements.
+I agree with the fixes fir A11.R7 but should we do a higher n=?. I confirm A7.7. Continue items
+6, 7, 8 (send) and relable 9. Write 1. Your call on 3. Continue with 4."*
+
+**Compute: none. Balance unchanged at 59,761.1 SU. Suite 321 -> 332 passed / 8 skipped.**
+
+### The owed-list was half stale — four items were already discharged
+
+- [x] **docs/59 §3c** — CONFIRMED **2026-08-31** (docs/59:309, Frank's verbatim "i published the
+      deposit, submit everything"; DOI 10.5281/zenodo.22213117). **A7.3's denominator is 6,
+      permanently.** Every "UNGRANTED" note (docs/60:141, this file, MEMORY.md) was stale and is
+      now corrected.
+- [x] **The AFM scope line** — RESOLVED **2026-08-30** (STANDALONE_FOUR), and the family already
+      RAN: 3 BANKED all GATE-1 PASS, s0_O NOT_CONVERGED, **1,067.9 SU**. docs/41 and docs/45
+      asserted "remain on HOLD (0 built)" earlier the same day — **false when written**, corrected.
+- [x] **Mn E1** — countersigned 2026-09-02; MN-AFM-CORE never triggered.
+- [x] **A7.7 middle band** — the text already existed (docs/43:2086, 2026-08-31); only the
+      countersignature was missing. **Frank confirmed it; written.**
+
+### Decisions written
+
+- [x] **Item 1 — D2 GUARD-3 ADJUDICATED**: Ru + Ir BRANCH-CONDITIONAL, Cr + Ti SAME-BRANCH. Also
+      resolves docs/68's internal conflict (:235 "Cr and Ir" vs :326) **in favour of :326**, with
+      the reason on the face of the line. Acts only on the equalised sensitivity; the as-built
+      headline is untouched.
+- [x] **Item 4 — A7.7 CONFIRMED.** Its own post-hoc disclosure travels with every A7.3 sentence.
+- [x] **Item 3 (delegated) — TI CONVENTION: NSPIN=1 STANDS, FINAL.** The docs/66 row-9 trigger had
+      fired (D_Ti = −0.0169 eV), so the revisit was live for the first time; it resolves against a
+      re-run that cannot change a verdict, on an instrument that already exists.
+- [x] **Item 9 — gate-(h) family RELABELLED a sensitivity arm.**
+- [x] **Item 2 — A11.R7 COUNTERSIGNED**, with R7-P1 bound to its defect disclosure.
+- [x] **Item 6 — Cr `oosh`: 1x1-CONDITIONAL OBSERVATION, not a finding.** The surface claim is
+      **refused** — one cell cannot carry it, and the 2x1v deck that would decide it does not exist.
+- [x] **Item 8 — RCAC.** a171 section added, node-count drift fixed (the ticket said "two /
+      three / five / sixth" while listing seven), Gmail draft `r1072822063942699521` updated with
+      the systemic context. **NOT SENT — Frank sends.**
+
+### The higher-n question: answered NO, and it opened something better
+
+**n = 18 is the design ceiling** (6 metals x 3 steps), not a budget choice; R7-P1 ran at n = 6
+only because the malformed rule excluded four metals. Recovering 18 on the same data is post-hoc
+and is already labelled so. **Inflating to n = 126 by reading every U rung is pseudo-replication**
+— span_U is one number per (metal, step) — and is refused in advance in the registration.
+
+**What buys rigor is a sample without the confound in it**, and it was already banked: **90
+Löwdin artifacts in the A0-SPIN arm**, covering Ti/Ru/Ir — the exact three metals whose main decks
+carry no `nspin` card — with slab + all three adsorbates at u000, the point A11.R7 registers its
+predictor at.
+
+- [x] **A11.R8 REGISTERED** (`07cfc4f`, no script, no result) **and SCORED** (`7434e81`). 0 SU.
+      **R8-P1: DOES NOT SEPARATE.** With every predictor spin-polarised the interleaving is
+      unchanged and **the ordering is identical**: Mn 0.0069 OVER, Ti 0.0094 under, Ir 0.0209
+      under, Cr 0.0399 OVER, Ru 0.0714 under, Fe 0.0735 OVER. Gap **−0.0645**.
+      **The last rescue of R7-P3 is falsified.** The spin convention moves the tracker by at most
+      **0.0044 electrons** (R8-P3). Carry-over identity exact (0.0 on all three), zero exclusions,
+      all seed-witnesses STABLE at spreads of 0.0002-0.0004. 11 new tests.
+
+### Two corrections of my own record
+
+- [x] **Item 7 — the Co BASIN_DRIFT "file transfer" diagnosis is WITHDRAWN.** Anvil was searched
+      exhaustively (every `$HOME` tarball listed): `s0_O__1x1_off__g1.fromparent.out` exists for
+      **Ni** and two `Cr_lit3` rows and **not for Co**, anywhere; the round-3 copy of the parent
+      was extracted and reads "convergence NOT achieved" with no `!` energy. **The remedy was
+      never executed, not merely never retrieved**, and the docs/43:317-320 affordability escape
+      is unavailable too (no converged GATE-1 energy to quote). Recorded as a **recorded gap**.
+      Closing it = **~5-19 SU + Frank's own A11.R3 dated line**; not launched.
+- [x] **docs/67 §7 item 1 DISCHARGED** — the Mn §3 literature verified against primary sources.
+      Yoshimori 1959 (JPSJ 14(6), 807), Regulski 2003 (PRB 68, 172401) **and** 2004 (JPSJ 73,
+      3444), and T_N = 92 K all **confirmed on two independent full texts**. **The "≈129° per c"
+      turn angle is WRONG**: both sources give q = (0,0,≈2/7), a pitch of 7/2 c, i.e. **≈103° per
+      c**. 129° is probably the nearest-neighbour angle (180 − 360/7 = 128.6°) carrying the wrong
+      qualifier, but no source states it, so it is recorded as an unverified reconstruction.
+
+### Still Frank's
+
+- [ ] **Countersign A11.R8** (docs/43, marker at its registration section).
+- [ ] **Adopt or strike the Mn §3 sentence** — `[MN AFM §3 LITERATURE: VERIFIED AS CORRECTED |
+      STRUCK | DEFERRED]`. Closes docs/67 §7 entirely.
+- [ ] **The Co SCF** — ~5-19 SU under an A11.R3 dated line, or leave it a recorded gap.
+- [ ] **Send the RCAC ticket** (Gmail draft `r1072822063942699521`).
+- [ ] **S-4 still must be re-specified before it is offered.**
