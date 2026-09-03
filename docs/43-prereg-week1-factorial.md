@@ -2751,3 +2751,138 @@ part of this signature:
 has been read.** It is the one test in the campaign that can say whether A7.3's split is a
 statement about U or a statement about spin convention — which is the single largest open
 question behind the headline. Zero SU.
+
+---
+
+## A11.R8 — the same valence tracker on both sides of the nspin confound, via the already-banked A0-SPIN Löwdin populations (2026-09-03)
+
+**[A0-SPIN LÖWDIN VALENCE TRACKER 2026-09-03: REGISTERED — COUNTERSIGNATURE OWED]** — written
+before a single Löwdin number has been read out of the A0-SPIN arm. The commit carrying this
+section contains **no readout script and no result**; the script and its output land in a later
+commit, and the two hashes are the proof of order. Registered under the entrant's directive of
+2026-09-03 ("decisions that maximize placement at STS") as the answer to his "higher n" question:
+**not more n — a sample without the confound in it.** Zero new DFT; zero SU.
+
+### What has been read before writing this, and what has not
+
+**Read:** file *names* under `runs/a0/spin/` (a coverage listing, 90 `.lowdin.txt` artifacts:
+Cr 12, Mn 8, Fe 8, Ti 26, Ru 12, Ir 24); the `nspin`-card census of the scoped decks (Cr 76/76,
+Mn 32/32, Fe 32/32 carry one; Ti 0/28, Ru 0/32, Ir 0/32 do not); and the census of record's
+per-metal spans and winner-seed labels. **Not read:** any Löwdin population, charge, or
+occupancy from the A0-SPIN arm — the predictor this section registers. That asymmetry is the
+point of writing this now.
+
+### The question, and why it is the one worth asking
+
+A7.3's 3-over/3-under split is **perfectly confounded** with nspin = 2 (Cr, Mn, Fe) / nspin = 1
+(Ti, Ru, Ir); the deck census above is what makes "perfectly" literal rather than approximate.
+A11.R7 measured a valence tracker on that confounded set and R7-P3 fired: |δq_c| interleaved the
+two groups completely. **One rescue survives that result** — that R7-P3 failed only because
+Ti, Ru and Ir's valence was read from calculations that were never allowed to polarise. A11.R8
+tests exactly that rescue, and nothing else.
+
+### Scope, fixed here
+
+Exactly the banked artifacts below; **zero new DFT**, and no artifact outside this list enters.
+
+- **Cr, Mn, Fe — unchanged from A11.R7:** `runs/a0/main/<M>/<state>__u000.lowdin.txt`. These
+  decks already carry `nspin = 2` (76/76, 32/32, 32/32 on the scoped `^u\d{3}$` set), and the
+  census of record puts their equalised span identical to as-built (D_M = 0.0000 on all three).
+  **They need no new measurement and get none.**
+- **Ti, Ru, Ir — the new material:**
+  `runs/a0/spin/<M>/<state>__u000__sp2m<seed>.lowdin.txt`, state in {slab, s0_O, s0_OH, s0_OOH}.
+- **State set:** slab, s0_O, s0_OH, s0_OOH. **U point:** `u000` only — the same single point
+  A11.R7 registered its predictor at, so the two are directly comparable.
+
+**Seed-selection rule, fixed before any energy or population is read.** For each (metal, state)
+at u000, take the **lowest-total-energy converged `nspin = 2` seed** among those banked; ties
+below 1e-6 Ry break to the lowest seed label. This is deliberately **not** the census's winner
+seed: the census selects across a pool that includes the `nspin = 1` row (its winner label 0.0
+means the unpolarised row won, which happens at least once), and a predictor defined as "the
+metal's best spin-polarised solution" must not silently fall back to an unpolarised one. Any
+(metal, state) with **zero** converged `nspin = 2` seeds is EXCLUDED, named in the readout with
+its reason, and its metal reported at reduced state coverage rather than imputed.
+
+### The tracked quantity, unchanged from A11.R7 so the comparison is single-variable
+
+A(M) = the metal atom nearest the adsorbate binding O in that metal's `s0_OH` cell;
+q_d = Löwdin d-channel charge on A(M), summed over spin-up and spin-down;
+Δq_d(state) = q_d(state) − q_d(slab), same metal, same U, same arm;
+**δq_c = Δq_d(s0_OOH) − Δq_d(s0_OH)**, the valence-change analogue of c_M = ΔG_OOH − ΔG_OH.
+
+### The response, and why it is the as-built span and not the equalised one
+
+**Response = span_U(c_M)/2 as banked in the A0 main readout** — the identical response A11.R7
+used. **The equalised span is deliberately NOT used**, and the reason is a line written earlier
+today: `[D2 GUARD-3 ADJUDICATED 2026-09-03]` makes Ru's and Ir's equalised spans
+BRANCH-CONDITIONAL and therefore **not scoreable into a span**. Using them here would violate a
+dated line hours old. Holding the response fixed also makes A11.R8 a **single-variable change**
+from A11.R7 — only the predictor's spin treatment moves — which is the whole evidential value.
+
+### Registered predictions
+
+**R8-P1 (primary; the falsification test; n = 6).** With every metal's predictor now read from a
+spin-polarised calculation, does |δq_c| separate the over-floor set {Cr, Mn, Fe} from the
+under-floor set {Ti, Ru, Ir}? **SEPARATES** iff max|δq_c| over the under-floor set is strictly
+less than min|δq_c| over the over-floor set — i.e. a single threshold exists that sorts them.
+Otherwise **DOES NOT SEPARATE**.
+
+The registered asymmetry, stated in advance and identical in form to R7-P3:
+
+- **A separation proves nothing.** Six points split 3-and-3 along a line that is still perfectly
+  aligned with the metals' 3d/4d/5d identity cannot establish a mechanism, and this line says so
+  before the number exists.
+- **A failure to separate falsifies the rescue.** If |δq_c| still interleaves when all six
+  predictors are spin-polarised, then R7-P3's result was **not** an artifact of the unpolarised
+  decks, and the valence-change explanation of the A7.3 split is refuted on this tracker under
+  both spin conventions. **That falsification is the deliverable.**
+
+**R8-P2 (n = 18, per-step; REPORTED, NEVER SCORED).** Spearman ρ between |Δq_d| and
+span_U(ΔG_i), reported with its exact permutation p. **Registered as unscoreable and it cannot be
+promoted later**, for a disclosed reason: nine of the eighteen pairs (Cr, Mn, Fe) are carried over
+unchanged from A11.R7, whose post-hoc all-six value is already known (ρ = −0.3808, p = 0.1209).
+Half the sample is contaminated by prior sight, so no threshold on it would be honest.
+
+**R8-P3 (n = 3; REPORTED, NEVER SCORED).** For Ti, Ru and Ir alone — the metals whose predictor
+actually changes — the shift |δq_c|(nspin = 2) − |δq_c|(nspin = 1), reported per metal with its
+sign. This is the direct measurement of **how far the spin convention moves the valence tracker**,
+it is genuinely unseen, and it is descriptive by construction: three points admit no test.
+
+### The stability witness, in its corrected form
+
+A11.R7's witness compared `range_U(Δq_d)` — a swing across U — against `|δq_c|`, a difference
+between two states at fixed U. Those are different kinds of quantity with no reason to share a
+scale; the rule fired on four of six metals and is disclosed as malformed in docs/45. **The
+corrected witness registered here is like-for-like:** for each (metal) with two or more converged
+`nspin = 2` seeds, compute the spread of δq_c **across seeds at the same U** — a difference of the
+same quantity, at the same U, differing only by starting moment. If that seed spread exceeds
+|δq_c| itself, the metal's value is **SEED-UNSTABLE**, flagged, and excluded from R8-P1.
+
+Cr, Mn and Fe are single-row in the main arm and carry **no** seed spread; they are marked
+**WITNESS-UNAVAILABLE**, which is *not* a flag and does *not* exclude them. Stating that here
+prevents the R7 failure mode, where an ill-posed witness silently ate the sample.
+
+### Fatal self-checks — any one failing voids the readout
+
+1. **Parser identity.** The A0-SPIN files are parsed by the same reader as A11.R7 and, on every
+   file both sections touch, must return bit-identical values.
+2. **Per-atom sum.** total = s + p + d on every parsed atom row.
+3. **Spin sum.** up_d + dn_d = total d on every `nspin = 2` row.
+4. **Carry-over identity.** Cr, Mn and Fe's |δq_c| here must reproduce their A11.R7 values
+   **exactly** — they are the same files under the same rule. Any drift means the reader changed
+   and the comparison is void.
+5. **Named exclusions.** Every (metal, state) dropped is listed with its reason; a silent drop
+   voids the readout.
+
+### What A11.R8 cannot do
+
+It **cannot move A7.2 or A7.3**. A7.2 stays CONFIRMED at 5 of 6; **A7.3 stays NOT MET at 3 of 6
+whatever R8 returns**, at denominator 6 per the docs/59 §3c grant. R8 acts on the *explanation*
+of the split, never on the count. It also cannot break the confound by separating — only by
+failing to.
+
+### Countersignature
+
+Owed from the entrant, as with every dated line. If he declines it, the readout and its output are
+withdrawn from the report and this section stands as the record of what was registered and not
+used.
