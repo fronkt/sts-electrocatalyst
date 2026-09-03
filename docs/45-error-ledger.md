@@ -2884,3 +2884,94 @@ dated line disclosing that it was written afterwards.
 
 *Surfaced as docs/70 hole H-2; dates, quotes and the absent withdrawal re-verified against the tree,
 and the Warford abstract opened directly rather than carried from the workflow.*
+
+## The GATE-1 census contradiction is RECONCILED, 2026-09-03 — and one banked BASIN_DRIFT number has no artifact in this repository
+
+`tasks/todo.md` carried this as blocking: *"the campaign census at `docs/45:255-256` records
+'38 AGREE / 0 REFUSED / 2 UNVERIFIED' against the 6 mismatches measured here. **Reconcile before
+any readout is quoted.**"* Neither count was produced by a script, so neither could be re-run.
+Both now are: `src/dft/gate1_census.py` → `docs/figs/gate1_census.json` +
+`docs/research/2026-09-03-gate1-census.md`, 9 tests in `tests/test_gate1_census.py`. Zero DFT.
+
+### The measured census — all 88 `__g1` children on disk, zero orphans
+
+| population | AGREE | BASIN_DRIFT | REFUSED | UNVERIFIED |
+|---|---|---|---|---|
+| all paired children (n = 88) | 77 | 2 | 6 | 3 |
+| `runs/s3/` only (n = 46) | 37 | 2 | 4 | 3 |
+
+**Post-discharge** — A8.3 orders a refused child re-run *from the parent's converged density*, so
+a refusal whose `.fromparent` sibling agrees is discharged, not standing: **77 AGREE + 5 discharged
+refusals + 2 BASIN_DRIFT + 1 standing REFUSED + 3 UNVERIFIED.**
+
+Every child is paired and the route is recorded per row (74 same-directory, 6 via a manifest's
+`parent_out`, 4 `.fromparent`, 4 via the `runs/probe/<M>_basin/` convention). `n_children ==
+n_paired + orphans` is a test, so a row cannot be lost quietly.
+
+### The contradiction: both counts were right, about different questions
+
+**They were never counting the same thing.**
+
+- `docs/45:255-256` counts **A8.3 refusals** — children landing *above* their parent — and reports
+  the state **after** the fromparent second attempts discharged them. On its own population and its
+  own date (2026-08-24) "0 REFUSED" was correct.
+- `tasks/todo.md` counts **branch agreement** — |Δ magtot| — in *either* direction. A child 384 meV
+  *below* its parent is not a refusal at all; it is **BASIN_DRIFT**, a different verdict of the same
+  rule.
+
+So "0 REFUSED" and "6 disagree" are answers to *is anything refused?* and *how many pairs changed
+magnetic branch?* Both are true. The record read as a contradiction because neither sentence named
+its own question.
+
+**One thing is genuinely stale rather than merely different:** there is now **one standing
+refusal** — `s3/Co s0_OOH__2x1v_mir__g1` at **+747.449 meV**, Δmagtot +4.73, with no agreeing
+second attempt. It postdates the 2026-08-24 census. "0 REFUSED" must not be quoted forward.
+
+### The branch bimodality holds, and is now measured on 77 pairs instead of 35
+
+| band | n | \|ΔE\| range |
+|---|---|---|
+| \|Δmagtot\| ≤ 0.01 | 66 | 0.0000 – **0.0439 meV** |
+| 0.01 < \|Δmagtot\| < 0.18 | 3 | 0.0903 – 20.6158 meV |
+| \|Δmagtot\| ≥ 0.18 | 8 | **3.3841** – 747.4494 meV |
+
+The same-branch maximum (0.0439 meV) sits strictly below the next band's minimum, and the 0.05 μ_B
+tolerance docs/45 rests on still lies inside an empty gap. A test asserts the no-overlap property,
+so if a future row closes it the suite says so instead of a reader noticing.
+
+**An external witness that the parsing is right:** the census re-derives the Ni chain-2 discharge
+at **+0.012 meV**, reproducing the number docs/45 recorded by hand from Anvil on 2026-08-24. That
+figure was never in a machine-readable file; two independent readings of the same run agree.
+
+### The finding that matters: one of the three BASIN_DRIFT rows has no artifact here
+
+`tasks/todo.md:683` lists three banked parents in an excited magnetic branch: **Fe
+`s0_OOH__1x1_off` −384.300 meV, Co `s0_O__1x1_off` −77.009 meV, Mn `s0_OOH__2x1v_off`
+−20.616 meV.** The census finds **two**. The Fe and Mn rows reproduce exactly. The Co row does not
+exist in this repository:
+
+- `runs/s3/Co/s0_O__1x1_off__g1.out` — "convergence NOT achieved", **no `!` total energy line**;
+- `…__g1.out.attempt1` and `…__g1.out.attempt2` — both the same, no energy;
+- `…__g1.fromparent.in` exists; **there is no `.fromparent.out`.**
+
+The −77.009 meV came from the fromparent run on Anvil (docs/45 records it, with Δmagtot 0.45),
+and that output was never pulled. So the Co figure is **a number in a note with nothing behind it
+locally**, and it is one of the three rows the campaign's largest open correction rests on.
+
+**This does not withdraw the Co BASIN_DRIFT claim** — the run happened and is recorded. It changes
+what may be *said*: two of the three are reproducible from the repository, the third must be
+re-pulled from Anvil or quoted as "recorded in the run log, artifact not in the repository". Since
+the BASIN_DRIFT disposition (entrant decisions R3/A8.8) is still open, this is the moment to fix
+it, and it costs a file transfer, not compute.
+
+### Rules
+
+- **A census that is not a script is not a census.** Two hand-made counts stood in the record for
+  ten days, both defensible, and neither re-runnable — so the disagreement could not be resolved by
+  looking. The first thing a disputed count needs is not an argument but an executable.
+- **Name the question in the sentence that reports the count.** "38 AGREE / 0 REFUSED" and "6
+  disagree" were both true and read as a contradiction purely because neither said *of what*. Every
+  census line now carries its population, its date and its predicate.
+- **A number quoted in a note is not a banked number.** The Co −77.009 meV had a run behind it and
+  no file, and it survived into a top-priority todo item and into docs/70 because nobody asked the
+  filesystem. Before a figure is used in an argument, open the artifact it came from.
