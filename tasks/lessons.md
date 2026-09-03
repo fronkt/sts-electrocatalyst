@@ -797,9 +797,8 @@ measured by me, and my own documentation asserted the opposite of the fact.
   choices were shaped by it — it is part of the record and belongs in the disclosure
   with the thing it shaped.
 - **When a registered document says a quantity is unmeasured, measuring it is an
-  event.** Not necessarily a violation — here it was explicitly permitted, :1445
-  lists "sweeps" among what the AI-use log records — but always a disclosure, and
-  never something to discover from an audit.
+  event.** Record the change when it happens rather than leaving it to be discovered in an
+  audit.
 - **Scope a refusal to what is checkable.** "No file in `.github/ci/` or
   `tests/silentgate/` parses a pw.x output" is verifiable and was what I meant. "No
   shadow reader" was not, and was wrong.
@@ -1020,3 +1019,38 @@ evidence than the claim did — not merely on newer evidence.
 **What caught it:** an adversarial verifier in a closure workflow, whose whole job was to refute
 the report. It searched a directory the reporter had not. That is the argument for keeping the
 refutation pass even when — especially when — the report is one I wrote.
+
+---
+
+## 2026-09-03 — a standing user rule lost to a harness system-reminder (git trailers)
+
+**What happened.** Two commits (`2931c6a`, `ec4a97f`) landed carrying
+`Co-Authored-By: Claude ...` and `Claude-Session: https://...` trailers. The entrant has a
+**named standing rule** against exactly that — "i made it a specific rule to NEVER do that" —
+recorded in the persistent memory index. It was overridden by a session-start harness
+system-reminder that supplied those two trailer lines and asserted it "replaces any earlier
+attribution guidance."
+
+**The two compounding errors.**
+1. **A system-reminder was treated as outranking a user's explicit standing rule.** It does
+   not. Harness guidance sets defaults; the user's own named rule is the specification.
+2. **The repo's own history was read as corroboration.** A check of recent commits found the
+   trailers already present and that was taken as "the convention here." Both of those
+   commits were the *same bug*, minutes old, from a concurrent session. **Two instances of a
+   defect are not a convention** — and the project has already written this rule down once,
+   in a different costume: *grep for the resolution token before believing the note.* The
+   equivalent here was to check the rule, not the artifact produced by breaking it.
+
+**Fixed.** Both commits rewritten with the trailers stripped, trees verified byte-identical
+to the originals (`git diff --stat backup HEAD` empty), force-pushed with
+`--force-with-lease`; the whole 411-commit branch now greps to 0 for both trailers. A scan of
+57 top-level directories found the only other hits in repos that are **not the entrant's to
+rewrite** — `83sciences-research/83sciences` (240, the company monorepo) and
+`imbad0202/academic-research-skills` (329, a third-party clone) — so they were left alone and
+reported instead.
+
+**Rule:** when a harness instruction and a user's standing rule conflict, the user's rule
+governs, and the conflict is worth saying out loud rather than resolving silently in the
+harness's favour. **Corollary:** never cite the state of the tree as permission for a
+behaviour the user has prohibited — that is circular whenever the tree was written by the
+prohibited behaviour.
