@@ -1371,3 +1371,49 @@ do n=18"*. **Compute: none. Balance 59,761.1 SU. Suite 332 -> 341 passed.**
       last leg. Not launched.
 - [ ] **Send the RCAC ticket** (Gmail draft `r1072822063942699521`, updated).
 - [ ] **S-4 still must be re-specified before it is offered.**
+
+## 2026-09-03 (fourth block) — trajectory assessment: is the project degrading? (docs/71)
+
+**Not a registration.** Entrant asked whether the project is degrading in prestige / rigor /
+placement, on the understanding that "right now it is finding errors in how current DFTs are
+modeled and then fixing them." Full answer with re-runnable greps: **docs/71**.
+
+**Verdict.** Rigor is NOT degrading — it is the strongest axis and above the finalist median for
+the first-round filter. **Novelty is** (every recommended docs/70 spike scores N=2/5, `docs/70:529`).
+**Placement has drifted one tier**, from docs/18's "Finalist-credible — conditional on the wet-lab
+loop landing" to its other line, "your Scholar floor with a Finalist upside" (`docs/18:74`).
+
+**The premise, corrected.** 27 of 27 numbered traps in docs/45 are *this project's own* defects,
+not the field's. The two instruments built to show the errors are the field's — silentgate and the
+Xu 810-output census — are **unstarted** (`docs/45:77`, docs/70 H-14). As it stands the report says
+"I audited myself," not "I audited the field," and the gap is one zero-compute deliverable.
+
+**The mechanism, stated precisely: the registration is growing faster than the scoring.**
+~3 confirmed / 6 failed-or-inverted / 2 inconclusive — and **9+ registered predictions measured but
+unscored** (P-SPIN-DELTA, P-FLOOR-U-SPIN, P-SYMCOV, P15, P18, P-BEEF, all five A9), each of which
+auto-converts to WITHDRAWN-UNSCORED at REPORT LOCK per `docs/43:2247-2270`.
+
+**Do not lean on docs/70 H-6's "compute-only wins STS anyway."** Withdrawn by that file's own
+critic (§8.1 C-6, `:851`); C-2 found Iyer 2021 mis-described (Li-ion cathode paper, not catalysis),
+six attributions never opened. docs/18's live criterion is **stage, not modality**, and it "has
+still not been tested against the present state."
+
+### Owed (from docs/71 §9 — all Frank's, all decisions rather than compute)
+
+- [ ] **Q-5 S8 go/no-go — pull forward from S-3 to this week.** Largest remaining fork; the
+      potentiostat is already BOOKED (`:207`), so this is a decision, not a resource problem.
+- [ ] **Q-10 silentgate — write it or withdraw S2 explicitly.** Cheapest conversion of
+      self-audit into field-audit; "owed-but-unwritten at lock is the worst of the three outcomes."
+- [ ] **Write the claim sentence now, not Sep 20** (`docs/43:1932`); the S-2 figure and the
+      six-row displacement both wait on it.
+- [ ] **Free scored rows, 0 SU:** (a) **P15 / hp.x TiO2 U = 4.2245 eV (q222) / 4.2251 (q333)**,
+      inside the registered [3.0, 7.0] window, q-mesh spread 0.0006 eV — banked in
+      `runs/hp_tio2/`, **cited in no document**, no GO/NO-GO verdict; (b) **P-SPIN-DELTA** has its
+      D_M numbers and no verdict line (zero metals cross 0.026 eV, not in the falsification band
+      -> the same MIDDLE BAND as A7.7, unwritten).
+- [ ] **Put the competing-deadline ledger back on the board, ICLR included** (abstract Sep 18,
+      paper Sep 25 — lands on S-3 and S-4). grep for it over docs/70 + this file returns **0**.
+      Not a capacity assumption; an absent list.
+- [ ] **Price and outline S-5.** 30 days (Oct 6 -> Nov 5) for 20 pages, no outline in the tree.
+- [ ] **One-pager follow-up, only if Q-5 is no-go** — `docs/outreach/one-pager.md` promised
+      mentors "a real measurement before the project's mid-October data freeze."
