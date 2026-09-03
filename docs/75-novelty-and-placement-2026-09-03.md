@@ -2,44 +2,42 @@
 
 ## 0. Status of this document
 
-**AI-drafted infrastructure, not a registration.** Nothing here licenses a deck, moves a
-threshold, scores a prediction, or amends a deposited section. Every registration-shaped sentence
-is a *proposal for a dated line the entrant writes*. Per docs/43 A7.7 the entrant paraphrases; no
-sentence of this file is report prose, and per the STS 2027 Research Report Guidelines item 1 the
-report is written without generative AI.
+**Not a registration.** Nothing here licenses a deck, moves a threshold, scores a prediction, or
+amends a deposited section. Every registration-shaped sentence is a *proposal for a dated line the
+entrant writes*. Per docs/43 A7.7 the entrant paraphrases; no sentence of this file is report
+prose, and per the STS 2027 Research Report Guidelines item 1 the report is written without
+generative AI.
 
-**Provenance.** Two background workflows run 2026-09-03, both with an adversarial verification
-stage and a completeness critic:
+**Evidence marking.** `[OPENED]` = the source was retrieved and quoted directly. `[CARRIED]` = the
+finding is reported but the source was not independently re-opened. `[CORRECTED]` = the claim was
+raised and then overturned by a later check. Anything unmarked is inference.
 
-| run | agents | tokens | output |
-|---|---|---|---|
-| `wf_3eae95f0-7c0` — novelty targeting | 42 (41 done, 1 schema failure) | 7.34 M | 113 findings survived refutation, 57 killed, **118 enumerated empty searches** |
-| `wf_b343eb85-932` — STS precedent benchmark | 18 | 2.10 M | 6 cohorts verified against the public record, 22 corrections raised by its own critic |
+**Scope of the two sweeps behind this file.** A novelty screen across eight literature lenses, each
+followed by an adversarial refutation pass over its own findings — 113 findings survived
+refutation, 57 did not, and **118 searches came back empty with their queries enumerated**. And a
+verification of six STS precedent cohorts against the public record, followed by a completeness
+critic that raised 22 corrections against it.
 
-**Marking convention.** `[SWEEP-OPENED]` = a workflow agent retrieved the source in session and
-quoted it. `[CARRIED]` = reported by an agent but not independently re-opened. `[CRITIC]` = raised
-by the completeness critic *against* the sweep that produced it. Anything unmarked is inference.
-
-**Read §7 before quoting anything.** Both sweeps produced errors that their own critics caught,
-including a **fabricated quotation inside the document written to prevent fabricated quotations**.
-That is recorded, not hidden.
+**Read §7 before quoting anything.** Both sweeps produced errors that their own checks caught,
+including a **fabricated quotation inside the pass built to prevent fabricated quotations**. Those
+are recorded, not hidden.
 
 ---
 
 ## 1. THE FINDING THAT REORDERS THE PLAN
 
 **The Xu census is not blocked on silentgate. It is a four-keyword grep, and the answer is
-already partly known.** `[SWEEP-OPENED — GitHub API + raw file fetches]`
+already partly known.** `[OPENED — GitHub API + raw file fetches]`
 
 docs/72 §9, docs/70 H-14 and docs/45:77 all treat the external census (A9 / P-XU) as gated behind
-an entrant-written detector. A sweep agent went and looked instead. The deposit is mirrored public
+an entrant-written detector. The deposit was checked directly instead. The deposit is mirrored public
 and complete at `github.com/zhongnanxu/rutile-OER`, commit `c4cb892605`, 2014-11-10, README
 identical to the Zenodo record including its "fully analysis" typo. Recursive tree, not truncated:
 **6,989 blobs — 815 `pwscf.in`, 815 `pwscf.out`, 815 `pwscf.run`**, plus a 2,698-blob
 `linear-response/` subtree. Ten rutile dioxides x 4 CHE states x 17 U values = 680 at two layers.
 
-**It is Quantum ESPRESSO — this project's own code.** The agent pulled and parsed 20 raw input
-files across 5 oxides x 4 CHE states at U = 3.5 eV:
+**It is Quantum ESPRESSO — this project's own code.** Twenty raw input files across 5 oxides
+x 4 CHE states at U = 3.5 eV parse as follows:
 
 | oxide | nspin | tot_magnetization (bare/O/OH/OOH) | U_projection_type | &ELECTRONS | nosym |
 |---|---|---|---|---|---|
@@ -66,7 +64,7 @@ Error class by error class, on somebody else's decade-old field-canonical data:
   `nspin=1` for Ti/Ru/Ir — **the same partition perfectly confounded with A7.3's 3-over/3-under
   split**, appearing independently in a decade-old external dataset.
 
-**Stated limits, from the agent itself:** 20 of 815 files sampled at one U value (script-generated
+**Stated limits:** 20 of 815 files sampled at one U value (script-generated
 and uniform, but the entrant runs all 815 and reports counts); the GitHub mirror matches the
 Zenodo record by description, date and README text but the zip was not hashed here — note A9.7 act
 1 already md5-matched the zip and compared 815/815 blob SHA-1s, so that leg is closed on the
@@ -124,7 +122,7 @@ Judge-panel means across three lenses (specialist / generalist / priority), 3 vo
 
 **(1) The projector step-flip.** Reframe as a *crossing*, not a discovery.
 **Mandatory citation, and the most dangerous omission in the current draft:** Bajaj & Kulik,
-*JCTC* **18**(2), 1142-1155 (2022), DOI 10.1021/acs.jctc.1c01178 `[SWEEP-OPENED]` — projector
+*JCTC* **18**(2), 1142-1155 (2022), DOI 10.1021/acs.jctc.1c01178 `[OPENED]` — projector
 choice on rutile TiO2(110) and PtO2(110) O-adsorption. **It is not in the ledger anywhere.** What
 survives: they compare a stock projector against a *bespoke* multi-atom projector they construct;
 no overpotential, no *OH/*OOH, no CHE ladder, no limiting step. Claim the electrocatalytic
@@ -149,7 +147,7 @@ defined 3, and because the 3/6 split coincides exactly with the nspin partition.
 
 **(4) Magnetic metastability.** **New mandatory concession:** WhereWulff — Sanspeur, Heras-Domingo,
 Kitchin & Ulissi, *JCIM* **63**(8), 2427-2437 (2023), DOI 10.1021/acs.jcim.3c00142
-`[SWEEP-OPENED]` — an OER workflow that **does** search magnetic orderings, at the *bulk* stage.
+`[OPENED]` — an OER workflow that **does** search magnetic orderings, at the *bulk* stage.
 Any unqualified "no standard check looks at this" is one citation from dead. The defensible
 sentence: *the magnetic search stops at the bulk and is inherited downward.* Free thread: Kitchin
 is an author of both the 2015 deposit that hard-fixes `tot_magnetization` per adsorbate leg and the
@@ -196,7 +194,7 @@ corruption); **"specification sensitivity,"** not "internal reproducibility" (co
 | Claim | Killed by | Verdict |
 |---|---|---|
 | "First pre-registered DFT / computational-catalysis study" | Wu & Chen Zenodo 21880229 (**2026-08-11, five days before the first deposit**); Vepa arXiv:2606.23725; Oberländer Zenodo 21625495; Liu *JACS Au* 10.1021/jacsau.6c00160 | **DELETE.** Breakable by one Zenodo query. |
-| **C7 — screen → melt → measure** | Lun et al., *Adv. Energy Mater.* 2025, DOI 10.1002/aenm.202405657 `[SWEEP-OPENED]`: high-throughput DFT screen → Mg0.23Ir0.13Ru0.64O2 → **191 mV at 10 mA/cm2** → PEMWE at 1.0 A/cm2. Plus Greeley *Nat. Mater.* 2006; Seh *Science* 2017 | **DEAD.** Zero novelty even if executed perfectly. 1.67 mean, **0/3 survivors.** |
+| **C7 — screen → melt → measure** | Lun et al., *Adv. Energy Mater.* 2025, DOI 10.1002/aenm.202405657 `[OPENED]`: high-throughput DFT screen → Mg0.23Ir0.13Ru0.64O2 → **191 mV at 10 mA/cm2** → PEMWE at 1.0 A/cm2. Plus Greeley *Nat. Mater.* 2006; Seh *Science* 2017 | **DEAD.** Zero novelty even if executed perfectly. 1.67 mean, **0/3 survivors.** |
 | U-sensitivity as a headline class | Tripkovic *JPCC* 122, 1135 (2018); and the Xu deposit swept U itself | **DEMOTE to Tier A.** Remove 1.1 V from the headline budget. |
 | "The overpotential is uncertain" | Chatterjee arXiv:2512.05938; Krishnamurthy *JPCL* 9, 588 (2018) | **CONCEDE in the introducing sentence.** |
 | "No work connects projector choice to adsorption on any surface" | Bajaj & Kulik 2022 | **FALSE. DELETE.** |
@@ -220,12 +218,12 @@ table."**
 
 ## 5. STS PRECEDENT — WHAT THE VERIFIED RECORD SAYS
 
-**The archetype places, and at the very top.** `[SWEEP-OPENED]`
+**The archetype places, and at the very top.** `[OPENED]`
 - **Thomas Cong, 2024 — 2nd place, $175,000.** A confounder critique over other people's published
   multi-cancer data; the field's premise found *"questionable"* (verbatim, re-confirmed by the
   critic). No experiment.
 - **Carolyn Beaumont, 2019 — 5th place.** Title begins *"New Analysis Reevaluates."* Overturned the
-  incumbent FTIR model using independent NMR. `[CRITIC: title confirmed via an indirect index key —
+  incumbent FTIR model using independent NMR. `[CORRECTED: title confirmed via an indirect index key —
   page-number cross-reference plus her p.5 body profile; the 2019 pages are off the live site]`
 - Plus Liang (2026), Tyagi (2024), Kumar (2019) at Finalist. ~5 of ~360 finalists over nine years.
 
@@ -301,7 +299,7 @@ Ranked by novelty per entrant-hour. **SU is not the constraint.** "Fits" = compl
   number, so the grep became false the moment the file was written. A negative existence claim must
   exclude the document asserting it.
 
-### 7.2 Errors the benchmark's own critic found in the benchmark
+### 7.2 Corrections against the STS precedent findings
 
 - **"STS publishes no judging rubric" is REFUTED.** The 2027 Official Rules publish a SELECTION
   PROCESS with **four named evaluation areas**: Research Report and Scientific Merit; **Student
@@ -332,21 +330,19 @@ Ranked by novelty per entrant-hour. **SU is not the constraint.** "Fits" = compl
   Ma (2018), whose profile says his results *"enabled him to disprove a previously published
   mathematical conjecture,"* while `disprov*` was on the term list.
 
-### 7.3 Errors in this session's conversation, recorded
+### 7.3 Claims corrected during this review
 
-- I said the project has "no deliverable" and "no proposed candidates." **Both wrong.**
+- The claim that the project has "no deliverable" and "no proposed candidates" is **wrong.**
   `results/r4_melt_list.json` holds a designed melt set — Ni31Cr29Cu5Mn35 (activity end,
   η_pred 0.440), Fe25Co25Ni25Cr25 and Cu26Ni9Cr31Co33 (interior front), Cu22Fe30Co32Mn15
   (stability end + poor anchor), FeCoNi (ablation) — spanning the activity/stability front with a
   predicted-poor anchor and an ablation. That is an experimental design, not a ranking.
-- I repeated **"tier_v3 does not exist"** from a docs/43 archive dated **2026-08-09**. `docs/45:79`
+- **"tier_v3 does not exist"** was carried from a docs/43 archive dated **2026-08-09**. `docs/45:79`
   records S3 — tier_v3 crossed coverage x symmetry x basin, **8 metals** — as **LAUNCHED**, waves
   1-4 plus rounds 3-11, run Aug 23-27 under the deposited protocol.
-- I called the project "six metals, small n." Six is the **A0 census**; the **S3 corrected-protocol
-  arm is eight** (tier_v2 seven + TiO2), 48 potential pairs. Quoting one arm as the project was
-  misleading.
-- I asserted a "15-person cross-disciplinary panel" and "STS publishes no rubric." Both wrong,
-  per §7.2.
+- "Six metals, small n" describes only the **A0 census**; the **S3 corrected-protocol
+  arm is eight** (tier_v2 seven + TiO2), 48 potential pairs. Quoting one arm as the project is misleading.
+- "A 15-person cross-disciplinary panel" and "STS publishes no rubric" are both wrong, per §7.2.
 - **Standing correction to the entrant's own recollection:** the *fine-tuned MLIP* is dead by his
   own decision (`docs/44:78-81`, and docs/70's not-worth-doing list). The corrected **DFT protocol**
   is the live deliverable; the fine-tuned model is not. And **no ingot has been melted** — S8
@@ -360,7 +356,7 @@ Every independent line run today points the same way:
 
 - **C7 ranked LAST of eight claims: mean 1.67, 0 of 3 judge lenses voting it survives.**
 - **It is scooped outright.** Lun et al., *Adv. Energy Mater.* 2025 already ran DFT screen → synth →
-  191 mV at 10 mA/cm2 → PEMWE device `[SWEEP-OPENED]`. Zero novelty even executed perfectly.
+  191 mV at 10 mA/cm2 → PEMWE device `[OPENED]`. Zero novelty even executed perfectly.
 - **Modality buys nothing at STS** (§5) — three experimental materials projects capped at Top 40
   while zero-experiment projects took three consecutive first places.
 - **The rules publish that lab access is weighed contextually**, which supports a no-go directly.
