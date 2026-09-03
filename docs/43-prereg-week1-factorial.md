@@ -3298,7 +3298,7 @@ verdict, band, scope limit, deadline, prediction token or gate moved. **The term
 line**: the file was 3,275 lines before it and 3,275 after, so every `path:line` pointer in every
 document that cites this one — and there are hundreds — remains valid. Verified: the terminology
 diff alone is **27 insertions / 27 deletions**, with no hunk changing the line count. This addendum
-then appends 50 lines **at the bottom**, below every existing pointer, so it moves none of them
+then appends 52 lines **at the bottom**, below every existing pointer, so it moves none of them
 either.
 
 **The substance of A7.7 is unchanged.** A7.7's protections are (i) that no sentence of any
