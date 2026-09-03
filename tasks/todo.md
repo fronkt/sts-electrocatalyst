@@ -1372,11 +1372,11 @@ do n=18"*. **Compute: none. Balance 59,761.1 SU. Suite 332 -> 341 passed.**
 - [ ] **Send the RCAC ticket** (Gmail draft `r1072822063942699521`, updated).
 - [ ] **S-4 still must be re-specified before it is offered.**
 
-## 2026-09-03 (fourth block) — trajectory assessment: is the project degrading? (docs/71)
+## 2026-09-03 (fourth block) — trajectory assessment: is the project degrading? (docs/72)
 
 **Not a registration.** Entrant asked whether the project is degrading in prestige / rigor /
 placement, on the understanding that "right now it is finding errors in how current DFTs are
-modeled and then fixing them." Full answer with re-runnable greps: **docs/71**.
+modeled and then fixing them." Full answer with re-runnable greps: **docs/72**.
 
 **Verdict.** Rigor is NOT degrading — it is the strongest axis and above the finalist median for
 the first-round filter. **Novelty is** (every recommended docs/70 spike scores N=2/5, `docs/70:529`).
@@ -1398,12 +1398,17 @@ critic (§8.1 C-6, `:851`); C-2 found Iyer 2021 mis-described (Li-ion cathode pa
 six attributions never opened. docs/18's live criterion is **stage, not modality**, and it "has
 still not been tested against the present state."
 
-### Owed (from docs/71 §9 — all Frank's, all decisions rather than compute)
+### Owed (from docs/72 §9 — all Frank's, all decisions rather than compute)
 
 - [ ] **Q-5 S8 go/no-go — pull forward from S-3 to this week.** Largest remaining fork; the
       potentiostat is already BOOKED (`:207`), so this is a decision, not a resource problem.
 - [ ] **Q-10 silentgate — write it or withdraw S2 explicitly.** Cheapest conversion of
       self-audit into field-audit; "owed-but-unwritten at lock is the worst of the three outcomes."
+      **The spec now exists (docs/71, committed 1c50886 the same day) and the gap is exactly five
+      entrant-written files** — no longer a design problem, only a decision plus writing time.
+- [ ] **NOTE on Q-5 direction.** A parallel 2026-09-03 session recommends declaring S8 **dead for
+      this cycle**; docs/72 recommends only that the call be MADE this week, either way. **No S8
+      ruling exists in the tree** — both are recommendations, neither is a decision of record.
 - [ ] **Write the claim sentence now, not Sep 20** (`docs/43:1932`); the S-2 figure and the
       six-row displacement both wait on it.
 - [ ] **Free scored rows, 0 SU:** (a) **P15 / hp.x TiO2 U = 4.2245 eV (q222) / 4.2251 (q333)**,

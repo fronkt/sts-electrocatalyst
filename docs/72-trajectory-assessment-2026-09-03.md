@@ -1,4 +1,4 @@
-# docs/71 — Trajectory assessment: is the project degrading in rigor, novelty, or placement? (2026-09-03)
+# docs/72 — Trajectory assessment: is the project degrading in rigor, novelty, or placement? (2026-09-03)
 
 ## 0. Status of this document
 
@@ -15,6 +15,15 @@ finding errors in how current DFTs are modeled and then fixing them/comparing."
 **Verification rule used.** Every claim carries a `path:line` pointer or a recorded command.
 Negative existence claims were established by grep, not by impression (`tasks/lessons.md:931`).
 The commands are printed in §7 so each one is re-runnable.
+
+**Concurrency note (recorded, not silently fixed).** This file was first written as `docs/71`
+from a directory listing taken at the start of the session. A concurrent session committed
+`docs/71-silentgate-core-implementation-brief.md` (`1c50886`, 2026-09-03 12:12) while this
+assessment was being drafted, so the number was already taken. Renumbered to **docs/72**;
+neither commit clobbered the other (`1c50886` touched only its own file, this one only
+docs/72 + `tasks/todo.md`). **A stale directory listing is the same error class as a stale
+owed-list** — re-`ls` before claiming a filename, the way §7's greps re-check a claim.
+Consequences of that brief for §2 and §9 are folded in below.
 
 ---
 
@@ -41,6 +50,12 @@ real. The *whose* is not yet established.
   `docs/45:77` — "Act 4 (the census) waits on the entrant's silentgate"; docs/70 H-14
   (`:357`) — the silentgate core is "entrant-written, unstarted, and blocks the S2 census."
   Confirmed by grep: **no silentgate module exists under `src/dft/`** (§7 G4).
+  **Updated 2026-09-03 (same day):** `docs/71-silentgate-core-implementation-brief.md` now
+  exists — a *specification*, explicitly "no implementation code and none may be added to it,"
+  the five core paths reserved to the entrant by `docs/43:1840`. So G4 still holds and the
+  census is still blocked, but the blocker is now **five files against a written contract**
+  rather than against a search. That materially lowers the cost of decision 2 in §9; it does
+  not change the verdict in §1.
 - The one literature-premise reversal that *is* a field-level result (RuO2 antiferromagnetism,
   `docs/45:2642`) is framed in the ledger as a repo error first: the refuted premise was
   asserted as fact in **deck-generating code**, `src/dft/probe_decks.py:250-253`.
@@ -242,12 +257,23 @@ G8  grep -rn "4.224\|4.225" docs/ tasks/                             -> no doc c
 | # | Decision | Why now | Cost |
 |---|---|---|---|
 | 1 | **Q-5, S8 go/no-go — pull forward from S-3 to this week** | Largest remaining fork (`docs/70:794`); everything downstream is shaped by it; a partial chain is worse than none under the eligibility rule; and the potentiostat is already booked, so this is a decision, not a resource problem | 1-2 h |
-| 2 | **Q-10, silentgate: write it or withdraw S2 explicitly** | The single cheapest thing that converts self-audit into field-audit (§2, §4.4 beat 3). "An owed-but-unwritten gate at lock is the worst of the three outcomes" (`docs/70:816-818`) | decision now |
+| 2 | **Q-10, silentgate: write it or withdraw S2 explicitly** | The single cheapest thing that converts self-audit into field-audit (§2, §4.4 beat 3). "An owed-but-unwritten gate at lock is the worst of the three outcomes" (`docs/70:816-818`). **The spec now exists (docs/71) and the gap is exactly five entrant-written files** — so this is no longer a design problem, only a decision plus writing time | decision now |
 | 3 | **Write the claim sentence early — do not wait for Sep 20** | `docs/43:1932` — "what does not exist is the entrant's own claim sentence"; 8-9 claimants against a 6-row cap (`tasks/todo.md:760`); the S-2 figure and the displacement both wait on it | 2-4 h |
 | 4 | **Close the unscored pile before it auto-converts** | 9+ predictions -> WITHDRAWN-UNSCORED at lock (`docs/43:2247-2270`); §8 items 1 and 3 are free rows | see §8 |
 | 5 | **Put the deadline ledger back on the board, ICLR included** | §6.1; not a capacity assumption, an absent list | 15 min |
 | 6 | **Price and outline S-5** | `docs/70:894-896`; 30 days for 20 pages, no outline in the tree | 1-2 h |
 | 7 | **Decide the one-pager follow-up** | §6.2 — only if Q-5 is no-go | 15 min |
+
+**Divergence on decision 1, recorded rather than reconciled.** A parallel session on 2026-09-03
+recommends the opposite *direction* on the same fork: "S8 make-and-measure is **dead for this
+cycle** — declare it rather than letting it hold the report open." **No S8 ruling exists in the
+tree** — grep over `tasks/todo.md` and docs returns only the open Q-5 line — so that is a
+recommendation, not a decision of record. This file recommends only that the call be **made
+this week**, not which way it goes; the two agree that leaving it open is the worst option. The
+inputs that argue against a go are the eligibility rule on incomplete investigations and the
+absent re-rank code; the input that argues for one is that the potentiostat is already booked
+and `docs/18` makes the wet-lab loop the whole difference between the two tiers. **Frank's call,
+in a dated line, either way.**
 
 ---
 
