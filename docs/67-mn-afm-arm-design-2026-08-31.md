@@ -39,7 +39,7 @@ deferral would have accepted the struck-sentence consequence permanently.
 ## 3. The physics election, stated honestly
 
 β-MnO₂'s measured magnetic ground state is an incommensurate screw/helical structure
-(Yoshimori 1959; turn angle ≈ 129° per c along the [001] chains; T_N ≈ 92 K; neutron
+(Yoshimori 1959; turn angle ≈ 129° per c along the [001] chains **[ERRATUM 2026-09-03: WRONG AS WRITTEN. Two independent sources give q = (0,0,≈2/7), a pitch of 7/2 c, i.e. ≈103° per c. See the §7 item 1 verification at the end of this document.]**; T_N ≈ 92 K; neutron
 refinement Regulski et al. ~2003-2004). **These citations are from model knowledge and
 are UNVERIFIED against any source in this repository — flagged per the campaign's
 verify-AI-literature rule; the entrant verifies them before the report quotes them.**
@@ -149,3 +149,52 @@ quote the §3 literature values before the entrant verifies them.
 > remains open. Reflected in `a0main_readout.py`'s `mn_afm` text the same day; the banked
 > readout JSON is NOT regenerated (its numbers are unchanged; its `mn_afm` sentence is
 > superseded by this line).
+
+---
+
+## §7 item 1 DISCHARGED — 2026-09-03: the §3 literature verified against primary sources, and one number is wrong
+
+*Executed under the entrant's 2026-09-03 directive ("decisions that maximize placement at STS").
+§7 item 1 was the last open item on the Mn AFM arm: "verify the §3 literature citations before
+the report quotes them." Verified this date against OpenAlex bibliographic records and two
+independent full texts. Zero SU. The disposition line at the end is still the entrant's.*
+
+§3 as written asserts four things, all flagged UNVERIFIED at the time: **(a)** Yoshimori 1959,
+**(b)** turn angle ~129 deg per c, **(c)** T_N ~ 92 K, **(d)** neutron refinement Regulski et al.
+~2003-2004.
+
+| claim | verdict | evidence |
+|---|---|---|
+| **(a) Yoshimori 1959** | **VERIFIED, exactly** | Akio Yoshimori, *"A New Type of Antiferromagnetic Structure in the Rutile Type Crystal"*, **J. Phys. Soc. Jpn. 14(6), 807 (1959)** (OpenAlex, DOI 10.1143/jpsj.14.807; 554 citations). Credited in the literature with first determining the helical order: *"The full helical magnetic order with a pitch of (7/2)c first determined by Yoshimori"* (arXiv:1211.5518). |
+| **(c) T_N ~ 92 K** | **VERIFIED, two independent sources** | *"It orders magnetically at T_N = 92 K"* (arXiv:1211.5518); *"beta-MnO2 is known as a classical example of magnetic materials with a well-defined screw magnetic order below TN = 92 K"* (arXiv:2401.02109, Okabe et al., PRB 103, 155121). |
+| **(d) Regulski ~2003-2004** | **VERIFIED, and there are TWO papers** | M. Regulski, R. Przeniosło, I. Sosnowska, J.-U. Hoffmann, *"Incommensurate magnetic structure of beta-MnO2"*, **Phys. Rev. B 68, 172401 (2003)** (OpenAlex, DOI 10.1103/physrevb.68.172401); and the same four authors, **J. Phys. Soc. Jpn. 73, 3444 (2004)** (cited as ref. 27 of arXiv:2401.02109). The "~2003-2004" hedge was right for the reason that both exist. |
+| **(b) turn angle ~129 deg per c** | **NOT VERIFIED — and WRONG AS WRITTEN** | Both full texts give the propagation vector, not an angle: *"Defining a propagation vector k = (0,0,k_z = 2/7)"* and *"This results in a helical antiferromagnetic order with pitch (7/2)c"* (arXiv:1211.5518); *"incommensurate magnetic modulation [propagation vector q_m = (0, 0, ~2/7)]"* (arXiv:2401.02109). A pitch of 7/2 c is a rotation of **360 x 2/7 = 102.9 deg per c**, not 129 deg. |
+
+### The correction, and an honest note about where 129 probably came from
+
+**The report must not say "~129 deg per c".** The sourced statement is: *beta-MnO2 orders below
+T_N = 92 K in an incommensurate helical (screw) structure with propagation vector
+q = (0, 0, ~2/7), i.e. a pitch of 7/2 c, or ~103 deg of rotation per c* (Yoshimori 1959;
+Regulski et al. 2003, 2004).
+
+**A caveat on the near-miss, flagged as a derivation and not as a source.** 129 deg is close to
+**180 - 360/7 = 128.6 deg**, which is what one gets for the angle between *nearest-neighbour* Mn
+moments if the two rutile sublattices (offset by c/2) are counted in sequence rather than the
+advance per c. So the number is probably not invented — it is plausibly the right angle carrying
+the wrong qualifier. **But neither source I read states it**, so it is recorded here as an
+unverified reconstruction and **must not be quoted as sourced.** If the report wants a
+nearest-neighbour angle it takes a citation that actually prints one.
+
+### Why this was worth the hour
+
+This is the campaign's verify-AI-literature rule catching exactly what it exists to catch: three
+citations that were right, and one number, attached to them, that was wrong in a way no reader
+would question — a plausible angle, in the right range, beside correct bibliography. It sat in
+the physics paragraph of an arm that has already been countersigned and closed.
+
+### Owed from the entrant — one dated line
+
+`**[MN AFM §3 LITERATURE 2026-__-__: VERIFIED AS CORRECTED]**` — adopting the sourced sentence
+above and striking "~129 deg per c"; or `STRUCK` (no literature magnetic-structure number is
+quoted at all); or `DEFERRED` to report-writing. Discharging it closes docs/67 §7 entirely and
+with it the last thread of the Mn AFM arm.
