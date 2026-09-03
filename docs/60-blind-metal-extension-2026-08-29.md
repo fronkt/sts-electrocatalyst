@@ -141,6 +141,12 @@ with it in `a7_3.conditionality`, and the status must not be read without them:
    any relaxation in any cell"). The licence is ungranted. **If withheld, the Ti rows are
    WITHDRAWN-UNSCORED, the denominator falls 6 → 5 and the status reverts to "NOT YET MET
    — UNDECIDED".** Two banked fields are provisional on a signature.
+   **[ERRATUM 2026-09-03 — "the licence is ungranted" was true when written (2026-08-29)
+   and is FALSE NOW. It was GRANTED under directive and completed by the entrant's own
+   dated line `[§3c CONFIRMED 2026-08-31]` (docs/59 §5, verbatim: "i published the deposit,
+   submit everything"), deposited at DOI 10.5281/zenodo.22213117. The withheld branch below
+   is therefore counterfactual: A7.3's denominator STAYS 6 and the banked NOT MET 3/6 stands
+   scored. The two fields are no longer provisional.]**
 
 ## 7. Why Ti came in lowest — and the story that turned out to be wrong
 

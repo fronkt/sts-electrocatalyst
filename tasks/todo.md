@@ -977,9 +977,14 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
 - [ ] Collect outputs when arrays land (tar/scp + md5 both ends, the docs/62
       shape); extract via a0spin_census.py (Ti now scorable — the §3c CONFIRMED
       line exists) + extract_lowdin.py --check; bank + readout docs.
-- [ ] Mn AFM: when 20262290 lands, execute the E1 adoption rule (±20 meV,
+- [x] ~~Mn AFM: when 20262290 lands, execute the E1 adoption rule (±20 meV,
       pre-stated in m_mn_afm_order.txt) → countersign the measured pattern
-      (docs/67 §7 item 3) → build MN-AFM-CORE on its trigger.
+      (docs/67 §7 item 3) → build MN-AFM-CORE on its trigger.~~ **ALL THREE DONE.**
+      20262290 landed 4/4 converged (docs/68:24); the ±20 meV rule executed to a
+      **measured null** (AFM +664.6 / +1,219.5 meV above FM, solutions genuinely held);
+      countersigned `[MN E1 COUNTERSIGNED 2026-09-02]` (docs/67:140) on the entrant's
+      "Sign D3"; **MN-AFM-CORE did not trigger and will not be built.** One residue,
+      §7 item 1 — see the open item below.
 - [ ] Row-7 watch: if Ir slab 0.10/0.30 (in 20262088) fail the floor, the
       pre-named 0.05 extension fires (2 decks), then EQUALISED-BY-SELECTION.
 
@@ -1204,9 +1209,34 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
       (Ru + Ir BRANCH-CONDITIONAL, Cr + Ti SAME-BRANCH). Released by A11.R6 returning.
 - [ ] **Countersign A11.R7.** If declined, the readout is withdrawn from the report and A11.R7
       stands as the record of what was registered and not used.
-- [ ] **Countersign docs/59** — its §3c licence decision moves a banked verdict.
+- [x] ~~**Countersign docs/59** — its §3c licence decision moves a banked verdict.~~
+      **DONE 2026-08-31, and this line was stale for three days.** `[§3c CONFIRMED
+      2026-08-31]` at docs/59:309 completes the countersignature on the entrant's verbatim
+      "i published the deposit, submit everything"; DOI 10.5281/zenodo.22213117. **A7.3's
+      denominator stays 6 and the banked NOT MET 3/6 stands scored.** The "UNGRANTED"
+      wording surviving at docs/60:141 and in this file's 2026-08-29 fact 5 predates it
+      (docs/60 now carries a dated erratum).
 - [ ] **BASIN_DRIFT disposition (R3 / A8.8)** — pull the Co `.fromparent` output from Anvil first.
-- [ ] **A7.7 disposition** for a middle outcome; **A7.5's Mn AFM arm**; **the Ti nspin = 2 call**.
+- [ ] **A7.7 middle-band disposition** — **the text already exists**, written 2026-08-31
+      (docs/43:2086-2095, `[A7.7 MIDDLE-BAND DISPOSITION 2026-08-31]`: a middle count is
+      "SCORED — MIDDLE BAND / NOT MET", never quoted bare, licensing nothing). It was
+      EXECUTED UNDER DIRECTIVE via docs/66 and the entrant's own confirmation is not
+      recorded. What is owed is a **countersignature on existing text**, not a new mapping —
+      and it was written with the 3-of-6 outcome already known, which docs/43:2108-2111
+      discloses on its face. Blocks every report sentence that scores A7.3.
+- [ ] **A7.5's Mn AFM arm — ONE residue only:** docs/67 §7 item 1, *"verify the §3
+      literature citations before the report quotes them"* (Yoshimori 1959 screw structure,
+      ≈129°/c, T_N ≈ 92 K, Regulski). No verification exists in the repo. Stage 1 is
+      countersigned and closed; the core never triggered. **0 SU** — VERIFIED / STRUCK /
+      DEFERRED.
+- [ ] **The Ti nspin = 2 call** — the docs/66 row-9 revisit trigger **has now fired**:
+      row 9 elected "NSPIN=1 STANDS, **pending the equalised census** … revisit ONLY after
+      D_Ti is measured", and D_Ti is measured at **−0.0169 V** (docs/68:209). So the call is
+      live. **No verdict flips either way** — equalising moves Ti 0.0438 → 0.0522 span/2,
+      still under the 0.10 V floor. NSPIN=1 STANDS costs 0 SU; THROUGHOUT costs a 28-SCF
+      re-run (~140–532 SU at the repo's 5–19 SU/SCF band, never priced for Ti in the repo)
+      plus a fresh A6.6 disclosure and a new relaxation licence — and would still leave
+      Ru 0/32 and Ir 0/32 without an `nspin` card.
 - [ ] **Gate-(h) AFM relaxations** — still HOLD, and H-1 changes their justification: they are now
       a **sensitivity arm**, not a ground-state adoption.
 - [ ] **Cr `oosh`** — finding (no bridge-protonated `*OOH` at 1×1) or artifact of the cell?

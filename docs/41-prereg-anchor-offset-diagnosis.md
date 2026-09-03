@@ -1145,3 +1145,35 @@ Surfaced by the docs/70 ideation round as hole H-1 (`docs/70:96-114`). The three
 opened and their abstracts read in this session before this section was written; the 104× / 357× /
 67× ratios were computed here from the bounds each abstract states against the 0.05 μ_B that
 Hiraishi's abstract names. Ledger row: docs/45 §A row 6 and the dated section beneath it.
+
+### Sub-correction — 2026-09-03 (same day, appended not edited): "remain on HOLD (0 built)" is FALSE
+
+The first bullet above says the four gate-(h) 2×1v AFM relaxations "remain on HOLD (0 built)".
+**That is wrong, and it was already wrong when written earlier today.** It repeats the "still open"
+voice of the 2026-08-23 ADOPTION NOTE at docs/43:1645 without checking whether a later dated line
+had closed it. One had: `**[AFM-SCOPE RESOLVED 2026-08-30: STANDALONE_FOUR]**` (docs/43:1979). The
+builder then emitted its manifest (`runs/s0/m_h_afm_relax.txt`) and the family ran to terminal
+state the same week (docs/64 §1):
+
+| registered job | terminal state | GATE-1 |
+|---|---|---|
+| `ref__2x1v__afm__relax` | **BANKED** (2 BFGS steps) | **PASS** (+0.028 meV, Δm 0.00) |
+| `s0_OH__2x1v_off__afm__relax` | **BANKED** (2 BFGS steps) | **PASS** (−0.090 meV, Δm +0.02) |
+| `s0_OOH__2x1v_off__afm__relax` | **BANKED** (3 BFGS steps) | **PASS** (+0.302 meV, Δm −0.03) |
+| `s0_O__2x1v_off__afm__relax` | **NOT_CONVERGED** (recorded gap) | never owed — no final geometry |
+
+Measured family cost **1,067.9 SU** (70,851.6 → 69,783.7), against the 4,000–7,600 SU
+STANDALONE_FOUR estimate; arrays 20238023 / 20241317 / 20243152 / 20243153.
+
+**What this changes about the line the entrant owes.** It is not a *launch* decision — the launch
+already happened, under a resolution he wrote. What the μSR correction actually leaves open is a
+**re-label**: three banked relaxations and one recorded gap were justified as a ground-state
+adoption and are now, on the bulk evidence, a **sensitivity arm**. That is a smaller line, and it
+acts on a completed family rather than on a hold. The correction of record above is otherwise
+unaffected — no literature claim, bound, or withdrawal in it depends on this bullet.
+
+**Rule.** *A "still open" clause quoted from a registration is evidence about the day it was
+written, not about today.* Registrations say "still open" in their own frozen voice, and the line
+that closes them lives in a different place — here, 334 lines further down the same file. Before
+repeating any "open / HOLD / not built" clause, grep for its own resolution token (`AFM-SCOPE
+RESOLVED`) and check the artifacts on disk. A count of built decks is a `ls`, not a recollection.

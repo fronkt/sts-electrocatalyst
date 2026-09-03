@@ -22,7 +22,7 @@ deposit. This ledger tracks what exists and what is owed.
 | 3 | Estimator bias (η = max − mean exactly, ≥0 by construction, under imposed 4.92 eV) | exact identity; excess vanishes at pls crossing; Cr production U 7 meV from a crossing | MEASURED (algebraic + curves) | LIT-1 ladder; round-2 §6 item 4 | **P-PLS (A7.2) SCORED 2026-08-29: CONFIRMED, 5 of 6 metals flip (Cr, Fe, Ir, Mn, Ru); Ti flat. Robustness banked: Fe and Ru rest on a SINGLE row each, inside a measured error class, so the >=3 threshold is carried by exactly 3 robust members (Cr, Ir, Mn) with zero margin** | S6 |
 | 4 | Projector pairing (atomic vs ortho-atomic at same U) | +1.45 eV in U value; **η consequence MEASURED: 0.4869 V at Xu's Cr U** | **MEASURED — docs/figs/pproj_readout.json verdict FIRES; the A0 readout uses it to stamp PROJECTOR-MISMATCHED on every Xu-anchor row and exclude them from the A6.3 test (a0main_readout.py)** | build history; Xu Table 1; pproj_readout.json | P-PROJ (A7) FIRED | S0(e) |
 | 5 | Convergence-failure selection (unconverged states silently dropped) | Co *OOH 4 failures, Ni *OOH 5 | MEASURED as counts; rate now a registered budget row | run logs | A8 (owed) | S3 |
-| 6 | **Literature-premise reversal** (a cited *experimental* ground state is overturned after the premise is baked into decks and prose) | RuO2 bulk ordered moment: asserted ~0.05 muB (Berlijn 2017, neutron); measured **<=4.8(2)e-4 muB** (Hiraishi, PRL 132, 166702 (2024), muSR) and **<=1.4e-4 muB bulk** (Kessler, arXiv:2405.10820, muSR+neutron, re-assigning the neutron peak to multiple scattering) -- **67-357x below**. Consequence measured in-house: gate (h) puts AFM **80-144 meV below NM** and moves adsorption energies **33-64 meV** (docs/43:1638-1644) | **MEASURED (literature) + MEASURED (in-house consequence)**; scope = BULK long-range order, surface (110) moments NOT excluded | Hiraishi arXiv:2403.10028; Kessler arXiv:2405.10820; Smolyanyuk PRB 109, 134424 (2024) | docs/41 "Correction of record -- 2026-09-03" (rebuke of `qe_slab.py:44-48` WITHDRAWN; Liang 2022 downgraded to hypothesis); gate-(h) relaxations remain HOLD, now as a **sensitivity arm** -- entrant's dated line owed | S0(h) + the report |
+| 6 | **Literature-premise reversal** (a cited *experimental* ground state is overturned after the premise is baked into decks and prose) | RuO2 bulk ordered moment: asserted ~0.05 muB (Berlijn 2017, neutron); measured **<=4.8(2)e-4 muB** (Hiraishi, PRL 132, 166702 (2024), muSR) and **<=1.4e-4 muB bulk** (Kessler, arXiv:2405.10820, muSR+neutron, re-assigning the neutron peak to multiple scattering) -- **67-357x below**. Consequence measured in-house: gate (h) puts AFM **80-144 meV below NM** and moves adsorption energies **33-64 meV** (docs/43:1638-1644) | **MEASURED (literature) + MEASURED (in-house consequence)**; scope = BULK long-range order, surface (110) moments NOT excluded | Hiraishi arXiv:2403.10028; Kessler arXiv:2405.10820; Smolyanyuk PRB 109, 134424 (2024) | docs/41 "Correction of record -- 2026-09-03" (rebuke of `qe_slab.py:44-48` WITHDRAWN; Liang 2022 downgraded to hypothesis); gate-(h) relaxations **RAN 2026-08-30** (docs/64: 3 BANKED, all GATE-1 PASS; s0_O NOT_CONVERGED, recorded gap; 1,067.9 SU) -- **the 'remain HOLD (0 built)' written in this row and in docs/41 on 2026-09-03 was FALSE and is corrected below**; what the entrant owes is a **re-label to sensitivity arm** on a completed family, not a launch call | S0(h) + the report |
 
 ## B. Known-but-unpriced errors (the field knows; nobody prices them)
 
@@ -2688,10 +2688,17 @@ with an independent experimental check**: the method prefers, by 80–144 meV, a
 experiment excludes at the 10⁻⁴ μ_B level, and the answer moves 33–64 meV because of it. It is the
 strongest silent-premise example in the ledger, and it is not on a proxy.
 
-**Open, and the entrant's to write.** The four gate-(h) 2×1v AFM relaxations stay on HOLD
-(0 built; scope resolved 2026-08-30 as STANDALONE_FOUR). Their justification has changed — they
-would relax into a state the bulk evidence excludes — so they are now a **sensitivity arm** rather
-than a ground-state adoption. This row supplies the new information and decides nothing.
+**Open, and the entrant's to write. [CORRECTED 2026-09-03, same day — see the
+sub-correction below.]** ~~The four gate-(h) 2×1v AFM relaxations stay on HOLD (0 built; scope
+resolved 2026-08-30 as STANDALONE_FOUR).~~ **They are not on HOLD and 0 is not the count.** The
+scope was resolved by the entrant on 2026-08-30 (docs/43:1979), the builder emitted
+`runs/s0/m_h_afm_relax.txt`, and the family ran to terminal state that week: **three BANKED with
+GATE-1 PASS (+0.028 / −0.090 / +0.302 meV) and `s0_O__2x1v_off__afm__relax` NOT_CONVERGED as a
+recorded gap**, at a measured **1,067.9 SU** (docs/64 §1, arrays 20238023 / 20241317 / 20243152 /
+20243153). Their justification has changed — they relaxed into a state the bulk evidence excludes —
+so they are a **sensitivity arm** rather than a ground-state adoption. **What the entrant owes is
+therefore a re-label of a completed family, not a launch decision.** This row supplies the new
+information and decides nothing.
 
 **Flagged post-hoc, registered against nothing.** A11.R6's 0-of-16 non-convergence of spin-polarised
 Ru at U = 9, against nspin = 1 twins converging in 25 iterations (docs/68 §2, §11), is *consistent*
