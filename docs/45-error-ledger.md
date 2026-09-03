@@ -32,6 +32,7 @@ deposit. This ledger tracks what exists and what is owed.
 | 7 | Coverage / cell (identical variables in one-cus-site 1x1) | 7/9 rows > 0.10 eV (1A; corrected 2026-08-23 from “6/9” — deposited A8.1 docs/43:1514 “7 of 9”, cellsym_readout.json cell rows 7 EXCEEDS / 2 WITHIN; docs/54 §6 item 15); Ir *OOH −0.285 → −0.018 eV | MEASURED (1A) → crossed design owed | docs/43 1A verdict ADOPT_2X1V | A8 (owed) | S3 contrast leg |
 | 8 | XC functional | not yet measured here | NOT MEASURED (gated on S0(a) four-deck test) | — | A10 (owed, Sep 18) | S5, "XC only" row |
 | 9 | Solvation | ~0.3 eV in c_M at O coverage vs ~0.1 at OH (Gauthier, read from paper) | TRANSFERRED — never measured here; registered as the non-additivity prediction | 10.1021/acs.jpcc.7b02383 | **A8 (docs/47 A8.2 carries it as an appendix prediction, 2026-08-23; A9 was the fallback)** | zero-compute registration |
+| 10 | **Pseudopotential / augmentation family** (the six metals are not on one PP family, and the ledger never had a row for it) | **not measured here.** Independent UPF census over `runs/a0/main` (2026-09-03, `grep -rhoiE '[A-Za-z0-9_.+-]+\.upf' runs/a0/main --include='*.in'`) returns **three families, not two**: ULTRASOFT `cr_pbe_v1.5.uspp` ×76, `mn_pbe_v1.5.uspp` ×32, `Ir_pbe_v1.2.uspp` ×32, `ti_pbe_v1.4.uspp` ×28, `H.pbe-rrkjus_psl` ×119; PAW `Fe.pbe-spn-kjpaw_psl` ×39, `O.pbe-n-kjpaw_psl` ×239; NORM-CONSERVING `Ru_ONCV_PBE-1.0.oncvpsp` ×32 — **Ru is the only norm-conserving metal and Fe the only PAW metal.** Reproduces docs/70 H-9's counts exactly | **NOT MEASURED — TRANSFERRED, no size available.** No PP/basis arm exists and none is registered. **Bound on the confound (2026-09-03):** the family does **not** partition the A7.3 verdict — ultrasoft sits on both sides (Cr 0.343, Mn 0.631 over; Ti 0.052, Ir 0.059 under, equalised `span_over_2_V`) — so PP family does not explain the 3-of-6 split. But the two singleton families fall on **opposite** sides, and the norm-conserving singleton is the decisive row: **Ru is 4.3 meV under the registered 0.100 V floor** (equalised 0.09574; as-built 0.09225, 7.8 meV), so Ru alone carries 3-of-6 NOT MET → 4-of-6 MET. **The one metal that could flip A7.3 is the one metal whose PP family is unreplicated.** Stated as an unmeasured confound, not a rescue: A7.3 stays NOT MET at 3 of 6 and no verdict moves | `tasks/review/a7_3_spin_census_2026-09-02_FINAL.json` (`floor_V` 0.1, `per_metal/*/equalised/span_over_2_V`); UPF census command above; docs/70 H-9 `:282-296` | **UNREGISTERED — no amendment carries a PP/basis arm.** A10 (Sep 18) governs XC only (§B row 8) and does not reach PP | **zero-compute disclosure only.** The optional 12-SCF Ru GBRV control at the three Ru anchors (~30–60 SU, docs/70 `:291`) would be an *anchor-pair comparability control*, not a new error class, and needs a dated line before it is built. Cutoff and k-mesh legs are already answered (docs/23 §4, 80/640 Ry and k-grid flat to <1 meV/atom; gate (i) second ladder 1.09–1.19 meV/atom) and must not be re-run |
 
 ## C. Structural results (not errors; bounds on what any screen can claim)
 
@@ -3108,3 +3109,64 @@ lateral interactions. The geometry is consistent with both and this ledger decid
 - **A state that walks off the surface is a different chemical species, not a bad conformer.**
   Where an adsorbate desorbs during relaxation, the correct record is a new state label, not a
   rejected data point.
+
+---
+
+## Dated addendum — 2026-09-03: H-9 closed by disclosure; the "clears every measured error class" qualifier is narrowed
+
+**Status: AI-drafted ledger maintenance, 0 SU. Not a registration, not report prose.** It adds
+one **NOT MEASURED** class to §B and narrows one qualifier on an already-scored prediction. No
+verdict changes; no threshold moves; nothing above a deposit line is edited in place.
+
+**What was open.** docs/70 H-9 (`:282-296`) found that docs/45 carried **no pseudopotential or
+basis-set class at all**, while A6.3's headline — η(Ir) − η(Ru) = **+0.464 V** at U = 9, scored
+INVERTED and annotated "**clears every measured error class**" (docs/58 `:91`, `:98`; restated
+docs/45 `:2131`) — is a cross-metal comparison between an ultrasoft Ir and a norm-conserving Ru.
+A class that is not in the list cannot be cleared by clearing the list. H-9 prescribed "one
+TRANSFERRED / NOT MEASURED sentence naming the confound (**0 SU**)".
+
+**Checked before writing, per the standing rule that the line closing an item lives in a
+different file from the note that says it is open:** `grep -rniE "H-9" docs/ tasks/ src/
+README.md` returns **no resolution anywhere** — the only hits are three binary files
+(`docs/figs/parity_matched.png` and two PDFs) matching the byte pattern. And `grep -rniE
+"pseudopotential|ONCV|uspp|kjpaw|norm-conserving" docs/45-error-ledger.md` returned only
+`:382` (`ecutrho` under-convergence) and `:496-497` (a filename-case incident), neither of
+which is an error class. **H-9 was open. It is now closed by disclosure, not by measurement.**
+
+**What the independent re-read adds to H-9.** The UPF census was re-run from the decks rather
+than carried over. It reproduces H-9's counts exactly and corrects its framing on one point:
+the six metals span **three** families, not two — ultrasoft (Cr, Mn, Ir, Ti), PAW (Fe),
+norm-conserving (Ru). H-9's "two PP families" is right for the A6.3 **Ir−Ru pair** and
+understates the six-metal set.
+
+**The sharper exposure, which H-9 did not state.** The confound reaches further than A6.3:
+
+- It does **not** explain A7.3's 3-of-6 split. Ultrasoft appears on both sides — Cr 0.343 and
+  Mn 0.631 over the floor, Ti 0.052 and Ir 0.059 under it (equalised `span_over_2_V`).
+- But the two singleton families land on **opposite** sides, and the norm-conserving singleton
+  is the one row the verdict turns on: **Ru is 4.3 meV below the registered 0.100 V floor**
+  (equalised 0.09574; as-built 0.09225, 7.8 meV). Ru crossing alone takes A7.3 from
+  **NOT MET at 3 of 6** to **MET at 4 of 6**.
+- So **the single metal that could flip the project's headline negative result is the single
+  metal whose pseudopotential family is unreplicated.**
+
+**Stated as an exposure, not as a rescue.** This licenses nothing. A7.3 stays **NOT MET at
+3 of 6** as banked and scored; A6.3 stays **INVERTED**. Two textual consequences only:
+
+1. **The qualifier is narrowed.** "Clears every measured error class" is true as written and
+   misleading as read: the list it clears has no PP row, so the sentence must be quoted only in
+   the form "**clears every error class this campaign measured — pseudopotential/basis is not
+   among them, and is not measured here**". §B row 10 is now that row.
+2. **A7.3's Ru line carries the same caveat** wherever the 4.3 meV margin is quoted. It already
+   carries the nspin partition caveat and the branch-conditional guard-3 flag; the PP singleton
+   is a third, independent one.
+
+**Not done and deliberately not done.** No PP arm is registered and none is proposed here.
+docs/70 `:291` offers a 12-SCF Ru GBRV control at the three Ru anchors (~30–60 SU) as an
+*anchor-pair comparability control*; building it needs the entrant's dated line, and after
+A11.R6 the standing rule is that a rung chosen after seeing a result must disclose that it was.
+The cutoff and k-mesh legs are already answered (docs/23 §4; gate (i)) and are not to be re-run.
+
+**Owed to the entrant:** countersignature, and a decision on whether the Ru GBRV control is
+built at all. If it is not, this row is the whole of the project's pseudopotential story and the
+report says so in one sentence.
