@@ -1099,9 +1099,17 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
       5 meV trigger by 77x/15x/4x; the deposited remedy (docs/43:311-314 re-relax loop) is **not executed**;
       every ΔG built on those three inherits it; the Fe row is **~45x the Ru-to-floor distance**. This is
       entrant decisions R3/A8.8 (todo:593, :608, :683) and docs/70 missed it entirely.
-- [ ] Also owed, 0 SU: A5.1(a)+(c) (no script reads a `.lowdin.txt`; Ru/Ir/Ti have no other valence tracker
-      and are exactly A7.3's under-floor set); the docs/45:255-256 census contradiction, to be reconciled
-      **before any readout is quoted**.
+- [x] ~~Also owed, 0 SU: A5.1(a)+(c) (no script reads a `.lowdin.txt`; Ru/Ir/Ti have no other valence
+      tracker and are exactly A7.3's under-floor set); the docs/45:255-256 census contradiction, to be
+      reconciled **before any readout is quoted**.~~ **BOTH DISCHARGED 2026-09-03.** The parenthetical
+      was **false as written** — `src/dft/extract_lowdin.py` both produces and validates `.lowdin.txt`,
+      and `lit1_urobustness.py` has scored A5.1(a)/(c) for tranche 1 since 2026-08-12. The real hole
+      was narrower and better: the **A0 grid** had no valence readout, and Ti/Ru/Ir's A0 decks carry
+      **no `nspin` card at all** (0/28, 0/32, 0/32), so A5.1(a)'s primary moment tracker cannot exist
+      on exactly the failing set. Discharged by **A11.R7** (registered `afb9692`, scored `dbe3104`) on
+      the Löwdin d-occupancy, the one valence quantity that spans the nspin confound — **R7-P3 fired,
+      the tracker is falsified as an explanation of the A7.3 split.** Census reconciled at `316ae31`
+      (88 `__g1` children, zero orphans; the two counts answered different questions).
 - [ ] **S-4 (crossing-locator spike) must be re-specified before it is offered**: registers a 9th ledger
       claimant over cap, prediction not evaluable by its own decks, denominator 5 vs 6, ±0.2 eV
       near-unfalsifiable on Cr's 0.5 eV bracket, and drops the spin-equalisation docs/66 §6 item 1 requires.
