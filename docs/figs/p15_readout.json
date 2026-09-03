@@ -1,0 +1,184 @@
+{
+  "artifact": "p15 -- block 1B hp.x U gate",
+  "registered": "docs/43 \u00a74 as amended by \u00a74-A (AMENDMENT 1)",
+  "thresholds_parsed_from": "docs/43-prereg-week1-factorial.md",
+  "thresholds": {
+    "window_eV": [
+      3.0,
+      7.0
+    ],
+    "q_mesh_dU_max_eV": 0.2,
+    "perturbed_atom_tol_eV": 0.05
+  },
+  "zero_su": true,
+  "checks": {
+    "external": {
+      "U_eV": {
+        "q222": 4.2245,
+        "q333": 4.2251,
+        "q444": 4.2245
+      },
+      "window_eV": [
+        3.0,
+        7.0
+      ],
+      "all_in_window": true,
+      "verdict": "MET"
+    },
+    "q_mesh": {
+      "steps": [
+        {
+          "from": "q222",
+          "to": "q333",
+          "dU_eV": 0.000600000000000378,
+          "passes": true
+        },
+        {
+          "from": "q333",
+          "to": "q444",
+          "dU_eV": 0.000600000000000378,
+          "passes": true
+        }
+      ],
+      "max_dU_eV": 0.000600000000000378,
+      "threshold_eV": 0.2,
+      "margin_x": 333.33333333312333,
+      "verdict": "PASS"
+    },
+    "perturbed_atoms": {
+      "deck": "hp__atomic_q333_allatoms (find_atpert = 4)",
+      "U_eV": [
+        4.2251,
+        4.2251
+      ],
+      "spread_eV": 0.0,
+      "tolerance_eV": 0.05,
+      "qc": {
+        "exists": true,
+        "job_done": 1,
+        "not_converged": 0,
+        "clean": true
+      },
+      "verdict": "PASS"
+    },
+    "chi_symmetry": {
+      "status": "DEMOTED to a reported diagnostic by docs/43 \u00a74-A.4",
+      "gated": false,
+      "measurement": "PENDING",
+      "note": "reported, not gated, 'whichever way the pending measurement resolves'. Settleable at 0 SU: every deck ran iverbosity = 2 and the raw per-rung .chi*.dat are preserved, so the raw chi can be compared against the symmetrised matrix in .Hubbard_parameters.dat. A hard gate that cannot fail is not a gate."
+    },
+    "amplitude_independence": {
+      "status": "WITHDRAWN by docs/43 \u00a74-A.2 as UNPERFORMABLE",
+      "gated": false,
+      "note": "hp.x is DFPT and the binary has no perturbation-amplitude keyword, so the check was not merely unmet but impossible. It is neither a pass nor a failure and must not be counted as either."
+    },
+    "check_4prime": {
+      "U_Cr_3d_eV": 6.1635,
+      "qc": {
+        "exists": true,
+        "job_done": 1,
+        "not_converged": 0,
+        "clean": true
+      },
+      "scf_magnetisation": {
+        "total_muB": 4.0,
+        "absolute_muB": 4.68
+      },
+      "registered": "one bulk rutile CrO2 arm must print a finite U with ZERO 'Convergence has not been reached' lines (docs/43 \u00a74-A.3)",
+      "verdict": "PASS"
+    },
+    "slab": {
+      "runs": {
+        "crslab_sym__hp_1atomq_a1.out": {
+          "exists": true,
+          "job_done": 1,
+          "not_converged": 1,
+          "clean": false,
+          "produced_U": false
+        },
+        "crslab_sym__hp_1atomq_a1_q3.out": {
+          "exists": true,
+          "job_done": 1,
+          "not_converged": 1,
+          "clean": false,
+          "produced_U": false
+        },
+        "crslab_sym__hp_1atomq_a5.out": {
+          "exists": true,
+          "job_done": 1,
+          "not_converged": 1,
+          "clean": false,
+          "produced_U": false
+        },
+        "crslab_sym__hp_1atomq_a5_q3.out": {
+          "exists": true,
+          "job_done": 1,
+          "not_converged": 1,
+          "clean": false,
+          "produced_U": false
+        }
+      },
+      "n": 4,
+      "n_clean": 0,
+      "n_produced_U": 0,
+      "scope": "U-attempt decks only (crslab_sym__hp_1atomq_*), the four named in cost_model.json. The 6 crslab_sym__hp_{qmesh,npert}_* runs are the docs/43 \u00a74-A.5 cost model and k-count probes, reported separately and NOT gate rows.",
+      "cost_model_probes": {
+        "crslab_sym__hp_npert.out": {
+          "exists": true,
+          "job_done": 1,
+          "not_converged": 0,
+          "clean": true,
+          "produced_U": false
+        },
+        "crslab_sym__hp_qmesh_q111.out": {
+          "exists": true,
+          "job_done": 1,
+          "not_converged": 0,
+          "clean": true,
+          "produced_U": false
+        },
+        "crslab_sym__hp_qmesh_q211.out": {
+          "exists": true,
+          "job_done": 1,
+          "not_converged": 0,
+          "clean": true,
+          "produced_U": false
+        },
+        "crslab_sym__hp_qmesh_q321.out": {
+          "exists": true,
+          "job_done": 1,
+          "not_converged": 0,
+          "clean": true,
+          "produced_U": false
+        },
+        "crslab_sym__hp_qmesh_q421.out": {
+          "exists": true,
+          "job_done": 1,
+          "not_converged": 0,
+          "clean": true,
+          "produced_U": false
+        },
+        "crslab_sym__hp_qmesh_q941.out": {
+          "exists": true,
+          "job_done": 1,
+          "not_converged": 0,
+          "clean": true,
+          "produced_U": false
+        }
+      },
+      "registered": "docs/43 \u00a74 'A separate gate for the slab': a successful bulk validation does not license a slab U",
+      "verdict": "NO-GO"
+    },
+    "literature_side_check": {
+      "xu_U_eV": 4.95,
+      "ours_q222_eV": 4.2245,
+      "offset_eV": -0.7255000000000003,
+      "gated": false,
+      "note": "docs/43 \u00a74: reported as an additional check, NOT as the gate. The ~4.9 eV draft criterion was withdrawn as unverifiable."
+    }
+  },
+  "bulk_verdict": "GO",
+  "bulk_scope": "BULK -- check 4' passed, so the GO is NOT confined to the closed-shell statement",
+  "slab_verdict": "NO-GO",
+  "binding": "The bulk and slab gates are separate and are never combined (docs/43 \u00a74). The chi-symmetry diagnostic and the literature side-check are REPORTED and never gate. Amplitude independence is WITHDRAWN as unperformable and is neither a pass nor a failure. This readout applies no countersignature: the registered scoring act is the entrant's dated line."
+}
