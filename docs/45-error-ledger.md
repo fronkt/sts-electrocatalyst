@@ -2713,3 +2713,130 @@ with Smolyanyuk's high-U-artifact picture. Observed after the fact; no predictio
 
 *Surfaced by the docs/70 ideation round as hole H-1 (docs/70:96-114). Sources verified this session,
 not carried from the workflow.*
+
+## A11.R7 SCORED, 2026-09-03 — the valence-change explanation of the A7.3 split is falsified, and my own stability rule repeated an error I logged the day before
+
+Registered at **afb9692** (docs/43 A11.R7) with no script and no result; scored by
+`src/dft/a0lowdin_valence.py` into `docs/figs/a0lowdin_valence.json` and
+`docs/research/2026-09-03-a11r7-lowdin-valence.md`. **0 SU. Zero new DFT.** The two commit
+hashes are the proof that the criterion preceded the number.
+
+### What ran
+
+230 banked `.lowdin.txt` artifacts on the A0 production ladder (Cr 76, Fe 30, Ir 32, Mn 32,
+Ru 32, Ti 28); 5 excluded by the registered `^u\d{3}$` scope rule and **each named** — Fe's
+three `pilot530_m*` seed rows and its `u300__r1` / `u450__r2b` repair rows. All five
+registered self-checks PASS, including `extract_lowdin.py --check` on all 230 and the
+per-atom `total charge == s + p + d` witness at 1e-3 e.
+
+**The response side has an exact independent witness:** span_U(c_M)/2 computed here
+reproduces the banked `a0main_readout.json` `span_over_2_V` to **0.00e+00 on all six
+metals**. The predictor side is new; the response side is provably the same quantity A7.3
+was scored on.
+
+### The result — R7-P3, the registered falsification, fires
+
+|δq_c| in electrons, ordered, with each metal's A7.3 group and its span:
+
+| metal | \|δq_c\| | A7.3 | span_U(c_M) eV | nspin = 2 |
+|---|---|---|---|---|
+| Mn | 0.0069 | **OVER** | 1.2614 | yes |
+| Ti | 0.0096 | under | 0.0875 | no |
+| Ir | 0.0165 | under | 0.1274 | no |
+| Cr | 0.0399 | **OVER** | 0.6869 | yes |
+| Ru | 0.0695 | under | 0.1845 | no |
+| Fe | 0.0735 | **OVER** | 1.2204 | yes |
+
+The two groups **interleave completely**. The response separates them by 4–14× (0.09–0.18 eV
+under, 0.69–1.26 eV over); the predictor does not separate them at all — the metal with the
+*largest* U-span, Mn, has the *smallest* valence change. **R7-P3: DOES NOT SEPARATE. The
+valence-change explanation of the A7.3 split is FALSIFIED on this tracker.**
+
+That is the deliverable the line was written to produce, and it was written knowing a
+separation would have proved nothing. What it leaves standing is the uncomfortable one: the
+partition that *does* separate the six perfectly is `nspin = 2` / `nspin = 1` — whether the
+calculation was spin-polarised at all — and **the one valence quantity that exists on both
+sides of that partition does not track it.** This does not prove the A7.3 split is an
+artifact of the spin convention. It removes the most obvious physical alternative and leaves
+the methodological one unopposed, which is a sharper statement of the confound than docs/60
+and docs/63 could make.
+
+Also measured, and reported rather than interpreted: the 4d/5d metals show far larger
+step-level Löwdin response than the 3d metals (|δq₁| 0.174/0.179 for Ir/Ru against
+0.009–0.066 for Cr/Mn/Fe/Ti), which is a group difference in the predictor that δq_c happens
+to cancel.
+
+### R7-P1 returned REFUTED, and the registration is why it is nearly worthless
+
+**ρ = −0.257, nominal p = 0.658 on n = 6** → REFUTED by the registered ladder (ρ ≤ 0). But
+the registered stability rule flagged **four of six metals** (Cr, Mn, Ti, Ir) and left two,
+so the primary test ran on 2 metals × 3 steps. The verdict stands as registered — it is the
+conservative direction and nothing is being shopped — but **it is not a physics statement and
+must not be quoted as one.** Post-hoc on all six (labelled POST-HOC in the JSON, no
+threshold, not a verdict): ρ = −0.381, p = 0.121, n = 18. Same sign. The malformed rule cost
+power, not direction.
+
+### The error in my own registration
+
+The stability rule reads: flag a metal when `range_U(Δq_d) > |δq_c|`. That compares **a swing
+across U** against **a difference between two states at fixed U**. They are different
+quantities with no reason to share a scale, and because |δq_c| is a small difference of two
+similar numbers (0.007–0.074 e) while `range_U` is a direct response to the Hubbard term, the
+rule fires on any metal whose valence change is small — which is most of them, and which is
+not what "unstable" means.
+
+**This is the same error class I entered in this ledger on 2026-09-02** ("I mixed two
+conventions for the same distance"), one day earlier, in the same campaign, about the same
+prediction. That entry's rules were about *reporting* a distance. They did not stop me
+writing a *threshold* that compares a level to a swing, because I checked the convention on
+the numbers I printed and never asked what the comparison inside the criterion meant.
+
+**Rules.**
+
+- **A threshold is a comparison, and a comparison needs both sides to be the same kind of
+  quantity.** Before registering `A > B`, say out loud what A and B each are — a level, a
+  difference, a range, a rate — and refuse the line if they differ. A dimensional check is not
+  enough: `range_U(Δq_d)` and `|δq_c|` are both in electrons and the rule is still nonsense.
+- **A stability witness must be scaled by something that cannot vanish.** Dividing by the
+  quantity under test guarantees the flag fires hardest exactly where the signal is smallest.
+  The fix, for whoever writes the successor line: compare `range_U(Δq_d)` against a fixed
+  absolute tolerance, or against the *response* it is meant to qualify — never against the
+  predictor itself.
+- **Registering a bad rule and honouring it is still better than not registering.** The rule
+  cost this analysis most of its power, and the cost is visible, bounded and stated. Had the
+  threshold been chosen after seeing four metals interleave, nothing in the result would be
+  believable. The verdict is reported as registered; the post-hoc figure is labelled as
+  post-hoc; both are in the JSON.
+
+### Two corrections to docs/70 §8.2, both mine, both found by executing it
+
+§8.2 called A5.1(a) and A5.1(c) "registered, zero-DFT, **unscored**" and asserted that "**no
+script in the repo reads a `.lowdin.txt`**". Both are false:
+
+1. `src/dft/lit1_urobustness.py` implements A5.1 (a), (c) and (d), and **tranche 1 is banked**
+   — `docs/research/lit1_tranche1_uladder.json` and
+   `docs/research/2026-08-12-lit1-tranche1-uladder.md`, dated 2026-08-11/12, scoring the P7
+   fixed-geometry U-ladders for Cr and Co with a registered 0.5 μ_B moment criterion at
+   `lit1_urobustness.py:95-111`.
+2. `src/dft/extract_lowdin.py` both produces and validates `.lowdin.txt` artifacts, and
+   `tests/test_extract_lowdin.py` T1 validates **the entire bank of 265** against the format
+   spec.
+
+What survives, and is sharper than what it replaces: A5.1(a)/(c) were scored on **tranche 1
+only** — two metals, four U points, and that document's own scope section says "Löwdin
+populations (projwfc.x) are **not in this tranche**". The A0 grid, where A7.2 and A7.3 are
+actually scored, had no A5.1(a) readout at all, and **the primary tracker cannot exist there
+for half the grid**: the A0 main decks for Ti, Ru and Ir carry no `nspin` card (0 of 28, 0 of
+32, 0 of 32). That is the hole, and A11.R7 closed it.
+
+**Rule.** *An audit of your own repo is a claim like any other, and the cheapest refutation of
+"no script does X" is to go looking for the script.* Both false claims were negative
+existence claims, both were checkable in one `grep`, and both survived into a committed
+document because a negative feels like it needs no evidence.
+
+### What A11.R7 does not do
+
+It moves **no banked verdict**. A7.2 stays CONFIRMED 5/6, **A7.3 stays NOT MET at 3 of 6**,
+the as-built headline (A11.5), the selection rule (A11.6) and tier_v2 are untouched. The
+countersignature on A11.R7 is owed; if the entrant declines it, the readout is withdrawn from
+the report and A11.R7 stands as the record of what was registered and not used.

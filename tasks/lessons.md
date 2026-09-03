@@ -904,3 +904,44 @@ non-magnetic twins converge in 25."* The value was never in the chance of conver
 - **When recommending for or against an experiment, state the sentence each outcome
   produces.** My first answer weighed optics; the correct frame was what a skeptical
   reader can and cannot say afterwards.
+
+## A threshold is a comparison — check both sides are the same KIND of quantity (2026-09-03)
+
+**What happened.** I registered A11.R7's stability witness as "flag a metal when
+`range_U(Δq_d) > |δq_c|`". That compares a *swing across U* against a *difference between two
+states at fixed U*. Both are in electrons, so a dimensional check passes; the comparison is
+still meaningless. Because |δq_c| is a small difference of two similar numbers, the rule fired
+on 4 of 6 metals and gutted the primary test — it flags hardest exactly where the signal is
+smallest.
+
+**Why it matters.** One day earlier I logged a lesson about mixing a level and a swing when
+*reporting* a distance (docs/68's 4.3 vs 8.5 meV). That lesson did not stop this, because I
+checked the convention on the numbers I printed and never asked what the comparison *inside a
+criterion* meant. A lesson scoped to output does not cover input.
+
+**How to apply.**
+- Before registering `A > B`, name what A and B each are out loud — a level, a difference, a
+  range, a rate. Refuse the line if they differ. Dimensional agreement is not the test.
+- Never scale a stability witness by the quantity under test; it guarantees the flag fires
+  where the signal is smallest. Use a fixed absolute tolerance, or the response it qualifies.
+- Honour a bad registered rule anyway, report the verdict as registered, and label any
+  all-data figure POST-HOC. The alternative — changing the threshold once you can see the
+  data — makes nothing in the result believable.
+
+## Negative existence claims about your own repo need a grep, not a feeling (2026-09-03)
+
+**What happened.** I wrote, in a committed document, "no script in the repo reads a
+`.lowdin.txt`" and "A5.1(a)/(c) are unscored". Both false. `src/dft/extract_lowdin.py`
+produces and validates those artifacts with a test that checks the entire bank of 265, and
+`src/dft/lit1_urobustness.py` implements A5.1 (a)/(c)/(d) with tranche 1 banked three weeks
+earlier.
+
+**Why it matters.** Both were *negative* claims, and a negative feels like it needs no
+evidence — you looked, you did not see it, you write "there is none". Both were one `grep`
+from refutation. The real hole was narrower and much better: the analysis exists but covers
+two metals on a different ladder, and the primary tracker is structurally unavailable on half
+the grid that matters.
+
+**How to apply.** Any sentence of the form "nothing in the repo does X" gets a literal search
+pasted beside it before it is committed. And when the search does find something, do not
+delete the bullet — the corrected, narrower claim is usually the stronger finding.

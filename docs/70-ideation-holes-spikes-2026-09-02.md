@@ -866,10 +866,21 @@ re-verification. Nothing above this section has been silently edited; read §§2
   Round 3 confirmed it deeper still (−428.5 meV, 400× the gate width) and it sits as entrant
   decisions R3/A8.8. `grep -c BASIN_DRIFT docs/70` = 0. **This belongs at the top of §3, not absent
   from it**, and its disposition costs 0 SU.
-- **A5.1(a) and A5.1(c): registered, zero-DFT, unscored, and aimed at A7.3's failing set.** No script
-  in the repo reads a `.lowdin.txt`, while Ru/Ir/Ti's nspin = 1 decks make the moment tracker
-  structurally unavailable — so Löwdin is the only valence tracker those three can have, and those
-  three are exactly the under-the-floor set. Cheaper than every spike in §6.
+- **A5.1(a) and A5.1(c) have no readout on the A0 grid, and the primary tracker cannot exist there
+  for half of it.** *(Corrected 2026-09-03 — this bullet first read "registered, zero-DFT, **unscored**"
+  and "**no script in the repo reads a `.lowdin.txt`**". Both were false, both were mine, and both were
+  one `grep` from refutation: `src/dft/lit1_urobustness.py` implements A5.1 (a)/(c)/(d) with tranche 1
+  banked since 2026-08-12 at `docs/research/lit1_tranche1_uladder.json`, and `src/dft/extract_lowdin.py`
+  produces **and validates** the artifacts, with `tests/test_extract_lowdin.py` T1 checking the whole
+  bank of 265. See docs/45 "A11.R7 SCORED, 2026-09-03".)* What is true, and sharper: tranche 1 covers
+  **Cr and Co on the P7 ladders only**, and says in its own scope section that "Löwdin populations
+  (projwfc.x) are **not in this tranche**". The A0 grid — where A7.2 and A7.3 are scored — had no
+  A5.1(a) readout, and the A0 main decks for **Ti, Ru and Ir carry no `nspin` card at all** (0 of 28,
+  0 of 32, 0 of 32), so the sphere moment A5.1(a) makes primary is structurally unavailable on exactly
+  the A7.3 under-the-floor set. **CLOSED 2026-09-03 by A11.R7** (docs/43, registered at `afb9692`;
+  `src/dft/a0lowdin_valence.py`; 230 banked Löwdin artifacts, 0 SU): R7-P3's registered falsification
+  fired — |δq_c| interleaves the two A7.3 groups completely while their spans differ 4–14×, so the
+  valence-change explanation of the split is falsified on this tracker.
 - **The census contradiction is owed**: `docs/45:255-256` records "38 AGREE / 0 REFUSED / 2
   UNVERIFIED" against 6 measured mismatches, to be reconciled *before any readout is quoted* — and
   §§3–6 quote `a0main_readout.json` throughout.
