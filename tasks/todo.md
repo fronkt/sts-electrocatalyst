@@ -1365,7 +1365,7 @@ do n=18"*. **Compute: none. Balance 59,761.1 SU. Suite 332 -> 341 passed.**
 
 ### Owed
 
-- [ ] **Countersign A11.R9.**
+- [x] **Countersign A11.R9** — DONE 2026-09-03 ("Countersign A11.R9 confirm"). Enters the report as a CONFIRMATORY-INELIGIBLE robustness surface: five n=18 tests, rho -0.4138 to -0.3498 (median -0.3870), negative at all five, **zero** reaching nominal p<0.05; four rungs out-of-sample. u000 always flagged post-hoc; no rung quotable alone; grid is five not seven (Fe has no s0_O at u300/u450). Moves no banked verdict.
 - [ ] **The Co formal discharge** — a GATE-1 SCF on the replay's final geometry, cold start,
       single-SCF band. The re-relax leg has effectively run and confirms the branch; this is the
       last leg. Not launched.

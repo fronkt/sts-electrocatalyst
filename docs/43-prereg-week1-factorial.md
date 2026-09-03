@@ -3000,7 +3000,7 @@ split and never on the count.
 
 ## A11.R9 — the n = 18 statement, in the only form it can honestly be made (2026-09-03)
 
-**[N18 ROBUSTNESS SURFACE 2026-09-03: REGISTERED — POST-HOC AT ONE RUNG, OUT-OF-SAMPLE AT SIX]**
+**[N18 ROBUSTNESS SURFACE 2026-09-03: REGISTERED — POST-HOC AT ONE RUNG, OUT-OF-SAMPLE AT ~~SIX~~ FOUR (see the grid correction below) — COUNTERSIGNED 2026-09-03, at the end of this file]**
 — written under the entrant's directive of this date: *"Continue and do n=18"*. The commit
 carrying this section contains **no script and no result.**
 
@@ -3211,3 +3211,65 @@ as the *enumeration of places searched*, and that enumeration must be written do
 claim so a reader can see what was not looked at. **"Exhaustive" is a claim about coverage, and
 it requires a list.** For this cluster the list is: local tree, `$HOME` tarballs,
 `/anvil/scratch`, **and `/anvil/projects/x-che260157` — the one that actually holds the runs.**
+
+---
+
+## A11.R9 — countersigned
+
+**[N18 ROBUSTNESS SURFACE COUNTERSIGNED 2026-09-03]** — the entrant, in session: *"Countersign
+A11.R9 confirm"*. The readout at `docs/research/2026-09-03-a11r9-n18-surface.md` and
+`docs/figs/a0n18_surface.json` **enters the report**, under the terms below, which are part of
+this signature.
+
+### What is countersigned
+
+**Five separate n = 18 tests on the common U grid — never one pooled n = 126 test.**
+
+| U rung | n | ρ | nominal p | |
+|---|---|---|---|---|
+| u000 | 18 | −0.3808 | 0.1209 | **seen before — post-hoc** |
+| u150 | 18 | −0.3870 | 0.1150 | out-of-sample |
+| u600 | 18 | −0.4138 | 0.0899 | out-of-sample |
+| u750 | 18 | −0.3953 | 0.1066 | out-of-sample |
+| u900 | 18 | −0.3498 | 0.1556 | out-of-sample |
+
+**The distribution is the quotable object, and no rung may be quoted alone** (the registered
+anti-selection clause). ρ spans **−0.4138 to −0.3498**, median **−0.3870**; the sign is
+**negative at all five**; **zero of five** reach nominal p < 0.05. Restricted to the four
+out-of-sample rungs alone: ρ **−0.4138 to −0.3498**, median **−0.3911**, **zero** significant.
+
+### The four conditions this signature carries
+
+1. **It scores nothing.** A11.R9 is **CONFIRMATORY-INELIGIBLE**. It cannot be cited as a
+   registered test, and it **moves no banked verdict**: A7.2 stays **CONFIRMED at 5 of 6**;
+   A7.3 stays **NOT MET at 3 of 6** at denominator 6.
+2. **u000 is always flagged post-hoc.** Its ρ was known before this section was written and the
+   report says so wherever the surface appears. The other four rungs had never been computed by
+   anything, and that asymmetry is the section's whole evidential content.
+3. **Every p is NOMINAL**, and the reason travels with it: the three steps of one metal share
+   that metal's slab reference and are not independent. Multiplicity is stated too — five tests
+   at α = 0.05 give ≈23 % chance of one nominal hit under the null *if independent*, and they are
+   not, since the predictor varies smoothly in U, so that figure is an **upper bound**.
+4. **The grid is five rungs, not the seven this section first claimed.** The correction and its
+   cause — **Fe has no `s0_O` at u300 or u450** — are recorded above and stand with the result.
+   The out-of-sample count is **four**, not six.
+
+### What it establishes, stated at its real strength and no higher
+
+**u000 was not special.** The correlation between the valence tracker and the U-span is
+consistently weak, consistently negative, and consistently non-significant **at every U on the
+common grid** — including four rungs no one had looked at. That is a robustness statement about
+A11.R7's instrument, and it is the honest ceiling of what a correlation over 18 heterogeneous
+(metal, step) pairs can support.
+
+**It cannot rescue the valence explanation and does not try to.** R7-P3 and R8-P1 are separation
+tests; this is a correlation surface. The finding of record remains the one those two produced:
+**|δq_c| interleaves the A7.3 groups under both spin conventions, and the valence-change
+explanation of the split is falsified on this tracker.** A11.R9 shows that conclusion does not
+hinge on the U at which the tracker was read.
+
+### The pipeline witness, which is why this is not merely a second opinion
+
+u000 recomputed here reproduces **A11.R7's own published post-hoc ρ = −0.3808 exactly**. The
+instrument is R7's, held fixed, with only the U point moving — which is what makes the other four
+rungs a replication rather than a new measurement with a new tool.
