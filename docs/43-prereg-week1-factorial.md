@@ -2366,7 +2366,7 @@ until after D1"); the four flags of docs/68 §8 stand un-adjudicated until A11.R
 
 ## A11.R7 — A5.1(a)'s valence tracker on the A0 grid, via the already-banked Löwdin populations (2026-09-03)
 
-**[A0 LÖWDIN VALENCE TRACKER 2026-09-03: REGISTERED — COUNTERSIGNATURE OWED]** — written
+**[A0 LÖWDIN VALENCE TRACKER 2026-09-03: REGISTERED — COUNTERSIGNED 2026-09-03, see Item 2 of the dated addenda at the end of this file]** — written
 before a single Löwdin number has been read out of the A0 bank. Nothing below was chosen after
 seeing a value of the predictor it registers. The commit that carries this section contains **no
 readout script and no result**; the script and its output land in a later commit, and the two
@@ -2581,3 +2581,173 @@ docs/45.
 *Surfaced by the docs/70 ideation round as hole H-2 (`docs/70:117-131`); dates, quotes and the
 absence of any prior withdrawal re-verified against the tree on 2026-09-03, and the Warford
 abstract opened directly rather than carried from the workflow.*
+
+---
+
+# Dated addenda — 2026-09-03: the entrant's directive of this date, and the lines executed under it
+
+**The directive (verbatim, in session, 2026-09-03):**
+
+> make the decisions in that it ends in best rigor and STS placements. I agree with the fixes
+> fir A11.R7 but should we do a higher n=?. I confirm A7.7. Continue items 6, 7, 8 (send) and
+> relable 9. Write 1. Your call on 3. Continue with 4. Again, decisions that maximize placement
+> at STS
+
+This is the entrant speaking, the same instrument as docs/66 §1 — his standing criterion
+(maximum rigor, maximum measurement) applied to the nine-item review he was given the same day.
+The items are numbered as they were put to him. Each line below records **what he decided** and,
+where he delegated ("your call", "write 1"), **what was decided under the criterion he set**,
+in the scribe form docs/66 §1 establishes. AI-drafted disclosed infrastructure per A7.7; the
+decisions are his; his override right by a later dated line is unaffected, save where a line is
+marked irrevocable by its own registered terms.
+
+## Item 1 — D2, the guard-3 adjudication
+
+**[D2 GUARD-3 ADJUDICATED 2026-09-03: Ru BRANCH-CONDITIONAL, Ir BRANCH-CONDITIONAL, Cr
+SAME-BRANCH, Ti SAME-BRANCH]** — written under the entrant's directive "Write 1", superseding
+**[D2 GUARD-3 ADJUDICATION 2026-09-02: HELD]** (:2364) now that A11.R6 has returned
+(docs/68 §11, ladder EXHAUSTED).
+
+Scored on the census of record `tasks/review/a7_3_spin_census_2026-09-02_LADDER-EXHAUSTED.json`.
+Per metal, with the evidence each rests on:
+
+- **Ru — BRANCH-CONDITIONAL.** Magnetic at U = 0, and at U = 9 no spin-polarised solution exists
+  to compare against: 0 of 16 SCFs converge across three pre-registered mixing settings, 19,200
+  iterations, closest approach 595x the threshold, while the nspin = 1 twins in the same cell and
+  geometry converge in 25 iterations (docs/68 §2, §11). The endpoints are not in the same branch;
+  they are not even in the same spin treatment. Its equalised span is **not scored into a span**
+  per docs/61 §A11.7 guard 3.
+- **Ir — BRANCH-CONDITIONAL.** Endpoint winners differ in seed (lo s0_OH 0.0 / s0_OOH 0.5; hi
+  0.1 / 0.1) and the moments move across the pair (0 -> 1.62 μB on s0_OH; −1.07 -> +0.42 on
+  s0_OOH, docs/68:108-114). Not scored into a span.
+- **Cr — SAME-BRANCH.** Seeds differ (lo 0.1/0.3, hi 0.6/0.1) but every winner is FM with
+  m = 11.0 μB (docs/68:204); a seed label is not a branch. Scoreable.
+- **Ti — SAME-BRANCH.** Its guard flag is a **tie-break artifact**, not a branch change: the
+  s0_OOH hi winner is the Rider-2 null row selected by tie-break (docs/68:209). Ti's equalised
+  span is scoreable.
+
+**Consequence, stated so it cannot be over-read.** This adjudication acts **only** on the
+spin-equalised sensitivity census. It does **not** touch the as-built headline: A7.3 remains
+**NOT MET at 3 of 6** and A7.2 remains **CONFIRMED at 5 of 6**, per A11.5 (:2029-2033), which
+this line does not and cannot amend. With Ru and Ir unscoreable, the equalised sensitivity rests
+on Cr, Mn, Fe and Ti; its over-floor set is unchanged at **{Cr, Mn, Fe}**.
+
+**One internal conflict resolved by this line.** docs/68:235 calls Cr and Ir "almost certainly
+same-branch"; docs/68:326 calls Cr and Ti same-branch with Ir branch-conditional. **:326 is
+adopted and :235's phrasing is superseded** — Ir's endpoint moments move by 1.62 and 1.49 μB,
+which is a branch change under any reading of guard 3, and :235 was written before the moment
+table at :108-114 was cross-read against it. The report quotes :326.
+
+## Item 4 — A7.7's middle-band disposition, confirmed
+
+**[A7.7 MIDDLE-BAND DISPOSITION CONFIRMED 2026-09-03]** — the entrant, in session: "I confirm
+A7.7". This completes the countersignature on the text already written at :2086-2095 and elected
+under directive at docs/66 §2; that text is unchanged by this line and nothing in it is
+re-authored here. A middle count stands as **SCORED — MIDDLE BAND / NOT MET**, never quoted
+bare, licensing no registered consequence, and is neither HELD, nor TRIGGERED, nor
+WITHDRAWN-UNSCORED.
+
+The disclosure that text carries on its face (:2108-2111) — that it was written when the 3-of-6
+census was already known, and that no choice in its table can flip a verdict between CONFIRMED
+and FALSIFIED — **stands with it and travels with every report sentence that scores A7.3.**
+
+## Item 3 — the Ti spin convention (delegated: "Your call on 3")
+
+**[TI CONVENTION 2026-09-03: NSPIN=1 STANDS, FINAL]** — decided under the entrant's delegation
+and his maximum-rigor criterion.
+
+The docs/66 §2 row 9 revisit trigger has **fired**: row 9 elected NSPIN=1 "pending the equalised
+census … Revisit ONLY after D_Ti is measured", and D_Ti is now measured at **−0.0169 eV**
+(docs/68:209; as-built span/2 0.0438 -> equalised 0.0522). The revisit is therefore live, and it
+resolves **against** a THROUGHOUT re-run, on four grounds:
+
+1. **It cannot change any verdict.** Equalising moves Ti from 0.0438 to 0.0522 span/2 — further
+   from zero, still far under the 0.10 V floor (95.6 meV of distance remaining). A7.3 stays NOT
+   MET at 3 of 6; A7.2 stays CONFIRMED at 5 of 6, with Ti FLAT either way.
+2. **The instrument for this question already exists and is symmetric.** A0-SPIN is nspin = 2 by
+   construction and was pre-registered as exactly the arm that prices the spin convention. Its
+   answer is banked. Re-running the base ladder would answer a question that has an answer.
+3. **It would buy a partial fix and a new debt.** Ti is 1 of 3 metals carrying no `nspin` card;
+   Ru (0/32) and Ir (0/32) would remain, so the deck-census asymmetry survives the re-run. The
+   cost is 28 SCFs plus a fresh A6.6 scale disclosure plus a **new relaxation licence** for the
+   PULL_TO-remedied geometries — a new registered claimant against a ledger already at its cap.
+4. **Rigor here is the disclosure, not the re-run.** The honest sentence is that Ti's absolute
+   rows sit ~0.12 eV high while its span is nearly right, and that the equalised arm prices the
+   convention at −0.0169 eV. That sentence is already available and is stronger than a re-run
+   that changes nothing, because it reports the size of the effect rather than hiding it.
+
+The 28 banked base SCFs stand as scored. **This line does not close the underlying gap**: Ti, Ru
+and Ir still carry no `nspin` card in the A0 main decks (0/28, 0/32, 0/32), that fact is reported,
+and A11.R8 below is the registered instrument that acts on it at zero SU.
+
+## Item 9 — the gate-(h) AFM family, re-labelled
+
+**[GATE-(H) AFM FAMILY RELABELLED 2026-09-03: SENSITIVITY ARM]** — entrant's directive
+("relable 9").
+
+`[AFM-SCOPE RESOLVED 2026-08-30: STANDALONE_FOUR]` (:1979) stands and is not reopened; the family
+has already run (docs/64: three BANKED, all GATE-1 PASS at +0.028 / −0.090 / +0.302 meV;
+`s0_O__2x1v_off__afm__relax` NOT_CONVERGED as a recorded gap; measured 1,067.9 SU). What changes
+is the **label on a completed family**, not a launch decision.
+
+On the 2026-09-03 literature correction (docs/41 "Correction of record", docs/45 §A row 6) the
+RuO2 bulk ordered moment is bounded **67-357x below** the diffraction value that justified these
+relaxations. They therefore relax into a state the bulk evidence excludes. They are re-labelled a
+**sensitivity arm**: they measure how far this Hamiltonian's preferred magnetic state moves the
+answer (80-144 meV in state energy, 33-64 meV in adsorption energy), and they are **not** a
+ground-state adoption and may not be quoted as one. The `s0_O` gap stays a recorded gap.
+
+**This strengthens rather than weakens the arm's use in the report**, and the reason is worth
+stating: a method that prefers, by 80-144 meV, a magnetic state experiment excludes at the
+10^-4 μB level is the campaign's own thesis instantiated on its benchmark anchor, with an
+independent experimental check. The relabelling is what makes that sentence available.
+
+## Item 2 — A11.R7 countersigned, and the "higher n" question answered
+
+**[A0 LÖWDIN VALENCE TRACKER COUNTERSIGNED 2026-09-03]** — the entrant, in session: "I agree
+with the fixes fir A11.R7". The readout at `docs/research/2026-09-03-a11r7-lowdin-valence.md`
+and `docs/figs/a0lowdin_valence.json` **enters the report**, under three conditions that are
+part of this signature:
+
+1. **R7-P3's falsification is the deliverable** and is quotable as registered: |δq_c| does not
+   separate the over-floor from the under-floor group — Mn 0.0069 OVER, Ti 0.0096 under, Ir
+   0.0165 under, Cr 0.0399 OVER, Ru 0.0695 under, Fe 0.0735 OVER, completely interleaved, while
+   the spans they are meant to predict do not overlap at all.
+2. **R7-P1 (REFUTED, ρ = −0.2571) is never quoted without the defect disclosure.** Its registered
+   stability rule compares a swing across U against a difference between two states at fixed U;
+   it fired on four of six metals and collapsed the primary test to **n = 6**, two metals by three
+   steps. It is not a physics statement and the report does not make it one.
+3. **R7-P2 is reported, never scored**, exactly as registered.
+
+### The "higher n" question, answered
+
+**The answer is no, and the reason is the interesting part.**
+
+- **n = 18 is the ceiling of the design, not a budget choice.** The pairs are (metal, step): six
+  metals by three adsorbate steps. There is no seventh metal and no fourth step. The registered
+  test ran at n = 6 only because the malformed rule excluded four metals — the shortfall is a
+  defect, not a sample-size decision.
+- **Recovering n = 18 on this data is post-hoc and is already reported as such.** With the rule
+  corrected the figure is ρ = −0.3808, p = 0.1209 — same sign, still not significant. It is in
+  the readout labelled POST-HOC and it stays labelled that way. Re-registering a corrected rule
+  now, with that number in hand, would be fitting the instrument to a known result.
+- **Inflating n by reading every U rung is REFUSED, and this line refuses it in advance.** Pairing
+  Δq_d at each of seven U rungs against span_U(ΔG_i) would give n = 126, and it would be
+  **pseudo-replication**: span_U is one number per (metal, step), so the same y would be repeated
+  seven times against seven correlated x's. The p-value would fall for an arithmetic reason and
+  not a physical one. A larger n bought that way is a rigor loss wearing the costume of a rigor
+  gain, and any competent reviewer reads it as one.
+- **What actually buys rigor here is not more n — it is a sample that does not have the confound
+  in it.** R7 measured one tracker on a set where over/under is perfectly confounded with
+  nspin = 2 / nspin = 1. The upgrade is to measure **the same tracker on both sides of that
+  confound**. The material for it is already banked and costs nothing: **90 Löwdin artifacts in
+  the A0-SPIN arm**, covering Ti, Ru and Ir — precisely the three metals whose A0 main decks carry
+  no `nspin` card — with slab plus all three adsorbate states at u000, which is the exact point
+  A11.R7 registered its predictor at. Cr, Mn and Fe are already nspin = 2 in the main arm, and
+  the census records their equalised span as identical to as-built (D_M = 0.0000), so they need
+  no new measurement.
+
+**That instrument is registered as A11.R8, in its own commit, before any spin-arm Löwdin value
+has been read.** It is the one test in the campaign that can say whether A7.3's split is a
+statement about U or a statement about spin convention — which is the single largest open
+question behind the headline. Zero SU.
