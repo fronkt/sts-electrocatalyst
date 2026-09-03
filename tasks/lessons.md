@@ -1054,3 +1054,41 @@ governs, and the conflict is worth saying out loud rather than resolving silentl
 harness's favour. **Corollary:** never cite the state of the tree as permission for a
 behaviour the user has prohibited — that is circular whenever the tree was written by the
 prohibited behaviour.
+
+---
+
+## 2026-09-03 — the resolution-token protocol has a hole: git history
+
+This project's standing rule is *"grep for the resolution token before repeating any
+'owed / open / HOLD' clause — the line that closes an item lives in a DIFFERENT FILE from the
+note that says it is open."* A 51-agent census found the rule is right and its **search space is
+too small**.
+
+**A7.4 gate (f)'s verdict was written by the entrant on 2026-08-21 in a git commit message.**
+No grep over the working tree reaches it. A census pass whose "decisive grep" covered
+`docs/ tasks/ src/ tests/ anvil/ results/ runs/` reported the gate unscored; it was scored, and
+the scoring act was a commit.
+
+**The same hole hid a second thing, in the opposite direction.** docs/72 asserted that
+Amendment 1's check 4′ "has no run". It ran on 2026-08-10 and **commit `dc38c23` says so in its
+own message** — "CrO2 U(Cr)=6.16 eV spin-polarized". A false negative-existence claim stood for
+24 days against evidence in the repo's own history.
+
+**Rule:** the resolution-token search is `docs/ tasks/ src/ tests/ .github/ results/ runs/`
+**plus `git log --all --grep=<token>` and `git log --all --oneline -S<value>`**. A commit
+message is a dated, immutable, entrant-authored line — exactly the shape of thing that closes an
+item — and it is the one place the protocol never looked. Add it before writing any
+"unscored", "never ran", or "no artifact exists" sentence.
+
+**Second-order:** this is the third distinct costume the same defect has worn — a stale
+owed-list, an "exhaustive" search that skipped `/anvil/projects`, and now a search that skipped
+the history of the very files it was reading. The invariant is: **a negative existence claim is
+a claim about a search space, so write the space down and ask what is outside it.** Each time,
+the missing region was one the searcher did not think of as a place.
+
+**Third-order, and the expensive one:** a top-down census inherits the stale lists it reads. Two
+of the eight enumeration agents in this census re-imported `tasks/todo.md:738`'s claim that
+A5.1(c) is unscored — a line this repo had **already logged as an error** and retracted at
+`:1196`. Only the per-token adversarial refutation pass caught it. **Do not report a census
+without a refutation pass over its own output**; the pass changed the headline from "9+ free
+rows" to "one".

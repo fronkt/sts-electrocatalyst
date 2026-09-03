@@ -288,3 +288,54 @@ in a dated line, either way.**
 - `results/r4_melt_list.json` is **gitignored by design** (`.gitignore:14`), so its Aug 5 date
   is a filesystem mtime, not a git fact, and its absence from version control is a project
   convention rather than a defect. Stated correctly in §4.3.
+
+---
+
+## Dated addendum — 2026-09-03: four claims in this file are corrected, and §9 decision 4's premise does not hold
+
+**Status: AI-drafted correction of record. Nothing above this line is edited in place.** The
+census that produced these corrections is **docs/73**; it was run specifically to test this
+file's §8/§9 premise, and it refuted most of it.
+
+**The premise that failed.** §4.2 and §9 decision 4 hold that **9+ predictions are
+"measured-but-unscored"** and that §8's items are **free rows** closable "with a decision or a
+paragraph, not with compute." Tested with 51 agents over two passes — bottom-up enumeration,
+then per-token adversarial refutation. **Of 14 candidate free rows, 13 are refuted and one
+survives.** The pile is mostly a *dated entrant line* away, or unreachable. **§9 decision 4
+should be rewritten on the corrected premise**; §9's other six decisions are unaffected.
+
+**Four factual corrections, each measured:**
+
+1. **§4.2 / §8 — "measured-but-unscored" is wrong for the A9 five.** Nothing in P-XU,
+   P-XU-SPAN, P-DIVANIS, P-BUILDER or P-LIT has been **measured**: the detector does not exist,
+   the census has never run, and `.github/ci/run_controls.py` prints **RESULT: NOT GREEN** with
+   all six control rows NOT MEASURED. This file already says so at :52 and :142; the §4.2 phrasing
+   contradicts its own later sections. The right label is **UNSCORED AND UNMEASURED**. Related:
+   **P-BEEF is not a registered prediction at all** — Amendment 10 exists nowhere as registered
+   text, so it cannot be "measured-but-unscored" either.
+2. **§8 item 1 / :242 — "Amendment 1's check 4′ bulk magnetic arm has no run" is FALSE.** It ran,
+   it converged, and it matches docs/43:619-627 term for term:
+   `runs/hp_tio2/hp__cro2_q222.Hubbard_parameters.dat` gives **U(Cr-3d) = 6.1635 eV**, the `.out`
+   has **zero** "Convergence has not been reached" and one `JOB DONE`, and the parent SCF carries
+   `nspin = 2`, `mv`/0.01, `U Cr-3d 1.d-8` with a 4.00 µB/cell moment. **Commit `dc38c23`
+   (2026-08-10) records it in its own message.** The claim was contradicted by the repo's own
+   history for 24 days. **Consequence: the P15 GO is a BULK GO, not "the TiO₂ leg only"** — check
+   4′ is precisely the registered escape from docs/43:620-621's closed-shell scope sentence.
+3. **§7 G8 / :230 — "no doc cites it" is self-refuting.** This file prints both U values at
+   :228-229 and again at :238-239, and `tasks/todo.md:1414` prints both. The grep was accurate
+   about the corpus it ran over and wrong as a claim.
+4. **§4.2 / :117-118 — P13's failed prior is mis-pointed.** It cites `docs/43:187`, which is
+   inside the Ru-coverage paragraph. The "not separable" prior is at **docs/43:177-179**. The
+   verdict is right (I(Ir, *OOH) = +0.2661 eV lands INCONCLUSIVE, not ≥ 0.30 eV); the pointer
+   sends a reader to a different, unscored prediction.
+
+**What survived unchanged**, and is worth saying because most of this file did: §1's three-line
+verdict, §3's list of what is not degrading, §4.1's novelty scoring, §4.4's beat count, §5's
+warning about H-6, §6's two untracked risks, and decisions 1, 2, 3, 5, 6 and 7 of §9. The
+strategic reading of this file stands. What failed is one premise about cost, and it failed in
+the direction that makes the remaining work **larger**, not smaller.
+
+**Two items this file listed as owed were discharged the same day it was written**, so its own
+owed-list is already partly stale — the failure mode it correctly names at §0 and §10:
+**P14's §7c commit step** (banked 2026-09-03; the artifact record no longer contradicts docs/49)
+and **H-9** (docs/45 §B row 10). Grep for the resolution token before repeating any item here.
