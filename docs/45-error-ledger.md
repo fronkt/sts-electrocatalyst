@@ -3048,3 +3048,56 @@ brackets were in the readout for weeks and everyone could see roughly where each
 nobody noticed the registration asked for a number nobody had written down. **Grep the
 registration for its own nouns — "deliverable", "reported", "published" — and check each one has a
 file.**
+
+## H-10 CLOSED, 2026-09-03 — a banked "conformer" is a desorbed O₂, and it was a candidate for the A7.3 quantity
+
+docs/54 §6 item 10 records the `oosh` (bridge-protonated `*OO–H`) rows as *"the lowest banked 1×1
+`*OOH` on all three block-1A metals (Cr −1636.57119 / Ir −1674.11460 / Ru −1715.02124)"*, with the
+scored-member change left "undecided" (docs/56:506-507 F(2)). Measured on 2026-09-03 from the
+relaxation outputs themselves: **true for Ir and Ru, false for Cr.**
+
+All three start from the same construction — O–O 1.310 Å, proximal O bound at 1.91–2.08 Å. The
+relaxations diverge:
+
+| metal | steps | O–O (Å) | proximal O → metal | distal O → metal | reading |
+|---|---|---|---|---|---|
+| Ir | 29 | 1.286 | **1.948 Å** | 2.856 | bound superoxo — item 10 holds |
+| Ru | 23 | 1.297 | **1.905 Å** | 2.878 | bound superoxo — item 10 holds |
+| **Cr** (magp) | 42 | **1.227** | **3.105 Å** | 3.782 | **desorbed O₂ + surface OH** |
+| **Cr** (magm) | 41 | **1.227** | **3.086 Å** | 3.770 | same, opposite spin seed |
+
+Three facts put the Cr state outside the `*OOH` manifold: **O–O 1.227 Å is molecular O₂**
+(gas-phase 1.21; peroxo ~1.45; the superoxo Ir/Ru actually reach, 1.286/1.297); **both O atoms sit
+3.09 and 3.78 Å from the nearest Cr** against this campaign's own measured Cr–O bond of **1.856 Å**
+(`docs/figs/a0lowdin_valence.json`); and **the H is 0.971 Å from a *different* O**, so there is no
+O–O–H unit at all. Both spin seeds agree to **0.0004 Å** over 41 and 42 ionic steps.
+
+**The hazard.** The Cr `oosh` energy sits −0.021 eV below the 1×1 off-arm `*OOH` minimum, which is
+exactly what made it a candidate for "lowest banked conformer". A desorbed O₂ + OH lying slightly
+below a bound `*OOH` is unremarkable — different chemical states. **Adopting it as the scored
+`*OOH` member would have put an O₂-release energy into ΔG_OOH, hence into c_Cr = ΔG_OOH − ΔG_OH:
+the A7.3 quantity, on the metal whose span is 0.687 eV.**
+
+**Closure.** Inline erratum markers on docs/54 §6 item 10 and on the two table rows that cite it
+(:249 Ru, :264 Ir, both now tagged CONFIRMED bound), plus a dated correction appended to docs/54 —
+which is infrastructure, not registration, so it takes an appended correction rather than a
+rewrite. Nothing banked moves: no ΔG, no η, no census, no verdict. The energy stays on disk with
+its label corrected.
+
+**Left to the entrant, as a dated line:** whether the Cr result is a **finding** (this surface does
+not support a bridge-protonated `*OOH` at 1×1 coverage) or an **artifact** of the 1×1 cell's
+lateral interactions. The geometry is consistent with both and this ledger decides neither.
+
+**Rules.**
+
+- **A conformer is a claim about a structure, and an energy cannot check it.** The row was ranked
+  by energy for weeks and its ordering was correct; what nobody did was open the coordinates. Any
+  state admitted as a "conformer" of another gets a bond-length and bond-partner check before it
+  is scored.
+- **Measure the contrast, not just the suspect.** Cr alone would have been an interpretation of one
+  geometry. Ir and Ru relaxing from the *same* starting construction to a *bound* superoxo is what
+  makes the Cr reading certain — and it also saved two thirds of item 10 from being withdrawn with
+  it.
+- **A state that walks off the surface is a different chemical species, not a bad conformer.**
+  Where an adsorbate desorbs during relaxation, the correct record is a new state label, not a
+  rejected data point.
