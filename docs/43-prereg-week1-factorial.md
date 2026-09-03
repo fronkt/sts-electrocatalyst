@@ -2995,3 +2995,92 @@ and `docs/figs/a0spin_valence.json` **enters the report.**
 **Binding, restated with the signature:** A11.R8 moves no banked verdict. **A7.2 stays CONFIRMED
 at 5 of 6; A7.3 stays NOT MET at 3 of 6 at denominator 6.** It acts on the *explanation* of the
 split and never on the count.
+
+---
+
+## A11.R9 — the n = 18 statement, in the only form it can honestly be made (2026-09-03)
+
+**[N18 ROBUSTNESS SURFACE 2026-09-03: REGISTERED — POST-HOC AT ONE RUNG, OUT-OF-SAMPLE AT SIX]**
+— written under the entrant's directive of this date: *"Continue and do n=18"*. The commit
+carrying this section contains **no script and no result.**
+
+### Why this is not simply "R8-P2, promoted"
+
+The entrant asked for the n = 18 test. **R8-P2 already carries an n = 18 number and it may not be
+used as one**, by its own registration: *"Registered as unscoreable and it cannot be promoted
+later"*, because nine of its eighteen pairs are carried over from A11.R7 whose post-hoc all-six
+value was already known. Promoting it would be laundering a seen number into a scored test. This
+section therefore does **not** promote it. It builds the n = 18 statement out of material that is
+mostly **unseen**, and labels precisely which part is not.
+
+### What is seen and what is not, stated before the run
+
+- **Seen:** the n = 18 correlation at **u000**, in both arms — A11.R7's post-hoc all-six figure
+  (ρ = −0.3808, p = 0.1209) and A11.R8's nspin = 2 figure (ρ = −0.3148, nominal p = 0.2046).
+- **Not seen, and never computed by anything:** the n = 18 correlation at **u150, u300, u450,
+  u600, u750, u900**. Six of the seven rungs are out-of-sample.
+
+So A11.R9 is **post-hoc at one rung and a genuine out-of-sample replication at six.** That
+asymmetry is the whole evidential content and it is written here before the numbers exist.
+
+### The grid, fixed here so no rung can be selected afterwards
+
+The **common grid** is every U token banked for **all six** metals. Measured from the A11.R7
+readout's own `dq_d` keys: **u000, u150, u300, u450, u600, u750, u900 — exactly seven rungs.**
+Cr's finer ladder (19 tokens) and the four odd tokens that exist for one metal only (Mn u390,
+Fe u530, Ir u591, Ru u673) are **excluded**, because a rung missing a metal is not an n = 18 test.
+
+### The quantity, unchanged from A11.R7 so this is a replication and not a new instrument
+
+At each rung u, for each metal, the three CHE **step increments**
+`dq1 = Δq_d(*OH)`, `dq2 = Δq_d(*O) − Δq_d(*OH)`, `dq3 = Δq_d(*OOH) − Δq_d(*O)`
+are paired against the banked `span_dG1/2/3`. n = 6 metals × 3 steps = **18** at every rung.
+The response is the same at every rung by construction — `span_U(ΔG_i)` is a U-spanning quantity
+— and **only the predictor moves.** That is the point: it asks whether u000 was special.
+
+### What is refused in advance, again
+
+**The 7 × 18 = 126 pairs are never pooled.** Pooling them is the pseudo-replication this campaign
+already refused once: the response would be repeated seven times against seven correlated
+predictors, and the p-value would fall for an arithmetic reason. **Seven separate n = 18 tests are
+reported; one pooled n = 126 test is not computed and may not be quoted.**
+
+### Registered reporting rule — the anti-selection clause
+
+**All seven rungs are reported, always, as a distribution.** The readout prints ρ and its nominal
+p at every rung, plus min / median / max and the count of rungs reaching nominal p < 0.05. **No
+rung may be quoted alone**, and the report may not lead with the strongest. Multiplicity is
+stated with the result: seven tests at α = 0.05 give a ≈30 % chance of at least one nominal hit
+under the null if they were independent — and they are **not** independent, since the predictor
+varies smoothly in U, so that figure is an upper bound and the effective number of tests is
+smaller than seven.
+
+**Non-independence within a rung, carried from A11.R7 unchanged:** the three steps of one metal
+share that metal's slab reference, so every p here is **NOMINAL**.
+
+### R9-P1 (the only statement, and it is descriptive)
+
+**Reported as an effect-size surface. Scores nothing.** There is no threshold, no CORROBORATED
+and no REFUTED. The honest questions it answers are:
+
+1. Does the sign of ρ hold across U, or is the negative sign a feature of u000 alone?
+2. Is the magnitude stable, or does it wander?
+
+**Registered reading, fixed now:** a sign that **flips across the grid** would mean the u000
+result carries no information about U-robustness and the report must say so. A sign that
+**holds at every rung with comparable magnitude** is consistent with A11.R7's conclusion and adds
+nothing to it — the tracker still fails to explain the A7.3 split, at every U. **Neither outcome
+can rescue the valence explanation**, because R7-P3 and R8-P1 are separation tests and this is a
+correlation surface; a correlation among 18 heterogeneous (metal, step) pairs is not a mechanism.
+
+### Binding
+
+**CONFIRMATORY-INELIGIBLE.** A11.R9 cannot score any prediction, cannot be cited as a registered
+test, and **cannot move A7.2 or A7.3**. A7.2 stays CONFIRMED at 5 of 6; **A7.3 stays NOT MET at
+3 of 6** at denominator 6. It may appear in the report only as a labelled robustness surface with
+its post-hoc rung named.
+
+### Countersignature
+
+Owed from the entrant. If declined, the readout is withdrawn and this section stands as the
+record of what was registered and not used.
