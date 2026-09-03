@@ -1,10 +1,14 @@
-# RCAC support ticket draft — repeat OOM kills isolated to nodes a024 and a088
+# RCAC support ticket draft — repeat OOM kills isolated to a growing set of nodes
+# (a024, a088, a196, a220, a223, a050, a171)
+#
+# Updated 2026-09-03: a171 section added, scale figures corrected.
 
 *(Draft for Frank to paste into the RCAC help desk — do not send as-is without
 reading; assistant never submits tickets.)*
 
-Subject: Anvil CPU nodes a024 and a088 — reproducible OOM kills of jobs that
-succeed unmodified on other nodes (account che260157)
+Subject: Anvil CPU nodes a024, a088, a196, a220, a223, a050 and a171 — reproducible
+OOM kills and one memory-starved node, jobs succeed unmodified elsewhere
+(account che260157)
 
 Hello RCAC,
 
@@ -118,6 +122,26 @@ Two supporting details:
   when we checked it afterwards. So whatever the health check catches on some of these
   nodes, it is not catching it on others.
 
+### a171 on 2026-09-01 — a sixth node, and the most expensive one
+
+Array 20300641 (the retry of four tasks lost to an earlier bad node) placed all four on
+**a171**. Three were OOM-killed at **0 SCF iterations**; the fourth **hung for 19 h 11 m,
+also at 0 iterations**, and was cancelled by hand at 2026-09-01 19:06 EDT with 46 h of
+walltime still on it.
+
+`scontrol show node a171` at **2026-09-01 23:04 UTC**, while it was allocated to a single
+128-rank job of ours:
+
+    FreeMem = 333 MB          CPULoad = 325
+
+333 MB free on a 256 GB node, and a CPU load of 325 on 128 allocated cores, is not our
+job's footprint — our tasks had not completed a single iteration. Something outside our
+allocation was holding the node's memory and CPU. **Please check a171 for leaked
+processes from a prior tenant and drain it if confirmed.**
+
+This one cost roughly **2,450 SU of idle burn** before we caught it, and would have cost a
+further ~5,900 SU had the hung task run out its walltime.
+
 Questions we would appreciate an answer to:
 
 1. Can these five nodes be checked for a shortfall between `RealMemory` and genuinely
@@ -127,8 +151,12 @@ Questions we would appreciate an answer to:
 3. Should a node in `DRAIN` after an NHC failure still receive newly scheduled array
    tasks? That is what turned three lost jobs into four on a196.
 
-For scale: this has cost us roughly 1,100 SU in kills so far, and one hung job on a196
-would have burned a further ~5,900 SU had we not caught it manually.
+For scale: this has now cost us roughly **3,550 SU** in kills and idle burn (about
+1,100 SU across a024/a088/a196/a220/a223/a050, plus ~2,450 SU on a171), and two
+separate hung jobs would each have burned a further ~5,900 SU had we not caught them
+manually. Our standing exclude list is now
+`a024,a049,a050,a088,a171,a196,a220,a223` (+ a120,a200 at submit time) — eight nodes
+we can no longer use.
 
 Thanks,
 Frank Cai (x-fcai3), allocation CHE260157
