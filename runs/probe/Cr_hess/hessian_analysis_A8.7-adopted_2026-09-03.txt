@@ -1,0 +1,55 @@
+
+==============================================================================
+Cr  s0_OOH__2x1v_mir   (runs/probe/Cr_cellsym)
+==============================================================================
+  RULE                   : docs/43 §3 + §3-A (no copy lives in this program; --print-prereg reads it out of the doc)
+  SCOPE                  : q = 0, 2x1 cell, 0.5 ML  [cell 2x1, 0.5 ML, Gamma (q = 0)]
+  min image contact      : 3.983 A O37...H39(+1,+0) — the coverage the scope is about
+  reference geometry     : final, source relaxation E = -43384.5413 eV, M = 23.0 mu_B
+  adsorbate              : ['O', 'O', 'H'] at atoms [37, 38, 39], masses [15.999, 15.999, 1.008] amu
+  mirror plane           : True at y = 1.563060 A (spread 0.0e+00 A)
+  source relax residual  : max|F| component on adsorbate = 1.539e-03 Ry/au IN-PLANE; max|F_y| = 0.0000000000 Ry/au (exactly zero by symmetry, so the y block IS at a stationary point)
+  protocol               : nosym+noinv, conv_thr 1.0d-10, electron_maxstep 120, delta 0.01 A, 16 k-points, nspin 2, U [['Cr-3d', 3.7]]
+  coordinates used       : 9 (a37x, a37y, a37z, a38x, a38y, a38z, a39x, a39y, a39z); the 1C verdict rests on the y coordinates (docs/43 §3-A.8)
+  note   : Q0 energy: reference SCF -43384.541281 eV vs source relaxation -43384.541281 eV, delta = -0.000 meV (tolerance +/-10 meV)
+  note   : Q0 magnetisation: reference 23.000 vs source 23.000 mu_B, delta = +0.000
+  note   : Q3 magnetic guard: reference M = 23.0 mu_B, tolerance 0.1 mu_B, 0 exclusion(s) of 18 (docs/43 §3 voids the state above 2)
+  note   : Q6 mirror-identity gate (N34, CODE-LEVEL — reported, not registered in docs/43): checked 3 yp/ym pair(s) atom-by-atom and 12 self-mirror +/-x,+/-z deck(s) against tolerance 4.2e-05 Ry/bohr derived from the design sigma_F. This is the only test of the Hessian diagonal in the gate set.
+  note   : Q5 (REPORTED, NOT GATED — docs/43 amendment 3, am.4 §7 item 4): y/xz cross-block max|D| = 1.548e-01 exceeds the old gate level 9.193e-03. The mirror predicts exactly zero here, but these elements are structurally zero by the same symmetry Q6 tests exactly, so this is a noise measurement — and its y rows are forward differences carrying an O(delta) anharmonic term the central difference used to cancel. Reported, never a VOID.
+  gates  : Q0-Q3, Q4a, Q6 pass (Q4b and Q5 are reported, not gated — docs/43 A8.7 Question 3 + am.3/am.4 §7 item 4)
+
+  force noise (sigma_F)  : 1.75e-07 Ry/bohr (4.51e-06 eV/A)   [Q4a gate 5e-05, design 1e-05]
+  instrument             : mirror-identity residuals, reading (b) — docs/43 A8.7, adopted 2026-08-23 — 3 yp/ym pair(s), sigma_F = rms residual / sqrt(2)
+
+  TRUNCATION-ERROR DIAGNOSTIC (retained and reported per docs/43 A8.7; enters NO sigma_F, NO floor, NO gate — docs/49 §4b measured every block of H - H^T scaling as truncation error, none as noise):
+    asymmetry-based sigma_F [the reading-(a) estimator] = 2.99e-05 Ry/bohr (7.68e-04 eV/A)
+    Hessian symmetry  max|D_ij-D_ji| = 1.548e-01 eV/(A^2 amu), relative 0.55%   [relative is REPORTED not gated, docs/43 §3-A.4]
+    Q4b (REPORTED ONLY, NOT GATING — docs/43 A8.7 Question 3): worst row a38y mean |H_ij-H_ji| = 9.134e-02 eV/A^2 vs absolute floor 1.091e-01 — within the floor
+  mirror decoupling max|D_(y,xz)| = 1.548e-01   [Q5 REPORTED not gated (am.3 + am.4 §7 item 4); old gate level 9.193e-03; symmetry says exactly 0]
+
+   #   nu (cm^-1)       lambda       floor  f_y(mw)  f_y(ca)  atom wt
+   0       i244.7  -2.2014e-01        50.0    1.000    1.000  0.11 0.11 0.78  <== OUT-OF-PLANE IMAGINARY
+   1         99.8   3.6662e-02        50.0    0.999    0.999  0.41 0.59 0.00
+   2        115.0   4.8640e-02        50.0    0.001    0.000  0.21 0.74 0.05
+   3        238.4   2.0900e-01        50.0    0.000    0.000  0.36 0.58 0.06
+   4        281.0   2.9047e-01        50.0    1.000    1.000  0.48 0.31 0.22
+   5        377.6   5.2441e-01        50.0    0.000    0.000  0.87 0.06 0.07
+   6       1018.2   3.8126e+00        50.0    0.000    0.000  0.49 0.50 0.00
+   7       1371.4   6.9166e+00        50.0    0.000    0.000  0.06 0.06 0.88
+   8       3415.9   4.2910e+01        50.0    0.000    0.000  0.00 0.06 0.94
+  'floor' = max(declared i50 cm^-1, 3*sigma propagated per mode from the measured sigma_F; it is mass dependent, so H-carried modes have a higher floor than O-carried ones)
+  worst floor among the y-character modes: i50.0 cm^-1  [UNDERPOWERED above i80, docs/43 §3-A.3]
+
+  VERDICT: CONFIRMED
+  1 out-of-plane imaginary mode(s) at q = 0, 2x1 cell, 0.5 ML: i245 cm^-1 (f_y=1.000, floor i50). A negative curvature in a principal submatrix is a negative curvature of the full Hessian, so the on-record constrained geometry is a saddle point.
+
+  READING-(a) LABEL (docs/43 A8.7, adopted 2026-08-23: the instrument choice was made with the outcome known, so the pre-adoption asymmetry-based scoring is carried alongside wherever the (b) verdict is contestable — a label, not a verdict):
+    under (a): sigma_F = 2.99e-05 Ry/bohr; worst y-mode floor i264.6 cm^-1; Q4a passes; Q4b passes; label = UNDERPOWERED
+
+==============================================================================
+CAMPAIGN DECISION (docs/43 §3 + §3-A.1)
+==============================================================================
+PARTIAL PILOT - no campaign decision yet. Scored: [Cr=CONFIRMED]. Not scored: Ir (not held by docs/43 — this state was simply not scored in this invocation).
+  docs/43 §3's consequence is keyed on BOTH registered states. In particular a single REFUTED cannot fire R3: with one state missing, 'no unstable direction confined to the adsorbate' has been shown for that state at its own recorded scope and for nothing else.
+
+wrote runs/probe/Cr_hess/hessian_result_A8.7-adopted_2026-09-03.json

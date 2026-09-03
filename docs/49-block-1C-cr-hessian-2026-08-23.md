@@ -269,3 +269,44 @@ place; no `.out` was touched and no banked 2026-08-23 analysis file was overwrit
 (A8.8: a re-run is a new measurement reported alongside, never a silent overwrite).
 Banking the re-scored analysis text/JSON alongside the originals is the commit step
 that follows this working-tree change set.
+
+---
+
+## Dated addendum — 2026-09-03: the §7c commit step is DISCHARGED
+
+**Status: AI-drafted banking of an already-registered re-score. 0 SU. No verdict changes;
+nothing is countersigned here.**
+
+§7c closed with: *"Banking the re-scored analysis text/JSON alongside the originals is the
+commit step that follows this working-tree change set."* **That commit never happened**, and
+docs/73 §6 found the consequence: for eleven days the campaign's second-strongest positive
+result existed only as prose in this file, while **every machine-readable artifact under
+`runs/` said UNDERPOWERED, VOID or REFUTED**. `grep -ranI 'VERDICT:' runs` returned five
+artifacts and not one of them said CONFIRMED. That is the most citable inconsistency an
+auditor could have found in this repo, and it cost one commit to close.
+
+**Discharged.** `src/dft/hessian_analyze.py` already implements the adopted A8.7 reading-(b)
+instrument, so the re-score is regenerable rather than recoverable. Re-run on the same banked
+`.out` files and banked **alongside** the originals per A8.8 (*"a re-run is a new measurement
+reported alongside, never a silent overwrite"*):
+
+| new artifact | verdict | reading-(a) label carried alongside |
+|---|---|---|
+| `runs/probe/Cr_hess/hessian_analysis_A8.7-adopted_2026-09-03.{txt,json}` | **CONFIRMED**, i245 cm⁻¹, f_y = 1.000, floor i50 | UNDERPOWERED (σ_F 2.99e-05, worst y floor i264.6, Q4a passes) |
+| `runs/probe_d02/Cr_hess/hessian_analysis_A8.7-adopted_2026-09-03.{txt,json}` | **CONFIRMED**, i243 cm⁻¹, f_y = 1.000, floor i50 | VOID (σ_F 1.20e-04, worst y floor i373.6, Q4a and Q4b fire) |
+
+Both reproduce §7c's numbers exactly, including the reading-(a) labels §7c carries as "a label,
+not a verdict". The campaign layer still prints **PARTIAL PILOT** — Cr scored alone, Ir not
+scored in this invocation, and docs/43 §3's consequence is keyed on both registered states. The
+2026-08-23 originals are byte-unchanged and still read UNDERPOWERED / VOID; no `.out` was
+touched.
+
+**Not in scope, and deliberately left alone:** `runs/s3/Cr/hessian_analysis_esc_2026-08-24.txt`
+still reads REFUTED. That is a **different state** (`s0_OOH__2x1v_esc`, `mirror_plane = false`)
+scored on the pre-A8.7 fallback estimator by its own admission — not a third verdict on this
+one, and not this addendum's to re-score.
+
+**What an auditor can now check in one command:** `grep -ranI 'VERDICT:' runs --include='*.txt'`
+returns both instruments side by side, dated, with the adopted one named in its filename. The
+disagreement between them is the A8.7 instrument question, which is the thing this block is
+*about* — it is now legible as that rather than as an unexplained contradiction.

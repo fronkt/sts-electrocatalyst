@@ -1,0 +1,237 @@
+{
+  "prereg": "docs/43-prereg-week1-factorial.md \u00a73 + \u00a73-A",
+  "results": [
+    {
+      "state": "Cr",
+      "job": "s0_OOH__2x1v_mir",
+      "source_run": "runs/probe/Cr_cellsym",
+      "scope": "q = 0, 2x1 cell, 0.5 ML",
+      "cell": "2x1",
+      "coverage_ML": 0.5,
+      "wavevector": "Gamma (q = 0)",
+      "gate_failures": [],
+      "gate_notes": [
+        "Q0 energy: reference SCF -43384.541281 eV vs source relaxation -43384.541281 eV, delta = -0.000 meV (tolerance +/-10 meV)",
+        "Q0 magnetisation: reference 23.000 vs source 23.000 mu_B, delta = +0.000",
+        "Q3 magnetic guard: reference M = 23.0 mu_B, tolerance 0.1 mu_B, 0 exclusion(s) of 18 (docs/43 \u00a73 voids the state above 2)",
+        "Q6 mirror-identity gate (N34, CODE-LEVEL \u2014 reported, not registered in docs/43): checked 3 yp/ym pair(s) atom-by-atom and 12 self-mirror +/-x,+/-z deck(s) against tolerance 4.2e-05 Ry/bohr derived from the design sigma_F. This is the only test of the Hessian diagonal in the gate set.",
+        "Q4b (REPORTED ONLY, NOT GATING \u2014 docs/43 A8.7 Question 3, adopted 2026-08-23) row a38y: mean |H_ij - H_ji| over the row = 1.845e-01 eV/A^2 exceeds the absolute floor 5.454e-02 (= 3*sqrt(2)*sigma_F_design/delta). On a mirror-symmetric reference this statistic reads the forward-difference anharmonic (y,xz) term, not a bad job (docs/49 \u00a74). CODE-LEVEL, in no docs/43 clause (N32/N33); it cannot contribute to a VOID or UNDERPOWERED.",
+        "Q5 (REPORTED, NOT GATED \u2014 docs/43 amendment 3, am.4 \u00a77 item 4): y/xz cross-block max|D| = 3.098e-01 exceeds the old gate level 9.193e-03. The mirror predicts exactly zero here, but these elements are structurally zero by the same symmetry Q6 tests exactly, so this is a noise measurement \u2014 and its y rows are forward differences carrying an O(delta) anharmonic term the central difference used to cancel. Reported, never a VOID."
+      ],
+      "contaminated": [],
+      "q6_control_voided": [],
+      "dropped_coordinates": [],
+      "coordinates_used": [
+        "a37x",
+        "a37y",
+        "a37z",
+        "a38x",
+        "a38y",
+        "a38z",
+        "a39x",
+        "a39y",
+        "a39z"
+      ],
+      "mirror_plane": true,
+      "prereg": "docs/43 \u00a73 + \u00a73-A",
+      "gate_provenance": {
+        "Q0": "docs/43 \u00a73-A.5 \u2014 the reference must be the state it claims to be",
+        "Q1": "docs/43 \u00a73 'Method': conv_thr = 1e-10. Enforced as: a '!' total energy, a printed 'convergence has been achieved', and a final estimated scf accuracy <= conv_thr. 'JOB DONE' is explicitly not accepted (lessons.md, three incidents). Since docs/43 am.4 \u00a77 item 3 it also demands a USABLE force block on every deck that feeds H (the reference and every displacement except the ym controls): a missing or truncated block is a hard gate failure (VOID), never a silent coordinate drop \u2014 the N38 rule, missing evidence must not score as a pass.",
+        "Q2": "docs/43 \u00a73 'Method': nosym/noinv on EVERY displacement including the reference, and an identical k-point set throughout.",
+        "Q3": "docs/43 \u00a73 'Magnetic guard', tolerance 0.1 mu_B, >2 exclusions of 18 voids.",
+        "Q4": "Q4a: docs/43 \u00a73-A.4 \u2014 the sigma_F cap, made absolute. Since A8.7 (adopted 2026-08-23) the sigma_F it tests is the MIRROR-IDENTITY force noise (reading (b): rms residual of identities the SCF does not enforce, measured on the same decks), not the H - H^T asymmetry \u2014 which is retained and reported as a truncation-error diagnostic (docs/49 \u00a74/\u00a74b). Q4b: CODE-LEVEL, in no docs/43 clause (findings N32/N33): per-ROW mean asymmetry against an absolute floor 3*sqrt(2)*sigma_F_design/delta \u2014 DEMOTED to reported, NOT gating, by A8.7 Question 3 (adopted 2026-08-23: an unregistered gate must not void a state). The old same-sample max/rms ratio stays a demoted diagnostic.",
+        "Q5": "docs/43 \u00a73 'Method' registered this check; docs/43 amendment 3 and am.4 \u00a77 item 4 DEMOTE it to REPORTED, NOT GATED: the y/xz cross elements are structurally zero by the same mirror that makes each ym deck the exact image of its yp partner, so the check is a noise measurement, not a physics gate. The measurement stays in the output; it can no longer fail a state.",
+        "Q6": "CODE-LEVEL, in no docs/43 clause (finding N34) \u2014 reported, not registered. docs/43 amendment 3 establishes the identity: each ym deck is the EXACT mirror of its yp partner and pw.x is deterministic, so F_y(ym) = -F_y(yp) and F_x/F_z(ym) = +F_x/F_z(yp) atom by atom, and every +/-x, +/-z deck of a mirror-symmetric reference is its own mirror (F_y = 0 on the on-plane atoms). Checked on the RAW force blocks with a tolerance derived from the design sigma_F. This is the ONLY available test of the Hessian DIAGONAL: an error confined to the displaced coordinate's own force component is invisible to Q4's off-diagonal asymmetry and to the measured sigma_F, yet it sets the sign of the curvature and therefore the verdict."
+      },
+      "hessian_asymmetry_D": 0.3098077537310638,
+      "hessian_asymmetry_H_eV_A2": 0.4643991191032057,
+      "hessian_asymmetry_relative": 0.010983078680113537,
+      "lambda_noise_declared": 0.009193481761400349,
+      "sigma_F_instrument": "mirror-identity residuals, reading (b) \u2014 docs/43 A8.7, adopted 2026-08-23",
+      "sigma_F_mirror_pairs": 3,
+      "measured_sigma_F_eV_per_A": 5.347813313699801e-06,
+      "measured_sigma_F_Ry_per_bohr": 2.07996822241835e-07,
+      "sigma_F_asym_eV_per_A": 0.0030801317961051304,
+      "sigma_F_asym_Ry_per_bohr": 0.00011979805353988203,
+      "design_sigma_F_Ry_per_bohr": 1e-05,
+      "q4b_row_mean_asym_max_eV_A2": 0.18450157462177372,
+      "q4b_row_mean_asym_row": "a38y",
+      "q4b_abs_floor_eV_A2": 0.05454133891872872,
+      "q4b_exceeds_floor": true,
+      "mirror_cross_block_max": 0.3098077537310638,
+      "mirror_cross_block_gate": 0.009193481761400349,
+      "modes": [
+        {
+          "index": 0,
+          "lam": -0.21679380709612311,
+          "imaginary": true,
+          "nu_cm1": 242.80265476988365,
+          "sigma_lambda": 0.0002969782601320283,
+          "lambda_floor": 0.009193481761400349,
+          "nu_floor_cm1": 50.0,
+          "significant": true,
+          "fy_massweighted": 0.9999571736304737,
+          "fy_cartesian": 0.9999836868154529,
+          "atom_weights": [
+            0.10917436714120377,
+            0.11319801551189244,
+            0.7776276173469038
+          ]
+        },
+        {
+          "index": 1,
+          "lam": 0.03706741057110588,
+          "imaginary": false,
+          "nu_cm1": 100.39824451636348,
+          "sigma_lambda": 2.4442082951868147e-05,
+          "lambda_floor": 0.009193481761400349,
+          "nu_floor_cm1": 50.0,
+          "significant": true,
+          "fy_massweighted": 0.9981123000498808,
+          "fy_cartesian": 0.9965620367235757,
+          "atom_weights": [
+            0.4181542368846477,
+            0.579461882797796,
+            0.0023838803175563797
+          ]
+        },
+        {
+          "index": 2,
+          "lam": 0.048081016774572605,
+          "imaginary": false,
+          "nu_cm1": 114.34490460480444,
+          "sigma_lambda": 2.039317932645708e-05,
+          "lambda_floor": 0.009193481761400349,
+          "nu_floor_cm1": 50.0,
+          "significant": true,
+          "fy_massweighted": 0.001890584111286271,
+          "fy_cartesian": 0.0012835002610944227,
+          "atom_weights": [
+            0.21293608114961693,
+            0.7384953621453919,
+            0.048568556704991224
+          ]
+        },
+        {
+          "index": 3,
+          "lam": 0.20872543493541423,
+          "imaginary": false,
+          "nu_cm1": 238.24164673053136,
+          "sigma_lambda": 2.3250051841291482e-05,
+          "lambda_floor": 0.009193481761400349,
+          "nu_floor_cm1": 50.0,
+          "significant": true,
+          "fy_massweighted": 2.120926113836214e-05,
+          "fy_cartesian": 1.300448106765867e-05,
+          "atom_weights": [
+            0.3588024698978408,
+            0.57615397872392,
+            0.0650435513782392
+          ]
+        },
+        {
+          "index": 4,
+          "lam": 0.2929440282480006,
+          "imaginary": false,
+          "nu_cm1": 282.2424410148461,
+          "sigma_lambda": 0.00010099203474923662,
+          "lambda_floor": 0.009193481761400349,
+          "nu_floor_cm1": 50.0,
+          "significant": true,
+          "fy_massweighted": 0.999980789743061,
+          "fy_cartesian": 0.9999799806237177,
+          "atom_weights": [
+            0.4720872702567723,
+            0.3078423021715478,
+            0.22007042757167986
+          ]
+        },
+        {
+          "index": 5,
+          "lam": 0.5223275370520539,
+          "imaginary": false,
+          "nu_cm1": 376.87858105821675,
+          "sigma_lambda": 2.3620557143843028e-05,
+          "lambda_floor": 0.009193481761400349,
+          "nu_floor_cm1": 50.0,
+          "significant": true,
+          "fy_massweighted": 3.042632249597776e-06,
+          "fy_cartesian": 1.4583934394528505e-05,
+          "atom_weights": [
+            0.8753524177476639,
+            0.05749631590552881,
+            0.06715126634680721
+          ]
+        },
+        {
+          "index": 6,
+          "lam": 3.8142035603040374,
+          "imaginary": false,
+          "nu_cm1": 1018.4317461727557,
+          "sigma_lambda": 1.2318833738035084e-05,
+          "lambda_floor": 0.009193481761400349,
+          "nu_floor_cm1": 50.0,
+          "significant": true,
+          "fy_massweighted": 8.690677039196412e-06,
+          "fy_cartesian": 1.320982851897068e-05,
+          "atom_weights": [
+            0.4928376979103275,
+            0.5043132191789701,
+            0.00284908291070245
+          ]
+        },
+        {
+          "index": 7,
+          "lam": 6.894596016749886,
+          "imaginary": false,
+          "nu_cm1": 1369.2552254333368,
+          "sigma_lambda": 0.0001656171377573182,
+          "lambda_floor": 0.009193481761400349,
+          "nu_floor_cm1": 50.0,
+          "significant": true,
+          "fy_massweighted": 2.733389542076342e-06,
+          "fy_cartesian": 2.4424826118996866e-07,
+          "atom_weights": [
+            0.060500532650526115,
+            0.06442365504458014,
+            0.8750758123048937
+          ]
+        },
+        {
+          "index": 8,
+          "lam": 42.93971106717488,
+          "imaginary": false,
+          "nu_cm1": 3417.114677344985,
+          "sigma_lambda": 0.00017725018783449462,
+          "lambda_floor": 0.009193481761400349,
+          "nu_floor_cm1": 50.0,
+          "significant": true,
+          "fy_massweighted": 2.347650532885242e-05,
+          "fy_cartesian": 2.330017954794342e-05,
+          "atom_weights": [
+            0.00015492636140117388,
+            0.058615268520372625,
+            0.9412298051182262
+          ]
+        }
+      ],
+      "n_imag_out_of_plane": 1,
+      "n_imag_in_plane": 0,
+      "n_imag_below_floor": 0,
+      "y_mode_worst_floor_cm1": 50.0,
+      "underpowered_threshold_cm1": 80.0,
+      "reading_a_label": {
+        "verdict": "VOID",
+        "sigma_F_Ry_per_bohr": 0.00011979805353988203,
+        "q4a_fires": true,
+        "q4b_fires": true,
+        "base_gate_failures": 0,
+        "worst_y_floor_cm1": 373.5506380075047,
+        "mode0_floor_cm1": 373.5506380075047
+      },
+      "verdict": "CONFIRMED",
+      "reason": "1 out-of-plane imaginary mode(s) at q = 0, 2x1 cell, 0.5 ML: i243 cm^-1 (f_y=1.000, floor i50). A negative curvature in a principal submatrix is a negative curvature of the full Hessian, so the on-record constrained geometry is a saddle point.",
+      "dir": "runs/probe_d02/Cr_hess"
+    }
+  ]
+}
