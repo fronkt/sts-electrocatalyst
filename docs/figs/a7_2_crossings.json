@@ -1,0 +1,90 @@
+{
+ "binding": "Moves no banked verdict. A7.2 stays CONFIRMED 5 of 6 on exactly 3 robust members; A7.3 stays NOT MET at 3 of 6.",
+ "crossings": {
+  "Cr": [
+   {
+    "bracket_width_eV": 0.5,
+    "margin_to_next_rung_eV": 0.039617670713036235,
+    "note": "linear interpolation of dG_3 - dG_2 on a fixed-geometry grid; nearest other rung is 0.0396 eV below the crossing",
+    "pls_hi": 2,
+    "pls_lo": 3,
+    "status": "LOCATED",
+    "u_hi": 4.0,
+    "u_lo": 3.5,
+    "u_star": 3.6736079260823575
+   }
+  ],
+  "Fe": [
+   {
+    "bracket_width_eV": 1.5,
+    "margin_to_next_rung_eV": 2.4420449567257223,
+    "note": "linear interpolation of dG_2 - dG_1 on a fixed-geometry grid; nearest other rung is 2.4420 eV below the crossing",
+    "pls_hi": 1,
+    "pls_lo": 2,
+    "status": "LOCATED",
+    "u_hi": 9.0,
+    "u_lo": 7.5,
+    "u_star": 8.18314228713545
+   }
+  ],
+  "Ir": [
+   {
+    "bracket_width_eV": 1.5,
+    "margin_to_next_rung_eV": 0.6117116040649355,
+    "note": "linear interpolation of dG_3 - dG_2 on a fixed-geometry grid; nearest other rung is 0.6117 eV below the crossing",
+    "pls_hi": 2,
+    "pls_lo": 3,
+    "status": "LOCATED",
+    "u_hi": 4.5,
+    "u_lo": 3.0,
+    "u_star": 4.016644097278135
+   }
+  ],
+  "Mn": [
+   {
+    "bracket_width_eV": 1.5,
+    "margin_to_next_rung_eV": 0.4385166629531072,
+    "note": "linear interpolation of dG_3 - dG_2 on a fixed-geometry grid; nearest other rung is 0.4385 eV below the crossing",
+    "pls_hi": 2,
+    "pls_lo": 3,
+    "status": "LOCATED",
+    "u_hi": 1.5,
+    "u_lo": 0.0,
+    "u_star": 0.732791934005914
+   },
+   {
+    "bracket_width_eV": 1.5,
+    "margin_to_next_rung_eV": 1.8550006572309505,
+    "note": "linear interpolation of dG_2 - dG_1 on a fixed-geometry grid; nearest other rung is 1.8550 eV below the crossing",
+    "pls_hi": 1,
+    "pls_lo": 2,
+    "status": "LOCATED",
+    "u_hi": 7.5,
+    "u_lo": 6.0,
+    "u_star": 6.097888952740662
+   }
+  ],
+  "Ru": [
+   {
+    "bracket_width_eV": 1.5,
+    "margin_to_next_rung_eV": 0.5399778735082479,
+    "note": "linear interpolation of dG_3 - dG_2 on a fixed-geometry grid; nearest other rung is 0.5400 eV below the crossing",
+    "pls_hi": 2,
+    "pls_lo": 3,
+    "status": "LOCATED",
+    "u_hi": 9.0,
+    "u_lo": 7.5,
+    "u_star": 8.664514586842536
+   }
+  ],
+  "Ti": []
+ },
+ "disclosed_non_blind_cr": "docs/43:1356 discloses the Cr flip 3->2 between U = 1.85 and 3.70 from the probe ladder; the A0-grid row below is a separate, coarser measurement of the same crossing and the two are not the same experiment.",
+ "registered_as": "docs/43:1348-1353 -- 'The U at which each metal's pls flips is a first-class deliverable.'",
+ "self_checks": {
+  "check1_pls_matches_banked": "PASS (58 rows)",
+  "check2_brackets_and_crossings_are_the_same_set": "PASS",
+  "check3_u_star_inside_its_bracket": "PASS"
+ },
+ "what_this_is": "Linear interpolations on the banked fixed-geometry U grid. The BRACKET remains the measured object and is printed beside every estimate. Nothing here re-runs a deck, banks an energy, or moves A7.2's CONFIRMED 5-of-6 verdict."
+}

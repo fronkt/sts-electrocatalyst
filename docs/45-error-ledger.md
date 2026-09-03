@@ -2975,3 +2975,76 @@ it, and it costs a file transfer, not compute.
 - **A number quoted in a note is not a banked number.** The Co −77.009 meV had a run behind it and
   no file, and it survived into a top-priority todo item and into docs/70 because nobody asked the
   filesystem. Before a figure is used in an argument, open the artifact it came from.
+
+## H-3 CLOSED, 2026-09-03 — A7.2's "first-class deliverable" is delivered: all six pls crossings located, 0 SU
+
+docs/43:1348-1353 registers it in those words: *"The U at which each metal's pls flips is a
+**first-class deliverable**."* What the campaign had banked was six **brackets**, 0.5–1.5 eV wide.
+A bracket says where a crossing is; it does not say where it happens. `src/dft/a7_2_crossings.py`
+→ `docs/figs/a7_2_crossings.json` + `docs/research/2026-09-03-a7-2-crossing-locations.md`, 8 tests.
+Zero new DFT.
+
+| metal | bracket (eV) | flip | **U\*** | margin to the next rung |
+|---|---|---|---|---|
+| Mn | [0.00, 1.50] | 3 → 2 | **0.733** | 0.4385 eV |
+| Cr | [3.50, 4.00] | 3 → 2 | **3.674** | **0.0396 eV** |
+| Ir | [3.00, 4.50] | 3 → 2 | **4.017** | 0.6117 eV |
+| Mn | [6.00, 7.50] | 2 → 1 | **6.098** | 1.8550 eV |
+| Fe | [7.50, 9.00] | 2 → 1 | **8.183** | 2.4420 eV |
+| Ru | [7.50, 9.00] | 3 → 2 | **8.665** | 0.5400 eV |
+
+All six **LOCATED**; none CONTENDED. Ti has no crossing, consistent with its banked "flat" row.
+
+### The guard that made this worth doing
+
+A pls flip is a change in `argmax_i ΔG_i`, so the crossing is where the two rungs holding the
+argmax at the bracket's ends become equal. **A two-rung interpolation is only valid if no third
+rung rises above both inside the bracket**, and docs/70 §8.1 C-5 showed that is not hypothetical:
+at Cr U = 4.0 the gap ΔG₂ − ΔG₃ is 0.1844 eV while the true max-minus-runner-up margin is
+0.0760 eV, because the runner-up is rung 1. Every U\* is therefore checked against all four
+interpolated rungs, and a contended bracket is reported **CONTENDED with no point estimate** rather
+than interpolated through. A test builds a synthetic bracket where a third rung dominates and
+asserts the guard refuses it — otherwise the guard is decoration.
+
+**The margins vindicate the guard's necessity without it having to fire.** Cr's margin is
+**0.0396 eV**, an order of magnitude below every other row (0.4385–2.4420 eV). It clears the check,
+but it is the one row where a small change in the ladder would flip LOCATED to CONTENDED.
+
+### The load-bearing self-check
+
+The pls is **recomputed here from the banked ΔG rows and compared against the `pls` the A0 readout
+wrote — on all 58 rows, exact agreement.** That is what makes this file's rung algebra *the
+readout's* rather than a second opinion about it; without it, a crossing table is just another
+number that has to be trusted.
+
+### Three conditionalities carried on the face of the table, not in a footnote
+
+1. **Ru's U\* = 8.665 sits in the equalised region.** Every (Ru, state, u900) cell is
+   EQUALISED-BY-SELECTION(nspin = 1) — 0 of 16 spin-polarised Ru SCFs converge at U = 9 across
+   three pre-registered mixing settings (docs/68 §2, §11). The crossing is located on the ladder
+   the campaign actually ran, and that ladder's Ru endpoint is a convention, not a free solution.
+2. **Ir's bracket is saddle-conditional** (`caveats.ir_ooh_basin`). The *existence* of an Ir flip
+   survives the saddle correction — A7.2's CONFIRMED status does not rest on the bracket — but this
+   row's U\* does.
+3. **Cr's A0 row is not the crossing docs/43:1356 discloses.** That disclosure puts the Cr flip
+   between U = 1.85 and 3.70 **on the probe ladder**; 3.674 is the A0 grid's own coarser
+   measurement of the same physical crossing. Two different experiments that happen to agree, and
+   the report must not present one as confirming the other.
+
+### What this is not
+
+**Locating a crossing is not verifying one.** These are linear interpolations on a fixed-geometry
+grid; the brackets remain the measured objects. A registered verification would need fresh SCFs at
+each U\*, and that spike (docs/70 §6 S-4) is **not** proposed here — docs/70 §8.1 C-7 records four
+defects in it as written, including that it registers a **ninth** ledger claimant against a cap of
+eight and that its own prediction is not evaluable by its own decks. S-4 needs re-specification
+before it is put to the entrant; this delivers the registered obligation without it.
+
+Moves no banked verdict: A7.2 stays CONFIRMED 5 of 6 on exactly three robust members, A7.3 stays
+NOT MET at 3 of 6.
+
+**Rule.** *A registered deliverable that has been "essentially computed" is not delivered.* The
+brackets were in the readout for weeks and everyone could see roughly where each crossing sat, so
+nobody noticed the registration asked for a number nobody had written down. **Grep the
+registration for its own nouns — "deliverable", "reported", "published" — and check each one has a
+file.**
