@@ -1106,3 +1106,108 @@ The queue is empty and every deck is pre-staged: each signature is ≈20–370 S
       claimant over cap, prediction not evaluable by its own decks, denominator 5 vs 6, ±0.2 eV
       near-unfalsifiable on Cr's 0.5 eV bracket, and drops the spin-equalisation docs/66 §6 item 1 requires.
 - [ ] **FRANK D2** still the only banked-verdict line owed (Ru + Ir BRANCH-CONDITIONAL, Cr + Ti SAME-BRANCH).
+
+## 2026-09-03 — S-1 executed: five holes closed at 0 SU, one new registered analysis run, and three of my own claims corrected
+
+**Compute: none. Balance unchanged at 59,761.1 SU. Queue empty. Suite 293 → 321 passed / 8 skipped.**
+
+### Closed
+
+- [x] **H-1 — the RuO₂ antiferromagnetism premise** (`c1011e2`). docs/41's "RuO₂ is
+      antiferromagnetic … for `qe_slab.py` that is **factually wrong**" is **WITHDRAWN**. Three
+      sources opened and read this session: Hiraishi PRL 132, 166702 (2024) bounds the bulk
+      ordered moment at **≤ 4.8(2)×10⁻⁴ μ_B** by μSR; Keßler arXiv:2405.10820 at **≤ 1.4×10⁻⁴ μ_B**
+      and re-assigns Berlijn's neutron peak to **multiple scattering**; Smolyanyuk PRB 109, 134424
+      supplies the mechanism. That is **67–357× below** the 0.05 μ_B diffraction value. Scope is
+      **bulk** — surface (110) moments are not excluded, and the correction says so instead of
+      over-claiming the other way. docs/41 correction of record (appended, not edited — it is a
+      pre-registration), docs/45 §A **row 6**, and comment-only annotations in `probe_decks.py` +
+      `qe_slab.py` (**28 insertions, 0 deletions, 0 non-comment lines**). **It strengthens the
+      campaign:** gate (h) put AFM **80–144 meV below** NM under this Hamiltonian and moved
+      adsorption energies **33–64 meV** — the campaign's own thesis on its benchmark anchor, with
+      an independent experimental check.
+- [x] **H-2 — a deposited prediction on a refuted premise** (`eecc887`). docs/43 §7 prediction 3
+      registers "`omat` … does not share that convention"; **docs/40 §1.4, dated three days
+      earlier**, had quoted OMat24's own paper ("following Materials Project defaults",
+      "MPRelaxSet") and concluded in bold "Independence gained on the U axis by switching
+      MACE → omat is **zero**". Warford arXiv:2601.21056 (opened today) inverts the direction
+      further: **"OMAT-trained models are most affected."** Closed as a **disclosure, not a
+      revision** (§7 forbids revision after deposit): the differential test **cannot score the
+      mechanism in either direction**, §7's own "if MACE degrades less … that refutes our
+      mechanism" clause is **unsound and unavailable**, and **no joint replacement is registered**
+      — writing one now would be fitting a prediction to what is already known.
+- [x] **H-3 — A7.2's undelivered "first-class deliverable"** (`4826875`). All six pls crossings
+      **located**: Mn **0.733**, Cr **3.674**, Ir **4.017**, Mn **6.098**, Fe **8.183**, Ru
+      **8.665**; Ti has none. `src/dft/a7_2_crossings.py`, 8 tests. The three-rung guard is the
+      point — a synthetic dominated bracket is asserted to be **refused**, and Cr's margin
+      (**0.0396 eV**) is an order of magnitude below every other row. pls recomputed here matches
+      the readout's own `pls` on **all 58 rows**. Three conditionalities on the face of the table:
+      Ru's U\* sits in the equalised region, Ir's bracket is saddle-conditional, and Cr's A0 row is
+      **not** the probe-ladder crossing docs/43:1356 discloses.
+- [x] **H-10 — a banked "conformer" is a desorbed O₂** (`191a1de`). Ir (O–O 1.286, O–Ir 1.948) and
+      Ru (1.297, 1.905) relax to **bound superoxo**; Cr relaxes to **O–O 1.227 Å with both oxygens
+      3.09 / 3.78 Å from the nearest Cr** (measured Cr–O bond: 1.856 Å) and **the H on a different
+      oxygen** — no O–O–H unit at all, both spin seeds agreeing to 0.0004 Å over 41 and 42 ionic
+      steps. It sits 0.021 eV below the `*OOH` minimum, so **scoring it would have put an
+      O₂-release energy into c_Cr — the A7.3 quantity.** Erratum markers + dated correction in
+      docs/54.
+- [x] **The GATE-1 census contradiction** (`316ae31`), which `tasks/todo.md` marked *blocking*
+      — "reconcile before any readout is quoted". Both counts were right about **different
+      questions**: docs/45 counted **A8.3 refusals post-discharge**, the todo counted **branch
+      changes in either direction**, and a child 384 meV *below* its parent is BASIN_DRIFT, not a
+      refusal. Measured over all **88** `__g1` children, zero orphans: 77 AGREE / 2 BASIN_DRIFT /
+      6 REFUSED (5 discharged) / 3 UNVERIFIED. **"0 REFUSED" is now stale** — `s3/Co
+      s0_OOH__2x1v_mir__g1` stands refused at +747.449 meV.
+
+### New, registered before it ran
+
+- [x] **A11.R7** — A5.1(a)'s valence tracker on the A0 grid, from **235 already-banked Löwdin
+      artifacts**. Registered at `afb9692` **with no script and no result**; scored at `dbe3104`.
+      The two hashes are the proof of order. **0 SU.**
+      - **R7-P3 fires.** |δq_c| **interleaves** the two A7.3 groups completely — Mn 0.0069 OVER,
+        Ti 0.0096 under, Ir 0.0165 under, Cr 0.0399 OVER, Ru 0.0695 under, Fe 0.0735 OVER — while
+        their spans differ **4–14×**. The metal with the largest U-span has the smallest valence
+        change. **The valence-change explanation of the A7.3 split is falsified on this tracker.**
+      - What still separates the six perfectly is **nspin = 2 / nspin = 1**, and the one valence
+        quantity that exists on both sides does not track it — a sharper statement of the confound
+        than docs/60 or docs/63 could make.
+      - **My registered stability rule was malformed** (it compares a U-swing to a fixed-U state
+        difference) and flagged 4 of 6 metals, gutting R7-P1. The verdict is reported **as
+        registered** (REFUTED, ρ −0.257) with the all-six figure labelled **POST-HOC** (ρ −0.381,
+        p 0.121, n = 18 — same sign).
+
+### Three of my own claims corrected
+
+- docs/70 §8.2's "**no script in the repo reads a `.lowdin.txt`**" — false; `extract_lowdin.py`
+  produces *and validates* them, with a test over the whole bank of 265.
+- docs/70 §8.2's "A5.1(a)/(c) **unscored**" — false; `lit1_urobustness.py` has scored them since
+  2026-08-12 for tranche 1 (Cr + Co on the P7 ladders). The true hole was narrower and better: the
+  **A0 grid** had no readout, and Ti/Ru/Ir's decks carry **no `nspin` card at all** (0/28, 0/32,
+  0/32), so the primary tracker cannot exist on exactly the failing set.
+- `tasks/todo.md:683`'s **three** BASIN_DRIFT rows are **two** on disk. Fe (−384.300) and Mn
+  (−20.616) re-derive exactly; **Co's −77.009 meV has no artifact here** — `__g1.out` and both
+  `.attempt` files say "convergence NOT achieved" with no `!` total energy, and
+  `__g1.fromparent.in` has no `.out`. Not withdrawn; **the fix is a file transfer, not compute**,
+  and it must happen before R3/A8.8 are dispositioned.
+
+### Still owed — the entrant's, not mine
+
+- [ ] **D2 — the guard-3 adjudication.** Still the only line owed on a banked verdict
+      (Ru + Ir BRANCH-CONDITIONAL, Cr + Ti SAME-BRANCH). Released by A11.R6 returning.
+- [ ] **Countersign A11.R7.** If declined, the readout is withdrawn from the report and A11.R7
+      stands as the record of what was registered and not used.
+- [ ] **Countersign docs/59** — its §3c licence decision moves a banked verdict.
+- [ ] **BASIN_DRIFT disposition (R3 / A8.8)** — pull the Co `.fromparent` output from Anvil first.
+- [ ] **A7.7 disposition** for a middle outcome; **A7.5's Mn AFM arm**; **the Ti nspin = 2 call**.
+- [ ] **Gate-(h) AFM relaxations** — still HOLD, and H-1 changes their justification: they are now
+      a **sensitivity arm**, not a ground-state adoption.
+- [ ] **Cr `oosh`** — finding (no bridge-protonated `*OOH` at 1×1) or artifact of the cell?
+- [ ] **RCAC ticket** — Gmail draft `r1072822063942699521`, Frank to send.
+- [ ] **S-4 must be re-specified before it is offered** — docs/70 §8.1 C-7 records four defects,
+      including a **ninth ledger claimant against a cap of eight** and a prediction not evaluable
+      by its own decks. H-3 discharged A7.2's registered obligation **without** it.
+
+### Registered compute still ahead
+
+S5 BEEF-vdW (A10, **Sep 18**); S8 make-and-measure (the largest open fork, Q-5 in docs/70 §7);
+**Oct 15 hard freeze**.
