@@ -988,3 +988,35 @@ executed at all, which is a materially worse finding and a different fix.
 different remedies, and only one of them is cheap. Do not name the fix until the search has
 covered every place the artifact could live — and on an HPC workflow that means the tarballs in
 `$HOME`, not just the scratch tree.
+
+### 2026-09-03 (second) — "exhaustive" is a claim about coverage, and it needs a list
+
+Twice in one day I made a false negative-existence claim about the same row, and the second time
+I wrote it into a registration.
+
+- **First:** "the fromparent run happened on Anvil and its output was never pulled" — right by
+  luck, from a local-only search.
+- **Second:** I searched the Anvil `$HOME` tarballs and `/anvil/scratch`, found nothing, and
+  stamped `[CO BASIN_DRIFT PROVENANCE 2026-09-03: NO CONVERGED ARTIFACT EXISTS, ANYWHERE]` into
+  docs/43, asserting the remedy "was never executed, not merely never retrieved."
+- **The file was in `/anvil/projects/x-che260157/`** — the primary run tree, holding 372 retained
+  densities — which I never looked at. Converged, JOB DONE, and the −77.009 meV re-derives from
+  it exactly.
+
+The failure was not the search. It was calling a two-location search **exhaustive** and then
+promoting that word into a registered line, where it is much more expensive to be wrong.
+
+**Rule:** a negative existence claim is only as strong as the enumeration of places searched, and
+**that enumeration must be written beside the claim** so a reader can see what was *not* looked
+at. Never write "anywhere", "nowhere" or "exhaustive" without the list. For this cluster the list
+is: the local tree, `$HOME` tarballs, `/anvil/scratch/x-fcai3`, **and
+`/anvil/projects/x-che260157` — the one that actually holds the runs.**
+
+**Second-order rule:** an over-correction is still an error, and it is a worse one when it lands
+in a registration. My first note was correct; I "corrected" it into a falsehood on weaker
+evidence than the note had. Before withdrawing a claim, check that the withdrawal rests on more
+evidence than the claim did — not merely on newer evidence.
+
+**What caught it:** an adversarial verifier in a closure workflow, whose whole job was to refute
+the report. It searched a directory the reporter had not. That is the argument for keeping the
+refutation pass even when — especially when — the report is one I wrote.

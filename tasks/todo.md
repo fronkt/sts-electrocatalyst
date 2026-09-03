@@ -1333,3 +1333,41 @@ predictor at.
 - [ ] **The Co SCF** — ~5-19 SU under an A11.R3 dated line, or leave it a recorded gap.
 - [ ] **Send the RCAC ticket** (Gmail draft `r1072822063942699521`).
 - [ ] **S-4 still must be re-specified before it is offered.**
+
+## 2026-09-03 (third block) — Frank's four instructions, all executed
+
+**Directive:** *"Lets close the Co BASIN_DRIFT, Mn adopt, I counter sign the A11.R8. Continue and
+do n=18"*. **Compute: none. Balance 59,761.1 SU. Suite 332 -> 341 passed.**
+
+- [x] **Co BASIN_DRIFT CLOSED** (`d26ea49`) — and my own `[NO CONVERGED ARTIFACT EXISTS,
+      ANYWHERE]` line **WITHDRAWN**. The artifact was at `/anvil/projects/x-che260157/`, which my
+      "exhaustive" search never covered. **7 files pulled, md5-verified both ends.**
+      **-77.0089 meV re-derives exactly** against the ledger's -77.009. The transfer also
+      delivered the **parent replay**, a full independent re-relaxation that lands in the same
+      **11.24** branch at **-76.691 meV** — agreeing with the GATE-1 child to **0.318 meV**, so
+      the drift is **not** a GATE-1 artifact and the banked parent is confirmed excited by two
+      routes. Census: **89 children, 89 paired, zero orphans, all THREE BASIN_DRIFT rows now
+      re-deriving.** todo:683's original three-row claim is vindicated as written.
+- [x] **Mn §3 literature ADOPTED AS CORRECTED** (`34f88df`) — q = (0,0,~2/7), pitch 7/2 c,
+      **~103 deg per c**, T_N = 92 K. "129 deg per c" struck permanently; the near-miss
+      reconstruction (180 - 360/7 = 128.6) explicitly **not licensed** for the report.
+      **docs/67 §7 is now closed entirely.**
+- [x] **A11.R8 COUNTERSIGNED** (`34f88df`) — R8-P1 DOES NOT SEPARATE enters the report as the
+      deliverable; R7-P1 bound to its defect disclosure; R8-P2 stays never-scored.
+- [x] **n = 18 delivered as A11.R9** (registered `01a76df`, scored `8ff0744`) — **NOT** by
+      promoting R8-P2, which its own registration forbids. Built as **five separate n = 18 tests**
+      on the common U grid, **four of them out-of-sample**. **rho holds negative at every rung
+      (-0.350 to -0.414) and NOT ONE reaches nominal p < 0.05.** u000 reproduces A11.R7's
+      published post-hoc -0.3808 exactly, which is the pipeline witness. Pooling to n = 126
+      refused in advance as pseudo-replication. The registration's "seven rungs" was corrected to
+      five (**Fe has no s0_O at u300/u450**) — caught by the script's own guard before any number
+      was quoted.
+
+### Owed
+
+- [ ] **Countersign A11.R9.**
+- [ ] **The Co formal discharge** — a GATE-1 SCF on the replay's final geometry, cold start,
+      single-SCF band. The re-relax leg has effectively run and confirms the branch; this is the
+      last leg. Not launched.
+- [ ] **Send the RCAC ticket** (Gmail draft `r1072822063942699521`, updated).
+- [ ] **S-4 still must be re-specified before it is offered.**
