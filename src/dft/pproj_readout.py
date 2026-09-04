@@ -25,9 +25,23 @@ runs/a0/m_pproj.txt verbatim:
 Gas references are reused from runs/Cr_slab exactly as probe_eta.py reuses them:
 H2O and H2 run in a Martyna-Tuckerman box with assume_isolated, so no Hubbard
 card, projector choice, slab dipole or cell height touches them -- reuse across
-the projector pair is exact, and both legs subtract the SAME gas numbers, so the
-gas reference cancels in d-eta identically. They are still QC'd here; the script
-refuses to score if they fail.
+the projector pair is exact. They are still QC'd here; the script refuses to
+score if they fail.
+
+CORRECTION OF RECORD, 2026-09-04. This docstring previously continued: "both
+legs subtract the SAME gas numbers, so the gas reference cancels in d-eta
+identically." THAT IS FALSE WHENEVER THE TWO LEGS HAVE DIFFERENT pls, which is
+exactly the case this script exists to report (atomic pls 2, ortho pls 1). With
+different pls, d-eta = dG1_ortho - dG2_atomic; dG2 = dG_O - dG_OH cancels E_slab
+and one E_H2O, leaving
+
+    d-eta = E_OH,ortho - E_slab,ortho - E_O,atomic + E_OH,atomic - E_H2O + 0.65
+
+so E_H2 cancels (weight 0) but E_H2O DOES NOT -- it enters at weight exactly -1.
+Measured, not argued: +0.1 eV on E_H2O moves d-eta by -0.1000000000 V; +0.1 eV
+on E_H2 moves it by 0. Any error in the reused H2O energy propagates 1:1 into
+the 0.487 V headline. The cancellation the old sentence claimed holds only for a
+same-pls pair. See src/dft/zpe_decomposition.py, which measures both weights.
 
 CROSS-CHECK. runs/s0/e_proj/README recorded the banked *O pair's dE as
 +0.27021297 Ry (+3676.6 meV). This script re-derives that number from the .out

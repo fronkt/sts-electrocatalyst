@@ -3932,3 +3932,66 @@ deposited copy remains a correct record of the decks. **This is recorded rather 
 for a reader to discover as a hash mismatch**, and the ordering defect is named for what it
 is: the manifest was deposited before it was submission-ready. A later deposit may carry the
 corrected file; nothing is re-deposited for this alone.
+
+---
+
+## Dated addendum — 2026-09-04: correction of record against A13.6, found after deposit
+
+**[A13.6 GAS-CANCELLATION CLAIM WITHDRAWN 2026-09-04]** — an adversarial pass over A13.6's
+own derivation, run after the 22304889 deposit was published, found a false statement in the
+file that deposit froze. It is corrected here rather than left to a reader, and the deposited
+copy of `docs/81` is **known to carry the error**; the next deposit carries the corrected
+text. Nothing in A13.6's registered numbers moves: Δη = +0.4868562 V, electronic
+−0.1631438 eV, constants +0.6500000 eV, the ±0.15 V band, the +2 / −1 / 0 coefficients and
+the 0.164 / 0.380 eV pls-flip margins are all unchanged and were re-verified.
+
+**1. The gas reference does not cancel, and the retracted sentence said it did.** `docs/81` §2
+and the docstring of `src/dft/pproj_readout.py` both asserted that the two `runs/Cr_slab` gas
+references "cancel identically" in Δη. **That holds only when both legs share a pls.** These
+legs do not — atomic 2, ortho 1 — so
+
+```
+Δη = dG1_ortho − dG2_atomic
+   = E_OH,ortho − E_slab,ortho − E_O,atomic + E_OH,atomic − E_H2O + 0.65
+```
+
+and **E_H2O survives at weight exactly −1** while E_H2 cancels. Measured: +0.1 eV on E_H2O
+moves Δη by −0.1000000000 V; +0.1 eV on E_H2 moves it by 0. **Any error in the reused H₂O
+energy propagates 1:1 into the 0.487 V.** The reuse itself is still defensible — H₂O runs in a
+Martyna–Tuckerman box with `assume_isolated`, untouched by Hubbard card, projector, dipole
+correction or cell height, so it is the same number on both legs — but it is now defended on
+that ground and not on a cancellation that does not occur.
+
+**2. Four of the eight registered SCFs are inert with respect to the headline.** Weights in
+Δη: `slab` ortho −1, `s0_OH` atomic +1, `s0_OH` ortho +1, `s0_O` atomic −1; and **0 for**
+`slab` atomic, `s0_O` ortho, and both `s0_OOH` runs. A7.1's protocol registers four states ×
+two projectors and that protocol stands — the other four SCFs carry the ladders, the pls
+assignments and the falsification floor — but **a sentence quoting 0.487 V as the product of
+eight SCFs must name the four it is actually a function of.**
+
+**3. The slab asymmetry has no counterpart to cancel against.** Both bare-slab decks set
+`nosym`/`noinv` and run 36 k-points; all six adsorbate decks run 15 irreducible points of the
+same `9 4 1` grid, everything else identical. Symmetry-reducing the same grid is standard and
+is not itself an error. What item 2 makes newly relevant is that **`E_slab,ortho` enters at
+weight −1 while `E_slab,atomic` is inert**, so a slab-protocol systematic lands on the ortho
+leg alone rather than cancelling. **Registered as a stated sensitivity with no size claimed**;
+no symmetry-on slab pair exists to measure it, and none is licensed here.
+
+**4. The +0.40 eV \*OOH constant has no primary source in this repository.**
+`src/hea_oer/referencing.py` attributes {0.35, 0.05, 0.40} to Man 2011 / Valdés 2008. On disk,
+`man2011.pdf` contains no "0.35", no "0.40" and no ZPE string (its SI is absent) and there is
+no Valdés 2008 file; the only primary table present — Divanis Table SI-1 — carries 0.35 and
+0.05 attributed to **Rossmeisl/Nørskov** and **no \*OOH row**, which this document already
+records at :1898. **∂Δη/∂z_OOH = 0 exactly, so the unbacked constant does not touch A7.1's
+0.487 V** — but it enters every other η this campaign reports, and chasing its provenance is
+owed before any of those is quoted. This is a disclosure, not a threshold, and it changes no
+verdict.
+
+**Why this is in the record at all.** The deposit obligation was discharged at 12:35:26Z and
+this correction is timestamped after it. The campaign's rule is that a deposited file is
+frozen and corrections go in a dated addendum with the reason (A7.8's own precedent, and the
+Divanis z-score withdrawal). That is what this is. **A correction found by our own adversarial
+pass, against our own flagship, published against ourselves within hours of depositing, is the
+behaviour the registration exists to make possible** — and it is recorded that the pass which
+found it was run *after* the deposit rather than before, which is the ordering defect to fix
+next time.

@@ -46,8 +46,8 @@ step, it also swaps which constant lands in η.**
 ## 2. The decomposition, exact
 
 Cr, U = 7.15 eV, 1×1 cell, byte-identical geometry, both legs sharing the same
-`runs/Cr_slab` gas references (H₂O −599.211013 eV, H₂ −31.745323 eV), which cancel identically
-in a difference.
+`runs/Cr_slab` gas references (H₂O −599.211013 eV, H₂ −31.745323 eV). **Those references do
+not both cancel — see §7, which corrects an earlier sentence here.**
 
 | leg | pls | η (V) | step 1 | step 2 | step 3 | step 4 |
 |---|---|---|---|---|---|---|
@@ -144,7 +144,85 @@ the sturdier one.**
 Nothing here is a threshold, a verdict, or a new prediction. It is a disclosure, and it is
 registered as one in Amendment 12's append to `docs/43`.
 
-## 6. Artifacts
+## 7. CORRECTION OF RECORD, 2026-09-04 — what actually carries weight in Δη
 
-- `src/dft/zpe_decomposition.py` — the derivation, from raw `.out` files.
-- `docs/figs/zpe_decomposition.json` — every number above, machine-readable.
+**The version of this file deposited in Zenodo 10.5281/zenodo.22304889 contains a false
+sentence, and this section is the correction.** The deposited copy is frozen, as every
+deposited file is; the error is named here, and the next deposit carries the corrected text.
+
+### 7.1 The gas reference does NOT cancel
+
+§2 originally said the two gas references "cancel identically in a difference", and
+`src/dft/pproj_readout.py`'s docstring said the same. **That is true only when both legs share
+a pls.** Here they do not — atomic is 2, ortho is 1 — so Δη is not a difference of like
+quantities:
+
+```
+Δη = dG1_ortho − dG2_atomic
+   = E_OH,ortho − E_slab,ortho − E_O,atomic + E_OH,atomic − E_H2O + 0.65
+```
+
+`dG2 = ΔG_O − ΔG_OH` cancels `E_slab` and one `E_H2O` internally, and the remaining H₂
+coefficients cancel — but **one E_H2O survives, at weight exactly −1.** Measured, not argued:
+
+| perturbation | shift in Δη |
+|---|---|
+| +0.1 eV on E_H2O | **−0.1000000000 V** |
+| +0.1 eV on E_H2 | 0.0000000000 V |
+
+**Consequence.** Any error in the reused H₂O energy propagates **1:1** into the 0.487 V. The
+old sentence was being used to justify reusing a gas reference from a different run directory
+without checking its effect on the headline; that justification does not hold, and the reuse
+now needs to be defended on its own terms — which it can be, since H₂O runs in a
+Martyna–Tuckerman box with `assume_isolated` and no Hubbard card, projector, dipole
+correction or cell height touches it, so it is the *same number* for both legs. What is
+retracted is the claim that it cancels, not the reuse.
+
+### 7.2 Only four of the eight registered SCFs carry any weight
+
+| SCF | weight in Δη |
+|---|---|
+| `slab` ortho | **−1** |
+| `s0_OH` atomic | **+1** |
+| `s0_OH` ortho | **+1** |
+| `s0_O` atomic | **−1** |
+| `slab` atomic, `s0_O` ortho, `s0_OOH` atomic, `s0_OOH` ortho | **0 — inert** |
+
+A7.1's registered protocol is all four states × two projectors. **Half of that set does not
+touch the headline**: both \*OOH runs, the atomic slab, and the ortho \*O — the last being the
+one banked separately in `runs/s0/e_proj`. The other four SCFs remain load-bearing for the
+*ladders*, the pls assignments and the falsification floor, so none is wasted; but a sentence
+that says "eight SCFs give 0.487 V" should say **which four** it is actually a function of.
+
+### 7.3 The slab asymmetry has no counterpart to cancel against
+
+The two bare-slab decks set `nosym = .true.` and `noinv = .true.` and run **36 k-points**; all
+six adsorbate decks set neither and run **15** irreducible points of the same `9 4 1` grid
+(everything else — 80/640 Ry, nspin 2, MV smearing 0.01, `conv_thr` 1e-6, U = 7.1500, cell —
+is identical across all eight).
+
+Reducing the same grid by symmetry is standard and is not by itself an error. What §7.2 makes
+newly relevant is that **`E_slab,ortho` enters Δη at weight −1 while `E_slab,atomic` is
+inert.** So a slab-protocol systematic does *not* cancel between the legs the way it would in
+a symmetric comparison — it lands on the ortho leg alone, at full weight. This is a stated
+sensitivity, not a measured error: no size is claimed for it here, and none is measurable
+without a symmetry-on slab pair that does not exist.
+
+### 7.4 The +0.40 eV \*OOH constant is not backed by anything on disk
+
+`referencing.py` attributes all three constants to Man 2011 / Valdés 2008. Neither table is
+verifiable in this repository: `docs/research/papers/man2011.pdf` contains no "0.35", no
+"0.40" and no ZPE string at all (its SI is not in the repo), and there is no Valdés 2008 PDF.
+The one primary table on disk — Divanis Table SI-1 — gives **0.35 and 0.05 attributed to
+Rossmeisl/Nørskov, and has no \*OOH row at all**, which `docs/43` already records at :1898.
+
+**Mitigating for this result specifically:** `∂Δη/∂z_OOH = 0` exactly, so the unbacked
+constant does not touch the 0.487 V. **It touches every other η this project reports**, and
+that is where it has to be chased.
+
+## 8. Artifacts
+
+- `src/dft/zpe_decomposition.py` — the derivation and the weight measurements, from raw
+  `.out` files.
+- `docs/figs/zpe_decomposition.json` — every number above, machine-readable, including
+  `gas_weights` and `scf_weights`.

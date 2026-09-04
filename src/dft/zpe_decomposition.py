@@ -124,7 +124,7 @@ def main():
     print("=" * 78)
     print("A7.1 delta-eta: the electronic half and the constants half")
     print("=" * 78)
-    print(f"\ngas references (runs/Cr_slab, shared by both legs, cancel exactly in d-eta):")
+    print(f"\ngas references (runs/Cr_slab; H2 cancels in d-eta, H2O does NOT -- see below):")
     print(f"  H2O {gas['H2O']:.6f} eV   H2 {gas['H2']:.6f} eV")
 
     print(f"\nZPE_TS_CORRECTION (src/hea_oer/referencing.py:18), Man 2011 / Valdes 2008:")
@@ -179,6 +179,48 @@ def main():
     print(f"\n  the constants table accounts for {share*100:.1f} % of d-eta,")
     print(f"  and the raw DFT difference has the OPPOSITE SIGN"
           if electronic * d_eta < 0 else "")
+
+    # ---- WHAT ACTUALLY CARRIES WEIGHT ---------------------------------------
+    # Both this script's earlier text and pproj_readout.py's docstring claimed
+    # the gas references "cancel identically" in d-eta. That is TRUE ONLY WHEN
+    # BOTH LEGS SHARE A pls. Here they do not (2 vs 1), so d-eta reduces to
+    # dG1_ortho - dG2_atomic, in which E_H2 cancels and E_H2O does NOT. Rather
+    # than restate the corrected claim, measure it.
+    print()
+    print("-" * 78)
+    print("WHAT CARRIES WEIGHT IN d-eta (numerical derivatives, +0.1 eV probe)")
+    print("-" * 78)
+
+    def d_eta_with(Eov=None, gasov=None):
+        g = dict(gas); g.update(gasov or {})
+        EE = dict(E); EE.update(Eov or {})
+        o = {}
+        for lg in pp.LEGS:
+            dG = {sp: EE[(f"s0_{sp}", lg)] - EE[("slab", lg)]
+                      - reference_energy(sp, g["H2O"], g["H2"]) + z0[sp]
+                  for sp in ("OH", "O", "OOH")}
+            o[lg] = oer_overpotential(dG["OH"], dG["O"], dG["OOH"]).overpotential
+        return o["ortho"] - o["atomic"]
+
+    gas_w = {}
+    for gname in ("H2O", "H2"):
+        gas_w[gname] = round((d_eta_with(gasov={gname: gas[gname] + 0.1}) - d_eta) / 0.1, 10)
+        print(f"  d(d-eta)/dE_{gname:<4s} = {gas_w[gname]:+.1f}"
+              + ("   <-- does NOT cancel" if gas_w[gname] else "   <-- cancels"))
+
+    scf_w = {}
+    print()
+    for st in pp.STATES:
+        for leg in pp.LEGS:
+            w = round((d_eta_with(Eov={(st, leg): E[(st, leg)] + 0.1}) - d_eta) / 0.1, 10)
+            scf_w[f"{st}__{leg}"] = w
+            print(f"  d(d-eta)/dE[{st:<7s} {leg:<6s}] = {w:+.1f}"
+                  + ("" if w else "   <-- INERT"))
+    live = [k for k, v in scf_w.items() if v]
+    print()
+    print(f"  {len(live)} of {len(scf_w)} registered SCFs carry weight: "
+          + ", ".join(live))
+    print("  The other four could be deleted and the 0.487 V would not move.")
 
     # ---- SENSITIVITY ---------------------------------------------------------
     # d-eta = (electronic) + c[po] - c[pa]. With pls fixed this is exactly linear
@@ -281,6 +323,8 @@ def main():
             constants_eV=constants,
             constants_share_of_d_eta=share,
             closure_residual=resid,
+            gas_weights=gas_w,
+            scf_weights=scf_w,
             sensitivity=dict(
                 half_width_eV=delta,
                 coefficients={k: v for k, v in coeffs.items()},
