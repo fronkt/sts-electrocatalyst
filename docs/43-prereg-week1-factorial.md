@@ -3902,3 +3902,33 @@ publication. For Amendment 12b, whose arm had already landed, the sentence owed 
 report of that result stands as written above.
 
 Text added after publication; the deposited files are the frozen artifacts.
+
+---
+
+## Dated addendum — 2026-09-04: `m_pproj_cell.txt` changed after it was deposited
+
+**[MANIFEST HEADER ADDED 2026-09-04, POST-DEPOSIT]** — `runs/a0/m_pproj_cell.txt` was
+deposited in the 22304889 fileset at md5 `01908b8a4283ed704f63b3a7b1855098`. It then had to
+gain one line before it could be submitted at all: `anvil/47_submit_a0.sh` fails closed on
+any manifest lacking a `# SUBMIT WITH EXCLUDE=` header, and there is no override. The line
+added is `# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171`, the same sick-node
+list `runs/a0/m_pproj6.txt` carries. The file's md5 is now
+`99204b22989cea6d6552c6fe8960cff3`.
+
+**What did not change, which is the property the deposit was for.** The four deck md5s are
+byte-identical before and after:
+
+```
+e85df604ab9c26a1a59eb0d305a8fd90  ref__2x1v__u715_ortho.in
+607d7020fccb669412a498f66a99f12d  s0_O__2x1v_mir__u715_ortho.in
+65562732c702ccb8a8c5f1b92b174480  s0_OH__2x1v_mir__u715_ortho.in
+d0e4d5442cc491f71b27fd74d0d207fe  s0_OOH__2x1v_escape__u715_ortho.in
+```
+
+The deposited copy pins those four hashes, and those four hashes are what make
+"the objects submitted are the objects built" checkable from the deposit alone. A submit-time
+node-exclusion list is operational, carries no threshold and no deck identity, and the
+deposited copy remains a correct record of the decks. **This is recorded rather than left
+for a reader to discover as a hash mismatch**, and the ordering defect is named for what it
+is: the manifest was deposited before it was submission-ready. A later deposit may carry the
+corrected file; nothing is re-deposited for this alone.

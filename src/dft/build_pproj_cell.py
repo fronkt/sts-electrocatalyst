@@ -276,6 +276,8 @@ def main():
         "# observed pair ratio. Ortho is DEARER than atomic on pw.x slabs; the hp.x",
         "# TiO2 result that ortho runs cheaper does not transfer.",
         "#",
+        "# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171",
+        "#",
         "# md5 of each deck, for the record:",
     ]
     for stem, dst, u in rows:
