@@ -232,9 +232,15 @@ a referee:
 1. **Relaxation.** Both legs are single points on geometries relaxed under the atomic projector, and
    residual forces are unequal (ortho ~20 % further from its own minimum). ~1,700 SU and **12-25
    entrant-hours** — cut.
-2. **Self-consistent per-projector U.** The campaign owns both hp.x numbers on TiO2 but **cannot run
-   hp.x on Anvil** (docs/51:22 — no hp.x path; the driver is pw.x-only, `queue_hp.sh` hardcodes Vast
-   paths), and the comparator box is destroyed.
+2. **Self-consistent per-projector U.** ~~cannot run hp.x on Anvil~~ — **WITHDRAWN 2026-09-03, see
+   docs/78 §1.** This was wrong and the error was mine: docs/51:22 says no hp.x *path*, a statement
+   about the driver script, and this file escalated it to a capability claim. **hp.x is on Anvil** at
+   `/anvil/projects/x-che260157/qe/env/bin/hp.x`, beside the production `pw.x`, and it starts:
+   "Program HP v.7.5". What blocks it is ~30 lines of driver work (no Slurm wrapper exports the env;
+   `queue_hp.sh` lacks the `pseudo_dir` rewrite that `queue_r1.sh:293` has) — 2.5-3 entrant-hours.
+   The 108 core-hour figure quoted in §6 is the **slab** at np=18; the **bulk** CrO2 hp.x ran clean
+   at **6.75 core-hours**, 16x cheaper, opposite outcome. The `{TiO2, CrO2} x {atomic, ortho}` grid
+   is missing exactly one cell, on the flagship material, at ~11-72 SU.
 3. **Coverage** — unless the A3 rider runs (~106 SU, ~1 h). Recommended.
 4. **Any statement about real catalysts.** A7.5 bans the absolute-eta framing for the metals that
    carry it.
