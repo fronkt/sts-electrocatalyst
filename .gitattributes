@@ -37,3 +37,16 @@ qe75-explicit.txt text eol=lf
 # the worktree on next checkout.
 *.out text eol=lf
 *.dat text eol=lf
+
+# Lowdin charge artifacts. Same class of evidence as *.out, same trap, and it was
+# LEFT OPEN when *.out and *.dat were fixed: `git check-attr` reported
+# "text: unspecified / eol: unspecified" on all 355 tracked <job>.lowdin.txt while
+# core.autocrlf is true, so a FRESH CLONE would materialise every one of them as
+# CRLF. These are the A6.5(1) charge record; src/dft/extract_lowdin.py writes them
+# in binary precisely so Windows cannot corrupt them, and src/dft/a0lowdin_valence.py
+# revalidates them -- but neither defends against the checkout itself.
+#
+# Verified before adding: all 355 blobs in HEAD are already pure LF, so this rule
+# is a no-op on existing content (git add --renormalize is byte-identical) and
+# changes only what a clone produces.
+*.lowdin.txt text eol=lf
