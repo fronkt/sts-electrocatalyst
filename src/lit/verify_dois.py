@@ -66,7 +66,16 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 # prose punctuation -- "OC20 (10.1021/acscatal.0c04525): slab relaxations" -- and
 # manufactures "malformed DOIs" that are really sentence commas and colons. We
 # stop at whitespace and at trailing punctuation, then strip a closing bracket.
-DOI_RE = re.compile(r"\b(10\.\d{4,9}/[^\s\"'<>,;)\]}]+)", re.I)
+# Parentheses ARE part of many pre-2000 Elsevier DOIs -- 10.1016/0039-6028(95)00816-0
+# is Surface Science, not a truncation. So `(` and `)` are admitted here and the
+# UNBALANCED trailing ones are removed in normalise(); excluding them outright
+# silently truncates a whole generation of citations at the first bracket and
+# reports every one of them as NOT_FOUND.
+# `\b` is wrong here: `_` is a word character, so "__10.1021/x__" (markdown bold)
+# has NO boundary before the 1 and the DOI is never seen at all. An explicit
+# lookbehind for an alphanumeric is what was meant -- it still refuses to match
+# inside "x10.1234/y" while allowing markup to abut the identifier.
+DOI_RE = re.compile(r"(?<![0-9A-Za-z])(10\.\d{4,9}/[^\s\"'<>,;\]}]+)", re.I)
 
 # Trailing characters that are prose or markup, never the end of a DOI.
 # `*` and backtick matter specifically: these documents write DOIs inside bold
@@ -91,6 +100,10 @@ def normalise(doi: str) -> str:
                 d = d[: -len(pair)]
                 changed = True
         while d and d[-1] in _TRAIL:
+            # A closing paren is only prose if it is UNBALANCED. Keep the one in
+            # 10.1016/0039-6028(95)00816-0; drop the one in "(see 10.xxxx/yyy)".
+            if d[-1] == ")" and d.count(")") <= d.count("("):
+                break
             d = d[:-1]
             changed = True
     return d.lower()
