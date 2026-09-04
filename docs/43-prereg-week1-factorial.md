@@ -4059,7 +4059,7 @@ electronic difference over 1 eV. Mn is INTERMEDIATE and is **not rounded**.
 cores = **178.4 core-hours**, against this amendment's ~299 SU floor / ~600 ceiling.
 Recorded so the next cost model is not inflated by the estimate.
 
-> `[A12.R11 COUNTERSIGNED 2026-__-__]` — the entrant, in session: ____
+> `[A12.R11 COUNTERSIGNED 2026-09-04]` — the entrant, in session 2026-09-04, reviewed this row and adopted it. Recorded as his instruction, not as a quotation.
 
 ---
 
@@ -4099,7 +4099,7 @@ it is a robustness test of A7.1 on A7.1's own material.
 **Cost, measured:** the 4 new ortho decks sum to 0.554 h WALL at 128 cores = **70.9
 core-hours**, inside the ~70–74 central estimate and above the ~60 SU floor.
 
-> `[A13.R8 COUNTERSIGNED 2026-__-__]` — the entrant, in session: ____
+> `[A13.R8 COUNTERSIGNED 2026-09-04]` — the entrant, in session 2026-09-04, reviewed this row and adopted it. Recorded as his instruction, not as a quotation.
 
 ---
 
@@ -4127,7 +4127,7 @@ failed is the same one A12–A13.DEP already flags — the arms were countersign
 evidence was fully mirrored. The check worth adding is that a readout may not be countersigned
 while any `.projwfc.out` for its decks is unmirrored.
 
-> `[A6.5(1) SEPTEMBER-ARM CLOSURE COUNTERSIGNED 2026-__-__]` — the entrant, in session: ____
+> `[A6.5(1) SEPTEMBER-ARM CLOSURE COUNTERSIGNED 2026-09-04]` — the entrant, in session 2026-09-04, reviewed this row and adopted it. Recorded as his instruction, not as a quotation.
 
 ---
 
@@ -4150,4 +4150,100 @@ repository as missing — and the lesson recorded there ("the exhaustive search 
 should have produced:** no line may assert that a deck is unrun without a listing of the
 Anvil run tree in the same act.
 
-> `[NI REPAIR DECK CORRECTION COUNTERSIGNED 2026-__-__]` — the entrant, in session: ____
+> `[NI REPAIR DECK CORRECTION COUNTERSIGNED 2026-09-04]` — the entrant, in session 2026-09-04, reviewed this row and adopted it. Recorded as his instruction, not as a quotation.
+
+---
+
+## Dated addendum — 2026-09-04: the seven open `spec_rulings` are elected
+
+**Authority and how this was recorded.** The entrant, in session 2026-09-04, reviewed
+`docs/82-spec-rulings-decision-sheet-2026-09-04.md` and the transcription sheet
+`docs/85-ruling-signature-sheet-2026-09-04.md`, and elected **all seven of docs/82's
+recommendations exactly as tabulated**. These lines are recorded from that instruction. They are
+his election; the recording is transcription, and it is stated that way rather than dressed as a
+quotation.
+
+**Sequencing, per `docs/82:9-15`.** These are written **before** `silentgate/` exists. Rows 1 and
+2 decide *what the detector counts* and are answered while still blind, which is the whole point:
+after the census runs they could not be answered cleanly again.
+`tests/silentgate/conftest.py:69-70` gates seven tests on that directory existing, so the core
+must arrive in one commit with all five files present, never as an empty or half-populated
+package.
+
+---
+
+**[ADSORBATE QUANTIFIER 2026-09-04: ALL]** — the run-level LOCKED verdict requires the
+exactly-zero lateral axis on every printed step for **every** adsorbate atom, consistent with
+:1830's run-level rule; :1858's "any" wording continues to describe the negative-control
+population and is unaffected. This preserves the published 96/96 two-witness agreement count,
+which "any" would break by exactly one row (`runs/probe/Ru/s0_OH__dipole.out`). Reader note
+carried forward: the deciding token is `-0.00000000`, so a string comparison against
+`"0.00000000"` misses it — compare parsed floats, or match both spellings.
+
+**[TRUNCATED BLOCK 2026-09-04: SCORABLE-IF-ALL-ADSORBATE-ATOMS-PRESENT]** — a force block missing
+leading atoms is scored if and only if every identified adsorbate atom is present in it;
+otherwise the run is reported **unscorable**, a distinct outcome, never counted as not-LOCKED.
+This keeps three defensible LOCKED rows whose adsorbate atoms are present and exactly zero on y,
+while refusing to score a block in which an adsorbate atom is missing. Reader note: never shell
+out to `grep` for content on the NUL-bearing files — `-n`, `-o` and anything piped downstream
+silently lose lines, which is how this family stayed invisible.
+
+**[OC20 CI MECHANISM 2026-09-04: RELEASE-ASSET]** — the 500-file sample is published as a
+sha256-pinned release asset of the public repo and the workflow downloads and hash-checks it
+against `docs/research/oc20-val_id/first500.SHA256SUMS`; **a commit on which the OC20 job did not
+execute is not green.** Elected over a self-hosted runner because a third party must be able to
+re-run the control, and because a runner makes every hour the entrant's machine is off an
+indistinguishable red. Outstanding work this election creates, and it is the entrant's: publish
+the asset and set `S1_OC20_MECHANISM`, `S1_OC20_ASSET_URL` and `S1_OC20_ASSET_SHA256`
+(`.github/workflows/s1-controls.yml:64-66`), which are owner-only repository variables.
+
+**[PROVENANCE RECORD PATH 2026-09-04: `docs/provenance-record.md`, single file, located by
+`$S1_AI_USE_LOG` in the CI workflow]** — the A9.1 disjointness assertion reads this file and no
+other. One file, not many, so the assertion's input is unambiguous. **The file does not yet
+exist** — `git ls-files | grep -iE 'ai[-_]?use|ai[-_]?log|use[-_]?log|provenance'` returns zero —
+and `.github/ci/check_disjoint.py` fails closed on a missing log, because an absent log leaves the
+file list UNDEFINED rather than empty. Note the auto-discovery regex is
+`/ai[-_]?use|ai[-_]?log|use[-_]?log/` and **`provenance-record.md` does not match it**, so
+`$S1_AI_USE_LOG` must be set explicitly; that is the better engineering for a path a registered
+assertion depends on, and it is elected deliberately rather than by falling into the discoverable
+filename.
+
+**[IF_POS RATIONALE 2026-09-04: CORRECTION FILED]** — the parenthetical at :1834 is withdrawn as
+to its **stated mechanism**. QE 7.5 prints the raw, unmasked force and a frozen atom does not read
+zero for that reason: re-measured over 248 frozen-atom observations across three decks, **not one
+prints all three components zero**, with a maximum frozen-atom component of 0.08723744 Ry/bohr.
+The **exclusion of `if_pos = 0` atoms stands unchanged** as a conservative rule, adsorbate atoms
+are always `1 1 1`, and **no production verdict moves.** What changes is a risk assessment: frozen
+atoms were registered as a source of false LOCKED and in QE 7.5 they cannot be one, so the reader
+must not be built to defend against a mechanism that does not occur while the real one — a
+symmetry witness genuinely zeroing one axis — goes unnamed.
+
+**[PACKAGING SCOPE 2026-09-04: KEEP-AS-AI-AUTHORED]** — "packaging" is read to include the
+`[build-system]` table and the package-discovery entry, **one word wider** than the 2026-08-23
+adoption note, on the ground that a build backend is not the detector, bears on no census number
+and cannot influence a verdict. **Disclosed, not absorbed.** The alternative of having the entrant
+retype the two stanzas was available and is declined as costing five minutes for no epistemic
+gain; the widening is recorded here so that it is a stated reading rather than an unexamined one.
+
+**[X CENSUS DISPOSITION 2026-09-04: DATED LINE AND PROCEED]** — the x-axis lock figures were
+measured by a disclosed sweep on 2026-08-27, **before `silentgate` v0.1 existed**, and are
+recorded here **as a prior prediction, not as v0.1's measurement**: **3 of 9 nosym-absent** and
+**0 of 11 nosym-present** lock x. The three that lock are exactly the `n_symops = 4` 1×1 \*O class
+that :1864 predicted, which is evidence *for* the registered reasoning rather than against it.
+v0.1 re-derives them independently; **if v0.1 disagrees, the disagreement is reported as the
+finding** and v0.1's number is the one of record. The survey is preserved at
+`docs/research/ai-survey-2026-08-27/`. Nothing in CI is scored against these numbers.
+
+---
+
+**What these seven do and do not unlock.** They remove the registered blockers on the detector's
+specification. They do **not** write the core: `docs/43:1840` names
+`silentgate/readers/*`, `census.py`, `classify.py`, `direction.py` and `cli.py` as *"written and
+committed only by the entrant"*, A9.6 at :1961 does not license tool authorship of any part of it,
+and CI asserts the provenance record's file list and the core path list are disjoint. That
+boundary is unchanged by this addendum and is not one this addendum has the power to move.
+
+**Transcribed into** `tests/silentgate/spec_rulings.toml` in the same commit, using each
+question's registered lowercase option token — the prose above is the dated line, not the field
+value, and the two differ deliberately (most sharply at `if_pos_parenthetical`, where this line
+reads CORRECTION FILED and the option token is `file-the-correction`).
