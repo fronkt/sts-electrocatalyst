@@ -1693,3 +1693,107 @@ MEDIATOR of the projector choice, not a confounder. The arm failed on other grou
 - [ ] Record that Xu's U=7.15 was itself produced under a DIFFERENT projector (docs/43:1327;
       a0cell_readout labels the rung PROJECTOR-MISMATCHED in its own metadata). So atomic's "own"
       U is simultaneously 6.1635 and 7.15 - 0.99 eV apart, 90% of the split we call an effect.
+
+## 2026-09-04 — deposit gap CLOSED; ZPE decomposition published; P-PROJ-CELL submitted; P-XU-SPAN is the entrant's
+
+**DEPOSIT GAP CLOSED. DOI 10.5281/zenodo.22304889**, published 2026-09-04T12:35:26Z as a
+new version of concept record 10.5281/zenodo.21963143, restricted, `version` = `A1-A13`.
+Seven files, every uploaded md5 verified against the published record (7/7); the seven
+files the new version inherited from 22213117 were deleted before upload so the fileset is
+exactly this one. Manifest `docs/deposits/2026-09-04-A13.manifest.txt`.
+
+- [x] **A12, A12b, A13 appended to docs/43** — 548 lines at the bottom, 0 deletions, prefix
+      byte-identical, so all 3,327 prior lines and every `docs/43:NNNN` pointer in the repo
+      stay valid.
+- [x] **A12** adopts docs/77 sections 1-9 on the entrant's dated line of 2026-09-03. A12.R9
+      records the blind boundary as a *checkable ordering* (built `c2e9a18` 19:29:53-04:00,
+      adopted `8aba0ae` 20:59:56-04:00, submitted 01:02Z) rather than as a claim.
+- [x] **A12b** adopts the hp.x arm, carries the countersigned 2x2 grid, and adds **A12b.R6,
+      a correction of record**: these are ONE-SHOT bulk linear-response U about the U~0
+      ground state, never iterated — "each projector's own self-consistent U" was an
+      overclaim. The same clause records that Xu's U = 7.15 came from a *different*
+      projector, putting two candidate "atomic" U values 0.99 eV apart, which is 90 % of the
+      1.1042 eV split.
+- [x] **A13** registers the 2x1v arm and **registers no new threshold** — the bands are
+      A7.1's own, so nothing in it is elective. The atomic leg is DISCLOSED NON-BLIND in
+      advance at eta = 0.9239810 V / pls 1. Four outcome branches named, including the one
+      where the headline is re-led.
+- [x] **A12-A13.DEP states the departure flatly.** Not cured by publication: A12/A12b's acts
+      were 2026-09-03 and the deposit is 2026-09-04. Bounded by two recorded facts —
+      P-PROJ-6 was 24/24 PENDING with **zero outputs** at publication, so the deposit still
+      precedes every one of its results; A12b's arm HAD landed, so the sentence owed in any
+      report of that result is that its registration reached Zenodo after its result existed.
+- [x] Two inherited defects corrected in the same clause: A8.9/A9.7/A11.R5 each name the
+      **A1-A7 version DOI** where versions attach to the **concept record**; and the
+      2026-08-31 manifest says "working-tree serialization" while its hashes are the
+      **git-blob LF** bytes (9/9 verified).
+
+**ZPE DECOMPOSITION PUBLISHED** — `docs/81`, `src/dft/zpe_decomposition.py`,
+`docs/figs/zpe_decomposition.json`, registered as a disclosure at A13.6.
+
+```
+d-eta = eta_ortho - eta_atomic           = +0.4868562 V
+  electronic (both ZPE/TS tables zero)   = -0.1631438 eV   <- ortho LOWER
+  constants  (c1 - c2)                   = +0.6500000 eV
+  closure residual                         -4.4e-16
+```
+
+- **133.5 %** of the flagship is the constants table, and the raw DFT difference has the
+  **opposite sign**. Corrects docs/80's "134 %".
+- **Band is +/-0.15 V**, not +/-0.10: `d(d-eta)/dz_OH = +2` (z_OH enters once as c1 and once
+  through -z_OH in c2), `d(d-eta)/dz_O = -1`, `d(d-eta)/dz_OOH = 0` exactly. Corrects
+  docs/80's +/-0.10.
+- **The mechanism is the sturdier half** — flipping atomic's pls needs >= 0.164 eV (3.3x the
+  band), ortho's >= 0.380 eV (7.6x); pls unchanged at all 27 corners. So the *qualitative*
+  claim survives the constants uncertainty and the headline number does not, which is the
+  reverse of the usual intuition and is now registered as the counterweight.
+
+**P-PROJ-CELL SUBMITTED — array `20388045`, 1-4%4**, 128 cores each, nk=8,
+EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200. Preflight: lines=4, to_run=4,
+already_done=0, stale=0, bad=0. Deck md5s verified identical local vs Anvil. Deposit
+(12:35:26Z) preceded submission (12:37:59Z preflight), so **A13 is clean on its own rule**.
+
+- Decks built `5e15c10` **before** A13 existed; builder rebuild byte-identical; each deck a
+  verified 2-line diff from its banked atomic partner.
+- Cost corrected against docs/80's "~30-55 SU", which is **below the banked atomic cost**:
+  measured base 62.79 core-h, ortho/atomic aggregated over all four 1x1 states = 1.1834 WALL
+  / 1.1114 CPU, so **~60 SU floor, ~70-74 central, ~101 worst-pair**. Ortho is **dearer**
+  than atomic on pw.x slabs; the hp.x TiO2 "ortho is cheaper" result does not transfer.
+- [ ] **Readout + countersignature owed when it lands.** Fold the ortho leg into
+      `src/dft/pproj_readout.py` (3 changes) or `a0cell_readout.py`; report in the same
+      table as A7.1's 1x1 pair, per the A13.4 anti-selection clause.
+- Disclosed and inherited, not introduced: two of the four source decks carry `nosym`, two
+  do not; the `mir`/`escape` labels are the banked cell arm's own provenance.
+- Post-deposit change disclosed in a dated addendum: `m_pproj_cell.txt` gained the
+  `# SUBMIT WITH EXCLUDE=` header the submitter fails closed without (md5 01908b8a to
+  99204b22). **The four deck md5s are unchanged**, which is the property the deposit pins.
+
+**P-XU-SPAN — NOT MINE TO RUN, and this is registered text, not a preference.**
+
+- `docs/43:1828` names, as part of the core, **"a per-step total-energy reader over the
+  680-file ladder (for span_U, A9.3.3)"**.
+- `:1840` — the core is `silentgate/readers/*`, `census.py`, `classify.py`, `direction.py`,
+  `cli.py`, **"written and committed only by the entrant."**
+- `:1961` (A9.6) — does not license **"tool authorship of any part of the silentgate core"**.
+- `:1909` (A9.3.7) — **"all census numbers computed from raw outputs the entrant parsed
+  himself."**
+- `:1973` — act 4, the census, is explicitly **not done**: *"no census was run — act 4 waits
+  on the entrant's silentgate."*
+- The Xu corpus is not on this machine at all; it is on Anvil by registration.
+
+  So P-XU-SPAN's "<1 SU" is right about compute and wrong about the blocker: it is blocked on
+  **five files only Frank may write**. `docs/71` is the brief. What IS permitted (tests,
+  fixtures, CI, review) already exists and is green.
+
+- [x] `tests/silentgate` suite run: **46 passed, 7 skipped**. README corrected — it claimed
+      "40 passed, 6 skipped" and said "six questions" three times where `spec_rulings.toml`
+      holds **seven** and `test_open_questions.py` asserts 7; and its `.gitattributes` claim
+      was stale after the 2026-09-04 `*.out text eol=lf` rule.
+- [ ] **Frank's, to unblock P-XU-SPAN:** write the five core files (docs/71), then answer the
+      seven blank `spec_rulings.toml` rulings with dated lines in docs/43.
+
+**STILL OPEN, carried:** P-PROJ-6 readout when `20382165` lands (24/24 PENDING, 0 outputs);
+A7.7 report-prose re-authoring; the CrO2 q333 pair; the Ni repair deck; re-realising
+`runs/s0/e_proj/s0_O__u715_{atomic,ortho}` at np=128; **and the standing unexercised
+recommendation (docs/78 section 0.1) to OPEN the four restricted deposits** — not exercised
+here, since restricted is the registered election.
