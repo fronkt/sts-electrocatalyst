@@ -108,3 +108,36 @@ def test_title_agreement_is_none_without_context():
     """No citing line means the check is inapplicable, not failed."""
     assert vd.title_agreement({"title": "Some Paper Title"}, []) is None
     assert vd.title_agreement({"title": ""}, [("f", 1, "text")]) is None
+
+
+def test_a_prose_template_is_not_read_as_a_citation(tmp_path):
+    """`10.1103/PhysRevB.<vol>.<article>` describes a pattern, not a work.
+
+    The regex stops at the "<", leaving a bare "10.1103/physrevb" that resolves
+    nowhere. Reported as NOT_FOUND it reads like a fabricated DOI in an audit,
+    which is the one error this tool must not make.
+    """
+    d = tmp_path / "digest.md"
+    d.write_text(
+        "APS DOIs quoted as 10.1103/PhysRevB.<vol>.<article> follow a pattern.\n"
+        "A real one is 10.1103/PhysRevB.65.035406 here.\n",
+        encoding="utf-8")
+    found = vd.scan([str(tmp_path)])
+    assert "10.1103/physrevb" not in found, "prose template was read as a citation"
+    assert "10.1103/physrevb.65.035406" in found, "the real DOI beside it was lost"
+
+
+def test_the_tools_own_outputs_are_not_rescanned(tmp_path):
+    """The report quotes every DOI in the tree; scanning it doubles the census."""
+    (tmp_path / "real.md").write_text("cite 10.1021/jp047349j\n", encoding="utf-8")
+    (tmp_path / "f8_doi_resolution.json").write_text(
+        '{"x": "10.9999/should-not-be-seen"}\n', encoding="utf-8")
+    (tmp_path / "2026-09-04-f8-doi-resolution.md").write_text(
+        "- `10.8888/also-not-seen`\n", encoding="utf-8")
+    (tmp_path / "references.bib").write_text(
+        "@article{x, doi = {10.7777/nor-this}}\n", encoding="utf-8")
+    found = vd.scan([str(tmp_path)])
+    assert "10.1021/jp047349j" in found
+    for leaked in ("10.9999/should-not-be-seen", "10.8888/also-not-seen",
+                   "10.7777/nor-this"):
+        assert leaked not in found, "%s came from this tool's own output" % leaked

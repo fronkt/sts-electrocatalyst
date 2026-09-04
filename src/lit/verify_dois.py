@@ -109,6 +109,13 @@ def normalise(doi: str) -> str:
     return d.lower()
 
 
+# This tool's own artifacts quote every DOI in the tree, so scanning docs/ after
+# a run would ingest the previous report and inflate every count. Excluded by
+# name rather than by directory, so a hand-written doc beside them still counts.
+SELF_OUTPUTS = ("f8_doi_resolution.json", "references.bib")
+SELF_OUTPUT_SUFFIX = "-f8-doi-resolution.md"
+
+
 def scan(paths):
     """Return {doi: [(file, line_no, line_text), ...]}."""
     found = {}
@@ -123,6 +130,8 @@ def scan(paths):
                                if d not in (".git", "__pycache__", "node_modules")
                                and not d.startswith(".venv")]
                 for fn in filenames:
+                    if fn in SELF_OUTPUTS or fn.endswith(SELF_OUTPUT_SUFFIX):
+                        continue
                     if fn.lower().endswith((".md", ".txt", ".toml", ".yml", ".yaml", ".py", ".json")):
                         files.append(os.path.join(dirpath, fn))
         for f in files:
@@ -130,6 +139,13 @@ def scan(paths):
                 with open(f, encoding="utf-8", errors="replace") as fh:
                     for i, line in enumerate(fh, 1):
                         for m in DOI_RE.finditer(line):
+                            # A prose TEMPLATE, not a citation: the lens digest
+                            # writes "10.1103/PhysRevB.<vol>.<article>" to
+                            # describe APS's pattern. The regex stops at the "<",
+                            # leaving a bare prefix that resolves nowhere and
+                            # reads like a fabricated DOI in the report.
+                            if line[m.end():m.end() + 1] == "<":
+                                continue
                             d = normalise(m.group(1))
                             if d:
                                 found.setdefault(d, []).append(
@@ -309,16 +325,27 @@ def main(argv=None):
         # source text. Report it as RESOLVED and name the cleanup, rather than
         # leaving a row that reads like a fabricated reference.
         if meta["state"] == "NOT_FOUND":
+            candidates = []
             trimmed = d
             for _ in range(4):
                 if not trimmed or trimmed[-1].isalnum():
                     break
                 trimmed = trimmed[:-1]
-                alt = resolve(trimmed, retries=0, pause=args.pause)
+                candidates.append(trimmed)
+            # Publisher URLs embed the DOI and append a view segment --
+            # frontiersin.org/articles/10.3389/fenrg.2021.654460/full. The DOI is
+            # real; "/full" is the website's, not the registrar's. Try dropping
+            # trailing path segments, but never below "10.prefix/suffix".
+            stem = d
+            while stem.count("/") > 1:
+                stem = stem.rsplit("/", 1)[0]
+                candidates.append(stem)
+            for cand in candidates:
+                alt = resolve(cand, retries=0, pause=args.pause)
                 if alt["state"] == "RESOLVED":
                     alt["cited_as"] = d
-                    alt["note"] = ("source text appends %r to the DOI; identifier is valid"
-                                   % d[len(trimmed):])
+                    alt["note"] = ("source text carries %r beyond the DOI; identifier is valid"
+                                   % d[len(cand):])
                     meta = alt
                     break
         meta["contexts"] = [{"file": f, "line": i, "text": t} for f, i, t in found[d]]
