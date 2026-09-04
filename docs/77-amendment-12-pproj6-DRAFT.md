@@ -1,6 +1,26 @@
 # docs/77 — AMENDMENT 12, DRAFT: P-PROJ-6, the projector contrast across the six-metal roster
 
-> ## ⚠ DRAFT. NOT DEPOSITED. THE DECKS ARE BUILT AND NOT LICENSED.
+> ## ADOPTED 2026-09-03 — THE ENTRANT'S DECISION OF RECORD. LICENSED FOR SUBMISSION.
+>
+> **Entrant, 2026-09-03, verbatim: "Submit the twenty four decks. I agree to all of them."**
+>
+> Every threshold in sections 3-7 is **ADOPTED AS DRAFTED**: |Delta-eta| as the primary statistic
+> with R_M demoted to a named diagnostic; the denominator as the **five blind metals** with Cr
+> labelled CALIBRATION (post-hoc) and excluded from every count; the four count bands including the
+> named middle band; the anti-selection clause; and the pseudopotential and spin confound clauses.
+>
+> This adoption is recorded and committed **before any deck is submitted and before any output
+> exists**, which is the condition that makes the arm blind. Precedent for adoption by the entrant's
+> own dated statement: the 2026-08-23 decision of record on the docs/52 rows, "I went through them
+> and they pass with me. Go ahead."
+>
+> **What this adoption does NOT discharge.** Per A7.7 the report paraphrases and never copies
+> amendment text: the entrant still re-authors any of this that reaches report prose, in his own
+> words. And the countersignature on the readout, once the outputs land, remains owed.
+
+---
+
+> ## PRIOR STATUS (superseded above, retained): DRAFT. NOT DEPOSITED. DECKS BUILT AND NOT LICENSED.
 >
 > `runs/a0/pproj6/` holds 24 decks and `runs/a0/m_pproj6.txt` their manifest, built by
 > `src/dft/build_pproj6.py` under the same one-line-diff discipline as `build_pproj.py` and
