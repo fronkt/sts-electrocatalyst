@@ -1569,3 +1569,25 @@ on S8: *"Evaluators consider student circumstances and access to labs."* A **sec
 stage** exists that nothing has prepared for: *"panel judging… general scientific knowledge."*
 And docs/72's own errors, per docs/73: the free-rows premise refuted 13/14, two named rows do not
 exist, `:242` false, the G8 grep self-refuting.
+
+## 2026-09-03 — P-PROJ-6 SUBMITTED (job 20382165)
+
+**Amendment 12 ADOPTED** by the entrant's dated decision of record — *"Submit the twenty four
+decks. I agree to all of them."* — committed at **8aba0ae, 2026-09-03T20:59:56-04:00**, BEFORE any
+deck was submitted and before any output existed. Decks were built and md5-manifested at **c2e9a18**,
+before the thresholds were adopted. That ordering is what makes the arm blind.
+
+**Submitted 2026-09-04T01:02 UTC, array 20382165, 1-24%6**, 128 cores each, nk=4,
+EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200. Preflight: lines=24, to_run=24, stale=0,
+bad=0. Staged md5 rollup verified identical local/remote (f5fcde72de048ffe84007f7d75b274a0).
+
+**Registered:** |Delta-eta| primary, R_M a diagnostic only; denominator = the FIVE blind metals
+(Mn, Fe, Ti, Ru, Ir) with **Cr as labelled CALIBRATION, excluded from every count**; bands
+5-or-4 CONFIRMED / 3-or-2 MIDDLE BAND (metal-dependent, no class claim) / 1 NOT MET / 0 FALSIFIED;
+anti-selection clause (all five reported always); PP-family confound clause (firing set exactly
+{Mn,Ti,Ir} = every ultrasoft blind metal = DECLARED CONFOUNDED) and the same for spin.
+
+### Owed when the outputs land
+- [ ] **Frank countersigns the readout.** Not discharged by the adoption.
+- [ ] **Report-prose re-authoring under A7.7** — the report paraphrases, never copies docs/77.
+- [ ] Readout script against the banked atomic partners at u750 (24 pairs).
