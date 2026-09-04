@@ -1097,3 +1097,46 @@ rows" to "one".
 
 Do not include tool-authorship or provenance labels in project documents unless Frank explicitly
 requests them. Keep documentation focused on the work, evidence, and decisions.
+
+## Run the adversarial pass BEFORE the deposit, not after (2026-09-04)
+
+The A12+A12b+A13 deposit (10.5281/zenodo.22304889) was published at 12:35:26Z. An adversarial
+pass over `docs/81`'s own derivation — already in flight — returned afterwards and found a false
+sentence in a file that deposit had just frozen: "the gas references cancel identically in a
+difference." They do not, whenever the two legs have different pls, which is exactly the case
+the document exists to report.
+
+Nothing in the registered numbers moved, and the correction is now a dated addendum. But a
+deposit is permanent, and a supporting sentence inside it is as frozen as a threshold.
+
+**Rule:** no Zenodo publish until every verification branch bearing on the deposited files has
+returned. Depositing is not a race; the DOI does not expire. If a pass is running, wait for it.
+
+**Corollary:** state derived structural claims as *measured*, not argued. The false sentence had
+been carried in `pproj_readout.py`'s docstring since the readout was written and was reproduced
+into a new document without being re-derived. `zpe_decomposition.py` now computes the gas and
+per-SCF weights by numerical derivative, so the claim is checkable rather than asserted — and
+the check is what caught that 4 of the 8 registered SCFs are inert with respect to the headline.
+
+## Do not write Python containing escapes through a Bash heredoc (2026-09-04)
+
+A `\n` inside a Python string literal being written into a target file can arrive as a real
+newline, splitting the literal and producing `SyntaxError: unterminated string literal`. It
+happened twice in one session and once reached a commit, requiring a repair commit. An
+*unquoted* heredoc additionally eats backticked text via command substitution.
+
+**Rule:** use the Edit/Write tools for any Python containing escape sequences; if a heredoc is
+unavoidable, build newlines with `chr(10)`/`os.linesep`/list-join and quote the delimiter. Always
+run `python -c "import ast,io; ast.parse(io.open(PATH,encoding='utf-8').read())"` before `git add`.
+
+## Verify a submitter's preconditions before treating a manifest as final (2026-09-04)
+
+`anvil/47_submit_a0.sh` fails closed, with no override, on any manifest lacking a
+`# SUBMIT WITH EXCLUDE=` header. `runs/a0/m_pproj_cell.txt` was written without one, deposited,
+and only then found unsubmittable — so the header had to be added post-deposit, changing the
+file's md5 and requiring a disclosure addendum. The four deck md5s were unaffected, which is the
+only reason it was harmless.
+
+**Rule:** read the consuming script's refusal conditions when a manifest is *built*, not when it
+is submitted. A file that cannot be consumed is not finished, and must not be frozen into a
+permanent record as though it were.
