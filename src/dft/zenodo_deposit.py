@@ -187,9 +187,26 @@ def cmd_create(commit):
 def cmd_upload(commit):
     st = load_state()
     did = st["draft_id"]
-    if st["commit"] != commit:
-        sys.exit(f"REFUSING: draft was opened at {st['commit'][:9]} but HEAD is "
-                 f"{commit[:9]}. Re-create the draft or check out that commit.")
+    # Upload from the commit the draft (and the manifest) NAME, not from HEAD.
+    # HEAD legitimately moves on -- the manifest commit itself moves it, exactly
+    # as the 2026-08-31 manifest named 6fe167b and was committed later at
+    # 80260bb. What must not drift is the FILESET: every deposited blob at the
+    # named commit has to be byte-identical to HEAD's, or the deposit would
+    # freeze bytes the repo has since changed without saying so.
+    named = st["commit"]
+    if named != commit:
+        drift = [p for p, _ in FILESET if blob(p, named) != blob(p, commit)]
+        if drift:
+            sys.exit("REFUSING: the fileset changed between the commit the draft "
+                     f"names ({named[:9]}) and HEAD ({commit[:9]}):
+  "
+                     + "
+  ".join(drift)
+                     + "
+Re-run --manifest and --create at HEAD.")
+        print(f"draft names {named[:9]}; HEAD is {commit[:9]}; all "
+              f"{len(FILESET)} deposited blobs identical across the two.")
+    commit = named
     draft = api("GET", f"{API}/deposit/depositions/{did}")
     bucket = draft["links"]["bucket"]
 
