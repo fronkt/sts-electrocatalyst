@@ -1621,3 +1621,41 @@ hp.x writes its .dat even after non-convergence, so the driver checks convergenc
 - [ ] P-PROJ-6 readout script: 24 ortho legs vs banked atomic partners at u750, |Delta-eta| per
       metal, bands, pls comparison, R_M as a labelled diagnostic, Cr labelled CALIBRATION.
 - [ ] A7.7 report-prose re-authoring for both.
+
+## 2026-09-04 — hp.x CrO2 ortho LANDED. Amendment 12b countersigned.
+
+Job `20382206` COMPLETED, exit `0:0`, 23:34 wall at np=20 = **7.86 core-hours**, under the
+~11 SU floor Amendment 12b registered. The named risk (nspin=2 x ortho-atomic never run)
+**did not fire**: `Convergence has not been reached` appears 0 times.
+
+**CrO2 ortho-atomic U = 7.2677 eV** at q222, against the banked atomic **6.1635 eV**.
+Split **+1.1042 eV**. The 2x2 grid is closed; the projector-split-in-U observable is now
+**n = 2 in materials** and crosses the spin axis (TiO2 nspin=1 d0, CrO2 nspin=2 magnetic).
+
+Both SCF ground states run at `U Cr-3d 1.d-8` and come out byte-identical -- same energy to
+8 decimals (-517.92950441 Ry), same magnetisation, same iteration count -- so BASIN_DRIFT
+cannot reach this observable and the whole split is a response-function effect. Readout and
+limits in `docs/79`.
+
+Found while banking, and fixed: **`.gitattributes` had no rule for `*.out` / `*.dat`.** With
+`core.autocrlf=true` a fresh clone would have checked out all 987 evidence artifacts as CRLF
+and broken every recorded md5 -- the record would read as falsified on a reviewer's machine.
+`-text` was tried first and was wrong: 32 `.out` files already sit in this worktree with CRLF,
+so `-text` would have committed that contamination into their blobs. `text eol=lf` preserves
+all of them (renormalise is byte-identical) and repairs the worktree on next checkout.
+
+### Still owed
+- [ ] **P-PROJ-6 readout + countersignature.** Array `20382165` still 24/24 PENDING on
+      `(Priority)`; est. first start 2026-09-04T17:26 UTC, behind ~22.5k queued jobs on
+      `shared` (220/250 nodes allocated, 0 idle). Not blocked on us.
+- [ ] Readout script: 24 ortho legs vs banked atomic partners at u750, |Delta-eta| per metal,
+      bands, pls comparison, R_M as a labelled diagnostic, Cr labelled CALIBRATION.
+- [ ] A7.7 report-prose re-authoring, both arms.
+- [ ] CrO2 q-mesh: only q222 exists on either leg. One q333 pair closes it. Not required by
+      Amendment 12b -- the split is like-for-like at fixed q -- but the absolute values are
+      q-unverified and the report should not imply otherwise.
+- [ ] **PROPOSED, not started, needs its own dated adoption:** CHE legs at each projector's
+      OWN self-consistent U (atomic @ 6.1635, ortho @ 7.2677) to test whether "just compute U
+      ab initio" rescues the ambiguity. ~8 SCFs, ~46 SU. Carries the known approximation that
+      a bulk U is applied to a slab. See docs/79 POST-HOC section -- that reading is an
+      argument, not a measurement, until this runs.

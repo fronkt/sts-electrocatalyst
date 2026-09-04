@@ -9,3 +9,26 @@
 #
 # scf  3bbc53623b08aabe056389c7f563707e  scf__cro2_ortho.in
 # hp   17763c1ab5fa9432e55dd551ceb376ad  hp__cro2_ortho_q222.in
+#
+# ---- OUTPUTS, landed 2026-09-03 21:32 UTC-4, job 20382206, COMPLETED 0:0 ----
+# Verified md5-identical on Anvil and locally over all 9 files;
+# rollup of the sorted (md5, name) list = 6c92702c77304a622e49236548a3c4ff
+#
+# eb47570596e1c86417b9245b0848e8bc  cro2_ortho.Hubbard_parameters.dat   <- U = 7.2677 eV
+# 579cd2a0c0bb10244b54c8d118fe3bbd  hp__cro2_ortho_q222.cro2_ortho.chi.dat
+# 83e3ccf46ac111558bc33780c5d5d48c  hp__cro2_ortho_q222.cro2_ortho.chi.pert_1.dat
+# 2393258c2d13f5939f8b0efbfd94bc13  hp__cro2_ortho_q222.out
+# fa89efb3e369af72b8052a20d23de48d  scf__cro2_ortho.out
+#
+# The two decks that ACTUALLY EXECUTED are *.run.in, which .gitignore:39 excludes
+# on purpose: the wrapper rewrites outdir and pseudo_dir into them at run time, so
+# committing them would bake machine paths back into the repo -- the exact defect
+# that made queue_hp.sh unportable. Their md5s are the record instead:
+#
+# c81406e1f489915e92c4f18ba296dd52  hp__cro2_ortho_q222.run.in
+# 76febabad60ee06627553ac495dad7e5  scf__cro2_ortho.run.in
+#
+# Result: 7.2677 eV. Atomic partner 6.1635 eV (runs/hp_tio2). Split +1.1042 eV.
+# Both SCF ground states run at U = 1.d-8 and are byte-identical in energy
+# (-517.92950441 Ry), magnetisation (4.00/4.68 Bohr) and iteration count (19),
+# so the split is a pure response-function effect. See docs/79.

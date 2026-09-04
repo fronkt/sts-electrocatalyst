@@ -16,3 +16,24 @@ m_*.txt text eol=lf
 # trap as *.sh. So is the conda explicit lock, whose URLs a trailing \r corrupts.
 *.slurm text eol=lf
 qe75-explicit.txt text eol=lf
+
+# EVIDENCE ARTIFACTS. These are pw.x / hp.x / projwfc.x outputs and their .dat
+# products. They are produced on Linux, pulled to this Windows checkout, and their
+# md5 sums ARE the record: runs/m_*.txt and the docs/ readouts quote them, and those
+# hashes get checked against Anvil.
+#
+# core.autocrlf is true globally here, and every one of these files sat at
+# "eol: unspecified". That means a FRESH CLONE would check them out as CRLF and every
+# recorded md5 would stop matching Anvil -- the record would read as falsified on
+# precisely the machine a reviewer would use.
+#
+# "text eol=lf", NOT "-text". -text was tried first and is WRONG here, for a reason
+# worth keeping: 32 tracked .out files ALREADY sat in this worktree with CRLF (e.g.
+# runs/Co_slab/H2.out, 464 CR bytes locally, 0 in the blob) because they were checked
+# out under autocrlf before any attribute existed. -text means "take the worktree
+# bytes as they are", so it would have COMMITTED that contamination into 32 evidence
+# blobs. eol=lf normalises CRLF->LF on the way in and forces LF on the way out: it
+# preserves every existing blob (verified: renormalise is byte-identical) and repairs
+# the worktree on next checkout.
+*.out text eol=lf
+*.dat text eol=lf
