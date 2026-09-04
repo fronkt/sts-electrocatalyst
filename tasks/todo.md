@@ -1797,3 +1797,84 @@ A7.7 report-prose re-authoring; the CrO2 q333 pair; the Ni repair deck; re-reali
 `runs/s0/e_proj/s0_O__u715_{atomic,ortho}` at np=128; **and the standing unexercised
 recommendation (docs/78 section 0.1) to OPEN the four restricted deposits** — not exercised
 here, since restricted is the registered election.
+
+---
+
+## 2026-09-04 (session 2) — PHASE 1: ledger reclamation. Nothing new computed, 0 SU.
+
+**Correction to the carried list immediately above: it is stale.** "P-PROJ-6 readout when
+`20382165` lands (24/24 PENDING, 0 outputs)" was already false when written — the array had
+landed, `docs/83` scored it, and `docs/84` scored P-PROJ-CELL. Both are now registered.
+The Ni repair deck line was also wrong in the other direction: it was not owed, it was
+already run. Corrected below.
+
+### Done this session
+
+- [x] **A6.5(1) closed for both September arms, 0 SU.** `runs/a0/pproj6` and
+      `runs/a0/pproj_cell` held **0 `.lowdin.txt` between them** while
+      `anvil/46_a0.slurm:112` hard-fails a job without one — enforced at the queue,
+      unenforced at the bank. Not a compute failure: all 28 `.projwfc.out` existed on
+      Anvil with `JOB DONE` and zero error banners; 13 files had simply never been pulled
+      (8 pproj6 = every Fe and Ir ortho-leg state, plus all 4 pproj_cell). Pulled,
+      **13/13 md5 byte-identical both ends**, `extract_lowdin.py` produced 28 artifacts,
+      **28/28 CHECK PASS**. Coverage now **24/24 and 4/4**. Commit `71802f2`.
+- [x] **Ni repair deck: NOT owed, and never was.** `docs/78` §4.2's "already exists and is
+      unrun … ~50 SU" is withdrawn. It ran 2026-08-25 (array 20135148 task 2), was scored
+      off Anvil and never mirrored. Pulled and verified: **−5157.23065325 Ry** vs the banked
+      parent's **−5157.23065359** = **+0.0046 meV**, totmag **14.41**, 12 SCF iterations,
+      `JOB DONE`, 0 non-convergence — reproducing `docs/45:636` to the digit. **True cost
+      0 SU, not ~50.** This is the `d26ea49` failure mode a second time.
+- [x] **A12.R11 and A13.R8 registered** in `docs/43` as a dated addendum (append-only: 156
+      insertions, 0 deletions, first changed line 3998). A12 had R1–R10 and A13 had R0–R7
+      with **no readout row at all**, while their sibling A12b had one — so both September
+      arms were countersigned in their own docs with nothing in the register pointing at
+      them. Commit `7880447`. **Five countersignature slots are blank and are Frank's.**
+- [x] **`*.lowdin.txt` given the `eol=lf` rule** `*.out` and `*.dat` already had. All 355
+      tracked charge artifacts sat at `text: unspecified / eol: unspecified` under
+      `core.autocrlf=true`, so a **fresh clone would have materialised the entire A6.5(1)
+      record as CRLF** and every md5 in the docs chain would have stopped matching Anvil —
+      the exact failure `.gitattributes` documents for `*.out`, left open for these.
+      Verified a no-op on existing content first. Commit `f101366`.
+- [x] **The three surviving false sentences of record struck**, each re-measured today
+      rather than taken from `docs/78`: Co \*OOH (two converged outputs exist), the Cu PAW
+      pseudo (it IS among the 12 staged on Anvil — Cu is excluded by registration, not
+      staging), and `docs/76:276`, which **repeated the "No Anvil hp.x path" claim already
+      withdrawn at :235 of its own file**, inside the operative WHAT-NOT-TO-RUN list.
+      hp.x verified live: `Program HP v.7.5 starts on 4Sep2026`. Commit `3ba67f3`.
+
+### Costs, measured rather than estimated
+
+| arm | measured | estimate on the board |
+|---|---|---|
+| P-PROJ-6 (24 new ortho decks) | 1.394 h WALL @128 = **178.4 core-h** | ~299 SU floor / ~600 ceiling |
+| P-PROJ-CELL (4 new ortho decks) | 0.554 h WALL @128 = **70.9 core-h** | ~60 floor / ~70–74 central |
+
+The pw.x cost model runs conservative on P-PROJ-6 and is accurate on P-PROJ-CELL.
+
+### Two checks this session says should exist, because the same errors recurred
+
+1. **No line may assert a deck is unrun without a listing of the Anvil run tree in the same
+   act.** `d26ea49` already recorded that "the exhaustive search missed `/anvil/projects`,
+   where the run tree lives"; the lesson did not generalise into a check and the same class
+   of claim was made again about Ni.
+2. **A readout may not be countersigned while any `.projwfc.out` for its decks is
+   unmirrored.** Both September arms were countersigned holding zero charge artifacts.
+
+### STILL OPEN, carried forward (corrected)
+
+- **Frank's, entrant-only:** the five `silentgate` core files (`docs/71`); the seven dated
+  ruling lines in `docs/43`; the five countersignature slots opened today; the
+  `$S1_OC20_MECHANISM` / `_ASSET_URL` / `_ASSET_SHA256` and `$S1_AI_USE_LOG` repo variables;
+  and the provenance-record file, which **does not exist anywhere in the tree**
+  (`git ls-files | grep -iE 'ai[-_]?use|provenance'` returns zero).
+- **Compute, small:** the CrO₂ q333 pair; re-realising `runs/s0/e_proj/s0_O__u715_{atomic,ortho}`
+  at np=128 (~10 SU — the pair is a genuine cross-machine composite, both legs printing
+  "running on 20 processor cores" against 128 for every `p_proj` sibling); the Ru
+  second-pseudopotential control (**30–60 SU** per `docs/45:35`, not the ~50–100 in `docs/78`).
+- **Writing:** the claim sentence, now stale on two independent rows (A12.R11's MIDDLE BAND
+  with no class claim, and A13.R8 making the pls-flip mechanism a 1×1-only sentence);
+  A7.7 report-prose re-authoring; F8's Crossref bibliography, which has **no `.bib` in the
+  tree at all**; the six-row body-ledger displacement.
+- **Standing and unexercised:** `docs/78` §0.1's recommendation to open the restricted
+  deposits — there are **four**, not three, since 22304889. Restricted remains the
+  registered election, so this stays a recommendation.
