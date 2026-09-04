@@ -3325,3 +3325,551 @@ working copy and the deposited copy differ **in terminology only**, in the ways 
 Any reader comparing them will find the two texts register identically. Whether to re-deposit for
 terminology alone, or to let the next substantive amendment carry it, is the entrant's call — and
 if the next amendment is A10, it carries this addendum with it.
+
+---
+
+# AMENDMENT 12 — 2026-09-03, adopted by the entrant, before any P-PROJ-6 deck was submitted
+
+**Adoption instrument.** This amendment ADOPTS `docs/77-amendment-12-pproj6-DRAFT.md`
+§§1–9 as registered text, with the re-statements below. Where this section and docs/77
+disagree, this section wins; everywhere else docs/77's sentence is the registered
+sentence. The election authority is the entrant's dated decision of record of
+2026-09-03, quoted verbatim in docs/77 :5 — **"Submit the twenty four decks. I agree to
+all of them."** — committed at `8aba0ae` (2026-09-03T20:59:56−04:00 = 2026-09-04T00:59:56Z),
+which is **before any deck was submitted and before any output existed**. Precedent for
+adoption by the entrant's own dated statement is the 2026-08-23 decision of record on the
+docs/52 rows. Numbering note: A10 (P-BEEF) remains undrafted as registered text and is
+numbered by identity, not by append order; this amendment does not carry it.
+
+**Governs:** the P-PROJ-6 arm — twenty-four fixed-geometry SCFs, {Cr, Mn, Fe, Ti, Ru, Ir}
+× {slab, \*O, \*OH, \*OOH}, at U = 7.50 eV, with `HUBBARD (ortho-atomic)` in place of
+`HUBBARD (atomic)`, paired against the twenty-four banked atomic partners in
+`runs/a0/main/<M>/<state>__u750.in`.
+
+## A12.R1 — The primary statistic is |Δη|; the residual is a diagnostic and carries no verdict
+
+**Registered:** `Δη_M = η_M(ortho) − η_M(atomic)`, in volts, per metal, at fixed geometry
+and U = 7.50. This is A7.1's own estimand; it needs no new threshold and no borrowed
+transfer.
+
+`R_M` — the RMS residual of a one-parameter U-shift fit — is **retained as a named
+DIAGNOSTIC for U-irreducibility only, reported per metal with no verdict attached.** The
+rejection is recorded because an earlier draft proposed scoring it: a uniform offset `c`
+on all three cumulative ΔG moves step 1 by +c and step 4 by −c and steps 2 and 3 by zero,
+so at pls 2 or 3 a residual of 0.40 eV coexists with Δη = 0.0000 V exactly. Across the six
+metals a fixed R = 0.10 eV corresponds to |Δη| from 0.0028 V (Fe) to 0.1277 V (Ti), a 46×
+spread. If `R_M` is ever given a threshold, that threshold derives from its own null — the
+0.0035 eV interpolation floor — and never from A7.1's volts.
+
+**Secondary, reported without a threshold:** whether the potential-limiting step differs
+between legs, per metal. Counted and reported, not scored.
+
+## A12.R2 — The denominator is the five blind metals; Cr is CALIBRATION and is excluded from every count
+
+**The blind five are Mn, Fe, Ti, Ru, Ir.** Cr is **CALIBRATION (post-hoc)**: |Δη(Cr)| =
+0.487 V at U = 7.15 is already known and published inside this project, so a U = 7.50 Cr
+point is a consistency check on the instrument, not evidence. **Cr is reported in every
+table, always labelled, and is excluded from every count.**
+
+Written explicitly because the failure mode is familiar in this campaign's own record:
+A7.2 confirmed 5 of 6 but on exactly three robust members against a registered ≥3, zero
+margin; A7.3 landed NOT MET at 3 of 6 in a band its registration never defined. Counting
+Cr here would mean only three of five blind metals need fire to declare a class effect.
+
+## A12.R3 — The four bands, including the middle one, defined in advance
+
+Per blind metal M: **FIRES if |Δη_M| > 0.10 V** (A7.1's own trigger, inherited unchanged);
+**NULL if |Δη_M| < 0.03 V** (A7.1's own falsification floor); **INTERMEDIATE** between
+0.03 and 0.10 V, reported as such and **never rounded to either side**.
+
+Class verdict on the count of FIRES out of five:
+
+| fires | verdict | what may be written |
+|---|---|---|
+| 5 or 4 | **CONFIRMED** | the projector split is a property of the method across this roster, not of CrO₂ |
+| 3 or 2 | **MIDDLE BAND — metal-dependent** | the split is real on some systems and not others; it is not universal; the per-metal table is the result and **no class claim is made** |
+| 1 | **NOT MET** | one blind metal is an existence proof and nothing more |
+| 0 | **FALSIFIED** | the projector is not a live variable at this U outside Cr; A7.1 stands as a single-system result and is reported that way for the rest of the campaign |
+
+The middle band is named in advance and carries pre-written wording, because A7.3 fell into
+a band its registration never defined and the cost of that is still being paid.
+
+## A12.R4 — Anti-selection
+
+All five blind metals are reported in every table, in every draft, always, with their Δη,
+their band, their pls comparison and their `R_M`. **No subset may be quoted alone**, and
+**no metal may be dropped for any reason discovered after the outcome is visible.** Cr
+travels with them, labelled.
+
+## A12.R5 — The pseudopotential confound, declared before the run
+
+`docs/43` §B row 10 of the error ledger records pseudopotential family as NOT MEASURED and
+UNREGISTERED. The census across the roster is ultrasoft {Cr, Mn, Ti, Ir}, PAW {Fe},
+norm-conserving {Ru} — so across the blind five: **ultrasoft {Mn, Ti, Ir}, PAW {Fe}, NC
+{Ru}.**
+
+> **Registered clause.** If the set of FIRING blind metals is **exactly {Mn, Ti, Ir}** —
+> every ultrasoft metal and no other — the result is **DECLARED CONFOUNDED with
+> pseudopotential family** and may **not** be reported as a class claim about DFT+U. It is
+> reported as an observation whose partition coincides exactly with a known unmeasured
+> confound, in the same sentence, always. The symmetric case — firing set exactly
+> **{Fe, Ru}** — carries the same declaration.
+
+Without this clause a 3-of-5 result on the ultrasoft metals would reproduce the A7.3
+failure structurally: a verdict perfectly aligned with an unmeasured partition.
+
+## A12.R6 — The spin confound clause, and the k-mesh disclosure
+
+**Spin.** The roster splits nspin = 2 {Cr, Mn, Fe} against nspin = 1 {Ti, Ru, Ir}; on the
+blind five that is {Mn, Fe} against {Ti, Ru, Ir}. If the firing set is exactly one of those
+two, the same DECLARED CONFOUNDED language applies. A rider of the form "the firing set
+must contain at least one of each" would be vacuous at n ≥ 4 on a 2+3 partition and is
+deliberately not used.
+
+**k-mesh, declared and not scored.** The mesh is not uniform across the roster — Cr and Mn
+slabs are `9 4 1`, Fe/Ti/Ru/Ir are `8 4 1`. This is harmless *within* a pair, since Δη is a
+paired difference at byte-identical settings, but any cross-metal table crosses two meshes
+and **must say so on its face**.
+
+## A12.R7 — What this arm cannot show, stated now rather than when a referee says it
+
+1. **It does not say which projector is right.** It measures how much the answer moves when
+   a documented convention changes; it does not adjudicate the convention. This clause is
+   load-bearing and travels with every statement of the result.
+2. **Both legs are single points on geometries relaxed under the atomic projector.**
+   Residual forces are unequal between legs. Whether the split survives relaxation is not
+   tested here and must not be implied.
+3. **One U.** U = 7.50 only. The U-dependence of the split is not mapped by this arm.
+4. **No materials claim.** A7.5 forbids quoting an absolute η for Cr, Fe, Co or Ni as a
+   materials claim; every quantity here is a within-metal paired difference by construction.
+5. **Coverage** is not varied unless the A3 rider runs separately.
+
+## A12.R8 — The banked zero-compute diagnostic, labelled CALIBRATION
+
+Fitting the Cr ortho leg at U = 7.15 onto Cr's own banked atomic ΔG(U) curves with a single
+free U shift over the registered 0–9 eV grid leaves **RMS 0.4982 eV with the optimum pinned
+at the grid edge**, and the implied U displacement is **not single-valued**: ΔG_OH demands
++11.32 eV, ΔG_O +1.04 eV, ΔG_OOH +0.27 eV, η +2.14 eV — a 42× spread across four
+observables from one calculation. This is what refutes "the projector is just a
+reparameterisation of U." It is zero-compute, from data already seen, and is therefore
+**reported as CALIBRATION and scores nothing.** The same fit is run on the blind five when
+their outputs land, and *those* are blind.
+
+## A12.R9 — The blind boundary, recorded so it can be checked rather than asserted
+
+The 24 decks were built and md5-manifested at `c2e9a18` (2026-09-03T19:29:53−04:00), which
+is **before** the thresholds were adopted at `8aba0ae` (20:59:56−04:00), which is **before**
+the array was submitted (20382165, 2026-09-04T01:02Z). `src/dft/build_pproj6.py` is
+deterministic and its manifest `runs/a0/m_pproj6.txt` carries an md5 per deck, so **the
+objects submitted are provably the objects built before the registration existed.** That
+manifest is in this amendment's deposit fileset (A12–A13.DEP) precisely so the ordering is
+checkable by a reader who has only the deposit.
+
+## A12.R10 — Scale disclosure (A6.6, running total)
+
+A11.R4 left the running fixed-geometry total at **~356 licensed, up to ~395 at full
+contingent trigger.** This amendment adds **24** fixed-geometry SCFs and no relaxations:
+**~380 licensed now, up to ~419 at full contingent trigger.** Planning cost ~299 SU,
+~600 SU ceiling including an escalation reserve.
+
+---
+
+# AMENDMENT 12b — 2026-09-03, adopted by the entrant, before the hp.x deck was submitted
+
+**Adoption instrument.** ADOPTS the `# AMENDMENT 12b` section of `docs/77` as registered
+text. Election authority: the entrant's dated decision of record of 2026-09-03, verbatim —
+**"continue with the h p dot x."** — committed at `2ea343f` (2026-09-03T21:06:06−04:00 =
+2026-09-04T01:06:06Z), **before the deck was submitted (job 20382206, recorded at `f478ebb`
+55 s later) and before any output existed.**
+
+## A12b.R1 — What runs, and the guard on it
+
+Two decks in `runs/hp_cro2_ortho/`: `scf__cro2_ortho.in` (a 3-line diff from the banked
+`runs/hp_tio2/scf__cro2.in` — prefix, outdir, `HUBBARD (atomic)` → `(ortho-atomic)`) and
+`hp__cro2_ortho_q222.in` (a 2-line diff — prefix, outdir). Both diffs are asserted against
+the banked TiO₂ atomic/ortho pair, which embodies exactly those transformations, **before
+anything is cloned**. np = 20, nk = 4, matching the banked atomic leg's shape.
+
+**A8.8 isolation.** Outputs land in `runs/hp_cro2_ortho/`, never in the banked
+`runs/hp_tio2/`; `anvil/52_hp.slurm` additionally refuses any `.out` already carrying
+`JOB DONE`.
+
+## A12b.R2 — Thresholds inherited, not invented
+
+The **q-mesh convergence threshold is the deposited 0.2 eV** (docs/43 :276). It is *not*
+tightened to TiO₂'s observed flatness, on the deposited principle at :1213 that a threshold
+invented after the quantity is known is worth nothing.
+
+**No threshold is registered on the size of the CrO₂ split.** This is a measurement,
+reported with the other three cells as a 2×2 table. Registering a bar on a quantity with
+n = 1 of prior evidence would be a threshold fitted to a hope.
+
+## A12b.R3 — The named risk, pre-stated
+
+**nspin = 2 crossed with ortho-atomic had never been run in this campaign.** If the linear
+response did not converge, the arm returns **NO U**, and that is the reportable outcome — a
+methods limit, not a ΔU. hp.x writes its `.dat` even after non-convergence, so **an artifact
+is not a pass**; the convergence string is what decides.
+
+## A12b.R4 — Readout, countersigned 2026-09-04
+
+Full readout at `docs/79-hp-cro2-ortho-readout-2026-09-04.md`, in this deposit's fileset.
+
+**The named risk did not fire:** `Convergence has not been reached` appears 0 times,
+`JOB DONE` is present in both outputs, Slurm exit `0:0`.
+
+| | atomic | ortho-atomic | split |
+|---|---|---|---|
+| **TiO₂** (nspin = 1, d⁰) | 4.2245 (q222) · 4.2251 (q333) · 4.2245 (q444) | 5.6688 · 5.6743 · 5.6741 | **+1.4443 · +1.4492 · +1.4496** |
+| **CrO₂** (nspin = 2, magnetic 3d) | 6.1635 (q222) | **7.2677 (q222)** | **+1.1042** |
+
+The projector-split-in-U observable goes **n = 1 → n = 2 in materials**, on the flagship
+material, and crosses the spin axis. Same sign both times, same order of magnitude.
+Relative to the atomic value the split is 34.2 % on TiO₂ and 17.9 % on CrO₂ — **smaller on
+CrO₂, absolutely and relatively**, which is the honest direction to report it in. Against
+the inherited 0.2 eV threshold, TiO₂'s q-mesh spread is 0.0006 eV (atomic) and 0.0055 eV
+(ortho), so the split is ≈ 263× the q-mesh sensitivity.
+
+**The isolation is exact, and for a stateable reason.** Both SCF ground states run at
+`U Cr-3d 1.d-8`. At U → 0 the projector cannot touch the ground state, and the outputs
+confirm it: total energy −517.92950441 Ry, total magnetisation 4.00 μB, absolute
+magnetisation 4.68 μB and 19 SCF iterations **on both legs, identical to eight decimals**;
+the banked TiO₂ pair shows the same signature at −405.93096624 Ry. Two consequences, both
+registered: (i) **BASIN_DRIFT cannot explain this** — the legs are in the same magnetic
+basin because they are in the same ground state; (ii) the entire 1.1042 eV comes from the
+projector acting on the **response function χ**, with the density held byte-identical.
+
+**Limits, registered rather than left to be found.** CrO₂ q-mesh convergence is **NOT
+measured** — only q222 exists, on both legs; what is protected is the *split*, since both
+legs sit at the same q-mesh, while the absolute values are q-unverified. n = 2 is still
+small. **This is bulk, not slab** — the CrO₂ slab hp.x is banked as 4/4 non-converged at
+np = 18 and no slab U exists or is claimed.
+
+**Cost:** 23:34 wall at 20 cores = **7.86 core-hours**, below the ~11 SU floor this
+amendment estimated. Recorded so the next cost model is not inflated by the estimate.
+
+## A12b.R5 — POST-HOC, flagged as such and not to be quoted as a prediction
+
+The following was **not** foreseen in this amendment and was noticed only after the number
+landed. It is dated here as an interpretation and **must not be written up as though it had
+been registered.**
+
+A7.1 compares the projectors at a **fixed U = 7.15 eV**. The ab-initio U is now known to be
+projector-dependent: 6.1635 eV for atomic, 7.2677 eV for ortho. So U = 7.15 sits ≈ 0.12 eV
+below ortho's own linear-response U but ≈ 0.99 eV above atomic's. This cuts both ways and
+both belong in the report:
+
+- **Against.** The two legs of the headline are not equally close to their own ab-initio U.
+  A reviewer will find this; better that the ledger finds it first.
+- **For, and more strongly.** The natural rebuttal to A7.1 is *"compute U from first
+  principles and the ambiguity disappears."* This measurement says it does not: the
+  ab-initio route inherits the projector **twice** — once in determining U, once in the
+  total energy — so the choice does not cancel, it compounds. That is the
+  **non-cancellation** framing.
+
+**The second reading is not yet earned.** It is an argument, not a measurement, until CHE
+legs are run at each projector's own bulk linear-response U and η is compared. An arm to do
+exactly that was designed and then **rejected at the gate on 2026-09-04 without being built
+or submitted** — the record is `docs/80-own-u-arm-killtest-2026-09-04.md`, in this deposit's
+fileset, and it is filed here because an arm that was designed and declined is part of the
+anti-selection record, not a private deliberation.
+
+## A12b.R6 — Correction of record: "self-consistent U" is an overclaim
+
+Both hp.x parents run at `U Cr-3d 1.d-8`. These are therefore **one-shot linear-response U
+evaluated about the U ≈ 0 ground state**, never iterated U_in → U_out to self-consistency.
+Wherever this campaign's working documents say **"each projector's own self-consistent U"**
+the correct phrase is **"one-shot bulk linear-response U"**, and that is the phrase this
+registration uses.
+
+Compounding it, and registered in the same clause: docs/43 :1327 and the lens digest both
+record that **Xu 2015's U = 7.15 was itself produced under a different Hubbard projector**,
+and `docs/figs/a0cell_readout.json` labels the u715 rung `PROJECTOR-MISMATCHED` in its own
+metadata. So if 7.15 is treated as atomic's, atomic's "own" ab-initio U is simultaneously
+6.1635 and 7.15 — **0.99 eV apart, which is 90 % of the entire 1.1042 eV split being
+reported as an effect.** No statement of the split may omit this.
+
+## A12b.R7 — Scale disclosure
+
+One SCF plus one hp.x linear-response job. The hp.x job is a different object class from the
+A6.6 fixed-geometry SCF count and is disclosed separately rather than folded into it: the
+running total is **~380 fixed-geometry SCFs licensed** (A12.R10) **plus 1 SCF and 1 hp.x
+linear-response job under this amendment** — ~381 and 1.
+
+---
+
+# AMENDMENT 13 — 2026-09-04, adopted by the entrant, before any P-PROJ-CELL deck is submitted
+
+**Adoption instrument.** Election authority: the entrant's dated directive of record of
+2026-09-04, verbatim — **"continue with the four ortho SCFs in two x one v"**. The decks
+were built and md5-manifested at `5e15c10` (2026-09-04T07:57:28−04:00), **before this text
+existed**; nothing has been submitted as of the commit that appends this section.
+
+**This amendment registers no new threshold.** Every criterion below is inherited unchanged
+from A7.1, which is deposited text. There is accordingly no new number for the entrant to
+elect, and that is a deliberate design property of the arm rather than an omission — see
+A13.3.
+
+**Governs:** the P-PROJ-CELL arm — four fixed-geometry SCFs, Cr, U = 7.15 eV, in the
+**adopted 2×1v cell**, with `HUBBARD (ortho-atomic)` in place of `HUBBARD (atomic)`.
+
+## A13.0 — Why this amendment is being written now
+
+A7.1 / P-PROJ is this campaign's flagship and it is a **1×1** statement: η 1.155 V / pls 2
+against 1.642 V / pls 1, |Δη| = 0.487 V. It is correctly labelled 1×1 wherever it appears.
+
+Two banked facts sit next to it:
+
+1. Block 1A closed **ADOPT_2X1V**; the production cell is 2×1v, not 1×1.
+2. In that adopted cell, at the same U = 7.15 and the **same atomic projector**, the
+   limiting step is **already 1** (η = 0.9239810 V, `docs/figs/a0cell_readout.json`). The
+   same file shows the same 2 → 1 change at the U = 4.995 rung (1×1 pls 2, 2×1v pls 1).
+
+So the 2 → 1 flip A7.1 attributes to the projector is **also what the cell change produces
+on its own, at fixed projector.** That does not falsify A7.1 — a 1×1 statement is true of
+1×1 — but it means "the projector flips the rate-limiting step" is **not yet known to be a
+projector-unique signature**, and the campaign cannot presently say whether the effect
+survives into the cell it actually runs.
+
+`grep -rl "ortho-atomic" runs/a0/cell/` returns nothing: **no ortho-atomic calculation
+exists anywhere in the production cell.** These four are it, and they are registered because
+they can **falsify the headline**, not because they can decorate it.
+
+## A13.1 — What runs
+
+Four fixed-geometry SCFs in `runs/a0/pproj_cell/`, built by
+`src/dft/build_pproj_cell.py`:
+
+```
+ref__2x1v__u715_ortho            s0_OH__2x1v_mir__u715_ortho
+s0_O__2x1v_mir__u715_ortho       s0_OOH__2x1v_escape__u715_ortho
+```
+
+Each differs from its banked source `runs/a0/cell/<stem>__u715.in` in **exactly two lines**
+— the prefix and the `HUBBARD` card — verified line by line, with any third differing line
+fatal. The banked 1×1 u715 Cr pair is asserted as the reference transformation before any
+deck is cloned. U = 7.1500, species Cr, and `calculation = 'scf'` are asserted per deck.
+Geometry, cell, cutoffs, k-mesh (nk = 8), spin convention, smearing, U value and
+pseudopotentials are inherited byte-identically; **the atomic legs are not re-run**. The
+rebuild is byte-identical.
+
+**Inherited asymmetries, disclosed rather than corrected.** Two of the four source decks
+carry `nosym = .true.` (the bare reference, which also carries `noinv`, and the \*OOH escape
+deck) and two do not. That asymmetry is a property of the banked atomic legs and is
+reproduced faithfully in the ortho twins, because a paired difference requires identical
+settings; it is **not** introduced by this amendment and is **not** repaired by it. The same
+applies to the `mir` / `escape` configuration labels, which are the banked cell arm's own
+geometry provenance.
+
+**A8.8 isolation.** Output lands in `runs/a0/pproj_cell/`, never in the banked
+`runs/a0/cell/`.
+
+**Cost, measured rather than estimated.** The four banked atomic partners cost 1765.84 s
+WALL at np = 128 = **62.79 core-hours**. Aggregated over all four banked 1×1 states the
+ortho/atomic ratio is **1.1834 WALL / 1.1114 CPU** (per state 1.313 / 1.083 / 1.609 /
+0.953). So **~60 SU floor, ~70–74 SU central, ~101 SU at the worst observed pair ratio** —
+0.12 % of the 59,753 SU balance. **Ortho is dearer than atomic on pw.x slabs**; the hp.x
+TiO₂ observation that ortho runs cheaper does not transfer, and the 1×1 \*OH ortho leg
+needed 49 SCF iterations against its atomic partner's 30.
+
+## A13.2 — DISCLOSED NON-BLIND: the atomic leg's value, written here in advance
+
+**The atomic leg of this comparison is already banked and its value is known today:
+η = 0.9239810 V, pls = 1** (`docs/figs/a0cell_readout.json`, rung `7.15`, cell `2x1v`).
+
+It is written into this registration **before the ortho leg runs** so that no reader has to
+wonder whether it was looked up afterwards. **This arm is half non-blind by construction and
+is labelled that way in every table.** Only the ortho leg is unmeasured.
+
+This follows the rule this campaign applied to itself on 2026-09-04 when it declined an arm
+half of whose outputs were already interpolable to 0.287 meV: an outcome computable today
+may not be registered as a blind prediction tomorrow. Here the computable half is disclosed
+instead of being dropped, because the *pairing* is what the arm needs and the unmeasured
+half is genuinely unmeasured.
+
+## A13.3 — No new threshold is registered, and why that is the design
+
+The primary statistic is **|Δη_2×1v| = |η(ortho, 2×1v) − η(atomic, 2×1v)|** at U = 7.15,
+fixed geometry. Its bands are **A7.1's own, inherited unchanged**: FIRES above 0.10 V, NULL
+below 0.03 V, INTERMEDIATE between, reported as such and never rounded.
+
+The secondary observable is **whether the potential-limiting step differs between the two
+legs** — reported, not scored, exactly as in A12.R1.
+
+Nothing here is new. That is the point: a robustness test of A7.1 that invented its own
+threshold could be tuned to A7.1's convenience, and the four branches below are the
+exhaustive partition of (band) × (pls same / different), not a choice. **No number in this
+amendment is elective**, so the arm carries no unelected THRESHOLD line.
+
+## A13.4 — The four outcome branches, named in advance
+
+| |Δη_2×1v| | pls comparison | what may be written |
+|---|---|---|
+| **> 0.10 V** | legs differ | the projector effect reproduces in the adopted cell in **both** magnitude and mechanism; A7.1's finding generalises from 1×1 to the production cell and may be stated of the campaign's own working cell |
+| **> 0.10 V** | legs agree (both pls 1) | the **magnitude** survives the cell change; the **mechanism sentence does not**. "The projector flips the rate-limiting step" becomes a **1×1-only sentence** and is scoped that way in every statement of A7.1 for the rest of the campaign |
+| **0.03–0.10 V** | either | **INTERMEDIATE**, reported as such and never rounded. A7.1's magnitude is cell-dependent, and the report states that the effect is substantially smaller in the cell actually adopted |
+| **< 0.03 V** | either | **the projector is not a live variable in the adopted cell.** A7.1 stands as a 1×1 result only, is reported that way for the rest of the campaign, and **the headline is re-led** rather than defended |
+
+**Anti-selection.** All four states are reported whatever the outcome, and the result is
+reported in the same table as A7.1's 1×1 pair so the two cells are always read together. No
+state may be dropped for any reason discovered after the outcome is visible. **A branch
+mismatch** — a magnetisation difference between the paired legs of a state — is reported as
+such and never averaged away, on the A7.1 rule already in `pproj_readout.py`.
+
+**This arm is Cr-only and adds nothing to A12's denominator.** Cr is CALIBRATION for the
+P-PROJ-6 class claim (A12.R2) and that is unchanged: this amendment scores no class row,
+enters no count, and is a **robustness test of A7.1 on A7.1's own material**, which is the
+only material A7.1 is about.
+
+## A13.5 — What this arm cannot show
+
+1. It does not say which projector is right.
+2. Both legs are single points on geometries relaxed under the **atomic** projector; whether
+   the split survives relaxation is not tested here and must not be implied. This is A7.1's
+   own limitation, inherited.
+3. One U (7.15) and one material (Cr).
+4. The `mir` / `escape` configurations are the banked cell arm's; this amendment does not
+   re-derive them and any statement about them inherits that provenance.
+5. **Convergence is not guaranteed.** Pre-stated: if an ortho SCF fails to converge, that
+   state returns no energy, the arm reports the failure as its outcome for that state, and
+   the pairing is reported incomplete. `electron_maxstep` is the only backstop, and a
+   non-converged leg is **not** retried with altered settings.
+
+## A13.6 — Disclosure about A7.1's 0.487 V: what fraction of it is a constants table
+
+This section adds a **disclosure**, not a threshold, about a quantity registered in
+deposited text. Following the precedent of the Divanis z-score correction, it is appended
+with its reason and **no deposited sentence is edited.**
+
+A CHE overpotential is not a pure DFT quantity. `src/hea_oer/referencing.py` adds a fixed
+per-adsorbate constant — `{OH: 0.35, O: 0.05, OOH: 0.40}` eV, the conventional ZPE − TΔS
+corrections of Man 2011 / Valdés 2008 — and those constants enter the four ladder steps as
++z_OH, z_O − z_OH, z_OOH − z_O and −z_OOH, summing to zero. **They cannot move the ladder
+total; they can only move which step is largest.** Since η is `max(step) − 1.23`, η carries
+the constant of the *winning* step and no other. So when the projector flips the limiting
+step, it also swaps which constant lands in η.
+
+Decomposed exactly, from the raw outputs (`src/dft/zpe_decomposition.py`, closure residual
+−4.4 × 10⁻¹⁶ eV):
+
+```
+Δη = η_ortho − η_atomic                    = +0.4868562 V
+  electronic (both constants set to zero)  = −0.1631438 eV   <- ortho is LOWER
+  constants  (c1 − c2)                     = +0.6500000 eV
+```
+
+**The constants table accounts for 133.5 % of Δη, and the raw DFT difference has the
+opposite sign.** Registered consequences:
+
+1. **No statement of the 0.487 V omits this split.** The report gives both halves or
+   neither.
+2. **The sensitivity band is ±0.15 V** under ±0.05 eV applied independently to each
+   constant — not ±0.05, because `∂Δη/∂z_OH = +2` (z_OH enters once as c₁ and once through
+   −z_OH in c₂), `∂Δη/∂z_O = −1`, and `∂Δη/∂z_OOH = 0` exactly, since neither leg is limited
+   by step 3 or 4. Verified by full recomputation at all 27 corners.
+3. **The mechanism is the sturdier half, and this is registered as the counterweight.** The
+   pls assignment is unchanged at every corner of that cube; flipping atomic's limiting step
+   requires the constants moved by **≥ 0.164 eV** (3.3× the band) and ortho's by
+   **≥ 0.380 eV** (7.6×). So the secondary observable — which step is limiting — survives
+   the constants uncertainty by at least 3.3×, while the primary statistic does not survive
+   it nearly as comfortably. **On this arm the qualitative claim is the more robust one**,
+   and the report says so rather than leading with the softer number alone.
+4. **The constants were not recomputed per projector**, although the projector shifts
+   absolute magnetisation on these states. A per-projector ZPE recomputation is **not**
+   proposed and is **not** licensed by this amendment; it is disclosed as a stated
+   approximation.
+
+Full derivation: `docs/81-zpe-decomposition-of-a71-2026-09-04.md`, in this deposit's
+fileset. This disclosure applies to **every** Δη this campaign reports whose two legs have
+different pls — including A12's P-PROJ-6 per-metal table and this amendment's own arm.
+
+## A13.7 — Scale disclosure
+
+Four fixed-geometry SCFs, no relaxations. Running total: **~384 fixed-geometry SCFs
+licensed now, up to ~423 at full contingent trigger**, plus the 1 SCF and 1 hp.x job of
+A12b. ~60–101 SU.
+
+---
+
+## A12–A13.DEP — Deposit obligation, and a departure recorded rather than hidden
+
+### The departure, stated first
+
+The standing rule of this document is that **every amendment goes to Zenodo before the first
+act it governs** (:1807; A7.8 :1449-1464). **For Amendment 12 and Amendment 12b that did not
+happen.** Both were adopted and committed before their submissions, but **no deposit was
+made between adoption and submission, and none has been made since 2026-08-31.** The two
+jobs submitted on 2026-09-03 — array 20382165 and job 20382206 — therefore ran under
+registered text that existed in git and in the working tree but **in no deposit.**
+
+This is recorded in the same flat form A7.8 used when it recorded that amendments 1–6 had
+never been deposited at all. The remedy is this deposit.
+
+### What is and is not compromised, precisely
+
+**Not compromised: the blind boundary itself.** The ordering is complete and internal to
+git, with author timestamps: P-PROJ-6 decks built `c2e9a18` 2026-09-03T19:29:53−04:00 →
+thresholds adopted `8aba0ae` 20:59:56−04:00 → array submitted 2026-09-04T01:02Z; A12b
+adopted `2ea343f` 21:06:06−04:00 → job submitted, recorded `f478ebb` 21:07:01−04:00.
+Nothing was registered after an outcome was visible.
+
+**Not compromised: P-PROJ-6's blindness in the deposited record either.** As of this
+deposit the array is **24/24 PENDING with zero outputs on disk**. This deposit therefore
+still precedes **every** P-PROJ-6 output, which is the condition A12 actually needs. The
+late deposit costs that arm nothing.
+
+**Compromised: independent verifiability of the ordering for Amendment 12b.** 12b's arm has
+landed (`02d8418`). A reader who trusts only the deposited chain, and not this repository's
+git history, cannot confirm from the deposit alone that 12b's text preceded its result.
+What limits the damage is what 12b registered: **no threshold on the size of the split** —
+it registered a measurement, an inherited 0.2 eV q-mesh threshold from deposited text, and a
+pre-stated named risk. There is no scored quantity that a visible outcome could have been
+fitted to. That is a mitigation and it is not a defence; the sentence a reader is owed is
+that **12b's registration reached Zenodo after 12b's result existed**, and it appears in any
+report of that result.
+
+**Amendment 13 is not affected.** It is deposited before its first governed act, and no
+P-PROJ-CELL deck is submitted until the DOI line below exists.
+
+### A correction to the wording of three earlier deposit clauses
+
+A8.9 (:1768-1769), A9.7 (:1968) and A11.R5 (:2218-2219) each say the document is re-deposited
+"as a new version of record **10.5281/zenodo.21963144**". That is the **A1–A7 version DOI**;
+versions attach to the **concept record 10.5281/zenodo.21963143**, which is what the DOI
+lines themselves correctly name (:1773, :2232). The acts performed were correct; the
+obligation wording was not. **This clause uses the concept DOI**, and no deposited sentence
+is edited.
+
+### A correction to the manifest convention
+
+`docs/deposits/2026-08-31-A11.manifest.txt` describes its rows as "the working-tree
+serialization"; its bytes, md5 and sha256 in fact reproduce the **git-blob (LF)
+serialization** exactly on 9 of 9 rows, and differ from the CRLF working tree. This
+deposit's manifest states which serialization it lists and lists that one.
+
+### The obligation
+
+Per A7.8, `docs/43` complete through this amendment (A1–A9 + A11 + A12 + A12b + A13 + all
+dated addenda; **A10 pending and undrafted as registered text**) is re-deposited to Zenodo
+as a new version of **concept record 10.5281/zenodo.21963143** — restricted access, DOI and
+timestamp public, files closed until report submission, the setting elected for every prior
+version — **before any P-PROJ-CELL deck is submitted.**
+
+**Fileset, seven files:** this document as `43-prereg-week1-factorial-A1-A13.md`; `docs/77`
+(the adopted A12/A12b draft, historical); `docs/79` (the 12b readout, countersigned);
+`docs/80` (the own-U arm rejected at the gate — filed as part of the anti-selection record,
+so that an arm designed and declined is visible to a reader who has only the deposit);
+`docs/81` (the A13.6 derivation); and the two deck manifests `runs/a0/m_pproj6.txt` and
+`runs/a0/m_pproj_cell.txt`, which carry a per-deck md5 and make A12.R9's "the objects
+submitted are the objects built" checkable from the deposit alone. `docs/74` is **not**
+included: A10 is not adopted and rides its own deposit.
+
+The new-version DOI is recorded here in a dated line when it exists, with the per-file
+manifest committed at `docs/deposits/`.
+
+**Open and unactioned, named so it is not mistaken for settled:** `docs/78` §0.1 and
+`tasks/todo.md` both record a standing recommendation to **open** the three existing
+restricted deposits, on the grounds that a judge who clicks a DOI in November meets a
+permission wall. That is the entrant's call and it is **not** exercised here; this version
+is deposited restricted, consistent with the registered election, and the recommendation
+remains open.

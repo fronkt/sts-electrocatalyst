@@ -17,9 +17,11 @@
 # and is the shape the banked atomic partners ran at.
 #
 # COST, measured not estimated: the four atomic partners cost 1765.84 s WALL
-# at np = 128 = 62.79 core-h. Ortho/atomic WALL ratios on the banked 1x1
-# pair are 1.313 / 1.609 / 0.953 (mean 1.292), so ~63 SU floor, ~81 SU
-# planning, ~101 SU at the worst observed ratio.
+# at np = 128 = 62.79 core-h. Aggregated over all four banked 1x1 states the
+# ortho/atomic ratio is 1.1834 WALL / 1.1114 CPU (per state 1.313 / 1.083 /
+# 1.609 / 0.953), so ~60 SU floor, ~70-74 SU central, ~101 SU at the worst
+# observed pair ratio. Ortho is DEARER than atomic on pw.x slabs; the hp.x
+# TiO2 result that ortho runs cheaper does not transfer.
 #
 # md5 of each deck, for the record:
 #   ref__2x1v__u715_ortho        7.1500  e85df604ab9c26a1a59eb0d305a8fd90

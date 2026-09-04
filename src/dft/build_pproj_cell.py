@@ -73,13 +73,20 @@ COST, measured from the banked atomic partners at np = 128 (not estimated):
     ref 522.67 s + s0_O 381.13 s + s0_OH 472.63 s + s0_OOH 389.41 s
       = 1765.84 s WALL = 62.79 core-hours for the four atomic legs.
 
-    Ortho/atomic WALL ratios on the banked 1x1 pair: slab 1.313, s0_OH 1.609,
-    s0_OOH 0.953 (mean 1.292). So: ~63 SU floor, ~81 SU planning, ~101 SU at
-    the observed worst ratio, ~202 SU hard ceiling at 2x that.
-    0.14 % of the 59,753 SU balance at planning.
+    Ortho/atomic ratios on the banked 1x1 pair, all FOUR states aggregated
+    (1283.5 s -> 1519.0 s WALL, 1211.9 s -> 1346.9 s CPU):
+        WALL 1.1834, CPU 1.1114; per state 1.313 / 1.083 / 1.609 / 0.953.
+    So: ~60 SU floor (best observed ratio 0.951), ~70-74 SU central,
+    ~101 SU at the worst observed pair ratio. 0.12 % of the 59,753 SU balance.
 
-    (docs/80 estimated "~30-55 SU" for this arm. That was low; the measured
-    figure is ~81 SU planning. Recorded rather than quietly replaced.)
+    ORTHO IS DEARER, NOT CHEAPER, ON SLABS. The hp.x TiO2 result (ortho 0.894-
+    0.982 of atomic) does NOT transfer: on pw.x slabs ortho ran longer on three
+    of four states, and the 1x1 s0_OH ortho leg needed 49 SCF iterations against
+    its atomic partner's 30. electron_maxstep is the only backstop.
+
+    (docs/80 estimated "~30-55 SU" for this arm. That was low -- it is below the
+    banked ATOMIC cost of 62.79 core-h. Corrected here rather than quietly
+    replaced.)
 
 A8.8 ISOLATION. Output goes to runs/a0/pproj_cell/, NEVER into runs/a0/cell/.
 The banked cell tree is read-only by construction.
@@ -263,9 +270,11 @@ def main():
         "# and is the shape the banked atomic partners ran at.",
         "#",
         "# COST, measured not estimated: the four atomic partners cost 1765.84 s WALL",
-        "# at np = 128 = 62.79 core-h. Ortho/atomic WALL ratios on the banked 1x1",
-        "# pair are 1.313 / 1.609 / 0.953 (mean 1.292), so ~63 SU floor, ~81 SU",
-        "# planning, ~101 SU at the worst observed ratio.",
+        "# at np = 128 = 62.79 core-h. Aggregated over all four banked 1x1 states the",
+        "# ortho/atomic ratio is 1.1834 WALL / 1.1114 CPU (per state 1.313 / 1.083 /",
+        "# 1.609 / 0.953), so ~60 SU floor, ~70-74 SU central, ~101 SU at the worst",
+        "# observed pair ratio. Ortho is DEARER than atomic on pw.x slabs; the hp.x",
+        "# TiO2 result that ortho runs cheaper does not transfer.",
         "#",
         "# md5 of each deck, for the record:",
     ]
