@@ -45,3 +45,15 @@ docs/research/papers/*.pdf
 # bulk `runs/` add cannot silently reverse it.
 *.projwfc.out
 *.pdos_atm*
+*.pdos_tot
+
+# QE scratch: `<prefix>.save/` wavefunction+charge-density directories, and the
+# `dens/` trees the A0 runner collects them into. These are INTERMEDIATE: the
+# banked product is the `.out` plus the `.lowdin.txt` extract, and the banked
+# a0/main tree tracks exactly `.in`/`.out`/`.lowdin.txt` and no `.save`. They are
+# retained on Anvil beside their decks. Encoded as a rule on 2026-09-04 after a
+# pull of `runs/a0/pproj6` brought back 1.7 GB of them and `git add` on that path
+# would have staged 201 files -- the same class of accident the *.projwfc.out
+# rule above exists to prevent.
+*.save/
+**/dens/
