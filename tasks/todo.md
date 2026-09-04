@@ -1878,3 +1878,45 @@ The pw.x cost model runs conservative on P-PROJ-6 and is accurate on P-PROJ-CELL
 - **Standing and unexercised:** `docs/78` §0.1's recommendation to open the restricted
   deposits — there are **four**, not three, since 22304889. Restricted remains the
   registered election, so this stays a recommendation.
+
+## 2026-09-04 (session 2, cont.) - THE SEVEN RULINGS ARE SIGNED
+
+Entrant elected all seven docs/82 recommendations as tabulated in docs/85, and
+adopted the four countersignature rows, in session 2026-09-04. Commit 7dce98c.
+
+- [x] Seven dated lines in docs/43 at :4175 :4183 :4191 :4200 :4211 :4221 :4228.
+      Rows 1 and 2 answered WHILE STILL BLIND, per docs/82:11-15.
+- [x] Four countersignatures filled at :4062 :4102 :4130 :4153. Recorded as the
+      entrant's instruction, NOT as a quotation - the convention quotes him
+      verbatim and invented words are not his.
+- [x] spec_rulings.toml transcribed: registered lowercase tokens, full-filename
+      citations. All three traps avoided; each citation verified to land on its own
+      ruling line. tests/silentgate 55 passed / 7 skipped, full suite 377 / 8.
+- [x] The seven core-gated tests will now PASS when silentgate/ lands instead of
+      flipping to seven failures. `silentgate/` deliberately NOT created.
+
+### What the rulings newly OWE, and both are the entrant's
+
+- [ ] **OC20 release asset + three repo variables.** The release-asset election
+      means publishing the 500-file sample and setting S1_OC20_MECHANISM,
+      S1_OC20_ASSET_URL, S1_OC20_ASSET_SHA256 (s1-controls.yml:64-66). Owner-only.
+      Until then the OC20 job reports NOT MEASURED and the face is not green.
+- [ ] **docs/provenance-record.md does not exist.** The path is now elected, the
+      file is not written, and check_disjoint.py fails closed on a missing log.
+      `$S1_AI_USE_LOG` must be set explicitly - the discovery regex does not match
+      this filename, which was elected deliberately.
+      NOTE A TENSION worth a decision: CLAUDE.md says never to label provenance,
+      while docs/43:1840 requires permitted work "logged in the provenance record
+      as produced" and CI asserts that record's file list is disjoint from the core
+      path list. The registration and the CI check both need this file to exist and
+      to name files. Flagged, not resolved.
+
+### STILL ENTRANT-ONLY, unchanged
+
+- [ ] The five silentgate core files (docs/71). docs/43:1840 is not moved by any of
+      the above. Land them in ONE commit - conftest.py:69-70 keys on the directory.
+- [ ] docs/86 Ruling 1: whether a tool may compute the P-DIVANIS scored number.
+- [ ] The claim sentence (Sep 20) and the six-row displacement.
+- [ ] Two citation defects in docs/28: j.jcat.2025.115963-range (typo; corrected
+      DOI is journal front matter) and j.xcrp.2025.102847 (cited as CatBench,
+      resolves to a robotic-fish paper). Both need the real DOI from the paper.
