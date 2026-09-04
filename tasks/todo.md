@@ -1591,3 +1591,33 @@ anti-selection clause (all five reported always); PP-family confound clause (fir
 - [ ] **Frank countersigns the readout.** Not discharged by the adoption.
 - [ ] **Report-prose re-authoring under A7.7** — the report paraphrases, never copies docs/77.
 - [ ] Readout script against the banked atomic partners at u750 (24 pairs).
+
+## 2026-09-03 — hp.x CrO2 ORTHO SUBMITTED (job 20382206) + the driver that unblocked it
+
+**Amendment 12b ADOPTED** — entrant, verbatim: *"continue with the h p dot x."* Committed at
+**2ea343f** before submission and before any output existed.
+
+**`anvil/52_hp.slurm` is the driver docs/51 said did not exist** — ~40 lines. pw.x then hp.x in one
+job gated on the SCF (the 46_a0.slurm pattern); pseudo_dir and outdir rewritten at run time from the
+environment; no array, so nothing races the shared SCF. **The binary was never missing** —
+`$PROJECT/qe/env/bin/hp.x` reports "Program HP v.7.5".
+
+**Submitted 20382206**, np=20 nk=4, `runs/hp_cro2_ortho/`, A8.8-isolated from the banked
+`runs/hp_tio2/`. Closes the missing cell of `{TiO2, CrO2} x {atomic, ortho}`: TiO2 atomic
+4.2245/4.2251, TiO2 ortho 5.6688/5.6743 (**split 1.44 eV**), CrO2 atomic 6.1635 — CrO2 ortho is the
+fourth. Takes the projector-split-in-U observable to **n = 2 in materials** and crosses
+nspin=1 -> nspin=2 on the flagship material.
+
+Thresholds **inherited**: the deposited 0.2 eV q-mesh threshold; **no threshold on the size of the
+split** (a measurement, reported as a 2x2 table). **Named risk pre-stated: nspin=2 x ortho has never
+been run in this campaign** — a stalled response returns NO U and is a methods limit, not a delta-U.
+hp.x writes its .dat even after non-convergence, so the driver checks convergence, not artifacts.
+
+### Queue as of submission
+25 tasks pending: 20382165_1..24 (P-PROJ-6) + 20382206 (hp.x). Nothing running yet.
+
+### Owed when they land
+- [ ] Countersign both readouts. Neither is discharged by the adoption lines.
+- [ ] P-PROJ-6 readout script: 24 ortho legs vs banked atomic partners at u750, |Delta-eta| per
+      metal, bands, pls comparison, R_M as a labelled diagnostic, Cr labelled CALIBRATION.
+- [ ] A7.7 report-prose re-authoring for both.
