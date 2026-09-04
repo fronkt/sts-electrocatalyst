@@ -47,25 +47,26 @@ projwfc.in is NOT written here. anvil/46_a0.slurm generates it at runtime from
 the deck's own prefix (A6.5(1)), so writing one would create a second source of
 truth for the same field.
 
-REGISTRATION GATE -- READ THIS BEFORE RUNNING
+REGISTRATION -- LICENSED 2026-09-03
 
-  Building is permitted pre-licence; SUBMISSION IS NOT. The precedent is the
-  A0-SPIN Stage 1 build ("PRE-STAGED, NOT LICENSED ... submission gated on
-  docs/61 decisions 1-4"). P-PROJ-6 has no dated registration line yet, and
-  three blocking defects must be closed IN THAT LINE before any deck is
-  submitted (docs/76 section 2):
+  The decks were built BEFORE the thresholds were adopted (c2e9a18), and the
+  thresholds were adopted and committed BEFORE anything was submitted (8aba0ae),
+  so the objects submitted are provably the objects built and the arm is blind.
+  That ordering is the whole point; do not collapse it on a re-run.
+
+  Amendment 12 (docs/77) closed three defects in that dated line:
 
     1. |Delta-eta| is the primary statistic. The residual R_M is a DIAGNOSTIC.
        A uniform offset on the cumulative dG gives R_M = 0.40 eV with
        Delta-eta = 0.0000 V exactly at pls 2 or 3.
     2. The denominator is the FIVE blind metals. Cr is calibration -- its
        result is known today and it may not also be counted.
-    3. A pseudopotential-family confound clause is required. The PP census is
-       ultrasoft {Cr, Mn, Ti, Ir}, PAW {Fe}, norm-conserving {Ru}, so a
-       CONFIRM set of four has exactly the cardinality of the ultrasoft family.
+    3. A pseudopotential-family confound clause. The PP census is ultrasoft
+       {Cr, Mn, Ti, Ir}, PAW {Fe}, norm-conserving {Ru}, so a CONFIRM set of
+       four has exactly the cardinality of the ultrasoft family.
 
-  This script therefore refuses to emit a submit command. It writes decks and a
-  manifest and stops.
+  Re-running this script rewrites decks and manifest deterministically. It does
+  NOT re-open the registration.
 
 Usage:
     PYTHONPATH=src python src/dft/build_pproj6.py            # build + verify
@@ -215,25 +216,37 @@ def main():
         return
 
     lines = [
-        "# P-PROJ-6 manifest -- ortho-atomic leg, six metals, U = 7.50 eV",
+        "# P-PROJ-6 manifest -- ortho-atomic leg, six metals, U = 7.50 eV.",
         "# Built by src/dft/build_pproj6.py. Each deck differs from its",
         "# runs/a0/main/<M>/<state>__u750.in source in exactly 2 lines:",
         "#   prefix, and HUBBARD (atomic) -> (ortho-atomic).",
         "#",
-        "# NOT LICENSED FOR SUBMISSION. P-PROJ-6 has no dated registration line.",
-        "# See docs/76 section 2 for the three blocking defects that must be",
-        "# closed in that line first.",
+        "# LICENSED 2026-09-03. Amendment 12 (docs/77) ADOPTED by the entrant's",
+        "# dated decision of record, committed at 8aba0ae BEFORE any deck was",
+        "# submitted and before any output existed: |Delta-eta| primary, R_M a",
+        "# diagnostic only, denominator = the FIVE blind metals with Cr as",
+        "# labelled calibration, four count bands including the middle band, the",
+        "# anti-selection clause, and the pseudopotential and spin confound",
+        "# clauses. The decks themselves were built and md5-manifested at",
+        "# c2e9a18, before those thresholds were adopted.",
         "#",
-        "# metal  state      U(eV)  md5                               path",
+        "# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171",
+        "#",
+        "# nk = 4 matches the banked atomic partners at this rung, and NP = 128",
+        "# is a multiple of it. Runnable rows are: dir job suffix nk",
+        "#",
+        "# md5 of each deck, for the record:",
     ]
     for metal, state, dst, species, u in rows:
-        lines.append("%-6s %-9s %6.4f  %s  %s"
-                     % (metal, state, u, md5(dst), W.rel(dst).replace("\\", "/")))
+        lines.append("#   %-6s %-9s %6.4f  %s" % (metal, state, u, md5(dst)))
+    lines.append("#")
+    for metal, state, dst, species, u in rows:
+        lines.append("a0/pproj6/%s %s__%s_ortho .in 4" % (metal, state, RUNG))
     W.write(MANIFEST, "\n".join(lines) + "\n")
     print("  manifest -> %s" % W.rel(MANIFEST))
     print()
-    print("  SUBMISSION IS GATED. This script emits no submit command by design.")
-    print("  The dated registration line is the entrant's and must come first.")
+    print("  LICENSED per docs/77, adopted 2026-09-03 at 8aba0ae.")
+    print("  Submit: bash anvil/47_submit_a0.sh $PROJECT/sts/runs/a0/m_pproj6.txt 6")
 
 
 if __name__ == "__main__":
