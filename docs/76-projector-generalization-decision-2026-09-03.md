@@ -273,7 +273,15 @@ directories.** P-PROJ-6 takes that to twenty-nine.
   byte-identical slab; relaxing destroys the construction. ~1,700 SU is affordable; 12-25
   entrant-hours of babysitting inside the runway is not. No relax set in this project has ever
   completed without retries.
-- **Any hp.x arm on a new material.** No Anvil hp.x path, comparator machine destroyed, 6-12
+- **Any hp.x arm on a new material.** ~~No Anvil hp.x path, comparator machine destroyed,~~ 6-12
+  **[STRUCK 2026-09-04: BOTH premises false, and this line repeated the claim already
+  withdrawn at :235 of this same file. (a) hp.x IS on Anvil --
+  `/anvil/projects/x-che260157/qe/env/bin/hp.x`, beside the production pw.x, verified
+  starting `Program HP v.7.5 starts on 4Sep2026`. (b) There were TWO comparator boxes,
+  not one: 47662258 (`anvil/20_stage.sh:3`, np=20) and 47025043 (`src/dft/queue_hp.sh:67`,
+  np=18) -- which matters because the 108 core-hour figure below is an np=18 SLAB number,
+  while the CrO2 BULK hp.x ran clean at 7.86 core-hours. THE DECLINE ITSELF STANDS, on
+  its one surviving reason: no bulk cell exists for beta-MnO2, RuO2 or IrO2.]**
   entrant-hours before deck one. The VOID branch is mispriced 3-4x: `niter_max = 80` means a
   non-converging run burns all 80 iterations at every q — measured at **108 core-hours for one
   (atom, q) pair.** beta-MnO2 has no bulk SCF anywhere in this repo.
