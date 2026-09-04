@@ -1,0 +1,11 @@
+# CrO2 bulk linear-response U under the ORTHO-ATOMIC projector.
+# Built by src/dft/build_hp_cro2_ortho.py. Closes the missing cell of
+# the {TiO2, CrO2} x {atomic, ortho} grid; the other three are banked
+# in runs/hp_tio2 (TiO2 atomic 4.2245/4.2251, TiO2 ortho 5.6688/5.6743,
+# CrO2 atomic 6.1635 eV at q222).
+#
+# A8.8 ISOLATION: outputs land in runs/hp_cro2_ortho/, never in the
+# banked runs/hp_tio2/. Run the SCF first, then hp.x against its prefix.
+#
+# scf  3bbc53623b08aabe056389c7f563707e  scf__cro2_ortho.in
+# hp   17763c1ab5fa9432e55dd551ceb376ad  hp__cro2_ortho_q222.in

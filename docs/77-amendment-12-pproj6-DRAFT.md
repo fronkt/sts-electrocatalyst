@@ -220,3 +220,63 @@ The same fit is run on the blind five when their outputs land, and *those* are b
 The decks will not change. `src/dft/build_pproj6.py` is deterministic and its manifest carries an
 md5 per deck, so the objects submitted are provably the objects built before the registration was
 written.
+
+---
+
+# AMENDMENT 12b — the second observable: CrO₂ bulk linear-response U under both projectors
+
+> **ADOPTED 2026-09-03. Entrant, verbatim: "continue with the h p dot x."**
+> Committed before the deck is submitted and before any output exists.
+
+## What runs
+
+Two decks in `runs/hp_cro2_ortho/`, built by `src/dft/build_hp_cro2_ortho.py`:
+`scf__cro2_ortho.in` (3-line diff from the banked `runs/hp_tio2/scf__cro2.in` — prefix, outdir,
+`HUBBARD (atomic)` → `(ortho-atomic)`) and `hp__cro2_ortho_q222.in` (2-line diff — prefix, outdir).
+Both diffs asserted against the banked TiO₂ atomic/ortho pair before cloning. **np = 20, nk = 4,
+matching the banked atomic leg's shape.**
+
+## What it closes
+
+`runs/hp_tio2` holds three cells of a 2×2 grid. TiO₂ atomic **4.2245 / 4.2251 eV**, TiO₂ ortho
+**5.6688 / 5.6743 eV** — a **1.44 eV projector split in U-space** — and CrO₂ atomic **6.1635 eV**.
+The fourth cell is missing, and it is on the **flagship material**.
+
+This makes the projector-split-in-U observable **n = 2 in materials**, and crosses an axis the
+TiO₂ point cannot: TiO₂ is nspin = 1, closed-shell d⁰; **CrO₂ is nspin = 2, magnetic 3d** — the same
+oxide whose slab carries A7.1.
+
+## Thresholds — inherited, not invented
+
+The **q-mesh convergence threshold is the deposited 0.2 eV** (`docs/43:276`). It is *not* tightened
+to TiO₂'s observed flatness: *"a threshold invented after the quantity is known is worth nothing"*
+(`docs/43:1213`).
+
+**No threshold is registered on the size of the CrO₂ split.** This is a measurement, reported with
+the other three cells as a 2×2 table. Registering a bar on a quantity with n = 1 of prior evidence
+would be a threshold fitted to a hope.
+
+## The named risk, pre-stated
+
+**nspin = 2 crossed with ortho-atomic has never been run in this campaign.** If the linear response
+does not converge, the arm returns **NO U**, and that is the reportable outcome — a methods limit,
+not a ΔU. `queue_hp.sh:334-337` establishes that hp.x writes its `.dat` even after non-convergence,
+so **an artifact is not a pass**; `anvil/52_hp.slurm` checks for
+`Convergence has not been reached` and exits non-zero on it.
+
+## Isolation
+
+Outputs land in `runs/hp_cro2_ortho/`, **never** in the banked `runs/hp_tio2/`. A8.8: the banked tree
+is read-only by construction, and `queue_hp.sh`'s `run_one` writes `> "${hp}.out"` unconditionally
+with no stale-output refusal. `52_hp.slurm` additionally refuses any `.out` already carrying
+`JOB DONE`.
+
+## Cost
+
+Measured from the banked atomic legs: SCF 37.44 s + HP 19 m 36.81 s at np = 20 = **6.54 core-hours,
+zero non-convergence**. Ortho hp.x ran *cheaper* than atomic on all three banked TiO₂ q-pairs
+(0.894 / 0.967 / 0.982). **~11 SU floor, ~72 SU ceiling** against `niter_max = 80`.
+
+**The 108 core-hour figure in the record is the CrO₂ SLAB at np = 18** (`runs/hp_costmodel`, 4/4
+non-converged). The bulk is a different object and ran clean. docs/76 §6 refused an hp.x arm on the
+slab number applied to a bulk run; docs/78 §1 strikes that.
