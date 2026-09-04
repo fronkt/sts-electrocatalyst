@@ -3873,3 +3873,32 @@ restricted deposits, on the grounds that a judge who clicks a DOI in November me
 permission wall. That is the entrant's call and it is **not** exercised here; this version
 is deposited restricted, consistent with the registered election, and the recommendation
 remains open.
+
+**DOI line (2026-09-04):** **10.5281/zenodo.22304889** — docs/43 complete through
+Amendment 13 (A1–A9 + A11 + A12 + A12b + A13 + all dated addenda; **A10 pending and
+undrafted as registered text**) published 2026-09-04T12:35:26Z as a new version of concept
+record **10.5281/zenodo.21963143**, restricted access (DOI + timestamp public, files closed
+until report submission), `version` string `A1-A13`. Fileset: **7 files** — this document
+as `43-prereg-week1-factorial-A1-A13.md` (313,544 bytes, md5
+`527a23847f83c369e82cdfe78934d55b`), plus `docs/77` (15,374 · `51048be5…`), `docs/79`
+(6,343 · `094e00a0…`), `docs/80` (8,401 · `030ed602…`), `docs/81` (6,496 · `3887567e…`),
+`runs/a0/m_pproj6.txt` (3,382 · `2d67ae76…`) and `runs/a0/m_pproj_cell.txt`
+(1,959 · `01908b8a…`).
+
+Each is the **git-blob (LF) serialization** of commit `72aeee9` — not the CRLF working
+tree, which differs by one CR per line; the per-file bytes/md5/sha256 are in the committed
+manifest `docs/deposits/2026-09-04-A13.manifest.txt`, and **every uploaded md5 was verified
+against the published record, 7 of 7**, before publication. The seven files the new version
+inherited from 22213117 were removed before upload, so this record's fileset is exactly the
+seven above and nothing carried over silently.
+
+**The deposit obligation of A12–A13.DEP is discharged.** Amendment 13's first governed act
+— the submission of any P-PROJ-CELL deck — may now proceed. **Amendments 12 and 12b remain
+late by their own rule and that is not cured by this line**: the acts they govern were
+submitted on 2026-09-03 and this deposit is dated 2026-09-04. What this line establishes is
+that the registration is now third-party timestamped, and that **for P-PROJ-6 the deposit
+still precedes every output** — the array stood at 24/24 PENDING with zero outputs at
+publication. For Amendment 12b, whose arm had already landed, the sentence owed in any
+report of that result stands as written above.
+
+Text added after publication; the deposited files are the frozen artifacts.
