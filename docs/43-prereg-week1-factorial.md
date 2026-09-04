@@ -3995,3 +3995,159 @@ pass, against our own flagship, published against ourselves within hours of depo
 behaviour the registration exists to make possible** — and it is recorded that the pass which
 found it was run *after* the deposit rather than before, which is the ordering defect to fix
 next time.
+
+---
+
+## Dated addendum — 2026-09-04: A12.R11 and A13.R8, the two September readouts enter the register — and the A6.5(1) charge readout that was missing from both
+
+**Why this is an addendum and not an inline row.** Both arms were read *after* the
+12:35:26Z deposit of 10.5281/zenodo.22304889. A12b's readout row (A12b.R4) sits inline
+because it was written into the A12b block; these two cannot, because the file they would
+edit is frozen. Per the rule at the head of this document, they go at the bottom, dated,
+with the reason. **A12 carried R1–R10 and A13 carried R0–R7 with no readout row at all**,
+so `docs/83` and `docs/84` were countersigned in their own text while the register that
+governs them had no row pointing at either — the gap this addendum closes.
+
+---
+
+### A12.R11 — P-PROJ-6, readout
+
+Full readout at `docs/83-pproj6-readout-2026-09-04.md`.
+
+**24 of 24 SCFs converged.** Zero `convergence NOT achieved`, zero error banners, zero branch
+mismatches. All 24 output md5s verified byte-identical between Anvil and this checkout
+(fileset rollup `a393be276a8c6123a44c2e1ab9a26e67`).
+
+| metal | role | η atomic | η ortho | pls | Δη (V) | band | PP family | nspin |
+|---|---|---|---|---|---|---|---|---|
+| **Cr** | **CALIBRATION**, excluded from every count (A12.R2) | 1.2349 | 1.6811 | 2→1 | +0.4462 | — | ultrasoft | 2 |
+| Mn | blind | 1.2930 | 1.3721 | 1→1 | +0.0791 | **INTERMEDIATE** | ultrasoft | 2 |
+| Fe | blind | 1.2601 | 1.3895 | 2→1 | +0.1293 | **FIRES** | PAW | 2 |
+| Ti | blind | 1.9368 | 1.9377 | 2→2 | +0.0010 | **NULL** | ultrasoft | 1 |
+| Ru | blind | 0.3577 | 0.7885 | 3→2 | +0.4308 | **FIRES** | norm-conserving | 1 |
+| Ir | blind | 0.6981 | 1.1577 | 2→2 | +0.4596 | **FIRES** | ultrasoft | 1 |
+
+**FIRES 3 of 5** {Fe, Ru, Ir} · **INTERMEDIATE 1 of 5** {Mn} · **NULL 1 of 5** {Ti}.
+
+**Class verdict: MIDDLE BAND — metal-dependent**, selecting A12.R3's "3 or 2" row. Its
+pre-written wording governs and is not re-invented here: *"the split is real on some systems
+and not others; it is not universal; the per-metal table is the result and **no class claim
+is made**."* A12.R4's anti-selection is satisfied — all five blind metals are in the table
+above with their Δη, band and pls, and Cr travels with them labelled.
+
+**The confound clauses did not fire, and the manner of the miss is the substantive part.**
+A12.R5/R6 named four dangerous partitions in advance. The firing set {Fe, Ru, Ir} is **one
+metal from each of the three pseudopotential families and spans both spin conventions**, and
+the ultrasoft set {Mn, Ti, Ir} contains the NULL metal, the INTERMEDIATE metal *and* the
+largest firer — so PP family manifestly does not organise the verdict. Registered check:
+firing set ≠ {Mn, Ti, Ir}, ≠ {Fe, Ru}, ≠ {Mn, Fe}, ≠ {Ti, Ru, Ir}. **Not DECLARED
+CONFOUNDED.**
+
+**Ir discharges the criticism A13.6 raised against A7.1.** Ir's Δη = 0.4596 V runs pls 2→2,
+so the ZPE/TS constants and the gas references cancel identically: **0.00 constants
+contribution, 100 % electronic**, at the same magnitude as A7.1's 0.4869 V of which 133.5 %
+was the constants table. The constants dependence is therefore a property of *A7.1's
+particular pls flip*, not of the projector effect.
+
+**Three caveats travel with individual rows, per A12.R4.** Fe's +0.1293 V decomposes as
+electronic −0.5207 eV + constants +0.6500 eV = **502.6 % constants**, so Fe counts on |Δη|
+but may never be quoted as evidence of a large *electronic* projector effect. Ru's constants
+work against it: electronic +1.0808 eV − 0.6500 eV, so its reported Δη understates an
+electronic difference over 1 eV. Mn is INTERMEDIATE and is **not rounded**.
+
+**Cost, measured rather than estimated:** the 24 new ortho decks sum to 1.394 h WALL at 128
+cores = **178.4 core-hours**, against this amendment's ~299 SU floor / ~600 ceiling.
+Recorded so the next cost model is not inflated by the estimate.
+
+> `[A12.R11 COUNTERSIGNED 2026-__-__]` — the entrant, in session: ____
+
+---
+
+### A13.R8 — P-PROJ-CELL, readout
+
+Full readout at `docs/84-pproj-cell-readout-2026-09-04.md`.
+
+**4 of 4 converged.** Zero `convergence NOT achieved`, zero branch mismatches, all four
+output md5s byte-identical between Anvil and this checkout.
+
+**A13.2's disclosed non-blind check PASSED at +0.0000 meV.** The atomic leg re-derives to
+**0.9239810 V, pls 1** — exactly the value written into the registration before the ortho leg
+ran. The scorer refuses if it misses; it did not miss.
+
+| leg | pls | η (V) | step 1 | step 2 | step 3 | step 4 |
+|---|---|---|---|---|---|---|
+| atomic | **1** | 0.9239810 | **2.1539810** | 1.9931610 | 0.4494759 | 0.3233821 |
+| ortho | **1** | 1.0964974 | **2.3264974** | 2.1721761 | 0.1275272 | 0.2937993 |
+
+**Δη = +0.1725164 V → FIRES** against the 0.10 V trigger inherited unchanged from A7.1.
+**pls 1 → 1: the legs AGREE.**
+
+**This selects the second of A13.4's four pre-written branches**, quoted rather than
+re-invented: *"the **magnitude** survives the cell change; the **mechanism sentence does
+not**. 'The projector flips the rate-limiting step' becomes a **1×1-only sentence** and is
+scoped that way in every statement of A7.1 for the rest of the campaign."*
+
+**Consequence for every downstream statement, stated here so it cannot be forgotten:** the
+mechanism half of the flagship is now **1×1-only**. Any claim sentence, abstract or figure
+caption drafted before 2026-09-04 that reads the pls flip as a general property of the
+projector is stale on this row and on A12.R11 jointly, and must be re-authored rather than
+patched.
+
+**Per A13.4 this arm is Cr-only, scores no class row and enters no count** (A12.R2 unchanged);
+it is a robustness test of A7.1 on A7.1's own material.
+
+**Cost, measured:** the 4 new ortho decks sum to 0.554 h WALL at 128 cores = **70.9
+core-hours**, inside the ~70–74 central estimate and above the ~60 SU floor.
+
+> `[A13.R8 COUNTERSIGNED 2026-__-__]` — the entrant, in session: ____
+
+---
+
+### A6.5(1) — a defect in both September arms, disclosed and closed the same day
+
+**Both arms were banked, scored and countersigned in their own readouts without the charge
+readout A6.5(1) requires.** Measured 2026-09-04: `runs/a0/pproj6` and `runs/a0/pproj_cell`
+held **0 `.lowdin.txt` between them**, against 235 in `runs/a0/main`, 20 in `runs/a0/cell`
+and 6 in `runs/a0/p_proj`. `anvil/46_a0.slurm:112` hard-fails a job with *"PROJWFC FAILED —
+A6.5(1) requires a charge readout for every A0 point"*, so the rule was enforced at the queue
+and unenforced at the bank.
+
+**It was a mirroring failure, not a compute failure.** All 24 pproj6 and all 4 pproj_cell
+`.projwfc.out` existed on Anvil, all carrying `JOB DONE` with zero error banners; 8 of the 24
+(every Fe and every Ir ortho-leg state) and all 4 pproj_cell outputs had never been pulled.
+The 13 missing files were pulled and md5-verified byte-identical at both ends (13/13 OK), and
+`src/dft/extract_lowdin.py` produced 28 `.lowdin.txt`, **all 28 CHECK PASS**. Coverage is now
+**pproj6 24/24 and pproj_cell 4/4**. Cost: **0 SU** — no new DFT.
+
+**Nothing above moves.** No η, Δη, band, pls or count in A12.R11 or A13.R8 depends on a
+Löwdin charge; this closes a required readout, it does not revise a verdict.
+
+**Recorded as a process defect, since that is the point of the record:** the ordering that
+failed is the same one A12–A13.DEP already flags — the arms were countersigned before their
+evidence was fully mirrored. The check worth adding is that a readout may not be countersigned
+while any `.projwfc.out` for its decks is unmirrored.
+
+> `[A6.5(1) SEPTEMBER-ARM CLOSURE COUNTERSIGNED 2026-__-__]` — the entrant, in session: ____
+
+---
+
+### Correction of record: the Ni repair deck was never unrun
+
+`docs/78` §4.2 states that `runs/s3/Ni/s0_OH__2x1v_off__g1.fromparent.in` is *"the repair
+deck already exists and is unrun … Submit-only, ~50 SU."* **It ran, on 2026-08-25, as array
+20135148 task 2**, and was scored off Anvil and never mirrored — `docs/45:629-636` already
+carries its numbers.
+
+Pulled and md5-verified 2026-09-04: **−5157.23065325 Ry** against the banked parent's
+**−5157.23065359 Ry** = **+0.0046 meV**, total magnetisation **14.41 μ_B** (the correct
+magnetic branch, against the cold start's 12.24), **12 SCF iterations**, `JOB DONE`, zero
+non-convergence. This reproduces `docs/45:636` to the digit.
+
+**The ~50 SU on the action board is withdrawn: the true cost was 0 SU.** This is the
+`d26ea49` failure mode a second time — an artifact that exists on Anvil, recorded in this
+repository as missing — and the lesson recorded there ("the exhaustive search missed
+`/anvil/projects`, where the run tree lives") did not generalise into a check. **The check it
+should have produced:** no line may assert that a deck is unrun without a listing of the
+Anvil run tree in the same act.
+
+> `[NI REPAIR DECK CORRECTION COUNTERSIGNED 2026-__-__]` — the entrant, in session: ____
