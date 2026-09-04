@@ -67,15 +67,32 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 # manufactures "malformed DOIs" that are really sentence commas and colons. We
 # stop at whitespace and at trailing punctuation, then strip a closing bracket.
 DOI_RE = re.compile(r"\b(10\.\d{4,9}/[^\s\"'<>,;)\]}]+)", re.I)
-_TRAIL = ".,;:)]}>\"'"
+
+# Trailing characters that are prose or markup, never the end of a DOI.
+# `*` and backtick matter specifically: these documents write DOIs inside bold
+# and code spans, so "10.1002/anie.202521856**" is a bold marker, not an
+# identifier. Getting this wrong manufactures NOT_FOUND rows that look exactly
+# like fabricated citations, which is the one error this tool must not make.
+_TRAIL = ".,;:)]}>\"'*`"
+# `_` and `~` ARE legal DOI characters, so they are only stripped when doubled --
+# markdown emphasis (__bold__, ~~strike~~) rather than part of the identifier.
+_TRAIL_DOUBLED = ("__", "~~", "**")
 
 USER_AGENT = "sts-electrocatalyst-F8-bibliography-check/1.0 (github.com/fronkt/sts-electrocatalyst)"
 
 
 def normalise(doi: str) -> str:
     d = doi.strip()
-    while d and d[-1] in _TRAIL:
-        d = d[:-1]
+    changed = True
+    while changed and d:
+        changed = False
+        for pair in _TRAIL_DOUBLED:
+            if d.endswith(pair):
+                d = d[: -len(pair)]
+                changed = True
+        while d and d[-1] in _TRAIL:
+            d = d[:-1]
+            changed = True
     return d.lower()
 
 
@@ -274,6 +291,23 @@ def main(argv=None):
     counts = {}
     for n, d in enumerate(dois, 1):
         meta = resolve(d, pause=args.pause)
+        # A DOI that 404s but resolves once a trailing character is removed was
+        # never a bad citation -- it is markup or punctuation glued on by the
+        # source text. Report it as RESOLVED and name the cleanup, rather than
+        # leaving a row that reads like a fabricated reference.
+        if meta["state"] == "NOT_FOUND":
+            trimmed = d
+            for _ in range(4):
+                if not trimmed or trimmed[-1].isalnum():
+                    break
+                trimmed = trimmed[:-1]
+                alt = resolve(trimmed, retries=0, pause=args.pause)
+                if alt["state"] == "RESOLVED":
+                    alt["cited_as"] = d
+                    alt["note"] = ("source text appends %r to the DOI; identifier is valid"
+                                   % d[len(trimmed):])
+                    meta = alt
+                    break
         meta["contexts"] = [{"file": f, "line": i, "text": t} for f, i, t in found[d]]
         meta["n_citations"] = len(found[d])
         meta["title_agreement"] = title_agreement(meta, found[d])
