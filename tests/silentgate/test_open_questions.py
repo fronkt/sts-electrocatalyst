@@ -104,3 +104,64 @@ def test_question_is_answered_before_the_core_is_scored(q, requires_core):
     assert q["dated_line"].strip(), (
         "%s has a ruling but no dated line to cite" % q["id"]
     )
+
+
+def test_the_fixtures_own_citation_example_is_valid():
+    """The header tells the entrant how to write `dated_line`. Check its example.
+
+    Regression, 2026-09-04. The example read `docs/43:1975` -- and
+    test_a_recorded_dated_line_points_at_real_text does cite.split(":")[0] then
+    os.path.exists, so the abbreviation "docs/43" resolves to a path that is not
+    on disk. Following the file's own instruction broke the suite. Nothing may
+    document a citation form that the citation test rejects.
+    """
+    import re
+
+    with open(RULINGS, encoding="utf-8") as fh:
+        header = fh.read().split("[[question]]")[0]
+    examples = re.findall(r'"([^"]*:[0-9]+[^"]*)"', header)
+    assert examples, "the header no longer shows a dated_line example to check"
+    bad = []
+    for ex in examples:
+        path = ex.split(":")[0].strip()
+        if not os.path.exists(os.path.join(ROOT, path)):
+            bad.append("%r -> path %r does not exist" % (ex, path))
+    assert not bad, (
+        "the fixture header documents a citation form its own test rejects:\n  "
+        + "\n  ".join(bad)
+        + "\n\nUse the full filename, e.g. docs/43-prereg-week1-factorial.md:4106"
+    )
+
+
+def test_every_registered_option_is_lowercase_hyphenated():
+    """The `ruling` field is matched VERBATIM against these strings.
+
+    docs/82 drafts each signature in prose caps ("ALL", "CORRECTION FILED").
+    That prose belongs in the docs/43 dated line; this field takes the option
+    token. Pinning the option vocabulary makes a pasted signature fail loudly
+    rather than cryptically.
+    """
+    bad = []
+    for q in QUESTIONS:
+        for opt in q["options"]:
+            if opt != opt.lower() or " " in opt:
+                bad.append("%s: %r" % (q["id"], opt))
+    assert not bad, "options must be lowercase and hyphenated: %s" % ", ".join(bad)
+
+
+@pytest.mark.parametrize("q", QUESTIONS, ids=IDS)
+def test_a_case_variant_ruling_is_named_as_such(q):
+    """Diagnose the paste-from-docs/82 failure instead of merely rejecting it.
+
+    docs/82 row 5 is the worst case: it signs "CORRECTION FILED", which is not in
+    that question's options at all, while the option is "file-the-correction".
+    """
+    r = q["ruling"].strip()
+    if not r or not q["options"] or r in q["options"]:
+        return
+    near = [o for o in q["options"] if o.lower() == r.lower().replace(" ", "-")]
+    assert not near, (
+        "%s: ruling %r is the right decision in the wrong form -- write %r.\n"
+        "The prose signature belongs in the docs/43 dated line, not in this field."
+        % (q["id"], r, near[0])
+    )

@@ -5,11 +5,29 @@
 # parameter is elected by a DATED LINE in docs/43, by the entrant, and this file
 # only records that the line exists so CI can see it.
 #
-# Fill `ruling` with what you decided and `dated_line` with where you wrote it
-# (e.g. "docs/43:1975, 2026-08-28"). tests/silentgate/test_open_questions.py
-# fails on any question still blank once `silentgate/` exists -- before that it
-# skips, because a question about how to score the core cannot bind before the
-# core is written.
+# Fill `ruling` with what you decided and `dated_line` with where you wrote it.
+#
+# TWO TRAPS, both of which fail the suite IMMEDIATELY -- test_open_questions.py's
+# ruling/citation checks are NOT gated on `silentgate/` existing, so a bad string
+# here goes red today, before any core is written:
+#
+#   1. `ruling` must be one of this question's `options` VERBATIM, lowercase and
+#      hyphenated (test_a_recorded_ruling_is_one_of_the_registered_options).
+#      "ALL" fails; "all" passes. The signature wording drafted in docs/82 is
+#      prose for the docs/43 line -- it is NOT what goes in this field. Worst
+#      case is if_pos_parenthetical, where docs/82 signs "CORRECTION FILED" and
+#      this field must read "file-the-correction".
+#
+#   2. `dated_line` must cite a path that EXISTS. The test does
+#      cite.split(":")[0] and os.path.exists on it, so the abbreviation "docs/43"
+#      resolves to a path that is not on disk and fails. Write the full filename:
+#      e.g. "docs/43-prereg-week1-factorial.md:4106, 2026-09-05".
+#      (This example was itself wrong until 2026-09-04 and would have broken the
+#      suite for anyone who followed it.)
+#
+# test_open_questions.py fails on any question still blank once `silentgate/`
+# exists -- before that it skips, because a question about how to score the core
+# cannot bind before the core is written.
 #
 # AUTHORSHIP: written by AI as "tests and fixtures" under the A9.1 :1840
 # permitted list. The questions are transcribed from the registered text; the
