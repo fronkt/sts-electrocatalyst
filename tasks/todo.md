@@ -1659,3 +1659,37 @@ all of them (renormalise is byte-identical) and repairs the worktree on next che
       ab initio" rescues the ambiguity. ~8 SCFs, ~46 SU. Carries the known approximation that
       a bulk U is applied to a slab. See docs/79 POST-HOC section -- that reading is an
       argument, not a measurement, until this runs.
+
+## 2026-09-04 — own-U arm KILLED at the gate. Nothing built, nothing submitted.
+
+Entrant sign-off was conditional ("If it survives..."). It did not survive; the authority was
+never exercised. 80-agent adversarial pass, 3 independent kill lenses: DO NOT RUN / RUN MODIFIED /
+RUN MODIFIED-but-not-those-SCFs. Verdict + all six findings in `docs/80`.
+
+The gate actually asked about PASSED: projector+U together is interpretable, because U is a
+MEDIATOR of the projector choice, not a confounder. The arm failed on other grounds.
+
+### Two findings that hit the FLAGSHIP, not the arm
+- [ ] **F1 (0 SU, owed):** 134% of A7.1's 0.487 V is the ZPE/TS constants table. Raw DFT
+      difference is **-0.163 eV, ortho LOWER**. Verified exact. Publish the decomposition with a
+      +/-0.05 eV sensitivity on the constants. `src/hea_oer/referencing.py:18`.
+- [ ] **F2:** in the ADOPTED 2x1v cell the atomic projector ALREADY gives pls=1 (eta 0.9240) at
+      U=7.15. The 2->1 flip A7.1 attributes to the projector is reproduced by the CELL at fixed
+      projector. And there is NO ortho calculation in 2x1v at all.
+
+### Ranked replacement
+- [ ] **0 SU, most urgent — F3 deposit gap.** docs/43 has A1-9 + A11 only. A10/A12/A12b absent;
+      P-PROJ-6, 7.2677, 6.1635 all 0 hits. Only deposit is 2026-08-31, scoped A1-A11. So BOTH jobs
+      submitted 2026-09-03 are governed by undeposited text, against the rule at docs/43:1807.
+- [ ] **0 SU — publish F1.**
+- [ ] **~30-55 SU — four ortho SCFs in 2x1v at U=7.15.** Highest-value compute on the board: the
+      only calculation that can FALSIFY the headline in the production cell. NEEDS ENTRANT SIGN-OFF.
+- [ ] **<1 SU — P-XU-SPAN.** Still the only item that converts a deposited blind prediction to SCORED.
+
+### Corrections owed to existing docs
+- [ ] docs/79 POST-HOC section: "each projector's own self-consistent U" is an OVERCLAIM. Both hp.x
+      parents run at U=1.d-8 -> these are ONE-SHOT linear-response U about the U~0 ground state,
+      never iterated U_in->U_out. Say "one-shot bulk linear-response U".
+- [ ] Record that Xu's U=7.15 was itself produced under a DIFFERENT projector (docs/43:1327;
+      a0cell_readout labels the rung PROJECTOR-MISMATCHED in its own metadata). So atomic's "own"
+      U is simultaneously 6.1635 and 7.15 - 0.99 eV apart, 90% of the split we call an effect.
