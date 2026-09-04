@@ -1,0 +1,34 @@
+# P-PROJ-CELL manifest -- ortho-atomic leg, Cr, U = 7.15 eV, 2x1v.
+# Built by src/dft/build_pproj_cell.py. Each deck differs from its
+# runs/a0/cell/<stem>.in source in exactly 2 lines: prefix, and
+# HUBBARD (atomic) -> (ortho-atomic). Everything else is byte-identical.
+#
+# WHAT THIS ARM IS. A7.1 is a 1x1 statement. Block 1A adopted 2x1v, and in
+# 2x1v the ATOMIC projector already gives pls = 1 (eta 0.9239810,
+# docs/figs/a0cell_readout.json), so the 2 -> 1 flip A7.1 reports is also
+# what the cell change produces at fixed projector. No ortho-atomic
+# calculation exists anywhere in the adopted cell. These four are it.
+#
+# HALF NON-BLIND BY CONSTRUCTION, disclosed: the atomic leg is banked at
+# eta = 0.9239810 V, pls = 1, and that value is written into Amendment 13
+# IN ADVANCE. Only the ortho leg is unmeasured.
+#
+# nk = 8 matches runs/a0/cell/manifest.json; NP = 128 is a multiple of it
+# and is the shape the banked atomic partners ran at.
+#
+# COST, measured not estimated: the four atomic partners cost 1765.84 s WALL
+# at np = 128 = 62.79 core-h. Ortho/atomic WALL ratios on the banked 1x1
+# pair are 1.313 / 1.609 / 0.953 (mean 1.292), so ~63 SU floor, ~81 SU
+# planning, ~101 SU at the worst observed ratio.
+#
+# md5 of each deck, for the record:
+#   ref__2x1v__u715_ortho        7.1500  e85df604ab9c26a1a59eb0d305a8fd90
+#   s0_O__2x1v_mir__u715_ortho   7.1500  607d7020fccb669412a498f66a99f12d
+#   s0_OH__2x1v_mir__u715_ortho  7.1500  65562732c702ccb8a8c5f1b92b174480
+#   s0_OOH__2x1v_escape__u715_ortho 7.1500  d0e4d5442cc491f71b27fd74d0d207fe
+#
+# Runnable rows are: dir job suffix nk
+a0/pproj_cell ref__2x1v__u715_ortho .in 8
+a0/pproj_cell s0_O__2x1v_mir__u715_ortho .in 8
+a0/pproj_cell s0_OH__2x1v_mir__u715_ortho .in 8
+a0/pproj_cell s0_OOH__2x1v_escape__u715_ortho .in 8
