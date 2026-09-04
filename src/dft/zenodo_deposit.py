@@ -197,13 +197,11 @@ def cmd_upload(commit):
     if named != commit:
         drift = [p for p, _ in FILESET if blob(p, named) != blob(p, commit)]
         if drift:
-            sys.exit("REFUSING: the fileset changed between the commit the draft "
-                     f"names ({named[:9]}) and HEAD ({commit[:9]}):
-  "
-                     + "
-  ".join(drift)
-                     + "
-Re-run --manifest and --create at HEAD.")
+            msg = ["REFUSING: the fileset changed between the commit the draft "
+                   "names (%s) and HEAD (%s):" % (named[:9], commit[:9])]
+            msg += ["  " + p for p in drift]
+            msg.append("Re-run --manifest and --create at HEAD.")
+            sys.exit(os.linesep.join(msg))
         print(f"draft names {named[:9]}; HEAD is {commit[:9]}; all "
               f"{len(FILESET)} deposited blobs identical across the two.")
     commit = named
