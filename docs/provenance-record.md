@@ -104,6 +104,7 @@ adoption at the cited line.
 | the adversarial audit rounds recorded in the ledgers — the 2026-08-09 verify round (`docs/43-prereg-week1-factorial.md:861-880`), the S3 inventory (`docs/45-error-ledger.md:1750-1758`), the harness audit (`docs/45-error-ledger.md:1946-1950`), wave 4 (`docs/45-error-ledger.md:2303-2307`), wave 5 (`docs/45-error-ledger.md:2373-2376`), the 6-agent verification over docs/64 (`tasks/todo.md:877`), the Amendment 11 / docs/66 passes (`tasks/todo.md:935`) — and their findings files `docs/figs/a0_verification_findings_2026-08-28.txt`, `docs/figs/a0_verification_findings_2026-08-29.txt`, `docs/figs/a0_verification_findings_wave5_2026-08-29.txt` | the lines cited; `docs/figs/a0_verification_findings_wave5_2026-08-29.txt:1-2` |
 | `docs/research/2026-09-04-f8-doi-resolution.md`, `docs/figs/f8_doi_resolution.json`, `docs/references.bib` — F8 registrar resolution and the bibliography it built | 2026-09-04, first-hand; commit b6a1c19 |
 | `docs/research/2026-09-04-a13r8-staleness-sweep.md` | 2026-09-04, first-hand |
+| the Xu `.in` parse of 2026-09-03 — twenty raw `pwscf.in` files (CrO2, MnO2, RuO2, IrO2, TiO2 × bare/*O/*OH/*OOH at U = 3.5 eV) fetched from the GitHub mirror `zhongnanxu/rutile-OER` at commit `c4cb892605` together with the recursive tree, and read for `nspin`, `tot_magnetization`, `U_projection_type`, the `&ELECTRONS` namelist, `calculation`, `nosym` and the selective-dynamics flags. Inputs only: no output file was opened, no total energy read, no census number formed. Disclosed under the `docs/43-prereg-week1-factorial.md:1811` precedent as a pre-registration observation, not the entrant's census | `docs/75-novelty-and-placement-2026-09-03.md:26-62`; `docs/78-action-board-2026-09-03.md:55`; `docs/43-prereg-week1-factorial.md` dated disclosure 2026-09-05 |
 
 ## 5. Amendment drafts — A7.7 "amendment drafts"
 
@@ -123,6 +124,8 @@ by the entrant's adoption, recorded at the cited line.
 | the scribe-written dated addenda in the register — `[AFM-SCOPE RESOLVED 2026-08-30]`, the P-DISPOSITION date amendment, the 2026-09-03 nine-item directive lines — "the decision his, this text the scribe's" | `docs/43-prereg-week1-factorial.md:1980-1981, 2254-2255, 2598-2601` |
 | the dated addenda of 2026-09-04 in `docs/43-prereg-week1-factorial.md:4001-4235` (A12.R11 and A13.R8 entering the register, the A6.5(1) closure, the Ni repair-deck correction, the seven ruling lines) — drafted as transcription; every election and countersignature in them is the entrant's | 2026-09-04, first-hand |
 | the dated addendum of 2026-09-05 in `docs/43-prereg-week1-factorial.md` (OC20 asset, mirror audit, this record) | 2026-09-05, first-hand |
+| `docs/88-a10-signature-sheet-2026-09-05.md` (A10 signature sheet — every slot is the entrant's) | 2026-09-05, first-hand |
+| `docs/89-ru-pseudopotential-control-DRAFT.md` (a draft; NOT ADOPTED, NOT LICENSED) | 2026-09-05, first-hand |
 
 ## 6. Critique and decision sheets — A7.7 "critique"
 
@@ -156,6 +159,12 @@ by the entrant's adoption, recorded at the cited line.
 | `src/lit/verify_dois.py` | 2026-09-04, first-hand; commit b6a1c19 |
 | `src/dft/gate1_census.py` — the `--asof` argument (the edit only; the file's origin is not stated in the repository) | 2026-09-04, first-hand |
 | `src/dft/mirror_audit.py` | 2026-09-05, first-hand |
+| `src/dft/build_hp_cro2_q333.py` and the four decks + manifest under `runs/hp_cro2_q333/` | 2026-09-05, first-hand; commit ca5b33e |
+| `src/dft/build_eproj_np128.py`, `runs/a0/eproj_np128/` (two byte-identical copies) and `runs/a0/m_eproj_np128.txt` | 2026-09-05, first-hand; commit ca5b33e |
+| `src/dft/build_s5.py` and the S5 deck tree under `runs/s5/` (NOT LICENSED) | 2026-09-05, first-hand |
+| `src/dft/build_ru_pp.py`, the twelve decks under `runs/a0/ru_pp/` (NOT LICENSED) and `runs/a0/ru_pp/PSEUDO_PROVENANCE.md` | 2026-09-05, first-hand |
+| `src/dft/hp_cro2_q333_readout.py`, `src/dft/eproj_np128_readout.py` and `tests/test_small_arms_readouts.py` (scorers committed before their outputs landed) | 2026-09-05, first-hand; commit b502beb |
+| `src/dft/build_h_afm_relax.py` — the `--out-dir` argument (the edit only) and the matching test change | 2026-09-05, first-hand; commit f5d2f7d |
 
 ## 8. Ledger and prose infrastructure
 
@@ -165,12 +174,19 @@ by the entrant's adoption, recorded at the cited line.
 | `tasks/todo.md` and `tasks/lessons.md` — the entries dated 2026-09-04 and 2026-09-05 | first-hand |
 | the release notes of GitHub release `oc20-val_id-first500` | 2026-09-05, first-hand |
 | `docs/provenance-record.md` — this file | 2026-09-05, first-hand |
+| the dated addendum of 2026-09-05 (session 2) in `docs/43-prereg-week1-factorial.md:4341-4418` — transcription of four elections and three adoptions from the entrant's instruction; the :4334 slot filled in place | 2026-09-05, first-hand; commit a8c3218 |
+| the ordering line in `docs/45-error-ledger.md` section D dated 2026-09-05, and the filled Ruling 1 slot in `docs/86-divanis-decision-sheet-2026-09-04.md` — transcriptions | 2026-09-05, first-hand; commit a8c3218 |
+| `tasks/todo.md` — the entries dated 2026-09-05 (session 2) | first-hand |
+| `docs/84-pproj-cell-readout-2026-09-04.md` — the dated addendum of 2026-09-05 (the U of each number) | 2026-09-05, first-hand |
+| `docs/83-pproj6-readout-2026-09-04.md` — the dated addendum of 2026-09-05 (the cell of every deck) | 2026-09-05, first-hand |
+| `docs/75-novelty-and-placement-2026-09-03.md` — the dated addendum of 2026-09-05 (lines 85-90 superseded) | 2026-09-05, first-hand |
+| `docs/76-projector-generalization-decision-2026-09-03.md` — the dated addendum of 2026-09-05 (section 5 superseded) | 2026-09-05, first-hand |
 
 ## 9. Owed, not yet written
 
 | entry owed | where the obligation is recorded |
 |---|---|
-| a disclosure line for the Xu `.in` parses performed during the docs/78 review round (precedent `docs/43-prereg-week1-factorial.md:1811`) | `docs/78-action-board-2026-09-03.md:55` |
+| *(discharged 2026-09-05 — entered in section 4)* the disclosure line for the Xu `.in` parses of the docs/78 review round | `docs/78-action-board-2026-09-03.md:55` |
 
 ---
 

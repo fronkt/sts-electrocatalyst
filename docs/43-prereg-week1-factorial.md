@@ -4416,3 +4416,16 @@ here. In no branch does A7.3 move: it stays NOT MET at 3 of 6 as banked, and the
 how its Ru line is quoted.
 
 The next Zenodo version carries this addendum. No registered number, band or verdict moves.
+
+---
+## Dated disclosure — 2026-09-05: the Xu input-file parse of 2026-09-03, under the :1811 precedent
+
+On 2026-09-03, during the sweep recorded in docs/75, a tool fetched from the public GitHub mirror
+`zhongnanxu/rutile-OER` (commit `c4cb892605`) the recursive tree and twenty raw `pwscf.in` files —
+CrO₂, MnO₂, RuO₂, IrO₂ and TiO₂ × bare/*O/*OH/*OOH at U = 3.5 eV — and read from them `nspin`,
+`tot_magnetization`, `U_projection_type`, the `&ELECTRONS` namelist, `calculation`, `nosym` and the
+selective-dynamics flags (docs/75:26-62). Inputs only: no `pwscf.out` was opened, no total energy was
+read, and no census number was formed. As at :1811 item 3, this is disclosed as a pre-registration
+observation made by a tool and not by the entrant; it does not touch :1909 (census numbers from raw
+outputs the entrant parsed himself) and does not pre-commit any branch of P-XU or P-XU-SPAN. Entered
+in `docs/provenance-record.md` section 4 the same day, discharging the entry owed at docs/78:55.
