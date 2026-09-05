@@ -5,6 +5,10 @@ scipy>=1.11
 scikit-learn>=1.3
 matplotlib>=3.7
 ase>=3.23
+# src/dft/pourbaix_multi.py, src/dft/pourbaix_r2.py, src/hea_oer/data.py and
+# src/hea_oer/surfaces_rutile.py import pymatgen at module level; without it the
+# repo-tests CI job errors at collection (38 of 38 runs red, 2026-08-27 .. 2026-09-05).
+pymatgen>=2024.1.27
 pytest>=7.4
 
 # Optional — real adsorption-energy backend (needs GPU; run on Vast.ai):
