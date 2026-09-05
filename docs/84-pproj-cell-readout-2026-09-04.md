@@ -130,3 +130,31 @@ to the ZPE/TS table; and that the rate-limiting-step flip is **a 1×1 result onl
 **May not:** "the projector flips the rate-limiting step" without the 1×1 scope; 0.487 V quoted
 without its cell and without the 0.17 V adopted-cell companion; or any claim that this arm
 generalises beyond Cr.
+
+---
+
+## Dated addendum — 2026-09-05: the Hubbard U of the two numbers this file compares
+
+Nothing above this line is edited. No line of this file states a Hubbard U; the table at :35-38
+and the comparison at :95-107 put a 2×1v number, a 1×1 number and the six-metal result side by
+side without one. The U of each is read here from docs/43 and from the decks.
+
+**Δη = +0.1725 V (:23, :38) is a U = 7.15 eV measurement, and so is the 1×1 row it is compared
+with.** A13 governs this arm at "U = 7.15 eV, in the **adopted 2×1v cell**" (docs/43:3613-3614)
+and A13.5 item 3 states "One U (7.15) and one material (Cr)" (docs/43:3730). The four ortho decks
+carry `HUBBARD (ortho-atomic)` / `U Cr-3d 7.1500` at `runs/a0/pproj_cell/ref__2x1v__u715_ortho.in:81-82`,
+`s0_O__2x1v_mir__u715_ortho.in:80-81`, `s0_OH__2x1v_mir__u715_ortho.in:83-84` and
+`s0_OOH__2x1v_escape__u715_ortho.in:85-86`; their banked atomic partners carry `HUBBARD (atomic)` /
+`U Cr-3d 7.1500` at `runs/a0/cell/ref__2x1v__u715.in:81-82`, `s0_O__2x1v_mir__u715.in:80-81`,
+`s0_OH__2x1v_mir__u715.in:83-84` and `s0_OOH__2x1v_escape__u715.in:85-86`. The 1×1 row (0.4869 V,
+A7.1) was registered "at U = 7.15 eV, 1×1 (matching A0)" (docs/43:1333).
+
+**The six-metal P-PROJ-6 result read alongside at :95-107 (FIRES 3 of 5, docs/83:27-29) is a
+U = 7.50 eV measurement.** A12 governs that arm "at U = 7.50 eV" (docs/43:3345) and docs/83:147-148
+says so. All twenty-four ortho decks `runs/a0/pproj6/<M>/<state>__u750_ortho.in` carry
+`U <M>-<n>d 7.5000` — e.g. `Cr/slab__u750_ortho.in:62-63`, `Fe/s0_OOH__u750_ortho.in:67-68`,
+`Ir/slab__u750_ortho.in:59-60` — and all twenty-four atomic partners
+`runs/a0/main/<M>/<state>__u750.in` carry `HUBBARD (atomic)` / `7.5000` (`Cr/slab__u750.in:62-63`,
+`Fe/s0_OOH__u750.in:67-68`, `Ir/slab__u750.in:59-60`). The Cr calibration row of that arm (0.4462 V,
+docs/83:17 and :78) is therefore Cr at a third (cell, U) pair — 1×1, 7.50 eV — distinct from both
+rows of the table at :35-38, and none of the three Cr numbers is quotable without its cell and its U.

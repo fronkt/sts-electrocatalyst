@@ -56,3 +56,11 @@ one of them must not be touched at all.
 | `tasks/todo.md` | 1673 | - [ ] **F1 (0 SU, owed):** 134% of A7.1's 0.487 V is the ZPE/TS constants table. Raw DFT |
 
 **35 hits across 13 files.**
+
+**Dated line, 2026-09-05 — one further live-draft hit; the table above is not edited.**
+`docs/75-novelty-and-placement-2026-09-03.md` :85-90, the §2 draft claim sentence, quotes "from
+1.155 V to 1.642 V" (:87 — absolute η for Cr, barred by A7.5, `docs/43:1399-1401`) and "reverses
+which elementary step the model reports as rate-limiting" with no cell named (:87-88 — the flip
+read as general, stale by A13.R8, `docs/43:4090-4094`). It falls under LIVE PROSE by the rule at
+:15-18 above and was indexed above at :171 only (:39). The superseding text is the dated addendum
+appended to docs/75 on 2026-09-05. With this line: 36 hits across 13 files.

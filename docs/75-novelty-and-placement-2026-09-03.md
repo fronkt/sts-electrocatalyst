@@ -391,3 +391,33 @@ direction; none of them is a decision of record.
    qualify in 2026 is *"Fake references and/or citations in Research Report."* Both sweeps today
    produced fabricated or mis-scoped citations that their own critics caught. This buys no tier and
    protects everything.
+
+---
+
+## Dated addendum — 2026-09-05: the §2 draft sentence at :85-90 is superseded
+
+Nothing above this line is edited. §2 already calls its sentences "drafts for the entrant to
+re-author" (:82-83); this line records that the draft at :85-90 may not be re-authored from, on
+two counts, and what may be written instead.
+
+**It quotes absolute overpotentials for Cr** — "from 1.155 V to 1.642 V" (:87). A7.5
+(docs/43:1394) registers that the report "may therefore never quote an absolute η for Cr, Fe, Co
+or Ni as a materials claim; they appear only inside paired within-metal differences"
+(docs/43:1399-1400), enforced by the pre-submission script (docs/43:1401).
+
+**It reads the step flip as a general property of the projector** — "reverses which elementary
+step the model reports as rate-limiting" (:87-88), with no cell named. A13.R8 (docs/43:4066)
+rules that "any claim sentence, abstract or figure caption drafted before 2026-09-04 that reads
+the pls flip as a general property of the projector is stale … and must be re-authored rather
+than patched" (docs/43:4090-4094); the branch that fired makes it "a **1×1-only sentence**"
+(docs/43:3709), and docs/84:44 records the consequence: "The pls-flip sentence is now dead
+outside 1×1."
+
+**The permitted form** is the paired within-metal difference with both cells printed together
+(docs/84:35-40): |Δη(Cr)| = 0.4869 V in the 1×1 cell, where the limiting step moves 2 → 1, and
+0.1725 V in the adopted 2×1v cell, where it stays 1 → 1 — both at U = 7.15 eV (docs/43:1333,
+:3613). The flip is stated of the 1×1 cell only, and 0.487 V is never quoted without its cell and
+its 0.17 V adopted-cell companion (docs/84:126-132). The 2026-09-04 staleness sweep
+(`docs/research/2026-09-04-a13r8-staleness-sweep.md`) indexed this file at :171 only (sweep :39)
+and its class rule (sweep :15-18) puts this file under LIVE PROSE; :85-90 is entered there by a
+dated line of the same date as this one.

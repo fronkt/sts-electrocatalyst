@@ -300,3 +300,27 @@ directories.** P-PROJ-6 takes that to twenty-nine.
    frees a body-ledger row and eases the Sep 20 displacement.
 4. **Sep 20:** six-row displacement and claim sentence, with P-PROJ-6 in hand.
 5. **Oct 6:** writing starts. Everything above is done or withdrawn by then, in writing.
+
+---
+
+## Dated addendum — 2026-09-05: §5's verdict at :222-223 is superseded by the P-PROJ-6 readout
+
+Nothing above this line is edited. §5 opens: "It becomes a class claim about the METHOD. It stays
+an existence proof about MATERIALS. Both are true, both must be written" (:222-223). That was
+written on 2026-09-03, before the arm ran; the readout of 2026-09-04 governs, and on the first
+half it says the opposite.
+
+**Governing line.** docs/83:27-29 returns "CLASS VERDICT: MIDDLE BAND — metal-dependent. 3 of 5"
+and quotes the wording registered for that band: *"the split is real on some systems and not
+others; it is not universal, and the per-metal table is the result. **No class claim.**"*
+(docs/83:31-33). The registered text is docs/43:4032-4035 — "**Class verdict: MIDDLE BAND —
+metal-dependent**, selecting A12.R3's '3 or 2' row … the per-metal table is the result and **no
+class claim is made**" — with the band defined in advance at docs/43:3390. docs/83:157 lists "any
+class claim about DFT+U" first among what may not be said.
+
+**What stands.** The four "NO" limits (:230-246); the headline's last clause, "it does not say
+which projector is right" (:258, :260-261), which docs/83:148 restates; and the "N of 6"
+placeholder at :253, now filled as 3 of 5 blind metals with Cr as calibration (docs/83:24-25) —
+a per-metal table, not a class statement. The "YES, by Oct 6" paragraph (:225-228) survives only
+as "not a property of CrO2 alone": the split is real on Fe, Ru and Ir, intermediate on Mn and
+absent on Ti (docs/83:152-155).

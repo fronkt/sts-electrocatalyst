@@ -157,3 +157,34 @@ with **zero** contribution from the ZPE/TS table.
 **May not:** any class claim about DFT+U; any statement that the projector "moves the
 overpotential" without "on some materials"; Fe quoted as a large electronic effect; Ir's R_M span
 quoted as consistency; or any subset of the five quoted without the other four (A12.R4).
+
+---
+
+## Dated addendum — 2026-09-05: the cell of the P-PROJ-6 decks
+
+Nothing above this line is edited. This file names a cell once, in the A7.1 comparison row at :77
+("Cr (A7.1, 1×1, calibration)"); the six-metal table at :15-22 and the class verdict at :27-29
+carry none, and neither does Amendment 12: docs/43:3344-3347 governs the arm and names the atomic
+partners by path (`runs/a0/main/<M>/<state>__u750.in`, :3347) without a cell, and the only lines
+of A12 (docs/43:3331-3600) matching `1×1|1x1|2×1|2x1|cell` are :3504 (a 2×2 contingency table),
+:3568 ("non-cancellation") and :3587 (the filename `a0cell_readout.json`).
+
+**Every one of the twenty-four P-PROJ-6 decks is the 1×1 rutile(110) cell, and so is every one
+of its twenty-four atomic partners.** Read from the decks `runs/a0/pproj6/<M>/<state>__u750_ortho.in`:
+`nat = 18` on all six slab decks and 19 / 20 / 21 on \*O / \*OH / \*OOH (line 12 of each), and a
+first cell vector of one lattice constant along the metal's c axis — Cr 2.91600000, Mn 2.87600000,
+Fe 3.00000000, Ti 2.95870000, Ru 3.10700000, Ir 3.15400000 Å — e.g.
+`runs/a0/pproj6/Cr/slab__u750_ortho.in:37-40` (`CELL_PARAMETERS angstrom`, 2.91600000 × 6.25223816 ×
+25.00895264 Å), `runs/a0/pproj6/Ir/slab__u750_ortho.in:34-37` (3.15400000 × 6.36113260 ×
+25.44453041 Å), `runs/a0/pproj6/Fe/s0_OOH__u750_ortho.in:39-42` (3.00000000 × 6.36396103 ×
+25.45584412 Å). Each ortho deck differs from its atomic partner in exactly two lines, the prefix
+and the `HUBBARD` card (`runs/a0/main/Cr/slab__u750.in` vs `runs/a0/pproj6/Cr/slab__u750_ortho.in`,
+likewise Fe/s0_OOH and Ir/slab), so the partners carry the identical `nat` and cell lines
+(`runs/a0/main/Cr/slab__u750.in:12,37-40`, `Ir/slab__u750.in:12,34-37`, `Fe/s0_OOH__u750.in:12,39-42`).
+For contrast, the adopted 2×1v cell of the A13 arm is `nat = 36` with a 5.83200000 Å first vector
+(`runs/a0/pproj_cell/ref__2x1v__u715_ortho.in:13,38-41`).
+
+The 1×1 scope is on the record for A7.1 at docs/43:3618-3619 ("a **1×1** statement") and for the
+A0 grid these u750 decks belong to at docs/43:1333 ("1×1 (matching A0)"). Consequence: the 3-of-5
+verdict at :27 is a 1×1, U = 7.50 eV result, and the cell test A13 ran on Cr (docs/84:35-38, 1×1
+against 2×1v) has no counterpart in this arm for any other metal.
