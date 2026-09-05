@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """The A9.1 disjointness assertion: (AI-use log file list) INTERSECT (core path list) = {}.
 
-Registered requirement, docs/43-prereg-week1-factorial.md :1840, verbatim:
+Registered requirement, docs/43-prereg-week1-factorial.md :1840, as deposited
+2026-08-23 (the prose was re-termed in place on 2026-09-03 -- "AI-use log" is now
+"provenance record", docs/43:3287-3309 -- and the identifiers here were left as
+they were, deliberately, docs/43:3311-3317):
 
     "CI asserts that the AI-use log's file list and the core path list are
      disjoint, and prints the assertion's status next to the controls, so that

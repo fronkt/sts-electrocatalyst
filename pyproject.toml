@@ -77,6 +77,10 @@ silentgate = "silentgate.cli:main"
 # Explicit, not auto-discovery: this repo has several top-level directories
 # (runs/, docs/, src/, anvil/, tests/, results/, data/) and flat-layout
 # auto-discovery would either error or sweep them into the distribution.
-[tool.setuptools]
-packages = ["silentgate"]
+# `packages = ["silentgate"]` alone would ship the top-level package and silently
+# DROP `silentgate.readers` (the readers sub-package named at :1840): an explicit
+# list is not recursive. `find` with an include pattern takes every package under
+# silentgate/, with or without __init__.py files, and nothing outside it.
+[tool.setuptools.packages.find]
+include = ["silentgate*"]
 # ---------------------------------------------------------------------------

@@ -262,11 +262,16 @@ def main():
                       "[schema] runs_array / locked_force_only / path are unmapped "
                       "in silentgate-invocation.toml")
 
+    # One pointer dialect for both runners. run_controls.json_pointer is
+    # RFC-6901-lite (list indices, ~0/~1 escapes); a private dict-only walker
+    # here meant a [schema] pointer could resolve in the face and not in the
+    # OC20 control, or the reverse, with no message saying why.
+    sys.path.insert(0, HERE)
+    from run_controls import json_pointer  # noqa: E402
+
     def deref(obj, ptr):
-        cur = obj
-        for key in ptr.lstrip("/").split("/"):
-            cur = cur.get(key) if isinstance(cur, dict) else None
-        return cur
+        found, val = json_pointer(obj, ptr)
+        return val if found else None
 
     cur = deref(payload, runs_ptr)
     if not isinstance(cur, list):

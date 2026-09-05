@@ -59,6 +59,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      # The controls invoke the entrant's CLI (census_cmd / oc20_cmd), which exists
+      # only once `silentgate/` is committed. Install it then, and only then --
+      # while the core is absent this step changes nothing, and says so.
+      - name: Install silentgate if the core is present
+        run: |
+          if [ -d silentgate ]; then python -m pip install --quiet . ; else echo "core absent (docs/43:1840); nothing to install"; fi
       - name: Run the OC20 control
         env:
           S1_OC20_MECHANISM: ${{ vars.S1_OC20_MECHANISM }}
@@ -93,6 +99,12 @@ jobs:
         with:
           python-version: '3.12'
 
+      # The controls invoke the entrant's CLI (census_cmd / oc20_cmd), which exists
+      # only once `silentgate/` is committed. Install it then, and only then --
+      # while the core is absent this step changes nothing, and says so.
+      - name: Install silentgate if the core is present
+        run: |
+          if [ -d silentgate ]; then python -m pip install --quiet . ; else echo "core absent (docs/43:1840); nothing to install"; fi
       - name: Fetch the OC20 status
         if: always()
         continue-on-error: true
@@ -105,7 +117,15 @@ jobs:
         if: always()
         continue-on-error: true
         env:
-          S1_AI_USE_LOG: ${{ vars.S1_AI_USE_LOG }}
+          # The provenance record's path was elected 2026-09-04
+          # (docs/43-prereg-week1-factorial.md:4200): docs/provenance-record.md,
+          # a single file, "located by $S1_AI_USE_LOG in the CI workflow". Set
+          # here, in the tree, rather than as a repository variable: the elected
+          # path is then in history and a fork re-running this workflow reads
+          # the same file. check_disjoint.py's filename auto-discovery does not
+          # match this name, which the election chose deliberately, so this
+          # line is the only thing that points the assertion at the record.
+          S1_AI_USE_LOG: docs/provenance-record.md
         run: python .github/ci/check_disjoint.py --json disjoint.json
 
       - name: Print the face and gate on it
@@ -144,6 +164,12 @@ jobs:
           python-version: '3.12'
       - name: Install pytest
         run: python -m pip install --quiet 'pytest>=7.4'
+      # The controls invoke the entrant's CLI (census_cmd / oc20_cmd), which exists
+      # only once `silentgate/` is committed. Install it then, and only then --
+      # while the core is absent this step changes nothing, and says so.
+      - name: Install silentgate if the core is present
+        run: |
+          if [ -d silentgate ]; then python -m pip install --quiet . ; else echo "core absent (docs/43:1840); nothing to install"; fi
       - name: Run the S1 suite
         run: python -m pytest tests/silentgate -v --tb=short
 
