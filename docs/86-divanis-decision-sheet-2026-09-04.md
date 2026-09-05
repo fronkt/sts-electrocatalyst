@@ -41,9 +41,11 @@ The cost of ruling broad is small and the cost of ruling narrow is not symmetric
 tool-computed headline in a project whose thesis is that undisclosed methodological choices
 change published conclusions is a sentence a referee gets to write for you.
 
-> `[P-DIVANIS AUTHORSHIP 2026-09-__: BROAD | NARROW]` — the scored floor-margin rate is computed
-> by ____; the extraction, the row-selection audit and the δ-curve plotting are tool work, logged
-> in the provenance record.
+> `[P-DIVANIS AUTHORSHIP 2026-09-05: BROAD]` — the scored floor-margin rate is computed by the
+> entrant; the extraction, the row-selection audit and the δ-curve plotting are tool work, logged
+> in the provenance record. Elected by the entrant in session 2026-09-05, as recommended; recorded
+> as his instruction, not as a quotation (docs/43 dated addendum 2026-09-05, session 2, item 1).
+> Rulings 2–7 below remain open and are answered before any count is formed.
 
 ---
 

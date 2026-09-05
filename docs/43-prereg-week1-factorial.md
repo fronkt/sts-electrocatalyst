@@ -4331,10 +4331,88 @@ no core path even in its "not produced" paragraph, since the assertion over-matc
 Initialised at the entrant's specific request of 2026-09-05 — the carve-out the project's wording
 rule itself provides. The entrant reviews and countersigns it like any other transcription.
 
-> `[PROVENANCE RECORD INITIALISED 2026-09-05]` — countersignature slot for the entrant.
+> `[PROVENANCE RECORD COUNTERSIGNED 2026-09-05]` — the entrant, in session 2026-09-05, reviewed this record and adopted it. Recorded as his instruction, not as a quotation.
 
 ### What this addendum does not do
 
 It does not write the core, does not fill `.github/ci/silentgate-invocation.toml`, and does not
 draft the claim sentence into the report. The face is red on exactly one row, `core_present`, and
 that row is the entrant's.
+
+---
+## Dated addendum — 2026-09-05 (session 2): four elections recorded from the entrant's instruction, and three small arms adopted
+
+All lines at or after :4341; nothing above the deposit line at :3997 is touched. Each item below was
+put to the entrant as a small set of named options in session 2026-09-05 and is recorded from his
+choice, in these terms and not as a quotation.
+
+### 1. P-DIVANIS Ruling 1 — BROAD
+
+**[P-DIVANIS AUTHORSHIP 2026-09-05: BROAD]** — A9.3.7 (:1910) governs all three census products, the
+Divanis product included: the scored floor-margin rate is computed by the entrant. Tool work
+permitted and logged in the provenance record: extraction of the ESI rows, the row-selection audit
+that reproduces Man 26 / Mom 11 / Frydendal 1, and the δ-curve plots. Rulings 2–7 of docs/86 remain
+open and are answered before any count is formed. The slot in docs/86 is filled in the same terms.
+
+### 2. The claim-sentence ordering and the docs/44 sentence — held
+
+The dated line :1932 asks for is written in docs/45 §D today: the registered ordering holds (the
+detector and the exposure census lead, the floor movement second, coverage-conditionality third);
+the docs/44:176-183 sentence is narrative and is NOT the claim sentence of record; and the claim
+sentence of record is not writable until S1 and S2 land, re-tested on Sep 20 against what has landed.
+docs/87 §6's second gate is therefore closed as a process matter; its first (C7 with C8) stands by
+the entrant's election, not by drafting.
+
+### 3. Amendment 10 / P-BEEF — the entrant elects to ADOPT and run S5
+
+The entrant elected to adopt Amendment 10 (docs/74 v2) and run the S5 BEEF-vdW σ arm rather than
+withdraw the body row. Nothing in docs/74 becomes registered by this line: every THRESHOLD there is
+re-authored by the entrant in his own words (A7.7, :1441-1447) on the signature sheet docs/88 before
+A10 is appended here and deposited, and the deposit precedes the first BEEF job (docs/45 §D row A10,
+Sep 18). Until then the S5 decks may be BUILT and carry NOT LICENSED; the submitter refuses them by
+construction (docs/66 §4).
+
+### 4. Countersignature
+
+The provenance-record slot at :4334 is filled in place today, in the form of the four September
+countersignatures (:4062, :4102, :4130, :4153).
+
+### 5. Three small arms, from the same instruction
+
+**(a) CrO₂ q-mesh check, both projectors at q = 3×3×3 — an A12b rider.** A12b.R2 (:3497-3505)
+inherits the deposited 0.2 eV q-mesh threshold (:276) and registers no bar on the split, and the
+A12b.R4 readout (:3514-3550) records the CrO₂ q-mesh as unmeasured — q222 only, both legs. Two
+`anvil/52_hp.slurm` jobs in `runs/hp_cro2_q333/`, A8.8-isolated from `runs/hp_cro2_ortho/` and
+`runs/hp_tio2/`: `scf__cro2_{atomic,ortho}_q333.in` differ from the banked SCF decks in exactly
+{prefix, outdir}; `hp__cro2_{atomic,ortho}_q333.in` differ from the banked hp decks in exactly
+{prefix, outdir, nq1 nq2 nq3 = 3 3 3}; both asserted by `src/dft/build_hp_cro2_q333.py` at build,
+md5s in `runs/hp_cro2_q333/MANIFEST.txt`. Pre-stated readout, nothing elective: a leg PASSES the
+q-mesh check if |U(q333) − U(q222)| ≤ 0.2 eV on that leg, else that leg's absolute U is reported as
+q-mesh-unconverged; the split is re-formed at q333 and printed beside the q222 split of +1.1042 eV.
+The A12b.R4 isolation check is repeated on the SCFs (`U Cr-3d 1.d-8` on both legs): against the
+ortho q222 leg (job 20382206, Anvil, np = 20) the total energy, magnetisation and iteration count
+must match to the printed decimals; against the atomic q222 leg, which ran on the Vast box, A8.5's
+1e-5 Ry (:1613-1621) applies. No new named risk: nspin = 2 × ortho-atomic has now run once. Cost
+basis: the ortho q222 leg took 7.86 core-h at np = 20 (:3514-3550); the q333 mesh has 27 q-points
+against 8, so the planning figure is scaled by that count, ~27 core-h per leg and ~55 for the pair,
+and the realised figure is reported.
+
+**(b) The S0 gate-(e) pair re-realised on Anvil at np = 128.** The two banked legs in
+`runs/s0/e_proj/` (`s0_O__u715_{atomic,ortho}`) print "running on 20 processor cores" — the Vast box —
+while every sibling of P-PROJ's eight ran at np = 128 on Anvil (`runs/a0/m_pproj.txt`), so the
+flagship pairing is a cross-machine composite. The decks are copied BYTE-IDENTICAL into
+`runs/a0/eproj_np128/` (`src/dft/build_eproj_np128.py`, md5 equality asserted) and run under
+`anvil/46_a0.slurm` with nk = 4, the shape of the p_proj siblings; A6.5(1)'s inline projwfc runs with
+them. Pre-stated readout, inherited from A8.5 (:1613-1621): a leg AGREES with its banked Vast original
+when |ΔE| ≤ 1e-5 Ry; the paired difference E(atomic) − E(ortho) is re-formed from the Anvil pair and
+printed beside the banked one. Disagreement on either leg is reported as such, with the number, and
+the composite sentence stands — no banked value moves. Manifest `runs/a0/m_eproj_np128.txt` is
+LICENSED by this line. Cost: ~10 SU at the measured a0 rate.
+
+**(c) The Ru second-pseudopotential control (docs/45 §B row 10; docs/70 :291).** The entrant
+instructed that the control be run. Its outcome bands are elective, so it is BUILT NOT LICENSED
+against the draft docs/89 and is licensed only when the entrant elects those bands by a dated line
+here. In no branch does A7.3 move: it stays NOT MET at 3 of 6 as banked, and the control informs only
+how its Ru line is quoted.
+
+The next Zenodo version carries this addendum. No registered number, band or verdict moves.

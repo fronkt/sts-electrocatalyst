@@ -62,6 +62,15 @@ first S3 deck), S8 melt-set freeze before the first ingot. Governance per A7.7:
 amendments are supporting infrastructure; the report paraphrases, never
 copies.
 
+**[CLAIM-SENTENCE ORDERING AND THE docs/44 SENTENCE 2026-09-05]** — the dated line owed by
+docs/43:1932 since 2026-08-23. The entrant, in session 2026-09-05, elected: (i) the registered
+ordering holds — the detector and the exposure census lead, the floor movement is second,
+coverage-conditionality third (docs/43:1932; round-2 Q6); (ii) the docs/44:176-183 sentence is the
+narrative and is NOT the claim sentence of record; (iii) the claim sentence of record does not yet
+exist and is not writable until S1 and S2 land (docs/87 §6), is re-tested on Sep 20 against what has
+landed, and if it does not stand a stage is cut rather than hoped for. Recorded as his instruction,
+not as a quotation. Registered in docs/43's dated addendum of 2026-09-05 (session 2), item 2.
+
 ---
 
 ## E. Program board (added 2026-08-16) — the reconciled S0–S8, cuts-reverted
