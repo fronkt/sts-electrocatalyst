@@ -1,0 +1,28 @@
+# eproj_np128 manifest -- the S0 gate-(e) pair re-realised on Anvil at np = 128.
+# Built by src/dft/build_eproj_np128.py. Each deck is BYTE-IDENTICAL to its
+# runs/s0/e_proj/<stem>.in source (md5 asserted equal at build).
+#
+# WHY. The banked legs print 'running on 20 processor cores' (Vast) while every
+# p_proj sibling ran at np = 128 on Anvil (runs/a0/m_pproj.txt), so the flagship
+# pairing is a cross-machine composite. This closes that.
+#
+# READOUT, inherited from A8.5 (docs/43:1613-1621): a leg AGREES with its banked
+# original when |dE| <= 1e-5 Ry. The paired difference E(atomic) - E(ortho) is
+# re-formed from the Anvil pair and printed beside the banked one. No banked
+# value moves in any branch.
+#
+# Banked final energies (the '!' line of each runs/s0/e_proj/<stem>.out):
+#   s0_O__u715_atomic      !    total energy              =   -1592.51110015 Ry
+#   s0_O__u715_ortho       !    total energy              =   -1592.78131312 Ry
+#
+# nk = 4 matches runs/a0/m_pproj.txt; NP = 128 is a multiple of it.
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200
+#
+# md5 of each deck (equal to its source by construction):
+#   s0_O__u715_atomic      edb3aae651d1064d908a0e66970db4bf
+#   s0_O__u715_ortho       6f36bd88bed6521fdb771ae321032c5e
+#
+# Runnable rows are: dir job suffix nk
+a0/eproj_np128 s0_O__u715_atomic .in 4
+a0/eproj_np128 s0_O__u715_ortho .in 4

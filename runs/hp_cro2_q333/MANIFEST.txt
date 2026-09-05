@@ -1,0 +1,40 @@
+# runs/hp_cro2_q333 -- CrO2 q-mesh check, both projectors at q = 3x3x3
+#
+# A12b rider adopted 2026-09-05 (docs/43 dated addendum of that date).
+# Built by src/dft/build_hp_cro2_q333.py; rebuild is byte-identical.
+# Readout rule inherited, nothing elective: |U(q333) - U(q222)| <= 0.2 eV per leg
+# (docs/43-prereg-week1-factorial.md:276; A12b.R2 :3497-3505). The split is
+# re-formed at q333 and printed beside the q222 split.
+#
+# One 52_hp.slurm job per leg: DIR=hp_cro2_q333 SCF=<scf deck> HP=<hp deck>, np=20 nk=4.
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200
+#
+# md5 of each deck, and its exact diff against the banked source:
+#   scf__cro2_atomic_q333.in     9f8f359d3f0a712845c62215479c4bfb  <- runs/hp_tio2/scf__cro2.in
+#       -  prefix = 'cro2_atomic'
+#       -  outdir = './tmp_cro2_atomic'
+#       +  prefix = 'cro2_atomic_q333'
+#       +  outdir = './tmp_cro2_atomic_q333'
+#   hp__cro2_atomic_q333.in      8c0919e734d871f714c5d420367ba338  <- runs/hp_tio2/hp__cro2_q222.in
+#       -  prefix = 'cro2_atomic'
+#       -  outdir = './tmp_cro2_atomic'
+#       -  nq1 = 2, nq2 = 2, nq3 = 2
+#       +  prefix = 'cro2_atomic_q333'
+#       +  outdir = './tmp_cro2_atomic_q333'
+#       +  nq1 = 3, nq2 = 3, nq3 = 3
+#   scf__cro2_ortho_q333.in      347300614163a708dd45347cc3e08895  <- runs/hp_cro2_ortho/scf__cro2_ortho.in
+#       -  prefix = 'cro2_ortho'
+#       -  outdir = './tmp_cro2_ortho'
+#       +  prefix = 'cro2_ortho_q333'
+#       +  outdir = './tmp_cro2_ortho_q333'
+#   hp__cro2_ortho_q333.in       b761edb6383d0b699283d89ae46b1b25  <- runs/hp_cro2_ortho/hp__cro2_ortho_q222.in
+#       -  prefix = 'cro2_ortho'
+#       -  outdir = './tmp_cro2_ortho'
+#       -  nq1 = 2, nq2 = 2, nq3 = 2
+#       +  prefix = 'cro2_ortho_q333'
+#       +  outdir = './tmp_cro2_ortho_q333'
+#       +  nq1 = 3, nq2 = 3, nq3 = 3
+#
+# Runnable rows are: leg scf hp
+atomic scf__cro2_atomic_q333.in hp__cro2_atomic_q333.in
+ortho scf__cro2_ortho_q333.in hp__cro2_ortho_q333.in

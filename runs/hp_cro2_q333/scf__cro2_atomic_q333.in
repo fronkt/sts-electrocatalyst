@@ -1,0 +1,44 @@
+&CONTROL
+  calculation = 'scf'
+  prefix = 'cro2_atomic_q333'
+  outdir = './tmp_cro2_atomic_q333'
+  pseudo_dir = '/usr/share/espresso/pseudo'
+  verbosity = 'high'
+  tprnfor = .true.
+  tstress = .false.
+  max_seconds = 243  ! 2x modelled SCF cost at NP=20 (N22)
+/
+&SYSTEM
+  ibrav = 6
+  celldm(1) = 8.35448
+  celldm(3) = 0.65958
+  nat = 6
+  ntyp = 2
+  ecutwfc = 80.0
+  ecutrho = 640.0
+  occupations = 'smearing'
+  smearing = 'mv'
+  degauss = 0.01
+  nspin = 2
+  starting_magnetization(1) = 0.6
+  starting_magnetization(2) = 0.0
+/
+&ELECTRONS
+  conv_thr = 1.0d-10
+  mixing_beta = 0.3
+  electron_maxstep = 120
+/
+ATOMIC_SPECIES
+  Cr  51.996  cr_pbe_v1.5.uspp.F.UPF
+  O   15.999  O.pbe-n-kjpaw_psl.0.1.UPF
+ATOMIC_POSITIONS (crystal)
+  Cr  0.000000  0.000000  0.000000
+  Cr  0.500000  0.500000  0.500000
+  O   0.302300  0.302300  0.000000
+  O   0.697700  0.697700  0.000000
+  O   0.802300  0.197700  0.500000
+  O   0.197700  0.802300  0.500000
+K_POINTS (automatic)
+  6 6 8 0 0 0
+HUBBARD (atomic)
+U Cr-3d 1.d-8
