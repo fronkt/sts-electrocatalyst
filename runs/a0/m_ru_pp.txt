@@ -1,0 +1,50 @@
+# RU-PP manifest -- Ru second-pseudopotential control, 12 SCFs,
+# U = 0.00 / 6.73 / 9.00 eV x {slab, s0_O, s0_OH, s0_OOH}.
+# Built by src/dft/build_ru_pp.py. Each deck differs from its
+# runs/a0/main/Ru/<state>__<u>.in source in exactly 2 lines:
+#   prefix, and the Ru ATOMIC_SPECIES line
+#   Ru_ONCV_PBE-1.0.oncvpsp.upf -> ru_pbe_v1.2.uspp.F.UPF
+# (GBRV v1.2, PBE, ultrasoft, Z valence 16). Cutoffs 80/640 Ry, k-mesh
+# 8 4 1, nspin = 1, smearing, geometry, cell and the HUBBARD card are
+# inherited byte-identically.
+#
+# NOT LICENSED FOR SUBMISSION. This control has no dated registration
+# line. docs/89-ru-pseudopotential-control-DRAFT.md is a PROPOSAL with
+# blank entrant slots; anvil/47_submit_a0.sh refuses this manifest while
+# this notice stands (docs/66 section 4). Licensing also owes a dated row
+# for the new UPF in the pseudo md5 preflight record: it is staged at
+# $PROJECT/pseudo/ru_pbe_v1.2.uspp.F.UPF, md5 7158a806dd851261a58e6920c40ebe78
+# on both ends (runs/a0/ru_pp/PSEUDO_PROVENANCE.md), and has no row in
+# anvil/pseudo_md5_preflight_2026-08-23.md.
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200
+#
+# nk = 4 matches the banked source rows (runs/a0/m_a0main.txt:129-160),
+# and NP = 128 is a multiple of it. Runnable rows are: dir job suffix nk
+#
+# md5 of each deck, for the record (control deck, then its source deck):
+#   slab    0.0000  c7be507a716cb2f58a44a1dc8fddeeb1  <- 77efd9ff3b7c205c28202c2679f1b7ba runs/a0/main/Ru/slab__u000.in
+#   s0_O    0.0000  7b37733ce7fb52d8fa2d173256eaeb48  <- 9c0b3dcdaf09aa36eb7cfdf0b9f26a54 runs/a0/main/Ru/s0_O__u000.in
+#   s0_OH   0.0000  103f529baa9300ae26925af264552e69  <- 4145420f9b780f5a8f16d3956c84613a runs/a0/main/Ru/s0_OH__u000.in
+#   s0_OOH  0.0000  7aa9cf4519f2e71e4e354592d63a2111  <- 69bdd34bd0897a677279d8dafe2f6cb8 runs/a0/main/Ru/s0_OOH__u000.in
+#   slab    6.7300  e0eecbec75857721a50dc7ab1aaa7e68  <- 0d98f3836c4eb23e3884a7ad06cd428e runs/a0/main/Ru/slab__u673.in
+#   s0_O    6.7300  2c257a82d88ecd410bb6f16cae5d1a96  <- 1c6ea3bd320cb1e93f204ac8c7954dcb runs/a0/main/Ru/s0_O__u673.in
+#   s0_OH   6.7300  b20fa1ea9d0e5d5f3b303bf73df01d2d  <- 7d93859667068ffdcfb3d26cd21f9ae0 runs/a0/main/Ru/s0_OH__u673.in
+#   s0_OOH  6.7300  774fa40ea9515fd9c7eb2e6917337ec8  <- 55614bc03bc404525b7c4303990df7f3 runs/a0/main/Ru/s0_OOH__u673.in
+#   slab    9.0000  629d68322830f5073bc6775b9b2ca361  <- d42dfeacd6cb8d456e9711c6742d151e runs/a0/main/Ru/slab__u900.in
+#   s0_O    9.0000  66e3d3b4baceac30511d2dffdbbe8116  <- 631f13716a808ff9b56e44e5a3a4438a runs/a0/main/Ru/s0_O__u900.in
+#   s0_OH   9.0000  7e964b6022aac5ea0241407b219463c0  <- c6a5614e7e4b1b7d8540f3ce6e8e78f7 runs/a0/main/Ru/s0_OH__u900.in
+#   s0_OOH  9.0000  65c67a4fe20c279517143f2c78d6cac6  <- 8ad12d569aaf3ad13ca1791da2a75418 runs/a0/main/Ru/s0_OOH__u900.in
+#
+a0/ru_pp/Ru slab__u000_gbrv .in 4
+a0/ru_pp/Ru s0_O__u000_gbrv .in 4
+a0/ru_pp/Ru s0_OH__u000_gbrv .in 4
+a0/ru_pp/Ru s0_OOH__u000_gbrv .in 4
+a0/ru_pp/Ru slab__u673_gbrv .in 4
+a0/ru_pp/Ru s0_O__u673_gbrv .in 4
+a0/ru_pp/Ru s0_OH__u673_gbrv .in 4
+a0/ru_pp/Ru s0_OOH__u673_gbrv .in 4
+a0/ru_pp/Ru slab__u900_gbrv .in 4
+a0/ru_pp/Ru s0_O__u900_gbrv .in 4
+a0/ru_pp/Ru s0_OH__u900_gbrv .in 4
+a0/ru_pp/Ru s0_OOH__u900_gbrv .in 4
