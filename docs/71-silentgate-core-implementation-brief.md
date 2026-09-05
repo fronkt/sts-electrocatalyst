@@ -213,3 +213,107 @@ These are the failure modes an obvious implementation walks into. Each is measur
 rulings answered; `silentgate-invocation.toml` filled; the OC20 mechanism decided and running in
 CI. At that point `docs/43:1932`'s claim sentence becomes scorable for the first time — it
 requires S1 + S2, which is why it has been owed since August.
+
+---
+
+## Review addendum — 2026-09-05: what the tests and runners demand that this brief does not say
+
+**Status:** review comments, permitted at `docs/43:1840`; no implementation, no pseudocode. Three
+reviewers read this brief against `tests/silentgate/`, the two runners and the invocation file, and
+against the seven rulings elected 2026-09-04 and the OC20 artefact facts. Of the contract items they
+enumerated, 69 are covered by the brief as written; the rest are below, most severe first. Every
+line was checked in the tree on 2026-09-05.
+
+### Stale since the rulings were elected (2026-09-04)
+
+1. **§1 and §5 step 1 are discharged.** All seven `ruling` / `dated_line` fields are filled
+   (`tests/silentgate/spec_rulings.toml:59-60, :85-86, :108-109, …`; `docs/43:4175-4228`).
+   Do not re-answer them. The two that decide what the detector counts are now fixed:
+   - **`adsorbate_quantifier = all`** — LOCKED requires the exactly-zero lateral axis on every
+     printed step for **every** adsorbate atom (`docs/43:4175-4181`). §1's row still presents
+     "any vs all" as open.
+   - **`truncated_force_block = scorable-if-all-adsorbate-atoms-present`** — a three-way option,
+     not the binary §1:45 describes: a block missing leading atoms **is scored** when every
+     identified adsorbate atom is present, otherwise the run is reported **unscorable**
+     (`docs/43:4183-4189`).
+2. The `ruling` string must be one of that question's `options` **verbatim, lowercase,
+   hyphenated**, and `dated_line` must cite the **full filename** (the test splits the citation
+   at the first colon and `os.path.exists`-checks it, `tests/silentgate/test_open_questions.py:56-75`).
+   Three of those tests are **not** core-gated and bind today. This brief's own `docs/43:NNNN`
+   shorthand is the form that fails.
+3. `README.md:9` no longer says "six"; the errata item at :39-40 is spent.
+4. The OC20 mechanism is elected (`release-asset`) and executed: asset, pin and the three repository
+   variables exist, and CI has verified the sample 500/500 (`docs/43` addendum 2026-09-05).
+   The provenance record exists at `docs/provenance-record.md` and the disjointness row passes.
+5. The corpus figures stamped "verified 2026-09-03" (:162, :172-173) predate the 2026-09-05 mirror
+   pull; the `-0.00000000` count appears as 263, 196 and "117 of 480" across this brief and
+   `spec_rulings.toml:54-55` — three figures for one quantity. The manifest's four header-form
+   counts are **floors** the fixture test enforces both ways (`test_fixture_manifest.py:157-158`).
+
+### The OC20 reader — absent from §2 entirely (blocks CI green)
+
+6. The OC20 trajectory reader is a **named core reader** (`.github/ci/core_paths.txt:6-9` quoting
+   :1840) and §2's readers section lists only pw.x readers.
+7. The artefact is **xz-compressed extended-XYZ text**, not ASE `.traj`
+   (`docs/research/oc20-val_id/README.md:34-40`): per-frame
+   `Properties=species:S:1:pos:R:3:move_mask:L:1:tags:I:1:forces:R:3`; adsorbate = `tags == 2`;
+   constrained atoms excluded via `move_mask`; forces are **8-decimal fixed-point text in eV/Å**,
+   so "exactly zero at the stored precision" is the literal token `0.00000000` or `-0.00000000`.
+   None of "extxyz", "xz", "tags", "move_mask" occurs in this brief.
+8. `run_oc20.py` ties the census back to the sample: the set of **basenames** of `path` across the
+   returned records must equal the 500 manifest names exactly (`run_oc20.py:280-295`), N must be
+   500, every `locked_force_only` must be a bool, and **`per_step_exact_zero_count` must be a
+   mapped `[schema]` pointer and an `int` on every record** or the control refuses MEASURED
+   (`run_oc20.py:328-346`; pre-flight `NEEDED_POINTERS`).
+
+### Contract items the invocation file and runners impose that §2 omits (blocks CI green)
+
+9. **`unscorable` has no representation in the JSON contract** — ten fields, none expresses the
+   third outcome §2:87-89 calls "not optional". Today a non-boolean LOCKED verdict makes the gate
+   NOT MEASURED (`run_controls.py:596-598`), which is fail-closed but is not "reported as
+   unscorable". The entrant decides the field; the runner side is CI work and can follow.
+10. An **UNIDENTIFIED** run (`n_adsorbate` null) currently **fails** `tag_agreement_20_20`
+    (`run_controls.py:562-574`) rather than reading NOT MEASURED; §2:90 says the flag is reported,
+    never dropped. Same decision as item 9.
+11. `runs_array` is a required `[schema]` pointer in its own right; the token does not appear in
+    this brief (§2:131 says only the top level is a `runs` array). `version_cmd` is a third
+    `[cli]` key no script reads today.
+12. The census is invoked **once** with the union of the 20 population paths and every classifiable
+    row of `docs/figs/symops_audit.csv` (96 today; predicate `int(n_adsorbate) > 0` and a non-blank
+    `max_fy_adsorbate`, `run_controls.py:369-382`), and the `path` field must echo a string that
+    `norm_path()` normalises to the supplied path exactly. The `two_witness_n_n` figure is
+    `len(csv_rows)` at the commit CI runs against — not the literal `96/96`.
+13. The command template is `shlex.split` **first**, then the placeholder is substituted per token
+    (`run_controls.py:174-189`): backslashes in the template are eaten, so the template must be
+    POSIX-quoted. `pyproject.toml` already declares `silentgate = "silentgate.cli:main"`, so
+    `cli.py` exposes a zero-argument `main()` or the entry point is renamed there. Both pointer
+    walkers now share one dialect (RFC-6901-lite: list indices, `~0`/`~1`), fixed 2026-09-05.
+14. The build is green only when **all eight** gate keys are green
+    (`run_controls.py:275-284`; `test_gate_fails_closed.py:156-161`): the five in-house gates
+    **plus** `core_present`, `disjointness` and `negative_oc20`. §2:140 says "five".
+15. The witness tie-break is unstated: where header and force disagree, **the force evidence
+    wins and the disagreement is itself reported** (`docs/43:1826`).
+16. The noise-floor rule has three clauses §2:97-98 drops (`docs/43:1832`): the pw.x default
+    `1e-3` Ry/bohr where a deck sets none; the deliberate retention of the in-house figure; the
+    per-corpus derivation. The second registered header form is **count-last**
+    (`Sym. Ops., with inversion, found N symmetry operations`), and the `header_form` string has no
+    fixed vocabulary — the fixtures use two incompatible ones (`fixtures/manifest.toml:52, :364`).
+17. `silentgate/legacy/` is a **permitted sixth path** for a lifted legacy detector, with its
+    authorship recorded in the provenance record (`docs/43:1828`; `test_gate_fails_closed.py:42-57`).
+    "Exactly five files" (:17) is true of the core and not of the package.
+18. Two parse traps arrived with the 2026-09-05 mirror pull and are absent from §4: an output whose
+    SCF iteration counter overflowed to `***` (`runs/s3/Co/ref__2x1v.replay_ms.out`) and one that
+    stopped at 500 iterations with no `!` line (`runs/s3/Ni/s0_OOH__2x1v_mir.out`).
+
+### Process
+
+19. The core and the filled invocation file arrive in **one commit** (the provenance record and the
+    workflow edit can land before it); `.github/ci/preflight_core_commit.py` refuses an empty or
+    partial `silentgate/`, checks C1–C6 and prints the git commands without running them. Run it
+    first. Once the core exists, CI installs the package (`pip install .`) before invoking it —
+    the step is a no-op until then. The registered dependency of the claim sentence is
+    **S1 + S2 + S6** (:1932), not S1 + S2 as :213-215 says.
+20. The frozen-atom figure of record is one number, not three: this brief says 49 atoms / five
+    metals / 704 observations (:187-188); the elected dated line says **248 frozen-atom
+    observations across three decks, maximum component 0.08723744 Ry/bohr** (`docs/43:4211-4219`).
+    The dated line governs.
