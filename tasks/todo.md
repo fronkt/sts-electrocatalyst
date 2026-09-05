@@ -2045,3 +2045,20 @@ items, then the dated deadlines, then the small compute, then the record hygiene
 - [ ] 5. Hygiene: dated addenda on docs/84 (no U stated), docs/83 (no cell stated), docs/75:85-90
       (live draft quoting absolute η), docs/76:222 (superseded-by); an output-dir for the builder
       behind `test_gate1_partial_build_with_s0_O_quarantined`.
+
+### 2026-09-05 (session 2) — SUBMITTED: CrO2 q333 hp.x pair (20419730 atomic, 20419731 ortho) + gate-(e) np=128 pair (array 20419733, 2 tasks)
+
+Sequence held: elections + adoption committed `a8c3218` → decks committed `ca5b33e` (md5-manifested, both
+builders rebuild byte-identical) → pushed → scp to Anvil (7/7 md5 identical both ends, 0 CR bytes;
+drivers 52_hp/46_a0/47_submit md5-identical both ends) → submitted 17:18 UTC. `$PROJECT/sts` is NOT a
+git clone — decks travel by scp, as before. 47_submit preflight: lines=2 to_run=2 stale=0 bad=0,
+PREFLIGHT_OK. EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 on all three.
+
+Readouts owed on drain, both inherited, nothing elective (docs/43 addendum 2026-09-05 session 2, item 5):
+- hp pair: |U(q333) − U(q222)| ≤ 0.2 eV per leg; split re-formed at q333 beside +1.1042 eV; SCF
+  isolation check against the q222 legs (printed decimals vs job 20382206; A8.5 1e-5 Ry vs the Vast
+  atomic leg). Cost basis 7.86 core-h per q222 leg (job 20382206: 23:34 at 20 cores).
+- eproj pair: |ΔE| ≤ 1e-5 Ry per leg vs the banked `!` energies (−1592.51110015 / −1592.78131312 Ry);
+  paired difference re-formed beside the banked 0.27021297 Ry.
+- Pull with explicit file lists, never the directory (the 1.7 GB pproj6 trap); run the mirror audit
+  before any readout is countersigned.
