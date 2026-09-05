@@ -2062,3 +2062,48 @@ Readouts owed on drain, both inherited, nothing elective (docs/43 addendum 2026-
   paired difference re-formed beside the banked 0.27021297 Ry.
 - Pull with explicit file lists, never the directory (the 1.7 GB pproj6 trap); run the mirror audit
   before any readout is countersigned.
+
+### 2026-09-05 (session 2) — plan status at close
+
+- [x] 1. Phase-2 tree committed by explicit paths (7 commits, 572afe1…1f4b8c0) and pushed. CI: both
+      test-suite jobs GREEN for the first time since 2026-08-27; OC20 and face red for the registered
+      reason (no `oc20_cmd`, no core).
+- [x] 2. Entrant-only items — every one that could be transcribed from an instruction was:
+      P-DIVANIS Ruling 1 = BROAD; ordering held, docs/44 = narrative (docs/45 §D line); A10/P-BEEF =
+      adopt and run S5; provenance record countersigned (:4334). Pre-flight for the core: NOT READY at
+      C1/C4/C6, PASS C2/C3/C5 — unchanged, the core is the entrant's.
+- [x] 3. Dated deadlines: Ruling 1 done (Sep 15 limb); A10 elected, **docs/88 carries 18 blank
+      threshold slots for the entrant's own wording** (Sep 18 — the deposit precedes the first BEEF
+      job); T1 + docs/45 §D line done (Sep 20 re-test stands).
+- [x] 4. Small compute: CrO2 q333 pair SUBMITTED (20419730/20419731, running); gate-(e) np=128 pair
+      SUBMITTED (array 20419733, pending); Ru second-PP control BUILT NOT LICENSED (docs/89, 7 slots).
+      Scorers for the two submitted arms committed before any output (b502beb).
+- [x] 5. Hygiene: four dated addenda (36b65f9) + staleness-sweep line; builder `--out-dir` (f5d2f7d).
+- [x] Provenance record: 16 entries; the Xu `.in` parse disclosure owed since docs/78:55 discharged
+      (b20d45d), with a dated disclosure in docs/43 (append-only, now 4431 lines).
+
+### Owed on drain (next session, 0 SU)
+
+- Pull `runs/hp_cro2_q333/{hp__*,scf__*}.out` + `*Hubbard_parameters.dat` + `*chi*.dat` (explicit
+  file list) → `python src/dft/hp_cro2_q333_readout.py --json docs/figs/hp_cro2_q333.json`.
+- Pull `runs/a0/eproj_np128/*.out`, `*.projwfc.out` → `.lowdin.txt` via extract_lowdin, then
+  `python src/dft/eproj_np128_readout.py --json docs/figs/eproj_np128.json`.
+- `python src/dft/mirror_audit.py` before either readout is countersigned (docs/43:4148 rule).
+- Bank both readouts as dated A12b / gate-(e) lines in docs/43 (append-only), realised cost beside
+  the planning figures (~27 core-h per hp leg; ~10 SU the pair).
+
+### Still the entrant's, and only his
+
+- [ ] The five silentgate core files (docs/71 + its review addendum) in ONE commit after
+      `.github/ci/preflight_core_commit.py`; `.github/ci/silentgate-invocation.toml` values.
+- [ ] docs/88: the 18 A10 threshold slots in his own words + the A10-X election; then A10 appended
+      to docs/43, deposited, and `runs/s5/m_s5.txt` licensed — **before the first BEEF job, Sep 18**.
+      Open UNKNOWN U1: Anvil's pw.x has never emitted a BEEF ensemble (all S0(a) runs were Vast);
+      one re-run of `runs/s0/a_beef/slab__beefcalc.in` on Anvil (~8.5 core-h) settles it.
+- [ ] docs/89: the 7 RU-PP slots (which three anchors; the comparator margin — as-built 7.8 meV,
+      since docs/43:2817-2818 rules the equalised 4.3 meV branch-conditional); then licence
+      `runs/a0/m_ru_pp.txt` and add the GBRV UPF row to the pseudo preflight record.
+- [ ] docs/86 Rulings 2–7 (row rule, middle band, δ, n = 3, unphysical set, A7.5 × CrO₂ guard) —
+      before any P-DIVANIS count is formed; Ruling 4's δ-invariance test is free once 2–7 are signed.
+- [ ] The claim sentence of record (Sep 20 re-test) — waits on S1 + S2 per today's election.
+- [ ] docs/78 §0.1 standing recommendation to open the four restricted deposits — unexercised.
