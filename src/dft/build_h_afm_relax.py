@@ -90,8 +90,9 @@ A10 diff shape: replaced == 2, inserted == 0, deleted == 0, and the two replaced
     lines are exactly the calculation line and the prefix line
 A11 prefix == stem == basename (anvil/46_a0.slurm does `rm -rf dens/${prefix}.save`;
     a colliding prefix silently wipes a banked density)
-A12 every child path is under runs/s0/h_afm_relax/, never runs/s0/h_afm_anchor/,
-    which the gate-(h) readout and docs/63 address literally
+A12 every child path is under the build's h_afm_relax/ (runs/s0/h_afm_relax/ unless
+    --out-dir says otherwise), never runs/s0/h_afm_anchor/, which the gate-(h) readout
+    and docs/63 address literally
 A13 trailing-newline and CR bytes preserved from the parent
 
 GATE-1 CHILDREN
@@ -107,6 +108,9 @@ USAGE
 -----
     PYTHONPATH=src python src/dft/build_h_afm_relax.py            # build decks, check gate
     PYTHONPATH=src python src/dft/build_h_afm_relax.py --gate1    # after the relaxations land
+    PYTHONPATH=src python src/dft/build_h_afm_relax.py --out-dir DIR   # the same build with
+                                  # decks under DIR/h_afm_relax/ and the manifest in DIR/;
+                                  # the tracked tree is untouched (inputs still come from it)
 """
 from __future__ import annotations
 
@@ -208,7 +212,39 @@ def committed_blob(relpath: str) -> bytes | None:
         return None
 
 
-def build_one(stem: str) -> dict:
+def out_paths(out_root: str | None, manifest: str) -> tuple[str, str]:
+    """Where a build lands: (deck directory, manifest path).
+
+    out_root mirrors runs/s0 -- decks under <out_root>/h_afm_relax/, the manifest at
+    <out_root>/<manifest>. None is the live tree, runs/s0, which the submit scripts
+    consume; anything else is a rehearsal that leaves the tracked decks and manifests
+    untouched. Inputs -- the banked anchors, the relaxations' .out files, the casualty
+    evidence -- are always read from SRC_DIR / OUT_DIR.
+    """
+    root = out_root or os.path.join(REPO, "runs", "s0")
+    return os.path.join(root, "h_afm_relax"), os.path.join(root, manifest)
+
+
+def show(path: str) -> str:
+    """Repo-relative with forward slashes when inside the repo, else as given."""
+    try:
+        rel = os.path.relpath(path, REPO)
+    except ValueError:  # Windows: another drive
+        return path
+    return path if rel.startswith("..") else rel.replace(os.sep, "/")
+
+
+def inside_banked_tree(dest: str) -> bool:
+    """A12/G9: would dest land inside the banked gate-(h) tree?"""
+    try:
+        return (os.path.commonpath([os.path.abspath(dest), os.path.abspath(SRC_DIR)])
+                == os.path.abspath(SRC_DIR))
+    except ValueError:  # Windows: another drive -- cannot be inside
+        return False
+
+
+def build_one(stem: str, dest_dir: str | None = None) -> dict:
+    dest_dir = dest_dir or OUT_DIR
     src_in = os.path.join(SRC_DIR, stem + ".in")
     src_out = os.path.join(SRC_DIR, stem + ".out")
 
@@ -311,8 +347,8 @@ def build_one(stem: str) -> dict:
         fail("A8", f"{stem}: parsed {got} position lines, deck declares nat = {nat}")
 
     # A12 -- destination
-    dest = os.path.join(OUT_DIR, new_stem + ".in")
-    if os.path.commonpath([os.path.abspath(dest), os.path.abspath(SRC_DIR)]) == os.path.abspath(SRC_DIR):
+    dest = os.path.join(dest_dir, new_stem + ".in")
+    if inside_banked_tree(dest):
         fail("A12", f"{stem}: child would land inside the banked gate-(h) tree")
 
     # A13 -- byte hygiene
@@ -322,12 +358,12 @@ def build_one(stem: str) -> dict:
     if (b"\r\n" in raw) != (b"\r\n" in new_raw):
         fail("A13", f"{stem}: CR bytes changed")
 
-    os.makedirs(OUT_DIR, exist_ok=True)
+    os.makedirs(dest_dir, exist_ok=True)
     with open(dest, "wb") as fh:
         fh.write(new_raw)
 
     n_frozen = sum(1 for f in constraint_flags(txt, labels) if f == "0 0 0")
-    return dict(stem=new_stem, parent=rel, path=os.path.relpath(dest, REPO).replace(os.sep, "/"),
+    return dict(stem=new_stem, parent=rel, path=show(dest),
                 nat=nat, ntyp=len(species), pair=(ru1, ru2),
                 pair_index=(idx[ru1], idx[ru2]), seeds=(s1, s2), frozen=n_frozen,
                 parent_md5=hashlib.md5(raw).hexdigest(),
@@ -367,7 +403,7 @@ def final_coordinates(otxt: str) -> list[tuple[str, tuple[float, float, float], 
     return rows
 
 
-def gate1_one(stem: str) -> dict:
+def gate1_one(stem: str, dest_dir: str | None = None) -> dict:
     """One GATE-1 child: the banked anchor SCF deck at the relaxation's final
     geometry, fresh prefix, nothing else touched.
 
@@ -377,6 +413,7 @@ def gate1_one(stem: str) -> dict:
     keeps the diff auditable: one prefix line + the moving-atom coordinate
     lines, and the frozen rows stay byte-identical to the committed parent.
     """
+    dest_dir = dest_dir or OUT_DIR
     src_in = os.path.join(SRC_DIR, stem + ".in")
     relax_out = os.path.join(OUT_DIR, stem + "__relax.out")
 
@@ -490,10 +527,11 @@ def gate1_one(stem: str) -> dict:
     new_raw = new_txt.encode()
     if raw.endswith(b"\n") != new_raw.endswith(b"\n") or (b"\r\n" in raw) != (b"\r\n" in new_raw):
         fail("G8", f"{stem}: newline/CR bytes changed")
-    dest = os.path.join(OUT_DIR, new_stem + ".in")
-    if os.path.commonpath([os.path.abspath(dest), os.path.abspath(SRC_DIR)]) == os.path.abspath(SRC_DIR):
+    dest = os.path.join(dest_dir, new_stem + ".in")
+    if inside_banked_tree(dest):
         fail("G9", f"{stem}: child would land inside the banked gate-(h) tree")
 
+    os.makedirs(dest_dir, exist_ok=True)
     with open(dest, "wb") as fh:
         fh.write(new_raw)
 
@@ -506,7 +544,7 @@ def gate1_one(stem: str) -> dict:
                 md5=hashlib.md5(new_raw).hexdigest())
 
 
-def cmd_gate1(quarantine: list[str] | None = None) -> int:
+def cmd_gate1(quarantine: list[str] | None = None, out_root: str | None = None) -> int:
     """Default: all four or none (the lit2 idiom). --quarantine STEM excuses a
     named casualty EXPLICITLY: the stem must have no scoreable .out AND must
     carry .out.attempt* evidence that it ran and failed -- a quarantine is a
@@ -541,15 +579,14 @@ def cmd_gate1(quarantine: list[str] | None = None) -> int:
               "every non-quarantined relaxation, or none.")
         return 1
 
-    rows = [gate1_one(s) for s in live]
-    print(f"Built {len(rows)} GATE-1 children under "
-          f"{os.path.relpath(OUT_DIR, REPO).replace(os.sep, '/')}/\n")
+    dest_dir, man = out_paths(out_root, "m_h_afm_g1.txt")
+    rows = [gate1_one(s, dest_dir) for s in live]
+    print(f"Built {len(rows)} GATE-1 children under {show(dest_dir)}/\n")
     print(f"{'stem':<36}{'E_relax (Ry)':>18}{'gain (meV)':>12}{'totmag':>9}{'maxdisp A':>11}")
     for r in rows:
         print(f"{r['stem']:<36}{r['e_relax_ry']:>18.8f}{r['gain_mev']:>12.3f}"
               f"{r['totmag']:>9.2f}{r['max_disp']:>11.4f}")
 
-    man = os.path.join(REPO, "runs", "s0", "m_h_afm_g1.txt")
     with open(man, "w", encoding="utf-8", newline="\n") as fh:
         fh.write("# S0 gate (h) GATE-1 children -- src/dft/build_h_afm_relax.py --gate1\n")
         fh.write("# Deposited rule docs/43:311-314: one fresh-density fixed-geometry SCF\n")
@@ -571,11 +608,11 @@ def cmd_gate1(quarantine: list[str] | None = None) -> int:
         for r in rows:
             nk = 16 if r["stem"].startswith("ref") else 8
             fh.write(f"s0/h_afm_relax {r['stem']} .in {nk}\n")
-    print(f"\nMANIFEST WRITTEN: {os.path.relpath(man, REPO).replace(os.sep, '/')}")
+    print(f"\nMANIFEST WRITTEN: {show(man)}")
     return 0
 
 
-def cmd_repair_mixing(stem: str) -> int:
+def cmd_repair_mixing(stem: str, out_root: str | None = None) -> int:
     """One repair attempt on a relaxation that died mid-SCF: the committed relax
     deck with mixing_beta HALVED and a fresh prefix -- nothing else.
 
@@ -634,14 +671,15 @@ def cmd_repair_mixing(stem: str) -> int:
     if raw.endswith(b"\n") != new_raw.endswith(b"\n") or (b"\r\n" in raw) != (b"\r\n" in new_raw):
         fail("R8", f"{stem}: newline/CR bytes changed")
 
-    dest = os.path.join(OUT_DIR, new_stem + ".in")
+    dest_dir, man = out_paths(out_root, "m_h_afm_relax_repair.txt")
+    dest = os.path.join(dest_dir, new_stem + ".in")
+    os.makedirs(dest_dir, exist_ok=True)
     with open(dest, "wb") as fh:
         fh.write(new_raw)
-    print(f"REPAIR DECK WRITTEN: {os.path.relpath(dest, REPO).replace(os.sep, '/')}")
+    print(f"REPAIR DECK WRITTEN: {show(dest)}")
     print(f"  mixing_beta {beta:g} -> {beta / 2:g} (A6.5(2) rung (ii), BY ANALOGY -- "
           "see docstring); everything else byte-identical to the committed relax deck.")
 
-    man = os.path.join(REPO, "runs", "s0", "m_h_afm_relax_repair.txt")
     nk = 16 if stem.startswith("ref") else 8
     with open(man, "w", encoding="utf-8", newline="\n") as fh:
         fh.write(f"# repair attempt (r1) for {old_stem}: attempt 2 died at\n")
@@ -651,7 +689,7 @@ def cmd_repair_mixing(stem: str) -> int:
         fh.write("# halve mixing_beta. If this fails too, rung (iii): the row is recorded\n")
         fh.write("# NOT_CONVERGED and reported as a gap -- no third solver attempt.\n")
         fh.write(f"s0/h_afm_relax {new_stem} .in {nk}\n")
-    print(f"MANIFEST WRITTEN: {os.path.relpath(man, REPO).replace(os.sep, '/')}")
+    print(f"MANIFEST WRITTEN: {show(man)}")
     return 0
 
 
@@ -665,17 +703,21 @@ def main() -> int:
     ap.add_argument("--repair-mixing", metavar="STEM",
                     help="emit a __relax__r1 repair deck: mixing_beta halved, fresh prefix, "
                          "nothing else (A6.5(2) rung (ii) by analogy)")
+    ap.add_argument("--out-dir", metavar="DIR", default=None,
+                    help="build into DIR instead of runs/s0: decks under DIR/h_afm_relax/, "
+                         "the manifest in DIR/. Inputs are still read from the tracked tree; "
+                         "nothing tracked is written (default: runs/s0, the live tree)")
     args = ap.parse_args()
 
     if args.repair_mixing:
-        return cmd_repair_mixing(args.repair_mixing)
+        return cmd_repair_mixing(args.repair_mixing, args.out_dir)
     if args.gate1:
-        return cmd_gate1(args.quarantine)
+        return cmd_gate1(args.quarantine, args.out_dir)
 
-    rows = [build_one(s) for s in STEMS]
+    dest_dir, man = out_paths(args.out_dir, "m_h_afm_relax.txt")
+    rows = [build_one(s, dest_dir) for s in STEMS]
 
-    print(f"Built {len(rows)} AFM relaxation decks under "
-          f"{os.path.relpath(OUT_DIR, REPO).replace(os.sep, '/')}/\n")
+    print(f"Built {len(rows)} AFM relaxation decks under {show(dest_dir)}/\n")
     print(f"{'stem':<30}{'nat':>5}{'ntyp':>6}{'pair':>12}{'idx':>8}{'seeds':>14}{'frozen':>8}")
     for r in rows:
         pair = r["pair"][0] + "/" + r["pair"][1]
@@ -702,7 +744,6 @@ def main() -> int:
         return 2
 
     date, scope = res
-    man = os.path.join(REPO, "runs", "s0", "m_h_afm_relax.txt")
     with open(man, "w", encoding="utf-8", newline="\n") as fh:
         fh.write(f"# S0 gate (h) AFM relaxations -- built by src/dft/build_h_afm_relax.py\n")
         fh.write(f"# scope resolved {date}: {scope} (docs/43 AFM-SCOPE line)\n")
@@ -717,8 +758,7 @@ def main() -> int:
         for r in rows:
             nk = 16 if r["stem"].startswith("ref") else 8
             fh.write(f"s0/h_afm_relax {r['stem']} .in {nk}\n")
-    print(f"MANIFEST WRITTEN ({scope}, resolved {date}): "
-          f"{os.path.relpath(man, REPO).replace(os.sep, '/')}")
+    print(f"MANIFEST WRITTEN ({scope}, resolved {date}): {show(man)}")
     return 0
 
 

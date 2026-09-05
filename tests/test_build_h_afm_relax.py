@@ -174,12 +174,12 @@ S0_O_QUARANTINED = (
 )
 
 
-def check_child_shape(stem):
+def check_child_shape(stem, relax_dir=RELAX_DIR):
     """The child is its ANCHOR deck with the prefix line plus only moving-atom
     coordinate lines changed; frozen rows byte-identical, labels/flags preserved."""
     src = os.path.join(REPO, "runs", "s0", "h_afm_anchor")
     parent = open(os.path.join(src, stem + ".in")).read().split("\n")
-    child = open(os.path.join(RELAX_DIR, stem + "__relax__g1.in")).read().split("\n")
+    child = open(os.path.join(relax_dir, stem + "__relax__g1.in")).read().split("\n")
     assert len(parent) == len(child)
     labels = {s[0] for s in B.species_block("\n".join(parent))}
     n_prefix = n_pos = 0
@@ -215,25 +215,33 @@ def test_quarantine_refuses_without_casualty_evidence(tmp_path, monkeypatch):
 
 @pytest.mark.skipif(not S0_O_QUARANTINED,
                     reason="live tree is not in the 3-landed + s0_O-casualty state")
-def test_gate1_partial_build_with_s0_O_quarantined():
+def test_gate1_partial_build_with_s0_O_quarantined(tmp_path):
     """The three owed children build; the casualty is recorded in the manifest
-    header, never silently dropped."""
+    header, never silently dropped.
+
+    Builds into tmp_path: the tracked decks and manifest under runs/s0 are read
+    (as inputs and as the reference), never rewritten. The rehearsal must
+    reproduce the tracked children byte for byte.
+    """
     env = dict(os.environ, PYTHONPATH=os.path.join(REPO, "src"))
     r = subprocess.run(
         [sys.executable, os.path.join(REPO, "src", "dft", "build_h_afm_relax.py"),
-         "--gate1", "--quarantine", "s0_O__2x1v_off__afm"],
+         "--gate1", "--quarantine", "s0_O__2x1v_off__afm", "--out-dir", str(tmp_path)],
         cwd=REPO, env=env, capture_output=True, text=True,
     )
     assert r.returncode == 0, f"{r.stdout}{r.stderr}"
-    man = open(os.path.join(REPO, "runs", "s0", "m_h_afm_g1.txt")).read()
+    man = (tmp_path / "m_h_afm_g1.txt").read_text(encoding="utf-8")
     lines = [ln for ln in man.split("\n") if ln and not ln.startswith("#")]
     assert lines == [
         f"s0/h_afm_relax {s}__relax__g1 .in {16 if s.startswith('ref') else 8}"
         for s in LANDED
     ]
     assert "QUARANTINED" in man and "s0_O__2x1v_off__afm__relax" in man
+    built = tmp_path / "h_afm_relax"
     for s in LANDED:
-        check_child_shape(s)
+        check_child_shape(s, str(built))
+        tracked = open(os.path.join(RELAX_DIR, s + "__relax__g1.in"), "rb").read()
+        assert (built / (s + "__relax__g1.in")).read_bytes() == tracked, s
 
 
 @pytest.mark.skipif(not S0_O_QUARANTINED,
