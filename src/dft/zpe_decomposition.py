@@ -40,6 +40,7 @@ import argparse
 import importlib.util
 import itertools
 import json
+import math
 import os
 import sys
 
@@ -75,6 +76,8 @@ def main():
     ap.add_argument("--delta", type=float, default=0.05,
                     help="per-constant sensitivity half-width in eV (default 0.05)")
     args = ap.parse_args()
+    if not math.isfinite(args.delta) or args.delta <= 0:
+        ap.error("--delta must be finite and positive")
     sys.stdout.reconfigure(encoding="utf-8")
 
     sys.path.insert(0, os.path.join(ROOT, "src"))
@@ -241,25 +244,32 @@ def main():
     print(f"  d(d-eta)/dz_OOH = {coeffs['OOH']:+.1f}"
           f"   <-- zero: neither leg is limited by step 3 or 4")
 
-    # exact envelope over the cube, computed by full recomputation (not by the
-    # linear form), so a pls change inside the cube would show up as a kink.
-    span = []
-    for signs in itertools.product((-1, 0, +1), repeat=3):
-        z = {sp: z0[sp] + s * delta for sp, s in zip(("OH", "O", "OOH"), signs)}
-        ra, ro = ladder("atomic", z), ladder("ortho", z)
-        span.append((ro.overpotential - ra.overpotential, signs,
-                     ra.potential_limiting_step, ro.potential_limiting_step))
-    lo, hi = min(span), max(span)
-    pls_stable = all(s[2] == pa and s[3] == po for s in span)
-    print(f"\n  d-eta over the full +/-{delta:.2f} eV cube (27 corners, recomputed):")
-    print(f"    min {lo[0]:+.7f} V at (z_OH,z_O,z_OOH) offsets {lo[1]}")
-    print(f"    max {hi[0]:+.7f} V at offsets {hi[1]}")
-    print(f"    half-width {(hi[0]-lo[0])/2:.7f} V about the nominal {d_eta:+.7f} V")
-    print(f"    pls assignment {'UNCHANGED at every corner' if pls_stable else 'CHANGES -- band is discontinuous'}")
+    # A difference of maxima is piecewise affine. A 27-point grid is not
+    # an envelope certificate: active regions can occur strictly between points.
+    box = _load("che_box_robustness").analyze_pair(
+        {sp: elec["atomic"][sp] + z0[sp] for sp in ("OH", "O", "OOH")},
+        {sp: elec["ortho"][sp] + z0[sp] for sp in ("OH", "O", "OOH")},
+        delta,
+    )
+    # Retain the legacy offsets convention (multiples of half-width), while
+    # also exposing explicit eV witnesses in the new continuous_box field.
+    def extremum_tuple(w):
+        return (w["delta_eta_V"],
+                tuple(w["correction_eV"][sp] / delta for sp in ("OH", "O", "OOH")),
+                w["maximizers_left"], w["maximizers_right"])
+    lo, hi = extremum_tuple(box["minimum"]), extremum_tuple(box["maximum"])
+    pls_stable = box["closed_pairs"] == [[pa, po]]
+    print(f"\n  d-eta over the continuous +/-{delta:.2f} eV shared-correction box:")
+    print(f"    min {lo[0]:+.7f} V at offsets (multiples of half-width) {lo[1]}")
+    print(f"    max {hi[0]:+.7f} V at offsets (multiples of half-width) {hi[1]}")
+    print(f"    interval half-width {(hi[0]-lo[0])/2:.7f} V; nominal {d_eta:+.7f} V")
+    print(f"    strict potential-limiting-step pairs: {box['strict_pairs']}")
+    print(f"    nominal assignments {'retained throughout' if pls_stable else 'not guaranteed throughout'}")
+    print("    The difference remains continuous at step switches; derivatives may change.")
 
     # ---- how far would the constants have to move to flip a pls? -------------
     print("\n" + "-" * 78)
-    print("ROBUSTNESS OF THE MECHANISM CLAIM (the pls flip)")
+    print("ROBUSTNESS OF POTENTIAL-LIMITING-STEP ASSIGNMENTS")
     print("-" * 78)
     margins = {}
     for leg in pp.LEGS:
@@ -271,9 +281,10 @@ def main():
               f"{win - runner:.4f} eV")
     # worst case: the constants enter each step with coefficients in {-1,0,1,2}
     # of the three z; a symmetric +/-d perturbation moves a step-difference by at
-    # most (sum of |coefficient differences|) * d. Computed exactly by search.
+    # most (sum of |coefficient differences|) * d. This legacy first-switch
+    # estimate is discretized in d; the requested-box envelope above is continuous.
     print("\n  smallest uniform half-width d (eV) that can flip a leg's pls,")
-    print("  searched over the 27 corners of the cube at increasing d:")
+    print("  estimated on a 27-point grid in 0.001 eV half-width increments:")
     for leg in pp.LEGS:
         found = None
         d = 0.0
@@ -300,12 +311,12 @@ def main():
   * {share*100:.1f} % of it is the swap of a fixed literature constant, and the raw
     DFT difference is {electronic:+.4f} eV -- the opposite sign. Both belong in
     any sentence that quotes the 0.487.
-  * The magnitude carries a +/-{(hi[0]-lo[0])/2:.2f} V band under +/-{delta:.2f} eV on the
-    constants. Note the coefficient on z_OH is {coeffs['OH']:+.0f}, not 1, so the band is
-    wider than the per-constant perturbation.
-  * The MECHANISM claim is robust: flipping either leg's pls needs the constants
-    moved by >= {min(margins['atomic_flip_d'], margins['ortho_flip_d']):.3f} eV, which is far outside any
-    defensible uncertainty on a ZPE table.
+  * The shared-constants sensitivity interval is [{lo[0]:+.4f}, {hi[0]:+.4f}] V
+    under +/-{delta:.2f} eV on each constant. This is not a confidence interval.
+  * The potential-limiting-step assignments are tested only for the stated
+    shared-correction box. The 0.001 eV grid estimate of the first individual
+    step switch is {min(margins['atomic_flip_d'], margins['ortho_flip_d']):.3f} eV. It does not calibrate physical
+    uncertainty or identify a kinetic rate-determining step.
   * The constants were never recomputed per projector, even though the projector
     shifts absolute magnetisation on these states. That is a stated
     approximation, not a hidden one.
@@ -332,6 +343,8 @@ def main():
                 d_eta_max_V=hi[0], d_eta_max_offsets=list(hi[1]),
                 band_half_width_V=(hi[0] - lo[0]) / 2,
                 pls_stable_over_cube=pls_stable,
+                offset_units="multiples of half_width_eV",
+                continuous_box=box,
             ),
             pls_robustness={
                 "atomic_margin_eV": margins["atomic"],

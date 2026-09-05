@@ -1172,3 +1172,16 @@ noticed; none was a listing.
 Anvil round, before its readout is countersigned. The tool exits nonzero while any pw.x output is
 anvil-only or any output differs between the ends. Files out of git by design (pseudopotentials,
 `.save/`, `*.pdos*`, `*.run.in`, the 912 MB of full `.projwfc.out`) are counted, not listed.
+## 2026-09-05 — keep command execution out of the desktop
+
+The user finds visible command prompts distracting. Use background, non-PTY command execution;
+never open a visible cmd or PowerShell window for routine work. If a helper requires Start-Process,
+set -WindowStyle Hidden. Keep this preference across the rest of the project.
+
+## 2026-09-05 — non-PTY execution did not suppress command windows
+
+The user repeated the instruction after visible prompts continued. Do not assume tty=false
+or background execution prevents Windows console windows. For this session, use the Node
+process interface with execFile(..., {windowsHide: true, shell: false}) and an explicit
+executable; use native filesystem APIs for reads/writes. Do not return to exec_command or
+spawn visible shells. This applies to delegated agents as well.

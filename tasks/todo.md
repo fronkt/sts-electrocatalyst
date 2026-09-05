@@ -1,5 +1,27 @@
 # STS 2027 — TODO
 
+## 2026-09-05 — independent scientific assessment and discovery bridge
+
+Scope: reconstruct the current campaign from memory and repository evidence, review primary
+literature, and strengthen the route from reliable DFT to prospective OER melt experiments.
+This is an exploratory work plan, not a registration, amendment, threshold election, or claim sentence.
+
+- [x] Locate the active repository, read current memory and lessons, and check recent commits.
+- [x] Check the approach before implementation: parallel physical-validity and novelty reviews;
+      retain the registered campaign and add only independently reviewable supporting analysis.
+- [x] Verify closest prior art and the experimental meaning of outperforming an iridium control.
+- [x] Implement and test a bounded analysis that improves decisions using existing evidence.
+- [x] Record a prioritized, falsifiable research roadmap and a concrete deliverable specification.
+- [ ] Review the diff, run appropriate checks, commit explicit paths, and push the additions.
+
+Review: continuous-box counterexample independently verified; nominal A13 and the entire +/-0.05 eV
+shared-correction result preserved. Supporting LP helper, legacy ZPE integration, 33 focused tests,
+reproduction script, hashed JSON and inspected PNG/SVG are complete. Final suite: 424 passed,
+8 skipped (existing), 7 spglib deprecation warnings. Frozen runs/data/readouts unchanged.
+Technical assessment: docs/research-assessment-2026-09-05.md. No new DFT jobs or melts submitted.
+After the repeated user correction, all process launches use direct Node execFile/spawn with
+windowsHide=true and shell=false; file reads/writes use native APIs. Commit/push verification pending.
+
 ## Documentation maintenance (2026-09-03)
 
 - [x] Add the standing project wording rule to `CLAUDE.md`.

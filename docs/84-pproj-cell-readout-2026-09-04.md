@@ -158,3 +158,62 @@ says so. All twenty-four ortho decks `runs/a0/pproj6/<M>/<state>__u750_ortho.in`
 `Fe/s0_OOH__u750.in:67-68`, `Ir/slab__u750.in:59-60`). The Cr calibration row of that arm (0.4462 V,
 docs/83:17 and :78) is therefore Cr at a third (cell, U) pair — 1×1, 7.50 eV — distinct from both
 rows of the table at :35-38, and none of the three Cr numbers is quotable without its cell and its U.
+
+## Dated correction — 2026-09-05: continuous correction boxes can contain missed step disagreements
+
+This corrects the continuous-domain inference in "The margin question, raised and resolved."
+The original text and banked A13 readout remain above and unchanged. A 3x3x3 grid has 27
+sample points, not 27 cube vertices; the three-dimensional box has eight vertices.
+Paired agreement on these sample sets does not establish continuous agreement when the
+step identities change across samples. A fixed step dominating at every vertex is different:
+its dominance throughout the box can be verified using affine inequalities.
+
+From the banked Cr 2x1v U=7.15 eV adsorption free energies, the shared OH/O/OOH correction
+(-0.0525, +0.0525, 0.0000) eV yields:
+
+| leg | potential-limiting step | eta (V) | margin over runner-up (eV) |
+|---|---|---|---|
+| atomic | 1 | 0.871481047682 | 0.003320093150 |
+| ortho | 2 | 1.047176093046 | 0.003178666165 |
+
+Thus the legs CAN disagree within the +/-0.10, +/-0.15, and +/-0.30 eV boxes. Along
+delta=(-t,+t,0), the disagreement lies between t=0.051440444612 and 0.053606697717 eV,
+which all three of those 27-point grids miss. The assertion that the legs must move
+together throughout these boxes is withdrawn.
+
+Continuous paired-step-region optimization gives:
+
+| shared half-width (eV) | strictly reachable step pairs (atomic, ortho) | delta-eta interval (V) |
+|---|---|---|
+| 0.05 | (1,1) | [0.1725163792, 0.1725163792] |
+| 0.10 | (1,1), (1,2), (2,2) | [0.1725163792, 0.1790151385] |
+| 0.15 | (1,1), (1,2), (2,2) | [0.1725163792, 0.1790151385] |
+| 0.30 | (1,1), (1,2), (2,2) | [0.1725163792, 0.1790151385] |
+
+**The nominal A13 result is unchanged.** At the nominal constants, both legs still select
+step 1 and the paired difference remains +0.1725164 V, beside the 1x1 companion +0.4868562 V.
+The entire +/-0.05 eV shared-correction box also retains the constant difference. The magnitude
+remains above 0.10 V throughout all four tested continuous boxes; the broader guarantee of
+paired step agreement does not. "Exactly insensitive to the constants table" must therefore
+carry its shared-correction domain or its fixed-active-step condition.
+
+The new supporting helper enumerates all 16 closed active-step regions and optimizes the
+paired difference over their linear constraints. A separate maximum-margin problem distinguishes
+unique step assignments from ties. This is an exhaustive region formulation evaluated with
+floating-point linear programming and explicit tolerances, not exact symbolic arithmetic.
+The independent analytic inequality and direct recomputation above agree with its result.
+
+Reproduce with:
+
+    python src/dft/che_robustness_case_study.py
+
+- Implementation: src/dft/che_box_robustness.py
+- Source: docs/figs/pproj_cell_readout.json (SHA-256 recorded in the new audit)
+- Audit and figure: results/che_box_case_study_2026-09-05/
+- Tests: tests/test_che_box_robustness.py
+
+This is an exploratory sensitivity correction, not a new registered experiment or a changed
+threshold. No claim about independent surface-specific solvation errors, U uncertainty,
+electronic basins, or real catalyst performance follows from this shared-constants box.
+Here and in future explanations use **potential-limiting step** for the CHE result.
+The historical phrase "rate-limiting step" does not establish kinetic rate determination.
