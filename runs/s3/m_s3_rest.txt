@@ -1,0 +1,94 @@
+# S3 wave-1 manifest -- built 2026-08-23 by src/dft/build_s3.py
+# Registration of record: deposited A8, DOI 10.5281/zenodo.22072991; dispositions docs/54-s3-deck-matrix-2026-08-23.md SS0-SS1.
+# PARTITION: wave-1 = production-seed only. 46 relax + 9 SCF. PARKED for the
+#   entrant's dated lines (docs/54 SS6): all __magm second-seed cells -- the four
+#   *OOH 2x1v off __magm baselines (Mn/Fe/Co/Ni) are FIRM BUILD in docs/54
+#   (synthesis:250), parked ONLY because the second-seed numeric recipe needs
+#   Frank's sign-off (docs/54 SS6 item 2); the other __magm cells are BUILD-T --
+#   all __ns decks, the dy-ladder pilot, Co/Ni s0_OOH__1x1_off (OPEN), the HOLD
+#   Ru-AFM family, Ru/Ir __g1 top-up, the Mn AFM arm, Ti nspin=2 controls,
+#   __g1 children of wave-1 decks (built after their parents converge), and the
+#   19 Cr re-Hessian displacement SCFs at the escaped geometry (1e-10 class,
+#   docs/54:159/:324 -- buildable only after s0_OOH__2x1v_escape converges).
+# SEQUENCING NOTE (dy ladder): docs/54 SS1 orders the {0.10,0.25,0.50} A
+#   dy-ladder pilot BEFORE the off-plane fleet (synthesis:258, :253); this wave
+#   seeds all off rows with the banked block-1A values instead (below).
+#   ORCHESTRATOR RULING 2026-08-23: the off rows LAUNCH in wave 1 with the
+#   banked constants kick +0.35 A / yaw +90.0 deg -- comparability with
+#   block 1A is A8.1's own logic, and A8.8 no-replacement means these results
+#   stand as the banked-constant arm regardless of any later rung choice. The
+#   dy-ladder pilot rungs remain the entrant's (docs/54 SS6); the entrant may
+#   override this ruling by dated line (added rungs = new decks, never
+#   replacements).
+# 2x1v mir starts are mirror-symmetrized doubled production finals and each off sibling = the same base + kick (orchestrator ruling 2026-08-23 on the audit's off-plane-mir finding; registered arm definition docs/54 SS1; the N-corner membership ruling of docs/54 SS6 item 5 remains the entrant's)
+# LAUNCH SHAPE: 128 ranks, -N 1, 48 h Slurm cap; -nk per row from the
+#   irreducible k-count (never above it -- pw.x refuses pools without
+#   k-points): -nk 16 where >= 16 k exist (noinv-kept refs at the full 16-k
+#   grid; 1x1_off rows, TR-reduced 18/19 k; parent-cloning SCFs at 32 k);
+#   -nk 8 on the 10-k noinv-dropped 4x4x1 rows (all 2x1v_off + the escape,
+#   runs/s0/b_noinv/README.md:29) and on mirror-arm/symmetric-parent rows
+#   (~9-15 k). Per-deck max_seconds = 165000. PARITY_PASS REQUIRED:
+#   43_submit_s3_wave1.sh refuses unless $PROJECT/parity/PARITY_PASS exists.
+# PSEUDOS: docs/54 table filenames, staged + md5-matched on Anvil --
+#   anvil/pseudo_md5_preflight_2026-08-23.md (A8.5 discharged).
+# PROTOCOL: S0(b) noinv-drop carried on every new OFF-PLANE deck
+#   (runs/s0/b_noinv/README.md:107-111); bare ref__2x1v decks KEEP noinv --
+#   docs/54 SS1 ref convention "nosym at 16 k", matching the banked Cr/Ru/Ir
+#   refs; parent-cloning SCFs keep the parent's symmetry flags verbatim.
+#   Off-arm displacement values extracted from the banked cellsym decks:
+#   *O y-kick +0.35 A, *OH/*OOH yaw +90.0 deg;
+#   Cr escape kick along mode #0 (i244.669 cm-1), seeded H
+#   |dy| = 0.3 A.
+# NP=128 NCONC=1
+s3/Mn ref__2x1v .in 16
+s3/Mn s0_OH__1x1_off .in 16
+s3/Mn s0_OOH__1x1_off .in 16
+s3/Mn s0_O__2x1v_mir .in 8
+s3/Mn s0_O__2x1v_off .in 8
+s3/Mn s0_OH__2x1v_mir .in 8
+s3/Mn s0_OH__2x1v_off .in 8
+s3/Mn s0_OOH__2x1v_mir .in 8
+s3/Mn s0_OOH__2x1v_off .in 8
+s3/Fe ref__2x1v .in 16
+s3/Fe s0_O__1x1_off .in 16
+s3/Fe s0_OH__1x1_off .in 16
+s3/Fe s0_OOH__1x1_off .in 16
+s3/Fe s0_O__2x1v_off .in 8
+s3/Fe s0_OH__2x1v_mir .in 8
+s3/Fe s0_OH__2x1v_off .in 8
+s3/Fe s0_OOH__2x1v_mir .in 8
+s3/Fe s0_OOH__2x1v_off .in 8
+s3/Co ref__2x1v .in 16
+s3/Co s0_O__1x1_off .in 16
+s3/Co s0_OH__1x1_off .in 16
+s3/Co s0_O__2x1v_mir .in 8
+s3/Co s0_O__2x1v_off .in 8
+s3/Co s0_OH__2x1v_mir .in 8
+s3/Co s0_OH__2x1v_off .in 8
+s3/Co s0_OOH__2x1v_mir .in 8
+s3/Co s0_OOH__2x1v_off .in 8
+s3/Ni ref__2x1v .in 16
+s3/Ni s0_O__1x1_off .in 16
+s3/Ni s0_OH__1x1_off .in 16
+s3/Ni s0_O__2x1v_mir .in 8
+s3/Ni s0_O__2x1v_off .in 8
+s3/Ni s0_OH__2x1v_mir .in 8
+s3/Ni s0_OH__2x1v_off .in 8
+s3/Ni s0_OOH__2x1v_mir .in 8
+s3/Ni s0_OOH__2x1v_off .in 8
+s3/Ti s0_O__2x1v_mir .in 8
+s3/Ti s0_O__2x1v_off .in 8
+s3/Ti s0_OH__2x1v_mir .in 8
+s3/Ti s0_OH__2x1v_off .in 8
+s3/Ti s0_OOH__2x1v_mir .in 8
+s3/Ti s0_OOH__2x1v_off .in 8
+s3/Cr s0_OOH__2x1v_escape .in 8
+s3/Mn ref__1x1_k8 .in 16
+s3/Mn s0_O__1x1_k8 .in 16
+s3/Mn s0_OH__1x1_k8 .in 16
+s3/Mn s0_OOH__1x1_k8 .in 16
+s3/Co s0_O__1x1_base .in 16
+s3/Co s0_OH__1x1_base .in 16
+s3/Cr s0_OOH__basin_g1 .in 8
+s3/Co s0_OH__basin_g1 .in 16
+s3/Ni s0_OH__basin_g1 .in 16
