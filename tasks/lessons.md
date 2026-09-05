@@ -1140,3 +1140,35 @@ only reason it was harmless.
 **Rule:** read the consuming script's refusal conditions when a manifest is *built*, not when it
 is submitted. A file that cannot be consumed is not finished, and must not be frozen into a
 permanent record as though it were.
+
+## A zero on one side of a two-machine diff is a parser bug until proven otherwise (2026-09-05)
+
+The first Anvil-vs-local mirror diff reported "Ni local: 0" — every local file read as absent —
+because the local listing came from Git for Windows' `md5sum` (`<hash> *./<path>`, one space) and
+the parser split on the two spaces GNU coreutils prints. The remote side parsed; the local side
+silently vanished. Had the pull been driven off that diff it would have re-pulled 93 files that
+were already here and called it a gap.
+
+**Rule:** before reading any per-directory diff, assert that both listings parsed to roughly the
+counts `find | wc -l` gives at each end; a zero or a wild asymmetry is the parser, not the tree.
+Pinned in `tests/test_mirror_audit.py` with both dialects.
+
+Two smaller ones from the same session, same shape — a tool argument silently doing something
+other than what was typed: `scp host:"/a /b" dest` sends ONE remote path containing a space
+(reported as "No such file"), and Windows `tar xf C:/...` treats the drive letter as a hostname
+("Cannot connect to C") until `--force-local` is given.
+
+## Run the mirror audit before any sentence about what exists on Anvil (2026-09-05)
+
+docs/43:4148 recorded, after the Ni repair-deck correction, that "no line may assert that a deck
+is unrun without a listing of the Anvil run tree in the same act." Today's full listing found the
+same class a third time: the replay leg of the very chain that correction was about, the final Ni
+`s0_OOH__2x1v_mir` attempt, and fourteen ledger-cited S3 outputs — all on Anvil, none here, and
+`docs/45` quoting numbers from them. Each earlier fix was a pull of the one file that had been
+noticed; none was a listing.
+
+**Rule:** `python src/dft/mirror_audit.py` (whole tree, md5 both ends, ~5 min) before writing
+"unrun", "missing", "never produced" or "0 SU" about anything on the run tree — and after every
+Anvil round, before its readout is countersigned. The tool exits nonzero while any pw.x output is
+anvil-only or any output differs between the ends. Files out of git by design (pseudopotentials,
+`.save/`, `*.pdos*`, `*.run.in`, the 912 MB of full `.projwfc.out`) are counted, not listed.

@@ -4247,3 +4247,94 @@ boundary is unchanged by this addendum and is not one this addendum has the powe
 question's registered lowercase option token — the prose above is the dated line, not the field
 value, and the two differ deliberately (most sharply at `if_pos_parenthetical`, where this line
 reads CORRECTION FILED and the option token is `file-the-correction`).
+
+---
+## Dated addendum — 2026-09-05: the OC20 asset is published and pinned; the run-tree mirror is audited and closed; the provenance record exists
+
+### A9.2.3 mechanism (a) — executed
+
+The election at :4191 (release-asset) created two obligations; both are discharged.
+
+**Asset.** GitHub release `oc20-val_id-first500` on the public repo, target commit
+`7900370c0658fd4b697cac6259b4be63312c9472`, not marked latest.
+`https://github.com/fronkt/sts-electrocatalyst/releases/download/oc20-val_id-first500/oc20-val_id-first500.tar`
+— **105,461,760 bytes, sha256 `1b5da637d5fc010f072356b7401f5afac17189160f17282f29fe2143625c5823`**.
+Contents: `val_id_first500/` + the 500 `.extxyz.xz` drawn at A9.7 act 3, unchanged. Before upload
+every member was verified against the committed `docs/research/oc20-val_id/first500.SHA256SUMS`
+(500/500, 0 extra, 0 missing); the same 500/500 check passed on the Anvil project copy it was
+built from. Built reproducibly on Anvil (GNU tar 1.30; two independent builds byte-identical):
+`tar --format=ustar --sort=name --owner=0 --group=0 --numeric-owner --mode="u+rw,go+r,go-w,a-x,a+X" --mtime="2026-08-23 00:00:00 UTC" -cf oc20-val_id-first500.tar val_id_first500`.
+A non-deterministic tar of the same name, built 2026-08-27 and recorded nowhere, remains at
+`$PROJECT/corpora/oc20/` untouched (sha256 `607819b1…5bbf2`); it is not the asset.
+
+**Variables.** `S1_OC20_MECHANISM=release-asset`, `S1_OC20_ASSET_URL=<the URL above>`,
+`S1_OC20_ASSET_SHA256=<the pin above>`, set 2026-09-05T06:19:33Z. Note for anyone repeating this:
+the pin is the sha256 of the **archive**, not a line from `first500.SHA256SUMS` (those are the 500
+member hashes, checked separately after extraction).
+
+**First execution in CI**, run 33949557882 (workflow_dispatch on 7900370, 2026-09-05T06:20:46Z,
+after the dated election line as :1868 requires): the job downloaded the asset, matched the pin,
+extracted it and verified **500/500** members, then reported NOT MEASURED with the exact reason
+*"silentgate-invocation.toml declares no oc20_cmd. The OC20 trajectory reader and the CLI are core
+(docs/43:1840), so CI does not invent their interface."* That is the registered state: transport
+proven, instrument absent. A local `curl -fsSL` of the same URL re-hashed to the pin.
+
+### The mirror audit — the check :4148 said should exist, run over the whole run tree
+
+`src/dft/mirror_audit.py` (new, scaffolding) lists every file under Anvil `$PROJECT/sts/runs/`
+and local `runs/` by md5 and classifies them. 2026-09-05: **29,735 remote / 4,547 local files;
+0 outputs differ between the two ends** (243 differing files are all `.in`/manifests/`.lowdin.txt`
+— the local `.lowdin.txt` carry a one-line provenance header the Anvil copies lack; the numbers
+are identical). 25,237 anvil-only files are out of git by design (pseudopotentials, `.save/`,
+`*.pdos*`, `*.run.in` per `.gitignore:39`, and the 383 full `.projwfc.out` = 912 MB, whose banked
+readout is the `.lowdin.txt` beside each).
+
+**What was not by design — the d26ea49 class, third instance — and is now mirrored, md5-verified
+at both ends:**
+- `runs/s3/Ni/s0_OH__2x1v_off.replay.out` — the **replay leg of array 20135148 task 2**, the very
+  chain the :4134 correction is about; the correction pulled the child and not the replay. Final:
+  −5157.23065903 Ry, 14.41 μ_B, `relax`, 12 ionic steps, `JOB DONE` — `docs/45:632` to the digit.
+- `runs/s3/Ni/s0_OOH__2x1v_mir.out` — the **eighth** attempt (26 Aug 10:09), NOT achieved at 500
+  iterations, final magnetisation 2.07 μ_B. `docs/45:408` cites `Ni/s0_OOH__2x1v_mir.out`; that
+  row was written 2026-08-25 10:01 (c6d1e06), when the live `.out` was the run now named
+  `.attempt4`. The eighth attempt changes no ledger number; it is mirrored so the record is whole.
+- `anvil/logs/chain_20135148_{1..5}.out` — the array's five slurm logs (new `anvil/logs/`,
+  mirroring `$PROJECT/logs/`).
+- Fourteen further S3 outputs, all ledger-cited, none mirrored: `runs/s3/Co/{ref__2x1v.replay_ms,
+  ref__2x1v__reanchor, s0_OH__2x1v_mir.seed, s0_OH__2x1v_mir.fromseed, s0_OH__2x1v_off.seed,
+  s0_OH__2x1v_off.fromseed, s0_OOH__2x1v_off.seed, s0_OOH__2x1v_mir__g1__r2, …__r3,
+  s0_OOH__2x1v_mir__reanchor, …__reanchor__b}.out`, `runs/s3/Fe/s0_OOH__1x1_off__g1__r2.out`,
+  `runs/s3/Mn/s0_OOH__2x1v_off__{basin,g1__r2}.out`; plus two attempt files and two queue
+  manifests (a third attempt file, a gzipped duplicate of an already-tracked output, was not kept). Two are unfinished (`ref__2x1v.replay_ms.out`, no `JOB DONE`, iteration counter
+  overflowed `***`; `s0_OOH__2x1v_mir__g1__r2.out`, killed early) and are mirrored as such.
+
+After the pull the audit reports **0 anvil-only pw.x outputs, 0 differing outputs.** The Ni
+`*.run.in` (21 files) were pulled to the machine and are gitignored by convention (`.gitignore:39`).
+
+### CI — a red that predates everything above
+
+The `repo-tests` job had failed on **38 of 38** runs since the workflow's first push
+(2026-08-27): `tests/test_pourbaix_multi.py` and `tests/test_pourbaix_r2.py` import
+`src/dft/pourbaix_*.py`, which import `pymatgen` at module level, and `requirements.txt` did not
+list it. `pymatgen>=2024.1.27` is added to `requirements.txt` (four `src/` modules already import
+it). Local suite with it installed: 385 passed, 8 skipped.
+
+### The provenance record exists at the elected path
+
+`docs/provenance-record.md` is created at the path elected at :4200 and
+`.github/workflows/s1-controls.yml` now sets `S1_AI_USE_LOG` to it as a literal in the tree
+(:4200: "located by `$S1_AI_USE_LOG` in the CI workflow"). `.github/ci/check_disjoint.py` against
+it: **PASS — 222 path tokens, none a core path.** Assembled from the repository's own production
+statements (177 candidates checked line by line, 126 entered, 51 not) plus first-hand entries for
+2026-09-04/05; it states that absence from it is not a claim of entrant authorship, and it names
+no core path even in its "not produced" paragraph, since the assertion over-matches by design.
+Initialised at the entrant's specific request of 2026-09-05 — the carve-out the project's wording
+rule itself provides. The entrant reviews and countersigns it like any other transcription.
+
+> `[PROVENANCE RECORD INITIALISED 2026-09-05]` — countersignature slot for the entrant.
+
+### What this addendum does not do
+
+It does not write the core, does not fill `.github/ci/silentgate-invocation.toml`, and does not
+draft the claim sentence into the report. The face is red on exactly one row, `core_present`, and
+that row is the entrant's.

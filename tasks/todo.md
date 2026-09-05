@@ -1920,3 +1920,128 @@ adopted the four countersignature rows, in session 2026-09-04. Commit 7dce98c.
 - [ ] Two citation defects in docs/28: j.jcat.2025.115963-range (typo; corrected
       DOI is journal front matter) and j.xcrp.2025.102847 (cited as CatBench,
       resolves to a robotic-fish paper). Both need the real DOI from the paper.
+
+## 2026-09-05 — PHASE 2: OC20 asset live, mirror audited, provenance record exists. NOTHING COMMITTED (by instruction).
+
+Entrant's plan of 2026-09-05 audited before execution (adversarial workflow, 11 refuters on the five
+verdicts): Step 1 sound in conclusion, wrong in its CLAUDE.md characterisation — the compatibility
+ground is the rule's own "when the user specifically requests it" carve-out plus docs/43:3308-3309,
+not a "no inline tags" scope; Step 2 (tool drafts the core "in memory") is a breach of docs/43:1840
+regardless of who runs `git commit` (3/3 refuters agree, high confidence) and was NOT executed;
+Step 3's numbers were conflated (0.1725 V is the 2×1v ADOPTED cell, docs/84:38; 0.4869 V is 1×1
+and cannot be discarded, docs/84:40 + A13.4) and two of its three actions were already done
+(F8 bib: 3e421ac; the "8 absent" projwfc: docs/43:4106-4130).
+
+### Done and verified, all working-tree only
+- [x] **OC20 release asset** `oc20-val_id-first500` on 7900370, `oc20-val_id-first500.tar`
+      105,461,760 B, sha256 `1b5da637…5823`, reproducible build (two builds byte-identical),
+      500/500 members verified locally and on Anvil before upload. Repo variables
+      S1_OC20_MECHANISM / _ASSET_URL / _ASSET_SHA256 set 06:19:33Z. **CI run 33949557882: the job
+      downloaded, matched the pin, verified 500/500** and stopped at "no oc20_cmd" — the registered
+      state. NOTE the plan said the pin is "the hash from first500.SHA256SUMS": it is the ARCHIVE
+      sha256; the 500 member hashes are checked after extraction.
+- [x] **Ni repair deck fully mirrored** — the correction at docs/43:4134 had pulled the child and
+      not the REPLAY leg; `runs/s3/Ni/s0_OH__2x1v_off.replay.out` (−5157.23065903 Ry, 14.41 μB,
+      docs/45:632 to the digit), the 8th `s0_OOH__2x1v_mir` attempt, the 21 `.run.in` (gitignored
+      by convention), and `anvil/logs/chain_20135148_{1..5}.out`. All md5-verified.
+- [x] **Full Anvil↔local mirror audit** (`src/dft/mirror_audit.py`, new, + tests): 29,735 remote /
+      4,547 local; **14 more ledger-cited S3 outputs were on Anvil and not here** (Co 11, Fe 1,
+      Mn 2) + 3 attempt files + 2 manifests — pulled, verified. Final: **0 anvil-only pw.x
+      outputs, 0 differing outputs.** 160 "differing" .lowdin.txt = a one-line header only.
+      383 `.projwfc.out` (912 MB) stay on Anvil by design (.gitignore:46). Third instance of
+      the d26ea49 class; lesson + tool recorded.
+- [x] **docs/provenance-record.md** at the elected path; `S1_AI_USE_LOG` set as a literal in
+      s1-controls.yml. 177 candidates verified line-by-line, 126 entered, 51 not.
+      **check_disjoint: PASS, 222 tokens, none core.** States its ceiling and that absence ≠
+      entrant-authored. One entry OWED: the Xu `.in` parse disclosure line (docs/78:55).
+- [x] `.github/ci/preflight_core_commit.py` + test: the atomic-commit pre-flight for the entrant
+      (refuses an empty or partial silentgate/, checks rulings/invocation/record/pytest, prints the
+      git commands, never runs them). Against the tree today: NOT READY at C1 (core absent), C5 PASS.
+- [x] **repo-tests CI red on 38/38 runs since 2026-08-27** — `pymatgen` missing from
+      requirements.txt while four src/ modules import it. Added. Local suite 385 passed / 8 skipped.
+- [x] docs/43 dated addendum 2026-09-05 (lines ≥4250 only; deposit line untouched) recording all
+      of the above; countersignature slot for the record opened.
+- [x] docs/87 — claim-sentence constraints (C1–C11), corrected numbers, prior drafts, three
+      tensions (T1 flagship-vs-registered-ordering is the entrant's call). §5 candidates deferred
+      until the adversarial pass returns; §6 to be appended.
+- [x] check_disjoint.py docstring: the ":1840, verbatim" quote annotated as the deposited wording
+      (re-termed 2026-09-03).
+- [x] tasks/lessons.md: two entries (two-machine diff zero = parser bug; run the mirror audit
+      before any "unrun/missing" sentence).
+
+### Working tree, ready to stage when the entrant says so (explicit paths, never `git add .`)
+  modified: .github/workflows/s1-controls.yml  .github/ci/check_disjoint.py  requirements.txt
+            docs/43-prereg-week1-factorial.md  tasks/todo.md  tasks/lessons.md
+  new:      docs/provenance-record.md  docs/87-claim-sentence-constraints-2026-09-05.md
+            .github/ci/preflight_core_commit.py  tests/silentgate/test_preflight.py
+            src/dft/mirror_audit.py  tests/test_mirror_audit.py  anvil/logs/chain_20135148_{1..5}.out
+            runs/s3/Ni/{s0_OH__2x1v_off.replay.out, s0_OOH__2x1v_mir.out}
+            runs/s3/Co/* (12 outputs)  runs/s3/Fe/s0_OOH__1x1_off__g1__r2.out
+            runs/s3/Mn/s0_OOH__2x1v_off__{basin,g1__r2}.out  runs/s3/m_s3_{canary,rest}.txt
+            runs/probe_d02/Cr_hess/…attempt1-died-…
+            runs/probe/Co_uladder/slab__base.out.attempt1 (pre-existing untracked; identical to Anvil)
+  The provenance record + workflow edit do NOT need to wait for the core: they are independent of
+  it and the face's disjointness row turns green the moment they land.
+
+### Still the entrant's, unchanged
+- [ ] The five core files (docs/71) — one commit; run `.github/ci/preflight_core_commit.py` first.
+- [ ] `.github/ci/silentgate-invocation.toml` values (C4 of the pre-flight).
+- [ ] The claim sentence (Sep 20) — docs/87 §4 T1 first: hold the registered ordering (detector
+      leads) or re-register it by a dated line. docs/86 Ruling 1 (P-DIVANIS, Sep 15).
+- [ ] Countersign the 2026-09-05 addendum slot and review docs/provenance-record.md.
+- [ ] The Xu `.in` parse disclosure line (docs/78:55) → provenance record §9.
+- [ ] F8's wider Sep 15 obligation (docs/43:1945): five citation clears incl. Sun/Reuter/Scheffler
+      (no DOI in tree) — the bib alone does not discharge it. Two docs/28 DOI defects still open.
+
+### 2026-09-05, later — the adversarial pass returned (51 agents, 0 errors); both pending items closed
+
+- [x] **docs/87 §6-7.** Four candidate claim sentences (one per possible lead), three refuters each:
+      **12/12 `survives = false`.** The finding is structural, not verbal: the registered lead
+      (S1 + S2, docs/43:1932) has not landed, so every sentence either states unlanded work (C8) or
+      inverts the ordering and rests on S4 compute (C7). Second, a process gate no wording clears:
+      the entrant's dated line in docs/45 §D (is docs/44:176-183 the claim sentence?) has been
+      owed since 2026-08-23 and does not exist. §7 records four defects the pass surfaced and I
+      verified in the tree: docs/84 states no Hubbard U anywhere (0.1725 V is U = 7.15; the 3-of-5
+      is U = 7.50); docs/83 states no cell outside the A7.1 row; docs/75:85-90 is a live draft
+      quoting absolute η (A7.5) with the general flip; docs/76:222 ("class claim about the METHOD")
+      is contradicted by A12.R11 one day later. Each is owed a dated line where it lives.
+- [x] **docs/71 review addendum** (20 items, review comments only): §1 is stale (rulings elected);
+      the OC20 reader is absent from §2 (extxyz text, tags==2, move_mask, 8-decimal tokens,
+      basename tie-back, per_step_exact_zero_count as int + pointer); `unscorable` and UNIDENTIFIED
+      have no JSON representation / read as FAIL; runs_array + version_cmd; eight gates not five;
+      witness tie-break; noise-floor clauses; count-last header form; legacy/ sixth path; two new
+      parse traps from today's mirror pull; frozen-atom figure of record is the dated line's 248.
+- [x] **Three CI fixes** (permitted, mechanical): run_oc20.py now uses run_controls.json_pointer
+      (the two runners parsed pointers differently); the oc20/face/tests jobs `pip install .`
+      when `silentgate/` exists (no-op until then — nothing installed the package the controls
+      invoke); pyproject `packages = ["silentgate"]` would have DROPPED `silentgate.readers` ->
+      `[tool.setuptools.packages.find] include = ["silentgate*"]`. Full suite 385 passed / 8 skipped.
+- Decision semantics NOT changed (entrant's): how `unscorable` and UNIDENTIFIED enter the gates.
+
+### Side effect caught before the report: a test rewrites a tracked manifest in place
+
+`tests/test_build_h_afm_relax.py::test_gate1_partial_build_with_s0_O_quarantined` runs the real
+builder against the live tree and regenerates `runs/s0/m_h_afm_g1.txt` and the `h_afm_relax` decks
+IN PLACE. Today it changed the tracked manifest because a file I had pulled
+(`…attempt2-scf-maxstep.gz`, a gzipped duplicate of the tracked uncompressed output) matched the
+evidence glob. Resolution: the .gz was not kept (Anvil and the tracked original both remain), the
+manifest was restored to HEAD content (copy kept in the scratchpad; no `git checkout --`), and the
+test re-run leaves `runs/s0/` clean. OPEN for the entrant: a test that mutates `runs/` should build
+into `tmp_path`; the builder would need an output-dir argument.
+
+## 2026-09-05 (session 2) — plan: commit Phase 2, then the entrant's items, the dated deadlines, the small compute, the hygiene owed
+
+Instruction of 2026-09-05 (paraphrased, not quoted): commit the Phase-2 tree, then the entrant-only
+items, then the dated deadlines, then the small compute, then the record hygiene owed.
+
+- [ ] 1. Commit the Phase-2 tree by explicit paths (six commits, never `git add .`), push, read the CI.
+- [ ] 2. Entrant-only: report the pre-flight state; the five core files, the invocation values, the
+      rulings and the countersignatures stay the entrant's — decisions collected from him, transcribed
+      only from his instruction, never invented.
+- [ ] 3. Dated deadlines: docs/86 Ruling 1 (Sep 15); A10/P-BEEF election (Sep 18); the T1 ordering
+      call and the docs/45 §D line behind the claim sentence (Sep 20).
+- [ ] 4. Small compute, from the same instruction: CrO2 hp.x q333 pair; `runs/s0/e_proj/s0_O__u715_
+      {atomic,ortho}` re-realised at np=128; the Ru second-pseudopotential control.
+- [ ] 5. Hygiene: dated addenda on docs/84 (no U stated), docs/83 (no cell stated), docs/75:85-90
+      (live draft quoting absolute η), docs/76:222 (superseded-by); an output-dir for the builder
+      behind `test_gate1_partial_build_with_s0_O_quarantined`.
