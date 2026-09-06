@@ -226,3 +226,32 @@ that is where it has to be chased.
   `.out` files.
 - `docs/figs/zpe_decomposition.json` — every number above, machine-readable, including
   `gas_weights` and `scf_weights`.
+
+---
+
+## Dated addendum — 2026-09-05 (session 3): the tool named in §8 changed after this file was deposited; the banked JSON did not
+
+Nothing above this line is edited. Commit `4a5efad` (2026-09-05 15:31) replaced the 27-corner envelope in
+`src/dft/zpe_decomposition.py` `main()` with the continuous linear-programming envelope of
+`src/dft/che_box_robustness.py`, added a guard on `--delta`, and re-worded the summary block. The method
+this file describes at :98-100 and :117 ("full recomputation at all 27 corners"; the uniform-half-width
+scan), and that docs/43:3769 and :3771 describe, is therefore the method of the tool at `99c7431`, the
+commit that banked `docs/figs/zpe_decomposition.json`. That file is untouched.
+
+Re-running the command at :10 with the tool at HEAD reproduces every number above — `d_eta_V`,
+`electronic_eV`, `constants_eV`, the closure residual, both gas weights, all eight SCF weights, the
++2/−1/0 coefficients, the ±0.15 V band and the 0.164 / 0.380 eV margins are identical; the envelope's
+min and max differ by 4 × 10⁻¹⁶ V — and differs in exactly three places: two new keys,
+`sensitivity.offset_units` and `sensitivity.continuous_box`, and the maximum's witness offset on z_OOH,
+reported at −1 instead of +1 with the same value, which is a flat direction since ∂Δη/∂z_OOH = 0
+(:95-96 table row "max"). For this 1×1 pair the 27-corner inference at :98-100 remains valid: pair (2,1)
+wins at all eight vertices of the ±0.05 eV cube, so it wins throughout it (the vertex rule,
+docs/84:165-169). The 2×1v grid flaw docs/84:162-219 corrects does not reach this file. Both facts are
+pinned in `tests/test_pproj6_shared_box.py`, which runs the HEAD tool against the banked JSON.
+
+The banked JSON stays pinned to the `99c7431` tool by this line; no re-banking is done here.
+Re-banking from the HEAD tool is the entrant's election and would carry a dated line of its own.
+The next Zenodo version carries this addendum.
+
+> `[ZPE TOOL-CHANGE ADDENDUM — COUNTERSIGNATURE SLOT, BLANK]` — blank until the entrant reviews this
+> addendum and elects re-bank or pin by a dated line.

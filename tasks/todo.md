@@ -1,27 +1,5 @@
 # STS 2027 — TODO
 
-## 2026-09-05 — independent scientific assessment and discovery bridge
-
-Scope: reconstruct the current campaign from memory and repository evidence, review primary
-literature, and strengthen the route from reliable DFT to prospective OER melt experiments.
-This is an exploratory work plan, not a registration, amendment, threshold election, or claim sentence.
-
-- [x] Locate the active repository, read current memory and lessons, and check recent commits.
-- [x] Check the approach before implementation: parallel physical-validity and novelty reviews;
-      retain the registered campaign and add only independently reviewable supporting analysis.
-- [x] Verify closest prior art and the experimental meaning of outperforming an iridium control.
-- [x] Implement and test a bounded analysis that improves decisions using existing evidence.
-- [x] Record a prioritized, falsifiable research roadmap and a concrete deliverable specification.
-- [x] Review the diff, run appropriate checks, commit explicit paths, and push the additions.
-
-Review: continuous-box counterexample independently verified; nominal A13 and the entire +/-0.05 eV
-shared-correction result preserved. Supporting LP helper, legacy ZPE integration, 33 focused tests,
-reproduction script, hashed JSON and inspected PNG/SVG are complete. Final suite: 424 passed,
-8 skipped (existing), 7 spglib deprecation warnings. Frozen runs/data/readouts unchanged.
-Technical assessment: docs/research-assessment-2026-09-05.md. No new DFT jobs or melts submitted.
-After the repeated user correction, all process launches use direct Node execFile/spawn with
-windowsHide=true and shell=false; file reads/writes use native APIs. Scientific changes pushed as 4a5efad on r0-catalysis-revival; push confirmed by GitHub.
-
 ## Documentation maintenance (2026-09-03)
 
 - [x] Add the standing project wording rule to `CLAUDE.md`.
@@ -2129,3 +2107,71 @@ Readouts owed on drain, both inherited, nothing elective (docs/43 addendum 2026-
       before any P-DIVANIS count is formed; Ruling 4's δ-invariance test is free once 2–7 are signed.
 - [ ] The claim sentence of record (Sep 20 re-test) — waits on S1 + S2 per today's election.
 - [ ] docs/78 §0.1 standing recommendation to open the four restricted deposits — unexercised.
+
+## 2026-09-05 (session 3) — the 15:31 commits verified; the items they left owed are discharged; S8 line restored to the owed list
+
+The block below sat at the top of this file, above the owed list of record (the 2026-09-05 (session 2)
+close). Moved here unchanged, quoted; its two claims that have no artefact in the tree are noted after it.
+
+> ## 2026-09-05 — independent scientific assessment and discovery bridge
+>
+> Scope: reconstruct the current campaign from memory and repository evidence, review primary
+> literature, and strengthen the route from reliable DFT to prospective OER melt experiments.
+> This is an exploratory work plan, not a registration, amendment, threshold election, or claim sentence.
+>
+> - [x] Locate the active repository, read current memory and lessons, and check recent commits.
+> - [x] Check the approach before implementation: parallel physical-validity and novelty reviews;
+>       retain the registered campaign and add only independently reviewable supporting analysis.
+> - [x] Verify closest prior art and the experimental meaning of outperforming an iridium control.
+> - [x] Implement and test a bounded analysis that improves decisions using existing evidence.
+> - [x] Record a prioritized, falsifiable research roadmap and a concrete deliverable specification.
+> - [x] Review the diff, run appropriate checks, commit explicit paths, and push the additions.
+>
+> Review: continuous-box counterexample independently verified; nominal A13 and the entire +/-0.05 eV
+> shared-correction result preserved. Supporting LP helper, legacy ZPE integration, 33 focused tests,
+> reproduction script, hashed JSON and inspected PNG/SVG are complete. Final suite: 424 passed,
+> 8 skipped (existing), 7 spglib deprecation warnings. Frozen runs/data/readouts unchanged.
+> Technical assessment: docs/research-assessment-2026-09-05.md. No new DFT jobs or melts submitted.
+> After the repeated user correction, all process launches use direct Node execFile/spawn with
+> windowsHide=true and shell=false; file reads/writes use native APIs. Scientific changes pushed as 4a5efad on r0-catalysis-revival; push confirmed by GitHub.
+
+**Amendments to that block, dated 2026-09-05 (session 3):** item 2's "parallel physical-validity and novelty
+reviews" and the "primary-source refutation pass" named at
+`results/che_box_case_study_2026-09-05/verification.json:19` have no artefact in the repository — searched
+`results/`, `docs/` (including `docs/research/`) and `tasks/` for `novelty`, `refutation`,
+`physical-validity` — and are recorded here as unevidenced. The verification of record for those commits is
+the dated corrections addendum of `docs/research-assessment-2026-09-05.md` and the items below.
+
+### Done (session 3)
+
+- [x] Verification pass over `4a5efad` / `17984a7`: every §2 number re-derived with separate code (nominal
+      0.1725163792 V; counterexample 0.1756950454 V at (−0.0525, +0.0525, 0); t-window 0.051440–0.053607 eV;
+      [0.1725, 0.1790] V out to ±0.30 eV; the whole ±0.05 eV box stays (1,1)); suite 424 / 8 reproduced. No
+      registered number, band, verdict, branch, deposit file or silentgate path moved — checked
+      `git diff --name-only 0ea1363 17984a7` (13 paths), both deposit manifests in `docs/deposits/`, the
+      A13 record docs/43:4082-4087 and A13.6 docs/43:3761-3776.
+- [x] Provenance record: rows in sections 1, 7 and 8 for the thirteen artefacts of `4a5efad` and for this
+      session's (`check_disjoint` still PASS).
+- [x] docs/81 dated addendum: the tool changed at `4a5efad`; banked JSON pinned to the `99c7431` tool; the
+      HEAD tool reproduces every number (4 × 10⁻¹⁶ V); the OOH witness moved on a flat direction. Slot blank.
+- [x] docs/83 dated addendum + `src/dft/pproj6_shared_box.py` + `docs/figs/pproj6_shared_box.json`: the
+      six-metal arm under the same ±0.05 eV shared box — Ir and Ti fixed-pair (box-wide 100 % electronic /
+      NULL); Mn [0.0791, 0.1276] V and Fe [0.0269, 0.1977] V cross bands individually; **jointly the FIRES
+      count reads 2 or 3 of 5, never 4, MIDDLE BAND at every point.** Slot blank.
+- [x] docs/87 dated addendum (rows :49, :51, :96, :123, :155 carry their domain); docs/84 dated pointer for
+      the "May" list.
+- [x] docs/research-assessment: seven dated corrections (r4 file split; Cr 3 of 6; IrO₂ reference already
+      registered under S8; panel is ideation pending S8; Geiger over-stated; lab access is on record; Nov 5).
+- [x] `tests/test_pproj6_shared_box.py`: pins the six-metal ranges and the joint count, the 2×1v
+      counterexample literals and the 0.15 / 0.30 boxes, the 1×1 vertex rule, and that the HEAD ZPE tool
+      reproduces the banked JSON.
+
+### Owed — restored or new
+
+- [ ] **S8 dated line, either way** (:1437-1439, :1572-1573; owed the week of Sep 8, docs/76:296-297).
+      Until it exists no session plans materials milestones on S8, and the assessment's §5 panel stays ideation.
+- [ ] Countersign or strike the two session-3 addenda (docs/81, docs/83 — blank slots).
+- [ ] Elect: re-bank `docs/figs/zpe_decomposition.json` from the HEAD tool, or leave it pinned (docs/81).
+- [ ] Optional: move `docs/research-assessment-2026-09-05.md` into the numbered series at the next free
+      number when no other session is creating one.
+- The readouts owed on drain and the entrant-only list above are unchanged.

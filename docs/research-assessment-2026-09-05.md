@@ -266,3 +266,39 @@ or supply submission prose.
 The immediate scientific improvement is concrete: a robustness claim now has a continuous
 test and a counterexample, while the valid nominal result survives. The larger improvement
 depends on showing that this discipline changes the outcome of a real discovery decision.
+
+---
+
+## Dated corrections — 2026-09-05 (session 3), after a verification pass against the repository
+
+Nothing above this line is edited. Every number in §2 was re-derived independently from
+`docs/figs/pproj_cell_readout.json` with separate code, and the test suite's 424 passed / 8 skipped was
+reproduced; §2 stands. The following lines are corrected or bounded.
+
+1. **:23, alloy screen.** `results/r4_gated.json` has 6 rows; the 12 screened compositions are in
+   `results/r4_screen_box.json` (`n_screened`). The counts are right; the attribution belongs to two files.
+2. **:170, "often center on Cr".** Cr is the minimum-η site metal on 3 of the 6 gated candidates and
+   3 of the 12 screened.
+3. **:205, "add an explicit matched IrO₂ electrode comparison".** An IrO₂ reference on the same bench is
+   already registered in S8 (docs/45:93; docs/44:172-173) — as a reference, not as a target. What S8 lacks
+   is its go/no-go dated line: "No S8 ruling exists in the tree" (tasks/todo.md:1437-1439), "S8 dated line,
+   either way" (tasks/todo.md:1572-1573), owed the week of Sep 8 (docs/76:296-297).
+4. **:180, the substitution panel.** Adoptable only after that S8 line, a dated S8 amendment restating the
+   registered melt-set rule (top 2–4 by the re-rank gate + a predicted-poor anchor + IrO₂ same-bench,
+   docs/45:93) and a new freeze deposit before any ingot (docs/45:56). Until then it is ideation and enters
+   no report.
+5. **:221-222, the stability number.** Geiger et al. 2018 define the S-number as oxygen computed from the
+   passed charge at an assumed 100 % Faradaic efficiency, divided by dissolved iridium measured online;
+   only the dissolution is measured. "Both measured" over-states the source; measured oxygen would be an
+   addition to it.
+6. **:238, lab access.** The repository does record it: furnace, XRD and OER-bench access confirmed
+   2026-08-16 (docs/44:174) and the potentiostat booked (tasks/todo.md:235). What is not on record is the
+   S8 decision (item 3).
+7. **:259, the deadline.** Consistent with docs/43:2249-2251 (report lock, backstop Nov 5 2026 8:00 pm ET).
+   tasks/todo.md:1279's "Oct 15 hard freeze" (dated 2026-09-03) is the superseded date.
+
+Of the seven paper citations, six resolve and support their sentences (Timrov 2021 and O'Regan 2010
+together carry the projector clause); item 5 is the one that does not. The Society for Science page
+confirms the date and time at :259. §3's protocol-validation discipline and §7's "Immediate" row are
+unaffected. The six-metal arm's own shared-constants box, which §2's method invites, is now at docs/83,
+dated addendum 2026-09-05 (session 3): the class verdict is constants-robust, the Mn and Fe rows are not.

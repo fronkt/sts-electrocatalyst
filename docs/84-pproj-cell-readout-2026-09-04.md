@@ -217,3 +217,14 @@ threshold. No claim about independent surface-specific solvation errors, U uncer
 electronic basins, or real catalyst performance follows from this shared-constants box.
 Here and in future explanations use **potential-limiting step** for the CHE result.
 The historical phrase "rate-limiting step" does not establish kinetic rate determination.
+
+---
+
+## Dated pointer — 2026-09-05 (session 3): the "May" list at :124-132 reads with the correction above
+
+Nothing above this line is edited. The second clause of "May" (:127-128), "entirely electronic and exactly
+insensitive to the ZPE/TS table", is governed by the dated correction at :162-219: it is exact within the
+±0.05 eV shared-correction box (pair (1,1) throughout, :193-195), and out to ±0.30 eV the magnitude stays
+within [0.1725, 0.1790] V while the paired step identity does not (:179-182, :186-191). Quote the clause
+with that domain. The "May not" list is unchanged. The six-metal arm read alongside at :95-107 has its own
+box now: docs/83, dated addendum 2026-09-05 (session 3).

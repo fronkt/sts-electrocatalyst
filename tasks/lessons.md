@@ -1185,3 +1185,18 @@ or background execution prevents Windows console windows. For this session, use 
 process interface with execFile(..., {windowsHide: true, shell: false}) and an explicit
 executable; use native filesystem APIs for reads/writes. Do not return to exec_command or
 spawn visible shells. This applies to delegated agents as well.
+
+## A commit that adds artefacts without their provenance rows is incomplete (2026-09-05)
+
+**What happened:** the 15:31 commit (`4a5efad`) added thirteen artefacts — a solver, a case study, tests,
+results, a docs file, a docs/84 correction and an edit of the registered ZPE tool — and entered none of
+them in `docs/provenance-record.md`, two hours after the record had been extended with sixteen rows for
+exactly this class of artefact. It also changed a tool named in the deposited ledger (docs/43:3752)
+without a dated line in the doc that describes the tool's method (docs/81), although every banked number
+was preserved. Both were repaired the same evening.
+**Rule:** the provenance row travels in the same commit as the artefact (docs/43:1840, "each logged … as
+produced"); before `git commit`, diff the staged path list against the record. Editing a tool that a
+deposited line names gets a dated addendum in the doc that describes its method, in the same commit, even
+when the numbers do not move — the deposited description must say which commit's tool it describes.
+**Corollary for the 27-point grid:** a difference of maxima is piecewise affine; sample points certify a
+box only when one fixed step wins at all its vertices. Check the vertices, not the grid.

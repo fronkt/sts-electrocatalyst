@@ -154,3 +154,29 @@ judge will ask.
 | `docs/76:222-223` — "It becomes a class claim about the METHOD … both must be written" — is contradicted by the readout one day later ("no class claim is made", `docs/83:33`; `docs/43:4031-4034`). docs/76 is dated before the readout; the readout governs. | read | a superseded-by line on docs/76 §5 |
 | The FIRES 3-of-5 count leans on Fe, whose Δη is **502.6 % constants** with the electronic part pointing the other way (`docs/83:91-93`); docs/83 carries the caveat, and no sentence may quote Fe as evidence of a large electronic effect. | read | already in docs/83; carried here so the count is never quoted without it |
 | The exposure-versus-consequence rule (`docs/43:1942`) forbids the in-house control and the external precision in one sentence and forbids multiplying a per-relaxation exposure rate into a per-metal consequence rate — which is precisely the rhetorical move round-1 (a) makes ("showed it is present … and measured what it costs"). | read | the entrant's Sep-20 sentence must split that into two sentences or drop the second half |
+
+---
+
+## Dated addendum — 2026-09-05 (session 3): three rows of §1, one tension and one candidate now carry a domain
+
+Nothing above this line is edited. The dated correction at docs/84:162-219, same day, withdrew the sentence
+that the two 2×1v legs "cannot differ" under the constants and replaced it with a measured domain: pair
+(1,1) and a constant +0.1725164 V across the whole ±0.05 eV shared box; beyond it, out to ±0.30 eV,
+Δη ∈ [0.1725, 0.1790] V with pairs (1,1), (1,2), (2,2) (docs/84:186-191). It ruled (docs/84:197-198) that
+"exactly insensitive to the constants table" must carry either its shared-correction domain or its
+fixed-active-step condition. Three places here quote that sentence bare:
+
+- §1 row "composition of the 2×1v Δη" (:49): "entirely electronic, exactly insensitive to the ZPE/TS
+  table" — read as exactly insensitive **within the ±0.05 eV shared box** (docs/84:193-195); the magnitude
+  moves by at most 6.5 mV out to ±0.30 eV.
+- T2 (:96): "0.17 V, purely electronic" — same domain.
+- Candidate D (:123): "0.17 V, entirely electronic, in the adopted 2x1v cell" — same domain. Its
+  refutation at :123 stands on its other grounds and is not reopened.
+
+Two further rows gain their number. §1 row "P-PROJ-6 class verdict" (:51) and §7 row :155: under the same
+±0.05 eV shared box the FIRES count reads 2 or 3 of 5 and the class verdict is MIDDLE BAND at every point,
+while Mn's and Fe's individual bands are not constants-robust (docs/83 dated addendum 2026-09-05 (session
+3); `docs/figs/pproj6_shared_box.json`). "FIRES 3 of 5" is quotable as the nominal count with that sentence
+beside it. Ir's "100 % electronic" holds across the whole box, as a fixed-pair row.
+
+No constraint C1–C11 changes; no candidate's verdict changes; the two exits of §4 remain the entrant's.

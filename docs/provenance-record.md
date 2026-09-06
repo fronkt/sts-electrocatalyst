@@ -60,6 +60,7 @@ adoption at the cited line.
 | `tests/test_verify_dois.py` | 2026-09-04, first-hand |
 | `tests/test_mirror_audit.py` | 2026-09-05, first-hand |
 | `tests/silentgate/test_preflight.py` | 2026-09-05, first-hand |
+| `tests/test_che_box_robustness.py` (33 tests, commit `4a5efad`) and `tests/test_pproj6_shared_box.py` | `tasks/todo.md` 2026-09-05 (session 3) section; first-hand |
 
 ## 2. CI — `docs/43-prereg-week1-factorial.md:1840` "the CI workflow"
 
@@ -165,6 +166,8 @@ by the entrant's adoption, recorded at the cited line.
 | `src/dft/build_ru_pp.py`, the twelve decks under `runs/a0/ru_pp/` (NOT LICENSED) and `runs/a0/ru_pp/PSEUDO_PROVENANCE.md` | 2026-09-05, first-hand |
 | `src/dft/hp_cro2_q333_readout.py`, `src/dft/eproj_np128_readout.py` and `tests/test_small_arms_readouts.py` (scorers committed before their outputs landed) | 2026-09-05, first-hand; commit b502beb |
 | `src/dft/build_h_afm_relax.py` — the `--out-dir` argument (the edit only) and the matching test change | 2026-09-05, first-hand; commit f5d2f7d |
+| `src/dft/che_box_robustness.py`, `src/dft/che_robustness_case_study.py`, the 2026-09-05 edit of `src/dft/zpe_decomposition.py` (the `main()` envelope and the `--delta` guard only; `docs/figs/zpe_decomposition.json` untouched) and `results/che_box_case_study_2026-09-05/` (audit, verification and zpe_continuous_check JSON, PNG, SVG) | commit `4a5efad`; `docs/84-pproj-cell-readout-2026-09-04.md:206-213`; `docs/81-zpe-decomposition-of-a71-2026-09-04.md` dated addendum 2026-09-05 (session 3) |
+| `src/dft/pproj6_shared_box.py` and `docs/figs/pproj6_shared_box.json` | first-hand; `docs/83-pproj6-readout-2026-09-04.md` dated addendum 2026-09-05 (session 3) |
 
 ## 8. Ledger and prose infrastructure
 
@@ -181,6 +184,7 @@ by the entrant's adoption, recorded at the cited line.
 | `docs/83-pproj6-readout-2026-09-04.md` — the dated addendum of 2026-09-05 (the cell of every deck) | 2026-09-05, first-hand |
 | `docs/75-novelty-and-placement-2026-09-03.md` — the dated addendum of 2026-09-05 (lines 85-90 superseded) | 2026-09-05, first-hand |
 | `docs/76-projector-generalization-decision-2026-09-03.md` — the dated addendum of 2026-09-05 (section 5 superseded) | 2026-09-05, first-hand |
+| `docs/research-assessment-2026-09-05.md` (commit `4a5efad`) and its dated corrections addendum; the dated correction at `docs/84-pproj-cell-readout-2026-09-04.md:162-219` (commit `4a5efad`) and the dated pointer below it; the dated addenda of 2026-09-05 (session 3) in `docs/81-zpe-decomposition-of-a71-2026-09-04.md`, `docs/83-pproj6-readout-2026-09-04.md` and `docs/87-claim-sentence-constraints-2026-09-05.md`, each carrying a blank countersignature slot or none; the `tasks/todo.md` and `tasks/lessons.md` entries of 2026-09-05 15:31 and (session 3) | commit `4a5efad`; first-hand |
 
 ## 9. Owed, not yet written
 
