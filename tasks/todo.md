@@ -2146,7 +2146,7 @@ the dated corrections addendum of `docs/research-assessment-2026-09-05.md` and t
 
 - [x] Verification pass over `4a5efad` / `17984a7`: every §2 number re-derived with separate code (nominal
       0.1725163792 V; counterexample 0.1756950454 V at (−0.0525, +0.0525, 0); t-window 0.051440–0.053607 eV;
-      [0.1725, 0.1790] V out to ±0.30 eV; the whole ±0.05 eV box stays (1,1)); suite 424 / 8 reproduced. No
+      [0.1725, 0.1790] V out to ±0.30 eV; the whole ±0.05 eV box stays (1,1)); suite 424 / 8 reproduced on the 17984a7 tree (441 / 8 from 13268da on). No
       registered number, band, verdict, branch, deposit file or silentgate path moved — checked
       `git diff --name-only 0ea1363 17984a7` (13 paths), both deposit manifests in `docs/deposits/`, the
       A13 record docs/43:4082-4087 and A13.6 docs/43:3761-3776.
@@ -2171,11 +2171,17 @@ the dated corrections addendum of `docs/research-assessment-2026-09-05.md` and t
       99c7431 re-banked it 30 min after the deposit) and the 22-line todo anchor shift corrected by dated lines;
       provenance rows for the zpe edit and the session-3 material amended.
 
+- [x] Second verification pass (all 19 agents, 2026-09-06): b7d5228 had rewritten two provenance rows IN PLACE against
+      the record's own :33-34 rule — restored to their 376a3c7 text, amended wording now in dated rows; its docs/83 item 3
+      (":253 only for pls-differing rows") was itself wrong and is corrected by a dated line; smaller anchor slips
+      (docs/81 :252-253, docs/87 heading and the "cannot differ" quote, docs/76:296-298, the 424/8 tree, Geiger's own
+      wording) corrected by dated lines. Numbers untouched throughout.
+
 **Note (session 3, after CI):** a SHA-256 recorded on this Windows working copy is the hash of CRLF bytes; git stores and CI checks out LF. `results/che_box_case_study_2026-09-05/audit.json:4` records `18cb291e…` for `docs/figs/pproj_cell_readout.json`, whose committed bytes hash to `964b271b…`; nothing tests that value, so nothing fails, but a Linux verifier will not reproduce it. `docs/figs/pproj6_shared_box.json` hashes CRLF-normalised bytes for this reason (`sha256_of` key).
 
 ### Owed — restored or new
 
-- [ ] **S8 dated line, either way** (:1415-1417, :1550-1551; owed the week of Sep 8, docs/76:296-297).
+- [ ] **S8 dated line, either way** (:1415-1417, :1550-1551; owed the week of Sep 8, docs/76:296-298).
       Until it exists no session plans materials milestones on S8, and the assessment's §5 panel stays ideation.
 - [ ] Countersign or strike the two session-3 addenda (docs/81, docs/83 — blank slots).
 - [ ] Elect: re-bank `docs/figs/zpe_decomposition.json` from the HEAD tool, or leave it pinned (docs/81).

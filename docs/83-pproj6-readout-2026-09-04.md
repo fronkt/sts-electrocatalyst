@@ -269,3 +269,10 @@ independent 16-region LP and a 101³ grid, max |LP − grid| 2 × 10⁻¹⁶ V; 
    docs/43:4030 is cited correctly.
 5. :241 — "as A12 requires": Amendment 12 never mentions the constants table; the nominal constants follow
    from A12.R1's inherited estimand (docs/43:3351-3353).
+
+**Dated correction, 2026-09-06, to item 3 and one word above.** Item 3 (:266-267) says ":253 is reached only for
+pls-differing rows"; that is wrong. In `src/dft/pproj6_readout.py` :253 (`c = zpe.step_constants(...)`) sits at loop-body
+indentation and evaluates the step constants from the one table for every metal; the branch reached only for
+pls-differing rows is :255-262. The table is applied to the legs at :224-226 through `src/hea_oer/referencing.py:18, :33`,
+as item 3 says. And :255's "smallest-norm grid point" is the smallest **L1**-norm point (`src/dft/pproj6_shared_box.py`,
+`np.abs(grid).sum(1)`); under another norm a different grid point minimises.

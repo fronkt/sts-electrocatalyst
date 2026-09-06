@@ -280,3 +280,5 @@ re-derived unchanged in the pass.
 5. :247 — the "max" row is :96; :95 is the nominal row.
 6. :249 — the HEAD-tool pin in `tests/test_pproj6_shared_box.py` skips rather than fails where the raw `.out`
    inputs are absent; here it ran (17 passed, 0 skipped).
+
+**Dated correction, 2026-09-06, to item 1 above.** "The pin at :251-252" — :251 is blank; the pin sentence is :252-253.

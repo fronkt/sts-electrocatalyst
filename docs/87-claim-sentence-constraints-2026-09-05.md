@@ -180,3 +180,13 @@ while Mn's and Fe's individual bands are not constants-robust (docs/83 dated add
 beside it. Ir's "100 % electronic" holds across the whole box, as a fixed-pair row.
 
 No constraint C1–C11 changes; no candidate's verdict changes; the two exits of §4 remain the entrant's.
+
+---
+
+## Dated correction, 2026-09-06, to the addendum above
+
+Nothing above this line is edited. Two slips in the addendum at :160-182: its heading says "three rows of §1"; the
+rows it treats are two of §1 (:49, :51) and one of §7 (:155). And :162-163 puts "cannot differ" in quotation
+marks as if docs/84 said it; docs/84:81 reads "two legs can be made to *differ*, and they cannot", and the
+withdrawal at docs/84:181-182 reads "The assertion that the legs must move together throughout these boxes is
+withdrawn." The substance is unchanged.

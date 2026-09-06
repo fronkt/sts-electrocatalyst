@@ -311,3 +311,17 @@ Nothing above this line is edited. The commit that added the corrections above (
 22-line block at the top of `tasks/todo.md` to its end, so every `tasks/todo.md` anchor in items 3, 6 and 7
 is 22 lines high at HEAD: :1437-1439 → :1415-1417; :1572-1573 → :1550-1551; :235 → :213; :1279 → :1257.
 The quoted text is unchanged at those lines.
+
+---
+
+## Dated correction, 2026-09-06, to the two sections above
+
+Nothing above this line is edited. Four slips in the corrections of 2026-09-05:
+
+- :274-275, "the test suite's 424 passed / 8 skipped was reproduced" — that is the suite of the `17984a7` tree.
+  From `13268da` on it reads 441 passed / 8 skipped, the seventeen added being `tests/test_pproj6_shared_box.py`.
+- :285, "docs/76:296-297" — the S8 / re-rank disposition words are on docs/76:298; cite :296-298. Likewise the
+  quoted phrase at :285, "add an explicit matched IrO₂ electrode comparison", spans :205-206 of this file.
+- :290-291, item 5 — Geiger et al. 2018's own wording is that the evolved oxygen is "calculated from Q_total";
+  "at an assumed 100 % Faradaic efficiency" is the assumption that calculation implies, not the paper's phrase.
+  The substance stands: only the dissolution is measured, and :221-222's "both measured" over-states the source.
