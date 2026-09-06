@@ -4429,3 +4429,52 @@ read, and no census number was formed. As at :1811 item 3, this is disclosed as 
 observation made by a tool and not by the entrant; it does not touch :1909 (census numbers from raw
 outputs the entrant parsed himself) and does not pre-commit any branch of P-XU or P-XU-SPAN. Entered
 in `docs/provenance-record.md` section 4 the same day, discharging the entry owed at docs/78:55.
+
+---
+## Dated addendum — 2026-09-06: the two small arms of item 5(a)–(b) LANDED and SCORED (docs/90)
+
+Readout of record: `docs/90-small-arms-readout-2026-09-06.md`, drafted from the raw outputs and the two
+JSON readouts, then refuted under four lenses (174 claims examined, 75 refuted and corrected, 3
+refutations rejected with reasons) and re-derived by two final verifiers before this line was written.
+Nothing above :4418 is edited; the planning sentences at :4396-4397 and :4410 stay as the dated record
+and are corrected here.
+
+**(a) CrO₂ q-mesh check — both legs PASS the inherited bar (:276; A12b.R2 :3497-3505).** Read from
+`runs/hp_cro2_q333/cro2_{atomic,ortho}_q333.Hubbard_parameters.dat:7-8` against the banked q222 files:
+atomic U(q333) 6.1777 eV vs 6.1635 → ΔU +0.0142 eV (7.1 % of the bar); ortho-atomic U(q333) 7.3008 eV
+vs 7.2677 → ΔU +0.0331 eV (16.6 %). The split re-formed at q333 is **+1.1231 eV** beside the q222
+split of +1.1042 eV (change +0.0189 eV) — a measurement, no bar exists on the split (:3503-3505).
+hp.x: `JOB DONE` once and `Convergence has not been reached` zero times in each output; 8 irreducible
+q-points each, all converged; the A12b.R3 named risk did not fire. SCF isolation (:4392-4395): all four
+SCFs print −517.92950441 Ry, 4.00 / 4.68 μB, 19 iterations — ortho q333 vs the Anvil q222 leg MATCH on
+the printed strings; atomic q333 vs the Vast q222 leg AGREES under A8.5 with ΔE = 0 at eight decimals.
+Caveat carried: the atomic-leg ΔU is measured across machine and hp.x pool layout as well as mesh (the
+Vast q222 hp.x ran `npool = 4`, the Anvil runs no pools); the ortho-leg ΔU has no such confound.
+
+**Realised cost, a 5.8× miss against the planning figure.** Job 20419730 (atomic) Elapsed 08:25:33 at
+20 cores = 168.5 core-h; job 20419731 (ortho) 07:26:37 = 148.9 core-h; pair **317.4 core-h** against
+the ~55 at :4397. The planning sentence scaled by the full-mesh q-count (27 vs 8); hp.x iterates the
+irreducible sets, **8 at q333 against 6 at q222** (ratio 1.33), and the linear-response work
+(Σ k+q × iterations) grew 4.1× (ortho) and 5.5× (atomic) while throughput inside both runs fell
+non-uniformly by up to an order of magnitude on some q-blocks — the cause of that part is INFERRED
+(shared-node or filesystem contention; `davcio` wall 9–21× its CPU) and not established. No
+replacement cost model is registered; the realised figures are the record. Corrected in the same
+readout: A12b.R1's "np = 20, nk = 4" (:3491) described pw.x only — hp.x runs without k-point pools
+under `anvil/52_hp.slurm` (`:100`); the banked Vast atomic q222 hp.x ran with pools.
+
+**(b) Gate-(e) pair at np = 128 — both legs AGREE under A8.5 (:1613-1616).** Anvil −1592.51110033 Ry vs
+banked −1592.51110015 (ΔE −1.8e-7 Ry, 1.8 % of the bar); −1592.78131334 vs −1592.78131312 (ΔE −2.2e-7 Ry,
+2.2 %). Paired difference E(atomic) − E(ortho) re-formed on Anvil **0.27021301 Ry** beside the banked
+0.27021297 Ry. No banked value moves (:4409). The A6.5(1) charge readout for both gate-(e) states now
+exists (`runs/a0/eproj_np128/*.lowdin.txt`; the banked `runs/s0/e_proj/` holds none). Cost: array
+20419733, 00:02:44 + 00:02:37 at 128 cores = 11.41 core-h of Elapsed (pw.x alone 9.88) against "~10 SU"
+at :4410 — inside the tilde.
+
+**Mirror audit before countersignature (:4148 rule):** `src/dft/mirror_audit.py` run 2026-09-06 over the whole run tree after the pull: 32554 remote / 4606 local files; SAME 4176, ANVIL-ONLY 28135 (all out of git by design), LOCAL-ONLY 187, DIFFER 243; **ANVIL-ONLY pw.x outputs 0, DIFFERING outputs 0**, exit 0. The class lists were saved outside the tree.
+
+**What this does not license** is stated in docs/90 and repeated in one line: nothing on the size of
+the split; no substitution of which U a report quotes (q333 is not itself checked against q444 for
+CrO₂); bulk not slab, n = 2, unchanged from :3544-3546; and no re-planning of any other arm.
+
+> `[SMALL ARMS READOUT COUNTERSIGNED 2026-09-__]` — countersignature slot for the entrant (mirrors the
+> slot at the foot of docs/90).
