@@ -2166,6 +2166,8 @@ the dated corrections addendum of `docs/research-assessment-2026-09-05.md` and t
       counterexample literals and the 0.15 / 0.30 boxes, the 1×1 vertex rule, and that the HEAD ZPE tool
       reproduces the banked JSON.
 
+**Note (session 3, after CI):** a SHA-256 recorded on this Windows working copy is the hash of CRLF bytes; git stores and CI checks out LF. `results/che_box_case_study_2026-09-05/audit.json:4` records `18cb291e…` for `docs/figs/pproj_cell_readout.json`, whose committed bytes hash to `964b271b…`; nothing tests that value, so nothing fails, but a Linux verifier will not reproduce it. `docs/figs/pproj6_shared_box.json` hashes CRLF-normalised bytes for this reason (`sha256_of` key).
+
 ### Owed — restored or new
 
 - [ ] **S8 dated line, either way** (:1437-1439, :1572-1573; owed the week of Sep 8, docs/76:296-297).

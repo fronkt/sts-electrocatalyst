@@ -54,6 +54,12 @@ def band(abs_d_eta: float, fire_v: float, null_v: float) -> str:
     return "FIRES" if abs_d_eta > fire_v else ("NULL" if abs_d_eta < null_v else "INTERMEDIATE")
 
 
+def _sha256_lf(path: Path) -> str:
+    """SHA-256 of the file with CRLF normalised to LF, so the hash is the same on a
+    Windows working copy (autocrlf) and on the LF bytes git stores and CI checks out."""
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+
+
 def _grid(half_width: float, n: int) -> np.ndarray:
     g = np.linspace(-half_width, half_width, n)
     return np.array(list(itertools.product(g, g, g)))
@@ -142,11 +148,11 @@ def build(source: Path = BANKED, half_width: float = 0.05, grid_points: int = 10
     return {
         "status": "sensitivity calculation; no registered number, band or verdict re-scored",
         "source": source.relative_to(ROOT).as_posix(),
-        "source_sha256": hashlib.sha256(raw).hexdigest(),
+        "sha256_of": "bytes with CRLF normalised to LF (the bytes git stores)",
+        "source_sha256": _sha256_lf(source),
         "implementation_sha256": {
-            "src/dft/pproj6_shared_box.py": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-            "src/dft/che_box_robustness.py": hashlib.sha256(
-                (Path(__file__).with_name("che_box_robustness.py")).read_bytes()).hexdigest(),
+            "src/dft/pproj6_shared_box.py": _sha256_lf(Path(__file__)),
+            "src/dft/che_box_robustness.py": _sha256_lf(Path(__file__).with_name("che_box_robustness.py")),
         },
         "arm": {"rung": banked["rung"], "U_eV": banked["U"], "cell": "1x1 (docs/83 dated addendum 2026-09-05)"},
         "half_width_eV": half_width,
