@@ -2262,3 +2262,21 @@ Scope: implement and verify the diagnostic rescreen already identified in the ca
 Verification plan: failure-case and synthetic switching tests, exact input/model hashes, strict finite serialization, protocol identity checks, one real-model feasibility measurement before a larger diagnostic, full suite after integration, independent review before banking.
 
 Review: explicit-composition runner, all-start/raw-energy/gas/binding records, conservative site-evidence diagnostics and partial-exception recovery verified. Calculator-free survey: 36 decorations/144 sites, current top-three Cr-center counts 5/1/5. Two-step real-model pilot: 78.625 s end-to-end; gases converged, selected chain failed; no full relaxation or new DFT. Initial import failure traced to PyTorch username/cache lookup and retried with an explicit task cache; packages and weights unchanged. Full suite 588 passed, 8 skipped; focused 90 passed. Survey reproduced exactly; manifest/code/result hashes and protected-path diff passed. Independent scientific and code reviews completed. The six-candidate manifest is ready for a separate full diagnostic. Scientific interpretation and next calculations: docs/site-evidence-continuation-2026-09-06.md.
+
+## 2026-09-06 — Full Cr-site chains and chemical interpretation
+
+Scope: progress from the two-step feasibility check to complete, retained 300-step-limit relaxations of two explicitly selected Cr-centered environments. Compare Fe25Co25Ni25Cr25 seed 2 / site 0 with Ni31Cr29Cu5Mn35 seed 0 / site 0. This is an exploratory conditional motif comparison, not a population-minimum rescreen or new melt ranking. Keep fmax=0.05 eV/A, all three starts per OH/O/OOH, exact fractions and checkpoint bytes. Preserve every failed selected chain; no silent substitute.
+
+- [x] Recover latest scientific state and verify isolated Codex_STS_Background execution.
+- [x] Pin separate manifests and complete the two 300-step-limit Cr-site calculations, retaining all starts and selected coordinates.
+- [x] Add a standalone selected-geometry audit for OOH connectivity, proton location, periodic contacts and cross-intermediate binding partners.
+- [x] Reconstruct CHE and analyze energy, basin and chemical explanations separately; specify the next discriminating calculation from the observed outcome.
+- [x] Run synthetic failure-case tests, full relevant suite and independent scientific/code review; verify historical inputs unchanged.
+- [x] Record scientific findings and limits, commit explicit paths, and push.
+
+Verification plan: worker desktop checked before every process task; same model/implementation hashes on paired manifests; force and CHE consistency checks; raw MIC distances with explicit exploratory thresholds; no conversion of force convergence into chemical validity; no comparison of two selected sites as a complete composition ranking.
+
+Result-driven extension: both Cr chains completed. The leader selected endpoint loses its OOH hydrogen to slab oxygen and has no short substrate contact; the equiatomic detached-distance alternative is only 31.10 meV above selected.
+- [x] Recover all six OOH-start coordinate endpoints on the exact retained slabs; verify replay energies against the first run before planning branch-paired DFT.
+
+Review: two complete targeted Cr-site chains plus all six OOH endpoint replays, 30/30 force-converged executions. Equiatomic retains metal-contacted OOH with a detached OOH-like endpoint only 31.10 meV higher; leader-composition seed 0 has no sampled intact metal-contacted OOH endpoint and favors OO-like + H-on-slab configurations. This does not test the historical leader seed-1 winner. Six replay energies match within 1.14e-13 eV; selected coordinates match exactly. Eighteen coordinate exports round-trip; four-geometry DFT branch panel plus optional proton-acceptor control are explicit, with no DFT execution. Focused tests 42 passed; full suite 630 passed, 8 skipped, 57 spglib warnings. Scientific and code reviews resolved; historical runs/source rankings and registered inputs unchanged. See docs/cr-site-chain-readout-2026-09-06.md and results/cr_site_chains_2026-09-06/verification.json.

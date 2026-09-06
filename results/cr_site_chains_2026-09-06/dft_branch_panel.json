@@ -1,0 +1,72 @@
+{
+  "schema": "dft-branch-panel-v1",
+  "purpose": "Fixed-geometry electronic branch-gap comparison; no DFT CHE, kinetic-barrier or electrode-performance claim",
+  "status": "geometry_panel_complete_protocol_unspecified",
+  "pairs": [
+    {
+      "arm": "equiatomic",
+      "atom_inventory_cell_pbc_constraints_equal": true,
+      "states": [
+        {
+          "start": "pull2.10",
+          "source_json": "equiatomic_ooh_replay.json",
+          "geometry_pointer": "/attempts/2/geometry",
+          "extxyz": "ooh_readout/equiatomic_pull2.10.extxyz",
+          "sha256_lf": "bbdf0443ac8d318633105bfbb88c240f1bad66bd9fe595eea616d849dceeed46"
+        },
+        {
+          "start": "builder",
+          "source_json": "equiatomic_ooh_replay.json",
+          "geometry_pointer": "/attempts/0/geometry",
+          "extxyz": "ooh_readout/equiatomic_builder.extxyz",
+          "sha256_lf": "a08e3796db32e2d8810844a92ef4c25b536c866a0cbd140a92c66feeb5ce918e"
+        }
+      ],
+      "MACE_E_B_minus_E_A_eV": 0.031097709000505347,
+      "reference_cancellation": "Identical atom inventory within the pair; no gas or clean-slab reference needed for this electronic energy difference."
+    },
+    {
+      "arm": "leader",
+      "atom_inventory_cell_pbc_constraints_equal": true,
+      "states": [
+        {
+          "start": "builder",
+          "source_json": "leader_ooh_replay.json",
+          "geometry_pointer": "/attempts/0/geometry",
+          "extxyz": "ooh_readout/leader_builder.extxyz",
+          "sha256_lf": "6167100171d0cc969b76af1a7ac12a49595e2c05fd6c2c4d731828ddfa391e59"
+        },
+        {
+          "start": "pull2.10",
+          "source_json": "leader_ooh_replay.json",
+          "geometry_pointer": "/attempts/2/geometry",
+          "extxyz": "ooh_readout/leader_pull2.10.extxyz",
+          "sha256_lf": "ed8af25543861565b82fecda6cff52a4335974bce1b1d2d9bf19c3729b26ea65"
+        }
+      ],
+      "MACE_E_B_minus_E_A_eV": -2.281832858000712,
+      "reference_cancellation": "Identical atom inventory within the pair; no gas or clean-slab reference needed for this electronic energy difference."
+    }
+  ],
+  "optional": [
+    {
+      "arm": "leader",
+      "start": "pull1.70",
+      "source_json": "leader_ooh_replay.json",
+      "geometry_pointer": "/attempts/1/geometry",
+      "purpose": "Compare proton acceptor O68 with selected O56",
+      "MACE_E_O68_minus_E_O56_eV": 0.726032806492185
+    }
+  ],
+  "protocol_fields_to_specify": [
+    "exchange-correlation functional",
+    "pseudopotential files and hashes",
+    "Hubbard U policy and projector convention",
+    "spin states and initialization",
+    "charge",
+    "cutoffs and k mesh",
+    "boundary and dipole treatment",
+    "SCF convergence criteria"
+  ],
+  "DFT_executed": false
+}

@@ -1,0 +1,676 @@
+{
+  "schema": "ooh-replay-readout-v1",
+  "arms": {
+    "equiatomic": {
+      "source_replay_sha256_lf": "c9e62ace857f15c307ebcf1b0be242a50776d47a313a8ad690b6951a9def967e",
+      "attempts": [
+        {
+          "start": "builder",
+          "energy_eV": -432.4413992175864,
+          "above_original_selected_eV": 0.031097709000505347,
+          "replay_minus_original_eV": 5.684341886080802e-14,
+          "seconds": 93.78099999995902,
+          "geometry_diagnostic": {
+            "geometry_status": "observed",
+            "issues": [],
+            "exploratory_screen": "review",
+            "flags": [
+              "proximal_O_without_metal_contact_within_exploratory_threshold"
+            ],
+            "n_slab_atoms": 72,
+            "adsorbate_indices": {
+              "proximal_O": 72,
+              "distal_O": 73,
+              "H": 74
+            },
+            "distances_A": {
+              "proximal_O_H_A": 1.8805366514277864,
+              "distal_O_H_A": 1.000585440192394,
+              "O_O_A": 1.343129590329735
+            },
+            "oxygen_metal_contacts": {
+              "proximal_O": {
+                "distance_A": 4.705629320861787,
+                "nearest_indices": [
+                  16
+                ],
+                "nearest_symbols": [
+                  "Cr"
+                ],
+                "within_threshold_indices": [],
+                "unique_nearest_index": 16
+              },
+              "distal_O": {
+                "distance_A": 3.6759883144968604,
+                "nearest_indices": [
+                  16
+                ],
+                "nearest_symbols": [
+                  "Cr"
+                ],
+                "within_threshold_indices": [],
+                "unique_nearest_index": 16
+              }
+            },
+            "oxygen_substrate_contacts": {
+              "proximal_O": {
+                "distance_A": 4.480045801078383,
+                "nearest_indices": [
+                  57
+                ],
+                "nearest_symbols": [
+                  "O"
+                ],
+                "within_threshold_indices": [],
+                "unique_nearest_index": 57
+              },
+              "distal_O": {
+                "distance_A": 3.424869988909515,
+                "nearest_indices": [
+                  68
+                ],
+                "nearest_symbols": [
+                  "O"
+                ],
+                "within_threshold_indices": [],
+                "unique_nearest_index": 68
+              }
+            },
+            "H_nearest_slab_O": {
+              "distance_A": 3.3236995758714807,
+              "nearest_indices": [
+                64
+              ],
+              "nearest_symbols": [
+                "O"
+              ],
+              "within_threshold_indices": [],
+              "unique_nearest_index": 64
+            },
+            "H_nearest_adsorbate_O": "distal_O",
+            "oxygens_have_different_unique_nearest_metals": false,
+            "interpretation": "Distance flags request inspection, not established cleavage/proton transfer. Different nearest metals are not automatic failures or evidence of adsorption.",
+            "numerical_metadata": {
+              "converged_by_force": true,
+              "energy_eV": -432.4413992175864,
+              "max_constrained_force_eV_A": 0.03964312684051204,
+              "fmax_target_eV_A": 0.05,
+              "interpretation": "Reported metadata only; numerical and energy consistency checks are separate."
+            }
+          },
+          "coordinate_export": {
+            "file": "equiatomic_builder.extxyz",
+            "sha256_lf": "a08e3796db32e2d8810844a92ef4c25b536c866a0cbd140a92c66feeb5ce918e",
+            "roundtrip_verified": true
+          }
+        },
+        {
+          "start": "pull1.70",
+          "energy_eV": -432.4694865388599,
+          "above_original_selected_eV": 0.003010387727044872,
+          "replay_minus_original_eV": 0.0,
+          "seconds": 35.375,
+          "geometry_diagnostic": {
+            "geometry_status": "observed",
+            "issues": [],
+            "exploratory_screen": "no_flags",
+            "flags": [],
+            "n_slab_atoms": 72,
+            "adsorbate_indices": {
+              "proximal_O": 72,
+              "distal_O": 73,
+              "H": 74
+            },
+            "distances_A": {
+              "proximal_O_H_A": 1.8589826874106175,
+              "distal_O_H_A": 0.9926033536863403,
+              "O_O_A": 1.3717028548665542
+            },
+            "oxygen_metal_contacts": {
+              "proximal_O": {
+                "distance_A": 1.982555088127109,
+                "nearest_indices": [
+                  16
+                ],
+                "nearest_symbols": [
+                  "Cr"
+                ],
+                "within_threshold_indices": [
+                  16
+                ],
+                "unique_nearest_index": 16
+              },
+              "distal_O": {
+                "distance_A": 2.7844084031705645,
+                "nearest_indices": [
+                  16
+                ],
+                "nearest_symbols": [
+                  "Cr"
+                ],
+                "within_threshold_indices": [
+                  16
+                ],
+                "unique_nearest_index": 16
+              }
+            },
+            "oxygen_substrate_contacts": {
+              "proximal_O": {
+                "distance_A": 1.982555088127109,
+                "nearest_indices": [
+                  16
+                ],
+                "nearest_symbols": [
+                  "Cr"
+                ],
+                "within_threshold_indices": [
+                  16,
+                  64,
+                  66,
+                  68,
+                  70
+                ],
+                "unique_nearest_index": 16
+              },
+              "distal_O": {
+                "distance_A": 2.7029631170180415,
+                "nearest_indices": [
+                  68
+                ],
+                "nearest_symbols": [
+                  "O"
+                ],
+                "within_threshold_indices": [
+                  16,
+                  64,
+                  68
+                ],
+                "unique_nearest_index": 68
+              }
+            },
+            "H_nearest_slab_O": {
+              "distance_A": 3.6366902689463427,
+              "nearest_indices": [
+                68
+              ],
+              "nearest_symbols": [
+                "O"
+              ],
+              "within_threshold_indices": [],
+              "unique_nearest_index": 68
+            },
+            "H_nearest_adsorbate_O": "distal_O",
+            "oxygens_have_different_unique_nearest_metals": false,
+            "interpretation": "Distance flags request inspection, not established cleavage/proton transfer. Different nearest metals are not automatic failures or evidence of adsorption.",
+            "numerical_metadata": {
+              "converged_by_force": true,
+              "energy_eV": -432.4694865388599,
+              "max_constrained_force_eV_A": 0.03979287093856073,
+              "fmax_target_eV_A": 0.05,
+              "interpretation": "Reported metadata only; numerical and energy consistency checks are separate."
+            }
+          },
+          "coordinate_export": {
+            "file": "equiatomic_pull1.70.extxyz",
+            "sha256_lf": "8d2d386b87ae10d8d823fc03da11b6e36564a45b743a2fb3e2997eea270c80ba",
+            "roundtrip_verified": true
+          }
+        },
+        {
+          "start": "pull2.10",
+          "energy_eV": -432.4724969265869,
+          "above_original_selected_eV": 0.0,
+          "replay_minus_original_eV": 0.0,
+          "seconds": 49.14100000006147,
+          "geometry_diagnostic": {
+            "geometry_status": "observed",
+            "issues": [],
+            "exploratory_screen": "no_flags",
+            "flags": [],
+            "n_slab_atoms": 72,
+            "adsorbate_indices": {
+              "proximal_O": 72,
+              "distal_O": 73,
+              "H": 74
+            },
+            "distances_A": {
+              "proximal_O_H_A": 1.8557072631634142,
+              "distal_O_H_A": 0.9928136522174663,
+              "O_O_A": 1.3721922129981474
+            },
+            "oxygen_metal_contacts": {
+              "proximal_O": {
+                "distance_A": 1.9754136641577082,
+                "nearest_indices": [
+                  16
+                ],
+                "nearest_symbols": [
+                  "Cr"
+                ],
+                "within_threshold_indices": [
+                  16
+                ],
+                "unique_nearest_index": 16
+              },
+              "distal_O": {
+                "distance_A": 2.781307175679546,
+                "nearest_indices": [
+                  16
+                ],
+                "nearest_symbols": [
+                  "Cr"
+                ],
+                "within_threshold_indices": [
+                  16
+                ],
+                "unique_nearest_index": 16
+              }
+            },
+            "oxygen_substrate_contacts": {
+              "proximal_O": {
+                "distance_A": 1.9754136641577082,
+                "nearest_indices": [
+                  16
+                ],
+                "nearest_symbols": [
+                  "Cr"
+                ],
+                "within_threshold_indices": [
+                  16,
+                  64,
+                  66,
+                  68,
+                  70
+                ],
+                "unique_nearest_index": 16
+              },
+              "distal_O": {
+                "distance_A": 2.716653765357481,
+                "nearest_indices": [
+                  68
+                ],
+                "nearest_symbols": [
+                  "O"
+                ],
+                "within_threshold_indices": [
+                  16,
+                  64,
+                  68
+                ],
+                "unique_nearest_index": 68
+              }
+            },
+            "H_nearest_slab_O": {
+              "distance_A": 3.6437827612143026,
+              "nearest_indices": [
+                64
+              ],
+              "nearest_symbols": [
+                "O"
+              ],
+              "within_threshold_indices": [],
+              "unique_nearest_index": 64
+            },
+            "H_nearest_adsorbate_O": "distal_O",
+            "oxygens_have_different_unique_nearest_metals": false,
+            "interpretation": "Distance flags request inspection, not established cleavage/proton transfer. Different nearest metals are not automatic failures or evidence of adsorption.",
+            "numerical_metadata": {
+              "converged_by_force": true,
+              "energy_eV": -432.4724969265869,
+              "max_constrained_force_eV_A": 0.03936970043438888,
+              "fmax_target_eV_A": 0.05,
+              "interpretation": "Reported metadata only; numerical and energy consistency checks are separate."
+            }
+          },
+          "selected_original_max_MIC_displacement_A": 0.0,
+          "coordinate_export": {
+            "file": "equiatomic_pull2.10.extxyz",
+            "sha256_lf": "bbdf0443ac8d318633105bfbb88c240f1bad66bd9fe595eea616d849dceeed46",
+            "roundtrip_verified": true
+          }
+        }
+      ],
+      "seconds": 178.2970000000205,
+      "executed_recovery_sha256_lf": "eabecb38de750299b719bbf2dbf15f23c19a060fd83bf48bdbd0b5b8f67656f5",
+      "executed_recovery_files": [
+        "recover_ooh_starts_recorded.py"
+      ],
+      "environment_metadata_scope": "copied_from_initial_chain_not_runtime_measured"
+    },
+    "leader": {
+      "source_replay_sha256_lf": "b1a286b73063630bc6710194aac5c2b77aadcf6a827579dcef457b1ff426b24a",
+      "attempts": [
+        {
+          "start": "builder",
+          "energy_eV": -454.5660460881911,
+          "above_original_selected_eV": 2.281832858000712,
+          "replay_minus_original_eV": -1.1368683772161603e-13,
+          "seconds": 39.875,
+          "geometry_diagnostic": {
+            "geometry_status": "observed",
+            "issues": [],
+            "exploratory_screen": "review",
+            "flags": [
+              "proximal_O_without_metal_contact_within_exploratory_threshold"
+            ],
+            "n_slab_atoms": 72,
+            "adsorbate_indices": {
+              "proximal_O": 72,
+              "distal_O": 73,
+              "H": 74
+            },
+            "distances_A": {
+              "proximal_O_H_A": 1.881235500938531,
+              "distal_O_H_A": 1.0021038711203865,
+              "O_O_A": 1.338542490252789
+            },
+            "oxygen_metal_contacts": {
+              "proximal_O": {
+                "distance_A": 4.556793743209251,
+                "nearest_indices": [
+                  16
+                ],
+                "nearest_symbols": [
+                  "Cr"
+                ],
+                "within_threshold_indices": [],
+                "unique_nearest_index": 16
+              },
+              "distal_O": {
+                "distance_A": 4.862441487043331,
+                "nearest_indices": [
+                  18
+                ],
+                "nearest_symbols": [
+                  "Ni"
+                ],
+                "within_threshold_indices": [],
+                "unique_nearest_index": 18
+              }
+            },
+            "oxygen_substrate_contacts": {
+              "proximal_O": {
+                "distance_A": 4.179510897149213,
+                "nearest_indices": [
+                  57
+                ],
+                "nearest_symbols": [
+                  "O"
+                ],
+                "within_threshold_indices": [],
+                "unique_nearest_index": 57
+              },
+              "distal_O": {
+                "distance_A": 4.2919884333680445,
+                "nearest_indices": [
+                  57
+                ],
+                "nearest_symbols": [
+                  "O"
+                ],
+                "within_threshold_indices": [],
+                "unique_nearest_index": 57
+              }
+            },
+            "H_nearest_slab_O": {
+              "distance_A": 4.8703463229643855,
+              "nearest_indices": [
+                57
+              ],
+              "nearest_symbols": [
+                "O"
+              ],
+              "within_threshold_indices": [],
+              "unique_nearest_index": 57
+            },
+            "H_nearest_adsorbate_O": "distal_O",
+            "oxygens_have_different_unique_nearest_metals": true,
+            "interpretation": "Distance flags request inspection, not established cleavage/proton transfer. Different nearest metals are not automatic failures or evidence of adsorption.",
+            "numerical_metadata": {
+              "converged_by_force": true,
+              "energy_eV": -454.5660460881911,
+              "max_constrained_force_eV_A": 0.04914787663854059,
+              "fmax_target_eV_A": 0.05,
+              "interpretation": "Reported metadata only; numerical and energy consistency checks are separate."
+            }
+          },
+          "coordinate_export": {
+            "file": "leader_builder.extxyz",
+            "sha256_lf": "6167100171d0cc969b76af1a7ac12a49595e2c05fd6c2c4d731828ddfa391e59",
+            "roundtrip_verified": true
+          }
+        },
+        {
+          "start": "pull1.70",
+          "energy_eV": -456.12184613969964,
+          "above_original_selected_eV": 0.726032806492185,
+          "replay_minus_original_eV": 0.0,
+          "seconds": 180.23399999993853,
+          "geometry_diagnostic": {
+            "geometry_status": "observed",
+            "issues": [],
+            "exploratory_screen": "review",
+            "flags": [
+              "nearest_adsorbate_O_H_outside_exploratory_window",
+              "short_H_to_slab_O_contact",
+              "H_closer_to_slab_O_than_adsorbate_O",
+              "proximal_O_without_metal_contact_within_exploratory_threshold"
+            ],
+            "n_slab_atoms": 72,
+            "adsorbate_indices": {
+              "proximal_O": 72,
+              "distal_O": 73,
+              "H": 74
+            },
+            "distances_A": {
+              "proximal_O_H_A": 2.8274949895223718,
+              "distal_O_H_A": 1.9823633690612108,
+              "O_O_A": 1.2377954609069133
+            },
+            "oxygen_metal_contacts": {
+              "proximal_O": {
+                "distance_A": 4.180627410407822,
+                "nearest_indices": [
+                  16
+                ],
+                "nearest_symbols": [
+                  "Cr"
+                ],
+                "within_threshold_indices": [],
+                "unique_nearest_index": 16
+              },
+              "distal_O": {
+                "distance_A": 3.9309695611283035,
+                "nearest_indices": [
+                  18
+                ],
+                "nearest_symbols": [
+                  "Ni"
+                ],
+                "within_threshold_indices": [],
+                "unique_nearest_index": 18
+              }
+            },
+            "oxygen_substrate_contacts": {
+              "proximal_O": {
+                "distance_A": 3.7494796792445713,
+                "nearest_indices": [
+                  68
+                ],
+                "nearest_symbols": [
+                  "O"
+                ],
+                "within_threshold_indices": [],
+                "unique_nearest_index": 68
+              },
+              "distal_O": {
+                "distance_A": 2.959324119991462,
+                "nearest_indices": [
+                  68
+                ],
+                "nearest_symbols": [
+                  "O"
+                ],
+                "within_threshold_indices": [
+                  68
+                ],
+                "unique_nearest_index": 68
+              }
+            },
+            "H_nearest_slab_O": {
+              "distance_A": 0.9812291370457192,
+              "nearest_indices": [
+                68
+              ],
+              "nearest_symbols": [
+                "O"
+              ],
+              "within_threshold_indices": [
+                68
+              ],
+              "unique_nearest_index": 68
+            },
+            "H_nearest_adsorbate_O": "distal_O",
+            "oxygens_have_different_unique_nearest_metals": true,
+            "interpretation": "Distance flags request inspection, not established cleavage/proton transfer. Different nearest metals are not automatic failures or evidence of adsorption.",
+            "numerical_metadata": {
+              "converged_by_force": true,
+              "energy_eV": -456.12184613969964,
+              "max_constrained_force_eV_A": 0.04320967052050651,
+              "fmax_target_eV_A": 0.05,
+              "interpretation": "Reported metadata only; numerical and energy consistency checks are separate."
+            }
+          },
+          "coordinate_export": {
+            "file": "leader_pull1.70.extxyz",
+            "sha256_lf": "b3a2a1c9fdda21fb1d72a830582fe4e288378bb120b6746f9f456a80e0eaa7c8",
+            "roundtrip_verified": true
+          }
+        },
+        {
+          "start": "pull2.10",
+          "energy_eV": -456.8478789461918,
+          "above_original_selected_eV": 0.0,
+          "replay_minus_original_eV": 0.0,
+          "seconds": 275.18800000008196,
+          "geometry_diagnostic": {
+            "geometry_status": "observed",
+            "issues": [],
+            "exploratory_screen": "review",
+            "flags": [
+              "nearest_adsorbate_O_H_outside_exploratory_window",
+              "short_H_to_slab_O_contact",
+              "H_closer_to_slab_O_than_adsorbate_O",
+              "proximal_O_without_metal_contact_within_exploratory_threshold"
+            ],
+            "n_slab_atoms": 72,
+            "adsorbate_indices": {
+              "proximal_O": 72,
+              "distal_O": 73,
+              "H": 74
+            },
+            "distances_A": {
+              "proximal_O_H_A": 3.6652969201740686,
+              "distal_O_H_A": 3.3025916197052267,
+              "O_O_A": 1.2299356375432444
+            },
+            "oxygen_metal_contacts": {
+              "proximal_O": {
+                "distance_A": 3.400019495437414,
+                "nearest_indices": [
+                  18
+                ],
+                "nearest_symbols": [
+                  "Ni"
+                ],
+                "within_threshold_indices": [],
+                "unique_nearest_index": 18
+              },
+              "distal_O": {
+                "distance_A": 3.9852417556640023,
+                "nearest_indices": [
+                  16
+                ],
+                "nearest_symbols": [
+                  "Cr"
+                ],
+                "within_threshold_indices": [],
+                "unique_nearest_index": 16
+              }
+            },
+            "oxygen_substrate_contacts": {
+              "proximal_O": {
+                "distance_A": 3.2977861086145195,
+                "nearest_indices": [
+                  68
+                ],
+                "nearest_symbols": [
+                  "O"
+                ],
+                "within_threshold_indices": [],
+                "unique_nearest_index": 68
+              },
+              "distal_O": {
+                "distance_A": 3.452933021684491,
+                "nearest_indices": [
+                  57
+                ],
+                "nearest_symbols": [
+                  "O"
+                ],
+                "within_threshold_indices": [],
+                "unique_nearest_index": 57
+              }
+            },
+            "H_nearest_slab_O": {
+              "distance_A": 0.9711344245982075,
+              "nearest_indices": [
+                56
+              ],
+              "nearest_symbols": [
+                "O"
+              ],
+              "within_threshold_indices": [
+                56
+              ],
+              "unique_nearest_index": 56
+            },
+            "H_nearest_adsorbate_O": "distal_O",
+            "oxygens_have_different_unique_nearest_metals": true,
+            "interpretation": "Distance flags request inspection, not established cleavage/proton transfer. Different nearest metals are not automatic failures or evidence of adsorption.",
+            "numerical_metadata": {
+              "converged_by_force": true,
+              "energy_eV": -456.8478789461918,
+              "max_constrained_force_eV_A": 0.036756547099543596,
+              "fmax_target_eV_A": 0.05,
+              "interpretation": "Reported metadata only; numerical and energy consistency checks are separate."
+            }
+          },
+          "selected_original_max_MIC_displacement_A": 0.0,
+          "coordinate_export": {
+            "file": "leader_pull2.10.extxyz",
+            "sha256_lf": "ed8af25543861565b82fecda6cff52a4335974bce1b1d2d9bf19c3729b26ea65",
+            "roundtrip_verified": true
+          }
+        }
+      ],
+      "seconds": 495.32800000021234,
+      "executed_recovery_sha256_lf": "eabecb38de750299b719bbf2dbf15f23c19a060fd83bf48bdbd0b5b8f67656f5",
+      "executed_recovery_files": [
+        "recover_ooh_starts_recorded.py"
+      ],
+      "environment_metadata_scope": "copied_from_initial_chain_not_runtime_measured"
+    }
+  },
+  "claims": {
+    "DFT_validation": false,
+    "kinetic_barrier": false,
+    "gas_production": false
+  },
+  "interpretation": "All six OOH-start endpoints retain coordinates. Relative energies are model electronic endpoint energies at identical atom inventory within each arm; no intact-OOH thermochemical correction is assigned to alternative branches.",
+  "source_hashes": {
+    "analyze_ooh_replay.py": "3ff6eda96db36f61bc1f0e823c55a73978078da3d94c2f5f5cbfd3f8c85defae",
+    "adsorbate_geometry.py": "f475184ea8b67fab1c5ea8a0fce1bdbcde7b7321c881b1561db8121e508f35d7",
+    "recover_ooh_starts.py": "09723ccbdbb930582518bd6e40237581bf2aba73b7d75f9a03e7e98b80e358bf"
+  }
+}

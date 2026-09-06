@@ -1,0 +1,1430 @@
+{
+  "schema": "paired-cr-site-readout-v1",
+  "scope": "Two hypothesis-driven, pristine-Cr-centered sites",
+  "environment": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "device": "cpu",
+    "packages": {
+      "mace-torch": "0.3.15",
+      "torch": "2.11.0+cpu",
+      "ase": "3.28.0",
+      "numpy": "2.3.5",
+      "pymatgen": "2026.5.4",
+      "scipy": "1.17.1",
+      "e3nn": "0.4.4"
+    },
+    "threads": 2
+  },
+  "model": {
+    "historical_label": "medium-mpa-0",
+    "filename": "macempa0mediummodel",
+    "sha256_bytes": "75428afe3a1d7d8062e19bcaabd5c433623cabf308242ec9fb493e38604fb638",
+    "historical_weight_identity_established": false
+  },
+  "arms": {
+    "equiatomic": {
+      "formula": "Fe25Co25Ni25Cr25",
+      "candidate_id": "e42c3cfa3ca1cb6db8d3261e1060283ee6965bbbf725f97c5c1b2a2525957df6",
+      "seed": 2,
+      "site_index": 0,
+      "candidate_seconds": 511.016,
+      "result_sha256_lf": "17124765bb661038b4eebb350d1d3faf1ab8fe52c9871a2665eb6f2636bd607f",
+      "dG_eV": {
+        "OH": 1.6015430650656648,
+        "O": 3.284599617307581,
+        "OOH": 4.663954545181129
+      },
+      "che_residual_eV": 0.0,
+      "che": {
+        "site_id": "seed=2/site=0",
+        "seed": 2,
+        "site_index": 0,
+        "eta_V": 0.4530565522419163,
+        "che_steps_eV": [
+          1.6015430650656648,
+          1.6830565522419163,
+          1.379354927873548,
+          0.25604545481887087
+        ],
+        "potential_limiting_steps": [
+          2
+        ]
+      },
+      "site_evidence": {
+        "schema_version": 1,
+        "formula": "Fe25Co25Ni25Cr25",
+        "tie_tolerance_V": 1e-09,
+        "energy_consistency_tolerance_eV": 1e-07,
+        "analysis": "explicit_site_correction_scenarios",
+        "continuous_certificate": false,
+        "confidence_interval": false,
+        "performance_certification": false,
+        "coverage": {
+          "complete": true,
+          "declared_n_sites": 1,
+          "observed_n_sites": 1,
+          "declared_n_decorations": 1,
+          "observed_n_decorations": 1,
+          "expected_sites_per_decoration": 1,
+          "issues": [],
+          "interpretation": "Counts and indices only; a frozen run manifest must identify the intended seeds."
+        },
+        "quality_counts": {
+          "eligible": 1,
+          "failed": 0,
+          "unknown": 0
+        },
+        "sites": [
+          {
+            "site_id": "seed=2/site=0",
+            "seed": 2,
+            "site_index": 0,
+            "binding_identity": {
+              "status": "same_binding_index_for_all_states",
+              "initial_index": 16,
+              "initial_metal": "Cr",
+              "final_by_state": {
+                "OH": {
+                  "index": 16,
+                  "metal": "Cr"
+                },
+                "O": {
+                  "index": 16,
+                  "metal": "Cr"
+                },
+                "OOH": {
+                  "index": 16,
+                  "metal": "Cr"
+                }
+              },
+              "cross_state_final_indices_differ": false,
+              "migrated_states": [],
+              "interpretation": "Binding-partner diagnostic only. Migration does not by itself invalidate energies; a local single-site mechanism remains unverified."
+            },
+            "attempted_starts": {
+              "available": true,
+              "numerical_status_counts": {
+                "eligible": 9,
+                "failed": 0,
+                "unknown": 0
+              },
+              "missing_states": [],
+              "by_state": {
+                "OH": [
+                  {
+                    "start": "builder",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": true
+                  },
+                  {
+                    "start": "pull1.70",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": false
+                  },
+                  {
+                    "start": "pull2.10",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": false
+                  }
+                ],
+                "O": [
+                  {
+                    "start": "builder",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": true
+                  },
+                  {
+                    "start": "pull1.70",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": false
+                  },
+                  {
+                    "start": "pull2.10",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": false
+                  }
+                ],
+                "OOH": [
+                  {
+                    "start": "builder",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": true
+                  },
+                  {
+                    "start": "pull1.70",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": false
+                  },
+                  {
+                    "start": "pull2.10",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": false
+                  }
+                ]
+              },
+              "interpretation": "Descriptive attempted-start coverage. A failed nonwinning start may hide a lower basin; selected-chain eligibility is unchanged and does not certify a global minimum."
+            },
+            "status": "eligible",
+            "failures": [],
+            "unknowns": []
+          }
+        ],
+        "legacy": {
+          "reported_eta_V": 0.4530565522419163,
+          "recovered_winners": [
+            "seed=2/site=0"
+          ],
+          "preserved": true,
+          "interpretation": "Original all-site minimum is retained regardless of quality status."
+        },
+        "baseline": {
+          "label": "baseline",
+          "correction_eV": {
+            "OH": 0.0,
+            "O": 0.0,
+            "OOH": 0.0
+          },
+          "site_values": [
+            {
+              "site_id": "seed=2/site=0",
+              "seed": 2,
+              "site_index": 0,
+              "eta_V": 0.4530565522419163,
+              "che_steps_eV": [
+                1.6015430650656648,
+                1.6830565522419163,
+                1.379354927873548,
+                0.25604545481887087
+              ],
+              "potential_limiting_steps": [
+                2
+              ]
+            }
+          ],
+          "all_observed_sites": {
+            "minimum_eta_V": 0.4530565522419163,
+            "winners": [
+              "seed=2/site=0"
+            ]
+          },
+          "legacy_winners_remaining": [
+            "seed=2/site=0"
+          ],
+          "all_legacy_winners_lost": false,
+          "legacy_winner_gap_V": 0.0,
+          "leave_one_decoration_out_all_observed": {
+            "2": null
+          },
+          "eligible_only_secondary": {
+            "result": {
+              "minimum_eta_V": 0.4530565522419163,
+              "winners": [
+                "seed=2/site=0"
+              ]
+            },
+            "eligible_sites": 1,
+            "declared_sites": 1,
+            "sampling_coverage_complete": true,
+            "all_declared_sites_eligible": true,
+            "leave_one_decoration_out": {
+              "2": null
+            },
+            "interpretation": "Secondary minimum on eligible observed sites only; never a replacement candidate ranking."
+          }
+        },
+        "scenarios": [],
+        "interpretation": "Corrections are shared across every site within each explicit scenario. Recomputed winning motifs, rejected/unknown records and incomplete coverage remain visible. No scenario frequency is a probability."
+      },
+      "slab_displacements": {
+        "clean_from_pristine": {
+          "free_atom_rms_displacement_A": 0.1710724024985906,
+          "free_atom_max_displacement_A": 0.38446372489271763,
+          "fixed_atom_max_displacement_A": 0.0,
+          "interpretation": "Endpoint minimum-image displacement; not a trajectory or reconstruction criterion."
+        },
+        "OH_slab_from_clean": {
+          "free_atom_rms_displacement_A": 0.11164882984755212,
+          "free_atom_max_displacement_A": 0.2991863903215399,
+          "fixed_atom_max_displacement_A": 0.0,
+          "interpretation": "Endpoint minimum-image displacement; not a trajectory or reconstruction criterion."
+        },
+        "O_slab_from_clean": {
+          "free_atom_rms_displacement_A": 0.1322937819320704,
+          "free_atom_max_displacement_A": 0.7991360510865592,
+          "fixed_atom_max_displacement_A": 0.0,
+          "interpretation": "Endpoint minimum-image displacement; not a trajectory or reconstruction criterion."
+        },
+        "OOH_slab_from_clean": {
+          "free_atom_rms_displacement_A": 0.07273047078232144,
+          "free_atom_max_displacement_A": 0.22390188114889875,
+          "fixed_atom_max_displacement_A": 0.0,
+          "interpretation": "Endpoint minimum-image displacement; not a trajectory or reconstruction criterion."
+        }
+      },
+      "selected_geometry_audit": {
+        "schema_version": 1,
+        "analysis": "selected_adsorbate_geometry_diagnostic",
+        "formula": "Fe25Co25Ni25Cr25",
+        "thresholds_A": {
+          "oo_min_A": 1.1,
+          "oo_max_A": 1.8,
+          "oh_min_A": 0.7,
+          "oh_max_A": 1.25,
+          "h_slab_o_max_A": 1.25,
+          "metal_contact_max_A": 3.0,
+          "nearest_tie_tolerance_A": 1e-06
+        },
+        "metal_symbols": [
+          "Al",
+          "Cr",
+          "Mn",
+          "Fe",
+          "Co",
+          "Ni",
+          "Cu",
+          "Ru",
+          "Ir"
+        ],
+        "sites": [
+          {
+            "site_id": "seed=2/site=0",
+            "seed": 2,
+            "site_index": 0,
+            "states": {
+              "OH": {
+                "geometry_status": "observed",
+                "issues": [],
+                "exploratory_screen": "no_flags",
+                "flags": [],
+                "n_slab_atoms": 72,
+                "adsorbate_indices": {
+                  "proximal_O": 72,
+                  "H": 73
+                },
+                "distances_A": {
+                  "proximal_O_H_A": 1.0009958553711027
+                },
+                "oxygen_metal_contacts": {
+                  "proximal_O": {
+                    "distance_A": 1.8085509324280893,
+                    "nearest_indices": [
+                      16
+                    ],
+                    "nearest_symbols": [
+                      "Cr"
+                    ],
+                    "within_threshold_indices": [
+                      16
+                    ],
+                    "unique_nearest_index": 16
+                  }
+                },
+                "oxygen_substrate_contacts": {
+                  "proximal_O": {
+                    "distance_A": 1.8085509324280893,
+                    "nearest_indices": [
+                      16
+                    ],
+                    "nearest_symbols": [
+                      "Cr"
+                    ],
+                    "within_threshold_indices": [
+                      16,
+                      57,
+                      64,
+                      66,
+                      68,
+                      70
+                    ],
+                    "unique_nearest_index": 16
+                  }
+                },
+                "H_nearest_slab_O": {
+                  "distance_A": 1.771934887927598,
+                  "nearest_indices": [
+                    57
+                  ],
+                  "nearest_symbols": [
+                    "O"
+                  ],
+                  "within_threshold_indices": [],
+                  "unique_nearest_index": 57
+                },
+                "H_nearest_adsorbate_O": "proximal_O",
+                "oxygens_have_different_unique_nearest_metals": null,
+                "interpretation": "Distance flags request inspection, not established cleavage/proton transfer. Different nearest metals are not automatic failures or evidence of adsorption.",
+                "numerical_metadata": {
+                  "converged_by_force": true,
+                  "energy_eV": -428.2173211248455,
+                  "max_constrained_force_eV_A": 0.0379856284018495,
+                  "fmax_target_eV_A": 0.05,
+                  "interpretation": "Reported metadata only; numerical and energy consistency checks are separate."
+                }
+              },
+              "O": {
+                "geometry_status": "observed",
+                "issues": [],
+                "exploratory_screen": "no_flags",
+                "flags": [],
+                "n_slab_atoms": 72,
+                "adsorbate_indices": {
+                  "proximal_O": 72
+                },
+                "distances_A": {},
+                "oxygen_metal_contacts": {
+                  "proximal_O": {
+                    "distance_A": 1.5894617507495874,
+                    "nearest_indices": [
+                      16
+                    ],
+                    "nearest_symbols": [
+                      "Cr"
+                    ],
+                    "within_threshold_indices": [
+                      16
+                    ],
+                    "unique_nearest_index": 16
+                  }
+                },
+                "oxygen_substrate_contacts": {
+                  "proximal_O": {
+                    "distance_A": 1.5894617507495874,
+                    "nearest_indices": [
+                      16
+                    ],
+                    "nearest_symbols": [
+                      "Cr"
+                    ],
+                    "within_threshold_indices": [
+                      16,
+                      64,
+                      66,
+                      68,
+                      70
+                    ],
+                    "unique_nearest_index": 16
+                  }
+                },
+                "H_nearest_slab_O": null,
+                "H_nearest_adsorbate_O": null,
+                "oxygens_have_different_unique_nearest_metals": null,
+                "interpretation": "Distance flags request inspection, not established cleavage/proton transfer. Different nearest metals are not automatic failures or evidence of adsorption.",
+                "numerical_metadata": {
+                  "converged_by_force": true,
+                  "energy_eV": -422.9750220334761,
+                  "max_constrained_force_eV_A": 0.04892676840572939,
+                  "fmax_target_eV_A": 0.05,
+                  "interpretation": "Reported metadata only; numerical and energy consistency checks are separate."
+                }
+              },
+              "OOH": {
+                "geometry_status": "observed",
+                "issues": [],
+                "exploratory_screen": "no_flags",
+                "flags": [],
+                "n_slab_atoms": 72,
+                "adsorbate_indices": {
+                  "proximal_O": 72,
+                  "distal_O": 73,
+                  "H": 74
+                },
+                "distances_A": {
+                  "proximal_O_H_A": 1.8557072631634142,
+                  "distal_O_H_A": 0.9928136522174663,
+                  "O_O_A": 1.3721922129981474
+                },
+                "oxygen_metal_contacts": {
+                  "proximal_O": {
+                    "distance_A": 1.9754136641577082,
+                    "nearest_indices": [
+                      16
+                    ],
+                    "nearest_symbols": [
+                      "Cr"
+                    ],
+                    "within_threshold_indices": [
+                      16
+                    ],
+                    "unique_nearest_index": 16
+                  },
+                  "distal_O": {
+                    "distance_A": 2.781307175679546,
+                    "nearest_indices": [
+                      16
+                    ],
+                    "nearest_symbols": [
+                      "Cr"
+                    ],
+                    "within_threshold_indices": [
+                      16
+                    ],
+                    "unique_nearest_index": 16
+                  }
+                },
+                "oxygen_substrate_contacts": {
+                  "proximal_O": {
+                    "distance_A": 1.9754136641577082,
+                    "nearest_indices": [
+                      16
+                    ],
+                    "nearest_symbols": [
+                      "Cr"
+                    ],
+                    "within_threshold_indices": [
+                      16,
+                      64,
+                      66,
+                      68,
+                      70
+                    ],
+                    "unique_nearest_index": 16
+                  },
+                  "distal_O": {
+                    "distance_A": 2.716653765357481,
+                    "nearest_indices": [
+                      68
+                    ],
+                    "nearest_symbols": [
+                      "O"
+                    ],
+                    "within_threshold_indices": [
+                      16,
+                      64,
+                      68
+                    ],
+                    "unique_nearest_index": 68
+                  }
+                },
+                "H_nearest_slab_O": {
+                  "distance_A": 3.6437827612143026,
+                  "nearest_indices": [
+                    64
+                  ],
+                  "nearest_symbols": [
+                    "O"
+                  ],
+                  "within_threshold_indices": [],
+                  "unique_nearest_index": 64
+                },
+                "H_nearest_adsorbate_O": "distal_O",
+                "oxygens_have_different_unique_nearest_metals": false,
+                "interpretation": "Distance flags request inspection, not established cleavage/proton transfer. Different nearest metals are not automatic failures or evidence of adsorption.",
+                "numerical_metadata": {
+                  "converged_by_force": true,
+                  "energy_eV": -432.4724969265869,
+                  "max_constrained_force_eV_A": 0.03936970043438888,
+                  "fmax_target_eV_A": 0.05,
+                  "interpretation": "Reported metadata only; numerical and energy consistency checks are separate."
+                }
+              }
+            },
+            "binding_changes": {
+              "initial_index": 16,
+              "nearest_indices_by_state": {
+                "OH": [
+                  16
+                ],
+                "O": [
+                  16
+                ],
+                "OOH": [
+                  16
+                ]
+              },
+              "unique_nearest_index_by_state": {
+                "OH": 16,
+                "O": 16,
+                "OOH": 16
+              },
+              "cross_state_unique_partners_differ": false,
+              "changed_nearest_index_states": [],
+              "unresolved_states": [],
+              "interpretation": "Index identity assumes retained atom order. Ties remain unresolved. Nearest does not establish a chemical bond or physical migration event."
+            }
+          }
+        ],
+        "n_observed_site_records": 1,
+        "state_geometry_counts": {
+          "observed": 3,
+          "unknown": 0,
+          "invalid": 0
+        },
+        "ranking_modified": false,
+        "eligibility_modified": false,
+        "chemistry_validated": false,
+        "scope": "Coordinates supplied in relaxed_states only; no audit of absent attempted-start coordinates.",
+        "interpretation": "Exploratory flags request inspection, not automatic rejection. No flags does not establish intact adsorbates, convergence, complete basin search, mechanism or performance."
+      },
+      "attempts": {
+        "OH": [
+          {
+            "start": "builder",
+            "selected": false,
+            "energy_eV": -426.8998499727511,
+            "above_selected_eV": 1.317471152094413,
+            "force_eV_A": 0.044634533610445656,
+            "converged_by_force": true,
+            "proximal_MO_A": 3.2884454423627587,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          },
+          {
+            "start": "pull1.70",
+            "selected": false,
+            "energy_eV": -427.9830461510427,
+            "above_selected_eV": 0.23427497380282603,
+            "force_eV_A": 0.049120994188252276,
+            "converged_by_force": true,
+            "proximal_MO_A": 1.8645108810615794,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          },
+          {
+            "start": "pull2.10",
+            "selected": true,
+            "energy_eV": -428.2173211248455,
+            "above_selected_eV": 0.0,
+            "force_eV_A": 0.0379856284018495,
+            "converged_by_force": true,
+            "proximal_MO_A": 1.8085509324280893,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          }
+        ],
+        "O": [
+          {
+            "start": "builder",
+            "selected": false,
+            "energy_eV": -421.03459859054254,
+            "above_selected_eV": 1.940423442933536,
+            "force_eV_A": 0.04763753832823945,
+            "converged_by_force": true,
+            "proximal_MO_A": 3.4037562922630498,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          },
+          {
+            "start": "pull1.70",
+            "selected": false,
+            "energy_eV": -422.97463556432393,
+            "above_selected_eV": 0.0003864691521471286,
+            "force_eV_A": 0.0423165986462468,
+            "converged_by_force": true,
+            "proximal_MO_A": 1.58881963331721,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          },
+          {
+            "start": "pull2.10",
+            "selected": true,
+            "energy_eV": -422.9750220334761,
+            "above_selected_eV": 0.0,
+            "force_eV_A": 0.04892676840572939,
+            "converged_by_force": true,
+            "proximal_MO_A": 1.5894617507495872,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          }
+        ],
+        "OOH": [
+          {
+            "start": "builder",
+            "selected": false,
+            "energy_eV": -432.4413992175865,
+            "above_selected_eV": 0.031097709000448504,
+            "force_eV_A": 0.039643126554434735,
+            "converged_by_force": true,
+            "proximal_MO_A": 4.705629320843314,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          },
+          {
+            "start": "pull1.70",
+            "selected": false,
+            "energy_eV": -432.4694865388599,
+            "above_selected_eV": 0.003010387727044872,
+            "force_eV_A": 0.03979287093856073,
+            "converged_by_force": true,
+            "proximal_MO_A": 1.9825550881271108,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          },
+          {
+            "start": "pull2.10",
+            "selected": true,
+            "energy_eV": -432.4724969265869,
+            "above_selected_eV": 0.0,
+            "force_eV_A": 0.03936970043438888,
+            "converged_by_force": true,
+            "proximal_MO_A": 1.9754136641577082,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          }
+        ]
+      },
+      "interpretation": "One targeted environment; not the minimum across the composition's full site roster."
+    },
+    "leader": {
+      "formula": "Ni31Cr29Cu5Mn35",
+      "candidate_id": "1362d44d9dd88b8cb481ad4a5d1516c74f2bc56c7b4370cb110924c57ebc9a8d",
+      "seed": 0,
+      "site_index": 0,
+      "candidate_seconds": 854.829,
+      "result_sha256_lf": "283f4af8ceff924a8e3bfa1a7f763c118f8b36d5d4348ae1e283b924c815ce39",
+      "dG_eV": {
+        "OH": 2.2080789066094675,
+        "O": 3.593138794498177,
+        "OOH": 2.7388511391419583
+      },
+      "che_residual_eV": 0.0,
+      "che": {
+        "site_id": "seed=0/site=0",
+        "seed": 0,
+        "site_index": 0,
+        "eta_V": 0.9780789066094675,
+        "che_steps_eV": [
+          2.2080789066094675,
+          1.3850598878887097,
+          -0.8542876553562189,
+          2.1811488608580416
+        ],
+        "potential_limiting_steps": [
+          1
+        ]
+      },
+      "site_evidence": {
+        "schema_version": 1,
+        "formula": "Ni31Cr29Cu5Mn35",
+        "tie_tolerance_V": 1e-09,
+        "energy_consistency_tolerance_eV": 1e-07,
+        "analysis": "explicit_site_correction_scenarios",
+        "continuous_certificate": false,
+        "confidence_interval": false,
+        "performance_certification": false,
+        "coverage": {
+          "complete": true,
+          "declared_n_sites": 1,
+          "observed_n_sites": 1,
+          "declared_n_decorations": 1,
+          "observed_n_decorations": 1,
+          "expected_sites_per_decoration": 1,
+          "issues": [],
+          "interpretation": "Counts and indices only; a frozen run manifest must identify the intended seeds."
+        },
+        "quality_counts": {
+          "eligible": 0,
+          "failed": 1,
+          "unknown": 0
+        },
+        "sites": [
+          {
+            "site_id": "seed=0/site=0",
+            "seed": 0,
+            "site_index": 0,
+            "binding_identity": {
+              "status": "different_final_binding_partners",
+              "initial_index": 16,
+              "initial_metal": "Cr",
+              "final_by_state": {
+                "OH": {
+                  "index": 16,
+                  "metal": "Cr"
+                },
+                "O": {
+                  "index": 16,
+                  "metal": "Cr"
+                },
+                "OOH": {
+                  "index": 18,
+                  "metal": "Ni"
+                }
+              },
+              "cross_state_final_indices_differ": true,
+              "migrated_states": [
+                "OOH"
+              ],
+              "interpretation": "Binding-partner diagnostic only. Migration does not by itself invalidate energies; a local single-site mechanism remains unverified."
+            },
+            "attempted_starts": {
+              "available": true,
+              "numerical_status_counts": {
+                "eligible": 9,
+                "failed": 0,
+                "unknown": 0
+              },
+              "missing_states": [],
+              "by_state": {
+                "OH": [
+                  {
+                    "start": "builder",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": true
+                  },
+                  {
+                    "start": "pull1.70",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": false
+                  },
+                  {
+                    "start": "pull2.10",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": false
+                  }
+                ],
+                "O": [
+                  {
+                    "start": "builder",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": true
+                  },
+                  {
+                    "start": "pull1.70",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": false
+                  },
+                  {
+                    "start": "pull2.10",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": false
+                  }
+                ],
+                "OOH": [
+                  {
+                    "start": "builder",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": true
+                  },
+                  {
+                    "start": "pull1.70",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": true
+                  },
+                  {
+                    "start": "pull2.10",
+                    "numerical_status": "eligible",
+                    "desorption_distance_flag": true
+                  }
+                ]
+              },
+              "interpretation": "Descriptive attempted-start coverage. A failed nonwinning start may hide a lower basin; selected-chain eligibility is unchanged and does not certify a global minimum."
+            },
+            "status": "failed",
+            "failures": [
+              "selected adsorbate state desorbed: OOH",
+              "OOH: M-O distance reaches desorption cut"
+            ],
+            "unknowns": []
+          }
+        ],
+        "legacy": {
+          "reported_eta_V": 0.9780789066094675,
+          "recovered_winners": [
+            "seed=0/site=0"
+          ],
+          "preserved": true,
+          "interpretation": "Original all-site minimum is retained regardless of quality status."
+        },
+        "baseline": {
+          "label": "baseline",
+          "correction_eV": {
+            "OH": 0.0,
+            "O": 0.0,
+            "OOH": 0.0
+          },
+          "site_values": [
+            {
+              "site_id": "seed=0/site=0",
+              "seed": 0,
+              "site_index": 0,
+              "eta_V": 0.9780789066094675,
+              "che_steps_eV": [
+                2.2080789066094675,
+                1.3850598878887097,
+                -0.8542876553562189,
+                2.1811488608580416
+              ],
+              "potential_limiting_steps": [
+                1
+              ]
+            }
+          ],
+          "all_observed_sites": {
+            "minimum_eta_V": 0.9780789066094675,
+            "winners": [
+              "seed=0/site=0"
+            ]
+          },
+          "legacy_winners_remaining": [
+            "seed=0/site=0"
+          ],
+          "all_legacy_winners_lost": false,
+          "legacy_winner_gap_V": 0.0,
+          "leave_one_decoration_out_all_observed": {
+            "0": null
+          },
+          "eligible_only_secondary": {
+            "result": null,
+            "eligible_sites": 0,
+            "declared_sites": 1,
+            "sampling_coverage_complete": true,
+            "all_declared_sites_eligible": false,
+            "leave_one_decoration_out": {
+              "0": null
+            },
+            "interpretation": "Secondary minimum on eligible observed sites only; never a replacement candidate ranking."
+          }
+        },
+        "scenarios": [],
+        "interpretation": "Corrections are shared across every site within each explicit scenario. Recomputed winning motifs, rejected/unknown records and incomplete coverage remain visible. No scenario frequency is a probability."
+      },
+      "slab_displacements": {
+        "clean_from_pristine": {
+          "free_atom_rms_displacement_A": 0.3408826083953453,
+          "free_atom_max_displacement_A": 1.0197507759849542,
+          "fixed_atom_max_displacement_A": 0.0,
+          "interpretation": "Endpoint minimum-image displacement; not a trajectory or reconstruction criterion."
+        },
+        "OH_slab_from_clean": {
+          "free_atom_rms_displacement_A": 0.11783116760689771,
+          "free_atom_max_displacement_A": 0.4132694078788855,
+          "fixed_atom_max_displacement_A": 0.0,
+          "interpretation": "Endpoint minimum-image displacement; not a trajectory or reconstruction criterion."
+        },
+        "O_slab_from_clean": {
+          "free_atom_rms_displacement_A": 0.15889544040143253,
+          "free_atom_max_displacement_A": 0.9520902671023659,
+          "fixed_atom_max_displacement_A": 0.0,
+          "interpretation": "Endpoint minimum-image displacement; not a trajectory or reconstruction criterion."
+        },
+        "OOH_slab_from_clean": {
+          "free_atom_rms_displacement_A": 0.08258890769723118,
+          "free_atom_max_displacement_A": 0.35379803260877163,
+          "fixed_atom_max_displacement_A": 0.0,
+          "interpretation": "Endpoint minimum-image displacement; not a trajectory or reconstruction criterion."
+        }
+      },
+      "selected_geometry_audit": {
+        "schema_version": 1,
+        "analysis": "selected_adsorbate_geometry_diagnostic",
+        "formula": "Ni31Cr29Cu5Mn35",
+        "thresholds_A": {
+          "oo_min_A": 1.1,
+          "oo_max_A": 1.8,
+          "oh_min_A": 0.7,
+          "oh_max_A": 1.25,
+          "h_slab_o_max_A": 1.25,
+          "metal_contact_max_A": 3.0,
+          "nearest_tie_tolerance_A": 1e-06
+        },
+        "metal_symbols": [
+          "Al",
+          "Cr",
+          "Mn",
+          "Fe",
+          "Co",
+          "Ni",
+          "Cu",
+          "Ru",
+          "Ir"
+        ],
+        "sites": [
+          {
+            "site_id": "seed=0/site=0",
+            "seed": 0,
+            "site_index": 0,
+            "states": {
+              "OH": {
+                "geometry_status": "observed",
+                "issues": [],
+                "exploratory_screen": "no_flags",
+                "flags": [],
+                "n_slab_atoms": 72,
+                "adsorbate_indices": {
+                  "proximal_O": 72,
+                  "H": 73
+                },
+                "distances_A": {
+                  "proximal_O_H_A": 0.9869969428117409
+                },
+                "oxygen_metal_contacts": {
+                  "proximal_O": {
+                    "distance_A": 2.0052145794410547,
+                    "nearest_indices": [
+                      16
+                    ],
+                    "nearest_symbols": [
+                      "Cr"
+                    ],
+                    "within_threshold_indices": [
+                      16
+                    ],
+                    "unique_nearest_index": 16
+                  }
+                },
+                "oxygen_substrate_contacts": {
+                  "proximal_O": {
+                    "distance_A": 2.0052145794410547,
+                    "nearest_indices": [
+                      16
+                    ],
+                    "nearest_symbols": [
+                      "Cr"
+                    ],
+                    "within_threshold_indices": [
+                      16,
+                      56,
+                      64,
+                      66,
+                      68,
+                      70
+                    ],
+                    "unique_nearest_index": 16
+                  }
+                },
+                "H_nearest_slab_O": {
+                  "distance_A": 1.8736300545551718,
+                  "nearest_indices": [
+                    56
+                  ],
+                  "nearest_symbols": [
+                    "O"
+                  ],
+                  "within_threshold_indices": [],
+                  "unique_nearest_index": 56
+                },
+                "H_nearest_adsorbate_O": "proximal_O",
+                "oxygens_have_different_unique_nearest_metals": null,
+                "interpretation": "Distance flags request inspection, not established cleavage/proton transfer. Different nearest metals are not automatic failures or evidence of adsorption.",
+                "numerical_metadata": {
+                  "converged_by_force": true,
+                  "energy_eV": -450.06106389686744,
+                  "max_constrained_force_eV_A": 0.038009267252831165,
+                  "fmax_target_eV_A": 0.05,
+                  "interpretation": "Reported metadata only; numerical and energy consistency checks are separate."
+                }
+              },
+              "O": {
+                "geometry_status": "observed",
+                "issues": [],
+                "exploratory_screen": "no_flags",
+                "flags": [],
+                "n_slab_atoms": 72,
+                "adsorbate_indices": {
+                  "proximal_O": 72
+                },
+                "distances_A": {},
+                "oxygen_metal_contacts": {
+                  "proximal_O": {
+                    "distance_A": 1.591920162376824,
+                    "nearest_indices": [
+                      16
+                    ],
+                    "nearest_symbols": [
+                      "Cr"
+                    ],
+                    "within_threshold_indices": [
+                      16
+                    ],
+                    "unique_nearest_index": 16
+                  }
+                },
+                "oxygen_substrate_contacts": {
+                  "proximal_O": {
+                    "distance_A": 1.591920162376824,
+                    "nearest_indices": [
+                      16
+                    ],
+                    "nearest_symbols": [
+                      "Cr"
+                    ],
+                    "within_threshold_indices": [
+                      16,
+                      64,
+                      66,
+                      68,
+                      70
+                    ],
+                    "unique_nearest_index": 16
+                  }
+                },
+                "H_nearest_slab_O": null,
+                "H_nearest_adsorbate_O": null,
+                "oxygens_have_different_unique_nearest_metals": null,
+                "interpretation": "Distance flags request inspection, not established cleavage/proton transfer. Different nearest metals are not automatic failures or evidence of adsorption.",
+                "numerical_metadata": {
+                  "converged_by_force": true,
+                  "energy_eV": -445.1167614698512,
+                  "max_constrained_force_eV_A": 0.042414238147839615,
+                  "fmax_target_eV_A": 0.05,
+                  "interpretation": "Reported metadata only; numerical and energy consistency checks are separate."
+                }
+              },
+              "OOH": {
+                "geometry_status": "observed",
+                "issues": [],
+                "exploratory_screen": "review",
+                "flags": [
+                  "nearest_adsorbate_O_H_outside_exploratory_window",
+                  "short_H_to_slab_O_contact",
+                  "H_closer_to_slab_O_than_adsorbate_O",
+                  "proximal_O_without_metal_contact_within_exploratory_threshold"
+                ],
+                "n_slab_atoms": 72,
+                "adsorbate_indices": {
+                  "proximal_O": 72,
+                  "distal_O": 73,
+                  "H": 74
+                },
+                "distances_A": {
+                  "proximal_O_H_A": 3.6652969201740686,
+                  "distal_O_H_A": 3.3025916197052267,
+                  "O_O_A": 1.2299356375432444
+                },
+                "oxygen_metal_contacts": {
+                  "proximal_O": {
+                    "distance_A": 3.400019495437414,
+                    "nearest_indices": [
+                      18
+                    ],
+                    "nearest_symbols": [
+                      "Ni"
+                    ],
+                    "within_threshold_indices": [],
+                    "unique_nearest_index": 18
+                  },
+                  "distal_O": {
+                    "distance_A": 3.9852417556640023,
+                    "nearest_indices": [
+                      16
+                    ],
+                    "nearest_symbols": [
+                      "Cr"
+                    ],
+                    "within_threshold_indices": [],
+                    "unique_nearest_index": 16
+                  }
+                },
+                "oxygen_substrate_contacts": {
+                  "proximal_O": {
+                    "distance_A": 3.2977861086145195,
+                    "nearest_indices": [
+                      68
+                    ],
+                    "nearest_symbols": [
+                      "O"
+                    ],
+                    "within_threshold_indices": [],
+                    "unique_nearest_index": 68
+                  },
+                  "distal_O": {
+                    "distance_A": 3.452933021684491,
+                    "nearest_indices": [
+                      57
+                    ],
+                    "nearest_symbols": [
+                      "O"
+                    ],
+                    "within_threshold_indices": [],
+                    "unique_nearest_index": 57
+                  }
+                },
+                "H_nearest_slab_O": {
+                  "distance_A": 0.9711344245982075,
+                  "nearest_indices": [
+                    56
+                  ],
+                  "nearest_symbols": [
+                    "O"
+                  ],
+                  "within_threshold_indices": [
+                    56
+                  ],
+                  "unique_nearest_index": 56
+                },
+                "H_nearest_adsorbate_O": "distal_O",
+                "oxygens_have_different_unique_nearest_metals": true,
+                "interpretation": "Distance flags request inspection, not established cleavage/proton transfer. Different nearest metals are not automatic failures or evidence of adsorption.",
+                "numerical_metadata": {
+                  "converged_by_force": true,
+                  "energy_eV": -456.8478789461918,
+                  "max_constrained_force_eV_A": 0.036756547099543596,
+                  "fmax_target_eV_A": 0.05,
+                  "interpretation": "Reported metadata only; numerical and energy consistency checks are separate."
+                }
+              }
+            },
+            "binding_changes": {
+              "initial_index": 16,
+              "nearest_indices_by_state": {
+                "OH": [
+                  16
+                ],
+                "O": [
+                  16
+                ],
+                "OOH": [
+                  18
+                ]
+              },
+              "unique_nearest_index_by_state": {
+                "OH": 16,
+                "O": 16,
+                "OOH": 18
+              },
+              "cross_state_unique_partners_differ": true,
+              "changed_nearest_index_states": [
+                "OOH"
+              ],
+              "unresolved_states": [],
+              "interpretation": "Index identity assumes retained atom order. Ties remain unresolved. Nearest does not establish a chemical bond or physical migration event."
+            }
+          }
+        ],
+        "n_observed_site_records": 1,
+        "state_geometry_counts": {
+          "observed": 3,
+          "unknown": 0,
+          "invalid": 0
+        },
+        "ranking_modified": false,
+        "eligibility_modified": false,
+        "chemistry_validated": false,
+        "scope": "Coordinates supplied in relaxed_states only; no audit of absent attempted-start coordinates.",
+        "interpretation": "Exploratory flags request inspection, not automatic rejection. No flags does not establish intact adsorbates, convergence, complete basin search, mechanism or performance."
+      },
+      "attempts": {
+        "OH": [
+          {
+            "start": "builder",
+            "selected": false,
+            "energy_eV": -449.2573094362635,
+            "above_selected_eV": 0.8037544606039546,
+            "force_eV_A": 0.04951676596405183,
+            "converged_by_force": true,
+            "proximal_MO_A": 4.350261638116438,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          },
+          {
+            "start": "pull1.70",
+            "selected": true,
+            "energy_eV": -450.06106389686744,
+            "above_selected_eV": 0.0,
+            "force_eV_A": 0.038009267252831165,
+            "converged_by_force": true,
+            "proximal_MO_A": 2.005214579441053,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          },
+          {
+            "start": "pull2.10",
+            "selected": false,
+            "energy_eV": -449.8471705243638,
+            "above_selected_eV": 0.21389337250366225,
+            "force_eV_A": 0.044849851203242766,
+            "converged_by_force": true,
+            "proximal_MO_A": 1.890189235917623,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          }
+        ],
+        "O": [
+          {
+            "start": "builder",
+            "selected": false,
+            "energy_eV": -443.42057827597364,
+            "above_selected_eV": 1.696183193877573,
+            "force_eV_A": 0.045125104711144476,
+            "converged_by_force": true,
+            "proximal_MO_A": 3.6984274841914933,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          },
+          {
+            "start": "pull1.70",
+            "selected": false,
+            "energy_eV": -445.11595911342647,
+            "above_selected_eV": 0.0008023564247423565,
+            "force_eV_A": 0.0491021210742655,
+            "converged_by_force": true,
+            "proximal_MO_A": 1.5915879666794885,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          },
+          {
+            "start": "pull2.10",
+            "selected": true,
+            "energy_eV": -445.1167614698512,
+            "above_selected_eV": 0.0,
+            "force_eV_A": 0.042414238147839615,
+            "converged_by_force": true,
+            "proximal_MO_A": 1.5919201623768238,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          }
+        ],
+        "OOH": [
+          {
+            "start": "builder",
+            "selected": false,
+            "energy_eV": -454.566046088191,
+            "above_selected_eV": 2.2818328580008256,
+            "force_eV_A": 0.049147876638760496,
+            "converged_by_force": true,
+            "proximal_MO_A": 4.556793743209029,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          },
+          {
+            "start": "pull1.70",
+            "selected": false,
+            "energy_eV": -456.12184613969964,
+            "above_selected_eV": 0.726032806492185,
+            "force_eV_A": 0.04320967052050651,
+            "converged_by_force": true,
+            "proximal_MO_A": 4.18062741040782,
+            "nearest_metal_index": 16,
+            "nearest_metal": "Cr"
+          },
+          {
+            "start": "pull2.10",
+            "selected": true,
+            "energy_eV": -456.8478789461918,
+            "above_selected_eV": 0.0,
+            "force_eV_A": 0.036756547099543596,
+            "converged_by_force": true,
+            "proximal_MO_A": 3.400019495437414,
+            "nearest_metal_index": 18,
+            "nearest_metal": "Ni"
+          }
+        ]
+      },
+      "interpretation": "One targeted environment; not the minimum across the composition's full site roster."
+    }
+  },
+  "leader_minus_equiatomic": {
+    "che_step_differences_eV": [
+      0.6065358415438027,
+      -0.2979966643532066,
+      -2.233642583229767,
+      1.9251034060391707
+    ],
+    "eta_difference_V": 0.5250223543675512,
+    "gas_energy_differences_eV": {
+      "H2O": 0.0,
+      "H2": 0.0
+    },
+    "interpretation": "Formal CHE arithmetic on the retained endpoints. Numerical and geometry assessments remain separate; this delta does not establish a resolved physical ordering."
+  },
+  "claims": {
+    "composition_ranking": false,
+    "DFT_validation": false,
+    "electrode_activity": false,
+    "kinetic_barrier": false,
+    "all_start_geometry_audited": false
+  },
+  "next_ordinary_environment": {
+    "formula": "Fe25Co25Ni25Cr25",
+    "seed": 2,
+    "site_index": 1,
+    "pristine_center": "Ni",
+    "selection": "Fixed independently of its unobserved energy; no substitution for a failed Cr chain."
+  },
+  "geometry_export_note": "Selected model coordinates for inspection and later protocol design; numerical and chemical status remain attached. Exact coordinates remain in the input JSON; extxyz position precision is eight decimals.",
+  "coordinate_inventory": {
+    "equiatomic": [
+      {
+        "file": "equiatomic_slab.extxyz",
+        "sha256_lf": "81c718b957a351789f73bf2ef4d39598966b1ad60e6a3fc9b02f1f7f387a4045",
+        "n_atoms": 72,
+        "force_converged": true,
+        "roundtrip_verified": true
+      },
+      {
+        "file": "equiatomic_OH.extxyz",
+        "sha256_lf": "483dd75dfe5042e9aa681fdb0b7f5fb2073579983cb12b7d48ea90d551692bd7",
+        "n_atoms": 74,
+        "force_converged": true,
+        "roundtrip_verified": true
+      },
+      {
+        "file": "equiatomic_O.extxyz",
+        "sha256_lf": "ff781ec437ef78dab7009b621f341c5dfa2230dc864ae8f071c8a78019af4478",
+        "n_atoms": 73,
+        "force_converged": true,
+        "roundtrip_verified": true
+      },
+      {
+        "file": "equiatomic_OOH.extxyz",
+        "sha256_lf": "15a4ab2a4f92a22b0304de8180d68bbdf06443ab1c124241d9f8479fef1a70d2",
+        "n_atoms": 75,
+        "force_converged": true,
+        "roundtrip_verified": true
+      },
+      {
+        "file": "equiatomic_H2O.extxyz",
+        "sha256_lf": "a297783fc449c802f62f8ff303c8d38cc79840ab34b8a8e0ec600bd778e3a702",
+        "n_atoms": 3,
+        "force_converged": true,
+        "roundtrip_verified": true
+      },
+      {
+        "file": "equiatomic_H2.extxyz",
+        "sha256_lf": "f1098ac4ec62160e66635981ba8d2c89433d0bfbbf924c38230c57038d5f19d4",
+        "n_atoms": 2,
+        "force_converged": true,
+        "roundtrip_verified": true
+      }
+    ],
+    "leader": [
+      {
+        "file": "leader_slab.extxyz",
+        "sha256_lf": "5115cfc47883f86ee8b3b8312320a04ccdcaf01ed1bf45595048dd83f68a911e",
+        "n_atoms": 72,
+        "force_converged": true,
+        "roundtrip_verified": true
+      },
+      {
+        "file": "leader_OH.extxyz",
+        "sha256_lf": "390abf65dda4fe99a16e599ff53bbf2c9cd7ac73d0dc165d28bfc1c565f462d3",
+        "n_atoms": 74,
+        "force_converged": true,
+        "roundtrip_verified": true
+      },
+      {
+        "file": "leader_O.extxyz",
+        "sha256_lf": "0be10c253501db1353087c1a8d1de0c6c47063d5bd1afb714e54d6a2b665da73",
+        "n_atoms": 73,
+        "force_converged": true,
+        "roundtrip_verified": true
+      },
+      {
+        "file": "leader_OOH.extxyz",
+        "sha256_lf": "68201768a5a823358dd0aa7cda8be2f97bb0213d58cfe0c104aa03f5079dd21a",
+        "n_atoms": 75,
+        "force_converged": true,
+        "roundtrip_verified": true
+      },
+      {
+        "file": "leader_H2O.extxyz",
+        "sha256_lf": "6d9ac4a794c2ba5f8d934134dea9d9089112c348f5cc0026826c6e8de8e6f6c1",
+        "n_atoms": 3,
+        "force_converged": true,
+        "roundtrip_verified": true
+      },
+      {
+        "file": "leader_H2.extxyz",
+        "sha256_lf": "8af1719ba4f2d11f4620d6814bbd05a9ea96050f705354075ff19d84837a7fe1",
+        "n_atoms": 2,
+        "force_converged": true,
+        "roundtrip_verified": true
+      }
+    ]
+  },
+  "analysis_sha256_lf": {
+    "results/cr_site_chains_2026-09-06/analyze_chains.py": "85530a1fe3a744761155abd988916df2635f22f81f5c45184396b068ccf6f469",
+    "src/hea_oer/adsorbate_geometry.py": "f475184ea8b67fab1c5ea8a0fce1bdbcde7b7321c881b1561db8121e508f35d7",
+    "src/hea_oer/site_evidence.py": "cfe63c638af77b1e7fccc0494e8a694dec55ee2d84efacc2134de7fda7a48026"
+  }
+}
