@@ -181,6 +181,8 @@ by the entrant's adoption, recorded at the cited line.
 | the dated addendum of 2026-09-05 (session 2) in `docs/43-prereg-week1-factorial.md:4341-4418` — transcription of four elections and three adoptions from the entrant's instruction; the :4334 slot filled in place | 2026-09-05, first-hand; commit a8c3218 |
 | the ordering line in `docs/45-error-ledger.md` section D dated 2026-09-05, and the filled Ruling 1 slot in `docs/86-divanis-decision-sheet-2026-09-04.md` — transcriptions | 2026-09-05, first-hand; commit a8c3218 |
 | `tasks/todo.md` — the entries dated 2026-09-05 (session 2) | first-hand |
+| `docs/90-small-arms-readout-2026-09-06.md` — drafted from the raw outputs, refuted under four lenses and re-derived by two verifiers before banking; `docs/figs/hp_cro2_q333.json`, `docs/figs/eproj_np128.json` (scorer outputs); the dated addendum of 2026-09-06 in `docs/43-prereg-week1-factorial.md:4432-4480` (append-only) | 2026-09-06, first-hand; commit 24e973d |
+| `tasks/todo.md` and `tasks/lessons.md` — the entries dated 2026-09-06 | first-hand |
 | `docs/84-pproj-cell-readout-2026-09-04.md` — the dated addendum of 2026-09-05 (the U of each number) | 2026-09-05, first-hand |
 | `docs/83-pproj6-readout-2026-09-04.md` — the dated addendum of 2026-09-05 (the cell of every deck) | 2026-09-05, first-hand |
 | `docs/75-novelty-and-placement-2026-09-03.md` — the dated addendum of 2026-09-05 (lines 85-90 superseded) | 2026-09-05, first-hand |
