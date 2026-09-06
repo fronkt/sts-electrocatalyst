@@ -188,3 +188,59 @@ The 1×1 scope is on the record for A7.1 at docs/43:3618-3619 ("a **1×1** state
 A0 grid these u750 decks belong to at docs/43:1333 ("1×1 (matching A0)"). Consequence: the 3-of-5
 verdict at :27 is a 1×1, U = 7.50 eV result, and the cell test A13 ran on Cr (docs/84:35-38, 1×1
 against 2×1v) has no counterpart in this arm for any other metal.
+
+---
+
+## Dated addendum — 2026-09-05 (session 3): the six-metal count under one shared ZPE/TS correction
+
+Nothing above this line is edited. The dated correction at docs/84:162-219 established that a paired
+CHE difference is piecewise affine in the ZPE/TS constants, so a grid of sample points does not certify
+a box, while a step that dominates at all eight vertices dominates throughout (docs/84:165-169). This
+file's rows were never tested that way: Amendment 12 registered no constants box for the count (the
+only sensitivity lines in docs/43:3331-3600 are the q-mesh bar at :3375 and :3531), and docs/43:4046-4050
+states Ir's "100 % electronic" at the nominal constants. Here the same ±0.05 eV shared box is applied to
+every pair banked in `docs/figs/pproj6_readout.json`, with **one** correction (δ_OH, δ_O, δ_OOH) serving
+both legs of all six metals — the physical situation, since `src/dft/pproj6_readout.py:175, :253` reads
+one table. Script `src/dft/pproj6_shared_box.py`; output `docs/figs/pproj6_shared_box.json`; tests
+`tests/test_pproj6_shared_box.py`. The continuous envelope is the linear-programming helper of
+`src/dft/che_box_robustness.py`; a 101³ grid agrees with it to 10⁻¹⁰ V on every row.
+
+| metal | banked Δη (band) | pls pairs reachable | \|Δη\| over the box (V) | bands reachable | nominal pair wins at all 8 vertices |
+|---|---|---|---|---|---|
+| Cr (calibration) | +0.4462 (FIRES) | (2,1) | [0.2962, 0.5962] | FIRES | yes |
+| Mn | +0.0791 (INTERMEDIATE) | (1,1), (1,2), (2,2) | [0.0791, 0.1276] | INTERMEDIATE, FIRES | no |
+| Fe | +0.1293 (FIRES) | (1,1), (2,1), (2,2) | [0.0269, 0.1977] | NULL, INTERMEDIATE, FIRES | no |
+| Ti | +0.0010 (NULL) | (2,2) | [0.0010, 0.0010] | NULL | yes |
+| Ru | +0.4308 (FIRES) | (2,2), (3,2) | [0.2308, 0.5844] | FIRES | no |
+| Ir | +0.4596 (FIRES) | (2,2) | [0.4596, 0.4596] | FIRES | yes |
+
+**Three statements follow, and only these.**
+
+1. **Ir and Ti are fixed-pair rows: their Δη is the same number at every point of the box.** Ir's
+   "100 % electronic" (:79-83; docs/43:4046-4050) therefore holds as a statement about the whole ±0.05 eV
+   shared box, not only at the nominal constants — the fixed-active-step condition docs/84:197-198 asks
+   for is met. Ti's NULL is likewise box-wide.
+
+2. **Mn's and Fe's individual bands are not constants-robust.** Mn crosses the 0.10 V trigger inside the
+   box; Fe can leave FIRES and fall below 0.03 V. This is the quantitative form of the caveat already at
+   :91-95 and docs/43:4051-4053 (502.6 % constants): a row whose Δη is mostly constants table moves with
+   that table. Ru stays FIRES throughout, though its pair changes.
+
+3. **The class verdict is constants-robust even though those two rows are not.** Because one table serves
+   every metal, the count must be read at one shared correction, not assembled from per-metal extremes.
+   Over the whole box the FIRES count is **2 or 3 of 5 — never 4** — and A12.R3 maps both to MIDDLE BAND.
+   The same combination of constants, 2δ_OH − δ_O, governs the step-1/step-2 switch in Mn and in Fe, in
+   opposite senses for the count: Mn enters FIRES only where Fe has already left it. Witness: at
+   (δ_OH, δ_O, δ_OOH) = (−0.015, 0, 0) eV the count reads 2 (Fe 0.0993 V, INTERMEDIATE); at the nominal, 3.
+   The NULL count reads 1 or 2 (Fe can join Ti) and enters no verdict.
+
+**What this changes in how rows are quoted.** "FIRES 3 of 5" (:27; docs/43:4030) is the nominal count;
+under the same ±0.05 eV shared box it reads "2 or 3 of 5, MIDDLE BAND throughout". docs/87:155 already
+forbids quoting the count without Fe's caveat; this addendum supplies the number for that caveat. Nothing
+here re-scores Amendment 12: the registered count, bands and verdict were formed at the nominal constants
+as A12 requires, and the verdict is the same at every point of the box. The box is a sensitivity to a
+shared correction, not a probability and not a calibrated uncertainty of the constants.
+
+> `[SIX-METAL SHARED-BOX ADDENDUM — COUNTERSIGNATURE SLOT, BLANK]` — blank until the entrant reviews this
+> addendum and adopts or strikes it by a dated line; until then it is a sensitivity calculation on the
+> record, not a statement of Amendment 12.
