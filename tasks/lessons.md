@@ -1200,3 +1200,14 @@ deposited line names gets a dated addendum in the doc that describes its method,
 when the numbers do not move — the deposited description must say which commit's tool it describes.
 **Corollary for the 27-point grid:** a difference of maxima is piecewise affine; sample points certify a
 box only when one fixed step wins at all its vertices. Check the vertices, not the grid.
+
+## Price hp.x by the irreducible q-set and the k+q work, never by the full-mesh q-count (2026-09-06)
+
+The CrO2 q333 pair was planned at ~27 core-h per leg by scaling the q222 cost by "27 q-points against
+8". hp.x iterates the irreducible set — 8 at q333 against 6 at q222 (ratio 1.33) — and the cost is
+driven by Σ(k+q points × response iterations) (grew 4.1–5.5×) times a per-point-iteration rate that
+varied tenfold between q-blocks on a shared node. Realised: 168.5 + 148.9 = 317.4 core-h, a 5.8× miss.
+
+**Rule:** before any hp.x arm, read the irreducible q-count and the "Number of k (and k+q)" lines
+from an existing output at the target mesh (or run the cheapest leg first and price the rest from
+it); state the rate assumption explicitly; and put the realised figure beside the plan in the readout.

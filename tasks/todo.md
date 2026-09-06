@@ -2213,3 +2213,23 @@ Review outcome (snapshot HEAD 934b584; local readout state inspected 2026-09-06)
 - After S1/S2, a narrowly scoped Ir cell/coverage counterpart would challenge the cleanest blind projector result; distinguish a coverage change from a size check at constant coverage. A real accuracy comparison needs externally held-out physical targets and a coherent protocol. MOOH phases/MLIP fine-tuning are currently cut (docs/45 program board); revisiting them is an explicit new research choice. Primary context: https://www.quantum-espresso.org/Doc/user_guide_PDF/Hubbard_input.pdf ; https://www.nature.com/articles/s41467-020-16237-1 .
 
 Verification: three independent focused reviews plus direct source/raw-file checks. No new DFT, cloud submission, scored external census, or code change. Full pytest was not re-run for this assessment. Registered readouts, registration, runs, implementation and concurrent-session files were not edited; git diff --check passed.
+
+### 2026-09-06 — the two small arms LANDED and SCORED (docs/90); banked with outputs, md5 both ends
+
+- hp pair: jobs 20419730 (atomic, 08:25:33) and 20419731 (ortho, 07:26:37) COMPLETED; 10 artefacts
+  pulled by explicit list, md5 identical both ends, 0 CR bytes. **PASS / PASS** at the inherited 0.2 eV
+  bar: ΔU +0.0142 / +0.0331 eV; split at q333 **+1.1231 eV** beside +1.1042. Four SCFs identical to eight
+  decimals across machines. **Cost 317.4 core-h vs ~55 planned (5.8×)** — irreducible q-points are 8
+  vs 6, not 27 vs 8; the linear-response work grew 4–5.5× and throughput fell non-uniformly (cause
+  INFERRED, not established). Balance after: see `mybalance` at next login.
+- gate-(e) pair: array 20419733 COMPLETED in 2:44 + 2:37 at 128 cores; **AGREES / AGREES** under A8.5
+  (ΔE −1.8e-7 / −2.2e-7 Ry); pair 0.27021301 vs banked 0.27021297 Ry; `.lowdin.txt` now exist; 11.41
+  core-h vs ~10.
+- Readout drafted → 4-lens adversarial pass (174 claims, 75 refuted+corrected, 3 rejected) → fixed →
+  2 verifiers (6 residual wording issues, all applied) → docs/90. Mirror audit run after the pull:
+  `src/dft/mirror_audit.py` run 2026-09-06 over the whole run tree after the pull: 32554 remote / 4606 local files; SAME 4176, ANVIL-ONLY 28135 (all out of git by design), LOCAL-ONLY 187, DIFFER 243; **ANVIL-ONLY pw.x outputs 0, DIFFERING outputs 0**, exit 0. The class lists were saved outside the tree.
+- docs/43 dated addendum 2026-09-06 (append-only) carries the readout line, the cost correction of
+  :4396-4397 and a countersignature slot. **Countersignature is the entrant's** (docs/90 foot and the
+  docs/43 slot).
+- Lesson (→ tasks/lessons.md): never price an hp.x q-mesh by the full-mesh count; hp.x iterates the
+  irreducible set, and the k+q set size and per-block throughput dominate.
