@@ -2188,3 +2188,28 @@ the dated corrections addendum of `docs/research-assessment-2026-09-05.md` and t
 - [ ] Optional: move `docs/research-assessment-2026-09-05.md` into the numbered series at the next free
       number when no other session is creating one.
 - The readouts owed on drain and the entrant-only list above are unchanged.
+
+## 2026-09-06 — Current-session assessment and next-step review
+
+Scope: review the Claude handoffs, current committed evidence, and local Anvil readouts. Keep concurrent-session files intact; all process execution uses hidden direct executables.
+
+- [x] Reconcile recent session records and repository status, including newer uncommitted evidence.
+- [x] Independently check the shared-constants claim and the two small-arm readouts.
+- [x] Identify the next scientific decision, deliverable, and experiment; distinguish numerical robustness from predictive accuracy.
+- [x] Record the review outcome and verify that concurrent-session artifacts remain intact.
+
+Review outcome (snapshot HEAD 934b584; local readout state inspected 2026-09-06):
+
+- Claude's session-3 review/repair is complete through 934b584. The Anvil session's latest log is still closing its mirror audit and banking; docs/90-small-arms-readout-2026-09-06.md, both small-arm JSONs, and the raw drain outputs are present but untracked. This review does not take ownership of those files.
+- Shared box: all six extrema independently re-derived by intersections of the step-switch and box-boundary planes, agreeing within about 2e-16 V. With y = delta_O - 2*delta_OH, Mn FIRES iff y > 0.108359049853 eV and Fe FIRES iff y < 0.029325498658 eV inside this box. Ru/Ir always fire; Ti never does. Thus 2 or 3 of 5 is continuous, including boundary cases. Claude's session log already contains the algebra; this is confirmation, not a new invalid-result finding.
+- Small reproducibility improvement still available: src/dft/pproj6_shared_box.py currently gets joint counts from grid samples (the per-metal bounds use LP). Bank/test the analytic disjointness certificate and label grid witnesses as sampled. The present default-box conclusion is valid.
+- Raw hp and SCF files confirm atomic U(q333)=6.1777 eV and ortho=7.3008 eV; changes +0.0142/+0.0331 eV both pass the 0.2 eV bar. Split=1.1231 eV. np128 energies differ from the banked values by -1.8e-7/-2.2e-7 Ry, both within 1e-5 Ry. These close numerical checks, not accuracy or self-consistent U: the starting bulk U remains 1e-8 eV.
+- The hp pair used approximately 317.4 core-hours against about 55 planned. Use measured cost; neither q444 nor the rejected Cr own-U square is automatically justified by this pass.
+- Main priority: S1 core + invocation -> eight control gates -> S2 external evaluation. Seven specification rulings, OC20 asset/variables, P-DIVANIS Ruling 1=BROAD, detector-led ordering, and the decision to run A10 are already settled. Do not re-ask them. The core and scored census remain the entrant's under the current registration.
+- Near-term decisions: S8 go/no-go this week; P-DIVANIS Rulings 2-7 before scoring and the September 15 correction-source limb; A10 thresholds/ensemble object/symmetry-arm choices and deposit before jobs (September 18); September 20 claim retest. Ru second-PP follows its remaining choices. Retain the historical ZPE JSON pin unless a separately versioned re-bank has a clear use.
+- Before the P-DIVANIS scored count: docs/86 Ruling 4 (lines 103-106 at this snapshot) cannot infer continuous invariance from delta=0,0.05,0.10 alone. Audit all active-step and decision-threshold breakpoints, their endpoints and open intervals, including eta<0.60 V and the 50 meV margin. No scored corpus count was computed in this review.
+- Two bounded implementation repairs to assign before reuse: hp_cro2_q333_readout.py's isolation verdict checks energy agreement without requiring clean SCF flags; anvil/46_a0.slurm logs projwfc failure and does not reject zero Lowdin blocks. Actual small-arm raw outputs are clean, so neither finding changes this readout. The case-study audit's CRLF-only hash remains a portability repair.
+- S8 scientific limitation: docs/76's reported sole inversion uses Ni's open upper bound; all six determining-site metals are restricted from absolute materials claims; only one of five adjacent gaps exceeds the stated pipeline MAE. The ranking is not evidence for an iridium-beating melt. Mock-judge scores and generic prior-art claims do not establish that every prospective melt experiment lacks value.
+- After S1/S2, a narrowly scoped Ir cell/coverage counterpart would challenge the cleanest blind projector result; distinguish a coverage change from a size check at constant coverage. A real accuracy comparison needs externally held-out physical targets and a coherent protocol. MOOH phases/MLIP fine-tuning are currently cut (docs/45 program board); revisiting them is an explicit new research choice. Primary context: https://www.quantum-espresso.org/Doc/user_guide_PDF/Hubbard_input.pdf ; https://www.nature.com/articles/s41467-020-16237-1 .
+
+Verification: three independent focused reviews plus direct source/raw-file checks. No new DFT, cloud submission, scored external census, or code change. Full pytest was not re-run for this assessment. Registered readouts, registration, runs, implementation and concurrent-session files were not edited; git diff --check passed.

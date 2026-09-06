@@ -204,3 +204,5 @@ of `docs/52-decision-sheet-2026-08-23.md`, `anvil/rcac_ticket_draft_2026-08-24.m
 readout script `src/dft/a0lowdin_valence.py`, `docs/76-projector-generalization-decision-2026-09-03.md`,
 and the pre-2026-08-23 code under `src/` generally. The entrant may enter any of them with a dated
 line. Until he does, this file says nothing about them either way — see "what absence means" above.
+
+| `tasks/todo.md` — the 2026-09-06 "Current-session assessment and next-step review" block | repository, recent session records, raw small-arm outputs, and independent analytical review; first-hand |
