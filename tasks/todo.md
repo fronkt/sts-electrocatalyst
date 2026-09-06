@@ -2233,3 +2233,17 @@ Verification: three independent focused reviews plus direct source/raw-file chec
   docs/43 slot).
 - Lesson (→ tasks/lessons.md): never price an hp.x q-mesh by the full-mesh count; hp.x iterates the
   irreducible set, and the k+q set size and per-block throughput dominate.
+
+## 2026-09-06 — Candidate ranking adequacy
+
+Scope: continue from banked Anvil commit 571695a; assess and improve the decision support for candidate selection without treating unvalidated model scores as electrode performance.
+
+- [x] Trace candidate scores, source models, site aggregation, reference tiers, and experimental gates.
+- [x] Define a reviewable adequacy diagnostic with explicit assumptions and no invented uncertainty intervals.
+- [x] Implement the supporting analysis and meaningful failure-case tests; preserve frozen ranking files and entrant-only decisions.
+- [x] Verify primary scientific assumptions and identify the minimum data needed for a prospective ranking.
+- [x] Run appropriate checks, record evidence and limitations, commit explicit paths, and push.
+
+Review: additive per-site/decoration retention and geometry/force snapshots preserve the existing winner; the new ranking helper reports strict partial orders under explicitly hypothetical score bounds; the R4 evidence audit validates joins, CHE values, reference/selector drift, and missing site evidence. Four legacy-input snapshots and audit/verification/test-log artifacts support reproduction. Historical R4 outputs, registered thresholds, frozen readouts, and entrant-only core/counts unchanged. Full suite: 506 passed, 8 skipped, 7 existing spglib warnings; focused checks: 47 + 18 passed. Scientific/mathematical review and eight input/implementation hash checks passed. No new MACE/DFT or melt selection. See docs/candidate-ranking-adequacy-2026-09-06.md.
+
+After the renewed command-window complaint, all agent process launches stopped. Root verification uses pythonw.exe plus native CreateProcessW on the separate Codex_STS_Background desktop, checked inside every worker before any task. No SwitchDesktop call. The first subprocess-based desktop attempt refused work and is recorded in lessons; native isolation passed before tests ran.

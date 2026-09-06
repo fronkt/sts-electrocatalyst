@@ -1,0 +1,43 @@
+{
+  "base_commit": "571695a",
+  "date": "2026-09-06",
+  "tests": {
+    "focused_site_and_sensitivity": {
+      "passed": 47,
+      "exit_code": 0
+    },
+    "focused_audit": {
+      "passed": 18,
+      "exit_code": 0
+    },
+    "full_suite": {
+      "passed": 506,
+      "skipped": 8,
+      "warnings": 7,
+      "duration_seconds": 34.79,
+      "exit_code": 0,
+      "command": "python -B -m pytest tests -q -p no:cacheprovider"
+    }
+  },
+  "checks": {
+    "background_desktop_verified": "Codex_STS_Background",
+    "audit_from_banked_input_snapshots": true,
+    "recorded_source_and_implementation_hashes_independently_verified": true,
+    "scientific_and_mathematical_review": "completed; no consequential remaining corrections",
+    "diff_check": "pass",
+    "provenance_disjointness": "pass; declared paths outside core"
+  },
+  "limits": [
+    "Mock-backed site tests exercise retention without a model download.",
+    "No new MACE or DFT realization; legacy missing per-site data is not recovered.",
+    "Hypothetical score bounds do not establish predictive accuracy or electrode performance.",
+    "No S8 election, new melt set, entrant core, scored external census, or cloud job."
+  ],
+  "artifacts": [
+    "audit.json",
+    "inputs/r4_screen_box.json",
+    "inputs/r4_gated.json",
+    "inputs/r4_validate.json",
+    "inputs/r4_melt_list.json"
+  ]
+}

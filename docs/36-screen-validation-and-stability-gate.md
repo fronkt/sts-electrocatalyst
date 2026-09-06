@@ -213,3 +213,11 @@ predicted-poor anchor and the FeCoNi ablation.
   Cr in every Cr-bearing candidate goes to chromate.
 - **The U-sensitivity ladder** — needs credit, and docs/35 §5 already promoted it from optional
   to required.
+
+---
+
+## Dated correction — 2026-09-06: scope of ranking validation
+
+The equal-depth statement in section 3 does not by itself establish that candidate ordering is sound. Equal numbers of sampled sites remove one sampling-depth difference; model transfer, correlated sites, unequal site distributions and the relationship between a sampled minimum and electrode activity remain unvalidated. Site standard deviation is descriptive heterogeneity, not a prediction interval. The historical seven-endmember validation uses the tier-v1 target vector and does not supply a mixed-composition error bound.
+
+The screening backend now retains per-site energies, winning structures and cached numerical force checks for future runs; existing R4 outputs remain unchanged. See [candidate-ranking-adequacy-2026-09-06.md](candidate-ranking-adequacy-2026-09-06.md) for the reference/selection audit and explicit hypothetical ranking sensitivities. No S8 election or frozen prediction changes here.

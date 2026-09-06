@@ -208,3 +208,6 @@ and the pre-2026-08-23 code under `src/` generally. The entrant may enter any of
 line. Until he does, this file says nothing about them either way — see "what absence means" above.
 
 | `tasks/todo.md` — the 2026-09-06 "Current-session assessment and next-step review" block | repository, recent session records, raw small-arm outputs, and independent analytical review; first-hand |
+
+| `src/hea_oer/adsorption.py` — additive per-site/decoration energies, winning structures and force-cache records; `src/hea_oer/ranking_sensitivity.py`; `src/scripts/ranking_adequacy.py`; `tests/test_screen_site_records.py`, `tests/test_ranking_sensitivity.py`, `tests/test_ranking_adequacy.py` | 2026-09-06 candidate-ranking adequacy work; supporting screen diagnostics and 65 tests; first-hand |
+| `docs/candidate-ranking-adequacy-2026-09-06.md`; dated 2026-09-06 additions to `docs/36-screen-validation-and-stability-gate.md`, `docs/37-hea-screen-result-and-melt-list.md`, `tasks/todo.md`, `tasks/lessons.md`; `results/ranking_adequacy_2026-09-06/` (four historical input snapshots, audit.json, verification.json and pytest.log) | 2026-09-06 candidate-ranking adequacy review and verification; historical R4 source files preserved; first-hand |

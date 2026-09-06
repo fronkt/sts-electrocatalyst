@@ -158,3 +158,11 @@ list spans the front so the experiment can measure where the real materials land
   Cr(VI) risk assessment dated **before** the first melt (docs/25) — the gate confirms Cr
   goes to chromate in every Cr-bearing candidate — and the XRD single-phase check at FWM.
 - **Still open and unchanged:** STS sponsor of record, and the U-sensitivity ladder.
+
+---
+
+## Dated correction — 2026-09-06: equilibrium annotations and preserved selection
+
+The soluble-cation fractions in section 2 describe an equilibrium assemblage at specified potential, pH and concentration. They do not establish that the highest fraction actually dissolves almost completely, or that the lowest fraction is six times more durable. Those are kinetic/experimental claims that the calculation does not measure. The sampled minimum-to-mean difference does not establish the abundance or turnover of those motifs on an operating electrode.
+
+The banked melt list preserves the earlier selector. The current spacing rule would replace Cu26Ni9Cr31Co33 with Ni34Fe6Cu29Co31; neither set is newly adopted here. The supporting [ranking adequacy review](candidate-ranking-adequacy-2026-09-06.md) compares both versions, preserves the old data, and identifies the validation needed before a prospective melt choice.

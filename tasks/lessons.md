@@ -1211,3 +1211,10 @@ varied tenfold between q-blocks on a shared node. Realised: 168.5 + 148.9 = 317.
 **Rule:** before any hp.x arm, read the irreducible q-count and the "Number of k (and k+q)" lines
 from an existing output at the target mesh (or run the cheapest leg first and price the rest from
 it); state the rate assumption explicitly; and put the realised figure beside the plan in the readout.
+
+## 2026-09-06 — hidden child-process flags were not sufficient evidence
+
+The user again reported visible command windows during execution despite direct execFile calls with windowsHide=true and shell=false. Stop all process launches in the root and delegated sessions when this recurs; continue file-only work. Do not promise background execution based on flags alone. Audit each launch path and use an actually detached/no-console execution route, or remote verification, before resuming commands. Never attribute the windows to another session without evidence.
+
+The replacement route was checked directly: pythonw.exe has Windows GUI subsystem 2 (python.exe has console subsystem 3). The GUI launcher creates a separate Codex_STS_Background desktop without switching to it, starts the worker there with CREATE_NO_WINDOW, and the worker refuses tasks unless GetThreadDesktop reports that exact desktop. The first isolation check refused work: assigning lpDesktop on Python subprocess.STARTUPINFO did not propagate the desktop. Use the full native STARTUPINFOW with CreateProcessW and verify the worker desktop before any task. Agents remain file-only.
+The native CreateProcessW route then passed: the worker reported Codex_STS_Background and exit code 0 before verification resumed. No SwitchDesktop call is used.

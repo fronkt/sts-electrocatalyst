@@ -77,6 +77,48 @@ class HeuristicBackend(AdsorptionBackend):
         return dG_OH, dG_O, dG_OOH
 
 
+def _screen_structure_record(atoms, fmax: float) -> dict:
+    """Snapshot a relaxed structure and any current cached forces without evaluating it.
+
+    The rutile builder uses FixAtoms. Other constraint types are identified explicitly;
+    this geometry record does not promise a complete restart for those constraints.
+    Force convergence is numerical metadata, not adsorption-chemistry validation.
+    """
+    from ase.constraints import FixAtoms
+
+    fixed = sorted({int(i) for constraint in atoms.constraints
+                    if isinstance(constraint, FixAtoms) for i in constraint.get_indices()})
+    record = dict(
+        symbols=atoms.get_chemical_symbols(), positions_A=atoms.positions.tolist(),
+        cell_A=atoms.cell.array.tolist(), pbc=atoms.pbc.tolist(),
+        fixed_atom_indices=fixed,
+        other_constraint_types=[type(c).__name__ for c in atoms.constraints
+                                if not isinstance(c, FixAtoms)],
+        fmax_target_eV_A=float(fmax), max_constrained_force_eV_A=None,
+        converged_by_force=None, force_readout="unavailable",
+    )
+    calc = atoms.calc
+    if calc is None or "forces" not in getattr(calc, "results", {}):
+        return record
+    # A shared calculator may already refer to another state; never recalculate here.
+    if calc.check_state(atoms):
+        record["force_readout"] = "cache_not_current"
+        return record
+    forces = np.asarray(calc.results["forces"], dtype=float).copy()
+    if forces.shape != (len(atoms), 3):
+        record["force_readout"] = "invalid_shape"
+        return record
+    for constraint in atoms.constraints:
+        constraint.adjust_forces(atoms, forces)
+    if not np.isfinite(forces).all():
+        record.update(converged_by_force=False, force_readout="nonfinite")
+        return record
+    maximum = float(np.linalg.norm(forces, axis=1).max()) if len(forces) else 0.0
+    record.update(max_constrained_force_eV_A=maximum,
+                  converged_by_force=bool(maximum < fmax), force_readout="cached")
+    return record
+
+
 class FairchemSurfaceBackend(AdsorptionBackend):
     """Real backend: CHE-referenced *OH/*O/*OOH adsorption ΔG on an fcc(111) HEA
     slab, energies from a fairchem universal model (UMA, OC20 task).
@@ -179,21 +221,38 @@ class FairchemSurfaceBackend(AdsorptionBackend):
 
         per_site: list[tuple[float, tuple[float, float, float]]] = []
         bonds: list[dict] = []
+        per_site_records: list[dict] = []
+        decoration_records: list[dict] = []
         for seed in self.seeds:
             slab = build_rutile110_hea(comp, supercell=(self.size[0], self.size[1]),
                                        seed=seed)
+            # Preserve the realized finite-cell composition, not just its target fractions.
+            cation_counts: dict[str, int] = {}
+            for symbol in slab.get_chemical_symbols():
+                if symbol != "O":
+                    cation_counts[symbol] = cation_counts.get(symbol, 0) + 1
+            n_cations = sum(cation_counts.values())
+            decoration_records.append(dict(
+                seed=int(seed), n_cations=n_cations, cation_counts=cation_counts,
+                cation_fractions={symbol: count / n_cations
+                                  for symbol, count in cation_counts.items()},
+            ))
             sites = cus_site_xy(slab, n_sites=self.n_sites)  # pristine slab: ideal cus coordination
             e_slab, slab_relaxed = relax(slab, calc, self.fmax, self.steps)
+            decoration_records[-1]["relaxed_slab"] = _screen_structure_record(
+                slab_relaxed, self.fmax)
             n_slab = len(slab_relaxed)
-            for xy in sites:
+            for site_index, xy in enumerate(sites):
                 dG: dict[str, float] = {}
                 bond: dict[str, float] = {"seed": seed}
+                relaxed_states: dict[str, dict] = {}
                 for sp in ("OH", "O", "OOH"):
                     best_e, best_atoms, best_tag = None, None, ""
                     for tag, start in adsorbate_starts(slab_relaxed, sp, xy):
                         e_ads, relaxed = relax(start, calc, self.fmax, self.steps)
                         if best_e is None or e_ads < best_e:
                             best_e, best_atoms, best_tag = e_ads, relaxed, tag
+                            relaxed_states[sp] = _screen_structure_record(relaxed, self.fmax)
                     dG[sp] = delta_G(e_slab, best_e, sp, E_H2O, E_H2)
                     bond[sp] = m_o_distance(best_atoms, n_slab)
                     bond[sp + "_start"] = best_tag
@@ -201,8 +260,21 @@ class FairchemSurfaceBackend(AdsorptionBackend):
                     binding_metal_index(add_oer_adsorbate_at(slab_relaxed, "O", xy), n_slab)
                 ].symbol
                 triple = (dG["OH"], dG["O"], dG["OOH"])
-                per_site.append((oer_overpotential(*triple).overpotential, triple))
+                oer = oer_overpotential(*triple)
+                per_site.append((oer.overpotential, triple))
                 bonds.append(bond)
+                # Keep every site in sampling order, including chemically rejected sites.
+                # These are descriptive samples, not independent experimental replicates.
+                per_site_records.append(dict(
+                    seed=int(seed), site_index=site_index,
+                    site_xy_A=[float(xy[0]), float(xy[1])],
+                    dG_OH=float(dG["OH"]), dG_O=float(dG["O"]),
+                    dG_OOH=float(dG["OOH"]), eta=float(oer.overpotential),
+                    pls=int(oer.potential_limiting_step), bonds=dict(bond, seed=int(seed)),
+                    relaxed_states=relaxed_states,
+                    desorbed=[sp for sp in ("OH", "O", "OOH")
+                              if bond[sp] >= M_O_DESORBED_MIN],
+                ))
 
         order = np.argsort([e for e, _ in per_site])  # favorable tail = lowest-η first
         per_site = [per_site[i] for i in order]
@@ -214,6 +286,7 @@ class FairchemSurfaceBackend(AdsorptionBackend):
             eta_std=float(etas.std()) if len(etas) > 1 else 0.0, eta_max=float(etas.max()),
             site_metals=sorted({b["site_metal"] for b in bonds}),
             bonds=bonds[0], all_bonds=bonds,
+            per_site_records=per_site_records, decoration_records=decoration_records,
             # the winning site's chemistry, so the screen can refuse to rank a
             # composition whose "best" state never actually adsorbed
             desorbed=[sp for sp in ("OH", "O", "OOH")
