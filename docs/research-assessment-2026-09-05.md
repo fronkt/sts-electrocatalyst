@@ -302,3 +302,12 @@ together carry the projector clause); item 5 is the one that does not. The Socie
 confirms the date and time at :259. §3's protocol-validation discipline and §7's "Immediate" row are
 unaffected. The six-metal arm's own shared-constants box, which §2's method invites, is now at docs/83,
 dated addendum 2026-09-05 (session 3): the class verdict is constants-robust, the Mn and Fe rows are not.
+
+---
+
+## Dated correction of line anchors — 2026-09-05 (session 3)
+
+Nothing above this line is edited. The commit that added the corrections above (`376a3c7`) also moved the
+22-line block at the top of `tasks/todo.md` to its end, so every `tasks/todo.md` anchor in items 3, 6 and 7
+is 22 lines high at HEAD: :1437-1439 → :1415-1417; :1572-1573 → :1550-1551; :235 → :213; :1279 → :1257.
+The quoted text is unchanged at those lines.

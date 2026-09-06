@@ -255,3 +255,28 @@ The next Zenodo version carries this addendum.
 
 > `[ZPE TOOL-CHANGE ADDENDUM — COUNTERSIGNATURE SLOT, BLANK]` — blank until the entrant reviews this
 > addendum and elects re-bank or pin by a dated line.
+
+---
+
+## Dated correction to the addendum above — 2026-09-05 (session 3), after its verification pass
+
+Nothing above this line is edited; the addendum at :232-257 stands with these six corrections. Its numbers
+(every banked key identical from the HEAD tool; 4 × 10⁻¹⁶ V on the envelope; pair (2,1) at all eight vertices)
+re-derived unchanged in the pass.
+
+1. :232 — the heading's second clause, "the banked JSON did not" [change after this file was deposited], is
+   false as written. The A13 deposit was published 2026-09-04T12:35:26Z (docs/43:3877-3882) from the tree at
+   `72aeee9` (12:31:39Z); `docs/figs/zpe_decomposition.json` was re-banked at `99c7431` (13:05:31Z, fourteen
+   lines added — `gas_weights`, `scf_weights`), thirty minutes after the deposit, and is not itself in the
+   seven-file deposit set (`docs/deposits/2026-09-04-A13.manifest.txt`). The true statement: the JSON last
+   changed at `99c7431`, and `4a5efad` did not touch it. The pin at :251-252 is to the `99c7431` tool, as written.
+2. :234-236 — the list of what `4a5efad` changed is incomplete: also a module-scope `import math`, the printed
+   header "ROBUSTNESS OF THE MECHANISM CLAIM" → "ROBUSTNESS OF POTENTIAL-LIMITING-STEP ASSIGNMENTS", the
+   flip-scan caption, and two JSON keys. The change of record is `git show 4a5efad -- src/dft/zpe_decomposition.py`.
+3. :238 — docs/43:3769 states the corner check; :3771-3773 record the corner result and the 0.164 / 0.380 eV
+   margins. Neither describes the uniform-half-width scan as a method.
+4. :244 — "exactly three places" is a statement about values; textually the HEAD tool also serialises the six
+   offset entries as floats (−1 → −1.0), so a byte diff of the two JSONs shows more lines than three.
+5. :247 — the "max" row is :96; :95 is the nominal row.
+6. :249 — the HEAD-tool pin in `tests/test_pproj6_shared_box.py` skips rather than fails where the raw `.out`
+   inputs are absent; here it ran (17 passed, 0 skipped).

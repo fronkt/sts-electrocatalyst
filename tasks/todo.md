@@ -2166,11 +2166,16 @@ the dated corrections addendum of `docs/research-assessment-2026-09-05.md` and t
       counterexample literals and the 0.15 / 0.30 boxes, the 1×1 vertex rule, and that the HEAD ZPE tool
       reproduces the banked JSON.
 
+- [x] Verification pass on the session-3 material (six refuters, every number re-derived): five citation slips
+      in the docs/83 addendum, six in the docs/81 addendum (its heading's "the banked JSON did not" was false —
+      99c7431 re-banked it 30 min after the deposit) and the 22-line todo anchor shift corrected by dated lines;
+      provenance rows for the zpe edit and the session-3 material amended.
+
 **Note (session 3, after CI):** a SHA-256 recorded on this Windows working copy is the hash of CRLF bytes; git stores and CI checks out LF. `results/che_box_case_study_2026-09-05/audit.json:4` records `18cb291e…` for `docs/figs/pproj_cell_readout.json`, whose committed bytes hash to `964b271b…`; nothing tests that value, so nothing fails, but a Linux verifier will not reproduce it. `docs/figs/pproj6_shared_box.json` hashes CRLF-normalised bytes for this reason (`sha256_of` key).
 
 ### Owed — restored or new
 
-- [ ] **S8 dated line, either way** (:1437-1439, :1572-1573; owed the week of Sep 8, docs/76:296-297).
+- [ ] **S8 dated line, either way** (:1415-1417, :1550-1551; owed the week of Sep 8, docs/76:296-297).
       Until it exists no session plans materials milestones on S8, and the assessment's §5 panel stays ideation.
 - [ ] Countersign or strike the two session-3 addenda (docs/81, docs/83 — blank slots).
 - [ ] Elect: re-bank `docs/figs/zpe_decomposition.json` from the HEAD tool, or leave it pinned (docs/81).

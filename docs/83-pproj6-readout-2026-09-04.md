@@ -244,3 +244,28 @@ shared correction, not a probability and not a calibrated uncertainty of the con
 > `[SIX-METAL SHARED-BOX ADDENDUM — COUNTERSIGNATURE SLOT, BLANK]` — blank until the entrant reviews this
 > addendum and adopts or strikes it by a dated line; until then it is a sensitivity calculation on the
 > record, not a statement of Amendment 12.
+
+---
+
+## Dated correction to the addendum above — 2026-09-05 (session 3), after its verification pass
+
+Nothing above this line is edited; the addendum at :194-246 stands with the five citation corrections
+below. Every number in its table and in its three statements re-derived unchanged in the pass (an
+independent 16-region LP and a 101³ grid, max |LP − grid| 2 × 10⁻¹⁶ V; the joint count {2, 3}; the
+(−0.015, 0, 0) witness as the smallest-norm grid point reading 2).
+
+1. :200 — "the only sensitivity lines in docs/43:3331-3600 are the q-mesh bar at :3375 and :3531" is wrong
+   in the line and in the "only". docs/43:3375 is A12.R2 counting prose. The q-mesh threshold is at :3499,
+   the TiO₂ spread at :3530-3531, "CrO₂ q-mesh convergence is NOT measured" at :3542-3543, the A12.R6 k-mesh
+   disclosure at :3421-3433 — and :3357-3362 (A12.R1) is a registered sensitivity of |Δη| to a uniform offset
+   c on all three ΔG, which is the (c, c, c) diagonal of this very box. The span 3331-3600 is Amendments 12
+   and 12b. What survives, and is all the addendum needs: none of those lines registers a constants box
+   for the count.
+2. :197 — "piecewise affine" is the wording of `src/dft/che_box_robustness.py:5`, not of docs/84;
+   docs/84:165-169 says the same thing as "affine inequalities" with step identities changing across samples.
+3. :203 — the one table is applied at `src/dft/pproj6_readout.py:224-226` through
+   `src/hea_oer/referencing.py:18, :33`; :175 loads the module and :253 is reached only for pls-differing rows.
+4. :237 — the count string in this file is at :29 ("FIRES 3/5"); :27 is the class-verdict heading.
+   docs/43:4030 is cited correctly.
+5. :241 — "as A12 requires": Amendment 12 never mentions the constants table; the nominal constants follow
+   from A12.R1's inherited estimand (docs/43:3351-3353).
