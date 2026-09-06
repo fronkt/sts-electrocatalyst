@@ -1218,3 +1218,9 @@ The user again reported visible command windows during execution despite direct 
 
 The replacement route was checked directly: pythonw.exe has Windows GUI subsystem 2 (python.exe has console subsystem 3). The GUI launcher creates a separate Codex_STS_Background desktop without switching to it, starts the worker there with CREATE_NO_WINDOW, and the worker refuses tasks unless GetThreadDesktop reports that exact desktop. The first isolation check refused work: assigning lpDesktop on Python subprocess.STARTUPINFO did not propagate the desktop. Use the full native STARTUPINFOW with CreateProcessW and verify the worker desktop before any task. Agents remain file-only.
 The native CreateProcessW route then passed: the worker reported Codex_STS_Background and exit code 0 before verification resumed. No SwitchDesktop call is used.
+
+## 2026-09-06 — keep continuation focused on scientific work
+
+The user explicitly directed future continuation toward scientific research and implementation, without prompt logging, disclosure tasks, or STS-compliance work. Do not reintroduce those activities as extra gates or deliverables. Preserve raw evidence, experimental history, uncertainty distinctions, and reproducibility because they determine scientific validity.
+
+The user further clarified that scientific interpretation is part of the requested work. Provide mechanistic interpretation, competing explanations, and evidence-based research recommendations directly. Do not use competition conventions to withhold scientific analysis; distinguish supported conclusions from hypotheses and compute-only checks from physical validation.

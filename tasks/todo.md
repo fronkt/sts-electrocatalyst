@@ -2247,3 +2247,18 @@ Scope: continue from banked Anvil commit 571695a; assess and improve the decisio
 Review: additive per-site/decoration retention and geometry/force snapshots preserve the existing winner; the new ranking helper reports strict partial orders under explicitly hypothetical score bounds; the R4 evidence audit validates joins, CHE values, reference/selector drift, and missing site evidence. Four legacy-input snapshots and audit/verification/test-log artifacts support reproduction. Historical R4 outputs, registered thresholds, frozen readouts, and entrant-only core/counts unchanged. Full suite: 506 passed, 8 skipped, 7 existing spglib warnings; focused checks: 47 + 18 passed. Scientific/mathematical review and eight input/implementation hash checks passed. No new MACE/DFT or melt selection. See docs/candidate-ranking-adequacy-2026-09-06.md.
 
 After the renewed command-window complaint, all agent process launches stopped. Root verification uses pythonw.exe plus native CreateProcessW on the separate Codex_STS_Background desktop, checked inside every worker before any task. No SwitchDesktop call. The first subprocess-based desktop attempt refused work and is recorded in lessons; native isolation passed before tests ran.
+
+## 2026-09-06 — Site-evidence diagnostic continuation
+
+Scope: implement and verify the diagnostic rescreen already identified in the candidate-ranking adequacy review. This refines the existing diagnostic sequence; no melt election or new active-phase calculations are part of this implementation. All processes run on the verified separate background desktop.
+
+- [x] Inspect exact candidate data, runtime capabilities, model checkpoint, and scope boundaries.
+- [x] Implement an explicit-composition diagnostic runner with pinned model/source identity, fixed sampling, separate outputs, and recoverable failure records.
+- [x] Implement site-evidence quality/readout diagnostics that preserve failures, recompute common corrections over all sites, and keep sampling sensitivity distinct from uncertainty.
+- [x] Exercise a bounded local diagnostic if the existing environment permits it; retain measurements and failures without promoting them to a new ranking.
+- [x] Independently challenge implementation, selection leakage, and novelty claims; run meaningful tests and verify protected paths.
+- [x] Record the technical review and artifacts, commit explicit paths, and push.
+
+Verification plan: failure-case and synthetic switching tests, exact input/model hashes, strict finite serialization, protocol identity checks, one real-model feasibility measurement before a larger diagnostic, full suite after integration, independent review before banking.
+
+Review: explicit-composition runner, all-start/raw-energy/gas/binding records, conservative site-evidence diagnostics and partial-exception recovery verified. Calculator-free survey: 36 decorations/144 sites, current top-three Cr-center counts 5/1/5. Two-step real-model pilot: 78.625 s end-to-end; gases converged, selected chain failed; no full relaxation or new DFT. Initial import failure traced to PyTorch username/cache lookup and retried with an explicit task cache; packages and weights unchanged. Full suite 588 passed, 8 skipped; focused 90 passed. Survey reproduced exactly; manifest/code/result hashes and protected-path diff passed. Independent scientific and code reviews completed. The six-candidate manifest is ready for a separate full diagnostic. Scientific interpretation and next calculations: docs/site-evidence-continuation-2026-09-06.md.

@@ -1,0 +1,115 @@
+{
+  "schema": "screen-diagnostic-v1",
+  "manifest_id": "de094071e9410c96c5be72686ca9e5610c0889580315f2dbf6b2637e09b8cf7b",
+  "manifest": {
+    "schema": "screen-diagnostic-v1",
+    "purpose": "Historical-candidate diagnostic; not held-out evaluation or melt selection",
+    "source": {
+      "filename": "r4_screen_box.json",
+      "sha256_lf": "7e234cdfbc6c5b73114b906afa4c05bb8fefbca7c2317194ec738a83307f1124"
+    },
+    "model": {
+      "historical_label": "medium-mpa-0",
+      "filename": "macempa0mediummodel",
+      "sha256_bytes": "75428afe3a1d7d8062e19bcaabd5c433623cabf308242ec9fb493e38604fb638",
+      "historical_weight_identity_established": false
+    },
+    "implementation_sha256_lf": {
+      "src/scripts/screen_diagnostic.py": "7c8b163f7510ec7f3dd8d8bf227693c5dddc03b80bb1518c29657f84fdbe7d7f",
+      "src/hea_oer/adsorption.py": "246150440bf2d4bd316bd185557191cadf21c517715ebf6e7002da5749e2fc9f",
+      "src/hea_oer/relax.py": "e2f0e5417a925347fe2cbdf1f96a9b846d6378a091e63a07f2163874cc0c5369",
+      "src/hea_oer/composition.py": "1357f5fbf25d19b7d6d7e56549bfc43535fb4dce49b483825356d8d8ff2deee7",
+      "src/hea_oer/surfaces_rutile.py": "2ba9aaede3e8debf9f51db11b7f43005052f543c21172dcdce4bcbc5342d8c44",
+      "src/hea_oer/surfaces.py": "e4719c6f19db2b0ed2f3ed4420a516407b5fc577ea0f7e1d27c9d4cb62533eb9",
+      "src/hea_oer/referencing.py": "2873802d0ddf14bfd3640f8f31a93c3b8a5ff5205a31fd519cef6a8e9cc1e6c7",
+      "src/hea_oer/descriptors.py": "893e8058bf89500cc6d93ad8d7ab06f93f4230ec65dbd5ed86a047c0120425a9",
+      "src/hea_oer/data.py": "65129cb3ebc7bdcac6127644db0f743fe7404362de8ccb9e9b4cf413cd496e08",
+      "src/hea_oer/site_evidence.py": "cfe63c638af77b1e7fccc0494e8a694dec55ee2d84efacc2134de7fda7a48026"
+    },
+    "protocol": {
+      "mode": "feasibility",
+      "seeds": [
+        0
+      ],
+      "n_sites": 1,
+      "supercell": [
+        2,
+        2
+      ],
+      "fmax_eV_A": 0.05,
+      "steps": 2,
+      "dtype": "float64",
+      "surface": "rutile",
+      "aggregation": "legacy minimum retained, no QC replacement",
+      "sampling_role": "fixed diagnostic; no composition generalization"
+    },
+    "candidates": [
+      {
+        "formula": "Ni31Cr29Cu5Mn35",
+        "candidate_id": "1362d44d9dd88b8cb481ad4a5d1516c74f2bc56c7b4370cb110924c57ebc9a8d",
+        "elements": [
+          "Ni",
+          "Cr",
+          "Cu",
+          "Mn"
+        ],
+        "fractions": [
+          0.31114538165623595,
+          0.2918731501053016,
+          0.05169310093162674,
+          0.3452883673068358
+        ]
+      }
+    ],
+    "work_estimate": {
+      "clean_slab_relaxations": 1,
+      "adsorbate_relaxations_upper": 9,
+      "gas_relaxations_per_process": 2,
+      "wall_time_estimate_seconds": null
+    },
+    "manifest_id": "de094071e9410c96c5be72686ca9e5610c0889580315f2dbf6b2637e09b8cf7b"
+  },
+  "status": "complete_with_errors",
+  "environment": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "device": "cpu",
+    "packages": {
+      "mace-torch": "0.3.15",
+      "torch": "2.11.0+cpu",
+      "ase": "3.28.0",
+      "numpy": "2.3.5",
+      "pymatgen": "2026.5.4",
+      "scipy": "1.17.1",
+      "e3nn": "0.4.4"
+    },
+    "threads": 2
+  },
+  "results": [
+    {
+      "candidate_id": "1362d44d9dd88b8cb481ad4a5d1516c74f2bc56c7b4370cb110924c57ebc9a8d",
+      "formula": "Ni31Cr29Cu5Mn35",
+      "status": "error",
+      "error": {
+        "type": "ImportError",
+        "message": "mace-torch is required for the MACE backend: `uv pip install mace-torch`"
+      },
+      "partial_evidence": {
+        "status": "incomplete",
+        "stage": "calculator",
+        "gas_reference_records": {},
+        "decoration_records": [],
+        "per_site_records": [],
+        "in_progress_site": null
+      },
+      "seconds": 7.688
+    }
+  ],
+  "claims": {
+    "held_out_validation": false,
+    "ranking_validated": false,
+    "melt_selection": false,
+    "force_convergence_implies_chemistry": false
+  },
+  "results_sha256": "4c9e9e25300356f7598cb45d9e1ce6ae81cfaf563c6f720bcfb51d7930fec41f"
+}

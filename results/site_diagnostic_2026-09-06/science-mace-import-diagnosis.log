@@ -1,0 +1,63 @@
+Verified background desktop: Codex_STS_Background
+mace-torch 0.3.15
+e3nn 0.4.4
+torch 2.11.0+cpu
+torchmetrics 1.9.0
+lightning-utilities 0.15.3
+numpy 2.3.5
+scipy 1.17.1
+matscipy 1.2.0
+C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\e3nn\o3\_wigner.py:10: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  _Jd, _W3j_flat, _W3j_indices = torch.load(os.path.join(os.path.dirname(__file__), 'constants.pt'))
+cuequivariance or cuequivariance_torch is not available. Cuequivariance acceleration will be disabled.
+Traceback (most recent call last):
+  File "<background-task>", line 6, in <module>
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\mace\calculators\__init__.py", line 1, in <module>
+    from .foundations_models import mace_anicc, mace_mp, mace_off, mace_omol
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\mace\calculators\foundations_models.py", line 10, in <module>
+    from mace.tools.utils import get_cache_dir
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\mace\tools\__init__.py", line 20, in <module>
+    from .train import SWAContainer, evaluate, train
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\mace\tools\train.py", line 23, in <module>
+    from torchmetrics import Metric
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\torchmetrics\__init__.py", line 37, in <module>
+    from torchmetrics import functional  # noqa: E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\torchmetrics\functional\__init__.py", line 56, in <module>
+    from torchmetrics.functional.image._deprecated import (
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\torchmetrics\functional\image\__init__.py", line 14, in <module>
+    from torchmetrics.functional.image.arniqa import arniqa
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\torchmetrics\functional\image\arniqa.py", line 31, in <module>
+    from torchvision import transforms
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\torchvision\__init__.py", line 8, in <module>
+    from torchvision import _meta_registrations, datasets, io, models, ops, transforms, utils  # usort:skip
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\torchvision\models\__init__.py", line 2, in <module>
+    from .convnext import *
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\torchvision\models\convnext.py", line 9, in <module>
+    from ..ops.misc import Conv2dNormActivation, Permute
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\torchvision\ops\__init__.py", line 23, in <module>
+    from .poolers import MultiScaleRoIAlign
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\torchvision\ops\poolers.py", line 10, in <module>
+    from .roi_align import roi_align
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\torchvision\ops\roi_align.py", line 7, in <module>
+    from torch._dynamo.utils import is_compile_supported
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\_dynamo\__init__.py", line 13, in <module>
+    from . import (
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\_dynamo\aot_compile.py", line 17, in <module>
+    from torch._dynamo.package import SystemInfo
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\_dynamo\package.py", line 1173, in <module>
+    DynamoCache = DiskDynamoCache(os.path.join(cache_dir(), "dynamo"))
+                                               ^^^^^^^^^^^
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\_dynamo\package.py", line 1170, in cache_dir
+    return cache_dir()
+           ^^^^^^^^^^^
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\_inductor\runtime\cache_dir_utils.py", line 17, in cache_dir
+    os.environ["TORCHINDUCTOR_CACHE_DIR"] = cache_dir = default_cache_dir()
+                                                        ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\_inductor\runtime\cache_dir_utils.py", line 23, in default_cache_dir
+    sanitized_username = re.sub(r'[\\/:*?"<>|]', "_", getpass.getuser())
+                                                      ^^^^^^^^^^^^^^^^^
+  File "C:\Users\frank\AppData\Local\Programs\Python\Python312\Lib\getpass.py", line 168, in getuser
+    import pwd
+ModuleNotFoundError: No module named 'pwd'

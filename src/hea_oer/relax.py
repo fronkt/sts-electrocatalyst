@@ -54,8 +54,13 @@ def relax(atoms, calc, fmax: float = 0.05, steps: int = 300):
     return float(atoms.get_potential_energy()), atoms
 
 
-def gas_reference_energies(calc, fmax: float = 0.05, steps: int = 300, box: float = 12.0):
-    """Relax gas-phase H2O and H2 in a periodic box; return (E_H2O, E_H2) in eV."""
+def gas_reference_energies(calc, fmax: float = 0.05, steps: int = 300, box: float = 12.0,
+                           *, record_callback=None):
+    """Return (E_H2O, E_H2); optionally retain each existing relaxation immediately.
+
+    record_callback(name, energy_eV, atoms) sees current calculator metadata before
+    the shared calculator moves to the next molecule. The callback requests no work.
+    """
     from ase.build import molecule
 
     energies = {}
@@ -64,5 +69,7 @@ def gas_reference_energies(calc, fmax: float = 0.05, steps: int = 300, box: floa
         m.set_cell([box, box, box])
         m.center()
         m.pbc = True
-        energies[name], _ = relax(m, calc, fmax=fmax, steps=steps)
+        energies[name], relaxed = relax(m, calc, fmax=fmax, steps=steps)
+        if record_callback is not None:
+            record_callback(name, energies[name], relaxed)
     return energies["H2O"], energies["H2"]

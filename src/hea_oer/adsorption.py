@@ -155,10 +155,12 @@ class FairchemSurfaceBackend(AdsorptionBackend):
         self.n_sites = n_sites  # cus sites sampled per composition (rutile multi-site)
         #: formula -> per-site eta distribution {n_sites, eta_min, eta_mean, eta_std, eta_max}
         self.site_records: dict[str, dict] = {}
+        self.partial_site_records: dict[str, dict] = {}
         base = "fairchem:custom" if calculator is not None else f"fairchem:{model}"
         self.name = base + ("" if surface == "metal" else f":{surface}")
         self._calc = calculator
         self._gas: tuple[float, float] | None = None
+        self._gas_records: dict[str, dict] = {}
 
     def _calculator(self):
         if self._calc is None:
@@ -169,7 +171,13 @@ class FairchemSurfaceBackend(AdsorptionBackend):
     def _gas_refs(self) -> tuple[float, float]:
         if self._gas is None:
             from .relax import gas_reference_energies
-            self._gas = gas_reference_energies(self._calculator(), self.fmax, self.steps)
+            def retain(name, energy, atoms):
+                record = _screen_structure_record(atoms, self.fmax)
+                record["energy_eV"] = float(energy)
+                self._gas_records[name] = record
+
+            self._gas = gas_reference_energies(
+                self._calculator(), self.fmax, self.steps, record_callback=retain)
         return self._gas
 
     def predict(self, comp: Composition) -> tuple[float, float, float]:
@@ -216,14 +224,36 @@ class FairchemSurfaceBackend(AdsorptionBackend):
             build_rutile110_hea, cus_site_xy, m_o_distance,
         )
 
-        calc = self._calculator()
-        E_H2O, E_H2 = self._gas_refs()
-
         per_site: list[tuple[float, tuple[float, float, float]]] = []
         bonds: list[dict] = []
         per_site_records: list[dict] = []
         decoration_records: list[dict] = []
+        partial = dict(
+            status="incomplete", stage="calculator",
+            gas_reference_records=self._gas_records,
+            decoration_records=decoration_records, per_site_records=per_site_records,
+            in_progress_site=None,
+        )
+        self.partial_site_records[comp.formula()] = partial
+        calc = self._calculator()
+        partial["stage"] = "gas_references"
+        E_H2O, E_H2 = self._gas_refs()
+        gas_records = {}
+        for name, energy in (("H2O", E_H2O), ("H2", E_H2)):
+            retained = self._gas_records.get(name)
+            if retained is not None and retained.get("energy_eV") == energy:
+                gas_records[name] = dict(retained)
+            else:
+                # Legacy/injected energy tuples contain no evidence of force convergence.
+                gas_records[name] = dict(
+                    energy_eV=float(energy), fmax_target_eV_A=float(self.fmax),
+                    max_constrained_force_eV_A=None, converged_by_force=None,
+                    force_readout="unavailable",
+                )
+
+        partial["gas_reference_records"] = gas_records
         for seed in self.seeds:
+            partial.update(stage="slab_build", active_seed=int(seed))
             slab = build_rutile110_hea(comp, supercell=(self.size[0], self.size[1]),
                                        seed=seed)
             # Preserve the realized finite-cell composition, not just its target fractions.
@@ -238,27 +268,58 @@ class FairchemSurfaceBackend(AdsorptionBackend):
                                   for symbol, count in cation_counts.items()},
             ))
             sites = cus_site_xy(slab, n_sites=self.n_sites)  # pristine slab: ideal cus coordination
+            partial["stage"] = "slab_relaxation"
             e_slab, slab_relaxed = relax(slab, calc, self.fmax, self.steps)
+            decoration_records[-1]["energy_eV"] = float(e_slab)
             decoration_records[-1]["relaxed_slab"] = _screen_structure_record(
                 slab_relaxed, self.fmax)
+            decoration_records[-1]["relaxed_slab"]["energy_eV"] = float(e_slab)
             n_slab = len(slab_relaxed)
             for site_index, xy in enumerate(sites):
                 dG: dict[str, float] = {}
                 bond: dict[str, float] = {"seed": seed}
                 relaxed_states: dict[str, dict] = {}
+                start_records: dict[str, list[dict]] = {}
+                energies = dict(slab=float(e_slab), H2O=float(E_H2O), H2=float(E_H2))
+                current_site = dict(
+                    seed=int(seed), site_index=site_index,
+                    site_xy_A=[float(xy[0]), float(xy[1])], completed_species=[],
+                    active_species=None, active_start=None, start_records=start_records,
+                    relaxed_states=relaxed_states, energies_eV=energies,
+                )
+                partial.update(stage="adsorbate_relaxation", in_progress_site=current_site)
                 for sp in ("OH", "O", "OOH"):
                     best_e, best_atoms, best_tag = None, None, ""
+                    start_records[sp] = []
+                    current_site.update(active_species=sp, active_start=None)
                     for tag, start in adsorbate_starts(slab_relaxed, sp, xy):
+                        current_site["active_start"] = tag
                         e_ads, relaxed = relax(start, calc, self.fmax, self.steps)
+                        snapshot = _screen_structure_record(relaxed, self.fmax)
+                        final_index = int(binding_metal_index(relaxed, n_slab))
+                        snapshot.update(energy_eV=float(e_ads),
+                                        final_binding_metal_index=final_index,
+                                        final_binding_metal=relaxed[final_index].symbol)
+                        start_records[sp].append(dict(
+                            start=tag, energy_eV=float(e_ads),
+                            bond_length_A=float(m_o_distance(relaxed, n_slab)),
+                            final_binding_metal_index=final_index,
+                            final_binding_metal=relaxed[final_index].symbol,
+                            **{key: snapshot[key] for key in (
+                                "fmax_target_eV_A", "max_constrained_force_eV_A",
+                                "converged_by_force", "force_readout")},
+                        ))
                         if best_e is None or e_ads < best_e:
                             best_e, best_atoms, best_tag = e_ads, relaxed, tag
-                            relaxed_states[sp] = _screen_structure_record(relaxed, self.fmax)
+                            relaxed_states[sp] = snapshot
+                    energies[sp] = float(best_e)
                     dG[sp] = delta_G(e_slab, best_e, sp, E_H2O, E_H2)
                     bond[sp] = m_o_distance(best_atoms, n_slab)
                     bond[sp + "_start"] = best_tag
-                bond["site_metal"] = slab_relaxed[
-                    binding_metal_index(add_oer_adsorbate_at(slab_relaxed, "O", xy), n_slab)
-                ].symbol
+                    current_site["completed_species"].append(sp)
+                initial_index = int(binding_metal_index(
+                    add_oer_adsorbate_at(slab_relaxed, "O", xy), n_slab))
+                bond["site_metal"] = slab_relaxed[initial_index].symbol
                 triple = (dG["OH"], dG["O"], dG["OOH"])
                 oer = oer_overpotential(*triple)
                 per_site.append((oer.overpotential, triple))
@@ -271,11 +332,15 @@ class FairchemSurfaceBackend(AdsorptionBackend):
                     dG_OH=float(dG["OH"]), dG_O=float(dG["O"]),
                     dG_OOH=float(dG["OOH"]), eta=float(oer.overpotential),
                     pls=int(oer.potential_limiting_step), bonds=dict(bond, seed=int(seed)),
-                    relaxed_states=relaxed_states,
+                    relaxed_states=relaxed_states, start_records=start_records,
+                    energies_eV=energies, initial_binding_metal_index=initial_index,
+                    initial_binding_metal=bond["site_metal"],
                     desorbed=[sp for sp in ("OH", "O", "OOH")
                               if bond[sp] >= M_O_DESORBED_MIN],
                 ))
+                partial["in_progress_site"] = None
 
+        partial["stage"] = "aggregation"
         order = np.argsort([e for e, _ in per_site])  # favorable tail = lowest-η first
         per_site = [per_site[i] for i in order]
         bonds = [bonds[i] for i in order]
@@ -287,11 +352,13 @@ class FairchemSurfaceBackend(AdsorptionBackend):
             site_metals=sorted({b["site_metal"] for b in bonds}),
             bonds=bonds[0], all_bonds=bonds,
             per_site_records=per_site_records, decoration_records=decoration_records,
+            gas_reference_records=gas_records,
             # the winning site's chemistry, so the screen can refuse to rank a
             # composition whose "best" state never actually adsorbed
             desorbed=[sp for sp in ("OH", "O", "OOH")
                       if bonds[0][sp] >= M_O_DESORBED_MIN],
         )
+        partial.update(status="complete", stage="complete", in_progress_site=None)
         return per_site[0][1]
 
 
