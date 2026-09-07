@@ -21,3 +21,13 @@ Initial scheduler inspection at 09:21:38 UTC: both tasks PENDING for Priority; n
 Final launch checkpoint at 09:23:11 UTC: both tasks still PENDING/Priority, with no QE outputs. All 149 protected scientific files still match. The current launch status and census checkpoint are in results/hea_pilot_2026-09-07/launch_status.json.
 
 Census checkpoint at 09:23:49 UTC: three completed, four running, 96 queued. The newly completed Ni34Fe6Cu29Co31 record is retained in its existing result path with the SHA256 in launch_status.json; no ranking or DFT interpretation is attached to this checkpoint.
+
+## Completion checked 2026-09-07 at 18:49 UTC
+
+Both jobs completed with exit code 0: builder ran 11:11:19–12:26:45 UTC (4526 s, 87 SCF iterations), pull2.10 ran 12:27:21–13:28:19 UTC (3658 s, 53 iterations). Total allocation use is 290.9867 core-hours, including projection, against 332.9357 planned for SCF alone and the 1024 requested bound. Current CPU allocation balance is 58,853.7 SU; the Anvil queue is empty.
+
+The approved input hashes match, runtime inputs differ only in declared scratch/pseudopotential paths, and all six UPF checksums printed by QE match. Both outputs pass the existing fixed-geometry SCF/force audit. Both projections contain a complete 75-atom Lowdin table and JOB DONE; runner logs confirm successful density retention. Full output files and runtime inputs are retained at their actual job paths with transfer hashes.
+
+The maximum free-coordinate force is 1.44459 eV/A for builder and 1.41502 eV/A for pull2.10, above the diagnostic 0.05 eV/A stationarity threshold. These are valid SCFs at fixed MLIP coordinates, not DFT minima. DFT relaxation remains necessary before a relaxed-geometry claim. The fixed-geometry atomic-projector E(pull2.10)-E(builder) is -2.053398 eV; this alone does not establish a reaction pathway, magnetic ground state, or candidate ranking. The fragment Lowdin moments are 1.0430 muB for HO2 and 1.9838 muB for O2, with the transferred H kept separate.
+
+Evidence: results/hea_pilot_2026-09-07/completion_readout.json and completion_transfer.json. No further jobs or retries were submitted during this status check.

@@ -2350,3 +2350,11 @@ Scope: execute the two atomic-projector leader endpoint SCFs approved in session
 Verification plan: exact deck hashes, guarded preflight, scheduler resource and exclusion checks, duplicate-run check, initial output review, census continuity.
 
 Review: pilot source/tests/approval pushed as 069d26b before seven-file verified transfer. All 94 relevant tests passed (28 runner, 16 submitter, 50 existing controls/force); exact frozen control bundle and both Bash syntax checks passed. Array 20470747 submitted and released after Slurm confirmed two tasks at 128 ranks, concurrency 1, four hours each, 237G/node, billing 128 and no requeue. Initial 09:21:38 UTC state: both PENDING/Priority, no QE outputs. SCF/spin/force readout and actual cost await execution; no scientific result or broader-program completion is claimed. Census checkpoint 09:23:49 UTC: 3 done/4 running/96 queued; the newly completed Ni34Fe6Cu29Co31 record is retained with its hash. Original inputs/runners and pre-existing lessons change remain separate. See docs/research/hea-pilot-launch-2026-09-07.md.
+
+## 2026-09-07 — Pilot completion/status check
+
+- [x] Read live Anvil accounting and census worker activity.
+- [x] Retrieve completed pilot outputs with matching remote hashes; verify runtime inputs, SCF forces and complete projections.
+- [x] Preserve the completion readout and outputs; commit explicit paths and push.
+
+Review: both pilot tasks completed, 290.9867 core-hours total, Anvil queue empty. Both SCFs and projections pass; free-coordinate forces 1.44459/1.41502 eV/A mean the retained geometries are not DFT minima. No further jobs submitted. Census at 18:40–18:41 UTC: 11 complete, four active workers accumulating CPU time, 88 queued; primary arm 11/12 compositions, endmember and OMAT-0 arms active. Full completion evidence is in results/hea_pilot_2026-09-07/completion_readout.json.
