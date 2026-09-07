@@ -2330,8 +2330,10 @@ Scope: additive preparation and analysis while the frozen census continues.
 - [x] Implement a failure-detector benchmark with held-out evaluation and explicit pending truth.
 - [x] Specify balanced pathway and active-phase follow-up, including dependencies and meaningful stop conditions.
 - [x] Run failure-case tests, integrated checks and independent review; record concrete artifacts and outstanding data needs.
-- [ ] Commit explicit files and push the completed phase.
+- [x] Commit explicit files and push the completed phase.
 
 Verification plan: numerical/chemical input invariants, no leakage between audit/calibration/evaluation, no synthetic scientific claims, same-input deck round-trip checks, protected-file hashes, full suite if focused tests pass.
 
 Review: 12 composition-only validation chains (8 discovery/4 held out from future DFT-label fitting) and 3 targeted audit chains fixed in boundary commit be7d72b before census materialization. Current snapshot: 20 new DFT inputs and 16 exact existing inputs reused by reference, with missing sites retained as pending. Companion controls: 48 requests, including 8 reusable baseline twins. Force/SCF and balanced-CHE audits plus a 45-case failure benchmark are implemented; DFT truth remains pending. Two completed census records reproduce both historical minima; the historical leader retains OOH but its O intermediate flags reconstruction. Full suite: 855 passed, 8 skipped, 57 existing spglib warnings. Clean staged checkout: 130 focused tests pass and both prepared deck bundles reproduce exactly. Independent reviews resolved selection coverage, species/memory limits, constraint masks, balance flags, input ambiguity and reference-hash checks. All 149 protected census/source/original-deck hashes match. No DFT/cloud jobs submitted; actual DFT validation and active-phase/pathway energetics remain outstanding. See docs/research/rigor-implementation-2026-09-07.md and results/hea_rigor_2026-09-07/verification.json.
+
+Banked and pushed: selection boundary be7d72b, implementation/results d667fde on r0-catalysis-revival. The pre-existing tasks/lessons.md change was excluded.
