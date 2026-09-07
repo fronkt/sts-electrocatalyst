@@ -8,6 +8,19 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 BANK = ROOT / "results/cr_site_chains_2026-09-06"
+SOURCE = ROOT / "results/r4_screen_box.json"
+SNAPSHOT = ROOT / "results/ranking_adequacy_2026-09-06/inputs/r4_screen_box.json"
+
+
+@pytest.fixture(scope="module", autouse=True)
+def source_of_record():
+    """The analyzer reads the gitignored screen box at its fixed path and checks its
+    CRLF-normalised hash against the manifests. On a fresh checkout that file is
+    absent, so it is materialised from the tracked LF snapshot, which carries the
+    same hash. An existing file is never touched."""
+    if not SOURCE.exists():
+        SOURCE.parent.mkdir(parents=True, exist_ok=True)
+        SOURCE.write_bytes(SNAPSHOT.read_bytes())
 
 
 @pytest.fixture(scope="module")
