@@ -1,0 +1,32 @@
+# HEA fixed-geometry spin and numerical controls, 2026-09-07.
+# NOT LICENSED FOR SUBMISSION. Isolated exploratory companion arm; no jobs submitted.
+# Original branch-panel decks, MACE census and registered verdicts are unchanged.
+# All decks explicitly request forces; tprnfor was already enabled in the baseline.
+# Numerical decks change one setting at a time at fixed cell and coverage.
+# k6x3 additionally uses nk4 (baseline nk8) for memory; decomposition sensitivity
+# requires a baseline nk4 confirmation before tight numerical certification.
+# Eight baselines equal original branch decks except prefix: RUN ONCE across both arms.
+# Resolve/reuse baseline_reference records and omit duplicate jobs before submission.
+# Spin seeds are unconstrained initial guesses, not established magnetic ground states.
+# Full requests, exact species mappings, source hashes and readout requirements:
+# hea/controls_2026-09-07/requests.json
+# COST: banked per-SCF model at actual mesh/pools; cutoff point counts scale Ecut**1.5.
+# Split-species, tighter-SCF and larger-basis overhead remain uncalibrated; verify smoke first.
+# Planning 332.9 core-h; model B 154.1 core-h.
+# Maximum modeled memory 82.4 GB; compare with 237 GB/node at runtime.
+# Proposed monitoring: cancel and record <job>.KILLED if wall > own 3x planning wall
+# or iteration count >126 without convergence. No watchdog is implemented here.
+# 3x wall/core-hour figures are not hard caps. QE max_seconds=165000/electron_maxstep=300;
+# scheduler wall limit 48 h is distinct. Do not expand before measured memory/cost fit.
+# Worst-case 48 h allocation cap: 12288 core-hours; not a forecast.
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200
+# NP=128 NCONC=1
+# deck hashes: job md5 sha256
+# hc__leader_builder__atomic__baseline 9a620b2a9d0446ba72f9b8235b5ac01d d931c2eda18ca90a400e909f965a4190baa2357bfcb55cd0359a140f0a4ac0b6
+# hc__leader_pull2.10__atomic__baseline 14ed758a29286432ac05e82195b88fb7 aec1696257df44dada98eb071384c3deb45ceb51b90f4b814a22c1953af2ce37
+# Per-job estimates: job plan_coreh monitor_wall_h memory_GB (not hard caps)
+# hc__leader_builder__atomic__baseline 166.468 3.902 82.405
+# hc__leader_pull2.10__atomic__baseline 166.468 3.902 82.405
+# Runnable rows: dir job suffix nk
+hea/controls_2026-09-07 hc__leader_builder__atomic__baseline .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__atomic__baseline .in 8

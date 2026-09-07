@@ -1,0 +1,30 @@
+{
+  "schema": "hea-rigor-smoke-request-v1",
+  "status": "NOT LICENSED FOR SUBMISSION",
+  "manifest": "runs/hea/m_controls_2026-09-07_smoke.txt",
+  "jobs": [
+    "hc__leader_builder__atomic__baseline",
+    "hc__leader_pull2.10__atomic__baseline"
+  ],
+  "NP": 128,
+  "concurrency": 1,
+  "projector": "atomic",
+  "U_eV": {
+    "Cr": 3.7,
+    "Mn": 3.9,
+    "Ni": 6.2,
+    "Cu": 0
+  },
+  "spin_start": "inherited FM per species, no total-moment constraint",
+  "geometry": "retained leader builder and pull2.10 endpoints, fixed",
+  "plan_core_hours": 332.9357252319714,
+  "proposed_scheduler_time_per_job": "04:00:00",
+  "proposed_core_hour_time_limit_total": 1024,
+  "enforced_by_current_manifest": false,
+  "launch_environment_after_authorization": {
+    "SBATCH_TIMELIMIT": "04:00:00",
+    "NP": "128"
+  },
+  "followup": "Inspect SCF, spin, forces, memory and billed usage before any expansion; no automatic retries",
+  "limitation": "1024 is the requested cores*time bound for these two jobs, excluding separate jobs, retries, or site-specific billing adjustments."
+}

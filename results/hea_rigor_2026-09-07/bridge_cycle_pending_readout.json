@@ -1,0 +1,74 @@
+{
+  "schema": "oer-pathway-readout-v1",
+  "reference_id": "prospective-same-slab-same-hamiltonian-bridge-cycle",
+  "status": "PENDING",
+  "potential_RHE_V": 1.53,
+  "steps": [
+    {
+      "source": "clean",
+      "target": "O_cus+H_bridge",
+      "water_consumed": 1,
+      "proton_electron_pairs_released": 1,
+      "delta_G0_eV": null,
+      "delta_G_eV": null
+    },
+    {
+      "source": "O_cus+H_bridge",
+      "target": "O_cus",
+      "water_consumed": 0,
+      "proton_electron_pairs_released": 1,
+      "delta_G0_eV": null,
+      "delta_G_eV": null
+    },
+    {
+      "source": "O_cus",
+      "target": "O2_cus+H_bridge",
+      "water_consumed": 1,
+      "proton_electron_pairs_released": 1,
+      "delta_G0_eV": null,
+      "delta_G_eV": null
+    },
+    {
+      "source": "O2_cus+H_bridge",
+      "target": "H_bridge+O2_gas",
+      "water_consumed": 0,
+      "proton_electron_pairs_released": 0,
+      "delta_G0_eV": null,
+      "delta_G_eV": null
+    },
+    {
+      "source": "H_bridge+O2_gas",
+      "target": "clean+O2_gas",
+      "water_consumed": 0,
+      "proton_electron_pairs_released": 1,
+      "delta_G0_eV": null,
+      "delta_G_eV": null
+    }
+  ],
+  "missing_energy_steps": [
+    [
+      "clean",
+      "O_cus+H_bridge"
+    ],
+    [
+      "O_cus+H_bridge",
+      "O_cus"
+    ],
+    [
+      "O_cus",
+      "O2_cus+H_bridge"
+    ],
+    [
+      "O2_cus+H_bridge",
+      "H_bridge+O2_gas"
+    ],
+    [
+      "H_bridge+O2_gas",
+      "clean+O2_gas"
+    ]
+  ],
+  "uphill_potential_independent_steps": [],
+  "limiting_potential_V": null,
+  "overpotential_V": null,
+  "interpretation": "specified-cycle CHE thermodynamics; no kinetic or active-phase validation"
+}

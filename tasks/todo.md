@@ -2280,6 +2280,17 @@ Result-driven extension: both Cr chains completed. The leader selected endpoint 
 - [x] Recover all six OOH-start coordinate endpoints on the exact retained slabs; verify replay energies against the first run before planning branch-paired DFT.
 
 Review: two complete targeted Cr-site chains plus all six OOH endpoint replays, 30/30 force-converged executions. Equiatomic retains metal-contacted OOH with a detached OOH-like endpoint only 31.10 meV higher; leader-composition seed 0 has no sampled intact metal-contacted OOH endpoint and favors OO-like + H-on-slab configurations. This does not test the historical leader seed-1 winner. Six replay energies match within 1.14e-13 eV; selected coordinates match exactly. Eighteen coordinate exports round-trip; four-geometry DFT branch panel plus optional proton-acceptor control are explicit, with no DFT execution. Focused tests 42 passed; full suite 630 passed, 8 skipped, 57 spglib warnings. Scientific and code reviews resolved; historical runs/source rankings and registered inputs unchanged. See docs/cr-site-chain-readout-2026-09-06.md and results/cr_site_chains_2026-09-06/verification.json.
+
+## 2026-09-06 — repeated blank command windows
+
+Plan: diagnose the complete host/bootstrap/worker launch chain before more scientific execution.
+
+- [x] Inspect visible console ownership and outstanding jobs using a console-free diagnostic.
+- [x] Disable the identified WakaTime plugin in Codex configuration and stop only matching hook processes.
+- [ ] Restart Codex to unload cached hooks, then verify that tool calls create no new console windows.
+
+Review: WakaTime async hooks are the observed outer console source. Configuration changed only enabled=true to false for that plugin; backup retained outside repository. Eight matching hook processes stopped in the first cleanup. All 51 recorded background project jobs have completion status files. Live post-edit monitoring FAILED: cached hooks still launch cmd and corresponding Windows Terminal windows. Stop routine tool calls until Codex has restarted; do not claim a completed runtime fix. No scientific implementation or results changed.
+
 ## 2026-09-06 (session 4) — rigor program: site-integrity census, model ensemble, extended decorations, HEA DFT panels, rank resolution
 
 Directive of record (2026-09-06, entrant, in session): continue the scientific steps and maximise rigor without regard to the report date; the DFT generalization and validation steps that docs/22 planned and later sessions cut are back in scope. Registered facts that shape the sequence: the only DFT reference is seven single-metal 1x1 slabs (docs/40:34 "held-out DFT points ... zero"); no disordered slab has ever been run in QE here; docs/76:290 closed an MLIP re-screen but docs/76:5 is not a registration; local MLIP compute needs no licence, while a submission to the shared allocation waits on the entrant's own dated line (docs/43:2962-2964).
@@ -2298,3 +2309,29 @@ Sequence:
 - [ ] 10. DFT re-relaxation of the decisive sites (leader winning site chain; equiatomic Cr site) — decks built after item 9's fixed-geometry results land; same licence path.
 
 Untouched by this session, still the entrant's: the five silentgate core files, docs/86 Rulings 2-7 (Sep 15), the docs/88 A10 slots (Sep 18), the claim sentence (Sep 20), the S8 dated line, the blank countersignature slots (docs/43:4479, docs/81:256, docs/83:244), docs/89 RU-PP slots.
+
+## 2026-09-07 — Additional computational rigor assessment
+
+- [x] Inspect session-4 protocols and existing scientific limitations.
+- [x] Compare additional accuracy and methods opportunities with primary literature.
+- [x] Prioritize independent validation, error detection, and candidate-selection improvements; document review.
+
+Scope: research recommendations only; preserve running census and frozen protocols.
+
+Review: see docs/research/computational-priorities-2026-09-07.md. Protocol and primary-source review only; no new compute or frozen-protocol changes.
+
+## 2026-09-07 — Parallel rigor implementation during the census
+
+Scope: additive preparation and analysis while the frozen census continues.
+
+- [x] Verify isolated execution, repository state and protected census hashes.
+- [x] Freeze an energy-blind HEA validation plan with separate targeted audit cases and held-out composition groups.
+- [x] Prepare companion force, spin and numerical-control SCF decks without changing existing decks.
+- [x] Implement a failure-detector benchmark with held-out evaluation and explicit pending truth.
+- [x] Specify balanced pathway and active-phase follow-up, including dependencies and meaningful stop conditions.
+- [x] Run failure-case tests, integrated checks and independent review; record concrete artifacts and outstanding data needs.
+- [ ] Commit explicit files and push the completed phase.
+
+Verification plan: numerical/chemical input invariants, no leakage between audit/calibration/evaluation, no synthetic scientific claims, same-input deck round-trip checks, protected-file hashes, full suite if focused tests pass.
+
+Review: 12 composition-only validation chains (8 discovery/4 held out from future DFT-label fitting) and 3 targeted audit chains fixed in boundary commit be7d72b before census materialization. Current snapshot: 20 new DFT inputs and 16 exact existing inputs reused by reference, with missing sites retained as pending. Companion controls: 48 requests, including 8 reusable baseline twins. Force/SCF and balanced-CHE audits plus a 45-case failure benchmark are implemented; DFT truth remains pending. Two completed census records reproduce both historical minima; the historical leader retains OOH but its O intermediate flags reconstruction. Full suite: 855 passed, 8 skipped, 57 existing spglib warnings. Clean staged checkout: 130 focused tests pass and both prepared deck bundles reproduce exactly. Independent reviews resolved selection coverage, species/memory limits, constraint masks, balance flags, input ambiguity and reference-hash checks. All 149 protected census/source/original-deck hashes match. No DFT/cloud jobs submitted; actual DFT validation and active-phase/pathway energetics remain outstanding. See docs/research/rigor-implementation-2026-09-07.md and results/hea_rigor_2026-09-07/verification.json.

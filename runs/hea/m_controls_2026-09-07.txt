@@ -1,0 +1,170 @@
+# HEA fixed-geometry spin and numerical controls, 2026-09-07.
+# NOT LICENSED FOR SUBMISSION. Isolated exploratory companion arm; no jobs submitted.
+# Original branch-panel decks, MACE census and registered verdicts are unchanged.
+# All decks explicitly request forces; tprnfor was already enabled in the baseline.
+# Numerical decks change one setting at a time at fixed cell and coverage.
+# k6x3 additionally uses nk4 (baseline nk8) for memory; decomposition sensitivity
+# requires a baseline nk4 confirmation before tight numerical certification.
+# Eight baselines equal original branch decks except prefix: RUN ONCE across both arms.
+# Resolve/reuse baseline_reference records and omit duplicate jobs before submission.
+# Spin seeds are unconstrained initial guesses, not established magnetic ground states.
+# Full requests, exact species mappings, source hashes and readout requirements:
+# hea/controls_2026-09-07/requests.json
+# COST: banked per-SCF model at actual mesh/pools; cutoff point counts scale Ecut**1.5.
+# Split-species, tighter-SCF and larger-basis overhead remain uncalibrated; verify smoke first.
+# Planning 10557.4 core-h; model B 4857.2 core-h.
+# Maximum modeled memory 185.4 GB; compare with 237 GB/node at runtime.
+# Proposed monitoring: cancel and record <job>.KILLED if wall > own 3x planning wall
+# or iteration count >126 without convergence. No watchdog is implemented here.
+# 3x wall/core-hour figures are not hard caps. QE max_seconds=165000/electron_maxstep=300;
+# scheduler wall limit 48 h is distinct. Do not expand before measured memory/cost fit.
+# Worst-case 48 h allocation cap: 294912 core-hours; not a forecast.
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200
+# NP=128 NCONC=1
+# deck hashes: job md5 sha256
+# hc__equiatomic_pull2.10__atomic__baseline 7ff8566c730886bbef55441b8f533a13 78fc45bf8384a67664218e2fcc447ed5428b32492e2059489b20863d0e54c159
+# hc__equiatomic_pull2.10__atomic__metal_alternating cc24138b88a22000a4c3bdbe867f5e9a af8417da63608359861e63d96dbf0f748c897c8ad9b8f382ad28fd0e97210ef9
+# hc__equiatomic_pull2.10__ortho__baseline dc73370edfbbbaa111678caeea9769b2 90f56a371fc7ace9155d5bb1641e5b66d2c20143311db1e36f992b7f249d6b97
+# hc__equiatomic_pull2.10__ortho__metal_alternating b8bee90826be2429045e316a59671db5 60cb6d59331bb2edca62e5a59431d54239c54abb55bbfeac187c22fb8e7f46ee
+# hc__equiatomic_builder__atomic__baseline 02ea0722717fd13f464da7fc1ae5f654 3b62b0effef8651db058a61a79fa0dd32b79ad5fbd1e3e66fd11078e047dd227
+# hc__equiatomic_builder__atomic__metal_alternating 6957333a8bc0ac42331ad38925d4d198 182b6e89be8165266c89ce2c13563f6e53b63659f5b0d3ac0c0f3ed09802d37e
+# hc__equiatomic_builder__atomic__fragment 9bfce1e1d4883889bd1add599303e1d8 e9f561e7efe12f0c84d1e46a1a9e2ac87dc3efcc25a635006b9b6eb10cc09ff3
+# hc__equiatomic_builder__atomic__metal_alternating_fragment 02548533b35b408b1a05f0942e7a455d fb98c591258eb973ae7a40ef39c8b66d7512919f8a76f45bdd2aa0bb61d8ca5a
+# hc__equiatomic_builder__ortho__baseline 2ab08f018cacfc497c50ce5da122fe64 f37d5f46a943ed6c1fa43c53d5169cff1302233ccaf9bce6ed5ceb717285d5f0
+# hc__equiatomic_builder__ortho__metal_alternating 35f0700a8ec4291d93359bc4975e8f5e 2dfd8db5051b1116a36030a7782fcc1466d5769770a1a26a2d9f6e2a6315d22a
+# hc__equiatomic_builder__ortho__fragment efb55160ab47cf99a038e42536ce60b2 affa675ee3872249d6d4c64b7da2752f373801598a4e196f5b2994bf896c6555
+# hc__equiatomic_builder__ortho__metal_alternating_fragment 0b42e4e5823ab259102678750825e26d 293a52636c96059b27425e9a1b6b6e670b551fbdb0fb60c2a8a4c2055717b355
+# hc__leader_builder__atomic__baseline 9a620b2a9d0446ba72f9b8235b5ac01d d931c2eda18ca90a400e909f965a4190baa2357bfcb55cd0359a140f0a4ac0b6
+# hc__leader_builder__atomic__metal_alternating 65f8fa73ea1a7dec835101d358c48ff6 c4a9f84850e0ff60f361b8a66d877c176cd6adf8a011bc76d4f5e29e8e6bed1f
+# hc__leader_builder__atomic__fragment a88a78c5290f87e8f1a4f55079ddc03d b034bac292e0615ec2436e0758687fbd3b8d1472db5bc82c10891bb01e3a4d55
+# hc__leader_builder__atomic__metal_alternating_fragment 1c7813f765eaf3d486487c34cfafe918 af6cfdb6225a0a38cd516306a3b6e57c7e71b62e27741457b40954fbe0ca04cb
+# hc__leader_builder__atomic__scf_1e8 34e152a270ffbe6c642c0a70554839e9 b55f3dbca59e640aa4e542396feb1ca566b2c84676233b36915010ebd065426a
+# hc__leader_builder__atomic__wfc100 3d1f7be41e830889fadbf61b6d62cac0 5461b05bfdcd2b2adbbe600e712005757dbb7a43d8bfda7bdc334e4a3a140098
+# hc__leader_builder__atomic__rho800 93d7149d3ad560e83098ac2eea2b42dc f58111cebdc7e2a6f693584bd5edd0e31cc3125c2147748630de6ca6666822bd
+# hc__leader_builder__atomic__k6x3 047f5ced2076d5bbc6f7002391eeabe5 4ca36d77670809afa2f37495216d532b23af7f816ab10307fd8a37e58685af86
+# hc__leader_builder__atomic__smear005 4518cfa1247118b59e391dbcdffe61ed 912e2503c26b219e1079341600829a0f68513f207fa2df3767c30f6e57240446
+# hc__leader_builder__ortho__baseline 2255922256a0a446abf58fd0430451a9 b43ad44ed42e044bbafe34aa23e5e4f865beb373e68312b09766c71093cfc04e
+# hc__leader_builder__ortho__metal_alternating 938eee831da6cc56670b52137ee2d06d 9aef371766b13b2752cf9f63f7d175a01b6c02c1dad5471452729a71e45ae10e
+# hc__leader_builder__ortho__fragment 58c55dab9725966c089f3e129f5be541 f34a49d16e83562596ebee2dded85c1fe31aec3abcb01e2674aa039dfb0a143a
+# hc__leader_builder__ortho__metal_alternating_fragment 46d7f4eb1b192795ad9366b3b0df9e11 98dcd2c198fbd8be147ad8adf426c489ea0bd956807a09fb036836800ee5b121
+# hc__leader_builder__ortho__scf_1e8 9d96fa7d8da5f322ba6fc0e105a69353 2bafbae72f44f2189ee61d0d916196d9b0c6c0796dcf07a5eb1031657275ec92
+# hc__leader_builder__ortho__wfc100 bb47f1dc725e1f0c3d1338b00292710a 58c18e30af6f56159b4b1cd755c2945d0c93801148daa2b60a249e99896d5987
+# hc__leader_builder__ortho__rho800 f6763ca55756549248871c17f6a5e821 61160f527f6c640497ebf8e871ce37945d6cc39dbae84817717bb41156bd3ad3
+# hc__leader_builder__ortho__k6x3 0bdeeedf88d1df6e2bea4f4d7f0fb2b0 58e7e1da439fbc737e6e1a33f179638638296c89eb51c6c4abd9251463049770
+# hc__leader_builder__ortho__smear005 2086489d686c5598b831106ee743465f d1370866a29dce30b3a62bdbd3379433669ba0484fb0fab135ef64118e016507
+# hc__leader_pull2.10__atomic__baseline 14ed758a29286432ac05e82195b88fb7 aec1696257df44dada98eb071384c3deb45ceb51b90f4b814a22c1953af2ce37
+# hc__leader_pull2.10__atomic__metal_alternating 2008098046726d4ba4d235d9103bffc3 008be2dadbc43204216423ba2fe47baef80f3b029562c88408cccca9753b42d8
+# hc__leader_pull2.10__atomic__fragment 16b348af67e67107f832a21207c9fa70 7b61aef7e22c7d5ffdbce694e67cd2a08c447128a54482c2306320d6e9b101a5
+# hc__leader_pull2.10__atomic__metal_alternating_fragment ed6129fd2485d46b2a9a6f244f5396c8 29fe32d1b771b582cc6a7adb8ad09860eba488a76256407026c69ecdb43d31f3
+# hc__leader_pull2.10__atomic__scf_1e8 c7249f4182a1f4742ac879946e443552 b8dc37c7667e45004387bf4fc644ac2f2a679ad1757d28918d24ec753a244ea2
+# hc__leader_pull2.10__atomic__wfc100 89a16f5a38814ba1e433df38bd02b6a3 d1787873d7047493cc84b36d814430b0f4380b76c6129ce35b53be54cad22a27
+# hc__leader_pull2.10__atomic__rho800 44306b74fcd0bee931e8a130d5ac5ccc 5e039823fce9518e8ab61337f192927287f74feeb9e23bfe44d8e812747c19b1
+# hc__leader_pull2.10__atomic__k6x3 e7599ceb99e1f10007a524f64381ea3d 168a6cd19ef92f21dccfcf6d7d58c26035171649f16af3546b8f6f8b9c0abbb8
+# hc__leader_pull2.10__atomic__smear005 f04818edfc878b542fe7140fc9d9d3ac 61a25ca76b6358fd2fef2882ab9246930c6f6063bcff570890cb969b99d00bb1
+# hc__leader_pull2.10__ortho__baseline 363255c02a9f55b725e5312e8f684f51 8efb388f2f08c4959665d85873c538fb56787d28491be9051d2992d8c873ddb2
+# hc__leader_pull2.10__ortho__metal_alternating e212950eee1e718b700c34c9e3cfbdb3 8962ee58d5bfd3ffd754673d38809df0995f332101a485115a4afe84486d8ae0
+# hc__leader_pull2.10__ortho__fragment 689dc8908bc9acfbdbe9bbb644620df1 53207eea823e48b6638051ddd6b697d1550bb3b5024e948dc6de0dad44438df7
+# hc__leader_pull2.10__ortho__metal_alternating_fragment c974e6a2bb1fe7d9706b1692f336da49 5e104376363c59a3f1712e0b19199803b1199fbe6f030d1a0a856652b366dfa8
+# hc__leader_pull2.10__ortho__scf_1e8 3b638295d68f4f930ce760ef803aebfb a3712f23b6ba751da1a02597230ba3fc8eccad39db278d832d87bb3978e80769
+# hc__leader_pull2.10__ortho__wfc100 6b7b54143447599b0918480b81999782 dca132ab2c9089895c616903d509c7586b4ab78c2b0bb0f4ce17e95ef3e9eb47
+# hc__leader_pull2.10__ortho__rho800 754495506dbf0033e925ceab4010bbb8 e5f899ebff81c8b5f66fe43e4541493e27af0946ffb1666559429d1d25daf37e
+# hc__leader_pull2.10__ortho__k6x3 8915f44813eb3171db9e27984926b317 4f0ef57ef57284c4c6dedb0f173939ab351e19b8578890822bcc93c778ebba15
+# hc__leader_pull2.10__ortho__smear005 efbba3e72208382e8e2edf2e7b56a974 f575935ba4eae12dd4a94c553dd857d9b9e3e68931a814c40353dfd157568f5c
+# Per-job estimates: job plan_coreh monitor_wall_h memory_GB (not hard caps)
+# hc__equiatomic_pull2.10__atomic__baseline 180.904 4.240 87.178
+# hc__equiatomic_pull2.10__atomic__metal_alternating 180.904 4.240 87.178
+# hc__equiatomic_pull2.10__ortho__baseline 220.099 5.159 87.178
+# hc__equiatomic_pull2.10__ortho__metal_alternating 220.099 5.159 87.178
+# hc__equiatomic_builder__atomic__baseline 180.904 4.240 87.178
+# hc__equiatomic_builder__atomic__metal_alternating 180.904 4.240 87.178
+# hc__equiatomic_builder__atomic__fragment 180.904 4.240 87.178
+# hc__equiatomic_builder__atomic__metal_alternating_fragment 180.904 4.240 87.178
+# hc__equiatomic_builder__ortho__baseline 220.099 5.159 87.178
+# hc__equiatomic_builder__ortho__metal_alternating 220.099 5.159 87.178
+# hc__equiatomic_builder__ortho__fragment 220.099 5.159 87.178
+# hc__equiatomic_builder__ortho__metal_alternating_fragment 220.099 5.159 87.178
+# hc__leader_builder__atomic__baseline 166.468 3.902 82.405
+# hc__leader_builder__atomic__metal_alternating 166.468 3.902 82.405
+# hc__leader_builder__atomic__fragment 166.468 3.902 82.405
+# hc__leader_builder__atomic__metal_alternating_fragment 166.468 3.902 82.405
+# hc__leader_builder__atomic__scf_1e8 166.468 3.902 82.405
+# hc__leader_builder__atomic__wfc100 232.646 5.453 115.165
+# hc__leader_builder__atomic__rho800 232.646 5.453 106.613
+# hc__leader_builder__atomic__k6x3 374.553 8.779 185.412
+# hc__leader_builder__atomic__smear005 166.468 3.902 82.405
+# hc__leader_builder__ortho__baseline 202.535 4.747 82.405
+# hc__leader_builder__ortho__metal_alternating 202.535 4.747 82.405
+# hc__leader_builder__ortho__fragment 202.535 4.747 82.405
+# hc__leader_builder__ortho__metal_alternating_fragment 202.535 4.747 82.405
+# hc__leader_builder__ortho__scf_1e8 202.535 4.747 82.405
+# hc__leader_builder__ortho__wfc100 283.051 6.634 115.165
+# hc__leader_builder__ortho__rho800 283.051 6.634 106.613
+# hc__leader_builder__ortho__k6x3 455.704 10.681 185.412
+# hc__leader_builder__ortho__smear005 202.535 4.747 82.405
+# hc__leader_pull2.10__atomic__baseline 166.468 3.902 82.405
+# hc__leader_pull2.10__atomic__metal_alternating 166.468 3.902 82.405
+# hc__leader_pull2.10__atomic__fragment 166.468 3.902 82.405
+# hc__leader_pull2.10__atomic__metal_alternating_fragment 166.468 3.902 82.405
+# hc__leader_pull2.10__atomic__scf_1e8 166.468 3.902 82.405
+# hc__leader_pull2.10__atomic__wfc100 232.646 5.453 115.165
+# hc__leader_pull2.10__atomic__rho800 232.646 5.453 106.613
+# hc__leader_pull2.10__atomic__k6x3 374.553 8.779 185.412
+# hc__leader_pull2.10__atomic__smear005 166.468 3.902 82.405
+# hc__leader_pull2.10__ortho__baseline 202.535 4.747 82.405
+# hc__leader_pull2.10__ortho__metal_alternating 202.535 4.747 82.405
+# hc__leader_pull2.10__ortho__fragment 202.535 4.747 82.405
+# hc__leader_pull2.10__ortho__metal_alternating_fragment 202.535 4.747 82.405
+# hc__leader_pull2.10__ortho__scf_1e8 202.535 4.747 82.405
+# hc__leader_pull2.10__ortho__wfc100 283.051 6.634 115.165
+# hc__leader_pull2.10__ortho__rho800 283.051 6.634 106.613
+# hc__leader_pull2.10__ortho__k6x3 455.704 10.681 185.412
+# hc__leader_pull2.10__ortho__smear005 202.535 4.747 82.405
+# Runnable rows: dir job suffix nk
+hea/controls_2026-09-07 hc__equiatomic_pull2.10__atomic__baseline .in 8
+hea/controls_2026-09-07 hc__equiatomic_pull2.10__atomic__metal_alternating .in 8
+hea/controls_2026-09-07 hc__equiatomic_pull2.10__ortho__baseline .in 8
+hea/controls_2026-09-07 hc__equiatomic_pull2.10__ortho__metal_alternating .in 8
+hea/controls_2026-09-07 hc__equiatomic_builder__atomic__baseline .in 8
+hea/controls_2026-09-07 hc__equiatomic_builder__atomic__metal_alternating .in 8
+hea/controls_2026-09-07 hc__equiatomic_builder__atomic__fragment .in 8
+hea/controls_2026-09-07 hc__equiatomic_builder__atomic__metal_alternating_fragment .in 8
+hea/controls_2026-09-07 hc__equiatomic_builder__ortho__baseline .in 8
+hea/controls_2026-09-07 hc__equiatomic_builder__ortho__metal_alternating .in 8
+hea/controls_2026-09-07 hc__equiatomic_builder__ortho__fragment .in 8
+hea/controls_2026-09-07 hc__equiatomic_builder__ortho__metal_alternating_fragment .in 8
+hea/controls_2026-09-07 hc__leader_builder__atomic__baseline .in 8
+hea/controls_2026-09-07 hc__leader_builder__atomic__metal_alternating .in 8
+hea/controls_2026-09-07 hc__leader_builder__atomic__fragment .in 8
+hea/controls_2026-09-07 hc__leader_builder__atomic__metal_alternating_fragment .in 8
+hea/controls_2026-09-07 hc__leader_builder__atomic__scf_1e8 .in 8
+hea/controls_2026-09-07 hc__leader_builder__atomic__wfc100 .in 8
+hea/controls_2026-09-07 hc__leader_builder__atomic__rho800 .in 8
+hea/controls_2026-09-07 hc__leader_builder__atomic__k6x3 .in 4
+hea/controls_2026-09-07 hc__leader_builder__atomic__smear005 .in 8
+hea/controls_2026-09-07 hc__leader_builder__ortho__baseline .in 8
+hea/controls_2026-09-07 hc__leader_builder__ortho__metal_alternating .in 8
+hea/controls_2026-09-07 hc__leader_builder__ortho__fragment .in 8
+hea/controls_2026-09-07 hc__leader_builder__ortho__metal_alternating_fragment .in 8
+hea/controls_2026-09-07 hc__leader_builder__ortho__scf_1e8 .in 8
+hea/controls_2026-09-07 hc__leader_builder__ortho__wfc100 .in 8
+hea/controls_2026-09-07 hc__leader_builder__ortho__rho800 .in 8
+hea/controls_2026-09-07 hc__leader_builder__ortho__k6x3 .in 4
+hea/controls_2026-09-07 hc__leader_builder__ortho__smear005 .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__atomic__baseline .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__atomic__metal_alternating .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__atomic__fragment .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__atomic__metal_alternating_fragment .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__atomic__scf_1e8 .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__atomic__wfc100 .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__atomic__rho800 .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__atomic__k6x3 .in 4
+hea/controls_2026-09-07 hc__leader_pull2.10__atomic__smear005 .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__ortho__baseline .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__ortho__metal_alternating .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__ortho__fragment .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__ortho__metal_alternating_fragment .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__ortho__scf_1e8 .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__ortho__wfc100 .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__ortho__rho800 .in 8
+hea/controls_2026-09-07 hc__leader_pull2.10__ortho__k6x3 .in 4
+hea/controls_2026-09-07 hc__leader_pull2.10__ortho__smear005 .in 8
