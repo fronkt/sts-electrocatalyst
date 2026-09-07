@@ -9,9 +9,15 @@ site_census_plan.expected_stems(): CENSUS-1 gated six, CENSUS-1 other six,
 ENDMEMBER-2x2, CENSUS-2 (three models x gated six, then three models x other six),
 CENSUS-3 seed blocks. A restart resumes every unfinished manifest with ``--resume``;
 a stale ``<result>.lock`` whose recorded pid is dead is removed before relaunch (the
-diagnostic refuses to start while a lock exists). A status JSON is refreshed at least every
-60 s. Touching the stop file stops new launches; a stop file containing the word KILL also
-terminates the running subprocesses.
+diagnostic refuses to start while a lock exists). A lock held by a live pid (a worker orphaned
+by an earlier runner) is adopted: it occupies a worker slot until its pid ends, is then
+reclassified from its result file, or re-queued for ``--resume`` when it ended incomplete; KILL
+does not touch adopted workers. A status JSON is refreshed at least every 60 s; the atomic
+replace waits out a reader holding status.json open instead of exiting (the 2026-09-07 runner
+exit, WinError 5). Windows power throttling (EcoQoS) is cleared on the runner and on every
+worker, adopted ones included: under it the workers measured 0.87 cores each on the low-power
+cores of the hybrid CPU, 1.73 without. Touching the stop file stops new launches; a stop file
+containing the word KILL also terminates the running subprocesses.
 
     python src/scripts/site_census_runner.py --dry-run      # print the plan
     python src/scripts/site_census_runner.py --start        # run in the foreground
@@ -40,10 +46,78 @@ POLL_SECONDS = 5
 STATUS_SECONDS = 60
 CREATE_NO_WINDOW = 0x08000000
 STILL_ACTIVE = 259
+PROCESS_QUERY_INFORMATION = 0x0400
+PROCESS_SET_INFORMATION = 0x0200
+PROCESS_POWER_THROTTLING = 4  # PROCESS_INFORMATION_CLASS.ProcessPowerThrottling
+PROCESS_POWER_THROTTLING_EXECUTION_SPEED = 0x1
+REPLACE_ATTEMPTS = 40
+REPLACE_DELAY_SECONDS = 0.25
 
 
 def now():
     return dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
+
+
+class _PowerThrottlingState(ctypes.Structure):
+    _fields_ = [("Version", ctypes.c_ulong), ("ControlMask", ctypes.c_ulong),
+                ("StateMask", ctypes.c_ulong)]
+
+
+def disable_power_throttling(pid):
+    """Clear the power-throttling (EcoQoS) hint on a process; Windows only, else False.
+
+    Windows 11 treats windowless background processes as efficiency-class work and confines
+    them to the low-power cores of a hybrid CPU, on battery and on AC alike. Returns True when
+    the process afterwards carries ControlMask=EXECUTION_SPEED with StateMask=0, which tells the
+    scheduler to place its threads by demand. Same-user processes only; no elevation.
+    """
+    if os.name != "nt":
+        return False
+    try:
+        pid = int(pid)
+    except (TypeError, ValueError):
+        return False
+    if pid <= 0:
+        return False
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    kernel32.OpenProcess.restype = ctypes.c_void_p
+    kernel32.OpenProcess.argtypes = [ctypes.c_ulong, ctypes.c_int, ctypes.c_ulong]
+    kernel32.SetProcessInformation.argtypes = [ctypes.c_void_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_ulong]
+    kernel32.GetProcessInformation.argtypes = [ctypes.c_void_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_ulong]
+    kernel32.CloseHandle.argtypes = [ctypes.c_void_p]
+    handle = kernel32.OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_SET_INFORMATION, False, pid)
+    if not handle:
+        return False
+    try:
+        state = _PowerThrottlingState(1, PROCESS_POWER_THROTTLING_EXECUTION_SPEED, 0)
+        kernel32.SetProcessInformation(handle, PROCESS_POWER_THROTTLING, ctypes.byref(state),
+                                       ctypes.sizeof(state))
+        check = _PowerThrottlingState(1, 0, 0)
+        if not kernel32.GetProcessInformation(handle, PROCESS_POWER_THROTTLING, ctypes.byref(check),
+                                              ctypes.sizeof(check)):
+            return False
+        return (check.ControlMask == PROCESS_POWER_THROTTLING_EXECUTION_SPEED
+                and check.StateMask == 0)
+    finally:
+        kernel32.CloseHandle(handle)
+
+
+def replace_with_retry(temp, target, attempts=REPLACE_ATTEMPTS, delay=REPLACE_DELAY_SECONDS):
+    """os.replace that waits out a reader holding the target open.
+
+    On Windows a file another process has open without FILE_SHARE_DELETE cannot be replaced
+    (WinError 5 or 32, both PermissionError). Retries for attempts x delay seconds, then
+    re-raises the last error.
+    """
+    last = None
+    for _ in range(max(1, attempts)):
+        try:
+            os.replace(temp, target)
+            return
+        except PermissionError as error:
+            last = error
+            time.sleep(delay)
+    raise last
 
 
 def pid_alive(pid):
@@ -101,11 +175,22 @@ class Job:
         self.model_file = plan.model_path(self.info["tag"])
         self.proc = None
         self.pid = None
+        self.external_pid = None  # a live lock holder this runner did not launch
         self.started = None
         self.finished = None
         self.exit_code = None
         self.state = "queued"
         self.note = ""
+
+    def adopt(self, pid):
+        """Book a live lock holder as an adopted worker occupying one slot."""
+        self.state = "external"
+        self.external_pid = self.pid = int(pid)
+        try:
+            self.started = self.lock.stat().st_mtime
+        except OSError:
+            self.started = None
+        self.note = f"lock held by live pid {pid}; adopted, occupies a worker slot until it ends"
 
     @property
     def lock(self):
@@ -147,8 +232,7 @@ def build_jobs():
         elif job.lock.exists():
             pid = job.lock.read_text(encoding="utf-8").strip()
             if pid_alive(pid):
-                job.state = "external"
-                job.note = f"lock held by live pid {pid}; not launched by this runner"
+                job.adopt(pid)
             else:
                 job.note = f"stale lock (pid {pid} dead) will be removed before launch"
         if not job.model_file.exists():
@@ -169,6 +253,9 @@ class Runner:
         self.runner_pid = os.getpid()
         self.started = now()
         self.last_status = 0.0
+        self.flagged = set()  # pids whose power-throttling hint has been cleared
+        if disable_power_throttling(self.runner_pid):
+            self.flagged.add(self.runner_pid)
 
     # -- environment for the children --------------------------------------------------
     def child_env(self):
@@ -195,8 +282,7 @@ class Runner:
         if job.lock.exists():
             pid = job.lock.read_text(encoding="utf-8").strip()
             if pid_alive(pid):
-                job.state = "external"
-                job.note = f"lock held by live pid {pid}"
+                job.adopt(pid)
                 return
             job.lock.unlink()
             job.note = f"stale lock removed (pid {pid} dead)"
@@ -212,6 +298,33 @@ class Runner:
         job.pid = job.proc.pid
         job.started = time.time()
         job.state = "running"
+        if disable_power_throttling(job.pid):
+            self.flagged.add(job.pid)
+
+    def check_external(self, job):
+        """Reclassify an adopted worker once its pid has ended; True when the state changed."""
+        if pid_alive(job.external_pid):
+            return False
+        job.finished = time.time()
+        status = result_status(job.out)
+        if status == "complete":
+            job.state = "done"
+            job.note = f"completed under adopted pid {job.external_pid}"
+        elif status == "complete_with_errors":
+            job.state = "done_with_errors"
+            job.note = f"completed with errors under adopted pid {job.external_pid}"
+        else:
+            job.state = "queued"
+            job.note = (f"adopted pid {job.external_pid} ended with result status {status}; "
+                        "relaunch with --resume")
+            job.pid = job.started = job.finished = None
+        return True
+
+    def ensure_flags(self):
+        """Clear the throttling hint on any running or adopted worker not yet flagged."""
+        for job in self.running() + self.external():
+            if job.pid is not None and job.pid not in self.flagged and disable_power_throttling(job.pid):
+                self.flagged.add(job.pid)
 
     def reap(self, job):
         code = job.proc.poll()
@@ -237,6 +350,9 @@ class Runner:
     def queued(self):
         return [j for j in self.jobs if j.state == "queued"]
 
+    def external(self):
+        return [j for j in self.jobs if j.state == "external"]
+
     def write_status(self, force=False):
         if not force and time.time() - self.last_status < STATUS_SECONDS:
             return
@@ -251,7 +367,13 @@ class Runner:
         self.status_file.parent.mkdir(parents=True, exist_ok=True)
         temp = self.status_file.with_name(self.status_file.name + ".tmp")
         temp.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8", newline="\n")
-        os.replace(temp, self.status_file)
+        try:
+            replace_with_retry(temp, self.status_file)
+        except PermissionError as error:
+            # A status write must never end the queue; last_status stays old, so the next
+            # poll writes again.
+            print(f"{now()} status write deferred: {error}", file=sys.stderr, flush=True)
+            return
         self.last_status = time.time()
 
     def kill_running(self):
@@ -267,19 +389,22 @@ class Runner:
             changed = False
             for job in self.running():
                 changed |= self.reap(job)
+            for job in self.external():
+                changed |= self.check_external(job)
             stop = self.stop_requested()
             if stop == "KILL":
                 self.kill_running()
             if stop is None:
-                while len(self.running()) < self.workers and self.queued():
+                while len(self.running()) + len(self.external()) < self.workers and self.queued():
                     self.launch(self.queued()[0])
                     changed = True
+            self.ensure_flags()
             self.write_status(force=changed)
-            if not self.running() and (stop is not None or not self.queued()):
+            if not self.running() and not self.external() and (stop is not None or not self.queued()):
                 break
             time.sleep(POLL_SECONDS)
         self.write_status(force=True)
-        return 0 if all(j.state in ("done", "done_with_errors", "external") for j in self.jobs) else 1
+        return 0 if all(j.state in ("done", "done_with_errors") for j in self.jobs) else 1
 
 
 def print_plan(jobs):
@@ -294,7 +419,7 @@ def print_status(status_file):
     payload = json.loads(status_file.read_text(encoding="utf-8"))
     print(f"updated {payload['updated']}  counts {payload['counts']}  stop {payload['stop']}")
     for job in payload["jobs"]:
-        if job["state"] in ("running", "error"):
+        if job["state"] in ("running", "external", "error"):
             print(f"  {job['state']:<8} {job['stem']:<44} pid {job['pid']} {job['seconds']} s {job['note']}")
 
 
