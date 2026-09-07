@@ -1,0 +1,34 @@
+{
+  "started_at_utc": "2026-09-07T20:57:41.445947+00:00",
+  "released": false,
+  "checks": {
+    "submit_held": {
+      "rc": 0,
+      "stdout": "== account:  che260157\nVALID\n== preflight (nothing launched)\nPREFLIGHT manifest=/anvil/projects/x-che260157/sts/runs/hea/m_controls_2026-09-07_followup_approved.txt lines=14 to_run=14 already_done=0 stale=0 bad=0 NP=128 NCONC=1 expect_cap=0\nPREFLIGHT manifest=/anvil/projects/x-che260157/sts/runs/hea/m_controls_2026-09-07_followup_approved.txt lines=14 to_run=14 already_done=0 stale=0 bad=0 NP=128 NCONC=1 expect_cap=0\nPREFLIGHT_OK (PREFLIGHT_ONLY=1, nothing launched) Mon Sep  7 20:57:44 UTC 2026\nPREFLIGHT_OK (PREFLIGHT_ONLY=1, nothing launched) Mon Sep  7 20:57:44 UTC 2026\n== submitting HELD followup array 1-14%1 (128 cores each); inspect before release\n   requested four-hour cores*time bound: 7168 core-hours (7168 for fourteen jobs)\nSubmitted batch job 20484293\n",
+      "stderr": ""
+    },
+    "scontrol": {
+      "rc": 0,
+      "stdout": "JobId=20484293 ArrayJobId=20484293 ArrayTaskId=1-14%1 ArrayTaskThrottle=1 JobName=hea-followup UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=04:00:00 TimeMin=N/A SubmitTime=2026-09-07T16:57:44 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-07T16:57:44 Scheduler=Main Partition=shared AllocNode:Sid=login02:3928223 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryCPU=1896M MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/55_hea_followup.slurm SubmitLine=sbatch --hold --time=04:00:00 --no-requeue --job-name=hea-followup -A che260157 -N 1 -n 128 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --array=1-14%1 --export=ALL,PROJECT,MANIFEST,RUNS,QE_PREFIX,PSEUDO_DIR,NP /anvil/projects/x-che260157/sts/anvil/55_hea_followup.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/hea_followup_20484293_4294967294.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/hea_followup_20484293_4294967294.out\n",
+      "stderr": ""
+    },
+    "exclusions": {
+      "rc": 0,
+      "stdout": "a024\na049\na050\na088\na120\na171\na196\na200\na220\na223\n",
+      "stderr": ""
+    },
+    "held_tasks": {
+      "rc": 0,
+      "stdout": "20484293_1|PENDING|(JobHeldUser)\n20484293_2|PENDING|(JobHeldUser)\n20484293_3|PENDING|(JobHeldUser)\n20484293_4|PENDING|(JobHeldUser)\n20484293_5|PENDING|(JobHeldUser)\n20484293_6|PENDING|(JobHeldUser)\n20484293_7|PENDING|(JobHeldUser)\n20484293_8|PENDING|(JobHeldUser)\n20484293_9|PENDING|(JobHeldUser)\n20484293_10|PENDING|(JobHeldUser)\n20484293_11|PENDING|(JobHeldUser)\n20484293_12|PENDING|(JobHeldUser)\n20484293_13|PENDING|(JobHeldUser)\n20484293_14|PENDING|(JobHeldUser)\n",
+      "stderr": ""
+    },
+    "protect_manifest": {
+      "rc": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  },
+  "job_id": "20484293",
+  "resources_verified": true,
+  "completed_at_utc": "2026-09-07T21:02:15.169175+00:00"
+}

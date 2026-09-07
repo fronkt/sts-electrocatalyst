@@ -30,3 +30,13 @@ Local verification: 197 passed, three Windows symlink cases skipped. This covers
 Anvil driver preflight at 20:51 UTC refused the initial resource comment because it appended explanatory text to the exact NP/NCONC directive. No scheduler job was submitted. The resource values and scientific decks are unchanged; the manifest now places the directive on its own line. The guard receives a matching format regression before the repeat preflight. The initial transfer and refusal are retained separately.
 
 Header correction verification: 67 focused checks passed, three Windows symlink cases skipped; both Bash syntax checks passed. The exact header requirement now lives in the guarded preflight. The correction changes launch metadata and its guard only; all 14 scientific input bytes and the four-hour/concurrency-one limits are unchanged.
+
+## Submission and initial status
+
+Corrected commit 4b4c3f0 was pushed before the final 22-file transfer. Every staged file matches its committed bytes. The actual Anvil driver accepted all 14 inputs with zero stale/bad records, and the deployed Python 3.9 validator accepted both real pilot outputs with 75 ordered atoms each.
+
+Array **20484293** was submitted held at 20:57:44 UTC and released at **21:02:36 UTC** after verifying all 14 tasks, throttle one, 128 CPUs/tasks, one CPU/task, exactly one node (Slurm expresses the request as 1-1), shared partition, 237G memory, four-hour limits, no requeue, and the exact exclusions. Manifest and .lines are read-only. All 22 staged hashes were rechecked immediately before release.
+
+The immediate release snapshot shows all 14 tasks PENDING; no new scientific result is claimed. A transient verification-channel stall was resolved by closing each bounded SSH channel explicitly; only the stalled local verification helper was stopped. The held array was not resubmitted. Both the original resource-header refusal and held-check evidence are retained.
+
+All 200 protected current scientific and pilot files still match. The 14 jobs complete the next electronic-state test when their outputs pass the recorded QC; numerical sensitivity, relaxation and candidate validation remain dependent work. Launch evidence and the pending paired readout are in results/hea_followup_2026-09-07/.

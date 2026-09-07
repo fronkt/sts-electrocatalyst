@@ -2366,9 +2366,11 @@ Scope: user-directed scientific continuation while the census runs. Resolve the 
 - [x] Verify pilot reuse, live allocation, duplicate attempts, census continuity, and exact frozen control inputs.
 - [x] Select and freeze the paired spin/projector follow-up with measured-cost context and enforced resource limits.
 - [x] Add and test guarded batch execution; independently review settings and failure handling.
-- [ ] Push locally, stage exact committed bytes, submit held, inspect resources, and release the verified next batch.
-- [ ] Preserve launch evidence and a pending scientific readout with explicit dependencies for numerical tests and DFT relaxation; commit and push.
+- [x] Push locally, stage exact committed bytes, submit held, inspect resources, and release the verified next batch.
+- [x] Preserve launch evidence and a pending scientific readout with explicit dependencies for numerical tests and DFT relaxation; commit and push.
 
 Verification plan: protected scientific hashes, exact input/UPF identity, no repeated pilot baselines, paired variant comparisons only, robust SCF/force/projection checks, scheduler caps and no silent retries. Later stages depend on this batch’s electronic-state evidence and are not complete at submission.
 
 Follow-up preflight correction: the actual queue driver rejected a malformed NP/NCONC comment before submission. Correct the exact resource-header grammar, add a guard regression, repin/verify, push and re-stage the affected launch files before repeating submission. Scientific decks and allocation limits are unchanged.
+
+Review: follow-up array 20484293 submitted and released at 21:02:36 UTC after exact held-resource/hash checks. Fourteen paired spin/projector SCFs, NP128/nk8, concurrency one, four hours each; 2619.09 core-hour plan and 7168 allocation ceiling. Initial state: all 14 PENDING. Initial 197 checks and 67 focused header-correction checks passed (three Windows symlink skips in each relevant guard run); actual remote driver and both real-pilot QC checks passed. All 200 protected files unchanged. Scientific results and subsequent numerical/relaxation stages remain pending. Census primary 12/12 and all seven endmembers complete; four OMAT-0 jobs active. See docs/research/hea-followup-2026-09-07.md.
