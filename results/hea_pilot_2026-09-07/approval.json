@@ -1,0 +1,92 @@
+{
+  "schema": "hea-pilot-approval-v1",
+  "status": "APPROVED_FOR_TWO_JOBS",
+  "approval_date": "2026-09-07",
+  "recorded_at_utc": "2026-09-07T09:04:50.593Z",
+  "basis": "User approved the prepared two-job pilot in session.",
+  "preparation_commit": "d667fde59b26bcbc63908d363168d4452c3a1932",
+  "request": "results/hea_rigor_2026-09-07/smoke_request.json",
+  "manifest": "runs/hea/m_controls_2026-09-07_pilot_approved.txt",
+  "NP": 128,
+  "nk": 8,
+  "array_tasks": 2,
+  "concurrency": 1,
+  "time_limit_per_task": "04:00:00",
+  "requested_core_hours_bound": 1024,
+  "plan_scf_core_hours": 332.9357252319714,
+  "projection_included_in_scheduler_limit": true,
+  "projection_excluded_from_planning_estimate": true,
+  "automatic_retries": false,
+  "automatic_expansion": false,
+  "jobs": [
+    {
+      "job": "hc__leader_builder__atomic__baseline",
+      "deck": "runs/hea/controls_2026-09-07/hc__leader_builder__atomic__baseline.in",
+      "md5": "9a620b2a9d0446ba72f9b8235b5ac01d",
+      "sha256": "d931c2eda18ca90a400e909f965a4190baa2357bfcb55cd0359a140f0a4ac0b6",
+      "baseline_reference": {
+        "companion_job": "hc__leader_builder__atomic__baseline",
+        "equivalence": "identical except prefix",
+        "original_deck": "runs/hea/branch_panel/leader_builder__atomic.in",
+        "original_job": "leader_builder__atomic",
+        "original_lowdin": "runs/hea/branch_panel/leader_builder__atomic.lowdin.txt",
+        "original_md5": "be66caf7452eae76379bd6aa973132da",
+        "original_output": "runs/hea/branch_panel/leader_builder__atomic.out",
+        "original_sha256": "d745005504870d36f4d4432f025318ae5a7ab1f14dd69d6464749be880d64f1b",
+        "prefix_normalized_sha256": "a3b5e1d2bd22c6f825a733bb3dc4f298edcc42f2d476753c2cc7f3539a19cba6",
+        "reuse_policy": "Run one location only. Prefer a terminal converged original with matching deck hash, JOB DONE, force table and local-moment/occupation records; otherwise select one location before submission. A terminal failed original remains a failed attempt, not permission for a silent companion retry. If companion ran first, reuse it and omit the original equivalent. Preserve actual output paths/hashes; never copy outputs under a new prefix."
+      },
+      "projector": "atomic",
+      "settings": {
+        "conv_thr": "1.0d-6",
+        "degauss": "0.01",
+        "ecutrho": "640.0",
+        "ecutwfc": "80.0",
+        "mesh": [
+          4,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "job": "hc__leader_pull2.10__atomic__baseline",
+      "deck": "runs/hea/controls_2026-09-07/hc__leader_pull2.10__atomic__baseline.in",
+      "md5": "14ed758a29286432ac05e82195b88fb7",
+      "sha256": "aec1696257df44dada98eb071384c3deb45ceb51b90f4b814a22c1953af2ce37",
+      "baseline_reference": {
+        "companion_job": "hc__leader_pull2.10__atomic__baseline",
+        "equivalence": "identical except prefix",
+        "original_deck": "runs/hea/branch_panel/leader_pull2.10__atomic.in",
+        "original_job": "leader_pull2.10__atomic",
+        "original_lowdin": "runs/hea/branch_panel/leader_pull2.10__atomic.lowdin.txt",
+        "original_md5": "1f5ee71cc5f890624cb4622b7bed5061",
+        "original_output": "runs/hea/branch_panel/leader_pull2.10__atomic.out",
+        "original_sha256": "c61aed553f684ebbb03739c1a732f91837f6a3e3f91c21bde02cc9838caa637e",
+        "prefix_normalized_sha256": "fbd1ebecce4db1dec326a4dbf89366c79749442d4cd3ee5e4a1758e99d9ec123",
+        "reuse_policy": "Run one location only. Prefer a terminal converged original with matching deck hash, JOB DONE, force table and local-moment/occupation records; otherwise select one location before submission. A terminal failed original remains a failed attempt, not permission for a silent companion retry. If companion ran first, reuse it and omit the original equivalent. Preserve actual output paths/hashes; never copy outputs under a new prefix."
+      },
+      "projector": "atomic",
+      "settings": {
+        "conv_thr": "1.0d-6",
+        "degauss": "0.01",
+        "ecutrho": "640.0",
+        "ecutwfc": "80.0",
+        "mesh": [
+          4,
+          2,
+          1
+        ]
+      }
+    }
+  ],
+  "pseudopotential_md5": {
+    "Cu.paw.z_11.ld1.psl.v1.0.0-low.upf": "619f40885d92a09a85a8b37550532d0c",
+    "H.pbe-rrkjus_psl.1.0.0.UPF": "f52b6d4d1c606e5624b1dc7b2218f220",
+    "O.pbe-n-kjpaw_psl.0.1.UPF": "0234752ac141de4415c5fc33072bef88",
+    "cr_pbe_v1.5.uspp.F.UPF": "0d52af634a40206e4dee301ad30da4bf",
+    "mn_pbe_v1.5.uspp.F.UPF": "82ef2b46521d7a7d9e736dc3972e4928",
+    "ni_pbe_v1.4.uspp.F.UPF": "1ee80287db30b12d2bc1f57a5b5d6409"
+  },
+  "limitation": "Fixed-geometry atomic-projector pilot only. It does not determine a spin ground state, relaxed DFT ranking or catalytic eta. Original prepared bundles remain frozen; this separate launch manifest licenses exactly two retained endpoint inputs."
+}

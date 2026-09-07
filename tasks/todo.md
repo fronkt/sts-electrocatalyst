@@ -2337,3 +2337,14 @@ Verification plan: numerical/chemical input invariants, no leakage between audit
 Review: 12 composition-only validation chains (8 discovery/4 held out from future DFT-label fitting) and 3 targeted audit chains fixed in boundary commit be7d72b before census materialization. Current snapshot: 20 new DFT inputs and 16 exact existing inputs reused by reference, with missing sites retained as pending. Companion controls: 48 requests, including 8 reusable baseline twins. Force/SCF and balanced-CHE audits plus a 45-case failure benchmark are implemented; DFT truth remains pending. Two completed census records reproduce both historical minima; the historical leader retains OOH but its O intermediate flags reconstruction. Full suite: 855 passed, 8 skipped, 57 existing spglib warnings. Clean staged checkout: 130 focused tests pass and both prepared deck bundles reproduce exactly. Independent reviews resolved selection coverage, species/memory limits, constraint masks, balance flags, input ambiguity and reference-hash checks. All 149 protected census/source/original-deck hashes match. No DFT/cloud jobs submitted; actual DFT validation and active-phase/pathway energetics remain outstanding. See docs/research/rigor-implementation-2026-09-07.md and results/hea_rigor_2026-09-07/verification.json.
 
 Banked and pushed: selection boundary be7d72b, implementation/results d667fde on r0-catalysis-revival. The pre-existing tasks/lessons.md change was excluded.
+
+## 2026-09-07 — Approved two-job HEA DFT pilot
+
+Scope: execute the two atomic-projector leader endpoint SCFs approved in session; 128 ranks, one task at a time, four hours per task, no automatic retries or expansion.
+
+- [x] Record the approved settings and exact two-input manifest without changing the broader unlicensed programs.
+- [ ] Verify local/remote input identity, pseudopotentials, QE stack, allocation and queue; push locally before remote synchronization.
+- [ ] Submit through the existing guarded runner; verify Slurm accepts two tasks, concurrency one and four-hour limits.
+- [ ] Inspect initial runtime/SCF status, preserve launch evidence, and commit/push the review.
+
+Verification plan: exact deck hashes, guarded preflight, scheduler resource and exclusion checks, duplicate-run check, initial output review, census continuity.

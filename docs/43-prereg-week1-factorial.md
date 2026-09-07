@@ -4478,3 +4478,12 @@ CrO₂); bulk not slab, n = 2, unchanged from :3544-3546; and no re-planning of 
 
 > `[SMALL ARMS READOUT COUNTERSIGNED 2026-09-__]` — countersignature slot for the entrant (mirrors the
 > slot at the foot of docs/90).
+
+---
+## Dated addendum — 2026-09-07: approved two-job HEA computational pilot
+
+The user approved the prepared two-job pilot in session on 2026-09-07. This is a limited operational election for the companion controls prepared at d667fde, after the retained site-evidence analysis and partial census readout. The approval applies to `runs/hea/m_controls_2026-09-07_pilot_approved.txt`: `hc__leader_builder__atomic__baseline` and `hc__leader_pull2.10__atomic__baseline`, with the exact inputs and hashes in `results/hea_pilot_2026-09-07/approval.json`.
+
+Both are fixed-geometry PBE SCFs with the recorded SSSP potentials; atomic Hubbard projectors; U(Cr, Mn, Ni) = (3.7, 3.9, 6.2) eV and no Cu U; inherited per-species FM starts without a total-moment constraint; 80/640 Ry cutoffs, 4x2x1 k mesh and 128 MPI ranks in eight pools. Inline projection retains the local charge/spin readout. The approved scheduler shape is two array tasks, concurrency one, four hours per task including projection: 1024 requested core-hours maximum for the pair, excluding separate retries or billing adjustments. Planning for the SCFs alone is 332.936 core-hours; measured HEA cost is pending. There are no automatic retries or expansion.
+
+A dedicated pilot runner preserves scratch on failed SCF or projection and returns a failure status when projection fails; the original runner and input decks remain unchanged. Runtime and exact-input checks precede launch. The original full controls, validation, branch-panel and retained-pilot manifests keep their existing status. This pilot supplies computational feasibility and endpoint diagnostics; it adopts no new scientific outcome threshold and does not license the full HEA-1..9 program.
