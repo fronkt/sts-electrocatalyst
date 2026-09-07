@@ -1,0 +1,103 @@
+# HEA fidelity-pilot manifest -- fixed-geometry SCFs on retained MACE chains (hea/pilot_retained),
+# clean slab + winning OH/O/OOH per chain, each in HUBBARD (atomic) and (ortho-atomic).
+# Built by src/dft/build_hea_pilot.py; every deck's coordinates re-parse to the retained
+# positions_A exactly (asserted at build).
+#
+# WHY. Zero held-out DFT points exist for the HEA screen (docs/40:34); the SQS tier of
+# docs/22 never ran. A fixed-geometry DFT eta on the model's own relaxed chain, read beside
+# the model's eta at the same coordinates, is the first surrogate-fidelity number on an
+# HEA slab in this tree. Fixed geometry: no DFT minimum, no relaxation correction is claimed.
+#
+# READOUT (pre-stated, src/dft/hea_panel_readout.py, inherited bands only): per chain,
+# dG_OH/dG_O/dG_OOH and eta from the DFT energies with the banked gas references
+# runs/Cr_slab/H2O.out and runs/Cr_slab/H2.out (same O/H UPF, 80/640 Ry, Martyna-Tuckerman
+# 12 A box) and the referencing of src/hea_oer/referencing.py; primary = |eta_DFT - eta_MACE|
+# <= the MACE-MPA-0 single-point eta MAE of docs/33-r3-mlip-evaluation.md:65 (0.164 V, the
+# like-for-like single-point row), with the relaxed-pipeline validation MAE of
+# results/r4_validate.json (mae_eta, docs/36:16) printed beside it as the second column;
+# reported WITHIN/OUTSIDE per chain and per projector; per-step |dG_DFT - dG_MACE| against
+# 0.250 eV (docs/33:65); rank order of eta_DFT vs eta_MACE across the chains present.
+# A chain whose OOH record is DESORBED (census `desorbed` carries 'OOH'; INTEGRITY below) has
+# no *OOH state: its third-state energy is printed as dE(O2(g)-in-cell + H_slab) with NO
+# 0.40 eV *OOH correction, its AEM eta is UNDEFINED and is not scored against the band, and
+# only the bridge-pathway lower bound max(dG1, dG2, dE3) - 1.23 V is printed with the fourth
+# step (OH_b -> O_b + H+ + e-, O2 release) marked UNMEASURED (Svane & Rossmeisl 2022;
+# src/hea_oer/site_integrity.py:15,404-409). The census eta of such a chain is kept visible
+# and labelled as AEM bookkeeping on a non-*OOH state. A leg is terminal as CONVERGED, NOT
+# CONVERGED or KILLED (<job>.KILLED sidecar), PENDING otherwise.
+# Nothing elective. No banked value moves in any branch.
+#
+# MACE reference energies (eV) per chain, copied from the census record (energies_eV):
+#   Fe25Co25Ni25Cr25 seed 2 site 0 (candidate e42c3cfa3ca1..., results/cr_site_chains_2026-09-06/equiatomic_result.json)
+#     slab -418.9420343689268  OH -428.2173211248455  O -422.9750220334761  OOH -432.4724969265869
+#     H2O -13.786072360111909  H2 -6.518485078255032  (12 A box, model gas references)
+#     dG_OH 1.6015430650656648  dG_O 3.284599617307581  dG_OOH 4.663954545181129  eta 0.4530565522419163 V  pls 2  desorbed []
+#     initial binding metal Cr (index 16); final binding metal OH/O/OOH Cr/Cr/Cr; site-evidence status eligible
+#     census statistic: n_sites 1, n_decorations 1, eta_min 0.4530565522419163 (the chain IS the census's single site)
+#     INTEGRITY slab  -> CLEAN SLAB [n/a]
+#     INTEGRITY OH   H-Op 1.001; H-slabO57 1.772; O72-Cr16 1.809 (h +1.77); H73-Cr16 2.272 (h +1.81) -> *OH adsorbed, intact [NORMAL]
+#     INTEGRITY O    O72-Cr16 1.589 (h +1.59) -> *O adsorbed [NORMAL]
+#     INTEGRITY OOH  O-O 1.372; H-Op 1.856; H-Od 0.993; H-slabO64 3.644; O72-Cr16 1.975 (h +1.86); O73-Cr16 2.781 (h +2.38); H74-Cr16 3.625 (h +3.36) -> *OOH adsorbed, intact [NORMAL]
+#   Ni31Cr29Cu5Mn35 seed 0 site 0 (candidate 1362d44d9dd8..., results/cr_site_chains_2026-09-06/leader_result.json)
+#     slab -441.3923129824925  OH -450.06106389686744  O -445.1167614698512  OOH -456.8478789461918
+#     H2O -13.786072360111909  H2 -6.518485078255032  (12 A box, model gas references)
+#     dG_OH 2.2080789066094675  dG_O 3.593138794498177  dG_OOH 2.7388511391419583  eta 0.9780789066094675 V  pls 1  desorbed ['OOH']
+#     initial binding metal Cr (index 16); final binding metal OH/O/OOH Cr/Cr/Ni; site-evidence status failed
+#     census statistic: n_sites 1, n_decorations 1, eta_min 0.9780789066094675 (the chain IS the census's single site)
+#     INTEGRITY slab  -> CLEAN SLAB [n/a]
+#     INTEGRITY OH   H-Op 0.987; H-slabO56 1.874; O72-Cr16 2.005 (h +1.14); H73-Cr16 2.504 (h +1.32) -> *OH adsorbed, intact [NORMAL]
+#     INTEGRITY O    O72-Cr16 1.592 (h +1.59) -> *O adsorbed [NORMAL]
+#     INTEGRITY OOH  O-O 1.230; H-Op 3.665; H-Od 3.303; H-slabO56 0.971; O72-Ni18 3.400 (h +2.61); O73-Cr16 3.985 (h +2.95); H74-Ni22 2.472 (h +1.12) -> O2(g) in cell + H on slab O (H transferred) [DESORPTION + DISSOCIATION / H TRANSFER], free species O2(g) triplet (2 Bohr mag)
+#
+# k-mesh 4 2 1 0 0 0 from the k-mesh rule on the actual cell (nosym+noinv);
+# nk = 8, the largest divisor of 128 not above the k-point count.
+#
+# REUSED (no row here; the readout reads the panel output): chain  job  ->  panel deck  md5
+#   Fe25Co25Ni25Cr25__s2_site0       OOH__atomic    -> hea/branch_panel/equiatomic_pull2.10__atomic.in  980cacf9b6fecc65fea3d6d602be2434  (render identical except prefix, asserted at build)
+#   Fe25Co25Ni25Cr25__s2_site0       OOH__ortho     -> hea/branch_panel/equiatomic_pull2.10__ortho.in  bb1517be07c8e782759402bedf8df3fc  (render identical except prefix, asserted at build)
+#   Ni31Cr29Cu5Mn35__s0_site0        OOH__atomic    -> hea/branch_panel/leader_pull2.10__atomic.in  1f5ee71cc5f890624cb4622b7bed5061  (render identical except prefix, asserted at build)
+#   Ni31Cr29Cu5Mn35__s0_site0        OOH__ortho     -> hea/branch_panel/leader_pull2.10__ortho.in  28be737b055fd0d049f59f8005d167ad  (render identical except prefix, asserted at build)
+#
+# PLANNING COST (src/dft/hea_cost_model.py, runs/hea/COST_MODEL.md): 2255.7 core-h for the
+# 12 SCFs at the model-A envelope (42 iterations, ortho x 1.2167), floor 1042.0,
+# ceiling 6767.2 core-h (3x, 126 iterations); memory envelope 87 GB total at
+# 128 ranks (core-bound billing). The 48 h walltime cap the submitter prints is
+# 73728 SU and is a cap, not a forecast. Realised cost is reported.
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200
+# NP=128 NCONC=1
+#
+# NOT LICENSED FOR SUBMISSION. This arm has no dated registration line.
+# docs/92-hea-dft-panel-DRAFT.md is a PROPOSAL with blank entrant slots HEA-1 .. HEA-9
+# (U set, projectors, spin start, kill rule, pairs, acceptor control, cost, pilot scope,
+# eta bar); anvil/47_submit_a0.sh refuses this manifest while this notice stands
+# (docs/66 section 4). When licensed, replace this paragraph with the dated adoption line,
+# and leave every deck md5 below unchanged.
+#
+# md5 of each deck, for the record (chain  job  nat  md5):
+#   Fe25Co25Ni25Cr25__s2_site0       slab__atomic    72  899255ea0fe4b1217497fbc14c478d3c
+#   Fe25Co25Ni25Cr25__s2_site0       slab__ortho     72  20e52cd3e65ec79ed85d7509b6e514f8
+#   Fe25Co25Ni25Cr25__s2_site0       OH__atomic      74  7c1a4d5c62cab086c3730e2d4d09d0db
+#   Fe25Co25Ni25Cr25__s2_site0       OH__ortho       74  e2b2f16248abf006f20c16768da88aca
+#   Fe25Co25Ni25Cr25__s2_site0       O__atomic       73  e5c28d7a45275a6433705a83a653ce94
+#   Fe25Co25Ni25Cr25__s2_site0       O__ortho        73  ffb743ebb0eda3e4e759c82f123f971c
+#   Ni31Cr29Cu5Mn35__s0_site0        slab__atomic    72  2f4f43e725e336edd528ce5bb25fc55b
+#   Ni31Cr29Cu5Mn35__s0_site0        slab__ortho     72  0d18e43e11228a79530080e709aae13a
+#   Ni31Cr29Cu5Mn35__s0_site0        OH__atomic      74  2ad65fb8d747a121be33c0982702441a
+#   Ni31Cr29Cu5Mn35__s0_site0        OH__ortho       74  42b37eb13feaca991ed994f7a0a399a8
+#   Ni31Cr29Cu5Mn35__s0_site0        O__atomic       73  aa4eff4c6239c27a2a49489c972141fb
+#   Ni31Cr29Cu5Mn35__s0_site0        O__ortho        73  ceba91f46679450dbfa7bdf2952e3860
+#
+# Runnable rows are: dir job suffix nk
+hea/pilot_retained/Fe25Co25Ni25Cr25__s2_site0 slab__atomic .in 8
+hea/pilot_retained/Fe25Co25Ni25Cr25__s2_site0 slab__ortho .in 8
+hea/pilot_retained/Fe25Co25Ni25Cr25__s2_site0 OH__atomic .in 8
+hea/pilot_retained/Fe25Co25Ni25Cr25__s2_site0 OH__ortho .in 8
+hea/pilot_retained/Fe25Co25Ni25Cr25__s2_site0 O__atomic .in 8
+hea/pilot_retained/Fe25Co25Ni25Cr25__s2_site0 O__ortho .in 8
+hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0 slab__atomic .in 8
+hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0 slab__ortho .in 8
+hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0 OH__atomic .in 8
+hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0 OH__ortho .in 8
+hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0 O__atomic .in 8
+hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0 O__ortho .in 8

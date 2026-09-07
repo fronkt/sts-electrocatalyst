@@ -1,0 +1,87 @@
+# HEA branch-panel manifest -- fixed-geometry SCFs on the five retained rutile(110) HEA
+# OOH geometries of results/cr_site_chains_2026-09-06/dft_branch_panel.json, each in
+# HUBBARD (atomic) and HUBBARD (ortho-atomic). Built by src/dft/build_hea_panel.py; every
+# deck's coordinates re-parse to the retained positions_A exactly (asserted at build).
+#
+# WHY. The retained MACE chains place a detached OOH within 31 meV of the metal-contacted
+# OOH on the equiatomic Cr site, and 2.28 eV BELOW the detached OOH an OO fragment with H
+# transferred to slab O56 on the leader Cr site. No DFT number exists on any HEA slab in
+# this tree (every QE run is a single-metal endmember). These ten SCFs put a DFT electronic
+# energy on each retained geometry so the branch gaps can be read beside the model's.
+#
+# READOUT (pre-stated, src/dft/hea_panel_readout.py, inherited bands only): per pair,
+# dE_DFT = E(state B) - E(state A) beside dE_MACE; band = |dE_DFT - dE_MACE| <= 0.250 eV,
+# the MACE-MPA-0 single-point 15-point dG MAE of docs/33-r3-mlip-evaluation.md:65, reported
+# WITHIN/OUTSIDE; the sign of dE_DFT is SCORED against the sign of dE_MACE only when
+# |dE_MACE| > 0.250 eV (pair 2, optional control) and printed UNSCORED otherwise (pair 1:
+# |dE_MACE| = 0.031 eV lies inside the band, so a sign test there is degenerate); projector
+# agreement per pair. A leg is terminal as CONVERGED (energy + JOB DONE), NOT CONVERGED
+# (`convergence NOT achieved`, no number) or KILLED (a <job>.KILLED sidecar written by the
+# kill rule, no number); PENDING otherwise. The total magnetisation is printed per leg and,
+# for the desorbed states listed under INTEGRITY, the Loewdin moment on the adsorbate atoms
+# is read from <job>.lowdin.txt beside the free-species moment; a mismatch of 0.5 Bohr mag or
+# more, or a missing Loewdin table, prints SPIN-STATE UNRESOLVED on that leg.
+# Nothing elective. No banked value moves in any branch.
+#
+# INTEGRITY (minimum-image distances in A on the retained cell, src/dft/hea_geometry.py;
+# thresholds of results/cr_site_chains_2026-09-06/paired_readout/readout.json:269-277;
+# h = height above the topmost slab metal):
+#   equiatomic_pull2.10    O-O 1.372; H-Op 1.856; H-Od 0.993; H-slabO64 3.644; O72-Cr16 1.975 (h +1.86); O73-Cr16 2.781 (h +2.38); H74-Cr16 3.625 (h +3.36) -> *OOH adsorbed, intact [NORMAL]
+#   equiatomic_builder     O-O 1.343; H-Op 1.881; H-Od 1.001; H-slabO64 3.324; O72-Cr16 4.706 (h +4.40); O73-Cr16 3.676 (h +3.32); H74-Cr16 3.831 (h +3.27) -> HO2(g) radical in cell, no metal contact [DESORPTION], free species HO2(g) doublet (1 Bohr mag)
+#   leader_builder         O-O 1.339; H-Op 1.881; H-Od 1.002; H-slabO57 4.870; O72-Cr16 4.557 (h +3.67); O73-Ni18 4.862 (h +3.84); H74-Ni18 5.745 (h +4.82) -> HO2(g) radical in cell, no metal contact [DESORPTION], free species HO2(g) doublet (1 Bohr mag)
+#   leader_pull2.10        O-O 1.230; H-Op 3.665; H-Od 3.303; H-slabO56 0.971; O72-Ni18 3.400 (h +2.61); O73-Cr16 3.985 (h +2.95); H74-Ni22 2.472 (h +1.12) -> O2(g) in cell + H on slab O (H transferred) [DESORPTION + DISSOCIATION / H TRANSFER], free species O2(g) triplet (2 Bohr mag)
+#   leader_pull1.70        O-O 1.238; H-Op 2.827; H-Od 1.982; H-slabO68 0.981; O72-Cr16 4.181 (h +3.11); O73-Ni18 3.931 (h +2.68); H74-Cr16 2.487 (h +0.82) -> O2(g) in cell + H on slab O (H transferred) [DESORPTION + DISSOCIATION / H TRANSFER], free species O2(g) triplet (2 Bohr mag)
+#
+# MACE reference energies (eV), copied from the replay records the panel points to:
+#   equiatomic_pull2.10    -432.4724969265869     results/cr_site_chains_2026-09-06/equiatomic_ooh_replay.json /attempts/2/energy_eV  (pair equiatomic state A)
+#   equiatomic_builder     -432.4413992175864     results/cr_site_chains_2026-09-06/equiatomic_ooh_replay.json /attempts/0/energy_eV  (pair equiatomic state B)
+#   leader_builder         -454.5660460881911     results/cr_site_chains_2026-09-06/leader_ooh_replay.json /attempts/0/energy_eV  (pair leader state A)
+#   leader_pull2.10        -456.8478789461918     results/cr_site_chains_2026-09-06/leader_ooh_replay.json /attempts/2/energy_eV  (pair leader state B)
+#   leader_pull1.70        -456.12184613969964    results/cr_site_chains_2026-09-06/leader_ooh_replay.json /attempts/1/energy_eV  (optional proton-acceptor control)
+#   pair equiatomic  MACE_E_B_minus_E_A_eV = 0.031097709000505347  (states [pull2.10, builder])
+#   pair leader      MACE_E_B_minus_E_A_eV = -2.281832858000712  (states [builder, pull2.10])
+#   optional         MACE_E_O68_minus_E_O56_eV = 0.726032806492185  (leader pull1.70 - leader pull2.10)
+#   (dft_branch_panel.json:8-63; sha256_lf of the panel and every source verified at build)
+#
+# k-mesh 4 2 1 0 0 0 from the k-mesh rule on the actual cell (nosym+noinv -> 8 k-points);
+# nk = 8 is the largest divisor of 128 not above that count.
+#
+# PLANNING COST (src/dft/hea_cost_model.py, runs/hea/COST_MODEL.md): 1909.0 core-h for the
+# ten SCFs at the model-A envelope (42 iterations, ortho x 1.2167), floor 873.8,
+# ceiling 5727.0 core-h (3x, 126 iterations); memory envelope 87 GB total at
+# 128 ranks (core-bound billing). The 48 h walltime cap the submitter prints is
+# 61440 SU and is a cap, not a forecast. Realised cost is reported.
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200
+# NP=128 NCONC=1
+#
+# NOT LICENSED FOR SUBMISSION. This arm has no dated registration line.
+# docs/92-hea-dft-panel-DRAFT.md is a PROPOSAL with blank entrant slots HEA-1 .. HEA-9
+# (U set, projectors, spin start, kill rule, pairs, acceptor control, cost, pilot scope,
+# eta bar); anvil/47_submit_a0.sh refuses this manifest while this notice stands
+# (docs/66 section 4). When licensed, replace this paragraph with the dated adoption line,
+# and leave every deck md5 below unchanged.
+#
+# md5 of each deck, for the record (job  projector  nat  md5):
+#   equiatomic_pull2.10__atomic        atomic   75  980cacf9b6fecc65fea3d6d602be2434
+#   equiatomic_pull2.10__ortho         ortho    75  bb1517be07c8e782759402bedf8df3fc
+#   equiatomic_builder__atomic         atomic   75  462848aca7b3bdcadac64177b7c1e58a
+#   equiatomic_builder__ortho          ortho    75  8aac7010a569d6e80f41d680f536e87d
+#   leader_builder__atomic             atomic   75  be66caf7452eae76379bd6aa973132da
+#   leader_builder__ortho              ortho    75  784151fba535d12f1267712fe2439a92
+#   leader_pull2.10__atomic            atomic   75  1f5ee71cc5f890624cb4622b7bed5061
+#   leader_pull2.10__ortho             ortho    75  28be737b055fd0d049f59f8005d167ad
+#   leader_pull1.70__atomic            atomic   75  54f0fd3018a070f00fbd5347e4ac8512
+#   leader_pull1.70__ortho             ortho    75  3b5941be6d34d9bf0aa793433a732eea
+#
+# Runnable rows are: dir job suffix nk
+hea/branch_panel equiatomic_pull2.10__atomic .in 8
+hea/branch_panel equiatomic_pull2.10__ortho .in 8
+hea/branch_panel equiatomic_builder__atomic .in 8
+hea/branch_panel equiatomic_builder__ortho .in 8
+hea/branch_panel leader_builder__atomic .in 8
+hea/branch_panel leader_builder__ortho .in 8
+hea/branch_panel leader_pull2.10__atomic .in 8
+hea/branch_panel leader_pull2.10__ortho .in 8
+hea/branch_panel leader_pull1.70__atomic .in 8
+hea/branch_panel leader_pull1.70__ortho .in 8
