@@ -11,7 +11,7 @@ git add -f results/site_census_2026-09-06/manifests results/site_census_2026-09-
 
 — those fifteen paths (the rank-resolution readout of docs/research/2026-09-06-rank-resolution-spec.md shares this boundary) and the 103 manifests, nothing else in the worktree (other untracked paths present on 2026-09-06 belong to other work and are not part of this boundary). The manifests were built and hashed before this text was finished (§6); the scorer hashes are listed in §7; the readout refuses a result whose `manifest_id` differs from its manifest. The boundary is recorded by the dated line below when the commit exists, before any census process starts:
 
-> `[CENSUS BOUNDARY 2026-09-__: commit ________, ____-__-__T__:__:__Z]` — no result file existed under results/site_census_2026-09-06/results/ at that commit.
+> `[CENSUS BOUNDARY 2026-09-06: commit 818409c (818409c4a946c44f22437111200df47b04da0b96), 2026-09-07T03:26:32Z]` — no result file existed under results/site_census_2026-09-06/results/ at that commit; the fifteen paths and the 103 manifests were committed by explicit path (117 files, 12,043 insertions), and no census process had been started when this line was written.
 
 Compute is local CPU on this machine (8 logical cores, torch 2.11.0+cpu, mace-torch 0.3.15; results/cr_site_chains_2026-09-06/leader_result.json `environment`); no shared allocation, no Anvil SU, no ACCESS credit is used by any arm below.
 
