@@ -2370,3 +2370,5 @@ Scope: user-directed scientific continuation while the census runs. Resolve the 
 - [ ] Preserve launch evidence and a pending scientific readout with explicit dependencies for numerical tests and DFT relaxation; commit and push.
 
 Verification plan: protected scientific hashes, exact input/UPF identity, no repeated pilot baselines, paired variant comparisons only, robust SCF/force/projection checks, scheduler caps and no silent retries. Later stages depend on this batch’s electronic-state evidence and are not complete at submission.
+
+Follow-up preflight correction: the actual queue driver rejected a malformed NP/NCONC comment before submission. Correct the exact resource-header grammar, add a guard regression, repin/verify, push and re-stage the affected launch files before repeating submission. Scientific decks and allocation limits are unchanged.

@@ -32,7 +32,7 @@ def batch(tmp_path):
         jobs.append(dict(job=name, dir=guard.DIRECTORY, suffix=".in", nk=nk, sha256=digest(raw)))
     rows = [f"{r['dir']} {r['job']} {r['suffix']} {r['nk']}" for r in jobs]
     manifest = runs / guard.MANIFEST.removeprefix("runs/")
-    manifest.write_bytes(("# approved test manifest\n# SUBMIT WITH EXCLUDE=a024\n" + "\n".join(rows) + "\n").encode())
+    manifest.write_bytes(("# approved test manifest\n# NP=128 NCONC=1\n# SUBMIT WITH EXCLUDE=a024\n" + "\n".join(rows) + "\n").encode())
     lines = Path(str(manifest) + ".lines")
     lines.write_bytes(("\n".join(rows) + "\n").encode())
     spec = dict(schema=guard.SCHEMA, manifest=guard.MANIFEST, manifest_sha256=digest(manifest.read_bytes()),
@@ -127,9 +127,10 @@ def test_manifest_hash_catches_comment_drift(batch):
 @pytest.mark.parametrize("mutation", ["order", "extra", "missing", "whitespace", "crlf", "no_final_lf", "not_licensed"])
 def test_manifest_content_checked_even_when_its_hash_is_updated(batch, mutation):
     raw = batch["manifest"].read_bytes()
-    if mutation == "order": raw = ("\n".join(reversed(batch["rows"])) + "\n").encode()
+    comments = b"\n".join(line for line in raw.splitlines() if line.startswith(b"#")) + b"\n"
+    if mutation == "order": raw = comments + ("\n".join(reversed(batch["rows"])) + "\n").encode()
     elif mutation == "extra": raw += b"unexpected row .in 8\n"
-    elif mutation == "missing": raw = (batch["rows"][0] + "\n").encode()
+    elif mutation == "missing": raw = comments + (batch["rows"][0] + "\n").encode()
     elif mutation == "whitespace": raw = raw.replace(b" .in 8", b"  .in 8")
     elif mutation == "crlf": raw = raw.replace(b"\n", b"\r\n")
     elif mutation == "no_final_lf": raw = raw.rstrip(b"\n")
@@ -138,6 +139,24 @@ def test_manifest_content_checked_even_when_its_hash_is_updated(batch, mutation)
     batch["spec"]["manifest_sha256"] = digest(raw)
     write_spec(batch)
     with pytest.raises(ValueError):
+        check(batch)
+
+
+@pytest.mark.parametrize("header", [
+    "# NP=128 NCONC=1; 4h/task; no requeue or automatic retries.\n",
+    "",
+    "# NP=128 NCONC=1\n# NP=128 NCONC=1\n",
+    "# NP=64 NCONC=1\n",
+    "# NP=128 NCONC=2\n",
+    "# NP=128\n# NCONC=1\n",
+    "# NP=128 NCONC=1\n# NCONC = 2\n",
+])
+def test_resource_header_is_exact_standalone_and_unique(batch, header):
+    raw = batch["manifest"].read_bytes().replace(b"# NP=128 NCONC=1\n", header.encode())
+    batch["manifest"].write_bytes(raw)
+    batch["spec"]["manifest_sha256"] = digest(raw)
+    write_spec(batch)
+    with pytest.raises(ValueError, match="resource header"):
         check(batch)
 
 

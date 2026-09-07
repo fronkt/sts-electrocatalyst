@@ -27,8 +27,8 @@ GUARD="$ROOT/src/dft/hea_followup_guard.py"
 QC="$ROOT/src/dft/hea_followup_qc.py"
 FORCE_AUDIT="$ROOT/src/dft/hea_force_audit.py"
 check_hash() { [ "$(sha256sum "$1" | awk '{print $1}')" = "$2" ] || { echo "REFUSE: pinned file differs: $1" >&2; exit 2; }; }
-check_hash "$SPEC" e4c3af91cfce429bfc7b4e79e62059a3343630cbf85d5bc60d20e7353804eae5
-check_hash "$GUARD" b9a7ce86c30a3f3b66619c22e5d86b086dba89aabe736d59d30c6967748e33d3
+check_hash "$SPEC" 6cd1454eab4ccf2186eca472d1d23a8c0ab69fdd325dafc3324c3bc7f0f9c2e7
+check_hash "$GUARD" 0a98be0da473ef05caebab3a2c8a8c5bb1aef92bd88e3c33cc76f0bb167550b7
 check_hash "$QC" ef9b50193f46034036b892263a3ee139426d912b2098ebdc5a897a82dc2769da
 check_hash "$FORCE_AUDIT" bddbe7ba3bed9874e723d88f8bdab724bb4e83178f1f75bbc3a1f4034b9fd5d7
 [ "$MANIFEST" = "$ROOT/runs/hea/m_controls_2026-09-07_followup_approved.txt" ] || { echo "REFUSE: unexpected manifest path"; exit 2; }

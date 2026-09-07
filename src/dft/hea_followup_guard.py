@@ -145,6 +145,13 @@ def validate_batch(spec_path, runs, row=None):
     text = raw_manifest.decode("utf-8")
     if "NOT LICENSED" in text.upper():
         raise ValueError("manifest is NOT LICENSED")
+    expected_header = f"# NP={spec['np']} NCONC={spec['concurrency']}"
+    resource_comments = [
+        line for line in text.splitlines()
+        if line.lstrip().startswith("#") and re.search(r"\b(?:NP|NCONC)\s*=", line, re.I)
+    ]
+    if resource_comments != [expected_header]:
+        raise ValueError("manifest requires exactly one standalone resource header: " + expected_header)
     expected_rows = [f"{j['dir']} {j['job']} {j['suffix']} {j['nk']}" for j in spec["jobs"]]
     actual_rows = [line for line in text.splitlines() if line.strip() and not line.lstrip().startswith("#")]
     if actual_rows != expected_rows:
