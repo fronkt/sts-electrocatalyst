@@ -1,0 +1,12 @@
+Verified background desktop: Codex_STS_Background
+CHECK ['-m', 'pytest', 'tests/test_hea_followup_shell.py', 'tests/test_hea_pilot_runner.py', 'tests/test_hea_pilot_submitter.py', '-q']
+..........................................................               [100%]
+58 passed in 130.38s (0:02:10)
+
+CHECK ['-n', 'anvil/55_hea_followup.slurm']
+
+CHECK ['-n', 'anvil/56_submit_hea_followup.sh']
+
+CHECK ['src/dft/build_hea_controls.py', '--check']
+Verified 48 control decks, requests.json and full/smoke manifests; NOT LICENSED, nothing submitted.
+runs/hea/m_controls_2026-09-07.txt

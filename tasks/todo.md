@@ -2358,3 +2358,15 @@ Review: pilot source/tests/approval pushed as 069d26b before seven-file verified
 - [x] Preserve the completion readout and outputs; commit explicit paths and push.
 
 Review: both pilot tasks completed, 290.9867 core-hours total, Anvil queue empty. Both SCFs and projections pass; free-coordinate forces 1.44459/1.41502 eV/A mean the retained geometries are not DFT minima. No further jobs submitted. Census at 18:40–18:41 UTC: 11 complete, four active workers accumulating CPU time, 88 queued; primary arm 11/12 compositions, endmember and OMAT-0 arms active. Full completion evidence is in results/hea_pilot_2026-09-07/completion_readout.json.
+
+## 2026-09-07 — Sequential DFT continuation after the completed pilot
+
+Scope: user-directed scientific continuation while the census runs. Resolve the two seed-0 endpoint electronic states first, then numerical sensitivity, DFT relaxation, and the actual winning/held-out chains.
+
+- [x] Verify pilot reuse, live allocation, duplicate attempts, census continuity, and exact frozen control inputs.
+- [x] Select and freeze the paired spin/projector follow-up with measured-cost context and enforced resource limits.
+- [x] Add and test guarded batch execution; independently review settings and failure handling.
+- [ ] Push locally, stage exact committed bytes, submit held, inspect resources, and release the verified next batch.
+- [ ] Preserve launch evidence and a pending scientific readout with explicit dependencies for numerical tests and DFT relaxation; commit and push.
+
+Verification plan: protected scientific hashes, exact input/UPF identity, no repeated pilot baselines, paired variant comparisons only, robust SCF/force/projection checks, scheduler caps and no silent retries. Later stages depend on this batch’s electronic-state evidence and are not complete at submission.

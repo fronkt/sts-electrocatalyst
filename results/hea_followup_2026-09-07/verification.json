@@ -1,0 +1,42 @@
+{
+  "schema": "hea-followup-verification-v1",
+  "verified_at_utc": "2026-09-07T20:48:14.079Z",
+  "tests": {
+    "guard_force_controls": {
+      "passed": 109,
+      "skipped": 3,
+      "skip_reason": "Windows symlink permissions"
+    },
+    "qc": {
+      "passed": 29,
+      "includes_both_real_pilots": true
+    },
+    "shell_new_and_original": {
+      "passed": 58
+    },
+    "additional_final_density_case": {
+      "passed": 1
+    },
+    "total_passed": 197,
+    "total_skipped": 3
+  },
+  "bash_syntax_pass": true,
+  "all_48_original_controls_exact": true,
+  "protected_count": 200,
+  "protected_changed": [],
+  "runtime_pins": {
+    "SPEC_SHA": "e4c3af91cfce429bfc7b4e79e62059a3343630cbf85d5bc60d20e7353804eae5",
+    "GUARD_SHA": "b9a7ce86c30a3f3b66619c22e5d86b086dba89aabe736d59d30c6967748e33d3",
+    "QC_SHA": "ef9b50193f46034036b892263a3ee139426d912b2098ebdc5a897a82dc2769da",
+    "FORCE_SHA": "bddbe7ba3bed9874e723d88f8bdab724bb4e83178f1f75bbc3a1f4034b9fd5d7"
+  },
+  "python_path": "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3",
+  "python_direct_checked": true,
+  "independent_review": "Three bounded reviews: scientific factorial/sequence, guard/runtime design, and SCF/projection completeness. No remaining concrete defect reported.",
+  "remaining": [
+    "Committed-byte remote staging",
+    "Remote Python/QC preflight",
+    "Held submission/resource verification/release",
+    "Actual DFT outputs and dependent scientific stages"
+  ]
+}
