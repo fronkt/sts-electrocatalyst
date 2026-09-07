@@ -2388,3 +2388,12 @@ Scope: keep the census computing, read out CENSUS-1 and the endmembers against d
 - [ ] docs/92 decks remain NOT LICENSED (the approved seed-0 pilot and its 14-SCF follow-up, docs/43:4483, array 20484293, are separate records under docs/research/hea-*).
 
 Review: full suite 982 passed, 4 skipped. The census's own numbers now show that the R4 top-3 rests on three Cr sites that keep *OOH while 104/144 sites lose it, that the strict intact-only rule excludes the leader and #3, and that the model's pure-CrO2 error against the DFT set (−0.14 V) exceeds every adjacent gap; none of that scores a docs/43 prediction.
+
+## 2026-09-07 (session 5, cont.) — CENSUS-1b run under the entrant's dated line; docs/94
+
+- [x] docs/43 dated addendum 2026-09-07 (CENSUS-1b approved in session; dated line at docs/43:4498; commit 35079b5). Run 22:48:31Z → 23:09:48Z, 1277.7 s, 26/26 relaxations converged, 0 failed; outputs under results/site_census_2026-09-06/o2_fragment/; readout with --o2-records into readout_1b/ (readout/ of docs/93 untouched).
+- [x] docs/94-census-1b-readout-2026-09-07.md (three verifiers, 19 findings, confirmed ones fixed): dG_ads(O2) −0.41 to −1.11 eV at ZPE−TS 0.05 on all 13 bridge sites; eleven stay unbonded O2 (O–O 1.221–1.232 Å, M–O 2.39–2.94 Å) yet bind 0.41–0.66 eV; two (leader 1/1, Cr33 0/0) are O–O–O units bonded to a lattice O (1.38–1.46 Å) that the census classifier cannot see; two-pathway values unchanged; CENSUS-7 blank; readings marked post-hoc.
+- [ ] CENSUS-2 (31 left) and CENSUS-3 (54) running; docs/95 when the ensemble spread and 120-site distributions complete.
+- [ ] DFT re-relaxation of the decisive site and of the two lattice-bonded endpoints is the deciding measurement; docs/92 decks stay NOT LICENSED.
+
+Review: the 1b diagnostic supports the artefact reading of the 104 O2-like endpoints on the eleven physisorbed sites, decides nothing, and opens a third reading (lattice-oxygen coupling) on two.
