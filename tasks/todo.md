@@ -2343,8 +2343,10 @@ Banked and pushed: selection boundary be7d72b, implementation/results d667fde on
 Scope: execute the two atomic-projector leader endpoint SCFs approved in session; 128 ranks, one task at a time, four hours per task, no automatic retries or expansion.
 
 - [x] Record the approved settings and exact two-input manifest without changing the broader unlicensed programs.
-- [ ] Verify local/remote input identity, pseudopotentials, QE stack, allocation and queue; push locally before remote synchronization.
-- [ ] Submit through the existing guarded runner; verify Slurm accepts two tasks, concurrency one and four-hour limits.
-- [ ] Inspect initial runtime/SCF status, preserve launch evidence, and commit/push the review.
+- [x] Verify local/remote input identity, pseudopotentials, QE stack, allocation and queue; push locally before remote synchronization.
+- [x] Submit through the guarded pilot runner; verify Slurm accepts two tasks, concurrency one and four-hour limits.
+- [x] Inspect initial runtime/SCF status, preserve launch evidence, and commit/push the review.
 
 Verification plan: exact deck hashes, guarded preflight, scheduler resource and exclusion checks, duplicate-run check, initial output review, census continuity.
+
+Review: pilot source/tests/approval pushed as 069d26b before seven-file verified transfer. All 94 relevant tests passed (28 runner, 16 submitter, 50 existing controls/force); exact frozen control bundle and both Bash syntax checks passed. Array 20470747 submitted and released after Slurm confirmed two tasks at 128 ranks, concurrency 1, four hours each, 237G/node, billing 128 and no requeue. Initial 09:21:38 UTC state: both PENDING/Priority, no QE outputs. SCF/spin/force readout and actual cost await execution; no scientific result or broader-program completion is claimed. Census checkpoint 09:23:49 UTC: 3 done/4 running/96 queued; the newly completed Ni34Fe6Cu29Co31 record is retained with its hash. Original inputs/runners and pre-existing lessons change remain separate. See docs/research/hea-pilot-launch-2026-09-07.md.

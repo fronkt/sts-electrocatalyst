@@ -1,0 +1,27 @@
+{
+  "timestamp_utc": "2026-09-07T09:20:04.354008+00:00",
+  "commit": "069d26b756e096f115b43ec918b487e8408a065a",
+  "command": [
+    "bash",
+    "/anvil/projects/x-che260157/sts/anvil/54_submit_hea_pilot.sh",
+    "/anvil/projects/x-che260157/sts/runs/hea/m_controls_2026-09-07_pilot_approved.txt",
+    "1"
+  ],
+  "environment": {
+    "PROJECT": "/anvil/projects/x-che260157",
+    "ACCT": "che260157",
+    "NP": "128",
+    "EXCLUDE": "a024,a049,a050,a088,a196,a220,a223,a171,a120,a200",
+    "SBATCH_TIMELIMIT": "04:00:00"
+  },
+  "stdout": "== account:  che260157\n== preflight (nothing launched)\nPREFLIGHT manifest=/anvil/projects/x-che260157/sts/runs/hea/m_controls_2026-09-07_pilot_approved.txt lines=2 to_run=2 already_done=0 stale=0 bad=0 NP=128 NCONC=1 expect_cap=0\nPREFLIGHT manifest=/anvil/projects/x-che260157/sts/runs/hea/m_controls_2026-09-07_pilot_approved.txt lines=2 to_run=2 already_done=0 stale=0 bad=0 NP=128 NCONC=1 expect_cap=0\nPREFLIGHT_OK (PREFLIGHT_ONLY=1, nothing launched) Mon Sep  7 09:20:04 UTC 2026\nPREFLIGHT_OK (PREFLIGHT_ONLY=1, nothing launched) Mon Sep  7 09:20:04 UTC 2026\n== submitting HELD pilot array 1-2%1 (128 cores each); inspect before release\n   requested four-hour cores*time bound: 1024 core-hours (1024 for both jobs)\nSubmitted batch job 20470747\n",
+  "stderr": "",
+  "returncode": 0,
+  "job_id": "20470747",
+  "held_scheduler": {
+    "stdout": "JobId=20470747 ArrayJobId=20470747 ArrayTaskId=1-2%1 ArrayTaskThrottle=1 JobName=hea-pilot UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=04:00:00 TimeMin=N/A SubmitTime=2026-09-07T05:20:04 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-07T05:20:04 Scheduler=Main Partition=shared AllocNode:Sid=login07:1439622 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryCPU=1896M MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/53_hea_pilot.slurm SubmitLine=sbatch --hold --time=04:00:00 --no-requeue --job-name=hea-pilot -A che260157 -N 1 -n 128 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --array=1-2%1 --export=ALL,MANIFEST,RUNS,QE_PREFIX,PSEUDO_DIR,NP /anvil/projects/x-che260157/sts/anvil/53_hea_pilot.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/hea_pilot_20470747_4294967294.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/hea_pilot_20470747_4294967294.out\n",
+    "stderr": "",
+    "returncode": 0
+  },
+  "lines_sha256": "1d07bd6df558777323261e8071cf7c3db5e183c0a026d13cd7effc54589dfcf4"
+}
