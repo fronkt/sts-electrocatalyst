@@ -246,3 +246,27 @@ e812b53c7c72d6429318c22f220c365c0ea2d196f583f51dec8c65e8fc812983  readout/distri
 ```
 
 Paths are relative to `results/site_census_2026-09-06/`, which is gitignored (`.gitignore:14`); the manifests and `MANIFESTS.sha256` are in the boundary commit (`docs/91:5-14`), the results and readout are not.
+
+---
+
+## Dated addendum — 2026-09-08 UTC (2026-09-07 local): (e) first realised figures of the ensemble checkpoints (`docs/91:67`, risk 8 `:86`)
+
+`docs/91:67`: "the ensemble checkpoints carry the MPA-0 planning figure until their first gated manifest lands; that realised figure is reported before the other five of that checkpoint are treated as planned." Line 173 above, stamped at the 20:13:00Z readout, reported that none had landed. Record, same columns and sources as the (e) table (`results[0].seconds`, launch/exit stamps of `logs/<stem>.log`), with a last column against the realised CENSUS-1 mean of 18126.3 s per 12-site manifest:
+
+| manifest | launch (UTC, log) | exit (UTC, log) | `seconds` | h | `seconds` / 12 sites | realised / planning 10257.948-6132.192 s | / CENSUS-1 mean |
+|---|---|---|---|---|---|---|---|
+| omat0__Ni31Cr29Cu5Mn35 | 2026-09-07T18:00:23+00:00 | 2026-09-07T20:59:50+00:00 (exit 0) | 10759.547 | 2.99 | 896.6 | 1.05x-1.75x | 0.59x |
+| omat0__Fe25Co25Ni25Cr25 | 2026-09-07T18:28:12+00:00 | 2026-09-07T21:41:37+00:00 (exit 0) | 11598.907 | 3.22 | 966.6 | 1.13x-1.89x | 0.64x |
+| omat0__Cu26Ni9Cr31Co33 | 2026-09-07T18:59:42+00:00 | 2026-09-07T23:08:01+00:00 (exit 0) | 14893.031 | 4.14 | 1241.1 | 1.45x-2.43x | 0.82x |
+| omat0__Ni34Fe6Cu29Co31 | 2026-09-07T20:11:57+00:00 | 2026-09-07T23:36:52+00:00 (exit 0) | 12286.687 | 3.41 | 1023.9 | 1.20x-2.00x | 0.68x |
+| omat0__Cu8Cr23Mn35Co34 | 2026-09-07T20:59:50+00:00 | 2026-09-07T23:22:44+00:00 (exit 0) | 8567.765 | 2.38 | 714.0 | 0.84x-1.40x | 0.47x |
+| omat0__Cu22Fe30Co32Mn15 | 2026-09-07T21:41:37+00:00 | 2026-09-08T00:30:42+00:00 (exit 0) | 10139.235 | 2.82 | 844.9 | 0.99x-1.65x | 0.56x |
+| mp0__Ni31Cr29Cu5Mn35 | 2026-09-07T23:08:01+00:00 | 2026-09-08T03:01:16+00:00 (exit 0) | 13986.922 | 3.89 | 1165.6 | 1.36x-2.28x | 0.77x |
+
+**MACE-OMAT-0 (six gated manifests, all landed).** Sum 68245.172 s = 18.96 h of worker time, mean 11374.2 s = 3.16 h per manifest (0.63x the CENSUS-1 mean; range 8567.8-14893.0 s), inside the `docs/91:67` planning range of 6132.192-10257.948 s for two of the six and above it for four. The first of them, omat0__Ni31Cr29Cu5Mn35, exited at 2026-09-07T20:59:50Z: 46 min 50 s after the 20:13:00Z readout stamp of this file and before its commit e325dbf (2026-09-07T17:25:27-04:00); the other five exited between 21:41:37Z and 2026-09-08T00:30:42Z. This addendum is the first report of the OMAT-0 realised figure and is written after all six landed, so the ordering `docs/91:67` asks for — the first figure reported before the other five — was not met in time. What was met: no document priced those five from the MPA-0 figure after the first landed (the only re-pricing, line 173, predates it), and the queue ran the gated six before the checkpoint's other six as risk 8 `:86` requires, so the other six OMAT-0 manifests (all still queued) are priced below from the realised mean, not from the MPA-0 figure. No number of any readout depends on this timing.
+
+**MACE-MP-0 (first gated manifest).** mp0__Ni31Cr29Cu5Mn35: 13986.922 s = 3.89 h (0.77x the CENSUS-1 mean), exited 2026-09-08T03:01:16Z. Reported here before the other five land: at this writing 4 of them are running (mp0__Fe25Co25Ni25Cr25 13597 s, mp0__Cu26Ni9Cr31Co33 12748 s, mp0__Ni34Fe6Cu29Co31 9518 s, mp0__Cu8Cr23Mn35Co34 484 s) and one, mp0__Cu22Fe30Co32Mn15, is queued; the checkpoint's other six sit behind the gated MATPES six and the other OMAT-0 six in the queue. Its readout (c) entry — min-site eta 0.4616 V on seed 1 site 2 Cr, which puts the leader's ensemble column at three models and a spread of 0.1366 V — is read out in the CENSUS-2 readout, not here.
+
+**MACE-MATPES-r2SCAN-OMAT-ft.** No manifest launched (12 queued); it carries the MPA-0 figure until its first gated manifest lands.
+
+**Re-priced estimate for what remains — an estimate, not a planning figure of `docs/91`.** From `status.json` at this writing (2026-09-08T03:09:20+00:00): 4 running, 79 queued ({'mp0': 7, 'matpes': 12, 'omat0': 6, 'mpa0_ext': 54}). Worker time: mp0 42.7 h (11 manifests at the first MP-0 figure, the seconds already accrued by the running four, 10.1 h, not subtracted), matpes 60.4 h (12 at the CENSUS-1 mean), omat0 19.0 h (6 at the OMAT-0 mean), CENSUS-3 271.9 h (54 at the CENSUS-1 mean); total 394.0 h of worker time, 109.1 h of wall at the realised 3.61 candidate-seconds per wall-second of the (e) totals (4.5 days), against the `docs/91:67` planning wall of 15.33-25.64 h (CENSUS-2) + 23.00-38.47 h (CENSUS-3). The per-checkpoint spread of `seconds` (OMAT-0 0.47x-0.82x, MP-0 0.77x of the MPA-0 mean on the same manifests' fractions and seeds) is a difference in relaxation work under a different potential, not in throughput; the result files carry no step counts (line 166), so the two are not separated here.
