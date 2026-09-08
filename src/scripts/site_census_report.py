@@ -200,6 +200,7 @@ def build(args):
     C.SPEC = Doc(args.spec, "spec")
     C.D93 = Doc(args.docs93, "docs/93")
     C.D94 = Doc(args.docs94, "docs/94")
+    C.DESC = Doc(ROOT / "src" / "hea_oer" / "descriptors.py", "descriptors.py")
     C.P = planning(C)
     l14 = C.D91.line(14, "CENSUS BOUNDARY")
     m = re.search(r"commit ([0-9a-f]{7}) \([0-9a-f]{40}\), (\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ)", l14)
@@ -539,7 +540,7 @@ def verdict(C):
     for f in C.GATED:
         s = C.kr["ensemble_spread"][f]
         sp.append(f"{f} {r(s['spread_V'])} ({s['n_models']})")
-    w(f"- **(c) RANKING.** {'; '.join(rp)} (`readout/ranking.json` `orders`). Ensemble spread (max − min of the models' min-site eta, `ranking.ensemble_spread.<f>.spread_V`, `n_models` in parentheses): {', '.join(sp)} for the gated six; the column is complete only at `n_models` 4.")
+    w(f"- **(c) RANKING.** {'; '.join(rp)} (`readout/ranking.json` `orders`). Ensemble spread (max − min of the models' min-site eta, `ranking.ensemble_spread.<f>.spread_V`, `n_models` in parentheses): {', '.join(sp)} for the gated six; the column is complete only at `n_models` 4. The per-model distributions behind these minima are in (c′) below (post-hoc).")
     # (d)
     dparts = []
     ds = C.R["decisive_site"]
@@ -929,6 +930,398 @@ def check_o2_against_docs94(C):
         seen += 1
     total = sum(len(C.kr["per_formula"][f]["o2_fragment_diagnostics"]) for f in C.GATED)
     check(seen == total, "o2_fragment_diagnostics block count differs from docs/94:82-86")
+
+
+# ----------------------------------------------------------------------------- section 4b: (c') post-hoc per-model distributions
+CP_ADDED = ("This subsection was added to the emitter on 2026-09-08 after the gated six had landed under all four checkpoints "
+            "(readout stamp 2026-09-08T11:09:17+00:00); every threshold in it is a reading rule chosen after seeing those rows, "
+            "not a pre-stated bar, and nothing in it enters any rule of readout (c) or fills any slot.")
+CP_OO_CUT = 1.10   # A; post-hoc reading rule for a collapsed O-O endpoint
+CP_ETA_HI = 2.0    # V; post-hoc reading rule for an extreme row
+CP_OOH_LO = 2.0    # eV; post-hoc reading rule for an extreme row
+CP_SEEDS = ("0", "1", "2")
+CP_SITES = ("0", "1", "2", "3")
+CP_PLS = ("1", "2", "3", "4")
+
+
+def f4(x):
+    """A statistic computed here from file values, printed at four decimals."""
+    return "%.4f" % x
+
+
+def cp_where(row):
+    return f"{row['tag']} {row['formula']} seed {row['seed']} site {row['site_index']}"
+
+
+def fl(row, key):
+    """A numeric csv cell as float; fails closed on a non-numeric cell."""
+    try:
+        return float(row[key])
+    except ValueError:
+        check(False, f"{cp_where(row)}: `{key}` is not numeric: {row[key]!r}")
+
+
+def il(row, key):
+    """An integer csv cell; fails closed on a non-integer cell."""
+    try:
+        return int(row[key])
+    except ValueError:
+        check(False, f"{cp_where(row)}: `{key}` is not an integer: {row[key]!r}")
+
+
+def rcell(row, key):
+    """A numeric csv cell printed as repr(float), or "no value" when the cell is empty."""
+    return r(fl(row, key)) if row[key].strip() != "" else "no value"
+
+
+def cp_rows(C):
+    """Gated-six rows per model: arm CENSUS-1 for mpa0, CENSUS-2 otherwise; seeds 0-2 x site_index 0-3; banked order, then seed, site."""
+    if hasattr(C, "_CP"):
+        return C._CP
+    out = OrderedDict()
+    for tag in TAGS:
+        arm = "CENSUS-1" if tag == "mpa0" else "CENSUS-2"
+        rows = [x for x in C.HEA if x["tag"] == tag and x["arm"] == arm and x["formula"] in C.GATED and x["seed"] in CP_SEEDS and x["site_index"] in CP_SITES]
+        rows.sort(key=lambda x: (C.GATED.index(x["formula"]), int(x["seed"]), int(x["site_index"])))
+        keys = [cp_key(x) for x in rows]
+        check(len(set(keys)) == len(keys), f"{tag}: duplicate (formula, seed, site_index) among the gated-six rows of per_site.csv")
+        out[tag] = rows
+    C._CP = out
+    return out
+
+
+def cp_key(x):
+    return (x["formula"], x["seed"], x["site_index"])
+
+
+def cp_full(C):
+    return len(C.GATED) * len(CP_SEEDS) * len(CP_SITES)
+
+
+def cp_complete(C):
+    """Models whose gated-six row count equals the full count; every other model prints pending."""
+    return [t for t, rows in cp_rows(C).items() if len(rows) == cp_full(C)]
+
+
+def cp_pending(C, tag):
+    return f"pending ({len(cp_rows(C)[tag])} of {cp_full(C)})"
+
+
+def cp_collapsed(C, tag):
+    return [x for x in cp_rows(C)[tag] if x["OOH_o_o_A"].strip() != "" and fl(x, "OOH_o_o_A") < CP_OO_CUT]
+
+
+def cp_collapsed_keys(C, tags):
+    """(formula, seed, site_index) keys of the collapsed-O-O rows of the named models."""
+    keys = set()
+    for tag in tags:
+        keys.update(cp_key(x) for x in cp_collapsed(C, tag))
+    return keys
+
+
+def sd1(v):
+    """Sample sd (ddof = 1), or None below two values."""
+    return float(np.std(np.asarray(v, dtype=float), ddof=1)) if len(v) >= 2 else None
+
+
+def pct(v, q):
+    """Percentile with linear interpolation (the `distribution.json` `statistics` convention)."""
+    return float(np.percentile(np.asarray(v, dtype=float), q))
+
+
+def avg_ranks(v):
+    """Ranks 1..n with ties given their average rank."""
+    v = np.asarray(v, dtype=float)
+    order = np.argsort(v, kind="stable")
+    ranks = np.empty(len(v), dtype=float)
+    i = 0
+    while i < len(v):
+        j = i
+        while j + 1 < len(v) and v[order[j + 1]] == v[order[i]]:
+            j += 1
+        ranks[order[i:j + 1]] = (i + j) / 2.0 + 1.0
+        i = j + 1
+    return ranks
+
+
+def pearson(a, b):
+    a = np.asarray(a, dtype=float)
+    b = np.asarray(b, dtype=float)
+    if len(a) < 2 or float(np.std(a)) == 0.0 or float(np.std(b)) == 0.0:
+        return None
+    return float(np.corrcoef(a, b)[0, 1])
+
+
+def spearman(a, b):
+    return pearson(avg_ranks(a), avg_ranks(b))
+
+
+def opt3(x):
+    return "—" if x is None else "%.3f" % x
+
+
+def cp_pair_stats(C, a, b, keys_excluded):
+    """Matched (formula, seed, site_index) rows of models a and b, both with eta, keys_excluded left out."""
+    ra = {cp_key(x): x for x in cp_rows(C)[a] if has_eta(x)}
+    rb = {cp_key(x): x for x in cp_rows(C)[b] if has_eta(x)}
+    keys = [k for k in ra if k in rb and k not in keys_excluded]
+    if not keys:
+        return None
+    ea = [fl(ra[k], "eta_V") for k in keys]
+    eb = [fl(rb[k], "eta_V") for k in keys]
+    d = np.asarray(eb, dtype=float) - np.asarray(ea, dtype=float)
+    same = sum(1 for k in keys if ra[k]["OOH_category"] == rb[k]["OOH_category"])
+    return dict(n=len(keys), r=pearson(ea, eb), rho=spearman(ea, eb), mean_shift=float(np.mean(d)), median_shift=float(np.median(d)), same_cat=same / len(keys))
+
+
+def section_c_prime(C):
+    L = []
+    w = L.append
+    R = cp_rows(C)
+    full = cp_full(C)
+    done = cp_complete(C)
+    pending = [t for t in TAGS if t not in done]
+    coll = {t: cp_collapsed(C, t) for t in done}
+    coll_keys = cp_collapsed_keys(C, done)
+    w("### (c′) post-hoc — the ensemble beyond the minimum: per-model site distributions on the gated six")
+    w("")
+    w(f"{CP_ADDED} Post-hoc throughout. The readout read here carries `generated` {C.GEN}. Rows: `per_site.csv` `candidate_status == evaluated`, `formula` in the gated six, arm CENSUS-1 for mpa0 and CENSUS-2 for omat0 / mp0 / matpes, seeds {', '.join(CP_SEEDS)} x site_index {'..'.join((CP_SITES[0], CP_SITES[-1]))} — {full} rows per model; a model with fewer rows prints pending and is left out of the pairwise tables. Every statistic below is arithmetic of this script on the named csv columns (`eta_V`, `pls`, `dG_OH`, `dG_O`, `dG_OOH`, `OOH_o_o_A`, `OOH_category`, `initial_metal`, `unconverged_states`); a row with an empty `eta_V` is counted in the n of Table C′1 and left out of every eta arithmetic (the n of Tables C′4 and C′5 count rows with an eta). Nothing here scores, ranks or changes a verdict.")
+    w("")
+    # ---- table 1
+    w("**Table C′1 — site eta per model** (n; mean; sample sd, ddof = 1; median; p10, linear interpolation as `distribution.json` `statistics`; min; max; sites with `unconverged_states` > 0; `pls` counts 1 / 2 / 3 / 4):")
+    w("")
+    w("| model | n (with eta) | mean (V) | sd (V) | median (V) | p10 (V) | min (V) | max (V) | unconverged sites | pls 1 / 2 / 3 / 4 |")
+    w("|---|---|---|---|---|---|---|---|---|---|")
+    S1 = {}
+    for tag in TAGS:
+        if tag not in done:
+            w(f"| {tag} | {cp_pending(C, tag)} | | | | | | | | |")
+            continue
+        rows = R[tag]
+        ev = [fl(x, "eta_V") for x in rows if has_eta(x)]
+        check(len(ev) >= 2, f"{tag}: fewer than two gated-six rows carry an eta")
+        pls = Counter(x["pls"] for x in rows)
+        check(set(pls) <= set(CP_PLS), f"{tag}: a gated-six row carries `pls` outside 1-4: {sorted(set(pls) - set(CP_PLS))}")
+        S1[tag] = dict(n=len(rows), n_eta=len(ev), mean=float(np.mean(ev)), sd=sd1(ev), median=float(np.median(ev)), p10=pct(ev, 10), min=min(ev), max=max(ev),
+                       unc=sum(1 for x in rows if il(x, "unconverged_states") > 0), pls=pls)
+        s = S1[tag]
+        w(f"| {tag} | {s['n']} ({s['n_eta']}) | {f4(s['mean'])} | {f4(s['sd'])} | {f4(s['median'])} | {f4(s['p10'])} | {f4(s['min'])} | {f4(s['max'])} | {s['unc']} | " + " / ".join(str(pls.get(k, 0)) for k in CP_PLS) + " |")
+    w("")
+    # ---- table 2
+    w(f"**Table C′2 — descriptor means per model** (over the {full} rows: mean `dG_OH`, `dG_O`, `dG_OOH`; over the rows with `OOH_category` NORMAL: n, mean eta, mean `dG_OH`, mean `dG_OOH`, mean and sample sd of `dG_OOH` − `dG_OH`; eV except eta):")
+    w("")
+    w("| model | mean dG_OH | mean dG_O | mean dG_OOH | NORMAL n | NORMAL mean eta (V) | NORMAL mean dG_OH | NORMAL mean dG_OOH | NORMAL mean (dG_OOH − dG_OH) | NORMAL sd (dG_OOH − dG_OH) |")
+    w("|---|---|---|---|---|---|---|---|---|---|")
+    for tag in TAGS:
+        if tag not in done:
+            w(f"| {tag} | {cp_pending(C, tag)} | | | | | | | | |")
+            continue
+        rows = R[tag]
+        check(all(x[k].strip() != "" for x in rows for k in ("dG_OH", "dG_O", "dG_OOH")), f"{tag}: a gated-six row carries an empty dG cell")
+        m_oh, m_o, m_ooh = (float(np.mean([fl(x, k) for x in rows])) for k in ("dG_OH", "dG_O", "dG_OOH"))
+        nm = [x for x in rows if x["OOH_category"] == "NORMAL"]
+        nm_eta = [fl(x, "eta_V") for x in nm if has_eta(x)]
+        if not nm:
+            w(f"| {tag} | {f4(m_oh)} | {f4(m_o)} | {f4(m_ooh)} | 0 | — | — | — | — | — |")
+            continue
+        diff = [fl(x, "dG_OOH") - fl(x, "dG_OH") for x in nm]
+        sdd = sd1(diff)
+        w(f"| {tag} | {f4(m_oh)} | {f4(m_o)} | {f4(m_ooh)} | {len(nm)} | {f4(float(np.mean(nm_eta))) if nm_eta else '—'} | {f4(float(np.mean([fl(x, 'dG_OH') for x in nm])))} | {f4(float(np.mean([fl(x, 'dG_OOH') for x in nm])))} | {f4(float(np.mean(diff)))} | {'—' if sdd is None else f4(sdd)} |")
+    w("")
+    # ---- table 3
+    w(f"**Table C′3 — O-O distance of the OOH endpoint per model** (`OOH_o_o_A` over the {full} rows: min, 5th percentile, median, max; rows below {CP_OO_CUT:.2f} A — a post-hoc reading rule, not a docs/91 band):")
+    w("")
+    w(f"| model | n with an O-O value | min (A) | p5 (A) | median (A) | max (A) | rows below {CP_OO_CUT:.2f} A |")
+    w("|---|---|---|---|---|---|---|")
+    for tag in TAGS:
+        if tag not in done:
+            w(f"| {tag} | {cp_pending(C, tag)} | | | | | |")
+            continue
+        oo = [fl(x, "OOH_o_o_A") for x in R[tag] if x["OOH_o_o_A"].strip() != ""]
+        check(len(oo) >= 2, f"{tag}: fewer than two gated-six rows carry an O-O value")
+        w(f"| {tag} | {len(oo)} | {f4(min(oo))} | {f4(pct(oo, 5))} | {f4(float(np.median(oo)))} | {f4(max(oo))} | {len(coll[tag])} |")
+    w("")
+    n_coll = sum(len(v) for v in coll.values())
+    if n_coll:
+        w(f"**Collapsed O-O rows** (every row with `OOH_o_o_A` < {CP_OO_CUT:.2f} A; cells are the csv values):")
+        w("")
+        w("| model | composition | seed | site | initial metal | O-O (A) | M-O of the OOH (A) | OOH tier / category / H location | dG_OOH (eV) | eta (V) | pls | unconverged_states | OOH_slab_max_A |")
+        w("|---|---|---|---|---|---|---|---|---|---|---|---|---|")
+        for tag in done:
+            for x in coll[tag]:
+                w(f"| {tag} | {x['formula']} | {x['seed']} | {x['site_index']} | {x['initial_metal']} | {rcell(x, 'OOH_o_o_A')} | {rcell(x, 'OOH_m_o_A')} | {x['OOH_tier']} / {x['OOH_category']} / {x['OOH_h_location']} | {r(fl(x, 'dG_OOH'))} | {re_(x)} | {x['pls']} | {x['unconverged_states']} | {rcell(x, 'OOH_slab_max_A')} |")
+        w("")
+        L += cp_collapsed_reading(C, coll)
+    else:
+        w(f"No gated-six row of any complete model carries `OOH_o_o_A` below {CP_OO_CUT:.2f} A; the collapsed-row table is empty and the excluding versions of the tables below coincide with the full ones.")
+        w("")
+    # ---- table 4
+    pairs = [(a, b) for i, a in enumerate(TAGS) for b in TAGS[i + 1:]]
+    w("**Table C′4 — pairwise site-level agreement** (matched (`formula`, `seed`, `site_index`) rows of the two models; Pearson r and Spearman rho (average ranks) of `eta_V`; shift = eta(b) − eta(a) in V, mean and median; fraction of matched rows with the same `OOH_category`; each pair once over every matched row and once over the matched rows with no collapsed-O-O row under either model of the pair):")
+    w("")
+    w("| pair a, b | rows | n matched | Pearson r | Spearman rho | mean shift b − a (V) | median shift (V) | same OOH category |")
+    w("|---|---|---|---|---|---|---|---|")
+    S4 = {}
+    for a, b in pairs:
+        if a not in done or b not in done:
+            miss = ", ".join(f"{t} {cp_pending(C, t)}" for t in (a, b) if t not in done)
+            w(f"| {a}, {b} | — | {miss} | | | | | |")
+            continue
+        for label, excl in (("all", set()), ("excluding collapsed", cp_collapsed_keys(C, (a, b)))):
+            st = cp_pair_stats(C, a, b, excl)
+            if st is None:
+                w(f"| {a}, {b} | {label} | 0 | — | — | — | — | — |")
+                continue
+            S4[(a, b, label)] = st
+            w(f"| {a}, {b} | {label} | {st['n']} | {opt3(st['r'])} | {opt3(st['rho'])} | {f4(st['mean_shift'])} | {f4(st['median_shift'])} | {f4(st['same_cat'])} |")
+    w("")
+    # ---- table 5
+    metals = sorted({x["initial_metal"] for t in done for x in R[t]})
+    w("**Table C′5 — site eta per model x `initial_metal`** (n and mean `eta_V`; metals as present in the rows; the second block leaves out each model's own collapsed-O-O rows):")
+    w("")
+    if not metals:
+        w("No model is complete, so no `initial_metal` column exists yet; pending: " + ", ".join(f"{t} {cp_pending(C, t)}" for t in pending) + ".")
+        w("")
+    for label, own in ((("all rows", False), ("excluding collapsed-O-O rows", True)) if metals else ()):
+        w(f"*{label}*:")
+        w("")
+        w("| model | " + " | ".join(f"{m} n, mean (V)" for m in metals) + " |")
+        w("|---|" + "---|" * len(metals))
+        for tag in TAGS:
+            if tag not in done:
+                w(f"| {tag} | {cp_pending(C, tag)} |" + " |" * (len(metals) - 1))
+                continue
+            cc = []
+            excl = cp_collapsed_keys(C, (tag,)) if own else set()
+            for m in metals:
+                ev = [fl(x, "eta_V") for x in R[tag] if x["initial_metal"] == m and has_eta(x) and cp_key(x) not in excl]
+                cc.append(f"{len(ev)}, {f4(float(np.mean(ev)))}" if ev else "0, —")
+            w(f"| {tag} | " + " | ".join(cc) + " |")
+        w("")
+    # ---- table 6
+    ext = []
+    for tag in done:
+        for x in R[tag]:
+            if (has_eta(x) and fl(x, "eta_V") > CP_ETA_HI) or fl(x, "dG_OOH") < CP_OOH_LO:
+                ext.append((tag, x))
+    ext.sort(key=lambda tx: (0 if has_eta(tx[1]) else 1, -(fl(tx[1], "eta_V") if has_eta(tx[1]) else 0.0), TAGS.index(tx[0]), C.GATED.index(tx[1]["formula"]), int(tx[1]["seed"]), int(tx[1]["site_index"])))
+    w(f"**Table C′6 — extreme rows** (post-hoc thresholds: `eta_V` > {CP_ETA_HI} V or `dG_OOH` < {CP_OOH_LO} eV; every gated-six row of a complete model, eta descending):")
+    w("")
+    if ext:
+        w("| model | composition | seed | site | initial metal | eta (V) | dG_OH | dG_O | dG_OOH | pls | OH tier | O tier / category | OOH tier / category / O-O (A) / O-O class / H location | OOH_slab_max_A | unconverged_states |")
+        w("|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|")
+        for tag, x in ext:
+            w(f"| {tag} | {x['formula']} | {x['seed']} | {x['site_index']} | {x['initial_metal']} | {re_(x)} | {r(fl(x, 'dG_OH'))} | {r(fl(x, 'dG_O'))} | {r(fl(x, 'dG_OOH'))} | {x['pls']} | {x['OH_tier']} | {x['O_tier']} / {x['O_category']} | {x['OOH_tier']} / {x['OOH_category']} / {rcell(x, 'OOH_o_o_A')} / {x['OOH_o_o_class']} / {x['OOH_h_location']} | {rcell(x, 'OOH_slab_max_A')} | {x['unconverged_states']} |")
+        w("")
+    cnt = Counter(tag for tag, _ in ext)
+    w(f"Rows in the extreme table per model (of {full}): " + "; ".join(f"{t} {cnt.get(t, 0)}" for t in done) + (f"; pending: {', '.join(f'{t} {cp_pending(C, t)}' for t in pending)}" if pending else "") + ".")
+    w("")
+    L += cp_closing(C, S1, S4, coll_keys, done, pending)
+    return L
+
+
+def cp_collapsed_reading(C, coll):
+    L = []
+    w = L.append
+    rows = [(tag, x) for tag in coll for x in coll[tag]]
+    l56 = C.D91.line(56, "Anchors:")
+    check("The names assert" in l56, "docs/91:56 carries no \"The names assert\" clause after the anchors")
+    anch = l56[l56.index("Anchors:"):l56.index("The names assert")]
+    toks = re.findall(r"(\d\.\d+)(?= A\b| and \d| / \d| to \d| -> \d)", anch)
+    check(len(toks) >= 5 and all(1.0 < float(t) < 2.0 for t in toks), "docs/91:56 anchor lengths could not be read")
+    shortest = min(toks, key=float)
+    m = re.search(r"O2_LIKE <= (\d\.\d+) A; SUPEROXO_LIKE \((\d\.\d+), (\d\.\d+)\]; OOH_LIKE \((\d\.\d+), (\d\.\d+)\]; OO_CLEAVED > (\d\.\d+) A", l56)
+    check(m, "docs/91:56 carries no O-O band clause")
+    o2_top = m.group(1)
+    oo = [fl(x, "OOH_o_o_A") for _, x in rows]
+    ooh = [fl(x, "dG_OOH") for _, x in rows]
+    ncat = Counter(x["OOH_o_o_class"] for _, x in rows)
+    rel = "shorter than" if max(oo) < float(shortest) else "not below"
+    w(f"Reading of the collapsed rows (post-hoc, from the cells above): their O-O separations span {f4(min(oo))}-{f4(max(oo))} A, {rel} the shortest O-O length among the `docs/91:56` anchors, {shortest} A (the {len(toks)} anchor lengths of that line read here: {', '.join(toks)} A). The `docs/91:56` bands read \"{m.group(0)}\": the O2_LIKE band has no lower edge, so every O-O below {o2_top} A is O2_LIKE by construction and the classifier reads these rows as {', '.join(f'{k} ({n})' for k, n in sorted(ncat.items()))} (`OOH_o_o_class`).")
+    check(all(x["OOH_o_o_class"] == "O2_LIKE" for _, x in rows), "a collapsed O-O row is not classed O2_LIKE by the csv")
+    neg = sum(1 for v in ooh if v < 0.0)
+    w(f"`dG_OOH` of these rows spans {f4(min(ooh))} to {f4(max(ooh))} eV; {neg} of {len(rows)} are negative.")
+    pls4 = [(tag, x) for tag, x in rows if x["pls"] == "4"]
+    if pls4:
+        mg = re.match(r"G_TOTAL = (\d\.\d+)", C.DESC.line(34, "G_TOTAL"))
+        mu = re.match(r"OER_EQUILIBRIUM_V = (\d\.\d+)", C.DESC.line(35, "OER_EQUILIBRIUM_V"))
+        check(mg and mu, "descriptors.py:34-35 do not read as `G_TOTAL = <number>` / `OER_EQUILIBRIUM_V = <number>`")
+        gt = float(mg.group(1))
+        u0 = float(mu.group(1))
+        for _, x in pls4:
+            check(has_eta(x) and abs(fl(x, "eta_V") + u0 - (gt - fl(x, "dG_OOH"))) < 1e-9, f"{cp_where(x)}: a pls-4 collapsed row does not satisfy eta + U0 = G_TOTAL − dG_OOH")
+        ev4 = [fl(x, "eta_V") for _, x in pls4]
+        w(f"{len(pls4)} of {len(rows)} carry `pls` 4 and satisfy eta + {u0} = {gt} − `dG_OOH` to 1e-9 (`src/hea_oer/descriptors.py:10`, `:34-35`, read as text; asserted per row), so their eta of {f4(min(ev4))}-{f4(max(ev4))} V is the step-4 term {gt} − dG_OOH minus the equilibrium potential {u0} V.")
+    else:
+        w("None of these rows carries `pls` 4; the eta column is read as printed.")
+    unc = sum(1 for _, x in rows if il(x, "unconverged_states") > 0)
+    w(f"`unconverged_states` > 0 on {unc} of {len(rows)}.")
+    verdicts = []
+    for tag, x in rows:
+        wv = C.WIN.get((tag, x["formula"]))
+        check(wv is not None, f"no min-site row for {tag}/{x['formula']}")
+        same = (wv["seed"], wv["site_index"]) == (x["seed"], x["site_index"])
+        verdicts.append(f"{tag} {x['formula']} seed {x['seed']} site {x['site_index']}: {'IS the min-site row' if same else 'not the min-site row'} (min-site row seed {wv['seed']} site {wv['site_index']}, eta {r(wv['eta_V'])} V)")
+    n_min = sum(1 for v in verdicts if "IS the" in v)
+    n_min_mpa0 = sum(1 for (tag, _), v in zip(rows, verdicts) if "IS the" in v and tag == "mpa0")
+    if n_min == 0:
+        tail = "so the (c) rule values and the `ensemble_spread` minima are untouched by them"
+    else:
+        tail = f"so {n_min} of these rows {'is' if n_min == 1 else 'are'} the min-site row of {'its' if n_min == 1 else 'their'} composition under {'its' if n_min == 1 else 'their'} model and that composition's `ensemble_spread` entry under that model rests on a collapsed endpoint"
+        tail += f"; {n_min_mpa0} of them under mpa0, whose minima are the (c) rule values" if n_min_mpa0 else "; none of them under mpa0, so no (c) rule value rests on one"
+    w("Whether a collapsed row is the min-site row of its composition under its model (against `ranking.ensemble_spread.<f>.min_site_eta_by_model_V`, the (c) values): " + "; ".join(verdicts) + f" — {tail}.")
+    w("")
+    return L
+
+
+def cp_closing(C, S1, S4, coll_keys, done, pending):
+    L = []
+    w = L.append
+    kr = C.kr
+    # the composition with the lowest min-site eta under each model (the (c) values, i.e. C.WIN)
+    lowest = OrderedDict()
+    for tag in TAGS:
+        vals = {f: kr["ensemble_spread"][f]["min_site_eta_by_model_V"].get(tag) for f in C.GATED}
+        if all(v is not None for v in vals.values()):
+            low = min(C.GATED, key=lambda f: vals[f])
+            lowest[tag] = (low, vals[low])
+    parts = [f"under {t}: {f} ({r(v)} V)" for t, (f, v) in lowest.items()]
+    groups = OrderedDict()
+    for t, (f, _) in lowest.items():
+        groups.setdefault(f, []).append(t)
+    shared = [f"{f} holds the lowest value under {' and '.join(ts)}" for f, ts in groups.items() if len(ts) > 1]
+    lead_s = "; ".join(parts) + (" — " + "; ".join(shared) if shared else " — no composition holds the lowest value under two models") if parts else "no model has all six minima yet"
+    miss_lead = [t for t in TAGS if t not in lowest]
+    if miss_lead:
+        lead_s += f" (pending: {', '.join(miss_lead)})"
+    # largest per-composition spread of (c)
+    sp = {f: kr["ensemble_spread"][f] for f in C.GATED}
+    fmax = max(C.GATED, key=lambda f: sp[f]["spread_V"])
+    bm = sp[fmax]["min_site_eta_by_model_V"]
+    if len(bm) >= 2:
+        lo_t = min(bm, key=lambda t: bm[t])
+        hi_t = max(bm, key=lambda t: bm[t])
+        spread_s = f"the largest `ensemble_spread.spread_V` of Table C2 is {fmax} at {r(sp[fmax]['spread_V'])} V (`n_models` {sp[fmax]['n_models']}), made by {lo_t} {r(bm[lo_t])} against {hi_t} {r(bm[hi_t])}"
+    else:
+        spread_s = f"the largest `ensemble_spread.spread_V` of Table C2 is {fmax} at {r(sp[fmax]['spread_V'])} V (`n_models` {sp[fmax]['n_models']}; no pair yet)"
+    # median beside minimum
+    med_s = "; ".join(f"{t} min {f4(S1[t]['min'])}, median {f4(S1[t]['median'])} V" for t in done) or "no complete model"
+    # mean-shift deltas with and without the collapsed rows
+    deltas = []
+    for (a, b, label), st in S4.items():
+        if label != "all":
+            continue
+        ex = S4.get((a, b, "excluding collapsed"))
+        if ex is None:
+            deltas.append(f"{a}, {b}: {f4(st['mean_shift'])} V over {st['n']}; no matched row remains without a collapsed endpoint")
+        elif ex["n"] == st["n"]:
+            deltas.append(f"{a}, {b}: {f4(st['mean_shift'])} V over {st['n']}, no row excluded, the two figures coincide")
+        else:
+            deltas.append(f"{a}, {b}: {f4(st['mean_shift'])} V over {st['n']} against {f4(ex['mean_shift'])} V over {ex['n']} — a difference of {f4(st['mean_shift'] - ex['mean_shift'])} V carried by the {st['n'] - ex['n']} excluded rows")
+    delta_s = "; ".join(deltas) if deltas else "no model pair is complete"
+    w(f"**Closing (post-hoc, every number from the tables above and Table C2).** Lowest min-site eta per model (`min_site_eta_by_model_V`, read, not ranked): {lead_s}. Spread: {spread_s}. Per-model median site eta beside the per-model minimum (Table C′1): {med_s}. Mean shift of Table C′4 with and without the collapsed-O-O rows ({len(coll_keys)} distinct (formula, seed, site) keys collapsed): {delta_s}." + (f" Pending in this subsection: {', '.join(f'{t} {cp_pending(C, t)}' for t in pending)}." if pending else ""))
+    w("")
+    return L
 
 
 # ----------------------------------------------------------------------------- section 5: (d)
@@ -1649,6 +2042,7 @@ def emit(C):
     L += verdict(C)
     L += section_b(C)
     L += section_c(C)
+    L += section_c_prime(C)
     L += section_d(C)
     L += section_e(C)
     L += section_f(C)
