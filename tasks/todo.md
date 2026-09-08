@@ -2414,3 +2414,11 @@ Review: the 1b diagnostic supports the artefact reading of the 104 O2-like endpo
 - [x] Preserve checked outputs and status evidence, record scientific limitations, commit explicit paths and push.
 
 Review: 03:55 UTC array check: one valid SCF/projection endpoint recovered, one SCF time-limit failure, one running and eleven queued. All 11 retained density files match scratch; all 12 transferred files match remote hashes. Seventeen shell tests and Bash syntax checks pass. The DAT/HDF5 fix applies to the future runner; Slurm's existing array script is unchanged. No DFT retry, new compute or ranking revision. Raw outputs, failure evidence and scientific limits are retained with the partial paired readout.
+
+## 2026-09-08 11:49 UTC — DFT array status and paired readout
+
+- [x] Verify the live 14-task queue and distinguish accepted SCFs from retention and convergence failures.
+- [x] Recover the five newly accepted densities against preserved scratch; retrieve and verify raw outputs.
+- [x] Record matched-pair results with electronic-state and geometry limitations; commit explicit paths and push.
+
+Review: 6 accepted/recovered endpoints, 2 actual SCF failures, 1 running, 5 queued at 11:48:50 UTC. All five new recoveries matched scratch and all 44 transferred files matched remote hashes; frozen/runtime/UPF/QC identity checks passed. Two new atomic paired gaps are -2.439226 and -2.050039 eV, with distinct electronic states and high forces retained. No retries or additional compute submitted.
