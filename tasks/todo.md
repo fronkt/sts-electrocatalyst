@@ -2423,3 +2423,11 @@ Review: 03:55 UTC array check: one valid SCF/projection endpoint recovered, one 
 - [x] Record matched-pair results with electronic-state and geometry limitations; commit explicit paths and push.
 
 Review: 6 accepted/recovered endpoints, 2 actual SCF failures, 1 running, 5 queued at 11:48:50 UTC. All five new recoveries matched scratch and all 44 transferred files matched remote hashes; frozen/runtime/UPF/QC identity checks passed. Two new atomic paired gaps are -2.439226 and -2.050039 eV, with distinct electronic states and high forces retained. No retries or additional compute submitted.
+
+## 2026-09-08 21:52 UTC — DFT follow-up array finished
+
+- [x] Verify all 14 terminal attempts and distinguish successful SCF/projection results from nonconvergence.
+- [x] Recover the six final validated densities and verify retrieved outputs, inputs, pseudopotentials and QC hashes.
+- [x] Complete the attempt/pair readout with failed states and scientific limitations retained; commit explicit paths and push.
+
+Review: all 14 attempts ended by 19:03:14 UTC. Twelve valid SCF/projection endpoints are recovered; two ortho SCFs remain nonconverged. All 48 final transfers and all 12 accepted QC source identities pass. Six matched pairs including the pilot favor the pulled fixed endpoint; lowest sampled endpoint gaps are -2.053104 eV atomic and -2.129758 eV ortho, with high forces and incomplete ortho sampling retained. Actual batch allocation 2784.782 core-hours, including 940.373 on failures. No new compute or retries.

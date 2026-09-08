@@ -1,7 +1,7 @@
 {
   "schema": "hea-followup-readout-v1",
-  "status": "PARTIAL_TWO_ADDITIONAL_VALID_PAIRS",
-  "updated_at_utc": "2026-09-08T11:48:50.672984+00:00",
+  "status": "EXECUTION_FINISHED_WITH_TWO_SCF_FAILURES",
+  "updated_at_utc": "2026-09-08T21:52:10.754265+00:00",
   "scientific_complete": false,
   "reference": "results/hea_pilot_2026-09-07/completion_readout.json",
   "baseline_atomic_gap_eV": -2.053398009185912,
@@ -12,7 +12,8 @@
       "builder": "hc__leader_builder__atomic__baseline",
       "pull": "hc__leader_pull2.10__atomic__baseline",
       "status": "VALID_FIXED_GEOMETRY_PILOT_PAIR",
-      "gap_eV": -2.053398009185912
+      "gap_eV": -2.053398009185912,
+      "gap_minus_baseline_eV": 0
     },
     {
       "projector": "atomic",
@@ -41,8 +42,11 @@
       "variant": "metal_alternating_fragment",
       "builder": "hc__leader_builder__atomic__metal_alternating_fragment",
       "pull": "hc__leader_pull2.10__atomic__metal_alternating_fragment",
-      "status": "PENDING",
-      "gap_eV": null
+      "status": "VALID_FIXED_GEOMETRY_PAIR",
+      "gap_eV": -1.9581091768486658,
+      "builder_status": "VALID_SCF_PROJECTION_DENSITY_RECOVERED",
+      "pull_status": "VALID_SCF_PROJECTION_DENSITY_RECOVERED",
+      "gap_minus_baseline_eV": 0.09528883233724628
     },
     {
       "projector": "ortho",
@@ -69,31 +73,41 @@
       "variant": "fragment",
       "builder": "hc__leader_builder__ortho__fragment",
       "pull": "hc__leader_pull2.10__ortho__fragment",
-      "status": "BUILDER_RUNNING_PULL_PENDING",
-      "gap_eV": null
+      "status": "VALID_FIXED_GEOMETRY_PAIR",
+      "gap_eV": -2.1297580570244463,
+      "builder_status": "VALID_SCF_PROJECTION_DENSITY_RECOVERED",
+      "pull_status": "VALID_SCF_PROJECTION_DENSITY_RECOVERED",
+      "gap_minus_baseline_eV": null,
+      "gap_minus_matching_atomic_eV": -0.07971861319674645
     },
     {
       "projector": "ortho",
       "variant": "metal_alternating_fragment",
       "builder": "hc__leader_builder__ortho__metal_alternating_fragment",
       "pull": "hc__leader_pull2.10__ortho__metal_alternating_fragment",
-      "status": "PENDING",
-      "gap_eV": null
+      "status": "VALID_FIXED_GEOMETRY_PAIR",
+      "gap_eV": -2.1288404890947277,
+      "builder_status": "VALID_SCF_PROJECTION_DENSITY_RECOVERED",
+      "pull_status": "VALID_SCF_PROJECTION_DENSITY_RECOVERED",
+      "gap_minus_baseline_eV": null,
+      "gap_minus_matching_atomic_eV": -0.17073131224606186
     }
   ],
   "array_job_id": "20484293",
   "released_at_utc": "2026-09-07T21:02:36.692774+00:00",
-  "status_evidence": "results/hea_followup_2026-09-07/status_2026-09-08_1149/",
+  "status_evidence": "results/hea_followup_2026-09-07/status_2026-09-08_2152/",
   "counts": {
-    "scientifically_valid_recovered": 6,
+    "scientifically_valid_recovered": 12,
     "scf_failed": 2,
-    "running": 1,
-    "pending": 5
+    "running": 0,
+    "pending": 0
   },
   "scheduler_counts": {
-    "failed": 8,
-    "running": 1,
-    "pending": 5
+    "failed": 14,
+    "running": 0,
+    "pending": 0
   },
-  "active_array_runner": "Original Slurm-copied runner; future local HDF5 retention fix is not applied to this array. Successful outputs and scratch remain recoverable."
+  "active_array_runner": "Array finished. Historical Slurm failures comprise twelve retention-only exit14 results recovered without DFT and two actual SCF exit10 failures. The future runner accepts DAT or HDF5.",
+  "execution_complete": true,
+  "last_task_finished_at_utc": "2026-09-08T19:03:14+00:00"
 }

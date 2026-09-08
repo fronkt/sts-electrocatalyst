@@ -68,3 +68,28 @@ Near agreement in the fragment-start pair's energy gap does not imply identical 
 Neither matched ortho pair is complete: baseline pull and metal-alternating builder both exhausted max_seconds=13200 without convergence. Combining different starts would not complete either matched pair. The accepted free-coordinate maximum forces remain 1.41-1.67 eV/A; the geometries are not DFT minima. No catalytic ranking or relaxed-endpoint validation follows from this partial batch.
 
 All 44 newly transferred raw/input/QC/log files match remote SHA256 hashes. Frozen inputs, runtime-only substitutions, all printed pseudopotentials (including repeated spin-labelled species), and accepted QC file hashes were checked. Evidence and compact pair/spin values are in results/hea_followup_2026-09-07/status_2026-09-08_1149/. Continue the remaining six tasks, including the currently active task, then assess the completed electronic-state matrix and explicitly retained failures before numerical-convergence and relaxation stages.
+
+## All attempts finished — 2026-09-08 21:52 UTC
+
+Array 20484293 finished its last task at 19:03:14 UTC (15:03:14 EDT). The 21:52 UTC accounting and output check confirms all 14 attempts terminal: 12 valid SCF/projection endpoints and two SCF time-limit failures (ortho baseline pull, task 2; ortho metal-alternating builder, task 5). No task remains running or pending. All terminal scheduler labels are FAILED: twelve retention-only exit 14 cases and two actual nonconvergence exit 10 cases. All twelve valid densities are now recovered; the final six required the same file-only operation, with every retained file matching preserved scratch, valid XML and a nonempty density with the HDF5 signature. No new DFT or retry was submitted; all scratch is preserved.
+
+The six final endpoints add three complete matched-start pairs. Together with the pilot and earlier follow-ups, the accepted comparisons are:
+
+| Projector | Initial-spin variant | E(pull2.10) - E(builder), eV |
+| --- | --- | ---: |
+| atomic | baseline (pilot) | -2.053398 |
+| atomic | metal_alternating | -2.439226 |
+| atomic | fragment | -2.050039 |
+| atomic | metal_alternating_fragment | -1.958109 |
+| ortho | fragment | -2.129758 |
+| ortho | metal_alternating_fragment | -2.128840 |
+
+Every complete matched pair favors the pulled fixed endpoint. This sign survives the sampled initial-spin/projector changes; the spread in gap magnitude remains substantial. The two missing ortho SCFs prevent a complete accepted factorial.
+
+An important change to the earlier interpretation: the ortho fragment-start builder has projected HO2 moment +1.0479 muB and lies 0.422816 eV below the nearly unpolarized ortho baseline builder. The previously observed quenched fragment moment is therefore not unavoidable under ortho projectors; initial-state dependence must be retained. This does not prove a magnetic ground state.
+
+Taking the lowest sampled energy for each endpoint within each projector gives -2.053104 eV (atomic) and -2.129758 eV (ortho), an ortho-minus-atomic difference of -0.076654 eV. The atomic value combines the fragment-start builder with the pilot baseline pull, so it is an endpoint-minimum comparison, not a matched-start pair. The ortho value uses the fragment pair and remains conditional on two unresolved starts. No absolute total energies are compared across projector Hamiltonians. Free-coordinate maximum forces remain 1.41-1.67 eV/A; both retained endpoint geometries still require DFT relaxation. These seed-0 checks do not validate the historical seed-1 winning chain or revise the candidate ranking.
+
+Actual allocated time was 2784.782 core-hours for the 14 attempts, including 940.373 core-hours on the two nonconverged SCFs. This excludes the earlier pilot. The SCF-only plan was 2619.087 core-hours, and the scheduler allocation ceiling was 7168; actual usage includes projection/retention overhead absent from the plan.
+
+All 48 final raw/input/QC/log transfers match remote SHA256 hashes. Frozen/runtime input identity, every printed pseudopotential (including repeated species) and accepted QC file hashes passed; the final readout also verifies all 12 accepted output/projection/runtime files against their QC source hashes. Full terminal evidence is in results/hea_followup_2026-09-07/status_2026-09-08_2152/ and the compact matrix, sampled endpoint minima, cost and limitations are in completion_readout.json. Execution is complete; the scientific matrix remains incomplete with two failures. The next scientific work is explicit convergence recovery for the unresolved ortho states, followed by the previously specified paired numerical checks and constrained DFT relaxation. None of those later calculations has been launched by this status check.
