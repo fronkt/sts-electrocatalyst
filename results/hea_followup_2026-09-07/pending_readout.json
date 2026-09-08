@@ -1,7 +1,7 @@
 {
   "schema": "hea-followup-readout-v1",
-  "status": "SUBMITTED_RESULTS_PENDING",
-  "updated_at_utc": "2026-09-07T21:03:48.655Z",
+  "status": "PARTIAL_ONE_VALID_ENDPOINT_ONE_SCF_FAILURE",
+  "updated_at_utc": "2026-09-08T03:55:30.639007+00:00",
   "scientific_complete": false,
   "reference": "results/hea_pilot_2026-09-07/completion_readout.json",
   "baseline_atomic_gap_eV": -2.053398009185912,
@@ -19,7 +19,7 @@
       "variant": "metal_alternating",
       "builder": "hc__leader_builder__atomic__metal_alternating",
       "pull": "hc__leader_pull2.10__atomic__metal_alternating",
-      "status": "PENDING",
+      "status": "BUILDER_RUNNING_PULL_PENDING",
       "gap_eV": null
     },
     {
@@ -43,8 +43,10 @@
       "variant": "baseline",
       "builder": "hc__leader_builder__ortho__baseline",
       "pull": "hc__leader_pull2.10__ortho__baseline",
-      "status": "PENDING",
-      "gap_eV": null
+      "status": "INCOMPLETE_PULL_SCF_FAILED",
+      "gap_eV": null,
+      "builder_status": "VALID_SCF_PROJECTION_DENSITY_RECOVERED",
+      "pull_status": "SCF_MAX_SECONDS_NONCONVERGED"
     },
     {
       "projector": "ortho",
@@ -72,5 +74,18 @@
     }
   ],
   "array_job_id": "20484293",
-  "released_at_utc": "2026-09-07T21:02:36.692774+00:00"
+  "released_at_utc": "2026-09-07T21:02:36.692774+00:00",
+  "status_evidence": "results/hea_followup_2026-09-07/status_2026-09-08_0347/",
+  "counts": {
+    "scientifically_valid_recovered": 1,
+    "scf_failed": 1,
+    "running": 1,
+    "pending": 11
+  },
+  "scheduler_counts": {
+    "failed": 2,
+    "running": 1,
+    "pending": 11
+  },
+  "active_array_runner": "Original Slurm-copied runner; future local HDF5 retention fix is not applied to this array. Successful outputs and scratch remain recoverable."
 }

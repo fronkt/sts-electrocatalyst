@@ -124,9 +124,12 @@ def followup(tmp_path):
         [ -n "$prefix" ] && [ -n "$scratch" ] || exit 94
         mkdir -p "$scratch/$prefix.save"
         printf '%s\n' 'mock metadata' > "$scratch/$prefix.save/data-file-schema.xml"
-        if [ "$MOCK_SCF_MODE" != missing_density ]; then
-          printf '%s\n' 'mock density' > "$scratch/$prefix.save/charge-density.dat"
-        fi
+        case "$MOCK_SCF_MODE" in
+          missing_density) ;;
+          hdf5_density) printf '%s\n' 'mock HDF5 density' > "$scratch/$prefix.save/charge-density.hdf5" ;;
+          empty_hdf5_density) : > "$scratch/$prefix.save/charge-density.hdf5" ;;
+          *) printf '%s\n' 'mock density' > "$scratch/$prefix.save/charge-density.dat" ;;
+        esac
         printf '%s\n' 'irreplaceable mock wavefunction' > "$scratch/$prefix.save/wfc1.dat"
         printf '%s\n' "$scratch/$prefix.save/wfc1.dat" > "$MOCK_WFC_RECORD"
         if [ "$MOCK_SCF_MODE" = partial_force ]; then
@@ -323,5 +326,35 @@ def test_missing_density_prevents_success_cleanup_after_valid_projection(followu
     assert (scratch_save / "wfc1.dat").read_text().strip() == "irreplaceable mock wavefunction"
     assert (scratch_save / "data-file-schema.xml").is_file()
     assert not (scratch_save / "charge-density.dat").exists()
+    assert not (followup["directory"] / "dens" / (job + ".save")).exists()
+    assert "RETENTION FAILED" in result.stdout
+
+
+def test_hdf5_density_is_retained_after_valid_projection(followup):
+    result = _run(followup, MOCK_SCF_MODE="hdf5_density")
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert len(_launches(followup)) == 2
+    job = _job(followup)
+    save = followup["directory"] / "dens" / (job + ".save")
+    assert (save / "charge-density.hdf5").read_text().strip() == "mock HDF5 density"
+    assert (save / "data-file-schema.xml").is_file()
+    assert not (save / "charge-density.dat").exists()
+    assert not list(save.glob("wfc*"))
+    assert not (followup["directory"] / ("tmp_" + job)).exists()
+    record = json.loads((followup["directory"] / (job + ".qc.json")).read_text())
+    assert record["status"] == "COMPLETE"
+    assert "FOLLOWUP COMPLETE" in result.stdout
+
+
+def test_empty_hdf5_density_preserves_scratch_after_valid_projection(followup):
+    result = _run(followup, MOCK_SCF_MODE="empty_hdf5_density")
+    assert result.returncode != 0, result.stdout + result.stderr
+    assert len(_launches(followup)) == 2
+    job = _job(followup)
+    scratch_save = followup["directory"] / ("tmp_" + job) / (job + ".save")
+    assert (scratch_save / "charge-density.hdf5").stat().st_size == 0
+    assert not (scratch_save / "charge-density.dat").exists()
+    assert (scratch_save / "wfc1.dat").read_text().strip() == "irreplaceable mock wavefunction"
+    assert (scratch_save / "data-file-schema.xml").is_file()
     assert not (followup["directory"] / "dens" / (job + ".save")).exists()
     assert "RETENTION FAILED" in result.stdout

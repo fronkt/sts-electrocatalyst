@@ -2399,3 +2399,12 @@ Review: full suite 982 passed, 4 skipped. The census's own numbers now show that
 - [ ] DFT re-relaxation of the decisive site and of the two lattice-bonded endpoints is the deciding measurement; docs/92 decks stay NOT LICENSED.
 
 Review: the 1b diagnostic supports the artefact reading of the 104 O2-like endpoints on the eleven physisorbed sites, decides nothing, and opens a third reading (lattice-oxygen coupling) on two.
+
+## 2026-09-08 — Fourteen-job DFT status and density-retention repair
+
+- [x] Verify live Slurm states, SCF/projection outcomes and actual retained density format.
+- [x] Correct the future runner’s DAT/HDF5 density check and verify meaningful format/failure cases; preserve the existing array script and all scientific inputs.
+- [x] Recover the completed first job’s density by comparing every retained file to preserved scratch; retain failed SCF/restart data without a DFT retry.
+- [x] Preserve checked outputs and status evidence, record scientific limitations, commit explicit paths and push.
+
+Review: 03:55 UTC array check: one valid SCF/projection endpoint recovered, one SCF time-limit failure, one running and eleven queued. All 11 retained density files match scratch; all 12 transferred files match remote hashes. Seventeen shell tests and Bash syntax checks pass. The DAT/HDF5 fix applies to the future runner; Slurm's existing array script is unchanged. No DFT retry, new compute or ranking revision. Raw outputs, failure evidence and scientific limits are retained with the partial paired readout.

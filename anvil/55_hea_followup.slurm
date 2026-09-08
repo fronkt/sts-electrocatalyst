@@ -122,7 +122,8 @@ if mkdir -p ./dens && mkdir "./dens/${prefix}.save.new" && \
    find "$scratch/${prefix}.save" -maxdepth 1 -type f ! -name 'wfc*' \
      -exec cp -p -t "./dens/${prefix}.save.new" -- {} + && \
    [ -s "./dens/${prefix}.save.new/data-file-schema.xml" ] && \
-   [ -s "./dens/${prefix}.save.new/charge-density.dat" ] && \
+   { [ -s "./dens/${prefix}.save.new/charge-density.dat" ] || \
+     [ -s "./dens/${prefix}.save.new/charge-density.hdf5" ]; } && \
    mv -T "./dens/${prefix}.save.new" "./dens/${prefix}.save"; then
   echo "   retained density: $d/dens/${prefix}.save ($(du -sh "./dens/${prefix}.save" | cut -f1), wavefunctions dropped after successful projwfc)"
 else
