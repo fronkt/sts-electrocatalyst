@@ -2438,7 +2438,9 @@ Scope: user-directed continuation after the 14-attempt electronic-state matrix. 
 
 - [x] Verify restart semantics, saved-state completeness, live resources and input identity.
 - [x] Freeze six exact jobs, resource caps and state-aware readout; independently review and test the additive runner/guard.
-- [ ] Push locally, stage and verify committed bytes, submit held and release only the checked batch.
-- [ ] Inspect initial execution, preserve evidence and record the scientific continuation dependencies.
+- [x] Push locally, stage and verify committed bytes, submit held and release only the checked batch.
+- [x] Inspect initial execution, preserve evidence and record the scientific continuation dependencies.
 
 Verification: source/checkpoint hashes, exact scientific changes, failure-preserving execution, force/spin/energy readout, scheduler resource caps and no automatic retry.
+
+Review: numerical array 20513132 released 2026-09-09T01:12:28Z (September8,21:12EDT), four tighter-SCF checks plus two bounded density/Hubbard recovery attempts, NP128/nk8/concurrency1/fourhours, ceiling3072core-hours. 175 tests passed, two platform skips, both shell checks and independent scientific/execution reviews passed. Six checkpoint inventories and sixteen staged files verified. Initial state: six PENDING/Priority, no new SCF outputs; later numerical controls/relaxation depend on this readout. Source force norms differ only at floating-point rounding across platforms; raw hashes and force components remain exact. Original census and scientific inputs remain outside this change.
