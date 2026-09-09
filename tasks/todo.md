@@ -2431,3 +2431,14 @@ Review: 6 accepted/recovered endpoints, 2 actual SCF failures, 1 running, 5 queu
 - [x] Complete the attempt/pair readout with failed states and scientific limitations retained; commit explicit paths and push.
 
 Review: all 14 attempts ended by 19:03:14 UTC. Twelve valid SCF/projection endpoints are recovered; two ortho SCFs remain nonconverged. All 48 final transfers and all 12 accepted QC source identities pass. Six matched pairs including the pilot favor the pulled fixed endpoint; lowest sampled endpoint gaps are -2.053104 eV atomic and -2.129758 eV ortho, with high forces and incomplete ortho sampling retained. Actual batch allocation 2784.782 core-hours, including 940.373 on failures. No new compute or retries.
+
+## 2026-09-08 — Sequential HEA DFT numerical stage
+
+Scope: user-directed continuation after the 14-attempt electronic-state matrix. Begin paired tighter-SCF checks on accepted fragment states while attempting one bounded recovery of each failed ortho state; later cutoff/smearing/k-mesh checks and constrained relaxation depend on the readout. Preserve census and original scientific evidence.
+
+- [x] Verify restart semantics, saved-state completeness, live resources and input identity.
+- [x] Freeze six exact jobs, resource caps and state-aware readout; independently review and test the additive runner/guard.
+- [ ] Push locally, stage and verify committed bytes, submit held and release only the checked batch.
+- [ ] Inspect initial execution, preserve evidence and record the scientific continuation dependencies.
+
+Verification: source/checkpoint hashes, exact scientific changes, failure-preserving execution, force/spin/energy readout, scheduler resource caps and no automatic retry.

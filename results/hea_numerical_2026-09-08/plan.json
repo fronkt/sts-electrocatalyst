@@ -1,0 +1,168 @@
+{
+  "schema": "hea_numerical_plan_v1",
+  "stage": "four paired SCF refinements and two bounded recovery attempts",
+  "np": 128,
+  "nk": 8,
+  "concurrency": 1,
+  "wall_hours_per_task": 4,
+  "max_seconds": 13200,
+  "electron_maxstep": 300,
+  "allocation_ceiling_core_hours": 3072,
+  "source_elapsed_reference_core_hours": 1361.671111111111,
+  "cost_note": "Source elapsed allocation is a historical comparator, not a warm-start/tighter-SCF forecast. New startup, iteration and clone overhead is uncalibrated.",
+  "jobs": [
+    {
+      "job": "hn__leader_builder__atomic__tight",
+      "dir": "hea/numerical_2026-09-08",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "cb564640fa315d1398deac70ba5817233b4e633404626bddd07387b82aac11b0",
+      "prefix": "hc__leader_builder__atomic__fragment",
+      "mode": "tight",
+      "endpoint": "builder",
+      "projector": "atomic",
+      "source_input": "runs/hea/controls_2026-09-07/hc__leader_builder__atomic__fragment.run.in",
+      "source_input_sha256": "c1a4aec33ee5180d28b55775d29e8a1fd56a641632d8456e7d54f31ee2578ae4",
+      "changes": {
+        "conv_thr": [
+          "1e-6",
+          "1e-8"
+        ]
+      },
+      "initialization": {
+        "restart_mode": "from_scratch",
+        "startingpot": "file",
+        "startingwfc": "file"
+      }
+    },
+    {
+      "job": "hn__leader_pull2.10__atomic__tight",
+      "dir": "hea/numerical_2026-09-08",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "16f64ec37452e36afaf8fa61ef6941502e63e2643c29c9aec3a3188721c88540",
+      "prefix": "hc__leader_pull2.10__atomic__fragment",
+      "mode": "tight",
+      "endpoint": "pull2.10",
+      "projector": "atomic",
+      "source_input": "runs/hea/controls_2026-09-07/hc__leader_pull2.10__atomic__fragment.run.in",
+      "source_input_sha256": "96bda06cf93fd980308c455ef0b3823927da176c2409eee0e337c83e8a1925ae",
+      "changes": {
+        "conv_thr": [
+          "1e-6",
+          "1e-8"
+        ]
+      },
+      "initialization": {
+        "restart_mode": "from_scratch",
+        "startingpot": "file",
+        "startingwfc": "file"
+      }
+    },
+    {
+      "job": "hn__leader_builder__ortho__tight",
+      "dir": "hea/numerical_2026-09-08",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "52a9a09f5f43f364fc38a265a1c08d6dcd0f04bfa8eef8370dff0f45a63e1370",
+      "prefix": "hc__leader_builder__ortho__fragment",
+      "mode": "tight",
+      "endpoint": "builder",
+      "projector": "ortho",
+      "source_input": "runs/hea/controls_2026-09-07/hc__leader_builder__ortho__fragment.run.in",
+      "source_input_sha256": "10ca9c910bbc6057d979e1ab6b6f0956f98a7cd349b9fdb58ece5e1a18b34207",
+      "changes": {
+        "conv_thr": [
+          "1e-6",
+          "1e-8"
+        ]
+      },
+      "initialization": {
+        "restart_mode": "from_scratch",
+        "startingpot": "file",
+        "startingwfc": "file"
+      }
+    },
+    {
+      "job": "hn__leader_pull2.10__ortho__tight",
+      "dir": "hea/numerical_2026-09-08",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "8fe5d573e541870cf4a915b98cc1733a860f4794ba1164f2597ad8c3721d972a",
+      "prefix": "hc__leader_pull2.10__ortho__fragment",
+      "mode": "tight",
+      "endpoint": "pull2.10",
+      "projector": "ortho",
+      "source_input": "runs/hea/controls_2026-09-07/hc__leader_pull2.10__ortho__fragment.run.in",
+      "source_input_sha256": "4309a0d763c3e743068cd10aecdf60f53b2e334386485cc5218eadb49206ac9b",
+      "changes": {
+        "conv_thr": [
+          "1e-6",
+          "1e-8"
+        ]
+      },
+      "initialization": {
+        "restart_mode": "from_scratch",
+        "startingpot": "file",
+        "startingwfc": "file"
+      }
+    },
+    {
+      "job": "hn__leader_pull2.10__ortho__recover_baseline",
+      "dir": "hea/numerical_2026-09-08",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "9b799071db6306dc3365a508ddfbf340e46c1ffb30fe163b146febbeb218cc0d",
+      "prefix": "hc__leader_pull2.10__ortho__baseline",
+      "mode": "recovery",
+      "endpoint": "pull2.10",
+      "projector": "ortho",
+      "source_input": "runs/hea/controls_2026-09-07/hc__leader_pull2.10__ortho__baseline.run.in",
+      "source_input_sha256": "654e49cdbe299063fa3bbed2d9a7d729c56a326d1eb21dad81abf4de0fed7310",
+      "changes": {
+        "mixing_beta": [
+          0.3,
+          0.1
+        ]
+      },
+      "initialization": {
+        "restart_mode": "from_scratch",
+        "startingpot": "file",
+        "startingwfc": "atomic+random"
+      }
+    },
+    {
+      "job": "hn__leader_builder__ortho__recover_metal_alternating",
+      "dir": "hea/numerical_2026-09-08",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "f72edc0228d99b4bd06e840f615e40d48fd9e3fec4e47ec29d5a62ea4a049f47",
+      "prefix": "hc__leader_builder__ortho__metal_alternating",
+      "mode": "recovery",
+      "endpoint": "builder",
+      "projector": "ortho",
+      "source_input": "runs/hea/controls_2026-09-07/hc__leader_builder__ortho__metal_alternating.run.in",
+      "source_input_sha256": "748d3256b62ebd6493face050346625e8dd8f84e173d9e3ff66dca2009ceda66",
+      "changes": {
+        "mixing_beta": [
+          0.3,
+          0.1
+        ]
+      },
+      "initialization": {
+        "restart_mode": "from_scratch",
+        "startingpot": "file",
+        "startingwfc": "atomic+random"
+      }
+    }
+  ],
+  "recovery_note": "One density/Hubbard warm-start attempt per failed ortho case, with regenerated atomic+random wavefunctions, fresh mixing history and beta0.3 to0.1. Same Hamiltonian and1e-6 target; not exact interrupted continuation or a mixing-only control.",
+  "readout": "Paired gap changes, free-coordinate force vector changes, local moments and Hubbard occupations; no automatic magnetic-ground-state, numerical-accuracy or candidate-ranking claim.",
+  "next_dependencies": [
+    "cutoff and smearing paired controls",
+    "joint tighter setting",
+    "memory-calibrated denser kmesh with decomposition baseline",
+    "fixed-cell constrained DFT relaxation",
+    "historical seed1 and frozen discovery/heldout validation"
+  ]
+}

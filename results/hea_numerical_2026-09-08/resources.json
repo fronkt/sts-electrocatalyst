@@ -1,0 +1,31 @@
+{
+  "checked_at_utc": "2026-09-09T00:48:20.905539+00:00",
+  "allocation": 56068.9,
+  "allocation_units": "CPU SU",
+  "np": 128,
+  "nk": 8,
+  "concurrency": 1,
+  "wall_hours_per_task": 4,
+  "max_seconds": 13200,
+  "allocation_ceiling_core_hours": 3072,
+  "source_elapsed_reference_core_hours": 1361.671111111111,
+  "retained_source_checkpoint_bytes": 63557395807,
+  "new_checkpoint_strategy": "Independent regular-file clones; full old and new scratch retained on every outcome",
+  "queue_at_preflight": "",
+  "qe_binary_sha256": [
+    [
+      "1d66c7856f5d6b3cd9c66b8578e01512b16bbe907b4360e54234890712ccd6a1",
+      "/anvil/projects/x-che260157/qe/env/bin/pw.x"
+    ],
+    [
+      "456387be5ee32f358bc9835240b2e8bd1f8144a27a8e116731a1463dbf78ac85",
+      "/anvil/projects/x-che260157/qe/env/bin/projwfc.x"
+    ]
+  ],
+  "measured_timing_forecast": false,
+  "notes": [
+    "Tighter-SCF and density-only recovery timing is not calibrated; source elapsed allocation is a comparator.",
+    "Same75-atom bases, cutoffs and mesh as accepted sources; no denser-mesh memory extrapolation in this stage.",
+    "Four-hour scheduler cap includes preparation and projection; max_seconds reserves a nominal20minutes but overhead can exhaust it."
+  ]
+}

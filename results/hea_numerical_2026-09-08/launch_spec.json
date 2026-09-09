@@ -1,0 +1,66 @@
+{
+  "schema": "hea_numerical_v1",
+  "manifest": "runs/hea/m_numerical_2026-09-08.txt",
+  "manifest_sha256": "915c112ed79ebc2a9b29bcf5c711f2c0f5553b8d510480d0b6c70742ca3e8acf",
+  "np": 128,
+  "concurrency": 1,
+  "wall_hours": 4,
+  "source_checkpoints": "results/hea_numerical_2026-09-08/source_checkpoints.json",
+  "source_checkpoints_sha256": "6c4ddcbda968615ec66893674620f747a9672b196a4612ef40ca3f589c87eb38",
+  "jobs": [
+    {
+      "job": "hn__leader_builder__atomic__tight",
+      "dir": "hea/numerical_2026-09-08",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "cb564640fa315d1398deac70ba5817233b4e633404626bddd07387b82aac11b0",
+      "prefix": "hc__leader_builder__atomic__fragment",
+      "mode": "tight"
+    },
+    {
+      "job": "hn__leader_pull2.10__atomic__tight",
+      "dir": "hea/numerical_2026-09-08",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "16f64ec37452e36afaf8fa61ef6941502e63e2643c29c9aec3a3188721c88540",
+      "prefix": "hc__leader_pull2.10__atomic__fragment",
+      "mode": "tight"
+    },
+    {
+      "job": "hn__leader_builder__ortho__tight",
+      "dir": "hea/numerical_2026-09-08",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "52a9a09f5f43f364fc38a265a1c08d6dcd0f04bfa8eef8370dff0f45a63e1370",
+      "prefix": "hc__leader_builder__ortho__fragment",
+      "mode": "tight"
+    },
+    {
+      "job": "hn__leader_pull2.10__ortho__tight",
+      "dir": "hea/numerical_2026-09-08",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "8fe5d573e541870cf4a915b98cc1733a860f4794ba1164f2597ad8c3721d972a",
+      "prefix": "hc__leader_pull2.10__ortho__fragment",
+      "mode": "tight"
+    },
+    {
+      "job": "hn__leader_pull2.10__ortho__recover_baseline",
+      "dir": "hea/numerical_2026-09-08",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "9b799071db6306dc3365a508ddfbf340e46c1ffb30fe163b146febbeb218cc0d",
+      "prefix": "hc__leader_pull2.10__ortho__baseline",
+      "mode": "recovery"
+    },
+    {
+      "job": "hn__leader_builder__ortho__recover_metal_alternating",
+      "dir": "hea/numerical_2026-09-08",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "f72edc0228d99b4bd06e840f615e40d48fd9e3fec4e47ec29d5a62ea4a049f47",
+      "prefix": "hc__leader_builder__ortho__metal_alternating",
+      "mode": "recovery"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "checked_at_utc": "2026-09-09T01:06:36.551Z",
+  "execution_tests": {
+    "passed": 148,
+    "skipped": 2,
+    "skip_reason": "Windows symlink capability"
+  },
+  "readout_tests": {
+    "passed": 27
+  },
+  "bash_syntax": [
+    "57_hea_numerical.slurm",
+    "58_submit_hea_numerical.sh"
+  ],
+  "source_metadata_cases": 6,
+  "accepted_source_and_partner_records": 6,
+  "unresolved_source_histories": 2,
+  "new_results_pending": 6,
+  "independent_reviews": [
+    "source-input scientific identity and saved-state semantics",
+    "source-preserving execution and held-resource contract",
+    "state-aware paired readout and failure propagation"
+  ],
+  "fixes_before_launch": [
+    "runtime input snapshot verified after checkpoint cloning",
+    "derived force norms allow at most4ULP platform roundoff while raw hashes/force components stay exact",
+    "source rejection propagates to whole readout"
+  ],
+  "protected_helpers": {
+    "anvil/55_hea_followup.slurm": "be988f5daa68ebb2c2a8ac8ea53d3e0c9e81ac789a4bfb67b680bcb060abf841",
+    "anvil/56_submit_hea_followup.sh": "5592cbcf1a7e5547f7bc1becd296a1b56d08fe835851ae2bc97741415a0d4fc2",
+    "src/dft/hea_followup_guard.py": "0a98be0da473ef05caebab3a2c8a8c5bb1aef92bd88e3c33cc76f0bb167550b7",
+    "src/dft/hea_followup_qc.py": "ef9b50193f46034036b892263a3ee139426d912b2098ebdc5a897a82dc2769da",
+    "src/dft/hea_force_audit.py": "bddbe7ba3bed9874e723d88f8bdab724bb4e83178f1f75bbc3a1f4034b9fd5d7"
+  },
+  "guard_sha256": "98d866553566d9e8ab660535f5bbc0c33228f5160df59eda9f41de9c85ee5f9a",
+  "spec_sha256": "3326e14e7b25ec0d84576f42b7f3eaf11bff53b36f33b8a7d9416cd96758406a"
+}
