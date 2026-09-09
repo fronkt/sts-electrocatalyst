@@ -2445,3 +2445,11 @@ Scope: user-directed continuation after the 14-attempt electronic-state matrix. 
 Verification: source/checkpoint hashes, exact scientific changes, failure-preserving execution, force/spin/energy readout, scheduler resource caps and no automatic retry.
 
 Review: numerical array 20513132 released 2026-09-09T01:12:28Z (September8,21:12EDT), four tighter-SCF checks plus two bounded density/Hubbard recovery attempts, NP128/nk8/concurrency1/fourhours, ceiling3072core-hours. 175 tests passed, two platform skips, both shell checks and independent scientific/execution reviews passed. Six checkpoint inventories and sixteen staged files verified. Initial state: six PENDING/Priority, no new SCF outputs; later numerical controls/relaxation depend on this readout. Source force norms differ only at floating-point rounding across platforms; raw hashes and force components remain exact. Original census and scientific inputs remain outside this change.
+
+## 2026-09-09 — Six-job numerical-stage completion check
+
+- [x] Verify terminal scheduler states and retrieve exact output/QC/checkpoint-clone receipts.
+- [x] Recompute accepted paired numerical readout and inspect the atomic exception flag without changing acceptance rules.
+- [x] Preserve results, scientific limits and actual cost; commit explicit paths and push.
+
+Review: array20513132 finished September9 at11:26:01UTC: three accepted SCF/projection results, one atomic builder rejected for IEEE_INVALID_FLAG after SCF convergence, and two nonconverged recoveries. The accepted ortho paired gap is -2.129781595eV, changing by -0.02354meV; high free forces1.41–1.45eV/Å remain. All37 transfers, six runtime decks and source pseudopotential identities verify; independently recomputed readout preserves the unavailable atomic gap and two unresolved source histories. Realized1162.489core-hours. No new DFT, retries or acceptance-rule changes; paired cutoff/smearing controls and exception diagnosis are the next scientific work.
