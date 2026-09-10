@@ -2482,7 +2482,9 @@ Scope: continue the remaining HEA DFT readout/recovery and previously flagged in
 - [x] Retrieve and hash-verify the completed diagnostic/sensitivity evidence and independently recompute paired scientific results.
 - [x] Prepare bounded, evidence-based exception and convergence recovery jobs; verify code and frozen scientific inputs.
 - [x] Select and prepare independent previously flagged compute arms from the current project records.
-- [ ] Push reviewed changes locally, stage exact bytes remotely, check resource/dependency limits, and launch authorized work.
-- [ ] Verify initial execution, preserve run IDs and readouts, and record what remains scientifically unresolved.
+- [x] Push reviewed changes locally, stage exact bytes remotely, check resource/dependency limits, and launch authorized work.
+- [x] Verify released scheduler state, preserve run IDs and readouts, and record what remains scientifically unresolved.
+- [x] Materialize and verify the unchanged full validation panel in new dated paths, with exact duplicate-winner exclusions recorded; do not submit the full panel.
+- [ ] Verify actual MPI startup and evaluate completed raw outputs after the scheduler starts arrays 20563376, 20563386 and 20563390.
 
-Review: pending. Computation may proceed in parallel where data dependencies and resources permit; downstream numerical/relaxation choices await required scientific evidence.
+Review: 85 targeted tests passed. Five clean sensitivity endpoints and the independent clean atomic reproduction were validated; cutoff-pair shifts are below 0.4 meV, while the original smearing exception remains rejected. Implementation/results were pushed as df67aac, 66 runtime files were hash-verified remotely, and 13 held tasks passed scheduler checks before release. Arrays 20563376 (smearing), 20563386 (winner) and 20563390 (four short solver probes, afterany:20563376) have aggregate concurrency two and a 5120 core-hour ceiling. At 20:18:27 UTC all were still pending priority/dependency, so runtime verification remains open. The local census continues (77 done, four active, 22 queued at 20:12:56 UTC). The frozen 15-chain/60-state validation snapshot and 116 unique input references passed materialization/hash checks; the larger panel is prepared only. Downstream numerical/relaxation choices await required scientific evidence.

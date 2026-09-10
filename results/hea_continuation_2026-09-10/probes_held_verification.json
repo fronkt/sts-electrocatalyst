@@ -1,0 +1,29 @@
+{
+  "kind": "probes",
+  "submitter": "69_submit_hea_convergence_probe.sh",
+  "manifest": "m_convergence_probe_2026-09-10.txt",
+  "runner": "68_hea_convergence_probe.slurm",
+  "tasks": 4,
+  "hours": 1,
+  "name": "hea-convergence-probe",
+  "job_id": "20563390",
+  "control": {
+    "command": "TZ=UTC scontrol show job -o 20563390",
+    "rc": 0,
+    "out": "JobId=20563390 ArrayJobId=20563390 ArrayTaskId=1-4%1 ArrayTaskThrottle=1 JobName=hea-convergence-probe UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=afterany:20563376_*(unfulfilled) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=01:00:00 TimeMin=N/A SubmitTime=2026-09-10T20:15:34 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-10T20:15:34 Scheduler=Main Partition=shared AllocNode:Sid=login07:1163430 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=128 MinMemoryNode=237G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/68_hea_convergence_probe.slurm SubmitLine=sbatch --hold --partition=shared --mem=237G --time=01:00:00 --no-requeue --job-name=hea-convergence-probe -A che260157 -N 1 -n 128 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --array=1-4%1 --dependency=afterany:20563376 --export=ALL,PROJECT,MANIFEST,RUNS,QE_PREFIX,PSEUDO_DIR,NP /anvil/projects/x-che260157/sts/anvil/68_hea_convergence_probe.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/hea_convergence_probe_20563390_4294967294.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/hea_convergence_probe_20563390_4294967294.out\n",
+    "err": ""
+  },
+  "exclusions": {
+    "command": "scontrol show hostnames 'a[024,049-050,088,120,171,196,200,220,223]'",
+    "rc": 0,
+    "out": "a024\na049\na050\na088\na120\na171\na196\na200\na220\na223\n",
+    "err": ""
+  },
+  "expanded_tasks": {
+    "command": "squeue -h -r -j 20563390 -o \"%i|%T|%r\"",
+    "rc": 0,
+    "out": "20563390_1|PENDING|JobHeldUser\n20563390_2|PENDING|JobHeldUser\n20563390_3|PENDING|JobHeldUser\n20563390_4|PENDING|JobHeldUser\n",
+    "err": ""
+  },
+  "batch_script_sha256": "dedd9cac1a6124bf70df545223ea85876e94bc5b7217c2943e492652e28881a1"
+}

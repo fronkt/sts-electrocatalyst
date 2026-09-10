@@ -1,0 +1,29 @@
+{
+  "kind": "smearing",
+  "submitter": "65_submit_hea_ieee_smearing.sh",
+  "manifest": "m_ieee_smearing_2026-09-10.txt",
+  "runner": "64_hea_ieee_smearing.slurm",
+  "tasks": 1,
+  "hours": 4,
+  "name": "hea-ieee-smearing",
+  "job_id": "20563376",
+  "control": {
+    "command": "TZ=UTC scontrol show job -o 20563376",
+    "rc": 0,
+    "out": "JobId=20563376 ArrayJobId=20563376 ArrayTaskId=1%1 ArrayTaskThrottle=1 JobName=hea-ieee-smearing UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=04:00:00 TimeMin=N/A SubmitTime=2026-09-10T20:15:25 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-10T20:15:25 Scheduler=Main Partition=shared AllocNode:Sid=login07:1156473 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=128 MinMemoryNode=237G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/64_hea_ieee_smearing.slurm SubmitLine=sbatch --hold --mem=237G --time=04:00:00 --no-requeue --job-name=hea-ieee-smearing -A che260157 -N 1 -n 128 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --array=1-1%1 --export=ALL,PROJECT,MANIFEST,RUNS,QE_PREFIX,PSEUDO_DIR,NP /anvil/projects/x-che260157/sts/anvil/64_hea_ieee_smearing.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/hea_ieee_smearing_20563376_4294967294.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/hea_ieee_smearing_20563376_4294967294.out\n",
+    "err": ""
+  },
+  "exclusions": {
+    "command": "scontrol show hostnames 'a[024,049-050,088,120,171,196,200,220,223]'",
+    "rc": 0,
+    "out": "a024\na049\na050\na088\na120\na171\na196\na200\na220\na223\n",
+    "err": ""
+  },
+  "expanded_tasks": {
+    "command": "squeue -h -r -j 20563376 -o \"%i|%T|%r\"",
+    "rc": 0,
+    "out": "20563376_1|PENDING|JobHeldUser\n",
+    "err": ""
+  },
+  "batch_script_sha256": "97016559e2bbe5d2e49d03264a07dcc31d62b5296af42c81135eb5cd14683866"
+}

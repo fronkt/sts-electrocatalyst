@@ -38,12 +38,28 @@ The winner audit can proceed before seed-0 numerical closure because it is an ex
 
 ## Continued independent work and dependencies
 
-The local census snapshot at 19:48 UTC had 77 completed, four running and 22 queued tasks. CENSUS-1, the seven-endmember batch and CENSUS-2 were complete; CENSUS-3 remained active. The existing runner is retained. The frozen composition-selected validation plan can be materialized to a new dated snapshot after the current output availability check; no selection changes or duplicate census jobs are needed.
+The local census snapshot at 20:12:56 UTC had 77 completed, four running and 22 queued tasks. CENSUS-1, the seven-endmember batch and CENSUS-2 were complete; CENSUS-3 remained active. The existing runner is retained.
+
+The unchanged frozen validation plan has now been materialized under `results/hea_validation_2026-09-10/`, with decks under `runs/hea/validation_2026-09-10/`. All 15 slots (12 composition-selected chains plus three audits), 60 states and 58 unique geometries are ready. The 120 projector slots map to 100 newly prepared inputs and 16 referenced originals. Materialization, deck generation and `--check` all passed; all 116 input hashes were independently verified, and the old plan/snapshot/inventory remain unchanged. The two force-unconverged MACE source states are retained as selected diagnostics, not replaced.
+
+This larger panel is prepared, not submitted. Its verification record explicitly identifies eight exact duplicates of the separately launched winner arm; they must be excluded from any later submission while those attempts are pending, running or accepted. The remaining 92 new inputs have a model-based planning estimate of 16,795.0 core-hours, not a measured cost or allocation cap. Wider launch still needs numerical assessment, current duplicate checks and a bounded resource plan; no full-panel compute was requested from the scheduler in this continuation.
 
 After the smearing result passes the same strict checks, assess the joint tighter setting and then the denser commensurate k mesh, including pool-layout baseline and memory evidence as needed. Constrained DFT relaxation follows numerical/state assessment. The frozen discovery/held-out chains and later pathway/active-phase work remain separate scientific stages. The old rejected attempts remain in every comparison history.
 
 ## Verification and launch
 
-All 85 targeted tests passed: 28 smearing diagnostic, 16 convergence guard, nine convergence shell, and 32 winner guard/shell checks. Short temporary paths resolved Windows-only path-length failures without changing the scientific inputs or cluster paths. Verification is recorded in `results/hea_continuation_2026-09-10/`; submission and startup evidence will be appended after the held-job checks and release.
+All 85 targeted tests passed: 28 smearing diagnostic, 16 convergence guard, nine convergence shell, and 32 winner guard/shell checks. Short temporary paths resolved Windows-only path-length failures without changing the scientific inputs or cluster paths. Verification is recorded in `results/hea_continuation_2026-09-10/`.
+
+Implementation and completed scientific results were pushed as `df67aac1a88890d5ff0cdff8c21f072506da9b2f` on `r0-catalysis-revival` before exact-byte remote staging. All 66 runtime files match both that commit and the remote SHA256 hashes. Remote source/input/pseudopotential preflights and shell checks passed. The 13 tasks were submitted held, and their actual scheduler resource requests, single-task array throttles, no-requeue settings, excluded nodes and copied batch scripts were checked before release at 20:16:35 UTC (16:16:35 EDT).
+
+| Array | Job ID | Tasks | Dependency |
+|---|---:|---:|---|
+| Smearing exception diagnostic | 20563376 | 1 | None |
+| Historical winner audit | 20563386 | 8 | None |
+| Short convergence probes | 20563390 | 4 | afterany:20563376 |
+
+The queue contained only these three arrays immediately before release. `held_submission.json`, the three captured batch scripts, `staging_receipt.json` and `release.json` preserve the checks. Release establishes scheduled computation, not scientific completion; runtime and final raw-output QC are separate checks.
+
+At the 20:18:27 UTC (16:18:27 EDT) follow-up, all nine diagnostic/winner tasks were pending scheduler priority and all four probes were pending their dependency. None had begun execution, and no runtime outputs existed yet, consistent with the queue state. `startup_status.json`, `startup_execution.json` and `execution_followup.json` preserve these observations. Actual MPI startup and scientific outcomes remain pending; no new success or failure is inferred from a queued job.
 
 The convergence probes reuse the original failed density/occupation state and retain `startingwfc='atomic+random'`, as in the previous recovery protocol. They are new SCFs, not exact wavefunction restarts. Individual outcomes test solver hypotheses without uniquely identifying a failure cause.

@@ -1,0 +1,77 @@
+{
+  "released_at": "2026-09-10T20:16:35.147013+00:00",
+  "implementation_commit": "df67aac1a88890d5ff0cdff8c21f072506da9b2f",
+  "jobs": [
+    {
+      "kind": "smearing",
+      "job_id": "20563376",
+      "tasks": 1,
+      "hours": 4
+    },
+    {
+      "kind": "winner",
+      "job_id": "20563386",
+      "tasks": 8,
+      "hours": 4
+    },
+    {
+      "kind": "probes",
+      "job_id": "20563390",
+      "tasks": 4,
+      "hours": 1
+    }
+  ],
+  "dependency": "afterany:20563376",
+  "aggregate_max_concurrent_tasks": 2,
+  "allocation_ceiling_core_hours": 5120,
+  "checks": {
+    "live_queue_before_release": {
+      "command": "squeue -h -u x-fcai3 -o \"%i\"",
+      "rc": 0,
+      "out": "20563390_[1-4%1]\n20563386_[1-8%1]\n20563376_[1%1]\n",
+      "err": ""
+    },
+    "smearing_before": {
+      "command": "TZ=UTC scontrol show job -o 20563376",
+      "rc": 0,
+      "out": "JobId=20563376 ArrayJobId=20563376 ArrayTaskId=1%1 ArrayTaskThrottle=1 JobName=hea-ieee-smearing UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=04:00:00 TimeMin=N/A SubmitTime=2026-09-10T20:15:25 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-10T20:15:25 Scheduler=Main Partition=shared AllocNode:Sid=login07:1156473 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=128 MinMemoryNode=237G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/64_hea_ieee_smearing.slurm SubmitLine=sbatch --hold --mem=237G --time=04:00:00 --no-requeue --job-name=hea-ieee-smearing -A che260157 -N 1 -n 128 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --array=1-1%1 --export=ALL,PROJECT,MANIFEST,RUNS,QE_PREFIX,PSEUDO_DIR,NP /anvil/projects/x-che260157/sts/anvil/64_hea_ieee_smearing.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/hea_ieee_smearing_20563376_4294967294.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/hea_ieee_smearing_20563376_4294967294.out\n",
+      "err": ""
+    },
+    "winner_before": {
+      "command": "TZ=UTC scontrol show job -o 20563386",
+      "rc": 0,
+      "out": "JobId=20563386 ArrayJobId=20563386 ArrayTaskId=1-8%1 ArrayTaskThrottle=1 JobName=hea-winner UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=04:00:00 TimeMin=N/A SubmitTime=2026-09-10T20:15:29 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-10T20:15:29 Scheduler=Main Partition=shared AllocNode:Sid=login07:1161645 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=128 MinMemoryNode=237G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/66_hea_winner.slurm SubmitLine=sbatch --hold --time=04:00:00 --mem=237G --no-requeue --job-name=hea-winner -A che260157 -N 1 -n 128 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --array=1-8%1 --export=ALL,PROJECT,MANIFEST,RUNS,QE_PREFIX,PSEUDO_DIR,NP /anvil/projects/x-che260157/sts/anvil/66_hea_winner.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/hea_winner_20563386_4294967294.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/hea_winner_20563386_4294967294.out\n",
+      "err": ""
+    },
+    "probes_before": {
+      "command": "TZ=UTC scontrol show job -o 20563390",
+      "rc": 0,
+      "out": "JobId=20563390 ArrayJobId=20563390 ArrayTaskId=1-4%1 ArrayTaskThrottle=1 JobName=hea-convergence-probe UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=afterany:20563376_*(unfulfilled) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=01:00:00 TimeMin=N/A SubmitTime=2026-09-10T20:15:34 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-10T20:15:34 Scheduler=Main Partition=shared AllocNode:Sid=login07:1163430 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=128 MinMemoryNode=237G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/68_hea_convergence_probe.slurm SubmitLine=sbatch --hold --partition=shared --mem=237G --time=01:00:00 --no-requeue --job-name=hea-convergence-probe -A che260157 -N 1 -n 128 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --array=1-4%1 --dependency=afterany:20563376 --export=ALL,PROJECT,MANIFEST,RUNS,QE_PREFIX,PSEUDO_DIR,NP /anvil/projects/x-che260157/sts/anvil/68_hea_convergence_probe.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/hea_convergence_probe_20563390_4294967294.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/hea_convergence_probe_20563390_4294967294.out\n",
+      "err": ""
+    },
+    "probes_release": {
+      "command": "scontrol release 20563390",
+      "rc": 0,
+      "out": "",
+      "err": ""
+    },
+    "smearing_release": {
+      "command": "scontrol release 20563376",
+      "rc": 0,
+      "out": "",
+      "err": ""
+    },
+    "winner_release": {
+      "command": "scontrol release 20563386",
+      "rc": 0,
+      "out": "",
+      "err": ""
+    },
+    "queue": {
+      "command": "squeue -h -r -j 20563376,20563386,20563390 -o \"%i|%j|%T|%M|%R\"",
+      "rc": 0,
+      "out": "20563386_8|hea-winner|PENDING|0:00|(None)\n20563386_7|hea-winner|PENDING|0:00|(None)\n20563386_6|hea-winner|PENDING|0:00|(None)\n20563386_5|hea-winner|PENDING|0:00|(None)\n20563386_4|hea-winner|PENDING|0:00|(None)\n20563386_3|hea-winner|PENDING|0:00|(None)\n20563386_2|hea-winner|PENDING|0:00|(None)\n20563390_1|hea-convergence-probe|PENDING|0:00|(Dependency)\n20563390_2|hea-convergence-probe|PENDING|0:00|(Dependency)\n20563390_3|hea-convergence-probe|PENDING|0:00|(Dependency)\n20563390_4|hea-convergence-probe|PENDING|0:00|(Dependency)\n20563386_1|hea-winner|PENDING|0:00|(None)\n20563376_1|hea-ieee-smearing|PENDING|0:00|(None)\n",
+      "err": ""
+    }
+  }
+}

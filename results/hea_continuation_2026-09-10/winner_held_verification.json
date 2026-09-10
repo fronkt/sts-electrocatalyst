@@ -1,0 +1,29 @@
+{
+  "kind": "winner",
+  "submitter": "67_submit_hea_winner.sh",
+  "manifest": "m_winner_2026-09-10.txt",
+  "runner": "66_hea_winner.slurm",
+  "tasks": 8,
+  "hours": 4,
+  "name": "hea-winner",
+  "job_id": "20563386",
+  "control": {
+    "command": "TZ=UTC scontrol show job -o 20563386",
+    "rc": 0,
+    "out": "JobId=20563386 ArrayJobId=20563386 ArrayTaskId=1-8%1 ArrayTaskThrottle=1 JobName=hea-winner UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=04:00:00 TimeMin=N/A SubmitTime=2026-09-10T20:15:29 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-10T20:15:29 Scheduler=Main Partition=shared AllocNode:Sid=login07:1161645 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=128 MinMemoryNode=237G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/66_hea_winner.slurm SubmitLine=sbatch --hold --time=04:00:00 --mem=237G --no-requeue --job-name=hea-winner -A che260157 -N 1 -n 128 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --array=1-8%1 --export=ALL,PROJECT,MANIFEST,RUNS,QE_PREFIX,PSEUDO_DIR,NP /anvil/projects/x-che260157/sts/anvil/66_hea_winner.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/hea_winner_20563386_4294967294.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/hea_winner_20563386_4294967294.out\n",
+    "err": ""
+  },
+  "exclusions": {
+    "command": "scontrol show hostnames 'a[024,049-050,088,120,171,196,200,220,223]'",
+    "rc": 0,
+    "out": "a024\na049\na050\na088\na120\na171\na196\na200\na220\na223\n",
+    "err": ""
+  },
+  "expanded_tasks": {
+    "command": "squeue -h -r -j 20563386 -o \"%i|%T|%r\"",
+    "rc": 0,
+    "out": "20563386_1|PENDING|JobHeldUser\n20563386_2|PENDING|JobHeldUser\n20563386_3|PENDING|JobHeldUser\n20563386_4|PENDING|JobHeldUser\n20563386_5|PENDING|JobHeldUser\n20563386_6|PENDING|JobHeldUser\n20563386_7|PENDING|JobHeldUser\n20563386_8|PENDING|JobHeldUser\n",
+    "err": ""
+  },
+  "batch_script_sha256": "f8b719f016b1c0914830dd7f8abee0dd7d9154fca4746fa86af4dd472642a341"
+}
