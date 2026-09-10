@@ -1,0 +1,83 @@
+{
+  "stage": "hea_sensitivity_2026-09-09",
+  "status": "PREPARED_NOT_SUBMITTED",
+  "source": "Accepted seed-0 fixed-geometry ortho tight fragment pair",
+  "matrix": [
+    {
+      "arm": "wfc",
+      "endpoints": 2,
+      "ecutwfc_Ry": 100,
+      "ecutrho_Ry": 640,
+      "degauss_Ry": 0.01
+    },
+    {
+      "arm": "rho",
+      "endpoints": 2,
+      "ecutwfc_Ry": 80,
+      "ecutrho_Ry": 800,
+      "degauss_Ry": 0.01
+    },
+    {
+      "arm": "smearing",
+      "endpoints": 2,
+      "ecutwfc_Ry": 80,
+      "ecutrho_Ry": 640,
+      "degauss_Ry": 0.005
+    }
+  ],
+  "shared": {
+    "conv_thr_Ry": 1e-8,
+    "mixing_beta": 0.3,
+    "kmesh": [
+      4,
+      2,
+      1,
+      0,
+      0,
+      0
+    ],
+    "np": 128,
+    "nk": 8,
+    "concurrency": 1,
+    "wall_hours": 4,
+    "max_seconds": 13200,
+    "electron_maxstep": 300,
+    "smearing": "mv",
+    "startingpot": "file",
+    "startingwfc": "file",
+    "restart_mode": "from_scratch"
+  },
+  "resource_bounds": {
+    "sensitivity_core_hours": 3072,
+    "diagnostic_core_hours": 512,
+    "combined_core_hours": 3584,
+    "aggregate_concurrency": 1,
+    "serialization": "Sensitivity held array receives afterany dependency on separately held diagnostic job before release",
+    "available_CPU_SU": 54906.5,
+    "parent_pair_core_hours": 138.48888888888888,
+    "parent_comparator_only": true,
+    "source_checkpoint_bytes": 31628678473,
+    "cloned_source_bytes_sensitivity": 94886035419,
+    "retention": "Keep complete original and independent new scratch on every outcome"
+  },
+  "readout": {
+    "pair_sign": "E(pull)-E(builder)",
+    "metrics": [
+      "paired total energy and change",
+      "printed smearing -TS term and internal-energy bookkeeping",
+      "free-coordinate force vectors",
+      "total and absolute magnetization",
+      "per-atom and fragment Lowdin populations",
+      "Hubbard matrices and eigenvalues"
+    ],
+    "same_branch": "No automatic same-basin decision; inspect full diagnostics",
+    "accuracy": "Sensitivity checks, no calibrated accuracy or convergence claim"
+  },
+  "next_sequence": [
+    "Read accepted endpoint pairs and atomic diagnostic",
+    "Joint tighter cutoff/smearing pair chosen after independent checks",
+    "Memory-calibrated denser commensurate mesh with same-mesh decomposition baseline if layout changes",
+    "Fixed-cell constrained DFT endpoint relaxation",
+    "Actual seed-1 winner and frozen discovery/held-out validation chains"
+  ]
+}

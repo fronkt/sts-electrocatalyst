@@ -1,0 +1,153 @@
+{
+  "status": "PASS",
+  "tests": [
+    {
+      "suite": "sensitivity shell and readout",
+      "passed": 37,
+      "skipped": 0,
+      "seconds": 133.66
+    },
+    {
+      "suite": "sensitivity guard and shared scientific parsers",
+      "passed": 210,
+      "skipped": 2,
+      "seconds": 90.57
+    },
+    {
+      "suite": "IEEE diagnostic and mocked lifecycle",
+      "passed": 23,
+      "skipped": 0,
+      "seconds": 184.02
+    }
+  ],
+  "total_passed": 270,
+  "total_skipped": 2,
+  "independent_review": {
+    "scientific_design": "PASS",
+    "sensitivity_execution": "PASS",
+    "diagnostic_all_streams_and_final_gate": "PASS"
+  },
+  "protected_prior_files": "UNCHANGED",
+  "deployment_files": [
+    {
+      "path": "src/dft/hea_ieee_diagnostic.py",
+      "sha256": "742f35af2b7a4eaf085a9a1e8bb079887f7e1bf27db93d63adb32d9e41d85b82"
+    },
+    {
+      "path": "src/dft/hea_sensitivity_guard.py",
+      "sha256": "6c59cb5986e39c5117be72f4c4dc8e7f7184b8f539ff6dc6d31e56b89a96f4e6"
+    },
+    {
+      "path": "src/dft/hea_sensitivity_readout.py",
+      "sha256": "9ddb6042037c7780950f848816ffb2fa4cb4950829927eb85229bdb6fd40643a"
+    },
+    {
+      "path": "anvil/59_hea_ieee_rank.sh",
+      "sha256": "d226d707392142755a1dc1c3838fd702598a71004d28829b7eb48479382e21f1"
+    },
+    {
+      "path": "anvil/60_hea_ieee_diagnostic.slurm",
+      "sha256": "15fb45a4a7d65e53cadff2afe1f869fadc344b7ad591ba969f2c4579e537537f"
+    },
+    {
+      "path": "anvil/61_submit_hea_ieee_diagnostic.sh",
+      "sha256": "c396b8d1c541f2c5cde079030545ab0ddd30657901d3e8e9a1e7e9d635527527"
+    },
+    {
+      "path": "anvil/62_hea_sensitivity.slurm",
+      "sha256": "dbe48565611150eac5c8dab3286b40cbc272962a6b041594f297477218cf6d72"
+    },
+    {
+      "path": "anvil/63_submit_hea_sensitivity.sh",
+      "sha256": "44564f7bfd59871134bb04b004a5ec1288209b015f32dd4fa511b1e4051239b6"
+    },
+    {
+      "path": "runs/hea/m_ieee_2026-09-09.txt",
+      "sha256": "dbf8f25a42297c74b8a339c1e25838019a10b8544a90b848b0b2ea1842a9b34f"
+    },
+    {
+      "path": "runs/hea/m_ieee_2026-09-09.txt.lines",
+      "sha256": "024dcae64ba37bc26084c19ac772bba4e10665f005f287ca37caeec77b28ee87"
+    },
+    {
+      "path": "runs/hea/m_sensitivity_2026-09-09.txt",
+      "sha256": "f046d7f8886697307043c91b01394a5c2902b7311534307a2598c2ebee7f6c21"
+    },
+    {
+      "path": "runs/hea/m_sensitivity_2026-09-09.txt.lines",
+      "sha256": "63ed9feb4392de9f2c7fed11de155b515e72f5a84482be0f91415518a804f1fc"
+    },
+    {
+      "path": "runs/hea/ieee_2026-09-09/hd__leader_builder__atomic__ieee_repro.in",
+      "sha256": "cb564640fa315d1398deac70ba5817233b4e633404626bddd07387b82aac11b0"
+    },
+    {
+      "path": "results/hea_sensitivity_2026-09-09/launch_spec.json",
+      "sha256": "fdce4056bf45c0479c6b00c6084804955d6314fa243e66bac336a0724fb581b9"
+    },
+    {
+      "path": "results/hea_sensitivity_2026-09-09/source_checkpoints.json",
+      "sha256": "10c5d04be2121ed6bdfcdf0e545d7daaca842f09bb6058f226aa45622f77f5ea"
+    },
+    {
+      "path": "results/hea_sensitivity_2026-09-09/source_xml/hn__leader_builder__ortho__tight.xml",
+      "sha256": "174af7f1a194395a73c392f6a3a0898e38df189cbfdbb9cb4553cc3947617f35"
+    },
+    {
+      "path": "results/hea_sensitivity_2026-09-09/source_xml/hn__leader_pull2.10__ortho__tight.xml",
+      "sha256": "8367eb02719332c774477f15b9be88e690272e087d4c7000d3d6e585d49508ec"
+    },
+    {
+      "path": "runs/hea/sensitivity_2026-09-09/hs__leader_builder__ortho__wfc.in",
+      "sha256": "209b9e47165443a4abeb58bfa6ebfde54b1b2f14d54006ab02fef4d16d185a0d"
+    },
+    {
+      "path": "runs/hea/sensitivity_2026-09-09/hs__leader_pull2.10__ortho__wfc.in",
+      "sha256": "1e4cc72e73d7e2a37f97f01663b4900dd5d6d3e25a3c8fe64b895e35689fe621"
+    },
+    {
+      "path": "runs/hea/sensitivity_2026-09-09/hs__leader_builder__ortho__rho.in",
+      "sha256": "b332bf37c528a70f8b6297ce2fa0bfb1a01ce6d0159fb836eac4342102ce3e8e"
+    },
+    {
+      "path": "runs/hea/sensitivity_2026-09-09/hs__leader_pull2.10__ortho__rho.in",
+      "sha256": "ad1d900f61c223b34f849ae2363bcbf774473473d0e60a33c08214a7db361fad"
+    },
+    {
+      "path": "runs/hea/sensitivity_2026-09-09/hs__leader_builder__ortho__smearing.in",
+      "sha256": "54238adaa323c42370886d4b56bd19d1d1419654967fe5d933e48f28ce31516b"
+    },
+    {
+      "path": "runs/hea/sensitivity_2026-09-09/hs__leader_pull2.10__ortho__smearing.in",
+      "sha256": "3f434bbeec46a9b74a37d2081f705fbb496362daf3d001dec65db444c1750671"
+    },
+    {
+      "path": "src/dft/hea_numerical_guard.py",
+      "sha256": "98d866553566d9e8ab660535f5bbc0c33228f5160df59eda9f41de9c85ee5f9a"
+    },
+    {
+      "path": "src/dft/hea_numerical_readout.py",
+      "sha256": "e09fe8a5290d5378023672e27bbd8011afe91f8ce80658cd5d54100accfd3883"
+    },
+    {
+      "path": "src/dft/hea_followup_qc.py",
+      "sha256": "ef9b50193f46034036b892263a3ee139426d912b2098ebdc5a897a82dc2769da"
+    },
+    {
+      "path": "src/dft/hea_force_audit.py",
+      "sha256": "bddbe7ba3bed9874e723d88f8bdab724bb4e83178f1f75bbc3a1f4034b9fd5d7"
+    },
+    {
+      "path": "results/hea_numerical_2026-09-08/launch_spec.json",
+      "sha256": "3326e14e7b25ec0d84576f42b7f3eaf11bff53b36f33b8a7d9416cd96758406a"
+    },
+    {
+      "path": "results/hea_numerical_2026-09-08/source_checkpoints.json",
+      "sha256": "6c4ddcbda968615ec66893674620f747a9672b196a4612ef40ca3f589c87eb38"
+    },
+    {
+      "path": "anvil/pseudo_md5_preflight_2026-08-23.md",
+      "sha256": "c29420bd7210ebf4d02a9829cd57abfe66e49586829051303103b9f33a02f4ca"
+    }
+  ]
+}

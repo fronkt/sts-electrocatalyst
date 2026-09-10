@@ -2453,3 +2453,14 @@ Review: numerical array 20513132 released 2026-09-09T01:12:28Z (September8,21:12
 - [x] Preserve results, scientific limits and actual cost; commit explicit paths and push.
 
 Review: array20513132 finished September9 at11:26:01UTC: three accepted SCF/projection results, one atomic builder rejected for IEEE_INVALID_FLAG after SCF convergence, and two nonconverged recoveries. The accepted ortho paired gap is -2.129781595eV, changing by -0.02354meV; high free forces1.41–1.45eV/Å remain. All37 transfers, six runtime decks and source pseudopotential identities verify; independently recomputed readout preserves the unavailable atomic gap and two unresolved source histories. Realized1162.489core-hours. No new DFT, retries or acceptance-rule changes; paired cutoff/smearing controls and exception diagnosis are the next scientific work.
+
+## 2026-09-09 — HEA exception diagnosis and paired numerical sensitivity
+
+Scope: user-directed continuation from the completed six-job stage. Diagnose the atomic invalid-operation flag and test accepted ortho endpoints with paired cutoff/smearing controls. Keep subsequent joint-setting, k-mesh, and constrained-relaxation decisions dependent on accepted state-aware results.
+
+- [x] Verify accepted checkpoints, live allocation, exact input lineage, and QE initialization compatibility.
+- [x] Freeze a bounded diagnostic reproduction and paired sensitivity design; independently review guards, QC, readout, and tests.
+- [ ] Push exact local implementation, stage verified bytes, submit held, verify resources, and release the checked next experiments.
+- [ ] Inspect startup, preserve execution evidence and pending readout, and record subsequent scientific decisions; commit explicit paths and push.
+
+Verification: original/source hashes, independent destination copies, initialization compatibility, exact scientific differences, all-stream exception checks, paired energy/force/spin diagnostics, resource ceilings, and failure retention. No automatic retries or inherited claims of numerical convergence.

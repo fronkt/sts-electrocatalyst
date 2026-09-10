@@ -1,0 +1,72 @@
+{
+  "schema": "hea_sensitivity_v1",
+  "manifest": "runs/hea/m_sensitivity_2026-09-09.txt",
+  "manifest_sha256": "f046d7f8886697307043c91b01394a5c2902b7311534307a2598c2ebee7f6c21",
+  "np": 128,
+  "concurrency": 1,
+  "wall_hours": 4,
+  "source_checkpoints": "results/hea_sensitivity_2026-09-09/source_checkpoints.json",
+  "source_checkpoints_sha256": "10c5d04be2121ed6bdfcdf0e545d7daaca842f09bb6058f226aa45622f77f5ea",
+  "jobs": [
+    {
+      "job": "hs__leader_builder__ortho__wfc",
+      "dir": "hea/sensitivity_2026-09-09",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "209b9e47165443a4abeb58bfa6ebfde54b1b2f14d54006ab02fef4d16d185a0d",
+      "prefix": "hc__leader_builder__ortho__fragment",
+      "source_job": "hn__leader_builder__ortho__tight",
+      "arm": "wfc"
+    },
+    {
+      "job": "hs__leader_pull2.10__ortho__wfc",
+      "dir": "hea/sensitivity_2026-09-09",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "1e4cc72e73d7e2a37f97f01663b4900dd5d6d3e25a3c8fe64b895e35689fe621",
+      "prefix": "hc__leader_pull2.10__ortho__fragment",
+      "source_job": "hn__leader_pull2.10__ortho__tight",
+      "arm": "wfc"
+    },
+    {
+      "job": "hs__leader_builder__ortho__rho",
+      "dir": "hea/sensitivity_2026-09-09",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "b332bf37c528a70f8b6297ce2fa0bfb1a01ce6d0159fb836eac4342102ce3e8e",
+      "prefix": "hc__leader_builder__ortho__fragment",
+      "source_job": "hn__leader_builder__ortho__tight",
+      "arm": "rho"
+    },
+    {
+      "job": "hs__leader_pull2.10__ortho__rho",
+      "dir": "hea/sensitivity_2026-09-09",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "ad1d900f61c223b34f849ae2363bcbf774473473d0e60a33c08214a7db361fad",
+      "prefix": "hc__leader_pull2.10__ortho__fragment",
+      "source_job": "hn__leader_pull2.10__ortho__tight",
+      "arm": "rho"
+    },
+    {
+      "job": "hs__leader_builder__ortho__smearing",
+      "dir": "hea/sensitivity_2026-09-09",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "54238adaa323c42370886d4b56bd19d1d1419654967fe5d933e48f28ce31516b",
+      "prefix": "hc__leader_builder__ortho__fragment",
+      "source_job": "hn__leader_builder__ortho__tight",
+      "arm": "smearing"
+    },
+    {
+      "job": "hs__leader_pull2.10__ortho__smearing",
+      "dir": "hea/sensitivity_2026-09-09",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "3f434bbeec46a9b74a37d2081f705fbb496362daf3d001dec65db444c1750671",
+      "prefix": "hc__leader_pull2.10__ortho__fragment",
+      "source_job": "hn__leader_pull2.10__ortho__tight",
+      "arm": "smearing"
+    }
+  ]
+}

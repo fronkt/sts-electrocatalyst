@@ -1,0 +1,29 @@
+{
+  "checked_at": "2026-09-10T02:37:55.434951+00:00",
+  "remote": [
+    {
+      "command": "TZ=UTC squeue -u x-fcai3 -o \"%.18i %.30j %.12T %.10M %.6D %R\"",
+      "rc": 0,
+      "out": "             JOBID                           NAME        STATE       TIME  NODES NODELIST(REASON)\n",
+      "err": ""
+    },
+    {
+      "command": "mybalance",
+      "rc": 0,
+      "out": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    100000.0     45093.5    45093.5     54906.5\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+      "err": ""
+    },
+    {
+      "command": "df -h /anvil/projects/x-che260157",
+      "rc": 0,
+      "out": "Filesystem      Size  Used Avail Use% Mounted on\nanvil           5.0T  401G  4.7T   8% /anvil\n",
+      "err": ""
+    },
+    {
+      "command": "/anvil/projects/x-che260157/qe/env/bin/mpirun --version",
+      "rc": 0,
+      "out": "mpirun (Open MPI) 5.0.10\n\nReport bugs to https://www.open-mpi.org/community/help/\n\n",
+      "err": ""
+    }
+  ]
+}
