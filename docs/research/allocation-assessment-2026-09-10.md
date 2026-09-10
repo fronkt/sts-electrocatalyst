@@ -71,6 +71,10 @@ is **scope**: this allocation was awarded against an electrocatalysis project de
 recorded as STS-scope only. A separate Explore ACCESS project is the correct instrument, drafted
 at `C:/Users/frank/pxrd-flow/docs/access-explore-request-2026-09-10.md`.
 
-Note for both: ACCESS PI eligibility is *"graduate-student level or higher"* and explicitly
-excludes K-12 students, so neither request can be submitted on the entrant's own signature. Any
-supplement, extension or new project has to go through the eligible PI.
+Note on who files: **Frank is his own PI** — a Purdue research staff appointment satisfies ACCESS's
+"researcher or educator at the graduate-student level or higher", and CHE260157 already exists under
+his PI-ship. So a supplement here, or a new project there, is self-service. That makes the
+multiple-project rule the live constraint instead: a PI gets one project per merit-reviewed grant
+plus **one** unfunded research project, and if CHE260157 is that one, a second unfunded project may
+be questioned. Explore review is eligibility-and-suitability rather than a panel, so testing it
+costs about two business days.
