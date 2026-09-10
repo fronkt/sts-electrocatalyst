@@ -2466,3 +2466,23 @@ Scope: user-directed continuation from the completed six-job stage. Diagnose the
 Verification: original/source hashes, independent destination copies, initialization compatibility, exact scientific differences, all-stream exception checks, paired energy/force/spin diagnostics, resource ceilings, and failure retention. No automatic retries or inherited claims of numerical convergence.
 
 Review: implementation 63539b4 pushed before 30-file verified staging. All 270 tests passed with two Windows skips; independent scientific/execution reviews and five local/remote Bash syntax checks passed. Diagnostic 20543029 and six-task sensitivity array 20543035 released September 10 at 03:00:35 UTC (September 9, 23:00 EDT), with an afterany dependency, aggregate concurrency one, 128 ranks/237G/four hours and a 3584 core-hour combined ceiling. Slurm copies match committed runners. Initial 03:01:16 UTC snapshot: diagnostic PENDING, six sensitivity tasks PENDING/Dependency; no new SCF outputs. Scientific outcomes and actual cost remain pending. The next readout selects joint-setting and k-mesh controls before constrained relaxation; prior failed attempts and candidate ranking remain unchanged.
+## 2026-09-10 — DFT failure repair assessment
+
+- [x] Separate recovered output-retention failures from scientifically rejected attempts.
+- [x] Inspect current diagnostic and sensitivity outputs and terminal scheduler evidence.
+- [x] Identify necessary code fixes and bounded recovery designs from observed causes; preserve original attempts.
+- [x] Verify applicable fixes and record results and remaining scientific limitations.
+
+Review: live sacct/SFTP confirms the atomic diagnostic completed cleanly with complete rank capture; sensitivity task 6 converged but was rejected for IEEE_INVALID_FLAG (78.4356 core-hours). The known density bug is already fixed. No new runner defect established. See docs/research/hea-failure-assessment-2026-09-10.md for evidence and recovery sequence. No new DFT or altered acceptance criteria. Follow-up shell/QC and sensitivity shell regression suites passed (pytest exit 0 through the isolated worker). Assessment complete; remaining scientific recovery is not complete.
+## 2026-09-10 — Resume DFT recovery and parallel scientific compute
+
+Scope: continue the remaining HEA DFT readout/recovery and previously flagged independent compute arms in parallel, following the current user directive. Preserve original attempts and scientific acceptance criteria.
+
+- [x] Inspect current queue/allocation, repository changes and full remote run inventory; exclude duplicate work.
+- [x] Retrieve and hash-verify the completed diagnostic/sensitivity evidence and independently recompute paired scientific results.
+- [x] Prepare bounded, evidence-based exception and convergence recovery jobs; verify code and frozen scientific inputs.
+- [x] Select and prepare independent previously flagged compute arms from the current project records.
+- [ ] Push reviewed changes locally, stage exact bytes remotely, check resource/dependency limits, and launch authorized work.
+- [ ] Verify initial execution, preserve run IDs and readouts, and record what remains scientifically unresolved.
+
+Review: pending. Computation may proceed in parallel where data dependencies and resources permit; downstream numerical/relaxation choices await required scientific evidence.

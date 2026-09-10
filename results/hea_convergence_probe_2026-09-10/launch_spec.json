@@ -1,0 +1,52 @@
+{
+  "schema": "hea_convergence_probe_v1",
+  "manifest": "runs/hea/m_convergence_probe_2026-09-10.txt",
+  "manifest_sha256": "433715a994fa1511a83e963c55722bc0dc928e0cd06d568cc9c824d80a8423a0",
+  "np": 128,
+  "concurrency": 1,
+  "wall_hours": 1,
+  "source_spec": "results/hea_numerical_2026-09-08/launch_spec.json",
+  "source_spec_sha256": "3326e14e7b25ec0d84576f42b7f3eaf11bff53b36f33b8a7d9416cd96758406a",
+  "jobs": [
+    {
+      "job": "hp__leader_builder__ortho__recover_metal_alternating__precision",
+      "dir": "hea/convergence_probe_2026-09-10",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "0704f6acd7a3e7c5d3ea9edac876cea4f9f5bc835945fefd5c50b9725bf4d6eb",
+      "prefix": "hc__leader_builder__ortho__metal_alternating",
+      "source_job": "hn__leader_builder__ortho__recover_metal_alternating",
+      "arm": "precision"
+    },
+    {
+      "job": "hp__leader_pull2.10__ortho__recover_baseline__precision",
+      "dir": "hea/convergence_probe_2026-09-10",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "69dec1aaaeef208da7dc645c08fe0ae60ceff4a015c4a831045042436a3c3fb3",
+      "prefix": "hc__leader_pull2.10__ortho__baseline",
+      "source_job": "hn__leader_pull2.10__ortho__recover_baseline",
+      "arm": "precision"
+    },
+    {
+      "job": "hp__leader_builder__ortho__recover_metal_alternating__mixing",
+      "dir": "hea/convergence_probe_2026-09-10",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "3d405648738411df0826962ca83749afeb371a4181a9cc6d597c3aafb85c88c5",
+      "prefix": "hc__leader_builder__ortho__metal_alternating",
+      "source_job": "hn__leader_builder__ortho__recover_metal_alternating",
+      "arm": "mixing"
+    },
+    {
+      "job": "hp__leader_pull2.10__ortho__recover_baseline__mixing",
+      "dir": "hea/convergence_probe_2026-09-10",
+      "suffix": ".in",
+      "nk": 8,
+      "sha256": "d83427e877ef23c9f72604b6f0b39594096562d29898221d264f1f65b2fb90b8",
+      "prefix": "hc__leader_pull2.10__ortho__baseline",
+      "source_job": "hn__leader_pull2.10__ortho__recover_baseline",
+      "arm": "mixing"
+    }
+  ]
+}
