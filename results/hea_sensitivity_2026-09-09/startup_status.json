@@ -1,0 +1,136 @@
+{
+  "checked_at": "2026-09-10T03:04:58.531654+00:00",
+  "jobs": [
+    {
+      "kind": "diagnostic",
+      "job_id": "20543029",
+      "tasks": 1
+    },
+    {
+      "kind": "sensitivity",
+      "job_id": "20543035",
+      "tasks": 6
+    }
+  ],
+  "checks": {
+    "queue": {
+      "command": "TZ=UTC squeue -h -r -j 20543029,20543035 -o \"%i|%j|%T|%M|%R\"",
+      "rc": 0,
+      "out": "20543029_1|hea-ieee-diagnostic|PENDING|0:00|(Priority)\n20543035_1|hea-sensitivity|PENDING|0:00|(Dependency)\n20543035_2|hea-sensitivity|PENDING|0:00|(Dependency)\n20543035_3|hea-sensitivity|PENDING|0:00|(Dependency)\n20543035_4|hea-sensitivity|PENDING|0:00|(Dependency)\n20543035_5|hea-sensitivity|PENDING|0:00|(Dependency)\n20543035_6|hea-sensitivity|PENDING|0:00|(Dependency)\n",
+      "err": ""
+    },
+    "accounting": {
+      "command": "TZ=UTC sacct -j 20543029,20543035 --allocations --parsable2 --noheader --format=JobID,JobName,State,ElapsedRaw,AllocCPUS,ExitCode,Start,End",
+      "rc": 0,
+      "out": "20543029_1|hea-ieee-diagnostic|PENDING|0|0|0:0|Unknown|Unknown\n20543035_[1-6%1]|hea-sensitivity|PENDING|0|0|0:0|Unknown|Unknown\n",
+      "err": ""
+    },
+    "live_pseudopotentials": {
+      "status": "ALL_SIX_MATCH_BOTH_ACCEPTED_SOURCES",
+      "files": [
+        {
+          "path": "/anvil/projects/x-che260157/pseudo/Cu.paw.z_11.ld1.psl.v1.0.0-low.upf",
+          "sha256": "b31028b2bae60cd9903260715a49b4c6d2b6dc654558c87023fa5206e427a16d",
+          "matches_source_checkpoint": true
+        },
+        {
+          "path": "/anvil/projects/x-che260157/pseudo/H.pbe-rrkjus_psl.1.0.0.UPF",
+          "sha256": "27f8a7e87851d59a2698237d6ab4578d62950640f4f175781b015a0ce731f962",
+          "matches_source_checkpoint": true
+        },
+        {
+          "path": "/anvil/projects/x-che260157/pseudo/O.pbe-n-kjpaw_psl.0.1.UPF",
+          "sha256": "7c4b6ed541f83d0afdf5c1d3a8c611340f073f3e2b11e95b7963bb2ee26929aa",
+          "matches_source_checkpoint": true
+        },
+        {
+          "path": "/anvil/projects/x-che260157/pseudo/cr_pbe_v1.5.uspp.F.UPF",
+          "sha256": "c7449bbfea358d76832cf2f7b43dc89101ead6891806773121bfaa93a140f6de",
+          "matches_source_checkpoint": true
+        },
+        {
+          "path": "/anvil/projects/x-che260157/pseudo/mn_pbe_v1.5.uspp.F.UPF",
+          "sha256": "c5b6117e22f571895b69dbec8491df6afb2efee1206dad54680881dbd33eb8f0",
+          "matches_source_checkpoint": true
+        },
+        {
+          "path": "/anvil/projects/x-che260157/pseudo/ni_pbe_v1.4.uspp.F.UPF",
+          "sha256": "f76b86ce60cde3d83dfcc8df79ba05478db573d158289f1b226919442d977d25",
+          "matches_source_checkpoint": true
+        }
+      ]
+    }
+  },
+  "artifacts": [
+    {
+      "job": "hd__leader_builder__atomic__ieee_repro",
+      "directory": "hea/ieee_2026-09-09",
+      "files": {
+        ".in": {
+          "size_bytes": 6851,
+          "sha256": "cb564640fa315d1398deac70ba5817233b4e633404626bddd07387b82aac11b0"
+        }
+      }
+    },
+    {
+      "job": "hs__leader_builder__ortho__wfc",
+      "directory": "hea/sensitivity_2026-09-09",
+      "files": {
+        ".in": {
+          "size_bytes": 6854,
+          "sha256": "209b9e47165443a4abeb58bfa6ebfde54b1b2f14d54006ab02fef4d16d185a0d"
+        }
+      }
+    },
+    {
+      "job": "hs__leader_pull2.10__ortho__wfc",
+      "directory": "hea/sensitivity_2026-09-09",
+      "files": {
+        ".in": {
+          "size_bytes": 6856,
+          "sha256": "1e4cc72e73d7e2a37f97f01663b4900dd5d6d3e25a3c8fe64b895e35689fe621"
+        }
+      }
+    },
+    {
+      "job": "hs__leader_builder__ortho__rho",
+      "directory": "hea/sensitivity_2026-09-09",
+      "files": {
+        ".in": {
+          "size_bytes": 6853,
+          "sha256": "b332bf37c528a70f8b6297ce2fa0bfb1a01ce6d0159fb836eac4342102ce3e8e"
+        }
+      }
+    },
+    {
+      "job": "hs__leader_pull2.10__ortho__rho",
+      "directory": "hea/sensitivity_2026-09-09",
+      "files": {
+        ".in": {
+          "size_bytes": 6855,
+          "sha256": "ad1d900f61c223b34f849ae2363bcbf774473473d0e60a33c08214a7db361fad"
+        }
+      }
+    },
+    {
+      "job": "hs__leader_builder__ortho__smearing",
+      "directory": "hea/sensitivity_2026-09-09",
+      "files": {
+        ".in": {
+          "size_bytes": 6859,
+          "sha256": "54238adaa323c42370886d4b56bd19d1d1419654967fe5d933e48f28ce31516b"
+        }
+      }
+    },
+    {
+      "job": "hs__leader_pull2.10__ortho__smearing",
+      "directory": "hea/sensitivity_2026-09-09",
+      "files": {
+        ".in": {
+          "size_bytes": 6861,
+          "sha256": "3f434bbeec46a9b74a37d2081f705fbb496362daf3d001dec65db444c1750671"
+        }
+      }
+    }
+  ]
+}
