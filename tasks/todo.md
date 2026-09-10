@@ -2460,7 +2460,9 @@ Scope: user-directed continuation from the completed six-job stage. Diagnose the
 
 - [x] Verify accepted checkpoints, live allocation, exact input lineage, and QE initialization compatibility.
 - [x] Freeze a bounded diagnostic reproduction and paired sensitivity design; independently review guards, QC, readout, and tests.
-- [ ] Push exact local implementation, stage verified bytes, submit held, verify resources, and release the checked next experiments.
-- [ ] Inspect startup, preserve execution evidence and pending readout, and record subsequent scientific decisions; commit explicit paths and push.
+- [x] Push exact local implementation, stage verified bytes, submit held, verify resources, and release the checked next experiments.
+- [x] Inspect startup, preserve execution evidence and pending readout, and record subsequent scientific decisions; commit explicit paths and push.
 
 Verification: original/source hashes, independent destination copies, initialization compatibility, exact scientific differences, all-stream exception checks, paired energy/force/spin diagnostics, resource ceilings, and failure retention. No automatic retries or inherited claims of numerical convergence.
+
+Review: implementation 63539b4 pushed before 30-file verified staging. All 270 tests passed with two Windows skips; independent scientific/execution reviews and five local/remote Bash syntax checks passed. Diagnostic 20543029 and six-task sensitivity array 20543035 released September 10 at 03:00:35 UTC (September 9, 23:00 EDT), with an afterany dependency, aggregate concurrency one, 128 ranks/237G/four hours and a 3584 core-hour combined ceiling. Slurm copies match committed runners. Initial 03:01:16 UTC snapshot: diagnostic PENDING, six sensitivity tasks PENDING/Dependency; no new SCF outputs. Scientific outcomes and actual cost remain pending. The next readout selects joint-setting and k-mesh controls before constrained relaxation; prior failed attempts and candidate ranking remain unchanged.

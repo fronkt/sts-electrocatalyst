@@ -39,4 +39,16 @@ All 270 targeted tests passed, with two Windows symlink skips: 37 sensitivity ru
 
 The diagnostic tests include a nonzero-rank invalid flag, missing rank capture, launcher stderr, altered raw evidence/receipt, incomplete retention and a late evidence failure after projection. Final scheduler success requires the final evidence summary to accept the complete new endpoint. The prior flagged endpoint always remains rejected. The sensitivity tests preserve unavailable pairs and reject changed source identities, metadata, input parameters, startup fallback and invalid flags.
 
-The [verification record](../../results/hea_sensitivity_2026-09-09/verification.json) pins the deployment files and test results. The [pre-run readout](../../results/hea_sensitivity_2026-09-09/pending_readout.json) has two accepted sources, six pending targets and no new paired gaps. Exact staging, held-resource inspection and initial execution evidence are the next steps; no new scientific result is claimed.
+The [verification record](../../results/hea_sensitivity_2026-09-09/verification.json) pins the deployment files and test results. The [pre-run readout](../../results/hea_sensitivity_2026-09-09/pending_readout.json) has two accepted sources, six pending targets and no new paired gaps. The verified staging and release are recorded below; no new scientific result is claimed.
+
+## Submission and initial scheduler state
+
+Implementation commit 63539b4b8932ba426594b3fe9694ef326ba8e1d6 was verified on GitHub before staging. All 30 deployment/dependency files match on Anvil. Both actual Python 3.9 preflights verified the full accepted checkpoint inventories; all five Bash syntax checks passed on the cluster. The QE and MPI binaries match their recorded identities.
+
+Diagnostic array **20543029** (one task) and sensitivity array **20543035** (six tasks) were submitted held. Slurm confirmed NP128, eight pools from the frozen inputs/runner, concurrency one, 237G memory, shared partition, four-hour limits, no requeue and all ten requested node exclusions. The scripts copied into Slurm match the committed runner bytes exactly. The sensitivity array has an **afterany:20543029** dependency.
+
+Both holds were released at **2026-09-10T03:00:35.159160 UTC (September 9, 23:00:35 EDT)**, after another complete deployment-hash check. The dependent sensitivity array was released first; it cannot start until the diagnostic ends.
+
+At **2026-09-10T03:01:16 UTC (September 9, 23:01:16 EDT)**, the diagnostic was PENDING and all six sensitivity tasks were PENDING/Dependency. No new SCF output or checkpoint-clone receipt existed in the initial snapshot. Actual file startup, convergence, rank-attributed exception outcome, projection acceptance, pair-gap sensitivity and realized allocation remain pending. The launch establishes execution readiness, not scientific completion.
+
+The [staging receipt](../../results/hea_sensitivity_2026-09-09/staging_receipt.json), [held resource/script checks](../../results/hea_sensitivity_2026-09-09/held_submission.json), [release record](../../results/hea_sensitivity_2026-09-09/release.json), and [initial status](../../results/hea_sensitivity_2026-09-09/initial_status.json) retain the execution evidence. The next readout must keep rejected or incomplete endpoints out of paired comparisons, inspect electronic-state continuity, and assess independent sensitivity before selecting the joint-setting and k-mesh experiments.

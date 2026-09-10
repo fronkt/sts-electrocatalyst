@@ -1,0 +1,36 @@
+{
+  "kind": "diagnostic",
+  "job_id": "20543029",
+  "tasks": 1,
+  "submit": {
+    "command": "cd /anvil/projects/x-che260157 && env TZ=UTC PROJECT=/anvil/projects/x-che260157 ACCT=che260157 NP=128 EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 bash /anvil/projects/x-che260157/sts/anvil/61_submit_hea_ieee_diagnostic.sh /anvil/projects/x-che260157/sts/runs/hea/m_ieee_2026-09-09.txt 1",
+    "rc": 0,
+    "out": "== account:  che260157\nVALID\n== preflight (nothing launched)\nPREFLIGHT manifest=/anvil/projects/x-che260157/sts/runs/hea/m_ieee_2026-09-09.txt lines=1 to_run=1 already_done=0 stale=0 bad=0 NP=128 NCONC=1 expect_cap=0\nPREFLIGHT manifest=/anvil/projects/x-che260157/sts/runs/hea/m_ieee_2026-09-09.txt lines=1 to_run=1 already_done=0 stale=0 bad=0 NP=128 NCONC=1 expect_cap=0\nPREFLIGHT_OK (PREFLIGHT_ONLY=1, nothing launched) Thu Sep 10 02:59:03 UTC 2026\nPREFLIGHT_OK (PREFLIGHT_ONLY=1, nothing launched) Thu Sep 10 02:59:03 UTC 2026\n== submitting HELD numerical array 1-1%1 (128 cores each); inspect before release\n   requested four-hour cores*time bound: 512 core-hours (512 for one job)\nSubmitted batch job 20543029\n",
+    "err": ""
+  },
+  "control": {
+    "command": "TZ=UTC scontrol show job -o 20543029",
+    "rc": 0,
+    "out": "JobId=20543029 ArrayJobId=20543029 ArrayTaskId=1%1 ArrayTaskThrottle=1 JobName=hea-ieee-diagnostic UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=04:00:00 TimeMin=N/A SubmitTime=2026-09-10T02:59:03 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-10T02:59:03 Scheduler=Main Partition=shared AllocNode:Sid=login00:66367 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=128 MinMemoryNode=237G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/60_hea_ieee_diagnostic.slurm SubmitLine=sbatch --hold --mem=237G --time=04:00:00 --no-requeue --job-name=hea-ieee-diagnostic -A che260157 -N 1 -n 128 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --array=1-1%1 --export=ALL,PROJECT,MANIFEST,RUNS,QE_PREFIX,PSEUDO_DIR,NP /anvil/projects/x-che260157/sts/anvil/60_hea_ieee_diagnostic.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/hea_ieee_20543029_4294967294.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/hea_ieee_20543029_4294967294.out\n",
+    "err": ""
+  },
+  "exclusions": {
+    "command": "scontrol show hostnames 'a[024,049-050,088,120,171,196,200,220,223]'",
+    "rc": 0,
+    "out": "a024\na049\na050\na088\na120\na171\na196\na200\na220\na223\n",
+    "err": ""
+  },
+  "expanded_tasks": {
+    "command": "TZ=UTC squeue -h -r -j 20543029 -o \"%i|%T|%r\"",
+    "rc": 0,
+    "out": "20543029_1|PENDING|JobHeldUser\n",
+    "err": ""
+  },
+  "batch_script_capture": {
+    "command": "scontrol write batch_script 20543029 /anvil/projects/x-che260157/sts/results/hea_sensitivity_2026-09-09/held_script_20543029.slurm",
+    "rc": 0,
+    "out": "batch script for job 20543029 written to /anvil/projects/x-che260157/sts/results/hea_sensitivity_2026-09-09/held_script_20543029.slurm\n",
+    "err": ""
+  },
+  "batch_script_sha256": "15fb45a4a7d65e53cadff2afe1f869fadc344b7ad591ba969f2c4579e537537f"
+}
