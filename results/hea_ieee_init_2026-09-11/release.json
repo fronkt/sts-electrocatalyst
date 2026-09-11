@@ -1,0 +1,26 @@
+{
+  "released_at": "2026-09-11T20:08:36.566950+00:00",
+  "job_id": "20586171",
+  "implementation_commit": "8e7e7b7fe7576a9cd0d05e9eca1057232a0f8326",
+  "allocation_ceiling_core_hours": 21.333333333333332,
+  "control_before": {
+    "command": "TZ=UTC scontrol show job -o 20586171",
+    "rc": 0,
+    "out": "JobId=20586171 ArrayJobId=20586171 ArrayTaskId=1%1 ArrayTaskThrottle=1 JobName=hea-ieee-init UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=00:10:00 TimeMin=N/A SubmitTime=2026-09-11T20:07:36 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-11T20:07:36 Scheduler=Main Partition=shared AllocNode:Sid=login07:166281 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=128 MinMemoryNode=237G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/70_hea_ieee_initialization.slurm SubmitLine=sbatch --hold --mem=237G --time=00:10:00 --no-requeue --job-name=hea-ieee-init -A che260157 -N 1 -n 128 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --array=1-1%1 --export=ALL,PROJECT,MANIFEST,RUNS,QE_PREFIX,PSEUDO_DIR,NP /anvil/projects/x-che260157/sts/anvil/70_hea_ieee_initialization.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/hea_ieee_initialization_20586171_4294967294.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/hea_ieee_initialization_20586171_4294967294.out\n",
+    "err": ""
+  },
+  "preflight": [
+    {
+      "command": "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 /anvil/projects/x-che260157/sts/src/dft/hea_ieee_initialization_probe.py --runs /anvil/projects/x-che260157/sts/runs --pseudo-dir /anvil/projects/x-che260157/pseudo",
+      "rc": 0,
+      "out": "VALID: DIAGNOSTIC ONLY\n",
+      "err": ""
+    }
+  ],
+  "queue": {
+    "command": "squeue -h -r -j 20586171 -o \"%i|%j|%T|%M|%R\"",
+    "rc": 0,
+    "out": "20586171_1|hea-ieee-init|PENDING|0:00|(None)\n",
+    "err": ""
+  }
+}

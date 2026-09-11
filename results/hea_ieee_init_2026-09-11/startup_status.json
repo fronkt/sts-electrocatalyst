@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-09-11T20:09:46.189210+00:00",
+  "job_id": "20586171",
+  "queue": {
+    "command": "squeue -h -r -j 20586171 -o \"%i|%j|%T|%M|%R\"",
+    "rc": 0,
+    "out": "20586171_1|hea-ieee-init|PENDING|0:00|(Priority)\n",
+    "err": ""
+  },
+  "accounting": {
+    "command": "TZ=UTC sacct -j 20586171 --allocations --parsable2 --noheader --format=JobID,JobName%40,State,ElapsedRaw,AllocCPUS,ExitCode,Start,End",
+    "rc": 0,
+    "out": "20586171_1|hea-ieee-init|PENDING|0|0|0:0|Unknown|Unknown\n",
+    "err": ""
+  }
+}
