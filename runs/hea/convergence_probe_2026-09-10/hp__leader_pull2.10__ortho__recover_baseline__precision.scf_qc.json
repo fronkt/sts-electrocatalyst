@@ -1,0 +1,40 @@
+{
+  "schema": "hea-followup-qc-v1",
+  "status": "REJECTED",
+  "reasons": [
+    "SCF not valid: Maximum CPU time exceeded"
+  ],
+  "scf": {
+    "schema": "hea-force-audit-v1",
+    "status": "REJECTED",
+    "reasons": [
+      "Maximum CPU time exceeded"
+    ],
+    "geometry_stationarity": "UNASSESSED",
+    "threshold_ev_A": 0.05,
+    "threshold_role": "diagnostic, not calibrated accuracy",
+    "energy_eV": null,
+    "fmax_free_ev_A": null,
+    "fmax_all_ev_A": null,
+    "per_atom": [],
+    "input": {
+      "path": "hp__leader_pull2.10__ortho__recover_baseline__precision.run.in",
+      "sha256_bytes": "69dec1aaaeef208da7dc645c08fe0ae60ceff4a015c4a831045042436a3c3fb3"
+    },
+    "output": {
+      "path": "hp__leader_pull2.10__ortho__recover_baseline__precision.out",
+      "sha256_bytes": "3c9ff2255d027cd93b8a6d81136ef9c4e628e80b0718f04c132536ef2365d046"
+    },
+    "pairing": "caller-supplied input/output; verify runtime deck identity before scientific use"
+  },
+  "projection": null,
+  "pairing": "Caller verifies runtime input, projection-job correspondence and pseudopotential identity separately.",
+  "input": {
+    "path": "hp__leader_pull2.10__ortho__recover_baseline__precision.run.in",
+    "sha256_bytes": "69dec1aaaeef208da7dc645c08fe0ae60ceff4a015c4a831045042436a3c3fb3"
+  },
+  "output": {
+    "path": "hp__leader_pull2.10__ortho__recover_baseline__precision.out",
+    "sha256_bytes": "3c9ff2255d027cd93b8a6d81136ef9c4e628e80b0718f04c132536ef2365d046"
+  }
+}

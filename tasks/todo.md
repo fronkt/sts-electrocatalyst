@@ -2485,6 +2485,21 @@ Scope: continue the remaining HEA DFT readout/recovery and previously flagged in
 - [x] Push reviewed changes locally, stage exact bytes remotely, check resource/dependency limits, and launch authorized work.
 - [x] Verify released scheduler state, preserve run IDs and readouts, and record what remains scientifically unresolved.
 - [x] Materialize and verify the unchanged full validation panel in new dated paths, with exact duplicate-winner exclusions recorded; do not submit the full panel.
-- [ ] Verify actual MPI startup and evaluate completed raw outputs after the scheduler starts arrays 20563376, 20563386 and 20563390.
+- [x] Verify actual MPI startup and evaluate completed raw outputs after the scheduler starts arrays 20563376, 20563386 and 20563390.
 
 Review: 85 targeted tests passed. Five clean sensitivity endpoints and the independent clean atomic reproduction were validated; cutoff-pair shifts are below 0.4 meV, while the original smearing exception remains rejected. Implementation/results were pushed as df67aac, 66 runtime files were hash-verified remotely, and 13 held tasks passed scheduler checks before release. Arrays 20563376 (smearing), 20563386 (winner) and 20563390 (four short solver probes, afterany:20563376) have aggregate concurrency two and a 5120 core-hour ceiling. At 20:18:27 UTC all were still pending priority/dependency, so runtime verification remains open. The local census continues (77 done, four active, 22 queued at 20:12:56 UTC). The frozen 15-chain/60-state validation snapshot and 116 unique input references passed materialization/hash checks; the larger panel is prepared only. Downstream numerical/relaxation choices await required scientific evidence.
+
+## 2026-09-11 — Interpret completed DFT and census evidence before candidate expansion
+
+Scope: user-approved continuation of the 13-run readout, completed CENSUS-1/2 interpretation, and bounded numerical diagnosis while CENSUS-3 continues. No large candidate-focused DFT launch or alteration of frozen validation membership. Existing result paths and unsuccessful attempts remain intact.
+
+- [ ] Check current repository/cluster state; retrieve and hash-verify the 13 calculations' raw evidence and retained-file inventories.
+- [x] Independently evaluate winner energies, forces, moments and reference compatibility; preserve fixed-geometry limitations and actual costs.
+- [x] Run the existing census readout into a new dated partial snapshot; interpret completed baseline/model arms without claiming complete extended sampling.
+- [ ] Analyze capped convergence histories and the reproduced IEEE exception; prepare and verify the smallest informative diagnostic with an explicit resource ceiling.
+- [ ] If all diagnostic checks pass, push exact implementation before remote staging, submit held, verify resources, and release only the bounded diagnostic.
+- [ ] Run focused regressions and independent scientific/implementation checks; record unresolved questions, update task review, commit explicit paths and push.
+
+Verification plan: raw hashes and runtime identities, independent SCF/projection audits, consistent reference and geometry checks, source-hashed census snapshot, no overwritten readouts, strict diagnostic-only classification, hard runtime/resource limits, and unchanged original QC rules. Larger relaxation/ranking expenditure awaits the census-informed scientific decision; the energy-blind pilot remains a separate validation design.
+
+Readout review: all 13 jobs terminal, with eight accepted fixed-geometry audits, four capped nonconvergences and one reproduced rank-0 invalid flag. Actual cost 1,219.378 core-hours. All 221 selected raw evidence files are locally hash-verified; full-tree mirror inventory remains in progress. Winner/reference analysis independently agrees and 83 regression tests pass. The separate partial census has 89/103 terminal manifests, including complete CENSUS-1/2 and 40/54 CENSUS-3; 89 source hashes and original readout preservation independently verify. Broad DFT launch remains held. The initial setup-only diagnostic suite passes 40 tests; independent review identified a live-pseudopotential identity check to add before launch. No new cluster calculation has yet been submitted in this phase.

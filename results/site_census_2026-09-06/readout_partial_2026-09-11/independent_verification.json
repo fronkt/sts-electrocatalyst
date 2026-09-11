@@ -1,0 +1,261 @@
+{
+  "schema": "hea-census-independent-aggregation-check-v1",
+  "checked_at": "2026-09-11T19:41:12.929Z",
+  "snapshot": "results/site_census_2026-09-06/readout_partial_2026-09-11",
+  "snapshot_generated": "2026-09-11T19:38:16+00:00",
+  "scope": "File-only JavaScript recomputation of source identities and aggregation; not an independent implementation of the geometric classifier.",
+  "checks": {
+    "loaded_result_sha256_lf_and_manifest_ids": {
+      "checked": 89,
+      "failures": []
+    },
+    "manifest_sha256_lf": {
+      "checked": 103,
+      "failures": []
+    },
+    "old_readout_sha256": {
+      "checked": 5,
+      "failures": []
+    },
+    "new_readout_sha256": {
+      "checked": 5,
+      "failures": []
+    },
+    "raw_reproduction_ensemble_minima_and_row_convergence": {
+      "formulas": 12,
+      "models": 4,
+      "site_rows": 576,
+      "failures": []
+    },
+    "ranking_minima_orders_and_tau": {
+      "rules": 4,
+      "failures": []
+    },
+    "frozen_code_hashes_match_docs91": true,
+    "all_missing_stems_are_census3": true
+  },
+  "coverage": {
+    "loaded_manifests": 89,
+    "total_manifests": 103,
+    "loaded_by_arm": {
+      "CENSUS-1": 12,
+      "ENDMEMBER": 1,
+      "CENSUS-2": 36,
+      "CENSUS-3": 40
+    },
+    "missing_manifests": 14,
+    "site_rows": 1063,
+    "baseline_reproduced": 8
+  },
+  "inputs": {
+    "src/scripts/site_census_readout.py": {
+      "sha256_lf": "1d405dd868ec9c1cfd70b57ef8c27a82be5447cf34421c540cd0f96c47fff188"
+    },
+    "src/scripts/site_census_plan.py": {
+      "sha256_lf": "0314eb475abcfe5c5d4af10ade820c7bf9cb432bed5848c41e5dc9a0a37176c0"
+    },
+    "src/hea_oer/site_integrity.py": {
+      "sha256_lf": "352ee8e939b1157000d27478b6e02b943ff9cd8e3dba460051ca758b2ef6fb85"
+    },
+    "results/site_census_2026-09-06/MANIFESTS.sha256": {
+      "sha256_lf": "3339a5326015f3233537e078a69109cbd1ea9249d67f689a1a53028f14469788"
+    },
+    "results/ranking_adequacy_2026-09-06/inputs/r4_screen_box.json": {
+      "sha256_lf": "7e234cdfbc6c5b73114b906afa4c05bb8fefbca7c2317194ec738a83307f1124"
+    },
+    "results/site_census_2026-09-06/o2_fragment/o2_records.json": {
+      "sha256_lf": "20721f24a1c37d87e6dd4c1bae545626c9dbcb2c2dc03683b9ed06ec74a6cb60"
+    }
+  },
+  "readout_outputs": [
+    {
+      "path": "results/site_census_2026-09-06/readout_partial_2026-09-11/distribution.json",
+      "sha256": "48c195f5cd0e7476ee7621f16959c8e5b9dab2d089bde32d6a31c2fb371da8d6"
+    },
+    {
+      "path": "results/site_census_2026-09-06/readout_partial_2026-09-11/per_site.csv",
+      "sha256": "1ebdf3e16cbca34f5adc99752cffbc9ec69110e0240901f73c8272480a19f1b9"
+    },
+    {
+      "path": "results/site_census_2026-09-06/readout_partial_2026-09-11/per_site.json",
+      "sha256": "8e5db4d5a2c5ddec273f11f472a8870c7de63a2c2a91f1f83898ba3097d1d60e"
+    },
+    {
+      "path": "results/site_census_2026-09-06/readout_partial_2026-09-11/ranking.json",
+      "sha256": "fd0a556c9594c976ac2ddd4e02540ae3a8080b4091f4a5a82c95924e48065bd0"
+    },
+    {
+      "path": "results/site_census_2026-09-06/readout_partial_2026-09-11/reproduction.json",
+      "sha256": "98cd02f8b5e0559fd42dbc59998c8dd87ae8f9f02bb0371cff18e231556f07fd"
+    }
+  ],
+  "baseline_model_counts": {
+    "mpa0": {
+      "sites": 144,
+      "intact": 17,
+      "adsorbate_intact": 23,
+      "unconverged": 8,
+      "ooh_h_transferred": 115,
+      "ooh_categories": {
+        "DESORPTION": 104,
+        "NORMAL": 26,
+        "DISSOCIATION": 13,
+        "RECONSTRUCTION": 1
+      },
+      "pathways": {
+        "undefined": 104,
+        "cus": 27,
+        "bridge": 13
+      }
+    },
+    "omat0": {
+      "sites": 144,
+      "intact": 75,
+      "adsorbate_intact": 91,
+      "unconverged": 3,
+      "ooh_h_transferred": 46,
+      "ooh_categories": {
+        "NORMAL": 94,
+        "DESORPTION": 39,
+        "DISSOCIATION": 10,
+        "RECONSTRUCTION": 1
+      },
+      "pathways": {
+        "cus": 95,
+        "undefined": 39,
+        "bridge": 10
+      }
+    },
+    "mp0": {
+      "sites": 144,
+      "intact": 44,
+      "adsorbate_intact": 51,
+      "unconverged": 2,
+      "ooh_h_transferred": 84,
+      "ooh_categories": {
+        "DESORPTION": 87,
+        "NORMAL": 56,
+        "DISSOCIATION": 1
+      },
+      "pathways": {
+        "undefined": 87,
+        "cus": 56,
+        "bridge": 1
+      }
+    },
+    "matpes": {
+      "sites": 144,
+      "intact": 74,
+      "adsorbate_intact": 96,
+      "unconverged": 7,
+      "ooh_h_transferred": 37,
+      "ooh_categories": {
+        "NORMAL": 93,
+        "DISSOCIATION": 25,
+        "DESORPTION": 23,
+        "RECONSTRUCTION": 3
+      },
+      "pathways": {
+        "cus": 96,
+        "bridge": 25,
+        "undefined": 23
+      }
+    }
+  },
+  "ranking": {
+    "banked": {
+      "values_V": {
+        "Ni31Cr29Cu5Mn35": 0.4399960638886986,
+        "Fe25Co25Ni25Cr25": 0.4530565522419163,
+        "Cu26Ni9Cr31Co33": 0.4791918879560475,
+        "Ni34Fe6Cu29Co31": 0.7258416589359067,
+        "Cu8Cr23Mn35Co34": 0.7557679417210732,
+        "Cu22Fe30Co32Mn15": 0.7956531821512538
+      },
+      "order": [
+        "Ni31Cr29Cu5Mn35",
+        "Fe25Co25Ni25Cr25",
+        "Cu26Ni9Cr31Co33",
+        "Ni34Fe6Cu29Co31",
+        "Cu8Cr23Mn35Co34",
+        "Cu22Fe30Co32Mn15"
+      ],
+      "kendall_tau": 1
+    },
+    "intact_only": {
+      "values_V": {
+        "Fe25Co25Ni25Cr25": 1.2723422287315014,
+        "Ni34Fe6Cu29Co31": 1.0834958748019101,
+        "Cu8Cr23Mn35Co34": 0.7557679417210732,
+        "Cu22Fe30Co32Mn15": 1.209540229659778
+      },
+      "order": [
+        "Cu8Cr23Mn35Co34",
+        "Ni34Fe6Cu29Co31",
+        "Cu22Fe30Co32Mn15",
+        "Fe25Co25Ni25Cr25"
+      ],
+      "kendall_tau": null
+    },
+    "adsorbate_intact_only": {
+      "values_V": {
+        "Ni31Cr29Cu5Mn35": 0.4399960638886986,
+        "Fe25Co25Ni25Cr25": 0.4530565522419163,
+        "Cu26Ni9Cr31Co33": 0.4791918879560475,
+        "Ni34Fe6Cu29Co31": 1.0834958748019101,
+        "Cu8Cr23Mn35Co34": 0.7557679417210732,
+        "Cu22Fe30Co32Mn15": 0.7956531821512538
+      },
+      "order": [
+        "Ni31Cr29Cu5Mn35",
+        "Fe25Co25Ni25Cr25",
+        "Cu26Ni9Cr31Co33",
+        "Cu8Cr23Mn35Co34",
+        "Cu22Fe30Co32Mn15",
+        "Ni34Fe6Cu29Co31"
+      ],
+      "kendall_tau": 0.7333333333333334
+    },
+    "two_pathway": {
+      "values_V": {
+        "Ni31Cr29Cu5Mn35": 0.4399960638886986,
+        "Fe25Co25Ni25Cr25": 0.4530565522419163,
+        "Cu26Ni9Cr31Co33": 0.4791918879560475,
+        "Ni34Fe6Cu29Co31": 0.7258416589359067,
+        "Cu8Cr23Mn35Co34": 0.7557679417210732,
+        "Cu22Fe30Co32Mn15": 0.7956531821512538
+      },
+      "order": [
+        "Ni31Cr29Cu5Mn35",
+        "Fe25Co25Ni25Cr25",
+        "Cu26Ni9Cr31Co33",
+        "Ni34Fe6Cu29Co31",
+        "Cu8Cr23Mn35Co34",
+        "Cu22Fe30Co32Mn15"
+      ],
+      "kendall_tau": 1
+    }
+  },
+  "missing_census3": [
+    "mpa0_ext__Cu8Cr23Mn35Co34__s15-17",
+    "mpa0_ext__Cu8Cr23Mn35Co34__s18-20",
+    "mpa0_ext__Cu8Cr23Mn35Co34__s21-23",
+    "mpa0_ext__Cu8Cr23Mn35Co34__s24-26",
+    "mpa0_ext__Cu8Cr23Mn35Co34__s27-29",
+    "mpa0_ext__Cu22Fe30Co32Mn15__s03-05",
+    "mpa0_ext__Cu22Fe30Co32Mn15__s06-08",
+    "mpa0_ext__Cu22Fe30Co32Mn15__s09-11",
+    "mpa0_ext__Cu22Fe30Co32Mn15__s12-14",
+    "mpa0_ext__Cu22Fe30Co32Mn15__s15-17",
+    "mpa0_ext__Cu22Fe30Co32Mn15__s18-20",
+    "mpa0_ext__Cu22Fe30Co32Mn15__s21-23",
+    "mpa0_ext__Cu22Fe30Co32Mn15__s24-26",
+    "mpa0_ext__Cu22Fe30Co32Mn15__s27-29"
+  ],
+  "limitations": [
+    "Classification fields are consumed from the unchanged frozen Python classifier; the independent check recomputes aggregation, not periodic geometry.",
+    "Model spread is descriptive, not calibrated DFT error or a confidence interval.",
+    "The CENSUS-3 panel is incomplete and unequally sampled; final cross-composition distribution/rank-resolution conclusions remain pending."
+  ]
+}
+
