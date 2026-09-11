@@ -2493,13 +2493,15 @@ Review: 85 targeted tests passed. Five clean sensitivity endpoints and the indep
 
 Scope: user-approved continuation of the 13-run readout, completed CENSUS-1/2 interpretation, and bounded numerical diagnosis while CENSUS-3 continues. No large candidate-focused DFT launch or alteration of frozen validation membership. Existing result paths and unsuccessful attempts remain intact.
 
-- [ ] Check current repository/cluster state; retrieve and hash-verify the 13 calculations' raw evidence and retained-file inventories.
+- [x] Check current repository/cluster state; retrieve and hash-verify the 13 calculations' raw evidence and retained-file inventories.
 - [x] Independently evaluate winner energies, forces, moments and reference compatibility; preserve fixed-geometry limitations and actual costs.
 - [x] Run the existing census readout into a new dated partial snapshot; interpret completed baseline/model arms without claiming complete extended sampling.
-- [ ] Analyze capped convergence histories and the reproduced IEEE exception; prepare and verify the smallest informative diagnostic with an explicit resource ceiling.
+- [x] Analyze capped convergence histories and the reproduced IEEE exception; prepare and verify the smallest informative diagnostic with an explicit resource ceiling.
 - [ ] If all diagnostic checks pass, push exact implementation before remote staging, submit held, verify resources, and release only the bounded diagnostic.
 - [ ] Run focused regressions and independent scientific/implementation checks; record unresolved questions, update task review, commit explicit paths and push.
 
 Verification plan: raw hashes and runtime identities, independent SCF/projection audits, consistent reference and geometry checks, source-hashed census snapshot, no overwritten readouts, strict diagnostic-only classification, hard runtime/resource limits, and unchanged original QC rules. Larger relaxation/ranking expenditure awaits the census-informed scientific decision; the energy-blind pilot remains a separate validation design.
 
 Readout review: all 13 jobs terminal, with eight accepted fixed-geometry audits, four capped nonconvergences and one reproduced rank-0 invalid flag. Actual cost 1,219.378 core-hours. All 221 selected raw evidence files are locally hash-verified; full-tree mirror inventory remains in progress. Winner/reference analysis independently agrees and 83 regression tests pass. The separate partial census has 89/103 terminal manifests, including complete CENSUS-1/2 and 40/54 CENSUS-3; 89 source hashes and original readout preservation independently verify. Broad DFT launch remains held. The initial setup-only diagnostic suite passes 40 tests; independent review identified a live-pseudopotential identity check to add before launch. No new cluster calculation has yet been submitted in this phase.
+
+Diagnostic verification: the live-UPF safeguard is implemented and independently reviewed. All 50 final diagnostic tests and three Bash syntax checks pass; raw Linux-byte test fixtures are now explicitly LF on Windows, including failure-path mutations. The production parser/acceptance checks were not weakened. Final verification is `results/hea_ieee_init_2026-09-11/verification_v3.json`; earlier receipts preserve the fixture failures. Readout/census evidence is pushed as 53c88bb. New setup-only scope remains one 128-rank/eight-pool task, ten minutes, 21.333 core-hours maximum, held before release and no retry/projection. The separate 128-core-hour occupation-broadening proposal is not submitted.

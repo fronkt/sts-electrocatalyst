@@ -1,0 +1,241 @@
+{
+  "checked_at": "2026-09-11T20:01:31.241925+00:00",
+  "tests": {
+    "args": [
+      "C:\\Users\\frank\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-m",
+      "pytest",
+      "-q",
+      "--basetemp=C:/i12",
+      "tests/test_hea_ieee_initialization_probe.py"
+    ],
+    "rc": 1,
+    "out": "........FFF............................F.....FF...                       [100%]\n================================== FAILURES ===================================\n_________ test_clean_setup_never_accepts_endpoint_or_checkpoint_read __________\n\nsetup_case = {'directory': WindowsPath('C:/i12/test_clean_setup_never_accepts0/project/sts/runs/hea/ieee_init_2026-09-11'), 'env': ...ea/numerical_2026-09-08/hn__leader_pull2.10__ortho__tight.run.in', ...}], 'schema': 'hea_sensitivity_sources_v1'}, ...}\n\n    def test_clean_setup_never_accepts_endpoint_or_checkpoint_read(setup_case):\n        original = original_sources(setup_case)\n        result = run(setup_case)\n>       assert result.returncode == 0, result.stdout + result.stderr\nE       AssertionError: READY: DIAGNOSTIC ONLY\nE         SETUP PROBE: one ten-minute NP128/pools8 task; nstep=0, max_seconds=480; diagnostic only\nE         node=frank started=Fri Sep 11 19:59:39 UTC 2026 mpi=/c/i12/test_clean_setup_never_accepts0/qe/bin/mpirun\nE         {\"collection_complete\": true, \"combined_sha256\": \"e30728f33f1c8c5c37fe80171e5f88d6439101e05945060cb79c11da59e4525a\", \"expected_ranks\": 128, \"missing_ranks\": [], \"ranks\": [{\"bytes\": 0, \"flags\": [], \"rank\": 0, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 1, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 2, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 3, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 4, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 5, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 6, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 7, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 8, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 9, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 10, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 11, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 12, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 13, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 14, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 15, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 16, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 17, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 18, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 19, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 20, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 21, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 22, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 23, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 24, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 25, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 26, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 27, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 28, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 29, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 30, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 31, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 32, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 33, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 34, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 35, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 36, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 37, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 38, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 39, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 40, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 41, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 42, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 43, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 44, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 45, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 46, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 47, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 48, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 49, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 50, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 51, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 52, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 53, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 54, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 55, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 56, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 57, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 58, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 59, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 60, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 61, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 62, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 63, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 64, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 65, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 66, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 67, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 68, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 69, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 70, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 71, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 72, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 73, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 74, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 75, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 76, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 77, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 78, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 79, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 80, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 81, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 82, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 83, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 84, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 85, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 86, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 87, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 88, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 89, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 90, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 91, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 92, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 93, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 94, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 95, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 96, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 97, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 98, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 99, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 100, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 101, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 102, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 103, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 104, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 105, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 106, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 107, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 108, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 109, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 110, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 111, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 112, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 113, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 114, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 115, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 116, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 117, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 118, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 119, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 120, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 121, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 122, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 123, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 124, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 125, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 126, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, {\"bytes\": 0, \"flags\": [], \"rank\": 127, \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}], \"raw_streams\": {\"hi__leader_pull2.10__ortho__smearing_init.launcher.stderr\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", \"hi__leader_pull2.10__ortho__smearing_init.stdout\": \"e430cabb6305aada512236d0254e5318ffebe7a5a4e62dae3cee8935e8a1fae1\"}, \"schema\": \"hea_ieee_rank_capture_v1\", \"stage\": \"setup\"}\nE         {\"checkpoint_read_claim\": false, \"diagnostic_status\": \"OTHER_FAILURE\", \"evidence_errors\": [\"printed pseudopotential order/path/MD5 differs from byte-verified live files\"], \"flags\": [], \"invalid_ranks\": [], \"job\": \"hi__leader_pull2.10__ortho__smearing_init\", \"launch_spec_sha256\": \"24720404d1ddd68bc8ef0a67042ef8f568629c2f7fbdf0d01fdef7b01b67ea28\", \"live_pseudopotentials\": {\"directory\": \"C:/i12/test_clean_setup_never_accepts0/live-pseudo\", \"files\": [{\"md5\": \"ff1817ae9c1248b954deaab0b03a25c8\", \"path\": \"Cu.paw.z_11.ld1.psl.v1.0.0-low.upf\", \"sha256\": \"5799f05572280874f648a012126466abdf4490cf48f14bd24f65769c1258baf5\", \"size_bytes\": 72}, {\"md5\": \"956ccb6f919f8497ee7d057fd7a2e14c\", \"path\": \"H.pbe-rrkjus_psl.1.0.0.UPF\", \"sha256\": \"5e39a9ba7297939d96230c20ac25fc53c2cf7c9b78e7a73c11c113c0ff803e2d\", \"size_bytes\": 64}, {\"md5\": \"ded2b9f5213bd89abe7812f620872455\", \"path\": \"O.pbe-n-kjpaw_psl.0.1.UPF\", \"sha256\": \"ff788750055ab4df70aee9975ea45eeb15c36df0d0a0f7f009e24174f7ffd6b7\", \"size_bytes\": 63}, {\"md5\": \"11d49fffbb707c5a4d4150b650c1530c\", \"path\": \"cr_pbe_v1.5.uspp.F.UPF\", \"sha256\": \"037439f67a62ab7fbb979630328398dc7652c53646f4783799ea9cad85a2dad6\", \"size_bytes\": 60}, {\"md5\": \"cea1db87966f5ebce6715ac4086368d9\", \"path\": \"mn_pbe_v1.5.uspp.F.UPF\", \"sha256\": \"cdbcc56ab78d38a1669ee9a0849cbb2a649dca41e2efbf24b44ab041e684819e\", \"size_bytes\": 60}, {\"md5\": \"7dbb376a6688f457e0779d9e16fd242f\", \"path\": \"ni_pbe_v1.4.uspp.F.UPF\", \"sha256\": \"5327dcaac696f6e22b7256247011049d712bc4e8f39942fe36f2893e99706a7c\", \"size_bytes\": 60}]}, \"new_endpoint_status\": \"DIAGNOSTIC_ONLY\", \"printed_pseudopotentials\": null, \"prior_flagged_run_reclassified\": false, \"process_exit\": 0, \"qe_source\": \"https://github.com/QEF/q-e/blob/qe-7.5/PW/src/run_pwscf.f90#L148-L159\", \"rank_capture_complete\": true, \"retained_files\": [{\"path\": \"Cu.paw.z_11.ld1.psl.v1.0.0-low.upf\", \"sha256\": \"5799f05572280874f648a012126466abdf4490cf48f14bd24f65769c1258baf5\", \"size_bytes\": 72}, {\"path\": \"H.pbe-rrkjus_psl.1.0.0.UPF\", \"sha256\": \"5e39a9ba7297939d96230c20ac25fc53c2cf7c9b78e7a73c11c113c0ff803e2d\", \"size_bytes\": 64}, {\"path\": \"O.pbe-n-kjpaw_psl.0.1.UPF\", \"sha256\": \"ff788750055ab4df70aee9975ea45eeb15c36df0d0a0f7f009e24174f7ffd6b7\", \"size_bytes\": 63}, {\"path\": \"atomic_proj.xml\", \"sha256\": \"27202c9d556a9c4185e771d6192a7fb29f04cb9d46e73513c591accb2c51e29b\", \"size_bytes\": 53}, {\"path\": \"charge-density.hdf5\", \"sha256\": \"c7616adcc4f959d362f495dfcf9979971ccebdc4a2f9fbb2d43a51e4014fe5d3\", \"size_bytes\": 57}, {\"path\": \"cr_pbe_v1.5.uspp.F.UPF\", \"sha256\": \"037439f67a62ab7fbb979630328398dc7652c53646f4783799ea9cad85a2dad6\", \"size_bytes\": 60}, {\"path\": \"data-file-schema.xml\", \"sha256\": \"4de09fb5a67a092c3fdbb2535469406ce0684ca78efd2dea055030553c6807f5\", \"size_bytes\": 488}, {\"path\": \"mn_pbe_v1.5.uspp.F.UPF\", \"sha256\": \"cdbcc56ab78d38a1669ee9a0849cbb2a649dca41e2efbf24b44ab041e684819e\", \"size_bytes\": 60}, {\"path\": \"ni_pbe_v1.4.uspp.F.UPF\", \"sha256\": \"5327dcaac696f6e22b7256247011049d712bc4e8f39942fe36f2893e99706a7c\", \"size_bytes\": 60}, {\"path\": \"occup.txt\", \"sha256\": \"9fbd000ddd05047abcb4c27dabbaecd552e852730c3b24a56d253e58e7bdb9cc\", \"size_bytes\": 47}, {\"path\": \"paw.txt\", \"sha256\": \"215432e99c9f5b7c40172c9e7a5556d3de8fbe5b51cdcff90248e1bd280ed021\", \"size_bytes\": 45}, {\"path\": \"wfcdw1.hdf5\", \"sha256\": \"00ee5ac7c828077f8c2a6be9a575fbc4eaa21e5a9fbe6c0c157056000d0ef0b6\", \"size_bytes\": 49}, {\"path\": \"wfcdw2.hdf5\", \"sha256\": \"27bea56312830808c18297220c2e49e811fa8a8d2a27e7320b7c5a9d249edb80\", \"size_bytes\": 49}, {\"path\": \"wfcdw3.hdf5\", \"sha256\": \"1cdca63125abc4a32e71a219099950348f4b2d17a424791846061f2385ae8de6\", \"size_bytes\": 49}, {\"path\": \"wfcdw4.hdf5\", \"sha256\": \"f01c04eb73b2b7a51599e7ed0a80a0566e35e7f93e5494a79a3c6867d8e9547b\", \"size_bytes\": 49}, {\"path\": \"wfcdw5.hdf5\", \"sha256\": \"faedc8a50d94677639d651aab27e897066c1b48783e322ba395913ebd17754b2\", \"size_bytes\": 49}, {\"path\": \"wfcdw6.hdf5\", \"sha256\": \"0801bf51745b2e8801266b540091a9cff2c03ef185d1c8561b35abae3de886a7\", \"size_bytes\": 49}, {\"path\": \"wfcdw7.hdf5\", \"sha256\": \"01f1bcb87286007613a86a91042cb0bcd2d7e2a0a934bd826b51439e7d932a36\", \"size_bytes\": 49}, {\"path\": \"wfcdw8.hdf5\", \"sha256\": \"9c6cbf5c51a835745e37d75fcf84dedd2fe1a26cb0058eb231081ce727c8f995\", \"size_bytes\": 49}, {\"path\": \"wfcup1.hdf5\", \"sha256\": \"eff6cf59c97a3cce3a2d2acf134ddc92c0c3604efdb41c6ea00693d89419e262\", \"size_bytes\": 49}, {\"path\": \"wfcup2.hdf5\", \"sha256\": \"9c9a18de60e1589d645951a4f358090fd5f628ab9d2e3179d0da30bd0fbe163e\", \"size_bytes\": 49}, {\"path\": \"wfcup3.hdf5\", \"sha256\": \"d71a573ea778d93e7f969493d164948311cb617b64c732d78aafc631a945bb55\", \"size_bytes\": 49}, {\"path\": \"wfcup4.hdf5\", \"sha256\": \"3fab342e4854eda0b2a02b3c51bd351bab49df11a6a40f772cd9e455ae57d122\", \"size_bytes\": 49}, {\"path\": \"wfcup5.hdf5\", \"sha256\": \"6b9131d585f0f5873532fad8d05fb20db41ca877abe159d2c3bf0102d390c02e\", \"size_bytes\": 49}, {\"path\": \"wfcup6.hdf5\", \"sha256\": \"67982d6cf40544fa9a0a59029627cd03aff9ab96c1fb548e93e10bb5902bcd22\", \"size_bytes\": 49}, {\"path\": \"wfcup7.hdf5\", \"sha256\": \"0454cb45d5fa4d18e386cdbb7cab98b0445ca5004b38981a5e3e78f410493b31\", \"size_bytes\": 49}, {\"path\": \"wfcup8.hdf5\", \"sha256\": \"63e9d87bede729d0721ba177b28bc294c36da6f4da29a05e99a645473f1ba099\", \"size_bytes\": 49}], \"schema\": \"hea_ieee_setup_diagnostic_v1\", \"scope\": \"setup/pre_init/data_structure/summary/config-init/shutdown; excludes init_run, electrons and forces\", \"setup_signature\": {\"checkpoint_read_claim\": false, \"kpoint_pools\": 8, \"mpi_ranks\": 128, \"nstep\": 0, \"scope\": \"setup/pre_init/data_structure/summary/config-init/shutdown; excludes init_run, electrons and forces\", \"xml_exit_status\": 255}}\nE         SETUP PROBE FLAGGED/INCOMPLETE: no retry or projection; all evidence retained\nE         \nE       assert 16 == 0\nE        +  where 16 = CompletedProcess(args=['C:\\\\Program Files\\\\Git\\\\bin\\\\bash.exe', '-c', 'export PATH=\"$QE_PREFIX/bin:$PATH\"; exec bash \"... \"xml_exit_status\": 255}}\\nSETUP PROBE FLAGGED/INCOMPLETE: no retry or projection; all evidence retained\\n', stderr='').returncode\n\ntests\\test_hea_ieee_initialization_probe.py:154: AssertionError\n__________ test_ieee_invalid_is_attributed_but_never_reclassified[0] __________\n\nsetup_case = {'directory': WindowsPath('C:/i12/test_ieee_invalid_is_attribute0/project/sts/runs/hea/ieee_init_2026-09-11'), 'env': ...ea/numerical_2026-09-08/hn__leader_pull2.10__ortho__tight.run.in', ...}], 'schema': 'hea_sensitivity_sources_v1'}, ...}\nrank = '0'\n\n    @pytest.mark.parametrize(\"rank\", [\"0\", \"7\"])\n    def test_ieee_invalid_is_attributed_but_never_reclassified(setup_case, rank):\n        result = run(setup_case, MOCK_INVALID_RANK=rank)\n        assert result.returncode == 16\n        out = record(setup_case)\n>       assert out[\"diagnostic_status\"] == \"SETUP_INVALID_REPRODUCED\"\nE       AssertionError: assert 'OTHER_FAILURE' == 'SETUP_INVALID_REPRODUCED'\nE         \nE         - SETUP_INVALID_REPRODUCED\nE         + OTHER_FAILURE\n\ntests\\test_hea_ieee_initialization_probe.py:185: AssertionError\n__________ test_ieee_invalid_is_attributed_but_never_reclassified[7] __________\n\nsetup_case = {'directory': WindowsPath('C:/i12/test_ieee_invalid_is_attribute1/project/sts/runs/hea/ieee_init_2026-09-11'), 'env': ...ea/numerical_2026-09-08/hn__leader_pull2.10__ortho__tight.run.in', ...}], 'schema': 'hea_sensitivity_sources_v1'}, ...}\nrank = '7'\n\n    @pytest.mark.parametrize(\"rank\", [\"0\", \"7\"])\n    def test_ieee_invalid_is_attributed_but_never_reclassified(setup_case, rank):\n        result = run(setup_case, MOCK_INVALID_RANK=rank)\n        assert result.returncode == 16\n        out = record(setup_case)\n>       assert out[\"diagnostic_status\"] == \"SETUP_INVALID_REPRODUCED\"\nE       AssertionError: assert 'OTHER_FAILURE' == 'SETUP_INVALID_REPRODUCED'\nE         \nE         - SETUP_INVALID_REPRODUCED\nE         + OTHER_FAILURE\n\ntests\\test_hea_ieee_initialization_probe.py:185: AssertionError\n__________ test_live_pseudopotential_postrun_drift_fails_final_audit __________\n\nsetup_case = {'directory': WindowsPath('C:/i12/test_live_pseudopotential_post0/project/sts/runs/hea/ieee_init_2026-09-11'), 'env': ...ea/numerical_2026-09-08/hn__leader_pull2.10__ortho__tight.run.in', ...}], 'schema': 'hea_sensitivity_sources_v1'}, ...}\n\n    def test_live_pseudopotential_postrun_drift_fails_final_audit(setup_case):\n>       assert run(setup_case).returncode == 0\nE       assert 16 == 0\nE        +  where 16 = CompletedProcess(args=['C:\\\\Program Files\\\\Git\\\\bin\\\\bash.exe', '-c', 'export PATH=\"$QE_PREFIX/bin:$PATH\"; exec bash \"... \"xml_exit_status\": 255}}\\nSETUP PROBE FLAGGED/INCOMPLETE: no retry or projection; all evidence retained\\n', stderr='').returncode\nE        +    where CompletedProcess(args=['C:\\\\Program Files\\\\Git\\\\bin\\\\bash.exe', '-c', 'export PATH=\"$QE_PREFIX/bin:$PATH\"; exec bash \"... \"xml_exit_status\": 255}}\\nSETUP PROBE FLAGGED/INCOMPLETE: no retry or projection; all evidence retained\\n', stderr='') = run({'directory': WindowsPath('C:/i12/test_live_pseudopotential_post0/project/sts/runs/hea/ieee_init_2026-09-11'), 'env': ...ea/numerical_2026-09-08/hn__leader_pull2.10__ortho__tight.run.in', ...}], 'schema': 'hea_sensitivity_sources_v1'}, ...})\n\ntests\\test_hea_ieee_initialization_probe.py:310: AssertionError\n_________ test_late_raw_stream_change_and_receipt_change_are_rejected _________\n\nsetup_case = {'directory': WindowsPath('C:/i12/test_late_raw_stream_change_an0/project/sts/runs/hea/ieee_init_2026-09-11'), 'env': ...ea/numerical_2026-09-08/hn__leader_pull2.10__ortho__tight.run.in', ...}], 'schema': 'hea_sensitivity_sources_v1'}, ...}\n\n    def test_late_raw_stream_change_and_receipt_change_are_rejected(setup_case):\n>       assert run(setup_case).returncode == 0\nE       assert 16 == 0\nE        +  where 16 = CompletedProcess(args=['C:\\\\Program Files\\\\Git\\\\bin\\\\bash.exe', '-c', 'export PATH=\"$QE_PREFIX/bin:$PATH\"; exec bash \"... \"xml_exit_status\": 255}}\\nSETUP PROBE FLAGGED/INCOMPLETE: no retry or projection; all evidence retained\\n', stderr='').returncode\nE        +    where CompletedProcess(args=['C:\\\\Program Files\\\\Git\\\\bin\\\\bash.exe', '-c', 'export PATH=\"$QE_PREFIX/bin:$PATH\"; exec bash \"... \"xml_exit_status\": 255}}\\nSETUP PROBE FLAGGED/INCOMPLETE: no retry or projection; all evidence retained\\n', stderr='') = run({'directory': WindowsPath('C:/i12/test_late_raw_stream_change_an0/project/sts/runs/hea/ieee_init_2026-09-11'), 'env': ...ea/numerical_2026-09-08/hn__leader_pull2.10__ortho__tight.run.in', ...}], 'schema': 'hea_sensitivity_sources_v1'}, ...})\n\ntests\\test_hea_ieee_initialization_probe.py:346: AssertionError\n______________ test_no_overwrite_and_no_second_automatic_attempt ______________\n\nsetup_case = {'directory': WindowsPath('C:/i12/test_no_overwrite_and_no_secon0/project/sts/runs/hea/ieee_init_2026-09-11'), 'env': ...ea/numerical_2026-09-08/hn__leader_pull2.10__ortho__tight.run.in', ...}], 'schema': 'hea_sensitivity_sources_v1'}, ...}\n\n    def test_no_overwrite_and_no_second_automatic_attempt(setup_case):\n>       assert run(setup_case).returncode == 0\nE       assert 16 == 0\nE        +  where 16 = CompletedProcess(args=['C:\\\\Program Files\\\\Git\\\\bin\\\\bash.exe', '-c', 'export PATH=\"$QE_PREFIX/bin:$PATH\"; exec bash \"... \"xml_exit_status\": 255}}\\nSETUP PROBE FLAGGED/INCOMPLETE: no retry or projection; all evidence retained\\n', stderr='').returncode\nE        +    where CompletedProcess(args=['C:\\\\Program Files\\\\Git\\\\bin\\\\bash.exe', '-c', 'export PATH=\"$QE_PREFIX/bin:$PATH\"; exec bash \"... \"xml_exit_status\": 255}}\\nSETUP PROBE FLAGGED/INCOMPLETE: no retry or projection; all evidence retained\\n', stderr='') = run({'directory': WindowsPath('C:/i12/test_no_overwrite_and_no_secon0/project/sts/runs/hea/ieee_init_2026-09-11'), 'env': ...ea/numerical_2026-09-08/hn__leader_pull2.10__ortho__tight.run.in', ...}], 'schema': 'hea_sensitivity_sources_v1'}, ...})\n\ntests\\test_hea_ieee_initialization_probe.py:356: AssertionError\n=========================== short test summary info ===========================\nFAILED tests/test_hea_ieee_initialization_probe.py::test_clean_setup_never_accepts_endpoint_or_checkpoint_read\nFAILED tests/test_hea_ieee_initialization_probe.py::test_ieee_invalid_is_attributed_but_never_reclassified[0]\nFAILED tests/test_hea_ieee_initialization_probe.py::test_ieee_invalid_is_attributed_but_never_reclassified[7]\nFAILED tests/test_hea_ieee_initialization_probe.py::test_live_pseudopotential_postrun_drift_fails_final_audit\nFAILED tests/test_hea_ieee_initialization_probe.py::test_late_raw_stream_change_and_receipt_change_are_rejected\nFAILED tests/test_hea_ieee_initialization_probe.py::test_no_overwrite_and_no_second_automatic_attempt\n6 failed, 44 passed in 116.07s (0:01:56)\n",
+    "err": ""
+  },
+  "bash_syntax": [
+    {
+      "args": [
+        "C:/Program Files/Git/bin/bash.exe",
+        "-n",
+        "anvil/70_hea_ieee_initialization.slurm"
+      ],
+      "rc": 0,
+      "out": "",
+      "err": ""
+    },
+    {
+      "args": [
+        "C:/Program Files/Git/bin/bash.exe",
+        "-n",
+        "anvil/71_submit_hea_ieee_initialization.sh"
+      ],
+      "rc": 0,
+      "out": "",
+      "err": ""
+    },
+    {
+      "args": [
+        "C:/Program Files/Git/bin/bash.exe",
+        "-n",
+        "anvil/hea_ieee_initialization_rank.sh"
+      ],
+      "rc": 0,
+      "out": "",
+      "err": ""
+    }
+  ],
+  "git_diff_check": {
+    "args": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "rc": 0,
+    "out": "",
+    "err": "warning: in the working copy of 'tasks/lessons.md', LF will be replaced by CRLF the next time Git touches it\n"
+  },
+  "deployment_files": [
+    {
+      "path": "anvil/70_hea_ieee_initialization.slurm",
+      "sha256": "c777b4b4cf05e92e1c272c9decec56752c298e7d064870d44893c76bfe4e198a",
+      "size_bytes": 3722
+    },
+    {
+      "path": "anvil/71_submit_hea_ieee_initialization.sh",
+      "sha256": "c5980729a192443e69df417dcc9602a675f2b11f87e368165316fade9657831f",
+      "size_bytes": 7044
+    },
+    {
+      "path": "anvil/hea_ieee_initialization_rank.sh",
+      "sha256": "902d6a7527362679e00578590a37e795a7e31b0e5477a51079544a9820911edd",
+      "size_bytes": 1112
+    },
+    {
+      "path": "anvil/pseudo_md5_preflight_2026-08-23.md",
+      "sha256": "c29420bd7210ebf4d02a9829cd57abfe66e49586829051303103b9f33a02f4ca",
+      "size_bytes": 3037
+    },
+    {
+      "path": "results/hea_ieee_init_2026-09-11/launch_spec.json",
+      "sha256": "c5ad77a2b8764a856fad90721b5702c568c0fe87e6034f4c7c378075c59826bd",
+      "size_bytes": 1239
+    },
+    {
+      "path": "results/hea_sensitivity_2026-09-09/launch_spec.json",
+      "sha256": "fdce4056bf45c0479c6b00c6084804955d6314fa243e66bac336a0724fb581b9",
+      "size_bytes": 2593
+    },
+    {
+      "path": "results/hea_sensitivity_2026-09-09/source_checkpoints.json",
+      "sha256": "10c5d04be2121ed6bdfcdf0e545d7daaca842f09bb6058f226aa45622f77f5ea",
+      "size_bytes": 11632
+    },
+    {
+      "path": "results/hea_sensitivity_2026-09-09/source_xml/hn__leader_builder__ortho__tight.xml",
+      "sha256": "174af7f1a194395a73c392f6a3a0898e38df189cbfdbb9cb4553cc3947617f35",
+      "size_bytes": 413196
+    },
+    {
+      "path": "results/hea_sensitivity_2026-09-09/source_xml/hn__leader_pull2.10__ortho__tight.xml",
+      "sha256": "8367eb02719332c774477f15b9be88e690272e087d4c7000d3d6e585d49508ec",
+      "size_bytes": 413193
+    },
+    {
+      "path": "runs/hea/ieee_init_2026-09-11/hi__leader_pull2.10__ortho__smearing_init.in",
+      "sha256": "5383a3a00ab75457aab9a27f22e7d9d376669399fb642b1a94bb9573d1705aff",
+      "size_bytes": 6857
+    },
+    {
+      "path": "runs/hea/m_ieee_init_2026-09-11.txt",
+      "sha256": "349214e2a4775a6c1e30d5c33f83578357eccd74480575e0f7cbb08b0a74880c",
+      "size_bytes": 225
+    },
+    {
+      "path": "runs/hea/m_ieee_init_2026-09-11.txt.lines",
+      "sha256": "2b9ca8735f4497eb446381c3cf148167afa54a83a1db80c24f563eea45b48f0f",
+      "size_bytes": 73
+    },
+    {
+      "path": "runs/hea/m_sensitivity_2026-09-09.txt",
+      "sha256": "f046d7f8886697307043c91b01394a5c2902b7311534307a2598c2ebee7f6c21",
+      "size_bytes": 563
+    },
+    {
+      "path": "runs/hea/m_sensitivity_2026-09-09.txt.lines",
+      "sha256": "63ed9feb4392de9f2c7fed11de155b515e72f5a84482be0f91415518a804f1fc",
+      "size_bytes": 397
+    },
+    {
+      "path": "runs/hea/numerical_2026-09-08/hn__leader_builder__ortho__tight.in",
+      "sha256": "52a9a09f5f43f364fc38a265a1c08d6dcd0f04bfa8eef8370dff0f45a63e1370",
+      "size_bytes": 6855
+    },
+    {
+      "path": "runs/hea/numerical_2026-09-08/hn__leader_builder__ortho__tight.out",
+      "sha256": "96c4829aae54fe2dcd280399f4a32e49750fc8b06774d1a109671bd4ebb59cff",
+      "size_bytes": 196306
+    },
+    {
+      "path": "runs/hea/numerical_2026-09-08/hn__leader_builder__ortho__tight.qc.json",
+      "sha256": "79ee7db4ff0499037aa97a1c039623e4cc653e26d29a028389635959a0f5c814",
+      "size_bytes": 116824
+    },
+    {
+      "path": "runs/hea/numerical_2026-09-08/hn__leader_pull2.10__ortho__tight.in",
+      "sha256": "8fe5d573e541870cf4a915b98cc1733a860f4794ba1164f2597ad8c3721d972a",
+      "size_bytes": 6857
+    },
+    {
+      "path": "runs/hea/numerical_2026-09-08/hn__leader_pull2.10__ortho__tight.out",
+      "sha256": "c46866a3f356136e3fe5828de2d17f9d03338c21265e6a8b946054e95df5c40a",
+      "size_bytes": 196731
+    },
+    {
+      "path": "runs/hea/numerical_2026-09-08/hn__leader_pull2.10__ortho__tight.qc.json",
+      "sha256": "05dfc2c06f300a7f865dd3237d6693696b1cea1ead2eba708e48b72962fcfa79",
+      "size_bytes": 116820
+    },
+    {
+      "path": "runs/hea/sensitivity_2026-09-09/hs__leader_builder__ortho__rho.in",
+      "sha256": "b332bf37c528a70f8b6297ce2fa0bfb1a01ce6d0159fb836eac4342102ce3e8e",
+      "size_bytes": 6853
+    },
+    {
+      "path": "runs/hea/sensitivity_2026-09-09/hs__leader_builder__ortho__smearing.in",
+      "sha256": "54238adaa323c42370886d4b56bd19d1d1419654967fe5d933e48f28ce31516b",
+      "size_bytes": 6859
+    },
+    {
+      "path": "runs/hea/sensitivity_2026-09-09/hs__leader_builder__ortho__wfc.in",
+      "sha256": "209b9e47165443a4abeb58bfa6ebfde54b1b2f14d54006ab02fef4d16d185a0d",
+      "size_bytes": 6854
+    },
+    {
+      "path": "runs/hea/sensitivity_2026-09-09/hs__leader_pull2.10__ortho__rho.in",
+      "sha256": "ad1d900f61c223b34f849ae2363bcbf774473473d0e60a33c08214a7db361fad",
+      "size_bytes": 6855
+    },
+    {
+      "path": "runs/hea/sensitivity_2026-09-09/hs__leader_pull2.10__ortho__smearing.in",
+      "sha256": "3f434bbeec46a9b74a37d2081f705fbb496362daf3d001dec65db444c1750671",
+      "size_bytes": 6861
+    },
+    {
+      "path": "runs/hea/sensitivity_2026-09-09/hs__leader_pull2.10__ortho__wfc.in",
+      "sha256": "1e4cc72e73d7e2a37f97f01663b4900dd5d6d3e25a3c8fe64b895e35689fe621",
+      "size_bytes": 6856
+    },
+    {
+      "path": "src/dft/hea_followup_qc.py",
+      "sha256": "ef9b50193f46034036b892263a3ee139426d912b2098ebdc5a897a82dc2769da",
+      "size_bytes": 10037
+    },
+    {
+      "path": "src/dft/hea_force_audit.py",
+      "sha256": "bddbe7ba3bed9874e723d88f8bdab724bb4e83178f1f75bbc3a1f4034b9fd5d7",
+      "size_bytes": 8689
+    },
+    {
+      "path": "src/dft/hea_ieee_initialization_probe.py",
+      "sha256": "7b58317aa8d23e2ba7ee4bc4ffc989244ebfd799f8ec94210d20d18e5d6eb11f",
+      "size_bytes": 21926
+    },
+    {
+      "path": "src/dft/hea_numerical_guard.py",
+      "sha256": "98d866553566d9e8ab660535f5bbc0c33228f5160df59eda9f41de9c85ee5f9a",
+      "size_bytes": 18114
+    },
+    {
+      "path": "src/dft/hea_sensitivity_guard.py",
+      "sha256": "6c59cb5986e39c5117be72f4c4dc8e7f7184b8f539ff6dc6d31e56b89a96f4e6",
+      "size_bytes": 24984
+    }
+  ],
+  "existing_remote_files": [
+    {
+      "path": "runs/hea/numerical_2026-09-08/hn__leader_builder__ortho__tight.run.in",
+      "sha256": "52a9a09f5f43f364fc38a265a1c08d6dcd0f04bfa8eef8370dff0f45a63e1370",
+      "size_bytes": 6855
+    },
+    {
+      "path": "runs/hea/numerical_2026-09-08/hn__leader_builder__ortho__tight.projwfc.out",
+      "sha256": "0500aabac4cbe00eb33fd12fa98471c959a340eee9d39b9780bab615009cd4ed",
+      "size_bytes": 9867196
+    },
+    {
+      "path": "runs/hea/numerical_2026-09-08/hn__leader_pull2.10__ortho__tight.run.in",
+      "sha256": "8fe5d573e541870cf4a915b98cc1733a860f4794ba1164f2597ad8c3721d972a",
+      "size_bytes": 6857
+    },
+    {
+      "path": "runs/hea/numerical_2026-09-08/hn__leader_pull2.10__ortho__tight.projwfc.out",
+      "sha256": "c5b31be569de897705ab044ef309947667353e57da7343bef2bd550aa39ed239",
+      "size_bytes": 9975182
+    }
+  ],
+  "remote_preflight_commands": [
+    "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 /anvil/projects/x-che260157/sts/src/dft/hea_ieee_initialization_probe.py --runs /anvil/projects/x-che260157/sts/runs --pseudo-dir /anvil/projects/x-che260157/pseudo"
+  ]
+}
