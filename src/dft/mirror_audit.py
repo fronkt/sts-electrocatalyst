@@ -101,7 +101,9 @@ def is_by_design(path):
 
 def is_pw_output(path):
     base = path.rsplit("/", 1)[-1]
-    return base.endswith(".out") and ".projwfc" not in base
+    # Archived attempts keep scientific evidence after suffixes such as .out.gz
+    # or .out.attempt2-scf-maxstep.gz. Do not silently omit them.
+    return (base.endswith(".out") or ".out." in base) and ".projwfc" not in base
 
 
 def group(path):
@@ -180,7 +182,7 @@ def main(argv=None):
     print("ANVIL-ONLY pw.x OUTPUTS -- the d26ea49 class -- %d:" % len(pw_ronly))
     for k in pw_ronly[:args.max_list]:
         print("   ", k)
-    d_out = [k for k in differ if k.rsplit("/", 1)[-1].endswith(".out")]
+    d_out = [k for k in differ if is_pw_output(k) or k.rsplit("/", 1)[-1].endswith(".out")]
     print("DIFFERING OUTPUTS (two records of one run) -- %d:" % len(d_out))
     for k in d_out[:args.max_list]:
         print("   ", k)

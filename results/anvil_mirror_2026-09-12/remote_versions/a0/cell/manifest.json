@@ -1,0 +1,72 @@
+{
+  "arm": "A0-cell (A6.1b)",
+  "registered_at": "docs/43-prereg-week1-factorial.md:1198-1204",
+  "built": 16,
+  "registered_total": 20,
+  "fifth_point_gated_by": "A7.1 P-PROJ (array 20178163); U = 7.15 eV not built here",
+  "calculation": "scf",
+  "note": "FIXED-GEOMETRY single points on already-relaxed structures. Relaxation under the changed U is NOT included and these must not be reported as relaxed.",
+  "variants": [
+    "u0.0",
+    "u0.5",
+    "base",
+    "u1.35"
+  ],
+  "u_values": {
+    "u0.0": "0 (no HUBBARD card)",
+    "u0.5": "1.8500",
+    "base": "3.7000",
+    "u1.35": "4.9950"
+  },
+  "nk": 8,
+  "states": {
+    "ref": {
+      "source_deck": "runs/probe/Cr_cellsym/ref__2x1v.in",
+      "source_out": "runs/probe/Cr_cellsym/ref__2x1v.out",
+      "geometry_provenance": "final",
+      "why": "bare 2x1v reference; nosym+noinv, matching the 1x1 bare deck slab__base",
+      "decks": [
+        "ref__2x1v__u0.0",
+        "ref__2x1v__u0.5",
+        "ref__2x1v__base",
+        "ref__2x1v__u1.35"
+      ]
+    },
+    "s0_O": {
+      "source_deck": "runs/probe/Cr_cellsym/s0_O__2x1v_mir.in",
+      "source_out": "runs/probe/Cr_cellsym/s0_O__2x1v_mir.out",
+      "geometry_provenance": "final",
+      "why": "mir arm = symmetry-ON, the counterpart of the symmetry-ON 1x1 ladder",
+      "decks": [
+        "s0_O__2x1v_mir__u0.0",
+        "s0_O__2x1v_mir__u0.5",
+        "s0_O__2x1v_mir__base",
+        "s0_O__2x1v_mir__u1.35"
+      ]
+    },
+    "s0_OH": {
+      "source_deck": "runs/probe/Cr_cellsym/s0_OH__2x1v_mir.in",
+      "source_out": "runs/probe/Cr_cellsym/s0_OH__2x1v_mir.out",
+      "geometry_provenance": "final",
+      "why": "mir arm = symmetry-ON, the counterpart of the symmetry-ON 1x1 ladder",
+      "decks": [
+        "s0_OH__2x1v_mir__u0.0",
+        "s0_OH__2x1v_mir__u0.5",
+        "s0_OH__2x1v_mir__base",
+        "s0_OH__2x1v_mir__u1.35"
+      ]
+    },
+    "s0_OOH": {
+      "source_deck": "runs/s3/Cr/s0_OOH__2x1v_escape.in",
+      "source_out": "runs/s3/Cr/s0_OOH__2x1v_escape.out",
+      "geometry_provenance": "final",
+      "why": "mir arm ENERGY OF RECORD is the escape minimum (docs/45); the mir relax landed on a saddle 150.8 meV above it",
+      "decks": [
+        "s0_OOH__2x1v_escape__u0.0",
+        "s0_OOH__2x1v_escape__u0.5",
+        "s0_OOH__2x1v_escape__base",
+        "s0_OOH__2x1v_escape__u1.35"
+      ]
+    }
+  }
+}

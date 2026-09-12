@@ -60,3 +60,19 @@ def test_offline_run_exits_nonzero_when_an_output_is_unmirrored(tmp_path, capsys
     assert rc == 1
     assert "s0_OH__2x1v_off.replay.out" in out
     assert (tmp_path / "out" / "mirror_anvil_only.txt").exists()
+
+
+def test_archived_attempts_are_reported_as_missing_or_different(tmp_path, capsys):
+    archived = "s0/h_afm_relax/s0_O.out.attempt2-scf-maxstep.gz"
+    plain_gzip = "s3/Ni/slab.out.gz"
+    projection = "s3/Ni/slab.projwfc.out.gz"
+    rl, ll = tmp_path / "remote.txt", tmp_path / "local.txt"
+    rl.write_text(f"aaaa  runs/{archived}\nbbbb  runs/{plain_gzip}\ncccc  runs/{projection}\n")
+    ll.write_text(f"dddd  runs/{plain_gzip}\n")
+    rc = ma.main(["--remote-list", str(rl), "--local-list", str(ll)])
+    output = capsys.readouterr().out
+    assert rc == 1
+    assert archived in output and plain_gzip in output
+    assert not ma.is_pw_output(projection)
+    assert "ANVIL-ONLY pw.x OUTPUTS -- the d26ea49 class -- 1" in output
+    assert "DIFFERING OUTPUTS (two records of one run) -- 1" in output

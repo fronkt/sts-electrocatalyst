@@ -1,0 +1,17 @@
+# Gate (i) — UPF files that MUST exist in /usr/share/espresso/pseudo on the box BEFORE launch.
+# Verify with:  ls /usr/share/espresso/pseudo | grep -i -e '^ti_' -e '^sn_' -e '^O\.pbe'
+#
+# Already used in production (expected present — verify anyway):
+ti_pbe_v1.4.uspp.F.UPF          # Ti, GBRV ultrasoft (runs/hp_tio2 precedent, Zval 12)
+O.pbe-n-kjpaw_psl.0.1.UPF       # O, production PAW
+#
+# NOT referenced anywhere in the repo — MUST be added to the box's pseudo_dir:
+sn_pbe_v1.uspp.F.UPF            # Sn, GBRV ultrasoft, the SSSP-Efficiency PBE choice for Sn.
+#   NAME ADOPTED BY BUILDER (no repo precedent exists for Sn — recorded as BLOCKED-until-verified):
+#   chosen for consistency with the GBRV uspp family already in use
+#   (ti_pbe_v1.4.uspp.F.UPF, cr_pbe_v1.5.uspp.F.UPF, mn_pbe_v1.5.uspp.F.UPF, ni_pbe_v1.4.uspp.F.UPF).
+#   The on-box filename may differ in case/version (e.g. Sn_pbe_v1.uspp.F.UPF or sn_pbe_v1.4.uspp.F.UPF):
+#   at launch, `ls` the pseudo_dir, and if the actual filename differs, edit the ATOMIC_SPECIES
+#   line of the four sno2__ecut*.in decks to the actual name and record the substitution in this
+#   file and in README.md (a filename fix, not a protocol change). Do NOT launch the SnO2 arm
+#   until the file is physically present.

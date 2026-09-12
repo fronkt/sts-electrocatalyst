@@ -1,0 +1,457 @@
+{
+  "stage": "S0",
+  "registered_jobs": 29,
+  "registered_box_h": "~35",
+  "authority": [
+    "docs/43-prereg-week1-factorial.md AMENDMENT 7 (A7.4; Zenodo DOI 10.5281/zenodo.21963144)",
+    "docs/research/2026-08-15-lit-sweep-round2-synthesis.md lines 182-202",
+    "docs/45-error-ledger.md section E"
+  ],
+  "built_jobs": 29,
+  "decks_on_disk": 28,
+  "est_box_h_total": 33.7,
+  "launch_preconditions": [
+    "LIT-2/3 on box 47662258 must show TWO QUEUE_ALL_DONE lines, or the campaign explicitly PARKED, before S0 occupies the box",
+    "Sn UPF verified on-box before the sno2__*.in arm (i_cutoff_ladder/PSEUDOS_NEEDED.txt)",
+    "a_beef slab__beefhub.in is wave-2 SELECT-WINNER: does not exist until (i)-(iii) drain; queue_s0.sh logs SKIP_MISSING"
+  ],
+  "launch_order": "b, e, h(early - longest pole), c, d, i(TiO2), a(i-iii), f, g, i(SnO2 pseudo-gated), a(iv after SELECT-WINNER)",
+  "runner": "runs/s0/queue_s0.sh (NP multiple of 4 and 2; default 20)",
+  "gates": {
+    "a": {
+      "dir": "runs/s0/a_beef",
+      "registered_jobs": 4,
+      "runnable_decks_on_disk": 3,
+      "est_box_h": 4.0,
+      "manifest": {
+        "gate": "a",
+        "title": "S0 gate (a) - BEEF-vdW ensemble emission capability",
+        "registered_jobs": 4,
+        "registered_box_h": 4.0,
+        "authority": [
+          "docs/43-prereg-week1-factorial.md AMENDMENT 7 (A7.4 nine-gate table; Zenodo 10.5281/zenodo.21963144)",
+          "docs/research/2026-08-15-lit-sweep-round2-synthesis.md lines 182-202 (S0 table, arm 7, F5)"
+        ],
+        "decks": {
+          "slab__beefens.in": {
+            "jobs": 1,
+            "nk": 4,
+            "est_box_h": 1.0,
+            "source_geometry": "ATOMIC_POSITIONS of runs/probe/Ru/slab__base.in, themselves the final BFGS geometry of runs/Ru_anchor/slab.out (probe_manifest.json: source_run runs/Ru_anchor, geometry_provenance 'final')",
+            "purpose": "deck (i): input_dft='BEEF-vdW' + ensemble_energies=.true. in &SYSTEM - does this switch emit the BEEF ensemble block?",
+            "md5": "0c13e803ac21e49413f9a7997ed496b9"
+          },
+          "slab__beefcalc.in": {
+            "jobs": 1,
+            "nk": 4,
+            "est_box_h": 1.0,
+            "source_geometry": "ATOMIC_POSITIONS of runs/probe/Ru/slab__base.in, themselves the final BFGS geometry of runs/Ru_anchor/slab.out (probe_manifest.json: source_run runs/Ru_anchor, geometry_provenance 'final')",
+            "purpose": "deck (ii): input_dft='BEEF-vdW' + calculation='ensemble' in &CONTROL (replacing 'scf') - does this switch emit?",
+            "md5": "629263363e2d3d4d8645a63820db0de1"
+          },
+          "slab__beefctl.in": {
+            "jobs": 1,
+            "nk": 4,
+            "est_box_h": 1.0,
+            "source_geometry": "ATOMIC_POSITIONS of runs/probe/Ru/slab__base.in, themselves the final BFGS geometry of runs/Ru_anchor/slab.out (probe_manifest.json: source_run runs/Ru_anchor, geometry_provenance 'final')",
+            "purpose": "deck (iii) CONTROL: input_dft='BEEF-vdW' only, NO emission switch - does this build emit unrequested/by default?",
+            "md5": "7230a5dbcb7c1a757a1241e38a2e7879"
+          },
+          "slab__beefhub.in": {
+            "jobs": 1,
+            "nk": 4,
+            "est_box_h": 1.0,
+            "status": "SELECT-WINNER - file does not exist yet; copy the winner's template (see README) to slab__beefhub.in AFTER decks (i)-(iii) drain. Runs only if a winner exists.",
+            "templates": {
+              "slab__beefhub.in.template_i": "winner=(i): ensemble_energies + HUBBARD (atomic) / U Ru-4d 3.7000; md5 4eebc02f6d5e90b5e7cd91a8208db4ce",
+              "slab__beefhub.in.template_ii": "winner=(ii): calculation='ensemble' + HUBBARD (atomic) / U Ru-4d 3.7000; md5 54b4d29160e35db2fae216f31a540247",
+              "slab__beefhub.in.template_iii": "winner=(iii): input_dft only + HUBBARD (atomic) / U Ru-4d 3.7000; md5 c14ff5b44ba6683117f2da2bd95e3fd6"
+            },
+            "source_geometry": "ATOMIC_POSITIONS of runs/probe/Ru/slab__base.in, themselves the final BFGS geometry of runs/Ru_anchor/slab.out (probe_manifest.json: source_run runs/Ru_anchor, geometry_provenance 'final')",
+            "purpose": "deck (iv): WINNER of (i)-(iii) re-run with a HUBBARD card - the undocumented card-vs-emission combination S5's +U extension needs. PROBE-U: U Ru-4d 3.7000 is a capability placeholder, not a physics claim. Capability-only; never a science row."
+          }
+        },
+        "queue_lines_wave1": [
+          "s0/a_beef slab__beefens .in 4",
+          "s0/a_beef slab__beefcalc .in 4",
+          "s0/a_beef slab__beefctl .in 4"
+        ],
+        "queue_lines_wave2_after_select_winner": [
+          "s0/a_beef slab__beefhub .in 4"
+        ]
+      }
+    },
+    "b": {
+      "dir": "runs/s0/b_noinv",
+      "registered_jobs": 2,
+      "runnable_decks_on_disk": 2,
+      "est_box_h": 3.8,
+      "manifest": {
+        "gate": "S0(b) noinv exactness",
+        "registered_jobs": 2,
+        "decks": {
+          "s0_OOH__2x1v_off__noinvT.in": {
+            "jobs": 1,
+            "nk": 4,
+            "est_box_h": 2.3,
+            "source_geometry": "final BFGS geometry of runs/probe/Cr_cellsym/s0_OOH__2x1v_off.out",
+            "purpose": "leg-1: parent symmetry treatment (nosym=.true. + noinv=.true., 16 k-points); byte-identical to the proven s0_OOH__2x1v_off__g1.in except the prefix",
+            "md5": "d75e4a6d8942bc5268914202844e7e8d"
+          },
+          "s0_OOH__2x1v_off__noinvF.in": {
+            "jobs": 1,
+            "nk": 2,
+            "est_box_h": 1.5,
+            "source_geometry": "final BFGS geometry of runs/probe/Cr_cellsym/s0_OOH__2x1v_off.out",
+            "purpose": "leg-2: nosym=.true. with noinv ABSENT (QE default .false.; time-reversal reduces the 4 4 1 mesh 16 -> 10 k-points, the ~38% saving under test); differs from leg-1 only in prefix + the removed noinv line",
+            "md5": "ccb18cb1f926a73a7ceae2c32d57f74e"
+          }
+        },
+        "queue_manifest_lines": [
+          "s0/b_noinv s0_OOH__2x1v_off__noinvT .in 4",
+          "s0/b_noinv s0_OOH__2x1v_off__noinvF .in 2"
+        ],
+        "decision_rule": "|E(leg1) - E(leg2)| < 1 meV (0.0000734986 Ry)",
+        "cross_check_energy_Ry": {
+          "parent_relax_final": -3188.7923181,
+          "existing_off__g1_child": "cross-check for leg-1 only, not a substitute for running it (requirements.md gate b)"
+        }
+      }
+    },
+    "c": {
+      "dir": "runs/s0/c_nosym_mir",
+      "registered_jobs": 1,
+      "runnable_decks_on_disk": 1,
+      "est_box_h": 2.0,
+      "manifest": {
+        "gate": "S0(c) mirror-arm nosym invariance",
+        "registered_jobs": 1,
+        "decks": {
+          "s0_OOH__2x1v_mir__nosym.in": {
+            "jobs": 1,
+            "nk": 4,
+            "est_box_h": 2.0,
+            "source_geometry": "final BFGS geometry of runs/probe/Cr_cellsym/s0_OOH__2x1v_mir.out",
+            "purpose": "fixed-geometry SCF at the mirror-arm final geometry with nosym=.true. + noinv=.true. (full unfolded 16-point 4 4 1 set); everything else identical to the symmetry-ON parent protocol",
+            "md5": "866d08a46fce889829880a8c3dec41d5"
+          }
+        },
+        "queue_manifest_lines": [
+          "s0/c_nosym_mir s0_OOH__2x1v_mir__nosym .in 4"
+        ],
+        "decision_rule": "|E(nosym SCF) - E(sym-ON reference)| < 1 meV (0.0000734986 Ry)",
+        "reference_energy_Ry": {
+          "adjudicated_reference__mir__g1_child": -3188.70496977,
+          "fallback__mir_relax_final": -3188.7049702,
+          "g1_minus_relax_uRy": 0.43
+        }
+      }
+    },
+    "d": {
+      "dir": "runs/s0/d_hess_timing",
+      "registered_jobs": 1,
+      "runnable_decks_on_disk": 1,
+      "est_box_h": 2.5,
+      "manifest": {
+        "s0_OOH__2x1v_mir__hess_a37xp.in": {
+          "jobs": 1,
+          "nk": 4,
+          "est_box_h": 2.5,
+          "source_geometry": "runs/probe/Cr_hess/s0_OOH__2x1v_mir__hess_a37xp.in (verbatim byte copy, md5 9a8ec3b6f6e16b3808e3b2756d0a71e6), itself frozen from the final BFGS geometry of runs/probe/Cr_cellsym/s0_OOH__2x1v_mir.out (GATE-1 AGREE via its __g1 child, 22/22 block) with atom 37 (adsorbate binding O) displaced +0.0099999965 A in x",
+          "purpose": "S0 gate (d): Hessian timing + sigma_F probe in 2x1v. One displaced conv_thr 1e-10 SCF run BEFORE the 19-deck 1C battery: reports wall clock (vs the ~2.4 h repricing), whether 1e-10 is REACHED at 2x1v scale, and the sigma_F it delivers. If 1e-10 is not reached the Hessian minimum claim is struck before the battery launches (F6)."
+        }
+      }
+    },
+    "e": {
+      "dir": "runs/s0/e_proj",
+      "registered_jobs": 2,
+      "runnable_decks_on_disk": 2,
+      "est_box_h": 2.0,
+      "manifest": {
+        "gate": "e",
+        "title": "S0 gate (e) - ortho-atomic projector acceptance (P-PROJ capability leg)",
+        "registered_jobs": 2,
+        "registered_box_h": 2.0,
+        "authority": [
+          "docs/43-prereg-week1-factorial.md AMENDMENT 7 (A7.1 P-PROJ, A7.4 nine-gate table; Zenodo 10.5281/zenodo.21963144)",
+          "docs/research/2026-08-15-lit-sweep-round2-synthesis.md lines 182-202 (S0 table)"
+        ],
+        "decks": {
+          "s0_O__u715_atomic.in": {
+            "jobs": 1,
+            "nk": 4,
+            "est_box_h": 1.0,
+            "source_geometry": "ATOMIC_POSITIONS of runs/probe/Cr/s0_O__base.in, themselves the final BFGS geometry of runs/Cr_slab/s0_O.out (probe_manifest.json: source_run runs/Cr_slab, geometry_provenance 'final')",
+            "purpose": "Cr *O fixed-geometry SCF, 1x1, U = 7.1500 eV, HUBBARD (atomic) - the production-projector leg of the P-PROJ pair at the A0 fifth grid point",
+            "md5": "edb3aae651d1064d908a0e66970db4bf"
+          },
+          "s0_O__u715_ortho.in": {
+            "jobs": 1,
+            "nk": 4,
+            "est_box_h": 1.0,
+            "source_geometry": "ATOMIC_POSITIONS of runs/probe/Cr/s0_O__base.in, themselves the final BFGS geometry of runs/Cr_slab/s0_O.out (probe_manifest.json: source_run runs/Cr_slab, geometry_provenance 'final')",
+            "purpose": "Cr *O fixed-geometry SCF, 1x1, U = 7.1500 eV, HUBBARD (ortho-atomic) - the acceptance test: does this QE build accept the ortho-atomic card at all",
+            "md5": "6f36bd88bed6521fdb771ae321032c5e"
+          }
+        },
+        "queue_lines": [
+          "s0/e_proj s0_O__u715_atomic .in 4",
+          "s0/e_proj s0_O__u715_ortho .in 4"
+        ]
+      }
+    },
+    "f": {
+      "dir": "runs/s0/f_gate1_uladder",
+      "registered_jobs": 6,
+      "runnable_decks_on_disk": 6,
+      "est_box_h": 5.0,
+      "manifest": {
+        "gate": "f",
+        "registered_jobs": 6,
+        "registered_box_h": 5,
+        "cell": "1x1 (the cell the ladder was measured in), CELL_PARAMETERS 2.91600 x 6.25223816 x 25.00895264 angstrom, K_POINTS automatic 9 4 1 0 0 0, symmetry ON (no nosym/noinv), nspin=2",
+        "queue_manifest_lines": [
+          "s0/f_gate1_uladder s0_OOH__u0.0__g1 .in 4",
+          "s0/f_gate1_uladder s0_OOH__u0.5__g1 .in 4",
+          "s0/f_gate1_uladder s0_OOH__base__g1 .in 4",
+          "s0/f_gate1_uladder s0_OOH__u1.35__g1 .in 4",
+          "s0/f_gate1_uladder s0_OOH__u0.0+spin1.0__g1 .in 4",
+          "s0/f_gate1_uladder s0_OOH__u1.35+spin1.0__g1 .in 4"
+        ],
+        "decks": {
+          "s0_OOH__u0.0__g1.in": {
+            "jobs": 1,
+            "nk": 4,
+            "est_box_h": 0.8,
+            "source_geometry": "ATOMIC_POSITIONS of runs/probe/Cr/s0_OOH__u0.0.in (byte-identical copy), themselves the final BFGS geometry of runs/Cr_slab/s0_OOH.out (probe_manifest.json, geometry_provenance 'final')",
+            "purpose": "GATE-1 fresh-density SCF at U=0 (plain PBE, no HUBBARD card), production seed mag(Cr)=0.6; reference E_parent = -1637.89546422 Ry",
+            "U_eV": 0.0,
+            "starting_magnetization_Cr": 0.6,
+            "parent_out": "runs/probe/Cr/s0_OOH__u0.0.out",
+            "parent_final_energy_Ry": -1637.89546422
+          },
+          "s0_OOH__u0.5__g1.in": {
+            "jobs": 1,
+            "nk": 4,
+            "est_box_h": 0.8,
+            "source_geometry": "ATOMIC_POSITIONS of runs/probe/Cr/s0_OOH__u0.5.in (byte-identical copy), themselves the final BFGS geometry of runs/Cr_slab/s0_OOH.out (probe_manifest.json, geometry_provenance 'final')",
+            "purpose": "GATE-1 fresh-density SCF at U=1.85 eV, production seed mag(Cr)=0.6; reference E_parent = -1637.15837792 Ry",
+            "U_eV": 1.85,
+            "starting_magnetization_Cr": 0.6,
+            "parent_out": "runs/probe/Cr/s0_OOH__u0.5.out",
+            "parent_final_energy_Ry": -1637.15837792
+          },
+          "s0_OOH__base__g1.in": {
+            "jobs": 1,
+            "nk": 4,
+            "est_box_h": 0.8,
+            "source_geometry": "ATOMIC_POSITIONS of runs/probe/Cr/s0_OOH__base.in (byte-identical copy), themselves the final BFGS geometry of runs/Cr_slab/s0_OOH.out (probe_manifest.json, geometry_provenance 'final')",
+            "purpose": "GATE-1 fresh-density SCF at U=3.70 eV (production), production seed mag(Cr)=0.6; reference E_parent = -1636.48367381 Ry",
+            "U_eV": 3.7,
+            "starting_magnetization_Cr": 0.6,
+            "parent_out": "runs/probe/Cr/s0_OOH__base.out",
+            "parent_final_energy_Ry": -1636.48367381
+          },
+          "s0_OOH__u1.35__g1.in": {
+            "jobs": 1,
+            "nk": 4,
+            "est_box_h": 0.8,
+            "source_geometry": "ATOMIC_POSITIONS of runs/probe/Cr/s0_OOH__u1.35.in (byte-identical copy), themselves the final BFGS geometry of runs/Cr_slab/s0_OOH.out (probe_manifest.json, geometry_provenance 'final')",
+            "purpose": "GATE-1 fresh-density SCF at U=4.995 eV, production seed mag(Cr)=0.6; reference E_parent = -1636.04658302 Ry",
+            "U_eV": 4.995,
+            "starting_magnetization_Cr": 0.6,
+            "parent_out": "runs/probe/Cr/s0_OOH__u1.35.out",
+            "parent_final_energy_Ry": -1636.04658302
+          },
+          "s0_OOH__u0.0+spin1.0__g1.in": {
+            "jobs": 1,
+            "nk": 4,
+            "est_box_h": 0.9,
+            "source_geometry": "ATOMIC_POSITIONS of runs/probe/Cr/s0_OOH__u0.0.in (byte-identical copy), themselves the final BFGS geometry of runs/Cr_slab/s0_OOH.out (probe_manifest.json, geometry_provenance 'final')",
+            "purpose": "Second-spin-seed SCF at the U=0 floor-span endpoint: identical to s0_OOH__u0.0__g1 except starting_magnetization(1)=1.0 (fully-polarised start targeting the documented 11.8 mu_B metastable family, docs/41 s6f); basin-uniqueness witness",
+            "U_eV": 0.0,
+            "starting_magnetization_Cr": 1.0,
+            "parent_out": "runs/probe/Cr/s0_OOH__u0.0.out",
+            "parent_final_energy_Ry": -1637.89546422
+          },
+          "s0_OOH__u1.35+spin1.0__g1.in": {
+            "jobs": 1,
+            "nk": 4,
+            "est_box_h": 0.9,
+            "source_geometry": "ATOMIC_POSITIONS of runs/probe/Cr/s0_OOH__u1.35.in (byte-identical copy), themselves the final BFGS geometry of runs/Cr_slab/s0_OOH.out (probe_manifest.json, geometry_provenance 'final')",
+            "purpose": "Second-spin-seed SCF at the U=5.00 floor-span endpoint: identical to s0_OOH__u1.35__g1 except starting_magnetization(1)=1.0; basin-uniqueness witness",
+            "U_eV": 4.995,
+            "starting_magnetization_Cr": 1.0,
+            "parent_out": "runs/probe/Cr/s0_OOH__u1.35.out",
+            "parent_final_energy_Ry": -1636.04658302
+          }
+        }
+      }
+    },
+    "g": {
+      "dir": "runs/s0/g_tio2_timing",
+      "registered_jobs": 1,
+      "runnable_decks_on_disk": 1,
+      "est_box_h": 4.0,
+      "manifest": {
+        "s0_OOH__2x1v_off.in": {
+          "jobs": 1,
+          "nk": 4,
+          "est_box_h": 4.0,
+          "source_geometry": "GENERATED (no TiO2 slab exists anywhere in the repo): bulk rutile TiO2 a=4.5937 A, c=2.9587 A, u=0.30478 from src/dft/gen_rutile.py RUTILE['TiO2'] (Abrahams & Bernstein 1971 / Burdett 1987 attribution flagged UNVERIFIED in-source); (110) slab cleaved by the production pipeline idiom of src/hea_oer/surfaces_rutile.py build_rutile110_hea (pymatgen SlabGenerator, min_slab_size=8.0, vacuum=13.0, center_slab, lll_reduce, 18-atom 1x1, bottom half fixed with the docs/30 mid-plane tolerance -> 7 fixed atoms per half); *OOH placed on the single cus site by cus_site_xy + adsorbate_starts pull1.70 (M-O = 1.700 A); off-plane start = yaw 90 deg about the binding O (build_cellsym_pilot YAW_DEG idiom, achieved |dy| = 1.400 A >= 0.30 A); 2x1v assembled as slab + shift_x(slab, a1=2.9587) + fragment per build_cellsym_pilot.build_metal. Builder script: scratchpad s0build/build_g_tio2.py. Deck md5 6d5643122c1de3077ecd7d7d43548021",
+          "purpose": "S0 gate (g): TiO2 2x1v nspin=1 timing. One *OOH adsorbate relaxation replacing the extrapolated 3-6 h nspin=1 2x1v cost class with a measurement before S3 is costed (TiO2 n=8 tier addition). Deliverables: wall clock, BFGS step count, per-SCF time. No pass/fail."
+        }
+      }
+    },
+    "h": {
+      "dir": "runs/s0/h_afm_anchor",
+      "registered_jobs": 4,
+      "runnable_decks_on_disk": 4,
+      "est_box_h": 8.0,
+      "manifest": {
+        "ref__2x1v__afm.in": {
+          "jobs": 1,
+          "nk": 4,
+          "est_box_h": 2.0,
+          "source_geometry": "final BFGS geometry of runs/probe/Ru_cellsym/ref__2x1v.out",
+          "parent_final_energy_ry": -3261.33545254,
+          "nat": 36,
+          "ntyp": 3,
+          "n_Ru1_plus": 6,
+          "n_Ru2_minus": 6,
+          "max_sublattice_x_deviation_A": 0.0,
+          "md5": "c71143148858dabc194261e603b090c8",
+          "purpose": "AFM (two-sublattice +/-0.5) fixed-geometry SCF vs existing nspin=1 NM energy; gate (h) P11 AFM follow-up"
+        },
+        "s0_O__2x1v_off__afm.in": {
+          "jobs": 1,
+          "nk": 4,
+          "est_box_h": 2.0,
+          "source_geometry": "final BFGS geometry of runs/probe/Ru_cellsym/s0_O__2x1v_off.out",
+          "parent_final_energy_ry": -3302.93178971,
+          "nat": 37,
+          "ntyp": 3,
+          "n_Ru1_plus": 6,
+          "n_Ru2_minus": 6,
+          "max_sublattice_x_deviation_A": 0.030926,
+          "md5": "0b6b3ef77c4341d285ab166f841f6289",
+          "purpose": "AFM (two-sublattice +/-0.5) fixed-geometry SCF vs existing nspin=1 NM energy; gate (h) P11 AFM follow-up"
+        },
+        "s0_OH__2x1v_off__afm.in": {
+          "jobs": 1,
+          "nk": 4,
+          "est_box_h": 2.0,
+          "source_geometry": "final BFGS geometry of runs/probe/Ru_cellsym/s0_OH__2x1v_off.out",
+          "parent_final_energy_ry": -3304.19715356,
+          "nat": 38,
+          "ntyp": 4,
+          "n_Ru1_plus": 6,
+          "n_Ru2_minus": 6,
+          "max_sublattice_x_deviation_A": 0.05944,
+          "md5": "46078a2895e0b505c359a34039ee824f",
+          "purpose": "AFM (two-sublattice +/-0.5) fixed-geometry SCF vs existing nspin=1 NM energy; gate (h) P11 AFM follow-up"
+        },
+        "s0_OOH__2x1v_off__afm.in": {
+          "jobs": 1,
+          "nk": 4,
+          "est_box_h": 2.0,
+          "source_geometry": "final BFGS geometry of runs/probe/Ru_cellsym/s0_OOH__2x1v_off.out",
+          "parent_final_energy_ry": -3345.68064313,
+          "nat": 39,
+          "ntyp": 4,
+          "n_Ru1_plus": 6,
+          "n_Ru2_minus": 6,
+          "max_sublattice_x_deviation_A": 0.044811,
+          "md5": "2ec32ad6d67c00c990c91432a8308496",
+          "purpose": "AFM (two-sublattice +/-0.5) fixed-geometry SCF vs existing nspin=1 NM energy; gate (h) P11 AFM follow-up"
+        }
+      }
+    },
+    "i": {
+      "dir": "runs/s0/i_cutoff_ladder",
+      "registered_jobs": 8,
+      "runnable_decks_on_disk": 8,
+      "est_box_h": 2.4,
+      "manifest": {
+        "gate": "i",
+        "title": "Ti/Sn bulk rutile cutoff ladders (endmember admission)",
+        "registered_jobs": 8,
+        "registered_box_h": 2.4,
+        "decks": {
+          "tio2__ecut60.in": {
+            "jobs": 1,
+            "nk": 2,
+            "est_box_h": 0.15,
+            "source_geometry": "runs/hp_tio2/scf__atomic.in (celldm/positions verbatim; encodes gen_rutile.py TiO2 a=4.5937 A, c=2.9587 A, u=0.30478)",
+            "purpose": "TiO2 ladder context rung (below-protocol cutoff): 60 Ry / 480 Ry"
+          },
+          "tio2__ecut80.in": {
+            "jobs": 1,
+            "nk": 2,
+            "est_box_h": 0.25,
+            "source_geometry": "runs/hp_tio2/scf__atomic.in (celldm/positions verbatim; encodes gen_rutile.py TiO2 a=4.5937 A, c=2.9587 A, u=0.30478)",
+            "purpose": "TiO2 frozen-protocol point: 80 Ry / 640 Ry (admission-rule leg 1)"
+          },
+          "tio2__ecut100.in": {
+            "jobs": 1,
+            "nk": 2,
+            "est_box_h": 0.35,
+            "source_geometry": "runs/hp_tio2/scf__atomic.in (celldm/positions verbatim; encodes gen_rutile.py TiO2 a=4.5937 A, c=2.9587 A, u=0.30478)",
+            "purpose": "TiO2 admission-rule leg 2: 100 Ry / 800 Ry"
+          },
+          "tio2__ecut120.in": {
+            "jobs": 1,
+            "nk": 2,
+            "est_box_h": 0.45,
+            "source_geometry": "runs/hp_tio2/scf__atomic.in (celldm/positions verbatim; encodes gen_rutile.py TiO2 a=4.5937 A, c=2.9587 A, u=0.30478)",
+            "purpose": "TiO2 asymptote/monotonicity witness: 120 Ry / 960 Ry (dE/atom reference point)"
+          },
+          "sno2__ecut60.in": {
+            "jobs": 1,
+            "nk": 2,
+            "est_box_h": 0.15,
+            "source_geometry": "GENERATED (no SnO2 anywhere in repo): rutile SnO2 cassiterite a=4.7374 A, c=3.1864 A, u=0.3056 (Baur & Khan, Acta Crystallogr. B 27, 2133 (1971)); celldm(1)=8.95239, celldm(3)=0.67261 via gen_rutile.py's ANG2BOHR/rounding rules",
+            "purpose": "SnO2 ladder context rung: 60 Ry / 480 Ry (CAPABILITY-ONLY per A7.5)"
+          },
+          "sno2__ecut80.in": {
+            "jobs": 1,
+            "nk": 2,
+            "est_box_h": 0.25,
+            "source_geometry": "GENERATED (no SnO2 anywhere in repo): rutile SnO2 cassiterite a=4.7374 A, c=3.1864 A, u=0.3056 (Baur & Khan, Acta Crystallogr. B 27, 2133 (1971)); celldm(1)=8.95239, celldm(3)=0.67261 via gen_rutile.py's ANG2BOHR/rounding rules",
+            "purpose": "SnO2 frozen-protocol point: 80 Ry / 640 Ry (admission-rule leg 1; CAPABILITY-ONLY per A7.5)"
+          },
+          "sno2__ecut100.in": {
+            "jobs": 1,
+            "nk": 2,
+            "est_box_h": 0.35,
+            "source_geometry": "GENERATED (no SnO2 anywhere in repo): rutile SnO2 cassiterite a=4.7374 A, c=3.1864 A, u=0.3056 (Baur & Khan, Acta Crystallogr. B 27, 2133 (1971)); celldm(1)=8.95239, celldm(3)=0.67261 via gen_rutile.py's ANG2BOHR/rounding rules",
+            "purpose": "SnO2 admission-rule leg 2: 100 Ry / 800 Ry (CAPABILITY-ONLY per A7.5)"
+          },
+          "sno2__ecut120.in": {
+            "jobs": 1,
+            "nk": 2,
+            "est_box_h": 0.45,
+            "source_geometry": "GENERATED (no SnO2 anywhere in repo): rutile SnO2 cassiterite a=4.7374 A, c=3.1864 A, u=0.3056 (Baur & Khan, Acta Crystallogr. B 27, 2133 (1971)); celldm(1)=8.95239, celldm(3)=0.67261 via gen_rutile.py's ANG2BOHR/rounding rules",
+            "purpose": "SnO2 asymptote/monotonicity witness: 120 Ry / 960 Ry (CAPABILITY-ONLY per A7.5)"
+          }
+        },
+        "launch_precondition": "PSEUDOS_NEEDED.txt \u2014 sn_pbe_v1.uspp.F.UPF has NO repo precedent and must be verified present (exact filename) in /usr/share/espresso/pseudo before the SnO2 arm launches. TiO2 arm has no precondition and may launch first (requirements.md gate-i scheduling recommendation).",
+        "queue_manifest_lines": [
+          "s0/i_cutoff_ladder tio2__ecut60 .in 2",
+          "s0/i_cutoff_ladder tio2__ecut80 .in 2",
+          "s0/i_cutoff_ladder tio2__ecut100 .in 2",
+          "s0/i_cutoff_ladder tio2__ecut120 .in 2",
+          "s0/i_cutoff_ladder sno2__ecut60 .in 2",
+          "s0/i_cutoff_ladder sno2__ecut80 .in 2",
+          "s0/i_cutoff_ladder sno2__ecut100 .in 2",
+          "s0/i_cutoff_ladder sno2__ecut120 .in 2"
+        ]
+      }
+    }
+  },
+  "notes": [
+    "built_jobs=29: 28 runnable .in decks on disk + gate (a) deck (iv) held as three SELECT-WINNER templates (a_beef/README.md)",
+    "manifest shapes are heterogeneous: d/g/h manifests are deck-keyed with no top-level gate/registered_jobs keys (contents verified against decks on disk)",
+    "gate (b) leg-2 nk=2 and gate (i) nk=2 set the NP divisibility requirement together with nk=4 elsewhere"
+  ]
+}

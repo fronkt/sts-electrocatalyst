@@ -2311,6 +2311,7 @@ def section_hashes(C):
     L = []
     w = L.append
     w("## Hashes — sha256 of the LF-normalised bytes (CRLF → LF before hashing, the repository's `sha256_lf`)")
+    w(f"The census data directory for this report is `{os.path.relpath(C.readout, C.census).replace(os.sep, chr(47))}` relative to the census root. In the preceding sections, `readout/` is shorthand for this supplied census data directory; rank-resolution files use the separately supplied rank-resolution directory.")
     w("")
     w(f"Readout files carry `generated: {C.GEN}`; every result hash equals `manifests_read[stem].result_sha256_lf` (asserted); the twelve `mpa0__` and the endmember hashes equal `docs/93:228-240` (asserted); `o2_records.json` equals `docs/94:131` (asserted when supplied); `MANIFESTS.sha256` equals the `docs/91:92` pin (asserted). Paths are relative to `results/site_census_2026-09-06/` for census files and to the rank-resolution directory for the `rank_resolution` files.")
     w("")
@@ -2318,7 +2319,8 @@ def section_hashes(C):
     for stem in C.STEMS:
         w(f"{C.RES[stem]['hash']}  results/{stem}_result.json")
     for n in ("per_site.csv", "per_site.json", "reproduction.json", "ranking.json", "distribution.json"):
-        w(f"{sha256_lf(C.readout / n)}  readout/{n}")
+        relative = os.path.relpath(C.readout / n, C.census).replace(os.sep, "/")
+        w(f"{sha256_lf(C.readout / n)}  {relative}")
     if C.O2_HASH:
         w(f"{C.O2_HASH}  o2_fragment/o2_records.json")
     w(f"{C.MANIFESTS_HASH}  MANIFESTS.sha256")

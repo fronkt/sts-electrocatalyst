@@ -1,0 +1,61 @@
+&CONTROL
+  calculation = 'relax'
+  prefix = 'slab'
+  outdir = './tmp'
+  pseudo_dir = '/usr/share/espresso/pseudo'
+  tprnfor = .true.
+  forc_conv_thr = 2.0d-3
+  nstep = 200
+/
+&SYSTEM
+  ibrav = 0
+  nat = 18
+  ntyp = 2
+  ecutwfc = 80.0
+  ecutrho = 640.0
+  occupations = 'smearing'
+  smearing = 'mv'
+  degauss = 0.01
+  nspin = 2
+  nosym = .true.
+  noinv = .true.
+  starting_magnetization(1) = 0.2
+  starting_magnetization(2) = 0.0
+/
+&ELECTRONS
+  conv_thr = 1.0d-6
+  mixing_mode = 'local-TF'
+  mixing_beta = 0.3
+  electron_maxstep = 200
+/
+&IONS
+  ion_dynamics = 'bfgs'
+/
+ATOMIC_SPECIES
+  Cu  63.546  Cu.paw.z_11.ld1.psl.v1.0.0-low.upf
+  O  15.999  O.pbe-n-kjpaw_psl.0.1.UPF
+CELL_PARAMETERS angstrom
+  3.00000000  0.00000000  0.00000000
+  0.00000000  6.32153462  0.00000000
+  0.00000000  0.00000000  25.28613850
+ATOMIC_POSITIONS angstrom
+  Cu  0.00000000  1.58038366  9.48230194  0 0 0
+  Cu  1.50000000  4.74115097  9.48230194  0 0 0
+  Cu  0.00000000  4.74115097  12.64306925  1 1 1
+  Cu  1.50000000  1.58038366  12.64306925  1 1 1
+  Cu  0.00000000  1.58038366  15.80383656  1 1 1
+  Cu  1.50000000  4.74115097  15.80383656  1 1 1
+  O  0.00000000  4.74115097  10.71500119  0 0 0
+  O  0.00000000  4.74115097  8.24960268  0 0 0
+  O  1.50000000  0.34768440  9.48230194  0 0 0
+  O  1.50000000  2.81308291  9.48230194  0 0 0
+  O  0.00000000  1.58038366  13.87576850  1 1 1
+  O  0.00000000  1.58038366  11.41037000  0 0 0
+  O  1.50000000  3.50845172  12.64306925  1 1 1
+  O  1.50000000  5.97385022  12.64306925  1 1 1
+  O  0.00000000  4.74115097  17.03653581  1 1 1
+  O  0.00000000  4.74115097  14.57113731  1 1 1
+  O  1.50000000  0.34768440  15.80383656  1 1 1
+  O  1.50000000  2.81308291  15.80383656  1 1 1
+K_POINTS automatic
+  8 4 1 0 0 0
