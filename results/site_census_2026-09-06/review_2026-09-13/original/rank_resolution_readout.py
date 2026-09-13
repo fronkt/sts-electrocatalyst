@@ -222,44 +222,6 @@ POLICY_DEFINITIONS = OrderedDict([
 
 
 # --------------------------------------------------------------------------- helpers
-def declared_census(payloads: list[dict]) -> dict[str, dict]:
-    """Sum declared totals once per source/formula, independently of observed sites.
-
-    A source row's n_sites is its total site count, not sites per decoration.
-    Disjoint batches may be added; overlapping decorations or duplicate sites
-    are refused rather than silently double-counted in the statistics. Missing
-    declarations remain unknown, and missing observed sites never reduce them.
-    """
-    declarations = OrderedDict()
-    seed_sources, sites = {}, set()
-    for source, row, _ in rr.iter_result_rows(payloads):
-        formula = row["formula"]
-        key = (source, formula)
-        values = (row.get("n_sites"), row.get("n_decorations"))
-        if key in declarations and declarations[key] != values:
-            raise ValueError(f"conflicting declarations for source {source}/{formula}")
-        declarations[key] = values
-        seeds = {int(d["seed"]) for d in row.get("decoration_records") or []}
-        for site in row.get("per_site_records") or []:
-            seed = int(site["seed"])
-            identity = (formula, seed, int(site["site_index"]))
-            if identity in sites:
-                raise ValueError(f"duplicate site {identity}")
-            sites.add(identity)
-            seeds.add(seed)
-        for seed in seeds:
-            identity = (formula, seed)
-            if identity in seed_sources and seed_sources[identity] != source:
-                raise ValueError(f"overlapping decoration {identity} across sources")
-            seed_sources[identity] = source
-    totals = OrderedDict()
-    for (_, formula), values in declarations.items():
-        total = totals.setdefault(formula, dict(declared_n_sites=0, declared_n_decorations=0))
-        for name, value in zip(("declared_n_sites", "declared_n_decorations"), values):
-            total[name] = None if total[name] is None or value is None else total[name] + value
-    return totals
-
-
 def slab_index(payloads: list[dict]) -> dict[tuple[str, int], dict]:
     """(formula, seed) -> retained relaxed_slab record."""
     index = {}
@@ -314,7 +276,6 @@ def verdict_label(gap_point: float | None, p_order: float, target: float, need: 
 def build_readout(payloads: list[dict], args, box: dict | None, gated_formulas: list[str] | None) -> dict:
     rows = rr.load_site_table(payloads, admitted=_admit_policy(args.admit), annotate=make_annotate(args.admit))
     models = rr.check_single_model(rows)
-    declarations = declared_census(payloads)
     present = list(OrderedDict.fromkeys(r["formula"] for r in rows))
     missing_gated = []
     if gated_formulas is not None:
@@ -380,8 +341,8 @@ def build_readout(payloads: list[dict], args, box: dict | None, gated_formulas: 
                                                          n_decorations_usable=e["n_decorations_usable"],
                                                          usable_seeds=e["usable_seeds"], n_sites=e["n_sites"],
                                                          n_admitted=e["n_admitted"],
-                                                         declared_n_sites=declarations[f]["declared_n_sites"],
-                                                         declared_n_decorations=declarations[f]["declared_n_decorations"],
+                                                         declared_n_sites=next((r["declared_n_sites"] for r in rows if r["formula"] == f), None),
+                                                         declared_n_decorations=next((r["declared_n_decorations"] for r in rows if r["formula"] == f), None),
                                                          bootstrap_support=rr.bootstrap_support(e["n_decorations_usable"]),
                                                          seeds=e["seeds"]))
                                          for f, e in census.items()),
@@ -694,7 +655,7 @@ def main(argv=None) -> int:
         box = json.loads(Path(args.box).read_text(encoding="utf-8"))
     try:
         out = build_readout(sel["payloads"], args, box, gated_formulas)
-    except (rr.MixedModelError, ValueError) as exc:
+    except rr.MixedModelError as exc:
         print(f"refused: {exc}", file=sys.stderr)
         return 2
     out["coverage"] = OrderedDict(manifest_hashes=(str(hash_path) if hashes is not None else None),

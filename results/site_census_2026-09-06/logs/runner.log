@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "C:\Users\frank\sts-electrocatalyst\src\scripts\site_census_runner.py", line 333, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\frank\sts-electrocatalyst\src\scripts\site_census_runner.py", line 329, in main
+    return runner.loop()
+           ^^^^^^^^^^^^^
+  File "C:\Users\frank\sts-electrocatalyst\src\scripts\site_census_runner.py", line 277, in loop
+    self.write_status(force=changed)
+  File "C:\Users\frank\sts-electrocatalyst\src\scripts\site_census_runner.py", line 254, in write_status
+    os.replace(temp, self.status_file)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\frank\\sts-electrocatalyst\\results\\site_census_2026-09-06\\status.json.tmp' -> 'C:\\Users\\frank\\sts-electrocatalyst\\results\\site_census_2026-09-06\\status.json'

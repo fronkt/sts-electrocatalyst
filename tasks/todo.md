@@ -2517,8 +2517,8 @@ Scope: recover and interpret setup diagnostic 20586171, reconcile the Anvil/loca
 
 - [x] Verify live diagnostic accounting; retrieve and hash-check raw rank streams, runtime inputs and QC; independently interpret setup-only evidence.
 - [x] Inventory both result trees, reconcile missing/colliding files without overwrites, and verify all transferred bytes; document historical gaps separately.
-- [ ] Confirm complete census and absence of duplicate readout work; run frozen full census and five-policy rank resolution sequentially after workers exit.
-- [ ] Independently validate numerical claims and report, update outstanding task statuses, commit explicit paths and push completed phases.
+- [x] Confirm complete census and absence of duplicate readout work; run frozen full census and five-policy rank resolution sequentially after workers exit.
+- [x] Independently validate numerical claims and report, update outstanding task statuses, commit explicit paths and push completed phases.
 
 Verification: scheduler terminal state plus raw signatures; remote/local SHA-256 equality; complete manifest coverage; fixed B=10000/seed=0/policies; original readout preservation; independent scientific review.
 
@@ -2527,3 +2527,20 @@ Review (diagnostic and mirror): 20586171_1 completed in 90 s on 128 CPUs (3.200 
 Census follow-through ownership: the reviewed src/scripts/site_census_followthrough.py will own the final eight-stage readout once its background --wait process starts. Its status/lock/pins are under results/site_census_2026-09-06/followthrough_2026-09-12/. Existing census_watch.py and census_sentinel.py only notify and remain untouched. Before any manual final readout, inspect this state to avoid duplicate writers. The runner requires 103 done and no surviving workers; final output is READY_FOR_REVIEW, with independent scientific review and result backup still required.
 
 Background launch verified: implementation 28d9339cf46424780987b8b008cd932c06b3522a pushed to origin/r0-catalysis-revival after 123 focused regressions plus 10 handoff tests passed. All 455 archived raw-evidence Git blobs match exact transfer hashes. Follow-through worker PID 20236 (launcher 22448) is running on Codex_STS_Background with 145 pinned source/input/history files and status WAITING_FOR_COMPLETE_CENSUS as of 2026-09-12T23:51:12+00:00. It will execute the frozen full census, five rank policies, comparison and report after 103 successful jobs; final scientific review remains pending. Launch receipt: results/site_census_2026-09-06/followthrough_2026-09-12/launch_receipt.json. The census was still 100 done / 3 running; no final readout has been claimed.
+
+## 2026-09-13 — Review and bank the complete census
+
+Scope: verify the completed 103-manifest census, eight-stage follow-through, docs/95 report, and post-hoc ranking interpretation before banking the result. No new cluster compute is part of this review.
+
+- [x] Verify all source/result/output hash pins, completion receipts, unchanged historical readout, and current repository state.
+- [x] Independently recompute numerical census findings and audit all five bootstrap/admission policies against the frozen specification.
+- [x] Review scientific prose and distinguish supported ordering changes from causal or physical-validation claims; fix any confirmed report or implementation issue without overwriting prior evidence.
+- [x] Run appropriate verification, record scientific review and remaining research decisions, commit explicit results/report paths and push.
+
+Verification: three independent review lenses (numerical, statistical, method/prose), exact SHA256 and normalized source hashes, full coverage, and no automatic promotion from READY_FOR_REVIEW to experimental validation.
+
+Verification adjustment: the full focused suite exposed an existing test fixture that leaves a duplicate foreign result in place before disabling manifest checks. The new overlap guard correctly refuses it. Keep the guard, remove that foreign fixture only after its refusal assertions, and rerun the suite with captured output before banking.
+
+Review (complete census): all 103 results and eight stage receipts verified; 145 initial source/input/history pins and 12 output hashes matched. Independent audit agrees on all 1,231 sites / 3,693 retained states, CSV/CHE values, distributions and model spreads. Full all/min order has tau-a 0.2; Cu8 has the lowest observed minimum, while Cu26 leads mean/median. Policy sensitivity and reconstruction prevent a unique validated winner. Metadata fix restores merged declarations to 30 decorations / 120 total sites without changing the estimator. Original source/report snapshots and original rank outputs remain preserved. Scientific interpretation and errata: docs/research/census-review-2026-09-13.md. Reporter verification passed; 248 staged evidence blobs match exact working bytes.
+
+Final verification: 51 focused tests passed in 116.97 s after correcting the stale duplicate fixture. The reporter renders all five corrected coverage labels and mismatch explanations. All three original follow-through steps are complete; this phase banks the census and reviewed interpretation on r0-catalysis-revival.

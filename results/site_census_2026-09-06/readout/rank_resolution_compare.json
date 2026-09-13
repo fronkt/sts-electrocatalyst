@@ -1,0 +1,586 @@
+{
+ "schema": "rank-resolution-compare-v1",
+ "target_prob": 0.95,
+ "policies": [
+  "all",
+  "no-desorbed",
+  "intact",
+  "adsorbate-intact",
+  "two-pathway"
+ ],
+ "inputs": [
+  {
+   "policy": "all",
+   "path": "C:\\Users\\frank\\sts-electrocatalyst\\results\\site_census_2026-09-06\\readout\\rank_resolution.json",
+   "sha256_lf": "409a6d582ef442cbd69d8ebaf3f2881b99c155d90b374ba637bac5bbdf83edaf",
+   "status": "complete"
+  },
+  {
+   "policy": "no-desorbed",
+   "path": "C:\\Users\\frank\\sts-electrocatalyst\\results\\site_census_2026-09-06\\readout\\rank_resolution_no-desorbed.json",
+   "sha256_lf": "a6b7b6652af29c5969d433e3947b8c8d91dc8194c024cf517dc430e6d8d8070b",
+   "status": "complete"
+  },
+  {
+   "policy": "intact",
+   "path": "C:\\Users\\frank\\sts-electrocatalyst\\results\\site_census_2026-09-06\\readout\\rank_resolution_intact.json",
+   "sha256_lf": "338da000c7fdfe5513b926850eca2386765d29d6d4e7023f300c1c082a07cfd2",
+   "status": "complete"
+  },
+  {
+   "policy": "adsorbate-intact",
+   "path": "C:\\Users\\frank\\sts-electrocatalyst\\results\\site_census_2026-09-06\\readout\\rank_resolution_adsorbate-intact.json",
+   "sha256_lf": "f840674bdbf56456dcb5432ef77cf1483a5d1affea8a956cc4e558f31f1579e8",
+   "status": "complete"
+  },
+  {
+   "policy": "two-pathway",
+   "path": "C:\\Users\\frank\\sts-electrocatalyst\\results\\site_census_2026-09-06\\readout\\rank_resolution_two-pathway.json",
+   "sha256_lf": "31fb63eba1d3ed09c5793b4dc632e543c5036443625de3103dadccdc2f9c7149",
+   "status": "complete"
+  }
+ ],
+ "n_policy_dependent": 11,
+ "boundaries": [
+  {
+   "better": "Ni31Cr29Cu5Mn35",
+   "worse": "Fe25Co25Ni25Cr25",
+   "rule": "min",
+   "verdicts": {
+    "all": "UNRESOLVED / SPREAD-DECIDED",
+    "no-desorbed": "UNRESOLVED / SPREAD-DECIDED",
+    "intact": "INVERTED",
+    "adsorbate-intact": "UNRESOLVED",
+    "two-pathway": "UNRESOLVED / SPREAD-DECIDED"
+   },
+   "p_order": {
+    "all": 0.7488,
+    "no-desorbed": 0.72,
+    "intact": 0.078,
+    "adsorbate-intact": 0.7487,
+    "two-pathway": 0.7208
+   },
+   "gap_V": {
+    "all": 0.013060488353217714,
+    "no-desorbed": 0.013060488353217714,
+    "intact": -0.07124276057017287,
+    "adsorbate-intact": 0.013060488353217714,
+    "two-pathway": 0.013060488353217714
+   },
+   "policy_dependent": true
+  },
+  {
+   "better": "Fe25Co25Ni25Cr25",
+   "worse": "Cu26Ni9Cr31Co33",
+   "rule": "min",
+   "verdicts": {
+    "all": "INVERTED",
+    "no-desorbed": "INVERTED",
+    "intact": "INVERTED",
+    "adsorbate-intact": "INVERTED",
+    "two-pathway": "INVERTED"
+   },
+   "p_order": {
+    "all": 0.2447,
+    "no-desorbed": 0.2752,
+    "intact": 0.0103,
+    "adsorbate-intact": 0.2639,
+    "two-pathway": 0.2574
+   },
+   "gap_V": {
+    "all": -0.0038880584926346273,
+    "no-desorbed": -0.0038880584926346273,
+    "intact": -0.2700081633183231,
+    "adsorbate-intact": -0.0038880584926346273,
+    "two-pathway": -0.0038880584926346273
+   },
+   "policy_dependent": false
+  },
+  {
+   "better": "Cu26Ni9Cr31Co33",
+   "worse": "Ni34Fe6Cu29Co31",
+   "rule": "min",
+   "verdicts": {
+    "all": "RESOLVED / SPREAD-DECIDED",
+    "no-desorbed": "RESOLVED",
+    "intact": "UNRESOLVED",
+    "adsorbate-intact": "RESOLVED",
+    "two-pathway": "RESOLVED / SPREAD-DECIDED"
+   },
+   "p_order": {
+    "all": 1.0,
+    "no-desorbed": 0.9928,
+    "intact": 0.6942,
+    "adsorbate-intact": 0.995,
+    "two-pathway": 0.9982
+   },
+   "gap_V": {
+    "all": 0.15799758322336555,
+    "no-desorbed": 0.25320188480631867,
+    "intact": 0.0853957708482267,
+    "adsorbate-intact": 0.22992279980026753,
+    "two-pathway": 0.22992279980026753
+   },
+   "policy_dependent": true
+  },
+  {
+   "better": "Ni34Fe6Cu29Co31",
+   "worse": "Cu8Cr23Mn35Co34",
+   "rule": "min",
+   "verdicts": {
+    "all": "INVERTED",
+    "no-desorbed": "INVERTED",
+    "intact": "UNRESOLVED / SPREAD-DECIDED",
+    "adsorbate-intact": "INVERTED",
+    "two-pathway": "INVERTED"
+   },
+   "p_order": {
+    "all": 0.0,
+    "no-desorbed": 0.0,
+    "intact": 0.8885,
+    "adsorbate-intact": 0.0,
+    "two-pathway": 0.0
+   },
+   "gap_V": {
+    "all": -0.24494653921798015,
+    "no-desorbed": -0.3401508408009333,
+    "intact": 0.03681143298932055,
+    "adsorbate-intact": -0.31687175579488214,
+    "two-pathway": -0.31687175579488214
+   },
+   "policy_dependent": true
+  },
+  {
+   "better": "Cu8Cr23Mn35Co34",
+   "worse": "Cu22Fe30Co32Mn15",
+   "rule": "min",
+   "verdicts": {
+    "all": "RESOLVED",
+    "no-desorbed": "RESOLVED",
+    "intact": "INVERTED",
+    "adsorbate-intact": "RESOLVED",
+    "two-pathway": "RESOLVED"
+   },
+   "p_order": {
+    "all": 1.0,
+    "no-desorbed": 1.0,
+    "intact": 0.3479,
+    "adsorbate-intact": 1.0,
+    "two-pathway": 1.0
+   },
+   "gap_V": {
+    "all": 0.09372925316184055,
+    "no-desorbed": 0.3233340755212035,
+    "intact": -0.03034911326299916,
+    "adsorbate-intact": 0.3233340755212035,
+    "two-pathway": 0.3233340755212035
+   },
+   "policy_dependent": true
+  },
+  {
+   "better": "Ni31Cr29Cu5Mn35",
+   "worse": "Fe25Co25Ni25Cr25",
+   "rule": "median",
+   "verdicts": {
+    "all": "INVERTED",
+    "no-desorbed": "UNRESOLVED",
+    "intact": "UNRESOLVED",
+    "adsorbate-intact": "UNRESOLVED",
+    "two-pathway": "UNRESOLVED"
+   },
+   "p_order": {
+    "all": 0.4044,
+    "no-desorbed": 0.6683,
+    "intact": 0.8432,
+    "adsorbate-intact": 0.823,
+    "two-pathway": 0.9068
+   },
+   "gap_V": {
+    "all": -0.027686431723269234,
+    "no-desorbed": 0.029834834166324153,
+    "intact": 0.12987419334541528,
+    "adsorbate-intact": 0.30598846040957906,
+    "two-pathway": 0.16633480614743235
+   },
+   "policy_dependent": true
+  },
+  {
+   "better": "Fe25Co25Ni25Cr25",
+   "worse": "Cu26Ni9Cr31Co33",
+   "rule": "median",
+   "verdicts": {
+    "all": "INVERTED",
+    "no-desorbed": "INVERTED",
+    "intact": "INVERTED",
+    "adsorbate-intact": "INVERTED",
+    "two-pathway": "INVERTED"
+   },
+   "p_order": {
+    "all": 0.0,
+    "no-desorbed": 0.0284,
+    "intact": 0.0279,
+    "adsorbate-intact": 0.0541,
+    "two-pathway": 0.0129
+   },
+   "gap_V": {
+    "all": -0.17286627547797062,
+    "no-desorbed": -0.4043231194491459,
+    "intact": -0.30946313681113224,
+    "adsorbate-intact": -0.39158072885520223,
+    "two-pathway": -0.40241001713456326
+   },
+   "policy_dependent": false
+  },
+  {
+   "better": "Cu26Ni9Cr31Co33",
+   "worse": "Ni34Fe6Cu29Co31",
+   "rule": "median",
+   "verdicts": {
+    "all": "RESOLVED",
+    "no-desorbed": "UNRESOLVED",
+    "intact": "UNRESOLVED",
+    "adsorbate-intact": "UNRESOLVED",
+    "two-pathway": "UNRESOLVED"
+   },
+   "p_order": {
+    "all": 0.9988,
+    "no-desorbed": 0.9152,
+    "intact": 0.752,
+    "adsorbate-intact": 0.8789,
+    "two-pathway": 0.9206
+   },
+   "gap_V": {
+    "all": 0.07724303541107247,
+    "no-desorbed": 0.27142063814976236,
+    "intact": 0.041670142836494506,
+    "adsorbate-intact": 0.23656948465359928,
+    "two-pathway": 0.24678194246006724
+   },
+   "policy_dependent": true
+  },
+  {
+   "better": "Ni34Fe6Cu29Co31",
+   "worse": "Cu8Cr23Mn35Co34",
+   "rule": "median",
+   "verdicts": {
+    "all": "UNRESOLVED",
+    "no-desorbed": "INVERTED",
+    "intact": "INVERTED",
+    "adsorbate-intact": "INVERTED",
+    "two-pathway": "INVERTED"
+   },
+   "p_order": {
+    "all": 0.8806,
+    "no-desorbed": 0.022,
+    "intact": 0.4515,
+    "adsorbate-intact": 0.0005,
+    "two-pathway": 0.0131
+   },
+   "gap_V": {
+    "all": 0.05046558387912947,
+    "no-desorbed": -0.3510169647253103,
+    "intact": -0.020956047333584138,
+    "adsorbate-intact": -0.4198735290045894,
+    "two-pathway": -0.3955922347497203
+   },
+   "policy_dependent": true
+  },
+  {
+   "better": "Cu8Cr23Mn35Co34",
+   "worse": "Cu22Fe30Co32Mn15",
+   "rule": "median",
+   "verdicts": {
+    "all": "RESOLVED",
+    "no-desorbed": "RESOLVED",
+    "intact": "RESOLVED",
+    "adsorbate-intact": "RESOLVED",
+    "two-pathway": "RESOLVED"
+   },
+   "p_order": {
+    "all": 0.9621,
+    "no-desorbed": 0.9952,
+    "intact": 0.9808,
+    "adsorbate-intact": 1.0,
+    "two-pathway": 0.999
+   },
+   "gap_V": {
+    "all": 0.05917278363337264,
+    "no-desorbed": 0.5423879906347717,
+    "intact": 0.26894053132099316,
+    "adsorbate-intact": 0.6623808848510313,
+    "two-pathway": 0.5586731670755891
+   },
+   "policy_dependent": false
+  },
+  {
+   "better": "Ni31Cr29Cu5Mn35",
+   "worse": "Fe25Co25Ni25Cr25",
+   "rule": "p10",
+   "verdicts": {
+    "all": "INVERTED",
+    "no-desorbed": "UNRESOLVED / SPREAD-DECIDED",
+    "intact": "INVERTED",
+    "adsorbate-intact": "UNRESOLVED",
+    "two-pathway": "INVERTED"
+   },
+   "p_order": {
+    "all": 0.3368,
+    "no-desorbed": 0.4966,
+    "intact": 0.2623,
+    "adsorbate-intact": 0.7666,
+    "two-pathway": 0.4191
+   },
+   "gap_V": {
+    "all": -0.029371694769014578,
+    "no-desorbed": 0.022489474502601303,
+    "intact": -0.06449680385230816,
+    "adsorbate-intact": 0.08138659584097918,
+    "two-pathway": -0.04924527944125012
+   },
+   "policy_dependent": true
+  },
+  {
+   "better": "Fe25Co25Ni25Cr25",
+   "worse": "Cu26Ni9Cr31Co33",
+   "rule": "p10",
+   "verdicts": {
+    "all": "INVERTED",
+    "no-desorbed": "INVERTED",
+    "intact": "INVERTED",
+    "adsorbate-intact": "INVERTED",
+    "two-pathway": "INVERTED"
+   },
+   "p_order": {
+    "all": 0.1421,
+    "no-desorbed": 0.37,
+    "intact": 0.0297,
+    "adsorbate-intact": 0.3453,
+    "two-pathway": 0.2501
+   },
+   "gap_V": {
+    "all": -0.04634604625033323,
+    "no-desorbed": -0.050870201807058146,
+    "intact": -0.2448196704826482,
+    "adsorbate-intact": -0.05228035826874322,
+    "two-pathway": -0.06290180275983925
+   },
+   "policy_dependent": false
+  },
+  {
+   "better": "Cu26Ni9Cr31Co33",
+   "worse": "Ni34Fe6Cu29Co31",
+   "rule": "p10",
+   "verdicts": {
+    "all": "RESOLVED",
+    "no-desorbed": "RESOLVED",
+    "intact": "UNRESOLVED",
+    "adsorbate-intact": "RESOLVED",
+    "two-pathway": "RESOLVED"
+   },
+   "p_order": {
+    "all": 0.9998,
+    "no-desorbed": 0.9874,
+    "intact": 0.7285,
+    "adsorbate-intact": 0.9862,
+    "two-pathway": 0.9906
+   },
+   "gap_V": {
+    "all": 0.14118961990167078,
+    "no-desorbed": 0.22002439239704985,
+    "intact": 0.08017414264094591,
+    "adsorbate-intact": 0.23661711993306012,
+    "two-pathway": 0.21939887694629456
+   },
+   "policy_dependent": true
+  },
+  {
+   "better": "Ni34Fe6Cu29Co31",
+   "worse": "Cu8Cr23Mn35Co34",
+   "rule": "p10",
+   "verdicts": {
+    "all": "INVERTED",
+    "no-desorbed": "INVERTED",
+    "intact": "INVERTED",
+    "adsorbate-intact": "INVERTED",
+    "two-pathway": "INVERTED"
+   },
+   "p_order": {
+    "all": 0.0859,
+    "no-desorbed": 0.0002,
+    "intact": 0.4913,
+    "adsorbate-intact": 0.0,
+    "two-pathway": 0.0
+   },
+   "gap_V": {
+    "all": -0.18062205685963595,
+    "no-desorbed": -0.3363732456892366,
+    "intact": -0.010847443744631757,
+    "adsorbate-intact": -0.35516133547637874,
+    "two-pathway": -0.33078626823860496
+   },
+   "policy_dependent": false
+  },
+  {
+   "better": "Cu8Cr23Mn35Co34",
+   "worse": "Cu22Fe30Co32Mn15",
+   "rule": "p10",
+   "verdicts": {
+    "all": "RESOLVED",
+    "no-desorbed": "RESOLVED",
+    "intact": "UNRESOLVED",
+    "adsorbate-intact": "RESOLVED",
+    "two-pathway": "RESOLVED"
+   },
+   "p_order": {
+    "all": 0.9921,
+    "no-desorbed": 1.0,
+    "intact": 0.8786,
+    "adsorbate-intact": 1.0,
+    "two-pathway": 1.0
+   },
+   "gap_V": {
+    "all": 0.2344082315786713,
+    "no-desorbed": 0.4378523593163493,
+    "intact": 0.1201792722244166,
+    "adsorbate-intact": 0.44742576943223755,
+    "two-pathway": 0.45893605593312264
+   },
+   "policy_dependent": true
+  },
+  {
+   "better": "Ni31Cr29Cu5Mn35",
+   "worse": "Fe25Co25Ni25Cr25",
+   "rule": "mean",
+   "verdicts": {
+    "all": "UNRESOLVED",
+    "no-desorbed": "UNRESOLVED",
+    "intact": "UNRESOLVED",
+    "adsorbate-intact": "UNRESOLVED",
+    "two-pathway": "UNRESOLVED"
+   },
+   "p_order": {
+    "all": 0.6605,
+    "no-desorbed": 0.5879,
+    "intact": 0.8304,
+    "adsorbate-intact": 0.8651,
+    "two-pathway": 0.8528
+   },
+   "gap_V": {
+    "all": 0.016458145447295847,
+    "no-desorbed": 0.0305949827141192,
+    "intact": 0.0862028339285239,
+    "adsorbate-intact": 0.17538188587198067,
+    "two-pathway": 0.09277321965633223
+   },
+   "policy_dependent": false
+  },
+  {
+   "better": "Fe25Co25Ni25Cr25",
+   "worse": "Cu26Ni9Cr31Co33",
+   "rule": "mean",
+   "verdicts": {
+    "all": "INVERTED",
+    "no-desorbed": "INVERTED",
+    "intact": "INVERTED",
+    "adsorbate-intact": "INVERTED",
+    "two-pathway": "INVERTED"
+   },
+   "p_order": {
+    "all": 0.0,
+    "no-desorbed": 0.0091,
+    "intact": 0.0022,
+    "adsorbate-intact": 0.0175,
+    "two-pathway": 0.0034
+   },
+   "gap_V": {
+    "all": -0.15801261599656635,
+    "no-desorbed": -0.2379813782605904,
+    "intact": -0.26745786237442526,
+    "adsorbate-intact": -0.19198228116189275,
+    "two-pathway": -0.25802700352585295
+   },
+   "policy_dependent": false
+  },
+  {
+   "better": "Cu26Ni9Cr31Co33",
+   "worse": "Ni34Fe6Cu29Co31",
+   "rule": "mean",
+   "verdicts": {
+    "all": "RESOLVED",
+    "no-desorbed": "RESOLVED",
+    "intact": "UNRESOLVED",
+    "adsorbate-intact": "RESOLVED",
+    "two-pathway": "RESOLVED"
+   },
+   "p_order": {
+    "all": 0.9999,
+    "no-desorbed": 0.9873,
+    "intact": 0.7524,
+    "adsorbate-intact": 0.9679,
+    "two-pathway": 0.9967
+   },
+   "gap_V": {
+    "all": 0.12406072588295236,
+    "no-desorbed": 0.17786564178703934,
+    "intact": 0.0633670484255201,
+    "adsorbate-intact": 0.15069272869461947,
+    "two-pathway": 0.25717748082481084
+   },
+   "policy_dependent": true
+  },
+  {
+   "better": "Ni34Fe6Cu29Co31",
+   "worse": "Cu8Cr23Mn35Co34",
+   "rule": "mean",
+   "verdicts": {
+    "all": "INVERTED",
+    "no-desorbed": "INVERTED",
+    "intact": "INVERTED",
+    "adsorbate-intact": "INVERTED",
+    "two-pathway": "INVERTED"
+   },
+   "p_order": {
+    "all": 0.0746,
+    "no-desorbed": 0.0,
+    "intact": 0.3444,
+    "adsorbate-intact": 0.0,
+    "two-pathway": 0.0
+   },
+   "gap_V": {
+    "all": -0.04219974373663282,
+    "no-desorbed": -0.2875794503674798,
+    "intact": -0.03175335525092626,
+    "adsorbate-intact": -0.33032131804015863,
+    "two-pathway": -0.3969380702754147
+   },
+   "policy_dependent": false
+  },
+  {
+   "better": "Cu8Cr23Mn35Co34",
+   "worse": "Cu22Fe30Co32Mn15",
+   "rule": "mean",
+   "verdicts": {
+    "all": "RESOLVED",
+    "no-desorbed": "RESOLVED",
+    "intact": "RESOLVED",
+    "adsorbate-intact": "RESOLVED",
+    "two-pathway": "RESOLVED"
+   },
+   "p_order": {
+    "all": 0.9999,
+    "no-desorbed": 1.0,
+    "intact": 0.9777,
+    "adsorbate-intact": 1.0,
+    "two-pathway": 1.0
+   },
+   "gap_V": {
+    "all": 0.09510739966963366,
+    "no-desorbed": 0.39232028423383836,
+    "intact": 0.1931799570832362,
+    "adsorbate-intact": 0.48190131255797897,
+    "two-pathway": 0.4397827692547359
+   },
+   "policy_dependent": false
+  }
+ ]
+}

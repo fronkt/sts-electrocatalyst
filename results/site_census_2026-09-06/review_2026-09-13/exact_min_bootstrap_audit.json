@@ -1,0 +1,802 @@
+{
+  "schema": "exact-empirical-min-bootstrap-audit-v1",
+  "input": "../readout/rank_resolution.json",
+  "input_sha256": "409a6d582ef442cbd69d8ebaf3f2881b99c155d90b374ba637bac5bbdf83edaf",
+  "method": "Finite discrete summation over each composition's 30 decoration minima; 30 independent draws with replacement within each composition; independent composition resampling; IEEE-754 arithmetic, no simulation.",
+  "estimand": "Rank-1 probability conditional on the observed all-admitted six-composition MPA-0 empirical decoration distributions, at resample depth 30 decorations / 120 sites.",
+  "scope": {
+    "model": {
+      "filename": "macempa0mediummodel",
+      "sha256_bytes": "75428afe3a1d7d8062e19bcaabd5c433623cabf308242ec9fb493e38604fb638"
+    },
+    "admit": "all",
+    "compositions": 6,
+    "decorations_per_composition": 30,
+    "sites_per_decoration": 4,
+    "seed_range": [
+      0,
+      29
+    ],
+    "cross_composition_minimum_ties": false
+  },
+  "formula": "P(M_f=v)=(count(m_f>=v)/30)^30-(count(m_f>v)/30)^30; P(f rank1)=sum_v P(M_f=v)*product_g!=f (count(m_g>v)/30)^30",
+  "exact_empirical_rank1_probability": {
+    "Ni31Cr29Cu5Mn35": 0.000058350504740641605,
+    "Fe25Co25Ni25Cr25": 0.000007598783156179948,
+    "Cu26Ni9Cr31Co33": 0.000021127438208492577,
+    "Ni34Fe6Cu29Co31": 1.3384548002963779e-20,
+    "Cu8Cr23Mn35Co34": 0.9999101753735744,
+    "Cu22Fe30Co32Mn15": 0.0000027479003202480433
+  },
+  "probability_sum": 1,
+  "stored_monte_carlo": {
+    "replicates": 10000,
+    "rng_seed": 0,
+    "rank1_frequency": {
+      "Cu22Fe30Co32Mn15": 0,
+      "Cu26Ni9Cr31Co33": 0,
+      "Cu8Cr23Mn35Co34": 1,
+      "Fe25Co25Ni25Cr25": 0,
+      "Ni31Cr29Cu5Mn35": 0,
+      "Ni34Fe6Cu29Co31": 0
+    }
+  },
+  "cu8_lower_tail": {
+    "competitor_best_observed_V": 0.4399960638886986,
+    "lower_site_count": 8,
+    "lower_decoration_count": 8,
+    "lower_seeds": [
+      5,
+      13,
+      16,
+      18,
+      20,
+      23,
+      26,
+      29
+    ],
+    "probability_omit_all_lower_seeds": 0.0000910002914127001,
+    "expected_omissions_in_10000": 0.910002914127001,
+    "probability_all_10000_replicates_rank1": 0.4072668696667878
+  },
+  "decoration_minima_V": {
+    "Ni31Cr29Cu5Mn35": [
+      {
+        "seed": 0,
+        "minimum_V": 0.46852056332653635
+      },
+      {
+        "seed": 1,
+        "minimum_V": 0.4399960638886986
+      },
+      {
+        "seed": 2,
+        "minimum_V": 0.6719135270070486
+      },
+      {
+        "seed": 3,
+        "minimum_V": 0.5716503961770325
+      },
+      {
+        "seed": 4,
+        "minimum_V": 0.6159440389549067
+      },
+      {
+        "seed": 5,
+        "minimum_V": 0.6862106123389671
+      },
+      {
+        "seed": 6,
+        "minimum_V": 0.9390365102737528
+      },
+      {
+        "seed": 7,
+        "minimum_V": 1.0994745463015914
+      },
+      {
+        "seed": 8,
+        "minimum_V": 0.7954648758384186
+      },
+      {
+        "seed": 9,
+        "minimum_V": 1.1837400441259556
+      },
+      {
+        "seed": 10,
+        "minimum_V": 0.48712508309465274
+      },
+      {
+        "seed": 11,
+        "minimum_V": 0.9486417915511547
+      },
+      {
+        "seed": 12,
+        "minimum_V": 0.7219946215815147
+      },
+      {
+        "seed": 13,
+        "minimum_V": 0.9373915540427911
+      },
+      {
+        "seed": 14,
+        "minimum_V": 1.0160978348520766
+      },
+      {
+        "seed": 15,
+        "minimum_V": 0.9588219719723536
+      },
+      {
+        "seed": 16,
+        "minimum_V": 0.7322518603821058
+      },
+      {
+        "seed": 17,
+        "minimum_V": 0.6076117841441677
+      },
+      {
+        "seed": 18,
+        "minimum_V": 0.6816980703123805
+      },
+      {
+        "seed": 19,
+        "minimum_V": 0.881316166961752
+      },
+      {
+        "seed": 20,
+        "minimum_V": 0.6534247924713403
+      },
+      {
+        "seed": 21,
+        "minimum_V": 0.6739686895136137
+      },
+      {
+        "seed": 22,
+        "minimum_V": 0.8736141767895456
+      },
+      {
+        "seed": 23,
+        "minimum_V": 0.9303857403026412
+      },
+      {
+        "seed": 24,
+        "minimum_V": 1.045769007076145
+      },
+      {
+        "seed": 25,
+        "minimum_V": 1.032273410090057
+      },
+      {
+        "seed": 26,
+        "minimum_V": 0.7017877864154078
+      },
+      {
+        "seed": 27,
+        "minimum_V": 0.75706711357138
+      },
+      {
+        "seed": 28,
+        "minimum_V": 0.6118043347607782
+      },
+      {
+        "seed": 29,
+        "minimum_V": 0.8412280108288845
+      }
+    ],
+    "Fe25Co25Ni25Cr25": [
+      {
+        "seed": 0,
+        "minimum_V": 0.839308447358861
+      },
+      {
+        "seed": 1,
+        "minimum_V": 0.7090043026046837
+      },
+      {
+        "seed": 2,
+        "minimum_V": 0.4530565522419163
+      },
+      {
+        "seed": 3,
+        "minimum_V": 0.7770499410427041
+      },
+      {
+        "seed": 4,
+        "minimum_V": 0.8171678819247754
+      },
+      {
+        "seed": 5,
+        "minimum_V": 1.0892149974665708
+      },
+      {
+        "seed": 6,
+        "minimum_V": 1.1245305625156714
+      },
+      {
+        "seed": 7,
+        "minimum_V": 0.6059620965303187
+      },
+      {
+        "seed": 8,
+        "minimum_V": 0.7468727706804961
+      },
+      {
+        "seed": 9,
+        "minimum_V": 0.8270785756791232
+      },
+      {
+        "seed": 10,
+        "minimum_V": 0.72198616310446
+      },
+      {
+        "seed": 11,
+        "minimum_V": 0.9020860287738364
+      },
+      {
+        "seed": 12,
+        "minimum_V": 0.6799925059814163
+      },
+      {
+        "seed": 13,
+        "minimum_V": 0.5430917214803648
+      },
+      {
+        "seed": 14,
+        "minimum_V": 0.7551431743026722
+      },
+      {
+        "seed": 15,
+        "minimum_V": 1.1256782506990826
+      },
+      {
+        "seed": 16,
+        "minimum_V": 0.7351150640632804
+      },
+      {
+        "seed": 17,
+        "minimum_V": 0.5682014693234132
+      },
+      {
+        "seed": 18,
+        "minimum_V": 0.6515555674500169
+      },
+      {
+        "seed": 19,
+        "minimum_V": 0.8240783162132184
+      },
+      {
+        "seed": 20,
+        "minimum_V": 0.5953575887233464
+      },
+      {
+        "seed": 21,
+        "minimum_V": 0.49951402505948117
+      },
+      {
+        "seed": 22,
+        "minimum_V": 0.8340546008731584
+      },
+      {
+        "seed": 23,
+        "minimum_V": 0.961506895765039
+      },
+      {
+        "seed": 24,
+        "minimum_V": 1.0131222506128674
+      },
+      {
+        "seed": 25,
+        "minimum_V": 0.557193286097216
+      },
+      {
+        "seed": 26,
+        "minimum_V": 1.1814183555609628
+      },
+      {
+        "seed": 27,
+        "minimum_V": 0.5855899817757102
+      },
+      {
+        "seed": 28,
+        "minimum_V": 0.7703222070847309
+      },
+      {
+        "seed": 29,
+        "minimum_V": 0.5973810764959202
+      }
+    ],
+    "Cu26Ni9Cr31Co33": [
+      {
+        "seed": 0,
+        "minimum_V": 0.8310209978775456
+      },
+      {
+        "seed": 1,
+        "minimum_V": 0.4791918879560475
+      },
+      {
+        "seed": 2,
+        "minimum_V": 0.7659465922812654
+      },
+      {
+        "seed": 3,
+        "minimum_V": 0.8734470073242742
+      },
+      {
+        "seed": 4,
+        "minimum_V": 0.635238649260585
+      },
+      {
+        "seed": 5,
+        "minimum_V": 0.4491684937492817
+      },
+      {
+        "seed": 6,
+        "minimum_V": 0.7109161390929861
+      },
+      {
+        "seed": 7,
+        "minimum_V": 0.671049763065283
+      },
+      {
+        "seed": 8,
+        "minimum_V": 0.7228448213737133
+      },
+      {
+        "seed": 9,
+        "minimum_V": 0.7031553576639302
+      },
+      {
+        "seed": 10,
+        "minimum_V": 0.5353081057936615
+      },
+      {
+        "seed": 11,
+        "minimum_V": 0.5872884093052866
+      },
+      {
+        "seed": 12,
+        "minimum_V": 0.8356766616979296
+      },
+      {
+        "seed": 13,
+        "minimum_V": 0.7140645841515001
+      },
+      {
+        "seed": 14,
+        "minimum_V": 0.7948145871508094
+      },
+      {
+        "seed": 15,
+        "minimum_V": 0.7014115565424239
+      },
+      {
+        "seed": 16,
+        "minimum_V": 0.5150704178544048
+      },
+      {
+        "seed": 17,
+        "minimum_V": 0.5936955227013225
+      },
+      {
+        "seed": 18,
+        "minimum_V": 0.6663414480027958
+      },
+      {
+        "seed": 19,
+        "minimum_V": 0.6324203916829978
+      },
+      {
+        "seed": 20,
+        "minimum_V": 0.8538699831753132
+      },
+      {
+        "seed": 21,
+        "minimum_V": 0.7954750862562454
+      },
+      {
+        "seed": 22,
+        "minimum_V": 0.555141171735257
+      },
+      {
+        "seed": 23,
+        "minimum_V": 0.6284435757889772
+      },
+      {
+        "seed": 24,
+        "minimum_V": 0.6706046017202274
+      },
+      {
+        "seed": 25,
+        "minimum_V": 0.663253149022565
+      },
+      {
+        "seed": 26,
+        "minimum_V": 0.4751862305827066
+      },
+      {
+        "seed": 27,
+        "minimum_V": 0.9613451752799431
+      },
+      {
+        "seed": 28,
+        "minimum_V": 0.5218905240704848
+      },
+      {
+        "seed": 29,
+        "minimum_V": 0.6390197528069015
+      }
+    ],
+    "Ni34Fe6Cu29Co31": [
+      {
+        "seed": 0,
+        "minimum_V": 0.7653520190028198
+      },
+      {
+        "seed": 1,
+        "minimum_V": 0.7837312481899525
+      },
+      {
+        "seed": 2,
+        "minimum_V": 0.7258416589359067
+      },
+      {
+        "seed": 3,
+        "minimum_V": 0.7523351760772661
+      },
+      {
+        "seed": 4,
+        "minimum_V": 0.8460894012929439
+      },
+      {
+        "seed": 5,
+        "minimum_V": 0.7887728972668113
+      },
+      {
+        "seed": 6,
+        "minimum_V": 0.9673837693948721
+      },
+      {
+        "seed": 7,
+        "minimum_V": 0.7791785816854153
+      },
+      {
+        "seed": 8,
+        "minimum_V": 0.7730975451362392
+      },
+      {
+        "seed": 9,
+        "minimum_V": 0.811793182894804
+      },
+      {
+        "seed": 10,
+        "minimum_V": 0.7333348451226707
+      },
+      {
+        "seed": 11,
+        "minimum_V": 0.996406899168532
+      },
+      {
+        "seed": 12,
+        "minimum_V": 0.7220572355972044
+      },
+      {
+        "seed": 13,
+        "minimum_V": 0.6071660769726472
+      },
+      {
+        "seed": 14,
+        "minimum_V": 0.83860400542659
+      },
+      {
+        "seed": 15,
+        "minimum_V": 0.766504023263038
+      },
+      {
+        "seed": 16,
+        "minimum_V": 0.9045200486590383
+      },
+      {
+        "seed": 17,
+        "minimum_V": 0.7412957854909186
+      },
+      {
+        "seed": 18,
+        "minimum_V": 0.7023703785556004
+      },
+      {
+        "seed": 19,
+        "minimum_V": 0.8770966497809818
+      },
+      {
+        "seed": 20,
+        "minimum_V": 0.6464063047003501
+      },
+      {
+        "seed": 21,
+        "minimum_V": 0.6642244627704494
+      },
+      {
+        "seed": 22,
+        "minimum_V": 0.7072184007671347
+      },
+      {
+        "seed": 23,
+        "minimum_V": 0.9615557456723689
+      },
+      {
+        "seed": 24,
+        "minimum_V": 0.6826445934498802
+      },
+      {
+        "seed": 25,
+        "minimum_V": 0.9694614427473729
+      },
+      {
+        "seed": 26,
+        "minimum_V": 0.9965797830934102
+      },
+      {
+        "seed": 27,
+        "minimum_V": 0.841825022993957
+      },
+      {
+        "seed": 28,
+        "minimum_V": 0.7596512639314446
+      },
+      {
+        "seed": 29,
+        "minimum_V": 0.7859467359447043
+      }
+    ],
+    "Cu8Cr23Mn35Co34": [
+      {
+        "seed": 0,
+        "minimum_V": 0.9450356512370499
+      },
+      {
+        "seed": 1,
+        "minimum_V": 1.1387536555993432
+      },
+      {
+        "seed": 2,
+        "minimum_V": 0.7557679417210732
+      },
+      {
+        "seed": 3,
+        "minimum_V": 0.7159027265388698
+      },
+      {
+        "seed": 4,
+        "minimum_V": 0.9867160474523766
+      },
+      {
+        "seed": 5,
+        "minimum_V": 0.39154383513304847
+      },
+      {
+        "seed": 6,
+        "minimum_V": 0.5542497665244204
+      },
+      {
+        "seed": 7,
+        "minimum_V": 0.7933230744875726
+      },
+      {
+        "seed": 8,
+        "minimum_V": 0.5109375405504997
+      },
+      {
+        "seed": 9,
+        "minimum_V": 0.7253297004218107
+      },
+      {
+        "seed": 10,
+        "minimum_V": 0.9473489930375347
+      },
+      {
+        "seed": 11,
+        "minimum_V": 0.8308880296065961
+      },
+      {
+        "seed": 12,
+        "minimum_V": 0.7935456160993235
+      },
+      {
+        "seed": 13,
+        "minimum_V": 0.4329082507142896
+      },
+      {
+        "seed": 14,
+        "minimum_V": 0.7377763049267818
+      },
+      {
+        "seed": 15,
+        "minimum_V": 0.8944417781406182
+      },
+      {
+        "seed": 16,
+        "minimum_V": 0.380804196547869
+      },
+      {
+        "seed": 17,
+        "minimum_V": 0.49474897637541826
+      },
+      {
+        "seed": 18,
+        "minimum_V": 0.38712116891357873
+      },
+      {
+        "seed": 19,
+        "minimum_V": 0.8550564585432321
+      },
+      {
+        "seed": 20,
+        "minimum_V": 0.3622195377546671
+      },
+      {
+        "seed": 21,
+        "minimum_V": 0.8718154944312726
+      },
+      {
+        "seed": 22,
+        "minimum_V": 0.46234571474084696
+      },
+      {
+        "seed": 23,
+        "minimum_V": 0.4323118174766858
+      },
+      {
+        "seed": 24,
+        "minimum_V": 0.8206297323693246
+      },
+      {
+        "seed": 25,
+        "minimum_V": 0.9604519352219238
+      },
+      {
+        "seed": 26,
+        "minimum_V": 0.3862926021756987
+      },
+      {
+        "seed": 27,
+        "minimum_V": 0.9229169490972149
+      },
+      {
+        "seed": 28,
+        "minimum_V": 0.8602016891098865
+      },
+      {
+        "seed": 29,
+        "minimum_V": 0.40354646345488554
+      }
+    ],
+    "Cu22Fe30Co32Mn15": [
+      {
+        "seed": 0,
+        "minimum_V": 0.7956531821512538
+      },
+      {
+        "seed": 1,
+        "minimum_V": 0.8655204498871703
+      },
+      {
+        "seed": 2,
+        "minimum_V": 0.9070529217920846
+      },
+      {
+        "seed": 3,
+        "minimum_V": 0.8823469727534796
+      },
+      {
+        "seed": 4,
+        "minimum_V": 0.8946318761013452
+      },
+      {
+        "seed": 5,
+        "minimum_V": 0.9596120251096334
+      },
+      {
+        "seed": 6,
+        "minimum_V": 0.5921124592072564
+      },
+      {
+        "seed": 7,
+        "minimum_V": 1.0040056896432232
+      },
+      {
+        "seed": 8,
+        "minimum_V": 0.5911953179263365
+      },
+      {
+        "seed": 9,
+        "minimum_V": 0.8868514214485534
+      },
+      {
+        "seed": 10,
+        "minimum_V": 1.0153690898564758
+      },
+      {
+        "seed": 11,
+        "minimum_V": 0.908871696733426
+      },
+      {
+        "seed": 12,
+        "minimum_V": 0.7864582003956269
+      },
+      {
+        "seed": 13,
+        "minimum_V": 1.2019357697247681
+      },
+      {
+        "seed": 14,
+        "minimum_V": 1.17896189530103
+      },
+      {
+        "seed": 15,
+        "minimum_V": 0.45594879091650764
+      },
+      {
+        "seed": 16,
+        "minimum_V": 0.8115138462055409
+      },
+      {
+        "seed": 17,
+        "minimum_V": 0.90230338137175
+      },
+      {
+        "seed": 18,
+        "minimum_V": 0.748261180224391
+      },
+      {
+        "seed": 19,
+        "minimum_V": 0.8720428542251133
+      },
+      {
+        "seed": 20,
+        "minimum_V": 0.873018876444716
+      },
+      {
+        "seed": 21,
+        "minimum_V": 0.5414774841564585
+      },
+      {
+        "seed": 22,
+        "minimum_V": 0.7374127139437823
+      },
+      {
+        "seed": 23,
+        "minimum_V": 0.9235813253353324
+      },
+      {
+        "seed": 24,
+        "minimum_V": 0.8420412405911559
+      },
+      {
+        "seed": 25,
+        "minimum_V": 0.8038151059702994
+      },
+      {
+        "seed": 26,
+        "minimum_V": 0.8140638567183904
+      },
+      {
+        "seed": 27,
+        "minimum_V": 0.6855536132758706
+      },
+      {
+        "seed": 28,
+        "minimum_V": 0.9199527958004676
+      },
+      {
+        "seed": 29,
+        "minimum_V": 0.7329090796837212
+      }
+    ]
+  },
+  "limitations": [
+    "Exact refers to summing finite empirical support rather than Monte Carlo; arithmetic remains floating point.",
+    "Not a calibrated population-rank probability: unseen lower-tail values cannot occur in empirical resampling, and minimum bootstrap is descriptive.",
+    "Conditional on one model, six gated compositions, all admission and the observed sampling protocol; not an electrode or DFT ranking.",
+    "This post-hoc oracle audits the fixed 10000-replicate readout; it does not replace or alter it."
+  ]
+}

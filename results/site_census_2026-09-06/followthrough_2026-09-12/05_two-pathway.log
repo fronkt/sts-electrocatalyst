@@ -1,0 +1,148 @@
+# Rank resolution readout (complete)
+
+site rows 720; compositions 6; admit policy two-pathway; rules min, median, p10, mean; B 10000; seed 0; model macempa0mediummodel
+coverage: 66 of 60 expected stems
+
+## T1 Decoration census
+
+| composition | decorations (usable) | sites (admitted) | declared | bootstrap support C(2D-1,D) |
+|---|---|---|---|---|
+| Cu22Fe30Co32Mn15 | 30 (25) | 120 (42) | 3 x 12 | 63205303218876 |
+| Cu26Ni9Cr31Co33 | 30 (14) | 120 (16) | 3 x 12 | 20058300 |
+| Cu8Cr23Mn35Co34 | 30 (14) | 120 (20) | 3 x 12 | 20058300 |
+| Fe25Co25Ni25Cr25 | 30 (19) | 120 (32) | 3 x 12 | 17672631900 |
+| Ni31Cr29Cu5Mn35 | 30 (22) | 120 (33) | 3 x 12 | 1052049481860 |
+| Ni34Fe6Cu29Co31 | 30 (19) | 120 (26) | 3 x 12 | 17672631900 |
+
+## T2 Composition statistic per rule with 90 % cluster-bootstrap interval; reproduction of the banked eta at 1e-06 V
+
+| composition | banked rank | banked eta | abs(census min - banked) | reproduction | min | median | p10 | mean |
+|---|---|---|---|---|---|---|---|---|
+| Ni31Cr29Cu5Mn35 | 1 | 0.439996 | 0.0000000001 | REPRODUCED | 0.4400 [0.4400, 0.6076] | 1.0303 [0.9349, 1.1438] | 0.6093 [0.4871, 0.6868] | 1.0067 [0.9136, 1.1064] |
+| Fe25Co25Ni25Cr25 | 2 | 0.453057 | 0.0000000005 | REPRODUCED | 0.4531 [0.4531, 0.5431] | 1.1966 [1.0227, 1.2881] | 0.5600 [0.4995, 0.8637] | 1.0995 [0.9878, 1.2026] |
+| Cu26Ni9Cr31Co33 | 3 | 0.479192 | 0.0000000001 | REPRODUCED | 0.4492 [0.4492, 0.5151] | 0.7942 [0.6745, 1.0324] | 0.4971 [0.4492, 0.6476] | 0.8414 [0.7235, 0.9555] |
+| Ni34Fe6Cu29Co31 | 4 | 0.725842 | 0.0000000395 | REPRODUCED | 0.6791 [0.6791, 0.7072] | 1.0410 [0.9394, 1.1372] | 0.7165 [0.6977, 0.8287] | 1.0986 [0.9878, 1.2182] |
+| Cu8Cr23Mn35Co34 | 5 | 0.755768 | 0.0000000001 | REPRODUCED | 0.3622 [0.3622, 0.3863] | 0.6454 [0.4329, 0.9452] | 0.3857 [0.3641, 0.4266] | 0.7017 [0.6045, 0.7948] |
+| Cu22Fe30Co32Mn15 | 6 | 0.795653 | 0.0000000210 | REPRODUCED | 0.6856 [0.6856, 0.8038] | 1.2041 [1.1305, 1.2303] | 0.8447 [0.8022, 0.8885] | 1.1415 [1.0773, 1.1983] |
+
+census order and Kendall tau-a against the banked order: min: Cu8Cr23Mn35Co34 < Ni31Cr29Cu5Mn35 < Cu26Ni9Cr31Co33 < Fe25Co25Ni25Cr25 < Ni34Fe6Cu29Co31 < Cu22Fe30Co32Mn15 (tau 0.333); median: Cu8Cr23Mn35Co34 < Cu26Ni9Cr31Co33 < Ni31Cr29Cu5Mn35 < Ni34Fe6Cu29Co31 < Fe25Co25Ni25Cr25 < Cu22Fe30Co32Mn15 (tau 0.067); p10: Cu8Cr23Mn35Co34 < Cu26Ni9Cr31Co33 < Fe25Co25Ni25Cr25 < Ni31Cr29Cu5Mn35 < Ni34Fe6Cu29Co31 < Cu22Fe30Co32Mn15 (tau 0.067); mean: Cu8Cr23Mn35Co34 < Cu26Ni9Cr31Co33 < Ni31Cr29Cu5Mn35 < Ni34Fe6Cu29Co31 < Fe25Co25Ni25Cr25 < Cu22Fe30Co32Mn15 (tau 0.067)
+
+## T3 Rank-probability matrix (min rule; P(rank r), rank 1 best; STABLE when P(banked rank) >= 0.95)
+
+| composition | r1 | r2 | r3 | r4 | r5 | r6 | E[rank] | banked rank | label |
+|---|---|---|---|---|---|---|---|---|---|
+| Cu22Fe30Co32Mn15 | 0.000 | 0.000 | 0.000 | 0.001 | 0.228 | 0.772 | 5.77 | 6 | - |
+| Cu26Ni9Cr31Co33 | 0.000 | 0.270 | 0.540 | 0.188 | 0.001 | 0.001 | 2.92 | 3 | - |
+| Cu8Cr23Mn35Co34 | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 1.00 | 5 | - |
+| Fe25Co25Ni25Cr25 | 0.000 | 0.087 | 0.362 | 0.550 | 0.000 | 0.001 | 3.47 | 2 | - |
+| Ni31Cr29Cu5Mn35 | 0.000 | 0.643 | 0.097 | 0.257 | 0.002 | 0.000 | 2.62 | 1 | - |
+| Ni34Fe6Cu29Co31 | 0.000 | 0.000 | 0.000 | 0.004 | 0.770 | 0.226 | 5.22 | 4 | - |
+
+## T3 Rank-probability matrix (median rule; P(rank r), rank 1 best; STABLE when P(banked rank) >= 0.95)
+
+| composition | r1 | r2 | r3 | r4 | r5 | r6 | E[rank] | banked rank | label |
+|---|---|---|---|---|---|---|---|---|---|
+| Cu22Fe30Co32Mn15 | 0.000 | 0.006 | 0.010 | 0.023 | 0.462 | 0.499 | 5.44 | 6 | - |
+| Cu26Ni9Cr31Co33 | 0.213 | 0.656 | 0.096 | 0.032 | 0.003 | 0.000 | 1.95 | 3 | - |
+| Cu8Cr23Mn35Co34 | 0.776 | 0.204 | 0.018 | 0.002 | 0.000 | 0.000 | 1.25 | 5 | - |
+| Fe25Co25Ni25Cr25 | 0.000 | 0.010 | 0.041 | 0.070 | 0.395 | 0.485 | 5.30 | 2 | - |
+| Ni31Cr29Cu5Mn35 | 0.006 | 0.057 | 0.390 | 0.458 | 0.084 | 0.005 | 3.57 | 1 | - |
+| Ni34Fe6Cu29Co31 | 0.004 | 0.067 | 0.446 | 0.415 | 0.057 | 0.011 | 3.49 | 4 | - |
+
+## T3 Rank-probability matrix (p10 rule; P(rank r), rank 1 best; STABLE when P(banked rank) >= 0.95)
+
+| composition | r1 | r2 | r3 | r4 | r5 | r6 | E[rank] | banked rank | label |
+|---|---|---|---|---|---|---|---|---|---|
+| Cu22Fe30Co32Mn15 | 0.000 | 0.000 | 0.000 | 0.004 | 0.099 | 0.898 | 5.89 | 6 | - |
+| Cu26Ni9Cr31Co33 | 0.003 | 0.637 | 0.229 | 0.121 | 0.008 | 0.001 | 2.50 | 3 | - |
+| Cu8Cr23Mn35Co34 | 0.996 | 0.002 | 0.001 | 0.000 | 0.000 | 0.000 | 1.01 | 5 | - |
+| Fe25Co25Ni25Cr25 | 0.000 | 0.174 | 0.482 | 0.257 | 0.036 | 0.051 | 3.31 | 2 | - |
+| Ni31Cr29Cu5Mn35 | 0.001 | 0.186 | 0.286 | 0.514 | 0.011 | 0.004 | 3.36 | 1 | - |
+| Ni34Fe6Cu29Co31 | 0.000 | 0.000 | 0.002 | 0.104 | 0.847 | 0.047 | 4.94 | 4 | - |
+
+## T3 Rank-probability matrix (mean rule; P(rank r), rank 1 best; STABLE when P(banked rank) >= 0.95)
+
+| composition | r1 | r2 | r3 | r4 | r5 | r6 | E[rank] | banked rank | label |
+|---|---|---|---|---|---|---|---|---|---|
+| Cu22Fe30Co32Mn15 | 0.000 | 0.000 | 0.009 | 0.121 | 0.342 | 0.528 | 5.39 | 6 | - |
+| Cu26Ni9Cr31Co33 | 0.062 | 0.902 | 0.032 | 0.003 | 0.000 | 0.000 | 1.98 | 3 | - |
+| Cu8Cr23Mn35Co34 | 0.938 | 0.062 | 0.000 | 0.000 | 0.000 | 0.000 | 1.06 | 5 | - |
+| Fe25Co25Ni25Cr25 | 0.000 | 0.002 | 0.117 | 0.331 | 0.324 | 0.226 | 4.65 | 2 | - |
+| Ni31Cr29Cu5Mn35 | 0.000 | 0.031 | 0.717 | 0.182 | 0.057 | 0.012 | 3.30 | 1 | - |
+| Ni34Fe6Cu29Co31 | 0.000 | 0.002 | 0.125 | 0.362 | 0.277 | 0.234 | 4.62 | 4 | - |
+
+## T4 Adjacent gaps in the banked order (RESOLVED when P(order) >= 0.95; INVERTED when the observed gap is not positive; SPREAD-DECIDED when P falls with depth)
+
+| pair | rule | gap (V) | P(order) | gap interval (V) | verdict | decorations needed [MC bracket] |
+|---|---|---|---|---|---|---|
+| Ni31Cr29Cu5Mn35 < Fe25Co25Ni25Cr25 | min | 0.01306 | 0.721 | [-0.1546, 0.1031] | UNRESOLVED / SPREAD-DECIDED | saturated: P(10000) = 0.256, best 0.495 at D = 1 |
+| Fe25Co25Ni25Cr25 < Cu26Ni9Cr31Co33 | min | -0.00389 | 0.257 | [-0.0939, 0.0620] | INVERTED | observed gap is not positive under this rule; the banked order is inverted here |
+| Cu26Ni9Cr31Co33 < Ni34Fe6Cu29Co31 | min | 0.22992 | 0.998 | [0.1640, 0.2580] | RESOLVED / SPREAD-DECIDED | saturated: P(10000) = 0.058, best 0.664 at D = 1 |
+| Ni34Fe6Cu29Co31 < Cu8Cr23Mn35Co34 | min | -0.31687 | 0.000 | [-0.3450, -0.2928] | INVERTED | observed gap is not positive under this rule; the banked order is inverted here |
+| Cu8Cr23Mn35Co34 < Cu22Fe30Co32Mn15 | min | 0.32333 | 1.000 | [0.2993, 0.4416] | RESOLVED | 3 [2, 3] |
+| Ni31Cr29Cu5Mn35 < Fe25Co25Ni25Cr25 | median | 0.16633 | 0.907 | [-0.0412, 0.3052] | UNRESOLVED | 8 [8, 9] |
+| Fe25Co25Ni25Cr25 < Cu26Ni9Cr31Co33 | median | -0.40241 | 0.013 | [-0.5697, -0.0955] | INVERTED | observed gap is not positive under this rule; the banked order is inverted here |
+| Cu26Ni9Cr31Co33 < Ni34Fe6Cu29Co31 | median | 0.24678 | 0.921 | [-0.0328, 0.4138] | UNRESOLVED | 4 [3, 4] |
+| Ni34Fe6Cu29Co31 < Cu8Cr23Mn35Co34 | median | -0.39559 | 0.013 | [-0.6043, -0.0882] | INVERTED | observed gap is not positive under this rule; the banked order is inverted here |
+| Cu8Cr23Mn35Co34 < Cu22Fe30Co32Mn15 | median | 0.55867 | 0.999 | [0.2473, 0.7379] | RESOLVED | 1 |
+| Ni31Cr29Cu5Mn35 < Fe25Co25Ni25Cr25 | p10 | -0.04925 | 0.419 | [-0.1518, 0.2518] | INVERTED | observed gap is not positive under this rule; the banked order is inverted here |
+| Fe25Co25Ni25Cr25 < Cu26Ni9Cr31Co33 | p10 | -0.06290 | 0.250 | [-0.3186, 0.0988] | INVERTED | observed gap is not positive under this rule; the banked order is inverted here |
+| Cu26Ni9Cr31Co33 < Ni34Fe6Cu29Co31 | p10 | 0.21940 | 0.991 | [0.0694, 0.3278] | RESOLVED | 46 [44, 47] |
+| Ni34Fe6Cu29Co31 < Cu8Cr23Mn35Co34 | p10 | -0.33079 | 0.000 | [-0.4435, -0.2928] | INVERTED | observed gap is not positive under this rule; the banked order is inverted here |
+| Cu8Cr23Mn35Co34 < Cu22Fe30Co32Mn15 | p10 | 0.45894 | 1.000 | [0.4007, 0.5069] | RESOLVED | 1 |
+| Ni31Cr29Cu5Mn35 < Fe25Co25Ni25Cr25 | mean | 0.09277 | 0.853 | [-0.0550, 0.2325] | UNRESOLVED | 18 |
+| Fe25Co25Ni25Cr25 < Cu26Ni9Cr31Co33 | mean | -0.25803 | 0.003 | [-0.4153, -0.0957] | INVERTED | observed gap is not positive under this rule; the banked order is inverted here |
+| Cu26Ni9Cr31Co33 < Ni34Fe6Cu29Co31 | mean | 0.25718 | 0.997 | [0.0987, 0.4251] | RESOLVED | 3 |
+| Ni34Fe6Cu29Co31 < Cu8Cr23Mn35Co34 | mean | -0.39694 | 0.000 | [-0.5518, -0.2483] | INVERTED | observed gap is not positive under this rule; the banked order is inverted here |
+| Cu8Cr23Mn35Co34 < Cu22Fe30Co32Mn15 | mean | 0.43978 | 1.000 | [0.3279, 0.5510] | RESOLVED | 1 |
+
+resolved boundaries: min 2 of 5, median 1 of 5, p10 2 of 5, mean 2 of 5; inverted: min 2, median 2, p10 3, mean 2
+
+## T5 Variance components (site eta; within/between decoration)
+
+| composition | sites | decorations | site sd (pop.) | within sd | between sd | ICC | status |
+|---|---|---|---|---|---|---|---|
+| Cu22Fe30Co32Mn15 | 42 | 25 | 0.2472 | 0.2743 | 0.0000 | 0.000 | ok |
+| Cu26Ni9Cr31Co33 | 16 | 14 | 0.2631 | 0.1471 | 0.2303 | 0.710 | ok |
+| Cu8Cr23Mn35Co34 | 20 | 14 | 0.2781 | 0.3101 | 0.0000 | 0.000 | ok |
+| Fe25Co25Ni25Cr25 | 32 | 19 | 0.3417 | 0.3202 | 0.1368 | 0.154 | ok |
+| Ni31Cr29Cu5Mn35 | 33 | 22 | 0.3188 | 0.3315 | 0.0000 | 0.000 | ok |
+| Ni34Fe6Cu29Co31 | 26 | 19 | 0.3634 | 0.3960 | 0.0000 | 0.000 | ok |
+
+## T6 Ridge on nearest-neighbour cation counts (cutoff 3.8 A, alpha 1.0)
+
+| target | sites | status | R2 in-sample | R2 LOO | sigma in-sample | sigma LOO |
+|---|---|---|---|---|---|---|
+| eta | 720 | ok | 0.253 | 0.228 | 0.2129 | 0.2165 |
+| dG_OH | 720 | ok | 0.444 | 0.423 | 0.1505 | 0.1534 |
+| dG_O | 720 | ok | 0.286 | 0.261 | 0.8119 | 0.8259 |
+| dG_OOH | 720 | ok | 0.168 | 0.141 | 0.6754 | 0.6866 |
+
+## T7 Decorations needed for the banked adjacent gaps (banked eta_std pairs, 4 sites per decoration, target 0.95)
+
+| pair | sigma a/b | rule | own banked gap (V) | decorations on own gap [MC bracket] | P at that depth | decorations at the banked min gap (hypothetical shift) | P | log10 N Gumbel (sa = sb only) |
+|---|---|---|---|---|---|---|---|---|
+| Ni31Cr29Cu5Mn35 < Fe25Co25Ni25Cr25 | 0.3241/0.3286 | min | 0.01306 | saturated: P(10000) = 0.489, best 0.516 at D = 1 | - | saturated: P(10000) = 0.489, best 0.516 at D = 1 | - | - |
+| Ni31Cr29Cu5Mn35 < Fe25Co25Ni25Cr25 | 0.3241/0.3286 | median | - | no box estimate | - | 1331 [1284, 1375] | 0.950 | - |
+| Ni31Cr29Cu5Mn35 < Fe25Co25Ni25Cr25 | 0.3241/0.3286 | p10 | - | no box estimate | - | 7748 [7477, 8012] | 0.950 | - |
+| Ni31Cr29Cu5Mn35 < Fe25Co25Ni25Cr25 | 0.3241/0.3286 | mean | 0.13639 | 8 | 0.953 | 845 | 0.950 | - |
+| Fe25Co25Ni25Cr25 < Cu26Ni9Cr31Co33 | 0.3286/0.2730 | min | 0.02614 | 790 [680, 912] | 0.950 | 790 [680, 912] | 0.950 | - |
+| Fe25Co25Ni25Cr25 < Cu26Ni9Cr31Co33 | 0.3286/0.2730 | median | - | no box estimate | - | 286 [274, 296] | 0.950 | - |
+| Fe25Co25Ni25Cr25 < Cu26Ni9Cr31Co33 | 0.3286/0.2730 | p10 | - | no box estimate | - | 38 [36, 39] | 0.951 | - |
+| Fe25Co25Ni25Cr25 < Cu26Ni9Cr31Co33 | 0.3286/0.2730 | mean | -0.13070 | INVERTED | - | 181 | 0.950 | - |
+| Cu26Ni9Cr31Co33 < Ni34Fe6Cu29Co31 | 0.2730/0.1945 | min | 0.24665 | 2 | 0.962 | 2 | 0.962 | - |
+| Cu26Ni9Cr31Co33 < Ni34Fe6Cu29Co31 | 0.2730/0.1945 | median | - | no box estimate | - | 2 | 0.964 | - |
+| Cu26Ni9Cr31Co33 < Ni34Fe6Cu29Co31 | 0.2730/0.1945 | p10 | - | no box estimate | - | 2 | 0.981 | - |
+| Cu26Ni9Cr31Co33 < Ni34Fe6Cu29Co31 | 0.2730/0.1945 | mean | 0.08506 | 11 | 0.954 | 2 | 0.981 | - |
+| Ni34Fe6Cu29Co31 < Cu8Cr23Mn35Co34 | 0.1945/0.1352 | min | 0.02993 | 17 [16, 18] | 0.951 | 17 [16, 18] | 0.951 | - |
+| Ni34Fe6Cu29Co31 < Cu8Cr23Mn35Co34 | 0.1945/0.1352 | median | - | no box estimate | - | 67 [65, 70] | 0.950 | - |
+| Ni34Fe6Cu29Co31 < Cu8Cr23Mn35Co34 | 0.1945/0.1352 | p10 | - | no box estimate | - | 10 [9, 10] | 0.954 | - |
+| Ni34Fe6Cu29Co31 < Cu8Cr23Mn35Co34 | 0.1945/0.1352 | mean | 0.05740 | 12 | 0.953 | 43 | 0.951 | - |
+| Cu8Cr23Mn35Co34 < Cu22Fe30Co32Mn15 | 0.1352/0.1841 | min | 0.03989 | saturated: P(10000) = 0.005, best 0.487 at D = 1 | - | saturated: P(10000) = 0.005, best 0.487 at D = 1 | - | - |
+| Cu8Cr23Mn35Co34 < Cu22Fe30Co32Mn15 | 0.1352/0.1841 | median | - | no box estimate | - | 35 [33, 36] | 0.952 | - |
+| Cu8Cr23Mn35Co34 < Cu22Fe30Co32Mn15 | 0.1352/0.1841 | p10 | - | no box estimate | - | saturated: P(10000) = 0.000, best 0.497 at D = 1 | - | - |
+| Cu8Cr23Mn35Co34 < Cu22Fe30Co32Mn15 | 0.1352/0.1841 | mean | 0.02931 | 42 | 0.952 | 23 | 0.953 | - |
+
+hypothetical shift = the banked min gap 0.013060, 0.026135, 0.246650, 0.029926, 0.039885 V applied to every rule; own gap = min: banked eta, mean: banked eta_mean, median/p10: no box estimate.
+
+written: C:\Users\frank\sts-electrocatalyst\results\site_census_2026-09-06\readout\rank_resolution_two-pathway.json

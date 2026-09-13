@@ -558,6 +558,10 @@ def test_cli_census_layout_expected_stems_and_manifest_ids(tmp_path, chains):
     data = json.loads((tmp_path / "d.json").read_text(encoding="utf-8"))
     assert data["status"] == "complete" and data["coverage"]["missing"] == [] and data["n_site_rows"] == 24
     assert str(census / "MANIFESTS.sha256") == data["coverage"]["manifest_hashes"]
+    # The foreign-stem fixture above is an exact copy of S1. Once hash guards are
+    # disabled below it would become a duplicate scientific input; remove only
+    # that already-tested refusal fixture before the independent reproduction check.
+    (census / "results" / "mpa0__S9_result.json").unlink()
     # the reproduction check reads only the banked seeds: an extra-decoration site below the banked
     # minimum does not turn a REPRODUCED composition into NOT REPRODUCED
     box = {"n_sites": 4, "seeds": [0, 1, 2], "rows": [
@@ -604,3 +608,82 @@ def test_compare_flags_policy_dependent_boundaries(tmp_path):
     assert proc.returncode == 0, proc.stderr
     assert "POLICY-DEPENDENT" in proc.stdout and "policy-dependent boundaries: 1 of 4" in proc.stdout
     assert json.loads((tmp_path / "cmp.json").read_text(encoding="utf-8"))["n_policy_dependent"] == 1
+
+
+# --------------------------------------------------------------------------- merged declaration metadata
+def declaration_batch(formula, seeds, sites_per_seed=4):
+    return {"results": [{"row": {
+        "formula": formula, "n_sites": len(seeds) * sites_per_seed,
+        "n_decorations": len(seeds),
+        "decoration_records": [{"seed": seed} for seed in seeds],
+        "per_site_records": [{"seed": seed, "site_index": site}
+                             for seed in seeds for site in range(sites_per_seed)],
+    }}]}
+
+
+def test_declared_census_sums_disjoint_sources_once_per_formula():
+    from scripts import rank_resolution_readout as cli
+    first = declaration_batch("A", [0, 1, 2])
+    first["results"] += declaration_batch("B", [0, 1, 2])["results"]
+    second = declaration_batch("A", [3, 4, 5])
+    assert cli.declared_census([first, second]) == {
+        "A": {"declared_n_sites": 24, "declared_n_decorations": 6},
+        "B": {"declared_n_sites": 12, "declared_n_decorations": 3}}
+
+
+@pytest.mark.parametrize("missing", [1, 12])
+def test_declared_census_preserves_declarations_when_sites_missing(missing):
+    from scripts import rank_resolution_readout as cli
+    first = declaration_batch("A", [0, 1, 2])
+    second = declaration_batch("A", [3, 4, 5])
+    del second["results"][0]["row"]["per_site_records"][:missing]
+    total = cli.declared_census([first, second])["A"]
+    assert total == {"declared_n_sites": 24, "declared_n_decorations": 6}
+    observed = sum(len(p["results"][0]["row"]["per_site_records"]) for p in [first, second])
+    assert observed == total["declared_n_sites"] - missing
+
+
+def test_declared_census_single_source_and_unknown_declaration():
+    from scripts import rank_resolution_readout as cli
+    first = declaration_batch("A", [0, 1, 2])
+    assert cli.declared_census([first])["A"] == {
+        "declared_n_sites": 12, "declared_n_decorations": 3}
+    second = declaration_batch("A", [3, 4, 5])
+    del second["results"][0]["row"]["n_sites"]
+    assert cli.declared_census([first, second])["A"] == {
+        "declared_n_sites": None, "declared_n_decorations": 6}
+
+
+def test_declared_census_rejects_duplicate_sites_and_overlapping_batches():
+    from scripts import rank_resolution_readout as cli
+    first = declaration_batch("A", [0])
+    with pytest.raises(ValueError, match="duplicate site"):
+        cli.declared_census([first, copy.deepcopy(first)])
+    second = declaration_batch("A", [0])
+    second["results"][0]["row"]["per_site_records"] = []
+    with pytest.raises(ValueError, match="overlapping decoration"):
+        cli.declared_census([first, second])
+
+
+@pytest.mark.parametrize("missing", [0, 1])
+def test_build_readout_merged_declarations_independent_of_observed_counts(chains, missing):
+    from types import SimpleNamespace
+    from scripts import rank_resolution_readout as cli
+    first = synthetic_payload(chains, [0.4], n_dec=3, n_sites=4)[0]
+    second = copy.deepcopy(first)
+    row = second["results"][0]["row"]
+    for item in row["per_site_records"] + row["decoration_records"]:
+        item["seed"] += 3
+    if missing:
+        row["per_site_records"].pop()
+    args = SimpleNamespace(admit="all", B=40, seed=0, rules="mean", level=0.9,
+                           target_prob=0.95, min_decorations=2, cutoff_A=3.8,
+                           alpha=1.0, n_sites_per_decoration=None, stems="*")
+    data = cli.build_readout([first, second], args, box=None, gated_formulas=None)
+    census = data["census"]["S0"]
+    assert census["declared_n_sites"] == 24
+    assert census["declared_n_decorations"] == 6
+    assert census["n_sites"] == 24 - missing
+    assert census["n_decorations"] == 6
+    if missing:
+        assert census["n_sites"] != census["declared_n_sites"]

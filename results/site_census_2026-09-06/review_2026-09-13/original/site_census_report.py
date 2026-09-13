@@ -2000,19 +2000,15 @@ def rr_policy_block(C, pol, second_wave):
     # T1
     cen = d["census"]
     n_missing = len(d["coverage"]["missing"])
-    mismatched = [f for f in C.ORDER if cen[f]["n_decorations"] != cen[f]["declared_n_decorations"]
-                  or cen[f]["n_sites"] != cen[f]["declared_n_sites"]]
-    ok = not mismatched and n_missing == 0
-    why = ("observed = declared for every composition and no stem missing" if ok else
-           f"{n_missing} stems missing in `coverage.missing`; observed/declaration mismatch: "
-           + (", ".join(mismatched) if mismatched else "none"))
+    ok = all(cen[f]["n_decorations"] == cen[f]["declared_n_decorations"] and cen[f]["n_sites"] == cen[f]["declared_n_sites"] for f in C.ORDER) and n_missing == 0
+    why = "observed = declared for every composition and no stem missing" if ok else f"{n_missing} stems missing in `coverage.missing`"
     w(f"**T1 census** (spec:55): coverage is complete when observed = declared for every composition and `coverage.missing` is empty — {'yes' if ok else 'no'} ({why}).")
     w("")
-    w("| composition | decorations (usable) | sites (admitted) | declared decorations / total sites | bootstrap support C(2D-1, D) |")
+    w("| composition | decorations (usable) | sites (admitted) | declared decorations x sites | bootstrap support C(2D-1, D) |")
     w("|---|---|---|---|---|")
     for f in C.ORDER:
         c = cen[f]
-        w(f"| {f} | {c['n_decorations']} ({c['n_decorations_usable']}) | {c['n_sites']} ({c['n_admitted']}) | {c['declared_n_decorations']} / {c['declared_n_sites']} | {c['bootstrap_support']} |")
+        w(f"| {f} | {c['n_decorations']} ({c['n_decorations_usable']}) | {c['n_sites']} ({c['n_admitted']}) | {c['declared_n_decorations']} x {c['declared_n_sites']} | {c['bootstrap_support']} |")
     w("")
     # T2
     bi = d.get("bootstrap_intervals")
@@ -2315,7 +2311,7 @@ def section_hashes(C):
     L = []
     w = L.append
     w("## Hashes — sha256 of the LF-normalised bytes (CRLF → LF before hashing, the repository's `sha256_lf`)")
-    w(f"The census data directory for this report is `{os.path.relpath(C.readout, C.census).replace(os.sep, chr(47))}` relative to the census root. For this report's census data references, `readout/` denotes this supplied directory. Historical docs/93 references and literal quoted frozen commands retain their original paths. Rank-resolution files use the separately supplied rank-resolution directory.")
+    w(f"The census data directory for this report is `{os.path.relpath(C.readout, C.census).replace(os.sep, chr(47))}` relative to the census root. In the preceding sections, `readout/` is shorthand for this supplied census data directory; rank-resolution files use the separately supplied rank-resolution directory.")
     w("")
     w(f"Readout files carry `generated: {C.GEN}`; every result hash equals `manifests_read[stem].result_sha256_lf` (asserted); the twelve `mpa0__` and the endmember hashes equal `docs/93:228-240` (asserted); `o2_records.json` equals `docs/94:131` (asserted when supplied); `MANIFESTS.sha256` equals the `docs/91:92` pin (asserted). Paths are relative to `results/site_census_2026-09-06/` for census files and to the rank-resolution directory for the `rank_resolution` files.")
     w("")
