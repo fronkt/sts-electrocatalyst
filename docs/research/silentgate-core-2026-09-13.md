@@ -34,3 +34,7 @@ Local controls and hosted GitHub CI are reported separately. Hosted CI must exec
 ## Remaining scope
 
 The instrument does not automatically score new external-corpus predictions, change the frozen validation selection, or resolve material-performance claims. Future corpus formats need their own fixtures and identity checks. Research threshold decisions remain separate from parser implementation.
+
+## Final verification
+
+138 local integrated tests passed. The installed wheel passed a real QE control outside the source tree. All four hosted jobs passed on implementation commit `4d60f4b`: [GitHub run 34775915541](https://github.com/fronkt/sts-electrocatalyst/actions/runs/34775915541). Both ANY-atom negative controls pass (QE 0/11, OC20 0/500); the positive, partition, tag and witness-agreement controls also pass. This is verified instrument/control behavior, not a material-performance claim.

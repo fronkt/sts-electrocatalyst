@@ -2564,7 +2564,7 @@ Final prelaunch verification: 31 tests passed (23 existing runner/readout plus e
 Launch review: addb9b3 was pushed before the bounded follow-up started at 2026-09-13T18:34:06Z. Isolated worker PID 20664 supervises two active diagnostic workers (23056/19820) and ten queued jobs; their result checkpoints confirm the pinned CPU software environment and two threads. Startup snapshot and launch receipt are retained separately. The 24-hour deadline is 2026-09-14T18:34:06Z. No completed new model result is claimed.
 
 - [ ] Inspect the automatic 18-target readout after the twelve new jobs terminate; validate matched chemistry, failure denominator, per-model pathway changes and selected-site order, then commit/push completed outputs.
-- [ ] Resolve remaining entrant decisions from the concrete memo; silentgate core authorship clarification remains pending.
+- [ ] Resolve remaining entrant decisions from the concrete memo; silentgate core authorship was subsequently superseded and implementation completed below.
 
 ## 2026-09-13 — Implement authorized silentgate core
 
@@ -2573,8 +2573,10 @@ User explicitly superseded the prior entrant-only authorship boundary: “Supers
 - [x] Implement byte-safe QE and OC20 readers, all-step classification, direction map, census and installable CLI.
 - [x] Connect the declared CLI and transparently update superseded authorship enforcement without weakening scientific controls.
 - [x] Verify adversarial parsing, actual positive/negative controls, packaging and OC20 sample where available.
-- [ ] Independently review, document results and limits, commit explicit paths and push.
+- [x] Independently review, document results and limits, commit explicit paths and push.
 
 Verification: exact-zero all-adsorbate rule, no missing-step false negatives, three-way classification, all corpus gates, actual CLI subprocess and installed wheel, preserved raw outputs.
 
 Review: 138 integrated tests passed, wheel installation and external-directory CLI passed, and all scientific local controls passed: 9/9 positive, 0/11 ANY-atom QE-negative, 20/20 partition and tags, 96/96 witness agreement, and 0/500 ANY-atom OC20-negative after archive/member hash verification. The 524 incidental zero components are retained separately. Review corrected the ALL-run versus ANY-negative distinction and removed an undeclared OC20 noise floor. Historical disjointness remains false and visibly superseded; current explicit authorization/disclosure passes. Receipts identify exact working-tree source hashes on base 7fc5309. Hosted CI remains pending push.
+
+Completion: implementation 4d60f4b pushed; GitHub run 34775915541 passed all four jobs (S1 suite, repository suite, OC20 negative control and complete status face). No pending implementation work remains. See results/silentgate_core_2026-09-13/github-ci.json. The independent twelve-job cross-model experiment continues unchanged and its scientific readout remains a separate open task.
