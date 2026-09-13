@@ -128,11 +128,17 @@ jobs:
           S1_AI_USE_LOG: docs/provenance-record.md
         run: python .github/ci/check_disjoint.py --json disjoint.json
 
+      - name: Current core authorship authorization and disclosure
+        if: always()
+        continue-on-error: true
+        run: python .github/ci/check_core_authorship.py --json authorship.json
+
       - name: Print the face and gate on it
         if: always()
         run: |
           python .github/ci/run_controls.py \
             --disjoint-json disjoint.json \
+            --authorship-json authorship.json \
             --oc20-json oc20/oc20-status.json \
             --out-json control-face.json
 
@@ -144,6 +150,7 @@ jobs:
           path: |
             control-face.json
             disjoint.json
+            authorship.json
           if-no-files-found: warn
           overwrite: true
 

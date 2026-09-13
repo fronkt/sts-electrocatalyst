@@ -317,3 +317,7 @@ line was checked in the tree on 2026-09-05.
     metals / 704 observations (:187-188); the elected dated line says **248 frozen-atom
     observations across three decks, maximum component 0.08723744 Ry/bohr** (`docs/43:4211-4219`).
     The dated line governs.
+
+## Implementation addendum — 2026-09-13
+
+The user superseded the prior entrant-only core boundary and authorized implementation. The seven previously settled scientific rulings remain in force. The implemented package and verification are described in `docs/research/silentgate-core-2026-09-13.md`; the explicit authorship amendment is `docs/research/silentgate-authorship-2026-09-13.md`. Historical status statements above remain dated history.

@@ -1,5 +1,9 @@
 # STS 2027 — HEA-OER Electrocatalyst (Regeneron Science Talent Search)
 
+## silentgate 0.1.0
+
+The implemented QE/OC20 force auditor is described in [the core readout](docs/research/silentgate-core-2026-09-13.md). Install with `python -m pip install .`; run `silentgate census --paths-from paths.txt --json` or `silentgate census --oc20 sample_dir --json`. It reports incomplete evidence explicitly and records per-atom, per-axis results.
+
 > **Repo provenance (2026-07-24):** this is `fronkt/sts-electrocatalyst`, a full-history copy
 > of `fronkt/STS2027` created when the project **un-pivoted back to the electrocatalyst lane**
 > (thermal Cu-Fe(-X) lane dropped 2026-07-23; its artifacts remain frozen in docs/24, docs/27

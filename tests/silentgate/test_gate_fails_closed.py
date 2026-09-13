@@ -141,32 +141,23 @@ def test_disjointness_is_not_fooled_by_prose_around_the_path(tmp_path):
     assert any(v["path"] == "silentgate/direction.py" for v in result["violations"])
 
 
-def test_control_face_is_not_green_while_the_core_is_absent(tmp_path):
-    """The gate itself. NOT GREEN, and it says which of the two reasons applies.
-
-    Guarded: once the entrant commits the core this test has nothing to assert,
-    and without the guard the project's success would read as a harness
-    regression. The unconditional half -- that every registered gate is on the
-    face and none was quietly dropped -- runs either way.
-    """
+def test_control_face_keeps_every_registered_gate_and_missing_artifacts_fail(tmp_path):
+    """Core presence cannot make absent provenance or OC20 evidence pass."""
     out = tmp_path / "face.json"
     proc = run_py("run_controls.py", "--out-json", str(out))
     face = json.loads(out.read_text(encoding="utf-8"))
     gates = {g["key"]: g for g in face["gates"]}
-    # unconditional: every registered gate is on the face, none quietly dropped
     for key in (
         "core_present", "disjointness", "positive_9_9", "negative_qe_0_11",
         "partition_20_20", "two_witness_n_n", "tag_agreement_20_20", "negative_oc20",
     ):
         assert key in gates, "gate %s vanished from the face" % key
     assert face["commit"] and face["commit"] != "UNKNOWN"
-
-    if os.path.isdir(os.path.join(ROOT, "silentgate")):
-        pytest.skip("the entrant has committed the core; this test asserts its absence")
-    assert proc.returncode != 0, "the face must not go green without the controls"
+    assert proc.returncode != 0
     assert "NOT GREEN" in proc.stdout
     assert face["green"] is False
-    assert gates["core_present"]["verdict"] is False
+    assert gates["disjointness"]["verdict"] is not True
+    assert gates["negative_oc20"]["status"] == "NOT MEASURED"
 
 
 def test_oc20_is_not_measured_until_the_entrant_elects_a_mechanism(tmp_path):

@@ -220,3 +220,20 @@ line. Until he does, this file says nothing about them either way — see "what 
 | `src/scripts/census_cross_model_followup.py`; `tests/test_census_cross_model_followup.py`; `results/census_cross_model_2026-09-13/selection.json`, `input_pins.json` and twelve manifests | AI-assisted bounded selected-decoration cross-model diagnostic, four new targets and two reused targets; frozen before launch, with fresh-only, input-identity and failure-readout guards |
 | `docs/research/remaining-research-decisions-2026-09-13.md`; current `tasks/todo.md` block | Audited decision inventory and scientific recommendations; no entrant election, scored Divanis rate or silentgate core implementation |
 | `results/census_cross_model_2026-09-13/launch.json`, `startup_snapshot.json`; launch review in `tasks/todo.md` | Verified startup of the twelve-job frozen protocol after addb9b3 was pushed; two active result checkpoints, ten queued, automatic target readout pending |
+
+## 2026-09-13 — Authorized AI-assisted silentgate core
+
+The user explicitly superseded the former entrant-only core restriction; see `docs/research/silentgate-authorship-2026-09-13.md`. These files are AI-assisted implementation, not entrant-only code:
+
+- `silentgate/__init__.py`
+- `silentgate/readers/__init__.py`
+- `silentgate/readers/qe.py`
+- `silentgate/readers/oc20.py`
+- `silentgate/classify.py`
+- `silentgate/direction.py`
+- `silentgate/census.py`
+- `silentgate/cli.py`
+
+Supporting work: `.github/ci/core-authorship.json`, `.github/ci/check_core_authorship.py`, `.github/ci/run_controls.py`, `.github/ci/preflight_core_commit.py`, `.github/ci/silentgate-invocation.toml`, `.github/workflows/s1-controls.yml`, `pyproject.toml`, core/CI regression tests, and the implementation readout. Original scientific populations and acceptance criteria remain unchanged.
+
+Additional explicit test artifacts for the authorized core: `tests/test_silentgate_core.py`, `tests/test_silentgate_qe_reader.py`, `tests/test_silentgate_oc20_reader.py`, `tests/test_core_authorship.py`, `tests/silentgate/test_negative_quantifiers.py`; adaptations to `tests/silentgate/test_face_end_to_end.py`, `tests/silentgate/test_gate_fails_closed.py`, and `tests/silentgate/test_preflight.py`. Verification receipts are under `results/silentgate_core_2026-09-13/`; original controls and corpus files remain unchanged.

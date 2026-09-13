@@ -182,8 +182,14 @@ def c5_provenance(root, rep):
         rep.add("C5", False, "provenance record %s does not exist; check_disjoint.py "
                 "fails closed on a missing log" % log)
         return
-    proc = subprocess.run([sys.executable, os.path.join(root, ".github", "ci", "check_disjoint.py"),
-                           "--log", log], cwd=root, capture_output=True, text=True)
+    policy = os.path.join(root, ".github", "ci", "core-authorship.json")
+    if os.path.exists(policy):
+        command = [sys.executable, os.path.join(root, ".github", "ci", "check_core_authorship.py"),
+                   "--root", root]
+    else:
+        command = [sys.executable, os.path.join(root, ".github", "ci", "check_disjoint.py"),
+                   "--log", log]
+    proc = subprocess.run(command, cwd=root, capture_output=True, text=True)
     first = (proc.stdout.strip().splitlines() or [""])[0]
     rep.add("C5", proc.returncode == 0, first[:160])
 

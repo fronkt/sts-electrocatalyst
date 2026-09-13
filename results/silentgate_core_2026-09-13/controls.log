@@ -1,0 +1,63 @@
+Verified background desktop: Codex_STS_Background
+['C:\\Users\\frank\\AppData\\Local\\Programs\\Python\\Python312\\python.exe', '.github/ci/check_disjoint.py', '--log', 'docs/provenance-record.md', '--json', 'C:\\Users\\frank\\AppData\\Local\\Temp\\sts-silentgate-20260913\\disjoint.json'] 1 DISJOINTNESS: FAIL -- 7 core path(s) appear in the AI-use log
+
+  docs/provenance-record.md:229  silentgate/readers/__init__.py   (matches core pattern silentgate/readers/*)
+  docs/provenance-record.md:230  silentgate/readers/qe.py   (matches core pattern silentgate/readers/*)
+  docs/provenance-record.md:231  silentgate/readers/oc20.py   (matches core pattern silentgate/readers/*)
+  docs/provenance-record.md:232  silentgate/classify.py   (matches core pattern silentgate/classify.py)
+  docs/provenance-record.md:233  silentgate/direction.py   (matches core pattern silentgate/direction.py)
+  docs/provenance-record.md:234  silentgate/census.py   (matches core pattern silentgate/census.py)
+  docs/provenance-record.md:235  silentgate/cli.py   (matches core pattern silentgate/cli.py)
+
+  Registered: the core is 'written and committed only by the entrant'
+  (docs/43:1840). A core path logged as AI-produced contradicts that.
+
+['C:\\Users\\frank\\AppData\\Local\\Programs\\Python\\Python312\\python.exe', '.github/ci/check_core_authorship.py', '--json', 'C:\\Users\\frank\\AppData\\Local\\Temp\\sts-silentgate-20260913\\authorship.json'] 0 CORE AUTHORSHIP: PASS -- Authorized AI-assisted core; 8 core Python files explicitly disclosed. The historical disjointness assertion is not satisfied by this check.
+
+['C:\\Users\\frank\\AppData\\Local\\Programs\\Python\\Python312\\python.exe', '.github/ci/run_controls.py', '--disjoint-json', 'C:\\Users\\frank\\AppData\\Local\\Temp\\sts-silentgate-20260913\\disjoint.json', '--authorship-json', 'C:\\Users\\frank\\AppData\\Local\\Temp\\sts-silentgate-20260913\\authorship.json', '--oc20-json', 'C:\\Users\\frank\\AppData\\Local\\Temp\\sts-silentgate-20260913\\oc20-any-status.json', '--out-json', 'C:\\Users\\frank\\AppData\\Local\\Temp\\sts-silentgate-20260913\\control-face.json'] 0 silentgate S1 control face
+  commit: 7fc530961388ebd6d754dbdb9346ee4dd484957b
+
+  silentgate core present                               PRESENT      PASS  docs/43:1840
+      all five named core paths present
+  current core authorship authorization and disclosure  MEASURED     PASS  docs/research/silentgate-authorship-2026-09-13.md
+      Authorized AI-assisted core; 8 core Python files explicitly disclosed. The
+      historical disjointness assertion is not satisfied by this check.
+  positive control: 9/9 LOCKED, nosym-absent            MEASURED     PASS  docs/43:1864
+      two-witness 9/9, force-only 9/9
+  QE negative control: 0/11 LOCKED, force-only          MEASURED     PASS  docs/43:1858
+      force-only LOCKED 0/11; quantifier: ANY adsorbate atom
+  20-for-20 partition by the deck's nosym line          MEASURED     PASS  docs/43:1864
+      20/20 partition
+  header-vs-force agreement, n/n classifiable rows      MEASURED     PASS  docs/43:1864
+      96/96 agree
+  tag-free adsorbate rule reproduces tag counts 20/20   MEASURED     PASS  docs/43:1834
+      20/20 agree
+  OC20 negative control: exactly 0.00 % of 500          MEASURED     PASS  docs/43:1856
+      0.0% LOCKED over 500 relaxations (registered: exactly 0.00 % of 500)
+
+  REPORTED ALONGSIDE (registered to be printed, not gated on):
+    OC20 negative-control quantifier (:1856)   ANY adsorbate atom
+    OC20 per-step exact-zero count (:1856)     524
+    UNIDENTIFIED adsorbate rows (:1834)        0 of 20
+    atoms excluded for if_pos = 0 (:1834)      154 across 20 runs
+    header forms encountered (:1836)           count-first, no-inversion, with-fractional-translation x9, no-symmetry x11
+    historical disjointness assertion (superseded) MEASURED; verdict=False; 7 core path(s) present in the log
+
+RESULT: GREEN
+
+['C:\\Users\\frank\\AppData\\Local\\Programs\\Python\\Python312\\python.exe', '.github/ci/preflight_core_commit.py', '--no-pytest'] 0 PASS  C1  silentgate/ holds all five named paths, each non-empty
+PASS  C2  no core path is in history yet -- this will be the first commit
+PASS  C3  seven rulings filled and cited
+PASS  C4  invocation declared
+PASS  C5  CORE AUTHORSHIP: PASS -- Authorized AI-assisted core; 8 core Python files explicitly disclosed. The historical disjointness assertion is not satisfied by this c
+PASS  C6  pytest skipped by --no-pytest (run it before committing)
+
+PRE-FLIGHT: READY
+
+ATOMIC COMMIT -- run these yourself; this script does not:
+  git add silentgate/readers silentgate/census.py silentgate/classify.py \
+          silentgate/direction.py silentgate/cli.py \
+          .github/ci/silentgate-invocation.toml
+  git status --porcelain            # confirm ONLY the intended paths are staged
+  git commit                        # one commit, all five, the entrant as author
+Then watch the S1 face: the seven skips must read as passes on the next run.

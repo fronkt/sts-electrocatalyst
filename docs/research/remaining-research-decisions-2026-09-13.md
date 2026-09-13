@@ -32,3 +32,7 @@ This is a recommendation to continue the research with a hold on a superiority c
 ## silentgate
 
 The dated core authorship boundary remains in docs/43 and docs/71. Its seven specification rulings are settled and should not be reopened. Supporting tests, review and infrastructure can continue; the requested clarification asks whether the user now intends to supersede the core authorship boundary. No core implementation or weakening of control checks has been made in this phase.
+
+## Subsequent user decision — 2026-09-13
+
+The user explicitly superseded the silentgate core authorship boundary and requested implementation. See `silentgate-authorship-2026-09-13.md` and `silentgate-core-2026-09-13.md`. The other recommendations above are not converted into elections by this change.

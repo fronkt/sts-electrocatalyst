@@ -1227,3 +1227,7 @@ The user further clarified that scientific interpretation is part of the request
 ## 2026-09-06 — do not scope the science to the report date
 
 A recommendation to defer the DFT validation and the melt question "until after the lock" was rejected in session: the instruction is to maximise rigor without regard to the deadline. Rule: size every program to the question, not to the date; present the full rigorous sequence (pre-stated protocol, local arms that need no licence, Anvil decks built and priced but left NOT LICENSED for the dated line), and let the entrant cut, never the tool. Corollary: the blind boundary must be a commit made before any process starts, and the entrant-owned licence step (docs/43:2962-2964) is the only place a tool stops.
+
+## 2026-09-13 — Explicit supersession authorizes core implementation
+
+The user explicitly replaced the entrant-only silentgate core authorship boundary with “Supersede it; implement the core.” Proceed with implementation and record the changed authority transparently; do not ask again or preserve superseded authorship gates as blockers. Preserve scientific acceptance criteria.

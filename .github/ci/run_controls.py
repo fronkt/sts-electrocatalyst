@@ -257,6 +257,8 @@ def main():
     ap.add_argument("--populations", default=os.path.join(HERE, "populations.txt"))
     ap.add_argument("--csv", default=os.path.join(ROOT, "docs", "figs", "symops_audit.csv"))
     ap.add_argument("--disjoint-json", default=None)
+    ap.add_argument("--authorship-json", default=None,
+                    help="current authorized-authorship policy verdict; legacy assertion remains reported")
     ap.add_argument("--oc20-json", default=None,
                     help="status artifact written by the OC20 job; absent => NOT MEASURED")
     ap.add_argument("--out-json", default=None)
@@ -334,6 +336,33 @@ def main():
     else:
         G["disjointness"].unmeasured("check_disjoint.py produced no result artifact")
 
+    # The user's dated authorization supersedes only the authorship restriction.
+    # Preserve the historical assertion verbatim; never relabel its overlap as PASS.
+    legacy_disjointness = G["disjointness"].as_dict()
+    if args.authorship_json:
+        reports["historical disjointness assertion (superseded)"] = (
+            "%s; verdict=%s; %s" % (legacy_disjointness["status"],
+                                      legacy_disjointness["verdict"],
+                                      legacy_disjointness["detail"]))
+        gate = G["disjointness"]
+        gate.title = "current core authorship authorization and disclosure"
+        gate.registered_at = "docs/research/silentgate-authorship-2026-09-13.md"
+        try:
+            with open(args.authorship_json, encoding="utf-8") as fh:
+                authorship = json.load(fh)
+            if not isinstance(authorship, dict):
+                raise ValueError("not a JSON object")
+            # A current policy verdict cannot stand in for the missing historical audit.
+            valid = (authorship.get("status") == "PASS"
+                     and authorship.get("mode") == "ai-assisted-authorized"
+                     and bool(authorship.get("core_paths"))
+                     and not authorship.get("undisclosed")
+                     and dj is not None)
+            gate.measure(valid, authorship.get("detail") or authorship.get("reason")
+                         or "current authorship authorization or historical audit missing")
+        except (OSError, ValueError) as exc:
+            gate.unmeasured("authorship policy verdict unavailable: %s" % exc)
+
     # ---- OC20 (its own job; absence is NOT MEASURED, i.e. not green) ------
     if args.oc20_json and os.path.exists(args.oc20_json):
         with open(args.oc20_json, "r", encoding="utf-8") as fh:
@@ -346,6 +375,8 @@ def main():
                 "%s%% LOCKED over %s relaxations (registered: exactly 0.00 %% of 500)"
                 % (rate, n),
             )
+            if oc.get("quantifier"):
+                reports["OC20 negative-control quantifier (:1856)"] = str(oc["quantifier"])
             if oc.get("per_step_exact_zero_count") is not None:
                 reports["OC20 per-step exact-zero count (:1856)"] = str(
                     oc["per_step_exact_zero_count"])
@@ -457,6 +488,8 @@ def main():
         with open(args.out_json, "w", encoding="utf-8") as fh:
             json.dump(
                 {"commit": commit, "green": green, "reports": reports,
+                 "legacy_disjointness": legacy_disjointness,
+                 "legacy_disjointness_evidence": dj,
                  "gates": [g.as_dict() for g in gates]},
                 fh, indent=1,
             )
@@ -520,22 +553,27 @@ def evaluate(G, schema, by_path, pops, csv_rows):
                 )
 
         # 0/11, FORCE-ONLY with the header witness ignored (:1858)
-        if not need("locked_force_only"):
-            G["negative_qe_0_11"].unmeasured("[schema] locked_force_only unmapped")
+        # The ALL-atoms run verdict does not replace the negative ANY-atom rule.
+        negative_field = ("locked_any_atom_force_only"
+                          if need("locked_any_atom_force_only") else "locked_force_only")
+        quantifier = ("ANY adsorbate atom" if negative_field == "locked_any_atom_force_only"
+                      else "legacy locked_force_only mapping")
+        if not need(negative_field):
+            G["negative_qe_0_11"].unmeasured("[schema] negative force-only verdict unmapped")
         else:
-            blank = nonbool("locked_force_only", present)
+            blank = nonbool(negative_field, present)
             if blank:
                 G["negative_qe_0_11"].unmeasured(
                     "%d of 11 rows returned no boolean verdict, e.g. %s -- reporting "
-                    "0/11 from nulls would be the fail-open A9.2 exists to prevent"
-                    % (len(blank), ", ".join(blank[:3])))
+                    "0/11 from nulls would be the fail-open A9.2 exists to prevent (%s)"
+                    % (len(blank), ", ".join(blank[:3]), quantifier))
             else:
-                hits = [p for p in present if by_path[p]["locked_force_only"] is True]
+                hits = [p for p in present if by_path[p][negative_field] is True]
                 G["negative_qe_0_11"].measure(
                     len(hits) == 0,
-                    "force-only LOCKED %d/%d%s"
+                    "force-only LOCKED %d/%d%s; quantifier: %s"
                     % (len(hits), len(present),
-                       (" -- " + ", ".join(hits)) if hits else ""),
+                       (" -- " + ", ".join(hits)) if hits else "", quantifier),
                 )
 
         # the 20-for-20 partition by the DECK's nosym line (:1864)

@@ -1,0 +1,147 @@
+{
+ "commit": "7fc530961388ebd6d754dbdb9346ee4dd484957b",
+ "green": true,
+ "reports": {
+  "historical disjointness assertion (superseded)": "MEASURED; verdict=False; 7 core path(s) present in the log",
+  "OC20 negative-control quantifier (:1856)": "ANY adsorbate atom",
+  "OC20 per-step exact-zero count (:1856)": "524",
+  "UNIDENTIFIED adsorbate rows (:1834)": "0 of 20",
+  "atoms excluded for if_pos = 0 (:1834)": "154 across 20 runs",
+  "header forms encountered (:1836)": "count-first, no-inversion, with-fractional-translation x9, no-symmetry x11"
+ },
+ "legacy_disjointness": {
+  "key": "disjointness",
+  "title": "AI-use log INTERSECT core paths = {}",
+  "registered_at": "docs/43:1840",
+  "status": "MEASURED",
+  "verdict": false,
+  "detail": "7 core path(s) present in the log"
+ },
+ "legacy_disjointness_evidence": {
+  "assertion": "ai_use_log_file_list INTERSECT core_path_list == EMPTY",
+  "registered_at": "docs/43-prereg-week1-factorial.md:1840",
+  "core_patterns": [
+   "silentgate/readers/*",
+   "silentgate/census.py",
+   "silentgate/classify.py",
+   "silentgate/direction.py",
+   "silentgate/cli.py"
+  ],
+  "log_path": "docs/provenance-record.md",
+  "log_paths": [
+   "docs/provenance-record.md"
+  ],
+  "status": "FAIL",
+  "violations": [
+   {
+    "file": "docs/provenance-record.md",
+    "line": 229,
+    "path": "silentgate/readers/__init__.py",
+    "pattern": "silentgate/readers/*"
+   },
+   {
+    "file": "docs/provenance-record.md",
+    "line": 230,
+    "path": "silentgate/readers/qe.py",
+    "pattern": "silentgate/readers/*"
+   },
+   {
+    "file": "docs/provenance-record.md",
+    "line": 231,
+    "path": "silentgate/readers/oc20.py",
+    "pattern": "silentgate/readers/*"
+   },
+   {
+    "file": "docs/provenance-record.md",
+    "line": 232,
+    "path": "silentgate/classify.py",
+    "pattern": "silentgate/classify.py"
+   },
+   {
+    "file": "docs/provenance-record.md",
+    "line": 233,
+    "path": "silentgate/direction.py",
+    "pattern": "silentgate/direction.py"
+   },
+   {
+    "file": "docs/provenance-record.md",
+    "line": 234,
+    "path": "silentgate/census.py",
+    "pattern": "silentgate/census.py"
+   },
+   {
+    "file": "docs/provenance-record.md",
+    "line": 235,
+    "path": "silentgate/cli.py",
+    "pattern": "silentgate/cli.py"
+   }
+  ],
+  "n_paths_in_log": 347
+ },
+ "gates": [
+  {
+   "key": "core_present",
+   "title": "silentgate core present",
+   "registered_at": "docs/43:1840",
+   "status": "PRESENT",
+   "verdict": true,
+   "detail": "all five named core paths present"
+  },
+  {
+   "key": "disjointness",
+   "title": "current core authorship authorization and disclosure",
+   "registered_at": "docs/research/silentgate-authorship-2026-09-13.md",
+   "status": "MEASURED",
+   "verdict": true,
+   "detail": "Authorized AI-assisted core; 8 core Python files explicitly disclosed. The historical disjointness assertion is not satisfied by this check."
+  },
+  {
+   "key": "positive_9_9",
+   "title": "positive control: 9/9 LOCKED, nosym-absent",
+   "registered_at": "docs/43:1864",
+   "status": "MEASURED",
+   "verdict": true,
+   "detail": "two-witness 9/9, force-only 9/9"
+  },
+  {
+   "key": "negative_qe_0_11",
+   "title": "QE negative control: 0/11 LOCKED, force-only",
+   "registered_at": "docs/43:1858",
+   "status": "MEASURED",
+   "verdict": true,
+   "detail": "force-only LOCKED 0/11; quantifier: ANY adsorbate atom"
+  },
+  {
+   "key": "partition_20_20",
+   "title": "20-for-20 partition by the deck's nosym line",
+   "registered_at": "docs/43:1864",
+   "status": "MEASURED",
+   "verdict": true,
+   "detail": "20/20 partition"
+  },
+  {
+   "key": "two_witness_n_n",
+   "title": "header-vs-force agreement, n/n classifiable rows",
+   "registered_at": "docs/43:1864",
+   "status": "MEASURED",
+   "verdict": true,
+   "detail": "96/96 agree"
+  },
+  {
+   "key": "tag_agreement_20_20",
+   "title": "tag-free adsorbate rule reproduces tag counts 20/20",
+   "registered_at": "docs/43:1834",
+   "status": "MEASURED",
+   "verdict": true,
+   "detail": "20/20 agree"
+  },
+  {
+   "key": "negative_oc20",
+   "title": "OC20 negative control: exactly 0.00 % of 500",
+   "registered_at": "docs/43:1856",
+   "status": "MEASURED",
+   "verdict": true,
+   "detail": "0.0% LOCKED over 500 relaxations (registered: exactly 0.00 % of 500)"
+  }
+ ]
+}

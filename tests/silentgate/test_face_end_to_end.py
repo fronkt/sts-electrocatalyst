@@ -1,6 +1,6 @@
 """End-to-end proof that the A9.2 status face scores the registered gates right.
 
-The core does not exist yet, so these drive the face with a test double
+These drive the face with a test double
 (fixtures/fake_census.py) that emits canned JSON. That is enough to answer the
 two questions that actually matter about a gate:
 
@@ -21,7 +21,6 @@ from __future__ import annotations
 
 import json
 import os
-import shutil
 import sys
 
 import pytest
@@ -33,43 +32,17 @@ FAKE = os.path.join(HERE, "fixtures", "fake_census.py")
 
 def _invocation(tmp_path):
     """A filled-in invocation config pointing at the test double."""
-    src = os.path.join(CI, "silentgate-invocation.toml")
-    with open(src, "r", encoding="utf-8") as fh:
-        text = fh.read()
-    # Forward slashes and explicit quotes: shlex.split (POSIX mode, which is what
-    # run_controls.py uses) eats backslashes, and Windows paths are full of them.
-    # A TOML literal string ('...') keeps the embedded double quotes intact.
+    # Build an isolated config: the production invocation now drives the real core.
     cmd = '"%s" "%s" --paths-from {paths_file}' % (
         sys.executable.replace("\\", "/"), FAKE.replace("\\", "/"))
-    # Fail loudly rather than silently inheriting the entrant's real command:
-    # once he fills silentgate-invocation.toml this replace stops matching, and a
-    # quiet miss would have these tests driving his actual core instead of the
-    # double. Then they would be testing the core, which is not their job.
-    assert 'census_cmd = ""' in text, (
-        "silentgate-invocation.toml no longer has a blank census_cmd -- update "
-        "this helper to build its own config from scratch rather than patching "
-        "the real one, or these tests will silently run the entrant's core"
+    keys = (
+        "runs_array", "path", "n_symops", "nosym_in_deck",
+        "locked_two_witness", "locked_force_only", "locked_axes",
+        "n_adsorbate", "unidentified", "n_if_pos_excluded", "header_form",
     )
-    text = text.replace('census_cmd = ""', "census_cmd = '%s'" % cmd)
-    unmapped = 0
-    for key, ptr in (
-        ("runs_array", "/runs"), ("path", "/path"), ("n_symops", "/n_symops"),
-        ("nosym_in_deck", "/nosym_in_deck"),
-        ("locked_two_witness", "/locked_two_witness"),
-        ("locked_force_only", "/locked_force_only"),
-        ("locked_axes", "/locked_axes"), ("n_adsorbate", "/n_adsorbate"),
-        ("unidentified", "/unidentified"),
-        ("n_if_pos_excluded", "/n_if_pos_excluded"),
-        ("header_form", "/header_form"),
-    ):
-        if '%s = ""' % key not in text:
-            unmapped += 1
-            continue
-        text = text.replace('%s = ""' % key, '%s = "%s"' % (key, ptr), 1)
-    assert unmapped == 0, (
-        "%d [schema] keys were already filled in the real invocation file; this "
-        "helper must build its own config instead of patching it" % unmapped
-    )
+    text = "[cli]\ncensus_cmd = '%s'\n\n[schema]\n" % cmd
+    text += "\n".join('%s = "/%s"' % (key, "runs" if key == "runs_array" else key)
+                      for key in keys) + "\n"
     dst = tmp_path / "invocation.toml"
     dst.write_text(text, encoding="utf-8")
     return str(dst)
@@ -112,49 +85,48 @@ def _run_face(tmp_path, scenario, **kw):
     return proc, face, {g["key"]: g for g in face["gates"]}
 
 
-def test_every_gate_but_the_missing_core_can_be_satisfied(tmp_path):
-    """The proof that this gate is passable at all.
-
-    A gate that can never go green is as broken as one that always does, and
-    "it is red because the core is missing" would hide a bug that keeps it red
-    forever. So: drive every control to its registered passing value and check
-    that the ONLY row still red is `core_present` -- which no test double can or
-    should satisfy, because satisfying it would mean writing files under
-    silentgate/, and that is the one thing AI may not do (docs/43:1840).
-    """
+def test_the_face_goes_green_when_every_gate_is_satisfied(tmp_path):
+    """A complete core plus passing doubles proves the face is passable."""
     proc, face, g = _run_face(tmp_path, "all_pass")
-    blocked = [k for k, gate in g.items() if gate["verdict"] is not True]
-    assert blocked == ["core_present"], (
-        "expected the absent core to be the only blocker; also red: %r\n%s"
-        % ([k for k in blocked if k != "core_present"], proc.stdout)
-    )
+    assert all(gate["verdict"] is True for gate in g.values()), proc.stdout
     assert g["positive_9_9"]["detail"] == "two-witness 9/9, force-only 9/9"
     assert g["negative_qe_0_11"]["detail"].startswith("force-only LOCKED 0/11")
     assert g["partition_20_20"]["detail"].startswith("20/20 partition")
     assert g["tag_agreement_20_20"]["detail"].startswith("20/20 agree")
     assert g["two_witness_n_n"]["detail"] == "96/96 agree"
     assert g["negative_oc20"]["verdict"] is True
-    assert face["green"] is False and proc.returncode != 0
+    assert face["green"] is True and proc.returncode == 0
 
 
-def test_an_empty_package_directory_is_not_a_core(tmp_path):
-    """`core_present` names the five module paths, not just the directory.
+@pytest.mark.parametrize("create_directory", [False, True], ids=["absent", "empty"])
+def test_an_absent_or_empty_package_is_not_a_core(tmp_path, monkeypatch, create_directory):
+    """Exercise missing-core states in a temporary root, never mutate the real core."""
+    import importlib.util
+    import json
 
-    An empty silentgate/ would otherwise read PRESENT, and the face would then
-    claim an instrument that does not exist. The directory is created empty and
-    removed here; no file is ever written under it.
-    """
-    d = os.path.join(ROOT, "silentgate")
-    if os.path.exists(d):
-        pytest.skip("silentgate/ already exists; the entrant has started the core")
-    os.mkdir(d)
-    try:
-        proc, face, g = _run_face(tmp_path, "all_pass")
-    finally:
-        shutil.rmtree(d, ignore_errors=True)
-    assert g["core_present"]["verdict"] is False
+    spec = importlib.util.spec_from_file_location("isolated_control_face", os.path.join(CI, "run_controls.py"))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    root = tmp_path / "repo"
+    root.mkdir()
+    if create_directory:
+        (root / "silentgate").mkdir()
+    monkeypatch.setattr(module, "ROOT", str(root))
+    monkeypatch.setattr(sys, "argv", [
+        "run_controls.py", "--invocation", _invocation(tmp_path),
+        "--disjoint-json", _passing_log(tmp_path),
+        "--oc20-json", _green_oc20(tmp_path),
+        "--out-json", str(tmp_path / "isolated-face.json"),
+    ])
+    # The double has its own repository location; cwd does not supply its corpus.
+    monkeypatch.setenv("FAKE_SCENARIO", "all_pass")
+    assert module.main() != 0
+    face = json.loads((tmp_path / "isolated-face.json").read_text(encoding="utf-8"))
+    gate = next(g for g in face["gates"] if g["key"] == "core_present")
+    assert gate["verdict"] is False
+    assert face["green"] is False
     for name in ("readers", "census.py", "classify.py", "direction.py", "cli.py"):
-        assert "silentgate/" + name in g["core_present"]["detail"]
+        assert "silentgate/" + name in gate["detail"]
 
 
 def test_a_null_verdict_is_not_measured_never_zero_of_eleven(tmp_path):

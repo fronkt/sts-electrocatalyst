@@ -254,7 +254,9 @@ def main():
 
     schema = cfg.get("schema", {})
     runs_ptr = schema.get("runs_array") or ""
-    lock_ptr = schema.get("locked_force_only") or ""
+    lock_ptr = schema.get("locked_any_atom_force_only") or schema.get("locked_force_only") or ""
+    quantifier = ("ANY adsorbate atom" if schema.get("locked_any_atom_force_only")
+                  else "legacy locked_force_only mapping")
     path_ptr = schema.get("path") or ""
     zeros_ptr = schema.get("per_step_exact_zero_count") or ""
     if not runs_ptr or not lock_ptr or not path_ptr:
@@ -314,8 +316,8 @@ def main():
         return finish(
             args.out_json, NOT_MEASURED,
             "%d of %d trajectories returned no boolean LOCKED verdict. A null is "
-            "NOT MEASURED, not not-locked, so the 0.00 %% rate is not computed."
-            % (blank, n),
+            "NOT MEASURED, not not-locked, so the 0.00 %% rate is not computed (%s)."
+            % (blank, n, quantifier),
         )
     if n != 500:
         return finish(
@@ -354,6 +356,7 @@ def main():
     detail = ("OC20 val_id first-500: %s%% of %d relaxations LOCKED in force-only mode "
               "(registered: exactly 0.00 %% of 500); per-step exact-zero count over all "
               "unconstrained atoms and axes = %d." % (rate, n, zeros_total))
+    detail += " Quantifier: %s." % quantifier
     if not green and locked:
         detail += (" A nonzero rate 'may not be explained away as print quantisation by "
                    "argument; if it occurs, the offending frames are exhibited and the "
@@ -361,7 +364,7 @@ def main():
                    + ", ".join(str(deref(x, path_ptr))[:80] for x in locked[:5]))
     return finish(args.out_json, MEASURED, detail,
                   n_relaxations=n, n_locked=len(locked),
-                  locked_rate_percent=rate,
+                  locked_rate_percent=rate, quantifier=quantifier,
                   per_step_exact_zero_count=zeros_total, green=green)
 
 

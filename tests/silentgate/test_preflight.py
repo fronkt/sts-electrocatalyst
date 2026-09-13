@@ -1,8 +1,8 @@
 """The pre-flight for the core commit must refuse the two states that would turn
 seven registered skips into seven failures, and must never create silentgate/.
 
-Everything runs against tmp_path. Nothing here touches the repository's own
-silentgate/ path, which does not exist and must not be created by a test.
+Everything runs against tmp_path. Nothing here changes the repository's own
+silentgate/ path.
 """
 from __future__ import annotations
 
@@ -45,11 +45,27 @@ def test_the_preflight_never_creates_silentgate(tmp_path):
     assert "do NOT create it empty" in proc.stdout
 
 
-def test_the_repository_itself_is_not_ready_and_says_why():
-    """Against the real tree: the core is absent (entrant-only), so NOT READY --
-    and C1 must be the reason, never a crash in a later check."""
-    proc = _run(ROOT)
+def test_a_complete_core_passes_the_presence_check(tmp_path):
+    """The same preflight seam accepts a complete instrument and rejects partial ones."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("isolated_preflight", SCRIPT)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    sg = tmp_path / "silentgate"
+    (sg / "readers").mkdir(parents=True)
+    (sg / "readers" / "pwx.py").write_text("# test fixture\n", encoding="utf-8")
+    for name in ("census.py", "classify.py", "direction.py", "cli.py"):
+        (sg / name).write_text("# test fixture\n", encoding="utf-8")
+    report = module.Report()
+    module.c1_core_present(str(tmp_path), report)
+    assert report.ok
+    assert report.rows[0][0] == "C1"
+
+
+def test_missing_core_fails_c1_in_an_isolated_root(tmp_path):
+    proc = _run(tmp_path)
     assert proc.returncode != 0
     assert "NOT READY" in proc.stdout
     assert "FAIL  C1" in proc.stdout
-    assert not os.path.isdir(os.path.join(ROOT, "silentgate"))
+    assert not (tmp_path / "silentgate").exists()

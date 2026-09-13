@@ -2565,3 +2565,16 @@ Launch review: addb9b3 was pushed before the bounded follow-up started at 2026-0
 
 - [ ] Inspect the automatic 18-target readout after the twelve new jobs terminate; validate matched chemistry, failure denominator, per-model pathway changes and selected-site order, then commit/push completed outputs.
 - [ ] Resolve remaining entrant decisions from the concrete memo; silentgate core authorship clarification remains pending.
+
+## 2026-09-13 — Implement authorized silentgate core
+
+User explicitly superseded the prior entrant-only authorship boundary: “Supersede it; implement the core.” Preserve original scientific classification rules and settled specification rulings.
+
+- [x] Implement byte-safe QE and OC20 readers, all-step classification, direction map, census and installable CLI.
+- [x] Connect the declared CLI and transparently update superseded authorship enforcement without weakening scientific controls.
+- [x] Verify adversarial parsing, actual positive/negative controls, packaging and OC20 sample where available.
+- [ ] Independently review, document results and limits, commit explicit paths and push.
+
+Verification: exact-zero all-adsorbate rule, no missing-step false negatives, three-way classification, all corpus gates, actual CLI subprocess and installed wheel, preserved raw outputs.
+
+Review: 138 integrated tests passed, wheel installation and external-directory CLI passed, and all scientific local controls passed: 9/9 positive, 0/11 ANY-atom QE-negative, 20/20 partition and tags, 96/96 witness agreement, and 0/500 ANY-atom OC20-negative after archive/member hash verification. The 524 incidental zero components are retained separately. Review corrected the ALL-run versus ANY-negative distinction and removed an undeclared OC20 noise floor. Historical disjointness remains false and visibly superseded; current explicit authorization/disclosure passes. Receipts identify exact working-tree source hashes on base 7fc5309. Hosted CI remains pending push.
