@@ -2553,10 +2553,15 @@ Scope: analyze saved endpoints before selecting cross-model follow-up; preserve 
 - [x] Inspect winner coordinates and compare Cr O-state displacement, coordination and matched existing model endpoints; distinguish association from causation.
 - [x] Freeze a bounded cross-model selection and execution design based on findings, with explicit costs and acceptance limits.
 - [x] Audit docs/86, A10, S8 and silentgate current contracts; prepare concrete remaining decisions without inventing user elections.
-- [ ] Independently verify numerical/structural findings, record review and provenance, commit explicit paths and push.
+- [x] Independently verify numerical/structural findings, record review and provenance, commit explicit paths and push.
 
 Verification plan: source hashes, 120 unique sites per full-sampling alloy, independent geometric distance/step-energy checks, retained source immutability, cross-model site identity, and review of claims against computed evidence.
 
 Review: 720 raw/derived site identities, independent O–metal distances and CHE values verified. Independent scientific audit agrees on all six minima, top-twelve counts, Cr axial displacement and O-only sensitivity. Four minima are reconstructed Cr; two have Ni/Mn targets with desorbed OOH. Cross-model protocol freezes twelve fresh one-decoration jobs, two workers × two threads and a 24-hour stop; old targets reused. Twenty-three existing runner/readout tests pass. New guard tests and final review precede commit/push and launch. Outcomes and final readout remain pending.
 
 Final prelaunch verification: 31 tests passed (23 existing runner/readout plus eight new failure-path checks). A Windows clock-resolution collision in partial-report names was found and fixed with a UUID suffix; repeated partial readouts now preserve both outputs. Independent review verified 94 input hashes and all twelve manifest candidate identities. GitHub CLI lacks authentication in this session, so no fresh CI conclusion is asserted.
+
+Launch review: addb9b3 was pushed before the bounded follow-up started at 2026-09-13T18:34:06Z. Isolated worker PID 20664 supervises two active diagnostic workers (23056/19820) and ten queued jobs; their result checkpoints confirm the pinned CPU software environment and two threads. Startup snapshot and launch receipt are retained separately. The 24-hour deadline is 2026-09-14T18:34:06Z. No completed new model result is claimed.
+
+- [ ] Inspect the automatic 18-target readout after the twelve new jobs terminate; validate matched chemistry, failure denominator, per-model pathway changes and selected-site order, then commit/push completed outputs.
+- [ ] Resolve remaining entrant decisions from the concrete memo; silentgate core authorship clarification remains pending.
