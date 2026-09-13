@@ -1,0 +1,90 @@
+{
+  "schema": "census-cross-model-selection-v1",
+  "role": "post-hoc targeted diagnostic; not a new census or held-out validation",
+  "selection_rule": "For each gated alloy, take its all-sites MPA0 minimum over seeds 0–29. Reuse existing seeds 0–2 model runs; evaluate one selected decoration for each minimum at seed >=3. Keep all four sites, report target site separately from within-decoration minima.",
+  "selected": [
+    {
+      "formula": "Cu26Ni9Cr31Co33",
+      "seed": 5,
+      "target_site_index": 2,
+      "initial_metal": "Cr",
+      "eta_mpa0_V": 0.4491684937492817,
+      "source_manifest": "mpa0_ext__Cu26Ni9Cr31Co33__s03-05",
+      "source_sha256": "7741ab315250f7e63650eea6b69416212a81d6f21f795057bd652a3e30764244"
+    },
+    {
+      "formula": "Ni34Fe6Cu29Co31",
+      "seed": 13,
+      "target_site_index": 2,
+      "initial_metal": "Ni",
+      "eta_mpa0_V": 0.6071660769726472,
+      "source_manifest": "mpa0_ext__Ni34Fe6Cu29Co31__s12-14",
+      "source_sha256": "c4ea881626e562fcd39760c703c65483e88a9c5df2ba855dad336c92676b0233"
+    },
+    {
+      "formula": "Cu8Cr23Mn35Co34",
+      "seed": 20,
+      "target_site_index": 2,
+      "initial_metal": "Cr",
+      "eta_mpa0_V": 0.3622195377546671,
+      "source_manifest": "mpa0_ext__Cu8Cr23Mn35Co34__s18-20",
+      "source_sha256": "412b41700a894a76d17686de2ecdeb24180bf0d0a48306d4e5c75322b6d88b7a"
+    },
+    {
+      "formula": "Cu22Fe30Co32Mn15",
+      "seed": 15,
+      "target_site_index": 0,
+      "initial_metal": "Mn",
+      "eta_mpa0_V": 0.45594879091650764,
+      "source_manifest": "mpa0_ext__Cu22Fe30Co32Mn15__s15-17",
+      "source_sha256": "ab1f9d66438edd03607fe0fccb73b3c2de581e130586a9d5a6d7b3e68f382a4b"
+    }
+  ],
+  "reused": [
+    {
+      "formula": "Ni31Cr29Cu5Mn35",
+      "seed": 1,
+      "site_index": 0
+    },
+    {
+      "formula": "Fe25Co25Ni25Cr25",
+      "seed": 2,
+      "site_index": 0
+    }
+  ],
+  "models": [
+    "omat0",
+    "mp0",
+    "matpes"
+  ],
+  "protocol": {
+    "seeds_per_formula": 1,
+    "n_sites": 4,
+    "starts_per_adsorbate": 3,
+    "states": [
+      "OH",
+      "O",
+      "OOH"
+    ],
+    "fmax_eV_A": 0.05,
+    "steps": 300,
+    "dtype": "float64",
+    "workers": 2,
+    "threads_per_worker": 2
+  },
+  "limits": {
+    "wall_hours": 24,
+    "maximum_concurrent_threads": 4,
+    "scheduled_core_hour_ceiling": 96,
+    "clean_relaxations": 12,
+    "adsorbate_relaxations_upper": 432,
+    "gas_relaxations_upper": 24
+  },
+  "readout": [
+    "Verify model bytes, candidate fractions, seed/site identity, clean slab symbols and initial binding index before matched comparisons.",
+    "Report each model target eta, four CHE steps, OH/O/OOH chemistry, convergence and all alternative-start energies; never replace target with another favorable site.",
+    "Compare all six targets within each model using existing seed0–2 results; report eligibility-specific order and model spread without pooled calibration or rank-validation claims.",
+    "Failures remain in denominator; no automatic retry, DFT, expanded seeds or changed integrity thresholds."
+  ],
+  "state": "PREPARED_NOT_STARTED"
+}

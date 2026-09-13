@@ -2501,7 +2501,7 @@ Scope: user-approved continuation of the 13-run readout, completed CENSUS-1/2 in
 - [x] Run focused regressions and independent scientific/implementation checks; record unresolved questions, update task review, commit explicit paths and push.
 - [x] Evaluate diagnostic 20586171 after execution; reconstruct all rank streams and verify the positive setup signature before interpreting it. No automatic retry or original-endpoint promotion.
 - [x] Finish the full-tree mirror reconciliation and record any older, out-of-scope gaps separately from the 221 verified files in this phase. See the September 12 reconciliation: 76 missing small records recovered, 242 historical collisions explained and preserved.
-- [ ] When CENSUS-3 completes, apply the frozen complete-census and rank-resolution readouts before proposing a candidate-focused DFT expansion.
+- [x] When CENSUS-3 completes, apply the frozen complete-census and rank-resolution readouts before proposing a candidate-focused DFT expansion.
 
 Verification plan: raw hashes and runtime identities, independent SCF/projection audits, consistent reference and geometry checks, source-hashed census snapshot, no overwritten readouts, strict diagnostic-only classification, hard runtime/resource limits, and unchanged original QC rules. Larger relaxation/ranking expenditure awaits the census-informed scientific decision; the energy-blind pilot remains a separate validation design.
 
@@ -2544,3 +2544,19 @@ Verification adjustment: the full focused suite exposed an existing test fixture
 Review (complete census): all 103 results and eight stage receipts verified; 145 initial source/input/history pins and 12 output hashes matched. Independent audit agrees on all 1,231 sites / 3,693 retained states, CSV/CHE values, distributions and model spreads. Full all/min order has tau-a 0.2; Cu8 has the lowest observed minimum, while Cu26 leads mean/median. Policy sensitivity and reconstruction prevent a unique validated winner. Metadata fix restores merged declarations to 30 decorations / 120 total sites without changing the estimator. Original source/report snapshots and original rank outputs remain preserved. Scientific interpretation and errata: docs/research/census-review-2026-09-13.md. Reporter verification passed; 248 staged evidence blobs match exact working bytes.
 
 Final verification: 51 focused tests passed in 116.97 s after correcting the stale duplicate fixture. The reporter renders all five corrected coverage labels and mismatch explanations. All three original follow-through steps are complete; this phase banks the census and reviewed interpretation on r0-catalysis-revival.
+
+## 2026-09-13 — Continue census endpoint chemistry and research decisions
+
+Scope: analyze saved endpoints before selecting cross-model follow-up; preserve all historical results and frozen validation membership. User requested continuation of both scientific next steps and listed decision/core items.
+
+- [x] Recompute low-tail metal, integrity and CHE-step patterns for all six fully sampled alloys from pinned saved evidence.
+- [x] Inspect winner coordinates and compare Cr O-state displacement, coordination and matched existing model endpoints; distinguish association from causation.
+- [x] Freeze a bounded cross-model selection and execution design based on findings, with explicit costs and acceptance limits.
+- [x] Audit docs/86, A10, S8 and silentgate current contracts; prepare concrete remaining decisions without inventing user elections.
+- [ ] Independently verify numerical/structural findings, record review and provenance, commit explicit paths and push.
+
+Verification plan: source hashes, 120 unique sites per full-sampling alloy, independent geometric distance/step-energy checks, retained source immutability, cross-model site identity, and review of claims against computed evidence.
+
+Review: 720 raw/derived site identities, independent O–metal distances and CHE values verified. Independent scientific audit agrees on all six minima, top-twelve counts, Cr axial displacement and O-only sensitivity. Four minima are reconstructed Cr; two have Ni/Mn targets with desorbed OOH. Cross-model protocol freezes twelve fresh one-decoration jobs, two workers × two threads and a 24-hour stop; old targets reused. Twenty-three existing runner/readout tests pass. New guard tests and final review precede commit/push and launch. Outcomes and final readout remain pending.
+
+Final prelaunch verification: 31 tests passed (23 existing runner/readout plus eight new failure-path checks). A Windows clock-resolution collision in partial-report names was found and fixed with a UUID suffix; repeated partial readouts now preserve both outputs. Independent review verified 94 input hashes and all twelve manifest candidate identities. GitHub CLI lacks authentication in this session, so no fresh CI conclusion is asserted.

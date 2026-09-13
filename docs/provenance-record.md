@@ -211,3 +211,11 @@ line. Until he does, this file says nothing about them either way — see "what 
 
 | `src/hea_oer/adsorption.py` — additive per-site/decoration energies, winning structures and force-cache records; `src/hea_oer/ranking_sensitivity.py`; `src/scripts/ranking_adequacy.py`; `tests/test_screen_site_records.py`, `tests/test_ranking_sensitivity.py`, `tests/test_ranking_adequacy.py` | 2026-09-06 candidate-ranking adequacy work; supporting screen diagnostics and 65 tests; first-hand |
 | `docs/candidate-ranking-adequacy-2026-09-06.md`; dated 2026-09-06 additions to `docs/36-screen-validation-and-stability-gate.md`, `docs/37-hea-screen-result-and-melt-list.md`, `tasks/todo.md`, `tasks/lessons.md`; `results/ranking_adequacy_2026-09-06/` (four historical input snapshots, audit.json, verification.json and pytest.log) | 2026-09-06 candidate-ranking adequacy review and verification; historical R4 source files preserved; first-hand |
+
+## 2026-09-13 — Saved census endpoint chemistry and selected model follow-up
+
+| Artifact | Production and verification |
+|---|---|
+| `src/scripts/census_endpoint_audit.mjs`; `results/site_census_2026-09-06/chemistry_2026-09-13/endpoint_audit.json`; `docs/research/census-endpoint-chemistry-2026-09-13.md` | AI-assisted post-hoc analysis of 720 saved sites, with exact inputs and independent recomputation of geometry, low-tail counts and CHE sensitivity; no original evidence changed |
+| `src/scripts/census_cross_model_followup.py`; `tests/test_census_cross_model_followup.py`; `results/census_cross_model_2026-09-13/selection.json`, `input_pins.json` and twelve manifests | AI-assisted bounded selected-decoration cross-model diagnostic, four new targets and two reused targets; frozen before launch, with fresh-only, input-identity and failure-readout guards |
+| `docs/research/remaining-research-decisions-2026-09-13.md`; current `tasks/todo.md` block | Audited decision inventory and scientific recommendations; no entrant election, scored Divanis rate or silentgate core implementation |
