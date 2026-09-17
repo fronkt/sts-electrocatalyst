@@ -2617,3 +2617,15 @@ Scope: the queued 2026-09-16 Anvil program runs untouched (its readouts stay wit
 - [ ] Independent recomputation of every scored number; commit explicit paths; push.
 
 Verification plan: registered thresholds and denominators read from docs/43 A9.3 line by line; input hashes pinned; every UNIDENTIFIED/NO_FORCE_BLOCK/unconverged output counted on the face; an independent second code path for each scored number; no blind P-BUILDER symmetry or P-LIT coding before the pushed boundary.
+
+## 2026-09-17 — Complete Anvil diagnoses and scientific readouts
+
+Scope: continue the approved 48-job program through evidence retrieval, failure diagnosis, frozen scientific readouts and reviewed backup. Preserve rejected attempts and existing S2 work.
+
+- [ ] Verify the live scheduler and all 48 terminal outcomes; mirror raw SCF/projection/QC evidence and accounting with matching hashes.
+- [x] Diagnose the twelve Ru projection-check rejections; unchanged raw files pass reviewed channel-group validation (12/12), original rejections preserved. Frozen Q = 0.071583 V, MIDDLE; 62 tests and independent arithmetic pass.
+- [x] Calculate the matched-member S5 BEEF uncertainty readout with the approved CHE estimator and Ladder B bands. All three metals below 0.25 V; independent 6,000-member reconstruction agrees and 37 tests pass.
+- [ ] Calculate and independently interpret the fixed HEA branch/pilot readouts, including every failed attempt and physical-validity limit.
+- [ ] Review results and focused tests, update task records, commit explicit paths and push.
+
+Verification: scheduler plus scientific receipts; exact input/output identity; no replacement of failed calculations, frozen thresholds/denominators, independent arithmetic and reviewed scientific interpretation.

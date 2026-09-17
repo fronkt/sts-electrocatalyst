@@ -1248,3 +1248,7 @@ The user explicitly replaced the entrant-only silentgate core authorship boundar
 ## 2026-09-16 — Continue the queued program; fix open S2 values in operating records
 
 A status report suggested holding the queued S5 preflight until the A10 thresholds were re-authored in the entrant's words and deposited (docs/43:4369-4372). The user answered: "Just continue it. Let everything run." Applied here: the 2026-09-16 Anvil program runs as submitted, and the S2 values that the registration left open (Xu repair, P-BUILDER, P-LIT, molecule jobs) are fixed in a dated operating-decision record committed before the blind arms they govern are computed. Registered thresholds, denominators and failure accounting are unchanged.
+
+## 2026-09-17 — A status report is not a running follow-through
+
+The user had to ask whether diagnoses and scientific readouts were actually running after a status report listed them as pending. State plainly which jobs/processes are active and continue authorized analysis after compute finishes; a list of next steps does not start those steps. Keep concrete completion tracking through diagnosis, readout, verification and backup.

@@ -1,0 +1,404 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-09-17T13:56:10.132Z",
+  "reviewer": "cross_model independent agent",
+  "status": "PASS_WITH_STATED_SCOPE",
+  "scope": "Independent file-only source audit, evidence hashing, QE text inspection, and JavaScript arithmetic; no Python helper or estimator imported and no runs modified.",
+  "artifact_sha256": {
+    "src/dft/ru_pp_projection_revalidation.py": "fa9229c37af4983a014a77d9170f90b10b4827eaa9eadfb3521a4a71df242197",
+    "src/dft/projection_qc.py": "dfc075634a99cee71e7287ea7868f62c59aa2666e4a593c61470b43d1bdd50f4",
+    "tests/test_ru_pp_projection_revalidation.py": "dbc2029b5f267f5592d661e731e8c0d6f16c63cd8be4c932a15b7f2fb67e2601",
+    "src/dft/ru_pp_readout.py": "fede23b649981a081c110eed9e9cba5045fac0d4a7066dfbcdba49dd48653e5b",
+    "src/dft/research_batch.py": "1b91cc959c49d1de5f90e39fecb1df2bba13fd18f466451d11595bfc31952e1b",
+    "src/dft/hea_force_audit.py": "bddbe7ba3bed9874e723d88f8bdab724bb4e83178f1f75bbc3a1f4034b9fd5d7",
+    "src/hea_oer/referencing.py": "91d7653eb4da276ac6f3077767dd17221234008e0cd253d77a2404ad65fd7473",
+    "results/research_launch_2026-09-16/launch_spec.json": "9fbbb29e2e582700323dedc646b17afa00fe61ab6713e9896ee8c58635fc74c8",
+    "results/research_readout_2026-09-17/retrieval_initial.json": "dce65dbe7f8326c0833538d50b7991546c669168d6da905ccb829019630f1b87",
+    "results/research_readout_2026-09-17/retained_scratch_initial.json": "7665591a85b6073de2db6d7decc44fcda7f845c190d089bd3406f6c90e39d19c",
+    "results/research_readout_2026-09-17/ru_pp_reviewed_readout_2026-09-17.json": "85e00a851203be947c32da93fd1c87a70a23d4e192bbd576f333037599ed80df",
+    "results/research_readout_2026-09-17/ru_tests.txt": "491835acc8ece97d45dd17270781b38264af1144749bc00fd7270675e863f97b"
+  },
+  "artifact_provenance_hashes_match": true,
+  "source_pins_unchanged": {
+    "src/dft/ru_pp_readout.py": true,
+    "src/dft/research_batch.py": true,
+    "src/dft/hea_force_audit.py": true
+  },
+  "blocking_findings": [],
+  "original_outcomes": {
+    "runner_rejected": 12,
+    "original_strict_scoreable": 0,
+    "separately_validated_format_corrections": 12,
+    "original_receipts_and_rejection_sidecars_preserved": true
+  },
+  "review_findings": {
+    "resolved": [
+      {
+        "issue": "An incomplete atom with only its s row could hide among complete split s/p/d groups.",
+        "resolution": "Split layout is detected globally and every atom must include all basis-derived channels.",
+        "regression": "test_one_partial_atom_cannot_hide_among_complete_split_groups"
+      },
+      {
+        "issue": "Completion marker order was not originally enforced.",
+        "resolution": "Requires Lowdin Charges before Spilling Parameter before the single JOB DONE.",
+        "regression": "test_job_done_before_lowdin_is_not_completion"
+      },
+      {
+        "issue": "All singleton s rows could masquerade as combined output.",
+        "resolution": "Combined rows with known basis must contain every expected channel.",
+        "regression": "test_all_single_s_rows_cannot_masquerade_as_combined_output"
+      }
+    ],
+    "audited_guards": [
+      "Only exact incomplete/failed projection reason in both original receipt and REJECTED sidecar may be reconsidered; KILLED and other failures stay unscored.",
+      "Original SCF and projection processes must have exited zero without a stop reason.",
+      "Approved input, exact ONCV-to-GBRV deck substitution, runtime path-only substitutions, SCF energy, forces, and pseudopotential MD5s are revalidated.",
+      "All expected atom groups, angular channels, finite values, unique completion markers and fatal or unknown IEEE conditions are checked.",
+      "Original strict records remain unscored; separate reviewed estimates use the unchanged registered formulas and bands.",
+      "All twelve ONCV rows and gas references must also be scoreable before REVIEWED_COMPLETE."
+    ]
+  },
+  "test_evidence": {
+    "path": "results/research_readout_2026-09-17/ru_tests.txt",
+    "observed_result": "62 passed in 1.77s",
+    "execution": "Parent ran tests; independent reviewer inspected source and saved result."
+  },
+  "independent_evidence_checks": {
+    "ru_jobs": 12,
+    "artifacts_per_job": 7,
+    "artifact_hashes_matching_retrieval": 84,
+    "approved_input_hashes_matching_frozen_spec": 12,
+    "reviewed_artifact_hashes_match_local_files": true,
+    "all_ru_raw_checks_pass": true,
+    "all_pseudo_identities_match": true,
+    "scratch_inventory": "One matching inventory row for each of 12 jobs; XML SHA256 and nonempty retained density required by helper."
+  },
+  "arithmetic": {
+    "method": "Parse final SCF total for twelve fixed-geometry GBRV and twelve ONCV outputs. For relaxed H2 and H2O references use higher-precision Final energy. Convert Ry with 13.605693122 eV/Ry. CHE OH=EOH-Eslab-EH2O+0.5EH2+0.35; O=EO-Eslab-EH2O+EH2+0.05; OOH=EOOH-Eslab-2EH2O+1.5EH2+0.40. eta=max(OH,O-OH,OOH-O,4.92-OOH)-1.23. Q=0.5*abs((EOOH-EOH)[U0]-(EOOH-EOH)[U9]).",
+    "Q_V": 0.07158261279619182,
+    "Q_abs_error_V": 0,
+    "ONCV_Q_V": 0.09224816402274882,
+    "ONCV_Q_abs_error_V": 0,
+    "GBRV": {
+      "u000": {
+        "g": [
+          0.5109457093195985,
+          1.6574457418102242,
+          3.6912936893925816
+        ],
+        "steps": [
+          0.5109457093195985,
+          1.1465000324906258,
+          2.033847947582357,
+          1.2287063106074183
+        ],
+        "eta": 0.8038479475823572,
+        "pls": 3
+      },
+      "u673": {
+        "g": [
+          0.7776996089516203,
+          2.1790372668730553,
+          3.8286378552359692
+        ],
+        "steps": [
+          0.7776996089516203,
+          1.401337657921435,
+          1.649600588362914,
+          1.0913621447640307
+        ],
+        "eta": 0.4196005883629139,
+        "pls": 3
+      },
+      "u900": {
+        "g": [
+          0.9128924426032924,
+          2.4796773697418386,
+          3.950075197083892
+        ],
+        "steps": [
+          0.9128924426032924,
+          1.5667849271385461,
+          1.4703978273420533,
+          0.969924802916108
+        ],
+        "eta": 0.33678492713854613,
+        "pls": 2
+      }
+    },
+    "ONCV": {
+      "u000": {
+        "g": [
+          0.5291275412666024,
+          1.6924410811481352,
+          3.709209257925353
+        ],
+        "steps": [
+          0.5291275412666024,
+          1.1633135398815329,
+          2.0167681767772176,
+          1.2107907420746469
+        ],
+        "eta": 0.7867681767772177,
+        "pls": 3
+      },
+      "u673": {
+        "g": [
+          0.8159705189092662,
+          2.208353725956985,
+          3.851355825273744
+        ],
+        "steps": [
+          0.8159705189092662,
+          1.3923832070477187,
+          1.643002099316759,
+          1.068644174726256
+        ],
+        "eta": 0.4130020993167589,
+        "pls": 3
+      },
+      "u900": {
+        "g": [
+          0.9838491254878633,
+          2.5037707392913573,
+          3.9794345141011163
+        ],
+        "steps": [
+          0.9838491254878633,
+          1.5199216138034939,
+          1.475663774809759,
+          0.9405654858988837
+        ],
+        "eta": 0.2899216138034939,
+        "pls": 2
+      }
+    },
+    "checks": {
+      "u000": {
+        "independent_eta": 0.8038479475823572,
+        "reviewed_eta": 0.8038479475824212,
+        "eta_abs_error": 6.394884621840902e-14,
+        "max_step_abs_error": 7.815970093361102e-14,
+        "bank_eta_abs_error": 6.394884621840902e-14
+      },
+      "u673": {
+        "independent_eta": 0.4196005883629139,
+        "reviewed_eta": 0.41960058836297787,
+        "eta_abs_error": 6.394884621840902e-14,
+        "max_step_abs_error": 7.815970093361102e-14,
+        "bank_eta_abs_error": 6.394884621840902e-14
+      },
+      "u900": {
+        "independent_eta": 0.33678492713854613,
+        "reviewed_eta": 0.3367849271386101,
+        "eta_abs_error": 6.394884621840902e-14,
+        "max_step_abs_error": 7.815970093361102e-14,
+        "bank_eta_abs_error": 6.394884621840902e-14
+      }
+    },
+    "gas": {
+      "H2": {
+        "last_scf_Ry": -2.33323818,
+        "final_Ry": -2.3332381771,
+        "final_eV": -31.74532261815729,
+        "delta_eV": 3.945650917103194e-8,
+        "sha256": "992419bcb8aa7338f603e2f45a02795529b29e16d3877fe3032d9598db04c35f"
+      },
+      "H2O": {
+        "last_scf_Ry": -44.04119711,
+        "final_Ry": -44.04119711,
+        "final_eV": -599.2110126041732,
+        "delta_eV": 0,
+        "sha256": "694191ddd5b6881848a67bdfddc459d36b8ff02032fe7966e72c58d83b4d47fe"
+      }
+    },
+    "initial_offset_resolution": {
+      "cause": "Initial independent calculation used rounded last SCF H2 energy; frozen production parser correctly uses higher-precision Final energy from the converged molecular relaxation.",
+      "initial_eta_offset_V": 1.9728318534362188e-8,
+      "H2_last_scf_Ry": -2.33323818,
+      "H2_final_Ry": -2.3332381771,
+      "H2_delta_eV": 3.945650917103194e-8,
+      "corrected_max_eta_error_V": 6.394884621840902e-14,
+      "corrected_max_step_error_eV": 7.815970093361102e-14,
+      "Q_unaffected": true,
+      "tolerance_widened": false
+    }
+  },
+  "registered_interpretation": {
+    "primary_band": "MIDDLE",
+    "Q_below_0_100_V": true,
+    "Q_difference_from_0_09225_exceeds_0_0078": true,
+    "u0": "COMPARABLE",
+    "u673": "PP-ROBUST; PROJECTOR-MISMATCHED",
+    "u900": "CLEARS-MEASURED-ERROR-CLASSES",
+    "u673_Ir_minus_Ru_V": 0.2173994116370861,
+    "u900_Ir_minus_Ru_V": 0.4172150728614539
+  },
+  "limitations": [
+    "This is the preregistered fixed-geometry pseudopotential control; large residual forces are recorded and do not establish relaxed-geometry equivalence.",
+    "Nominal atomic projectors use different pseudopotential bases; U=6.73 eV comparison remains PROJECTOR-MISMATCHED.",
+    "Primary Q falls in MIDDLE, so this control neither confirms comparability within 0.0078 V nor reaches the 0.100 V PP-SENSITIVE floor.",
+    "Density retention evidence records remote existence and byte size, not a density content hash.",
+    "The original runner FAILED/REJECTED outcomes remain part of the denominator; the additive readout reconciles only the identified projection-format defect."
+  ],
+  "raw_evidence": {
+    "s0_OH__u000_gbrv.out": {
+      "scf_sha256": "b7ce73c0bc9f1a6d340c27afc4ae47cc01361605edd4466754454b61a752a958",
+      "projection_sha256": "eed3a0cc1535faeae3ad59a2119eeb6c9a452fb5ac76a4a6d584da515042f9f1",
+      "energy_Ry": -1707.84421975,
+      "atom_groups": 20,
+      "angular_rows": 60,
+      "complete_groups": true,
+      "fmax_free_eV_A": 0.11330930134045042
+    },
+    "s0_OH__u673_gbrv.out": {
+      "scf_sha256": "77c1c148737a77e8da3a6273ffc7e1d0a0f254e851d0237a0368af0264c6456f",
+      "projection_sha256": "a77b435cc4fad08d4fd521bd96d0c2daa1d9e95dde3ebac2d9e095acf0b8d432",
+      "energy_Ry": -1705.20082914,
+      "atom_groups": 20,
+      "angular_rows": 60,
+      "complete_groups": true,
+      "fmax_free_eV_A": 0.7422368894793934
+    },
+    "s0_OH__u900_gbrv.out": {
+      "scf_sha256": "b35b5a082f6dc57d665a4252750cac9eb4db1cb82c627ac54f8212640b8d2ad9",
+      "projection_sha256": "b76b2a0f5b8879994aa6fd806e5936d4db8aa4d9461e66dcbc536cb8d1981caa",
+      "energy_Ry": -1704.37306611,
+      "atom_groups": 20,
+      "angular_rows": 60,
+      "complete_groups": true,
+      "fmax_free_eV_A": 1.0822632780256394
+    },
+    "s0_OOH__u000_gbrv.out": {
+      "scf_sha256": "826a16d7646563eb77ba7cc7a42f907b2d977f8ac9e85b392cbc792c56b2dc09",
+      "projection_sha256": "172322fd6d30940adc1a5b2b7f858117f346f30f114b4259fb2a15729b20ab59",
+      "energy_Ry": -1749.32210235,
+      "atom_groups": 21,
+      "angular_rows": 63,
+      "complete_groups": true,
+      "fmax_free_eV_A": 0.07874613607536975
+    },
+    "s0_OOH__u673_gbrv.out": {
+      "scf_sha256": "28f74c44701cc08da7e7e3a61029594670423c326b8a8c1f5cbf0b50bfac3ef7",
+      "projection_sha256": "e438d8c19781893c430f30783fc72c9365923c2e46178d63457b88f22e45c5a5",
+      "energy_Ry": -1746.68822318,
+      "atom_groups": 21,
+      "angular_rows": 63,
+      "complete_groups": true,
+      "fmax_free_eV_A": 0.7736854537067201
+    },
+    "s0_OOH__u900_gbrv.out": {
+      "scf_sha256": "d8ba9079840b5de8e940c2a3b7c6622b72f791b97bdfaa147fbf27b884297b90",
+      "projection_sha256": "c15434d9342592324c30f3f57572ab580c31a8d0cf92957959d1e82974f57a7f",
+      "energy_Ry": -1745.86147116,
+      "atom_groups": 21,
+      "angular_rows": 63,
+      "complete_groups": true,
+      "fmax_free_eV_A": 1.0832303449602818
+    },
+    "s0_O__u000_gbrv.out": {
+      "scf_sha256": "e34258ae0f3f27b6d40e7197d127830fa854f596c4db6ca1d534c2c44b5d582f",
+      "projection_sha256": "addc947d727df1849c3173f6e918b9ee59687ff54161657550b1d0e6d3d8a3c4",
+      "energy_Ry": -1706.57128487,
+      "atom_groups": 19,
+      "angular_rows": 57,
+      "complete_groups": true,
+      "fmax_free_eV_A": 0.12795846216683618
+    },
+    "s0_O__u673_gbrv.out": {
+      "scf_sha256": "883b67e04712b774c74184c7073bd7b9e9f486dda70467f8d3dc8b7115029948",
+      "projection_sha256": "f99eec935f66977b910f6ceba067379a83b720c6f2840e8252cf72827f245301",
+      "energy_Ry": -1703.90916404,
+      "atom_groups": 19,
+      "angular_rows": 57,
+      "complete_groups": true,
+      "fmax_free_eV_A": 0.6058267373529814
+    },
+    "s0_O__u900_gbrv.out": {
+      "scf_sha256": "776a005613a1953c184983e64336175b52072b5016b1c33bb5f89c4f9c853c4e",
+      "projection_sha256": "8fb5f8686072d53e479d3bc334a2b5c4486379f97a1f7809ded8cb3835c4deb7",
+      "energy_Ry": -1703.06924086,
+      "atom_groups": 19,
+      "angular_rows": 57,
+      "complete_groups": true,
+      "fmax_free_eV_A": 0.8788739012594058
+    },
+    "slab__u000_gbrv.out": {
+      "scf_sha256": "0de41d29a99f02af3b4b9034c197e8dd5915c95e52f8da980d8bf10bcccec81c",
+      "projection_sha256": "a11e608a5f24a2986a6c9f2b3b4bfd5f2e910d1d2d6f0307640abadc3a8a9a1c",
+      "energy_Ry": -1664.98147102,
+      "atom_groups": 18,
+      "angular_rows": 54,
+      "complete_groups": true,
+      "fmax_free_eV_A": 0.09471562671600099
+    },
+    "slab__u673_gbrv.out": {
+      "scf_sha256": "0cf80b52ec09ee3d58fa04f9e5470d2c518e5a4f2d2567c6fe55591c482cbf11",
+      "projection_sha256": "074c7c489c464a9c49bfe8a13b094ee3a6a0c6f46d2018638e52b4f1df446fd7",
+      "energy_Ry": -1662.35768646,
+      "atom_groups": 18,
+      "angular_rows": 54,
+      "complete_groups": true,
+      "fmax_free_eV_A": 0.7988412920628668
+    },
+    "slab__u900_gbrv.out": {
+      "scf_sha256": "7cd44fd0cbb2d6353e5b5947a6e35f6feac915fa28e004126f462a04f4a24860",
+      "projection_sha256": "ac099bfd75e1fa887370654e1800056aaff10dcca88ff801a0dbf75541808b75",
+      "energy_Ry": -1661.53985992,
+      "atom_groups": 18,
+      "angular_rows": 54,
+      "complete_groups": true,
+      "fmax_free_eV_A": 1.1428488533947256
+    }
+  },
+  "oncv_evidence": {
+    "slab__u000": {
+      "sha256": "49780339ef7f37085bd6616563599dd5810cf6406e99956fe58dc1303b057dc2",
+      "energy_Ry": -1630.66772595
+    },
+    "s0_O__u000": {
+      "sha256": "e3a4c799960499e35e87084953f01140f3df75e7808c7f22b5ba2e8aca4bffc6",
+      "energy_Ry": -1672.25496769
+    },
+    "s0_OH__u000": {
+      "sha256": "bdfaee1eeeeeee5663ce4c9e1e566a5b634220cbc615d9e85201c8bbb518924a",
+      "energy_Ry": -1673.52913834
+    },
+    "s0_OOH__u000": {
+      "sha256": "51803cc27429cb80834add25f0dca5906db0e90b7f7870fb14964747b95f41df",
+      "energy_Ry": -1715.00704051
+    },
+    "slab__u673": {
+      "sha256": "c43d9ca4c4f64c11d9450a264f4092fb89c824f656023cfe33a8dfb98d7d00fa",
+      "energy_Ry": -1628.08775053
+    },
+    "s0_O__u673": {
+      "sha256": "e3e6168a8bb3487798a5c0215edf5440c1a38c2a0b6ce04c361cba01f3063e14",
+      "energy_Ry": -1669.63707339
+    },
+    "s0_OH__u673": {
+      "sha256": "d2ab6361ae2fe5639f8f58a271322bf3262947b6d641e54bac3d00da40efcee7",
+      "energy_Ry": -1670.92808035
+    },
+    "s0_OOH__u673": {
+      "sha256": "8609bdb108964c6b8ddd9e361a2ac07e645ed1d459aea79b09cf72698d33a5f9",
+      "energy_Ry": -1712.41661751
+    },
+    "slab__u900": {
+      "sha256": "605e994cb2894561102e862bb9f16a5128451be0c84f94fb31b64881782bc382",
+      "energy_Ry": -1627.28476327
+    },
+    "s0_O__u900": {
+      "sha256": "37567603d9d435f1f31fcb26ea1e12e24fc73c9e5e89bc67569d5a1b5f7e2a03",
+      "energy_Ry": -1668.81237338
+    },
+    "s0_OH__u900": {
+      "sha256": "124a3347de676aba8477be193fd73b85d285f48cd03aaae2acf412b0138f035c",
+      "energy_Ry": -1670.11275424
+    },
+    "s0_OOH__u900": {
+      "sha256": "cde29664bf31f7228ca4fc0891dfc5b65291090a5521f6fe8bbc64dcfbe6bf1b",
+      "energy_Ry": -1711.60421664
+    }
+  }
+}

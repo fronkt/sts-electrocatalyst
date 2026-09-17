@@ -1,0 +1,459 @@
+{
+  "schema_version": 1,
+  "control": "RU-PP",
+  "local_evidence_root": "C:\\Users\\frank\\sts-electrocatalyst",
+  "readiness": "INCOMPLETE",
+  "control_scoreable_outputs": 0,
+  "control_expected_outputs": 12,
+  "primary": {
+    "status": "UNSCORED",
+    "missing_or_failed": [
+      "u000/s0_OH",
+      "u000/s0_OOH",
+      "u900/s0_OH",
+      "u900/s0_OOH"
+    ]
+  },
+  "secondary": {
+    "u000": {
+      "U_eV": 0.0,
+      "GBRV": {
+        "status": "UNSCORED",
+        "missing_or_failed": [
+          "slab",
+          "s0_O",
+          "s0_OH",
+          "s0_OOH"
+        ]
+      },
+      "ONCV_recomputed": {
+        "status": "SCORED",
+        "dG_eV": {
+          "OH": 0.5291275412665527,
+          "O": 1.6924410811481494,
+          "OOH": 3.709209257925431
+        },
+        "eta_V": 0.7867681767772816,
+        "steps_eV": [
+          0.5291275412665527,
+          1.1633135398815968,
+          2.0167681767772816,
+          1.2107907420745687
+        ],
+        "potential_limiting_step": 3
+      },
+      "ONCV_reference_V": 0.787
+    },
+    "u673": {
+      "U_eV": 6.73,
+      "GBRV": {
+        "status": "UNSCORED",
+        "missing_or_failed": [
+          "slab",
+          "s0_O",
+          "s0_OH",
+          "s0_OOH"
+        ]
+      },
+      "ONCV_recomputed": {
+        "status": "SCORED",
+        "dG_eV": {
+          "OH": 0.8159705189092165,
+          "O": 2.208353725956999,
+          "OOH": 3.851355825273822
+        },
+        "eta_V": 0.41300209931682286,
+        "steps_eV": [
+          0.8159705189092165,
+          1.3923832070477826,
+          1.6430020993168228,
+          1.068644174726178
+        ],
+        "potential_limiting_step": 3
+      },
+      "ONCV_reference_V": 0.413
+    },
+    "u900": {
+      "U_eV": 9.0,
+      "GBRV": {
+        "status": "UNSCORED",
+        "missing_or_failed": [
+          "slab",
+          "s0_O",
+          "s0_OH",
+          "s0_OOH"
+        ]
+      },
+      "ONCV_recomputed": {
+        "status": "SCORED",
+        "dG_eV": {
+          "OH": 0.9838491254878136,
+          "O": 2.5037707392913715,
+          "OOH": 3.9794345141011944
+        },
+        "eta_V": 0.28992161380355785,
+        "steps_eV": [
+          0.9838491254878136,
+          1.5199216138035578,
+          1.475663774809823,
+          0.9405654858988055
+        ],
+        "potential_limiting_step": 2
+      },
+      "ONCV_reference_V": 0.29
+    }
+  },
+  "ONCV_primary_recomputed": {
+    "status": "SCORED",
+    "span_over_2_V": 0.09224816402274882,
+    "c_M_u0_minus_u9_eV": 0.18449632804549765,
+    "delta_vs_ONCV_V": -1.8359772511744588e-06,
+    "comparator_ONCV_V": 0.09225,
+    "comparison_margin_V": 0.0078,
+    "floor_V": 0.1,
+    "band": "CONFIRMS-COMPARABILITY",
+    "equalised_ONCV_V_context_only": 0.09574,
+    "equalised_ONCV_label": "BRANCH-CONDITIONAL; not scoreable into a span"
+  },
+  "ONCV_primary_agrees_with_printed_comparator": true,
+  "records": {
+    "u000/slab": {
+      "GBRV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\ru_pp\\Ru\\slab__u000_gbrv.out",
+        "status": "UNSCORED",
+        "energy_eV": null,
+        "reasons": [
+          "explicit KILLED or REJECTED sidecar"
+        ],
+        "sha256": "0de41d29a99f02af3b4b9034c197e8dd5915c95e52f8da980d8bf10bcccec81c",
+        "input_sha256": "7ddfff8db48d204b885923c3dc9af04c6f68fc922ae6f73f373e156783894ae9",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.094715626716001,
+        "input_pair_reasons": []
+      },
+      "ONCV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\main\\Ru\\slab__u000.out",
+        "status": "SCOREABLE",
+        "energy_eV": -22186.364663225297,
+        "reasons": [],
+        "sha256": "49780339ef7f37085bd6616563599dd5810cf6406e99956fe58dc1303b057dc2",
+        "input_sha256": "d71cb969ff9f3c4361eb967b0fe2bf3ee0b43cfb0326e2a07260b0ad2b62cf7c",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.03367606813019941
+      }
+    },
+    "u000/s0_O": {
+      "GBRV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\ru_pp\\Ru\\s0_O__u000_gbrv.out",
+        "status": "UNSCORED",
+        "energy_eV": null,
+        "reasons": [
+          "explicit KILLED or REJECTED sidecar"
+        ],
+        "sha256": "e34258ae0f3f27b6d40e7197d127830fa854f596c4db6ca1d534c2c44b5d582f",
+        "input_sha256": "1fd0a8ddb4cc548b0028cc1e9a046645d32ed46dee207ec59e903376b9ac6ac9",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.12795846216683618,
+        "input_pair_reasons": []
+      },
+      "ONCV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\main\\Ru\\s0_O__u000.out",
+        "status": "SCOREABLE",
+        "energy_eV": -22752.187912130164,
+        "reasons": [],
+        "sha256": "e3a4c799960499e35e87084953f01140f3df75e7808c7f22b5ba2e8aca4bffc6",
+        "input_sha256": "2ccc2e7106a34abd0006d50d50458eeb005e8b029fc70fa85d22134644e144a8",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.047616594702279774
+      }
+    },
+    "u000/s0_OH": {
+      "GBRV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\ru_pp\\Ru\\s0_OH__u000_gbrv.out",
+        "status": "UNSCORED",
+        "energy_eV": null,
+        "reasons": [
+          "explicit KILLED or REJECTED sidecar"
+        ],
+        "sha256": "b7ce73c0bc9f1a6d340c27afc4ae47cc01361605edd4466754454b61a752a958",
+        "input_sha256": "f90e2e33f884f6dc2bfeb6ca04893ae668187e4bdc5bbede3ad9d3bea91e376e",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.11330930134045042,
+        "input_pair_reasons": []
+      },
+      "ONCV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\main\\Ru\\s0_OH__u000.out",
+        "status": "SCOREABLE",
+        "energy_eV": -22769.523886979125,
+        "reasons": [],
+        "sha256": "bdfaee1eeeeeee5663ce4c9e1e566a5b634220cbc615d9e85201c8bbb518924a",
+        "input_sha256": "2a8df849a0be2b17b76a6dde222e8dccb6cb8c8d4fedaf80ff590b83b1dd67d6",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.04855027772170362
+      }
+    },
+    "u000/s0_OOH": {
+      "GBRV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\ru_pp\\Ru\\s0_OOH__u000_gbrv.out",
+        "status": "UNSCORED",
+        "energy_eV": null,
+        "reasons": [
+          "explicit KILLED or REJECTED sidecar"
+        ],
+        "sha256": "826a16d7646563eb77ba7cc7a42f907b2d977f8ac9e85b392cbc792c56b2dc09",
+        "input_sha256": "9983257806ecbeace6e763b15cb7e766de46491d98412d1b21a18d44e09d0bc7",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.07874613607536975,
+        "input_pair_reasons": []
+      },
+      "ONCV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\main\\Ru\\s0_OOH__u000.out",
+        "status": "SCOREABLE",
+        "energy_eV": -23333.859495248482,
+        "reasons": [],
+        "sha256": "51803cc27429cb80834add25f0dca5906db0e90b7f7870fb14964747b95f41df",
+        "input_sha256": "2449494b17b80d50c82aa74a307c4219a01c569c07e454209a6823816c272292",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.049388733732164576
+      }
+    },
+    "u673/slab": {
+      "GBRV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\ru_pp\\Ru\\slab__u673_gbrv.out",
+        "status": "UNSCORED",
+        "energy_eV": null,
+        "reasons": [
+          "explicit KILLED or REJECTED sidecar"
+        ],
+        "sha256": "0cf80b52ec09ee3d58fa04f9e5470d2c518e5a4f2d2567c6fe55591c482cbf11",
+        "input_sha256": "a27a42c9fd295f6651e18b6cb54dca7d52114cb11e326679fd9e523cf6226623",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.7988412920628669,
+        "input_pair_reasons": []
+      },
+      "ONCV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\main\\Ru\\slab__u673.out",
+        "status": "SCOREABLE",
+        "energy_eV": -22151.262309398473,
+        "reasons": [],
+        "sha256": "c43d9ca4c4f64c11d9450a264f4092fb89c824f656023cfe33a8dfb98d7d00fa",
+        "input_sha256": "2dc89f2a705364c23bf3e8dc06af9c17a53ec1df3508a537116c6e4749ffe4c5",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.7735076961780948
+      }
+    },
+    "u673/s0_O": {
+      "GBRV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\ru_pp\\Ru\\s0_O__u673_gbrv.out",
+        "status": "UNSCORED",
+        "energy_eV": null,
+        "reasons": [
+          "explicit KILLED or REJECTED sidecar"
+        ],
+        "sha256": "883b67e04712b774c74184c7073bd7b9e9f486dda70467f8d3dc8b7115029948",
+        "input_sha256": "235e02c6dc794d043ba9041d17ff1b3d381e445b71b261167ca7bb6c13602ef1",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.6058267373529814,
+        "input_pair_reasons": []
+      },
+      "ONCV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\main\\Ru\\s0_O__u673.out",
+        "status": "SCOREABLE",
+        "energy_eV": -22716.569645658532,
+        "reasons": [],
+        "sha256": "e3e6168a8bb3487798a5c0215edf5440c1a38c2a0b6ce04c361cba01f3063e14",
+        "input_sha256": "36527cdeddc2916444dde65ed5da3aadcacc3ec623c0566c93d9ff6b52be7422",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.565724194995337
+      }
+    },
+    "u673/s0_OH": {
+      "GBRV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\ru_pp\\Ru\\s0_OH__u673_gbrv.out",
+        "status": "UNSCORED",
+        "energy_eV": null,
+        "reasons": [
+          "explicit KILLED or REJECTED sidecar"
+        ],
+        "sha256": "77c1c148737a77e8da3a6273ffc7e1d0a0f254e851d0237a0368af0264c6456f",
+        "input_sha256": "701df2bd8ab962e046626efd22e8c952d87307cf62d9c6777d974a6cf22fdf5e",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.7422368894793934,
+        "input_pair_reasons": []
+      },
+      "ONCV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\main\\Ru\\s0_OH__u673.out",
+        "status": "SCOREABLE",
+        "energy_eV": -22734.13469017466,
+        "reasons": [],
+        "sha256": "d2ab6361ae2fe5639f8f58a271322bf3262947b6d641e54bac3d00da40efcee7",
+        "input_sha256": "1b5f4f2c5147418f113d56d35573aec9c0dead39b33632cc57683d0ada0dfb80",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.6888800479744495
+      }
+    },
+    "u673/s0_OOH": {
+      "GBRV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\ru_pp\\Ru\\s0_OOH__u673_gbrv.out",
+        "status": "UNSCORED",
+        "energy_eV": null,
+        "reasons": [
+          "explicit KILLED or REJECTED sidecar"
+        ],
+        "sha256": "28f74c44701cc08da7e7e3a61029594670423c326b8a8c1f5cbf0b50bfac3ef7",
+        "input_sha256": "8b4440dd2928636ad7bdd2df4807d8ceafb35ae25c1f0a53db1cdab0333098f7",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.7736854537067201,
+        "input_pair_reasons": []
+      },
+      "ONCV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\main\\Ru\\s0_OOH__u673.out",
+        "status": "SCOREABLE",
+        "energy_eV": -23298.61499485431,
+        "reasons": [],
+        "sha256": "8609bdb108964c6b8ddd9e361a2ac07e645ed1d459aea79b09cf72698d33a5f9",
+        "input_sha256": "abd65791c13d0009b99c30a49b09a207d2ee86ecff63fbe5c30512507686f83f",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.7033788672222895
+      }
+    },
+    "u900/slab": {
+      "GBRV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\ru_pp\\Ru\\slab__u900_gbrv.out",
+        "status": "UNSCORED",
+        "energy_eV": null,
+        "reasons": [
+          "explicit KILLED or REJECTED sidecar"
+        ],
+        "sha256": "7cd44fd0cbb2d6353e5b5947a6e35f6feac915fa28e004126f462a04f4a24860",
+        "input_sha256": "85e2fe8cb36c5e99843da2982df83a2b0427af23a6aee76febdff6e761963626",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 1.1428488533947254,
+        "input_pair_reasons": []
+      },
+      "ONCV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\main\\Ru\\slab__u900.out",
+        "status": "SCOREABLE",
+        "energy_eV": -22140.337111158038,
+        "reasons": [],
+        "sha256": "605e994cb2894561102e862bb9f16a5128451be0c84f94fb31b64881782bc382",
+        "input_sha256": "3c6bd78a9e0126299dfe8a8f77b841706985b3e7210054d4886566ba17d2aaa8",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 1.0799727485033188
+      }
+    },
+    "u900/s0_O": {
+      "GBRV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\ru_pp\\Ru\\s0_O__u900_gbrv.out",
+        "status": "UNSCORED",
+        "energy_eV": null,
+        "reasons": [
+          "explicit KILLED or REJECTED sidecar"
+        ],
+        "sha256": "776a005613a1953c184983e64336175b52072b5016b1c33bb5f89c4f9c853c4e",
+        "input_sha256": "6314872e217ba47ed79fa4a9f3528f7c2ae0b139ebd1c930d97e5a18f1dd7102",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.8788739012594058,
+        "input_pair_reasons": []
+      },
+      "ONCV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\main\\Ru\\s0_O__u900.out",
+        "status": "SCOREABLE",
+        "energy_eV": -22705.349030404763,
+        "reasons": [],
+        "sha256": "37567603d9d435f1f31fcb26ea1e12e24fc73c9e5e89bc67569d5a1b5f7e2a03",
+        "input_sha256": "301cf32fbc42d595c42108c6b525ffa9b7ff2265521f3bb850af5fd2a9e0d107",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.8080741732188512
+      }
+    },
+    "u900/s0_OH": {
+      "GBRV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\ru_pp\\Ru\\s0_OH__u900_gbrv.out",
+        "status": "UNSCORED",
+        "energy_eV": null,
+        "reasons": [
+          "explicit KILLED or REJECTED sidecar"
+        ],
+        "sha256": "b35b5a082f6dc57d665a4252750cac9eb4db1cb82c627ac54f8212640b8d2ad9",
+        "input_sha256": "e75acc752ec38a7d8605cb307d54e0c4ced890cc57d2e871e392dfdbd611cb52",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 1.0822632780256392,
+        "input_pair_reasons": []
+      },
+      "ONCV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\main\\Ru\\s0_OH__u900.out",
+        "status": "SCOREABLE",
+        "energy_eV": -22723.041613327645,
+        "reasons": [],
+        "sha256": "124a3347de676aba8477be193fd73b85d285f48cd03aaae2acf412b0138f035c",
+        "input_sha256": "db8536385efcf544762a15ecbfa057b321c18bf5844b89d7e0a69281e7990059",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.8392815407935258
+      }
+    },
+    "u900/s0_OOH": {
+      "GBRV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\ru_pp\\Ru\\s0_OOH__u900_gbrv.out",
+        "status": "UNSCORED",
+        "energy_eV": null,
+        "reasons": [
+          "explicit KILLED or REJECTED sidecar"
+        ],
+        "sha256": "d8ba9079840b5de8e940c2a3b7c6622b72f791b97bdfaa147fbf27b884297b90",
+        "input_sha256": "d5fdd0e42f6adf871a27701d1b988587e54246c1e3b24d5f01b07e7623923304",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 1.0832303449602818,
+        "input_pair_reasons": []
+      },
+      "ONCV": {
+        "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\a0\\main\\Ru\\s0_OOH__u900.out",
+        "status": "SCOREABLE",
+        "energy_eV": -23287.561717925048,
+        "reasons": [],
+        "sha256": "cde29664bf31f7228ca4fc0891dfc5b65291090a5521f6fe8bbc64dcfbe6bf1b",
+        "input_sha256": "18f5d6e0d4f2f3dcc589bbbaa3907dc0d757fb1d37d2078ffb40ad321d2806b9",
+        "qe_verdict": "TRUSTWORTHY",
+        "fmax_free_eV_A": 0.936116925045219
+      }
+    }
+  },
+  "gas_records": {
+    "H2": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Ru_anchor\\H2.out",
+      "status": "SCOREABLE",
+      "energy_eV": -31.74532261815729,
+      "reasons": [],
+      "sha256": "992419bcb8aa7338f603e2f45a02795529b29e16d3877fe3032d9598db04c35f",
+      "input_sha256": "99dbc921b3138fb5ec8852df2103a8f0852761fe3e0bdda43b2e6bc3df4e3d3f",
+      "qe_verdict": "TRUSTWORTHY",
+      "fmax_free_eV_A": 0.004402501909228109
+    },
+    "H2O": {
+      "path": "C:\\Users\\frank\\sts-electrocatalyst\\runs\\Ru_anchor\\H2O.out",
+      "status": "SCOREABLE",
+      "energy_eV": -599.2110126041732,
+      "reasons": [],
+      "sha256": "694191ddd5b6881848a67bdfddc459d36b8ff02032fe7966e72c58d83b4d47fe",
+      "input_sha256": "73f00a515ab903fdcdb7790b3accc1445d198ef569644598ef51bcda7f0bbe9d",
+      "qe_verdict": "TRUSTWORTHY",
+      "fmax_free_eV_A": 0.01851732122418092
+    }
+  },
+  "unchanged_banked_verdicts": {
+    "A7.3": "NOT MET at 3 of 6",
+    "A6.3": "INVERTED"
+  },
+  "limits": [
+    "Fixed ONCV-relaxed coordinates; no GBRV-consistent relaxation or geometry validation.",
+    "Nonmagnetic nspin=1 throughout; no magnetic ground-state claim.",
+    "80/640 Ry and 8x4x1 inherited; no Ru-specific cutoff or k-mesh ladder.",
+    "Nominal U is matched; atomic Ru-4d projectors differ between the pseudopotentials.",
+    "U=6.73 is PROJECTOR-MISMATCHED Xu corroboration, not an A7.3 endpoint.",
+    "ONCV and GBRV Lowdin bases differ; populations are not compared.",
+    "Failed or absent fixed rows remain unscored; no replacement, repair, or alternate seed selection.",
+    "SCF completion verifies a fixed-geometry numerical calculation, not chemical stability.",
+    "Primary Q uses four endpoint outputs; gas, slab and ZPE/TS cancel in this span only.",
+    "An exact zero Xu margin is a tie and provides no positive-sign corroboration."
+  ]
+}
