@@ -1,0 +1,23 @@
+# Approved Anvil batch: final diagnoses and readouts — 2026-09-17
+
+All 48 scientific calculations and the S5 continuation coordinator are terminal. The final scheduler snapshot at 14:07:54 UTC shows an empty queue. Reviewed numerical evidence is usable for 41 calculations: 15 HEA, 12 Ru controls and all 14 S5 calculations. Five HEA attempts stopped at their iteration ceiling and two failed with IEEE_INVALID_FLAG. These seven attempts remain excluded; no DFT retry was run during this follow-through.
+
+| Readout | Result | Scientific limit |
+|---|---|---|
+| [S5 BEEF](s5-beef-readout-2026-09-17.md) | sigma(eta): Ru 0.167314, Ir 0.199404, Ti 0.090813 V; all below 0.25 V, so Ladder B is CONFIRMED under its frozen rule. | Fixed-geometry XC ensemble uncertainty with PBE UPFs; not an HEA error calibration. |
+| [Ru pseudopotential control](ru-pp-readout-2026-09-17.md) | All 12 raw calculations pass additive review. Q = 0.071583 V, classified MIDDLE. | The control does not confirm pseudopotential comparability or establish a new superiority claim. |
+| [Historical HEA panel and retained pilot](hea-panel-readout-2026-09-17.md) | Three of six branch/projector comparisons are scoreable: one WITHIN, two OUTSIDE; one sign reverses. Zero of four chain/projector combinations has a scoreable ordinary AEM overpotential. | Large residual forces, incomplete endpoints and a non-OOH third state prevent a validated composition ranking. These are the historical September 6 structures, not the new low-tail Cr census sites. |
+
+The HEA proton-acceptor gap is +0.310107 eV with atomic projectors and -0.275016 eV with ortho-atomic projectors. The electronic states differ, including an unresolved oxygen-fragment moment, so the reversal cannot be assigned to a pure projector effect. Across the 15 numerical completions, the maximum force on free atoms spans 1.262–1.571 eV/angstrom and is on substrate atoms. A fixed-geometry SCF completion therefore does not establish a relaxed DFT minimum. Relaxation of the newer reconstructed Cr sites remains a separate scientific experiment.
+
+## Diagnoses and provenance
+
+The original Ru checker expected one total-charge line per atom. Actual nonmagnetic QE projections repeat the atom number for s, p and d channels. The corrected checker validates complete, ordered channel groups and consistent totals. A separate review record accepts the 12 unchanged raw outputs after checking SCF, forces, exact deck/runtime/pseudopotential identity and retained scratch evidence. Original scheduler FAILED states and rejection sidecars are preserved. The revised production runner requires the new helper's hash in any future launch specification; the original launch source and specification remain unchanged.
+
+The HEA reporting code had two defects: it could not read a QE wall time with omitted seconds, and it mistook the full benign Fortran underflow/denormal notice for a fatal exception. The corrections preserve severe and unknown-flag rejection, original failure markers, energy estimators and frozen comparison bands. The first unsuccessful readout and the timing-only intermediate readout are retained as superseded evidence. The canonical final output is [readout.json](../../results/hea_readout_2026-09-17/readout.json), with the parser recovery recorded separately in [hea_readout_final.json](../../results/research_readout_2026-09-17/hea_readout_final.json).
+
+All 48 approved input hashes, retrieved raw artifacts and 27 complete projection outputs were verified. Independent calculations checked S5's 6,000 ensemble members, Ru's frozen Q/CHE arithmetic and the HEA energies, forces, moments and terminal counts. The focused integration suite passed 211 tests; the disjoint S5 suite passed 37, for 248 passing tests. Scientific records and test receipts are under [results/research_readout_2026-09-17](../../results/research_readout_2026-09-17).
+
+The [whole-tree mirror reconciliation](../../results/anvil_mirror_2026-09-17/reconciliation.json) found no missing or differing scientific output among the hashed records. All 242 differences are previously documented historical collisions; all 2,906 Anvil-only paths are working scratch. Large scratch follows the existing retention policy and was not fully hashed or copied into git. Full projection outputs and runtime inputs remain both local and on Anvil, with hashes in the retrieval manifests; compact projection extracts are banked.
+
+Accounting records 3,310.686 allocated core-hours including the coordinator, of which 3,098.311 are HEA. The final balance is 49,906.9 CPU SU and all 150 GPU SU. This completes the approved batch's diagnoses and readouts. The low-tail DFT validation and S2 work have separate plans and ownership.

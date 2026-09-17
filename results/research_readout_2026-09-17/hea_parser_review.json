@@ -1,0 +1,12 @@
+{
+  "at": "2026-09-17T14:26:35.573Z",
+  "scope": "Narrow review of HEA parser corrections",
+  "result": "NO_BLOCKING_FINDINGS",
+  "source_sha256": "f0deef7a465db98e55bd1549c95c1cf9338c9c5b28885e06433d3157834cad57",
+  "findings": [
+    "Only complete Fortran notices consisting exclusively of IEEE_UNDERFLOW_FLAG and IEEE_DENORMAL are removed from the diagnostic scan.",
+    "Mixed severe flags, unknown-flag notices, appended errors, and later SIGFPE remain fatal.",
+    "Energy extraction uses unmodified raw output; termination precedence, convergence gates, CHE and bridge estimators remain unchanged."
+  ],
+  "verification": "Independent file-only review plus 211 passing integrated tests, including actual 22-job status regression; all other HEA AST nodes unchanged."
+}

@@ -41,6 +41,8 @@ The additive helper `src/dft/ru_pp_projection_revalidation.py` requires:
 
 The helper writes the separate dated artifact exclusively and refuses to overwrite a previous reviewed result. It never alters raw outputs, original receipts or the banked A0 readout.
 
+The local launch runner now uses the shared projection validator for future jobs. A future specification must explicitly pin `src/dft/projection_qc.py`; preflight verifies both the staged file and the sibling source the runner executes. The historical launch specification is unchanged and cannot authorize this revision. The separately staged Anvil runner is unchanged; its exact source is retained in `results/research_readout_2026-09-17/original_research_batch.py`. The SCF parser is unchanged.
+
 ## Scope
 
 Coordinates remain the ONCV-relaxed structures, and all calculations use the inherited nonmagnetic nspin = 1 protocol, 80/640 Ry cutoffs and 8×4×1 k-mesh. No Ru-specific cutoff ladder or GBRV-consistent relaxation has been added. Equal nominal U does not imply equal atomic projectors between the pseudopotentials. The U = 6.73 corroboration remains PROJECTOR-MISMATCHED. Lowdin populations are not compared across the two projection bases.

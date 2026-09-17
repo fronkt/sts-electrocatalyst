@@ -1,0 +1,1430 @@
+{
+  "schema": "hea-independent-readout-v1",
+  "date": "2026-09-17",
+  "snapshot_utc": "2026-09-17T14:07:54.251301+00:00",
+  "complete": true,
+  "scope": "Historical retained panel and two retained chains only. No retries, no low-tail or composition-ranking validation.",
+  "RY_TO_EV": 13.605693122,
+  "bands": {
+    "dG_eV": 0.25,
+    "eta_primary_V": 0.164,
+    "eta_secondary_V": 0.12955764753597102,
+    "spin_deviation_muB": 0.5,
+    "force_diagnostic_eV_A": 0.05
+  },
+  "artifact_checks": [
+    {
+      "stage": "hea_panel",
+      "row": 1,
+      "job": "equiatomic_pull2.10__atomic",
+      "status": "REJECTED",
+      "reason": "SCF not complete/clean: ['IEEE_INVALID_FLAG']",
+      "input_verified": true,
+      "sidecars": {
+        "killed": false,
+        "rejected": true
+      }
+    },
+    {
+      "stage": "hea_panel",
+      "row": 2,
+      "job": "equiatomic_pull2.10__ortho",
+      "status": "COMPLETE",
+      "input_verified": true,
+      "energy_Ry": -8956.78171674,
+      "artifacts_verified": true,
+      "fmax_free_ev_A": 1.4172793100299943,
+      "fragment_moment_muB": -0.7484000000000001,
+      "fragment_moment_applies": false
+    },
+    {
+      "stage": "hea_panel",
+      "row": 3,
+      "job": "equiatomic_builder__atomic",
+      "status": "REJECTED",
+      "reason": "SCF iteration ceiling",
+      "input_verified": true,
+      "sidecars": {
+        "killed": true,
+        "rejected": false
+      }
+    },
+    {
+      "stage": "hea_panel",
+      "row": 4,
+      "job": "equiatomic_builder__ortho",
+      "status": "REJECTED",
+      "reason": "SCF iteration ceiling",
+      "input_verified": true,
+      "sidecars": {
+        "killed": true,
+        "rejected": false
+      }
+    },
+    {
+      "stage": "hea_panel",
+      "row": 5,
+      "job": "leader_builder__atomic",
+      "status": "COMPLETE",
+      "input_verified": true,
+      "energy_Ry": -7956.26933731,
+      "artifacts_verified": true,
+      "fmax_free_ev_A": 1.443592865565689,
+      "fragment_moment_muB": 1.0425999999999997,
+      "fragment_moment_applies": true
+    },
+    {
+      "stage": "hea_panel",
+      "row": 6,
+      "job": "leader_builder__ortho",
+      "status": "REJECTED",
+      "reason": "SCF iteration ceiling",
+      "input_verified": true,
+      "sidecars": {
+        "killed": true,
+        "rejected": false
+      }
+    },
+    {
+      "stage": "hea_panel",
+      "row": 7,
+      "job": "leader_pull2.10__atomic",
+      "status": "COMPLETE",
+      "input_verified": true,
+      "energy_Ry": -7956.42079137,
+      "artifacts_verified": true,
+      "fmax_free_ev_A": 1.4136421953213851,
+      "fragment_moment_muB": -2.0021,
+      "fragment_moment_applies": true
+    },
+    {
+      "stage": "hea_panel",
+      "row": 8,
+      "job": "leader_pull2.10__ortho",
+      "status": "COMPLETE",
+      "input_verified": true,
+      "energy_Ry": -7956.63303586,
+      "artifacts_verified": true,
+      "fmax_free_ev_A": 1.412486922007284,
+      "fragment_moment_muB": -0.7635,
+      "fragment_moment_applies": true
+    },
+    {
+      "stage": "hea_panel",
+      "row": 9,
+      "job": "leader_pull1.70__atomic",
+      "status": "COMPLETE",
+      "input_verified": true,
+      "energy_Ry": -7956.39799892,
+      "artifacts_verified": true,
+      "fmax_free_ev_A": 1.5042487266655589,
+      "fragment_moment_muB": 1.9810999999999999,
+      "fragment_moment_applies": true
+    },
+    {
+      "stage": "hea_panel",
+      "row": 10,
+      "job": "leader_pull1.70__ortho",
+      "status": "COMPLETE",
+      "input_verified": true,
+      "energy_Ry": -7956.65324916,
+      "artifacts_verified": true,
+      "fmax_free_ev_A": 1.570643349950664,
+      "fragment_moment_muB": -1.9775,
+      "fragment_moment_applies": true
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 1,
+      "job": "slab__atomic",
+      "status": "REJECTED",
+      "reason": "SCF iteration ceiling",
+      "input_verified": true,
+      "sidecars": {
+        "killed": true,
+        "rejected": false
+      }
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 2,
+      "job": "slab__ortho",
+      "status": "COMPLETE",
+      "input_verified": true,
+      "energy_Ry": -8872.5570672,
+      "artifacts_verified": true,
+      "fmax_free_ev_A": 1.5100236260971711,
+      "fragment_moment_muB": 0,
+      "fragment_moment_applies": false
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 3,
+      "job": "OH__atomic",
+      "status": "REJECTED",
+      "reason": "SCF not complete/clean: ['IEEE_INVALID_FLAG']",
+      "input_verified": true,
+      "sidecars": {
+        "killed": false,
+        "rejected": true
+      }
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 4,
+      "job": "OH__ortho",
+      "status": "COMPLETE",
+      "input_verified": true,
+      "energy_Ry": -8915.28828618,
+      "artifacts_verified": true,
+      "fmax_free_ev_A": 1.2618369234023568,
+      "fragment_moment_muB": -0.3808,
+      "fragment_moment_applies": false
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 5,
+      "job": "O__atomic",
+      "status": "COMPLETE",
+      "input_verified": true,
+      "energy_Ry": -8913.84387709,
+      "artifacts_verified": true,
+      "fmax_free_ev_A": 1.3911530402152714,
+      "fragment_moment_muB": -0.3681,
+      "fragment_moment_applies": false
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 6,
+      "job": "O__ortho",
+      "status": "REJECTED",
+      "reason": "SCF iteration ceiling",
+      "input_verified": true,
+      "sidecars": {
+        "killed": true,
+        "rejected": false
+      }
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 7,
+      "job": "slab__atomic",
+      "status": "COMPLETE",
+      "input_verified": true,
+      "energy_Ry": -7872.0446398,
+      "artifacts_verified": true,
+      "fmax_free_ev_A": 1.5312511770789659,
+      "fragment_moment_muB": 0,
+      "fragment_moment_applies": false
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 8,
+      "job": "slab__ortho",
+      "status": "COMPLETE",
+      "input_verified": true,
+      "energy_Ry": -7872.2956461,
+      "artifacts_verified": true,
+      "fmax_free_ev_A": 1.4750372301437362,
+      "fragment_moment_muB": 0,
+      "fragment_moment_applies": false
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 9,
+      "job": "OH__atomic",
+      "status": "COMPLETE",
+      "input_verified": true,
+      "energy_Ry": -7914.76751995,
+      "artifacts_verified": true,
+      "fmax_free_ev_A": 1.564181992075698,
+      "fragment_moment_muB": -0.5479,
+      "fragment_moment_applies": false
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 10,
+      "job": "OH__ortho",
+      "status": "COMPLETE",
+      "input_verified": true,
+      "energy_Ry": -7915.02092937,
+      "artifacts_verified": true,
+      "fmax_free_ev_A": 1.5421164029851304,
+      "fragment_moment_muB": -0.5476000000000001,
+      "fragment_moment_applies": false
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 11,
+      "job": "O__atomic",
+      "status": "COMPLETE",
+      "input_verified": true,
+      "energy_Ry": -7913.4757879,
+      "artifacts_verified": true,
+      "fmax_free_ev_A": 1.499240165981828,
+      "fragment_moment_muB": -0.1758,
+      "fragment_moment_applies": false
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 12,
+      "job": "O__ortho",
+      "status": "COMPLETE",
+      "input_verified": true,
+      "energy_Ry": -7913.71065093,
+      "artifacts_verified": true,
+      "fmax_free_ev_A": 1.41225962177984,
+      "fragment_moment_muB": -0.2468,
+      "fragment_moment_applies": false
+    }
+  ],
+  "independent_arithmetic": {
+    "leader_atomic_branch": {
+      "delta_E_DFT_eV": -2.0606374624424113,
+      "delta_E_MACE_eV": -2.281832858000712,
+      "residual_eV": 0.2211953955583006,
+      "band": "WITHIN",
+      "sign": "AGREES"
+    },
+    "leader_atomic_acceptor": {
+      "delta_E_DFT_eV": 0.3101070802046778,
+      "delta_E_MACE_eV": 0.726032806492185,
+      "residual_eV": -0.41592572628750724,
+      "band": "OUTSIDE",
+      "sign": "AGREES"
+    },
+    "leader_atomic_partial_ladder": {
+      "dG_OH_eV": 2.413954666491668,
+      "dG_O_eV": 3.8162032058401563,
+      "dE3_eV": 2.808016145149395,
+      "steps_1_to_3_eV": [
+        2.413954666491668,
+        1.4022485393484883,
+        -1.0081870606907612
+      ],
+      "nominal_partial_bound_V": 1.183954666491668,
+      "AEM_eta": null,
+      "reason": "Third state is O2-in-cell plus slab proton; fourth step and third-state thermochemical correction unmeasured."
+    },
+    "leader_ortho_acceptor": {
+      "delta_E_DFT_eV": -0.27501595678633023,
+      "delta_E_MACE_eV": 0.726032806492185,
+      "residual_eV": -1.0010487632785152,
+      "band": "OUTSIDE",
+      "sign": "REVERSES",
+      "atomic_minus_ortho_gap_eV": 0.5851230369910081,
+      "interpretation": "Projected electronic-state sensitivity prevents attributing the gap difference solely to the projector convention; the ortho O56 endpoint fails the frozen free-fragment moment diagnostic."
+    },
+    "leader_ortho_partial_ladder": {
+      "dG_OH_eV": 2.381258553239354,
+      "dG_O_eV": 4.035843583443511,
+      "dE3_eV": 3.335397436864241,
+      "steps_1_to_3_eV": [
+        2.381258553239354,
+        1.654585030204157,
+        -0.70044614657927
+      ],
+      "nominal_partial_bound_V": 1.1512585532393542,
+      "AEM_eta": null,
+      "reason": "Third state O2 in cell plus slab H, not intact adsorbed OOH; ordinary AEM eta undefined"
+    },
+    "leader_ortho_adsorption_comparisons": {
+      "OH": {
+        "DFT": 2.381258553239354,
+        "MACE": 2.2080789066094675,
+        "residual": 0.17317964662988672,
+        "band": "WITHIN"
+      },
+      "O": {
+        "DFT": 4.035843583443511,
+        "MACE": 3.593138794498177,
+        "residual": 0.44270478894533394,
+        "band": "OUTSIDE"
+      }
+    }
+  },
+  "force_diagnostics": [
+    {
+      "stage": "hea_panel",
+      "row": 2,
+      "job": "equiatomic_pull2.10__ortho",
+      "free_fmax": 1.4172793100299943,
+      "slab_fmax": 1.4172793100299943,
+      "adsorbate_fmax": 0.676919474560286,
+      "Cr16": [
+        0.020083152872260517,
+        0.07193332793063151,
+        -0.3330986474913712
+      ],
+      "proximalO": [
+        0.39661700812730394,
+        -0.15153754556878044,
+        0.007104732538556347
+      ]
+    },
+    {
+      "stage": "hea_panel",
+      "row": 5,
+      "job": "leader_builder__atomic",
+      "free_fmax": 1.443592865565689,
+      "slab_fmax": 1.443592865565689,
+      "adsorbate_fmax": 0.5253197052056747,
+      "Cr16": [
+        0.11583519112648555,
+        0.17744579236473845,
+        -0.3324617849538977
+      ],
+      "proximalO": [
+        0.31696496794899753,
+        0.030821370021061077,
+        0.11044641360411728
+      ]
+    },
+    {
+      "stage": "hea_panel",
+      "row": 7,
+      "job": "leader_pull2.10__atomic",
+      "free_fmax": 1.4136421953213851,
+      "slab_fmax": 1.4136421953213851,
+      "adsorbate_fmax": 0.45839386969835666,
+      "Cr16": [
+        -0.20196410017095823,
+        0.393688777429167,
+        -0.5283809617826927
+      ],
+      "proximalO": [
+        -0.41325051034745247,
+        -0.0027600804762929246,
+        0.15413204692753887
+      ]
+    },
+    {
+      "stage": "hea_panel",
+      "row": 8,
+      "job": "leader_pull2.10__ortho",
+      "free_fmax": 1.412486922007284,
+      "slab_fmax": 1.412486922007284,
+      "adsorbate_fmax": 1.0234859061429822,
+      "Cr16": [
+        -0.32764224992566193,
+        0.5076727734527826,
+        -0.8478172751940215
+      ],
+      "proximalO": [
+        -0.9621560836123539,
+        -0.00393918891264871,
+        0.2921170445702945
+      ]
+    },
+    {
+      "stage": "hea_panel",
+      "row": 9,
+      "job": "leader_pull1.70__atomic",
+      "free_fmax": 1.5042487266655589,
+      "slab_fmax": 1.5042487266655589,
+      "adsorbate_fmax": 1.2050173260842434,
+      "Cr16": [
+        1.3668167915720588,
+        0.5505359105075818,
+        -0.30246702496835426
+      ],
+      "proximalO": [
+        0.8869132302144804,
+        0.5910462300087195,
+        -0.37787571459419317
+      ]
+    },
+    {
+      "stage": "hea_panel",
+      "row": 10,
+      "job": "leader_pull1.70__ortho",
+      "free_fmax": 1.570643349950664,
+      "slab_fmax": 1.570643349950664,
+      "adsorbate_fmax": 1.194121317660338,
+      "Cr16": [
+        1.3841267513360476,
+        0.6364061664585147,
+        -0.38223142240498764
+      ],
+      "proximalO": [
+        0.8808374536206027,
+        0.5861469907468879,
+        -0.3758368288767267
+      ]
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 2,
+      "job": "slab__ortho",
+      "free_fmax": 1.5100236260971711,
+      "slab_fmax": 1.5100236260971711,
+      "adsorbate_fmax": null,
+      "Cr16": [
+        -0.34524223025576717,
+        0.18479375137097742,
+        -1.1682141531753953
+      ]
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 4,
+      "job": "OH__ortho",
+      "free_fmax": 1.2618369234023568,
+      "slab_fmax": 1.2618369234023568,
+      "adsorbate_fmax": 0.5252916324735268,
+      "Cr16": [
+        -0.10800772116651707,
+        -0.156251665320325,
+        0.026026260483765964
+      ],
+      "proximalO": [
+        -0.05223609781523319,
+        0.20473035129759404,
+        -0.4809242897684664
+      ]
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 5,
+      "job": "O__atomic",
+      "free_fmax": 1.3911530402152714,
+      "slab_fmax": 1.3911530402152714,
+      "adsorbate_fmax": 1.1525105217554226,
+      "Cr16": [
+        -0.29121947205583354,
+        0.24524812700122942,
+        1.03975201167432
+      ],
+      "proximalO": [
+        -0.027751471475468383,
+        -0.012241284728158587,
+        -1.152111326884736
+      ]
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 7,
+      "job": "slab__atomic",
+      "free_fmax": 1.5312511770789659,
+      "slab_fmax": 1.5312511770789659,
+      "adsorbate_fmax": null,
+      "Cr16": [
+        0.3367596429177275,
+        0.07009858789534261,
+        -0.4165253259065156
+      ]
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 8,
+      "job": "slab__ortho",
+      "free_fmax": 1.4750372301437362,
+      "slab_fmax": 1.4750372301437362,
+      "adsorbate_fmax": null,
+      "Cr16": [
+        0.1834398078415728,
+        0.345007745542737,
+        -0.7442105132741469
+      ]
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 9,
+      "job": "OH__atomic",
+      "free_fmax": 1.564181992075698,
+      "slab_fmax": 1.564181992075698,
+      "adsorbate_fmax": 0.3913721284454297,
+      "Cr16": [
+        1.5015987074659876,
+        0.128200660192795,
+        -0.29541448584728164
+      ],
+      "proximalO": [
+        0.10735594622404825,
+        0.32850639808409887,
+        -0.18365835170788383
+      ]
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 10,
+      "job": "OH__ortho",
+      "free_fmax": 1.5421164029851304,
+      "slab_fmax": 1.5421164029851304,
+      "adsorbate_fmax": 0.41310734013641526,
+      "Cr16": [
+        1.361604648915756,
+        0.08121192916290529,
+        -0.3897408467618658
+      ],
+      "proximalO": [
+        0.11649930736964015,
+        0.33228489297740127,
+        -0.21603781094052713
+      ]
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 11,
+      "job": "O__atomic",
+      "free_fmax": 1.499240165981828,
+      "slab_fmax": 1.499240165981828,
+      "adsorbate_fmax": 0.9399729641318507,
+      "Cr16": [
+        0.021866213710927628,
+        -0.21814740202650604,
+        0.9853726413066528
+      ],
+      "proximalO": [
+        -0.0749376633163309,
+        0.17883496002318378,
+        -0.9197562595541342
+      ]
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 12,
+      "job": "O__ortho",
+      "free_fmax": 1.41225962177984,
+      "slab_fmax": 1.41225962177984,
+      "adsorbate_fmax": 0.7715991887475957,
+      "Cr16": [
+        -0.3749014611289154,
+        -0.032522669742684765,
+        1.3417847771247926
+      ],
+      "proximalO": [
+        -0.019274283456478723,
+        0.1783698472535877,
+        -0.7504518689855592
+      ]
+    }
+  ],
+  "same_coordinate_force_comparisons": [
+    {
+      "state": "slab",
+      "MACE_source": "results/cr_site_chains_2026-09-06/leader_result.json",
+      "MACE_json_pointer": "/results/0/row/decoration_records/0/relaxed_slab",
+      "DFT_input": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/slab__atomic.in",
+      "DFT_output": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/slab__atomic.out",
+      "max_coordinate_difference_A": 0,
+      "MACE_cached_max_constrained_force_eV_A": 0.04042558239784593,
+      "MACE_force_readout": "cached",
+      "MACE_converged_by_force": true,
+      "DFT_free_fmax_eV_A": 1.5312511770789659
+    },
+    {
+      "state": "O",
+      "MACE_source": "results/cr_site_chains_2026-09-06/leader_result.json",
+      "MACE_json_pointer": "/results/0/row/per_site_records/0/relaxed_states/O",
+      "DFT_input": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/O__atomic.in",
+      "DFT_output": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/O__atomic.out",
+      "max_coordinate_difference_A": 0,
+      "MACE_cached_max_constrained_force_eV_A": 0.042414238147839615,
+      "MACE_force_readout": "cached",
+      "MACE_converged_by_force": true,
+      "DFT_free_fmax_eV_A": 1.499240165981828
+    }
+  ],
+  "local_gradient_diagnostic": {
+    "source": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/O__atomic.out",
+    "atom_indexing": "zero-based",
+    "Cr16_force_eV_A": [
+      0.021866213710927628,
+      -0.21814740202650604,
+      0.9853726413066528
+    ],
+    "O72_force_eV_A": [
+      -0.0749376633163309,
+      0.17883496002318378,
+      -0.9197562595541342
+    ],
+    "interpretation": "At fixed retained-O coordinates, Cr16 has positive z force and O72 negative z force. This is a local energy-gradient diagnostic, not the result of a DFT relaxation or a test of the newer census low-tail sites."
+  },
+  "timing_diagnostic": [
+    {
+      "source": "runs/hea/branch_panel/leader_pull2.10__ortho.out",
+      "forces_wall_s": 854.98,
+      "force_hub_wall_s": 841.41
+    },
+    {
+      "source": "runs/hea/branch_panel/leader_pull1.70__atomic.out",
+      "forces_wall_s": 55.98,
+      "force_hub_wall_s": 41.91
+    },
+    {
+      "source": "runs/hea/branch_panel/leader_pull1.70__ortho.out",
+      "forces_wall_s": 854.77,
+      "force_hub_wall_s": 841.13
+    },
+    {
+      "source": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/O__ortho.out",
+      "forces_wall_s": 824.89,
+      "force_hub_wall_s": 811.19
+    }
+  ],
+  "timing_interpretation": "The final leader pull1.70 atomic/ortho legs share frozen coordinates and show force-phase wall times 55.98/854.77 s, including force_hub 41.91/841.13 s. This is one observed pair, not a general hardware benchmark. Include force-phase overhead rather than extrapolating SCF iteration cost alone.",
+  "counts": {
+    "approved_legs": 22,
+    "terminal": 22,
+    "complete": 15,
+    "iteration_ceiling": 5,
+    "IEEE_INVALID": 2,
+    "pending": 0,
+    "by_stage": {
+      "hea_panel": {
+        "approved": 10,
+        "complete": 6,
+        "iteration_ceiling": 3,
+        "IEEE_INVALID": 1
+      },
+      "hea_pilot": {
+        "approved": 12,
+        "complete": 9,
+        "iteration_ceiling": 2,
+        "IEEE_INVALID": 1
+      }
+    }
+  },
+  "final_spin_diagnostic": {
+    "source": "runs/hea/branch_panel/leader_pull1.70__ortho.projwfc.out",
+    "raw_lowdin_region_indices": [
+      72,
+      73,
+      74
+    ],
+    "raw_lowdin_moments": [
+      -1.0282,
+      -0.9499,
+      0.0006
+    ],
+    "moment_muB": -1.9775,
+    "expected_magnitude_muB": 2,
+    "magnitude_deviation_muB": 0.0225,
+    "verdict": "free-species moment reproduced",
+    "counterpart_O56_ortho_moment_muB": -0.7635,
+    "counterpart_verdict": "SPIN-STATE UNRESOLVED"
+  },
+  "score_denominators": {
+    "branch_comparisons": {
+      "prespecified_pair_projector_comparisons": 6,
+      "numerically_scoreable": 3,
+      "unscoreable": 3,
+      "residual_within": 1,
+      "residual_outside": 2,
+      "sign_agrees": 2,
+      "sign_reverses": 1
+    },
+    "ordinary_AEM_chains": {
+      "chain_projector_comparisons": 4,
+      "scoreable": 0,
+      "numerically_incomplete": 2,
+      "third_state_not_OOH": 2
+    },
+    "leader_OH_O_comparisons": {
+      "numerically_scoreable": 4,
+      "residual_within": 3,
+      "residual_outside": 1
+    }
+  },
+  "scheduler_accounting": {
+    "source": "results/research_readout_2026-09-17/scheduler_final.json",
+    "as_of_utc": "2026-09-17T14:07:54.251301+00:00",
+    "queue_empty": true,
+    "formula": "ElapsedRaw seconds * AllocCPUS / 3600; terminal array tasks counted once; includes failed attempts.",
+    "panel_elapsed_core_hours": 1570.9511111111112,
+    "pilot_elapsed_core_hours": 1527.3600000000001,
+    "HEA_elapsed_core_hours": 3098.311111111111,
+    "rows": [
+      {
+        "id": "20781971_1",
+        "name": "research-hea_panel",
+        "state": "FAILED",
+        "exit": "10:0",
+        "elapsed_seconds": 3157,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 112.24888888888889
+      },
+      {
+        "id": "20781971_2",
+        "name": "research-hea_panel",
+        "state": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 3882,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 138.02666666666667
+      },
+      {
+        "id": "20781971_3",
+        "name": "research-hea_panel",
+        "state": "FAILED",
+        "exit": "10:0",
+        "elapsed_seconds": 7050,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 250.66666666666666
+      },
+      {
+        "id": "20781971_4",
+        "name": "research-hea_panel",
+        "state": "FAILED",
+        "exit": "10:0",
+        "elapsed_seconds": 7125,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 253.33333333333334
+      },
+      {
+        "id": "20781971_5",
+        "name": "research-hea_panel",
+        "state": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 3851,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 136.92444444444445
+      },
+      {
+        "id": "20781971_6",
+        "name": "research-hea_panel",
+        "state": "FAILED",
+        "exit": "10:0",
+        "elapsed_seconds": 6394,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 227.34222222222223
+      },
+      {
+        "id": "20781971_7",
+        "name": "research-hea_panel",
+        "state": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 3333,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 118.50666666666666
+      },
+      {
+        "id": "20781971_8",
+        "name": "research-hea_panel",
+        "state": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 3968,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 141.08444444444444
+      },
+      {
+        "id": "20781971_9",
+        "name": "research-hea_panel",
+        "state": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 2316,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 82.34666666666666
+      },
+      {
+        "id": "20781971_10",
+        "name": "research-hea_panel",
+        "state": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 3107,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 110.47111111111111
+      },
+      {
+        "id": "20781972_1",
+        "name": "research-hea_pilot",
+        "state": "FAILED",
+        "exit": "10:0",
+        "elapsed_seconds": 6773,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 240.8177777777778
+      },
+      {
+        "id": "20781972_2",
+        "name": "research-hea_pilot",
+        "state": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 4318,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 153.5288888888889
+      },
+      {
+        "id": "20781972_3",
+        "name": "research-hea_pilot",
+        "state": "FAILED",
+        "exit": "10:0",
+        "elapsed_seconds": 3382,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 120.24888888888889
+      },
+      {
+        "id": "20781972_4",
+        "name": "research-hea_pilot",
+        "state": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 3882,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 138.02666666666667
+      },
+      {
+        "id": "20781972_5",
+        "name": "research-hea_pilot",
+        "state": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 3438,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 122.24
+      },
+      {
+        "id": "20781972_6",
+        "name": "research-hea_pilot",
+        "state": "FAILED",
+        "exit": "10:0",
+        "elapsed_seconds": 7025,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 249.77777777777777
+      },
+      {
+        "id": "20781972_7",
+        "name": "research-hea_pilot",
+        "state": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 2034,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 72.32
+      },
+      {
+        "id": "20781972_8",
+        "name": "research-hea_pilot",
+        "state": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 2814,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 100.05333333333333
+      },
+      {
+        "id": "20781972_9",
+        "name": "research-hea_pilot",
+        "state": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 1934,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 68.76444444444445
+      },
+      {
+        "id": "20781972_10",
+        "name": "research-hea_pilot",
+        "state": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 2672,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 95.00444444444445
+      },
+      {
+        "id": "20781972_11",
+        "name": "research-hea_pilot",
+        "state": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 2009,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 71.43111111111111
+      },
+      {
+        "id": "20781972_12",
+        "name": "research-hea_pilot",
+        "state": "COMPLETED",
+        "exit": "0:0",
+        "elapsed_seconds": 2676,
+        "allocated_cpus": 128,
+        "elapsed_core_hours": 95.14666666666666
+      }
+    ]
+  },
+  "primary_readout_comparison": {
+    "status": "MATCH",
+    "source": "results/hea_readout_2026-09-17/readout.json",
+    "source_sha256": "b3a1a3672d40632866b34c5550adedf46547cc36597fe0d81f803fbe35ccd683",
+    "statuses": [
+      {
+        "stage": "hea_panel",
+        "row": 1,
+        "key": "equiatomic_pull2.10__atomic",
+        "status": "REJECTED",
+        "exact_energy_Ry_match": null
+      },
+      {
+        "stage": "hea_panel",
+        "row": 2,
+        "key": "equiatomic_pull2.10__ortho",
+        "status": "CONVERGED",
+        "exact_energy_Ry_match": true
+      },
+      {
+        "stage": "hea_panel",
+        "row": 3,
+        "key": "equiatomic_builder__atomic",
+        "status": "KILLED",
+        "exact_energy_Ry_match": null
+      },
+      {
+        "stage": "hea_panel",
+        "row": 4,
+        "key": "equiatomic_builder__ortho",
+        "status": "KILLED",
+        "exact_energy_Ry_match": null
+      },
+      {
+        "stage": "hea_panel",
+        "row": 5,
+        "key": "leader_builder__atomic",
+        "status": "CONVERGED",
+        "exact_energy_Ry_match": true
+      },
+      {
+        "stage": "hea_panel",
+        "row": 6,
+        "key": "leader_builder__ortho",
+        "status": "KILLED",
+        "exact_energy_Ry_match": null
+      },
+      {
+        "stage": "hea_panel",
+        "row": 7,
+        "key": "leader_pull2.10__atomic",
+        "status": "CONVERGED",
+        "exact_energy_Ry_match": true
+      },
+      {
+        "stage": "hea_panel",
+        "row": 8,
+        "key": "leader_pull2.10__ortho",
+        "status": "CONVERGED",
+        "exact_energy_Ry_match": true
+      },
+      {
+        "stage": "hea_panel",
+        "row": 9,
+        "key": "leader_pull1.70__atomic",
+        "status": "CONVERGED",
+        "exact_energy_Ry_match": true
+      },
+      {
+        "stage": "hea_panel",
+        "row": 10,
+        "key": "leader_pull1.70__ortho",
+        "status": "CONVERGED",
+        "exact_energy_Ry_match": true
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 1,
+        "key": "Fe25Co25Ni25Cr25__s2_site0/slab__atomic",
+        "status": "KILLED",
+        "exact_energy_Ry_match": null
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 2,
+        "key": "Fe25Co25Ni25Cr25__s2_site0/slab__ortho",
+        "status": "CONVERGED",
+        "exact_energy_Ry_match": true
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 3,
+        "key": "Fe25Co25Ni25Cr25__s2_site0/OH__atomic",
+        "status": "REJECTED",
+        "exact_energy_Ry_match": null
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 4,
+        "key": "Fe25Co25Ni25Cr25__s2_site0/OH__ortho",
+        "status": "CONVERGED",
+        "exact_energy_Ry_match": true
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 5,
+        "key": "Fe25Co25Ni25Cr25__s2_site0/O__atomic",
+        "status": "CONVERGED",
+        "exact_energy_Ry_match": true
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 6,
+        "key": "Fe25Co25Ni25Cr25__s2_site0/O__ortho",
+        "status": "KILLED",
+        "exact_energy_Ry_match": null
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 7,
+        "key": "Ni31Cr29Cu5Mn35__s0_site0/slab__atomic",
+        "status": "CONVERGED",
+        "exact_energy_Ry_match": true
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 8,
+        "key": "Ni31Cr29Cu5Mn35__s0_site0/slab__ortho",
+        "status": "CONVERGED",
+        "exact_energy_Ry_match": true
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 9,
+        "key": "Ni31Cr29Cu5Mn35__s0_site0/OH__atomic",
+        "status": "CONVERGED",
+        "exact_energy_Ry_match": true
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 10,
+        "key": "Ni31Cr29Cu5Mn35__s0_site0/OH__ortho",
+        "status": "CONVERGED",
+        "exact_energy_Ry_match": true
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 11,
+        "key": "Ni31Cr29Cu5Mn35__s0_site0/O__atomic",
+        "status": "CONVERGED",
+        "exact_energy_Ry_match": true
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 12,
+        "key": "Ni31Cr29Cu5Mn35__s0_site0/O__ortho",
+        "status": "CONVERGED",
+        "exact_energy_Ry_match": true
+      }
+    ],
+    "numerical_checks": [
+      {
+        "quantity": "leader_builder__atomic fragment moment",
+        "independent": 1.0425999999999997,
+        "primary": 1.0426,
+        "absolute_difference": 2.220446049250313e-16,
+        "comparison_tolerance": 1e-12
+      },
+      {
+        "quantity": "leader_pull2.10__atomic fragment moment",
+        "independent": -2.0021,
+        "primary": -2.0021,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-12
+      },
+      {
+        "quantity": "leader_pull2.10__ortho fragment moment",
+        "independent": -0.7635,
+        "primary": -0.7635,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-12
+      },
+      {
+        "quantity": "leader_pull1.70__atomic fragment moment",
+        "independent": 1.9810999999999999,
+        "primary": 1.9811,
+        "absolute_difference": 2.220446049250313e-16,
+        "comparison_tolerance": 1e-12
+      },
+      {
+        "quantity": "leader_pull1.70__ortho fragment moment",
+        "independent": -1.9775,
+        "primary": -1.9775,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-12
+      },
+      {
+        "quantity": "leader_atomic_branch gap",
+        "independent": -2.0606374624424113,
+        "primary": -2.0606374624476302,
+        "absolute_difference": 5.218936394157936e-12,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "leader_atomic_branch residual",
+        "independent": 0.2211953955583006,
+        "primary": 0.22119539555308165,
+        "absolute_difference": 5.218936394157936e-12,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "leader_atomic_acceptor gap",
+        "independent": 0.3101070802046778,
+        "primary": 0.31010708020767197,
+        "absolute_difference": 2.9941604751115847e-12,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "leader_atomic_acceptor residual",
+        "independent": -0.41592572628750724,
+        "primary": -0.4159257262845131,
+        "absolute_difference": 2.9941604751115847e-12,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "leader_ortho_acceptor gap",
+        "independent": -0.27501595678633023,
+        "primary": -0.2750159567804076,
+        "absolute_difference": 5.922651258316591e-12,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "leader_ortho_acceptor residual",
+        "independent": -1.0010487632785152,
+        "primary": -1.0010487632725926,
+        "absolute_difference": 5.92259574716536e-12,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "atomic dG_OH_eV",
+        "independent": 2.413954666491668,
+        "primary": 2.413954666491668,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "atomic dG_O_eV",
+        "independent": 3.8162032058401563,
+        "primary": 3.8162032058401563,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "atomic dE3_eV",
+        "independent": 2.808016145149395,
+        "primary": 2.808016145149395,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "atomic nominal_partial_bound_V",
+        "independent": 1.183954666491668,
+        "primary": 1.183954666491668,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "atomic increment 1",
+        "independent": 2.413954666491668,
+        "primary": 2.413954666491668,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "atomic increment 2",
+        "independent": 1.4022485393484883,
+        "primary": 1.4022485393484883,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "atomic increment 3",
+        "independent": -1.0081870606907612,
+        "primary": -1.0081870606907612,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "ortho dG_OH_eV",
+        "independent": 2.381258553239354,
+        "primary": 2.381258553239354,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "ortho dG_O_eV",
+        "independent": 4.035843583443511,
+        "primary": 4.035843583443511,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "ortho dE3_eV",
+        "independent": 3.335397436864241,
+        "primary": 3.335397436864241,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "ortho nominal_partial_bound_V",
+        "independent": 1.1512585532393542,
+        "primary": 1.1512585532393542,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "ortho increment 1",
+        "independent": 2.381258553239354,
+        "primary": 2.381258553239354,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "ortho increment 2",
+        "independent": 1.654585030204157,
+        "primary": 1.654585030204157,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-8
+      },
+      {
+        "quantity": "ortho increment 3",
+        "independent": -0.70044614657927,
+        "primary": -0.70044614657927,
+        "absolute_difference": 0,
+        "comparison_tolerance": 1e-8
+      }
+    ],
+    "max_absolute_numerical_difference": 5.922651258316591e-12,
+    "roundoff_note": "Gap differences at about 6e-12 eV reflect subtract-then-convert versus convert-then-subtract; 1e-8 tolerance is an arithmetic cross-check only, not a scientific threshold.",
+    "frozen_bands_exact_match": true,
+    "ordinary_AEM_scores": 0,
+    "pending": 0,
+    "final_receipt": "results/research_readout_2026-09-17/hea_readout_final.json",
+    "reporting_parser_fixes": [
+      "Accept valid QE wall time lacking seconds",
+      "Remove exact benign IEEE_UNDERFLOW_FLAG/IEEE_DENORMAL notice before generic severe-exception matching; preserve IEEE_INVALID/unknown flags and real floating-point exceptions"
+    ]
+  },
+  "raw_force_verification": {
+    "method": "Independently parse each raw QE atom force vector and frozen input if_pos flags, use the existing audit conversion 25.71104309541616 eV/angstrom per Ry/Bohr, zero fixed components, compute free-component norm.",
+    "checks": [
+      {
+        "stage": "hea_panel",
+        "row": 2,
+        "source": "runs/hea/branch_panel/equiatomic_pull2.10__ortho.out",
+        "nat": 75,
+        "raw_max_free_force_eV_A": 1.4172793100299943,
+        "max_atom_zero_based": 18,
+        "receipt_difference": 0
+      },
+      {
+        "stage": "hea_panel",
+        "row": 5,
+        "source": "runs/hea/branch_panel/leader_builder__atomic.out",
+        "nat": 75,
+        "raw_max_free_force_eV_A": 1.443592865565689,
+        "max_atom_zero_based": 11,
+        "receipt_difference": 0
+      },
+      {
+        "stage": "hea_panel",
+        "row": 7,
+        "source": "runs/hea/branch_panel/leader_pull2.10__atomic.out",
+        "nat": 75,
+        "raw_max_free_force_eV_A": 1.4136421953213851,
+        "max_atom_zero_based": 11,
+        "receipt_difference": 0
+      },
+      {
+        "stage": "hea_panel",
+        "row": 8,
+        "source": "runs/hea/branch_panel/leader_pull2.10__ortho.out",
+        "nat": 75,
+        "raw_max_free_force_eV_A": 1.412486922007284,
+        "max_atom_zero_based": 11,
+        "receipt_difference": 0
+      },
+      {
+        "stage": "hea_panel",
+        "row": 9,
+        "source": "runs/hea/branch_panel/leader_pull1.70__atomic.out",
+        "nat": 75,
+        "raw_max_free_force_eV_A": 1.5042487266655589,
+        "max_atom_zero_based": 16,
+        "receipt_difference": 0
+      },
+      {
+        "stage": "hea_panel",
+        "row": 10,
+        "source": "runs/hea/branch_panel/leader_pull1.70__ortho.out",
+        "nat": 75,
+        "raw_max_free_force_eV_A": 1.570643349950664,
+        "max_atom_zero_based": 16,
+        "receipt_difference": 0
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 2,
+        "source": "runs/hea/pilot_retained/Fe25Co25Ni25Cr25__s2_site0/slab__ortho.out",
+        "nat": 72,
+        "raw_max_free_force_eV_A": 1.5100236260971711,
+        "max_atom_zero_based": 22,
+        "receipt_difference": 0
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 4,
+        "source": "runs/hea/pilot_retained/Fe25Co25Ni25Cr25__s2_site0/OH__ortho.out",
+        "nat": 74,
+        "raw_max_free_force_eV_A": 1.2618369234023568,
+        "max_atom_zero_based": 22,
+        "receipt_difference": 0
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 5,
+        "source": "runs/hea/pilot_retained/Fe25Co25Ni25Cr25__s2_site0/O__atomic.out",
+        "nat": 73,
+        "raw_max_free_force_eV_A": 1.3911530402152714,
+        "max_atom_zero_based": 22,
+        "receipt_difference": 0
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 7,
+        "source": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/slab__atomic.out",
+        "nat": 72,
+        "raw_max_free_force_eV_A": 1.5312511770789659,
+        "max_atom_zero_based": 11,
+        "receipt_difference": 0
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 8,
+        "source": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/slab__ortho.out",
+        "nat": 72,
+        "raw_max_free_force_eV_A": 1.4750372301437362,
+        "max_atom_zero_based": 11,
+        "receipt_difference": 0
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 9,
+        "source": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/OH__atomic.out",
+        "nat": 74,
+        "raw_max_free_force_eV_A": 1.564181992075698,
+        "max_atom_zero_based": 11,
+        "receipt_difference": 0
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 10,
+        "source": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/OH__ortho.out",
+        "nat": 74,
+        "raw_max_free_force_eV_A": 1.5421164029851304,
+        "max_atom_zero_based": 11,
+        "receipt_difference": 0
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 11,
+        "source": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/O__atomic.out",
+        "nat": 73,
+        "raw_max_free_force_eV_A": 1.499240165981828,
+        "max_atom_zero_based": 11,
+        "receipt_difference": 0
+      },
+      {
+        "stage": "hea_pilot",
+        "row": 12,
+        "source": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/O__ortho.out",
+        "nat": 73,
+        "raw_max_free_force_eV_A": 1.41225962177984,
+        "max_atom_zero_based": 11,
+        "receipt_difference": 0
+      }
+    ],
+    "all_maxima_on_substrate": true,
+    "max_receipt_difference": 0,
+    "conversion_note": "The audit conversion differs by 3.64e-7 relative from 13.605693122/0.529177210903; the frozen conversion is retained. This sub-ppm convention difference cannot affect the force-stationarity conclusions or reported four-decimal values."
+  }
+}

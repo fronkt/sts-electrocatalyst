@@ -66,10 +66,14 @@ H 0 0 1 1 1 1
 """, encoding="utf-8", newline="\n")
     helper = tmp_path / "helper.py"
     helper.write_text("# pinned dependency\n", encoding="utf-8", newline="\n")
+    projection_helper = tmp_path / "src/dft/projection_qc.py"
+    projection_helper.parent.mkdir(parents=True)
+    projection_helper.write_bytes((ROOT / "src/dft/projection_qc.py").read_bytes())
     manifest = tmp_path / "manifest.txt"
     manifest.write_text("# approved unit fixture\n# NP=128 NCONC=1\nunit point .in 1\n", encoding="utf-8", newline="\n")
     spec = {"schema": "research-batch-2026-09-16",
-            "files": {"helper.py": sha(helper), "manifest.txt": sha(manifest)},
+            "files": {"helper.py": sha(helper), "manifest.txt": sha(manifest),
+                      "src/dft/projection_qc.py": sha(projection_helper)},
             "pseudo_md5": {"H.UPF": hashlib.md5(upf.read_bytes()).hexdigest()},
             "stages": {"pilot": {"kind": "hea", "manifest": "manifest.txt", "jobs": [
                 {"dir": "unit", "job": "point", "nk": 1, "sha256": sha(deck),
@@ -85,7 +89,7 @@ def test_approved_inputs_pass_without_modifying_any_input(approved):
     assert not (directory / "tmp_point").exists()
 
 
-@pytest.mark.parametrize("target", ["helper.py", "runs/unit/point.in", "pseudo/H.UPF"])
+@pytest.mark.parametrize("target", ["helper.py", "src/dft/projection_qc.py", "runs/unit/point.in", "pseudo/H.UPF"])
 def test_drift_in_any_executed_input_is_refused_before_scratch(approved, target):
     spec, root, pseudo, directory = approved
     with (root / target).open("ab") as handle:
@@ -333,3 +337,44 @@ def test_watchdog_requests_clean_exit_and_reports_reason_without_retry(
     assert exitfile.is_file()
     assert launches == [["fake-mpirun"]]
     assert waits == [30]
+
+
+
+def test_projection_dependency_requires_an_explicit_source_pin(approved):
+    spec, root, pseudo, directory = approved
+    del spec["files"]["src/dft/projection_qc.py"]
+    with pytest.raises(ValueError, match="projection validator dependency not pinned"):
+        batch.validate(spec, root, "pilot", row=1, pseudo=pseudo)
+    assert not (directory / "tmp_point").exists()
+
+
+def test_different_staged_helper_cannot_substitute_for_the_executed_helper(approved):
+    spec, root, pseudo, directory = approved
+    helper = root / "src/dft/projection_qc.py"
+    helper.write_text("# a different approved-looking helper\n")
+    spec["files"]["src/dft/projection_qc.py"] = sha(helper)
+    with pytest.raises(ValueError, match="executed projection validator differs from pin"):
+        batch.validate(spec, root, "pilot", row=1, pseudo=pseudo)
+    assert not (directory / "tmp_point").exists()
+
+
+def test_production_projection_validator_accepts_real_nonmagnetic_shape():
+    text = """state # 1: atom 1 (Ru ), wfc 3 (l=2 m= 1)
+Lowdin Charges:
+ Atom # 1: total charge = 15.4891, s = 2.3266,
+ Atom # 1: total charge = 15.4891, p = 6.7605, pz=2.2044, px=2.2999, py=2.2563,
+ Atom # 1: total charge = 15.4891, d = 6.4020, dz2=0.8555, dxz=1.5295, dyz=1.4677, dx2-y2=1.7809, dxy=0.7684,
+ Spilling Parameter: 0.0018
+ JOB DONE.
+"""
+    result = batch.projection_check(text, 1)
+    assert result["format"] == "split-angular-channels"
+    assert result["charge_rows"] == 3
+    with pytest.raises(ValueError, match="angular channel"):
+        batch.projection_check("\n".join(line for line in text.splitlines() if " p = " not in line), 1)
+
+
+def test_production_projection_validator_uses_shared_failure_guards():
+    for suffix in ("IEEE_UNKNOWN_EXCEPTION_FLAG\n", "IEEE_INVALID_FLAG\n", "JOB DONE.\n"):
+        with pytest.raises(ValueError):
+            batch.projection_check(PROJECTION + suffix, 2)

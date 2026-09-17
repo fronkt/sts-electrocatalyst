@@ -40,6 +40,13 @@ def within(root, relative):
 def validate(spec, root, stage, row=None, pseudo=None):
     if spec["schema"] != "research-batch-2026-09-16" or stage not in spec["stages"]:
         raise ValueError("unsupported approved specification")
+    helper = "src/dft/projection_qc.py"
+    if helper not in spec["files"]:
+        raise ValueError("projection validator dependency not pinned")
+    # Pin both the staged dependency and the sibling source this runner executes.
+    # Historical launch specifications intentionally cannot authorize this revision.
+    if digest(Path(__file__).with_name("projection_qc.py")) != spec["files"][helper]:
+        raise ValueError("executed projection validator differs from pin")
     for relative, expected in spec["files"].items():
         if digest(within(root, relative)) != expected:
             raise ValueError("pinned file changed: " + relative)
@@ -102,18 +109,12 @@ def scf_check(text):
 
 
 def projection_check(text, nat):
-    ids = [int(x) for x in re.findall(r"^\s*Atom\s*#\s*(\d+)\s*:\s*total charge", text, re.M)]
-    if (FAIL.search(text) or text.count("JOB DONE") != 1 or text.count("Lowdin Charges") != 1
-            or ids != list(range(1, nat + 1)) or re.search(r"\b(?:NaN|Inf(?:inity)?)\b", text, re.I)
-            or not re.search(r"(?m)^\s*Spilling Parameter:\s*" + NUM + r"\s*$", text)):
-        raise ValueError("incomplete/failed projection")
-    lowdin = text.split("Lowdin Charges", 1)[1].split("Spilling Parameter", 1)[0]
-    for token in re.findall(r"=\s*([^,\s]+)", lowdin):
-        if re.fullmatch(NUM, token) is None:
-            raise ValueError("malformed projection value")
-    for token in re.findall(NUM, text):
-        if not math.isfinite(float(token.replace("D", "e").replace("d", "e"))):
-            raise ValueError("nonfinite projection value")
+    """Use the pinned validator for combined-spin and split nonmagnetic rows."""
+    if __package__:
+        from .projection_qc import projection_check as checked_projection
+    else:
+        from projection_qc import projection_check as checked_projection
+    return checked_projection(text, nat)
 
 
 def stop_process(process):

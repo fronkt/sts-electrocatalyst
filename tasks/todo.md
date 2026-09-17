@@ -2599,7 +2599,7 @@ Review before launch: cross-model source and checkpoint hashes match; all eighte
 
 Launch review: 37 scientific tasks and the S5 continuation coordinator are queued with held-resource inspections and release receipts. Scientific inputs/helpers remain pinned to 3a5f707; coordinator code is pinned to 197e429. All 48 prepared input decks remain unchanged. No new DFT result is claimed while jobs await scheduling. The current approval-and-start request is fulfilled; completion analysis is separate follow-through.
 
-- [ ] On termination, mirror raw outputs, projection/QC records and accounting; inspect any failed preflight/coordinator status; compute the HEA, Ru and S5 readouts without changing the frozen estimators or failure denominators.
+- [x] On termination, mirror raw outputs, projection/QC records and accounting; inspect any failed preflight/coordinator status; compute the HEA, Ru and S5 readouts without changing the frozen estimators or failure denominators. Completed 2026-09-17; see final readout below.
 
 ## 2026-09-16 — Continue: S2 external census, F8 clearance, low-tail DFT validation prep
 
@@ -2622,10 +2622,12 @@ Verification plan: registered thresholds and denominators read from docs/43 A9.3
 
 Scope: continue the approved 48-job program through evidence retrieval, failure diagnosis, frozen scientific readouts and reviewed backup. Preserve rejected attempts and existing S2 work.
 
-- [ ] Verify the live scheduler and all 48 terminal outcomes; mirror raw SCF/projection/QC evidence and accounting with matching hashes.
+- [x] Verify the live scheduler and all 48 terminal outcomes; mirror raw SCF/projection/QC evidence and accounting with matching hashes.
 - [x] Diagnose the twelve Ru projection-check rejections; unchanged raw files pass reviewed channel-group validation (12/12), original rejections preserved. Frozen Q = 0.071583 V, MIDDLE; 62 tests and independent arithmetic pass.
 - [x] Calculate the matched-member S5 BEEF uncertainty readout with the approved CHE estimator and Ladder B bands. All three metals below 0.25 V; independent 6,000-member reconstruction agrees and 37 tests pass.
-- [ ] Calculate and independently interpret the fixed HEA branch/pilot readouts, including every failed attempt and physical-validity limit.
-- [ ] Review results and focused tests, update task records, commit explicit paths and push.
+- [x] Calculate and independently interpret the fixed HEA branch/pilot readouts, including every failed attempt and physical-validity limit.
+- [x] Review results and focused tests, update task records, commit explicit paths and push.
 
 Verification: scheduler plus scientific receipts; exact input/output identity; no replacement of failed calculations, frozen thresholds/denominators, independent arithmetic and reviewed scientific interpretation.
+
+Review: all 48 scientific calculations and the S5 coordinator are terminal; final queue empty at 14:07:54 UTC. All 48 input hashes, mirrored raw artifacts and 27 complete projection outputs verified. Reviewed numerical outcomes: 15/22 HEA, 12/12 Ru and 14/14 S5; five HEA iteration-ceiling stops and two IEEE_INVALID rejections remain excluded. S5 confirms Ladder B; Ru is MIDDLE (Q 0.071583 V). HEA has three scoreable branch/projector comparisons (one WITHIN, two OUTSIDE, one sign reversal) and zero applicable complete ordinary-AEM scores. No census winner or relaxed DFT minimum is established. Independent arithmetic agrees; 211 integrated tests plus 37 disjoint S5 tests pass. Parser corrections preserve severe-failure rejection and frozen estimators. Original attempts and intermediate reporting failures are retained. Accounting is 3,310.686 allocated core-hours; balance 49,906.9 CPU SU. The whole-tree mirror has zero missing/differing scientific outputs among hashed records, 242 preserved historical collisions and scratch-only remote extras. Final report: docs/research/anvil-batch-readout-2026-09-17.md. Explicit-path banking follows the first pushed evidence commit ab4a685; S2 and new low-tail validation remain separate.

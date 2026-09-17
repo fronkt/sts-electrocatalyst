@@ -1,0 +1,876 @@
+{
+  "at": "2026-09-17T14:12:24.994493+00:00",
+  "raw_counts": {
+    "hea_panel": {
+      "REJECTED": 4,
+      "COMPLETE": 6
+    },
+    "hea_pilot": {
+      "REJECTED": 3,
+      "COMPLETE": 9
+    },
+    "ru_pp": {
+      "REJECTED": 12
+    },
+    "beef_preflight": {
+      "COMPLETE": 3
+    },
+    "beef_remaining": {
+      "COMPLETE": 11
+    }
+  },
+  "states": [
+    {
+      "stage": "hea_panel",
+      "row": 1,
+      "job": "equiatomic_pull2.10__atomic",
+      "status": "REJECTED",
+      "reason": "SCF not complete/clean: ['IEEE_INVALID_FLAG']"
+    },
+    {
+      "stage": "hea_panel",
+      "row": 2,
+      "job": "equiatomic_pull2.10__ortho",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "hea_panel",
+      "row": 3,
+      "job": "equiatomic_builder__atomic",
+      "status": "REJECTED",
+      "reason": "SCF iteration ceiling"
+    },
+    {
+      "stage": "hea_panel",
+      "row": 4,
+      "job": "equiatomic_builder__ortho",
+      "status": "REJECTED",
+      "reason": "SCF iteration ceiling"
+    },
+    {
+      "stage": "hea_panel",
+      "row": 5,
+      "job": "leader_builder__atomic",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "hea_panel",
+      "row": 6,
+      "job": "leader_builder__ortho",
+      "status": "REJECTED",
+      "reason": "SCF iteration ceiling"
+    },
+    {
+      "stage": "hea_panel",
+      "row": 7,
+      "job": "leader_pull2.10__atomic",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "hea_panel",
+      "row": 8,
+      "job": "leader_pull2.10__ortho",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "hea_panel",
+      "row": 9,
+      "job": "leader_pull1.70__atomic",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "hea_panel",
+      "row": 10,
+      "job": "leader_pull1.70__ortho",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 1,
+      "job": "slab__atomic",
+      "status": "REJECTED",
+      "reason": "SCF iteration ceiling"
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 2,
+      "job": "slab__ortho",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 3,
+      "job": "OH__atomic",
+      "status": "REJECTED",
+      "reason": "SCF not complete/clean: ['IEEE_INVALID_FLAG']"
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 4,
+      "job": "OH__ortho",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 5,
+      "job": "O__atomic",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 6,
+      "job": "O__ortho",
+      "status": "REJECTED",
+      "reason": "SCF iteration ceiling"
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 7,
+      "job": "slab__atomic",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 8,
+      "job": "slab__ortho",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 9,
+      "job": "OH__atomic",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 10,
+      "job": "OH__ortho",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 11,
+      "job": "O__atomic",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "hea_pilot",
+      "row": 12,
+      "job": "O__ortho",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "ru_pp",
+      "row": 1,
+      "job": "slab__u000_gbrv",
+      "status": "REJECTED",
+      "reason": "incomplete/failed projection"
+    },
+    {
+      "stage": "ru_pp",
+      "row": 2,
+      "job": "s0_O__u000_gbrv",
+      "status": "REJECTED",
+      "reason": "incomplete/failed projection"
+    },
+    {
+      "stage": "ru_pp",
+      "row": 3,
+      "job": "s0_OH__u000_gbrv",
+      "status": "REJECTED",
+      "reason": "incomplete/failed projection"
+    },
+    {
+      "stage": "ru_pp",
+      "row": 4,
+      "job": "s0_OOH__u000_gbrv",
+      "status": "REJECTED",
+      "reason": "incomplete/failed projection"
+    },
+    {
+      "stage": "ru_pp",
+      "row": 5,
+      "job": "slab__u673_gbrv",
+      "status": "REJECTED",
+      "reason": "incomplete/failed projection"
+    },
+    {
+      "stage": "ru_pp",
+      "row": 6,
+      "job": "s0_O__u673_gbrv",
+      "status": "REJECTED",
+      "reason": "incomplete/failed projection"
+    },
+    {
+      "stage": "ru_pp",
+      "row": 7,
+      "job": "s0_OH__u673_gbrv",
+      "status": "REJECTED",
+      "reason": "incomplete/failed projection"
+    },
+    {
+      "stage": "ru_pp",
+      "row": 8,
+      "job": "s0_OOH__u673_gbrv",
+      "status": "REJECTED",
+      "reason": "incomplete/failed projection"
+    },
+    {
+      "stage": "ru_pp",
+      "row": 9,
+      "job": "slab__u900_gbrv",
+      "status": "REJECTED",
+      "reason": "incomplete/failed projection"
+    },
+    {
+      "stage": "ru_pp",
+      "row": 10,
+      "job": "s0_O__u900_gbrv",
+      "status": "REJECTED",
+      "reason": "incomplete/failed projection"
+    },
+    {
+      "stage": "ru_pp",
+      "row": 11,
+      "job": "s0_OH__u900_gbrv",
+      "status": "REJECTED",
+      "reason": "incomplete/failed projection"
+    },
+    {
+      "stage": "ru_pp",
+      "row": 12,
+      "job": "s0_OOH__u900_gbrv",
+      "status": "REJECTED",
+      "reason": "incomplete/failed projection"
+    },
+    {
+      "stage": "beef_preflight",
+      "row": 1,
+      "job": "H2__beef",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "beef_preflight",
+      "row": 2,
+      "job": "H2O__beef",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "beef_preflight",
+      "row": 3,
+      "job": "ref__2x1v__beef",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "beef_remaining",
+      "row": 1,
+      "job": "s0_O__2x1v_mir__beef",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "beef_remaining",
+      "row": 2,
+      "job": "s0_OH__2x1v_mir__beef",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "beef_remaining",
+      "row": 3,
+      "job": "s0_OOH__2x1v_mir__beef",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "beef_remaining",
+      "row": 4,
+      "job": "ref__2x1v__beef",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "beef_remaining",
+      "row": 5,
+      "job": "s0_O__2x1v_mir__beef",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "beef_remaining",
+      "row": 6,
+      "job": "s0_OH__2x1v_mir__beef",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "beef_remaining",
+      "row": 7,
+      "job": "s0_OOH__2x1v_mir__beef",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "beef_remaining",
+      "row": 8,
+      "job": "ref__2x1v__beef",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "beef_remaining",
+      "row": 9,
+      "job": "s0_O__2x1v_mir__beef",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "beef_remaining",
+      "row": 10,
+      "job": "s0_OH__2x1v_mir__beef",
+      "status": "COMPLETE",
+      "reason": null
+    },
+    {
+      "stage": "beef_remaining",
+      "row": 11,
+      "job": "s0_OOH__2x1v_mir__beef",
+      "status": "COMPLETE",
+      "reason": null
+    }
+  ],
+  "projections_replayed": [
+    {
+      "path": "runs/hea/branch_panel/equiatomic_pull2.10__ortho.projwfc.out",
+      "sha256": "22e5bf9092b3230c182261487b02fb244245dc7eb43941af4aa0ac55d9986348",
+      "status": "VALID_PROJECTION",
+      "format": "combined"
+    },
+    {
+      "path": "runs/hea/branch_panel/leader_builder__atomic.projwfc.out",
+      "sha256": "1dcca742b00ac072b8d911307896e88b25fa97bcd01cde67a3c935e47aebeb23",
+      "status": "VALID_PROJECTION",
+      "format": "combined"
+    },
+    {
+      "path": "runs/hea/branch_panel/leader_pull2.10__atomic.projwfc.out",
+      "sha256": "2c17ec9a3d9cf47d569bf5651347313d7095c0c416b742f942ee1e0f6810b5aa",
+      "status": "VALID_PROJECTION",
+      "format": "combined"
+    },
+    {
+      "path": "runs/hea/branch_panel/leader_pull2.10__ortho.projwfc.out",
+      "sha256": "22a9cd7c4dd6e2c8e9b687f95dc4152be2527760b2f5d702be6c7216ff226c2d",
+      "status": "VALID_PROJECTION",
+      "format": "combined"
+    },
+    {
+      "path": "runs/hea/branch_panel/leader_pull1.70__atomic.projwfc.out",
+      "sha256": "3d1294502ea1f81843b2e1277cbf24bd5633b47a18dc6956b185ab466be12a0b",
+      "status": "VALID_PROJECTION",
+      "format": "combined"
+    },
+    {
+      "path": "runs/hea/branch_panel/leader_pull1.70__ortho.projwfc.out",
+      "sha256": "915ee79b344c2c142866bc2f8abe546cb73c9c6c4bd90bcc3801e30ea339a4ec",
+      "status": "VALID_PROJECTION",
+      "format": "combined"
+    },
+    {
+      "path": "runs/hea/pilot_retained/Fe25Co25Ni25Cr25__s2_site0/slab__ortho.projwfc.out",
+      "sha256": "909a3e4a72184fbfff5e389c40e066fdbdf629e80095e45c9c632def94e1891e",
+      "status": "VALID_PROJECTION",
+      "format": "combined"
+    },
+    {
+      "path": "runs/hea/pilot_retained/Fe25Co25Ni25Cr25__s2_site0/OH__ortho.projwfc.out",
+      "sha256": "a2a8243fcea4287b9ed912cf2ae5ffb20aed65970419d22c87d4dbfc31b4390e",
+      "status": "VALID_PROJECTION",
+      "format": "combined"
+    },
+    {
+      "path": "runs/hea/pilot_retained/Fe25Co25Ni25Cr25__s2_site0/O__atomic.projwfc.out",
+      "sha256": "ae75ef9e7cfd58ac9f640c03a88e66716e20eb51c757df623dfa4869c1fc6170",
+      "status": "VALID_PROJECTION",
+      "format": "combined"
+    },
+    {
+      "path": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/slab__atomic.projwfc.out",
+      "sha256": "a31d695f6e70931c327a5ca81501f0b8c7a3678f1f74615be093b40523ea1e65",
+      "status": "VALID_PROJECTION",
+      "format": "combined"
+    },
+    {
+      "path": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/slab__ortho.projwfc.out",
+      "sha256": "52b3b8871d904727d93aa2cd79f083e1d54b607b6adf54a4bdfeaf63adb8ba3a",
+      "status": "VALID_PROJECTION",
+      "format": "combined"
+    },
+    {
+      "path": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/OH__atomic.projwfc.out",
+      "sha256": "89b1a0f38ed8792d2fb1c2ba31f96e095ff03c2814100f74b81d959d81d91195",
+      "status": "VALID_PROJECTION",
+      "format": "combined"
+    },
+    {
+      "path": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/OH__ortho.projwfc.out",
+      "sha256": "d60ee8e519219d9bdd7faa26547ad395d97f10b023d3e6836e09c26fdab0fff9",
+      "status": "VALID_PROJECTION",
+      "format": "combined"
+    },
+    {
+      "path": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/O__atomic.projwfc.out",
+      "sha256": "5cdc0a078a130b874be4621ae2154e22fd800442f4ccb2b93eb252917be27044",
+      "status": "VALID_PROJECTION",
+      "format": "combined"
+    },
+    {
+      "path": "runs/hea/pilot_retained/Ni31Cr29Cu5Mn35__s0_site0/O__ortho.projwfc.out",
+      "sha256": "9157f2ab2474e6aa1134399a0819967123085d442b6f075494205c6d909da21f",
+      "status": "VALID_PROJECTION",
+      "format": "combined"
+    },
+    {
+      "path": "runs/a0/ru_pp/Ru/slab__u000_gbrv.projwfc.out",
+      "sha256": "a11e608a5f24a2986a6c9f2b3b4bfd5f2e910d1d2d6f0307640abadc3a8a9a1c",
+      "status": "VALID_PROJECTION",
+      "format": "split-angular-channels"
+    },
+    {
+      "path": "runs/a0/ru_pp/Ru/s0_O__u000_gbrv.projwfc.out",
+      "sha256": "addc947d727df1849c3173f6e918b9ee59687ff54161657550b1d0e6d3d8a3c4",
+      "status": "VALID_PROJECTION",
+      "format": "split-angular-channels"
+    },
+    {
+      "path": "runs/a0/ru_pp/Ru/s0_OH__u000_gbrv.projwfc.out",
+      "sha256": "eed3a0cc1535faeae3ad59a2119eeb6c9a452fb5ac76a4a6d584da515042f9f1",
+      "status": "VALID_PROJECTION",
+      "format": "split-angular-channels"
+    },
+    {
+      "path": "runs/a0/ru_pp/Ru/s0_OOH__u000_gbrv.projwfc.out",
+      "sha256": "172322fd6d30940adc1a5b2b7f858117f346f30f114b4259fb2a15729b20ab59",
+      "status": "VALID_PROJECTION",
+      "format": "split-angular-channels"
+    },
+    {
+      "path": "runs/a0/ru_pp/Ru/slab__u673_gbrv.projwfc.out",
+      "sha256": "074c7c489c464a9c49bfe8a13b094ee3a6a0c6f46d2018638e52b4f1df446fd7",
+      "status": "VALID_PROJECTION",
+      "format": "split-angular-channels"
+    },
+    {
+      "path": "runs/a0/ru_pp/Ru/s0_O__u673_gbrv.projwfc.out",
+      "sha256": "f99eec935f66977b910f6ceba067379a83b720c6f2840e8252cf72827f245301",
+      "status": "VALID_PROJECTION",
+      "format": "split-angular-channels"
+    },
+    {
+      "path": "runs/a0/ru_pp/Ru/s0_OH__u673_gbrv.projwfc.out",
+      "sha256": "a77b435cc4fad08d4fd521bd96d0c2daa1d9e95dde3ebac2d9e095acf0b8d432",
+      "status": "VALID_PROJECTION",
+      "format": "split-angular-channels"
+    },
+    {
+      "path": "runs/a0/ru_pp/Ru/s0_OOH__u673_gbrv.projwfc.out",
+      "sha256": "e438d8c19781893c430f30783fc72c9365923c2e46178d63457b88f22e45c5a5",
+      "status": "VALID_PROJECTION",
+      "format": "split-angular-channels"
+    },
+    {
+      "path": "runs/a0/ru_pp/Ru/slab__u900_gbrv.projwfc.out",
+      "sha256": "ac099bfd75e1fa887370654e1800056aaff10dcca88ff801a0dbf75541808b75",
+      "status": "VALID_PROJECTION",
+      "format": "split-angular-channels"
+    },
+    {
+      "path": "runs/a0/ru_pp/Ru/s0_O__u900_gbrv.projwfc.out",
+      "sha256": "8fb5f8686072d53e479d3bc334a2b5c4486379f97a1f7809ded8cb3835c4deb7",
+      "status": "VALID_PROJECTION",
+      "format": "split-angular-channels"
+    },
+    {
+      "path": "runs/a0/ru_pp/Ru/s0_OH__u900_gbrv.projwfc.out",
+      "sha256": "b76b2a0f5b8879994aa6fd806e5936d4db8aa4d9461e66dcbc536cb8d1981caa",
+      "status": "VALID_PROJECTION",
+      "format": "split-angular-channels"
+    },
+    {
+      "path": "runs/a0/ru_pp/Ru/s0_OOH__u900_gbrv.projwfc.out",
+      "sha256": "c15434d9342592324c30f3f57572ab580c31a8d0cf92957959d1e82974f57a7f",
+      "status": "VALID_PROJECTION",
+      "format": "split-angular-channels"
+    }
+  ],
+  "approved_input_hashes_verified": 48,
+  "raw_artifacts_verified": 266,
+  "accounting": [
+    {
+      "job": "20781967_1",
+      "state": "COMPLETED",
+      "elapsed_seconds": 40,
+      "cpus": 128,
+      "allocated_core_hours": 1.4222222222222223
+    },
+    {
+      "job": "20781967_2",
+      "state": "COMPLETED",
+      "elapsed_seconds": 61,
+      "cpus": 128,
+      "allocated_core_hours": 2.168888888888889
+    },
+    {
+      "job": "20781967_3",
+      "state": "COMPLETED",
+      "elapsed_seconds": 480,
+      "cpus": 128,
+      "allocated_core_hours": 17.066666666666666
+    },
+    {
+      "job": "20781970_1",
+      "state": "FAILED",
+      "elapsed_seconds": 161,
+      "cpus": 128,
+      "allocated_core_hours": 5.724444444444444
+    },
+    {
+      "job": "20781970_2",
+      "state": "FAILED",
+      "elapsed_seconds": 108,
+      "cpus": 128,
+      "allocated_core_hours": 3.84
+    },
+    {
+      "job": "20781970_3",
+      "state": "FAILED",
+      "elapsed_seconds": 92,
+      "cpus": 128,
+      "allocated_core_hours": 3.2711111111111113
+    },
+    {
+      "job": "20781970_4",
+      "state": "FAILED",
+      "elapsed_seconds": 102,
+      "cpus": 128,
+      "allocated_core_hours": 3.6266666666666665
+    },
+    {
+      "job": "20781970_5",
+      "state": "FAILED",
+      "elapsed_seconds": 106,
+      "cpus": 128,
+      "allocated_core_hours": 3.7688888888888887
+    },
+    {
+      "job": "20781970_6",
+      "state": "FAILED",
+      "elapsed_seconds": 112,
+      "cpus": 128,
+      "allocated_core_hours": 3.982222222222222
+    },
+    {
+      "job": "20781970_7",
+      "state": "FAILED",
+      "elapsed_seconds": 112,
+      "cpus": 128,
+      "allocated_core_hours": 3.982222222222222
+    },
+    {
+      "job": "20781970_8",
+      "state": "FAILED",
+      "elapsed_seconds": 98,
+      "cpus": 128,
+      "allocated_core_hours": 3.4844444444444442
+    },
+    {
+      "job": "20781970_9",
+      "state": "FAILED",
+      "elapsed_seconds": 174,
+      "cpus": 128,
+      "allocated_core_hours": 6.1866666666666665
+    },
+    {
+      "job": "20781970_10",
+      "state": "FAILED",
+      "elapsed_seconds": 99,
+      "cpus": 128,
+      "allocated_core_hours": 3.52
+    },
+    {
+      "job": "20781970_11",
+      "state": "FAILED",
+      "elapsed_seconds": 106,
+      "cpus": 128,
+      "allocated_core_hours": 3.7688888888888887
+    },
+    {
+      "job": "20781970_12",
+      "state": "FAILED",
+      "elapsed_seconds": 124,
+      "cpus": 128,
+      "allocated_core_hours": 4.408888888888889
+    },
+    {
+      "job": "20781971_1",
+      "state": "FAILED",
+      "elapsed_seconds": 3157,
+      "cpus": 128,
+      "allocated_core_hours": 112.24888888888889
+    },
+    {
+      "job": "20781971_2",
+      "state": "COMPLETED",
+      "elapsed_seconds": 3882,
+      "cpus": 128,
+      "allocated_core_hours": 138.02666666666667
+    },
+    {
+      "job": "20781971_3",
+      "state": "FAILED",
+      "elapsed_seconds": 7050,
+      "cpus": 128,
+      "allocated_core_hours": 250.66666666666666
+    },
+    {
+      "job": "20781971_4",
+      "state": "FAILED",
+      "elapsed_seconds": 7125,
+      "cpus": 128,
+      "allocated_core_hours": 253.33333333333334
+    },
+    {
+      "job": "20781971_5",
+      "state": "COMPLETED",
+      "elapsed_seconds": 3851,
+      "cpus": 128,
+      "allocated_core_hours": 136.92444444444445
+    },
+    {
+      "job": "20781971_6",
+      "state": "FAILED",
+      "elapsed_seconds": 6394,
+      "cpus": 128,
+      "allocated_core_hours": 227.34222222222223
+    },
+    {
+      "job": "20781971_7",
+      "state": "COMPLETED",
+      "elapsed_seconds": 3333,
+      "cpus": 128,
+      "allocated_core_hours": 118.50666666666666
+    },
+    {
+      "job": "20781971_8",
+      "state": "COMPLETED",
+      "elapsed_seconds": 3968,
+      "cpus": 128,
+      "allocated_core_hours": 141.08444444444444
+    },
+    {
+      "job": "20781971_9",
+      "state": "COMPLETED",
+      "elapsed_seconds": 2316,
+      "cpus": 128,
+      "allocated_core_hours": 82.34666666666666
+    },
+    {
+      "job": "20781971_10",
+      "state": "COMPLETED",
+      "elapsed_seconds": 3107,
+      "cpus": 128,
+      "allocated_core_hours": 110.47111111111111
+    },
+    {
+      "job": "20781972_1",
+      "state": "FAILED",
+      "elapsed_seconds": 6773,
+      "cpus": 128,
+      "allocated_core_hours": 240.8177777777778
+    },
+    {
+      "job": "20781972_2",
+      "state": "COMPLETED",
+      "elapsed_seconds": 4318,
+      "cpus": 128,
+      "allocated_core_hours": 153.5288888888889
+    },
+    {
+      "job": "20781972_3",
+      "state": "FAILED",
+      "elapsed_seconds": 3382,
+      "cpus": 128,
+      "allocated_core_hours": 120.24888888888889
+    },
+    {
+      "job": "20781972_4",
+      "state": "COMPLETED",
+      "elapsed_seconds": 3882,
+      "cpus": 128,
+      "allocated_core_hours": 138.02666666666667
+    },
+    {
+      "job": "20781972_5",
+      "state": "COMPLETED",
+      "elapsed_seconds": 3438,
+      "cpus": 128,
+      "allocated_core_hours": 122.24
+    },
+    {
+      "job": "20781972_6",
+      "state": "FAILED",
+      "elapsed_seconds": 7025,
+      "cpus": 128,
+      "allocated_core_hours": 249.77777777777777
+    },
+    {
+      "job": "20781972_7",
+      "state": "COMPLETED",
+      "elapsed_seconds": 2034,
+      "cpus": 128,
+      "allocated_core_hours": 72.32
+    },
+    {
+      "job": "20781972_8",
+      "state": "COMPLETED",
+      "elapsed_seconds": 2814,
+      "cpus": 128,
+      "allocated_core_hours": 100.05333333333333
+    },
+    {
+      "job": "20781972_9",
+      "state": "COMPLETED",
+      "elapsed_seconds": 1934,
+      "cpus": 128,
+      "allocated_core_hours": 68.76444444444445
+    },
+    {
+      "job": "20781972_10",
+      "state": "COMPLETED",
+      "elapsed_seconds": 2672,
+      "cpus": 128,
+      "allocated_core_hours": 95.00444444444445
+    },
+    {
+      "job": "20781972_11",
+      "state": "COMPLETED",
+      "elapsed_seconds": 2009,
+      "cpus": 128,
+      "allocated_core_hours": 71.43111111111111
+    },
+    {
+      "job": "20781972_12",
+      "state": "COMPLETED",
+      "elapsed_seconds": 2676,
+      "cpus": 128,
+      "allocated_core_hours": 95.14666666666666
+    },
+    {
+      "job": "20782047",
+      "state": "COMPLETED",
+      "elapsed_seconds": 5,
+      "cpus": 1,
+      "allocated_core_hours": 0.001388888888888889
+    },
+    {
+      "job": "20782479_1",
+      "state": "COMPLETED",
+      "elapsed_seconds": 307,
+      "cpus": 128,
+      "allocated_core_hours": 10.915555555555555
+    },
+    {
+      "job": "20782479_2",
+      "state": "COMPLETED",
+      "elapsed_seconds": 375,
+      "cpus": 128,
+      "allocated_core_hours": 13.333333333333334
+    },
+    {
+      "job": "20782479_3",
+      "state": "COMPLETED",
+      "elapsed_seconds": 301,
+      "cpus": 128,
+      "allocated_core_hours": 10.702222222222222
+    },
+    {
+      "job": "20782479_4",
+      "state": "COMPLETED",
+      "elapsed_seconds": 509,
+      "cpus": 128,
+      "allocated_core_hours": 18.09777777777778
+    },
+    {
+      "job": "20782479_6",
+      "state": "COMPLETED",
+      "elapsed_seconds": 299,
+      "cpus": 128,
+      "allocated_core_hours": 10.63111111111111
+    },
+    {
+      "job": "20782479_7",
+      "state": "COMPLETED",
+      "elapsed_seconds": 299,
+      "cpus": 128,
+      "allocated_core_hours": 10.63111111111111
+    },
+    {
+      "job": "20782479_8",
+      "state": "COMPLETED",
+      "elapsed_seconds": 480,
+      "cpus": 128,
+      "allocated_core_hours": 17.066666666666666
+    },
+    {
+      "job": "20782479_9",
+      "state": "COMPLETED",
+      "elapsed_seconds": 363,
+      "cpus": 128,
+      "allocated_core_hours": 12.906666666666666
+    },
+    {
+      "job": "20782479_10",
+      "state": "COMPLETED",
+      "elapsed_seconds": 335,
+      "cpus": 128,
+      "allocated_core_hours": 11.911111111111111
+    },
+    {
+      "job": "20782479_11",
+      "state": "COMPLETED",
+      "elapsed_seconds": 413,
+      "cpus": 128,
+      "allocated_core_hours": 14.684444444444445
+    },
+    {
+      "job": "20782479_5",
+      "state": "COMPLETED",
+      "elapsed_seconds": 317,
+      "cpus": 128,
+      "allocated_core_hours": 11.27111111111111
+    }
+  ],
+  "allocated_core_hours": 3310.6858333333334,
+  "scheduler_snapshot": "2026-09-17T14:07:54.251301+00:00",
+  "balance": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    100000.0     50093.1    50093.1     49906.9\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+  "original_launch_source_retained": true,
+  "no_scientific_reruns": true
+}

@@ -138,15 +138,10 @@ def parse_out(path: Path, *, allow_relax: bool = False) -> dict:
     cores = re.search(r"running on\s+(\d+) processor cores", blob)
     mag = re.findall(r"total magnetization\s*=\s*([-\d.]+)", blob)
     amag = re.findall(r"absolute magnetization\s*=\s*([-\d.]+)", blob)
-    # GFortran reports benign sticky IEEE flags using an "exceptions" notice.
-    # Exclude only complete notices containing the two declared benign flags.
-    diagnostic_blob = re.sub(
-        r"(?m)^Note: The following floating-point exceptions are signalling:"
-        r"(?:[ \t]+(?:IEEE_UNDERFLOW_FLAG|IEEE_DENORMAL))+[ \t]*\r?$", "", blob)
     severe = re.findall(
         r"Error in routine[^\n]*|IEEE_(?:INVALID|DIVIDE_BY_ZERO|OVERFLOW)(?:_FLAG)?"
         r"|segmentation fault|SIGSEGV|SIGFPE|floating.point exception|MPI_ABORT"
-        r"|Program received signal[^\n]*", diagnostic_blob, re.I)
+        r"|Program received signal[^\n]*", blob, re.I)
     o = {
         "exists": True,
         "killed": killed or "Program stopped by user request" in blob,

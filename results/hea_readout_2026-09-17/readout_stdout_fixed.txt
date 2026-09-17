@@ -1,0 +1,25 @@
+HEA branch panel -- band |dE_DFT - dE_MACE| <= 0.25 eV (33-r3-mlip-evaluation.md: MACE-MPA-0 row, 15-point dG MAE); sign scored only where |dE_MACE| > band
+  integrity equiatomic_pull2.10    O-O 1.372; H-Op 1.856; H-Od 0.993; H-slabO64 3.644; O72-Cr16 1.975 (h +1.86); O73-Cr16 2.781 (h +2.38); H74-Cr16 3.625 (h +3.36) -> *OOH adsorbed, intact [NORMAL]
+  integrity equiatomic_builder     O-O 1.343; H-Op 1.881; H-Od 1.001; H-slabO64 3.324; O72-Cr16 4.706 (h +4.40); O73-Cr16 3.676 (h +3.32); H74-Cr16 3.831 (h +3.27) -> HO2(g) radical in cell, no metal contact [DESORPTION], free species HO2(g) doublet (1 Bohr mag)
+  integrity leader_builder         O-O 1.339; H-Op 1.881; H-Od 1.002; H-slabO57 4.870; O72-Cr16 4.557 (h +3.67); O73-Ni18 4.862 (h +3.84); H74-Ni18 5.745 (h +4.82) -> HO2(g) radical in cell, no metal contact [DESORPTION], free species HO2(g) doublet (1 Bohr mag)
+  integrity leader_pull2.10        O-O 1.230; H-Op 3.665; H-Od 3.303; H-slabO56 0.971; O72-Ni18 3.400 (h +2.61); O73-Cr16 3.985 (h +2.95); H74-Ni22 2.472 (h +1.12) -> O2(g) in cell + H on slab O (H transferred) [DESORPTION + DISSOCIATION / H TRANSFER], free species O2(g) triplet (2 Bohr mag)
+  integrity leader_pull1.70        O-O 1.238; H-Op 2.827; H-Od 1.982; H-slabO68 0.981; O72-Cr16 4.181 (h +3.11); O73-Ni18 3.931 (h +2.68); H74-Cr16 2.487 (h +0.82) -> O2(g) in cell + H on slab O (H transferred) [DESORPTION + DISSOCIATION / H TRANSFER], free species O2(g) triplet (2 Bohr mag)
+  pair equiatomic                          B=equiatomic_builder A=equiatomic_pull2.10  dE_MACE +0.031097709 eV  sign UNSCORED
+    atomic  NOT CONVERGED (no number) {'equiatomic_pull2.10': 'REJECTED', 'equiatomic_builder': 'KILLED'}
+    ortho   NOT CONVERGED (no number) {'equiatomic_pull2.10': 'REJECTED', 'equiatomic_builder': 'KILLED'}
+  pair leader                              B=leader_pull2.10 A=leader_builder  dE_MACE -2.281832858 eV  sign SCORED
+    atomic  NOT CONVERGED (no number) {'leader_builder': 'REJECTED', 'leader_pull2.10': 'REJECTED'}
+    ortho   NOT CONVERGED (no number) {'leader_builder': 'KILLED', 'leader_pull2.10': 'REJECTED'}
+  optional proton-acceptor control: dE = E(pull1.70) - E(pull2.10) B=leader_pull1.70 A=leader_pull2.10  dE_MACE +0.726032806 eV  sign SCORED
+    atomic  NOT CONVERGED (no number) {'leader_pull2.10': 'REJECTED', 'leader_pull1.70': 'REJECTED'}
+    ortho   NOT CONVERGED (no number) {'leader_pull2.10': 'REJECTED', 'leader_pull1.70': 'REJECTED'}
+HEA fidelity pilot -- primary band |eta_DFT - eta_MACE| <= 0.164 V (33-r3-mlip-evaluation.md: MACE-MPA-0 row, eta MAE (single-point on DFT geometries)); secondary 0.12955764753597102 V (results/ranking_adequacy_2026-09-06/inputs/r4_validate.json mae_eta (MACE-relaxed pipeline, n = 7)); gas runs/Cr_slab/H2O.out, runs/Cr_slab/H2.out
+  Fe25Co25Ni25Cr25__s2_site0  eta_MACE 0.453057 V pls 2  [AEM eta]  OOH state: *OOH adsorbed, intact
+    atomic  NOT CONVERGED (no number) {'slab__atomic': 'KILLED', 'OH__atomic': 'REJECTED', 'O__atomic': 'REJECTED', 'OOH__atomic': 'REJECTED'}
+    ortho   NOT CONVERGED (no number) {'slab__ortho': 'REJECTED', 'OH__ortho': 'REJECTED', 'O__ortho': 'KILLED', 'OOH__ortho': 'REJECTED'}
+  Ni31Cr29Cu5Mn35__s0_site0  eta_MACE 0.978079 V pls 1  [AEM bookkeeping on a non-*OOH state (census value, kept visible)]  OOH state: O2(g) in cell + H on slab O (H transferred)
+    atomic  NOT CONVERGED (no number) {'slab__atomic': 'REJECTED', 'OH__atomic': 'REJECTED', 'O__atomic': 'REJECTED', 'OOH__atomic': 'REJECTED'}
+    ortho   NOT CONVERGED (no number) {'slab__ortho': 'REJECTED', 'OH__ortho': 'REJECTED', 'O__ortho': 'REJECTED', 'OOH__ortho': 'REJECTED'}
+  rank order (atomic): PENDING or NOT CONVERGED
+  rank order (ortho): PENDING or NOT CONVERGED
+json -> results\hea_readout_2026-09-17\readout.json

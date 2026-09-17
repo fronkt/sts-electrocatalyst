@@ -98,14 +98,10 @@ def registered(docs33: Path = DOCS33, r4_paths=R4_VALIDATE) -> dict:
 
 # --------------------------------------------------------------------------- pw.x output
 def _wall_seconds(s: str) -> float:
-    # QE omits lower units for long timings, e.g. "1h57m". These are
-    # rounded diagnostic timings; scheduler accounting remains authoritative.
-    m = re.fullmatch(r"\s*(?:(\d+)d)?\s*(?:(\d+)h)?\s*(?:(\d+)m)?"
-                     r"\s*(?:(\d+(?:\.\d*)?|\.\d+)s)?\s*", s)
-    if not m or all(value is None for value in m.groups()):
+    m = re.match(r"\s*(?:(\d+)h)?\s*(?:(\d+)m)?\s*([\d.]+)s", s)
+    if not m:
         raise Fatal(f"cannot parse WALL {s!r}")
-    return sum(float(value or 0) * scale
-               for value, scale in zip(m.groups(), (86400, 3600, 60, 1)))
+    return (int(m.group(1) or 0) * 3600 + int(m.group(2) or 0) * 60 + float(m.group(3)))
 
 
 def _sidecar(out_path: Path, ext: str) -> Path:
@@ -138,15 +134,10 @@ def parse_out(path: Path, *, allow_relax: bool = False) -> dict:
     cores = re.search(r"running on\s+(\d+) processor cores", blob)
     mag = re.findall(r"total magnetization\s*=\s*([-\d.]+)", blob)
     amag = re.findall(r"absolute magnetization\s*=\s*([-\d.]+)", blob)
-    # GFortran reports benign sticky IEEE flags using an "exceptions" notice.
-    # Exclude only complete notices containing the two declared benign flags.
-    diagnostic_blob = re.sub(
-        r"(?m)^Note: The following floating-point exceptions are signalling:"
-        r"(?:[ \t]+(?:IEEE_UNDERFLOW_FLAG|IEEE_DENORMAL))+[ \t]*\r?$", "", blob)
     severe = re.findall(
         r"Error in routine[^\n]*|IEEE_(?:INVALID|DIVIDE_BY_ZERO|OVERFLOW)(?:_FLAG)?"
         r"|segmentation fault|SIGSEGV|SIGFPE|floating.point exception|MPI_ABORT"
-        r"|Program received signal[^\n]*", diagnostic_blob, re.I)
+        r"|Program received signal[^\n]*", blob, re.I)
     o = {
         "exists": True,
         "killed": killed or "Program stopped by user request" in blob,

@@ -607,3 +607,68 @@ def test_rejected_pair_is_terminal_and_never_supplies_energy(tmp_path):
         row = result["pairs"][0]["projectors"][proj]
         assert row["legs"]["probe_b"] == "REJECTED"
         assert "dE_DFT_eV" not in row
+
+
+@pytest.mark.parametrize("printed,seconds", [("1h57m", 7020), ("1h 3m", 3780),
+    ("37m30.52s", 2250.52), (" 0.03s ", 0.03), ("2m", 120),
+    ("1d2h", 93600), ("0s", 0)])
+def test_qe_wall_timing_can_omit_lower_units(printed, seconds):
+    assert hp._wall_seconds(printed) == pytest.approx(seconds)
+
+
+@pytest.mark.parametrize("printed", ["", "  ", "1h57m garbage", "1..2s", "-1s", "1.2h", "NaNs"])
+def test_qe_wall_timing_rejects_malformed_complete_token(printed):
+    with pytest.raises(hp.Fatal):
+        hp._wall_seconds(printed)
+
+
+@pytest.mark.parametrize("flags", ["IEEE_UNDERFLOW_FLAG", "IEEE_DENORMAL",
+    "IEEE_UNDERFLOW_FLAG IEEE_DENORMAL"])
+def test_actual_fortran_benign_notice_is_not_a_fatal_exception(tmp_path, flags):
+    path = tmp_path / "fine.out"
+    _fake_out(path, -6000.0)
+    path.write_text(path.read_text() +
+        "Note: The following floating-point exceptions are signalling: " + flags + "\n")
+    result = hp.parse_out(path)
+    assert result["status"] == "CONVERGED"
+    assert result["severe_failures"] == []
+
+
+@pytest.mark.parametrize("notice", [
+    "Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_INVALID_FLAG",
+    "Note: The following floating-point exceptions are signalling: IEEE_OVERFLOW_FLAG",
+    "Note: The following floating-point exceptions are signalling: IEEE_DIVIDE_BY_ZERO",
+    "Note: The following floating-point exceptions are signalling: IEEE_UNKNOWN_FLAG",
+    "Program received signal SIGFPE: Floating-point exception - erroneous arithmetic operation",
+])
+def test_fatal_or_unknown_notice_cannot_hide_behind_benign_flags(tmp_path, notice):
+    path = tmp_path / "bad.out"
+    _fake_out(path, -6000.0)
+    path.write_text(path.read_text() +
+        "Note: The following floating-point exceptions are signalling: IEEE_DENORMAL\n" +
+        notice + "\n")
+    result = hp.parse_out(path)
+    assert result["status"] == "REJECTED"
+    assert result["E_Ry"] is None
+
+
+def test_real_hea_batch_statuses_match_independent_launch_receipts():
+    from pathlib import Path
+    from collections import Counter
+    repo = Path(ROOT)
+    spec = json.loads((repo / "results/research_launch_2026-09-16/launch_spec.json").read_text())
+    observed = Counter()
+    for stage in ("hea_panel", "hea_pilot"):
+        for job in spec["stages"][stage]["jobs"]:
+            base = repo / "runs" / job["dir"] / job["job"]
+            receipt = json.loads(Path(str(base) + ".qc.json").read_text())
+            parsed = hp.parse_out(Path(str(base) + ".out"))
+            expected = ("CONVERGED" if receipt["status"] == "COMPLETE" else
+                        "KILLED" if Path(str(base) + ".KILLED").exists() else "REJECTED")
+            assert parsed["status"] == expected, str(base)
+            if expected == "CONVERGED":
+                assert parsed["E_Ry"] == receipt["scf"]["energy_Ry"]
+            else:
+                assert parsed["E_Ry"] is None
+            observed[parsed["status"]] += 1
+    assert observed == {"CONVERGED": 15, "KILLED": 5, "REJECTED": 2}
