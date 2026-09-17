@@ -1244,3 +1244,7 @@ Rule: state separately which census outputs supply coordinates, which select or 
 ## 2026-09-13 — Explicit supersession authorizes core implementation
 
 The user explicitly replaced the entrant-only silentgate core authorship boundary with “Supersede it; implement the core.” Proceed with implementation and record the changed authority transparently; do not ask again or preserve superseded authorship gates as blockers. Preserve scientific acceptance criteria.
+
+## 2026-09-16 — Continue the queued program; fix open S2 values in operating records
+
+A status report suggested holding the queued S5 preflight until the A10 thresholds were re-authored in the entrant's words and deposited (docs/43:4369-4372). The user answered: "Just continue it. Let everything run." Applied here: the 2026-09-16 Anvil program runs as submitted, and the S2 values that the registration left open (Xu repair, P-BUILDER, P-LIT, molecule jobs) are fixed in a dated operating-decision record committed before the blind arms they govern are computed. Registered thresholds, denominators and failure accounting are unchanged.

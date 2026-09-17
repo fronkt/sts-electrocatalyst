@@ -2600,3 +2600,20 @@ Review before launch: cross-model source and checkpoint hashes match; all eighte
 Launch review: 37 scientific tasks and the S5 continuation coordinator are queued with held-resource inspections and release receipts. Scientific inputs/helpers remain pinned to 3a5f707; coordinator code is pinned to 197e429. All 48 prepared input decks remain unchanged. No new DFT result is claimed while jobs await scheduling. The current approval-and-start request is fulfilled; completion analysis is separate follow-through.
 
 - [ ] On termination, mirror raw outputs, projection/QC records and accounting; inspect any failed preflight/coordinator status; compute the HEA, Ru and S5 readouts without changing the frozen estimators or failure denominators.
+
+## 2026-09-16 — Continue: S2 external census, F8 clearance, low-tail DFT validation prep
+
+Scope: the queued 2026-09-16 Anvil program runs untouched (its readouts stay with that follow-through). This phase executes S2 on local data, clears F8, and prepares the DFT test of the new low-tail Cr sites. Xu corpus: C:/Users/frank/sts-corpora/xu/rutile-OER-v1.0.zip, md5 e193c56cf17c6d98827bbb19752d04b3 (registered value), copied from $PROJECT/corpora/xu and extracted outside git.
+
+- [ ] Fix the open S2 values (Xu repair, molecule jobs, P-BUILDER structures/parameters/counts/X, P-LIT search/databases/window/proportion) in docs/research/s2-operating-decisions-2026-09-16.md; commit and push before the P-BUILDER and P-LIT blind arms run.
+- [ ] P-XU: silentgate census over the 810 Xu Eads outputs; score clauses (i)-(iii) on the registered denominators; descriptive direction map and P-A2 row.
+- [ ] P-XU-SPAN: span_U(c_M) and span_U(dG2) over the 680-file ladder; score the >=5 of 10 rule; prepare the two GBRV molecule decks.
+- [ ] P-DIVANIS: full delta in [0, 0.10] eV curve with branch crossings and threshold roots; negative dG4 enumeration; count and class under R2/R3.
+- [ ] F8: clear or exclude the Sun/Reuter/Scheffler citation, the five structure-type assignments and the +0.40 eV correction source; Crossref check of docs/references.bib.
+- [ ] Low-tail DFT validation: DFT vs MACE-MPA-0 at identical coordinates on the banked HEA single points (per-atom forces on the lifted Cr); build and price relaxation decks for the decisive new Cr sites, submission sequenced after the queued HEA arrays report measured cost.
+- [ ] P-BUILDER and P-LIT execution after the boundary commit.
+- [ ] Cross-model review correction: failure denominator including the 3 retained unconverged control states; provenance row :222.
+- [ ] Sep 20 claim-sentence re-test against S1 + S2 + S6 once S2 lands.
+- [ ] Independent recomputation of every scored number; commit explicit paths; push.
+
+Verification plan: registered thresholds and denominators read from docs/43 A9.3 line by line; input hashes pinned; every UNIDENTIFIED/NO_FORCE_BLOCK/unconverged output counted on the face; an independent second code path for each scored number; no blind P-BUILDER symmetry or P-LIT coding before the pushed boundary.

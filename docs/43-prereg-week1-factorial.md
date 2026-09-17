@@ -4505,3 +4505,7 @@ The user explicitly directed: “Supersede it; implement the core.” The entran
 ## 2026-09-16 — Current research operating decisions
 
 See [research/research-decisions-2026-09-16.md](research/research-decisions-2026-09-16.md) for the current Divanis R2–R7, all fifteen A10 choices, S8 feasibility disposition, HEA-1–HEA-9 and RU-PP-1–RU-PP-7. These prospective decisions authorize only the exact bounded program and preserve historical outcomes and the seven settled silentgate rulings. Input/helper hashes and scheduler limits are in results/research_launch_2026-09-16/launch_spec.json. Runtime success and scientific conclusions remain separate measurements.
+
+## 2026-09-16 — Continuation direction
+
+The user directed: "Just continue it. Let everything run." The 2026-09-16 program in research/research-decisions-2026-09-16.md runs as submitted. The S2 values still open under A9.3.3, A9.3.5, A9.3.6 and A9.5 item 1 are fixed in a dated operating-decision record under docs/research/, committed and pushed before any blind arm they govern is computed. Registered thresholds, denominators, falsification branches and failure accounting are unchanged.
