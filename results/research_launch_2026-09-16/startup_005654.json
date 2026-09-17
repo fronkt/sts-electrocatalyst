@@ -1,0 +1,18 @@
+{
+  "at": "2026-09-17T00:56:49.600550+00:00",
+  "commands": [
+    {
+      "command": "squeue -h -r -j 20781967,20781970,20781971,20781972 -o \"%i|%j|%T|%M|%R\"",
+      "out": "20781972_8|research-hea_pilot|PENDING|0:00|(None)\n20781972_9|research-hea_pilot|PENDING|0:00|(None)\n20781972_10|research-hea_pilot|PENDING|0:00|(None)\n20781972_11|research-hea_pilot|PENDING|0:00|(None)\n20781972_12|research-hea_pilot|PENDING|0:00|(None)\n20781972_7|research-hea_pilot|PENDING|0:00|(None)\n20781972_6|research-hea_pilot|PENDING|0:00|(None)\n20781972_5|research-hea_pilot|PENDING|0:00|(None)\n20781972_4|research-hea_pilot|PENDING|0:00|(None)\n20781972_3|research-hea_pilot|PENDING|0:00|(None)\n20781972_2|research-hea_pilot|PENDING|0:00|(None)\n20781971_10|research-hea_panel|PENDING|0:00|(None)\n20781971_9|research-hea_panel|PENDING|0:00|(None)\n20781971_8|research-hea_panel|PENDING|0:00|(None)\n20781971_7|research-hea_panel|PENDING|0:00|(None)\n20781971_6|research-hea_panel|PENDING|0:00|(None)\n20781971_5|research-hea_panel|PENDING|0:00|(None)\n20781971_4|research-hea_panel|PENDING|0:00|(None)\n20781971_3|research-hea_panel|PENDING|0:00|(None)\n20781971_2|research-hea_panel|PENDING|0:00|(None)\n20781970_12|research-ru_pp|PENDING|0:00|(None)\n20781970_11|research-ru_pp|PENDING|0:00|(None)\n20781970_10|research-ru_pp|PENDING|0:00|(None)\n20781970_9|research-ru_pp|PENDING|0:00|(None)\n20781970_8|research-ru_pp|PENDING|0:00|(None)\n20781970_7|research-ru_pp|PENDING|0:00|(None)\n20781970_6|research-ru_pp|PENDING|0:00|(None)\n20781970_5|research-ru_pp|PENDING|0:00|(None)\n20781970_4|research-ru_pp|PENDING|0:00|(None)\n20781970_3|research-ru_pp|PENDING|0:00|(None)\n20781970_2|research-ru_pp|PENDING|0:00|(None)\n20781967_3|research-beef_preflight|PENDING|0:00|(None)\n20781967_2|research-beef_preflight|PENDING|0:00|(None)\n20781972_1|research-hea_pilot|PENDING|0:00|(None)\n20781971_1|research-hea_panel|PENDING|0:00|(None)\n20781970_1|research-ru_pp|PENDING|0:00|(None)\n20781967_1|research-beef_preflight|PENDING|0:00|(None)\n",
+      "err": "",
+      "rc": 0
+    },
+    {
+      "command": "sacct -n -P -X -j 20781967,20781970,20781971,20781972 --format=JobIDRaw,JobName,State,ExitCode,ElapsedRaw,AllocCPUS,NodeList",
+      "out": "20781967|research-beef_preflight|PENDING|0:0|0|0|None assigned\n20781970|research-ru_pp|PENDING|0:0|0|0|None assigned\n20781971|research-hea_panel|PENDING|0:0|0|0|None assigned\n20781972|research-hea_pilot|PENDING|0:0|0|0|None assigned\n",
+      "err": "",
+      "rc": 0
+    }
+  ],
+  "files": []
+}

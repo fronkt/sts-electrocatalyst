@@ -1,0 +1,65 @@
+Verified background desktop: Codex_STS_Background
+squeue -h -u x-fcai3 -o "%i|%j|%T|%M|%R"
+20781972_[1-12]|research-hea_pilot|PENDING|0:00|(Priority)
+20781971_10|research-hea_panel|PENDING|0:00|(Priority)
+20781971_9|research-hea_panel|PENDING|0:00|(Priority)
+20781971_7|research-hea_panel|PENDING|0:00|(Priority)
+20781971_8|research-hea_panel|PENDING|0:00|(Priority)
+20781971_5|research-hea_panel|PENDING|0:00|(Priority)
+20781971_6|research-hea_panel|PENDING|0:00|(Priority)
+20781971_4|research-hea_panel|PENDING|0:00|(Priority)
+20781971_3|research-hea_panel|PENDING|0:00|(Priority)
+20781971_1|research-hea_panel|PENDING|0:00|(Priority)
+20781971_2|research-hea_panel|PENDING|0:00|(Priority)
+20781970_10|research-ru_pp|PENDING|0:00|(Priority)
+20781970_12|research-ru_pp|PENDING|0:00|(Priority)
+20781970_11|research-ru_pp|PENDING|0:00|(Priority)
+20781970_9|research-ru_pp|PENDING|0:00|(Priority)
+20781970_8|research-ru_pp|PENDING|0:00|(Priority)
+20781970_7|research-ru_pp|PENDING|0:00|(Priority)
+20781970_6|research-ru_pp|PENDING|0:00|(Priority)
+20781970_5|research-ru_pp|PENDING|0:00|(Priority)
+20781970_4|research-ru_pp|PENDING|0:00|(Priority)
+20781970_3|research-ru_pp|PENDING|0:00|(Priority)
+20781970_2|research-ru_pp|PENDING|0:00|(Priority)
+20781970_1|research-ru_pp|PENDING|0:00|(Priority)
+20781967_3|research-beef_preflight|PENDING|0:00|(Priority)
+20781967_2|research-beef_preflight|PENDING|0:00|(Priority)
+20781967_1|research-beef_preflight|PENDING|0:00|(Priority)
+ 
+squeue --start -j 20781967,20781970,20781971,20781972
+             JOBID PARTITION     NAME     USER ST          START_TIME  NODES SCHEDNODES           NODELIST(REASON)
+        20781967_1    shared research  x-fcai3 PD 2026-09-16T21:26:30      1 a209                 (Priority)
+        20781967_2    shared research  x-fcai3 PD 2026-09-16T21:49:54      1 a041                 (Priority)
+        20781970_1    shared research  x-fcai3 PD 2026-09-16T22:02:43      1 a167                 (Priority)
+        20781967_3    shared research  x-fcai3 PD 2026-09-16T22:02:43      1 a140                 (Priority)
+        20781970_2    shared research  x-fcai3 PD 2026-09-16T22:03:43      1 a082                 (Priority)
+        20781970_3    shared research  x-fcai3 PD 2026-09-16T22:11:45      1 a033                 (Priority)
+        20781970_4    shared research  x-fcai3 PD 2026-09-16T22:20:46      1 a044                 (Priority)
+        20781970_5    shared research  x-fcai3 PD 2026-09-16T22:29:40      1 a047                 (Priority)
+        20781970_6    shared research  x-fcai3 PD 2026-09-16T22:30:00      1 a209                 (Priority)
+        20781970_7    shared research  x-fcai3 PD 2026-09-16T22:31:07      1 a222                 (Priority)
+        20781970_8    shared research  x-fcai3 PD 2026-09-16T22:31:46      1 a099                 (Priority)
+        20781970_9    shared research  x-fcai3 PD 2026-09-16T22:32:47      1 a221                 (Priority)
+       20781970_11    shared research  x-fcai3 PD 2026-09-16T22:35:47      1 a136                 (Priority)
+       20781970_12    shared research  x-fcai3 PD 2026-09-16T22:36:50      1 a193                 (Priority)
+       20781970_10    shared research  x-fcai3 PD 2026-09-16T22:38:35      1 a115                 (Priority)
+        20781971_1    shared research  x-fcai3 PD 2026-09-16T22:40:00      1 a082                 (Priority)
+        20781971_2    shared research  x-fcai3 PD 2026-09-16T22:40:00      1 a167                 (Priority)
+        20781971_3    shared research  x-fcai3 PD 2026-09-16T22:41:51      1 a128                 (Priority)
+        20781971_4    shared research  x-fcai3 PD 2026-09-16T22:49:54      1 a208                 (Priority)
+        20781971_5    shared research  x-fcai3 PD 2026-09-16T22:50:00      1 a033                 (Priority)
+        20781971_6    shared research  x-fcai3 PD 2026-09-16T22:50:00      1 a041                 (Priority)
+        20781971_8    shared research  x-fcai3 PD 2026-09-16T22:56:41      1 a213                 (Priority)
+        20781971_7    shared research  x-fcai3 PD 2026-09-16T22:56:55      1 a057                 (Priority)
+        20781971_9    shared research  x-fcai3 PD 2026-09-16T23:00:00      1 a044                 (Priority)
+       20781971_10    shared research  x-fcai3 PD 2026-09-16T23:05:00      1 a047                 (Priority)
+   20781972_[1-12]    shared research  x-fcai3 PD 2026-09-16T23:15:00      1 a193                 (Priority)
+ 
+scontrol show job -o 20781967
+JobId=20781967 ArrayJobId=20781967 ArrayTaskId=3 ArrayTaskThrottle=2 JobName=research-beef_preflight UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=75 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=Priority Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=01:00:00 TimeMin=N/A SubmitTime=2026-09-16T20:55:55 EligibleTime=2026-09-16T20:56:05 AccrueTime=2026-09-16T20:56:05 StartTime=2026-09-16T22:02:43 EndTime=2026-09-16T23:02:43 Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-16T20:57:55 Scheduler=Main Partition=shared AllocNode:Sid=login04:1273740 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= SchedNodeList=a140 NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=128 MinMemoryNode=237G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/72_research_batch.slurm SubmitLine=sbatch --parsable --hold --no-requeue -A che260157 -p shared -N 1 -n 128 --cpus-per-task=1 --mem=237G --time=60 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --job-name=research-beef_preflight --array=1-3%2 --export=ALL,PROJECT,STAGE /anvil/projects/x-che260157/sts/anvil/72_research_batch.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/research_20781967_3.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/research_20781967_3.out TresPerTask=cpu=1
+JobId=20781974 ArrayJobId=20781967 ArrayTaskId=2 ArrayTaskThrottle=2 JobName=research-beef_preflight UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=75 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=Priority Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=01:00:00 TimeMin=N/A SubmitTime=2026-09-16T20:55:55 EligibleTime=2026-09-16T20:56:05 AccrueTime=2026-09-16T20:56:05 StartTime=2026-09-16T21:49:54 EndTime=2026-09-16T22:49:54 Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-16T20:57:55 Scheduler=Main Partition=shared AllocNode:Sid=login04:1273740 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= SchedNodeList=a041 NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=128 MinMemoryNode=237G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/72_research_batch.slurm SubmitLine=sbatch --parsable --hold --no-requeue -A che260157 -p shared -N 1 -n 128 --cpus-per-task=1 --mem=237G --time=60 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --job-name=research-beef_preflight --array=1-3%2 --export=ALL,PROJECT,STAGE /anvil/projects/x-che260157/sts/anvil/72_research_batch.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/research_20781967_2.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/research_20781967_2.out TresPerTask=cpu=1
+JobId=20781973 ArrayJobId=20781967 ArrayTaskId=1 ArrayTaskThrottle=2 JobName=research-beef_preflight UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=75 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=Priority Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=01:00:00 TimeMin=N/A SubmitTime=2026-09-16T20:55:55 EligibleTime=2026-09-16T20:56:05 AccrueTime=2026-09-16T20:56:05 StartTime=2026-09-16T21:26:30 EndTime=2026-09-16T22:26:30 Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-16T20:57:55 Scheduler=Main Partition=shared AllocNode:Sid=login04:1273740 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= SchedNodeList=a209 NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=128 MinMemoryNode=237G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/72_research_batch.slurm SubmitLine=sbatch --parsable --hold --no-requeue -A che260157 -p shared -N 1 -n 128 --cpus-per-task=1 --mem=237G --time=60 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --job-name=research-beef_preflight --array=1-3%2 --export=ALL,PROJECT,STAGE /anvil/projects/x-che260157/sts/anvil/72_research_batch.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/research_20781967_1.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/research_20781967_1.out TresPerTask=cpu=1
+ 
+sbatch --help
+ 

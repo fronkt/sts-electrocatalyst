@@ -1,0 +1,127 @@
+{
+  "at": "2026-09-17T00:55:51.742499+00:00",
+  "jobs": [
+    {
+      "stage": "beef_preflight",
+      "job_id": "20781967",
+      "submission": {
+        "command": "bash /anvil/projects/x-che260157/sts/anvil/73_submit_research_batch.sh beef_preflight",
+        "out": "VALID\nPREFLIGHT manifest=/anvil/projects/x-che260157/sts/runs/m_research_2026-09-16_beef_preflight.txt lines=3 to_run=3 already_done=0 stale=0 bad=0 NP=128 NCONC=1 expect_cap=0\nPREFLIGHT manifest=/anvil/projects/x-che260157/sts/runs/m_research_2026-09-16_beef_preflight.txt lines=3 to_run=3 already_done=0 stale=0 bad=0 NP=128 NCONC=1 expect_cap=0\nPREFLIGHT_OK (PREFLIGHT_ONLY=1, nothing launched) Thu Sep 17 00:55:55 UTC 2026\nPREFLIGHT_OK (PREFLIGHT_ONLY=1, nothing launched) Thu Sep 17 00:55:55 UTC 2026\nHELD beef_preflight tasks=3 concurrency=2 minutes=60 cores=128\n20781967\n",
+        "err": "",
+        "rc": 0
+      },
+      "released": true,
+      "held_inspection": {
+        "command": "scontrol show job -o 20781967",
+        "out": "JobId=20781967 ArrayJobId=20781967 ArrayTaskId=1-3%2 ArrayTaskThrottle=2 JobName=research-beef_preflight UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=01:00:00 TimeMin=N/A SubmitTime=2026-09-16T20:55:55 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-16T20:55:55 Scheduler=Main Partition=shared AllocNode:Sid=login04:1273740 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=128 MinMemoryNode=237G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/72_research_batch.slurm SubmitLine=sbatch --parsable --hold --no-requeue -A che260157 -p shared -N 1 -n 128 --cpus-per-task=1 --mem=237G --time=60 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --job-name=research-beef_preflight --array=1-3%2 --export=ALL,PROJECT,STAGE /anvil/projects/x-che260157/sts/anvil/72_research_batch.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/research_20781967_4294967294.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/research_20781967_4294967294.out TresPerTask=cpu=1\n",
+        "err": "",
+        "rc": 0
+      },
+      "held_tasks": {
+        "command": "squeue -h -r -j 20781967 -o \"%i|%T|%C|%l|%R\"",
+        "out": "20781967_1|PENDING|128|1:00:00|(JobHeldUser)\n20781967_2|PENDING|128|1:00:00|(JobHeldUser)\n20781967_3|PENDING|128|1:00:00|(JobHeldUser)\n",
+        "err": "",
+        "rc": 0
+      },
+      "release": {
+        "command": "scontrol release 20781967",
+        "out": "",
+        "err": "",
+        "rc": 0
+      }
+    },
+    {
+      "stage": "ru_pp",
+      "job_id": "20781970",
+      "submission": {
+        "command": "bash /anvil/projects/x-che260157/sts/anvil/73_submit_research_batch.sh ru_pp",
+        "out": "VALID\nPREFLIGHT manifest=/anvil/projects/x-che260157/sts/runs/m_research_2026-09-16_ru_pp.txt lines=12 to_run=12 already_done=0 stale=0 bad=0 NP=128 NCONC=1 expect_cap=0\nPREFLIGHT manifest=/anvil/projects/x-che260157/sts/runs/m_research_2026-09-16_ru_pp.txt lines=12 to_run=12 already_done=0 stale=0 bad=0 NP=128 NCONC=1 expect_cap=0\nPREFLIGHT_OK (PREFLIGHT_ONLY=1, nothing launched) Thu Sep 17 00:55:57 UTC 2026\nPREFLIGHT_OK (PREFLIGHT_ONLY=1, nothing launched) Thu Sep 17 00:55:57 UTC 2026\nHELD ru_pp tasks=12 concurrency=2 minutes=35 cores=128\n20781970\n",
+        "err": "",
+        "rc": 0
+      },
+      "released": true,
+      "held_inspection": {
+        "command": "scontrol show job -o 20781970",
+        "out": "JobId=20781970 ArrayJobId=20781970 ArrayTaskId=1-12%2 ArrayTaskThrottle=2 JobName=research-ru_pp UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=00:35:00 TimeMin=N/A SubmitTime=2026-09-16T20:55:57 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-16T20:55:57 Scheduler=Main Partition=shared AllocNode:Sid=login04:1274167 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=128 MinMemoryNode=237G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/72_research_batch.slurm SubmitLine=sbatch --parsable --hold --no-requeue -A che260157 -p shared -N 1 -n 128 --cpus-per-task=1 --mem=237G --time=35 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --job-name=research-ru_pp --array=1-12%2 --export=ALL,PROJECT,STAGE /anvil/projects/x-che260157/sts/anvil/72_research_batch.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/research_20781970_4294967294.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/research_20781970_4294967294.out TresPerTask=cpu=1\n",
+        "err": "",
+        "rc": 0
+      },
+      "held_tasks": {
+        "command": "squeue -h -r -j 20781970 -o \"%i|%T|%C|%l|%R\"",
+        "out": "20781970_1|PENDING|128|35:00|(JobHeldUser)\n20781970_2|PENDING|128|35:00|(JobHeldUser)\n20781970_3|PENDING|128|35:00|(JobHeldUser)\n20781970_4|PENDING|128|35:00|(JobHeldUser)\n20781970_5|PENDING|128|35:00|(JobHeldUser)\n20781970_6|PENDING|128|35:00|(JobHeldUser)\n20781970_7|PENDING|128|35:00|(JobHeldUser)\n20781970_8|PENDING|128|35:00|(JobHeldUser)\n20781970_9|PENDING|128|35:00|(JobHeldUser)\n20781970_10|PENDING|128|35:00|(JobHeldUser)\n20781970_11|PENDING|128|35:00|(JobHeldUser)\n20781970_12|PENDING|128|35:00|(JobHeldUser)\n",
+        "err": "",
+        "rc": 0
+      },
+      "release": {
+        "command": "scontrol release 20781970",
+        "out": "",
+        "err": "",
+        "rc": 0
+      }
+    },
+    {
+      "stage": "hea_panel",
+      "job_id": "20781971",
+      "submission": {
+        "command": "bash /anvil/projects/x-che260157/sts/anvil/73_submit_research_batch.sh hea_panel",
+        "out": "VALID\nPREFLIGHT manifest=/anvil/projects/x-che260157/sts/runs/m_research_2026-09-16_hea_panel.txt lines=10 to_run=10 already_done=0 stale=0 bad=0 NP=128 NCONC=1 expect_cap=0\nPREFLIGHT manifest=/anvil/projects/x-che260157/sts/runs/m_research_2026-09-16_hea_panel.txt lines=10 to_run=10 already_done=0 stale=0 bad=0 NP=128 NCONC=1 expect_cap=0\nPREFLIGHT_OK (PREFLIGHT_ONLY=1, nothing launched) Thu Sep 17 00:56:00 UTC 2026\nPREFLIGHT_OK (PREFLIGHT_ONLY=1, nothing launched) Thu Sep 17 00:56:00 UTC 2026\nHELD hea_panel tasks=10 concurrency=1 minutes=360 cores=128\n20781971\n",
+        "err": "",
+        "rc": 0
+      },
+      "released": true,
+      "held_inspection": {
+        "command": "scontrol show job -o 20781971",
+        "out": "JobId=20781971 ArrayJobId=20781971 ArrayTaskId=1-10%1 ArrayTaskThrottle=1 JobName=research-hea_panel UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=06:00:00 TimeMin=N/A SubmitTime=2026-09-16T20:56:00 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-16T20:56:00 Scheduler=Main Partition=shared AllocNode:Sid=login04:1274842 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=128 MinMemoryNode=237G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/72_research_batch.slurm SubmitLine=sbatch --parsable --hold --no-requeue -A che260157 -p shared -N 1 -n 128 --cpus-per-task=1 --mem=237G --time=360 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --job-name=research-hea_panel --array=1-10%1 --export=ALL,PROJECT,STAGE /anvil/projects/x-che260157/sts/anvil/72_research_batch.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/research_20781971_4294967294.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/research_20781971_4294967294.out TresPerTask=cpu=1\n",
+        "err": "",
+        "rc": 0
+      },
+      "held_tasks": {
+        "command": "squeue -h -r -j 20781971 -o \"%i|%T|%C|%l|%R\"",
+        "out": "20781971_1|PENDING|128|6:00:00|(JobHeldUser)\n20781971_2|PENDING|128|6:00:00|(JobHeldUser)\n20781971_3|PENDING|128|6:00:00|(JobHeldUser)\n20781971_4|PENDING|128|6:00:00|(JobHeldUser)\n20781971_5|PENDING|128|6:00:00|(JobHeldUser)\n20781971_6|PENDING|128|6:00:00|(JobHeldUser)\n20781971_7|PENDING|128|6:00:00|(JobHeldUser)\n20781971_8|PENDING|128|6:00:00|(JobHeldUser)\n20781971_9|PENDING|128|6:00:00|(JobHeldUser)\n20781971_10|PENDING|128|6:00:00|(JobHeldUser)\n",
+        "err": "",
+        "rc": 0
+      },
+      "release": {
+        "command": "scontrol release 20781971",
+        "out": "",
+        "err": "",
+        "rc": 0
+      }
+    },
+    {
+      "stage": "hea_pilot",
+      "job_id": "20781972",
+      "submission": {
+        "command": "bash /anvil/projects/x-che260157/sts/anvil/73_submit_research_batch.sh hea_pilot",
+        "out": "VALID\nPREFLIGHT manifest=/anvil/projects/x-che260157/sts/runs/m_research_2026-09-16_hea_pilot.txt lines=12 to_run=12 already_done=0 stale=0 bad=0 NP=128 NCONC=1 expect_cap=0\nPREFLIGHT manifest=/anvil/projects/x-che260157/sts/runs/m_research_2026-09-16_hea_pilot.txt lines=12 to_run=12 already_done=0 stale=0 bad=0 NP=128 NCONC=1 expect_cap=0\nPREFLIGHT_OK (PREFLIGHT_ONLY=1, nothing launched) Thu Sep 17 00:56:02 UTC 2026\nPREFLIGHT_OK (PREFLIGHT_ONLY=1, nothing launched) Thu Sep 17 00:56:02 UTC 2026\nHELD hea_pilot tasks=12 concurrency=1 minutes=360 cores=128\n20781972\n",
+        "err": "",
+        "rc": 0
+      },
+      "released": true,
+      "held_inspection": {
+        "command": "scontrol show job -o 20781972",
+        "out": "JobId=20781972 ArrayJobId=20781972 ArrayTaskId=1-12%1 ArrayTaskThrottle=1 JobName=research-hea_pilot UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=06:00:00 TimeMin=N/A SubmitTime=2026-09-16T20:56:02 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-16T20:56:02 Scheduler=Main Partition=shared AllocNode:Sid=login04:1275549 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=128 MinMemoryNode=237G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/72_research_batch.slurm SubmitLine=sbatch --parsable --hold --no-requeue -A che260157 -p shared -N 1 -n 128 --cpus-per-task=1 --mem=237G --time=360 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --job-name=research-hea_pilot --array=1-12%1 --export=ALL,PROJECT,STAGE /anvil/projects/x-che260157/sts/anvil/72_research_batch.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/research_20781972_4294967294.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/research_20781972_4294967294.out TresPerTask=cpu=1\n",
+        "err": "",
+        "rc": 0
+      },
+      "held_tasks": {
+        "command": "squeue -h -r -j 20781972 -o \"%i|%T|%C|%l|%R\"",
+        "out": "20781972_1|PENDING|128|6:00:00|(JobHeldUser)\n20781972_2|PENDING|128|6:00:00|(JobHeldUser)\n20781972_3|PENDING|128|6:00:00|(JobHeldUser)\n20781972_4|PENDING|128|6:00:00|(JobHeldUser)\n20781972_5|PENDING|128|6:00:00|(JobHeldUser)\n20781972_6|PENDING|128|6:00:00|(JobHeldUser)\n20781972_7|PENDING|128|6:00:00|(JobHeldUser)\n20781972_8|PENDING|128|6:00:00|(JobHeldUser)\n20781972_9|PENDING|128|6:00:00|(JobHeldUser)\n20781972_10|PENDING|128|6:00:00|(JobHeldUser)\n20781972_11|PENDING|128|6:00:00|(JobHeldUser)\n20781972_12|PENDING|128|6:00:00|(JobHeldUser)\n",
+        "err": "",
+        "rc": 0
+      },
+      "release": {
+        "command": "scontrol release 20781972",
+        "out": "",
+        "err": "",
+        "rc": 0
+      }
+    }
+  ],
+  "queue": {
+    "command": "squeue -h -r -j 20781967,20781970,20781971,20781972 -o \"%i|%j|%T|%M|%R\"",
+    "out": "20781967_3|research-beef_preflight|PENDING|0:00|(None)\n20781967_2|research-beef_preflight|PENDING|0:00|(None)\n20781972_1|research-hea_pilot|PENDING|0:00|(None)\n20781972_2|research-hea_pilot|PENDING|0:00|(None)\n20781972_3|research-hea_pilot|PENDING|0:00|(None)\n20781972_4|research-hea_pilot|PENDING|0:00|(None)\n20781972_5|research-hea_pilot|PENDING|0:00|(None)\n20781972_6|research-hea_pilot|PENDING|0:00|(None)\n20781972_7|research-hea_pilot|PENDING|0:00|(None)\n20781972_8|research-hea_pilot|PENDING|0:00|(None)\n20781972_9|research-hea_pilot|PENDING|0:00|(None)\n20781972_10|research-hea_pilot|PENDING|0:00|(None)\n20781972_11|research-hea_pilot|PENDING|0:00|(None)\n20781972_12|research-hea_pilot|PENDING|0:00|(None)\n20781971_1|research-hea_panel|PENDING|0:00|(None)\n20781971_2|research-hea_panel|PENDING|0:00|(None)\n20781971_3|research-hea_panel|PENDING|0:00|(None)\n20781971_4|research-hea_panel|PENDING|0:00|(None)\n20781971_5|research-hea_panel|PENDING|0:00|(None)\n20781971_6|research-hea_panel|PENDING|0:00|(None)\n20781971_7|research-hea_panel|PENDING|0:00|(None)\n20781971_8|research-hea_panel|PENDING|0:00|(None)\n20781971_9|research-hea_panel|PENDING|0:00|(None)\n20781971_10|research-hea_panel|PENDING|0:00|(None)\n20781970_1|research-ru_pp|PENDING|0:00|(None)\n20781970_2|research-ru_pp|PENDING|0:00|(None)\n20781970_3|research-ru_pp|PENDING|0:00|(None)\n20781970_4|research-ru_pp|PENDING|0:00|(None)\n20781970_5|research-ru_pp|PENDING|0:00|(None)\n20781970_6|research-ru_pp|PENDING|0:00|(None)\n20781970_7|research-ru_pp|PENDING|0:00|(None)\n20781970_8|research-ru_pp|PENDING|0:00|(None)\n20781970_9|research-ru_pp|PENDING|0:00|(None)\n20781970_10|research-ru_pp|PENDING|0:00|(None)\n20781970_11|research-ru_pp|PENDING|0:00|(None)\n20781970_12|research-ru_pp|PENDING|0:00|(None)\n20781967_1|research-beef_preflight|PENDING|0:00|(None)\n",
+    "err": "",
+    "rc": 0
+  }
+}

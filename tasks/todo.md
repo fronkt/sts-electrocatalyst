@@ -2588,8 +2588,8 @@ Scope: apply the current user authorization to the remaining supported choices, 
 
 - [x] Review pending choices, completed cross-model evidence, live allocation and prior attempts.
 - [x] Record concrete docs/86, HEA, A10, Ru-PP and S8 decisions with explicit scientific limits.
-- [ ] Prepare and verify bounded launch bundles and any prerequisite estimator/readout repairs.
-- [ ] Commit and push exact source, decisions and evidence before staging; verify remote hashes and scheduler resource bounds.
+- [x] Prepare and verify bounded launch bundles and prerequisite estimator/readout repairs: 201 focused tests pass; all 48 decks pass builder checks.
+- [x] Commit and push exact source, decisions and evidence before staging; boundary 3a5f707, 66 verified transfers, all four initial arrays inspected held at their exact bounds before release.
 - [ ] Start ready jobs, confirm scheduler/startup state, and record IDs, limits and remaining dependencies.
 
 Verification: unchanged historical artifacts; exact row/member identities; refusal of duplicate outputs; numerical/physical failure checks; real BEEF emission and gas compatibility before scaling; no superior-melt claim from unresolved census ordering.
