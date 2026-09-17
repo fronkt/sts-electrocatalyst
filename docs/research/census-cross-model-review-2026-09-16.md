@@ -34,3 +34,7 @@ Among targets allowing surface reconstruction but requiring intact adsorbates, O
 ## Implication for the next work
 
 The recurrence makes an MPA-0-only structural artifact less likely, but related model errors, model-specific clean geometries and post-hoc selection prevent physical validation. Fixed-geometry cross-evaluation and DFT structural checks should resolve whether the short-contact basin is supported by electronic structure and whether OOH remains intact. The separately approved numerical/DFT controls can proceed while preserving frozen energy-blind pilot membership; favorable census targets must not substitute for that pilot. Continue feasibility research with no claimed superior melt and no validated rank claim.
+
+## Correction — 2026-09-17
+
+The unconverged-state count above covers only the 48 fresh sites. `target_readout.json` also carries decoration controls for the six reused targets (Ni31 and Fe25 under three models; 216 states), and three of those are unconverged: OMAT-0 Ni31Cr29Cu5Mn35 seed 2 site 3, OMAT-0 Fe25Co25Ni25Cr25 seed 0 site 1, and MATPES Fe25Co25Ni25Cr25 seed 0 site 3 (one state each). Over all 18 targets: 54 of 54 target states converged, and 8 of 360 decoration-control states did not (5 of 144 fresh, 3 of 216 reused). No value or conclusion above changes; none of the eight is a target state.

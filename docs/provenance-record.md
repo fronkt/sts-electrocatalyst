@@ -237,3 +237,9 @@ The user explicitly superseded the former entrant-only core restriction; see `do
 Supporting work: `.github/ci/core-authorship.json`, `.github/ci/check_core_authorship.py`, `.github/ci/run_controls.py`, `.github/ci/preflight_core_commit.py`, `.github/ci/silentgate-invocation.toml`, `.github/workflows/s1-controls.yml`, `pyproject.toml`, core/CI regression tests, and the implementation readout. Original scientific populations and acceptance criteria remain unchanged.
 
 Additional explicit test artifacts for the authorized core: `tests/test_silentgate_core.py`, `tests/test_silentgate_qe_reader.py`, `tests/test_silentgate_oc20_reader.py`, `tests/test_core_authorship.py`, `tests/silentgate/test_negative_quantifiers.py`; adaptations to `tests/silentgate/test_face_end_to_end.py`, `tests/silentgate/test_gate_fails_closed.py`, and `tests/silentgate/test_preflight.py`. Verification receipts are under `results/silentgate_core_2026-09-13/`; original controls and corpus files remain unchanged.
+
+## 2026-09-16 — Cross-model follow-up completed and reviewed
+
+| Artifact | Production and verification |
+|---|---|
+| `results/census_cross_model_2026-09-13/results/*_result.json`, `logs/`, `status.json`, `completion.json`, `target_readout.json`, `review_2026-09-16.json`; `docs/research/census-cross-model-review-2026-09-16.md` | Twelve-job run completed 2026-09-13T22:56:10Z (exit 0, 15,725.8 s); 18/18 targets matched; reviewed and banked in 3a5f707. Supersedes the "automatic target readout pending" status of the 2026-09-13 launch row. Correction of 2026-09-17: 8 of 360 decoration-control states unconverged across all 18 targets (5 fresh, 3 reused); 54/54 target states converged. |
