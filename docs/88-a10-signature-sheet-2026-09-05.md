@@ -1,5 +1,7 @@
 # 88 — Amendment 10 signature sheet: the S5 BEEF-vdW σ arm, decks built, thresholds blank
 
+> 2026-09-16 operating decisions are recorded in [research-decisions-2026-09-16.md](research/research-decisions-2026-09-16.md). Historical proposals and blank slots below remain as the dated source; exact approved manifests and execution limits are in the current record.
+
 **Status: signature sheet. Nothing here is registered; every slot is the entrant's.**
 
 **Date:** 2026-09-05. **Election of record:** docs/43 `:4366-4373` — the entrant elected to adopt

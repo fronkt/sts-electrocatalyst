@@ -1,0 +1,346 @@
+{
+  "schema": "divanis-selection-v1",
+  "decision_date": "2026-09-16",
+  "scope": "Source row identities only; no CHE, floor, overpotential or scored rate computed.",
+  "source": {
+    "path": "docs/research/2026-08-15-sampling/divanis_esi.txt",
+    "sha256": "88bfcda9a5e70da10d3b2565af7cc09b7377578e4aac4dd5d9a74b42c0bd8bda",
+    "table": "SI-2",
+    "line_range": [
+      106,
+      644
+    ]
+  },
+  "predicate": {
+    "description": "Within Table SI-2, select a complete six-token data row consisting of article ID, a bare single-element dioxide structure token with optional literal b suffix, and four numeric energy columns. Keep source order and repeated material rows.",
+    "structure_token_regex": "^[A-Z][a-z]?O2b?$",
+    "row_token_count": 6,
+    "numeric_columns": [
+      "deltaE_OH",
+      "deltaE_O",
+      "deltaE_OOH",
+      "deltaE_O2"
+    ],
+    "article_filter": null,
+    "energy_filter": null,
+    "deduplicate": false
+  },
+  "denominator": 38,
+  "per_article_counts": {
+    "1": 26,
+    "7": 11,
+    "9": 1
+  },
+  "interpretation_limits": [
+    "The lexical predicate reproduces the historical population; it does not establish phase reality or independently prove rutile structure.",
+    "The source does not define the trailing b suffix; preserve it without assigning a meaning.",
+    "Man block coverage attribution is external to this ESI text.",
+    "Source row identity count is distinct from the uncomputed scored floor-margin count."
+  ],
+  "rows": [
+    {
+      "row_id": "divanis-si2-L106",
+      "source_line": 106,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "MoO2",
+      "source_row": "1 MoO2 -0.02 0.66 3.02 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L107",
+      "source_line": 107,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "IrO2",
+      "source_row": "1 IrO2 -0.23 1.32 2.79 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L108",
+      "source_line": 108,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "RuO2",
+      "source_row": "1 RuO2 0.60 2.34 3.47 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L109",
+      "source_line": 109,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "TiO2",
+      "source_row": "1 TiO2 1.73 4.57 4.86 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L110",
+      "source_line": 110,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "RhO2",
+      "source_row": "1 RhO2 0.68 2.64 3.63 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L111",
+      "source_line": 111,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "NbO2",
+      "source_row": "1 NbO2 -0.97 -0.86 2.36 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L112",
+      "source_line": 112,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "VO2",
+      "source_row": "1 VO2 0.25 0.48 3.52 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L113",
+      "source_line": 113,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "MnO2",
+      "source_row": "1 MnO2 1.09 2.70 4.15 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L114",
+      "source_line": 114,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "CrO2",
+      "source_row": "1 CrO2 1.12 1.64 4.15 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L115",
+      "source_line": 115,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "PtO2b",
+      "source_row": "1 PtO2b 0.83 2.3 3.89 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L116",
+      "source_line": 116,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "PbO2b",
+      "source_row": "1 PbO2b 0.89 2.34 4.21 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L117",
+      "source_line": 117,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "SnO2b",
+      "source_row": "1 SnO2b -0.05 0.52 3.41 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L139",
+      "source_line": 139,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "MnO2",
+      "source_row": "1 MnO2 1.14 2.75 4.24 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L142",
+      "source_line": 142,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "MoO2",
+      "source_row": "1 MoO2 0.05 1.02 3.40 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L145",
+      "source_line": 145,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "IrO2",
+      "source_row": "1 IrO2 -0.10 1.61 3.02 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L146",
+      "source_line": 146,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "RuO2",
+      "source_row": "1 RuO2 0.96 2.68 3.92 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L147",
+      "source_line": 147,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "RhO2",
+      "source_row": "1 RhO2 0.76 2.80 3.76 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L148",
+      "source_line": 148,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "NbO2",
+      "source_row": "1 NbO2 -0.83 -0.51 2.64 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L149",
+      "source_line": 149,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "ReO2",
+      "source_row": "1 ReO2 -1.10 -0.64 2.56 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L150",
+      "source_line": 150,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "VO2",
+      "source_row": "1 VO2 0.16 0.78 3.75 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L151",
+      "source_line": 151,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "MnO2",
+      "source_row": "1 MnO2 1.38 3.08 4.56 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L152",
+      "source_line": 152,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "CrO2",
+      "source_row": "1 CrO2 1.42 2.14 4.98 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L153",
+      "source_line": 153,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "PtO2b",
+      "source_row": "1 PtO2b 0.82 2.31 3.79 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L154",
+      "source_line": 154,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "NiO2b",
+      "source_row": "1 NiO2b 0.65 2.89 3.85 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L155",
+      "source_line": 155,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "PbO2b",
+      "source_row": "1 PbO2b 0.67 2.98 4.04 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L156",
+      "source_line": 156,
+      "article_id": 1,
+      "article": "Man 2011",
+      "structure_token": "SnO2b",
+      "source_row": "1 SnO2b -1.02 0.17 2.55 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L296",
+      "source_line": 296,
+      "article_id": 7,
+      "article": "Mom 2014",
+      "structure_token": "SnO2",
+      "source_row": "7 SnO2 1.65 5.22 4.92 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L298",
+      "source_line": 298,
+      "article_id": 7,
+      "article": "Mom 2014",
+      "structure_token": "PtO2",
+      "source_row": "7 PtO2 0.46 2.89 3.56 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L299",
+      "source_line": 299,
+      "article_id": 7,
+      "article": "Mom 2014",
+      "structure_token": "PbO2",
+      "source_row": "7 PbO2 2.27 5.71 5.22 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L304",
+      "source_line": 304,
+      "article_id": 7,
+      "article": "Mom 2014",
+      "structure_token": "TiO2",
+      "source_row": "7 TiO2 1.611 4.40 4.86 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L306",
+      "source_line": 306,
+      "article_id": 7,
+      "article": "Mom 2014",
+      "structure_token": "SnO2",
+      "source_row": "7 SnO2 1.62 4.44 4.39 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L308",
+      "source_line": 308,
+      "article_id": 7,
+      "article": "Mom 2014",
+      "structure_token": "PtO2",
+      "source_row": "7 PtO2 0.26 2.53 3.48 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L309",
+      "source_line": 309,
+      "article_id": 7,
+      "article": "Mom 2014",
+      "structure_token": "PbO2",
+      "source_row": "7 PbO2 2.14 4.71 4.73 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L314",
+      "source_line": 314,
+      "article_id": 7,
+      "article": "Mom 2014",
+      "structure_token": "TiO2",
+      "source_row": "7 TiO2 1.65 4.39 4.36 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L318",
+      "source_line": 318,
+      "article_id": 7,
+      "article": "Mom 2014",
+      "structure_token": "SnO2",
+      "source_row": "7 SnO2 1.55 4.33 3.74 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L320",
+      "source_line": 320,
+      "article_id": 7,
+      "article": "Mom 2014",
+      "structure_token": "PtO2",
+      "source_row": "7 PtO2 0.23 2.39 3.40 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L321",
+      "source_line": 321,
+      "article_id": 7,
+      "article": "Mom 2014",
+      "structure_token": "PbO2",
+      "source_row": "7 PbO2 2.03 4.76 4.69 4.92"
+    },
+    {
+      "row_id": "divanis-si2-L331",
+      "source_line": 331,
+      "article_id": 9,
+      "article": "Frydendal 2015",
+      "structure_token": "MnO2",
+      "source_row": "9 MnO2 1.24 3.04 4.42 4.92"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+Verified background desktop: Codex_STS_Background
+COMMAND mybalance
+
+Allocation     Type    SU Limit    SU Usage   SU Usage  SU Balance
+Account                           (account)     (user)            
+=============  ====  ==========  ========== ==========  ==========
+che260157       CPU    100000.0     46782.2    46782.2     53217.8
+che260157-gpu   GPU       150.0         0.0        0.0       150.0
+
+  0
+COMMAND squeue -h -u x-fcai3 -o "%i|%j|%T|%M|%R"
+  0
+COMMAND ls /anvil/projects/x-che260157/sts/runs/hea/branch_panel /anvil/projects/x-che260157/sts/runs/hea/pilot_retained
+ ls: cannot access '/anvil/projects/x-che260157/sts/runs/hea/branch_panel': No such file or directory
+ls: cannot access '/anvil/projects/x-che260157/sts/runs/hea/pilot_retained': No such file or directory
+ 2
+COMMAND ls /anvil/projects/x-che260157/sts/runs/s5 /anvil/projects/x-che260157/sts/runs/a0/ru_pp2
+ ls: cannot access '/anvil/projects/x-che260157/sts/runs/s5': No such file or directory
+ls: cannot access '/anvil/projects/x-che260157/sts/runs/a0/ru_pp2': No such file or directory
+ 2
+ M tasks/lessons.md
+ M tasks/todo.md
+?? runs/hea/ieee_2026-09-09/hd__leader_builder__atomic__ieee_repro.projwfc.stdout
+ 
+b517aa7 Record passing hosted silentgate controls and completed implementation
+4d60f4b Implement silentgate core with strict scientific controls and authorized authorship
+7fc5309 Record verified cross-model startup and pending scientific readout
+addb9b3 Explain census endpoint reconstruction and freeze bounded cross-model checks
+ 

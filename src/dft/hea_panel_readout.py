@@ -25,9 +25,9 @@ source files at run time, never copied into source:
 Per output the parser reads: the last '!' total energy, JOB DONE, 'convergence NOT
 achieved', 'Maximum CPU time exceeded', the SCF iteration count, the PWSCF WALL, the total
 and absolute magnetisation, and a <job>.KILLED sidecar (written by the kill rule). A leg is
-terminal as CONVERGED, NOT CONVERGED or KILLED, and PENDING otherwise. The readout refuses to
+terminal as CONVERGED, NOT CONVERGED, KILLED or REJECTED, and PENDING otherwise. The readout refuses to
 write while any leg is PENDING (exit 3) and writes docs/figs/hea_panel_readout.json once every
-leg is terminal, NOT CONVERGED / KILLED rows included (no number on those). For the desorbed
+leg is terminal, NOT CONVERGED / KILLED / REJECTED rows included (no number on those). For the desorbed
 states the Loewdin moment on the adsorbate atoms (<job>.lowdin.txt, or the .projwfc.out) is
 read beside the free-species moment (HO2 doublet 1, O2 triplet 2 Bohr mag); a mismatch of
 0.5 Bohr mag or more, or a missing table, prints SPIN-STATE UNRESOLVED. No banked value
@@ -39,6 +39,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
 import re
 import sys
@@ -65,7 +66,7 @@ STATES = ("slab", "OH", "O", "OOH")
 RY_EV = 13.605693122   # src/dft/qe_slab.py:31
 EQUILIBRIUM_V = 1.23   # src/hea_oer/descriptors.py OER_EQUILIBRIUM_V
 SPIN_TOL_MUB = 0.5     # a moment that rounds to a different integer than the free species
-TERMINAL = ("CONVERGED", "NOT CONVERGED", "KILLED")
+TERMINAL = ("CONVERGED", "NOT CONVERGED", "KILLED", "REJECTED")
 
 
 class Fatal(RuntimeError):
@@ -110,27 +111,49 @@ def _sidecar(out_path: Path, ext: str) -> Path:
     return out_path.parent / (stem + ext)
 
 
-def parse_out(path: Path) -> dict:
+def parse_out(path: Path, *, allow_relax: bool = False) -> dict:
+    """Strict SCF completion; only the banked gas helper admits converged relaxations."""
     path = Path(path)
     killed = _sidecar(path, ".KILLED").exists()
+    rejected = _sidecar(path, ".REJECTED").exists()
     if not path.exists():
-        return {"exists": False, "killed": killed, "status": "KILLED" if killed else "PENDING"}
+        return {"exists": False, "killed": killed, "rejected": rejected,
+                "E_Ry": None, "E_eV": None,
+                "status": "KILLED" if killed else "REJECTED" if rejected else "PENDING"}
     blob = path.read_bytes().decode("utf-8", "replace")
-    bang = re.findall(r"^!\s+total energy\s+=\s+([-\d.]+) Ry", blob, re.M)
+    tokens = re.findall(r"^!\s+total energy\s+=\s+(\S+)\s+Ry", blob, re.M)
+    energies = []
+    for token in tokens:
+        try:
+            energies.append(float(token.replace("D", "E").replace("d", "e")))
+        except ValueError:
+            energies.append(float("nan"))
     it = re.findall(r"convergence has been achieved in\s+(\d+) iterations", blob)
     nit = re.findall(r"convergence NOT achieved after\s+(\d+) iterations", blob)
     wall = re.search(r"PWSCF\s*:\s*.+?CPU\s+(.+?)\s*WALL", blob)
     cores = re.search(r"running on\s+(\d+) processor cores", blob)
     mag = re.findall(r"total magnetization\s*=\s*([-\d.]+)", blob)
     amag = re.findall(r"absolute magnetization\s*=\s*([-\d.]+)", blob)
+    severe = re.findall(
+        r"Error in routine[^\n]*|IEEE_(?:INVALID|DIVIDE_BY_ZERO|OVERFLOW)(?:_FLAG)?"
+        r"|segmentation fault|SIGSEGV|SIGFPE|floating.point exception|MPI_ABORT"
+        r"|Program received signal[^\n]*", blob, re.I)
     o = {
         "exists": True,
-        "killed": killed,
+        "killed": killed or "Program stopped by user request" in blob,
+        "rejected": rejected,
+        "severe_failures": severe,
         "job_done": blob.count("JOB DONE"),
         "not_achieved": blob.count("convergence NOT achieved"),
         "max_seconds_hit": blob.count("Maximum CPU time exceeded"),
-        "E_Ry": float(bang[-1]) if bang else None,
-        "E_eV": float(bang[-1]) * RY_EV if bang else None,
+        "n_energies": len(energies),
+        "nonfinite_energy": any(not math.isfinite(e) or not math.isfinite(e * RY_EV) for e in energies),
+        "scf_converged": len(it),
+        "allow_relax": allow_relax,
+        "bfgs_converged": "bfgs converged" in blob,
+        "max_steps_hit": "The maximum number of steps has been reached" in blob,
+        "E_Ry": energies[-1] if energies and math.isfinite(energies[-1]) else None,
+        "E_eV": energies[-1] * RY_EV if energies and math.isfinite(energies[-1]) else None,
         "iterations": int(it[-1]) if it else (int(nit[-1]) if nit else None),
         "wall_s": _wall_seconds(wall.group(1)) if wall else None,
         "cores": int(cores.group(1)) if cores else None,
@@ -138,21 +161,35 @@ def parse_out(path: Path) -> dict:
         "absmag": float(amag[-1]) if amag else None,
     }
     o["status"] = leg_status(o)
+    if o["status"] != "CONVERGED":
+        o["E_Ry"] = o["E_eV"] = None
     return o
 
 
 def leg_status(o: dict) -> str:
-    """CONVERGED: a '!' energy and JOB DONE and no non-convergence notice. NOT CONVERGED:
-    pw.x printed `convergence NOT achieved` or `Maximum CPU time exceeded` (no '!' line is
-    printed in either case). KILLED: the kill-rule sidecar exists. Else PENDING."""
-    if not o.get("exists"):
-        return "KILLED" if o.get("killed") else "PENDING"
-    if o.get("not_achieved", 0) >= 1 or o.get("max_seconds_hit", 0) >= 1:
-        return "NOT CONVERGED"
-    if o.get("E_Ry") is not None and o.get("job_done", 0) >= 1:
-        return "CONVERGED"
+    """Explicit termination overrides energies. A completed malformed SCF is REJECTED.
+
+    Ordinary IEEE underflow/denormal notices are not fatal. For fixed geometries,
+    one finite energy, explicit SCF convergence and exactly one JOB DONE are all
+    necessary. Banked gas relaxations additionally require BFGS convergence.
+    """
     if o.get("killed"):
         return "KILLED"
+    if o.get("rejected") or o.get("severe_failures") or o.get("nonfinite_energy"):
+        return "REJECTED"
+    if not o.get("exists"):
+        return "PENDING"
+    if (o.get("not_achieved", 0) >= 1 or o.get("max_seconds_hit", 0) >= 1
+            or o.get("max_steps_hit")):
+        return "NOT CONVERGED"
+    count = o.get("n_energies", 0)
+    count_ok = count >= 1 if o.get("allow_relax") else count == 1
+    if o.get("job_done", 0) >= 1:
+        if (o["job_done"] != 1 or not count_ok or not o.get("scf_converged")
+                or o.get("E_Ry") is None or not math.isfinite(o["E_Ry"])
+                or (o.get("allow_relax") and not o.get("bfgs_converged"))):
+            return "REJECTED"
+        return "CONVERGED"
     return "PENDING"
 
 
@@ -285,7 +322,7 @@ def score_panel(panel: dict, out_dir: Path, band_dG: float, deck_dir: Path | Non
 def gas_references(gas_dir: Path = GAS_DIR) -> dict:
     out = {}
     for g in ("H2O", "H2"):
-        o = parse_out(Path(gas_dir) / f"{g}.out")
+        o = parse_out(Path(gas_dir) / f"{g}.out", allow_relax=True)
         if o["status"] != "CONVERGED":
             raise Fatal(f"banked gas reference {g}.out in {gas_dir} missing or unusable")
         out[g] = dict(E_Ry=o["E_Ry"], E_eV=o["E_eV"], path=os.path.relpath(Path(gas_dir) / f"{g}.out", ROOT).replace("\\", "/"))

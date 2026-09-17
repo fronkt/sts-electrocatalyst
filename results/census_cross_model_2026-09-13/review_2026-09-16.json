@@ -1,0 +1,564 @@
+{
+  "schema": "census-cross-model-review-v1",
+  "review_date": "2026-09-16",
+  "role": "post-hoc selected target diagnostic; no rank validation",
+  "completion": {
+    "exit_code": 0,
+    "elapsed_seconds": 15725.833478927612,
+    "readout_complete": true
+  },
+  "finished_utc": "2026-09-13T22:56:10+00:00",
+  "counts": {
+    "new_jobs": 12,
+    "new_sites": 48,
+    "matched_targets_including_reused": 18
+  },
+  "checks": {
+    "frozen_input_hashes": 94,
+    "frozen_input_hash_failures": [],
+    "readout_source_hashes": 18,
+    "readout_source_hash_failures": [],
+    "model_checkpoint_hashes": [
+      {
+        "filename": "maceomat0mediummodel",
+        "sha": "d4b14be9afa294eebdbe31a0280b26a0fa29715771e978cbfd3ca24e0d90307a"
+      },
+      {
+        "filename": "20231203mace128L1_epoch199model",
+        "sha": "01bfe22100139f424713cf921144e5509cbe353d67aa9fa1be9c6e1e0ed35845"
+      },
+      {
+        "filename": "MACEmatpesr2scanomatftmodel",
+        "sha": "8f147ecffa1d06a696e5648b13b81abda9c96fda9d0fb3faba3cd3fb27d9bba9"
+      }
+    ],
+    "targets": 18,
+    "che_max_error": 1.7763568394002505e-15,
+    "geometry_max_error": 3.552713678800501e-15,
+    "matched_identities": 18,
+    "failures": [],
+    "new_sites": 48,
+    "new_chosen_states": 144,
+    "new_unconverged_states": 5,
+    "new_starts": 432,
+    "new_unconverged_starts": 7,
+    "new_clean_unconv": 0,
+    "new_gas_unconv": 0
+  },
+  "non_target_unconverged_states": [
+    {
+      "file": "matpes__Cu26Ni9Cr31Co33_result.json",
+      "seed": 5,
+      "site": 0,
+      "species": "OOH",
+      "fmax": 0.16523803247644447
+    },
+    {
+      "file": "matpes__Cu26Ni9Cr31Co33_result.json",
+      "seed": 5,
+      "site": 3,
+      "species": "OOH",
+      "fmax": 0.40620476943183004
+    },
+    {
+      "file": "mp0__Cu8Cr23Mn35Co34_result.json",
+      "seed": 20,
+      "site": 1,
+      "species": "OH",
+      "fmax": 0.8160162995525793
+    },
+    {
+      "file": "omat0__Ni34Fe6Cu29Co31_result.json",
+      "seed": 13,
+      "site": 1,
+      "species": "O",
+      "fmax": 0.5602215437179728
+    },
+    {
+      "file": "omat0__Ni34Fe6Cu29Co31_result.json",
+      "seed": 13,
+      "site": 1,
+      "species": "OOH",
+      "fmax": 0.15165186468631914
+    }
+  ],
+  "scheduled_thread_hours": 17.02338888888889,
+  "targets": [
+    {
+      "formula": "Cu26Ni9Cr31Co33",
+      "model": "omat0",
+      "seed": 5,
+      "site_index": 2,
+      "eta_V": 0.5148059359562396,
+      "pls": 2,
+      "steps_eV": [
+        1.6551029208368964,
+        1.7448059359562396,
+        1.630009233519102,
+        -0.10991809031223809
+      ],
+      "categories": {
+        "OH": "NORMAL",
+        "O": "RECONSTRUCTION",
+        "OOH": "NORMAL"
+      },
+      "all_states_adsorbate_intact": true,
+      "all_states_intact": false,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.5768568923549169,
+      "O_slab_max_displacement_A": 0.564937465554394,
+      "source": "results\\census_cross_model_2026-09-13\\results\\omat0__Cu26Ni9Cr31Co33_result.json",
+      "sha256": "0fba4b60f57af7f69ba0d2601f2f0219f5b2e09ff88aad36b7860442957939fc"
+    },
+    {
+      "formula": "Cu26Ni9Cr31Co33",
+      "model": "mp0",
+      "seed": 5,
+      "site_index": 2,
+      "eta_V": 0.7197142412442075,
+      "pls": 1,
+      "steps_eV": [
+        1.9497142412442074,
+        1.4837707867042353,
+        1.877351386115068,
+        -0.3908364140635108
+      ],
+      "categories": {
+        "OH": "NORMAL",
+        "O": "RECONSTRUCTION",
+        "OOH": "NORMAL"
+      },
+      "all_states_adsorbate_intact": true,
+      "all_states_intact": false,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.5806449383869372,
+      "O_slab_max_displacement_A": 0.749741231058508,
+      "source": "results\\census_cross_model_2026-09-13\\results\\mp0__Cu26Ni9Cr31Co33_result.json",
+      "sha256": "ae1e04c11df3155642cd5737e61cc15624ac63f70e2f0e4e136e674dcaa5215f"
+    },
+    {
+      "formula": "Cu26Ni9Cr31Co33",
+      "model": "matpes",
+      "seed": 5,
+      "site_index": 2,
+      "eta_V": 0.5674142507703417,
+      "pls": 4,
+      "steps_eV": [
+        0.5158913005314044,
+        1.5887982077599596,
+        1.0178962409382941,
+        1.7974142507703417
+      ],
+      "categories": {
+        "OH": "RECONSTRUCTION",
+        "O": "NORMAL",
+        "OOH": "NORMAL"
+      },
+      "all_states_adsorbate_intact": true,
+      "all_states_intact": false,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.5720225636379095,
+      "O_slab_max_displacement_A": 0.43785823642354926,
+      "source": "results\\census_cross_model_2026-09-13\\results\\matpes__Cu26Ni9Cr31Co33_result.json",
+      "sha256": "3f92a13630ab0a9304a001d7ca9a28d4e930a5cea81d2473c6a3f29704f21603"
+    },
+    {
+      "formula": "Ni34Fe6Cu29Co31",
+      "model": "omat0",
+      "seed": 13,
+      "site_index": 2,
+      "eta_V": 1.2020780538277265,
+      "pls": 2,
+      "steps_eV": [
+        2.023726569227961,
+        2.4320780538277265,
+        -0.9323234254306407,
+        1.396518802374953
+      ],
+      "categories": {
+        "OH": "NORMAL",
+        "O": "NORMAL",
+        "OOH": "DESORPTION"
+      },
+      "all_states_adsorbate_intact": false,
+      "all_states_intact": false,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.7881077537626666,
+      "O_slab_max_displacement_A": 0.09646021089686214,
+      "source": "results\\census_cross_model_2026-09-13\\results\\omat0__Ni34Fe6Cu29Co31_result.json",
+      "sha256": "ff82702579d9eba0657ec8ae8f26ddabb269171fd6ad69f51ac4824b3adbe207"
+    },
+    {
+      "formula": "Ni34Fe6Cu29Co31",
+      "model": "mp0",
+      "seed": 13,
+      "site_index": 2,
+      "eta_V": 1.1466655680805387,
+      "pls": 1,
+      "steps_eV": [
+        2.3766655680805386,
+        2.2727121308500045,
+        -1.0487441167554992,
+        1.319366417824956
+      ],
+      "categories": {
+        "OH": "NORMAL",
+        "O": "NORMAL",
+        "OOH": "DESORPTION"
+      },
+      "all_states_adsorbate_intact": false,
+      "all_states_intact": false,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.7179754089729413,
+      "O_slab_max_displacement_A": 0.1514803162014424,
+      "source": "results\\census_cross_model_2026-09-13\\results\\mp0__Ni34Fe6Cu29Co31_result.json",
+      "sha256": "3dedff4753d6cedc6139fac7630f869f2066d99cae03545124c4deb631997fb6"
+    },
+    {
+      "formula": "Ni34Fe6Cu29Co31",
+      "model": "matpes",
+      "seed": 13,
+      "site_index": 2,
+      "eta_V": 1.1690215679908667,
+      "pls": 2,
+      "steps_eV": [
+        0.7663840238397025,
+        2.3990215679908666,
+        0.09756930178628886,
+        1.6570251063831418
+      ],
+      "categories": {
+        "OH": "NORMAL",
+        "O": "NORMAL",
+        "OOH": "NORMAL"
+      },
+      "all_states_adsorbate_intact": true,
+      "all_states_intact": true,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.7478166531434742,
+      "O_slab_max_displacement_A": 0.10202753897246389,
+      "source": "results\\census_cross_model_2026-09-13\\results\\matpes__Ni34Fe6Cu29Co31_result.json",
+      "sha256": "960f75e3fef5ba328472a2843ece12440536639c65b9a42e81ed81659639d706"
+    },
+    {
+      "formula": "Cu8Cr23Mn35Co34",
+      "model": "omat0",
+      "seed": 20,
+      "site_index": 2,
+      "eta_V": 0.5095889581168267,
+      "pls": 1,
+      "steps_eV": [
+        1.7395889581168267,
+        1.5590456145161826,
+        1.7102714902975986,
+        -0.08890606293060799
+      ],
+      "categories": {
+        "OH": "NORMAL",
+        "O": "RECONSTRUCTION",
+        "OOH": "NORMAL"
+      },
+      "all_states_adsorbate_intact": true,
+      "all_states_intact": false,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.5778113782303418,
+      "O_slab_max_displacement_A": 0.5899094469279927,
+      "source": "results\\census_cross_model_2026-09-13\\results\\omat0__Cu8Cr23Mn35Co34_result.json",
+      "sha256": "226d4ea733a5345b25e5f6787e90b0f8b13426ef0391cb2fc24bd2e35d994854"
+    },
+    {
+      "formula": "Cu8Cr23Mn35Co34",
+      "model": "mp0",
+      "seed": 20,
+      "site_index": 2,
+      "eta_V": 0.8429297339425146,
+      "pls": 1,
+      "steps_eV": [
+        2.0729297339425146,
+        1.371259357309691,
+        0.2880637251339251,
+        1.1877471836138693
+      ],
+      "categories": {
+        "OH": "RECONSTRUCTION",
+        "O": "RECONSTRUCTION",
+        "OOH": "DESORPTION"
+      },
+      "all_states_adsorbate_intact": false,
+      "all_states_intact": false,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.578748714750124,
+      "O_slab_max_displacement_A": 0.8224973010286943,
+      "source": "results\\census_cross_model_2026-09-13\\results\\mp0__Cu8Cr23Mn35Co34_result.json",
+      "sha256": "39ea4427153bc3f96d47fafbd17952739637e05bb86b269f6c84e425f72dcf60"
+    },
+    {
+      "formula": "Cu8Cr23Mn35Co34",
+      "model": "matpes",
+      "seed": 20,
+      "site_index": 2,
+      "eta_V": 0.629046949960455,
+      "pls": 4,
+      "steps_eV": [
+        0.6993308657107601,
+        1.0752286822417956,
+        1.2863935020869894,
+        1.859046949960455
+      ],
+      "categories": {
+        "OH": "NORMAL",
+        "O": "RECONSTRUCTION",
+        "OOH": "NORMAL"
+      },
+      "all_states_adsorbate_intact": true,
+      "all_states_intact": false,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.558568435601748,
+      "O_slab_max_displacement_A": 0.5889807505347473,
+      "source": "results\\census_cross_model_2026-09-13\\results\\matpes__Cu8Cr23Mn35Co34_result.json",
+      "sha256": "6d1b78cc2ad5278cc2b567b161bd3ea32743f61aec4717d4e68fe9754a99f340"
+    },
+    {
+      "formula": "Cu22Fe30Co32Mn15",
+      "model": "omat0",
+      "seed": 15,
+      "site_index": 0,
+      "eta_V": 1.395533616987045,
+      "pls": 2,
+      "steps_eV": [
+        1.5727147179481453,
+        2.625533616987045,
+        0.872385025003096,
+        -0.1506333599382863
+      ],
+      "categories": {
+        "OH": "NORMAL",
+        "O": "NORMAL",
+        "OOH": "NORMAL"
+      },
+      "all_states_adsorbate_intact": true,
+      "all_states_intact": true,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.7671863207335892,
+      "O_slab_max_displacement_A": 0.15667497756831947,
+      "source": "results\\census_cross_model_2026-09-13\\results\\omat0__Cu22Fe30Co32Mn15_result.json",
+      "sha256": "33b9cd4215228142f191cead20d17ff8fec24eb52e98e43b93add99e86a6c6ab"
+    },
+    {
+      "formula": "Cu22Fe30Co32Mn15",
+      "model": "mp0",
+      "seed": 15,
+      "site_index": 0,
+      "eta_V": 1.0495508576757242,
+      "pls": 2,
+      "steps_eV": [
+        2.054075304248015,
+        2.279550857675724,
+        1.1536682722569669,
+        -0.567294434180706
+      ],
+      "categories": {
+        "OH": "NORMAL",
+        "O": "NORMAL",
+        "OOH": "NORMAL"
+      },
+      "all_states_adsorbate_intact": true,
+      "all_states_intact": true,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.7440690676100006,
+      "O_slab_max_displacement_A": 0.3198073709899312,
+      "source": "results\\census_cross_model_2026-09-13\\results\\mp0__Cu22Fe30Co32Mn15_result.json",
+      "sha256": "98251933e289640cbd900c3b1267962f6b17833d20566b0e94cffa7e6513ea04"
+    },
+    {
+      "formula": "Cu22Fe30Co32Mn15",
+      "model": "matpes",
+      "seed": 15,
+      "site_index": 0,
+      "eta_V": 2.5772616158431427,
+      "pls": 4,
+      "steps_eV": [
+        0.8850370379145825,
+        2.1236040234233493,
+        -1.8959026771810747,
+        3.8072616158431427
+      ],
+      "categories": {
+        "OH": "NORMAL",
+        "O": "RECONSTRUCTION",
+        "OOH": "DISSOCIATION"
+      },
+      "all_states_adsorbate_intact": false,
+      "all_states_intact": false,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.5809523072919909,
+      "O_slab_max_displacement_A": 0.6476818036397173,
+      "source": "results\\census_cross_model_2026-09-13\\results\\matpes__Cu22Fe30Co32Mn15_result.json",
+      "sha256": "a2c2a18b4ebd8c67788fc7428c01587c712257db902a857262dd2f9eb0a011f9"
+    },
+    {
+      "formula": "Ni31Cr29Cu5Mn35",
+      "model": "omat0",
+      "seed": 1,
+      "site_index": 0,
+      "eta_V": 0.7462145715236561,
+      "pls": 1,
+      "steps_eV": [
+        1.976214571523656,
+        1.5865336532033072,
+        1.6417817230196174,
+        -0.2845299477465808
+      ],
+      "categories": {
+        "OH": "NORMAL",
+        "O": "RECONSTRUCTION",
+        "OOH": "NORMAL"
+      },
+      "all_states_adsorbate_intact": true,
+      "all_states_intact": false,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.5758547625729034,
+      "O_slab_max_displacement_A": 0.7099358659951142,
+      "source": "results\\site_census_2026-09-06\\results\\omat0__Ni31Cr29Cu5Mn35_result.json",
+      "sha256": "21328a1c4e898f2695644cc3a6741c8db63135511f3af7f8639e2bd373d0c3da"
+    },
+    {
+      "formula": "Ni31Cr29Cu5Mn35",
+      "model": "mp0",
+      "seed": 1,
+      "site_index": 0,
+      "eta_V": 0.5293929098039483,
+      "pls": 1,
+      "steps_eV": [
+        1.7593929098039482,
+        1.641989841099155,
+        0.11155604630002491,
+        1.4070612027968719
+      ],
+      "categories": {
+        "OH": "NORMAL",
+        "O": "RECONSTRUCTION",
+        "OOH": "DESORPTION"
+      },
+      "all_states_adsorbate_intact": false,
+      "all_states_intact": false,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.5760080963386636,
+      "O_slab_max_displacement_A": 0.7764685360257909,
+      "source": "results\\site_census_2026-09-06\\results\\mp0__Ni31Cr29Cu5Mn35_result.json",
+      "sha256": "ab7f4aca43da801d85a115750b7fda23a1733b0c504ef2de9f0a8e9a1e7667ae"
+    },
+    {
+      "formula": "Ni31Cr29Cu5Mn35",
+      "model": "matpes",
+      "seed": 1,
+      "site_index": 0,
+      "eta_V": 0.5727018240266242,
+      "pls": 4,
+      "steps_eV": [
+        0.8073356001637076,
+        1.244636192756952,
+        1.065326383052716,
+        1.8027018240266242
+      ],
+      "categories": {
+        "OH": "NORMAL",
+        "O": "RECONSTRUCTION",
+        "OOH": "NORMAL"
+      },
+      "all_states_adsorbate_intact": true,
+      "all_states_intact": false,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.5595714717972395,
+      "O_slab_max_displacement_A": 0.5625455108571588,
+      "source": "results\\site_census_2026-09-06\\results\\matpes__Ni31Cr29Cu5Mn35_result.json",
+      "sha256": "4354d2528e931797b11553ec8149e5491eb27ef6e2f300a3574ab970ef0d9412"
+    },
+    {
+      "formula": "Fe25Co25Ni25Cr25",
+      "model": "omat0",
+      "seed": 2,
+      "site_index": 0,
+      "eta_V": 0.6915009330926596,
+      "pls": 1,
+      "steps_eV": [
+        1.9215009330926596,
+        1.5708246094548346,
+        1.7133047566267674,
+        -0.28563029917426164
+      ],
+      "categories": {
+        "OH": "NORMAL",
+        "O": "RECONSTRUCTION",
+        "OOH": "NORMAL"
+      },
+      "all_states_adsorbate_intact": true,
+      "all_states_intact": false,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.5713770384332775,
+      "O_slab_max_displacement_A": 0.5675628098342077,
+      "source": "results\\site_census_2026-09-06\\results\\omat0__Fe25Co25Ni25Cr25_result.json",
+      "sha256": "43c85f53532f9a8e8dfa8e1e896d94f9afcf0b7cf4b14399af6c93c018ee6351"
+    },
+    {
+      "formula": "Fe25Co25Ni25Cr25",
+      "model": "mp0",
+      "seed": 2,
+      "site_index": 0,
+      "eta_V": 1.0163209735342091,
+      "pls": 1,
+      "steps_eV": [
+        2.246320973534209,
+        1.373082098175837,
+        -0.21042135497097414,
+        1.511018283260928
+      ],
+      "categories": {
+        "OH": "NORMAL",
+        "O": "RECONSTRUCTION",
+        "OOH": "DESORPTION"
+      },
+      "all_states_adsorbate_intact": false,
+      "all_states_intact": false,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.5778388846195477,
+      "O_slab_max_displacement_A": 0.8395025947593511,
+      "source": "results\\site_census_2026-09-06\\results\\mp0__Fe25Co25Ni25Cr25_result.json",
+      "sha256": "e55731c1e0c436e0c2fdaa496c473deeb2e20779dcb32d270d64589f78e32989"
+    },
+    {
+      "formula": "Fe25Co25Ni25Cr25",
+      "model": "matpes",
+      "seed": 2,
+      "site_index": 0,
+      "eta_V": 0.3503844104703129,
+      "pls": 4,
+      "steps_eV": [
+        0.8950765700344728,
+        1.0757971562182957,
+        1.3687418632769186,
+        1.5803844104703129
+      ],
+      "categories": {
+        "OH": "NORMAL",
+        "O": "RECONSTRUCTION",
+        "OOH": "NORMAL"
+      },
+      "all_states_adsorbate_intact": true,
+      "all_states_intact": false,
+      "n_unconverged_states": 0,
+      "O_metal_A": 1.5600229531547851,
+      "O_slab_max_displacement_A": 0.5266662822355044,
+      "source": "results\\site_census_2026-09-06\\results\\matpes__Fe25Co25Ni25Cr25_result.json",
+      "sha256": "1e8d148fd9d03dc89af628b93c739a52ea62068a6869cacbb07417c23aec3211"
+    }
+  ],
+  "interpretation": [
+    "Short Cr–O motif survives model changes at all four selected Cr targets; all 12 alternative-model Cr–O distances are 1.559–1.581 Å.",
+    "Cu26 MATPES O displacement is 0.438 Å and does not cross the unchanged 0.50 Å reconstruction cutoff; its OH state reconstructs.",
+    "Cu8 retains O reconstruction under all alternatives, but MP-0 gives desorbed OOH.",
+    "Only Cu26 among six selected targets retains adsorbate integrity across all four models including MPA-0. This does not establish stable surfaces or superiority.",
+    "Model and eligibility change order; no winner selection or rank-validation claim follows.",
+    "Proceed with separately authorized DFT controls and preserve energy-blind pilot membership; targeted structural validation still needed."
+  ]
+}

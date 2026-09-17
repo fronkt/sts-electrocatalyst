@@ -1,5 +1,7 @@
 # HEA-DFT — fixed-geometry DFT on the retained rutile(110) high-entropy oxide slab geometries: the branch panel and the fidelity pilot
 
+> 2026-09-16 operating decisions are recorded in [research-decisions-2026-09-16.md](research/research-decisions-2026-09-16.md). Historical proposals and blank slots below remain as the dated source; exact approved manifests and execution limits are in the current record.
+
 **Status: DRAFT — a proposal; nothing here is registered, no deck is licensed, every entrant
 slot is blank.** Built 2026-09-06 to the two unnumbered proposals of the same date
 (`docs/cr-site-chain-readout-2026-09-06.md:30-40`, `docs/site-evidence-continuation-2026-09-06.md:33-45`).

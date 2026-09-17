@@ -1224,9 +1224,22 @@ The native CreateProcessW route then passed: the worker reported Codex_STS_Backg
 The user explicitly directed future continuation toward scientific research and implementation, without prompt logging, disclosure tasks, or STS-compliance work. Do not reintroduce those activities as extra gates or deliverables. Preserve raw evidence, experimental history, uncertainty distinctions, and reproducibility because they determine scientific validity.
 
 The user further clarified that scientific interpretation is part of the requested work. Provide mechanistic interpretation, competing explanations, and evidence-based research recommendations directly. Do not use competition conventions to withhold scientific analysis; distinguish supported conclusions from hypotheses and compute-only checks from physical validation.
+
+## 2026-09-06 — isolated worker checks did not settle visible console launches
+
+The user again reports many blank command windows after the separate-desktop route. A worker desktop check does not verify the bootstrap or tool host. Suspend routine process launches and delegated subprocesses, inspect actual visible window owners and process ancestry, and test the whole launch path before resuming. Do not call flags or a worker-only check proof that no visible windows open.
+
+Confirmed cause: native window/process inspection found Codex WakaTime 4.1.0 hooks launching PowerShell -> cmd.exe /c scripts/run.cmd -> node.exe. PreToolUse/PostToolUse trigger even for file-only tools, outside the scientific worker desktop. The plugin already hides its own CLI children; that cannot hide the outer hook shell. Disabled only plugins."claude-code-wakatime@wakatime" in C:/Users/frank/.codex/config.toml, with a configuration backup in Temp/sts-console-diagnosis-2026-09-06. Monitoring still observed new hook processes and terminal windows in this running session after the edit, so the setting needs a full Codex restart. Do not report the symptom fixed until post-restart observation confirms no recurrence. Do not patch plugin launchers or kill unrelated terminals to conceal a cached-hook issue.
+
 ## 2026-09-06 — do not scope the science to the report date
 
 A recommendation to defer the DFT validation and the melt question "until after the lock" was rejected in session: the instruction is to maximise rigor without regard to the deadline. Rule: size every program to the question, not to the date; present the full rigorous sequence (pre-stated protocol, local arms that need no licence, Anvil decks built and priced but left NOT LICENSED for the dated line), and let the entrant cut, never the tool. Corollary: the blind boundary must be a commit made before any process starts, and the entrant-owned licence step (docs/43:2962-2964) is the only place a tool stops.
+
+## 2026-09-11 — distinguish census-dependent priorities from fixed DFT audits
+
+The next-step recommendation blurred an audit of the historical winner and the energy-blind validation pilot with choosing candidates for an expensive relaxation/ranking campaign. The user pointed out the census dependency.
+
+Rule: state separately which census outputs supply coordinates, which select or prioritize further scientific work, and which are deliberately excluded from a frozen validation selection. Completed CENSUS-1 supplies the fixed pilot geometries and identifies the historical winner; the remaining CENSUS-3 distribution and full ensemble/rank readout inform candidate-focused expansion and compute priorities. A prepared deck is not by itself a reason to prioritize its execution. Do not call the historical winner a census-validated best candidate, or replace outcome-blind pilot members with favorable census cases. Keep completed-result analysis and bounded numerical diagnostics separate from the larger census-informed campaign.
 
 ## 2026-09-13 — Explicit supersession authorizes core implementation
 

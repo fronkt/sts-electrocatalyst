@@ -2563,8 +2563,8 @@ Final prelaunch verification: 31 tests passed (23 existing runner/readout plus e
 
 Launch review: addb9b3 was pushed before the bounded follow-up started at 2026-09-13T18:34:06Z. Isolated worker PID 20664 supervises two active diagnostic workers (23056/19820) and ten queued jobs; their result checkpoints confirm the pinned CPU software environment and two threads. Startup snapshot and launch receipt are retained separately. The 24-hour deadline is 2026-09-14T18:34:06Z. No completed new model result is claimed.
 
-- [ ] Inspect the automatic 18-target readout after the twelve new jobs terminate; validate matched chemistry, failure denominator, per-model pathway changes and selected-site order, then commit/push completed outputs.
-- [ ] Resolve remaining entrant decisions from the concrete memo; silentgate core authorship was subsequently superseded and implementation completed below.
+- [x] Inspect the automatic 18-target readout after the twelve new jobs terminate; validate matched chemistry, failure denominator, per-model pathway changes and selected-site order. Reviewed 2026-09-16; completion artifacts included in the current bank.
+- [x] Resolve remaining research operating decisions from the concrete memo: docs/research/research-decisions-2026-09-16.md. Silentgate core implementation and the seven settled rulings remain unchanged.
 
 ## 2026-09-13 — Implement authorized silentgate core
 
@@ -2580,3 +2580,19 @@ Verification: exact-zero all-adsorbate rule, no missing-step false negatives, th
 Review: 138 integrated tests passed, wheel installation and external-directory CLI passed, and all scientific local controls passed: 9/9 positive, 0/11 ANY-atom QE-negative, 20/20 partition and tags, 96/96 witness agreement, and 0/500 ANY-atom OC20-negative after archive/member hash verification. The 524 incidental zero components are retained separately. Review corrected the ALL-run versus ANY-negative distinction and removed an undeclared OC20 noise floor. Historical disjointness remains false and visibly superseded; current explicit authorization/disclosure passes. Receipts identify exact working-tree source hashes on base 7fc5309. Hosted CI remains pending push.
 
 Completion: implementation 4d60f4b pushed; GitHub run 34775915541 passed all four jobs (S1 suite, repository suite, OC20 negative control and complete status face). No pending implementation work remains. See results/silentgate_core_2026-09-13/github-ci.json. The independent twelve-job cross-model experiment continues unchanged and its scientific readout remains a separate open task.
+
+
+## 2026-09-16 — Approve pending research choices and start bounded compute
+
+Scope: apply the current user authorization to the remaining supported choices, preserve settled silentgate rulings and existing scientific acceptance criteria, and submit scientifically ready work on Anvil.
+
+- [x] Review pending choices, completed cross-model evidence, live allocation and prior attempts.
+- [x] Record concrete docs/86, HEA, A10, Ru-PP and S8 decisions with explicit scientific limits.
+- [ ] Prepare and verify bounded launch bundles and any prerequisite estimator/readout repairs.
+- [ ] Commit and push exact source, decisions and evidence before staging; verify remote hashes and scheduler resource bounds.
+- [ ] Start ready jobs, confirm scheduler/startup state, and record IDs, limits and remaining dependencies.
+
+Verification: unchanged historical artifacts; exact row/member identities; refusal of duplicate outputs; numerical/physical failure checks; real BEEF emission and gas compatibility before scaling; no superior-melt claim from unresolved census ordering.
+
+
+Review before launch: cross-model source and checkpoint hashes match; all eighteen selected targets have converged state chains, while five of 144 other selected relaxed states are nonconverged and remain visible. Severe-error/kill rejection is repaired in the HEA scorer. New Ru and S5 readouts retain frozen comparisons, common ensemble member identity and failure denominators. Exact input bytes are unchanged. Runtime preflight found empty queue, 53,217.8 CPU SU and matching UPFs. Initial test-fixture failure was Windows CRLF; the fixture now writes LF and the production refusal stays intact.

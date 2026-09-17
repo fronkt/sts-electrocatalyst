@@ -1,5 +1,7 @@
 # RU-PP — the Ru second-pseudopotential control, as an anchor-pair comparability control
 
+> 2026-09-16 operating decisions are recorded in [research-decisions-2026-09-16.md](research/research-decisions-2026-09-16.md). Historical proposals and blank slots below remain as the dated source; exact approved manifests and execution limits are in the current record.
+
 **Status: DRAFT — a proposal; nothing here is registered.** Built 2026-09-05 on the entrant's
 instruction to build (not license, not submit) the "12-SCF Ru GBRV control at the three Ru
 anchors" offered at docs/70:291-292 and carried as an open decision at docs/45:3173-3181. Every

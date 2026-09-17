@@ -4500,3 +4500,8 @@ CENSUS-1b 2026-09-07: run approved on the 13 qualifying CENSUS-1 sites with src/
 ## 2026-09-13 — Silentgate implementation authorship superseded
 
 The user explicitly directed: “Supersede it; implement the core.” The entrant-only core authorship boundary above is superseded for the new implementation. See `docs/research/silentgate-authorship-2026-09-13.md` and the explicit core file entries in `docs/provenance-record.md`. The historical disjointness assertion remains visible as superseded, not satisfied; classification rules, populations and scientific control thresholds remain unchanged.
+
+
+## 2026-09-16 — Current research operating decisions
+
+See [research/research-decisions-2026-09-16.md](research/research-decisions-2026-09-16.md) for the current Divanis R2–R7, all fifteen A10 choices, S8 feasibility disposition, HEA-1–HEA-9 and RU-PP-1–RU-PP-7. These prospective decisions authorize only the exact bounded program and preserve historical outcomes and the seven settled silentgate rulings. Input/helper hashes and scheduler limits are in results/research_launch_2026-09-16/launch_spec.json. Runtime success and scientific conclusions remain separate measurements.

@@ -26,3 +26,8 @@ never-exercised on Anvil; all five are covered below.
 record was produced with. The A8.5 pseudo precondition is discharged for the S3 build.**
 Method: `grep "MD5 check sum"` on banked outputs (pw.x prints the hash of the file it
 actually read) vs `md5sum $PROJECT/pseudo/*` — zero new compute.
+
+
+## 2026-09-16 — Ru second-family control and fresh launch check
+
+The live Anvil ru_pbe_v1.2.uspp.F.UPF has md5 7158a806dd851261a58e6920c40ebe78, matching the retained local-download checksum in runs/a0/ru_pp/PSEUDO_PROVENANCE.md. All thirteen live UPF hashes were rechecked; the exact map is in results/research_launch_2026-09-16/launch_spec.json. This extends the table for the approved Ru control. Live parity marker is present. Full command receipts accompany the launch record.

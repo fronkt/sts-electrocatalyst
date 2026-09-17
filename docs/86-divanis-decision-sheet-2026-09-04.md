@@ -1,5 +1,7 @@
 # 86 — P-DIVANIS: the rulings owed before the arithmetic runs
 
+> 2026-09-16 operating decisions are recorded in [research-decisions-2026-09-16.md](research/research-decisions-2026-09-16.md). Historical proposals and blank slots below remain as the dated source; exact approved manifests and execution limits are in the current record.
+
 **Status: recommendations only. Nothing here is a ruling, and no floor margin is computed in
 this file.** P-DIVANIS is registered at `docs/43-prereg-week1-factorial.md:1898` with a **Sep 15**
 date on one limb. Every quotation below was re-verified verbatim against the deposited text on

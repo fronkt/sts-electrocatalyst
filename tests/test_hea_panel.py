@@ -508,3 +508,102 @@ def test_main_writes_json_once_every_leg_is_terminal(tmp_path, monkeypatch):
     assert doc["panel"]["pending"] == [] and doc["pilot"]["pending"] == []
     assert all(v["verdict"] == "NOT CONVERGED (no number)" for p in doc["panel"]["pairs"] for v in p["projectors"].values())
     assert all(v["verdict"] == "NOT CONVERGED (no number)" for c in doc["pilot"]["chains"] for v in c["projectors"].values())
+
+
+@pytest.mark.parametrize("failure", [
+    "Error in routine electrons (1): numerical failure",
+    "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG",
+    "IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG",
+    "Program received signal SIGSEGV: Segmentation fault",
+    "MPI_ABORT was invoked on rank 0",
+])
+def test_parse_out_rejects_severe_failure_even_with_energy_and_job_done(tmp_path, failure):
+    path = tmp_path / "bad.out"
+    _fake_out(path, -6000.0)
+    path.write_text(path.read_text() + failure + "\n")
+    result = hp.parse_out(path)
+    assert result["status"] == "REJECTED"
+    assert result["E_Ry"] is None and result["E_eV"] is None
+    assert result["severe_failures"]
+    assert "REJECTED" in hp.TERMINAL
+
+
+def test_killed_sidecar_wins_over_success_nonconvergence_and_rejection(tmp_path):
+    path = tmp_path / "leader_pull2.10__atomic.out"
+    _fake_out(path, -6000.0)
+    (tmp_path / "leader_pull2.10__atomic.KILLED").write_text("explicit kill\n")
+    result = hp.parse_out(path)
+    assert result["status"] == "KILLED"
+    assert result["E_Ry"] is None and result["E_eV"] is None
+    path.write_text(path.read_text() + "convergence NOT achieved after 300 iterations\nIEEE_INVALID_FLAG\n")
+    (tmp_path / "leader_pull2.10__atomic.REJECTED").write_text("numerical failure\n")
+    assert hp.parse_out(path)["status"] == "KILLED"
+
+
+def test_rejected_sidecar_is_terminal_even_without_output(tmp_path):
+    (tmp_path / "bad.REJECTED").write_text("failed numerical preflight\n")
+    result = hp.parse_out(tmp_path / "bad.out")
+    assert result["status"] == "REJECTED"
+    assert result["E_Ry"] is None
+    _fake_out(tmp_path / "bad.out", -6000.0)
+    assert hp.parse_out(tmp_path / "bad.out")["status"] == "REJECTED"
+
+
+@pytest.mark.parametrize("mutation", ["missing_convergence", "double_done", "double_energy", "nan", "inf"])
+def test_completed_scf_requires_one_finite_energy_convergence_and_one_done(tmp_path, mutation):
+    path = tmp_path / "bad.out"
+    _fake_out(path, -6000.0)
+    text = path.read_text()
+    if mutation == "missing_convergence":
+        text = "\n".join(line for line in text.splitlines() if "convergence has been achieved" not in line)
+    elif mutation == "double_done":
+        text += "JOB DONE.\n"
+    elif mutation == "double_energy":
+        text += "!    total energy = -5999.00000000 Ry\n"
+    else:
+        text = text.replace("-6000.00000000", mutation)
+    path.write_text(text)
+    result = hp.parse_out(path)
+    assert result["status"] == "REJECTED"
+    assert result["E_Ry"] is None and result["E_eV"] is None
+
+
+def test_harmless_underflow_does_not_reject_scf(tmp_path):
+    path = tmp_path / "fine.out"
+    _fake_out(path, -6000.0)
+    path.write_text(path.read_text() + "IEEE_UNDERFLOW_FLAG IEEE_DENORMAL\n")
+    assert hp.parse_out(path)["status"] == "CONVERGED"
+
+
+def test_user_exit_message_wins_over_old_convergence(tmp_path):
+    path = tmp_path / "stopped.out"
+    _fake_out(path, -6000.0)
+    path.write_text(path.read_text() + "Program stopped by user request\n")
+    assert hp.parse_out(path)["status"] == "KILLED"
+
+
+def test_banked_gas_relaxations_remain_usable_only_with_explicit_relax_path():
+    gas = hp.gas_references()
+    assert set(gas) == {"H2", "H2O"}
+    assert all(row["E_Ry"] < 0 for row in gas.values())
+    for name in ("H2", "H2O"):
+        path = hp.GAS_DIR / (name + ".out")
+        accepted = hp.parse_out(path, allow_relax=True)
+        assert accepted["status"] == "CONVERGED" and accepted["bfgs_converged"]
+        if accepted["n_energies"] > 1:
+            assert hp.parse_out(path)["status"] == "REJECTED"
+
+
+def test_rejected_pair_is_terminal_and_never_supplies_energy(tmp_path):
+    panel = {"pairs": [{"arm": "probe", "states": [{"start": "a"}, {"start": "b"}],
+                        "MACE_E_B_minus_E_A_eV": 1.0}], "optional": []}
+    for proj in hp.PROJECTORS:
+        _fake_out(tmp_path / ("probe_a__" + proj + ".out"), -6000.0)
+        _fake_out(tmp_path / ("probe_b__" + proj + ".out"), -5999.0)
+        (tmp_path / ("probe_b__" + proj + ".REJECTED")).write_text("invalid floating point\n")
+    result = hp.score_panel(panel, tmp_path, 0.25)
+    assert result["pending"] == []
+    for proj in hp.PROJECTORS:
+        row = result["pairs"][0]["projectors"][proj]
+        assert row["legs"]["probe_b"] == "REJECTED"
+        assert "dE_DFT_eV" not in row
