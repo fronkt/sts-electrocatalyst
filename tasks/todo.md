@@ -2590,9 +2590,13 @@ Scope: apply the current user authorization to the remaining supported choices, 
 - [x] Record concrete docs/86, HEA, A10, Ru-PP and S8 decisions with explicit scientific limits.
 - [x] Prepare and verify bounded launch bundles and prerequisite estimator/readout repairs: 201 focused tests pass; all 48 decks pass builder checks.
 - [x] Commit and push exact source, decisions and evidence before staging; boundary 3a5f707, 66 verified transfers, all four initial arrays inspected held at their exact bounds before release.
-- [ ] Start ready jobs, confirm scheduler/startup state, and record IDs, limits and remaining dependencies.
+- [x] Submit and release ready jobs; verify scheduler state and record IDs/limits. HEA 20781971/20781972 (22 tasks), Ru 20781970 (12), S5 preflight 20781967 (3); all pending scheduling priority at the last check. Coordinator 20782047 waits on all S5 preflight tasks and will submit/release the remaining 11 only after verified QC.
 
 Verification: unchanged historical artifacts; exact row/member identities; refusal of duplicate outputs; numerical/physical failure checks; real BEEF emission and gas compatibility before scaling; no superior-melt claim from unresolved census ordering.
 
 
 Review before launch: cross-model source and checkpoint hashes match; all eighteen selected targets have converged state chains, while five of 144 other selected relaxed states are nonconverged and remain visible. Severe-error/kill rejection is repaired in the HEA scorer. New Ru and S5 readouts retain frozen comparisons, common ensemble member identity and failure denominators. Exact input bytes are unchanged. Runtime preflight found empty queue, 53,217.8 CPU SU and matching UPFs. Initial test-fixture failure was Windows CRLF; the fixture now writes LF and the production refusal stays intact.
+
+Launch review: 37 scientific tasks and the S5 continuation coordinator are queued with held-resource inspections and release receipts. Scientific inputs/helpers remain pinned to 3a5f707; coordinator code is pinned to 197e429. All 48 prepared input decks remain unchanged. No new DFT result is claimed while jobs await scheduling. The current approval-and-start request is fulfilled; completion analysis is separate follow-through.
+
+- [ ] On termination, mirror raw outputs, projection/QC records and accounting; inspect any failed preflight/coordinator status; compute the HEA, Ru and S5 readouts without changing the frozen estimators or failure denominators.

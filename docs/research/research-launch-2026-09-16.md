@@ -18,3 +18,7 @@ The remaining eleven BEEF tasks are authorized, with a one-hour scheduler limit 
 The initial 37 jobs have a combined scheduler ceiling of 18,176 CPU SU; the eleven conditional tasks add 1,408, for 19,584 plus at most 1/6 for the coordinator. These are maximum reservations, not expected usage. The initial balance was 53,217.8 CPU SU. Each HEA SCF also has its tighter individual time/iteration bound; all attempts preserve raw output and scratch.
 
 Evidence: `results/research_launch_2026-09-16/boundary.json`, `transfer.json`, `submission.json`, `launch_spec.json`, `tests.json` and startup snapshots. Completion, actual charged time and scientific readouts remain pending. The September 13 cross-model completion is separately reviewed and banked; it does not supply a unique validated winner.
+
+## Automatic continuation armed
+
+Coordinator job **20782047** is submitted and released with dependency `afterok:20781967_*` (all preflight array tasks). Slurm confirms one CPU, 1 GB, ten minutes, no requeue, account che260157 and PENDING/Dependency. The coordinator script was pushed as 197e429 before transfer and submission; its shell syntax and exact transfer hash pass. Its separate receipt is `results/research_launch_2026-09-16/continuation_gate.json`. The remaining eleven scientific tasks are not yet submitted and will receive their own array ID only after successful preflight and QC.

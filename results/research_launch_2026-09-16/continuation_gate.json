@@ -1,0 +1,39 @@
+{
+  "commit": "197e429e7a6910e51b99dc98073d71c960a0d248",
+  "sha256": "cd57de8d9e587fbce6c8c49c4e11a4c3d5c63e3f0db71e9e157d85c5e8dd4b63",
+  "at": "2026-09-17T01:02:14.797280+00:00",
+  "commands": [
+    {
+      "command": "bash -n /anvil/projects/x-che260157/sts/anvil/74_release_beef.slurm",
+      "out": "",
+      "err": "",
+      "rc": 0
+    },
+    {
+      "command": "cd /anvil/projects/x-che260157 && sbatch --parsable --hold --no-requeue -A che260157 --dependency=afterok:20781967 /anvil/projects/x-che260157/sts/anvil/74_release_beef.slurm",
+      "out": "20782047\n",
+      "err": "",
+      "rc": 0
+    },
+    {
+      "command": "scontrol show job -o 20782047",
+      "out": "JobId=20782047 JobName=research-beef-release UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=afterok:20781967_*(unfulfilled) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=00:10:00 TimeMin=N/A SubmitTime=2026-09-16T21:02:16 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-16T21:02:16 Scheduler=Main Partition=shared AllocNode:Sid=login06:362179 ReqNodeList=(null) ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=1 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=1,mem=1G,node=1,billing=1 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=1G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/74_release_beef.slurm SubmitLine=sbatch --parsable --hold --no-requeue -A che260157 --dependency=afterok:20781967 /anvil/projects/x-che260157/sts/anvil/74_release_beef.slurm WorkDir=/anvil/projects/x-che260157 StdErr=/anvil/projects/x-che260157/logs/beef_release_20782047.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/logs/beef_release_20782047.out\n",
+      "err": "",
+      "rc": 0
+    },
+    {
+      "command": "scontrol release 20782047",
+      "out": "",
+      "err": "",
+      "rc": 0
+    },
+    {
+      "command": "squeue -h -j 20782047 -o \"%i|%j|%T|%R\"",
+      "out": "20782047|research-beef-release|PENDING|(Dependency)\n",
+      "err": "",
+      "rc": 0
+    }
+  ],
+  "job_id": "20782047",
+  "released": true
+}
