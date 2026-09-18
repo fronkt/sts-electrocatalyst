@@ -3,6 +3,7 @@ import datetime as dt
 import io
 import json
 from pathlib import Path
+import shlex
 import sys
 from types import SimpleNamespace
 
@@ -29,6 +30,26 @@ def test_terminal_gate_requires_all_nine_exact_array_tasks():
 def test_held_array_is_not_mistaken_for_nine_finished_tasks():
     snapshot=follow.parse_sacct("20813525_[1-9%1]|PENDING|0:0|0|128|",20813525)
     assert snapshot["missing_tasks"]==list(range(1,10)) and not snapshot["all_terminal"]
+
+
+def test_observe_requests_expanded_array_aware_job_ids():
+    commands=[]
+    # JobIDRaw instead yields unrelated internal IDs such as 20813536.
+    raw=(accounting(state="PENDING").replace("20813525_1|PENDING", "20813525_1|RUNNING")
+         + "\n20813525|PENDING|0:0|0|128|")
+    def exec_command(command,timeout):
+        commands.append(shlex.split(command))
+        assert timeout==60
+        out=SimpleNamespace(read=lambda:raw.encode(),channel=SimpleNamespace(recv_exit_status=lambda:0))
+        return None,out,SimpleNamespace(read=lambda:b"")
+    snapshot=follow.observe(SimpleNamespace(exec_command=exec_command),20813525)
+    assert commands==[["sacct","--array","-n","-P","-X","-j","20813525",
+                       "--format=JobID%80,State%30,ExitCode,ElapsedRaw,AllocCPUS"]]
+    assert snapshot["command"]==commands[0] and snapshot["raw_stdout"]==raw
+    assert len(snapshot["tasks"])==9 and snapshot["missing_tasks"]==[]
+    assert snapshot["tasks"][0]["state"]=="RUNNING" and not snapshot["all_terminal"]
+    numeric=follow.parse_sacct("20813536|COMPLETED|0:0|701|128|",20813525)
+    assert numeric["missing_tasks"]==list(range(1,10)) and not numeric["all_terminal"]
 
 
 def test_cancelled_reason_and_conflicting_rows():

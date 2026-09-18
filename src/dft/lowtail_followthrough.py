@@ -128,7 +128,8 @@ class RemoteObservationError(RuntimeError):
 
 
 def observe(client, array_id):
-    argv = ["sacct", "-n", "-P", "-X", "-j", str(array_id), "--format=JobIDRaw,State,ExitCode,ElapsedRaw,AllocCPUS"]
+    argv = ["sacct", "--array", "-n", "-P", "-X", "-j", str(array_id),
+            "--format=JobID%80,State%30,ExitCode,ElapsedRaw,AllocCPUS"]
     _, out, err = client.exec_command(shlex.join(argv), timeout=60)
     stdout, stderr = out.read().decode(), err.read().decode()
     rc = out.channel.recv_exit_status()
