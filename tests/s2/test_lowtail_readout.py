@@ -283,3 +283,24 @@ def test_real_converged_Cr_relaxation_passes_final_evidence_checks():
     assert leg["status"] == "ACCEPTED", leg
     assert leg["bfgs_scf_cycles"] == 12 and leg["bfgs_steps"] == 11
     assert leg["energy_eV"] == pytest.approx(leg["final_energy_eV"], abs=2e-7)
+
+
+
+def test_primary_selection_keeps_historical_eighteen_leg_plan(tmp_path):
+    plan = ro.read_json(ro.PLAN)
+    primary = ro.primary_plan(plan)
+    assert len(plan["decks"]) == 18 and len(primary["decks"]) == 9
+    result = ro.readout(primary, ro.read_json(ro.DECISIONS), tmp_path / "empty")
+    assert result["leg_counts"] == {"PENDING": 9} and len(result["sites"]) == 3
+
+
+def test_terminal_qc_failure_suppresses_otherwise_usable_energy(tmp_path):
+    plan, runs_root, deck_root = make_case(tmp_path, dict(slab=good("slab"), O_recon=good("O_recon"), O_unrecon=good("O_unrecon")))
+    failure = {"site/O_recon__atomic": dict(status="QC_EVIDENCE_INVALID", reasons=["QC hash mismatch"])}
+    result = ro.readout(plan, dict(thresholds=TH), runs_root, deck_root, terminal_failures=failure)
+    leg = next(x for x in result["legs"] if x["state"] == "O_recon")
+    assert leg["status"] == "QC_EVIDENCE_INVALID" and leg["numerical_readout_status"] == "ACCEPTED"
+    assert "energy_eV" not in leg and outcome(result)["outcome"] == "UNDECIDED"
+    failure["site/O_recon__atomic"]["status"] = "ACCEPTED"
+    with pytest.raises(ValueError, match="invalid terminal"):
+        ro.readout(plan, dict(thresholds=TH), runs_root, deck_root, terminal_failures=failure)

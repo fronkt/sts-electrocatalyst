@@ -1,0 +1,17 @@
+{
+  "at": "2026-09-18T04:35:30.132736+00:00",
+  "commands": [
+    {
+      "command": "squeue -j 20813525 -o '%i|%T|%M|%R'",
+      "stdout": "JOBID|STATE|TIME|NODELIST(REASON)\n20813525_2|PENDING|0:00|(JobArrayTaskLimit)\n20813525_3|PENDING|0:00|(JobArrayTaskLimit)\n20813525_4|PENDING|0:00|(JobArrayTaskLimit)\n20813525_5|PENDING|0:00|(JobArrayTaskLimit)\n20813525_6|PENDING|0:00|(JobArrayTaskLimit)\n20813525_7|PENDING|0:00|(JobArrayTaskLimit)\n20813525_8|PENDING|0:00|(JobArrayTaskLimit)\n20813525_9|PENDING|0:00|(JobArrayTaskLimit)\n20813525_1|RUNNING|1:31|a072\n",
+      "stderr": "",
+      "rc": 0
+    },
+    {
+      "command": "sacct -j 20813525 --allocations --parsable2 --noheader --format=JobID,State,ExitCode,ElapsedRaw,AllocCPUS,Start,End",
+      "stdout": "20813525_1|RUNNING|0:0|92|128|2026-09-18T00:33:58|Unknown\n20813525_9|PENDING|0:0|0|0|Unknown|Unknown\n",
+      "stderr": "",
+      "rc": 0
+    }
+  ]
+}

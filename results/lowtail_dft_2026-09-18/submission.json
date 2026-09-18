@@ -1,0 +1,36 @@
+{
+  "at": "2026-09-18T04:31:57.801566+00:00",
+  "job_id": "20813525",
+  "submission": {
+    "command": "sbatch --parsable --hold --no-requeue --account=che260157 --partition=shared --nodes=1 --ntasks=128 --mem=237G --time=1005 --array=1-9%1 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --job-name=lowtail-primary --chdir=/anvil/projects/x-che260157/sts --export=ALL,PROJECT=/anvil/projects/x-che260157 /anvil/projects/x-che260157/sts/anvil/75_lowtail_relaxation.slurm",
+    "stdout": "20813525\n",
+    "stderr": "",
+    "rc": 0
+  },
+  "balance": {
+    "command": "mybalance",
+    "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    100000.0     50093.1    50093.1     49906.9\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+    "stderr": "",
+    "rc": 0
+  },
+  "queue_before": {
+    "command": "squeue -u x-fcai3 -h -o '%i|%j|%T'",
+    "stdout": "",
+    "stderr": "",
+    "rc": 0
+  },
+  "released": true,
+  "released_at": "2026-09-18T04:33:39.815182+00:00",
+  "final_held_inspection": {
+    "command": "scontrol show job -o 20813525",
+    "stdout": "JobId=20813525 ArrayJobId=20813525 ArrayTaskId=1-9%1 ArrayTaskThrottle=1 JobName=lowtail-primary UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=16:45:00 TimeMin=N/A SubmitTime=2026-09-18T00:31:57 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-18T00:31:57 Scheduler=Main Partition=shared AllocNode:Sid=login01:103568 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=237G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=128 MinMemoryNode=237G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts/anvil/75_lowtail_relaxation.slurm SubmitLine=sbatch --parsable --hold --no-requeue --account=che260157 --partition=shared --nodes=1 --ntasks=128 --mem=237G --time=1005 --array=1-9%1 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --job-name=lowtail-primary --chdir=/anvil/projects/x-che260157/sts --export=ALL,PROJECT=/anvil/projects/x-che260157 /anvil/projects/x-che260157/sts/anvil/75_lowtail_relaxation.slurm WorkDir=/anvil/projects/x-che260157/sts StdErr=/anvil/projects/x-che260157/sts/logs/lowtail_20813525_4294967294.out StdIn=/dev/null StdOut=/anvil/projects/x-che260157/sts/logs/lowtail_20813525_4294967294.out\n",
+    "stderr": "",
+    "rc": 0
+  },
+  "release": {
+    "command": "scontrol release 20813525",
+    "stdout": "",
+    "stderr": "",
+    "rc": 0
+  }
+}

@@ -204,12 +204,37 @@ def site_outcome(recon: dict, unrecon: dict, thresholds: dict) -> dict:
     return dict(common, outcome="BASINS_CROSSED")
 
 
-def readout(plan: dict, decisions: dict, runs_root: Path, deck_root: Path = ROOT) -> dict:
+def primary_plan(plan: dict) -> dict:
+    """Select the nine prepared primary legs without editing the historical plan."""
+    decks = [d for d in plan["decks"] if d["projector"] == "atomic" and d.get("role") == "primary"]
+    if len(decks) != 9 or len({d["site"] for d in decks}) != 3:
+        raise ValueError("primary readout requires exactly nine atomic legs at three sites")
+    for site in {d["site"] for d in decks}:
+        if sorted(d["state"] for d in decks if d["site"] == site) != ["O_recon", "O_unrecon", "slab"]:
+            raise ValueError("primary site lacks its slab and two O starts")
+    return dict(plan, decks=decks)
+
+
+TERMINAL_FAILURE_STATUSES = {"TERMINAL_OUTPUT_MISSING", "TERMINAL_QC_MISSING", "SCHEDULER_FAILED",
+                             "QC_EVIDENCE_INVALID", "TERMINAL_QC_FAILED"}
+
+
+def readout(plan: dict, decisions: dict, runs_root: Path, deck_root: Path = ROOT,
+            terminal_failures: dict | None = None) -> dict:
     th = decisions["thresholds"]
     sites = {s["tag"]: s for s in plan["sites"]}
     legs = {}
     for deck in plan["decks"]:
         legs[(deck["site"], deck["state"], deck["projector"])] = read_leg(deck, runs_root, deck_root)
+    by_job = {leg["job"]: leg for leg in legs.values()}
+    for job, failure in (terminal_failures or {}).items():
+        if job not in by_job or failure.get("status") not in TERMINAL_FAILURE_STATUSES:
+            raise ValueError("invalid terminal evidence override: " + job)
+        leg = by_job[job]
+        leg["numerical_readout_status"] = leg["status"]
+        leg.update(status=failure["status"], terminal_evidence=failure)
+        for key in ("energy_eV", "final_energy_eV", "final_positions_A"):
+            leg.pop(key, None)
     results = []
     for tag, site in sites.items():
         site = dict(site)
@@ -289,6 +314,7 @@ def main(argv=None) -> int:
     ap.add_argument("--runs-root", type=Path, default=ROOT / "runs")
     ap.add_argument("--json", type=Path, default=OUT_JSON)
     ap.add_argument("--scorer-crosscheck", action="store_true")
+    ap.add_argument("--primary-only", action="store_true", help="score the nine atomic primary legs only")
     args = ap.parse_args(argv)
     if args.scorer_crosscheck:
         c = scorer_crosscheck()
@@ -296,7 +322,10 @@ def main(argv=None) -> int:
         print(f"unmodified {c['scorer_unmodified_counts']}; corrected {c['scorer_corrected_counts']}; "
               f"agree with readouts {c['n_corrected_agree_with_readout']}/{c['n_outputs']}")
         return 0 if c["n_corrected_agree_with_readout"] == c["n_outputs"] else 2
-    result = readout(read_json(args.plan), read_json(args.decisions), args.runs_root)
+    plan = read_json(args.plan)
+    result = readout(primary_plan(plan) if args.primary_only else plan, read_json(args.decisions), args.runs_root)
+    if args.primary_only:
+        result["unrun_projector_controls"] = "Nine ortho controls remain conditional and are outside this readout."
     result["plan"] = evidence(args.plan)
     result["decisions"] = evidence(args.decisions)
     write_json(args.json, result)
