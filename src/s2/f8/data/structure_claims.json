@@ -1,0 +1,252 @@
+{
+ "verdict_rule": "Each claim is split into the sub-claims its sentence makes. A sub-claim is CLEARED only when every evidence test passes; any failed test or any statement with no accessible evidence makes it EXCLUDED (docs/43 :1945, 'each cleared or excluded'). A 'narrowed' form records a weaker sentence the evidence does support, with its own binary verdict; it never changes the verdict of the sub-claim as written.",
+ "claims": [
+  {
+   "id": "PbO2-beta-plattnerite-rutile",
+   "formula": "PbO2",
+   "file": "docs/research/2026-08-15-lit-sweep-round2-synthesis.md",
+   "line": 113,
+   "fragment": "**PbO₂** (β/plattnerite)",
+   "assertion": "The PbO2 considered for the tier is beta-PbO2 (plattnerite), the rutile-type polymorph.",
+   "subclaims": [
+    {
+     "id": "PbO2-beta-plattnerite-is-rutile-type",
+     "text": "β-PbO₂ (plattnerite) is a rutile-type PbO₂ polymorph recorded at ambient pressure.",
+     "checks": [
+      {"kind": "cod_type_present", "formula": "PbO2", "type": "rutile", "ambient": true, "mineral": "Plattnerite"}
+     ]
+    }
+   ],
+   "context_checks": [
+    {"kind": "cod_type_present", "formula": "PbO2", "type": "alpha-PbO2", "ambient": true},
+    {"kind": "mp_lowest_ehull", "formula": "PbO2", "sg_number": 136}
+   ],
+   "polymorphism_note": "alpha-PbO2 (scrutinyite, Pbcn) is a second PbO2 polymorph recorded without a stated high pressure. The Pnma-type and fluorite-type records carry GPa-range pressures (values in the COD table)."
+  },
+  {
+   "id": "PbO2-nonstoichiometry",
+   "formula": "PbO2",
+   "file": "docs/research/2026-08-15-lit-sweep-round2-synthesis.md",
+   "line": 113,
+   "fragment": "β-PbO₂ is markedly non-stoichiometric",
+   "assertion": "beta-PbO2 is markedly non-stoichiometric.",
+   "subclaims": [
+    {
+     "id": "PbO2-beta-markedly-nonstoichiometric",
+     "text": "β-PbO₂ is markedly non-stoichiometric.",
+     "checks": [
+      {"kind": "not_checkable", "reason": "An oxygen-deficiency statement, not a structure type; the COD records parsed here carry full O occupancy and no accessible primary text on PbO2-x stoichiometry was read."}
+     ]
+    }
+   ]
+  },
+  {
+   "id": "OsO2-mp996-rutile",
+   "formula": "OsO2",
+   "file": "docs/research/2026-08-15-lit-sweep-round2-synthesis.md",
+   "line": 114,
+   "fragment": "mp-996 *is* P4₂/mnm (sg 136) with corner- and edge-sharing OsO₆ octahedra, i.e. rutile; \"Hydrophilite\" is an MP auto-classification artefact",
+   "assertion": "OsO2 (MP mp-996) is rutile-type P4_2/mnm; the MP 'Hydrophilite' label does not make it CaCl2-type.",
+   "subclaims": [
+    {
+     "id": "OsO2-mp996-is-rutile-type",
+          "text": "MP mp-996 (OsO₂) is P4₂/mnm (sg 136) with corner- and edge-sharing OsO₆ octahedra, i.e. rutile-type; the two OsO₂ entries in this COD census are also rutile-type.",
+     "checks": [
+      {"kind": "mp_id_sg", "legacy_id": "mp-996", "sg_number": 136, "description_contains": ["corner and edge-sharing OsO₆ octahedra"]},
+      {"kind": "cod_type_present", "formula": "OsO2", "type": "rutile", "ambient": true},
+      {"kind": "cod_type_absent", "formula": "OsO2", "type": "CaCl2"}
+     ]
+    },
+    {
+     "id": "OsO2-hydrophilite-label-is-an-artefact",
+     "text": "The MP label \"Hydrophilite\" on mp-996 is a classification artefact: hydrophilite is the CaCl₂-type (Pnnm) mineral, which cannot coexist with sg 136.",
+     "checks": [
+      {"kind": "mp_id_sg", "legacy_id": "mp-996", "sg_number": 136, "robocrys_mineral": "Hydrophilite"},
+      {"kind": "cod_type_present", "formula": "CaCl2", "type": "CaCl2", "mineral": "Hydrophilite"},
+      {"kind": "cod_type_absent", "formula": "CaCl2", "type": "rutile", "mineral": "Hydrophilite"}
+     ]
+    }
+   ],
+   "context_checks": [
+    {"kind": "mp_lowest_ehull", "formula": "OsO2", "sg_number": 136}
+   ],
+   "polymorphism_note": "COD holds no second OsO2 polymorph; MP lists a Pa-3 entry above the hull (value in the MP table)."
+  },
+  {
+   "id": "SnO2-cassiterite-rutile",
+   "formula": "SnO2",
+   "file": "docs/research/2026-08-15-lit-sweep-round2-synthesis.md",
+   "line": 105,
+   "fragment": "Genuine ambient P4₂/mnm rutile, d¹⁰.",
+   "assertion": "SnO2 (cassiterite) is the ambient rutile-type P4_2/mnm phase; Sn(IV) is d10.",
+   "subclaims": [
+    {
+     "id": "SnO2-cassiterite-is-ambient-rutile",
+     "text": "SnO₂ (cassiterite) is ambient P4₂/mnm rutile.",
+     "checks": [
+      {"kind": "cod_type_present", "formula": "SnO2", "type": "rutile", "ambient": true, "mineral": "Cassiterite"}
+     ]
+    },
+    {
+     "id": "SnO2-Sn4-is-d10",
+     "text": "Sn in SnO₂ (formally Sn⁴⁺) is d¹⁰.",
+     "checks": [
+      {"kind": "formal_d_count", "element": "Sn", "oxidation_state": 4, "expected": 10}
+     ]
+    }
+   ],
+   "context_checks": [
+    {"kind": "mp_lowest_ehull", "formula": "SnO2", "sg_number": 136}
+   ],
+   "polymorphism_note": "Every parsed COD SnO2 entry is rutile-type. MP lists CaCl2-type (Pnnm), alpha-PbO2-type (Pbcn) and other SnO2 entries close above the rutile ground state (values in the MP table); COD holds none of them."
+  },
+  {
+   "id": "GeO2-rutile-ambient-stable",
+   "formula": "GeO2",
+   "file": "docs/research/2026-08-15-lit-sweep-round2-synthesis.md",
+   "line": 115,
+   "fragment": "rutile-type GeO₂ *is* the ambient-stable polymorph and converts to quartz-type above ~1035 °C; stishovite is the high-pressure case",
+   "assertion": "Rutile-type GeO2 (argutite) is the ambient-stable polymorph; quartz-type GeO2 is the high-temperature form; stishovite is the high-pressure case.",
+   "subclaims": [
+    {
+     "id": "GeO2-rutile-type-is-an-ambient-polymorph",
+     "text": "Rutile-type GeO₂ (argutite) is a GeO₂ polymorph recorded at ambient pressure.",
+     "checks": [
+      {"kind": "cod_type_present", "formula": "GeO2", "type": "rutile", "ambient": true, "mineral": "Argutite"}
+     ]
+    },
+    {
+     "id": "GeO2-rutile-type-is-ambient-stable",
+     "text": "Rutile-type is the thermodynamically stable GeO₂ polymorph at ambient conditions.",
+     "checks": [
+      {"kind": "not_checkable", "reason": "A phase-equilibrium statement; no measured GeO2 phase-equilibrium text was read, and quartz-type GeO2 is also recorded at ambient pressure, so the existence of records does not decide stability."}
+     ],
+     "supporting_context": [
+      {"kind": "cod_type_present", "formula": "GeO2", "type": "alpha-quartz", "ambient": true}
+     ],
+     "narrowed": {
+      "text": "Rutile-type is the lowest-energy GeO₂ entry in the Materials Project (DFT, 0 K).",
+      "checks": [
+       {"kind": "mp_lowest_ehull", "formula": "GeO2", "sg_number": 136}
+      ]
+     }
+    },
+    {
+     "id": "GeO2-converts-to-quartz-type-above-1035C",
+     "text": "GeO₂ converts from rutile-type to quartz-type above ~1035 °C.",
+     "checks": [
+      {"kind": "not_checkable", "reason": "A transition temperature; no accessible primary text giving it was read, and crystal-structure records do not carry it."}
+     ],
+     "supporting_context": [
+      {"kind": "cod_type_present", "formula": "GeO2", "type": "alpha-quartz", "ambient": true}
+     ]
+    },
+    {
+     "id": "GeO2-sentence-stishovite-is-high-pressure",
+     "text": "Stishovite (rutile-type SiO₂) is the high-pressure case.",
+     "checks": [
+      {"kind": "not_checkable", "reason": "A statement about SiO2, outside the five F8 formulas; no SiO2 record or text was read."}
+     ]
+    }
+   ],
+   "polymorphism_note": "Rutile-type (argutite) and alpha-quartz-type GeO2 are both recorded without a stated high pressure. The CaCl2-type and alpha-PbO2-type records carry GPa-range pressures or are ab initio."
+  },
+  {
+   "id": "GeO2-docs43-correction",
+   "formula": "GeO2",
+   "file": "docs/43-prereg-week1-factorial.md",
+   "line": 1429,
+   "fragment": "rutile-type IS its ambient polymorph",
+   "assertion": "Rutile-type is an ambient polymorph of GeO2, so GeO2 is not excluded on phase grounds (the A7.6 item 5 correction of record).",
+   "subclaims": [
+    {
+     "id": "GeO2-docs43-rutile-type-is-an-ambient-polymorph",
+     "text": "Rutile-type GeO₂ is an ambient GeO₂ polymorph (a real phase, not a model phase).",
+     "checks": [
+      {"kind": "cod_type_present", "formula": "GeO2", "type": "rutile", "ambient": true, "mineral": "Argutite"}
+     ]
+    }
+   ],
+   "context_checks": [
+    {"kind": "cod_type_present", "formula": "GeO2", "type": "alpha-quartz", "ambient": true},
+    {"kind": "mp_lowest_ehull", "formula": "GeO2", "sg_number": 136}
+   ],
+   "polymorphism_note": "'Its ambient polymorph' reads as unique; alpha-quartz-type GeO2 is also recorded without a stated high pressure. Read as 'the stable one', the sentence carries sub-claim GeO2-rutile-type-is-ambient-stable, which is EXCLUDED."
+  },
+  {
+   "id": "PtO2-not-rutile",
+   "formula": "PtO2",
+   "file": "docs/research/2026-08-15-lit-sweep-round2-synthesis.md",
+   "line": 118,
+   "fragment": "**PtO₂** — ground state is not rutile (α = CdI₂-type hexagonal, β = CaCl₂-type orthorhombic per the physics critic; **UNVERIFIED**, check one ICSD/MP record)",
+   "assertion": "PtO2's ground state is not rutile; alpha-PtO2 is CdI2-type and beta-PtO2 is CaCl2-type orthorhombic.",
+   "subclaims": [
+    {
+     "id": "PtO2-ground-state-is-not-rutile",
+     "text": "The PtO₂ ground state is not rutile-type.",
+     "checks": [
+      {"kind": "cod_type_absent", "formula": "PtO2", "type": "rutile"},
+      {"kind": "mp_lowest_ehull", "formula": "PtO2", "not_sg_number": 136}
+     ]
+    },
+    {
+     "id": "PtO2-a-CdI2-type-hexagonal-phase-exists",
+     "text": "A CdI₂-type hexagonal PtO₂ phase is recorded.",
+     "checks": [
+      {"kind": "cod_type_present", "formula": "PtO2", "type": "CdI2", "ambient": true}
+     ]
+    },
+    {
+     "id": "PtO2-alpha-is-the-CdI2-type",
+     "text": "The CdI₂-type hexagonal phase is α-PtO₂.",
+     "checks": [
+      {"kind": "cod_type_present", "formula": "PtO2", "type": "CdI2", "name_regex": "α|\\balpha\\b"}
+     ]
+    },
+    {
+     "id": "PtO2-beta-is-CaCl2-type-orthorhombic",
+     "text": "β-PtO₂ is CaCl₂-type orthorhombic.",
+     "checks": [
+      {"kind": "cod_type_present", "formula": "PtO2", "type": "CaCl2", "name_regex": "β|\\bbeta\\b"}
+     ]
+    }
+   ],
+   "context_checks": [
+    {"kind": "mp_lowest_ehull", "formula": "PtO2", "sg_number": 58}
+   ],
+   "polymorphism_note": "COD records a CdI2-type P-3m1 PtO2 cell and a P6_3mc hexagonal cell from the same 1971 source (neither record names a Greek-letter polymorph), and two CaCl2-type (Pnnm) beta-PtO2 refinements whose titles describe high-oxygen-pressure and high-pressure syntheses. MP holds a rutile-type PtO2 entry above the hull that carries an ICSD cross-reference, so a rutile-type record exists in ICSD although none is in COD."
+  },
+  {
+   "id": "PtO2-rutile-like-union",
+   "formula": "PtO2",
+   "file": "docs/research/2026-08-15-lit-sweep-lens-digest.md",
+   "line": 280,
+   "fragment": "The union is 14 real rutile/rutile-like MO2.",
+   "assertion": "PtO2, SnO2 and OsO2 belong to a union of 'real rutile/rutile-like MO2'.",
+   "subclaims": [
+    {
+     "id": "PtO2-is-real-rutile-like",
+     "text": "PtO₂ is a real rutile-like dioxide (through its CaCl₂-type phase, an orthorhombic rutile derivative).",
+     "checks": [
+      {"kind": "cod_type_present", "formula": "PtO2", "type": "CaCl2"}
+     ]
+    },
+    {
+     "id": "SnO2-is-real-rutile",
+     "text": "SnO₂ is a real rutile-type dioxide.",
+     "checks": [
+      {"kind": "cod_type_present", "formula": "SnO2", "type": "rutile", "ambient": true}
+     ]
+    },
+    {
+     "id": "OsO2-is-real-rutile",
+     "text": "OsO₂ is a real rutile-type dioxide.",
+     "checks": [
+      {"kind": "cod_type_present", "formula": "OsO2", "type": "rutile", "ambient": true}
+     ]
+    }
+   ],
+   "polymorphism_note": "Holds for PtO2 only as 'rutile-like' (CaCl2-type is an orthorhombic derivative of rutile); rutile PtO2(110) as computed in the cited screens is a model phase. The union's other members (including TaO2) are outside the five formulas."
+  }
+ ]
+}

@@ -1,0 +1,740 @@
+{
+ "generated_utc": "2026-09-17T03:19:30Z",
+ "head": "9cd736a3027dec73b5fb26f8f1bd0fe3dfe99616",
+ "boundary": null,
+ "manifest_check": {
+  "n_census_inputs": 27,
+  "n_code_files": 10,
+  "mismatches": {},
+  "matched_after_crlf_normalisation": [],
+  "decision_doc_checked": false,
+  "verified_set_sha256": "34b22b9739ad05a2d0d758064bb242daaad8666ad937a9fbf3149a61b69017e7"
+ },
+ "reading": {
+  "alternative_named": "pooled: one rate per family over all 3N configurations of *O, *OH and *OOH",
+  "decision": "per adsorbate: X and the verdict apply to *O and to *OH separately (each over the N configurations of one adsorbate); bent *OOH is a construction check with expected rate 0",
+  "pooled_rate_reporting": "computed and reported next to the per-adsorbate rates, with no verdict",
+  "reason": "the bent *OOH geometry retains no operation on any of the four cells by construction (OOH_bound), so pooling fixes one third of the population at zero through the chosen adsorbate geometry, not through site selection; the pooled rate is then (2/3) x the upright rate and a 1/2 line on it would falsify any family whose upright rate is at or below 3/4"
+ },
+ "decision_sha256": "f17e4349623e1c8d0757cd97a0dff789904c027759bf472afce5cc8981123b5c",
+ "denominators_sha256": "a5b6642d2d18ff7e4e808e0998f237ed5f167fa9e0fc22e3800e144a4393d0e2",
+ "families": {
+  "rutile110": {
+   "label": "rutile(110)",
+   "blind": false,
+   "reproduction": {
+    "slab_rebuild_max_abs_diff_A": 0.0,
+    "enumerator_rerun_max_abs_diff_A": {
+     "O": 0.0,
+     "OH": 0.0,
+     "OOH": 0.0
+    },
+    "reproducible": true
+   },
+   "construction_checks": {
+    "denominators_match": true,
+    "O_equals_OH": true,
+    "OOH_zero": true,
+    "void_reasons": []
+   },
+   "X": {
+    "HELD_if_retained_at_least": 9,
+    "applies_to": [
+     "O",
+     "OH"
+    ],
+    "fraction": "9/10",
+    "value": 0.9
+   },
+   "FALSIFIED_if_retained_at_most": 5,
+   "verdicts": {
+    "O": "HELD",
+    "OH": "HELD"
+   },
+   "pooled_all_adsorbates": {
+    "retained": 18,
+    "n_configurations": 30,
+    "fraction": "18/30",
+    "rate": 0.6,
+    "verdict": null,
+    "note": "pooled over *O, *OH, *OOH; reported with no verdict (decision.json reading)"
+   },
+   "census": {
+    "O": {
+     "n_configurations": 10,
+     "retained": 9,
+     "rate": 0.9,
+     "n_space_group_P1": 1,
+     "by_site_type": {
+      "ontop": {
+       "n": 3,
+       "retained": 3
+      },
+      "bridge": {
+       "n": 6,
+       "retained": 5
+      },
+      "hollow": {
+       "n": 1,
+       "retained": 1
+      }
+     },
+     "configurations": [
+      {
+       "index": 0,
+       "site_type": "ontop",
+       "space_group": "Pmm2",
+       "n_operations": 4,
+       "n_adsorbate_invariant_ops": 3,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ],
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ],
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ]
+      },
+      {
+       "index": 1,
+       "site_type": "ontop",
+       "space_group": "Pmm2",
+       "n_operations": 4,
+       "n_adsorbate_invariant_ops": 3,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ],
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ],
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ]
+      },
+      {
+       "index": 2,
+       "site_type": "ontop",
+       "space_group": "Pm",
+       "n_operations": 2,
+       "n_adsorbate_invariant_ops": 1,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ]
+      },
+      {
+       "index": 3,
+       "site_type": "bridge",
+       "space_group": "P1",
+       "n_operations": 1,
+       "n_adsorbate_invariant_ops": 0,
+       "retained": false,
+       "zeroed_directions_cart": [],
+       "zeroed_lateral_directions_cart": []
+      },
+      {
+       "index": 4,
+       "site_type": "bridge",
+       "space_group": "Pm",
+       "n_operations": 2,
+       "n_adsorbate_invariant_ops": 1,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ]
+      },
+      {
+       "index": 5,
+       "site_type": "bridge",
+       "space_group": "Pmm2",
+       "n_operations": 4,
+       "n_adsorbate_invariant_ops": 3,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ],
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ],
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ]
+      },
+      {
+       "index": 6,
+       "site_type": "bridge",
+       "space_group": "Pm",
+       "n_operations": 2,
+       "n_adsorbate_invariant_ops": 1,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ]
+      },
+      {
+       "index": 7,
+       "site_type": "bridge",
+       "space_group": "Pm",
+       "n_operations": 2,
+       "n_adsorbate_invariant_ops": 1,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ]
+      },
+      {
+       "index": 8,
+       "site_type": "bridge",
+       "space_group": "Pmm2",
+       "n_operations": 4,
+       "n_adsorbate_invariant_ops": 3,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ],
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ],
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ]
+      },
+      {
+       "index": 9,
+       "site_type": "hollow",
+       "space_group": "Pm",
+       "n_operations": 2,
+       "n_adsorbate_invariant_ops": 1,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ]
+       ]
+      }
+     ]
+    },
+    "OH": {
+     "n_configurations": 10,
+     "retained": 9,
+     "rate": 0.9,
+     "n_space_group_P1": 1,
+     "by_site_type": {
+      "ontop": {
+       "n": 3,
+       "retained": 3
+      },
+      "bridge": {
+       "n": 6,
+       "retained": 5
+      },
+      "hollow": {
+       "n": 1,
+       "retained": 1
+      }
+     },
+     "configurations": [
+      {
+       "index": 0,
+       "site_type": "ontop",
+       "space_group": "Pmm2",
+       "n_operations": 4,
+       "n_adsorbate_invariant_ops": 3,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ],
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ],
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ]
+      },
+      {
+       "index": 1,
+       "site_type": "ontop",
+       "space_group": "Pmm2",
+       "n_operations": 4,
+       "n_adsorbate_invariant_ops": 3,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ],
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ],
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ]
+      },
+      {
+       "index": 2,
+       "site_type": "ontop",
+       "space_group": "Pm",
+       "n_operations": 2,
+       "n_adsorbate_invariant_ops": 1,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ]
+      },
+      {
+       "index": 3,
+       "site_type": "bridge",
+       "space_group": "P1",
+       "n_operations": 1,
+       "n_adsorbate_invariant_ops": 0,
+       "retained": false,
+       "zeroed_directions_cart": [],
+       "zeroed_lateral_directions_cart": []
+      },
+      {
+       "index": 4,
+       "site_type": "bridge",
+       "space_group": "Pm",
+       "n_operations": 2,
+       "n_adsorbate_invariant_ops": 1,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ]
+      },
+      {
+       "index": 5,
+       "site_type": "bridge",
+       "space_group": "Pmm2",
+       "n_operations": 4,
+       "n_adsorbate_invariant_ops": 3,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ],
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ],
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ]
+      },
+      {
+       "index": 6,
+       "site_type": "bridge",
+       "space_group": "Pm",
+       "n_operations": 2,
+       "n_adsorbate_invariant_ops": 1,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ]
+      },
+      {
+       "index": 7,
+       "site_type": "bridge",
+       "space_group": "Pm",
+       "n_operations": 2,
+       "n_adsorbate_invariant_ops": 1,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ]
+      },
+      {
+       "index": 8,
+       "site_type": "bridge",
+       "space_group": "Pmm2",
+       "n_operations": 4,
+       "n_adsorbate_invariant_ops": 3,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ],
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ],
+        [
+         1.0,
+         0.0,
+         0.0
+        ]
+       ]
+      },
+      {
+       "index": 9,
+       "site_type": "hollow",
+       "space_group": "Pm",
+       "n_operations": 2,
+       "n_adsorbate_invariant_ops": 1,
+       "retained": true,
+       "zeroed_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ]
+       ],
+       "zeroed_lateral_directions_cart": [
+        [
+         0.0,
+         0.707107,
+         -0.707107
+        ]
+       ]
+      }
+     ]
+    },
+    "OOH": {
+     "n_configurations": 10,
+     "retained": 0,
+     "rate": 0.0,
+     "n_space_group_P1": 10,
+     "by_site_type": {
+      "ontop": {
+       "n": 3,
+       "retained": 0
+      },
+      "bridge": {
+       "n": 6,
+       "retained": 0
+      },
+      "hollow": {
+       "n": 1,
+       "retained": 0
+      }
+     },
+     "configurations": [
+      {
+       "index": 0,
+       "site_type": "ontop",
+       "space_group": "P1",
+       "n_operations": 1,
+       "n_adsorbate_invariant_ops": 0,
+       "retained": false,
+       "zeroed_directions_cart": [],
+       "zeroed_lateral_directions_cart": []
+      },
+      {
+       "index": 1,
+       "site_type": "ontop",
+       "space_group": "P1",
+       "n_operations": 1,
+       "n_adsorbate_invariant_ops": 0,
+       "retained": false,
+       "zeroed_directions_cart": [],
+       "zeroed_lateral_directions_cart": []
+      },
+      {
+       "index": 2,
+       "site_type": "ontop",
+       "space_group": "P1",
+       "n_operations": 1,
+       "n_adsorbate_invariant_ops": 0,
+       "retained": false,
+       "zeroed_directions_cart": [],
+       "zeroed_lateral_directions_cart": []
+      },
+      {
+       "index": 3,
+       "site_type": "bridge",
+       "space_group": "P1",
+       "n_operations": 1,
+       "n_adsorbate_invariant_ops": 0,
+       "retained": false,
+       "zeroed_directions_cart": [],
+       "zeroed_lateral_directions_cart": []
+      },
+      {
+       "index": 4,
+       "site_type": "bridge",
+       "space_group": "P1",
+       "n_operations": 1,
+       "n_adsorbate_invariant_ops": 0,
+       "retained": false,
+       "zeroed_directions_cart": [],
+       "zeroed_lateral_directions_cart": []
+      },
+      {
+       "index": 5,
+       "site_type": "bridge",
+       "space_group": "P1",
+       "n_operations": 1,
+       "n_adsorbate_invariant_ops": 0,
+       "retained": false,
+       "zeroed_directions_cart": [],
+       "zeroed_lateral_directions_cart": []
+      },
+      {
+       "index": 6,
+       "site_type": "bridge",
+       "space_group": "P1",
+       "n_operations": 1,
+       "n_adsorbate_invariant_ops": 0,
+       "retained": false,
+       "zeroed_directions_cart": [],
+       "zeroed_lateral_directions_cart": []
+      },
+      {
+       "index": 7,
+       "site_type": "bridge",
+       "space_group": "P1",
+       "n_operations": 1,
+       "n_adsorbate_invariant_ops": 0,
+       "retained": false,
+       "zeroed_directions_cart": [],
+       "zeroed_lateral_directions_cart": []
+      },
+      {
+       "index": 8,
+       "site_type": "bridge",
+       "space_group": "P1",
+       "n_operations": 1,
+       "n_adsorbate_invariant_ops": 0,
+       "retained": false,
+       "zeroed_directions_cart": [],
+       "zeroed_lateral_directions_cart": []
+      },
+      {
+       "index": 9,
+       "site_type": "hollow",
+       "space_group": "P1",
+       "n_operations": 1,
+       "n_adsorbate_invariant_ops": 0,
+       "retained": false,
+       "zeroed_directions_cart": [],
+       "zeroed_lateral_directions_cart": []
+      }
+     ]
+    }
+   },
+   "disclosure_2026_08_15": {
+    "sg": "Pmm2",
+    "ops": 4,
+    "k": 9,
+    "n": 10,
+    "p1": 1,
+    "n2": 10,
+    "ooh_p1": 10,
+    "n3": 10,
+    "docs43_line": 1902
+   },
+   "reproduces_disclosure": true
+  }
+ }
+}

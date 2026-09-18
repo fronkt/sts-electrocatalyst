@@ -1,0 +1,168 @@
+{
+ "F_line": "1/2",
+ "OOH_bound": {
+  "H_mirror_shift_A": 1.8,
+  "O2_max_shift_A": 2.58,
+  "holds": {
+   "fcc111": true,
+   "perovskite001": true,
+   "rutile110": true,
+   "spinel001": true
+  },
+  "shortest_in_plane_vector_A": {
+   "fcc111": 5.548101226545889,
+   "perovskite001": 3.90528,
+   "rutile110": 3.1066,
+   "spinel001": 5.7149077162277955
+  }
+ },
+ "date": "2026-09-16",
+ "docs43_lines": {
+  "scope_row": "1923",
+  "spec": "1900-1902"
+ },
+ "families": {
+  "fcc111": {
+   "FALSIFIED_if_retained_at_most": 2,
+   "N": 4,
+   "OOH": {
+    "expected_retained": 0,
+    "kind": "construction check",
+    "violation": "VOID for this family's rows until explained"
+   },
+   "O_equals_OH": {
+    "kind": "construction check",
+    "violation": "VOID for this family's rows until explained"
+   },
+   "X": {
+    "HELD_if_retained_at_least": 4,
+    "applies_to": [
+     "O",
+     "OH"
+    ],
+    "fraction": "4/4",
+    "value": 1.0
+   },
+   "blind": true,
+   "gap": [
+    3
+   ],
+   "pooled_reading_not_used": {
+    "at_or_below_half_line": false,
+    "fraction": "8/12",
+    "min_upright_retained_above_half_line_if_pooled": 4,
+    "value": 0.666667
+   },
+   "rationale": "p3m1: ontop, fcc and hcp hollows are 3m; the bridge is on a mirror; 12 edges and 8 faces per 2x2 cell leave no room for a general-position class"
+  },
+  "perovskite001": {
+   "FALSIFIED_if_retained_at_most": 2,
+   "N": 5,
+   "OOH": {
+    "expected_retained": 0,
+    "kind": "construction check",
+    "violation": "VOID for this family's rows until explained"
+   },
+   "O_equals_OH": {
+    "kind": "construction check",
+    "violation": "VOID for this family's rows until explained"
+   },
+   "X": {
+    "HELD_if_retained_at_least": 5,
+    "applies_to": [
+     "O",
+     "OH"
+    ],
+    "fraction": "5/5",
+    "value": 1.0
+   },
+   "blind": true,
+   "gap": [
+    3,
+    4
+   ],
+   "pooled_reading_not_used": {
+    "at_or_below_half_line": false,
+    "fraction": "10/15",
+    "min_upright_retained_above_half_line_if_pooled": 4,
+    "value": 0.666667
+   },
+   "rationale": "p4mm: ontop Ti (4mm), ontop O (2mm), bridges Ti-O (m), O-O (m), hole centre (4mm); right-angle triangles are excluded as hollows by the enumerator"
+  },
+  "rutile110": {
+   "FALSIFIED_if_retained_at_most": 5,
+   "N": 10,
+   "OOH": {
+    "expected_retained": 0,
+    "kind": "construction check",
+    "violation": "VOID for this family's rows until explained"
+   },
+   "O_equals_OH": {
+    "kind": "construction check",
+    "violation": "VOID for this family's rows until explained"
+   },
+   "X": {
+    "HELD_if_retained_at_least": 9,
+    "applies_to": [
+     "O",
+     "OH"
+    ],
+    "fraction": "9/10",
+    "value": 0.9
+   },
+   "blind": false,
+   "gap": [
+    6,
+    7,
+    8
+   ],
+   "pooled_reading_not_used": {
+    "at_or_below_half_line": false,
+    "fraction": "18/30",
+    "min_upright_retained_above_half_line_if_pooled": 8,
+    "value": 0.6
+   },
+   "rationale": "non-blind reproduction of the disclosed arm; scored as a reproduction check"
+  },
+  "spinel001": {
+   "FALSIFIED_if_retained_at_most": 6,
+   "N": 13,
+   "OOH": {
+    "expected_retained": 0,
+    "kind": "construction check",
+    "violation": "VOID for this family's rows until explained"
+   },
+   "O_equals_OH": {
+    "kind": "construction check",
+    "violation": "VOID for this family's rows until explained"
+   },
+   "X": {
+    "HELD_if_retained_at_least": 8,
+    "applies_to": [
+     "O",
+     "OH"
+    ],
+    "fraction": "8/13",
+    "value": 0.615385
+   },
+   "blind": true,
+   "gap": [
+    7
+   ],
+   "pooled_reading_not_used": {
+    "at_or_below_half_line": true,
+    "fraction": "16/39",
+    "min_upright_retained_above_half_line_if_pooled": 10,
+    "value": 0.410256
+   },
+   "rationale": "p2mm (Pmm2, 4 ops): every top-layer atom lies on exactly one vertical mirror; 18 Delaunay edges per cell in 8 classes of multiplicity 1/2/4 forces >=5 retained bridge classes"
+  }
+ },
+ "reading": {
+  "alternative_named": "pooled: one rate per family over all 3N configurations of *O, *OH and *OOH",
+  "decision": "per adsorbate: X and the verdict apply to *O and to *OH separately (each over the N configurations of one adsorbate); bent *OOH is a construction check with expected rate 0",
+  "pooled_rate_reporting": "computed and reported next to the per-adsorbate rates, with no verdict",
+  "reason": "the bent *OOH geometry retains no operation on any of the four cells by construction (OOH_bound), so pooling fixes one third of the population at zero through the chosen adsorbate geometry, not through site selection; the pooled rate is then (2/3) x the upright rate and a 1/2 line on it would falsify any family whose upright rate is at or below 3/4"
+ },
+ "rule": "HELD if retained >= k; FALSIFIED if rate <= 1/2; otherwise gap"
+}

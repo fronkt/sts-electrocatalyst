@@ -1,0 +1,2037 @@
+{
+ "class_definitions": {
+  "ARCHIVE_COPY": "an archived pre-amendment copy of docs/43",
+  "CAVEAT": "flags the value as unverified or not to be used; no quantitative use",
+  "CITATION_RULE": "a rule to quote the paper's value verbatim; no quantitative use",
+  "DATA_TABLE_VALUE": "a cell of a published data table",
+  "DATED_RECORD_QUANTITATIVE": "a dated research/readout record that uses the value quantitatively; predates or ignores the disposition",
+  "DISPOSITION": "states the demotion, withdrawal or death, or quotes the withdrawn clause in order to withdraw it",
+  "DRAFT_COPY": "an amendment draft or decision-sheet copy of a docs/43 line classified separately",
+  "FROZEN_DEPOSITED_QUANTITATIVE": "deposited registration text that uses the value as a sigma or gate; frozen, superseded by a dated correction of record",
+  "GENERATED_COPY": "a generated artefact quoting other lines",
+  "LIVE_QUANTITATIVE": "a live plan or index sentence that still uses the value quantitatively with no disposition note",
+  "PAPER_VALUE_REPORTED": "reports the paper's pooled value as the paper's finding; qualitative",
+  "REGISTERED_OPTION_QUANTITATIVE": "a registered, still-open option that carries the value as a gate width",
+  "UNRELATED_NUMBER": "the digits are a different quantity",
+  "UNRELATED_QUANTITY": "a 0.12 eV/V quantity unrelated to the intercept spread or the code floor",
+  "VERBATIM_CITATION": "the paper's own sentence quoted verbatim"
+ },
+ "n_files_scanned": 490,
+ "n_sweep_lines": 36,
+ "patterns": {
+  "intercept_3.18": "3\\.18(?!\\d)",
+  "value_0.12": "±\\s?0\\.12(?!\\d)|(?<![\\d.])0\\.12(?:\\s*[-–—]\\s*\\d*\\.?\\d+)?\\s*(?:V|eV)\\b|(?<![\\d.])120\\s*mV\\b|code[- ](?:to[- ]code |level )?floor|irreducible (?:code[- ]level )?(?:floor|band)"
+ },
+ "registration_lines": {
+  "1944": "7. **Prior-art framing:** the trap is DEAD as discovery and SURVIVES as a quantified audit — Goniakowski & Gillan, *Surf. Sci.* **350**, 145–158 (**1996**), DOI 10.1016/0039-6028(95)01252-4 (preprint arXiv:mtrl-th/9508009, Aug 1995 — the year correction is docs/43 §9 item 3, :843-850, and is not re-broken here) on TiO₂(110)/SnO₂(110); Sun, Reuter & Scheffler, PRB 70, 235402 (2004), \"crucial\" on RuO₂(110) — **UNVERIFIED in this repo** (it appears only in tasks/plan-maximal-rigor.md :290 and here) and is cleared or excluded in the F8 Crossref regeneration by Sep 15; the VASP ISYM wiki; OC20/AdsorbML randomise orientation by construction (tasks/plan-maximal-rigor.md :290). The permitted sentence is the narrowed one there; lens 7's framing — known and named for point defects (ShakeNBreak), no equivalent for adsorbate placement in high-throughput catalysis, \"absence of evidence, not evidence of absence\" — is the novelty statement (round-2 :346). Never \"published computational work is unchecked\"; never first discovery of DFT screening error; never the aggregate noise scale (round-2 :519-520). The distinction from arXiv:2604.12198 (an AI agent reproducing 111 QE papers) — human-designed instrument, human-set thresholds registered with dates before results existed, human-written detector core, human-written report, and a withdrawal a machine would not have chosen — is made affirmatively in the report body.",
+  "1945": "8. **Kill criteria that touch S1/S2, with dates:** F1 — S1, S2's Xu census, S6 and S7 are NOT cuttable (round-2 :502); F3 — Sep 20 (A9.4); F4 — P-CTRL voids (A9.2); F7 — Briquet 2017 (10.1002/cctc.201601662), Chatterjee arXiv:2512.05938, Montoya & Persson Methods, Huang arXiv:2604.12198 all in hand by **Aug 29** via Purdue ILL, and anything not in hand has its dependent claim narrowed pre-emptively (round-2 :519-520); F8 — the Divanis +0.40 eV correction (ABSENT), the 3.18 ± 0.12 eV intercept (qualitative), the ~0.12 V code floor (dead), the Sun/Reuter/Scheffler citation (item 7), and the PbO₂/OsO₂/SnO₂/GeO₂/PtO₂ structure-type assignments each cleared or excluded by **Sep 15**, with the bibliography regenerated from Crossref (round-2 :522-523)."
+ },
+ "rows": [
+  {
+   "class": "DATED_RECORD_QUANTITATIVE",
+   "excerpt": "below Divanis (2020)'s pooled 3.18 ± 0.12 eV, i.e. **not a scaling-relation breaker.**",
+   "file": "docs/41-prereg-anchor-offset-diagnosis.md",
+   "fragment": "pooled 3.18 ± 0.12 eV, i.e. **not a scaling-relation breaker.**",
+   "line": 885,
+   "note": "sigma-distance verdict against the pooled 1-sigma (the 0.65 sigma figure is on the preceding line)",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "ARCHIVE_COPY",
+   "excerpt": "z = (c_M − 3.18)/0.12 against the pooled universal value (Divanis 2020 — **citation",
+   "file": "docs/43-prereg-week1-factorial-archive-2026-08-09-pre-amendment-1.md",
+   "line": 334,
+   "note": "copies of docs/43 :332/:422/:838/:839 before later amendments",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/43-prereg-week1-factorial-archive-*.md"
+  },
+  {
+   "class": "ARCHIVE_COPY",
+   "excerpt": "  5251 (2016) — and the Divanis (2020) pooled c = 3.18 ± 0.12 eV used in §6. Each must be",
+   "file": "docs/43-prereg-week1-factorial-archive-2026-08-09-pre-amendment-1.md",
+   "line": 424,
+   "note": "copies of docs/43 :332/:422/:838/:839 before later amendments",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/43-prereg-week1-factorial-archive-*.md"
+  },
+  {
+   "class": "ARCHIVE_COPY",
+   "excerpt": "z = (c_M − 3.18)/0.12 against the pooled universal value (Divanis 2020 — **citation",
+   "file": "docs/43-prereg-week1-factorial-archive-2026-08-11-pre-amendment-5.md",
+   "line": 339,
+   "note": "copies of docs/43 :332/:422/:838/:839 before later amendments",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/43-prereg-week1-factorial-archive-*.md"
+  },
+  {
+   "class": "ARCHIVE_COPY",
+   "excerpt": "  5251 (2016) — and the Divanis (2020) pooled c = 3.18 ± 0.12 eV used in §6. Each must be",
+   "file": "docs/43-prereg-week1-factorial-archive-2026-08-11-pre-amendment-5.md",
+   "line": 429,
+   "note": "copies of docs/43 :332/:422/:838/:839 before later amendments",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/43-prereg-week1-factorial-archive-*.md"
+  },
+  {
+   "class": "ARCHIVE_COPY",
+   "excerpt": "   \"In this study the intercept is equal to **3.18 ± 0.12 eV** and ±0.24 eV for a",
+   "file": "docs/43-prereg-week1-factorial-archive-2026-08-11-pre-amendment-5.md",
+   "line": 845,
+   "note": "copies of docs/43 :332/:422/:838/:839 before later amendments",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/43-prereg-week1-factorial-archive-*.md"
+  },
+  {
+   "class": "ARCHIVE_COPY",
+   "excerpt": "   confidence level of 1σ and 2σ respectively.\" §6's z = (c_M − 3.18)/0.12 uses the",
+   "file": "docs/43-prereg-week1-factorial-archive-2026-08-11-pre-amendment-5.md",
+   "line": 846,
+   "note": "copies of docs/43 :332/:422/:838/:839 before later amendments",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/43-prereg-week1-factorial-archive-*.md"
+  },
+  {
+   "class": "ARCHIVE_COPY",
+   "excerpt": "z = (c_M − 3.18)/0.12 against the pooled universal value (Divanis 2020 — **citation",
+   "file": "docs/43-prereg-week1-factorial-archive-2026-08-15-pre-amendment-6.md",
+   "line": 341,
+   "note": "copies of docs/43 :332/:422/:838/:839 before later amendments",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/43-prereg-week1-factorial-archive-*.md"
+  },
+  {
+   "class": "ARCHIVE_COPY",
+   "excerpt": "  5251 (2016) — and the Divanis (2020) pooled c = 3.18 ± 0.12 eV used in §6. Each must be",
+   "file": "docs/43-prereg-week1-factorial-archive-2026-08-15-pre-amendment-6.md",
+   "line": 431,
+   "note": "copies of docs/43 :332/:422/:838/:839 before later amendments",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/43-prereg-week1-factorial-archive-*.md"
+  },
+  {
+   "class": "ARCHIVE_COPY",
+   "excerpt": "   \"In this study the intercept is equal to **3.18 ± 0.12 eV** and ±0.24 eV for a",
+   "file": "docs/43-prereg-week1-factorial-archive-2026-08-15-pre-amendment-6.md",
+   "line": 847,
+   "note": "copies of docs/43 :332/:422/:838/:839 before later amendments",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/43-prereg-week1-factorial-archive-*.md"
+  },
+  {
+   "class": "ARCHIVE_COPY",
+   "excerpt": "   confidence level of 1σ and 2σ respectively.\" §6's z = (c_M − 3.18)/0.12 uses the",
+   "file": "docs/43-prereg-week1-factorial-archive-2026-08-15-pre-amendment-6.md",
+   "line": 848,
+   "note": "copies of docs/43 :332/:422/:838/:839 before later amendments",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/43-prereg-week1-factorial-archive-*.md"
+  },
+  {
+   "class": "FROZEN_DEPOSITED_QUANTITATIVE",
+   "excerpt": "z = (c_M − 3.18)/0.12 against the pooled universal value (Divanis 2020 — **citation",
+   "file": "docs/43-prereg-week1-factorial.md",
+   "fragment": "z = (c_M − 3.18)/0.12 against the pooled universal value",
+   "line": 332,
+   "note": "section 6 z definition; its gate is withdrawn by the correction of record at docs/43:1791-1797",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "FROZEN_DEPOSITED_QUANTITATIVE",
+   "excerpt": "  5251 (2016) — and the Divanis (2020) pooled c = 3.18 ± 0.12 eV used in §6. Each must be",
+   "file": "docs/43-prereg-week1-factorial.md",
+   "fragment": "the Divanis (2020) pooled c = 3.18 ± 0.12 eV used in §6",
+   "line": 422,
+   "note": "deposited unverified-citation note",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "VERBATIM_CITATION",
+   "excerpt": "   \"In this study the intercept is equal to **3.18 ± 0.12 eV** and ±0.24 eV for a",
+   "file": "docs/43-prereg-week1-factorial.md",
+   "fragment": "\"In this study the intercept is equal to **3.18 ± 0.12 eV**",
+   "line": 838,
+   "note": "section 9 item 2",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "FROZEN_DEPOSITED_QUANTITATIVE",
+   "excerpt": "   confidence level of 1σ and 2σ respectively.\" §6's z = (c_M − 3.18)/0.12 uses the",
+   "file": "docs/43-prereg-week1-factorial.md",
+   "fragment": "§6's z = (c_M − 3.18)/0.12 uses the",
+   "line": 839,
+   "note": "section 9 item 2, z uses the 1-sigma",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "DISPOSITION",
+   "excerpt": "±0.12 eV 1σ behind z is pseudo-replicated — 515 rows from 24 articles with one article",
+   "file": "docs/43-prereg-week1-factorial.md",
+   "fragment": "±0.12 eV 1σ behind z is pseudo-replicated",
+   "line": 1795,
+   "note": "correction of record withdrawing the z-gate",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "DISPOSITION",
+   "excerpt": " — unphysical under imposed 4.92; never quoted without that note (round-2 :413). **The Divanis z-score — an amendment to a DEPOSITED clause, entrant's call:** docs/43 §6 :331-337 registers z = (c_M − 3.18)/0.12 **and a gate** (\"a correction that moves η by ≥ 0.10 V while leaving |z| ≥ 3 has not fixed the scaling anomaly\"), and docs/43 §9 item 2 (:836-841) CONFIRMED 3.18 ± 0.12 eV verbatim from the",
+   "file": "docs/43-prereg-week1-factorial.md",
+   "fragment": "registers z = (c_M − 3.18)/0.12 **and a gate**",
+   "line": 1898,
+   "note": "A9.3.4 z-gate withdrawal",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "REGISTERED_OPTION_QUANTITATIVE",
+   "excerpt": " Hubbard translation, `Hubbard_U(i)` → the `HUBBARD` card across an augmentation-charge change for ultrasoft pseudos), one is physics (CrO₂/MnO₂ running at frozen `tot_magnetization`), and one — the ~0.12 V code-to-code floor — round-2 F8 (:522) has since declared dead and it is dropped from any justification here. **(a) Cut on evidence:** frozen moment on the only 3d metals in the set, plus the t",
+   "file": "docs/43-prereg-week1-factorial.md",
+   "fragment": "a widened ±0.12 V η gate",
+   "line": 1938,
+   "note": "the same line declares the code floor dead, yet Xu-repair option (b) still carries a ±0.12 V eta gate whose only stated origin is round-1 :225's code-to-code floor",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "DISPOSITION",
+   "excerpt": "Xiv:2604.12198 all in hand by **Aug 29** via Purdue ILL, and anything not in hand has its dependent claim narrowed pre-emptively (round-2 :519-520); F8 — the Divanis +0.40 eV correction (ABSENT), the 3.18 ± 0.12 eV intercept (qualitative), the ~0.12 V code floor (dead), the Sun/Reuter/Scheffler citation (item 7), and the PbO₂/OsO₂/SnO₂/GeO₂/PtO₂ structure-type assignments each cleared or excluded ",
+   "file": "docs/43-prereg-week1-factorial.md",
+   "fragment": "the 3.18 ± 0.12 eV intercept (qualitative), the ~0.12 V code floor (dead)",
+   "line": 1945,
+   "note": "F8 registration",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "UNRELATED_QUANTITY",
+   "excerpt": "   rows sit ~0.12 eV high while its span is nearly right, and that the equalised arm prices the",
+   "file": "docs/43-prereg-week1-factorial.md",
+   "fragment": "rows sit ~0.12 eV high",
+   "line": 2675,
+   "note": "absolute-energy offset of a census arm",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "UNRELATED_QUANTITY",
+   "excerpt": "projector-dependent: 6.1635 eV for atomic, 7.2677 eV for ortho. So U = 7.15 sits ≈ 0.12 eV",
+   "file": "docs/43-prereg-week1-factorial.md",
+   "fragment": "So U = 7.15 sits ≈ 0.12 eV",
+   "line": 3558,
+   "note": "Hubbard U difference",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "DRAFT_COPY",
+   "excerpt": " — unphysical under imposed 4.92; never quoted without that note (round-2 :413). **The Divanis z-score — an amendment to a DEPOSITED clause, entrant's call:** docs/43 §6 :331-337 registers z = (c_M − 3.18)/0.12 **and a gate** (\"a correction that moves η by ≥ 0.10 V while leaving |z| ≥ 3 has not fixed the scaling anomaly\"), and docs/43 §9 item 2 (:836-841) CONFIRMED 3.18 ± 0.12 eV verbatim from the",
+   "file": "docs/50-amendment-9-DRAFT.md",
+   "fragment": "registers z = (c_M − 3.18)/0.12 **and a gate**",
+   "line": 106,
+   "note": "copy of docs/43:1898",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "DRAFT_COPY",
+   "excerpt": " Hubbard translation, `Hubbard_U(i)` → the `HUBBARD` card across an augmentation-charge change for ultrasoft pseudos), one is physics (CrO₂/MnO₂ running at frozen `tot_magnetization`), and one — the ~0.12 V code-to-code floor — round-2 F8 (:522) has since declared dead and it is dropped from any justification here. **(a) Cut on evidence:** frozen moment on the only 3d metals in the set, plus the t",
+   "file": "docs/50-amendment-9-DRAFT.md",
+   "fragment": "a widened ±0.12 V η gate",
+   "line": 146,
+   "note": "copy of docs/43:1938",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "DRAFT_COPY",
+   "excerpt": "Xiv:2604.12198 all in hand by **Aug 29** via Purdue ILL, and anything not in hand has its dependent claim narrowed pre-emptively (round-2 :519-520); F8 — the Divanis +0.40 eV correction (ABSENT), the 3.18 ± 0.12 eV intercept (qualitative), the ~0.12 V code floor (dead), the Sun/Reuter/Scheffler citation (item 7), and the PbO₂/OsO₂/SnO₂/GeO₂/PtO₂ structure-type assignments each cleared or excluded ",
+   "file": "docs/50-amendment-9-DRAFT.md",
+   "fragment": "the 3.18 ± 0.12 eV intercept (qualitative), the ~0.12 V code floor (dead)",
+   "line": 153,
+   "note": "copy of docs/43:1945",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "DISPOSITION",
+   "excerpt": "43 (no edit of the deposited text); the z column is retained as reported; if a gate is wanted, the Divanis rutile-only n = 38 sub-fit replaces the pooled intercept.\" (The deposited clause: z = (c_M − 3.18)/0.12 and \"a correction that moves η by ≥ 0.10 V while leaving |z| ≥ 3 has not fixed the scaling anomaly\")",
+   "file": "docs/52-decision-sheet-2026-08-23.md",
+   "fragment": "(The deposited clause: z = (c_M − 3.18)/0.12",
+   "line": 134,
+   "note": "decision sheet quoting the clause to be withdrawn",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "DISPOSITION",
+   "excerpt": "Blocks: The docs/43 correction rides the A9 re-deposit; the round-2 F8 demotion of ±0.12 eV to qualitative; whether a scaling-anomaly gate exists at all.",
+   "file": "docs/52-decision-sheet-2026-08-23.md",
+   "fragment": "the round-2 F8 demotion of ±0.12 eV to qualitative",
+   "line": 135,
+   "note": "",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "DRAFT_COPY",
+   "excerpt": "r re-run anyone's decks' stands and A9.6 keeps its first bullet.\" OR \"(b) Round-1 :225's minimum-viable version: 3 metals, a gate on the three ΔG rungs (|ΔΔG_i| < 0.10 eV) rather than on η, a widened ±0.12 V η gate, 2–3 human-days budgeted for the deck translation, charged to S2 or S6, not S3. The entrant writes which\"",
+   "file": "docs/52-decision-sheet-2026-08-23.md",
+   "fragment": "a widened ±0.12 V η gate",
+   "line": 155,
+   "note": "decision-sheet copy of docs/43:1938 option (b)",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "DISPOSITION",
+   "excerpt": "Options as drafted: \"F8 — the Divanis +0.40 eV correction (ABSENT), the 3.18 ± 0.12 eV intercept (qualitative), the ~0.12 V code floor (dead), the Sun/Reuter/Scheffler citation (item 7), and the PbO₂/OsO₂/SnO₂/GeO₂/PtO₂ structure-type assignments each cleared or excluded ",
+   "file": "docs/52-decision-sheet-2026-08-23.md",
+   "fragment": "the 3.18 ± 0.12 eV intercept (qualitative), the ~0.12 V code floor (dead)",
+   "line": 426,
+   "note": "",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "UNRELATED_QUANTITY",
+   "excerpt": "   census are therefore ~0.12 eV too high in absolute energy while their span is nearly",
+   "file": "docs/68-a11-wave1-drain-2026-09-01.md",
+   "fragment": "census are therefore ~0.12 eV too high",
+   "line": 231,
+   "note": "",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "UNRELATED_QUANTITY",
+   "excerpt": "sits ≈ 0.12 eV below ortho's own self-consistent U but ≈ 0.99 eV above atomic's.",
+   "file": "docs/79-hp-cro2-ortho-readout-2026-09-04.md",
+   "fragment": "sits ≈ 0.12 eV below ortho's",
+   "line": 85,
+   "note": "Hubbard U difference",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "DISPOSITION",
+   "excerpt": "And do not resurrect the |z| ≥ 3 gate against the pooled 3.18 ± 0.12 eV: `:1898` withdrew it as a",
+   "file": "docs/86-divanis-decision-sheet-2026-09-04.md",
+   "fragment": "do not resurrect the |z| ≥ 3 gate against the pooled 3.18 ± 0.12 eV",
+   "line": 199,
+   "note": "",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "| omat0__Ni34Fe29Mn30Co7 | maceomat0mediummodel | 2026-09-08T12:05:19Z | 2026-09-08T15:16:13Z (exit 0) | 11449.782 | 3.18 | 954.1 (12 sites) | 1.12x-1.87x | 0.63x |",
+   "file": "docs/95-census-2-3-readout-2026-09-13.md",
+   "fragment": "| 3.18 |",
+   "line": 663,
+   "note": "runtime table column",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "| matpes__Mn34Cu7Fe33Cr27 | MACEmatpesr2scanomatftmodel | 2026-09-08T20:55:53Z | 2026-09-09T00:07:00Z (exit 0) | 11458.719 | 3.18 | 954.9 (12 sites) | 1.12x-1.87x | 0.63x |",
+   "file": "docs/95-census-2-3-readout-2026-09-13.md",
+   "fragment": "| 3.18 |",
+   "line": 673,
+   "note": "runtime table column",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "UNRELATED_QUANTITY",
+   "excerpt": " 'apex crossing at U=3.87 +/- 0.25 eV' conflates the interpolated crossing with the bracket half-width: the grid guarantees U in [3.5,4.0] = 3.75 +/- 0.25, whereas 3.87 +/- 0.25 = [3.62,4.12] extends 0.12 eV past the guaranteed bracket and drops [3.5,3.62].",
+   "file": "docs/figs/a0_verification_findings_2026-08-28.txt",
+   "fragment": "extends 0.12 eV past the guaranteed bracket",
+   "line": 135,
+   "note": "",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "-analysis version is Divanis, Kutlusoy, Boye, Man, Rossmeisl, Chem. Sci. 11, 2943 (2020), DOI 10.1039/C9SC05897D, which collected a decade of published OER DFT and found the HO*/HOO* scaling holds at 3.18 +/- 0.12 eV DESPITE the variety of methods and structures used.\"",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 253,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "10.1002/cctc.201000397) | The universal-scaling paper (3.20 eV intercept, MAE 0.17 eV, ~0.37 V planar-oxide floor). Pulled for the tabulated \\u0394G values, not the argument; corroborates the Divanis 3.18 \\u00b1 0.12 eV constant that P17 already uses. |\"",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 303,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "10.1002/cctc.201000397) | The universal-scaling paper (3.20 eV intercept, MAE 0.17 eV, ~0.37 V planar-oxide floor). Pulled for the tabulated \\u0394G values, not the argument; corroborates the Divanis 3.18 \\u00b1 0.12 eV constant that P17 already uses. |\"",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 308,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "the Divanis compilation, and the DACAPO row is numerically identical to Man 2011's high-coverage row, so Halck may be quoting rather than recomputing it. Confirm against 10.1039/c4cp00571f before the 0.12 V code-spread claim is used; it is marked recalled-unverified for that reason. (3) Liang/Bieberle-H\\u00fctter/Brocks 2022 (0.63-0.73 V) and Nat. Commun. 14, 5365 (0.81 V) are taken from the proje",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 404,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "604.12198 all in hand by **Aug 29** via Purdue ILL, and anything not in hand has its dependent claim narrowed pre-emptively (round-2 :519-520); F8 \\u2014 the Divanis +0.40 eV correction (ABSENT), the 3.18 \\u00b1 0.12 eV intercept (qualitative), the ~0.12 V code floor (dead), the Sun/Reuter/Scheffler citation (item 7), and the PbO\\u2082/OsO\\u2082/SnO\\u2082/GeO\\u2082/PtO\\u2082 structure-type assignm",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 426,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "604.12198 all in hand by **Aug 29** via Purdue ILL, and anything not in hand has its dependent claim narrowed pre-emptively (round-2 :519-520); F8 \\u2014 the Divanis +0.40 eV correction (ABSENT), the 3.18 \\u00b1 0.12 eV intercept (qualitative), the ~0.12 V code floor (dead), the Sun/Reuter/Scheffler citation (item 7), and the PbO\\u2082/OsO\\u2082/SnO\\u2082/GeO\\u2082/PtO\\u2082 structure-type assignm",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 431,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "the Divanis compilation, and the DACAPO row is numerically identical to Man 2011's high-coverage row, so Halck may be quoting rather than recomputing it. Confirm against 10.1039/c4cp00571f before the 0.12 V code-spread claim is used; it is marked recalled-unverified for that reason. (3) Liang/Bieberle-H\\u00fctter/Brocks 2022 (0.63-0.73 V) and Nat. Commun. 14, 5365 (0.81 V) are taken from the proje",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 1852,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "the Divanis compilation, and the DACAPO row is numerically identical to Man 2011's high-coverage row, so Halck may be quoting rather than recomputing it. Confirm against 10.1039/c4cp00571f before the 0.12 V code-spread claim is used; it is marked recalled-unverified for that reason. (3) Liang/Bieberle-H\\u00fctter/Brocks 2022 (0.63-0.73 V) and Nat. Commun. 14, 5365 (0.81 V) are taken from the proje",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 1904,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "the Divanis compilation, and the DACAPO row is numerically identical to Man 2011's high-coverage row, so Halck may be quoting rather than recomputing it. Confirm against 10.1039/c4cp00571f before the 0.12 V code-spread claim is used; it is marked recalled-unverified for that reason. (3) Liang/Bieberle-H\\u00fctter/Brocks 2022 (0.63-0.73 V) and Nat. Commun. 14, 5365 (0.81 V) are taken from the proje",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 2128,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "nder imposed 4.92; never quoted without that note (round-2 :413). **The Divanis z-score \\u2014 an amendment to a DEPOSITED clause, entrant's call:** docs/43 \\u00a76 :331-337 registers z = (c_M \\u2212 3.18)/0.12 **and a gate** (\\\"a correction that moves \\u03b7 by \\u2265 0.10 V while leaving |z| \\u2265 3 has not fixed the scaling anomaly\\\"), and docs/43 \\u00a79 item 2 (:836-841) CONFIRMED 3.18 \\u00b",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 3632,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "nder imposed 4.92; never quoted without that note (round-2 :413). **The Divanis z-score \\u2014 an amendment to a DEPOSITED clause, entrant's call:** docs/43 \\u00a76 :331-337 registers z = (c_M \\u2212 3.18)/0.12 **and a gate** (\\\"a correction that moves \\u03b7 by \\u2265 0.10 V while leaving |z| \\u2265 3 has not fixed the scaling anomaly\\\"), and docs/43 \\u00a79 item 2 (:836-841) CONFIRMED 3.18 \\u00b",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 3637,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "the Divanis compilation, and the DACAPO row is numerically identical to Man 2011's high-coverage row, so Halck may be quoting rather than recomputing it. Confirm against 10.1039/c4cp00571f before the 0.12 V code-spread claim is used; it is marked recalled-unverified for that reason. (3) Liang/Bieberle-H\\u00fctter/Brocks 2022 (0.63-0.73 V) and Nat. Commun. 14, 5365 (0.81 V) are taken from the proje",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 4106,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "the Divanis compilation, and the DACAPO row is numerically identical to Man 2011's high-coverage row, so Halck may be quoting rather than recomputing it. Confirm against 10.1039/c4cp00571f before the 0.12 V code-spread claim is used; it is marked recalled-unverified for that reason. (3) Liang/Bieberle-H\\u00fctter/Brocks 2022 (0.63-0.73 V) and Nat. Commun. 14, 5365 (0.81 V) are taken from the proje",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 4883,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "nder imposed 4.92; never quoted without that note (round-2 :413). **The Divanis z-score \\u2014 an amendment to a DEPOSITED clause, entrant's call:** docs/43 \\u00a76 :331-337 registers z = (c_M \\u2212 3.18)/0.12 **and a gate** (\\\"a correction that moves \\u03b7 by \\u2265 0.10 V while leaving |z| \\u2265 3 has not fixed the scaling anomaly\\\"), and docs/43 \\u00a79 item 2 (:836-841) CONFIRMED 3.18 \\u00b",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 5048,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "nder imposed 4.92; never quoted without that note (round-2 :413). **The Divanis z-score \\u2014 an amendment to a DEPOSITED clause, entrant's call:** docs/43 \\u00a76 :331-337 registers z = (c_M \\u2212 3.18)/0.12 **and a gate** (\\\"a correction that moves \\u03b7 by \\u2265 0.10 V while leaving |z| \\u2265 3 has not fixed the scaling anomaly\\\"), and docs/43 \\u00a79 item 2 (:836-841) CONFIRMED 3.18 \\u00b",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 5053,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "-analysis version is Divanis, Kutlusoy, Boye, Man, Rossmeisl, Chem. Sci. 11, 2943 (2020), DOI 10.1039/C9SC05897D, which collected a decade of published OER DFT and found the HO*/HOO* scaling holds at 3.18 +/- 0.12 eV DESPITE the variety of methods and structures used.\"",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 5058,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "full texts returned HTTP 403 throughout, so Divanis Chem Sci 2020 (10.1039/C9SC05897D), Divanis PCCP 2021 (10.1039/D1CP02999A) and the 2025 Chem Soc Rev scaling review are abstract/metadata only; the 3.18 +/- 0.12 eV figure is carried over from the repo's own notes and was NOT independently re-verified from the paper.\"",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 5063,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "full texts returned HTTP 403 throughout, so Divanis Chem Sci 2020 (10.1039/C9SC05897D), Divanis PCCP 2021 (10.1039/D1CP02999A) and the 2025 Chem Soc Rev scaling review are abstract/metadata only; the 3.18 +/- 0.12 eV figure is carried over from the repo's own notes and was NOT independently re-verified from the paper.\"",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 5120,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "full texts returned HTTP 403 throughout, so Divanis Chem Sci 2020 (10.1039/C9SC05897D), Divanis PCCP 2021 (10.1039/D1CP02999A) and the 2025 Chem Soc Rev scaling review are abstract/metadata only; the 3.18 +/- 0.12 eV figure is carried over from the repo's own notes and was NOT independently re-verified from the paper.\"",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 6663,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "     \"text\": \"**Failure mode 6 \\u2014 an unverified citation lands in the report.** The three live ones: the Divanis **3.18 \\u00b1 0.12 eV** intercept and the **+0.40 eV *OOH correction** (both anchor registered thresholds and neither has been read from the paper, though the ESI is on disk); the **Dickens ~0.7 eV defe",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 6685,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "nder imposed 4.92; never quoted without that note (round-2 :413). **The Divanis z-score \\u2014 an amendment to a DEPOSITED clause, entrant's call:** docs/43 \\u00a76 :331-337 registers z = (c_M \\u2212 3.18)/0.12 **and a gate** (\\\"a correction that moves \\u03b7 by \\u2265 0.10 V while leaving |z| \\u2265 3 has not fixed the scaling anomaly\\\"), and docs/43 \\u00a79 item 2 (:836-841) CONFIRMED 3.18 \\u00b",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 7067,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "GENERATED_COPY",
+   "excerpt": "nder imposed 4.92; never quoted without that note (round-2 :413). **The Divanis z-score \\u2014 an amendment to a DEPOSITED clause, entrant's call:** docs/43 \\u00a76 :331-337 registers z = (c_M \\u2212 3.18)/0.12 **and a gate** (\\\"a correction that moves \\u03b7 by \\u2265 0.10 V while leaving |z| \\u2265 3 has not fixed the scaling anomaly\\\"), and docs/43 \\u00a79 item 2 (:836-841) CONFIRMED 3.18 \\u00b",
+   "file": "docs/figs/f8_doi_resolution.json",
+   "line": 7102,
+   "note": "DOI-resolution report quoting citing lines",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/figs/f8_doi_resolution.json"
+  },
+  {
+   "class": "DATED_RECORD_QUANTITATIVE",
+   "excerpt": "- Man 2011's universal constant (3.20 eV, MAE 0.17 eV, 95% within ±0.4 eV) corroborates the Divanis 3.18 ± 0.12 eV already load-bearing in P17. Man's floor — minimum planar-oxide η_TD ≈ 0.37 V, \"activity could not be significantly improved beyond RuO2\" — caps any residual compositional statement.",
+   "file": "docs/research/2026-08-11-paywalled-sweep-plan-implications.md",
+   "fragment": "corroborates the Divanis 3.18 ± 0.12 eV already load-bearing in P17",
+   "line": 63,
+   "note": "'load-bearing' use of the pooled value",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "CITATION_RULE",
+   "excerpt": "- **Standing rules unchanged:** Deshpande 2016 = ORR-UQ methodology only; Divanis 3.18 ± 0.12 verbatim; Goniakowski & Gillan credited in all symmetry-trap framing; second-hand citations inside the swept papers remain unverified until pulled.",
+   "file": "docs/research/2026-08-11-paywalled-sweep-plan-implications.md",
+   "fragment": "Divanis 3.18 ± 0.12 verbatim",
+   "line": 159,
+   "note": "",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "| `runs/Cu_slab/s0_OOH.out` | 1x1 | **NO** | 1.323 | UNCLASSIFIED (between the registered bands; nearest = superoxo, 0.003 A away) | adsorbate outer O (*O-OH connectivity) | 0.967 | 2.51 / 3.18 | POISONED |",
+   "file": "docs/research/2026-08-12-lit3-ooh-fingerprints.md",
+   "fragment": "2.51 / 3.18",
+   "line": 21,
+   "note": "table value in the *OOH fingerprint table",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "PAPER_VALUE_REPORTED",
+   "excerpt": "-analysis version is Divanis, Kutlusoy, Boye, Man, Rossmeisl, Chem. Sci. 11, 2943 (2020), DOI 10.1039/C9SC05897D, which collected a decade of published OER DFT and found the HO*/HOO* scaling holds at 3.18 +/- 0.12 eV DESPITE the variety of methods and structures used.",
+   "file": "docs/research/2026-08-15-lit-sweep-lens-digest.md",
+   "fragment": "found the HO*/HOO* scaling holds at 3.18 +/- 0.12 eV",
+   "line": 229,
+   "note": "",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "DATED_RECORD_QUANTITATIVE",
+   "excerpt": "trong: the floor is a robust invariant while eta above it is noise-dominated — which is exactly why Cr sitting 9 meV above its floor was scaling-limited, not descriptor-limited. Second use: Divanis's 3.18 +/- 0.12 eV is the field-wide spread to compare against; 0.12 eV in c_M implies only ~0.06 V of floor spread, orders below the 1.122 V P7 swing. That contrast is the single most quotable number p",
+   "file": "docs/research/2026-08-15-lit-sweep-lens-digest.md",
+   "fragment": "0.12 eV in c_M implies only ~0.06 V of floor spread",
+   "line": 230,
+   "note": "pooled 1-sigma converted to a floor spread",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "CAVEAT",
+   "excerpt": "full texts returned HTTP 403 throughout, so Divanis Chem Sci 2020 (10.1039/C9SC05897D), Divanis PCCP 2021 (10.1039/D1CP02999A) and the 2025 Chem Soc Rev scaling review are abstract/metadata only; the 3.18 +/- 0.12 eV figure is carried over from the repo's own notes and was NOT independently re-verified from the paper.",
+   "file": "docs/research/2026-08-15-lit-sweep-lens-digest.md",
+   "fragment": "the 3.18 +/- 0.12 eV figure is carried over from the repo's own notes and was NOT independently re-verified",
+   "line": 248,
+   "note": "",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "DATED_RECORD_QUANTITATIVE",
+   "excerpt": " divanis_esi.txt) and build the replacement external gate on it — a Literature-Distribution Containment gate that (a) compares the three ΔG's per intermediate rather than η, (b) is never tighter than ±0.12 V, a half-width derived twice independently (Halck's DACAPO-vs-GPAW RuO2 pair, 0.36 vs 0.48 V; and Divanis' 3.18 ± 0.12 eV intercept pushed through the project's own scaling-floor lemma), and (c",
+   "file": "docs/research/2026-08-15-lit-sweep-lens-digest.md",
+   "fragment": "is never tighter than ±0.12 V",
+   "line": 319,
+   "note": "code-floor gate half-width",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "DATED_RECORD_QUANTITATIVE",
+   "excerpt": "'RuO2 0.37-0.42 V') with a real population, and it is auditable — every row carries its source paper, so any claim about 'the literature value' can be traced. The paper's headline constant, intercept 3.18 ± 0.12 eV (1σ) / ±0.24 eV (2σ), is already used by P17; the raw table under it is not.",
+   "file": "docs/research/2026-08-15-lit-sweep-lens-digest.md",
+   "fragment": "intercept 3.18 ± 0.12 eV (1σ) / ±0.24 eV (2σ), is already used by P17",
+   "line": 323,
+   "note": "",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "DATED_RECORD_QUANTITATIVE",
+   "excerpt": "- [zero-compute] An externally-sourced floor of ≈0.12 V on how tight any external gate can legitimately be — derived two independent ways (10.1039/c4cp00571f, recalled-unverified)",
+   "file": "docs/research/2026-08-15-lit-sweep-lens-digest.md",
+   "fragment": "An externally-sourced floor of ≈0.12 V",
+   "line": 333,
+   "note": "code-floor derivation",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "DATED_RECORD_QUANTITATIVE",
+   "excerpt": " [8] labelled 'RuO2 DACAPO' (0.96/2.68/3.92) and 'RuO2 GPAW' (0.84/2.29/3.65) — same group, same functional family, same system, two plane-wave codes — which reconstruct to η = 0.360 V and 0.480 V, a 0.12 V code-level gap. (b) Independently: Divanis' fitted intercept spread is 3.18 ± 0.12 eV (1σ); fed through this project's own exact scaling-floor lemma η ≥ c/2 − 1.23, a ±0.12 eV intercept scatter",
+   "file": "docs/research/2026-08-15-lit-sweep-lens-digest.md",
+   "fragment": "a 0.12 V code-level gap",
+   "line": 334,
+   "note": "code-floor derivation (both legs)",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "DATED_RECORD_QUANTITATIVE",
+   "excerpt": "docs/32 gate was ±0.05 V-tight against a band that is itself one study's value. A pre-registerable replacement can now state a defensible minimum half-width: no external gate on η may be tighter than ±0.12 V, because published work shows that much movement from code choice alone at fixed physics. This is exactly the kind of quantitative, externally-sourced threshold the pre-registration discipline",
+   "file": "docs/research/2026-08-15-lit-sweep-lens-digest.md",
+   "fragment": "no external gate on η may be tighter than ±0.12 V",
+   "line": 335,
+   "note": "code-floor gate half-width",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "DATED_RECORD_QUANTITATIVE",
+   "excerpt": " 0.00-0.30 V CHE-vs-constant-potential gap is another externally published bound on 'how much the answer moves when a modelling choice changes with no numerical failure' — a third data point for the ≈0.12-0.30 V irreducible band. And their 200-300 mV crawl is a ready-made statement of the experimental literature's own resolution.",
+   "file": "docs/research/2026-08-15-lit-sweep-lens-digest.md",
+   "fragment": "a third data point for the ≈0.12-0.30 V irreducible band",
+   "line": 356,
+   "note": "the ~0.12 V code floor as the lower edge of an 'irreducible band' (round-2 :60 withdraws the '~0.12 V irreducible code-level floor')",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "CAVEAT",
+   "excerpt": "the Divanis compilation, and the DACAPO row is numerically identical to Man 2011's high-coverage row, so Halck may be quoting rather than recomputing it. Confirm against 10.1039/c4cp00571f before the 0.12 V code-spread claim is used; it is marked recalled-unverified for that reason. (3) Liang/Bieberle-Hütter/Brocks 2022 (0.63-0.73 V) and Nat. Commun. 14, 5365 (0.81 V) are taken from the project br",
+   "file": "docs/research/2026-08-15-lit-sweep-lens-digest.md",
+   "fragment": "before the 0.12 V code-spread claim is used",
+   "line": 363,
+   "note": "",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "UNRELATED_QUANTITY",
+   "excerpt": "mmetric solvation correction cannot move eta(Cr) by more than ~9 meV plus the DIFFERENTIAL |delta_OOH - delta_OH|. The literature bounds that differential at roughly 0.1–0.25 eV, i.e. |delta eta| <= ~0.12 V. Register this as LIT-5r's falsifiable prediction BEFORE running anything: 'solvation moves eta(Cr) by < 0.15 V; if it moves more, the mechanism is differential *OH/*OOH stabilisation and must ",
+   "file": "docs/research/2026-08-15-lit-sweep-lens-digest.md",
+   "fragment": "|delta eta| <= ~0.12 V",
+   "line": 373,
+   "note": "solvation differential bound",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "DISPOSITION",
+   "excerpt": "     (arXiv preprint, P-FLOOR-U ratio form, the 0.12 V code-level floor,",
+   "file": "docs/research/2026-08-15-lit-sweep-round1-synthesis.md",
+   "fragment": "the 0.12 V code-level floor,",
+   "line": 7,
+   "note": "provenance header listing withdrawn items",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "DATED_RECORD_QUANTITATIVE",
+   "excerpt": ".007 V (**0.953 V**). U is not an estimator-only error; it is 0.22 V of floor plus 0.95 V of excess, ratio ≈ 4.3. The floor movement is ~25× Cr's own 7 meV margin above its floor, and (if the Divanis 3.18 ± 0.12 eV intercept survives verification — see §7) ~3.7× the entire published inter-study intercept spread. That is a stronger, more legible headline than \"U is only an estimator error,\" it cost",
+   "file": "docs/research/2026-08-15-lit-sweep-round1-synthesis.md",
+   "fragment": "~3.7× the entire published inter-study intercept spread",
+   "line": 34,
+   "note": "superseded synthesis; ratio to the pooled spread",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "CAVEAT",
+   "excerpt": "**Failure mode 6 — an unverified citation lands in the report.** The three live ones: the Divanis **3.18 ± 0.12 eV** intercept and the **+0.40 eV *OOH correction** (both anchor registered thresholds and neither has been read from the paper, though the ESI is on disk); the **Dickens ~0.7 eV defect-si",
+   "file": "docs/research/2026-08-15-lit-sweep-round1-synthesis.md",
+   "fragment": "the Divanis **3.18 ± 0.12 eV** intercept and the **+0.40 eV *OOH correction**",
+   "line": 213,
+   "note": "",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "DATED_RECORD_QUANTITATIVE",
+   "excerpt": " Xu's own parameters would answer \"and here is what the number should have been\" on someone else's data — but Critic 1 identifies three defects that are all real: a 0.05 V reproduction gate against a code-to-code floor the project's own evidence puts at ≈0.12 V; an unbudgeted QE 5.x → 7.5 Hubbard translation (`Hubbard_U(i)` in `&SYSTEM` → the `HUBBARD (atomic)` card, across an augmentation-charge ",
+   "file": "docs/research/2026-08-15-lit-sweep-round1-synthesis.md",
+   "fragment": "a code-to-code floor the project's own evidence puts at ≈0.12 V",
+   "line": 225,
+   "note": "origin of the option (b) gate width",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "DISPOSITION",
+   "excerpt": "| \"~0.12 V irreducible code-level floor\" | **WITHDRAWN — both derivations are dead.** Man 2011 states verbatim its own fit is ΔE_HOO* = ΔE_HO* + 3.20 eV with 68% within ±0.2 eV and 95% within ±0.4 eV, so ",
+   "file": "docs/research/2026-08-15-lit-sweep-round2-synthesis.md",
+   "fragment": "\"~0.12 V irreducible code-level floor\" | **WITHDRAWN",
+   "line": 60,
+   "note": "",
+   "patterns": [
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "DISPOSITION",
+   "excerpt": "**F8 — An unverified citation lands in the report.** Live items: the Divanis **+0.40 eV *OOH correction** (confirmed ABSENT from Table SI-1; corrections attributed to Nørskov 2004); the **3.18 ± 0.12 eV** intercept (now demoted to qualitative — it anchors no threshold); the **~0.12 V code floor** (both derivations dead, replaced by ~0.095 V within-material across-study scatter); the Di",
+   "file": "docs/research/2026-08-15-lit-sweep-round2-synthesis.md",
+   "fragment": "the **3.18 ± 0.12 eV** intercept (now demoted to qualitative",
+   "line": 522,
+   "note": "",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "DATA_TABLE_VALUE",
+   "excerpt": "2 5c-M (cus(Ti)) -0.16 2.01 3.18 4.92 ",
+   "file": "docs/research/2026-08-15-sampling/divanis_esi.txt",
+   "line": 167,
+   "note": "Divanis Table SI-2 rows",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/research/2026-08-15-sampling/divanis_esi.txt"
+  },
+  {
+   "class": "DATA_TABLE_VALUE",
+   "excerpt": "18 NiOOH bulk edge Ru (U) 0.56 1.60 3.18 4.92 ",
+   "file": "docs/research/2026-08-15-sampling/divanis_esi.txt",
+   "line": 435,
+   "note": "Divanis Table SI-2 rows",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/research/2026-08-15-sampling/divanis_esi.txt"
+  },
+  {
+   "class": "DATA_TABLE_VALUE",
+   "excerpt": "19 MnO2 Site 2 (U) 0.58 3.18 3.81 4.92 ",
+   "file": "docs/research/2026-08-15-sampling/divanis_esi.txt",
+   "line": 449,
+   "note": "Divanis Table SI-2 rows",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:docs/research/2026-08-15-sampling/divanis_esi.txt"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "   \"absolute_magnetization\": 3.18,",
+   "file": "docs/research/lit3_ooh_fingerprints.json",
+   "fragment": "\"absolute_magnetization\": 3.18",
+   "line": 148,
+   "note": "",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "line"
+  },
+  {
+   "class": "LIVE_QUANTITATIVE",
+   "excerpt": ".org/10.1002/cctc.201000397) | The universal-scaling paper (3.20 eV intercept, MAE 0.17 eV, ~0.37 V planar-oxide floor). Pulled for the tabulated ΔG values, not the argument; corroborates the Divanis 3.18 ± 0.12 eV constant that P17 already uses. |",
+   "file": "docs/research/papers/README.md",
+   "fragment": "corroborates the Divanis 3.18 ± 0.12 eV constant that P17 already uses",
+   "line": 28,
+   "note": "live paper index",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "LIVE_QUANTITATIVE",
+   "excerpt": "*Carrying object:* Table — per metal, c_M, floor, excess, and z-score against Divanis 2020's pooled 3.18 ± 0.12 eV. Add the z-score column to every corrected tier as a pre-registered acceptance gate: a correction that moves η but leaves c_M at +3.9σ has not fixed anything.",
+   "file": "tasks/plan-maximal-rigor.md",
+   "fragment": "z-score against Divanis 2020's pooled 3.18 ± 0.12 eV. Add the z-score column to every corrected tier as a pre-registered acceptance gate",
+   "line": 87,
+   "note": "repeats the withdrawn z-gate (docs/43:1898 names this line)",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "LIVE_QUANTITATIVE",
+   "excerpt": "| **The scaling-floor decomposition η ≥ c_M/2 − 1.23** | **SURVIVES as a diagnostic, not a discovery** | Algebra on the imposed 4.92 eV. Divanis 2020 *Chem. Sci.* **11**, 2943 supplies the pooled 3.18 ± 0.12 eV calibration. | Present as a lemma and a per-metal diagnostic table, not as a finding. Its value is that it converts the failed anchor gate into a quantitative diagnosis at zero compute.",
+   "file": "tasks/plan-maximal-rigor.md",
+   "fragment": "supplies the pooled 3.18 ± 0.12 eV calibration",
+   "line": 295,
+   "note": "",
+   "patterns": [
+    "intercept_3.18",
+    "value_0.12"
+   ],
+   "quantitative_use": true,
+   "rule": "line"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "        \"absmag\": 3.18,",
+   "file": "tasks/review/a7_3_spin_census_2026-09-01_runA_as-committed.json",
+   "line": 1552,
+   "note": "absolute magnetization 3.18",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:tasks/review/a7_3_spin_census_*.json"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "       \"absmag\": 3.18,",
+   "file": "tasks/review/a7_3_spin_census_2026-09-01_runA_as-committed.json",
+   "line": 1598,
+   "note": "absolute magnetization 3.18",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:tasks/review/a7_3_spin_census_*.json"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "        \"absmag\": 3.18,",
+   "file": "tasks/review/a7_3_spin_census_2026-09-01_runB2_reformatted.json",
+   "line": 1552,
+   "note": "absolute magnetization 3.18",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:tasks/review/a7_3_spin_census_*.json"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "       \"absmag\": 3.18,",
+   "file": "tasks/review/a7_3_spin_census_2026-09-01_runB2_reformatted.json",
+   "line": 1598,
+   "note": "absolute magnetization 3.18",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:tasks/review/a7_3_spin_census_*.json"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "        \"absmag\": 3.18,",
+   "file": "tasks/review/a7_3_spin_census_2026-09-01_runC_ext-deck-built.json",
+   "line": 1558,
+   "note": "absolute magnetization 3.18",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:tasks/review/a7_3_spin_census_*.json"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "       \"absmag\": 3.18,",
+   "file": "tasks/review/a7_3_spin_census_2026-09-01_runC_ext-deck-built.json",
+   "line": 1604,
+   "note": "absolute magnetization 3.18",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:tasks/review/a7_3_spin_census_*.json"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "        \"absmag\": 3.18,",
+   "file": "tasks/review/a7_3_spin_census_2026-09-02_FINAL.json",
+   "line": 1568,
+   "note": "absolute magnetization 3.18",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:tasks/review/a7_3_spin_census_*.json"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "       \"absmag\": 3.18,",
+   "file": "tasks/review/a7_3_spin_census_2026-09-02_FINAL.json",
+   "line": 1614,
+   "note": "absolute magnetization 3.18",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:tasks/review/a7_3_spin_census_*.json"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "        \"absmag\": 3.18,",
+   "file": "tasks/review/a7_3_spin_census_2026-09-02_LADDER-EXHAUSTED.json",
+   "line": 1712,
+   "note": "absolute magnetization 3.18",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:tasks/review/a7_3_spin_census_*.json"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "       \"absmag\": 3.18,",
+   "file": "tasks/review/a7_3_spin_census_2026-09-02_LADDER-EXHAUSTED.json",
+   "line": 1758,
+   "note": "absolute magnetization 3.18",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:tasks/review/a7_3_spin_census_*.json"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "        \"absmag\": 3.18,",
+   "file": "tasks/review/a7_3_spin_census_2026-09-02_rung1-built.json",
+   "line": 1625,
+   "note": "absolute magnetization 3.18",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:tasks/review/a7_3_spin_census_*.json"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "       \"absmag\": 3.18,",
+   "file": "tasks/review/a7_3_spin_census_2026-09-02_rung1-built.json",
+   "line": 1671,
+   "note": "absolute magnetization 3.18",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:tasks/review/a7_3_spin_census_*.json"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "        \"absmag\": 3.18,",
+   "file": "tasks/review/a7_3_spin_census_2026-09-02_rung1-landed.json",
+   "line": 1640,
+   "note": "absolute magnetization 3.18",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:tasks/review/a7_3_spin_census_*.json"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "       \"absmag\": 3.18,",
+   "file": "tasks/review/a7_3_spin_census_2026-09-02_rung1-landed.json",
+   "line": 1686,
+   "note": "absolute magnetization 3.18",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:tasks/review/a7_3_spin_census_*.json"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "        \"absmag\": 3.18,",
+   "file": "tasks/review/a7_3_spin_census_2026-09-02_rung2-built.json",
+   "line": 1697,
+   "note": "absolute magnetization 3.18",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:tasks/review/a7_3_spin_census_*.json"
+  },
+  {
+   "class": "UNRELATED_NUMBER",
+   "excerpt": "       \"absmag\": 3.18,",
+   "file": "tasks/review/a7_3_spin_census_2026-09-02_rung2-built.json",
+   "line": 1743,
+   "note": "absolute magnetization 3.18",
+   "patterns": [
+    "intercept_3.18"
+   ],
+   "quantitative_use": false,
+   "rule": "file:tasks/review/a7_3_spin_census_*.json"
+  }
+ ],
+ "scanned_files": [
+  "docs/01-strategy-and-timeline.md",
+  "docs/02-sts-materials-landscape.md",
+  "docs/03-isef-reference.md",
+  "docs/04-thermal-materials.md",
+  "docs/05-rare-earth-ideas.md",
+  "docs/06-project-shortlist.md",
+  "docs/07-batteries-energy-storage.md",
+  "docs/08-catalysis.md",
+  "docs/09-solar-perovskites-pv.md",
+  "docs/10-computational-ml-materials.md",
+  "docs/11-metamaterials-metasurfaces.md",
+  "docs/12-catalysis-hea-execution-plan.md",
+  "docs/13-round1-uma-results.md",
+  "docs/14-compute-log.md",
+  "docs/15-round1-melt-test-plan.md",
+  "docs/16-project-overview.md",
+  "docs/17-fwm-weigh-sheet.md",
+  "docs/18-competitive-benchmark.md",
+  "docs/19-computational-fallback.md",
+  "docs/20-fallback-bestbet-her-discovery.md",
+  "docs/21-fallback-execution-plan.md",
+  "docs/22-multifidelity-dft-calibration.md",
+  "docs/23-dft-compute-log.md",
+  "docs/24-thermal-pivot-execution-plan.md",
+  "docs/25-sts-application-playbook.md",
+  "docs/26-endmember-parity-checkpoint.md",
+  "docs/28-electrocatalyst-revival-plan.md",
+  "docs/29-r0-oc22-reparity.md",
+  "docs/30-qc-audit-and-r1-campaign.md",
+  "docs/31-r2-stability-gate.md",
+  "docs/32-anchor-gate-verdict.md",
+  "docs/32-archive-2026-08-03-pre-cr-repair.md",
+  "docs/33-archive-2026-08-03-pre-repair-outcome.md",
+  "docs/33-r3-mlip-evaluation.md",
+  "docs/34-prereg-sixth-point.md",
+  "docs/35-n7-campaign-result.md",
+  "docs/36-screen-validation-and-stability-gate.md",
+  "docs/37-hea-screen-result-and-melt-list.md",
+  "docs/38-matched-protocol-parity.md",
+  "docs/39-prereg-omat-head.md",
+  "docs/40-predictor-reference-independence.md",
+  "docs/41-prereg-anchor-offset-diagnosis.md",
+  "docs/42-qe-capability-audit.md",
+  "docs/43-prereg-week1-factorial-archive-2026-08-09-pre-amendment-1.md",
+  "docs/43-prereg-week1-factorial-archive-2026-08-11-pre-amendment-5.md",
+  "docs/43-prereg-week1-factorial-archive-2026-08-15-pre-amendment-6.md",
+  "docs/43-prereg-week1-factorial.md",
+  "docs/44-strategy-thoughtbook-2026-08-10.md",
+  "docs/45-error-ledger.md",
+  "docs/46-anvil-parity-2026-08-22.md",
+  "docs/47-amendment-8-DRAFT.md",
+  "docs/48-anvil-sizing-2026-08-22.md",
+  "docs/49-block-1C-cr-hessian-2026-08-23.md",
+  "docs/50-amendment-9-DRAFT.md",
+  "docs/51-anvil-queue-triage-2026-08-23.md",
+  "docs/52-decision-sheet-2026-08-23.md",
+  "docs/53-mom2014-a75-sno2-verification-2026-08-23.md",
+  "docs/54-s3-deck-matrix-2026-08-23.md",
+  "docs/55-decision-sheet-2026-08-24.md",
+  "docs/56-s3-analysis-2026-08-24.md",
+  "docs/57-s1-ci-handoff-2026-08-27.md",
+  "docs/58-a0-analysis-2026-08-28.md",
+  "docs/59-a0-roster-correction-2026-08-28.md",
+  "docs/60-blind-metal-extension-2026-08-29.md",
+  "docs/61-amendment-11-DRAFT.md",
+  "docs/62-a0spin-stage0-2026-08-30.md",
+  "docs/63-s0h-afm-reanchors-2026-08-30.md",
+  "docs/64-s0h-family-closeout-2026-08-30.md",
+  "docs/65-decision-sheet-2026-08-31.md",
+  "docs/66-entrant-directive-elections-2026-08-31.md",
+  "docs/67-mn-afm-arm-design-2026-08-31.md",
+  "docs/68-a11-wave1-drain-2026-09-01.md",
+  "docs/70-ideation-holes-spikes-2026-09-02.md",
+  "docs/71-silentgate-core-implementation-brief.md",
+  "docs/72-trajectory-assessment-2026-09-03.md",
+  "docs/73-prediction-ledger-census-2026-09-03.md",
+  "docs/74-amendment-10-DRAFT.md",
+  "docs/75-novelty-and-placement-2026-09-03.md",
+  "docs/76-projector-generalization-decision-2026-09-03.md",
+  "docs/77-amendment-12-pproj6-DRAFT.md",
+  "docs/78-action-board-2026-09-03.md",
+  "docs/79-hp-cro2-ortho-readout-2026-09-04.md",
+  "docs/80-own-u-arm-killtest-2026-09-04.md",
+  "docs/81-zpe-decomposition-of-a71-2026-09-04.md",
+  "docs/82-spec-rulings-decision-sheet-2026-09-04.md",
+  "docs/83-pproj6-readout-2026-09-04.md",
+  "docs/84-pproj-cell-readout-2026-09-04.md",
+  "docs/85-ruling-signature-sheet-2026-09-04.md",
+  "docs/86-divanis-decision-sheet-2026-09-04.md",
+  "docs/87-claim-sentence-constraints-2026-09-05.md",
+  "docs/88-a10-signature-sheet-2026-09-05.md",
+  "docs/89-ru-pseudopotential-control-DRAFT.md",
+  "docs/90-small-arms-readout-2026-09-06.md",
+  "docs/91-prereg-site-integrity-census-2026-09-06.md",
+  "docs/92-hea-dft-panel-DRAFT.md",
+  "docs/93-census-1-readout-2026-09-07.md",
+  "docs/94-census-1b-readout-2026-09-07.md",
+  "docs/95-census-2-3-readout-2026-09-13.md",
+  "docs/candidate-ranking-adequacy-2026-09-06.md",
+  "docs/cr-site-chain-readout-2026-09-06.md",
+  "docs/deposits/.draft_state.json",
+  "docs/deposits/2026-08-31-A11.manifest.txt",
+  "docs/deposits/2026-09-04-A13.manifest.txt",
+  "docs/figs/a0_verification_findings_2026-08-28.txt",
+  "docs/figs/a0_verification_findings_2026-08-29.txt",
+  "docs/figs/a0_verification_findings_wave5_2026-08-29.txt",
+  "docs/figs/a0cell_readout.json",
+  "docs/figs/a0lowdin_valence.json",
+  "docs/figs/a0main_readout.json",
+  "docs/figs/a0n18_surface.json",
+  "docs/figs/a0spin_valence.json",
+  "docs/figs/a7_2_crossings.json",
+  "docs/figs/eproj_np128.json",
+  "docs/figs/f8_doi_resolution.json",
+  "docs/figs/gate1_census.json",
+  "docs/figs/hp_cro2_q333.json",
+  "docs/figs/p15_readout.json",
+  "docs/figs/parity_matched.json",
+  "docs/figs/pourbaix_mno2.json",
+  "docs/figs/pproj6_readout.json",
+  "docs/figs/pproj6_shared_box.json",
+  "docs/figs/pproj_cell_readout.json",
+  "docs/figs/pproj_readout.json",
+  "docs/figs/uma_dft_parity.json",
+  "docs/figs/uma_oc22_parity.json",
+  "docs/figs/uma_oc22_parity_qc.json",
+  "docs/figs/volcano_endmembers.json",
+  "docs/figs/zpe_decomposition.json",
+  "docs/outreach/one-pager.md",
+  "docs/provenance-record.md",
+  "docs/research/2026-07-24-methodology-survey.md",
+  "docs/research/2026-07-24-mlip-finetuning-survey.md",
+  "docs/research/2026-07-24-repo-reconstruction.md",
+  "docs/research/2026-07-24-rutile-landscape-stability-survey.md",
+  "docs/research/2026-08-11-paywalled-sweep-plan-implications.md",
+  "docs/research/2026-08-12-lit1-tranche1-uladder.md",
+  "docs/research/2026-08-12-lit3-ooh-fingerprints.md",
+  "docs/research/2026-08-15-lit-sweep-lens-digest.md",
+  "docs/research/2026-08-15-lit-sweep-round1-synthesis.md",
+  "docs/research/2026-08-15-lit-sweep-round2-synthesis.md",
+  "docs/research/2026-08-15-sampling/divanis_esi.txt",
+  "docs/research/2026-08-15-sampling/README.md",
+  "docs/research/2026-08-15-sampling/xu_tree.json",
+  "docs/research/2026-09-03-a11r7-lowdin-valence.md",
+  "docs/research/2026-09-03-a11r8-spin-valence.md",
+  "docs/research/2026-09-03-a11r9-n18-surface.md",
+  "docs/research/2026-09-03-a7-2-crossing-locations.md",
+  "docs/research/2026-09-03-gate1-census.md",
+  "docs/research/2026-09-04-a13r8-staleness-sweep.md",
+  "docs/research/2026-09-04-f8-doi-resolution.md",
+  "docs/research/2026-09-06-rank-resolution-spec.md",
+  "docs/research/ai-survey-2026-08-27/README.md",
+  "docs/research/ai-survey-2026-08-27/sweep.json",
+  "docs/research/allocation-assessment-2026-09-10.md",
+  "docs/research/anvil-batch-readout-2026-09-17.md",
+  "docs/research/anvil-mirror-reconciliation-2026-09-12.md",
+  "docs/research/census-cross-model-review-2026-09-16.md",
+  "docs/research/census-endpoint-chemistry-2026-09-13.md",
+  "docs/research/census-review-2026-09-13.md",
+  "docs/research/computational-priorities-2026-09-07.md",
+  "docs/research/failure-benchmark-design-2026-09-07.md",
+  "docs/research/hea-census-partial-readout-2026-09-11.md",
+  "docs/research/hea-continuation-2026-09-10.md",
+  "docs/research/hea-continuation-readout-2026-09-11.md",
+  "docs/research/hea-controls-design-2026-09-07.md",
+  "docs/research/hea-convergence-probe-readout-2026-09-11.md",
+  "docs/research/hea-failure-assessment-2026-09-10.md",
+  "docs/research/hea-followup-2026-09-07.md",
+  "docs/research/hea-ieee-setup-readout-2026-09-12.md",
+  "docs/research/hea-numerical-2026-09-08.md",
+  "docs/research/hea-panel-readout-2026-09-17.md",
+  "docs/research/hea-pilot-launch-2026-09-07.md",
+  "docs/research/hea-sensitivity-2026-09-09.md",
+  "docs/research/hea-validation-design-2026-09-07.md",
+  "docs/research/lit1_tranche1_uladder.json",
+  "docs/research/lit3_ooh_fingerprints.json",
+  "docs/research/lowtail-dft-validation-prep-2026-09-16.md",
+  "docs/research/oc20-val_id/first500.txt",
+  "docs/research/oc20-val_id/README.md",
+  "docs/research/papers/README.md",
+  "docs/research/pathway-active-phase-2026-09-07.md",
+  "docs/research/remaining-research-decisions-2026-09-13.md",
+  "docs/research/research-decisions-2026-09-16.md",
+  "docs/research/research-launch-2026-09-16.md",
+  "docs/research/rigor-implementation-2026-09-07.md",
+  "docs/research/ru-pp-readout-2026-09-17.md",
+  "docs/research/s2-operating-decisions-2026-09-16/p-builder.md",
+  "docs/research/s2-operating-decisions-2026-09-18.md",
+  "docs/research/s5-beef-readout-2026-09-17.md",
+  "docs/research/silentgate-authorship-2026-09-13.md",
+  "docs/research/silentgate-core-2026-09-13.md",
+  "docs/research/xu-verification-2026-08-23/README.md",
+  "docs/research/xu-verification-2026-08-23/xu_zip_compare_report.json",
+  "docs/research-assessment-2026-09-05.md",
+  "docs/site-evidence-continuation-2026-09-06.md",
+  "tasks/lessons.md",
+  "tasks/plan-catalysis-hea.md",
+  "tasks/plan-her-discovery.md",
+  "tasks/plan-maximal-rigor.md",
+  "tasks/review/a7_3_spin_census_2026-09-01_runA_as-committed.json",
+  "tasks/review/a7_3_spin_census_2026-09-01_runB2_reformatted.json",
+  "tasks/review/a7_3_spin_census_2026-09-01_runC_ext-deck-built.json",
+  "tasks/review/a7_3_spin_census_2026-09-02_FINAL.json",
+  "tasks/review/a7_3_spin_census_2026-09-02_LADDER-EXHAUSTED.json",
+  "tasks/review/a7_3_spin_census_2026-09-02_rung1-built.json",
+  "tasks/review/a7_3_spin_census_2026-09-02_rung1-landed.json",
+  "tasks/review/a7_3_spin_census_2026-09-02_rung2-built.json",
+  "tasks/review/adjudications-2026-08-09.md",
+  "tasks/review/blocking-1A-cellsym.md",
+  "tasks/review/blocking-1B-hpx.md",
+  "tasks/review/blocking-1C-hessian.md",
+  "tasks/review/round2-findings.md",
+  "tasks/todo-archive-2026-07-01-pre-thermal-pivot.md",
+  "tasks/todo-archive-2026-07-24-pre-catalysis-revival.md",
+  "tasks/todo.md",
+  "src/dft/a0cell_readout.py",
+  "src/dft/a0lowdin_valence.py",
+  "src/dft/a0main_readout.py",
+  "src/dft/a0n18_surface.py",
+  "src/dft/a0spin_census.py",
+  "src/dft/a0spin_ti_licence.py",
+  "src/dft/a0spin_valence.py",
+  "src/dft/a7_2_crossings.py",
+  "src/dft/add_ti_ooh_manifest.py",
+  "src/dft/adsorbate_qc.py",
+  "src/dft/build_a0cell.py",
+  "src/dft/build_a0cell_u715.py",
+  "src/dft/build_a0main.py",
+  "src/dft/build_a0main_w2.py",
+  "src/dft/build_a0main_w2b.py",
+  "src/dft/build_a0main_w2c.py",
+  "src/dft/build_a0main_w3.py",
+  "src/dft/build_a0main_w3b.py",
+  "src/dft/build_a0spin.py",
+  "src/dft/build_a0spin_reread.py",
+  "src/dft/build_a0spin_s1.py",
+  "src/dft/build_a0spin_s1_ti.py",
+  "src/dft/build_attempt3.py",
+  "src/dft/build_attempt4.py",
+  "src/dft/build_basin_restarts.py",
+  "src/dft/build_cellsym_pilot.py",
+  "src/dft/build_cmf_seed_search.py",
+  "src/dft/build_eproj_np128.py",
+  "src/dft/build_h_afm_relax.py",
+  "src/dft/build_h_afm_robust.py",
+  "src/dft/build_hea_controls.py",
+  "src/dft/build_hea_panel.py",
+  "src/dft/build_hea_pilot.py",
+  "src/dft/build_hea_validation_decks.py",
+  "src/dft/build_hessian_pilot.py",
+  "src/dft/build_hp_cro2_ortho.py",
+  "src/dft/build_hp_cro2_q333.py",
+  "src/dft/build_hp_validation.py",
+  "src/dft/build_ir_slab_ext.py",
+  "src/dft/build_lit2_ruo2_ladder.py",
+  "src/dft/build_lit3_ooh_anatomy.py",
+  "src/dft/build_mn_afm_order.py",
+  "src/dft/build_pproj.py",
+  "src/dft/build_pproj6.py",
+  "src/dft/build_pproj_cell.py",
+  "src/dft/build_restarts.py",
+  "src/dft/build_retention_chain2.py",
+  "src/dft/build_retention_chains.py",
+  "src/dft/build_ru_afm_probe.py",
+  "src/dft/build_ru_pp.py",
+  "src/dft/build_ru_rung.py",
+  "src/dft/build_s3.py",
+  "src/dft/build_s3_retries.py",
+  "src/dft/build_s3_round10.py",
+  "src/dft/build_s3_round11.py",
+  "src/dft/build_s3_round3.py",
+  "src/dft/build_s3_round4.py",
+  "src/dft/build_s3_round5.py",
+  "src/dft/build_s3_round6.py",
+  "src/dft/build_s3_round7.py",
+  "src/dft/build_s3_round9.py",
+  "src/dft/build_s3_wave2.py",
+  "src/dft/build_s5.py",
+  "src/dft/che_box_robustness.py",
+  "src/dft/che_robustness_case_study.py",
+  "src/dft/e0_stage0.py",
+  "src/dft/eproj_np128_readout.py",
+  "src/dft/eta_bounded.py",
+  "src/dft/extract_lowdin.py",
+  "src/dft/gate1_census.py",
+  "src/dft/gen_rutile.py",
+  "src/dft/hea_convergence_probe_guard.py",
+  "src/dft/hea_cost_model.py",
+  "src/dft/hea_deck.py",
+  "src/dft/hea_followup_guard.py",
+  "src/dft/hea_followup_qc.py",
+  "src/dft/hea_force_audit.py",
+  "src/dft/hea_geometry.py",
+  "src/dft/hea_ieee_diagnostic.py",
+  "src/dft/hea_ieee_initialization_probe.py",
+  "src/dft/hea_ieee_smearing_diagnostic.py",
+  "src/dft/hea_numerical_guard.py",
+  "src/dft/hea_numerical_readout.py",
+  "src/dft/hea_panel_readout.py",
+  "src/dft/hea_sensitivity_guard.py",
+  "src/dft/hea_sensitivity_readout.py",
+  "src/dft/hea_validation_plan.py",
+  "src/dft/hea_winner_guard.py",
+  "src/dft/hea_winner_readout.py",
+  "src/dft/hessian_analyze.py",
+  "src/dft/hessian_asym_blocks.py",
+  "src/dft/hessian_mirror_noise.py",
+  "src/dft/hp_cro2_q333_readout.py",
+  "src/dft/lit1_urobustness.py",
+  "src/dft/lit2_readout.py",
+  "src/dft/lit3_ooh_fingerprints.py",
+  "src/dft/lit_deckgen.py",
+  "src/dft/lowtail_batch.py",
+  "src/dft/mace_uma_protocol.py",
+  "src/dft/make_fix_inputs.py",
+  "src/dft/make_rescue_inputs.py",
+  "src/dft/mirror_audit.py",
+  "src/dft/mlip_eval.py",
+  "src/dft/mlip_predict.py",
+  "src/dft/oc22_coverage.py",
+  "src/dft/orient_starts.py",
+  "src/dft/p15_readout.py",
+  "src/dft/p_beef_readout.py",
+  "src/dft/p_symcov_score.py",
+  "src/dft/parity_matched.py",
+  "src/dft/parity_plot.py",
+  "src/dft/parity_r0.py",
+  "src/dft/pourbaix_multi.py",
+  "src/dft/pourbaix_r2.py",
+  "src/dft/pproj6_readout.py",
+  "src/dft/pproj6_shared_box.py",
+  "src/dft/pproj_cell_readout.py",
+  "src/dft/pproj_readout.py",
+  "src/dft/prepare_lowtail_launch.py",
+  "src/dft/probe_decks.py",
+  "src/dft/probe_eta.py",
+  "src/dft/projection_qc.py",
+  "src/dft/qe_frames.py",
+  "src/dft/qe_qc.py",
+  "src/dft/qe_slab.py",
+  "src/dft/research_batch.py",
+  "src/dft/ru_pp_projection_revalidation.py",
+  "src/dft/ru_pp_readout.py",
+  "src/dft/s3_confound_check.py",
+  "src/dft/s3_nonadditivity.py",
+  "src/dft/s3_readout.py",
+  "src/dft/scf_triage.py",
+  "src/dft/score_n7.py",
+  "src/dft/symops_audit.py",
+  "src/dft/tiers.py",
+  "src/dft/uma_endmembers.py",
+  "src/dft/uma_oc22_parity.py",
+  "src/dft/uma_slab_eta.py",
+  "src/dft/volcano_r1.py",
+  "src/dft/zenodo_deposit.py",
+  "src/dft/zpe_decomposition.py",
+  "src/hea_oer/__init__.py",
+  "src/hea_oer/active_learning.py",
+  "src/hea_oer/adsorbate_geometry.py",
+  "src/hea_oer/adsorption.py",
+  "src/hea_oer/composition.py",
+  "src/hea_oer/data.py",
+  "src/hea_oer/descriptors.py",
+  "src/hea_oer/failure_benchmark.py",
+  "src/hea_oer/o2_fragment.py",
+  "src/hea_oer/objective.py",
+  "src/hea_oer/pathway_audit.py",
+  "src/hea_oer/phase_stability.py",
+  "src/hea_oer/pipeline.py",
+  "src/hea_oer/rank_resolution.py",
+  "src/hea_oer/ranking_sensitivity.py",
+  "src/hea_oer/referencing.py",
+  "src/hea_oer/relax.py",
+  "src/hea_oer/site_evidence.py",
+  "src/hea_oer/site_integrity.py",
+  "src/hea_oer/surfaces.py",
+  "src/hea_oer/surfaces_oxide.py",
+  "src/hea_oer/surfaces_rutile.py",
+  "src/lit/verify_dois.py",
+  "src/scripts/__init__.py",
+  "src/scripts/census_cross_model_followup.py",
+  "src/scripts/melt_list.py",
+  "src/scripts/prepare_failure_benchmark.py",
+  "src/scripts/rank_resolution_readout.py",
+  "src/scripts/ranking_adequacy.py",
+  "src/scripts/run_round1.py",
+  "src/scripts/run_round1_uma.py",
+  "src/scripts/screen_diagnostic.py",
+  "src/scripts/screen_mace.py",
+  "src/scripts/site_census_build_manifests.py",
+  "src/scripts/site_census_endmember_manifest.py",
+  "src/scripts/site_census_followthrough.py",
+  "src/scripts/site_census_o2_fragment.py",
+  "src/scripts/site_census_plan.py",
+  "src/scripts/site_census_readout.py",
+  "src/scripts/site_census_report.py",
+  "src/scripts/site_census_runner.py",
+  "src/scripts/smoke_uma.py",
+  "src/scripts/weigh_sheet.py",
+  "tests/silentgate/conftest.py",
+  "tests/silentgate/fixtures/fake_census.py",
+  "tests/silentgate/fixtures/regenerate_manifest.py",
+  "tests/silentgate/test_face_end_to_end.py",
+  "tests/silentgate/test_fixture_manifest.py",
+  "tests/silentgate/test_gate_fails_closed.py",
+  "tests/silentgate/test_negative_quantifiers.py",
+  "tests/silentgate/test_open_questions.py",
+  "tests/silentgate/test_preflight.py",
+  "tests/test_a0lowdin_valence.py",
+  "tests/test_a0n18_surface.py",
+  "tests/test_a0spin_census.py",
+  "tests/test_a0spin_valence.py",
+  "tests/test_a7_2_crossings.py",
+  "tests/test_adsorbate_geometry.py",
+  "tests/test_adsorbate_qc.py",
+  "tests/test_build_h_afm_relax.py",
+  "tests/test_census_cross_model_followup.py",
+  "tests/test_che_box_robustness.py",
+  "tests/test_core_authorship.py",
+  "tests/test_cr_site_readout.py",
+  "tests/test_descriptors.py",
+  "tests/test_dft_reference.py",
+  "tests/test_eta_bounded.py",
+  "tests/test_extract_lowdin.py",
+  "tests/test_failure_benchmark.py",
+  "tests/test_gate1_census.py",
+  "tests/test_hea_controls.py",
+  "tests/test_hea_convergence_probe.py",
+  "tests/test_hea_convergence_probe_shell.py",
+  "tests/test_hea_followup_guard.py",
+  "tests/test_hea_followup_qc.py",
+  "tests/test_hea_followup_shell.py",
+  "tests/test_hea_force_audit.py",
+  "tests/test_hea_ieee_diagnostic.py",
+  "tests/test_hea_ieee_initialization_probe.py",
+  "tests/test_hea_ieee_smearing_diagnostic.py",
+  "tests/test_hea_numerical_guard.py",
+  "tests/test_hea_numerical_readout.py",
+  "tests/test_hea_numerical_shell.py",
+  "tests/test_hea_panel.py",
+  "tests/test_hea_pilot_runner.py",
+  "tests/test_hea_pilot_submitter.py",
+  "tests/test_hea_sensitivity_guard.py",
+  "tests/test_hea_sensitivity_readout.py",
+  "tests/test_hea_sensitivity_shell.py",
+  "tests/test_hea_validation_decks.py",
+  "tests/test_hea_validation_plan.py",
+  "tests/test_hea_winner_guard.py",
+  "tests/test_hea_winner_readout.py",
+  "tests/test_hea_winner_shell.py",
+  "tests/test_lowtail_batch.py",
+  "tests/test_melt_list.py",
+  "tests/test_mirror_audit.py",
+  "tests/test_o2_fragment.py",
+  "tests/test_ooh_replay_readout.py",
+  "tests/test_p15_readout.py",
+  "tests/test_p_beef_readout.py",
+  "tests/test_parity_matched.py",
+  "tests/test_pathway_audit.py",
+  "tests/test_phase_stability.py",
+  "tests/test_pipeline.py",
+  "tests/test_pourbaix_multi.py",
+  "tests/test_pourbaix_r2.py",
+  "tests/test_pproj6_shared_box.py",
+  "tests/test_prepare_failure_benchmark.py",
+  "tests/test_probe_decks_afm.py",
+  "tests/test_qe_qc.py",
+  "tests/test_rank_resolution.py",
+  "tests/test_ranking_adequacy.py",
+  "tests/test_ranking_sensitivity.py",
+  "tests/test_referencing.py",
+  "tests/test_research_batch.py",
+  "tests/test_ru_pp_projection_revalidation.py",
+  "tests/test_ru_pp_readout.py",
+  "tests/test_screen_diagnostic.py",
+  "tests/test_screen_site_records.py",
+  "tests/test_silentgate_core.py",
+  "tests/test_silentgate_oc20_reader.py",
+  "tests/test_silentgate_qe_reader.py",
+  "tests/test_site_census_followthrough.py",
+  "tests/test_site_census_readout.py",
+  "tests/test_site_census_runner.py",
+  "tests/test_site_evidence.py",
+  "tests/test_site_integrity.py",
+  "tests/test_small_arms_readouts.py",
+  "tests/test_surfaces.py",
+  "tests/test_surfaces_rutile.py",
+  "tests/test_verify_dois.py",
+  "README.md",
+  "CLAUDE.md"
+ ],
+ "summary": {
+  "by_class": {
+   "ARCHIVE_COPY": 10,
+   "CAVEAT": 3,
+   "CITATION_RULE": 1,
+   "DATA_TABLE_VALUE": 3,
+   "DATED_RECORD_QUANTITATIVE": 11,
+   "DISPOSITION": 10,
+   "DRAFT_COPY": 4,
+   "FROZEN_DEPOSITED_QUANTITATIVE": 3,
+   "GENERATED_COPY": 22,
+   "LIVE_QUANTITATIVE": 3,
+   "PAPER_VALUE_REPORTED": 1,
+   "REGISTERED_OPTION_QUANTITATIVE": 1,
+   "UNRELATED_NUMBER": 20,
+   "UNRELATED_QUANTITY": 6,
+   "VERBATIM_CITATION": 1
+  },
+  "by_class_and_pattern": {
+   "ARCHIVE_COPY|intercept_3.18": 10,
+   "ARCHIVE_COPY|value_0.12": 5,
+   "CAVEAT|intercept_3.18": 2,
+   "CAVEAT|value_0.12": 3,
+   "CITATION_RULE|intercept_3.18": 1,
+   "CITATION_RULE|value_0.12": 1,
+   "DATA_TABLE_VALUE|intercept_3.18": 3,
+   "DATED_RECORD_QUANTITATIVE|intercept_3.18": 7,
+   "DATED_RECORD_QUANTITATIVE|value_0.12": 11,
+   "DISPOSITION|intercept_3.18": 6,
+   "DISPOSITION|value_0.12": 9,
+   "DRAFT_COPY|intercept_3.18": 2,
+   "DRAFT_COPY|value_0.12": 4,
+   "FROZEN_DEPOSITED_QUANTITATIVE|intercept_3.18": 3,
+   "FROZEN_DEPOSITED_QUANTITATIVE|value_0.12": 1,
+   "GENERATED_COPY|intercept_3.18": 16,
+   "GENERATED_COPY|value_0.12": 22,
+   "LIVE_QUANTITATIVE|intercept_3.18": 3,
+   "LIVE_QUANTITATIVE|value_0.12": 3,
+   "PAPER_VALUE_REPORTED|intercept_3.18": 1,
+   "PAPER_VALUE_REPORTED|value_0.12": 1,
+   "REGISTERED_OPTION_QUANTITATIVE|value_0.12": 1,
+   "UNRELATED_NUMBER|intercept_3.18": 20,
+   "UNRELATED_QUANTITY|value_0.12": 6,
+   "VERBATIM_CITATION|intercept_3.18": 1,
+   "VERBATIM_CITATION|value_0.12": 1
+  },
+  "n_files": 30,
+  "n_matching_lines": 99,
+  "n_quantitative_lines": 18,
+  "n_unclassified": 0
+ },
+ "sweep_lines_not_matched_by_patterns": [
+  {
+   "excerpt": "are reproduced by pymatgen's halfspace construction to **−0.03 mV and +0.12 mV** at pH 0 and",
+   "file": "docs/31-r2-stability-gate.md",
+   "line": 125
+  },
+  {
+   "excerpt": "state (range ≤ 0.12 μ_B). **If instead |I_U| ≥ 0.30 eV, the \"separable error cl",
+   "file": "docs/43-prereg-week1-factorial.md",
+   "line": 1226
+  },
+  {
+   "excerpt": "0.12 % of the 59,753 SU balance. **Ortho is dearer than atomic o",
+   "file": "docs/43-prereg-week1-factorial.md",
+   "line": 3671
+  },
+  {
+   "excerpt": "| s0_OOH | −8.8 | −120.1 | 0.023 | −0.12 |",
+   "file": "docs/64-s0h-family-closeout-2026-08-30.md",
+   "line": 39
+  },
+  {
+   "excerpt": "  ref −2.09→−2.11, s0_OH −1.23→−1.27, s0_OOH −0.22→−0.12 — no sign flip, no",
+   "file": "docs/64-s0h-family-closeout-2026-08-30.md",
+   "line": 46
+  },
+  {
+   "excerpt": "e descriptor ΔG_O−ΔG_OH — which is what P7 measured as the η(Cr) swing. Δm itself is U-flat for every Cr state (range ≤ 0.12 μ_B), so the swing is the smooth U-response of a valence-ch",
+   "file": "docs/research/2026-08-12-lit1-tranche1-uladder.md",
+   "line": 106
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/CrO2/Ucalc/dn0.12.da.1.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 44149
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/CrO2/Ucalc/dn0.12.da.17.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 44157
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/IrO2/Ucalc/dn0.12.da.1.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 46101
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/IrO2/Ucalc/dn0.12.da.17.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 46109
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/MnO2/Ucalc/dn0.12.da.1.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 48037
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/MnO2/Ucalc/dn0.12.da.17.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 48045
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/MoO2/Ucalc/dn0.12.da.1.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 49989
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/MoO2/Ucalc/dn0.12.da.17.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 49997
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/NbO2/Ucalc/dn0.12.da.1.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 51941
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/NbO2/Ucalc/dn0.12.da.17.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 51949
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/PtO2/Ucalc/dn0.12.da.1.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 53893
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/PtO2/Ucalc/dn0.12.da.17.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 53901
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/ReO2/Ucalc/dn0.12.da.1.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 55829
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/ReO2/Ucalc/dn0.12.da.17.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 55837
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/RhO2/Ucalc/dn0.12.da.1.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 57781
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/RhO2/Ucalc/dn0.12.da.17.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 57789
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/RuO2/Ucalc/dn0.12.da.1.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 59733
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/RuO2/Ucalc/dn0.12.da.17.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 59741
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/TiO2/Ucalc/dn0.12.da.1.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 61677
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/TiO2/Ucalc/dn0.12.da.17.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 61685
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/VO2/Ucalc/dn0.12.da.1.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 63259
+  },
+  {
+   "excerpt": "      \"path\": \"supporting-data/linear-response/VO2/Ucalc/dn0.12.da.17.dat\",",
+   "file": "docs/research/2026-08-15-sampling/xu_tree.json",
+   "line": 63267
+  },
+  {
+   "excerpt": "way: ~$0.12 across two destroyed boxes.",
+   "file": "tasks/lessons.md",
+   "line": 117
+  },
+  {
+   "excerpt": "  s0_OOH -0.22→-0.12 — same sign throughout, no A8.3 CONFOUND.",
+   "file": "tasks/todo.md",
+   "line": 798
+  },
+  {
+   "excerpt": "niter_max = 80. Under 0.12 % of balance.",
+   "file": "src/dft/build_hp_cro2_ortho.py",
+   "line": 26
+  },
+  {
+   "excerpt": "    ~101 SU at the worst observed pair ratio. 0.12 % of the 59,753 SU balance.",
+   "file": "src/dft/build_pproj_cell.py",
+   "line": 80
+  },
+  {
+   "excerpt": "      f\"(range ≤ 0.12 μ_B), so the swing is the smooth U-response of a \"",
+   "file": "src/dft/lit1_urobustness.py",
+   "line": 790
+  },
+  {
+   "excerpt": "    (\"Mn19Fe12Ni35Co16Cr18\", [\"Mn\", \"Fe\", \"Ni\", \"Co\", \"Cr\"], [0.19, 0.12, 0.35, 0.16, 0.18]),",
+   "file": "src/dft/pourbaix_multi.py",
+   "line": 178
+  },
+  {
+   "excerpt": "    ax.axhspan(-0.62, -0.49, color=\"#9467bd\", alpha=0.12, label=\"IrO$_2$(110) lit. band\")",
+   "file": "src/dft/volcano_r1.py",
+   "line": 94
+  },
+  {
+   "excerpt": "    assert smear[\"thermodynamic_gap_terms\"][\"internal_energy\"][\"delta_gap_eV\"] == pytest.approx(-0.12*sr.RY_TO_EV)",
+   "file": "tests/test_hea_sensitivity_readout.py",
+   "line": 130
+  }
+ ],
+ "sweep_pattern": "(?<![\\d.])0\\.12(?!\\d)"
+}

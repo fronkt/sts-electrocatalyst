@@ -1,0 +1,2404 @@
+{
+ "checked_utc": "2026-09-17T03:11:24Z",
+ "checks": {
+  "1_isym0_in_MPSurfaceSet_under_comment_at_a7d5f316": {
+   "detail": {
+    "base_class": "MVLSlabSet",
+    "class_span": [
+     298,
+     332
+    ],
+    "comment_line": {
+     "line": 327,
+     "text": "        # Should give better forces for optimization"
+    },
+    "isym_line": {
+     "line": 329,
+     "text": "                        \"POTIM\": 1.0, \"LDAU\": ldau, \"EDIFF\": 1e-5, \"ISYM\": 0}"
+    },
+    "mpsurfaceset_uses": [
+     {
+      "line": 51,
+      "text": "    vasp_input_set = vasp_input_set or MPSurfaceSet(slab)"
+     },
+     {
+      "line": 183,
+      "text": "        vis = MPSurfaceSet(oriented_bulk, bulk=True)"
+     },
+     {
+      "line": 245,
+      "text": "        vis = vasp_input_set or MPSurfaceSet(m_struct)"
+     }
+    ],
+    "user_incar_settings_updates": [
+     {
+      "line": 331,
+      "text": "        incar.update(self.user_incar_settings)"
+     }
+    ]
+   },
+   "ok": true
+  },
+  "2_introduced_2018_05_25_by_a7d5f316": {
+   "detail": {
+    "added_lines": [
+     [
+      "+                        \"POTIM\": 1.0, \"LDAU\": ldau, \"EDIFF\": 1e-5, \"ISYM\": 0}"
+     ]
+    ],
+    "committer_date": "2018-05-25T18:02:38Z",
+    "message": "add isym",
+    "parent": "b3a03e00645ba76f716fa8e1e1dd6089750aec7e",
+    "parent_isym_count": 0
+   },
+   "ok": true
+  },
+  "2q_comment_predates_isym": {
+   "detail": {
+    "added_class_lines": [
+     "+class MPSurfaceInputSet(MVLSlabSet):"
+    ],
+    "committer_date": "2018-05-25T16:27:54Z",
+    "message": "added MPSurfaceInputSet",
+    "parent_has_comment": false,
+    "sha": "4b344da08c29bf5c3b2f00e2e43df70192eff494"
+   },
+   "note": "qualifier: the comment was added with the class, before ISYM was added under it",
+   "ok": true
+  },
+  "3_d2742a3b_uses_MVLSlabSet_no_ISYM": {
+   "detail": {
+    "committer_date": "2017-06-07T21:23:41Z",
+    "default_lines": [
+     {
+      "line": 51,
+      "text": "    vasp_input_set = vasp_input_set or MVLSlabSet(slab)"
+     }
+    ],
+    "import_lines": [
+     {
+      "line": 19,
+      "text": "from pymatgen.io.vasp.sets import MVLSlabSet, MPRelaxSet"
+     }
+    ],
+    "isym_count": 0
+   },
+   "ok": true
+  },
+  "4_MVLSlabSet_at_pinned_pymatgen_sets_no_ISYM": {
+   "detail": {
+    "base": "MPRelaxSet",
+    "class_line": [
+     {
+      "line": 1034,
+      "text": "class MVLSlabSet(MPRelaxSet):"
+     }
+    ],
+    "isym_in_class": 0,
+    "isym_in_yaml": 0,
+    "lhfcalc_in_yaml": 0,
+    "pin": [
+     {
+      "line": 4,
+      "text": "pymatgen==4.7.7"
+     }
+    ],
+    "tag": "v4.7.7"
+   },
+   "ok": true
+  },
+  "4b_MVLSlabSet_chain_no_ISYM_every_admitted_release_before_a7d5f316": {
+   "detail": {
+    "chains": [
+     "MVLSlabSet -> MPRelaxSet -> DictSet -> VaspInputSet"
+    ],
+    "failing": [],
+    "first": "4.7.1",
+    "last": "2018.5.22",
+    "n_no_isym": 43,
+    "n_releases": 43,
+    "n_sdist_sha256_match": 43,
+    "setup_py_line": [
+     {
+      "line": 23,
+      "spec": ">=4.7.1",
+      "text": "        install_requires=['FireWorks>=1.4.0', 'pymatgen>=4.7.1',"
+     }
+    ],
+    "specifier": ">=4.7.1",
+    "uploaded_before_utc": "2018-05-25T18:02:38Z",
+    "yaml_configs": [
+     "MPRelaxSet",
+     "VASPIncarBase",
+     "vdW_parameters"
+    ]
+   },
+   "note": "scope: setup.py admits pymatgen>=4.7.1 while requirements.txt pins 4.7.7; every admitted release uploaded before the ISYM commit is checked from its PyPI sdist",
+   "ok": true
+  },
+  "5_vasp_default_isym_2": {
+   "detail": {
+    "default_text": "ISYM = 1 if VASP runs with USPPs = 3 if LHFCALC =.TRUE. = 2 else",
+    "revision_id": 26986
+   },
+   "note": "qualifier: 2 for PAW without LHFCALC; 1 with USPPs; 3 if LHFCALC=.TRUE.",
+   "ok": true
+  },
+  "6_default_branch_still_isym0": {
+   "detail": {
+    "commit": "2e541f297165254ac054b50e8132adaa282a01e0",
+    "isym_line": {
+     "line": 413,
+     "text": "            \"ISYM\": 0,"
+    }
+   },
+   "ok": true
+  },
+  "7_isym0_every_default_branch_version_since_a7d5f316": {
+   "detail": {
+    "compare_ahead_by": 2443,
+    "compare_status": "ahead",
+    "head": "2e541f297165254ac054b50e8132adaa282a01e0",
+    "head_blob_equals_newest_listed": true,
+    "head_date": "2024-03-12T00:23:59Z",
+    "n_versions": 11,
+    "newest": "2608d7a858c0b2c4f7777e36d28d2d42d0ef75fc",
+    "newest_date": "2022-09-20T03:55:05Z",
+    "oldest": "a7d5f316ae5e08eca5cae500b2b97acb1457b0db",
+    "versions": [
+     {
+      "comment_line": 405,
+      "date": "2022-09-20T03:55:05Z",
+      "default_lines": [
+       55
+      ],
+      "isym_line": 413,
+      "ok": true,
+      "sha": "2608d7a858c0"
+     },
+     {
+      "comment_line": 405,
+      "date": "2022-01-23T20:35:54Z",
+      "default_lines": [
+       55
+      ],
+      "isym_line": 413,
+      "ok": true,
+      "sha": "dedcadd774fc"
+     },
+     {
+      "comment_line": 405,
+      "date": "2022-01-12T08:41:50Z",
+      "default_lines": [
+       55
+      ],
+      "isym_line": 413,
+      "ok": true,
+      "sha": "7bf7a856a98a"
+     },
+     {
+      "comment_line": 413,
+      "date": "2021-04-29T08:58:12Z",
+      "default_lines": [
+       57
+      ],
+      "isym_line": 421,
+      "ok": true,
+      "sha": "6a14673384bf"
+     },
+     {
+      "comment_line": 337,
+      "date": "2019-09-05T16:28:11Z",
+      "default_lines": [
+       52
+      ],
+      "isym_line": 339,
+      "ok": true,
+      "sha": "798b32fc5801"
+     },
+     {
+      "comment_line": 338,
+      "date": "2018-11-28T05:28:39Z",
+      "default_lines": [
+       53
+      ],
+      "isym_line": 340,
+      "ok": true,
+      "sha": "c648d286335f"
+     },
+     {
+      "comment_line": 339,
+      "date": "2018-11-28T05:08:50Z",
+      "default_lines": [
+       54
+      ],
+      "isym_line": 341,
+      "ok": true,
+      "sha": "ee5cf5aab3b8"
+     },
+     {
+      "comment_line": 337,
+      "date": "2018-11-28T04:28:43Z",
+      "default_lines": [
+       54
+      ],
+      "isym_line": 339,
+      "ok": true,
+      "sha": "44fc6b33485f"
+     },
+     {
+      "comment_line": 340,
+      "date": "2018-05-25T20:55:04Z",
+      "default_lines": [
+       54
+      ],
+      "isym_line": 342,
+      "ok": true,
+      "sha": "eaedb3cb76ab"
+     },
+     {
+      "comment_line": 335,
+      "date": "2018-05-25T20:54:43Z",
+      "default_lines": [
+       54
+      ],
+      "isym_line": 337,
+      "ok": true,
+      "sha": "08467fd050f5"
+     },
+     {
+      "comment_line": 327,
+      "date": "2018-05-25T18:02:38Z",
+      "default_lines": [
+       51
+      ],
+      "isym_line": 329,
+      "ok": true,
+      "sha": "a7d5f316ae5e"
+     }
+    ]
+   },
+   "note": "scope: every commit the GitHub commits API lists for the file on the default branch since a7d5f316",
+   "ok": true
+  },
+  "DATED_STATEMENT": {
+   "all_admitted_releases_checked": true,
+   "since_wording_supported": true,
+   "text": [
+    "MPSurfaceSet, the default input set of atomate's adsorption workflow, sets ISYM = 0 in every version of atomate/vasp/workflows/base/adsorption.py on the default branch from a7d5f316 (2018-05-25) through 2608d7a8 (2022-09-20), 11 versions, unless the caller overrides it through user_incar_settings; the default-branch head 2e541f29 carries the last of them (checked 2026-09-17T03:11:24Z).",
+    "At d2742a3b (2017-06-07) the workflow default was MVLSlabSet; no class in its chain (MVLSlabSet -> MPRelaxSet -> DictSet -> VaspInputSet) and no config it loads (MPRelaxSet, VASPIncarBase, vdW_parameters) sets ISYM in any of the 43 pymatgen releases admitted by setup.py's 'pymatgen>=4.7.1' and first uploaded to PyPI before 2018-05-25T18:02:38Z (4.7.1 to 2018.5.22; requirements.txt pinned 4.7.7), so under that default VASP's own ISYM default applied unless the caller set ISYM."
+   ]
+  },
+  "GATE": {
+   "gating_checks": [
+    "1_isym0_in_MPSurfaceSet_under_comment_at_a7d5f316",
+    "2_introduced_2018_05_25_by_a7d5f316",
+    "3_d2742a3b_uses_MVLSlabSet_no_ISYM",
+    "4_MVLSlabSet_at_pinned_pymatgen_sets_no_ISYM",
+    "5_vasp_default_isym_2"
+   ],
+   "passed": true,
+   "qualifiers": [
+    "qualifier: the comment was added with the class, before ISYM was added under it",
+    "qualifier: 2 for PAW without LHFCALC; 1 with USPPs; 3 if LHFCALC=.TRUE."
+   ],
+   "scope_checks": [
+    "4b_MVLSlabSet_chain_no_ISYM_every_admitted_release_before_a7d5f316",
+    "7_isym0_every_default_branch_version_since_a7d5f316"
+   ]
+  }
+ },
+ "sources": {
+  "adsorption_py_at_2017_commit": {
+   "api_blob_sha": "acc47e4005487f4ee570745b9fc41c3cc621c02a",
+   "blob_sha_match": true,
+   "blob_sha_recomputed": "acc47e4005487f4ee570745b9fc41c3cc621c02a",
+   "isym_count": 0,
+   "mvlslabset_default_lines": [
+    {
+     "line": 51,
+     "text": "    vasp_input_set = vasp_input_set or MVLSlabSet(slab)"
+    }
+   ],
+   "mvlslabset_import": [
+    {
+     "line": 19,
+     "text": "from pymatgen.io.vasp.sets import MVLSlabSet, MPRelaxSet"
+    }
+   ],
+   "n_bytes": 7786,
+   "path": "atomate/vasp/workflows/base/adsorption.py",
+   "ref": "d2742a3b076444f3093aec73d61a816496b3ca5e",
+   "repo": "hackingmaterials/atomate",
+   "sha256": "f37693f37bed228c74b11de0d3d4b7c2a2932be2319cefab11c51771b4adb125"
+  },
+  "adsorption_py_at_default_branch": {
+   "api_blob_sha": "a50ef2b6466b3b5da11612e712120553ecd2f875",
+   "blob_sha_match": true,
+   "blob_sha_recomputed": "a50ef2b6466b3b5da11612e712120553ecd2f875",
+   "branch": "main",
+   "commit": "2e541f297165254ac054b50e8132adaa282a01e0",
+   "committer_date": "2024-03-12T00:23:59Z",
+   "isym_under_comment": {
+    "class_name": "MPSurfaceSet",
+    "class_span": [
+     372,
+     417
+    ],
+    "comment_line": {
+     "line": 405,
+     "text": "        # Should give better forces for optimization"
+    },
+    "comment_lines": [
+     {
+      "line": 405,
+      "text": "        # Should give better forces for optimization"
+     }
+    ],
+    "governed_block": [
+     406,
+     414
+    ],
+    "isym_line": {
+     "line": 413,
+     "text": "            \"ISYM\": 0,"
+    },
+    "isym_lines": [
+     {
+      "line": 413,
+      "text": "            \"ISYM\": 0,"
+     }
+    ],
+    "ok": true
+   },
+   "n_bytes": 14310,
+   "path": "atomate/vasp/workflows/base/adsorption.py",
+   "ref": "2e541f297165254ac054b50e8132adaa282a01e0",
+   "repo": "hackingmaterials/atomate",
+   "sha256": "2342c71999837f86b4376c2d42eec88b56de9174fa3cc8eb03ea7b0429b086a7"
+  },
+  "adsorption_py_at_isym_commit": {
+   "api_blob_sha": "762ccabf82bb23efb7a571196ccb832d42ad5715",
+   "blob_sha_match": true,
+   "blob_sha_recomputed": "762ccabf82bb23efb7a571196ccb832d42ad5715",
+   "isym_under_comment": {
+    "class_name": "MPSurfaceSet",
+    "class_span": [
+     298,
+     332
+    ],
+    "comment_line": {
+     "line": 327,
+     "text": "        # Should give better forces for optimization"
+    },
+    "comment_lines": [
+     {
+      "line": 327,
+      "text": "        # Should give better forces for optimization"
+     }
+    ],
+    "governed_block": [
+     328,
+     329
+    ],
+    "isym_line": {
+     "line": 329,
+     "text": "                        \"POTIM\": 1.0, \"LDAU\": ldau, \"EDIFF\": 1e-5, \"ISYM\": 0}"
+    },
+    "isym_lines": [
+     {
+      "line": 329,
+      "text": "                        \"POTIM\": 1.0, \"LDAU\": ldau, \"EDIFF\": 1e-5, \"ISYM\": 0}"
+     }
+    ],
+    "ok": true
+   },
+   "mpsurfaceset_base": "MVLSlabSet",
+   "mpsurfaceset_uses": [
+    {
+     "line": 51,
+     "text": "    vasp_input_set = vasp_input_set or MPSurfaceSet(slab)"
+    },
+    {
+     "line": 183,
+     "text": "        vis = MPSurfaceSet(oriented_bulk, bulk=True)"
+    },
+    {
+     "line": 245,
+     "text": "        vis = vasp_input_set or MPSurfaceSet(m_struct)"
+    }
+   ],
+   "n_bytes": 13843,
+   "path": "atomate/vasp/workflows/base/adsorption.py",
+   "ref": "a7d5f316ae5e08eca5cae500b2b97acb1457b0db",
+   "repo": "hackingmaterials/atomate",
+   "sha256": "3e26c23b4e28c3ce67743da3e0d423c5895c5497278b542ab989077e5f2bb37f",
+   "user_incar_settings_updates": [
+    {
+     "line": 331,
+     "text": "        incar.update(self.user_incar_settings)"
+    }
+   ]
+  },
+  "adsorption_py_at_parent": {
+   "api_blob_sha": "c3507b616a981562cd43917fa6a1cbc1a4ddadfa",
+   "blob_sha_match": true,
+   "blob_sha_recomputed": "c3507b616a981562cd43917fa6a1cbc1a4ddadfa",
+   "comment_lines": [
+    {
+     "line": 327,
+     "text": "        # Should give better forces for optimization"
+    }
+   ],
+   "isym_count": 0,
+   "n_bytes": 13832,
+   "path": "atomate/vasp/workflows/base/adsorption.py",
+   "ref": "b3a03e00645ba76f716fa8e1e1dd6089750aec7e",
+   "repo": "hackingmaterials/atomate",
+   "sha256": "b4a1f76f1dfe97204ed67c19e8caeb998952869a63edc30105d3cd6402ef1898"
+  },
+  "comment_origin": {
+   "added_class_lines": [
+    "+class MPSurfaceInputSet(MVLSlabSet):"
+   ],
+   "committer_date": "2018-05-25T16:27:54Z",
+   "message": "added MPSurfaceInputSet",
+   "parent_has_comment": false,
+   "sha": "4b344da08c29bf5c3b2f00e2e43df70192eff494"
+  },
+  "commit_2017": {
+   "author": "Kiran Mathew",
+   "author_date": "2017-06-07T21:23:41Z",
+   "committer_date": "2017-06-07T21:23:41Z",
+   "message": "more cleanup and formatting/docstring fixes",
+   "sha": "d2742a3b076444f3093aec73d61a816496b3ca5e",
+   "url": "https://github.com/hackingmaterials/atomate/commit/d2742a3b076444f3093aec73d61a816496b3ca5e"
+  },
+  "commit_isym": {
+   "author": "montoyjh",
+   "author_date": "2018-05-25T18:02:38Z",
+   "committer_date": "2018-05-25T18:02:38Z",
+   "files": [
+    {
+     "added_isym": [
+      "+                        \"POTIM\": 1.0, \"LDAU\": ldau, \"EDIFF\": 1e-5, \"ISYM\": 0}"
+     ],
+     "additions": 1,
+     "deletions": 1,
+     "filename": "atomate/vasp/workflows/base/adsorption.py",
+     "removed_isym": []
+    }
+   ],
+   "message": "add isym",
+   "parents": [
+    "b3a03e00645ba76f716fa8e1e1dd6089750aec7e"
+   ],
+   "sha": "a7d5f316ae5e08eca5cae500b2b97acb1457b0db",
+   "url": "https://github.com/hackingmaterials/atomate/commit/a7d5f316ae5e08eca5cae500b2b97acb1457b0db"
+  },
+  "default_branch_history_since_isym_commit": {
+   "compare_ahead_by": 2443,
+   "compare_behind_by": 0,
+   "compare_status": "ahead",
+   "listed_newest_first": [
+    {
+     "blob_sha": "a50ef2b6466b3b5da11612e712120553ecd2f875",
+     "blob_sha_match": true,
+     "comment_line": {
+      "line": 405,
+      "text": "        # Should give better forces for optimization"
+     },
+     "committer_date": "2022-09-20T03:55:05Z",
+     "default_input_set_lines": [
+      {
+       "line": 55,
+       "text": "    vasp_input_set = vasp_input_set or MPSurfaceSet(slab)"
+      }
+     ],
+     "isym_line": {
+      "line": 413,
+      "text": "            \"ISYM\": 0,"
+     },
+     "isym_under_comment_ok": true,
+     "message": "remove repeated words",
+     "sha": "2608d7a858c0b2c4f7777e36d28d2d42d0ef75fc"
+    },
+    {
+     "blob_sha": "6380f953d65cee550ac936525bcd76858ab60ae3",
+     "blob_sha_match": true,
+     "comment_line": {
+      "line": 405,
+      "text": "        # Should give better forces for optimization"
+     },
+     "committer_date": "2022-01-23T20:35:54Z",
+     "default_input_set_lines": [
+      {
+       "line": 55,
+       "text": "    vasp_input_set = vasp_input_set or MPSurfaceSet(slab)"
+      }
+     ],
+     "isym_line": {
+      "line": 413,
+      "text": "            \"ISYM\": 0,"
+     },
+     "isym_under_comment_ok": true,
+     "message": "final batch of f-str conversion",
+     "sha": "dedcadd774fc1b201e9305f68e418570c79cd9d0"
+    },
+    {
+     "blob_sha": "aca90c488c9e315dc564cde0aa1a3894558c6eeb",
+     "blob_sha_match": true,
+     "comment_line": {
+      "line": 405,
+      "text": "        # Should give better forces for optimization"
+     },
+     "committer_date": "2022-01-12T08:41:50Z",
+     "default_input_set_lines": [
+      {
+       "line": 55,
+       "text": "    vasp_input_set = vasp_input_set or MPSurfaceSet(slab)"
+      }
+     ],
+     "isym_line": {
+      "line": 413,
+      "text": "            \"ISYM\": 0,"
+     },
+     "isym_under_comment_ok": true,
+     "message": "clean up setup.py, add dep openbabel for qchem functionality, test.yml install [complete] deps",
+     "sha": "7bf7a856a98ae16289ecd9e36b2e1e355778ce2a"
+    },
+    {
+     "blob_sha": "32bba5349507dad7bcba723b879001a8141bad64",
+     "blob_sha_match": true,
+     "comment_line": {
+      "line": 413,
+      "text": "        # Should give better forces for optimization"
+     },
+     "committer_date": "2021-04-29T08:58:12Z",
+     "default_input_set_lines": [
+      {
+       "line": 57,
+       "text": "    vasp_input_set = vasp_input_set or MPSurfaceSet(slab)"
+      }
+     ],
+     "isym_line": {
+      "line": 421,
+      "text": "            \"ISYM\": 0,"
+     },
+     "isym_under_comment_ok": true,
+     "message": "changes from pyupgrade --py36-plus *.py",
+     "sha": "6a14673384bfa970355c9495235b8234bc2cb909"
+    },
+    {
+     "blob_sha": "e9b690412a70d34e9d8c3983afe2d7039d020814",
+     "blob_sha_match": true,
+     "comment_line": {
+      "line": 337,
+      "text": "        # Should give better forces for optimization"
+     },
+     "committer_date": "2019-09-05T16:28:11Z",
+     "default_input_set_lines": [
+      {
+       "line": 52,
+       "text": "    vasp_input_set = vasp_input_set or MPSurfaceSet(slab)"
+      }
+     ],
+     "isym_line": {
+      "line": 339,
+      "text": "                        \"POTIM\": 1.0, \"LDAU\": ldau, \"EDIFF\": 1e-5, \"ISYM\": 0}"
+     },
+     "isym_under_comment_ok": true,
+     "message": "Given we are abandoning py2 support, six is no longer needed, and from",
+     "sha": "798b32fc5801985094f4584891c4323ba15a834d"
+    },
+    {
+     "blob_sha": "8770280c37b90c8a7d580d07f2d4a069b680766a",
+     "blob_sha_match": true,
+     "comment_line": {
+      "line": 338,
+      "text": "        # Should give better forces for optimization"
+     },
+     "committer_date": "2018-11-28T05:28:39Z",
+     "default_input_set_lines": [
+      {
+       "line": 53,
+       "text": "    vasp_input_set = vasp_input_set or MPSurfaceSet(slab)"
+      }
+     ],
+     "isym_line": {
+      "line": 340,
+      "text": "                        \"POTIM\": 1.0, \"LDAU\": ldau, \"EDIFF\": 1e-5, \"ISYM\": 0}"
+     },
+     "isym_under_comment_ok": true,
+     "message": "codacy fixes",
+     "sha": "c648d286335fb6393ad8e359e7013a87d3c321d3"
+    },
+    {
+     "blob_sha": "335bf00757a8219e5968e6d1bb093ec6625b39ba",
+     "blob_sha_match": true,
+     "comment_line": {
+      "line": 339,
+      "text": "        # Should give better forces for optimization"
+     },
+     "committer_date": "2018-11-28T05:08:50Z",
+     "default_input_set_lines": [
+      {
+       "line": 54,
+       "text": "    vasp_input_set = vasp_input_set or MPSurfaceSet(slab)"
+      }
+     ],
+     "isym_line": {
+      "line": 341,
+      "text": "                        \"POTIM\": 1.0, \"LDAU\": ldau, \"EDIFF\": 1e-5, \"ISYM\": 0}"
+     },
+     "isym_under_comment_ok": true,
+     "message": "change slab param generation padding",
+     "sha": "ee5cf5aab3b84dbf1b3302e38ae21ff6ea214536"
+    },
+    {
+     "blob_sha": "3f687bc50314ad7f4f855d924bc44581618d68a6",
+     "blob_sha_match": true,
+     "comment_line": {
+      "line": 337,
+      "text": "        # Should give better forces for optimization"
+     },
+     "committer_date": "2018-11-28T04:28:43Z",
+     "default_input_set_lines": [
+      {
+       "line": 54,
+       "text": "    vasp_input_set = vasp_input_set or MPSurfaceSet(slab)"
+      }
+     ],
+     "isym_line": {
+      "line": 339,
+      "text": "                        \"POTIM\": 1.0, \"LDAU\": ldau, \"EDIFF\": 1e-5, \"ISYM\": 0}"
+     },
+     "isym_under_comment_ok": true,
+     "message": "update locpot fix in pymatgen",
+     "sha": "44fc6b33485f147384bd3aac815ec6d14cbe7df6"
+    },
+    {
+     "blob_sha": "e045b3ddae08c513c6efe47f0dd0b37b29d31203",
+     "blob_sha_match": true,
+     "comment_line": {
+      "line": 340,
+      "text": "        # Should give better forces for optimization"
+     },
+     "committer_date": "2018-05-25T20:55:04Z",
+     "default_input_set_lines": [
+      {
+       "line": 54,
+       "text": "    vasp_input_set = vasp_input_set or MPSurfaceSet(slab)"
+      }
+     ],
+     "isym_line": {
+      "line": 342,
+      "text": "                        \"POTIM\": 1.0, \"LDAU\": ldau, \"EDIFF\": 1e-5, \"ISYM\": 0}"
+     },
+     "isym_under_comment_ok": true,
+     "message": "bit of a hack to fix dipole issues with non-slabs",
+     "sha": "eaedb3cb76ab5b3f85725d70690228241abb861a"
+    },
+    {
+     "blob_sha": "074c55646dce7d080ff8bf246d29bb93e126c642",
+     "blob_sha_match": true,
+     "comment_line": {
+      "line": 335,
+      "text": "        # Should give better forces for optimization"
+     },
+     "committer_date": "2018-05-25T20:54:43Z",
+     "default_input_set_lines": [
+      {
+       "line": 54,
+       "text": "    vasp_input_set = vasp_input_set or MPSurfaceSet(slab)"
+      }
+     ],
+     "isym_line": {
+      "line": 337,
+      "text": "                        \"POTIM\": 1.0, \"LDAU\": ldau, \"EDIFF\": 1e-5, \"ISYM\": 0}"
+     },
+     "isym_under_comment_ok": true,
+     "message": "add structure metadata",
+     "sha": "08467fd050f5cf5f7ca33a4772b41ad64d8b3e4e"
+    },
+    {
+     "blob_sha": "762ccabf82bb23efb7a571196ccb832d42ad5715",
+     "blob_sha_match": true,
+     "comment_line": {
+      "line": 327,
+      "text": "        # Should give better forces for optimization"
+     },
+     "committer_date": "2018-05-25T18:02:38Z",
+     "default_input_set_lines": [
+      {
+       "line": 51,
+       "text": "    vasp_input_set = vasp_input_set or MPSurfaceSet(slab)"
+      }
+     ],
+     "isym_line": {
+      "line": 329,
+      "text": "                        \"POTIM\": 1.0, \"LDAU\": ldau, \"EDIFF\": 1e-5, \"ISYM\": 0}"
+     },
+     "isym_under_comment_ok": true,
+     "message": "add isym",
+     "sha": "a7d5f316ae5e08eca5cae500b2b97acb1457b0db"
+    }
+   ],
+   "n_same_day_commits_before_since_commit_dropped": 2,
+   "since_commit_listed": true
+  },
+  "pymatgen_at_pin": {
+   "isym_in_mprelaxset_yaml": 0,
+   "isym_in_mvlslabset": 0,
+   "lhfcalc_in_mprelaxset_yaml": 0,
+   "mprelaxset_yaml": {
+    "api_blob_sha": "fc4bce91928b32f65bd50080ca1d202ce831921d",
+    "blob_sha_match": true,
+    "blob_sha_recomputed": "fc4bce91928b32f65bd50080ca1d202ce831921d",
+    "n_bytes": 2023,
+    "path": "pymatgen/io/vasp/MPRelaxSet.yaml",
+    "ref": "v4.7.7",
+    "repo": "materialsproject/pymatgen",
+    "sha256": "886bc55388804d6365664a630ada0e59dffc3726dc190a5b83ee6c0f5480c605"
+   },
+   "mvlslabset_base": "MPRelaxSet",
+   "mvlslabset_class_line": [
+    {
+     "line": 1034,
+     "text": "class MVLSlabSet(MPRelaxSet):"
+    }
+   ],
+   "mvlslabset_span": [
+    1034,
+    1095
+   ],
+   "sets_py": {
+    "api_blob_sha": "e07d5957f539aacf23bf8bb3b7e4083c251bbf64",
+    "blob_sha_match": true,
+    "blob_sha_recomputed": "e07d5957f539aacf23bf8bb3b7e4083c251bbf64",
+    "n_bytes": 58824,
+    "path": "pymatgen/io/vasp/sets.py",
+    "ref": "v4.7.7",
+    "repo": "materialsproject/pymatgen",
+    "sha256": "a1aeb40bb6c4b5b6e027ee8852aa8b4504a69b47a9ffe003ec5d1f1a33f2cfaa"
+   },
+   "tag": "v4.7.7",
+   "tag_object": {
+    "sha": "3f028df087e0ccf18910d36dbba8c8ef08dccfd8",
+    "type": "commit",
+    "url": "https://api.github.com/repos/materialsproject/pymatgen/git/commits/3f028df087e0ccf18910d36dbba8c8ef08dccfd8"
+   }
+  },
+  "pymatgen_releases_admitted_before_isym_commit": {
+   "n_releases": 43,
+   "releases": [
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1010,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-03-09T14:57:41.480414Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "11fbb2a56ebe79c2e4b5a81db890895cffd4e339003d90bab16d60df0b6bff2b",
+     "sdist": "pymatgen-4.7.1.tar.gz",
+     "sdist_sha256": "11fbb2a56ebe79c2e4b5a81db890895cffd4e339003d90bab16d60df0b6bff2b",
+     "sets_py_sha256": "0ac9962cd69771821ce88e0538b1b3c39d875ad1cb6d72ead5e29e972d9b366a",
+     "sha256_match": true,
+     "version": "4.7.1",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1010,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-03-24T21:56:24.034022Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "e439b78cc3833a03963c3c3efe349d8a0e52a1550c8a05c56a89aa1b86657436",
+     "sdist": "pymatgen-4.7.2.tar.gz",
+     "sdist_sha256": "e439b78cc3833a03963c3c3efe349d8a0e52a1550c8a05c56a89aa1b86657436",
+     "sets_py_sha256": "0ac9962cd69771821ce88e0538b1b3c39d875ad1cb6d72ead5e29e972d9b366a",
+     "sha256_match": true,
+     "version": "4.7.2",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1010,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-04-01T23:00:00.081459Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "4285253c9a86f8225a63a04d15cf10afeb569a738b837032020ea50c55276934",
+     "sdist": "pymatgen-4.7.3.tar.gz",
+     "sdist_sha256": "4285253c9a86f8225a63a04d15cf10afeb569a738b837032020ea50c55276934",
+     "sets_py_sha256": "0ac9962cd69771821ce88e0538b1b3c39d875ad1cb6d72ead5e29e972d9b366a",
+     "sha256_match": true,
+     "version": "4.7.3",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1023,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-04-19T12:24:03.829097Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "7f66434e8ef00d4722c48d5c1abaaeba1c050ee234c99d0f33adb92b5796b385",
+     "sdist": "pymatgen-4.7.4.tar.gz",
+     "sdist_sha256": "7f66434e8ef00d4722c48d5c1abaaeba1c050ee234c99d0f33adb92b5796b385",
+     "sets_py_sha256": "d809db9579a399d5009e487bf61a80ed46a2ba401173b13663e9a21ed7c03d0d",
+     "sha256_match": true,
+     "version": "4.7.4",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1032,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-05-09T20:41:04.164208Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "96f36cc79abcfdd80213532fd06486ca8524f4e9ec26d96f3b202be7905403e0",
+     "sdist": "pymatgen-4.7.5.tar.gz",
+     "sdist_sha256": "96f36cc79abcfdd80213532fd06486ca8524f4e9ec26d96f3b202be7905403e0",
+     "sets_py_sha256": "44197f7b4955967886d04ffb7ce60fae4063aeb160f9865838ffbac7f9d5cb31",
+     "sha256_match": true,
+     "version": "4.7.5",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1032,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-05-14T16:35:36.285963Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "1b23e0997f1126facbf0561ea3c9947f33830d5e35cdeac96e8dbdf9f4c67f2b",
+     "sdist": "pymatgen-4.7.6.tar.gz",
+     "sdist_sha256": "1b23e0997f1126facbf0561ea3c9947f33830d5e35cdeac96e8dbdf9f4c67f2b",
+     "sets_py_sha256": "44197f7b4955967886d04ffb7ce60fae4063aeb160f9865838ffbac7f9d5cb31",
+     "sha256_match": true,
+     "version": "4.7.6",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1034,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-05-27T14:41:55.102642Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "319349ef00b9d8bff45c04b3ec5b955908e679d3107b97cbca5f7f2f9f530ed7",
+     "sdist": "pymatgen-4.7.7.tar.gz",
+     "sdist_sha256": "319349ef00b9d8bff45c04b3ec5b955908e679d3107b97cbca5f7f2f9f530ed7",
+     "sets_py_sha256": "a1aeb40bb6c4b5b6e027ee8852aa8b4504a69b47a9ffe003ec5d1f1a33f2cfaa",
+     "sha256_match": true,
+     "version": "4.7.7",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1034,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-06-08T18:56:29.173399Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "07372e1b0b3fdedb131af9b455335fd7f1027d3606e3d2a500ce9aded486009a",
+     "sdist": "pymatgen-2017.6.8.tar.gz",
+     "sdist_sha256": "07372e1b0b3fdedb131af9b455335fd7f1027d3606e3d2a500ce9aded486009a",
+     "sets_py_sha256": "8c9f70f6e7d482d74e1facf70138e9411d97467ae7cf10038122bf1c83d4bbe5",
+     "sha256_match": true,
+     "version": "2017.6.8",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1034,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-06-22T17:48:25.459074Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "b132825c26184d79bd6a144202fd214407443754cb056316a86033a45da85365",
+     "sdist": "pymatgen-2017.6.22.tar.gz",
+     "sdist_sha256": "b132825c26184d79bd6a144202fd214407443754cb056316a86033a45da85365",
+     "sets_py_sha256": "8c9f70f6e7d482d74e1facf70138e9411d97467ae7cf10038122bf1c83d4bbe5",
+     "sha256_match": true,
+     "version": "2017.6.22",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1037,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-06-24T16:47:45.647419Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "9dd3a345b3f302e580db8f5c5b52227de41e4c1ae2157da941638a101bba25ec",
+     "sdist": "pymatgen-2017.6.24.tar.gz",
+     "sdist_sha256": "9dd3a345b3f302e580db8f5c5b52227de41e4c1ae2157da941638a101bba25ec",
+     "sets_py_sha256": "e1d312f50c1cfe627047963fc86491c7d747fa2bb0e0bd49f037d8b39dd85cd9",
+     "sha256_match": true,
+     "version": "2017.6.24",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1043,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-07-04T15:13:46.111547Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "cbdbb87c1eb78390173572d818472d4568ef89b8e2de1e47f61eeffb36386494",
+     "sdist": "pymatgen-2017.7.4.tar.gz",
+     "sdist_sha256": "cbdbb87c1eb78390173572d818472d4568ef89b8e2de1e47f61eeffb36386494",
+     "sets_py_sha256": "c0b1e45b74f770f2c4f161cfce5a6dee8acd5696fff6bddbc2797a247cf7b6d4",
+     "sha256_match": true,
+     "version": "2017.7.4",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1043,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-07-22T04:03:29.898713Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "a705e181f72a70814cacf0e61041370d20a07de63667f6cc7716191cd69040a4",
+     "sdist": "pymatgen-2017.7.21.tar.gz",
+     "sdist_sha256": "a705e181f72a70814cacf0e61041370d20a07de63667f6cc7716191cd69040a4",
+     "sets_py_sha256": "c0b1e45b74f770f2c4f161cfce5a6dee8acd5696fff6bddbc2797a247cf7b6d4",
+     "sha256_match": true,
+     "version": "2017.7.21",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1046,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-08-04T17:58:53.756808Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "af56ec160accca2e7fa66677cf3f6bc230d5258b81d187c3f75f67b0ea0b2954",
+     "sdist": "pymatgen-2017.8.4.tar.gz",
+     "sdist_sha256": "af56ec160accca2e7fa66677cf3f6bc230d5258b81d187c3f75f67b0ea0b2954",
+     "sets_py_sha256": "5b42429b8ab8c986ee0ebcdf9b26795d4058ea102c7eb67568d11dbf90a9ca54",
+     "sha256_match": true,
+     "version": "2017.8.4",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1047,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-08-15T03:28:46.557534Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "91e4db6ba6169c88854920363165af3689dd318f757d03ca8764f128ef96ac2e",
+     "sdist": "pymatgen-2017.8.14.tar.gz",
+     "sdist_sha256": "91e4db6ba6169c88854920363165af3689dd318f757d03ca8764f128ef96ac2e",
+     "sets_py_sha256": "249f3853117c4b4d655c06d2398f51b814bfb88df33f0a4acba31c3581b571d1",
+     "sha256_match": true,
+     "version": "2017.8.14",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1047,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-08-16T14:32:08.880529Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "2de6345533f0acdf68f7f98c329f037f471848a1333cbe6d0cae82b6f0387f58",
+     "sdist": "pymatgen-2017.8.16.tar.gz",
+     "sdist_sha256": "2de6345533f0acdf68f7f98c329f037f471848a1333cbe6d0cae82b6f0387f58",
+     "sets_py_sha256": "249f3853117c4b4d655c06d2398f51b814bfb88df33f0a4acba31c3581b571d1",
+     "sha256_match": true,
+     "version": "2017.8.16",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1201,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-08-20T14:17:43.665789Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "f80386d3a55c707fcc41e5bb50a12867cf17df87c0e33446e852456a331d7491",
+     "sdist": "pymatgen-2017.8.20.tar.gz",
+     "sdist_sha256": "f80386d3a55c707fcc41e5bb50a12867cf17df87c0e33446e852456a331d7491",
+     "sets_py_sha256": "807a6f0d9ddebacd2ef7dd2cfd128e0b8b6855e17b94cb713506d30b7c538480",
+     "sha256_match": true,
+     "version": "2017.8.20",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1221,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-08-21T15:21:19.485721Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "88148aa104d5d507abbf6ec6aa777cd7e100b45f04f7478e91eeec8eac07d06d",
+     "sdist": "pymatgen-2017.8.21.tar.gz",
+     "sdist_sha256": "88148aa104d5d507abbf6ec6aa777cd7e100b45f04f7478e91eeec8eac07d06d",
+     "sets_py_sha256": "17121cb52a4d2d9debc4a7c5c8f303a22fff91519c938083fee2d3a56a37e062",
+     "sha256_match": true,
+     "version": "2017.8.21",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1221,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-09-01T17:36:51.717501Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0
+     },
+     "ok": true,
+     "pypi_sha256": "f57a2b9305b8645f22c8169c5776ab74b004212084f32e6e6de7e2b1b5daefac",
+     "sdist": "pymatgen-2017.9.1.tar.gz",
+     "sdist_sha256": "f57a2b9305b8645f22c8169c5776ab74b004212084f32e6e6de7e2b1b5daefac",
+     "sets_py_sha256": "17121cb52a4d2d9debc4a7c5c8f303a22fff91519c938083fee2d3a56a37e062",
+     "sha256_match": true,
+     "version": "2017.9.1",
+     "yaml_configs": [
+      "MPRelaxSet"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1242,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-09-03T21:03:12.723313Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "fc7a56843329872c30441f03623e9607cb36f92a3cf2cac22b9c14d3a482d656",
+     "sdist": "pymatgen-2017.9.3.tar.gz",
+     "sdist_sha256": "fc7a56843329872c30441f03623e9607cb36f92a3cf2cac22b9c14d3a482d656",
+     "sets_py_sha256": "64934b4e198a2bfc51341da72b13e4495706d743bef35d7e4e2e21ad7f67d722",
+     "sha256_match": true,
+     "version": "2017.9.3",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1242,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-09-23T07:42:24.388716Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "61d95ea4459f4c98b70d77adc17443bbab043c2f1d1a53e45d7b9df0c4782bd8",
+     "sdist": "pymatgen-2017.9.23.tar.gz",
+     "sdist_sha256": "61d95ea4459f4c98b70d77adc17443bbab043c2f1d1a53e45d7b9df0c4782bd8",
+     "sets_py_sha256": "11811c029466598cb3019ecc39c74491f94461912476e5012c7e3a3081f6923c",
+     "sha256_match": true,
+     "version": "2017.9.23",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1242,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-10-16T21:30:22.177391Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "f05ce838c7fe9cc37aae85083f45bf9503eda1292aa1d778bfcd4b5b3018cb1b",
+     "sdist": "pymatgen-2017.10.16.tar.gz",
+     "sdist_sha256": "f05ce838c7fe9cc37aae85083f45bf9503eda1292aa1d778bfcd4b5b3018cb1b",
+     "sets_py_sha256": "061de7e0d4cc89602a9b0024dfc21f4efbbce93f86e73ec6e29bf9304e301aec",
+     "sha256_match": true,
+     "version": "2017.10.16",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1242,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-11-06T21:50:59.656190Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "df7acee1caf2b8070460333f54b59db20d062b0c8792a775ad1301f3164c986e",
+     "sdist": "pymatgen-2017.11.6.tar.gz",
+     "sdist_sha256": "df7acee1caf2b8070460333f54b59db20d062b0c8792a775ad1301f3164c986e",
+     "sets_py_sha256": "061de7e0d4cc89602a9b0024dfc21f4efbbce93f86e73ec6e29bf9304e301aec",
+     "sha256_match": true,
+     "version": "2017.11.6",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1242,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-11-09T17:47:01.558351Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "321e005c73d5537f77809acf11420e087a5fa728928cd912d79c50dc4eac9879",
+     "sdist": "pymatgen-2017.11.9.tar.gz",
+     "sdist_sha256": "321e005c73d5537f77809acf11420e087a5fa728928cd912d79c50dc4eac9879",
+     "sets_py_sha256": "061de7e0d4cc89602a9b0024dfc21f4efbbce93f86e73ec6e29bf9304e301aec",
+     "sha256_match": true,
+     "version": "2017.11.9",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1242,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-11-28T05:21:11.112786Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "426432a8ccdd5ad27a5f9855a409367684044ecd990d286a4f5f7a5de313b5a9",
+     "sdist": "pymatgen-2017.11.27.tar.gz",
+     "sdist_sha256": "426432a8ccdd5ad27a5f9855a409367684044ecd990d286a4f5f7a5de313b5a9",
+     "sets_py_sha256": "061de7e0d4cc89602a9b0024dfc21f4efbbce93f86e73ec6e29bf9304e301aec",
+     "sha256_match": true,
+     "version": "2017.11.27",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1242,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-11-30T18:40:54.199603Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "80ab9568a8e87d331963e6dc7e47479ce151094f2964154c2af0569386dc65a6",
+     "sdist": "pymatgen-2017.11.30.tar.gz",
+     "sdist_sha256": "80ab9568a8e87d331963e6dc7e47479ce151094f2964154c2af0569386dc65a6",
+     "sets_py_sha256": "061de7e0d4cc89602a9b0024dfc21f4efbbce93f86e73ec6e29bf9304e301aec",
+     "sha256_match": true,
+     "version": "2017.11.30",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1245,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-12-06T18:06:12.045877Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "5680b6b57636a054ab9bf060f0857778600caf361aeb8a67219e3182c8e8925c",
+     "sdist": "pymatgen-2017.12.6.tar.gz",
+     "sdist_sha256": "5680b6b57636a054ab9bf060f0857778600caf361aeb8a67219e3182c8e8925c",
+     "sets_py_sha256": "05f8fef7c7211a1c77d6edecea9bedd7be2774e6a1017bac1fce3ac032d527cb",
+     "sha256_match": true,
+     "version": "2017.12.6",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1245,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-12-08T16:32:32.021608Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "2623e4bb8e5f2122e13999854bf049b4f57ef6f1b0398fa28901b9f1ebcdf6ef",
+     "sdist": "pymatgen-2017.12.8.tar.gz",
+     "sdist_sha256": "2623e4bb8e5f2122e13999854bf049b4f57ef6f1b0398fa28901b9f1ebcdf6ef",
+     "sets_py_sha256": "05f8fef7c7211a1c77d6edecea9bedd7be2774e6a1017bac1fce3ac032d527cb",
+     "sha256_match": true,
+     "version": "2017.12.8",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1242,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-12-15T15:08:31.458533Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "a6447315b86fbebec2a6b0d27daf7a48234a4751ac74de30b9de5428cd8ae670",
+     "sdist": "pymatgen-2017.12.15.tar.gz",
+     "sdist_sha256": "a6447315b86fbebec2a6b0d27daf7a48234a4751ac74de30b9de5428cd8ae670",
+     "sets_py_sha256": "7f49c2699180d832f0f462285d8281dd7234514fe19a9cd8db8e38f12f72702b",
+     "sha256_match": true,
+     "version": "2017.12.15",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1242,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-12-15T21:45:19.549319Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "294e704016066d02c27276c990ed09e1011427fe7b166e1d866fdf11d164b8da",
+     "sdist": "pymatgen-2017.12.16.tar.gz",
+     "sdist_sha256": "294e704016066d02c27276c990ed09e1011427fe7b166e1d866fdf11d164b8da",
+     "sets_py_sha256": "7f49c2699180d832f0f462285d8281dd7234514fe19a9cd8db8e38f12f72702b",
+     "sha256_match": true,
+     "version": "2017.12.16",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1242,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2017-12-30T13:13:08.226702Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "07fb080875854dae050f9a7214e3dea20b64e188e1ebf3603a60525d28d36261",
+     "sdist": "pymatgen-2017.12.30.tar.gz",
+     "sdist_sha256": "07fb080875854dae050f9a7214e3dea20b64e188e1ebf3603a60525d28d36261",
+     "sets_py_sha256": "133fb8a9bb4f4a1ddb6d848d7f60caf212cbca0054e5a91242455ecece9ff6f2",
+     "sha256_match": true,
+     "version": "2017.12.30",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1242,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2018-01-19T23:22:26.239835Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "469936564b6ff38a03e36841c18f7f55a5b2fe925a59230b2354e7c6c13b6ff2",
+     "sdist": "pymatgen-2018.1.19.tar.gz",
+     "sdist_sha256": "469936564b6ff38a03e36841c18f7f55a5b2fe925a59230b2354e7c6c13b6ff2",
+     "sets_py_sha256": "aef25ed26333c63cdda2e75efbfd512ecad9ba47cf9ca2f5e12f31176cf0f15e",
+     "sha256_match": true,
+     "version": "2018.1.19",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1242,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2018-01-29T21:51:11.155233Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "7dabdc1e6f5cbc58474f2a63b7365bbeb0c79253a0265f0cef47521c78f5c1aa",
+     "sdist": "pymatgen-2018.1.29.tar.gz",
+     "sdist_sha256": "7dabdc1e6f5cbc58474f2a63b7365bbeb0c79253a0265f0cef47521c78f5c1aa",
+     "sets_py_sha256": "bd70e74e0ef241c1884fce1a6245a6964b9f974b8d96b9039586f020b66fc53d",
+     "sha256_match": true,
+     "version": "2018.1.29",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1242,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2018-02-13T16:39:07.134367Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "dddd3966fc758567bf2807826107eaa387b83f69ea50421400e0549ccb8b0137",
+     "sdist": "pymatgen-2018.2.13.tar.gz",
+     "sdist_sha256": "dddd3966fc758567bf2807826107eaa387b83f69ea50421400e0549ccb8b0137",
+     "sets_py_sha256": "bd70e74e0ef241c1884fce1a6245a6964b9f974b8d96b9039586f020b66fc53d",
+     "sha256_match": true,
+     "version": "2018.2.13",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1242,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2018-03-02T15:25:39.398865Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "7ed9dda166296ec126d3da00f9fff4ce6644a305d0bc0cb6879b90224091a8d1",
+     "sdist": "pymatgen-2018.3.2.tar.gz",
+     "sdist_sha256": "7ed9dda166296ec126d3da00f9fff4ce6644a305d0bc0cb6879b90224091a8d1",
+     "sets_py_sha256": "d425f0b30219dc14efc27492c096869fb4affc3a3a63d7486098a6ad61301c41",
+     "sha256_match": true,
+     "version": "2018.3.2",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1242,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2018-03-14T00:30:56.056433Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "0bcf50ab02891d65b1a6eea23bc9cda1b6ab299d4a49b703562665cee1517778",
+     "sdist": "pymatgen-2018.3.13.tar.gz",
+     "sdist_sha256": "0bcf50ab02891d65b1a6eea23bc9cda1b6ab299d4a49b703562665cee1517778",
+     "sets_py_sha256": "eb7ad534a87d723d2cc26bf7c7482e74cfe8f73e3bbde686fa0861528e4d5d4f",
+     "sha256_match": true,
+     "version": "2018.3.13",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1242,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2018-03-15T05:18:57.276053Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "4c0343f04fb8e021cae128e84242a7fc16c1b24877a44a90403a26d63cdaf69d",
+     "sdist": "pymatgen-2018.3.14.tar.gz",
+     "sdist_sha256": "4c0343f04fb8e021cae128e84242a7fc16c1b24877a44a90403a26d63cdaf69d",
+     "sets_py_sha256": "eb7ad534a87d723d2cc26bf7c7482e74cfe8f73e3bbde686fa0861528e4d5d4f",
+     "sha256_match": true,
+     "version": "2018.3.14",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1244,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2018-03-23T20:43:14.557987Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "3851792a55329a900285c5b8e0c0189f89afee00b6336efb3e8f6ffef573a822",
+     "sdist": "pymatgen-2018.3.23.tar.gz",
+     "sdist_sha256": "3851792a55329a900285c5b8e0c0189f89afee00b6336efb3e8f6ffef573a822",
+     "sets_py_sha256": "ae264aa15689640e9a4766879d6e3c07c68c108eaf69477e6069f3a52a8e5bb6",
+     "sha256_match": true,
+     "version": "2018.3.23",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1244,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2018-04-06T09:57:55.419103Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "1c6431337fe97c8c28b525399f44c62c2455726e81878c91e22530f891f43d8f",
+     "sdist": "pymatgen-2018.4.6.tar.gz",
+     "sdist_sha256": "1c6431337fe97c8c28b525399f44c62c2455726e81878c91e22530f891f43d8f",
+     "sets_py_sha256": "ae264aa15689640e9a4766879d6e3c07c68c108eaf69477e6069f3a52a8e5bb6",
+     "sha256_match": true,
+     "version": "2018.4.6",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1302,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2018-04-20T20:31:54.716117Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "a258fb279b66250091da174c9371edddc20d1aa566f24e46ee30949f5b726858",
+     "sdist": "pymatgen-2018.4.20.tar.gz",
+     "sdist_sha256": "a258fb279b66250091da174c9371edddc20d1aa566f24e46ee30949f5b726858",
+     "sets_py_sha256": "134e0668c8eac5b0e2b9bd0dce8f92f1095c4853e20de660a61adc35bdd8dfc2",
+     "sha256_match": true,
+     "version": "2018.4.20",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1302,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2018-05-03T19:36:25.633962Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "9fcea493d14785f69a2308ae3977b566106e50658ceb1273eefa38890e17e6c2",
+     "sdist": "pymatgen-2018.5.3.tar.gz",
+     "sdist_sha256": "9fcea493d14785f69a2308ae3977b566106e50658ceb1273eefa38890e17e6c2",
+     "sets_py_sha256": "134e0668c8eac5b0e2b9bd0dce8f92f1095c4853e20de660a61adc35bdd8dfc2",
+     "sha256_match": true,
+     "version": "2018.5.3",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1302,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2018-05-14T14:07:26.549809Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "86db55d5be796d5cfe2f913828bb6a8ba651110781b1fc8be9a10a2491139c45",
+     "sdist": "pymatgen-2018.5.14.tar.gz",
+     "sdist_sha256": "86db55d5be796d5cfe2f913828bb6a8ba651110781b1fc8be9a10a2491139c45",
+     "sets_py_sha256": "134e0668c8eac5b0e2b9bd0dce8f92f1095c4853e20de660a61adc35bdd8dfc2",
+     "sha256_match": true,
+     "version": "2018.5.14",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1302,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2018-05-21T23:57:24.137277Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "51d894306363f0faa920c9e7ec1fb591059b9b56f1e61fa32d1599b729f35d89",
+     "sdist": "pymatgen-2018.5.21.tar.gz",
+     "sdist_sha256": "51d894306363f0faa920c9e7ec1fb591059b9b56f1e61fa32d1599b729f35d89",
+     "sets_py_sha256": "134e0668c8eac5b0e2b9bd0dce8f92f1095c4853e20de660a61adc35bdd8dfc2",
+     "sha256_match": true,
+     "version": "2018.5.21",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    },
+    {
+     "chain": [
+      "MVLSlabSet",
+      "MPRelaxSet",
+      "DictSet",
+      "VaspInputSet"
+     ],
+     "class_line": [
+      {
+       "line": 1302,
+       "text": "class MVLSlabSet(MPRelaxSet):"
+      }
+     ],
+     "first_upload_utc": "2018-05-22T08:24:53.420557Z",
+     "isym_lines_per_class": {
+      "DictSet": 0,
+      "MPRelaxSet": 0,
+      "MVLSlabSet": 0,
+      "VaspInputSet": 0
+     },
+     "isym_lines_per_yaml": {
+      "MPRelaxSet": 0,
+      "VASPIncarBase": 0,
+      "vdW_parameters": 0
+     },
+     "ok": true,
+     "pypi_sha256": "a98963bfaadf39cb509b24389d85eef26c15a3f0a39f4b8b068c5f83ca0b7381",
+     "sdist": "pymatgen-2018.5.22.tar.gz",
+     "sdist_sha256": "a98963bfaadf39cb509b24389d85eef26c15a3f0a39f4b8b068c5f83ca0b7381",
+     "sets_py_sha256": "134e0668c8eac5b0e2b9bd0dce8f92f1095c4853e20de660a61adc35bdd8dfc2",
+     "sha256_match": true,
+     "version": "2018.5.22",
+     "yaml_configs": [
+      "MPRelaxSet",
+      "VASPIncarBase",
+      "vdW_parameters"
+     ]
+    }
+   ],
+   "source": "https://pypi.org/pypi/pymatgen/json",
+   "specifier": ">=4.7.1",
+   "uploaded_before_utc": "2018-05-25T18:02:38Z"
+  },
+  "requirements_at_2017_commit": {
+   "api_blob_sha": "cd1aedea558adfb571e294036fe4d26dbd67c35d",
+   "blob_sha_match": true,
+   "blob_sha_recomputed": "cd1aedea558adfb571e294036fe4d26dbd67c35d",
+   "n_bytes": 207,
+   "path": "requirements.txt",
+   "pymatgen_pin": [
+    {
+     "line": 4,
+     "text": "pymatgen==4.7.7"
+    }
+   ],
+   "pymatgen_version": "4.7.7",
+   "ref": "d2742a3b076444f3093aec73d61a816496b3ca5e",
+   "repo": "hackingmaterials/atomate",
+   "sha256": "5fdc1770174ad29dfcf1cb76bc19b06506dc528267946c2276e753a053f7fbbb"
+  },
+  "setup_py_at_2017_commit": {
+   "api_blob_sha": "901835e9a3fd6520d02ac760933426ee753cd34e",
+   "blob_sha_match": true,
+   "blob_sha_recomputed": "901835e9a3fd6520d02ac760933426ee753cd34e",
+   "n_bytes": 1914,
+   "path": "setup.py",
+   "pymatgen_install_requires": [
+    {
+     "line": 23,
+     "spec": ">=4.7.1",
+     "text": "        install_requires=['FireWorks>=1.4.0', 'pymatgen>=4.7.1',"
+    }
+   ],
+   "ref": "d2742a3b076444f3093aec73d61a816496b3ca5e",
+   "repo": "hackingmaterials/atomate",
+   "sha256": "829850edcae07e6c269cdd4c2f55e5af39c3bb67f07cd4bca8a775f6ece84f66"
+  },
+  "vasp_wiki_isym": {
+   "default_else": 2,
+   "default_text": "ISYM = 1 if VASP runs with USPPs = 3 if LHFCALC =.TRUE. = 2 else",
+   "revision_id": 26986,
+   "sha256": "a132c0b6c806b9c0047c6a3f862b752251856a5866873dcbcd4e34a3e7c0160d",
+   "url": "https://www.vasp.at/wiki/index.php/ISYM"
+  }
+ }
+}
