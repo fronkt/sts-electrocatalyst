@@ -71,6 +71,10 @@ exist and is not writable until S1 and S2 land (docs/87 §6), is re-tested on Se
 landed, and if it does not stand a stage is cut rather than hoped for. Recorded as his instruction,
 not as a quotation. Registered in docs/43's dated addendum of 2026-09-05 (session 2), item 2.
 
+**[EARLY CLAIM RE-TEST AND BODY ALLOCATION 2026-09-18]** — The completed, independently verified Xu census supports this bounded scientific claim: **A tested output detector identifies symmetry constraints concentrated in the four-layer subset of a complete 810-output adsorption corpus, while full-population counts reject the registered high-exposure prediction.** This replaces reliance on the unlanded-census premise above; the September 20 re-check remains scheduled. The [current scientific readout](research/s2-scientific-readout-2026-09-18.md) preserves all clause denominators, the held 10/10 named pairs, the failed Divanis prediction and incomplete auxiliary branches. S6 independently retains P-PLS 5/6 CONFIRMED and P-FLOOR-U 3/6 SCORED — MIDDLE BAND / NOT MET; neither revives the withdrawn 0.223 V / 25-times / 9 meV headline. No general coverage consequence enters the claim.
+
+The A9.4 body displacement is **P-SYMCOV to the appendix, P-XU to the body**. The six body rows are P7, P-PROJ, P-PLS, P-FLOOR-U, P-XU and P-BEEF; P-CTRL has no row. The combined P-XU failure stays in the body with its positive subclause. P-XU-SPAN, P-DIVANIS, P-BUILDER and P-LIT keep their appendix allocation regardless of outcomes. Pending literature coding, molecule references and Cr validation do not support the present central claim.
+
 ---
 
 ## E. Program board (added 2026-08-16) — the reconciled S0–S8, cuts-reverted

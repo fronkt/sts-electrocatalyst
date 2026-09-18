@@ -1,0 +1,3152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=windows-1252"
+      http-equiv="Content-Type">
+    <title>GBRV pseudopotentials</title>
+    <style>
+p
+{
+max-width:1000px;
+}
+</style>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48699114-1', 'rutgers.edu');
+  ga('send', 'pageview');
+
+</script>
+  </head>
+
+  <body>
+    <p> <font face="Helvetica, Arial, sans-serif"><a
+          href="http://www.physics.rutgers.edu"><img alt="Rutgers Physics"
+            title="Rutgers Physics" src="physlogo-half.gif"
+            align="right" border="0" height="109" width="220"></a></font><br>
+      <a href="http://www.physics.rutgers.edu/gbrv/"><font
+          face="Helvetica, Arial, sans-serif"><img alt="GBRV"
+            title="logo" src="logo.png" border="0" height="144"
+            width="278"></font></a><br>
+      <br>
+      <font face="Helvetica, Arial, sans-serif"><b>by Kevin F. Garrity,
+          Joseph W. Bennett, Karin M. Rabe, and David Vanderbilt</b><br>
+      </font></p>
+    <p><font face="Helvetica, Arial, sans-serif"><i>Updated August 26</i><i>,
+          2019</i><i><br>
+        </i><br>
+    <p><font face="Helvetica, Arial, sans-serif"><i><b>Version 1.5 now available.  See below, <a
+          href="gbrv_phonon_update2.pdf"> here(pdf)</a> and <a href="delta_update_v15.pdf">here(pdf)</a></i></b>.<br>
+        </i><br>
+
+
+      </font><font face="Helvetica, Arial, sans-serif">Welcome to the
+        GBRV pseudopotential site.&nbsp; </font><font face="Helvetica,
+        Arial, sans-serif">This site hosts the GBRV pseudopotential
+        library, a highly accurate and computationally inexpensive
+        open-source pseudopotential library which has been designed and
+        optimized for use in high-throughput DFT calculations and
+        released under the <a href="./gpl-3.0.txt">gnu public license</a>.&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        We provide potential files for direct use with the <a
+          href="http://www.quantum-espresso.org/">Quantum Espresso</a>,
+        <a href="http://www.abinit.org/">Abinit,</a> and <a
+          href="http://jdftx.sourceforge.net">JDFTx</a> plane-wave
+        pseudopotential codes, as well as input files for the Vanderbilt
+        <a href="http://www.physics.rutgers.edu/%7Edhv/uspp/">Ultrasoft</a>
+        pseudopotential generator.&nbsp; Please see our paper: K.F. Garrity, J.W. Bennett, K.M. Rabe and D. Vanderbilt,
+        <i>Comput. Mater. Sci.</i> <b>81</b>, 446 (2014) <a
+          href="http://dx.doi.org/10.1016/j.commatsci.2013.08.053"> (link)</a>, 
+        for more information.<br>
+        <br>
+        The GBRV pseudopotential library has been tested by comparing to
+        all-electron LAPW+LO calculations performed with the <a
+          href="http://www.wien2k.at/">WIEN2k</a> code in a variety of
+        chemical environments.&nbsp; The GBRV potential library has been
+        found to produce lattice constants, bulk moduli, and magnetic
+        moments which are of comparable or higher overall accuracy than other
+        comprehensive pseudopotential libraries across a wide variety of
+        bonding environments, while maintaining a low computational cost.<br>
+        <br>
+        Please consult our <a
+          href="http://dx.doi.org/10.1016/j.commatsci.2013.08.053">paper</a>
+        (<a href="psp11.pdf">local preprint</a>) for full details on our
+        design criteria and testing procedure, and <a
+          href="notes_on_abinit3.pdf">extra notes</a> on the Abinit
+        potentials and testing data.<br>
+        <br>
+        While these potentials have been designed for high-throughput
+        calculations, they should be of general use.&nbsp; Despite our
+        relatively thorough testing, <b>we cannot guarantee that these
+          potentials will be appropriate for every application</b>, but
+        we provide testing data as well as the input files for use with
+        the Vanderbilt Ultrasoft pseudopotential generator code, which
+        can be used to modify the potentials to suit your needs.&nbsp;
+        Please let us know if you improve on any of the potentials.<br>
+        <br>
+        <a href="http://www.physics.rutgers.edu/%7Ekgarrity/">Kevin F.
+          Garrity</a><br>
+        Research Associate<br>
+        <a href="https://www.nist.gov/people/kevin-garrity">NIST</a><br>
+        <br>
+        Formerly Postdoc at Rutgers University<br>
+        kevin.garrity@nist.gov</font><br>
+    </p>
+    <hr size="2" width="100%"><font face="Helvetica, Arial, sans-serif"><font
+        face="Helvetica, Arial, sans-serif"><b><u>Download Entire
+            Library:</u></b><br>
+        <a href="Work_GBRV_v1.5.tar.gz">Generation files for PBE QE USPP</a>
+        <br>
+      </font></font><font face="Helvetica, Arial, sans-serif"><font
+        face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+          Arial, sans-serif"><font face="Helvetica, Arial, sans-serif"><a
+              href="Work_GBRV_abinit.tar.gz">Generation files for PBE
+              Abinit PAW</a><br>
+            <a href="all_pbe_UPF_v1.5.tar.gz">All PBE potentials in UPF
+              format for QE</a><br>
+          </font></font></font></font><font face="Helvetica, Arial,
+      sans-serif"><font face="Helvetica, Arial, sans-serif"><font
+          face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+            Arial, sans-serif"><font face="Helvetica, Arial, sans-serif"><font
+                face="Helvetica, Arial, sans-serif"><font
+                  face="Helvetica, Arial, sans-serif"><font
+                    face="Helvetica, Arial, sans-serif"><a
+                      href="all_pbe_paw_v1.5.tar.gz">All PBE potentials in
+                      PAW format for Abinit</a><br>
+                    <a href="all_lda_UPF_v1.5.tar.gz">All LDA potentials in
+                      UPF format for QE</a><br>
+                  </font></font></font></font></font></font></font></font><font
+      face="Helvetica, Arial, sans-serif"><font face="Helvetica, Arial,
+        sans-serif"><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial, sans-serif"><font
+                    face="Helvetica, Arial, sans-serif"><a
+                      href="all_lda_paw_v1.5.tar.gz">All LDA potentials in
+                      PAW format for Abinit</a><br>
+                    <a href="all_pbesol_UPF_v1.5.tar.gz">All PBESOL
+                      potentials in UPF format for QE</a><br>
+                    <a href="all_lda_uspp_v1.5.tar.gz">All LDA potentials in
+                      uspp format</a><br>
+                    <a href="all_pbe_uspp_v1.5.tar.gz">All PBE potentials in
+                      uspp format</a><br>
+
+                    <a href="all_pbe_xml_v1.5.tar.gz">All PBE potentials in
+                      xml format</a><br>
+                    <a href="all_lda_xml_v1.5.tar.gz">All LDA potentials in
+                      xml format</a><br>
+                    <br>
+                  </font></font></font></font></font></font></font></font>
+    <font face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+        Arial, sans-serif"><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><u><b>Notes:</b></u> <br>
+            </font></font></font></font></font>
+    <ul>
+
+      <li><font face="Helvetica, Arial,
+            sans-serif"><font face="Helvetica, Arial,
+            sans-serif"><font face="Helvetica, Arial,
+            sans-serif"><font face="Helvetica, Arial,
+            sans-serif"><font face="Helvetica, Arial,
+            sans-serif"><b>September 2, 2019</b> J.
+            W. Bennett <i>et. al.</i> have done a study on the
+            determination of Hubbard <i>U</i> values using the GBRV
+            pseudopotential set. It is available at <i>Comput. Mater. Sci.</i> <b>170</b>, 109137 (2019) <a
+          href="https://doi.org/10.1016/j.commatsci.2019.109137"> (link)</a>
+                </font></font></font></font></font></li>
+
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial,
+sans-serif"><b>September 12, 2016</b>  My current email is kevin.garrity@nist.gov&nbsp;
+                </font></font></font></font></font></li>
+
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial,
+sans-serif"><b>September 23, 2015</b> Newly added xml paw files.  They should be exactly the same as the Abinit paw files, but in a different format for compatibility with more codes. See <a href="http://esl.cecam.org/mediawiki/index.php/Paw-xml"> here</a> for formatting. &nbsp;
+                </font></font></font></font></font></li>
+
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial,
+sans-serif"><b>September 23, 2015</b> The Na uspp was causing trouble in phonon calculations despite passing earlier tests, it has been updated to version 1.5.  Also, several pbesol potentials updated in v1.4 were actually pbe potentials internally but told the code to run pbesol, due to an error in transferring potentials on my end.  In practice this should result in only very very small quantitative differences, but it has been corrected.  Also, the Cl title has been fixed on some psps. &nbsp;
+                </font></font></font></font></font></li>
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial,
+sans-serif"><b>June 15, 2015</b> A slight change. Based on updated all-electron tests, P/Cr/Fe/Mn for QE and P for abinit have been updated to version 1.5.  Please see these <a
+href="delta_update_v15.pdf">notes</a>. &nbsp;
+                </font></font></font></font></font></li>
+
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial,
+sans-serif"><b>April 15, 2015</b> Tests now include PSlibrary-low precision <a
+href="gbrv_phonon_update2.pdf">here</a>.&nbsp;
+                </font></font></font></font></font></li>
+
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial,
+sans-serif"><b>April 13, 2015</b> Version 1.4 of several USPP's 
+are now available.  The changes were made in order to improve convergence of DFT perturbation theory phonon calculations versus plane-wave and charge density cutoffs.  Now, DFT-PT and finite differences phonons are in excellent agreement even for low convergence parameters. The new potentials should not show a noticeable difference for most structural properties.  Currently no abinit PAWs are affected. Please see full 
+discussion and new testing results <a
+href="gbrv_phonon_update2.pdf">here</a>.&nbsp;
+                </font></font></font></font></font></li>
+
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial,
+sans-serif"><b>April 13, 2015</b> Updated testing of Version 1.4 of the GBRV library, as well as new versions of the <a href="http://www.abinit.org/downloads/PAW2">JTH</a> and <a href="http://qe-forge.org/gf/project/pslibrary/">PSlibrary</a> sets of PAWs. In summary, GBRV offers an excellent combination of accuracy and computational speed.  The PSlibrary high precision potential set gives very similar results, but many elements require  higher cutoffs (see discussion in their paper).  PSlibrary-low gives slightly worse results for convergence parameters similar to GBRV.  The JTH set performs similarly to GBRV on elemental tests, but worse on a few multi-atom compounds. Please see full 
+discussion and new testing results <a
+href="gbrv_phonon_update2.pdf">here</a>.&nbsp;
+                </font></font></font></font></font></li>
+
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial,
+sans-serif"><b>April 13, 2015</b> Thanks to I. Castelli and N. Marzari for discussions.
+                </font></font></font></font></font></li>
+
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial,
+sans-serif"><b>April 13, 2015</b> Zincblende WIEN2k testing  <a href="./wien_new.txt">data</a> for a slightly modified <a href="http://molmod.ugent.be/deltacodesdft/"> Delta</a> test.  Use with the same k-point sampling / non-spin-polarized setup as in our original paper.
+                </font></font></font></font></font></li>
+
+<br>
+<i><u>Older notes</u></i>:
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial,
+sans-serif"><b>February 3, 2014</b> Version 1.2 of several potentials
+are now available.  The changes were made in order to improve convergence versus the 
+plane-wave and double-grid/charge-density cutoffs, but the new potentials should not
+show a noticeable difference for most structural properties.  Please see full 
+discussion and new testing results <a
+href="gbrv_update_jth2.pdf">here</a>.&nbsp;
+                </font></font></font></font></font></li>
+
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial,
+sans-serif"><b>February 3, 2014</b> <a
+href="gbrv_update_jth2.pdf">Updated testing data</a>, including a new zinc blende 
+test set as well as testing results for the new <a href="http://www.abinit.org/downloads/PAW2"> JTH PAW set</a>.<br>  Results suggest the GBRV potentials provide better performance for robust high-throughput applications.&nbsp;
+                </font></font></font></font></font></li>
+
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial,
+sans-serif"><b>February 3, 2014</b> Older versions of potentials are available under the generation directories.&nbsp;
+                </font></font></font></font></font></li>
+
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial, sans-serif">Please
+                  see notes on Abinit versus Quantum Espresso versions
+                  of potentials <a href="notes_on_abinit3.pdf">here</a>.&nbsp;
+                </font></font></font></font></font></li>
+
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial, sans-serif">
+                  See discussion of Hf in paper.</font></font></font></font></font></li>
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial, sans-serif"><b>September
+
+                    25, </b><b>2013</b>- Note: in order to run some
+                  potentials in the uspp code, it is necessary to
+                  increase <b>idim4</b> to 6 in line 24 of
+                  runatom.f.&nbsp; Otherwise some <br>
+                  input files will produce errors due to insufficient
+                  space for the pseudized valence states.<br>
+                </font></font></font></font></font></li>
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial, sans-serif"><b>September
+
+
+
+                    14, 2013</b>- Including (<a
+                    href="http://www.physics.rutgers.edu/%7Edhv/uspp/uspp-736/Doc/FORMAT">binary</a>)
+                  .uspp versions of potentials (native Vanderbilt
+                  format), for compatibility with </font></font></font></font></font><font
+          face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+            Arial, sans-serif"><font face="Helvetica, Arial, sans-serif"><font
+                face="Helvetica, Arial, sans-serif"><font
+                  face="Helvetica, Arial, sans-serif"><font
+                    face="Helvetica, Arial, sans-serif"><a
+                      href="http://jdftx.sourceforge.net">JDFTx</a></font>,
+                  as well as some older PW-PSP codes.&nbsp; <br>
+                  These should produce essentially identical results
+                  when compared to QE versions, they are simply in a
+                  different format.<br>
+                </font></font></font></font></font></li>
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial, sans-serif"><b>September
+
+
+
+                    13, 2013</b>- Our paper has been published: </font></font></font></font></font><font
+          face="Helvetica, Arial, sans-serif">K.F. Garrity et al.,
+          Comput. Mater. Sci. <b>81</b> 446 (2014), <a
+            href="http://dx.doi.org/10.1016/j.commatsci.2013.08.053">(link)</a></font></li>
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial, sans-serif"><b>July
+
+
+
+
+
+
+                    24, 2013</b>- Added lda and pbesol <i>(PRL 100
+                    136406 (2008)) </i>versions of the
+                  potentials.&nbsp; <b>These versions have not been
+                    tested specifically!<br>
+                  </b>They are simply the same input files with
+                  different exc functionals.&nbsp; The pbesol potentials
+                  were created by modifying the two parameters in pbe.f
+                  <br>
+                  as necessary to change from pbe to pbesol (um and bet,
+                  see reference).</font></font></font></font></font></li>
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial, sans-serif"><b>July
+
+
+
+
+
+
+                    2</b><b>3, 2013</b>- Very minor correction of title
+                  field in Mg and Hf(4+).&nbsp; This should not affect
+                  any calculations <i>(thanks G. Pizzi)</i>.<br>
+                </font></font></font></font></font></li>
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial, sans-serif"><b>June
+
+
+
+
+
+
+
+                    7</b><b>, 2</b><b>013</b>- Updated several 2p
+                  elements B, C, N, and O, to version 1.01.&nbsp; They
+                  were performing poorly in small molecules (e.g. O<sub>2</sub>
+                  ).&nbsp; <br>
+                  The solid state tests are very similar, but have been
+                  updated in the paper preprint/notes.&nbsp; While the
+                  potentials are improved, detailed <br>
+                  studies of small molecules require potentials designed
+                  for somewhat higher plane-wave cutoffs.<br>
+                </font></font></font></font></font></li>
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial, sans-serif">The
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  PAW potentials were updated on <b>May 25, 2013</b></font></font></font></font></font></li>
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial, sans-serif">See
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  <a href="psp_supp.pdf">supplementary materials</a> for
+                  all testing data (or <a
+                    href="GBRV_supp_spreadsheet.xls">spreadsheet</a>
+                  version)</font></font></font></font></font></li>
+      <li><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><font face="Helvetica, Arial,
+                sans-serif"><font face="Helvetica, Arial, sans-serif">A
+                  preprint of our paper is available at <a
+                    href="http://arxiv.org/abs/1305.5973">http://arxiv.org/abs/1305.5973</a></font></font></font></font>, final version at <a
+          href="http://dx.doi.org/10.1016/j.commatsci.2013.08.053"> (link) </a> </font></li>
+    </ul>
+<br>
+    <font face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+        Arial, sans-serif"><font face="Helvetica, Arial, sans-serif"><font
+            face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+              Arial, sans-serif"><br>
+            </font></font></font></font>Links to individual Potentials:<br>
+    </font>
+    <table border="1" cellpadding="2" cellspacing="2" height="202"
+      width="714">
+      <tbody>
+        <tr>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#H">H</a><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ccffff" valign="middle"><font
+              face="Courier New, Courier, monospace">He<br>
+            </font></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Li">Li</a><br>
+            </font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Be">Be<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#B">B<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#C">C<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#N">N<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#O">O<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#F">F<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ccffff" valign="middle"><font
+              face="Courier New, Courier, monospace">Ne<br>
+            </font></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Na">Na<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Mg">Mg<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffffff" valign="middle"><font
+              face="Courier New, Courier, monospace"><br>
+            </font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Al">Al<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Si">Si<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#P">P<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#S">S<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Cl">Cl<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ccffff" valign="middle"><font
+              face="Courier New, Courier, monospace">Ar<br>
+            </font></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#K">K<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Ca">Ca<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Sc">Sc<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Ti">Ti<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#V">V<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Cr">Cr<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Mn">Mn<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Fe">Fe<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Co">Co<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Ni">Ni<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Cu">Cu<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Zn">Zn<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Ga">Ga<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Ge">Ge<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#As">As<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Se">Se<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Br">Br<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ccffff" valign="middle"><font
+              face="Courier New, Courier, monospace">Kr<br>
+            </font></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Rb">Rb<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Sr">Sr<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Y">Y<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Zr">Zr<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Nb">Nb<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Mo">Mo<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Tc">Tc<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Ru">Ru<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Rh">Rh<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Pd">Pd<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Ag">Ag<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Cd">Cd<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#In">In<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Sn">Sn<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Sb">Sb<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Te">Te<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#I">I<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ccffff" valign="middle"><font
+              face="Courier New, Courier, monospace">Xe<br>
+            </font></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Cs">Cs<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Ba">Ba<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#La">La<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Hf">Hf<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Ta">Ta<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#W">W<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Re">Re<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Os">Os<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Ir">Ir<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Pt">Pt<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Au">Au<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Hg">Hg<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Tl">Tl<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Pb">Pb<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ffcccc" valign="middle"><font
+              face="Courier New, Courier, monospace"><a href="#Bi">Bi<br>
+              </a></font></td>
+          <td align="center" bgcolor="#ccffff" valign="middle"><font
+              face="Courier New, Courier, monospace">Po<br>
+            </font></td>
+          <td align="center" bgcolor="#ccffff" valign="middle"><font
+              face="Courier New, Courier, monospace">At<br>
+            </font></td>
+          <td align="center" bgcolor="#ccffff" valign="middle"><font
+              face="Courier New, Courier, monospace">Rn<br>
+            </font></td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+
+<br>
+<small><i><u>Thanks for discussions</u></i>:
+<font face="Helvetica, Arial, sans-serif">M. Torrent, I.E. Castelli, N. Marzari, G. Pizzi, N.A.W. Holzwarth, S. Cottenier, K. Lejaeghere, E. Bousquet, and others...</font></small>
+<br>
+
+    <br>
+    <hr size="2" width="100%"><img alt="Perovskite lattice constant
+      error" title="Perovskite lattice constant error" src="perov3.png"
+      height="491" width="1115"><br>
+    <small><font face="Helvetica, Arial, sans-serif">Figure 1: Lattice
+        constant error for GBRV potentials in the perovskite structure,
+        versus all-electron (AE) calculations.&nbsp; Blue squares are
+        USPP's tested with Quantum <br>
+        Espresso, Red diamonds are PAW's tested with Abinit.&nbsp; The
+        green square and yellow diamond correspond to the Hf(4+)
+        alternate potential for oxides.</font></small><br>
+
+    <font face="Helvetica, Arial, sans-serif"><font face="Helvetica,
+        Arial, sans-serif"><br>
+      </font> </font><br>
+    <table border="1" cellpadding="2" cellspacing="2" height="3661"
+      width="2100">
+      <tbody>
+        <tr>
+          <td align="center" height="10" valign="middle" width="120"><b><font
+                face="Helvetica, Arial, sans-serif">Element<br>
+              </font></b></td>
+          <td align="center" height="10" valign="middle"><b><font
+                face="Helvetica, Arial, sans-serif">Generation<br>
+                Files<br>
+              </font></b></td>
+          <td align="center" height="10" valign="middle"><b><font
+                face="Helvetica, Arial, sans-serif">PBE QE UPF<br>
+              </font></b></td>
+          <td align="center" height="10" valign="middle"><b><font
+                face="Helvetica, Arial, sans-serif">PBE Abinit PAW<br>
+              </font></b></td>
+          <td align="center" height="10" valign="middle"><b><font
+                face="Helvetica, Arial, sans-serif">LDA<a href="#LDA">*</a> QE UPF<br>
+              </font></b></td>
+          <td align="center" height="10" valign="middle"><b><font
+                face="Helvetica, Arial, sans-serif">LDA<a href="#LDA">*</a> Abinit PAW<br>
+              </font></b></td>
+          <td align="center" valign="middle" width="150"><font
+              face="Helvetica, Arial, sans-serif"><b>PBESOL<a href="#LDA">*</a> QE UPF</b></font><br>
+          </td>
+          <td align="center" valign="middle" width="100"><font
+              face="Helvetica, Arial, sans-serif"><b>PBE uspp</b><b>
+                JDFTx</b></font><br>
+          </td>
+          <td align="center" valign="middle" width="100"><font
+              face="Helvetica, Arial, sans-serif"><b>LDA<a href="#LDA">*</a> uspp JDFTx</b></font></td>
+          <td align="center" valign="middle" width="100"><font
+              face="Helvetica, Arial, sans-serif"><b>PBE Abinit XML </b></font></td>
+          <td align="center" valign="middle" width="100"><font
+              face="Helvetica, Arial, sans-serif"><b>LDA Abinit XML </b></font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="H">01 - H -
+              Hydrogen<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="001-H">001-H</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="h_pbe_v1.4.uspp.F.UPF">h_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="h_pbe_v1_abinit.paw">h_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="h_lda_v1.4.uspp.F.UPF">h_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="h_lda_v1_abinit.paw">h_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="h_pbesol_v1.4.uspp.F.UPF">h_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="h_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">h_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="h_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">h_lda_v1.4.uspp</font></a></td>
+
+          <td valign="top"><font face="Courier"><a
+                href="h_pbe_v1_abinit.paw.xml">h_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="h_lda_v1_abinit.paw.xml">h_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="He"></a>02
+
+
+              - He - Helium<br>
+            </font></td>
+          <td valign="top"><font face="Courier">002-He<br>
+            </font></td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top" width="100"><br>
+          </td>
+          <td valign="top" width="100"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Li"></a>03
+
+
+              - Li - Lithium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="003-Li">003-Li</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="li_pbe_v1.4.uspp.F.UPF">li_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="li_pbe_v1_abinit.paw">li_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="li_lda_v1.4.uspp.F.UPF">li_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="li_lda_v1_abinit.paw">li_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="li_pbesol_v1.4.uspp.F.UPF">li_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="li_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">li_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="li_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">li_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="li_pbe_v1_abinit.paw.xml">li_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="li_lda_v1_abinit.paw.xml">li_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Be"></a>04
+
+
+              - Be - Beryllium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="004-Be">004-Be</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="be_pbe_v1.4.uspp.F.UPF">be_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="be_pbe_v1_abinit.paw">be_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="be_lda_v1.4.uspp.F.UPF">be_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="be_lda_v1_abinit.paw">be_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="be_pbesol_v1.4.uspp.F.UPF">be_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="be_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">be_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="be_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">be_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="be_pbe_v1_abinit.paw.xml">be_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="be_lda_v1_abinit.paw.xml">be_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="B"></a>05
+
+
+              - B - Boron<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="005-B">005-B</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="b_pbe_v1.4.uspp.F.UPF">b_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="b_pbe_v1.01_abinit.paw">b_pbe_v1.01_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="b_lda_v1.4.uspp.F.UPF">b_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="b_lda_v1.01_abinit.paw">b_lda_v1.01_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="b_pbesol_v1.4.uspp.F.UPF">b_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="b_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">b_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="b_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">b_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="b_pbe_v1.01_abinit.paw.xml">b_pbe_v1.01_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="b_lda_v1.01_abinit.paw.xml">b_lda_v1.01_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="C"></a>06
+
+
+              - C - Carbon<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="006-C">006-C</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="c_pbe_v1.2.uspp.F.UPF">c_pbe_v1.2.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="c_pbe_v1.2_abinit.paw">c_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="c_lda_v1.2.uspp.F.UPF">c_lda_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="c_lda_v1.2_abinit.paw">c_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="c_pbesol_v1.2.uspp.F.UPF">c_pbesol_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="c_pbe_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">c_pbe_v1.2.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="c_lda_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">c_lda_v1.2.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="c_pbe_v1.2_abinit.paw.xml">c_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="c_lda_v1.2_abinit.paw.xml">c_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="N"></a>07
+
+
+              - N - Nitrogen<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="007-N">007-N</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="n_pbe_v1.2.uspp.F.UPF">n_pbe_v1.2.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="n_pbe_v1.2_abinit.paw">n_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="n_lda_v1.2.uspp.F.UPF">n_lda_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="n_lda_v1.2_abinit.paw">n_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="n_pbesol_v1.2.uspp.F.UPF">n_pbesol_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="n_pbe_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">n_pbe_v1.2.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="n_lda_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">n_lda_v1.2.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="n_pbe_v1.2_abinit.paw.xml">n_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="n_lda_v1.2_abinit.paw.xml">n_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="O"></a>08
+
+
+              - O - Oxygen<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="008-O">008-O</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="o_pbe_v1.2.uspp.F.UPF">o_pbe_v1.2.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="o_pbe_v1.2_abinit.paw">o_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="o_lda_v1.2.uspp.F.UPF">o_lda_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="o_lda_v1.2_abinit.paw">o_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="o_pbesol_v1.2.uspp.F.UPF">o_pbesol_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="o_pbe_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">o_pbe_v1.2.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="o_lda_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">o_lda_v1.2.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="o_pbe_v1.2_abinit.paw.xml">o_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="o_lda_v1.2_abinit.paw.xml">o_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="F"></a>09
+
+
+              - F - Fluorine<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="009-F">009-F</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="f_pbe_v1.4.uspp.F.UPF">f_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="f_pbe_v1_abinit.paw">f_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="f_lda_v1.4.uspp.F.UPF">f_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="f_lda_v1_abinit.paw">f_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="f_pbesol_v1.4.uspp.F.UPF">f_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="f_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">f_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="f_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">f_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="f_pbe_v1_abinit.paw.xml">f_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="f_lda_v1_abinit.paw.xml">f_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Ne"></a>10
+
+
+              - Ne - Neon<br>
+            </font></td>
+          <td valign="top"><font face="Courier">010-Ne<br>
+            </font></td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top" width="100"><br>
+          </td>
+          <td valign="top" width="100"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Na"></a>11
+
+
+              - Na - Sodium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="011-Na">011-Na</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="na_pbe_v1.5.uspp.F.UPF">na_pbe_v1.5.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="na_pbe_v1_abinit.paw">na_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="na_lda_v1.5.uspp.F.UPF">na_lda_v1.5.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="na_lda_v1_abinit.paw">na_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="na_pbesol_v1.5.uspp.F.UPF">na_pbesol_v1.5.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="na_pbe_v1.5.uspp"><font
+                face="Courier New, Courier, monospace">na_pbe_v1.5.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="na_lda_v1.5.uspp"><font
+                face="Courier New, Courier, monospace">na_lda_v1.5.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="na_pbe_v1_abinit.paw.xml">na_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="na_lda_v1_abinit.paw.xml">na_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Mg"></a>12
+
+
+              - Mg - Magnesium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="012-Mg">012-Mg</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mg_pbe_v1.4.uspp.F.UPF">mg_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mg_pbe_v1_abinit.paw">mg_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mg_lda_v1.4.uspp.F.UPF">mg_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mg_lda_v1_abinit.paw">mg_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mg_pbesol_v1.4.uspp.F.UPF">mg_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="mg_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">mg_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="mg_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">mg_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="mg_pbe_v1_abinit.paw.xml">mg_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mg_lda_v1_abinit.paw.xml">mg_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Al"></a>13
+
+
+              - Al - Aluminum<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="013-Al">013-Al</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="al_pbe_v1.uspp.F.UPF">al_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="al_pbe_v1_abinit.paw">al_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="al_lda_v1.uspp.F.UPF">al_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="al_lda_v1_abinit.paw">al_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="al_pbesol_v1.uspp.F.UPF">al_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="al_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">al_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="al_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">al_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="al_pbe_v1_abinit.paw.xml">al_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="al_lda_v1_abinit.paw.xml">al_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Si"></a>14
+
+
+              - Si - Silicon<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="014-Si">014-Si</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="si_pbe_v1.uspp.F.UPF">si_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="si_pbe_v1_abinit.paw">si_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="si_lda_v1.uspp.F.UPF">si_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="si_lda_v1_abinit.paw">si_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="si_pbesol_v1.uspp.F.UPF">si_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="si_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">si_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="si_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">si_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="si_pbe_v1_abinit.paw.xml">si_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="si_lda_v1_abinit.paw.xml">si_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="P"></a>15
+
+
+              - P - Phosphorus<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="015-P">015-P</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="p_pbe_v1.5.uspp.F.UPF">p_pbe_v1.5.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="p_pbe_v1.5_abinit.paw">p_pbe_v1.5_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="p_lda_v1.5.uspp.F.UPF">p_lda_v1.5.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="p_lda_v1.5_abinit.paw">p_lda_v1.5_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="p_pbesol_v1.5.uspp.F.UPF">p_pbesol_v1.5.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="p_pbe_v1.5.uspp"><font
+                face="Courier New, Courier, monospace">p_pbe_v1.5.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="p_lda_v1.5.uspp"><font
+                face="Courier New, Courier, monospace">p_lda_v1.5.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="p_pbe_v1.5_abinit.paw.xml">p_pbe_v1.5_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="p_lda_v1.5_abinit.paw.xml">p_lda_v1.5_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="S"></a>16
+
+
+              - S - Sulfur<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="016-S">016-S</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="s_pbe_v1.4.uspp.F.UPF">s_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="s_pbe_v1.2_abinit.paw">s_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="s_lda_v1.4.uspp.F.UPF">s_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="s_lda_v1.2_abinit.paw">s_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="s_pbesol_v1.4.uspp.F.UPF">s_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="s_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">s_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="s_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">s_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="s_pbe_v1.2_abinit.paw.xml">s_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="s_lda_v1.2_abinit.paw.xml">s_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Cl"></a>17
+
+
+              - Cl - Chlorine<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="017-Cl">017-Cl</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cl_pbe_v1.4.uspp.F.UPF">cl_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cl_pbe_v1.2_abinit.paw">cl_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cl_lda_v1.4.uspp.F.UPF">cl_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cl_lda_v1.2_abinit.paw">cl_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cl_pbesol_v1.4.uspp.F.UPF">cl_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="cl_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">cl_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="cl_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">cl_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="cl_pbe_v1.2_abinit.paw.xml">cl_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cl_lda_v1.2_abinit.paw.xml">cl_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Ar"></a>18
+
+
+              - Ar - Argon<br>
+            </font></td>
+          <td valign="top"><font face="Courier">018-Ar<br>
+            </font></td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top" width="100"><br>
+          </td>
+          <td valign="top" width="100"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="K"></a>19
+
+
+              - K - Potassium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="019-K">019-K</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="k_pbe_v1.4.uspp.F.UPF">k_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="k_pbe_v1_abinit.paw">k_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="k_lda_v1.4.uspp.F.UPF">k_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="k_lda_v1_abinit.paw">k_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="k_pbesol_v1.4.uspp.F.UPF">k_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="k_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">k_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="k_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">k_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="k_pbe_v1_abinit.paw.xml">k_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="k_lda_v1_abinit.paw.xml">k_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Ca"></a>20
+
+
+              - Ca - Calcium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="020-Ca">020-Ca</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ca_pbe_v1.uspp.F.UPF">ca_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ca_pbe_v1_abinit.paw">ca_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ca_lda_v1.uspp.F.UPF">ca_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ca_lda_v1_abinit.paw">ca_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ca_pbesol_v1.uspp.F.UPF">ca_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="ca_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">ca_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="ca_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">ca_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="ca_pbe_v1_abinit.paw.xml">ca_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ca_lda_v1_abinit.paw.xml">ca_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Sc"></a>21
+
+
+              - Sc - Scandium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="021-Sc">021-Sc</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sc_pbe_v1.uspp.F.UPF">sc_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sc_pbe_v1_abinit.paw">sc_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sc_lda_v1.uspp.F.UPF">sc_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sc_lda_v1_abinit.paw">sc_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sc_pbesol_v1.uspp.F.UPF">sc_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="sc_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">sc_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="sc_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">sc_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="sc_pbe_v1_abinit.paw.xml">sc_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sc_lda_v1_abinit.paw.xml">sc_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Ti"></a>22
+
+
+              - Ti - Titanium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="022-Ti">022-Ti</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ti_pbe_v1.4.uspp.F.UPF">ti_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ti_pbe_v1_abinit.paw">ti_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ti_lda_v1.4.uspp.F.UPF">ti_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ti_lda_v1_abinit.paw">ti_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ti_pbesol_v1.4.uspp.F.UPF">ti_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="ti_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">ti_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="ti_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">ti_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="ti_pbe_v1_abinit.paw.xml">ti_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ti_lda_v1_abinit.paw.xml">ti_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="V"></a>23
+
+
+              - V - Vanadium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="023-V">023-V</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="v_pbe_v1.4.uspp.F.UPF">v_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="v_pbe_v1.2_abinit.paw">v_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="v_lda_v1.4.uspp.F.UPF">v_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="v_lda_v1.2_abinit.paw">v_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="v_pbesol_v1.4.uspp.F.UPF">v_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="v_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">v_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="v_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">v_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="v_pbe_v1.2_abinit.paw.xml">v_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="v_lda_v1.2_abinit.paw.xml">v_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Cr"></a>24
+
+
+              - Cr - Chromium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="024-Cr">024-Cr</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cr_pbe_v1.5.uspp.F.UPF">cr_pbe_v1.5.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cr_pbe_v1.2_abinit.paw">cr_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cr_lda_v1.5.uspp.F.UPF">cr_lda_v1.5.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cr_lda_v1.2_abinit.paw">cr_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cr_pbesol_v1.5.uspp.F.UPF">cr_pbesol_v1.5.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="cr_pbe_v1.5.uspp"><font
+                face="Courier New, Courier, monospace">cr_pbe_v1.5.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="cr_lda_v1.5.uspp"><font
+                face="Courier New, Courier, monospace">cr_lda_v1.5.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="cr_pbe_v1.2_abinit.paw.xml">cr_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cr_lda_v1.2_abinit.paw.xml">cr_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Mn"></a>25
+
+
+              - Mn - Manganese<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="025-Mn">025-Mn</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mn_pbe_v1.5.uspp.F.UPF">mn_pbe_v1.5.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mn_pbe_v1.2_abinit.paw">mn_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mn_lda_v1.5.uspp.F.UPF">mn_lda_v1.5.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mn_lda_v1.2_abinit.paw">mn_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mn_pbesol_v1.5.uspp.F.UPF">mn_pbesol_v1.5.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="mn_pbe_v1.5.uspp"><font
+                face="Courier New, Courier, monospace">mn_pbe_v1.5.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="mn_lda_v1.5.uspp"><font
+                face="Courier New, Courier, monospace">mn_lda_v1.5.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="mn_pbe_v1.2_abinit.paw.xml">mn_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mn_lda_v1.2_abinit.paw.xml">mn_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Fe"></a>26
+
+
+              - Fe - Iron<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="026-Fe">026-Fe</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="fe_pbe_v1.5.uspp.F.UPF">fe_pbe_v1.5.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="fe_pbe_v1.2_abinit.paw">fe_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="fe_lda_v1.5.uspp.F.UPF">fe_lda_v1.5.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="fe_lda_v1.2_abinit.paw">fe_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="fe_pbesol_v1.5.uspp.F.UPF">fe_pbesol_v1.5.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="fe_pbe_v1.5.uspp"><font
+                face="Courier New, Courier, monospace">fe_pbe_v1.5.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="fe_lda_v1.5.uspp"><font
+                face="Courier New, Courier, monospace">fe_lda_v1.5.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="fe_pbe_v1.2_abinit.paw.xml">fe_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="fe_lda_v1.2_abinit.paw.xml">fe_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Co"></a>27
+
+
+              - Co - Cobalt<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="027-Co">027-Co</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="co_pbe_v1.2.uspp.F.UPF">co_pbe_v1.2.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="co_pbe_v1.2_abinit.paw">co_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="co_lda_v1.2.uspp.F.UPF">co_lda_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="co_lda_v1.2_abinit.paw">co_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="co_pbesol_v1.2.uspp.F.UPF">co_pbesol_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="co_pbe_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">co_pbe_v1.2.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="co_lda_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">co_lda_v1.2.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="co_pbe_v1.2_abinit.paw.xml">co_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="co_lda_v1.2_abinit.paw.xml">co_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Ni"></a>28
+
+
+              - Ni - Nickel<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="028-Ni">028-Ni</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ni_pbe_v1.4.uspp.F.UPF">ni_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ni_pbe_v1_abinit.paw">ni_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ni_lda_v1.4.uspp.F.UPF">ni_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ni_lda_v1_abinit.paw">ni_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ni_pbesol_v1.4.uspp.F.UPF">ni_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="ni_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">ni_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="ni_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">ni_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="ni_pbe_v1_abinit.paw.xml">ni_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ni_lda_v1_abinit.paw.xml">ni_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Cu"></a>29
+
+
+              - Cu - Copper<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="029-Cu">029-Cu</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cu_pbe_v1.2.uspp.F.UPF">cu_pbe_v1.2.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cu_pbe_v1.2_abinit.paw">cu_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cu_lda_v1.2.uspp.F.UPF">cu_lda_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cu_lda_v1.2_abinit.paw">cu_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cu_pbesol_v1.2.uspp.F.UPF">cu_pbesol_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="cu_pbe_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">cu_pbe_v1.2.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="cu_lda_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">cu_lda_v1.2.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="cu_pbe_v1.2_abinit.paw.xml">cu_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cu_lda_v1.2_abinit.paw.xml">cu_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Zn"></a>30
+
+
+              - Zn - Zinc<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="030-Zn">030-Zn</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="zn_pbe_v1.uspp.F.UPF">zn_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="zn_pbe_v1_abinit.paw">zn_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="zn_lda_v1.uspp.F.UPF">zn_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="zn_lda_v1_abinit.paw">zn_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="zn_pbesol_v1.uspp.F.UPF">zn_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="zn_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">zn_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="zn_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">zn_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="zn_pbe_v1_abinit.paw.xml">zn_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="zn_lda_v1_abinit.paw.xml">zn_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Ga"></a>31
+
+
+              - Ga - Gallium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="031-Ga">031-Ga</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ga_pbe_v1.4.uspp.F.UPF">ga_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ga_pbe_v1.2_abinit.paw">ga_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ga_lda_v1.4.uspp.F.UPF">ga_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ga_lda_v1.2_abinit.paw">ga_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ga_pbesol_v1.4.uspp.F.UPF">ga_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="ga_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">ga_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="ga_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">ga_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="ga_pbe_v1.2_abinit.paw.xml">ga_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ga_lda_v1.2_abinit.paw.xml">ga_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Ge"></a>32
+
+
+              - Ge - Germanium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="032-Ge">032-Ge</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ge_pbe_v1.4.uspp.F.UPF">ge_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ge_pbe_v1_abinit.paw">ge_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ge_lda_v1.4.uspp.F.UPF">ge_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ge_lda_v1_abinit.paw">ge_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ge_pbesol_v1.4.uspp.F.UPF">ge_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="ge_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">ge_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="ge_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">ge_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="ge_pbe_v1_abinit.paw.xml">ge_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ge_lda_v1_abinit.paw.xml">ge_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="As"></a>33
+
+
+              - As - Arsenic<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="033-As">033-As</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="as_pbe_v1.uspp.F.UPF">as_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="as_pbe_v1_abinit.paw">as_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="as_lda_v1.uspp.F.UPF">as_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="as_lda_v1_abinit.paw">as_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="as_pbesol_v1.uspp.F.UPF">as_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="as_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">as_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="as_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">as_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="as_pbe_v1_abinit.paw.xml">as_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="as_lda_v1_abinit.paw.xml">as_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Se"></a>34
+
+
+              - Se - Selenium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="034-Se">034-Se</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="se_pbe_v1.uspp.F.UPF">se_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="se_pbe_v1_abinit.paw">se_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="se_lda_v1.uspp.F.UPF">se_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="se_lda_v1_abinit.paw">se_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="se_pbesol_v1.uspp.F.UPF">se_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="se_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">se_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="se_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">se_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="se_pbe_v1_abinit.paw.xml">se_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="se_lda_v1_abinit.paw.xml">se_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Br"></a>35
+
+
+              - Br - Bromine<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="035-Br">035-Br</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="br_pbe_v1.4.uspp.F.UPF">br_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="br_pbe_v1_abinit.paw">br_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="br_lda_v1.4.uspp.F.UPF">br_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="br_lda_v1_abinit.paw">br_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="br_pbesol_v1.4.uspp.F.UPF">br_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="br_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">br_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="br_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">br_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="br_pbe_v1_abinit.paw.xml">br_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="br_lda_v1_abinit.paw.xml">br_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Kr"></a>36
+
+
+              - Kr - Krypton<br>
+            </font></td>
+          <td valign="top"><font face="Courier">036-Kr<br>
+            </font></td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top" width="100"><br>
+          </td>
+          <td valign="top" width="100"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Rb"></a>37
+
+
+              - Rb - Rubidium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="037-Rb">037-Rb</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="rb_pbe_v1.uspp.F.UPF">rb_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="rb_pbe_v1_abinit.paw">rb_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="rb_lda_v1.uspp.F.UPF">rb_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="rb_lda_v1_abinit.paw">rb_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="rb_pbesol_v1.uspp.F.UPF">rb_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="rb_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">rb_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="rb_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">rb_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="rb_pbe_v1_abinit.paw.xml">rb_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="rb_lda_v1_abinit.paw.xml">rb_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Sr"></a>38
+
+
+              - Sr - Strontium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="038-Sr">038-Sr</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sr_pbe_v1.uspp.F.UPF">sr_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sr_pbe_v1_abinit.paw">sr_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sr_lda_v1.uspp.F.UPF">sr_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sr_lda_v1_abinit.paw">sr_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sr_pbesol_v1.uspp.F.UPF">sr_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="sr_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">sr_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="sr_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">sr_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="sr_pbe_v1_abinit.paw.xml">sr_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sr_lda_v1_abinit.paw.xml">sr_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Y"></a>39
+
+
+              - Y - Yttrium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="039-Y">039-Y</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="y_pbe_v1.4.uspp.F.UPF">y_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="y_pbe_v1_abinit.paw">y_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="y_lda_v1.4.uspp.F.UPF">y_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="y_lda_v1_abinit.paw">y_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="y_pbesol_v1.4.uspp.F.UPF">y_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="y_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">y_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="y_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">y_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="y_pbe_v1_abinit.paw.xml">y_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="y_lda_v1_abinit.paw.xml">y_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Zr"></a>40
+
+
+              - Zr - Zirconium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="040-Zr">040-Zr</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="zr_pbe_v1.uspp.F.UPF">zr_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="zr_pbe_v1_abinit.paw">zr_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="zr_lda_v1.uspp.F.UPF">zr_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="zr_lda_v1_abinit.paw">zr_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="zr_pbesol_v1.uspp.F.UPF">zr_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="zr_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">zr_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="zr_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">zr_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="zr_pbe_v1_abinit.paw.xml">zr_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="zr_lda_v1_abinit.paw.xml">zr_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Nb"></a>41
+
+
+              - Nb - Niobium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="041-Nb">041-Nb</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="nb_pbe_v1.uspp.F.UPF">nb_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="nb_pbe_v1_abinit.paw">nb_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="nb_lda_v1.uspp.F.UPF">nb_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="nb_lda_v1_abinit.paw">nb_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="nb_pbesol_v1.uspp.F.UPF">nb_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="nb_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">nb_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="nb_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">nb_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="nb_pbe_v1_abinit.paw.xml">nb_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="nb_lda_v1_abinit.paw.xml">nb_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Mo"></a>42
+
+
+              - Mo - Molybdenum<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="042-Mo">042-Mo</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mo_pbe_v1.uspp.F.UPF">mo_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mo_pbe_v1_abinit.paw">mo_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mo_lda_v1.uspp.F.UPF">mo_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mo_lda_v1_abinit.paw">mo_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mo_pbesol_v1.uspp.F.UPF">mo_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="mo_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">mo_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="mo_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">mo_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="mo_pbe_v1_abinit.paw.xml">mo_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="mo_lda_v1_abinit.paw.xml">mo_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Tc"></a>43
+
+
+              - Tc - Technetium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="043-Tc">043-Tc</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="tc_pbe_v1.uspp.F.UPF">tc_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="tc_pbe_v1_abinit.paw">tc_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="tc_lda_v1.uspp.F.UPF">tc_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="tc_lda_v1_abinit.paw">tc_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="tc_pbesol_v1.uspp.F.UPF">tc_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="tc_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">tc_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="tc_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">tc_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="tc_pbe_v1_abinit.paw.xml">tc_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="tc_lda_v1_abinit.paw.xml">tc_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Ru"></a>44
+
+
+              - Ru - Ruthenium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="044-Ru">044-Ru</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ru_pbe_v1.2.uspp.F.UPF">ru_pbe_v1.2.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ru_pbe_v1.2_abinit.paw">ru_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ru_lda_v1.2.uspp.F.UPF">ru_lda_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ru_lda_v1.2_abinit.paw">ru_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ru_pbesol_v1.2.uspp.F.UPF">ru_pbesol_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="ru_pbe_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">ru_pbe_v1.2.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="ru_lda_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">ru_lda_v1.2.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="ru_pbe_v1.2_abinit.paw.xml">ru_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ru_lda_v1.2_abinit.paw.xml">ru_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Rh"></a>45
+
+
+              - Rh - Rhodium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="045-Rh">045-Rh</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="rh_pbe_v1.4.uspp.F.UPF">rh_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="rh_pbe_v1.2_abinit.paw">rh_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="rh_lda_v1.4.uspp.F.UPF">rh_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="rh_lda_v1.2_abinit.paw">rh_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="rh_pbesol_v1.4.uspp.F.UPF">rh_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="rh_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">rh_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="rh_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">rh_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="rh_pbe_v1.2_abinit.paw.xml">rh_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="rh_lda_v1.2_abinit.paw.xml">rh_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Pd"></a>46
+
+
+              - Pd - Palladium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="046-Pd">046-Pd</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pd_pbe_v1.4.uspp.F.UPF">pd_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pd_pbe_v1.2_abinit.paw">pd_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pd_lda_v1.4.uspp.F.UPF">pd_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pd_lda_v1.2_abinit.paw">pd_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pd_pbesol_v1.4.uspp.F.UPF">pd_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="pd_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">pd_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="pd_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">pd_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="pd_pbe_v1.2_abinit.paw.xml">pd_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pd_lda_v1.2_abinit.paw.xml">pd_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Ag"></a>47
+
+
+              - Ag - Silver<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="047-Ag">047-Ag</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ag_pbe_v1.4.uspp.F.UPF">ag_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ag_pbe_v1_abinit.paw">ag_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ag_lda_v1.4.uspp.F.UPF">ag_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ag_lda_v1_abinit.paw">ag_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ag_pbesol_v1.4.uspp.F.UPF">ag_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="ag_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">ag_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="ag_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">ag_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="ag_pbe_v1_abinit.paw.xml">ag_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ag_lda_v1_abinit.paw.xml">ag_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Cd"></a>48
+
+
+              - Cd - Cadmium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="048-Cd">048-Cd</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cd_pbe_v1.uspp.F.UPF">cd_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cd_pbe_v1_abinit.paw">cd_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cd_lda_v1.uspp.F.UPF">cd_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cd_lda_v1_abinit.paw">cd_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cd_pbesol_v1.uspp.F.UPF">cd_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="cd_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">cd_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="cd_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">cd_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="cd_pbe_v1_abinit.paw.xml">cd_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cd_lda_v1_abinit.paw.xml">cd_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="In"></a>49
+
+
+              - In - Indium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="049-In">049-In</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="in_pbe_v1.4.uspp.F.UPF">in_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="in_pbe_v1_abinit.paw">in_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="in_lda_v1.4.uspp.F.UPF">in_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="in_lda_v1_abinit.paw">in_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="in_pbesol_v1.4.uspp.F.UPF">in_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="in_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">in_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="in_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">in_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="in_pbe_v1_abinit.paw.xml">in_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="in_lda_v1_abinit.paw.xml">in_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Sn"></a>50
+
+
+              - Sn - Tin<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="050-Sn">050-Sn</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sn_pbe_v1.4.uspp.F.UPF">sn_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sn_pbe_v1_abinit.paw">sn_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sn_lda_v1.4.uspp.F.UPF">sn_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sn_lda_v1_abinit.paw">sn_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sn_pbesol_v1.4.uspp.F.UPF">sn_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="sn_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">sn_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="sn_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">sn_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="sn_pbe_v1_abinit.paw.xml">sn_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sn_lda_v1_abinit.paw.xml">sn_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Sb"></a>51
+
+
+              - Sb - Antimony<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="051-Sb">051-Sb</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sb_pbe_v1.4.uspp.F.UPF">sb_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sb_pbe_v1_abinit.paw">sb_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sb_lda_v1.4.uspp.F.UPF">sb_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sb_lda_v1_abinit.paw">sb_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sb_pbesol_v1.4.uspp.F.UPF">sb_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="sb_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">sb_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="sb_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">sb_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="sb_pbe_v1_abinit.paw.xml">sb_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="sb_lda_v1_abinit.paw.xml">sb_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Te"></a>52
+
+
+              - Te - Tellurium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="052-Te">052-Te</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="te_pbe_v1.uspp.F.UPF">te_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="te_pbe_v1_abinit.paw">te_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="te_lda_v1.uspp.F.UPF">te_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="te_lda_v1_abinit.paw">te_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="te_pbesol_v1.uspp.F.UPF">te_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="te_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">te_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="te_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">te_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="te_pbe_v1_abinit.paw.xml">te_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="te_lda_v1_abinit.paw.xml">te_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="I"></a>53
+
+
+              - I - Iodine<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="053-I">053-I</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="i_pbe_v1.uspp.F.UPF">i_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="i_pbe_v1_abinit.paw">i_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="i_lda_v1.uspp.F.UPF">i_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="i_lda_v1_abinit.paw">i_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="i_pbesol_v1.uspp.F.UPF">i_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="i_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">i_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="i_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">i_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="i_pbe_v1_abinit.paw.xml">i_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="i_lda_v1_abinit.paw.xml">i_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Xe"></a>54
+
+
+              - Xe - Xenon<br>
+            </font></td>
+          <td valign="top"><font face="Courier">054-Xe<br>
+            </font></td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top" width="100"><br>
+          </td>
+          <td valign="top" width="100"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Cs"></a>55
+
+
+              - Cs - Cesium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="055-Cs">055-Cs</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cs_pbe_v1.uspp.F.UPF">cs_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cs_pbe_v1_abinit.paw">cs_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cs_lda_v1.uspp.F.UPF">cs_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cs_lda_v1_abinit.paw">cs_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cs_pbesol_v1.uspp.F.UPF">cs_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="cs_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">cs_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="cs_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">cs_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="cs_pbe_v1_abinit.paw.xml">cs_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="cs_lda_v1_abinit.paw.xml">cs_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Ba"></a>56
+
+
+              - Ba - Barium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="056-Ba">056-Ba</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ba_pbe_v1.uspp.F.UPF">ba_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ba_pbe_v1_abinit.paw">ba_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ba_lda_v1.uspp.F.UPF">ba_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ba_lda_v1_abinit.paw">ba_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ba_pbesol_v1.uspp.F.UPF">ba_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="ba_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">ba_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="ba_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">ba_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="ba_pbe_v1_abinit.paw.xml">ba_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ba_lda_v1_abinit.paw.xml">ba_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="La"></a>57
+
+
+              - La - Lanthanum<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="057-La">057-La</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="la_pbe_v1.uspp.F.UPF">la_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="la_pbe_v1_abinit.paw">la_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="la_lda_v1.uspp.F.UPF">la_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="la_lda_v1_abinit.paw">la_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="la_pbesol_v1.uspp.F.UPF">la_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="la_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">la_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="la_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">la_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="la_pbe_v1_abinit.paw.xml">la_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="la_lda_v1_abinit.paw.xml">la_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Hf"></a>72
+
+
+              - Hf - Hafnium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="072-Hf">072-Hf</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="hf_pbe_v1.uspp.F.UPF">hf_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="hf_pbe_v1_abinit.paw">hf_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="hf_lda_v1.uspp.F.UPF">hf_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="hf_lda_v1_abinit.paw">hf_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="hf_pbesol_v1.uspp.F.UPF">hf_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="hf_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">hf_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="hf_lda_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">hf_lda_v1.2.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="hf_pbe_v1_abinit.paw.xml">hf_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="hf_lda_v1_abinit.paw.xml">hf_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Ta"></a>73
+
+
+              - Ta - Tantalum<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="073-Ta">073-Ta</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ta_pbe_v1.uspp.F.UPF">ta_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ta_pbe_v1_abinit.paw">ta_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ta_lda_v1.uspp.F.UPF">ta_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ta_lda_v1_abinit.paw">ta_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ta_pbesol_v1.uspp.F.UPF">ta_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="ta_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">ta_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="ta_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">ta_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="ta_pbe_v1_abinit.paw.xml">ta_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ta_lda_v1_abinit.paw.xml">ta_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="W"></a>74
+
+
+              - W - Tungsten<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="074-W">074-W</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="w_pbe_v1.2.uspp.F.UPF">w_pbe_v1.2.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="w_pbe_v1.2_abinit.paw">w_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="w_lda_v1.2.uspp.F.UPF">w_lda_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="w_lda_v1.2_abinit.paw">w_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="w_pbesol_v1.2.uspp.F.UPF">w_pbesol_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="w_pbe_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">w_pbe_v1.2.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="w_lda_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">w_lda_v1.2.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="w_pbe_v1.2_abinit.paw.xml">w_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="w_lda_v1.2_abinit.paw.xml">w_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Re"></a>75
+
+
+              - Re - Rhenium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="075-Re">075-Re</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="re_pbe_v1.2.uspp.F.UPF">re_pbe_v1.2.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="re_pbe_v1.2_abinit.paw">re_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="re_lda_v1.2.uspp.F.UPF">re_lda_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="re_lda_v1.2_abinit.paw">re_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="re_pbesol_v1.2.uspp.F.UPF">re_pbesol_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="re_pbe_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">re_pbe_v1.2.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="re_lda_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">re_lda_v1.2.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="re_pbe_v1.2_abinit.paw.xml">re_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="re_lda_v1.2_abinit.paw.xml">re_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Os"></a>76
+
+
+              - Os - Osmium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="076-Os">076-Os</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="os_pbe_v1.2.uspp.F.UPF">os_pbe_v1.2.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="os_pbe_v1.2_abinit.paw">os_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="os_lda_v1.2.uspp.F.UPF">os_lda_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="os_lda_v1.2_abinit.paw">os_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="os_pbesol_v1.2.uspp.F.UPF">os_pbesol_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="os_pbe_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">os_pbe_v1.2.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="os_lda_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">os_lda_v1.2.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="os_pbe_v1.2_abinit.paw.xml">os_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="os_lda_v1.2_abinit.paw.xml">os_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Ir"></a>77
+
+
+              - Ir - Iridium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="077-Ir">077-Ir</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ir_pbe_v1.2.uspp.F.UPF">ir_pbe_v1.2.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ir_pbe_v1.2_abinit.paw">ir_pbe_v1.2_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ir_lda_v1.2.uspp.F.UPF">ir_lda_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ir_lda_v1.2_abinit.paw">ir_lda_v1.2_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ir_pbesol_v1.2.uspp.F.UPF">ir_pbesol_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="ir_pbe_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">ir_pbe_v1.2.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="ir_lda_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">ir_lda_v1.2.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="ir_pbe_v1.2_abinit.paw.xml">ir_pbe_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="ir_lda_v1.2_abinit.paw.xml">ir_lda_v1.2_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Pt"></a>78
+
+
+              - Pt - Platinum<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="078-Pt">078-Pt</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pt_pbe_v1.4.uspp.F.UPF">pt_pbe_v1.4.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pt_pbe_v1_abinit.paw">pt_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pt_lda_v1.4.uspp.F.UPF">pt_lda_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pt_lda_v1_abinit.paw">pt_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pt_pbesol_v1.4.uspp.F.UPF">pt_pbesol_v1.4.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="pt_pbe_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">pt_pbe_v1.4.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="pt_lda_v1.4.uspp"><font
+                face="Courier New, Courier, monospace">pt_lda_v1.4.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="pt_pbe_v1_abinit.paw.xml">pt_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pt_lda_v1_abinit.paw.xml">pt_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Au"></a>79
+
+
+              - Au - Gold<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="079-Au">079-Au</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="au_pbe_v1.uspp.F.UPF">au_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="au_pbe_v1_abinit.paw">au_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="au_lda_v1.uspp.F.UPF">au_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="au_lda_v1_abinit.paw">au_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="au_pbesol_v1.uspp.F.UPF">au_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="au_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">au_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="au_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">au_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="au_pbe_v1_abinit.paw.xml">au_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="au_lda_v1_abinit.paw.xml">au_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Hg"></a>80
+
+
+              - Hg - Mercury<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="080-Hg">080-Hg</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="hg_pbe_v1.uspp.F.UPF">hg_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="hg_pbe_v1_abinit.paw">hg_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="hg_lda_v1.uspp.F.UPF">hg_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="hg_lda_v1_abinit.paw">hg_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="hg_pbesol_v1.uspp.F.UPF">hg_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="hg_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">hg_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="hg_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">hg_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="hg_pbe_v1_abinit.paw.xml">hg_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="hg_lda_v1_abinit.paw.xml">hg_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Tl"></a>81
+
+
+              - Tl - Thallium<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="081-Tl">081-Tl</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="tl_pbe_v1.2.uspp.F.UPF">tl_pbe_v1.2.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="tl_pbe_v1_abinit.paw">tl_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="tl_lda_v1.2.uspp.F.UPF">tl_lda_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="tl_lda_v1_abinit.paw">tl_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="tl_pbesol_v1.2.uspp.F.UPF">tl_pbesol_v1.2.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="tl_pbe_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">tl_pbe_v1.2.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="tl_lda_v1.2.uspp"><font
+                face="Courier New, Courier, monospace">tl_lda_v1.2.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="tl_pbe_v1_abinit.paw.xml">tl_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="tl_lda_v1_abinit.paw.xml">tl_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Pb"></a>82
+
+
+              - Pb - Lead<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="082-Pb">082-Pb</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pb_pbe_v1.uspp.F.UPF">pb_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pb_pbe_v1_abinit.paw">pb_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pb_lda_v1.uspp.F.UPF">pb_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pb_lda_v1_abinit.paw">pb_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pb_pbesol_v1.uspp.F.UPF">pb_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="pb_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">pb_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="pb_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">pb_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="pb_pbe_v1_abinit.paw.xml">pb_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="pb_lda_v1_abinit.paw.xml">pb_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Bi"></a>83
+
+
+              - Bi - Bismuth<br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a href="083-Bi">083-Bi</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="bi_pbe_v1.uspp.F.UPF">bi_pbe_v1.uspp.F.UPF</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="bi_pbe_v1_abinit.paw">bi_pbe_v1_abinit.paw</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="bi_lda_v1.uspp.F.UPF">bi_lda_v1.uspp.F.UPF</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="bi_lda_v1_abinit.paw">bi_lda_v1_abinit.paw</a></font></td>
+          <td valign="top"><font face="Courier"><a
+                href="bi_pbesol_v1.uspp.F.UPF">bi_pbesol_v1.uspp.F.UPF</a></font></td>
+          <td valign="top" width="100"><a href="bi_pbe_v1.uspp"><font
+                face="Courier New, Courier, monospace">bi_pbe_v1.uspp</font></a><br>
+          </td>
+          <td valign="top" width="100"><a href="bi_lda_v1.uspp"><font
+                face="Courier New, Courier, monospace">bi_lda_v1.uspp</font></a></td>
+          <td valign="top"><font face="Courier"><a
+                href="bi_pbe_v1_abinit.paw.xml">bi_pbe_v1_abinit.paw.xml</a><br>
+            </font></td>
+          <td valign="top"><font face="Courier"><a
+                href="bi_lda_v1_abinit.paw.xml">bi_lda_v1_abinit.paw.xml</a><br>
+            </font></td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Po"></a>84
+
+
+              - Po - Polonium<br>
+            </font></td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top" width="100"><br>
+          </td>
+          <td valign="top" width="100"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="At"></a>85
+
+
+              - At - Astatine<br>
+            </font></td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top" width="100"><br>
+          </td>
+          <td valign="top" width="100"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" width="120"><font face="Courier"><a name="Rn"></a>86
+
+
+              - Rn - Radon<br>
+            </font></td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top" width="100"><br>
+          </td>
+          <td valign="top" width="100"><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <a name="LDA"></a> Note: LDA and PBESOL potentials have not been tested specifically.  They are the same input files with different exc functionals.
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+  </body>
+</html>

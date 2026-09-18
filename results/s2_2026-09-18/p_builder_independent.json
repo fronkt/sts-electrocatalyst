@@ -1,0 +1,941 @@
+{
+  "schema": "p-builder-independent-symmetry-check-v1",
+  "status": "VERIFIED",
+  "source": {
+    "path": "results/s2_2026-09-18/p_builder_census.json",
+    "sha256": "0e3875f67dc33a499105e537e85341474ceebafc8392a60d52aed229a005f61e"
+  },
+  "method": "Independent JavaScript enumeration of integer lattice rotations W with determinant +/-1 and W^T G W=G (metric residual <1e-5 A^2), bounded using reciprocal vector lengths. Translation candidates map first atom onto every same-species site. An operation requires a bijection of all same-species sites within 1e-3 A modulo the lattice. Retention requires det(W+I)=0 and each adsorbate atom mapped onto itself within 1e-3 A. No pymatgen, spglib or production census functions invoked.",
+  "n_configurations": 96,
+  "operation_count_and_retention_mismatches": [],
+  "manifest_mismatches": [],
+  "source_hashes": [
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/configs/fcc111__O.json",
+      "sha256": "2cb84d85b8e213777b252bf1e803b12ab3dd8c3a04d07b8fddb849586677f59e"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/configs/fcc111__OH.json",
+      "sha256": "44aaa0423ab6d6158627f5797abec90f4566899960dfe751a11cd234ba1049c1"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/configs/fcc111__OOH.json",
+      "sha256": "5f0d98e76cf95c083212b7256139fae72613d19848300dc609dee94b5de5f809"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/configs/perovskite001__O.json",
+      "sha256": "a0a601ccbde4d3aafa106cbc0e4e563c35f59b92c3370f21441fa7b7d84b4a0b"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/configs/perovskite001__OH.json",
+      "sha256": "243fc9b22a4602ec3a0faf6c2c643657db3250470a2447c3b410375245265449"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/configs/perovskite001__OOH.json",
+      "sha256": "1104b138f64c0cd86e9e14576e48800caaf3cd7511bc96bdba75f0a07f8bd015"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/configs/rutile110__O.json",
+      "sha256": "de6ca8d15328775b27b3ba02b0fd405bf212d113e49f468a5d8d05a824c699bc"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/configs/rutile110__OH.json",
+      "sha256": "eb316b92b36322adfde7c9fd8ae08e0159e72bb4e9cd39acc9c703bdbeef7755"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/configs/rutile110__OOH.json",
+      "sha256": "dcfc83ead1a36e31e57701da8680fab454ccffef899cdcb7357ebffbbab3d510"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/configs/spinel001__O.json",
+      "sha256": "d4e9723c41fb6633e9ebd4af7ea4a98ed38ed6aa60337f138355a773ebba9a5f"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/configs/spinel001__OH.json",
+      "sha256": "7a43fc4ebf220c12f5cb58eacbefa70863f7e34e2baafa4b6d3900affd65444c"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/configs/spinel001__OOH.json",
+      "sha256": "525d051126e0caf53e47bef782a81c891aef21f21466b58173356e2ccfd9e6ef"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/decision.json",
+      "sha256": "f17e4349623e1c8d0757cd97a0dff789904c027759bf472afce5cc8981123b5c"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/denominators.json",
+      "sha256": "a5b6642d2d18ff7e4e808e0998f237ed5f167fa9e0fc22e3800e144a4393d0e2"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/slabs/fcc111.cif",
+      "sha256": "8b3f935e8b86af2117f9a615f1a31fc1260bef68c0858fad1bfbbbc2fef67ecb"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/slabs/fcc111.json",
+      "sha256": "eb43b4b3756526efaf8e9382bb8feb271a797715d72145c383944504949c5f04"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/slabs/perovskite001.cif",
+      "sha256": "f3387033261b63a5115d4c777162170826c7c75763da3b25c6e773d1f45c61ef"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/slabs/perovskite001.json",
+      "sha256": "087ed17337232eb490c309186df8bb1a883ae1f29a725e43049645d69121d957"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/slabs/rutile110.cif",
+      "sha256": "2e419f65bfc545659cd86afb56ae1b00710a870928989facbe941177e66cd0f1"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/slabs/rutile110.json",
+      "sha256": "e13e76e2f97f356dcec2cd22cfd11554becdba77571596c5b3f4760d0c0cb1d0"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/slabs/spinel001.cif",
+      "sha256": "64977b7bb74c457123abe88707d21876d6bf575c0e558bc887b3d02fabc0df2e"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/slabs/spinel001.json",
+      "sha256": "1fcbe248854a3dd551eebede7c5ef6445b8a8009c4fd3bee25f90cc57ad2571a"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/structures/cod_9005887_Co3O4.cif",
+      "sha256": "67186f0d5a179eff54ad811b3660828980c3ef0197f664573874bbef835387b6"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/structures/cod_9006864_SrTiO3.cif",
+      "sha256": "2be22c654ab10ea9958c92d97fd1af9107101f5cbbbaa0337e4dec0766253106"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/structures/cod_9007541_RuO2.cif",
+      "sha256": "5e8ba6c58302d83f8c3379690114b1788553425e483c1c04e85fe5093e0345ec"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/structures/cod_9008480_Pt.cif",
+      "sha256": "0373322030e51bc9aa4a3c04edcb15a7bd292a2fb9e80040de8c0f5c8442b8d4"
+    },
+    {
+      "path": "results/s2_2026-09-16/p_builder_prestate/structures/rutile_RuO2_handbuilt.cif",
+      "sha256": "712e5faaf4adefa2c4a00da14206f653d1f20676ee60ac1d061ad6b0ff260e72"
+    }
+  ],
+  "families": {
+    "rutile110": {
+      "adsorbates": {
+        "O": {
+          "n_configurations": 10,
+          "retained": 9,
+          "configurations": [
+            {
+              "index": 0,
+              "site_type": "ontop",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 1,
+              "site_type": "ontop",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 2,
+              "site_type": "ontop",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 3,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 4,
+              "site_type": "bridge",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 5,
+              "site_type": "bridge",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 6,
+              "site_type": "bridge",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 7,
+              "site_type": "bridge",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 8,
+              "site_type": "bridge",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 9,
+              "site_type": "hollow",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            }
+          ]
+        },
+        "OH": {
+          "n_configurations": 10,
+          "retained": 9,
+          "configurations": [
+            {
+              "index": 0,
+              "site_type": "ontop",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 1,
+              "site_type": "ontop",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 2,
+              "site_type": "ontop",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 3,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 4,
+              "site_type": "bridge",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 5,
+              "site_type": "bridge",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 6,
+              "site_type": "bridge",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 7,
+              "site_type": "bridge",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 8,
+              "site_type": "bridge",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 9,
+              "site_type": "hollow",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            }
+          ]
+        },
+        "OOH": {
+          "n_configurations": 10,
+          "retained": 0,
+          "configurations": [
+            {
+              "index": 0,
+              "site_type": "ontop",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 1,
+              "site_type": "ontop",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 2,
+              "site_type": "ontop",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 3,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 4,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 5,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 6,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 7,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 8,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 9,
+              "site_type": "hollow",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            }
+          ]
+        }
+      },
+      "verdicts": {
+        "O": "HELD",
+        "OH": "HELD"
+      },
+      "O_equals_OH": true,
+      "OOH_zero": true,
+      "pooled": {
+        "retained": 18,
+        "n": 30,
+        "rate": 0.6,
+        "verdict": null
+      },
+      "lattice_rotation_candidates": 8
+    },
+    "perovskite001": {
+      "adsorbates": {
+        "O": {
+          "n_configurations": 5,
+          "retained": 5,
+          "configurations": [
+            {
+              "index": 0,
+              "site_type": "ontop",
+              "n_operations": 8,
+              "n_adsorbate_invariant_ops": 5,
+              "retained": true
+            },
+            {
+              "index": 1,
+              "site_type": "ontop",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 2,
+              "site_type": "bridge",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 3,
+              "site_type": "bridge",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 4,
+              "site_type": "bridge",
+              "n_operations": 8,
+              "n_adsorbate_invariant_ops": 5,
+              "retained": true
+            }
+          ]
+        },
+        "OH": {
+          "n_configurations": 5,
+          "retained": 5,
+          "configurations": [
+            {
+              "index": 0,
+              "site_type": "ontop",
+              "n_operations": 8,
+              "n_adsorbate_invariant_ops": 5,
+              "retained": true
+            },
+            {
+              "index": 1,
+              "site_type": "ontop",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 2,
+              "site_type": "bridge",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 3,
+              "site_type": "bridge",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 4,
+              "site_type": "bridge",
+              "n_operations": 8,
+              "n_adsorbate_invariant_ops": 5,
+              "retained": true
+            }
+          ]
+        },
+        "OOH": {
+          "n_configurations": 5,
+          "retained": 0,
+          "configurations": [
+            {
+              "index": 0,
+              "site_type": "ontop",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 1,
+              "site_type": "ontop",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 2,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 3,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 4,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            }
+          ]
+        }
+      },
+      "verdicts": {
+        "O": "HELD",
+        "OH": "HELD"
+      },
+      "O_equals_OH": true,
+      "OOH_zero": true,
+      "pooled": {
+        "retained": 10,
+        "n": 15,
+        "rate": 0.6666666666666666,
+        "verdict": null
+      },
+      "lattice_rotation_candidates": 16
+    },
+    "spinel001": {
+      "adsorbates": {
+        "O": {
+          "n_configurations": 13,
+          "retained": 10,
+          "configurations": [
+            {
+              "index": 0,
+              "site_type": "ontop",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 1,
+              "site_type": "ontop",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 2,
+              "site_type": "ontop",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 3,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 4,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 5,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 6,
+              "site_type": "bridge",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 7,
+              "site_type": "bridge",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 8,
+              "site_type": "bridge",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 9,
+              "site_type": "bridge",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 10,
+              "site_type": "bridge",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 11,
+              "site_type": "hollow",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 12,
+              "site_type": "hollow",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            }
+          ]
+        },
+        "OH": {
+          "n_configurations": 13,
+          "retained": 10,
+          "configurations": [
+            {
+              "index": 0,
+              "site_type": "ontop",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 1,
+              "site_type": "ontop",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 2,
+              "site_type": "ontop",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 3,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 4,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 5,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 6,
+              "site_type": "bridge",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 7,
+              "site_type": "bridge",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 8,
+              "site_type": "bridge",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 9,
+              "site_type": "bridge",
+              "n_operations": 4,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 10,
+              "site_type": "bridge",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 11,
+              "site_type": "hollow",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 12,
+              "site_type": "hollow",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            }
+          ]
+        },
+        "OOH": {
+          "n_configurations": 13,
+          "retained": 0,
+          "configurations": [
+            {
+              "index": 0,
+              "site_type": "ontop",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 1,
+              "site_type": "ontop",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 2,
+              "site_type": "ontop",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 3,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 4,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 5,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 6,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 7,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 8,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 9,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 10,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 11,
+              "site_type": "hollow",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 12,
+              "site_type": "hollow",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            }
+          ]
+        }
+      },
+      "verdicts": {
+        "O": "HELD",
+        "OH": "HELD"
+      },
+      "O_equals_OH": true,
+      "OOH_zero": true,
+      "pooled": {
+        "retained": 20,
+        "n": 39,
+        "rate": 0.5128205128205128,
+        "verdict": null
+      },
+      "lattice_rotation_candidates": 16
+    },
+    "fcc111": {
+      "adsorbates": {
+        "O": {
+          "n_configurations": 4,
+          "retained": 4,
+          "configurations": [
+            {
+              "index": 0,
+              "site_type": "ontop",
+              "n_operations": 6,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 1,
+              "site_type": "bridge",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 2,
+              "site_type": "hollow",
+              "n_operations": 6,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 3,
+              "site_type": "hollow",
+              "n_operations": 6,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            }
+          ]
+        },
+        "OH": {
+          "n_configurations": 4,
+          "retained": 4,
+          "configurations": [
+            {
+              "index": 0,
+              "site_type": "ontop",
+              "n_operations": 6,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 1,
+              "site_type": "bridge",
+              "n_operations": 2,
+              "n_adsorbate_invariant_ops": 1,
+              "retained": true
+            },
+            {
+              "index": 2,
+              "site_type": "hollow",
+              "n_operations": 6,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            },
+            {
+              "index": 3,
+              "site_type": "hollow",
+              "n_operations": 6,
+              "n_adsorbate_invariant_ops": 3,
+              "retained": true
+            }
+          ]
+        },
+        "OOH": {
+          "n_configurations": 4,
+          "retained": 0,
+          "configurations": [
+            {
+              "index": 0,
+              "site_type": "ontop",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 1,
+              "site_type": "bridge",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 2,
+              "site_type": "hollow",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            },
+            {
+              "index": 3,
+              "site_type": "hollow",
+              "n_operations": 1,
+              "n_adsorbate_invariant_ops": 0,
+              "retained": false
+            }
+          ]
+        }
+      },
+      "verdicts": {
+        "O": "HELD",
+        "OH": "HELD"
+      },
+      "O_equals_OH": true,
+      "OOH_zero": true,
+      "pooled": {
+        "retained": 8,
+        "n": 12,
+        "rate": 0.6666666666666666,
+        "verdict": null
+      },
+      "lattice_rotation_candidates": 12
+    }
+  },
+  "limitations": [
+    "Checks saved configurations and frozen denominator/decision inputs; does not independently regenerate slabs or adsorption-site enumerations.",
+    "Git boundary ancestry is reported by the source run and was not independently rechecked by this file-only audit.",
+    "Space-group names and zeroed Cartesian eigenvector bases are not independently assigned; operation counts, adsorbate-invariant counts and retention were recomputed."
+  ]
+}

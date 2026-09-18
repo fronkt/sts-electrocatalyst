@@ -2605,14 +2605,16 @@ Launch review: 37 scientific tasks and the S5 continuation coordinator are queue
 
 Scope: the queued 2026-09-16 Anvil program runs untouched (its readouts stay with that follow-through). This phase executes S2 on local data, clears F8, and prepares the DFT test of the new low-tail Cr sites. Xu corpus: C:/Users/frank/sts-corpora/xu/rutile-OER-v1.0.zip, md5 e193c56cf17c6d98827bbb19752d04b3 (registered value), copied from $PROJECT/corpora/xu and extracted outside git.
 
-- [ ] Fix the open S2 values (Xu repair, molecule jobs, P-BUILDER structures/parameters/counts/X, P-LIT search/databases/window/proportion) in docs/research/s2-operating-decisions-2026-09-16.md; commit and push before the P-BUILDER and P-LIT blind arms run.
-- [ ] P-XU: silentgate census over the 810 Xu Eads outputs; score clauses (i)-(iii) on the registered denominators; descriptive direction map and P-A2 row.
-- [ ] P-XU-SPAN: span_U(c_M) and span_U(dG2) over the 680-file ladder; score the >=5 of 10 rule; prepare the two GBRV molecule decks.
-- [ ] P-DIVANIS: full delta in [0, 0.10] eV curve with branch crossings and threshold roots; negative dG4 enumeration; count and class under R2/R3.
-- [ ] F8: clear or exclude the Sun/Reuter/Scheffler citation, the five structure-type assignments and the +0.40 eV correction source; Crossref check of docs/references.bib.
-- [ ] Low-tail DFT validation: DFT vs MACE-MPA-0 at identical coordinates on the banked HEA single points (per-atom forces on the lifted Cr); build and price relaxation decks for the decisive new Cr sites, submission sequenced after the queued HEA arrays report measured cost.
-- [ ] P-BUILDER and P-LIT execution after the boundary commit.
-- [ ] Cross-model review correction: failure denominator including the 3 retained unconverged control states; provenance row :222.
+- [x] Fix the open S2 values in docs/research/s2-operating-decisions-2026-09-18.md; pushed in 570cb5f before blind P-BUILDER and P-LIT discovery.
+- [x] P-XU: complete 810-output census and independent raw verification. Combined claim FALSIFIED: headers 70/810; final-force successes 50/626 with 80 unknown; named directional pairs 10/10 HELD.
+- [x] P-XU-SPAN: all 680 ladder outputs accounted for. One full ladder exceeds 0.20 eV and four are incomplete: INCOMPLETE EVIDENCE. Preserve incomplete observed ranges as lower bounds.
+- [ ] Matched Xu H2/H2O references: DEFERRED because exact historical H/O pseudopotential bytes were not recovered. Identities and retrieval attempts are preserved; no substituted reference or molecule job.
+- [x] P-DIVANIS: exact curve over delta [0, 0.10] eV, independently verified. The same 1/38 qualifies throughout: FALSIFIED. All negative fourth-step rows remain in the denominator.
+- [x] F8: Sun/Reuter/Scheffler primary PDF clears both citation claims; structure claims narrowed to supported records; +0.40 eV correction remains excluded. Source and bibliography checks banked.
+- [x] Low-tail DFT preparation and force comparison refreshed against all 65 fixed-coordinate outputs; nine atomic primary relaxations released as array 20813525 on September 18. Scientific basin readout remains pending.
+- [x] P-BUILDER: full 96-configuration census after boundary; all eight O/OH family clauses HELD and independently reproduced. Rutile remains disclosed as non-blind.
+- [ ] P-LIT: finish exhaustive discovery, freeze inclusion decisions, then independently code methods. Initial eight-stream discovery is incomplete; broad Crossref matching requires the explicit September 18 retrieval amendment before continuation.
+- [x] Cross-model review correction: all three retained unconverged control states stay in the failure denominator; corrected readout banked in 9cd736a.
 - [ ] Sep 20 claim-sentence re-test against S1 + S2 + S6 once S2 lands.
 - [ ] Independent recomputation of every scored number; commit explicit paths; push.
 
@@ -2625,10 +2627,12 @@ Scope: user said “Continue” after the proposed sequence. Refresh low-tail pr
 - [x] Verify repository ownership, completed HEA inputs, current scheduler/allocation and prepared relaxation acceptance/cost assumptions.
 - [x] Refresh low-tail force/cost evidence and remove obsolete parser workarounds using the repaired canonical parser; independently review the scientific readout.
 - [x] Record the authorized nine-leg launch and implement a bounded relaxation route that enforces iteration/wall limits, preserves failed scratch and refuses duplicate outputs.
-- [ ] Run focused verification, bank explicit source/decision/evidence paths and push before remote staging.
-- [ ] Stage exact bytes, inspect held resources and release primary jobs; record live IDs, ceilings and startup evidence.
-- [ ] Review S2/F8 prepared work, bank verified completed parts, and advance remaining local work in dependency order.
-- [ ] Record scientific status and remaining work with independent review; commit and push completed phases.
+- [x] Run focused verification, bank explicit source/decision/evidence paths and push before remote staging (9560897; held-resource parsing correction 77ba7b9).
+- [x] Stage exact bytes, inspect held resources and release primary jobs. Array 20813525: first atomic slab started on a072 at 04:34:03 UTC; eight tasks queued by concurrency-one limit.
+- [x] Review S2/F8 prepared work, bank verified completed parts, and advance remaining local work in dependency order.
+- [x] Record scientific status and remaining work with independent review; commit and push completed phases.
+
+Review: the completed numerical S2 audits independently reproduce P-XU FALSIFIED, P-DIVANIS FALSIFIED, all eight P-BUILDER O/OH clauses HELD and P-XU-SPAN INCOMPLETE EVIDENCE. The full S2/watcher integration suite passed 294 tests; the final retrieval and array-accounting corrections passed 19 and 13 focused tests. The Cr array is active; no relaxed DFT basin or census winner is established. The collector's first live accounting check identified Slurm internal JobIDRaw values. The corrected array-aware watcher is active and requires all nine terminal records before collection; remote calculations were never interrupted. The early claim/S6 reconciliation and six-row displacement are recorded in docs/43, docs/45 section D and docs/research/s2-scientific-readout-2026-09-18.md. P-LIT discovery/inclusion/coding, matched molecules and the September 20 re-check remain open.
 
 Verification: unchanged historical results; exact input/source identity; severe-error rejection; actual BFGS convergence and fixed-coordinate constraints; per-leg cost/iteration limits; primary/control separation; live scheduler evidence; no census-winner claim from partial validation.
 

@@ -4509,3 +4509,11 @@ See [research/research-decisions-2026-09-16.md](research/research-decisions-2026
 ## 2026-09-16 — Continuation direction
 
 The user directed: "Just continue it. Let everything run." The 2026-09-16 program in research/research-decisions-2026-09-16.md runs as submitted. The S2 values still open under A9.3.3, A9.3.5, A9.3.6 and A9.5 item 1 are fixed in a dated operating-decision record under docs/research/, committed and pushed before any blind arm they govern is computed. Registered thresholds, denominators, falsification branches and failure accounting are unchanged.
+
+## 2026-09-18 — S2 numerical outcomes and A9.4 body allocation
+
+The [reviewed S2 readout](research/s2-scientific-readout-2026-09-18.md) records P-XU and P-DIVANIS FALSIFIED, all eight P-BUILDER O/OH family clauses HELD, and P-XU-SPAN INCOMPLETE EVIDENCE. Primary and independent numerical paths agree. P-LIT remains incomplete under its [explicit retrieval amendment](research/s2-literature-retrieval-amendment-2026-09-18.md); matched Xu molecular references remain DEFERRED for unavailable exact pseudopotential bytes. Neither supplies a positive claim.
+
+The authorized continuation resolves A9.4's displacement: **P-SYMCOV moves to the appendix; P-XU enters the body.** The six body rows are **P7, P-PROJ, P-PLS, P-FLOOR-U, P-XU and P-BEEF**. P-CTRL takes no row. P-XU's combined failure remains visible alongside its held named-pair clause; selecting only that positive subclause is not the disposition. P-XU-SPAN, P-DIVANIS, P-BUILDER and P-LIT remain appendix predictions as previously allocated. Placement is decided with the present outcomes known; thresholds, populations and verdicts do not change.
+
+The early claim re-test is recorded in docs/45 section D. It supports a completed bounded detector/corpus audit, not high external prevalence, widespread near-floor occupancy, a general coverage consequence or a superior HEA composition. The September 20 check remains on the calendar. The reviewed S6 statements are P-PLS CONFIRMED 5/6 and P-FLOOR-U SCORED — MIDDLE BAND / NOT MET 3/6, with their existing scope and robustness limits.
