@@ -116,12 +116,14 @@ def inspect_held(client, job_id, spec):
     result = command(client, ["scontrol", "show", "job", "-o", job_id])
     text = result["stdout"]
     fields = dict(re.findall(r"(?:^|\s)([A-Za-z][A-Za-z0-9_]*)=(\S+)", text))
-    needed = dict(JobState="PENDING", Reason="JobHeldUser", NumCPUs="128", NumNodes="1", Requeue="0",
+    needed = dict(JobState="PENDING", Reason="JobHeldUser", NumCPUs="128", NumTasks="128", Requeue="0",
                   Account="che260157", ArrayTaskId="1-9%1", MinMemoryNode="237G",
                   Partition="shared", WorkDir=REMOTE, ArrayJobId=job_id)
     for key, value in needed.items():
         if fields.get(key) != value:
             raise ValueError(f"held resource mismatch {key}: {fields.get(key)} != {value}")
+    if fields.get("NumNodes") not in ("1", "1-1"):
+        raise ValueError("held node range is not exactly one node")
     minutes = spec["wall_minutes"]
     if fields.get("TimeLimit") != f"{minutes//60:02}:{minutes%60:02}:00":
         raise ValueError("held wall differs")
