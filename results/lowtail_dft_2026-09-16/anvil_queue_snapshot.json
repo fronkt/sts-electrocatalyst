@@ -1,0 +1,51 @@
+{
+  "schema": "lowtail-anvil-queue-snapshot-v1",
+  "read_only": true,
+  "command": "ssh -o BatchMode=yes -o ConnectTimeout=20 x-fcai3@anvil.rcac.purdue.edu 'TZ=UTC sacct -j 20781971,20781972 --allocations --parsable2 --noheader --format=JobID,JobName%40,State,ElapsedRaw,AllocCPUS,Start,End; date -u'",
+  "requested_at_utc": "2026-09-17T02:36:15.891521+00:00",
+  "arrays": [
+    "20781971",
+    "20781972"
+  ],
+  "rc": 0,
+  "stdout": "20781971_1|research-hea_panel|RUNNING|3072|128|2026-09-17T01:45:06|Unknown\n20781971_10|research-hea_panel|PENDING|0|0|Unknown|Unknown\n20781972_1|research-hea_pilot|RUNNING|3012|128|2026-09-17T01:46:06|Unknown\n20781972_12|research-hea_pilot|PENDING|0|0|Unknown|Unknown\nThu Sep 17 02:36:18 UTC 2026\n",
+  "stderr": "** WARNING: connection is not using a post-quantum key exchange algorithm.\n** This session may be vulnerable to \"store now, decrypt later\" attacks.\n** The server may need to be upgraded. See https://openssh.com/pq.html\n",
+  "rows": [
+    {
+      "job": "20781971_1",
+      "name": "research-hea_panel",
+      "state": "RUNNING",
+      "elapsed_s": "3072",
+      "cpus": "128",
+      "start": "2026-09-17T01:45:06",
+      "end": "Unknown"
+    },
+    {
+      "job": "20781971_10",
+      "name": "research-hea_panel",
+      "state": "PENDING",
+      "elapsed_s": "0",
+      "cpus": "0",
+      "start": "Unknown",
+      "end": "Unknown"
+    },
+    {
+      "job": "20781972_1",
+      "name": "research-hea_pilot",
+      "state": "RUNNING",
+      "elapsed_s": "3012",
+      "cpus": "128",
+      "start": "2026-09-17T01:46:06",
+      "end": "Unknown"
+    },
+    {
+      "job": "20781972_12",
+      "name": "research-hea_pilot",
+      "state": "PENDING",
+      "elapsed_s": "0",
+      "cpus": "0",
+      "start": "Unknown",
+      "end": "Unknown"
+    }
+  ]
+}

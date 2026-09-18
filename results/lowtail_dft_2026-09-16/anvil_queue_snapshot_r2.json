@@ -1,0 +1,96 @@
+{
+  "schema": "lowtail-anvil-queue-snapshot-v2",
+  "read_only": true,
+  "requested_at_utc": "2026-09-17T03:18:08.511836+00:00",
+  "arrays": [
+    "20781971",
+    "20781972"
+  ],
+  "sacct": {
+    "command": "ssh -o BatchMode=yes -o ConnectTimeout=20 x-fcai3@anvil.rcac.purdue.edu 'TZ=UTC sacct -j 20781971,20781972 --allocations --parsable2 --noheader --format=JobID,JobName%40,State,ExitCode,ElapsedRaw,AllocCPUS,Start,End; date -u'",
+    "rc": 0,
+    "stdout": "20781971_1|research-hea_panel|FAILED|10:0|3157|128|2026-09-17T01:45:06|2026-09-17T02:37:43\n20781971_2|research-hea_panel|RUNNING|0:0|2340|128|2026-09-17T02:39:13|Unknown\n20781971_10|research-hea_panel|PENDING|0:0|0|0|Unknown|Unknown\n20781972_1|research-hea_pilot|RUNNING|0:0|5527|128|2026-09-17T01:46:06|Unknown\n20781972_12|research-hea_pilot|PENDING|0:0|0|0|Unknown|Unknown\nThu Sep 17 03:18:13 UTC 2026\n",
+    "stderr": "** WARNING: connection is not using a post-quantum key exchange algorithm.\n** This session may be vulnerable to \"store now, decrypt later\" attacks.\n** The server may need to be upgraded. See https://openssh.com/pq.html\n"
+  },
+  "rows": [
+    {
+      "job": "20781971_1",
+      "name": "research-hea_panel",
+      "state": "FAILED",
+      "exit_code": "10:0",
+      "elapsed_s": "3157",
+      "cpus": "128",
+      "start": "2026-09-17T01:45:06",
+      "end": "2026-09-17T02:37:43"
+    },
+    {
+      "job": "20781971_2",
+      "name": "research-hea_panel",
+      "state": "RUNNING",
+      "exit_code": "0:0",
+      "elapsed_s": "2340",
+      "cpus": "128",
+      "start": "2026-09-17T02:39:13",
+      "end": "Unknown"
+    },
+    {
+      "job": "20781971_10",
+      "name": "research-hea_panel",
+      "state": "PENDING",
+      "exit_code": "0:0",
+      "elapsed_s": "0",
+      "cpus": "0",
+      "start": "Unknown",
+      "end": "Unknown"
+    },
+    {
+      "job": "20781972_1",
+      "name": "research-hea_pilot",
+      "state": "RUNNING",
+      "exit_code": "0:0",
+      "elapsed_s": "5527",
+      "cpus": "128",
+      "start": "2026-09-17T01:46:06",
+      "end": "Unknown"
+    },
+    {
+      "job": "20781972_12",
+      "name": "research-hea_pilot",
+      "state": "PENDING",
+      "exit_code": "0:0",
+      "elapsed_s": "0",
+      "cpus": "0",
+      "start": "Unknown",
+      "end": "Unknown"
+    }
+  ],
+  "terminal_tasks": [
+    {
+      "task": "20781971_1",
+      "stage": "hea_panel",
+      "row": 1,
+      "dir": "hea/branch_panel",
+      "deck": "equiatomic_pull2.10__atomic",
+      "input_sha256": "f85239d31bd7dad06c17c44add651cfc00f9733fe1ed7a8c1edbc7a9b2260e23",
+      "scf_seconds": 15264,
+      "max_iterations": 126,
+      "remote_base": "/anvil/projects/x-che260157/sts/runs/hea/branch_panel/equiatomic_pull2.10__atomic"
+    }
+  ],
+  "terminal_task_files": {
+    "command": "ssh -o BatchMode=yes -o ConnectTimeout=20 x-fcai3@anvil.rcac.purdue.edu 'echo '\"'\"'=== 20781971_1'\"'\"'; for x in .KILLED .REJECTED .qc.json; do [ -f /anvil/projects/x-che260157/sts/runs/hea/branch_panel/equiatomic_pull2.10__atomic$x ] && { echo \"--- $x\"; cat /anvil/projects/x-che260157/sts/runs/hea/branch_panel/equiatomic_pull2.10__atomic$x; echo; }; done; [ -f /anvil/projects/x-che260157/sts/runs/hea/branch_panel/equiatomic_pull2.10__atomic.out ] && { echo '\"'\"'--- scf'\"'\"'; grep -n '\"'\"'convergence has been achieved\\|convergence NOT achieved\\|IEEE_INVALID'\"'\"' /anvil/projects/x-che260157/sts/runs/hea/branch_panel/equiatomic_pull2.10__atomic.out | head -20; }'",
+    "rc": 0,
+    "stdout": "=== 20781971_1\n--- .REJECTED\nSCF not complete/clean: ['IEEE_INVALID_FLAG']\n\n--- .qc.json\n{\n  \"stage\": \"hea_panel\",\n  \"row\": 1,\n  \"job\": \"equiatomic_pull2.10__atomic\",\n  \"status\": \"REJECTED\",\n  \"input_sha256\": \"f85239d31bd7dad06c17c44add651cfc00f9733fe1ed7a8c1edbc7a9b2260e23\",\n  \"scratch_retained\": \"/anvil/projects/x-che260157/sts/runs/hea/branch_panel/tmp_equiatomic_pull2.10__atomic\",\n  \"scf_process\": {\n    \"rc\": 0,\n    \"stop_reason\": null,\n    \"wall_seconds\": 3153.626218261197\n  },\n  \"reason\": \"SCF not complete/clean: ['IEEE_INVALID_FLAG']\"\n}\n\n--- scf\n4412:     convergence has been achieved in  52 iterations\n4630:Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG\n",
+    "stderr": "** WARNING: connection is not using a post-quantum key exchange algorithm.\n** This session may be vulnerable to \"store now, decrypt later\" attacks.\n** The server may need to be upgraded. See https://openssh.com/pq.html\n"
+  },
+  "launch_spec": {
+    "path": "results/research_launch_2026-09-16/launch_spec.json",
+    "sha256": "9fbbb29e2e582700323dedc646b17afa00fe61ab6713e9896ee8c58635fc74c8",
+    "bytes": 24084
+  },
+  "submission": {
+    "path": "results/research_launch_2026-09-16/submission.json",
+    "sha256": "79d8f5fb2cb58b0426bd66ae0653f194a651b8407e68c7a518715542ec7439d8",
+    "bytes": 15628
+  }
+}

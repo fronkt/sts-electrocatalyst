@@ -1,0 +1,1018 @@
+{
+  "schema": "lowtail-independent-acceptance-audit-v1",
+  "scope": "File-only audit before atomic relaxation launch; no Python tests or processes run by this agent.",
+  "reviewed_implementation": [
+    {
+      "path": "src/s2/lowtail_dft/lt_readout.py",
+      "sha256": "ac47824292a6e30d345ea27a927c7c4b2dd25215a7e90b6e3be1cadcd6714b12"
+    },
+    {
+      "path": "tests/s2/test_lowtail_readout.py",
+      "sha256": "d8b17e24507bdb816d79d073e83e90a648769fe12f13361e63ec23e728793f1b"
+    }
+  ],
+  "checks": {
+    "banked_bfgs_relaxations": 98,
+    "count_invariant_failures": [],
+    "maximum_final_minus_last_scf_energy_Ry": 4.999947122996673e-9,
+    "roundoff_tolerance_Ry": 1e-8
+  },
+  "resolved_in_owned_files": [
+    "Removed output-byte transformations and temporary canonical-helper monkeypatch; canonical scorer receives original file.",
+    "Unknown or mixed IEEE notices remain rejected by canonical parser.",
+    "Reject malformed completed relaxation evidence: mismatched BFGS/SCF/energy/force counts, inconsistent final energy, duplicate coordinate blocks, missing wall/iteration evidence, changed frozen input hash and out-of-order terminal markers."
+  ],
+  "handoffs": [
+    "Parent implements a supervised relaxation route; anvil/46_a0.slurm cannot enforce frozen iteration-127/per-leg walls or preserve killed scratch.",
+    "lowtail_refresh owns final-coordinate exact-row handling and registry extension to completed 22-leg batch.",
+    "Parent runs Python tests and writes launch and scientific readout."
+  ],
+  "scientific_limits": [
+    "Three-site, single-FM-start DFT+U basin comparison; neither global magnetic ground state nor experimental superiority follows.",
+    "If clean-slab relaxation is not accepted, assignment uses explicitly flagged census/MACE slab reference under prepared rules; it is not a measured lift relative to a DFT-relaxed slab.",
+    "Historical 0.4811 eV spin-start spread used for energy-order flag is an operating margin, not a calibrated uncertainty for reconstructed O.",
+    "DFT forc_conv_thr applies to free force components; reported vector fmax may be larger than its 0.0514 eV/angstrom component conversion."
+  ],
+  "rows": [
+    {
+      "path": "runs/Co_slab/s0_O.out",
+      "scfs": 15,
+      "energy": 15,
+      "forces": 15,
+      "bfgs_cycles": 15,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 9.999894245993346e-10
+    },
+    {
+      "path": "runs/Co_slab/s0_OH.out",
+      "scfs": 16,
+      "energy": 16,
+      "forces": 16,
+      "bfgs_cycles": 16,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.8999238566029817e-9
+    },
+    {
+      "path": "runs/Co_slab/slab.out",
+      "scfs": 17,
+      "energy": 17,
+      "forces": 17,
+      "bfgs_cycles": 17,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.8999238566029817e-9
+    },
+    {
+      "path": "runs/Cr_slab/s0_O.out",
+      "scfs": 12,
+      "energy": 12,
+      "forces": 12,
+      "bfgs_cycles": 12,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.600028554094024e-9
+    },
+    {
+      "path": "runs/Cr_slab/s0_OH.out",
+      "scfs": 44,
+      "energy": 44,
+      "forces": 44,
+      "bfgs_cycles": 44,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.300122676184401e-9
+    },
+    {
+      "path": "runs/Cr_slab/s0_OOH.out",
+      "scfs": 82,
+      "energy": 82,
+      "forces": 82,
+      "bfgs_cycles": 82,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.9986146071460098e-10
+    },
+    {
+      "path": "runs/Cr_slab/slab.out",
+      "scfs": 16,
+      "energy": 16,
+      "forces": 16,
+      "bfgs_cycles": 16,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.6000179786933586e-9
+    },
+    {
+      "path": "runs/Fe_slab/s0_O.out",
+      "scfs": 38,
+      "energy": 38,
+      "forces": 38,
+      "bfgs_cycles": 38,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.1000232663936913e-9
+    },
+    {
+      "path": "runs/Fe_slab/s0_OH.out",
+      "scfs": 51,
+      "energy": 51,
+      "forces": 51,
+      "bfgs_cycles": 51,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.699824446812272e-9
+    },
+    {
+      "path": "runs/Fe_slab/s0_OOH.out",
+      "scfs": 29,
+      "energy": 29,
+      "forces": 29,
+      "bfgs_cycles": 29,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.6002347769681364e-9
+    },
+    {
+      "path": "runs/Fe_slab/slab.out",
+      "scfs": 20,
+      "energy": 20,
+      "forces": 20,
+      "bfgs_cycles": 20,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.6998350222129375e-9
+    },
+    {
+      "path": "runs/Mn_slab/s0_O.out",
+      "scfs": 34,
+      "energy": 34,
+      "forces": 34,
+      "bfgs_cycles": 34,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 4.999947122996673e-10
+    },
+    {
+      "path": "runs/Mn_slab/s0_OH.out",
+      "scfs": 46,
+      "energy": 46,
+      "forces": 46,
+      "bfgs_cycles": 46,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.2000676835887134e-9
+    },
+    {
+      "path": "runs/Mn_slab/s0_OOH.out",
+      "scfs": 34,
+      "energy": 34,
+      "forces": 34,
+      "bfgs_cycles": 34,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.000888343900442e-10
+    },
+    {
+      "path": "runs/Mn_slab/slab.out",
+      "scfs": 20,
+      "energy": 20,
+      "forces": 20,
+      "bfgs_cycles": 20,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 4.1000021155923605e-9
+    },
+    {
+      "path": "runs/Ni_slab/s0_O.out",
+      "scfs": 9,
+      "energy": 9,
+      "forces": 9,
+      "bfgs_cycles": 9,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.299657353432849e-9
+    },
+    {
+      "path": "runs/Ni_slab/s0_OH.out",
+      "scfs": 14,
+      "energy": 14,
+      "forces": 14,
+      "bfgs_cycles": 14,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 9.999894245993346e-10
+    },
+    {
+      "path": "runs/Ni_slab/slab.out",
+      "scfs": 14,
+      "energy": 14,
+      "forces": 14,
+      "bfgs_cycles": 14,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.9972292142920196e-10
+    },
+    {
+      "path": "runs/probe/Co_basin/s0_OH.out",
+      "scfs": 3,
+      "energy": 3,
+      "forces": 3,
+      "bfgs_cycles": 3,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 5.998117558192462e-10
+    },
+    {
+      "path": "runs/probe/Cr_basin/s0_OOH.out",
+      "scfs": 4,
+      "energy": 4,
+      "forces": 4,
+      "bfgs_cycles": 4,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 6.000391294946894e-10
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/ref__2x1o.out",
+      "scfs": 23,
+      "energy": 23,
+      "forces": 23,
+      "bfgs_cycles": 23,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 5.998117558192462e-10
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/ref__2x1o_mir.out",
+      "scfs": 23,
+      "energy": 23,
+      "forces": 23,
+      "bfgs_cycles": 23,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 5.998117558192462e-10
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/ref__2x1v.out",
+      "scfs": 1,
+      "energy": 1,
+      "forces": 1,
+      "bfgs_cycles": 1,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.2996679288335145e-9
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_O__1x1_k8_relax.out",
+      "scfs": 1,
+      "energy": 1,
+      "forces": 1,
+      "bfgs_cycles": 1,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.600028554094024e-9
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_O__1x1_mir.out",
+      "scfs": 1,
+      "energy": 1,
+      "forces": 1,
+      "bfgs_cycles": 1,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.999957698397338e-9
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_O__1x1_off.out",
+      "scfs": 20,
+      "energy": 20,
+      "forces": 20,
+      "bfgs_cycles": 20,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.30010152538307e-9
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_O__2x1o_mir.out",
+      "scfs": 1,
+      "energy": 1,
+      "forces": 1,
+      "bfgs_cycles": 1,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.400167093379423e-9
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_O__2x1o_off.out",
+      "scfs": 14,
+      "energy": 14,
+      "forces": 14,
+      "bfgs_cycles": 14,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.4001565179787576e-9
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_O__2x1v_mir.out",
+      "scfs": 23,
+      "energy": 23,
+      "forces": 23,
+      "bfgs_cycles": 23,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.8999238566029817e-9
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_O__2x1v_off.out",
+      "scfs": 23,
+      "energy": 23,
+      "forces": 23,
+      "bfgs_cycles": 23,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.6002347769681364e-9
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_OH__1x1_mir.out",
+      "scfs": 1,
+      "energy": 1,
+      "forces": 1,
+      "bfgs_cycles": 1,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.100012690993026e-9
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_OH__1x1_off.out",
+      "scfs": 24,
+      "energy": 24,
+      "forces": 24,
+      "bfgs_cycles": 24,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.4999735614983365e-9
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_OH__2x1o_mir.out",
+      "scfs": 17,
+      "energy": 17,
+      "forces": 17,
+      "bfgs_cycles": 17,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.3001121007837355e-9
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_OH__2x1o_off.out",
+      "scfs": 17,
+      "energy": 17,
+      "forces": 17,
+      "bfgs_cycles": 17,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.8999238566029817e-9
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_OH__2x1v_mir.out",
+      "scfs": 16,
+      "energy": 16,
+      "forces": 16,
+      "bfgs_cycles": 16,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 7.003109203651547e-10
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_OH__2x1v_off.out",
+      "scfs": 42,
+      "energy": 42,
+      "forces": 42,
+      "bfgs_cycles": 42,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.999978849198669e-9
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_OOH__1x1_off.out",
+      "scfs": 50,
+      "energy": 50,
+      "forces": 50,
+      "bfgs_cycles": 50,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 8.999450074043125e-10
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_OOH__2x1o_mir.out",
+      "scfs": 17,
+      "energy": 17,
+      "forces": 17,
+      "bfgs_cycles": 17,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.9999682737980038e-9
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_OOH__2x1o_off.out",
+      "scfs": 52,
+      "energy": 52,
+      "forces": 52,
+      "bfgs_cycles": 52,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 8.999450074043125e-10
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_OOH__2x1v_mir.out",
+      "scfs": 30,
+      "energy": 30,
+      "forces": 30,
+      "bfgs_cycles": 30,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.4001459425780922e-9
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/s0_OOH__2x1v_off.out",
+      "scfs": 41,
+      "energy": 41,
+      "forces": 41,
+      "bfgs_cycles": 41,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.5997906050179154e-9
+    },
+    {
+      "path": "runs/probe/Cr_cellsym/slab__1x1_k8_relax.out",
+      "scfs": 1,
+      "energy": 1,
+      "forces": 1,
+      "bfgs_cycles": 1,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.899913281202316e-9
+    },
+    {
+      "path": "runs/probe/Cr_lit2/cov_2OH__2x1_off.out",
+      "scfs": 9,
+      "energy": 9,
+      "forces": 9,
+      "bfgs_cycles": 9,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.4001459425780922e-9
+    },
+    {
+      "path": "runs/probe/Cr_lit2/cov_Ovac__2x1_off.out",
+      "scfs": 17,
+      "energy": 17,
+      "forces": 17,
+      "bfgs_cycles": 17,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.700289769563824e-9
+    },
+    {
+      "path": "runs/probe/Cr_lit3/oosh__1x1_off_magm.out",
+      "scfs": 41,
+      "energy": 41,
+      "forces": 41,
+      "bfgs_cycles": 41,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.300122676184401e-9
+    },
+    {
+      "path": "runs/probe/Cr_lit3/oosh__1x1_off_magp.out",
+      "scfs": 42,
+      "energy": 42,
+      "forces": 42,
+      "bfgs_cycles": 42,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.899934432003647e-9
+    },
+    {
+      "path": "runs/probe/Cr_lit3/oosh__1x1_off_magp.replay.out",
+      "scfs": 42,
+      "energy": 42,
+      "forces": 42,
+      "bfgs_cycles": 42,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 4.999947122996673e-9
+    },
+    {
+      "path": "runs/probe/Cr_lit3/s0_OOH__1x1_yaw270_magm.out",
+      "scfs": 50,
+      "energy": 50,
+      "forces": 50,
+      "bfgs_cycles": 50,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.600007403292693e-9
+    },
+    {
+      "path": "runs/probe/Cr_lit3/s0_OOH__1x1_yaw270_magp.out",
+      "scfs": 50,
+      "energy": 50,
+      "forces": 50,
+      "bfgs_cycles": 50,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 8.999450074043125e-10
+    },
+    {
+      "path": "runs/probe/Cr_lit3/s0_OOH__1x1_yaw90_magm.out",
+      "scfs": 49,
+      "energy": 49,
+      "forces": 49,
+      "bfgs_cycles": 49,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.2000782589893788e-9
+    },
+    {
+      "path": "runs/probe/Cr_lit3/s0_OOH__1x1_yaw90_magm.replay.out",
+      "scfs": 50,
+      "energy": 50,
+      "forces": 50,
+      "bfgs_cycles": 50,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 4.001776687800884e-10
+    },
+    {
+      "path": "runs/probe/Ni_basin/s0_OH.out",
+      "scfs": 5,
+      "energy": 5,
+      "forces": 5,
+      "bfgs_cycles": 5,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.800323611358181e-9
+    },
+    {
+      "path": "runs/probe/Ni_basin/s0_OH.replay.out",
+      "scfs": 5,
+      "energy": 5,
+      "forces": 5,
+      "bfgs_cycles": 5,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 4.699813871411607e-9
+    },
+    {
+      "path": "runs/s0/h_afm_relax/ref__2x1v__afm__relax.out",
+      "scfs": 3,
+      "energy": 3,
+      "forces": 3,
+      "bfgs_cycles": 3,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.600245352368802e-9
+    },
+    {
+      "path": "runs/s0/h_afm_relax/s0_OH__2x1v_off__afm__relax.out",
+      "scfs": 3,
+      "energy": 3,
+      "forces": 3,
+      "bfgs_cycles": 3,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.999978849198669e-9
+    },
+    {
+      "path": "runs/s0/h_afm_relax/s0_OOH__2x1v_off__afm__relax.out",
+      "scfs": 4,
+      "energy": 4,
+      "forces": 4,
+      "bfgs_cycles": 4,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.5998011804185808e-9
+    },
+    {
+      "path": "runs/s3/Co/ref__2x1v.out",
+      "scfs": 10,
+      "energy": 10,
+      "forces": 10,
+      "bfgs_cycles": 10,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 9.00399754755199e-10
+    },
+    {
+      "path": "runs/s3/Co/s0_O__1x1_off.out",
+      "scfs": 19,
+      "energy": 19,
+      "forces": 19,
+      "bfgs_cycles": 19,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 7.999005902092904e-10
+    },
+    {
+      "path": "runs/s3/Co/s0_O__1x1_off.replay.out",
+      "scfs": 18,
+      "energy": 18,
+      "forces": 18,
+      "bfgs_cycles": 18,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.300122676184401e-9
+    },
+    {
+      "path": "runs/s3/Co/s0_O__2x1v_off.out",
+      "scfs": 17,
+      "energy": 17,
+      "forces": 17,
+      "bfgs_cycles": 17,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 4.200046532787383e-9
+    },
+    {
+      "path": "runs/s3/Co/s0_OH__1x1_off.out",
+      "scfs": 17,
+      "energy": 17,
+      "forces": 17,
+      "bfgs_cycles": 17,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.200057108188048e-9
+    },
+    {
+      "path": "runs/s3/Co/s0_OH__2x1v_mir.out",
+      "scfs": 18,
+      "energy": 18,
+      "forces": 18,
+      "bfgs_cycles": 18,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.2005330063402653e-9
+    },
+    {
+      "path": "runs/s3/Co/s0_OOH__2x1v_mir.out",
+      "scfs": 22,
+      "energy": 22,
+      "forces": 22,
+      "bfgs_cycles": 22,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.2996467780321836e-9
+    },
+    {
+      "path": "runs/s3/Co/s0_OOH__2x1v_off.out",
+      "scfs": 22,
+      "energy": 22,
+      "forces": 22,
+      "bfgs_cycles": 22,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.700733941514045e-9
+    },
+    {
+      "path": "runs/s3/Cr/s0_OOH__2x1v_escape.out",
+      "scfs": 35,
+      "energy": 35,
+      "forces": 35,
+      "bfgs_cycles": 35,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.4001459425780922e-9
+    },
+    {
+      "path": "runs/s3/Fe/ref__2x1v.out",
+      "scfs": 1,
+      "energy": 1,
+      "forces": 1,
+      "bfgs_cycles": 1,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 6.994014256633818e-10
+    },
+    {
+      "path": "runs/s3/Fe/s0_O__1x1_off.out",
+      "scfs": 29,
+      "energy": 29,
+      "forces": 29,
+      "bfgs_cycles": 29,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.1000232663936913e-9
+    },
+    {
+      "path": "runs/s3/Fe/s0_O__2x1v_mir.out",
+      "scfs": 15,
+      "energy": 15,
+      "forces": 15,
+      "bfgs_cycles": 15,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.5006451071240008e-9
+    },
+    {
+      "path": "runs/s3/Fe/s0_O__2x1v_off.out",
+      "scfs": 16,
+      "energy": 16,
+      "forces": 16,
+      "bfgs_cycles": 16,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.8994691092520952e-9
+    },
+    {
+      "path": "runs/s3/Fe/s0_OH__1x1_off.out",
+      "scfs": 24,
+      "energy": 24,
+      "forces": 24,
+      "bfgs_cycles": 24,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 4.200046532787383e-9
+    },
+    {
+      "path": "runs/s3/Fe/s0_OH__2x1v_mir.out",
+      "scfs": 20,
+      "energy": 20,
+      "forces": 20,
+      "bfgs_cycles": 20,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 6.002665031701326e-10
+    },
+    {
+      "path": "runs/s3/Fe/s0_OH__2x1v_off.out",
+      "scfs": 17,
+      "energy": 17,
+      "forces": 17,
+      "bfgs_cycles": 17,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 5.002220859751105e-10
+    },
+    {
+      "path": "runs/s3/Fe/s0_OOH__1x1_off.out",
+      "scfs": 46,
+      "energy": 46,
+      "forces": 46,
+      "bfgs_cycles": 46,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.2000676835887134e-9
+    },
+    {
+      "path": "runs/s3/Fe/s0_OOH__1x1_off__basin.out",
+      "scfs": 34,
+      "energy": 34,
+      "forces": 34,
+      "bfgs_cycles": 34,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.699824446812272e-9
+    },
+    {
+      "path": "runs/s3/Fe/s0_OOH__1x1_off__basin.replay.out",
+      "scfs": 34,
+      "energy": 34,
+      "forces": 34,
+      "bfgs_cycles": 34,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 4.300090949982405e-9
+    },
+    {
+      "path": "runs/s3/Fe/s0_OOH__2x1v_mir.out",
+      "scfs": 37,
+      "energy": 37,
+      "forces": 37,
+      "bfgs_cycles": 37,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.3996911952272058e-9
+    },
+    {
+      "path": "runs/s3/Fe/s0_OOH__2x1v_off.out",
+      "scfs": 52,
+      "energy": 52,
+      "forces": 52,
+      "bfgs_cycles": 52,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.900378603953868e-9
+    },
+    {
+      "path": "runs/s3/Mn/ref__2x1v.out",
+      "scfs": 1,
+      "energy": 1,
+      "forces": 1,
+      "bfgs_cycles": 1,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.9999682737980038e-9
+    },
+    {
+      "path": "runs/s3/Mn/s0_O__1x1_off.out",
+      "scfs": 28,
+      "energy": 28,
+      "forces": 28,
+      "bfgs_cycles": 28,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 9.001723810797557e-10
+    },
+    {
+      "path": "runs/s3/Mn/s0_O__2x1v_mir.out",
+      "scfs": 33,
+      "energy": 33,
+      "forces": 33,
+      "bfgs_cycles": 33,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.6002559277694672e-9
+    },
+    {
+      "path": "runs/s3/Mn/s0_O__2x1v_off.out",
+      "scfs": 31,
+      "energy": 31,
+      "forces": 31,
+      "bfgs_cycles": 31,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.499735612422228e-9
+    },
+    {
+      "path": "runs/s3/Mn/s0_OH__1x1_off.out",
+      "scfs": 45,
+      "energy": 45,
+      "forces": 45,
+      "bfgs_cycles": 45,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 4.900130079477094e-9
+    },
+    {
+      "path": "runs/s3/Mn/s0_OH__2x1v_mir.out",
+      "scfs": 18,
+      "energy": 18,
+      "forces": 18,
+      "bfgs_cycles": 18,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.1996235116384923e-9
+    },
+    {
+      "path": "runs/s3/Mn/s0_OH__2x1v_off.out",
+      "scfs": 20,
+      "energy": 20,
+      "forces": 20,
+      "bfgs_cycles": 20,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 4.39968061982654e-9
+    },
+    {
+      "path": "runs/s3/Mn/s0_OOH__1x1_off.out",
+      "scfs": 62,
+      "energy": 62,
+      "forces": 62,
+      "bfgs_cycles": 62,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.999957698397338e-9
+    },
+    {
+      "path": "runs/s3/Mn/s0_OOH__2x1v_mir.out",
+      "scfs": 34,
+      "energy": 34,
+      "forces": 34,
+      "bfgs_cycles": 34,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.6002559277694672e-9
+    },
+    {
+      "path": "runs/s3/Mn/s0_OOH__2x1v_off.out",
+      "scfs": 50,
+      "energy": 50,
+      "forces": 50,
+      "bfgs_cycles": 50,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 4.300090949982405e-9
+    },
+    {
+      "path": "runs/s3/Mn/s0_OOH__2x1v_off__basin.out",
+      "scfs": 13,
+      "energy": 13,
+      "forces": 13,
+      "bfgs_cycles": 13,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 5.998117558192462e-10
+    },
+    {
+      "path": "runs/s3/Ni/ref__2x1v.out",
+      "scfs": 1,
+      "energy": 1,
+      "forces": 1,
+      "bfgs_cycles": 1,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.5998011804185808e-9
+    },
+    {
+      "path": "runs/s3/Ni/s0_O__1x1_off.out",
+      "scfs": 15,
+      "energy": 15,
+      "forces": 15,
+      "bfgs_cycles": 15,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.1000232663936913e-9
+    },
+    {
+      "path": "runs/s3/Ni/s0_O__1x1_off.replay.out",
+      "scfs": 13,
+      "energy": 13,
+      "forces": 13,
+      "bfgs_cycles": 13,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 3.100012690993026e-9
+    },
+    {
+      "path": "runs/s3/Ni/s0_O__2x1v_mir.out",
+      "scfs": 15,
+      "energy": 15,
+      "forces": 15,
+      "bfgs_cycles": 15,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 1.4997567632235587e-9
+    },
+    {
+      "path": "runs/s3/Ni/s0_O__2x1v_off.out",
+      "scfs": 23,
+      "energy": 23,
+      "forces": 23,
+      "bfgs_cycles": 23,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 4.200046532787383e-9
+    },
+    {
+      "path": "runs/s3/Ni/s0_OH__1x1_off.out",
+      "scfs": 11,
+      "energy": 11,
+      "forces": 11,
+      "bfgs_cycles": 11,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 4.5997694542165846e-9
+    },
+    {
+      "path": "runs/s3/Ni/s0_OH__2x1v_mir.out",
+      "scfs": 24,
+      "energy": 24,
+      "forces": 24,
+      "bfgs_cycles": 24,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.699380274862051e-9
+    },
+    {
+      "path": "runs/s3/Ni/s0_OH__2x1v_off.out",
+      "scfs": 12,
+      "energy": 12,
+      "forces": 12,
+      "bfgs_cycles": 12,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 4.001776687800884e-10
+    },
+    {
+      "path": "runs/s3/Ni/s0_OH__2x1v_off.replay.out",
+      "scfs": 12,
+      "energy": 12,
+      "forces": 12,
+      "bfgs_cycles": 12,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 2.9995135264471173e-9
+    },
+    {
+      "path": "runs/s3/Ni/s0_OOH__2x1v_off.out",
+      "scfs": 41,
+      "energy": 41,
+      "forces": 41,
+      "bfgs_cycles": 41,
+      "nbfgs": 1,
+      "final_beg": 1,
+      "delta": 4.799403541255742e-9
+    }
+  ]
+}

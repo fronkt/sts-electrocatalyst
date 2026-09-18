@@ -2618,6 +2618,20 @@ Scope: the queued 2026-09-16 Anvil program runs untouched (its readouts stay wit
 
 Verification plan: registered thresholds and denominators read from docs/43 A9.3 line by line; input hashes pinned; every UNIDENTIFIED/NO_FORCE_BLOCK/unconverged output counted on the face; an independent second code path for each scored number; no blind P-BUILDER symmetry or P-LIT coding before the pushed boundary.
 
+## 2026-09-18 — Continue Cr relaxation validation and S2/F8
+
+Scope: user said “Continue” after the proposed sequence. Refresh low-tail preparation against all completed HEA outputs, review and bank the prepared code and evidence, and start the nine atomic-projector relaxation legs. Keep nine ortho controls conditional on primary results. Continue independent S2/F8 verification and preserve existing work and historical evidence.
+
+- [x] Verify repository ownership, completed HEA inputs, current scheduler/allocation and prepared relaxation acceptance/cost assumptions.
+- [x] Refresh low-tail force/cost evidence and remove obsolete parser workarounds using the repaired canonical parser; independently review the scientific readout.
+- [x] Record the authorized nine-leg launch and implement a bounded relaxation route that enforces iteration/wall limits, preserves failed scratch and refuses duplicate outputs.
+- [ ] Run focused verification, bank explicit source/decision/evidence paths and push before remote staging.
+- [ ] Stage exact bytes, inspect held resources and release primary jobs; record live IDs, ceilings and startup evidence.
+- [ ] Review S2/F8 prepared work, bank verified completed parts, and advance remaining local work in dependency order.
+- [ ] Record scientific status and remaining work with independent review; commit and push completed phases.
+
+Verification: unchanged historical results; exact input/source identity; severe-error rejection; actual BFGS convergence and fixed-coordinate constraints; per-leg cost/iteration limits; primary/control separation; live scheduler evidence; no census-winner claim from partial validation.
+
 ## 2026-09-17 — Complete Anvil diagnoses and scientific readouts
 
 Scope: continue the approved 48-job program through evidence retrieval, failure diagnosis, frozen scientific readouts and reviewed backup. Preserve rejected attempts and existing S2 work.

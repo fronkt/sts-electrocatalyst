@@ -1,0 +1,34 @@
+# PREPARED 2026-09-16 - submission sequenced after arrays 20781971/20781972 report measured per-SCF cost
+# Low-tail Cr-site DFT relaxations (paired projector control): per site clean slab, *O from the census MACE reconstructed endpoint,
+# *O from the unreconstructed start (census clean slab + O on top of the site Cr). docs/92 settings of record,
+# HUBBARD (ortho-atomic), FM starts, k 4 2 1, calculation = 'relax' (bfgs; census FixAtoms as if_pos 0 0 0).
+# Not licensed for submission by this preparation: submission needs a dated approval line after the two arrays report.
+# Plan, costs and basin rules: results/lowtail_dft_2026-09-16/deck_plan.json, results/lowtail_dft_2026-09-16/operating_decisions.json.
+# Readout: python src/s2/lowtail_dft/lt_readout.py (accepts a leg only when src/dft/hea_panel_readout.py parse_out(allow_relax=True) is CONVERGED,
+# read with two recorded input corrections: pw.x hour-format wall tokens and the gfortran exit note; IEEE_INVALID still rejects).
+# KILL RULE (docs/research/research-decisions-2026-09-16.md:81 (HEA-4), carried to relaxation legs): stop once any SCF begins iteration 127 or the leg wall exceeds its ceiling wall s below;
+# record KILLED, preserve scratch, no automatic restart; a stopped leg yields no energy, geometry or basin.
+# PLANNING 10561.7 core-h, CEILING 31685.0 core-h for 9 decks (measured HEA per-SCF cost x banked relaxation steps; lt_cost.py). Max memory 111.3 GB printed-estimate basis, 125.6 GiB MaxRSS basis per deck.
+#
+# per deck (site  job  nat  planning core-h  ceiling core-h  planning wall h  ceiling wall h  ceiling wall s  memory GB  md5):
+#   Cu8Cr23Mn35Co34__s20_site2       slab__ortho         72    1136.2    3408.5    8.88   26.63   95865   103.4  bfcc6320b49b0e31015850739d17bdc4
+#   Cu8Cr23Mn35Co34__s20_site2       O_recon__ortho      73    1147.8    3443.3    8.97   26.90   96845   104.5  1e6545679b119bb3b702e5c6b7666d15
+#   Cu8Cr23Mn35Co34__s20_site2       O_unrecon__ortho    73    1147.8    3443.3    8.97   26.90   96845   104.5  9298a4ee8ed6d9747c4afaf07a444f5f
+#   Ni31Cr29Cu5Mn35__s1_site0        slab__ortho         72    1149.5    3448.6    8.98   26.94   96991   104.6  127ea7d77430045bf66afbf268877fb7
+#   Ni31Cr29Cu5Mn35__s1_site0        O_recon__ortho      73    1161.1    3483.2    9.07   27.21   97965   105.7  f7339058edbdf6bb886dd90ac4671f5b
+#   Ni31Cr29Cu5Mn35__s1_site0        O_unrecon__ortho    73    1161.1    3483.2    9.07   27.21   97965   105.7  0a24fb78c1958410dcc818bfd2247ed2
+#   Fe25Co25Ni25Cr25__s2_site0       slab__ortho         72    1213.5    3640.4    9.48   28.44  102388   110.5  10b240c627268e0c7ea031bebf779071
+#   Fe25Co25Ni25Cr25__s2_site0       O_recon__ortho      73    1222.4    3667.2    9.55   28.65  103140   111.3  64f58b078cc289cefd6f77fa23abc941
+#   Fe25Co25Ni25Cr25__s2_site0       O_unrecon__ortho    73    1222.4    3667.2    9.55   28.65  103140   111.3  45cedbb063ef969b06f79c46dab53827
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200
+# NP=128 NCONC=1
+hea/lowtail_validation_2026-09-16/Cu8Cr23Mn35Co34__s20_site2 slab__ortho .in 8
+hea/lowtail_validation_2026-09-16/Cu8Cr23Mn35Co34__s20_site2 O_recon__ortho .in 8
+hea/lowtail_validation_2026-09-16/Cu8Cr23Mn35Co34__s20_site2 O_unrecon__ortho .in 8
+hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0 slab__ortho .in 8
+hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0 O_recon__ortho .in 8
+hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0 O_unrecon__ortho .in 8
+hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0 slab__ortho .in 8
+hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0 O_recon__ortho .in 8
+hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0 O_unrecon__ortho .in 8

@@ -1,0 +1,224 @@
+{
+  "schema": "lowtail-operating-decisions-v1",
+  "date": "2026-09-18",
+  "revision": 3,
+  "status": "PROSPECTIVE: fixed before any relaxation output exists",
+  "revision_note": "revision 2, still before any relaxation output: lift-definition record, HEA-4 kill rule for relaxation legs and the 3-D displacement flag added; no threshold value changed",
+  "registration_context": {
+    "docs43": "no registered threshold for this question; A6.6 registers fixed-geometry SCFs and zero relaxations (docs/43-prereg-week1-factorial.md:1283-1288)",
+    "authority": "docs/research/research-decisions-2026-09-16.md:55 (persistence of a reconstruction requires a suitable relaxation and a basin/chemical-integrity check)"
+  },
+  "thresholds": {
+    "lift_min_A": 0.5,
+    "axial_break_A": 2.1758446120613013,
+    "desorbed_min_A": 3.0,
+    "magnetization_flag_muB": 0.5,
+    "energy_order_margin_eV": 0.4811166288709501
+  },
+  "sources": {
+    "lift_min_A": "value of src/hea_oer/site_integrity.py:84 (IntegrityThresholds.reconstruction_max_A; docs/91-prereg-site-integrity-census-2026-09-06.md:58), re-used for the site-metal z-lift with >= (see lift_definition)",
+    "axial_break_A": "midpoint of max clean and min O-state site-metal/axial-O distance over the four census Cr reconstruction minima (rows below)",
+    "desorbed_min_A": "src/hea_oer/data.py:20 (M_O_DESORBED_MIN)",
+    "magnetization_flag_muB": "src/dft/hea_panel_readout.py:68 (SPIN_TOL_MUB)",
+    "energy_order_margin_eV": "max-min of accepted matched fixed-geometry pull2.10-builder gaps across initial-spin variants, results/hea_followup_2026-09-07/completion_readout.json pairs"
+  },
+  "lift_definition": {
+    "source_quantity": "largest single free-slab-atom minimum-image 3-D displacement from the same decoration's relaxed clean slab; RECONSTRUCTION when it exceeds the value (strict >, src/hea_oer/site_integrity.py:278; docs/91-prereg-site-integrity-census-2026-09-06.md:58)",
+    "used_here": "site-metal displacement along +z relative to the clean slab (lift), with >=",
+    "reason": "the question is whether the site metal leaves the surface plane along the normal; lateral motion of the site metal is not a lift",
+    "readout_record": "site-metal 3-D displacement printed beside the lift; flag LIFT_DEFINITIONS_DISAGREE when (lift >= lift_min_A) differs from (3-D displacement > lift_min_A); the basin label follows the lift rule",
+    "census_Cr_minima_lift_vs_displacement_A": [
+      [
+        0.8454922504474585,
+        0.8468034835654685
+      ],
+      [
+        0.7989225551623385,
+        0.7991360510865592
+      ],
+      [
+        0.5921448116549755,
+        0.5965738426480919
+      ],
+      [
+        0.7912425464251989,
+        0.7925244567426035
+      ]
+    ]
+  },
+  "kill_rule": {
+    "source": "docs/research/research-decisions-2026-09-16.md:81 (HEA-4)",
+    "stop_when_iteration_begins": 127,
+    "max_scf_iterations": 126,
+    "electron_maxstep": 300,
+    "cross_checks": {
+      "cost_model": "runs/hea/COST_MODEL.md:18 ceiling SCF iterations 126",
+      "launch_spec": "results/research_launch_2026-09-16/launch_spec.json max_iterations of all 22 HEA jobs = [126]",
+      "electron_maxstep": "docs/research/research-decisions-2026-09-16.md:81"
+    },
+    "iteration_limit": "every SCF of every ionic step: the leg stops once any SCF begins iteration 127 (the maximum 'iteration #' in the output, as the supervisor in src/dft/research_batch.py counts it)",
+    "wall_limit": "a relaxation is one pw.x process, so the per-deck SCF ceiling of HEA-4 becomes one per-leg ceiling: the leg stops once its wall exceeds the deck's unrounded ceiling wall in deck_plan.json (cost.ceiling_wall_s), rounded upward to the next second (supervisor_limits.leg_wall_ceiling_s)",
+    "on_stop": "record KILLED (<job>.KILLED sidecar), preserve scratch, no automatic restart; a stopped leg yields no energy, final geometry or basin; restarting from the last ionic geometry needs its own dated decision",
+    "readout_enforcement": "the readout applies both limits to every output whatever route ran it: an otherwise CONVERGED leg whose output shows iteration >= 127 or a PWSCF wall above leg_wall_ceiling_s is KILL_RULE_EXCEEDED and not accepted",
+    "deck_setting": "electron_maxstep = 300 stays in every deck (HEA-4)",
+    "lift_strict_inequality_line": "src/hea_oer/site_integrity.py:278"
+  },
+  "axial_minima": {
+    "rows": [
+      {
+        "formula": "Ni31Cr29Cu5Mn35",
+        "seed": 1,
+        "site": 0,
+        "census": "results/site_census_2026-09-06/results/mpa0__Ni31Cr29Cu5Mn35_result.json",
+        "site_index": 16,
+        "axial_O_index": 40,
+        "clean_A": 1.7112580341887613,
+        "O_state_A": 2.693165782129053,
+        "site_lift_z_A": 0.8454922504474585,
+        "site_displacement_A": 0.8468034835654685,
+        "census_sha256": "5ba521d6162f901645cccbcad5cc97bac289a0eb309a3d70b4463a56e9ddf950"
+      },
+      {
+        "formula": "Fe25Co25Ni25Cr25",
+        "seed": 2,
+        "site": 0,
+        "census": "results/site_census_2026-09-06/results/mpa0__Fe25Co25Ni25Cr25_result.json",
+        "site_index": 16,
+        "axial_O_index": 40,
+        "clean_A": 1.725519121204105,
+        "O_state_A": 2.7581580806295998,
+        "site_lift_z_A": 0.7989225551623385,
+        "site_displacement_A": 0.7991360510865592,
+        "census_sha256": "dd596f1b98207a4b9a2a6354514adcbdd07c8c0cbcf395d26f21bc4fcb2ea29a"
+      },
+      {
+        "formula": "Cu26Ni9Cr31Co33",
+        "seed": 5,
+        "site": 2,
+        "census": "results/site_census_2026-09-06/results/mpa0_ext__Cu26Ni9Cr31Co33__s03-05_result.json",
+        "site_index": 18,
+        "axial_O_index": 42,
+        "clean_A": 1.8044314989332728,
+        "O_state_A": 2.5472577251893296,
+        "site_lift_z_A": 0.5921448116549755,
+        "site_displacement_A": 0.5965738426480919,
+        "census_sha256": "7741ab315250f7e63650eea6b69416212a81d6f21f795057bd652a3e30764244"
+      },
+      {
+        "formula": "Cu8Cr23Mn35Co34",
+        "seed": 20,
+        "site": 2,
+        "census": "results/site_census_2026-09-06/results/mpa0_ext__Cu8Cr23Mn35Co34__s18-20_result.json",
+        "site_index": 18,
+        "axial_O_index": 42,
+        "clean_A": 1.7982248248071708,
+        "O_state_A": 2.70517238234441,
+        "site_lift_z_A": 0.7912425464251989,
+        "site_displacement_A": 0.7925244567426035,
+        "census_sha256": "412b41700a894a76d17686de2ecdeb24180bf0d0a48306d4e5c75322b6d88b7a"
+      }
+    ],
+    "clean_max_A": 1.8044314989332728,
+    "O_state_min_A": 2.5472577251893296,
+    "midpoint_A": 2.1758446120613013
+  },
+  "gap_spreads": {
+    "spin_start_gaps_eV": [
+      -2.053398009185912,
+      -2.439225805719616,
+      -2.0500394438277,
+      -1.9581091768486658,
+      -2.1297580570244463,
+      -2.1288404890947277
+    ],
+    "spin_start_spread_eV": 0.4811166288709501,
+    "n_spin_start_pairs": 6,
+    "numerical_gap_changes_eV": [
+      -2.3537853849120438e-05,
+      -0.0003435437538428232,
+      -0.00039864682184997946
+    ],
+    "numerical_max_abs_change_eV": 0.00039864682184997946
+  },
+  "construction": {
+    "unreconstructed_O_height_A": 1.635,
+    "specified_range_A": [
+      1.62,
+      1.65
+    ],
+    "unreconstructed_geometry": "census relaxed clean slab of the same decoration, unchanged, plus one O at the site metal position + height along +z",
+    "reconstructed_geometry": "census selected *O endpoint (relaxed_states.O), unchanged"
+  },
+  "basin_rule": {
+    "reference": "site-metal lift = z(site metal, relaxed *O) - z(site metal, DFT-relaxed clean slab of the same site and projector) when that slab leg is accepted; otherwise the census MACE clean slab, flagged REFERENCE_MACE_SLAB",
+    "O_OFF_SITE": "nearest metal to the appended O is not the site metal, or that distance >= desorbed_min_A",
+    "RECONSTRUCTED": "lift >= lift_min_A and site-metal/axial-O distance >= axial_break_A",
+    "UNRECONSTRUCTED": "lift < lift_min_A and site-metal/axial-O distance < axial_break_A",
+    "MIXED_UNASSIGNED": "exactly one of the two criteria met"
+  },
+  "site_outcomes": {
+    "RECONSTRUCTION_SUPPORTED": "both *O starts accepted and RECONSTRUCTED",
+    "RECONSTRUCTION_NOT_SUPPORTED": "both *O starts accepted and UNRECONSTRUCTED",
+    "TWO_LOCAL_BASINS": "reconstructed start RECONSTRUCTED and unreconstructed start UNRECONSTRUCTED; energy order reported as LIFTED_LOWER / UNLIFTED_LOWER only when |E(recon) - E(unrecon)| exceeds energy_order_margin_eV, otherwise ORDER_WITHIN_SPIN_START_SPREAD; MAGNETIZATION_DIFFERS flagged when |dM_total| >= magnetization_flag_muB",
+    "BASINS_CROSSED": "reconstructed start UNRECONSTRUCTED and unreconstructed start RECONSTRUCTED",
+    "UNDECIDED": "any *O leg O_OFF_SITE or MIXED_UNASSIGNED, or any *O leg not accepted (PENDING / NOT CONVERGED / KILLED / REJECTED named)"
+  },
+  "acceptance": "Canonical hea_panel_readout.parse_out(allow_relax=True), with no output rewriting; registered iteration and wall limits; complete final geometry and force evidence, unchanged fixed atoms; strict lt_readout checks. Online runner additionally retains projection and density/XML. Basin thresholds and input deck bytes remain those of September 16.",
+  "interpretation_limits": [
+    "Basins are assigned under DFT+U (MP U set, FM starts, 4x2x1 k, 80/640 Ry); a different magnetic solution can change both geometry and energy order.",
+    "A relaxation reaching a basin shows it is a local DFT minimum from that start; it does not exclude other basins.",
+    "No overpotential or melt ranking follows from these three sites."
+  ],
+  "inputs": [
+    {
+      "path": "src/hea_oer/site_integrity.py",
+      "sha256": "352ee8e939b1157000d27478b6e02b943ff9cd8e3dba460051ca758b2ef6fb85",
+      "bytes": 28632
+    },
+    {
+      "path": "src/hea_oer/data.py",
+      "sha256": "dc0840303172c472f28d6325b9ce52e139f88da2a9ece3d02d40d818f9936402",
+      "bytes": 3832
+    },
+    {
+      "path": "src/dft/hea_panel_readout.py",
+      "sha256": "0aef28e0a67fe1122f7a90ec0d08d622e0337c99a428caeaeedd6004aced5d8b",
+      "bytes": 28552
+    },
+    {
+      "path": "results/hea_followup_2026-09-07/completion_readout.json",
+      "sha256": "a657908c3b4a83beed6c6a5efa8b936c09a974cfe5976ae881a35e79a87396c2",
+      "bytes": 13829
+    },
+    {
+      "path": "results/hea_numerical_2026-09-08/status_2026-09-09_2228/readout.json",
+      "sha256": "93b68eafdbc29a54f111bd4d6bbcdf6d9b852895a8796ab7710b197e22cd003c",
+      "bytes": 2305351
+    },
+    {
+      "path": "results/hea_sensitivity_2026-09-09/status_2026-09-10_verified/readout.json",
+      "sha256": "4b21314ba2229efb8ba5858421307ebf0d13a80a1d12b0c2ccf9d9e8c5189e74",
+      "bytes": 2318225
+    },
+    {
+      "path": "docs/research/research-decisions-2026-09-16.md",
+      "sha256": "4be66ecb0d935018ce6d1bc74dea8dbe297b761f52a723661ab7fe057ad7166a",
+      "bytes": 19583
+    },
+    {
+      "path": "runs/hea/COST_MODEL.md",
+      "sha256": "0a20b3b55f818b36b27da681620da8c7adbae1f8eca41c8e7c77895bb4c912d7",
+      "bytes": 15542
+    },
+    {
+      "path": "results/research_launch_2026-09-16/launch_spec.json",
+      "sha256": "9fbbb29e2e582700323dedc646b17afa00fe61ab6713e9896ee8c58635fc74c8",
+      "bytes": 24084
+    }
+  ],
+  "authorization": "User Continue: nine atomic legs; ortho controls conditional on readout.",
+  "previous_decisions": {
+    "path": "results/lowtail_dft_2026-09-16/operating_decisions.json",
+    "sha256": "f10c31a2b0f317456b35315848fb73d1cae8fc69ca90599b175fd1e9ef25722b"
+  }
+}
