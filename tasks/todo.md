@@ -1,5 +1,19 @@
 # STS 2027 — TODO
 
+## 2026-09-19 — Offline research during the confirmed Anvil outage
+
+Scope: continue useful scientific and implementation work while Anvil is unavailable through the officially announced September 21, 8 p.m. EDT endpoint (https://rcac.purdue.edu/news/7788). Preserve the queued array, frozen diagnostic physical parameters and active literature continuation; no new compute or method coding in this pass.
+
+- [x] Verify primary article/SI identities for the registered complementary local sources, preserving unknown access and unresolved bibliographic records.
+- [x] Independently review the S8 ranking proposal, bootstrap interpretation and selection bias; correct unsupported physical claims before any ranking rule is adopted.
+- [x] Review and test the diagnostic launch/collection path offline, including outage timing, held-resource checks, evidence identity and failure accounting.
+- [x] Prepare an evidence-only claim support table from completed S1/S2/S6 results; keep pending results and the September 20 re-test separate.
+- [ ] Verify, review, record next dependencies and push completed work with explicit paths.
+
+### Offline review
+
+Ten source identities and their raw DOI-response hashes pass independent verification; five complete references link additively to canonical DOIs, with inclusion and method coding still open. Cu8's adsorption-only p10 lead survives 180 decoration-deletion cases; the p10 supports differ from the current minimum-site DFT target. The claim worksheet now distinguishes 50 LOCKED verdicts from 70 positive headers. The diagnostic path correction changes no scientific deck; 190 launcher/parser tests and six ranking tests pass. See `docs/research/offline-research-readout-2026-09-19.md`. Anvil's official maintenance endpoint is September 21 at 8 p.m. EDT; the queued array and literature worker remain unchanged.
+
 ## 2026-09-19 — Continue while the Cr array waits for nodes
 
 - [x] Verify live array/accounting and collector health; preserve terminal raw evidence without changing queued jobs.

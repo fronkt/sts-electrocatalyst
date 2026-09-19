@@ -31,7 +31,7 @@ The recorded sentence: a tested output detector identifies symmetry constraints 
 |---|---|---|
 | C7 ordering: detector + exposure census lead | passes | the floor movement and coverage-conditionality belong in the following sentences |
 | C8 eligibility: nothing unlanded stated as a result | passes | S1 core exists and is controlled; the 810-output census is complete |
-| C10 only LOCKED counts on a symmetry-on corpus; "not LOCKED" is never "free" | passes if "identifies" is read as the detected (LOCKED) count | all 70 LOCKED outputs are four-layer; the two-layer classes have zero LOCKED outputs; "concentrated" is a statement about where detections are, not where freedom is |
+| C10 only LOCKED counts on a symmetry-on corpus; "not LOCKED" is never "free" | passes if "identifies" is read as the detected (LOCKED) count | all 50 LOCKED outputs are four-layer (70 is the separate nontrivial-header count); the two-layer classes have zero LOCKED outputs; "concentrated" is a statement about where detections are, not where freedom is |
 | Exposure-versus-consequence rule (`docs/43:1942`) | passes | no in-house control precision and no per-metal consequence is multiplied into the sentence |
 | C1 no absolute overpotential for Cr/Fe/Co/Ni | passes | no number of that kind appears |
 | C2, C3, C5 (cells, 1x1 scope, constants disclosure) | not engaged | the sentence carries no projector number |
@@ -53,3 +53,13 @@ The sentence stands on the 2026-09-19 inventory. Its one soft point is the verb 
 ## What this worksheet does not do
 
 It does not write the claim sentence of record, does not alter any registered threshold, denominator or ordering, and does not treat the September 20 date as met. It records the state on 2026-09-19 so the September 20 check is a comparison, not a reconstruction.
+
+## Scientific correction and scope review — 2026-09-19
+
+The C10 count above is corrected from 70 to **50 LOCKED outputs**. The separate header-positive count remains 70/810. Independent recounting confirms the exact 50-path equality between the stored all-step LOCKED verdict and the final-force-positive set in this corpus; it does not equate these predicates generally. The final-force denominator remains 626: 50 successes, 496 known failures and 80 unknowns. No census value or registered score changes.
+
+The [evidence audit](claim-evidence-audit-2026-09-19.md) supplies the support table and limitations for the scheduled re-test. The four-layer concentration is an observed job-class association, not a controlled thickness effect. The fixed negative-control samples do not establish a universal zero false-positive rate. Four members of the named 10/10 OH/OOH directional comparison fail the energy-usability gate, so those are not ten validated pairs of minima.
+
+S6 remains two separate findings: P-PLS 5/6 CONFIRMED (three robust members), and P-FLOOR-U 3/6 MIDDLE BAND / NOT MET. The registered fixed-endpoint metric and the general CHE floor must remain distinct. The worksheet's mention of coverage conditionality is not an affirmative P-SYMCOV consequence result.
+
+The bounded detector/corpus interpretation remains supportable with these limits. This review neither adopts a final claim sentence nor completes the September 20 re-test.

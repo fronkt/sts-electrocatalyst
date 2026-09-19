@@ -10,10 +10,10 @@ set -euo pipefail
 [ "${SLURM_NTASKS:-}" = 128 ] || { echo 'REFUSE: requires 128 ranks'; exit 2; }
 [ "${STAGE:-}" = slab_scf_diag ] || exit 2
 ROOT="$PROJECT/sts"
-SPEC="$ROOT/results/lowtail_slab_scf_diag_2026-09-19/launch_spec.json"
+SPEC="$ROOT/results\lowtail_slab_scf_diag_2026-09-19\launch_spec.json"
 RUNNER="$ROOT/src/dft/research_batch.py"
 check_hash() { [ "$(sha256sum "$1" | awk '{print $1}')" = "$2" ] || { echo "REFUSE: hash $1"; exit 2; }; }
-check_hash "$SPEC" 72838973c58bac1482c39391d89fc7cfd0c7930545016897032867eed4b22607
+check_hash "$SPEC" 14726d4d0583b3c3c6a757c6d79df487b5e041e0e88e19b43b892d91048c125b
 check_hash "$RUNNER" 4195ef7b7b23096c982d78f80b5a8d78884bc8d9b7e2fc8a150f747e1cf2c404
 PYTHON=/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3
 echo "STAGE $STAGE TASK ${SLURM_ARRAY_TASK_ID:?} NODE $(hostname) START $(date -u)"

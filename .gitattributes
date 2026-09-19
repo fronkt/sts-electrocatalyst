@@ -8,7 +8,7 @@
 # ...and the restart/attempt/snapshot variants, which get scp'd and run the same way
 *.in.* text eol=lf
 # Queue manifests (m_*.txt) are read line-by-line by queue_r1.sh on the box; a
-# trailing  lands in the nk column and breaks the launch. Force LF.
+# trailing carriage return lands in the nk column and breaks the launch. Force LF.
 m_*.txt text eol=lf
 **/m_*.txt text eol=lf
 
@@ -180,3 +180,16 @@ results/s2_2026-09-19/** -text
 runs/hea/lowtail_validation_2026-09-16/*/*.qc.json text eol=lf
 runs/hea/lowtail_validation_2026-09-16/*/*.KILLED text eol=lf
 src/dft/qe_relax_trace.py text eol=lf
+
+# September 19 offline diagnostics retain pinned bytes across platforms.
+results/lowtail_slab_scf_diag_2026-09-19/** -text
+results/s8_ranking_statistic_2026-09-19/independent_review/** -text
+src/dft/lowtail_slab_scf_diag.py text eol=lf
+src/dft/lowtail_slab_scf_diag_launch.py text eol=lf
+src/scripts/s8_ranking_review.py text eol=lf
+
+# These archived records retain CRLF where their frozen hashes require it.
+results/lowtail_slab_scf_diag_2026-09-19/** whitespace=cr-at-eol
+results/s8_ranking_statistic_2026-09-19/independent_review/** whitespace=cr-at-eol
+results/s2_2026-09-19/primary_identity_review/** whitespace=cr-at-eol
+results/s2_2026-09-19/claim_evidence_audit/** whitespace=cr-at-eol

@@ -50,7 +50,7 @@ PINNED_HELPERS = ["src/dft/research_batch.py", "src/dft/projection_qc.py", "src/
                   "src/dft/queue_r1.sh"]
 PROVENANCE = ["docs/research/lowtail-clean-slab-scf-stall-2026-09-19.md",
               "docs/research/lowtail-recovery-review-2026-09-19.md",
-              (RES / "cu8_cycle5_positions.txt").as_posix(), (RES / "cu8_cycle5_positions.json").as_posix()]
+              str(RES / "cu8_cycle5_positions.txt"), str(RES / "cu8_cycle5_positions.json")]
 SCF_SECONDS = 7200
 PROJECTION_SECONDS = 900
 MAX_ITERATIONS = 126
@@ -144,7 +144,7 @@ def build(check: bool) -> None:
         "# NP=128 NCONC=1",
     ] + manifest_rows) + "\n"
     write_or_check(MANIFEST, manifest, check, seen)
-    files[MANIFEST.as_posix()] = hashlib.sha256(manifest.encode("utf-8")).hexdigest()
+    files[str(MANIFEST)] = hashlib.sha256(manifest.encode("utf-8")).hexdigest()
     for helper in PINNED_HELPERS + PROVENANCE:
         files[helper] = sha(Path(helper))
     base = json.loads(BASE_SPEC.read_text(encoding="utf-8"))
@@ -163,7 +163,7 @@ def build(check: bool) -> None:
                        "readout": "src/dft/qe_relax_trace.py on each output; iteration of first crossing of 1e-6, 5e-7, 1e-7 recorded"},
         "files": files,
         "pseudo_md5": pseudo_md5,
-        "stages": {STAGE: {"kind": STAGE, "manifest": MANIFEST.as_posix(), "concurrency": CONCURRENCY,
+        "stages": {STAGE: {"kind": STAGE, "manifest": str(MANIFEST), "concurrency": CONCURRENCY,
                            "wall_minutes": WALL_MINUTES, "jobs": jobs}},
         "ceiling": {"per_job_core_hours": round((SCF_SECONDS + PROJECTION_SECONDS) * 128 / 3600, 1),
                     "scheduler_core_hours": round(WALL_MINUTES * 60 * 128 / 3600 * len(jobs), 1)},
@@ -184,7 +184,7 @@ set -euo pipefail
 [ "${{SLURM_NTASKS:-}}" = 128 ] || {{ echo 'REFUSE: requires 128 ranks'; exit 2; }}
 [ "${{STAGE:-}}" = {STAGE} ] || exit 2
 ROOT="$PROJECT/sts"
-SPEC="$ROOT/{SPEC.as_posix()}"
+SPEC="$ROOT/{SPEC}"
 RUNNER="$ROOT/src/dft/research_batch.py"
 check_hash() {{ [ "$(sha256sum "$1" | awk '{{print $1}}')" = "$2" ] || {{ echo "REFUSE: hash $1"; exit 2; }}; }}
 check_hash "$SPEC" {spec_hash}
@@ -200,7 +200,7 @@ set -euo pipefail
 export PROJECT=/anvil/projects/x-che260157
 export STAGE={STAGE}
 ROOT="$PROJECT/sts"
-SPEC="$ROOT/{SPEC.as_posix()}"
+SPEC="$ROOT/{SPEC}"
 RUNNER="$ROOT/src/dft/research_batch.py"
 PYTHON=/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3
 check_hash() {{ [ "$(sha256sum "$1" | awk '{{print $1}}')" = "$2" ] || {{ echo "REFUSE: hash $1"; exit 2; }}; }}
@@ -218,7 +218,7 @@ echo "HELD $STAGE tasks=$N concurrency=$CONC minutes=$MINUTES cores=128"
 sbatch --parsable --hold --no-requeue -A che260157 -p shared -N 1 -n 128 \\
     --cpus-per-task=1 --mem=237G --time="$MINUTES" --exclude="$EXCLUDE" \\
     --job-name="research-$STAGE" --array="1-$N%$CONC" \\
-    --export=ALL,PROJECT,STAGE "$ROOT/{SLURM.as_posix()}"
+    --export=ALL,PROJECT,STAGE "$ROOT/{SLURM}"
 """
     write_or_check(SLURM, slurm, check, seen)
     write_or_check(SUBMIT, submit, check, seen)
