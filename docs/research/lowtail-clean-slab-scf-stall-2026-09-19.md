@@ -1,0 +1,43 @@
+# Clean-slab SCF stall in the Cr relaxation array — 2026-09-19
+
+Array 20813525 task 1, the Cu8Cr23Mn35Co34 seed20/site2 clean slab with the atomic projector, stopped at the SCF iteration ceiling after 4 h 12 min (538 core-hours) and carries a KILLED receipt. Task 2, the reconstructed *O start at the same site, converged (22 SCF cycles, 21 BFGS steps, 8 h 40 min) with a final Cr–O distance of 1.562 Å. Tasks 3–9 are pending behind the cluster-wide maintenance reservation `anvil-maint-2026-q3` (2026-09-18 23:30 to 2026-09-20 21:00 UTC); the scheduler's start estimate is 2026-09-22 15:00 UTC for tasks 3–7 and 21:00 UTC for tasks 8–9.
+
+This is a read-only diagnosis from preserved raw outputs. Nothing on Anvil was changed, no calculation was restarted, and no energy from a stopped leg enters any readout. Machine-readable traces and hashes: `results/lowtail_dft_2026-09-18/slab_stall_diagnosis_2026-09-19/` (`traces.json`, `summary.json`; tool `src/dft/qe_relax_trace.py`).
+
+## What the raw output shows
+
+The clean-slab relaxation completed four SCF cycles and three BFGS steps, then stalled in the fifth cycle.
+
+| Cycle | Iterations | Converged at (Ry) | Threshold QE announced for the next cycle (Ry) | E (Ry) | Total force (Ry/bohr) | Total magnetization (μB) |
+|---|---:|---:|---:|---:|---:|---:|
+| 1 | 72 | 9.2e-7 | 1.0e-6 | −7551.811542 | 0.178 | 49.90 |
+| 2 | 19 | 7.3e-7 | 1.9e-7 | −7551.836239 | 0.106 | 49.92 |
+| 3 | 30 | 1.7e-7 | 1.2e-7 | −7551.849797 | 0.062 | 49.97 |
+| 4 | 38 | 1.2e-7 | **8.1e-8** | −7551.856419 | 0.052 | 50.13 |
+| 5 | 128 (killed) | never; plateau 3.6e-7 to 4.5e-7 from iteration 41 | — | — | — | 50.23 |
+
+The input `conv_thr` is 1.0e-6 Ry. In `relax` mode QE tightens the SCF threshold as the forces fall, down to `conv_thr / upscale` with the default `upscale = 100`, i.e. 1e-8 Ry (INPUT_PW, `upscale`: "conv_thr is automatically reduced when the relaxation approaches convergence so that forces are still accurate, but conv_thr will not be reduced to less that conv_thr / upscale"). The announced values 1.9e-7, 1.2e-7 and 8.1e-8 Ry are that mechanism acting. The fifth cycle reached 1e-6 Ry at iteration 25 and 5e-7 Ry at iteration 36, then sat on a flat plateau between 3.6e-7 and 4.5e-7 Ry for 85 more iterations (one excursion to 1.5e-6 at iteration 112) until the supervisor stop at iteration 127. Total and absolute magnetization were constant on the plateau (50.23 / 68.16 μB), so the residual is not a swing of the net moment; it is a persistent limit cycle in the density or Hubbard occupations at fixed net moment. The energy drops between BFGS steps were 336, 185 and 90 meV, and the maximum force component on free atoms was 0.016 Ry/bohr at step 3 against `forc_conv_thr = 2e-3`, so the leg was roughly a fifth of the way to a relaxed slab when it stopped.
+
+Two comparisons fix the interpretation:
+
+- **The same site with the reconstructed *O adsorbate converged to 1e-8 Ry.** Every one of its 22 cycles met the tightened threshold in 18–56 iterations; the last cycles reached 1e-8 Ry. The adsorbate-covered surface has no plateau at this recipe.
+- **The Fe25Co25Ni25Cr25 seed2/site0 clean slab already failed the same way on 2026-09-17** as a fixed-geometry `scf` (retained pilot, KILLED, 128 iterations, 1 h 52 min). Its accuracy plateaued between 5.4e-6 and 9e-6 Ry from about iteration 70 and never reached even the input 1e-6. The pending array task 7 is that identical deck with `calculation = 'scf'` changed to `'relax'` (diff of the pinned decks), same pseudopotentials, same recipe (`mixing_mode = 'local-TF'`, `mixing_beta = 0.3`, `mixing_ndim` default 8, MV 0.01 Ry, FM starts, atomic-projector U). A deterministic repeat of that first cycle will stop at the ceiling again, at roughly 240 core-hours.
+- The Ni31Cr29Cu5Mn35 seed0/site0 clean slab converged in 37 iterations to 8.1e-7 Ry on 2026-09-17, but the array's task 4 is seed1/site0, a different decoration, so there is no direct prior for it. It faces the same tightening to 1e-8 Ry that stopped the Cu8 slab after four good cycles.
+
+The clean slabs therefore have SCF accuracy floors of about 4e-7 Ry (Cu8) and 6e-6 Ry (Fe25) under the frozen electronic recipe, whereas the adsorbate-covered slab reaches 1e-8 Ry. The stopped legs are a numerical-protocol outcome: an achievable floor above the threshold the relaxation demands. They are not evidence about the physical surface. Candidate mechanisms for the floor, in the order the evidence favours: near-degenerate d-occupation states on bare surface Cr/Mn/Co sites under +U with fixed net moment (the repository's own literature digest already flags DFT+U occupation metastability; `starting_ns_eigenvalue` and `mixing_fixed_ns` exist in this QE build); charge sloshing on a metallic slab that local-TF at β = 0.3 damps but does not remove; and smearing-related near-Fermi degeneracy. Hubbard occupation matrices are printed per cycle (220 `Tr[ns]` lines in the slab output), so the first mechanism can be checked from the preserved output without new compute.
+
+## Consequences for the pending legs (starts no earlier than 2026-09-22 15:00 UTC)
+
+- Task 7 (Fe25 clean slab) will almost certainly stop in its first cycle. Task 4 (Ni31 s1 clean slab) is at risk once the threshold tightens. The adsorbate legs 3, 5, 6, 8 and 9 have no comparable prior of failure; the Cu8 recon leg and the 2026-09-17 Fe25 O atomic leg both completed.
+- The primary basin question of this arm, whether the lifted-Cr *O basin persists under DFT+U relaxation from both starts, does not need the clean slab; it compares the recon and unrecon legs. The clean slab fixes the zero of the Cr lift and the O adsorption energy. Without it the lift stays MACE-referenced and provisional, as the launch record already states, at all three sites if tasks 4 and 7 also stop.
+- No decision is forced before 2026-09-22. The registered array runs as submitted unless a dated line changes it; changing a staged deck would break the pinned input hashes and the collector's identity checks, so any change is a separate arm, not an edit.
+
+## Bounded follow-up, BUILT and NOT LICENSED
+
+Six fixed-geometry `scf` decks are derived from the three pinned clean-slab decks by `src/dft/lowtail_slab_recipe_decks.py` into `runs/hea/lowtail_slab_scf_recipe_2026-09-19/` with a manifest of SHA-256 values. Only the `calculation` line and the mixing lines differ from the pinned decks: recipe `b010n16` (`mixing_beta = 0.1`, `mixing_ndim = 16`) and `b020n16` (`mixing_beta = 0.2`, `mixing_ndim = 16`); geometry, cell, cutoffs, k mesh, smearing, spin starts, Hubbard block and pseudopotentials are unchanged. Pre-stated acceptance for a recipe at a site: convergence to the input 1e-6 Ry within 126 iterations, plus the measured accuracy floor (minimum announced accuracy) recorded on the face. Ceiling: 126 iterations at 53 s per iteration on 128 ranks, 237.4 core-hours per deck, 1,425 core-hours for all six; the Ni31 s0 precedent suggests the Cu8 and Ni31 decks finish well inside that. The decks are not staged on Anvil and nothing here submits them.
+
+If a recipe clears the floor to below 1e-8 Ry on all three slabs, the clean-slab relaxations can be resubmitted with that recipe and the default `upscale`. If a recipe clears 1e-6 but plateaus above 1e-8, the relaxation deck needs an explicit `upscale` no larger than `conv_thr` divided by the measured floor (for the Cu8 floor of 3.6e-7 Ry that is `upscale ≤ 2`), with the resulting force-accuracy limit stated beside the result. Either route is a dated change to the registered protocol and a separate arm; a restart from the retained scratch (`tmp_slab__atomic`, `.mix*` and `.bfgs` files preserved) is a third option that the launch record's no-restart rule currently excludes. A cheaper zero-compute check first: compare the printed Hubbard occupation matrices of cycle 4 and the stalled cycle 5 to see whether specific surface sites are flipping.
+
+## What is not claimed
+
+No relaxed DFT minimum or basin preference exists for any site; the one converged leg is a single reconstructed-start structure. No census winner, overpotential or composition ranking follows. The Fe25 prediction of repeat failure is a deterministic-input argument, not a measurement, and the array's registered outcome will be recorded whatever happens.

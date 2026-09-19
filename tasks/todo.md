@@ -2649,3 +2649,15 @@ Scope: continue the approved 48-job program through evidence retrieval, failure 
 Verification: scheduler plus scientific receipts; exact input/output identity; no replacement of failed calculations, frozen thresholds/denominators, independent arithmetic and reviewed scientific interpretation.
 
 Review: all 48 scientific calculations and the S5 coordinator are terminal; final queue empty at 14:07:54 UTC. All 48 input hashes, mirrored raw artifacts and 27 complete projection outputs verified. Reviewed numerical outcomes: 15/22 HEA, 12/12 Ru and 14/14 S5; five HEA iteration-ceiling stops and two IEEE_INVALID rejections remain excluded. S5 confirms Ladder B; Ru is MIDDLE (Q 0.071583 V). HEA has three scoreable branch/projector comparisons (one WITHIN, two OUTSIDE, one sign reversal) and zero applicable complete ordinary-AEM scores. No census winner or relaxed DFT minimum is established. Independent arithmetic agrees; 211 integrated tests plus 37 disjoint S5 tests pass. Parser corrections preserve severe-failure rejection and frozen estimators. Original attempts and intermediate reporting failures are retained. Accounting is 3,310.686 allocated core-hours; balance 49,906.9 CPU SU. The whole-tree mirror has zero missing/differing scientific outputs among hashed records, 242 preserved historical collisions and scratch-only remote extras. Final report: docs/research/anvil-batch-readout-2026-09-17.md. Explicit-path banking follows the first pushed evidence commit ab4a685; S2 and new low-tail validation remain separate.
+
+## 2026-09-19 — Diagnose the clean-slab SCF stall in array 20813525 (read-only)
+
+Scope: array task 1 (Cu8 clean slab) stopped at the SCF iteration ceiling; tasks 3–9 are pending behind the Anvil maintenance reservation until 2026-09-22. Diagnose from preserved raw outputs only; change nothing on Anvil; build the follow-up decks but do not license or stage them.
+
+- [x] Trace the stopped Cu8 slab relaxation, the converged Cu8 O_recon relaxation and the 2026-09-17 Fe25/Ni31 clean-slab SCFs cycle by cycle (`src/dft/qe_relax_trace.py`; `results/lowtail_dft_2026-09-18/slab_stall_diagnosis_2026-09-19/`).
+- [x] Identify the mechanism: QE's relax-mode threshold tightening (`upscale`, to 8.1e-8 Ry at cycle 5) against a clean-slab accuracy floor of ~4e-7 Ry (Cu8) and ~6e-6 Ry (Fe25); adsorbate-covered slab reaches 1e-8 Ry. Recorded in `docs/research/lowtail-clean-slab-scf-stall-2026-09-19.md`.
+- [x] Build six fixed-geometry SCF recipe decks (β 0.1/0.2, ndim 16) from the pinned clean-slab decks with a hashed manifest and 1,425 core-hour ceiling — BUILT, NOT LICENSED (`src/dft/lowtail_slab_recipe_decks.py --check`).
+- [ ] Zero-compute check: compare printed Hubbard occupation matrices between cycle 4 and the stalled cycle 5 of the Cu8 slab output.
+- [ ] Dated decision before 2026-09-22 15:00 UTC on whether tasks 4/7 run as registered or a separate clean-slab arm is licensed.
+
+Verification: every traced output hash matches its QC receipt (slab output f1900fbe…, recon output 02588fc5…); deck rebuild is byte-identical (`--check` OK); no calculation restarted; no energy from a stopped leg used.

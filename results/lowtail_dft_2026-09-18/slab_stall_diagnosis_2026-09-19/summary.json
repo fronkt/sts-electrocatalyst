@@ -1,0 +1,86 @@
+{
+ "date": "2026-09-19",
+ "array": "20813525",
+ "question": "Why did task 1 (Cu8Cr23Mn35Co34 s20/site2 clean slab, atomic projector, relax) stop at the SCF iteration ceiling, and what does it imply for the pending legs?",
+ "inputs": {
+  "slab_relax_out_sha256": "f1900fbe3c0e7359de9259860540a5faa2ab46a56c25008cb488e5edb4ebd24c",
+  "slab_relax_run_in_sha256": "e3b55d021f3dd541e8b0819f6667a59cac57878fcddd629649ca696feded1ead",
+  "recon_relax_out_sha256": "02588fc5257156a6b99361f6a5a7145453e4704469a0bc065cea354e7446e092",
+  "pilot_fe25_slab_scf_out_sha256": "e5db82e2484eedd0e574b089f35ce8bbda0a3b9e59e8b42926b6b7ca9461047f",
+  "pilot_ni31_s0_slab_scf_out_sha256": "fc6060d24c186f601b352e05d2ca6b5cc340b0ce03363137828fb779d297d1f1",
+  "pinned_slab_decks": {
+   "Cu8Cr23Mn35Co34__s20_site2": "7cf78c3fbf92fcc430eba035896fdc3af568ff515e296979f01851d81d8b4a14",
+   "Ni31Cr29Cu5Mn35__s1_site0": "b4f4a959ec3b43ba7d585ee3cf253269cbda1838404eae66155f73920f85b4a9",
+   "Fe25Co25Ni25Cr25__s2_site0": "54f1fad2c38ebfff6e7152383f9b34814d57540c19cf08d8cdf348e038ce3f77"
+  }
+ },
+ "findings": {
+  "cu8_slab_relax": {
+   "cycles": 5,
+   "cycle_thresholds_announced_Ry": [
+    1e-06,
+    1.891e-07,
+    1.21e-07,
+    8.08e-08,
+    null
+   ],
+   "cycle5_required_threshold_Ry": 8.08e-08,
+   "cycle5_first_iter_below_1e-6": 25,
+   "cycle5_plateau_after_iter40_Ry": [
+    3.6e-07,
+    1.5e-06
+   ],
+   "cycle5_iterations": 128,
+   "tmag_cycle1_to_5": [
+    49.9,
+    50.23
+   ],
+   "bfgs_steps_completed": 3,
+   "step_energy_drops_meV": [
+    -336.0,
+    -184.5,
+    -90.1
+   ],
+   "total_force_Ry_bohr_by_step": [
+    0.178016,
+    0.106388,
+    0.061974,
+    0.052205
+   ],
+   "wall_s": 15094.6,
+   "core_hours_lost": 538.1
+  },
+  "cu8_o_recon_relax": {
+   "cycles": 22,
+   "bfgs_converged": true,
+   "min_threshold_reached_Ry": 1e-08,
+   "max_iterations_any_cycle": 56,
+   "wall_s": 31083.3
+  },
+  "fe25_slab_scf_2026-09-17": {
+   "iterations": 128,
+   "converged": false,
+   "plateau_after_iter40_Ry": [
+    5.35e-06,
+    9.005e-05
+   ],
+   "first_iter_below_1e-6": null,
+   "wall_s": 6734.6,
+   "same_deck_as_array_task_7": "identical except calculation scf->relax (diff of pinned decks)"
+  },
+  "ni31_s0_slab_scf_2026-09-17": {
+   "iterations": 37,
+   "converged_in": 37,
+   "acc_last_Ry": 8.1e-07,
+   "note": "different decoration (seed 0) from array task 4 (seed 1)"
+  },
+  "wall_per_scf_iteration_s": {
+   "cu8_slab": 52.3,
+   "fe25_slab": 52.6,
+   "ni31_s0_slab": 51.7,
+   "cu8_o_recon": 52.7
+  }
+ },
+ "qe_rule": "INPUT_PW upscale (default 100): conv_thr is automatically reduced during structural optimization so that forces remain accurate, to no less than conv_thr/upscale (1e-8 Ry here); the announced values in the slab output were 1.9e-7, 1.2e-7 and 8.1e-8 Ry.",
+ "scope": "Read-only diagnosis from preserved raw outputs. No calculation was restarted, no deck on Anvil was changed, no energy from a stopped leg is used."
+}
