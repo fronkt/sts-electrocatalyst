@@ -2676,3 +2676,17 @@ Scope: array task 1 (Cu8 clean slab) stopped at the SCF iteration ceiling; tasks
 - [ ] Dated decision before 2026-09-22 15:00 UTC on whether tasks 4/7 run as registered or a separate clean-slab arm is licensed.
 
 Verification: every traced output hash matches its QC receipt (slab output f1900fbe…, recon output 02588fc5…); deck rebuild is byte-identical (`--check` OK); no calculation restarted; no energy from a stopped leg used.
+
+## 2026-09-19 — Continue all five steps (user: "GO ahead and continue all of those steps")
+
+Scope: the review addendum closed the Hubbard-occupation check (no plateau snapshots exist); the focused fixed-geometry diagnostic it specified is built and licensed as a separate arm; array 20813525 stays as registered. Literature retrieval resumes at the recorded API boundary. The Sep 20 re-test and the S8 ranking statistic are prepared with zero compute.
+
+- [x] Step 2 closed: the slab output holds no occupation matrices during the stalled plateau; the check cannot be made from preserved evidence (review addendum, 2026-09-19).
+- [x] Step 1 build: five fixed-geometry SCF decks (Cu8 cycle-5 coordinates at beta 0.10/0.30; Fe25 start at 0.10; Ni31 s1 start at 0.10/0.30; target 8.08e-8 Ry; fresh atomic start), manifest, launch spec, slurm/submit wrappers — `src/dft/lowtail_slab_scf_diag.py --check` OK; ceiling 288 core-h per job, 1,600 scheduler core-h.
+- [ ] Step 1 launch: Anvil login nodes unreachable during maintenance (to 2026-09-20 21:00 UTC); guarded post-maintenance launcher to stage, submit held, inspect and release, with receipts under `results/lowtail_slab_scf_diag_2026-09-19/`.
+- [ ] Step 3: continuation loop `src/s2/literature/continue_until_complete.py` runs the pinned quota-aware driver at/after 2026-09-20 00:00 UTC (zero requests before); state in `results/s2_2026-09-19/literature_continuation_passes.json`.
+- [x] Step 4 prepared: `docs/research/claim-sentence-retest-worksheet-2026-09-19.md` (landed inventory, constraint re-run of the 2026-09-18 bounded claim, what Sep 20 must confirm).
+- [x] Step 5 prepared: `docs/research/s8-ranking-statistic-proposal-2026-09-19.md` from `src/scripts/s8_ranking_statistics.py` (six statistics x three policies, decoration bootstrap B=10000, cross-model twelve-site leaders).
+- [ ] Readouts: diagnostic outcomes via `qe_relax_trace.py`; nine-leg array readout after 2026-09-22; Sep 20 dated line is the entrant's.
+
+Verification: deck rebuild byte-identical; spec pins current runner/validator hashes; no calculation restarted; census values unchanged; no melt selected, no claim sentence of record written.
