@@ -8,7 +8,7 @@ Scope: continue useful scientific and implementation work while Anvil is unavail
 - [x] Independently review the S8 ranking proposal, bootstrap interpretation and selection bias; correct unsupported physical claims before any ranking rule is adopted.
 - [x] Review and test the diagnostic launch/collection path offline, including outage timing, held-resource checks, evidence identity and failure accounting.
 - [x] Prepare an evidence-only claim support table from completed S1/S2/S6 results; keep pending results and the September 20 re-test separate.
-- [ ] Verify, review, record next dependencies and push completed work with explicit paths.
+- [x] Verify, review, record next dependencies and push completed work with explicit paths. Reviewed evidence and implementation pushed as `4792397`; 196 focused tests passed.
 
 ### Offline review
 

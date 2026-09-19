@@ -32,3 +32,5 @@ The launcher review addresses staged-byte identity, held-resource inspection, am
 2. Perform the scheduled September 20 claim re-test against the evidence that has actually landed, retaining the failed exposure prediction and separate parameter-sensitivity findings.
 3. After Anvil returns, obtain fresh accounting and collect all nine primary legs. Compare clean references and alternative starts only when they exist and pass their scientific gates. Use the prepared five-SCF diagnostic to distinguish convergence behavior at its fixed geometries; it supplies no adsorption energy by itself.
 4. Before S8 selection, settle the prospective ranking/admission/uncertainty rule and experimental endpoint. The p10 support mismatch is a concrete validation-design issue; it does not authorize extra jobs or reclassify sites.
+
+Verification: 190 diagnostic/SCF/parser tests and six ranking tests passed. All 20 launch/input pins match the committed boundary, and all 25 original batch artifact paths match their staged bytes. The reviewed batch is pushed as `4792397`; the local diagnostic boundary is updated without starting a launcher.

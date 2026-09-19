@@ -40,3 +40,5 @@ The parent session has confirmed the path-only builder check, normalized old/new
 ## Executed checks — 2026-09-19
 
 The verified isolated desktop ran the launcher, SCF-trace, research-batch, force-audit and canonical-panel suites: **190 tests passed**. The deterministic builder check passed, and independently normalizing the historical specification's path separators gives exactly the corrected specification. Every frozen file hash matches. The verification receipt is `results/lowtail_slab_scf_diag_2026-09-19/offline_verification.json`. These are offline checks; live scheduler acceptance and submission remain untested.
+
+All 20 launch execution/input pins and 25 staged artifact paths matched exact Git bytes before the main push. Verified pushed boundary: `47923974bc5f77a4374a475aac31b2e3eb7868bd`. The local boundary receipt now points there; its previous bytes remain in `pre_portability_fix/previous_boundary.json`. No submission receipt or submission intent exists. The launcher remains prepared for a later run.
