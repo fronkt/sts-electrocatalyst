@@ -47,8 +47,18 @@ def trace(path: str | Path) -> dict:
     for i, s in enumerate(starts):
         e = starts[i + 1] if i + 1 < len(starts) else len(text)
         seg = text[s:e]
-        its = re.findall(r"iteration #\s*(\d+)", seg)
-        accs = [_f(a) for a in re.findall(r"estimated scf accuracy\s*<\s*([0-9.E+-]+)\s*Ry", seg)]
+        # Shutdown text can mention an iteration number without beginning one.
+        # An actual header without an accuracy record is not a completed update.
+        headers = list(re.finditer(r"(?m)^\s*iteration\s*#\s*(\d+)\b[^\n]*$", seg))
+        iterations = []
+        for j, header in enumerate(headers):
+            end = headers[j + 1].start() if j + 1 < len(headers) else len(seg)
+            block = seg[header.end():end]
+            accuracy = re.findall(r"estimated scf accuracy\s*<\s*([0-9.E+-]+)\s*Ry", block)
+            iterations.append({"iteration": int(header.group(1)),
+                               "accuracy_Ry": _f(accuracy[-1]) if accuracy else None})
+        completed = [row for row in iterations if row["accuracy_Ry"] is not None]
+        accs = [row["accuracy_Ry"] for row in completed]
         conv = re.search(r"convergence has been achieved in\s*(\d+) iterations", seg)
         etot = re.search(r"!\s+total energy\s*=\s*([-0-9.]+) Ry", seg)
         tmag = re.findall(r"total magnetization\s*=\s*([-0-9.]+) Bohr mag/cell", seg)
@@ -60,12 +70,16 @@ def trace(path: str | Path) -> dict:
         walls = re.findall(r"total cpu time spent up to now is\s*([0-9.]+) secs", seg)
         first_below = {}
         for thr in (1e-6, 5e-7, 1e-7, 1e-8):
-            hit = next((int(n) for n, a in zip(its, accs) if a is not None and a < thr), None)
+            hit = next((row["iteration"] for row in completed if row["accuracy_Ry"] < thr), None)
             first_below["%.0e" % thr] = hit
-        plateau = accs[40:] if len(accs) > 40 else []
+        plateau = [row["accuracy_Ry"] for row in completed if row["iteration"] > 40]
         cycles.append({
             "cycle": i + 1,
-            "n_iter": len(its),
+            "n_iter": len(completed),
+            "n_iter_started": len(iterations),
+            "last_iteration_started": iterations[-1]["iteration"] if iterations else None,
+            "last_iteration_completed": completed[-1]["iteration"] if completed else None,
+            "iteration_records": iterations,
             "converged_in": int(conv.group(1)) if conv else None,
             "acc_min_Ry": min(accs) if accs else None,
             "acc_last_Ry": accs[-1] if accs else None,
@@ -104,12 +118,12 @@ def table(rec: dict) -> str:
              "conv_thr %s  beta %s  nat %s  nelec %s  nbnd %s  nk %s  relax %s  bfgs_converged %s  JOB DONE %s  wall %s s"
              % (rec["conv_thr_header"], rec["mixing_beta"], rec["nat"], rec["nelec"], rec["nbnd"], rec["nk"],
                 rec["calculation_relax"], rec["bfgs_converged"], rec["job_done"], rec["wall_last_s"]),
-             "%3s %4s %7s %9s %9s %16s %8s %7s %9s %4s" % ("cyc", "nit", "conv_in", "acc_last", "acc_min", "E(Ry)", "Ftot", "tmag", "newthr", "bfgs")]
+             "%3s %4s %4s %7s %9s %9s %16s %8s %7s %9s %4s" % ("cyc", "nfin", "nbeg", "conv_in", "acc_last", "acc_min", "E(Ry)", "Ftot", "tmag", "newthr", "bfgs")]
     for c in rec["cycles"]:
         def g(v, fmt):
             return (fmt % v) if v is not None else "-"
-        lines.append("%3d %4d %7s %9s %9s %16s %8s %7s %9s %4s" % (
-            c["cycle"], c["n_iter"], g(c["converged_in"], "%d"), g(c["acc_last_Ry"], "%.1e"), g(c["acc_min_Ry"], "%.1e"),
+        lines.append("%3d %4d %4d %7s %9s %9s %16s %8s %7s %9s %4s" % (
+            c["cycle"], c["n_iter"], c["n_iter_started"], g(c["converged_in"], "%d"), g(c["acc_last_Ry"], "%.1e"), g(c["acc_min_Ry"], "%.1e"),
             g(c["etot_Ry"], "%.6f"), g(c["total_force_Ry_bohr"], "%.4f"), g(c["tmag_last"], "%.2f"),
             g(c["new_conv_thr_after_Ry"], "%.1e"), g(c["bfgs_steps_after"], "%d")))
     return "\n".join(lines)

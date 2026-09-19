@@ -1,0 +1,82 @@
+{
+  "schema": "complementary-literature-inventory-v1",
+  "recorded_utc": "2026-09-19T03:04:59Z",
+  "status": "DISCOVERY_AND_ACCESS_INVENTORY_ONLY",
+  "registered_sources": [
+    {
+      "source_id": "divanis_esi_s29",
+      "path": "docs/research/2026-08-15-sampling/divanis_esi.txt",
+      "scope": "Page S29 references [1]-[25]; [1]-[24] table source articles, [25] methodological citation",
+      "sha256": "88bfcda9a5e70da10d3b2565af7cc09b7377578e4aac4dd5d9a74b42c0bd8bda",
+      "bytes": 34094
+    },
+    {
+      "source_id": "round1_synthesis",
+      "path": "docs/research/2026-08-15-lit-sweep-round1-synthesis.md",
+      "scope": "All literal DOI/arXiv/URL occurrences and named bibliographic/data/documentation leads",
+      "sha256": "9094cbcaca0afbe8d2ddeb492c717d1f1975f720f4f8fbabd62ab85dc37263c4",
+      "bytes": 54314
+    },
+    {
+      "source_id": "round2_synthesis",
+      "path": "docs/research/2026-08-15-lit-sweep-round2-synthesis.md",
+      "scope": "All literal DOI/arXiv/URL occurrences and named bibliographic/data/documentation leads",
+      "sha256": "225bc3d720da33aeab54328149f71866d9546a3a4dbce242f77e99fdb074110d",
+      "bytes": 117850
+    },
+    {
+      "source_id": "registered_xu_2015",
+      "path": "docs/research/literature-continuation-review-2026-09-19.md",
+      "scope": "Explicit known-source Xu 2015, DOI 10.1021/jp511426q",
+      "sha256": "a4b7b6ba433ee2e7b2430084e438b024a93894611c0121aafb43bc410005072e",
+      "bytes": 8683
+    },
+    {
+      "source_id": "registered_man_2011",
+      "path": "docs/research/literature-continuation-review-2026-09-19.md",
+      "scope": "Explicit known-source Man 2011, DOI 10.1002/cctc.201000397",
+      "sha256": "a4b7b6ba433ee2e7b2430084e438b024a93894611c0121aafb43bc410005072e",
+      "bytes": 8683
+    }
+  ],
+  "identity_rule_reference": {
+    "path": "src/s2/literature/search.py",
+    "sha256": "824e5218744e4af1182a21db4bcb43c3dd9e0ae7885ed7581bfc3dee4bbdef19",
+    "lines": "178-224",
+    "rule": "Use DOI when explicitly present. Normalized title/year/first-author requires all three verified metadata fields. Otherwise retain unresolved source identity. No incomplete citation is forcibly merged."
+  },
+  "access_catalog": {
+    "path": "docs/research/papers/README.md",
+    "sha256": "dc18712f47ad7218c9e276386db6980c65b408fb3be67c42916a1f32108241d5",
+    "role": "Local file matching only; not an additional discovery source"
+  },
+  "counts": {
+    "citation_occurrences": 271,
+    "identity_keys": 120,
+    "doi_identity_keys": 46,
+    "unresolved_identity_keys": 74,
+    "divanis_reference_occurrences": 25,
+    "known_source_occurrences": 2,
+    "identities_with_local_candidate_files": 17
+  },
+  "limits": [
+    "No eligibility screening, inclusion freeze, methods coding or hypothesis verdict.",
+    "No network requests, new reference-generation traversal or changes to pinned search engine.",
+    "Repeated named mentions are retained; identity count is not a count of distinct works or eligible papers.",
+    "Source text may contain superseded claims; verbatim citation contexts preserve ambiguity and are not adopted scientific decisions.",
+    "No DOI inferred from numerical formulas, page ranges, article numbers or arXiv identifiers."
+  ],
+  "validation": {
+    "status": "PASS",
+    "checks": [
+      "All five registered source hashes",
+      "Divanis reference numbers exactly 1 through 25",
+      "All 131 literal DOI/arXiv/URL occurrences from both syntheses",
+      "Exact source line/context and identity-token containment",
+      "Unique occurrence IDs and one access join per occurrence",
+      "All recorded local candidate file hashes",
+      "Every record NOT_SCREENED and NOT_CODED; no methods code fields"
+    ],
+    "validation_scope": "File-only structural and source-preservation checks; no primary article identity or eligibility validation"
+  }
+}

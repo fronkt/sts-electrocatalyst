@@ -1,5 +1,7 @@
 # Clean-slab SCF stall in the Cr relaxation array — 2026-09-19
 
+> **Review correction, 2026-09-19:** the dated addendum below supersedes the iteration count, mechanism inference, relaxation-progress estimate and proposed recovery go/no-go in this note. The six prepared recipes remain unapproved; they do not measure the tightened-threshold failure at the failed geometry.
+
 Array 20813525 task 1, the Cu8Cr23Mn35Co34 seed20/site2 clean slab with the atomic projector, stopped at the SCF iteration ceiling after 4 h 12 min (538 core-hours) and carries a KILLED receipt. Task 2, the reconstructed *O start at the same site, converged (22 SCF cycles, 21 BFGS steps, 8 h 40 min) with a final Cr–O distance of 1.562 Å. Tasks 3–9 are pending behind the cluster-wide maintenance reservation `anvil-maint-2026-q3` (2026-09-18 23:30 to 2026-09-20 21:00 UTC); the scheduler's start estimate is 2026-09-22 15:00 UTC for tasks 3–7 and 21:00 UTC for tasks 8–9.
 
 This is a read-only diagnosis from preserved raw outputs. Nothing on Anvil was changed, no calculation was restarted, and no energy from a stopped leg enters any readout. Machine-readable traces and hashes: `results/lowtail_dft_2026-09-18/slab_stall_diagnosis_2026-09-19/` (`traces.json`, `summary.json`; tool `src/dft/qe_relax_trace.py`).
@@ -41,3 +43,15 @@ If a recipe clears the floor to below 1e-8 Ry on all three slabs, the clean-slab
 ## What is not claimed
 
 No relaxed DFT minimum or basin preference exists for any site; the one converged leg is a single reconstructed-start structure. No census winner, overpotential or composition ranking follows. The Fe25 prediction of repeat failure is a deterministic-input argument, not a measurement, and the array's registered outcome will be recorded whatever happens.
+
+## Review addendum — 2026-09-19, before any recovery submission
+
+The original observations and proposed decks above remain readable as the earlier state. The following corrections control their interpretation; see `lowtail-recovery-review-2026-09-19.md` and the byte-verified terminal mirror under `results/lowtail_dft_2026-09-18/interim_20260919/`.
+
+- **Iteration accounting:** the failed fifth SCF completed 126 residual estimates. Iteration 127 started the supervisor stop. The original trace's value 128 included the shutdown phrase `at iteration # 126` as an extra iteration. Completed estimates and started iterations must be reported separately.
+- **Actual acceptance target:** QE announced 8.08e-8 Ry for the fifth cycle. Its smallest observed residual was 3.6e-7 Ry at iteration 93 and its final residual was 4.3e-7 Ry. Crossing the original 1e-6 Ry input tolerance did not satisfy the active SCF target. Iterations 41–126 span 3.6e-7 to 1.5e-6 Ry; nine residuals exceed 4.5e-7, correcting the earlier single-excursion description. The preceding gradient error of 0.016 Ry/bohr also exceeded the 0.002 force criterion. Its ratio to the force criterion is not a fraction of a relaxation completed; the earlier “fifth of the way” interpretation is withdrawn.
+- **Mechanism:** stable rounded total and absolute moments do not identify a density or Hubbard-occupation limit cycle or rank its possible causes. Charge mixing, occupations and smearing remain hypotheses. The observed minimum residual over a finite attempt is not a demonstrated numerical floor.
+- **Existing six recipes:** they start at the original clean-slab geometries and retain `conv_thr = 1e-6`. They can test convergence at those geometries and that tolerance. They do not directly test the failed fifth-cycle geometry or establish convergence to 1e-8: an SCF that first crosses 1e-6 normally ends there. Their earlier below-1e-8 go/no-go and consequent relaxation-resubmission rule are therefore not actionable.
+- **Recovery boundary:** keep the primary stopped leg as failed, with no usable final energy or geometry for scientific scoring. A supplementary diagnostic must fix its geometry, electronic start, mixing change, explicit target, iteration and wall limits before launch. Comparing a checkpoint-derived start with a fresh atomic start would test different trajectories. Retained filenames alone do not certify a restartable checkpoint. No loosening of `upscale`, force acceptance or the original denominator is adopted here. No additional DFT job is submitted by this continuation.
+
+The pending recon/unrecon comparisons remain the next direct evidence for the Cr reconstruction question. The Fe25 pilot is a warning of repeat risk under the same recipe, not a substitute for the queued task's recorded outcome. Scheduler start estimates are observations at the earlier check, not guaranteed dates.

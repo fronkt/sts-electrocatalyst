@@ -1,5 +1,20 @@
 # STS 2027 — TODO
 
+## 2026-09-19 — Continue while the Cr array waits for nodes
+
+- [x] Verify live array/accounting and collector health; preserve terminal raw evidence without changing queued jobs.
+- [x] Diagnose the failed clean slab from full SCF history and retained-scratch inventory; review bounded recovery with unchanged scientific acceptance criteria.
+- [x] Independently assess the completed reconstructed-O endpoint, keeping the failed slab and pending alternative start explicit.
+- [x] Preserve literature progress, diagnose quota/pagination limitations, and advance complementary candidate discovery without premature method coding.
+- [ ] Record reviewed findings and next steps; commit and push completed evidence and scoped changes.
+
+Scope: continue authorized research. Seven queued primary jobs and the conditional ortho-control boundary remain in place. Review a dated recovery proposal before any additional DFT submission; keep acceptance criteria fixed.
+
+### Review
+
+Independent raw verification supports one converged reconstructed-O endpoint (Cr–O 1.561960 Å), with no clean-slab reference or alternate-start comparison yet. The failed slab has 126 completed fifth-cycle updates and did not meet QE's active 8.08e-8 Ry threshold. The earlier recovery proposal's go/no-go is withdrawn in a dated correction; no additional DFT was submitted. Seven primary jobs remain queued, and the collector is active.
+
+The literature snapshot preserves 20,000 occurrences / 19,813 metadata candidates in byte-verified compressed shards. Complementary discovery has 271 citation occurrences / 120 identity keys, all unscreened and uncoded. The additive quota-aware continuation passed 44 focused tests and a real-cache integration check with zero network calls and an identical candidate export. Its deferral ends no earlier than 2026-09-20 00:00:01 UTC. Count drift and duplicate provider IDs keep discovery completeness unresolved. See `docs/research/continuation-readout-2026-09-19.md` and `results/s2_2026-09-19/continuation_verification.json`.
 ## Documentation maintenance (2026-09-03)
 
 - [x] Add the standing project wording rule to `CLAUDE.md`.
