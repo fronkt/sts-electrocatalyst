@@ -6,7 +6,7 @@
 - [x] Diagnose the failed clean slab from full SCF history and retained-scratch inventory; review bounded recovery with unchanged scientific acceptance criteria.
 - [x] Independently assess the completed reconstructed-O endpoint, keeping the failed slab and pending alternative start explicit.
 - [x] Preserve literature progress, diagnose quota/pagination limitations, and advance complementary candidate discovery without premature method coding.
-- [ ] Record reviewed findings and next steps; commit and push completed evidence and scoped changes.
+- [x] Record reviewed findings and next steps; commit and push completed evidence and scoped changes. Evidence and implementation pushed as `f3899e7`; 44 focused tests passed.
 
 Scope: continue authorized research. Seven queued primary jobs and the conditional ortho-control boundary remain in place. Review a dated recovery proposal before any additional DFT submission; keep acceptance criteria fixed.
 
