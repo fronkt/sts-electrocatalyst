@@ -1,0 +1,47 @@
+{
+  "tests": {
+    "command": [
+      "C:\\Users\\frank\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "pytest",
+      "tests/s2/test_literature_reconcile_plan.py",
+      "-q"
+    ],
+    "exit_code": 0,
+    "stdout": ".................................                                        [100%]\n33 passed in 0.83s\n",
+    "stderr": ""
+  },
+  "real_cache_plan": {
+    "command": [
+      "C:\\Users\\frank\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "src/s2/literature/reconcile_plan.py",
+      "--source",
+      "results/s2_2026-09-19/literature_openalex_continuation",
+      "--out",
+      "results/s2_2026-09-20/reconciliation_plan_terminal_revision"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"state\": \"PROSPECTIVE_NOT_RETRIEVED\", \"partitions\": 64, \"requests\": 0, \"global_p_lit_complete\": false}\n",
+    "stderr": ""
+  },
+  "network_requests": 0,
+  "source_sha256": "b6dac6d110389051c2ffc240b056b071c28dccc1baa0a62aaffec9028bb57d73",
+  "tests_sha256": "cd8070b0adb7c8ce3fd5745ba2de5c3298d7d1229864ea85003417eab25fe717",
+  "supersedes_prospective_manifest": "results/s2_2026-09-20/reconciliation_plan/plan.json",
+  "reason": "Actual preserved terminal pages contain nonempty results with explicit null cursor; terminal shape updated before new network collection; exact count and identity rules unchanged.",
+  "earlier_terminal_regression_run": {
+    "tests": {
+      "command": [
+        "C:\\Users\\frank\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-m",
+        "pytest",
+        "tests/s2/test_literature_reconcile_plan.py",
+        "-q"
+      ],
+      "exit_code": 0,
+      "stdout": "................................                                         [100%]\n32 passed in 0.94s\n",
+      "stderr": ""
+    },
+    "tests_sha256": "314529a1eca846543bffa01064f031db47976d38076ddd657834ac80e0ccee3e"
+  }
+}

@@ -163,12 +163,34 @@ def test_repeated_cursor_cannot_pass_with_distinct_ids_and_consistent_counts(tmp
     assert len(report["proposed_child_partitions"]) == 12
 
 
-def test_nonempty_null_cursor_is_not_the_registered_terminal_receipt(tmp_path):
+@pytest.mark.parametrize("full_final_page", [False, True])
+def test_nonempty_null_cursor_is_a_terminal_receipt_when_counts_and_ids_agree(tmp_path, full_final_page):
     p = part()
-    page(tmp_path, p, 1, [item()], 1)
+    if full_final_page:
+        page(tmp_path, p, 1, [item()], 101, nxt="next")
+        page(tmp_path, p, 2, [item(i) for i in range(2, 102)], 101, cursor="next")
+    else:
+        page(tmp_path, p, 1, [item()], 1)
     report = rp.validate_cached_partition(p, tmp_path)
-    assert not report["terminal_receipt"]
-    assert "NONEMPTY_NULL_CURSOR_TERMINATION" in report["issues"]
+    assert report["terminal_receipt"]
+    assert report["status"] == "VALIDATED_OBSERVED_PARTITION"
+    assert report["raw_records"] == report["unique_provider_ids"] == (101 if full_final_page else 1)
+    assert len(report["page_pins"]) == (2 if full_final_page else 1)
+    assert not report["issues"]
+
+
+@pytest.mark.parametrize("totals,issue", [
+    ([1, 2], "CHANGING_TOTAL"),
+    ([3, 3], "TOTAL_RAW_COUNT_MISMATCH"),
+])
+def test_nonempty_terminal_page_cannot_hide_count_drift(tmp_path, totals, issue):
+    p = part()
+    page(tmp_path, p, 1, [item()], totals[0], nxt="next")
+    page(tmp_path, p, 2, [item(2)], totals[1], cursor="next")
+    report = rp.validate_cached_partition(p, tmp_path)
+    assert report["terminal_receipt"]
+    assert report["status"] == "UNRESOLVED_PARTITION"
+    assert issue in report["issues"]
 
 
 @pytest.mark.parametrize("mutation", ["hash", "query", "cursor", "timezone", "count_bool", "missing_cursor"])

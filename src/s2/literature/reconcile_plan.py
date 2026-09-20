@@ -213,11 +213,9 @@ def validate_cached_partition(part: dict, directory: Path) -> dict:
                                     item_index=offset, raw_page=str(raw_path), raw_sha256=raw_hash,
                                     record_sha256=sha(json.dumps(row, sort_keys=True).encode()),
                                     publication_date=row.get("publication_date")))
-        terminal = nxt is None and not rows
-        if nxt is None and rows:
-            issues.append("NONEMPTY_NULL_CURSOR_TERMINATION")
-            if number != len(receipts):
-                raise ValueError("no usable cursor for subsequent cached page")
+        # The live API can terminate on a nonempty final page. Exhaustion is
+        # the explicit null cursor; exact counts and identities remain required.
+        terminal = nxt is None
         if not rows and nxt is not None:
             issues.append("EMPTY_NONTERMINAL_PAGE")
         cursor = nxt
@@ -326,7 +324,7 @@ def prepare_plan(source: Path, out: Path) -> dict:
                                       validation="Pinned prior export; old enumeration flags remain untouched."),
                 source_sha256=file_sha(Path(__file__)), documentation=DOCUMENTATION,
                 refinement="Unstable year to complete months; unstable month to complete days; unstable day unresolved.",
-                terminal_rule="Explicit next_cursor null AND empty results receipt.",
+                terminal_rule="Explicit next_cursor null; empty or nonempty final results; exact counts and identities required.",
                 count_tolerance=0, new_requests_made=0, global_p_lit_complete=False,
                 limitation=LIMITATION)
     old_union = reconcile_identities(old, [])

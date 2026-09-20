@@ -1,0 +1,4284 @@
+{
+  "schema": "p_lit_independent_primary_triage_v1",
+  "reviewed_utc": "2026-09-20T02:31:05.8278940Z",
+  "reviewer": "/root/literature_progress_review",
+  "independence": "All 29 proposals formed without reading the other first-pass outcome file. Access URLs and raw source receipts were shared; dispositions were not used.",
+  "scope": "Exactly the 29 existing review_order_group=1 queue rows. Work order is not a population cutoff. No new discovery or forward references. This bounded pass is not the full literature screen.",
+  "protocol": {
+    "primary_research_articles": true,
+    "first_publication_from": "2011-01-01",
+    "first_publication_through": "2026-09-18",
+    "calculation": "OER on rutile oxide (110), including qualifying comparative calculations",
+    "quantity": "CHE overpotential reported in article or SI",
+    "versions": "Retain all queue occurrences and identifiers; count preprint+journal once using in-window journal version",
+    "missing_evidence": "UNKNOWN, not FALSE",
+    "methods": "NOT_CODED pending global candidate/eligibility freeze"
+  },
+  "status": "INDEPENDENT_PROPOSALS_FOR_RECONCILIATION_NOT_FINAL_GLOBAL_ELIGIBILITY",
+  "source_pins": [
+    {
+      "path": "results/s2_2026-09-20/eligibility_queue/all_candidates.csv",
+      "sha256": "21a822c1027e142a236dfc37245f7a792cccd844cdb52753fbed3fb413de1713"
+    },
+    {
+      "path": "docs/research/s2-operating-decisions-2026-09-18.md",
+      "sha256": "3398598fe9f3fdeac417e448eb8f6922dd9d152eefa8fe995a9be0c0cf9b2a16"
+    },
+    {
+      "path": "results/s2_2026-09-20/priority_source_receipts/priority_doi_receipts.json",
+      "sha256": "d206c024eb75490d78e7d4198e6b1397997af2d414a34903d99bec1555f032c7"
+    },
+    {
+      "path": "results/s2_2026-09-20/priority_source_receipts/priority_datacite_receipts.json",
+      "sha256": "e8f6825da00ef50ed78114a19eff9de0bc24f4232ba965f07026a16b77b24cd0"
+    },
+    {
+      "path": "results/s2_2026-09-20/priority_source_receipts/local_text_index.json",
+      "sha256": "ad47ee347b37e0efc509984be0b3c133f0a9c1ad5d472b3609c06c6939d795f4"
+    },
+    {
+      "path": "results/s2_2026-09-20/priority_source_receipts/article_downloads.json",
+      "sha256": "4acd9b13a6bbaff462515def38c8d91fd25933c45ef57f329406ab6b4f7f05ca"
+    }
+  ],
+  "evidence_limits": [
+    "Primary webpage/PDF text and publisher-deposited registry metadata support different claims; metadata alone is not treated as inspected article content.",
+    "All full-text inspection described here used extracted text. No visual inspection of the four repository PDFs is claimed.",
+    "Absence of an accessible SI is not proof that no SI exists. Positive main-article eligibility can coexist with an incomplete article/SI bundle.",
+    "Registry dates are retained verbatim. Specific first-publication discrepancies and manuscript-version gaps are not silently collapsed.",
+    "Method details are mentioned solely as evidence for the four eligibility criteria; no methodological reporting codes are assigned."
+  ],
+  "counts": {
+    "queue_rows": 29,
+    "proposed_eligible": 4,
+    "proposed_excluded": 8,
+    "version_rows_with_journal_eligibility_unresolved": 5,
+    "other_unresolved": 12,
+    "methods_not_coded": 29
+  },
+  "verification": {
+    "queue_id_and_doi_bijection": true,
+    "source_raw_receipt_hashes_checked": 32,
+    "local_pdf_and_text_hash_pairs_checked": 4,
+    "no_other_reviewer_outcome_read": true
+  },
+  "rows": [
+    {
+      "doi": "10.3389/fenrg.2021.606313",
+      "proposal": "PROPOSE_INCLUDE",
+      "criteria": {
+        "primary_research_article": "TRUE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "TRUE",
+        "reports_che_overpotential": "TRUE"
+      },
+      "identity": "Publisher title, authors and DOI agree. Original Research; published 2021-02-11.",
+      "access": "Publisher full HTML inspected for eligibility; SI not inspected.",
+      "evidence": [
+        {
+          "url": "https://www.frontiersin.org/journals/energy-research/articles/10.3389/fenrg.2021.606313/full",
+          "locator": "Article header; Computational Methods; Thermodynamics of the OER; Figure 3",
+          "observation": "New calculations use rutile (110) heterostructure slabs. The four PCET steps use the hydrogen-gas reference and potential correction; the article defines theoretical overpotential and reports the activity volcano."
+        }
+      ],
+      "unresolved_criteria": [],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "074651f17489c16334eda43d",
+      "title": "First-Principles Design of Rutile Oxide Heterostructures for Oxygen Evolution Reactions",
+      "review_order_group": 1,
+      "occurrence_count": 2,
+      "crossref_receipt": {
+        "candidate_id": "074651f17489c16334eda43d",
+        "requested_doi": "10.3389/fenrg.2021.606313",
+        "requested_utc": "2026-09-19T22:20:29.308003-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.3389%2Ffenrg.2021.606313",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.3389/fenrg.2021.606313",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/d78c4ac203048ba23629.json",
+        "sha256": "73c014fb773170e942da5c902f214af650afbffb106864cae4239d06e8e82b26"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.3389/fenrg.2021.606313",
+        "title": [
+          "First-Principles Design of Rutile Oxide Heterostructures for Oxygen Evolution Reactions"
+        ],
+        "authors": [
+          {
+            "given": "Hyeong Yong",
+            "family": "Lim",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Sung O",
+            "family": "Park",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Su Hwan",
+            "family": "Kim",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Gwan Yeong",
+            "family": "Jung",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Sang Kyu",
+            "family": "Kwak",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "Frontiers in Energy Research"
+        ],
+        "publisher": "Frontiers Media SA",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              2,
+              11
+            ]
+          ]
+        },
+        "published_online": {
+          "date-parts": [
+            [
+              2021,
+              2,
+              11
+            ]
+          ]
+        },
+        "published_print": null,
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://www.frontiersin.org/articles/10.3389/fenrg.2021.606313/full"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.3390/catal15080770",
+      "proposal": "UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "TRUE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "TRUE",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Publisher indexed title and DOI match; published 2025-08-13, agreeing with registry.",
+      "access": "Indexed publisher sections inspected; direct HTML returned 429. Complete equations 5–7 and SI not inspected.",
+      "evidence": [
+        {
+          "url": "https://www.mdpi.com/2073-4344/15/8/770",
+          "locator": "Sections 2.2, 2.3 equation 8, 3; Figure 5",
+          "observation": "Rutile RuO2 (110) and Sn substitution models are explicit. Equation 8 defines max step free energy/e minus 1.23 V; Figure 5 reports site overpotentials. The hydrogen/proton-electron reference convention is not visible in inspected indexed text."
+        }
+      ],
+      "unresolved_criteria": [
+        "CHE reference convention; inspect complete equations 5–7 or SI before inclusion."
+      ],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "0939106d7cc0659540f3d012",
+      "title": "First-Principles Study of Sn-Doped RuO2 as Efficient Electrocatalysts for Enhanced Oxygen Evolution",
+      "review_order_group": 1,
+      "occurrence_count": 2,
+      "crossref_receipt": {
+        "candidate_id": "0939106d7cc0659540f3d012",
+        "requested_doi": "10.3390/catal15080770",
+        "requested_utc": "2026-09-19T22:20:30.869649-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.3390%2Fcatal15080770",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.3390/catal15080770",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/36bee6d92e03f5cf6a69.json",
+        "sha256": "b30be06ff225a6626fb2fd2185627ef6544bb8f42c7d5dbeb1870d9bab648c6d"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.3390/catal15080770",
+        "title": [
+          "First-Principles Study of Sn-Doped RuO2 as Efficient Electrocatalysts for Enhanced Oxygen Evolution"
+        ],
+        "authors": [
+          {
+            "given": "Caiyan",
+            "family": "Zheng",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "School of Physics, Nankai University, Tianjin 300071, China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Qian",
+            "family": "Gao",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "School of Physics, Nankai University, Tianjin 300071, China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-8469-1683",
+            "authenticated-orcid": false,
+            "given": "Zhenpeng",
+            "family": "Hu",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "School of Physics, Nankai University, Tianjin 300071, China"
+              },
+              {
+                "name": "Key Laboratory of Advanced Electrode Materials for Novel Solar Cells for Petroleum and Chemical Industry of China, School of Chemistry and Life Sciences, Suzhou University of Science and Technology, Suzhou 215009, China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "Catalysts"
+        ],
+        "publisher": "MDPI AG",
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              8,
+              13
+            ]
+          ]
+        },
+        "published_online": {
+          "date-parts": [
+            [
+              2025,
+              8,
+              13
+            ]
+          ]
+        },
+        "published_print": null,
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://www.mdpi.com/2073-4344/15/8/770"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.26434/chemrxiv-2023-jhnj4",
+      "proposal": "VERSION_OF_JOURNAL_ELIGIBILITY_UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "UNKNOWN",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "ChemRxiv title and both authors match. Landing page gives version 1 dated 2023-12-13; registry has 2023-12-12 and an explicit is-preprint-of relation.",
+      "access": "Official preprint landing abstract inspected. Matched journal identity located; journal full text and SI not inspected from a verified official host.",
+      "evidence": [
+        {
+          "url": "https://chemrxiv.org/engage/chemrxiv/article-details/6577cb3bfd283d7904cc4e29",
+          "locator": "Title, authors, version/date and abstract",
+          "observation": "DFT concerns anion adsorption on IrO2(110). Abstract alone does not establish rutile structure and reported CHE overpotential."
+        },
+        {
+          "url": "https://pubs.acs.org/doi/10.1021/acs.jpcc.3c08103",
+          "locator": "Journal counterpart identity; publisher access failed",
+          "observation": "Exact title and author pair support the registry's explicit preprint relation; use the in-window journal version for eventual study assessment."
+        }
+      ],
+      "unresolved_criteria": [
+        "Journal full text/SI: rutile model and CHE overpotential; preserve both preprint date observations."
+      ],
+      "version_relations": [
+        {
+          "relation": "is-preprint-of",
+          "doi": "10.1021/acs.jpcc.3c08103",
+          "support": "Explicit Crossref relation; exact title and authors match."
+        }
+      ],
+      "methods": "NOT_CODED",
+      "candidate_id": "1183b3c2cfd620788e81af05",
+      "title": "Acid Electrolyte Anions Adsorption Effects on IrO2 Electrocatalysts for Oxygen Evolution Reaction",
+      "review_order_group": 1,
+      "occurrence_count": 3,
+      "crossref_receipt": {
+        "candidate_id": "1183b3c2cfd620788e81af05",
+        "requested_doi": "10.26434/chemrxiv-2023-jhnj4",
+        "requested_utc": "2026-09-19T22:20:32.115426-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.26434%2Fchemrxiv-2023-jhnj4",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.26434/chemrxiv-2023-jhnj4",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/5d079e47f88f16a6a6a2.json",
+        "sha256": "0d68a83723ae49818980812f636544ec6a61c5e90449ffc2454fb39d2b07bbbe"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.26434/chemrxiv-2023-jhnj4",
+        "title": [
+          "Acid Electrolyte Anions Adsorption Effects on IrO2 Electrocatalysts for Oxygen Evolution Reaction"
+        ],
+        "authors": [
+          {
+            "given": "S. A. Keishana",
+            "family": "Navodye",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "University of Oklahoma"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0003-1258-7841",
+            "authenticated-orcid": false,
+            "given": "G. T. Kasun Kalhara",
+            "family": "Gunasooriya",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "University of Oklahoma"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "type": "posted-content",
+        "subtype": "preprint",
+        "container": [],
+        "publisher": "American Chemical Society (ACS)",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              12,
+              12
+            ]
+          ]
+        },
+        "published_online": null,
+        "published_print": null,
+        "relation": {
+          "is-preprint-of": [
+            {
+              "id-type": "doi",
+              "id": "10.1021/acs.jpcc.3c08103",
+              "asserted-by": "subject"
+            }
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://chemrxiv.org/doi/full/10.26434/chemrxiv-2023-jhnj4"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.26434/chemrxiv-2021-pfdcx",
+      "proposal": "VERSION_OF_JOURNAL_ELIGIBILITY_UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "UNKNOWN",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Version 1 dated 2021-06-29. Exact DOI registry response matches; title and four authors match the published paper.",
+      "access": "Official ChemRxiv version history and journal PDF inspected; no separate eligibility count for this version row.",
+      "evidence": [
+        {
+          "url": "https://www.cambridge.org/engage/chemrxiv/article-details/6123595bded28a50d9868081",
+          "locator": "Title, four authors, version history and Now Published panel",
+          "observation": "The preprint points to the same-title PCCP article. Registry deposits explicitly link both versions to that journal DOI."
+        }
+      ],
+      "unresolved_criteria": [
+        "Journal row 10.1039/d1cp02999a retains rutile-polymorph and CHE-reference gaps."
+      ],
+      "version_relations": [
+        {
+          "relation": "canonical_identifier",
+          "doi": "10.26434/chemrxiv-2021-pfdcx",
+          "support": "HTTP 200 exact requested-DOI registry response; legacy DOI is retained."
+        },
+        {
+          "relation": "is-preprint-of",
+          "doi": "10.1039/d1cp02999a",
+          "support": "Explicit registry relation and official preprint publication panel."
+        }
+      ],
+      "methods": "NOT_CODED",
+      "candidate_id": "120cfbcb077ef9080bd24a8b",
+      "title": "Lifting the discrepancy between experimental results and the theoretical predictions for the catalytic activity of RuO2 (110) towards Oxygen Evolution Reaction",
+      "review_order_group": 1,
+      "occurrence_count": 2,
+      "crossref_receipt": {
+        "candidate_id": "120cfbcb077ef9080bd24a8b",
+        "requested_doi": "10.26434/chemrxiv-2021-pfdcx",
+        "requested_utc": "2026-09-19T22:20:33.315837-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.26434%2Fchemrxiv-2021-pfdcx",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.26434/chemrxiv-2021-pfdcx",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/0a6f650e805038ac36a3.json",
+        "sha256": "2a8aa17d3a58e9b428e27fa855c7d3a6cb071da24a02e6ab74a2944ee740528f"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.26434/chemrxiv-2021-pfdcx",
+        "title": [
+          "Lifting the discrepancy between experimental results and the theoretical predictions for the catalytic activity of RuO2 (110) towards Oxygen Evolution Reaction"
+        ],
+        "authors": [
+          {
+            "given": "Spyridon",
+            "family": "Divanis",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/035b05819",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "University of Copenhagen",
+                "place": [
+                  "Denmark"
+                ]
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-6023-1941",
+            "authenticated-orcid": false,
+            "given": "Adrian",
+            "family": "Frandsen",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/035b05819",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "University of Copenhagen",
+                "place": [
+                  "Denmark"
+                ]
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Tugce",
+            "family": "Kutlusoy",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/035b05819",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "University of Copenhagen",
+                "place": [
+                  "Denmark"
+                ]
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jan",
+            "family": "Rossmeisl",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/035b05819",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "University of Copenhagen",
+                "place": [
+                  "Denmark"
+                ]
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "posted-content",
+        "subtype": "preprint",
+        "container": [],
+        "publisher": "American Chemical Society (ACS)",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              6,
+              29
+            ]
+          ]
+        },
+        "published_online": null,
+        "published_print": null,
+        "relation": {
+          "is-preprint-of": [
+            {
+              "id-type": "doi",
+              "id": "10.1039/D1CP02999A",
+              "asserted-by": "subject"
+            }
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://chemrxiv.org/doi/full/10.26434/chemrxiv-2021-pfdcx"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.33774/chemrxiv-2021-pfdcx",
+      "proposal": "VERSION_OF_JOURNAL_ELIGIBILITY_UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "UNKNOWN",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Version 1 dated 2021-06-29. Exact DOI registry response resolves legacy prefix to 10.26434/chemrxiv-2021-pfdcx; title and four authors match the published paper.",
+      "access": "Official ChemRxiv version history and journal PDF inspected; no separate eligibility count for this version row.",
+      "evidence": [
+        {
+          "url": "https://www.cambridge.org/engage/chemrxiv/article-details/6123595bded28a50d9868081",
+          "locator": "Title, four authors, version history and Now Published panel",
+          "observation": "The preprint points to the same-title PCCP article. Registry deposits explicitly link both versions to that journal DOI."
+        }
+      ],
+      "unresolved_criteria": [
+        "Journal row 10.1039/d1cp02999a retains rutile-polymorph and CHE-reference gaps."
+      ],
+      "version_relations": [
+        {
+          "relation": "canonical_identifier",
+          "doi": "10.26434/chemrxiv-2021-pfdcx",
+          "support": "HTTP 200 exact requested-DOI registry response; legacy DOI is retained."
+        },
+        {
+          "relation": "is-preprint-of",
+          "doi": "10.1039/d1cp02999a",
+          "support": "Explicit registry relation and official preprint publication panel."
+        }
+      ],
+      "methods": "NOT_CODED",
+      "candidate_id": "1e3ea86259784c51b6c43de2",
+      "title": "Lifting the discrepancy between experimental results and the theoretical predictions for the catalytic activity of RuO2 (110) towards Oxygen Evolution Reaction",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "1e3ea86259784c51b6c43de2",
+        "requested_doi": "10.33774/chemrxiv-2021-pfdcx",
+        "requested_utc": "2026-09-19T22:20:34.506817-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.33774%2Fchemrxiv-2021-pfdcx",
+        "status": "IDENTIFIER_DIFFERS_OR_MISSING",
+        "http_status": 200,
+        "response_doi": "10.26434/chemrxiv-2021-pfdcx",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/3d7066e9a50f99153b26.json",
+        "sha256": "2a8aa17d3a58e9b428e27fa855c7d3a6cb071da24a02e6ab74a2944ee740528f"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.26434/chemrxiv-2021-pfdcx",
+        "title": [
+          "Lifting the discrepancy between experimental results and the theoretical predictions for the catalytic activity of RuO2 (110) towards Oxygen Evolution Reaction"
+        ],
+        "authors": [
+          {
+            "given": "Spyridon",
+            "family": "Divanis",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/035b05819",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "University of Copenhagen",
+                "place": [
+                  "Denmark"
+                ]
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-6023-1941",
+            "authenticated-orcid": false,
+            "given": "Adrian",
+            "family": "Frandsen",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/035b05819",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "University of Copenhagen",
+                "place": [
+                  "Denmark"
+                ]
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Tugce",
+            "family": "Kutlusoy",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/035b05819",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "University of Copenhagen",
+                "place": [
+                  "Denmark"
+                ]
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jan",
+            "family": "Rossmeisl",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/035b05819",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "University of Copenhagen",
+                "place": [
+                  "Denmark"
+                ]
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "posted-content",
+        "subtype": "preprint",
+        "container": [],
+        "publisher": "American Chemical Society (ACS)",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              6,
+              29
+            ]
+          ]
+        },
+        "published_online": null,
+        "published_print": null,
+        "relation": {
+          "is-preprint-of": [
+            {
+              "id-type": "doi",
+              "id": "10.1039/D1CP02999A",
+              "asserted-by": "subject"
+            }
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://chemrxiv.org/doi/full/10.26434/chemrxiv-2021-pfdcx"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.1149/ma2020-01371556mtgabs",
+      "proposal": "PROPOSE_EXCLUDE_NOT_PRIMARY_ARTICLE",
+      "criteria": {
+        "primary_research_article": "FALSE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Exact DOI/title and authors are present in publisher-deposited metadata; published 2020-05-01 in ECS Meeting Abstracts.",
+      "access": "Publisher abstract present in registry; IOP landing unavailable. No full article inspected.",
+      "evidence": [
+        {
+          "url": "https://iopscience.iop.org/article/10.1149/MA2020-01371556mtgabs",
+          "locator": "Publisher-deposited Crossref container-title, title, author, abstract and published-print fields",
+          "observation": "This is an ECS meeting abstract. The registry's generic journal-article type does not turn the meeting abstract into a primary research article."
+        }
+      ],
+      "unresolved_criteria": [],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "317fe075c4a3eddcd2bc3231",
+      "title": "First Principles Modelling of Surface Modified TiO2 for Water Activation and Oxygen Evolution",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "317fe075c4a3eddcd2bc3231",
+        "requested_doi": "10.1149/ma2020-01371556mtgabs",
+        "requested_utc": "2026-09-19T22:20:36.069101-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1149%2Fma2020-01371556mtgabs",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1149/ma2020-01371556mtgabs",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/7a413505134ccaddb3dc.json",
+        "sha256": "e083d0a23d5402b93ff661d82c3d469f4688ce1622b3f52acf570c6ff0299f51"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1149/ma2020-01371556mtgabs",
+        "title": [
+          "First Principles Modelling of Surface Modified TiO2 for Water Activation and Oxygen Evolution"
+        ],
+        "authors": [
+          {
+            "ORCID": "https://orcid.org/0000-0002-5224-8580",
+            "authenticated-orcid": false,
+            "given": "Michael",
+            "family": "Nolan",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Stephen",
+            "family": "Rhatigan",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "ECS Meeting Abstracts"
+        ],
+        "publisher": "The Electrochemical Society",
+        "published": {
+          "date-parts": [
+            [
+              2020,
+              5,
+              1
+            ]
+          ]
+        },
+        "published_online": null,
+        "published_print": {
+          "date-parts": [
+            [
+              2020,
+              5,
+              1
+            ]
+          ]
+        },
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://iopscience.iop.org/article/10.1149/MA2020-01371556mtgabs"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.1149/ma2019-02/37/1718",
+      "proposal": "PROPOSE_EXCLUDE_NOT_PRIMARY_ARTICLE",
+      "criteria": {
+        "primary_research_article": "FALSE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Exact title and authors match the official 236th ECS program. Abstract publication 2019-09-01; presentation 2019-10-15 are distinct dates.",
+      "access": "Official conference abstract/program and publisher registry metadata inspected.",
+      "evidence": [
+        {
+          "url": "https://ecs.confex.com/ecs/236/webprogram/Paper127855.html",
+          "locator": "Presentation title, authors, October 15 schedule and abstract",
+          "observation": "An invited conference presentation; not a full primary research article."
+        },
+        {
+          "url": "https://iopscience.iop.org/article/10.1149/MA2019-02/37/1718",
+          "locator": "Publisher-deposited container-title and publication date",
+          "observation": "ECS Meeting Abstracts identity confirmed; do not merge by topic alone with the later JCat study."
+        }
+      ],
+      "unresolved_criteria": [],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "400b37c735ec87cc2236a52c",
+      "title": "(Invited) Oxygen Evolution Reaction on M-Iridium Oxide (M=Ni, Co) Surfaces: Insights from First-Principles Computations and Experiments",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "400b37c735ec87cc2236a52c",
+        "requested_doi": "10.1149/ma2019-02/37/1718",
+        "requested_utc": "2026-09-19T22:20:37.310343-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1149%2Fma2019-02%2F37%2F1718",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1149/ma2019-02/37/1718",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/0f4dfcb083eab7c5b0e4.json",
+        "sha256": "fcbaca622271e58a1d493c59108e8bf0a8f060d3f7497e34e9a6b3949e96adf7"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1149/ma2019-02/37/1718",
+        "title": [
+          "(Invited) Oxygen Evolution Reaction on M-Iridium Oxide (M=Ni, Co) Surfaces: Insights from First-Principles Computations and Experiments"
+        ],
+        "authors": [
+          {
+            "given": "Perla B.",
+            "family": "Balbuena",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Luis E",
+            "family": "Camacho-Forero",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Fernando",
+            "family": "Godinez-Salomon",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0003-4886-9875",
+            "authenticated-orcid": false,
+            "given": "Christopher P.",
+            "family": "Rhodes",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "ECS Meeting Abstracts"
+        ],
+        "publisher": "The Electrochemical Society",
+        "published": {
+          "date-parts": [
+            [
+              2019,
+              9,
+              1
+            ]
+          ]
+        },
+        "published_online": null,
+        "published_print": {
+          "date-parts": [
+            [
+              2019,
+              9,
+              1
+            ]
+          ]
+        },
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://iopscience.iop.org/article/10.1149/MA2019-02/37/1718"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.1016/j.apsusc.2021.149591",
+      "proposal": "UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "TRUE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Exact DOI and title verified in publisher-deposited registry; journal issue July 2021. Earliest online date not verified.",
+      "access": "Publisher full article unavailable (403); no full text or SI inspected.",
+      "evidence": [
+        {
+          "url": "https://www.sciencedirect.com/science/article/pii/S016943322100667X",
+          "locator": "Publisher landing attempt; exact-DOI registry record",
+          "observation": "Primary article identity is established. Morphological terms in the title do not decide whether rutile (110) comparison calculations or CHE overpotential are present."
+        }
+      ],
+      "unresolved_criteria": [
+        "Full article/SI surface structure, calculated comparison models and CHE overpotential; first-online date."
+      ],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "401116182adc06e01dc93b1c",
+      "title": "First-principles simulation of oxygen evolution reaction (OER) catalytic performance of IrO2 bulk-like structures: Nanosphere, nanowire and nanotube",
+      "review_order_group": 1,
+      "occurrence_count": 2,
+      "crossref_receipt": {
+        "candidate_id": "401116182adc06e01dc93b1c",
+        "requested_doi": "10.1016/j.apsusc.2021.149591",
+        "requested_utc": "2026-09-19T22:20:38.532213-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1016%2Fj.apsusc.2021.149591",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1016/j.apsusc.2021.149591",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/fc40459e3fb150129d02.json",
+        "sha256": "193eae1bb7a62524026bd4c092d32283abedd74fd5fc0227c77733498f9a8cb2"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1016/j.apsusc.2021.149591",
+        "title": [
+          "First-principles simulation of oxygen evolution reaction (OER) catalytic performance of IrO2 bulk-like structures: Nanosphere, nanowire and nanotube"
+        ],
+        "authors": [
+          {
+            "given": "Zhuoan",
+            "family": "Cui",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Ronghui",
+            "family": "Qi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "Applied Surface Science"
+        ],
+        "publisher": "Elsevier BV",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              7
+            ]
+          ]
+        },
+        "published_online": null,
+        "published_print": {
+          "date-parts": [
+            [
+              2021,
+              7
+            ]
+          ]
+        },
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S016943322100667X"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.33774/chemrxiv-2021-pfdcx-v2",
+      "proposal": "VERSION_OF_JOURNAL_ELIGIBILITY_UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "UNKNOWN",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Version 2 dated 2021-08-23. Exact DOI registry response resolves legacy prefix to 10.26434/chemrxiv-2021-pfdcx-v2; title and four authors match the published paper.",
+      "access": "Official ChemRxiv version history and journal PDF inspected; no separate eligibility count for this version row.",
+      "evidence": [
+        {
+          "url": "https://www.cambridge.org/engage/chemrxiv/article-details/6123595bded28a50d9868081",
+          "locator": "Title, four authors, version history and Now Published panel",
+          "observation": "The preprint points to the same-title PCCP article. Registry deposits explicitly link both versions to that journal DOI."
+        }
+      ],
+      "unresolved_criteria": [
+        "Journal row 10.1039/d1cp02999a retains rutile-polymorph and CHE-reference gaps."
+      ],
+      "version_relations": [
+        {
+          "relation": "canonical_identifier",
+          "doi": "10.26434/chemrxiv-2021-pfdcx-v2",
+          "support": "HTTP 200 exact requested-DOI registry response; legacy DOI is retained."
+        },
+        {
+          "relation": "is-preprint-of",
+          "doi": "10.1039/d1cp02999a",
+          "support": "Explicit registry relation and official preprint publication panel."
+        }
+      ],
+      "methods": "NOT_CODED",
+      "candidate_id": "52ae5796ed909e2c483243c6",
+      "title": "Lifting the discrepancy between experimental results and the theoretical predictions for the catalytic activity of RuO2 (110) towards Oxygen Evolution Reaction",
+      "review_order_group": 1,
+      "occurrence_count": 2,
+      "crossref_receipt": {
+        "candidate_id": "52ae5796ed909e2c483243c6",
+        "requested_doi": "10.33774/chemrxiv-2021-pfdcx-v2",
+        "requested_utc": "2026-09-19T22:20:39.770768-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.33774%2Fchemrxiv-2021-pfdcx-v2",
+        "status": "IDENTIFIER_DIFFERS_OR_MISSING",
+        "http_status": 200,
+        "response_doi": "10.26434/chemrxiv-2021-pfdcx-v2",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/9406613620734b6e9b15.json",
+        "sha256": "71c06cf754a99b99c5a13b87016491fb99811045244f786a1a11efba38105edd"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.26434/chemrxiv-2021-pfdcx-v2",
+        "title": [
+          "Lifting the discrepancy between experimental results and the theoretical predictions for the catalytic activity of RuO2 (110) towards Oxygen Evolution Reaction"
+        ],
+        "authors": [
+          {
+            "given": "Spyridon",
+            "family": "Divanis",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/035b05819",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "University of Copenhagen",
+                "place": [
+                  "Denmark"
+                ]
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-6023-1941",
+            "authenticated-orcid": false,
+            "given": "Adrian",
+            "family": "Frandsen",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/035b05819",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "University of Copenhagen",
+                "place": [
+                  "Denmark"
+                ]
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Tugce",
+            "family": "Kutlusoy",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/035b05819",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "University of Copenhagen",
+                "place": [
+                  "Denmark"
+                ]
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jan",
+            "family": "Rossmeisl",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/035b05819",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "University of Copenhagen",
+                "place": [
+                  "Denmark"
+                ]
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "posted-content",
+        "subtype": "preprint",
+        "container": [],
+        "publisher": "American Chemical Society (ACS)",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              8,
+              23
+            ]
+          ]
+        },
+        "published_online": null,
+        "published_print": null,
+        "relation": {
+          "is-preprint-of": [
+            {
+              "id-type": "doi",
+              "id": "10.1039/D1CP02999A",
+              "asserted-by": "subject"
+            }
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://chemrxiv.org/doi/full/10.26434/chemrxiv-2021-pfdcx-v2"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.1021/jacs.6b11932",
+      "proposal": "UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "TRUE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Publisher title, eight authors and DOI match. History and registry give online 2017-02-21, issue 2017-03-08; indexed heading also displayed 2017-02-09, preserved as a discrepancy.",
+      "access": "Publisher abstract and SI description inspected; full article/SI not inspected.",
+      "evidence": [
+        {
+          "url": "https://pubs.acs.org/doi/10.1021/jacs.6b11932",
+          "locator": "Abstract, publication history and Supporting Information description",
+          "observation": "Experimental IrO2(110) adsorption study. SI explicitly lists computational details and DFT geometries, so an experimental abstract is insufficient to exclude the study."
+        }
+      ],
+      "unresolved_criteria": [
+        "Article/SI: actual OER calculation on rutile (110) and reported CHE overpotential; exact first-publication discrepancy."
+      ],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "5c7e8833660961056da41c2b",
+      "title": "Influence of Surface Adsorption on the Oxygen Evolution Reaction on IrO2(110)",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "5c7e8833660961056da41c2b",
+        "requested_doi": "10.1021/jacs.6b11932",
+        "requested_utc": "2026-09-19T22:20:41.210958-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1021%2Fjacs.6b11932",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1021/jacs.6b11932",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/d85369fa73fdf2a30650.json",
+        "sha256": "7c8696f9c9423f0087a8a5b1a0b19354123e91c33c468e18a6dcfd9b909ed4f4"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1021/jacs.6b11932",
+        "title": [
+          "Influence of Surface Adsorption on the Oxygen Evolution Reaction on IrO<sub>2</sub>(110)"
+        ],
+        "authors": [
+          {
+            "given": "Ding-Yuan",
+            "family": "Kuo",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department\rof Materials Science and Engineering, Cornell University, Ithaca, New York 14853, United States"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jason K.",
+            "family": "Kawasaki",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Laboratory\rof Atomic and Solid State Physics, Department of Physics, Cornell University, Ithaca, New York 14853, United States"
+              },
+              {
+                "name": "Kavli Institute at Cornell for Nanoscale Science, Ithaca, New York 14853, United States"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jocienne N.",
+            "family": "Nelson",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Laboratory\rof Atomic and Solid State Physics, Department of Physics, Cornell University, Ithaca, New York 14853, United States"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jan",
+            "family": "Kloppenburg",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Institute\rof Condensed Matter and Nanosciences (ICMN), Université catholique de Louvain, Louvain-la-Neuve 1348, Belgium"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0003-1754-2220",
+            "authenticated-orcid": true,
+            "given": "Geoffroy",
+            "family": "Hautier",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Institute\rof Condensed Matter and Nanosciences (ICMN), Université catholique de Louvain, Louvain-la-Neuve 1348, Belgium"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Kyle M.",
+            "family": "Shen",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Laboratory\rof Atomic and Solid State Physics, Department of Physics, Cornell University, Ithaca, New York 14853, United States"
+              },
+              {
+                "name": "Kavli Institute at Cornell for Nanoscale Science, Ithaca, New York 14853, United States"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Darrell G.",
+            "family": "Schlom",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department\rof Materials Science and Engineering, Cornell University, Ithaca, New York 14853, United States"
+              },
+              {
+                "name": "Kavli Institute at Cornell for Nanoscale Science, Ithaca, New York 14853, United States"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-3427-4363",
+            "authenticated-orcid": true,
+            "given": "Jin",
+            "family": "Suntivich",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department\rof Materials Science and Engineering, Cornell University, Ithaca, New York 14853, United States"
+              },
+              {
+                "name": "Kavli Institute at Cornell for Nanoscale Science, Ithaca, New York 14853, United States"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "Journal of the American Chemical Society"
+        ],
+        "publisher": "American Chemical Society (ACS)",
+        "published": {
+          "date-parts": [
+            [
+              2017,
+              2,
+              21
+            ]
+          ]
+        },
+        "published_online": {
+          "date-parts": [
+            [
+              2017,
+              2,
+              21
+            ]
+          ]
+        },
+        "published_print": {
+          "date-parts": [
+            [
+              2017,
+              3,
+              8
+            ]
+          ]
+        },
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.acs.org/doi/10.1021/jacs.6b11932"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.2139/ssrn.7293461",
+      "proposal": "UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "UNKNOWN",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Exact title and DOI verified; primary SSRN listing names Spotti, Osella, Di Liberto and Giordano, posted 2026-08-16; registry year 2026.",
+      "access": "Official SSRN abstract/metadata inspected; 19-page full text and journal counterpart not inspected.",
+      "evidence": [
+        {
+          "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7293461",
+          "locator": "Title, authors, posted date and abstract",
+          "observation": "Grand-canonical DFT on RuO2 intermediate stability. Abstract does not establish a qualifying surface or CHE overpotential; preprint status alone is not treated as a scientific exclusion."
+        }
+      ],
+      "unresolved_criteria": [
+        "Primary article/journal version status, rutile (110) model, and CHE overpotential."
+      ],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "6a8688ac9f2ed30f7f923304",
+      "title": "Unveiling the Stability of Oxygen Evolution Intermediates on RuO2 via Grand Canonical Density Functional Theory",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "6a8688ac9f2ed30f7f923304",
+        "requested_doi": "10.2139/ssrn.7293461",
+        "requested_utc": "2026-09-19T22:20:42.416427-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.2139%2Fssrn.7293461",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.2139/ssrn.7293461",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/b2a9ec7b2c9167a6ff56.json",
+        "sha256": "73f8cc452f19c1a6c55c635b8e31bf0b7c33aea52fd8d8df2f5e3be4e05dde26"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.2139/ssrn.7293461",
+        "title": [
+          "Unveiling the Stability of Oxygen Evolution Intermediates on RuO2 via Grand Canonical Density Functional Theory"
+        ],
+        "authors": [
+          {
+            "given": "Matteo",
+            "family": "Spotti",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-8541-1914",
+            "authenticated-orcid": true,
+            "given": "Silvio",
+            "family": "Osella",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0003-4289-2732",
+            "authenticated-orcid": true,
+            "given": "Giovanni",
+            "family": "Di Liberto",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Livia",
+            "family": "Giordano",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "posted-content",
+        "subtype": "preprint",
+        "container": [],
+        "publisher": "Elsevier BV",
+        "published": {
+          "date-parts": [
+            [
+              2026
+            ]
+          ]
+        },
+        "published_online": null,
+        "published_print": null,
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://www.ssrn.com/abstract=7293461"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.1038/s41699-026-00721-1",
+      "proposal": "UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "TRUE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Exact title, DOI and publisher author list match; published 2026-07-15, accepted 2026-06-24.",
+      "access": "Publisher metadata and abstract inspected; full body/SI were not accessible through the inspected response.",
+      "evidence": [
+        {
+          "url": "https://www.nature.com/articles/s41699-026-00721-1",
+          "locator": "Article metadata, abstract and Supplementary Information link",
+          "observation": "DFT addresses TiO2(110), adsorbed OER intermediates and a potential-determining step. The inspected text does not establish the rutile polymorph or a reported CHE overpotential."
+        }
+      ],
+      "unresolved_criteria": [
+        "Full methods and SI for TiO2 polymorph, CHE reference and reported overpotential."
+      ],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "757192a686dd6c642d7da174",
+      "title": "Robust 2D-SnSe2/TiO2 S-scheme heterostructure for efficient neutral-pH oxygen evolution: experiments and DFT insights",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "757192a686dd6c642d7da174",
+        "requested_doi": "10.1038/s41699-026-00721-1",
+        "requested_utc": "2026-09-19T22:20:43.665647-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1038%2Fs41699-026-00721-1",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1038/s41699-026-00721-1",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/a98cfca5677033bbac84.json",
+        "sha256": "7190b40fa864f6757208b7f8deff97b02181d191ffa7e073fb244df4e9078fa8"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1038/s41699-026-00721-1",
+        "title": [
+          "Robust 2D-SnSe2/TiO2 S-scheme heterostructure for efficient neutral-pH oxygen evolution: experiments and DFT insights"
+        ],
+        "authors": [
+          {
+            "given": "Vittorio",
+            "family": "Ricci",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Valentina",
+            "family": "Paolucci",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Luigi",
+            "family": "Stagi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Luca",
+            "family": "Lozzi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Claudio",
+            "family": "Melis",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Riccardo",
+            "family": "Dettori",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Carlo Maria",
+            "family": "Carbonaro",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Plinio",
+            "family": "Innocenzi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Luca",
+            "family": "Malfatti",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Carlo",
+            "family": "Cantalini",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "npj 2D Materials and Applications"
+        ],
+        "publisher": "Springer Science and Business Media LLC",
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              7,
+              15
+            ]
+          ]
+        },
+        "published_online": {
+          "date-parts": [
+            [
+              2026,
+              7,
+              15
+            ]
+          ]
+        },
+        "published_print": null,
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://www.nature.com/articles/s41699-026-00721-1"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.1016/j.jcat.2022.02.016",
+      "proposal": "UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "TRUE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Exact title/DOI verified in publisher registry; Journal of Catalysis 408, April 2022. First-online date unverified.",
+      "access": "Publisher indexed abstract/metadata inspected; full article and SI unavailable.",
+      "evidence": [
+        {
+          "url": "https://www.sciencedirect.com/science/article/abs/pii/S0021951722000616",
+          "locator": "Abstract and journal identity",
+          "observation": "Original experimental and computational doping study, but the inspected abstract does not establish rutile (110) models and reported CHE overpotential."
+        }
+      ],
+      "unresolved_criteria": [
+        "Full article/SI: crystal/facet model and CHE overpotential; exact online date."
+      ],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "86fc17a1b02bfc603b1fa8fa",
+      "title": "Theoretical and experimental study of the effects of cobalt and nickel doping within IrO2 on the acidic oxygen evolution reaction",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "86fc17a1b02bfc603b1fa8fa",
+        "requested_doi": "10.1016/j.jcat.2022.02.016",
+        "requested_utc": "2026-09-19T22:20:44.882577-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1016%2Fj.jcat.2022.02.016",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1016/j.jcat.2022.02.016",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/7cfa5f80466ddd8e8b56.json",
+        "sha256": "a38708d14abdc78ee62037efc50bc75ac02d0f22b7f0c1f95c5975e12ee8d844"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1016/j.jcat.2022.02.016",
+        "title": [
+          "Theoretical and experimental study of the effects of cobalt and nickel doping within IrO2 on the acidic oxygen evolution reaction"
+        ],
+        "authors": [
+          {
+            "given": "Luis E.",
+            "family": "Camacho-Forero",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Fernando",
+            "family": "Godínez-Salomón",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Guadalupe",
+            "family": "Ramos-Sánchez",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Christopher P.",
+            "family": "Rhodes",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Perla B.",
+            "family": "Balbuena",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "Journal of Catalysis"
+        ],
+        "publisher": "Elsevier BV",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              4
+            ]
+          ]
+        },
+        "published_online": null,
+        "published_print": {
+          "date-parts": [
+            [
+              2022,
+              4
+            ]
+          ]
+        },
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0021951722000616"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.1021/acsanm.2c02760",
+      "proposal": "UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "TRUE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "TRUE",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Repository manuscript cover title and all eight authors match publisher identity. Registry online 2022-07-28, issue 2022-08-26. Formal manuscript version designation unverified.",
+      "access": "Full 27-page repository manuscript text inspected for eligibility; SI not inspected. No visual verification claimed.",
+      "evidence": [
+        {
+          "url": "https://par.nsf.gov/servlets/purl/10403821",
+          "locator": "Local godinez2022.txt lines 401–412, 529–533, 1761–1794; Figure 8 and SI S14 citation",
+          "observation": "Periodic RuO2(110) slabs and rutile-like structure are explicit. The article reports a scaling-based theoretical overpotential formula and values; the exact hydrogen/proton-electron reference is deferred to SI."
+        },
+        {
+          "url": "https://pubs.acs.org/doi/10.1021/acsanm.2c02760",
+          "locator": "Publisher-deposited title, authors and dates",
+          "observation": "Journal identity agrees with repository manuscript."
+        }
+      ],
+      "unresolved_criteria": [
+        "SI reference convention for CHE; official repository manuscript version designation."
+      ],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "9373eb86bdea107cc0a7fea9",
+      "title": "Titanium Substitution Effects on the Structure, Activity, and Stability of Nanoscale Ruthenium Oxide Oxygen Evolution Electrocatalysts: Experimental and Computational Study",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "9373eb86bdea107cc0a7fea9",
+        "requested_doi": "10.1021/acsanm.2c02760",
+        "requested_utc": "2026-09-19T22:20:46.180003-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1021%2Facsanm.2c02760",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1021/acsanm.2c02760",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/f5862595b31c14b31a40.json",
+        "sha256": "b4645bb784b8e9502d5494913eb2f522571d439025499e63d1a1d8d85ec0ea8d"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1021/acsanm.2c02760",
+        "title": [
+          "Titanium Substitution Effects on the Structure, Activity, and Stability of Nanoscale Ruthenium Oxide Oxygen Evolution Electrocatalysts: Experimental and Computational Study"
+        ],
+        "authors": [
+          {
+            "given": "Jose Fernando",
+            "family": "Godínez-Salomón",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and Biochemistry, Texas State University, San Marcos, Texas 78666, United States"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Francisco",
+            "family": "Ospina-Acevedo",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemical Engineering, Texas A&M University, College Station, Texas 77843, United States"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Luis A.",
+            "family": "Albiter",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Materials Science, Engineering and Commercialization Program, Texas State University, San Marcos, Texas 78666, United States"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Kathleen O.",
+            "family": "Bailey",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and Biochemistry, Texas State University, San Marcos, Texas 78666, United States"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Zachary G.",
+            "family": "Naymik",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and Biochemistry, Texas State University, San Marcos, Texas 78666, United States"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-8831-1983",
+            "authenticated-orcid": true,
+            "given": "Rubén",
+            "family": "Mendoza-Cruz",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Instituto de Investigaciones en Materiales, Universidad Nacional Autónoma de México, Mexico City 04510, Mexico"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-2358-3910",
+            "authenticated-orcid": true,
+            "given": "Perla B.",
+            "family": "Balbuena",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemical Engineering, Texas A&M University, College Station, Texas 77843, United States"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0003-4886-9875",
+            "authenticated-orcid": true,
+            "given": "Christopher P.",
+            "family": "Rhodes",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and Biochemistry, Texas State University, San Marcos, Texas 78666, United States"
+              },
+              {
+                "name": "Materials Science, Engineering and Commercialization Program, Texas State University, San Marcos, Texas 78666, United States"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "ACS Applied Nano Materials"
+        ],
+        "publisher": "American Chemical Society (ACS)",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              7,
+              28
+            ]
+          ]
+        },
+        "published_online": {
+          "date-parts": [
+            [
+              2022,
+              7,
+              28
+            ]
+          ]
+        },
+        "published_print": {
+          "date-parts": [
+            [
+              2022,
+              8,
+              26
+            ]
+          ]
+        },
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.acs.org/doi/10.1021/acsanm.2c02760"
+          }
+        }
+      },
+      "local_source": {
+        "pdf_path": "docs/research/papers/2026-09-20-access/godinez2022_article.pdf",
+        "pdf_sha256": "984d592b7472789c0bf543de5ee8a66ad563edb01a98621d0cc5b0b1553d25e3",
+        "pages": 27,
+        "extracted_text": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-priority-fulltexts\\godinez2022.txt",
+        "extracted_text_sha256": "a5474dc477c4ff22bb250957612d0a92a795c5b632c7b5ff219c98b0702d4ef6",
+        "request_url": "https://par.nsf.gov/servlets/purl/10403821",
+        "inspection": "EXTRACTED_TEXT_ONLY_NO_VISUAL_VERIFICATION"
+      }
+    },
+    {
+      "doi": "10.1039/d1cp02999a",
+      "proposal": "UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "TRUE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "RSC PDF title, DOI and four authors match. Published 2021-08-23; received July 1 and accepted August 19. Registry only has year 2021.",
+      "access": "Complete five-page official journal PDF text inspected for eligibility. No SI inspected or presumed absent.",
+      "evidence": [
+        {
+          "url": "https://pubs.rsc.org/en/content/articlepdf/2021/cp/d1cp02999a",
+          "locator": "Printed pp.19141–19145: equations 1–4, Figure 2, computational methods p.19144",
+          "observation": "New RuO2/IrO2(110) calculations and a graphical theoretical overpotential are reported. Inspected text does not explicitly establish the rutile polymorph or the hydrogen-gas reference; facet designation alone is insufficient."
+        }
+      ],
+      "unresolved_criteria": [
+        "Primary evidence of rutile polymorph and CHE reference convention."
+      ],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "962adb9326f35c9dea8abfc3",
+      "title": "Lifting the discrepancy between experimental results and the theoretical predictions for the catalytic activity of RuO 2 (110) towards oxygen evolution reaction",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "962adb9326f35c9dea8abfc3",
+        "requested_doi": "10.1039/d1cp02999a",
+        "requested_utc": "2026-09-19T22:20:47.417514-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1039%2Fd1cp02999a",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1039/d1cp02999a",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/e389bced83203350b265.json",
+        "sha256": "3c319d34ca67f36ade2dcc856731dbb95afc462dd313a9394d33884fa2b25ccf"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1039/d1cp02999a",
+        "title": [
+          "Lifting the discrepancy between experimental results and the theoretical predictions for the catalytic activity of RuO\n                    <sub>2</sub>\n                    (110) towards oxygen evolution reaction"
+        ],
+        "authors": [
+          {
+            "ORCID": "https://orcid.org/0000-0003-4264-5977",
+            "authenticated-orcid": false,
+            "given": "Spyridon",
+            "family": "Divanis",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Center for High Entropy Alloy Catalysis, Department of Chemistry, University of Copenhagen, Denmark"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-6023-1941",
+            "authenticated-orcid": false,
+            "given": "Adrian Malthe",
+            "family": "Frandsen",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Center for High Entropy Alloy Catalysis, Department of Chemistry, University of Copenhagen, Denmark"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0003-2253-7063",
+            "authenticated-orcid": false,
+            "given": "Tugce",
+            "family": "Kutlusoy",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Center for High Entropy Alloy Catalysis, Department of Chemistry, University of Copenhagen, Denmark"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-7749-6567",
+            "authenticated-orcid": false,
+            "given": "Jan",
+            "family": "Rossmeisl",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Center for High Entropy Alloy Catalysis, Department of Chemistry, University of Copenhagen, Denmark"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "Physical Chemistry Chemical Physics"
+        ],
+        "publisher": "Royal Society of Chemistry (RSC)",
+        "published": {
+          "date-parts": [
+            [
+              2021
+            ]
+          ]
+        },
+        "published_online": {
+          "date-parts": [
+            [
+              2021
+            ]
+          ]
+        },
+        "published_print": null,
+        "relation": {
+          "has-preprint": [
+            {
+              "id-type": "doi",
+              "id": "10.26434/chemrxiv-2021-pfdcx",
+              "asserted-by": "object"
+            },
+            {
+              "id-type": "doi",
+              "id": "10.26434/chemrxiv-2021-pfdcx-v2",
+              "asserted-by": "object"
+            }
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.rsc.org/cp/article/23/35/19141-19145/721836"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.1002/chem.202102356",
+      "proposal": "UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "TRUE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "TRUE",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Official repository publisher-formatted article matches exact identity; registry online 2021-10-15, issue 2021-12-06.",
+      "access": "Full 15-page article text inspected for eligibility; SI not inspected.",
+      "evidence": [
+        {
+          "url": "https://d-nb.info/1243282495/34",
+          "locator": "Article p.4 structural methods; p.5 Table 1; kinetic-path discussion beginning p.8",
+          "observation": "The study explicitly models hydrated rutile RuO2(110). Its own analysis concerns DFT-MD/metadynamics free-energy barriers; Table 1 overpotentials summarize cited work. No own CHE overpotential verified in inspected main text."
+        }
+      ],
+      "unresolved_criteria": [
+        "SI and any own thermodynamic CHE overpotential; quoted literature overpotentials do not satisfy the reporting criterion."
+      ],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "a80aca2f221e668e0d67d621",
+      "title": "Water‐Assisted Chemical Route Towards the Oxygen Evolution Reaction at the Hydrated (110) Ruthenium Oxide Surface: Heterogeneous Catalysis via DFT‐MD and Metadynamics Simulations",
+      "review_order_group": 1,
+      "occurrence_count": 2,
+      "crossref_receipt": {
+        "candidate_id": "a80aca2f221e668e0d67d621",
+        "requested_doi": "10.1002/chem.202102356",
+        "requested_utc": "2026-09-19T22:20:48.626688-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1002%2Fchem.202102356",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1002/chem.202102356",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/79f3b3acacb82f2645ef.json",
+        "sha256": "ca98b798b568f36f72f3888626f830dff9f6c08ad89ebb427a09f67c69c03582"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1002/chem.202102356",
+        "title": [
+          "Water‐Assisted Chemical Route Towards the Oxygen Evolution Reaction at the Hydrated (110) Ruthenium Oxide Surface: Heterogeneous Catalysis via DFT‐MD and Metadynamics Simulations"
+        ],
+        "authors": [
+          {
+            "given": "Fabrizio",
+            "family": "Creazzo",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry University of Zurich  Zurich Switzerland"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-6203-9379",
+            "authenticated-orcid": false,
+            "given": "Sandra",
+            "family": "Luber",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry University of Zurich  Zurich Switzerland"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "Chemistry – A European Journal"
+        ],
+        "publisher": "Wiley",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              10,
+              15
+            ]
+          ]
+        },
+        "published_online": {
+          "date-parts": [
+            [
+              2021,
+              10,
+              15
+            ]
+          ]
+        },
+        "published_print": {
+          "date-parts": [
+            [
+              2021,
+              12,
+              6
+            ]
+          ]
+        },
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.202102356"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.26434/chemrxiv-2021-pfdcx-v2",
+      "proposal": "VERSION_OF_JOURNAL_ELIGIBILITY_UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "UNKNOWN",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Version 2 dated 2021-08-23. Exact DOI registry response matches; title and four authors match the published paper.",
+      "access": "Official ChemRxiv version history and journal PDF inspected; no separate eligibility count for this version row.",
+      "evidence": [
+        {
+          "url": "https://www.cambridge.org/engage/chemrxiv/article-details/6123595bded28a50d9868081",
+          "locator": "Title, four authors, version history and Now Published panel",
+          "observation": "The preprint points to the same-title PCCP article. Registry deposits explicitly link both versions to that journal DOI."
+        }
+      ],
+      "unresolved_criteria": [
+        "Journal row 10.1039/d1cp02999a retains rutile-polymorph and CHE-reference gaps."
+      ],
+      "version_relations": [
+        {
+          "relation": "canonical_identifier",
+          "doi": "10.26434/chemrxiv-2021-pfdcx-v2",
+          "support": "HTTP 200 exact requested-DOI registry response; legacy DOI is retained."
+        },
+        {
+          "relation": "is-preprint-of",
+          "doi": "10.1039/d1cp02999a",
+          "support": "Explicit registry relation and official preprint publication panel."
+        }
+      ],
+      "methods": "NOT_CODED",
+      "candidate_id": "ae3d7c592d886d696d6496c0",
+      "title": "Lifting the discrepancy between experimental results and the theoretical predictions for the catalytic activity of RuO2 (110) towards Oxygen Evolution Reaction",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "ae3d7c592d886d696d6496c0",
+        "requested_doi": "10.26434/chemrxiv-2021-pfdcx-v2",
+        "requested_utc": "2026-09-19T22:20:49.944068-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.26434%2Fchemrxiv-2021-pfdcx-v2",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.26434/chemrxiv-2021-pfdcx-v2",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/a9a0689a9f2b279debd7.json",
+        "sha256": "71c06cf754a99b99c5a13b87016491fb99811045244f786a1a11efba38105edd"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.26434/chemrxiv-2021-pfdcx-v2",
+        "title": [
+          "Lifting the discrepancy between experimental results and the theoretical predictions for the catalytic activity of RuO2 (110) towards Oxygen Evolution Reaction"
+        ],
+        "authors": [
+          {
+            "given": "Spyridon",
+            "family": "Divanis",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/035b05819",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "University of Copenhagen",
+                "place": [
+                  "Denmark"
+                ]
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-6023-1941",
+            "authenticated-orcid": false,
+            "given": "Adrian",
+            "family": "Frandsen",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/035b05819",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "University of Copenhagen",
+                "place": [
+                  "Denmark"
+                ]
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Tugce",
+            "family": "Kutlusoy",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/035b05819",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "University of Copenhagen",
+                "place": [
+                  "Denmark"
+                ]
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jan",
+            "family": "Rossmeisl",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/035b05819",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "University of Copenhagen",
+                "place": [
+                  "Denmark"
+                ]
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "posted-content",
+        "subtype": "preprint",
+        "container": [],
+        "publisher": "American Chemical Society (ACS)",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              8,
+              23
+            ]
+          ]
+        },
+        "published_online": null,
+        "published_print": null,
+        "relation": {
+          "is-preprint-of": [
+            {
+              "id-type": "doi",
+              "id": "10.1039/D1CP02999A",
+              "asserted-by": "subject"
+            }
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://chemrxiv.org/doi/full/10.26434/chemrxiv-2021-pfdcx-v2"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.1021/acsaem.5c02853",
+      "proposal": "PROPOSE_INCLUDE",
+      "criteria": {
+        "primary_research_article": "TRUE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "TRUE",
+        "reports_che_overpotential": "TRUE"
+      },
+      "identity": "Publisher-formatted 17-page institutional PDF cover matches title, DOI and three authors. First published 2025-11-06; issue 2025-11-24.",
+      "access": "Full institutional article text and indexed publisher sections inspected for eligibility; SI not inspected.",
+      "evidence": [
+        {
+          "url": "https://repositorio.usp.br/directbitstream/d144f16b-9319-48e6-8d69-1a6b9da4ea35/P22540.pdf",
+          "locator": "Local neto2025.txt pp.2–4 sections 2.1–2.3, lines 255–259, 298–302, 334–342; p.12 Figure 10 and section 3.6",
+          "observation": "Rutile IrO2(110) is among calculated slabs. CHE explicitly equates proton/electron chemical potential with half H2. Figure 10 reports calculated OER overpotentials."
+        },
+        {
+          "url": "https://pubs.acs.org/doi/full/10.1021/acsaem.5c02853",
+          "locator": "Publication history and section 3.6",
+          "observation": "Published article agrees with institutional copy; eligibility evidence includes the (110) calculation, not only other metallic facets."
+        }
+      ],
+      "unresolved_criteria": [],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "b4036e7f7be724492b65b093",
+      "title": "Iridium-Based Materials as an Electrocatalyst in Computational Investigation of Their Performance for Hydrogen and Oxygen Evolution Reactions",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "b4036e7f7be724492b65b093",
+        "requested_doi": "10.1021/acsaem.5c02853",
+        "requested_utc": "2026-09-19T22:20:51.162069-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1021%2Facsaem.5c02853",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1021/acsaem.5c02853",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/115e5bb71fc3d271fe61.json",
+        "sha256": "5d39ff8aef701bac8e241e635ed37d6063ce4fe10c5261007770fe95bdc37092"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1021/acsaem.5c02853",
+        "title": [
+          "Iridium-Based Materials as an Electrocatalyst in Computational Investigation of Their Performance for Hydrogen and Oxygen Evolution Reactions"
+        ],
+        "authors": [
+          {
+            "given": "Marionir M. C. B.",
+            "family": "Neto",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "São Carlos Institute of Chemistry, University of São Paulo, Av. Trabalhador São-Carlense 400, 13560-970 Sao Carlos, SP, Brazil"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-7339-5945",
+            "authenticated-orcid": true,
+            "given": "Pedro Ivo R.",
+            "family": "Moraes",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "São Carlos Institute of Chemistry, University of São Paulo, Av. Trabalhador São-Carlense 400, 13560-970 Sao Carlos, SP, Brazil"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0003-0645-8760",
+            "authenticated-orcid": true,
+            "given": "Juarez L. F.",
+            "family": "Da Silva",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "São Carlos Institute of Chemistry, University of São Paulo, Av. Trabalhador São-Carlense 400, 13560-970 Sao Carlos, SP, Brazil"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "ACS Applied Energy Materials"
+        ],
+        "publisher": "American Chemical Society (ACS)",
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              11,
+              6
+            ]
+          ]
+        },
+        "published_online": {
+          "date-parts": [
+            [
+              2025,
+              11,
+              6
+            ]
+          ]
+        },
+        "published_print": {
+          "date-parts": [
+            [
+              2025,
+              11,
+              24
+            ]
+          ]
+        },
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.acs.org/doi/10.1021/acsaem.5c02853"
+          }
+        }
+      },
+      "local_source": {
+        "pdf_path": "docs/research/papers/2026-09-20-access/neto2025_article.pdf",
+        "pdf_sha256": "00322dede36527f6a74ad95e3e0412be16bf0d8ce371f5393cd225a6fb4ff801",
+        "pages": 17,
+        "extracted_text": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-priority-fulltexts\\neto2025.txt",
+        "extracted_text_sha256": "ca289fc15d48037b90692bf0cf74fd642b7a21d8a010d1e57fd6b337a949b2ef",
+        "request_url": "https://repositorio.usp.br/directbitstream/d144f16b-9319-48e6-8d69-1a6b9da4ea35/P22540.pdf",
+        "inspection": "EXTRACTED_TEXT_ONLY_NO_VISUAL_VERIFICATION"
+      }
+    },
+    {
+      "doi": "10.17632/h9j6kdkys2.1",
+      "proposal": "PROPOSE_EXCLUDE_NOT_PRIMARY_ARTICLE",
+      "criteria": {
+        "primary_research_article": "FALSE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Exact requested DOI validated by DataCite. Specific resource type is Dataset. Version 1 was published 2025-11-11; preserve concept/version identifiers.",
+      "access": "Official Mendeley description and DataCite metadata inspected; data files not downloaded or method-coded.",
+      "evidence": [
+        {
+          "url": "https://data.mendeley.com/datasets/h9j6kdkys2/1",
+          "locator": "Dataset title, contributors, publication date/version and description",
+          "observation": "This is the dataset companion to the Neto ACS Applied Energy Materials article, not a separate primary article."
+        }
+      ],
+      "unresolved_criteria": [],
+      "version_relations": [
+        {
+          "relation": "dataset_companion_of",
+          "doi": "10.1021/acsaem.5c02853",
+          "support": "Official dataset description explicitly gives article DOI."
+        }
+      ],
+      "methods": "NOT_CODED",
+      "candidate_id": "bcd4772acee1afa64857b1bd",
+      "title": "QTNANO - Iridium-Based Materials as an Electrocatalyst in Computational Investigation of Their Performance for Hydrogen and Oxygen Evolution Reactions - ACS Applied Energy Materials, 2025",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "bcd4772acee1afa64857b1bd",
+        "requested_doi": "10.17632/h9j6kdkys2.1",
+        "requested_utc": "2026-09-19T22:20:52.411704-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.17632%2Fh9j6kdkys2.1",
+        "status": "REGISTRY_HTTP_ERROR",
+        "http_status": 404,
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/f2112bab5e4e1626b0a2.error.body",
+        "sha256": "ae8462e3af85ca7577aaa97ff22a194f9dfd7fada58cf4944b53d2fdfa7b1f92",
+        "error": "HTTP Error 404: Not Found",
+        "retry_after": null
+      },
+      "datacite_receipt": {
+        "doi": "10.17632/h9j6kdkys2.1",
+        "url": "https://api.datacite.org/dois/10.17632%2Fh9j6kdkys2.1",
+        "requested_utc": "2026-09-19T22:22:36.735016-04:00",
+        "http_status": 200,
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/f2112bab5e4e1626b0a2.datacite.json",
+        "sha256": "c6f1ab8a3fa246ca9ed0e8a769e0772206e882e4cc34f9fe66215e0211f98087",
+        "type": {
+          "ris": "DATA",
+          "bibtex": "misc",
+          "citeproc": "dataset",
+          "schemaOrg": "Dataset",
+          "resourceType": "Dataset",
+          "resourceTypeGeneral": "Dataset"
+        },
+        "publication_year": 2025,
+        "status": "IDENTITY_VERIFIED"
+      }
+    },
+    {
+      "doi": "10.17632/h9j6kdkys2",
+      "proposal": "PROPOSE_EXCLUDE_NOT_PRIMARY_ARTICLE",
+      "criteria": {
+        "primary_research_article": "FALSE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Exact requested DOI validated by DataCite. Specific resource type is Dataset. Version 1 was published 2025-11-11; preserve concept/version identifiers.",
+      "access": "Official Mendeley description and DataCite metadata inspected; data files not downloaded or method-coded.",
+      "evidence": [
+        {
+          "url": "https://data.mendeley.com/datasets/h9j6kdkys2/1",
+          "locator": "Dataset title, contributors, publication date/version and description",
+          "observation": "This is the dataset companion to the Neto ACS Applied Energy Materials article, not a separate primary article."
+        }
+      ],
+      "unresolved_criteria": [],
+      "version_relations": [
+        {
+          "relation": "dataset_companion_of",
+          "doi": "10.1021/acsaem.5c02853",
+          "support": "Official dataset description explicitly gives article DOI."
+        }
+      ],
+      "methods": "NOT_CODED",
+      "candidate_id": "bf25136885a43ddbd02399a5",
+      "title": "QTNANO - Iridium-Based Materials as an Electrocatalyst in Computational Investigation of Their Performance for Hydrogen and Oxygen Evolution Reactions - ACS Applied Energy Materials, 2025",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "bf25136885a43ddbd02399a5",
+        "requested_doi": "10.17632/h9j6kdkys2",
+        "requested_utc": "2026-09-19T22:20:53.614463-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.17632%2Fh9j6kdkys2",
+        "status": "REGISTRY_HTTP_ERROR",
+        "http_status": 404,
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/a08f0664ee784574505b.error.body",
+        "sha256": "ae8462e3af85ca7577aaa97ff22a194f9dfd7fada58cf4944b53d2fdfa7b1f92",
+        "error": "HTTP Error 404: Not Found",
+        "retry_after": null
+      },
+      "datacite_receipt": {
+        "doi": "10.17632/h9j6kdkys2",
+        "url": "https://api.datacite.org/dois/10.17632%2Fh9j6kdkys2",
+        "requested_utc": "2026-09-19T22:22:38.379516-04:00",
+        "http_status": 200,
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/a08f0664ee784574505b.datacite.json",
+        "sha256": "972d998ded5b1bdb45763f0bdb4055cf3795f0fd2612bd455c5d5bb8dc4494b8",
+        "type": {
+          "ris": "DATA",
+          "bibtex": "misc",
+          "citeproc": "dataset",
+          "schemaOrg": "Dataset",
+          "resourceType": "Dataset",
+          "resourceTypeGeneral": "Dataset"
+        },
+        "publication_year": 2025,
+        "status": "IDENTITY_VERIFIED"
+      }
+    },
+    {
+      "doi": "10.1021/scimeetings.0c06708",
+      "proposal": "UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "UNKNOWN",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Exact DOI/title verified in ACS-deposited registry, dated 2020-10-05; type posted-content, subtype other; resource points to a SciMeetings exhibit.",
+      "access": "Publisher registry metadata inspected. No official exhibit full content inspected.",
+      "evidence": [
+        {
+          "url": "https://scimeetings.acs.org/exhibit/Computational-study-dissolution-oxygen-evolution/3428631",
+          "locator": "Crossref resource.primary.URL, title, type, subtype and date",
+          "observation": "The registry suggests a meeting exhibit rather than an article, but generic posted-content/other alone does not identify the exact format. Keep unresolved rather than infer scientific exclusion from title."
+        }
+      ],
+      "unresolved_criteria": [
+        "Official exhibit format/full content and any corresponding primary article; rutile (110) and CHE overpotential."
+      ],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "c704f4b2ae5760a710b8eb3d",
+      "title": "Computational study of dissolution and oxygen evolution reaction mechanisms in RuO2 and IrO2",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "c704f4b2ae5760a710b8eb3d",
+        "requested_doi": "10.1021/scimeetings.0c06708",
+        "requested_utc": "2026-09-19T22:20:54.855633-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1021%2Fscimeetings.0c06708",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1021/scimeetings.0c06708",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/418932be2ca9d5b63cc5.json",
+        "sha256": "ef3bd8b2ed9cd2feb2f54fcb5c8904d1cedb15a1eacc8ff9babd30dc73cfce6f"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1021/scimeetings.0c06708",
+        "title": [
+          "Computational study of dissolution and oxygen evolution reaction mechanisms in RuO<sub>2</sub> and IrO<sub>2</sub>"
+        ],
+        "authors": [
+          {
+            "given": "Alexandra",
+            "family": "Zagalskaya",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Vitaly",
+            "family": "Alexandrov",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "type": "posted-content",
+        "subtype": "other",
+        "container": [],
+        "publisher": "American Chemical Society (ACS)",
+        "published": {
+          "date-parts": [
+            [
+              2020,
+              10,
+              5
+            ]
+          ]
+        },
+        "published_online": null,
+        "published_print": null,
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://scimeetings.acs.org/exhibit/Computational-study-dissolution-oxygen-evolution/3428631"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.1016/j.mtener.2022.101087",
+      "proposal": "UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "TRUE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Repository manuscript title and all seven authors match publisher metadata. Journal issue August 2022; exact first-online date and formal manuscript version unverified.",
+      "access": "Full 12-page repository manuscript text inspected for eligibility; SI not inspected.",
+      "evidence": [
+        {
+          "url": "https://www.osti.gov/servlets/purl/1923652",
+          "locator": "Local strain2022.txt pp.3–8: section 2 Experimental, sections 3.1–3.3, conclusions; lines 183, 219–220, 251–256",
+          "observation": "Main text reports film growth and electrochemistry. It includes experimental (110) comparisons; computational explanations are attributed to cited literature. No own OER calculation or CHE overpotential verified in the main article. Unread SI prevents a definitive negative at this stage."
+        }
+      ],
+      "unresolved_criteria": [
+        "SI scope and any own qualifying OER calculation/CHE overpotential; manuscript version and first-online date."
+      ],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "c7378f300398e67170bd287f",
+      "title": "Breaking OER and CER scaling relations via strain and its relaxation in RuO2 (101)",
+      "review_order_group": 1,
+      "occurrence_count": 2,
+      "crossref_receipt": {
+        "candidate_id": "c7378f300398e67170bd287f",
+        "requested_doi": "10.1016/j.mtener.2022.101087",
+        "requested_utc": "2026-09-19T22:20:56.081833-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1016%2Fj.mtener.2022.101087",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1016/j.mtener.2022.101087",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/b732d461e2bacf595d06.json",
+        "sha256": "35132617990b2f5f45f67e01a00b52fc60046f951bc173c38438b2c3532a968d"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1016/j.mtener.2022.101087",
+        "title": [
+          "Breaking OER and CER scaling relations via strain and its relaxation in RuO2 (101)"
+        ],
+        "authors": [
+          {
+            "given": "Prajwal",
+            "family": "Adiga",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "William",
+            "family": "Nunn",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Cindy",
+            "family": "Wong",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Anusha K.",
+            "family": "Manjeshwar",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Sreejith",
+            "family": "Nair",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Bharat",
+            "family": "Jalan",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-3431-8290",
+            "authenticated-orcid": false,
+            "given": "Kelsey A.",
+            "family": "Stoerzinger",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "Materials Today Energy"
+        ],
+        "publisher": "Elsevier BV",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              8
+            ]
+          ]
+        },
+        "published_online": null,
+        "published_print": {
+          "date-parts": [
+            [
+              2022,
+              8
+            ]
+          ]
+        },
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S2468606922001459"
+          }
+        }
+      },
+      "local_source": {
+        "pdf_path": "docs/research/papers/2026-09-20-access/strain2022_article.pdf",
+        "pdf_sha256": "e6ff1386179116468002615f9184534294f355fa7375f0c28dde6cd36f8187d7",
+        "pages": 12,
+        "extracted_text": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-priority-fulltexts\\strain2022.txt",
+        "extracted_text_sha256": "9f30653aba6f04a249d52120704cc505e3b38618b72f69729b3d8a141ee9faef",
+        "request_url": "https://www.osti.gov/servlets/purl/1923652",
+        "inspection": "EXTRACTED_TEXT_ONLY_NO_VISUAL_VERIFICATION"
+      }
+    },
+    {
+      "doi": "10.1149/ma2020-02643264mtgabs",
+      "proposal": "PROPOSE_EXCLUDE_NOT_PRIMARY_ARTICLE",
+      "criteria": {
+        "primary_research_article": "FALSE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Exact DOI/title and authors verified in publisher-deposited ECS Meeting Abstracts metadata; published 2020-11-23.",
+      "access": "Publisher abstract inspected through registry; IOP full landing unavailable.",
+      "evidence": [
+        {
+          "url": "https://iopscience.iop.org/article/10.1149/MA2020-02643264mtgabs",
+          "locator": "Publisher-deposited container-title, exact title, authors, date and abstract",
+          "observation": "This is a meeting abstract, although the generic registry type says journal-article. It is not a full primary research article."
+        }
+      ],
+      "unresolved_criteria": [],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "c8566815052f0a101aa773c3",
+      "title": "First-Principles Study of Oxygen Evolution Reaction Mechanisms in RuO2 and IrO2",
+      "review_order_group": 1,
+      "occurrence_count": 2,
+      "crossref_receipt": {
+        "candidate_id": "c8566815052f0a101aa773c3",
+        "requested_doi": "10.1149/ma2020-02643264mtgabs",
+        "requested_utc": "2026-09-19T22:20:57.43882-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1149%2Fma2020-02643264mtgabs",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1149/ma2020-02643264mtgabs",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/3af699456ed0db32a601.json",
+        "sha256": "b618cfbec2d37078e6ef4695e08905177b8d4807bbd81c54629b4e2cc3a732bd"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1149/ma2020-02643264mtgabs",
+        "title": [
+          "First-Principles Study of Oxygen Evolution Reaction Mechanisms in RuO<sub>2</sub> and IrO<sub>2</sub>"
+        ],
+        "authors": [
+          {
+            "given": "Vitaly",
+            "family": "Alexandrov",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "ECS Meeting Abstracts"
+        ],
+        "publisher": "The Electrochemical Society",
+        "published": {
+          "date-parts": [
+            [
+              2020,
+              11,
+              23
+            ]
+          ]
+        },
+        "published_online": null,
+        "published_print": {
+          "date-parts": [
+            [
+              2020,
+              11,
+              23
+            ]
+          ]
+        },
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://iopscience.iop.org/article/10.1149/MA2020-02643264mtgabs"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.1021/acs.jpcc.7b03481",
+      "proposal": "PROPOSE_INCLUDE",
+      "criteria": {
+        "primary_research_article": "TRUE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "TRUE",
+        "reports_che_overpotential": "TRUE"
+      },
+      "identity": "Repository manuscript cover title and both authors match the published article and DTU institutional identity. Registry online 2017-08-17, issue 2017-08-31. Formal repository version designation unverified.",
+      "access": "Full 27-page repository manuscript text inspected for eligibility. SI not inspected; manuscript is not asserted to be final publisher formatting.",
+      "evidence": [
+        {
+          "url": "https://www.osti.gov/servlets/purl/1459579",
+          "locator": "Local dickens2017.txt pp.4–6: lines 71–127, 150–153; Figure 5 and lines 338–365",
+          "observation": "New calculations include reference rutile RuO2(110) alongside defect facets. Free energies use liquid water and H2 gas references; equation 5 defines theoretical overpotential, and Figure 5 reports the calculated activity."
+        },
+        {
+          "url": "https://orbit.dtu.dk/en/publications/a-theoretical-investigation-into-the-role-of-surface-defects-for-/",
+          "locator": "Institutional title, authors, DOI and journal citation",
+          "observation": "Published journal identity matches the repository text."
+        }
+      ],
+      "unresolved_criteria": [
+        "Record the repository's formal version designation before final article-bundle completion; positive eligibility evidence is already present."
+      ],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "cd6db113a8ab7f179ec53ee9",
+      "title": "A Theoretical Investigation into the Role of Surface Defects for Oxygen Evolution on RuO2",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "cd6db113a8ab7f179ec53ee9",
+        "requested_doi": "10.1021/acs.jpcc.7b03481",
+        "requested_utc": "2026-09-19T22:20:58.662292-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "status": "CACHE_REUSED",
+        "raw_path": "results/s2_2026-09-20/complementary_identity_review/crossref_supplement/10.1021__acs.jpcc.7b03481.json",
+        "sha256": "73f0d295263c6f67d18d79b05fc4b4acc499f7620026d9ee04f83c2d1f9d6b10",
+        "response_doi": "10.1021/acs.jpcc.7b03481"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1021/acs.jpcc.7b03481",
+        "title": [
+          "A Theoretical Investigation into the Role of Surface Defects for Oxygen Evolution on RuO<sub>2</sub>"
+        ],
+        "authors": [
+          {
+            "ORCID": "https://orcid.org/0000-0002-6151-0755",
+            "authenticated-orcid": true,
+            "given": "Colin F.",
+            "family": "Dickens",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "SUNCAT Center for Interface Science and Catalysis, Department of\rChemical Engineering, Stanford University, Shriram Center, 443 Via Ortega, Stanford, California 94305, United States"
+              },
+              {
+                "name": "SUNCAT\rCenter for Interface Science and Catalysis, SLAC National Accelerator Laboratory, 2575 Sand Hill Road, Menlo\rPark, California 94025, United States"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jens K.",
+            "family": "Nørskov",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "SUNCAT Center for Interface Science and Catalysis, Department of\rChemical Engineering, Stanford University, Shriram Center, 443 Via Ortega, Stanford, California 94305, United States"
+              },
+              {
+                "name": "SUNCAT\rCenter for Interface Science and Catalysis, SLAC National Accelerator Laboratory, 2575 Sand Hill Road, Menlo\rPark, California 94025, United States"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "The Journal of Physical Chemistry C"
+        ],
+        "publisher": "American Chemical Society (ACS)",
+        "published": {
+          "date-parts": [
+            [
+              2017,
+              8,
+              17
+            ]
+          ]
+        },
+        "published_online": {
+          "date-parts": [
+            [
+              2017,
+              8,
+              17
+            ]
+          ]
+        },
+        "published_print": {
+          "date-parts": [
+            [
+              2017,
+              8,
+              31
+            ]
+          ]
+        },
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.acs.org/doi/10.1021/acs.jpcc.7b03481"
+          }
+        }
+      },
+      "local_source": {
+        "pdf_path": "docs/research/papers/2026-09-20-access/dickens2017_article.pdf",
+        "pdf_sha256": "a612bf9b89b23edc3aaa6c94aabea7a93be27dbf23b8e7012a1168ae93d9f028",
+        "pages": 27,
+        "extracted_text": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-priority-fulltexts\\dickens2017.txt",
+        "extracted_text_sha256": "840315039e3c545405250448fae6a39326c5b205c6c3d7f646000cb2b0a3a3c8",
+        "request_url": "https://www.osti.gov/servlets/purl/1459579",
+        "inspection": "EXTRACTED_TEXT_ONLY_NO_VISUAL_VERIFICATION"
+      }
+    },
+    {
+      "doi": "10.1016/j.jpowsour.2014.06.029",
+      "proposal": "UNRESOLVED",
+      "criteria": {
+        "primary_research_article": "TRUE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Publisher title and DOI match; journal issue December 2014, indexed issue date December 5. Exact first-online date unverified.",
+      "access": "Publisher indexed abstract/section excerpts inspected; article/SI full text unavailable.",
+      "evidence": [
+        {
+          "url": "https://www.sciencedirect.com/science/article/abs/pii/S0378775314008829",
+          "locator": "Publisher abstract and journal identity",
+          "observation": "Experimental study plus DFT water activation is described. The inspected material does not establish the rutile (110) calculation and CHE overpotential required by the protocol."
+        }
+      ],
+      "unresolved_criteria": [
+        "Full article/SI surface models, thermodynamic reference and reported CHE overpotential; first-online date."
+      ],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "d99334a308afefc1d1a98c40",
+      "title": "Oxygen evolution in Co-doped RuO2 and IrO2: Experimental and theoretical insights to diminish electrolysis overpotential",
+      "review_order_group": 1,
+      "occurrence_count": 2,
+      "crossref_receipt": {
+        "candidate_id": "d99334a308afefc1d1a98c40",
+        "requested_doi": "10.1016/j.jpowsour.2014.06.029",
+        "requested_utc": "2026-09-19T22:20:58.664309-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1016%2Fj.jpowsour.2014.06.029",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1016/j.jpowsour.2014.06.029",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/a6d98e37fc680b08c884.json",
+        "sha256": "fd4c2a58703836f553f306c97e3a1c26275c8578e45678a7578a21ec55f5cd13"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1016/j.jpowsour.2014.06.029",
+        "title": [
+          "Oxygen evolution in Co-doped RuO2 and IrO2: Experimental and theoretical insights to diminish electrolysis overpotential"
+        ],
+        "authors": [
+          {
+            "given": "R.G.",
+            "family": "González-Huerta",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "G.",
+            "family": "Ramos-Sánchez",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "P.B.",
+            "family": "Balbuena",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "Journal of Power Sources"
+        ],
+        "publisher": "Elsevier BV",
+        "published": {
+          "date-parts": [
+            [
+              2014,
+              12
+            ]
+          ]
+        },
+        "published_online": null,
+        "published_print": {
+          "date-parts": [
+            [
+              2014,
+              12
+            ]
+          ]
+        },
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0378775314008829"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.1002/cssc.202200015",
+      "proposal": "PROPOSE_INCLUDE",
+      "criteria": {
+        "primary_research_article": "TRUE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "TRUE",
+        "reports_che_overpotential": "TRUE"
+      },
+      "identity": "Official institutional PDF matches article title and three authors: Yonghyuk Lee, Christoph Scheurer, Karsten Reuter. Wiley says first published 2022-03-16; Crossref online date 2022-04-13 and issue 2022-05-20 are retained separately.",
+      "access": "Full 11-page institutional publisher PDF text inspected through web. Root direct download returned 403; no bypass. SI not inspected.",
+      "evidence": [
+        {
+          "url": "https://pure.mpg.de/pubman/item/item_3379113_6/component/file_3400083/ChemSusChem%2B-%2B2022%2B-%2BLee%2B-%2BEpitaxial%2BCore%25u2010Shell%2BOxide%2BNanoparticles%2BFirst%25u2010Principles%2BEvidence%2Bfor%2BIncreased%2BActivity%2Band.pdf",
+          "locator": "Printed p.1 rutile description; p.6 Figure 5; p.8 computational methods",
+          "observation": "Rutile (110) calculations include RuO2 and RuO2/TiO2. Figure 5 reports theoretical overpotentials; computational methods explicitly use CHE and the half-H2 reservoir."
+        },
+        {
+          "url": "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/cssc.202200015",
+          "locator": "First published field",
+          "observation": "First publication is in-window under either observed date; preserve the source disagreement."
+        }
+      ],
+      "unresolved_criteria": [],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "db250ab14efa8bf605ac627e",
+      "title": "Epitaxial Core‐Shell Oxide Nanoparticles: First‐Principles Evidence for Increased Activity and Stability of Rutile Catalysts for Acidic Oxygen Evolution",
+      "review_order_group": 1,
+      "occurrence_count": 2,
+      "crossref_receipt": {
+        "candidate_id": "db250ab14efa8bf605ac627e",
+        "requested_doi": "10.1002/cssc.202200015",
+        "requested_utc": "2026-09-19T22:20:59.938084-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1002%2Fcssc.202200015",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1002/cssc.202200015",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/1f35b463bdab9dfa0a6f.json",
+        "sha256": "2faba99617ffe7db2b4bedef389adabac90c57d02577f0b176591229a7ecd4c5"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1002/cssc.202200015",
+        "title": [
+          "Epitaxial Core‐Shell Oxide Nanoparticles: First‐Principles Evidence for Increased Activity and Stability of Rutile Catalysts for Acidic Oxygen Evolution"
+        ],
+        "authors": [
+          {
+            "ORCID": "https://orcid.org/0000-0001-8961-2254",
+            "authenticated-orcid": false,
+            "given": "Yonghyuk",
+            "family": "Lee",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry Chair of Theoretical Chemistry and Catalysis Research Center Technische Universität München  Lichtenbergstraße 85747 Garching Germany"
+              },
+              {
+                "name": "Fritz-Haber-Institut der Max-Planck-Gesellschaft  Faradayweg 4–6 14195 Berlin Germany"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-7227-8672",
+            "authenticated-orcid": false,
+            "given": "Christoph",
+            "family": "Scheurer",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry Chair of Theoretical Chemistry and Catalysis Research Center Technische Universität München  Lichtenbergstraße 85747 Garching Germany"
+              },
+              {
+                "name": "Fritz-Haber-Institut der Max-Planck-Gesellschaft  Faradayweg 4–6 14195 Berlin Germany"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-8473-8659",
+            "authenticated-orcid": false,
+            "given": "Karsten",
+            "family": "Reuter",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry Chair of Theoretical Chemistry and Catalysis Research Center Technische Universität München  Lichtenbergstraße 85747 Garching Germany"
+              },
+              {
+                "name": "Fritz-Haber-Institut der Max-Planck-Gesellschaft  Faradayweg 4–6 14195 Berlin Germany"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "ChemSusChem"
+        ],
+        "publisher": "Wiley",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              4,
+              13
+            ]
+          ]
+        },
+        "published_online": {
+          "date-parts": [
+            [
+              2022,
+              4,
+              13
+            ]
+          ]
+        },
+        "published_print": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              20
+            ]
+          ]
+        },
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/cssc.202200015"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.1149/ma2019-01/33/1707",
+      "proposal": "PROPOSE_EXCLUDE_NOT_PRIMARY_ARTICLE",
+      "criteria": {
+        "primary_research_article": "FALSE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Exact title and author group match official ECS program abstract 1707; registry publication 2019-05-01.",
+      "access": "Official meeting program and publisher-deposited abstract inspected.",
+      "evidence": [
+        {
+          "url": "https://www.electrochem.org/images/pdf/2019-ecs-dallas-mp-01.pdf",
+          "locator": "Photoelectrochemistry 2 Catalysts session, 13:20, abstract 1707",
+          "observation": "An invited conference presentation, not a full primary research article."
+        },
+        {
+          "url": "https://iopscience.iop.org/article/10.1149/MA2019-01/33/1707",
+          "locator": "Publisher-deposited ECS Meeting Abstracts identity and abstract",
+          "observation": "Registry generic journal-article type is interpreted using its specific meeting-abstract container."
+        }
+      ],
+      "unresolved_criteria": [],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "db86cd4212819af4fc6a16c4",
+      "title": "(Invited) How Ti Modifies Oxygen Electro-Adsorption and Oxygen Evolution Reaction on IrO2(110) and RuO2(110) Surfaces",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "db86cd4212819af4fc6a16c4",
+        "requested_doi": "10.1149/ma2019-01/33/1707",
+        "requested_utc": "2026-09-19T22:21:01.159557-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1149%2Fma2019-01%2F33%2F1707",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1149/ma2019-01/33/1707",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/e8f9be970b76582cbb58.json",
+        "sha256": "82ca0991b46df32fed68def40549b083e7aa1a674f87b7e92f18121a32e02c13"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1149/ma2019-01/33/1707",
+        "title": [
+          "(Invited) How Ti Modifies Oxygen Electro-Adsorption and Oxygen Evolution Reaction on IrO<sub>2</sub>(110) and RuO<sub>2</sub>(110) Surfaces"
+        ],
+        "authors": [
+          {
+            "given": "Ding-Yuan",
+            "family": "Kuo",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Jocienne N.",
+            "family": "Nelson",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Hanjong",
+            "family": "Paik",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Kyle M.",
+            "family": "Shen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Darrell G.",
+            "family": "Schlom",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Jin",
+            "family": "Suntivich",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "ECS Meeting Abstracts"
+        ],
+        "publisher": "The Electrochemical Society",
+        "published": {
+          "date-parts": [
+            [
+              2019,
+              5,
+              1
+            ]
+          ]
+        },
+        "published_online": null,
+        "published_print": {
+          "date-parts": [
+            [
+              2019,
+              5,
+              1
+            ]
+          ]
+        },
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://iopscience.iop.org/article/10.1149/MA2019-01/33/1707"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.1038/s41467-019-12886-z",
+      "proposal": "PROPOSE_EXCLUDE_NO_RUTILE_110_CALCULATION",
+      "criteria": {
+        "primary_research_article": "TRUE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "FALSE",
+        "reports_che_overpotential": "TRUE"
+      },
+      "identity": "Publisher title, DOI and author list match; published 2019-10-24.",
+      "access": "Full publisher article text and 33-page official SI text inspected for eligibility; no image-only claims.",
+      "evidence": [
+        {
+          "url": "https://www.nature.com/articles/s41467-019-12886-z",
+          "locator": "Theoretical calculations section",
+          "observation": "The study's calculated OER models are Ru1N4, oxygenated Ru1N4 and hydroxylated Ru1N4; RuO2 is an experimental comparison."
+        },
+        {
+          "url": "https://media.springernature.com/original/springer-static/esm/art:10.1038%2Fs41467-019-12886-z/MediaObjects/41467_2019_12886_MOESM1_ESM.pdf",
+          "locator": "SI Note 4 pp.4–5; Figures 18–22 pp.23–27; Table 4 p.31; p.7 experimental XRD",
+          "observation": "SI explicitly defines CHE and overpotential, but its models are RuN4-based single sites. The (110) reference concerns experimental RuO2 diffraction, not a rutile (110) OER calculation."
+        }
+      ],
+      "unresolved_criteria": [],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "dd65f355f71e0c87d04a1516",
+      "title": "Dynamic oxygen adsorption on single-atomic Ruthenium catalyst with high performance for acidic oxygen evolution reaction",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "dd65f355f71e0c87d04a1516",
+        "requested_doi": "10.1038/s41467-019-12886-z",
+        "requested_utc": "2026-09-19T22:21:02.380207-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.1038%2Fs41467-019-12886-z",
+        "status": "DOI_RESOLVED",
+        "http_status": 200,
+        "response_doi": "10.1038/s41467-019-12886-z",
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/c5b5e16298b3c0989d80.json",
+        "sha256": "69edf3889d38325c67c3892ca45b53632521b0d3c98c1ac6af153864050a8443"
+      },
+      "publisher_registry_metadata": {
+        "doi": "10.1038/s41467-019-12886-z",
+        "title": [
+          "Dynamic oxygen adsorption on single-atomic Ruthenium catalyst with high performance for acidic oxygen evolution reaction"
+        ],
+        "authors": [
+          {
+            "ORCID": "https://orcid.org/0000-0003-1787-2465",
+            "authenticated-orcid": false,
+            "given": "Linlin",
+            "family": "Cao",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0003-1450-2856",
+            "authenticated-orcid": false,
+            "given": "Qiquan",
+            "family": "Luo",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jiajia",
+            "family": "Chen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Lan",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-5333-511X",
+            "authenticated-orcid": false,
+            "given": "Yue",
+            "family": "Lin",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Huijuan",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xiaokang",
+            "family": "Liu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xinyi",
+            "family": "Shen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Wei",
+            "family": "Zhang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Wei",
+            "family": "Liu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Zeming",
+            "family": "Qi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0003-4297-464X",
+            "authenticated-orcid": false,
+            "given": "Zheng",
+            "family": "Jiang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-5651-5340",
+            "authenticated-orcid": false,
+            "given": "Jinlong",
+            "family": "Yang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-8699-8294",
+            "authenticated-orcid": false,
+            "given": "Tao",
+            "family": "Yao",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "type": "journal-article",
+        "subtype": null,
+        "container": [
+          "Nature Communications"
+        ],
+        "publisher": "Springer Science and Business Media LLC",
+        "published": {
+          "date-parts": [
+            [
+              2019,
+              10,
+              24
+            ]
+          ]
+        },
+        "published_online": {
+          "date-parts": [
+            [
+              2019,
+              10,
+              24
+            ]
+          ]
+        },
+        "published_print": null,
+        "relation": {},
+        "resource": {
+          "primary": {
+            "URL": "https://www.nature.com/articles/s41467-019-12886-z"
+          }
+        }
+      }
+    },
+    {
+      "doi": "10.14279/depositonce-25923",
+      "proposal": "PROPOSE_EXCLUDE_NOT_PRIMARY_ARTICLE",
+      "criteria": {
+        "primary_research_article": "FALSE",
+        "first_publication_in_window": "TRUE",
+        "calculates_oer_on_rutile_oxide_110": "UNKNOWN",
+        "reports_che_overpotential": "UNKNOWN"
+      },
+      "identity": "Exact title/author and DOI match official repository. Specific type Doctoral Thesis / Cumulative Doctoral Thesis; issued 2026, repository date 2026-05-22.",
+      "access": "Official repository page and exact DataCite record inspected; thesis body not inspected.",
+      "evidence": [
+        {
+          "url": "https://depositonce.tu-berlin.de/items/1750577e-74d5-42e4-9712-f83f05327af4",
+          "locator": "Resource type, accepted-version label, author, title and date",
+          "observation": "This record is a doctoral thesis, not a primary journal article. Generic DataCite bibtex/citeproc article mappings are superseded by its explicit resourceType Doctoral Thesis."
+        }
+      ],
+      "unresolved_criteria": [],
+      "version_relations": [],
+      "methods": "NOT_CODED",
+      "candidate_id": "ed64dd5db9e2ce8d8483f79b",
+      "title": "Site-specific doping of RuO₂: computational design for breaking the activity-stability trade-off in oxygen evolution catalysts",
+      "review_order_group": 1,
+      "occurrence_count": 1,
+      "crossref_receipt": {
+        "candidate_id": "ed64dd5db9e2ce8d8483f79b",
+        "requested_doi": "10.14279/depositonce-25923",
+        "requested_utc": "2026-09-19T22:21:03.673695-04:00",
+        "method": "EXACT_DOI_VALIDATION_ONLY",
+        "url": "https://api.crossref.org/works/10.14279%2Fdepositonce-25923",
+        "status": "REGISTRY_HTTP_ERROR",
+        "http_status": 404,
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/crossref/2d3fd5755a198f633fa4.error.body",
+        "sha256": "ae8462e3af85ca7577aaa97ff22a194f9dfd7fada58cf4944b53d2fdfa7b1f92",
+        "error": "HTTP Error 404: Not Found",
+        "retry_after": null
+      },
+      "datacite_receipt": {
+        "doi": "10.14279/depositonce-25923",
+        "url": "https://api.datacite.org/dois/10.14279%2Fdepositonce-25923",
+        "requested_utc": "2026-09-19T22:22:39.978891-04:00",
+        "http_status": 200,
+        "raw_path": "results/s2_2026-09-20/priority_source_receipts/2d3fd5755a198f633fa4.datacite.json",
+        "sha256": "1fc6dae937ff4bb12bb336da88cfc44e8274768adf6104b567653237c82220de",
+        "type": {
+          "ris": "RPRT",
+          "bibtex": "article",
+          "citeproc": "article-journal",
+          "schemaOrg": "ScholarlyArticle",
+          "resourceType": "Doctoral Thesis",
+          "resourceTypeGeneral": "Text"
+        },
+        "publication_year": 2026,
+        "status": "IDENTITY_VERIFIED"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1073 @@
+{
+  "schema": "p_lit_joint_priority_eligibility_v1",
+  "reviewed_utc": "2026-09-20T02:46:35.279778+00:00",
+  "scope": "All 29 group-1 queue identities. This is an additive subset ledger; no global population freeze and no record deletion.",
+  "global_p_lit_complete": false,
+  "candidate_population_frozen": false,
+  "methods": "NOT_CODED",
+  "source_pins": [
+    {
+      "path": "results/s2_2026-09-20/eligibility_queue/all_candidates.csv",
+      "sha256": "21a822c1027e142a236dfc37245f7a792cccd844cdb52753fbed3fb413de1713"
+    },
+    {
+      "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+      "sha256": "f6fd7720c5b0abfd5792ba33db5f15fdc4e3520c406531d77c2a26451cf4bd5d"
+    },
+    {
+      "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+      "sha256": "c78ad765fb216eec59824e61152378a7522075807e5ef526902e4d48d4716724"
+    }
+  ],
+  "summary": {
+    "ELIGIBILITY_SUPPORTED_PENDING_GLOBAL_FREEZE": 4,
+    "UNRESOLVED": 12,
+    "VERSION_RELATION_SUPPORTED_JOURNAL_ELIGIBILITY_UNRESOLVED": 5,
+    "EXCLUDED_RECORD_TYPE": 7,
+    "EXCLUDED_NO_RUTILE_110_OER_CALCULATION": 1
+  },
+  "rows": [
+    {
+      "candidate_id": "074651f17489c16334eda43d",
+      "doi": "10.3389/fenrg.2021.606313",
+      "title": "First-Principles Design of Rutile Oxide Heterostructures for Oxygen Evolution Reactions",
+      "queue_occurrences": 2,
+      "first_pass": "ELIGIBILITY_SUPPORTED",
+      "independent_pass": "PROPOSE_INCLUDE",
+      "reconciled_disposition": "ELIGIBILITY_SUPPORTED_PENDING_GLOBAL_FREEZE",
+      "reason": "Independent primary-source reviews agree on in-window article, own rutile (110) OER calculation and reported CHE overpotential.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "074651f17489c16334eda43d"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "074651f17489c16334eda43d"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "second review and once-only base-paper references remain before freeze.",
+      "independent_pass_unresolved_criteria_historical": [],
+      "remaining_actions": [
+        "Complete one-generation references from the base-discovery article and available SI.",
+        "Retain date/version uncertainty and reconcile the full population before freeze."
+      ]
+    },
+    {
+      "candidate_id": "0939106d7cc0659540f3d012",
+      "doi": "10.3390/catal15080770",
+      "title": "First-Principles Study of Sn-Doped RuO2 as Efficient Electrocatalysts for Enhanced Oxygen Evolution",
+      "queue_occurrences": 2,
+      "first_pass": "UNRESOLVED",
+      "independent_pass": "UNRESOLVED",
+      "reconciled_disposition": "UNRESOLVED",
+      "reason": "Both primary-source reviews retain unresolved eligibility evidence.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "0939106d7cc0659540f3d012"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "0939106d7cc0659540f3d012"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Retrieve ordinary full article/PDF or missing free-energy equations to verify CHE reference formalism; reported eta itself is established, not calculated here.",
+      "independent_pass_unresolved_criteria_historical": [
+        "CHE reference convention; inspect complete equations 5–7 or SI before inclusion."
+      ],
+      "remaining_actions": [
+        "Retrieve ordinary full article/PDF or missing free-energy equations to verify CHE reference formalism; reported eta itself is established, not calculated here."
+      ]
+    },
+    {
+      "candidate_id": "1183b3c2cfd620788e81af05",
+      "doi": "10.26434/chemrxiv-2023-jhnj4",
+      "title": "Acid Electrolyte Anions Adsorption Effects on IrO2 Electrocatalysts for Oxygen Evolution Reaction",
+      "queue_occurrences": 3,
+      "first_pass": "UNRESOLVED",
+      "independent_pass": "VERSION_OF_JOURNAL_ELIGIBILITY_UNRESOLVED",
+      "reconciled_disposition": "VERSION_RELATION_SUPPORTED_JOURNAL_ELIGIBILITY_UNRESOLVED",
+      "reason": "Verified registry preprint/journal or alias relation retained; journal eligibility remains unresolved. This record is not an additional eligible paper.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "1183b3c2cfd620788e81af05"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "1183b3c2cfd620788e81af05"
+      },
+      "version_relations": {
+        "first": [
+          {
+            "related_doi": "10.1021/acs.jpcc.3c08103",
+            "relation": "preprint_of",
+            "status": "REGISTRY_EXPLICIT_IS_PREPRINT_OF",
+            "source": "attached Crossref receipt"
+          }
+        ],
+        "second": [
+          {
+            "relation": "is-preprint-of",
+            "doi": "10.1021/acs.jpcc.3c08103",
+            "support": "Explicit Crossref relation; exact title and authors match."
+          }
+        ]
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Preprint/journal relation is verified. Inspect article/SI for reported CHE eta; retain December 12/13 date conflict.",
+      "independent_pass_unresolved_criteria_historical": [
+        "Journal full text/SI: rutile model and CHE overpotential; preserve both preprint date observations."
+      ],
+      "remaining_actions": [
+        "Review the linked journal representative for eligibility; retain all alias/preprint records and count a qualifying study only once."
+      ]
+    },
+    {
+      "candidate_id": "120cfbcb077ef9080bd24a8b",
+      "doi": "10.26434/chemrxiv-2021-pfdcx",
+      "title": "Lifting the discrepancy between experimental results and the theoretical predictions for the catalytic activity of RuO2 (110) towards Oxygen Evolution Reaction",
+      "queue_occurrences": 2,
+      "first_pass": "VERSION_RELATION_SUPPORTED",
+      "independent_pass": "VERSION_OF_JOURNAL_ELIGIBILITY_UNRESOLVED",
+      "reconciled_disposition": "VERSION_RELATION_SUPPORTED_JOURNAL_ELIGIBILITY_UNRESOLVED",
+      "reason": "Verified registry preprint/journal or alias relation retained; journal eligibility remains unresolved. This record is not an additional eligible paper.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "120cfbcb077ef9080bd24a8b"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "120cfbcb077ef9080bd24a8b"
+      },
+      "version_relations": {
+        "first": [
+          {
+            "related_doi": "10.1039/d1cp02999a",
+            "relation": "preprint_of",
+            "status": "REGISTRY_EXPLICIT_IS_PREPRINT_OF",
+            "source": "attached Crossref receipt"
+          }
+        ],
+        "second": [
+          {
+            "relation": "canonical_identifier",
+            "doi": "10.26434/chemrxiv-2021-pfdcx",
+            "support": "HTTP 200 exact requested-DOI registry response; legacy DOI is retained."
+          },
+          {
+            "relation": "is-preprint-of",
+            "doi": "10.1039/d1cp02999a",
+            "support": "Explicit registry relation and official preprint publication panel."
+          }
+        ]
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Retain candidate and alias/version edges before journal representative selection. Linked journal CHE formalism remains unresolved in this pass; no extra paper count.",
+      "independent_pass_unresolved_criteria_historical": [
+        "Journal row 10.1039/d1cp02999a retains rutile-polymorph and CHE-reference gaps."
+      ],
+      "remaining_actions": [
+        "Review the linked journal representative for eligibility; retain all alias/preprint records and count a qualifying study only once."
+      ]
+    },
+    {
+      "candidate_id": "1e3ea86259784c51b6c43de2",
+      "doi": "10.33774/chemrxiv-2021-pfdcx",
+      "title": "Lifting the discrepancy between experimental results and the theoretical predictions for the catalytic activity of RuO2 (110) towards Oxygen Evolution Reaction",
+      "queue_occurrences": 1,
+      "first_pass": "VERSION_RELATION_SUPPORTED",
+      "independent_pass": "VERSION_OF_JOURNAL_ELIGIBILITY_UNRESOLVED",
+      "reconciled_disposition": "VERSION_RELATION_SUPPORTED_JOURNAL_ELIGIBILITY_UNRESOLVED",
+      "reason": "Verified registry preprint/journal or alias relation retained; journal eligibility remains unresolved. This record is not an additional eligible paper.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "1e3ea86259784c51b6c43de2"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "1e3ea86259784c51b6c43de2"
+      },
+      "version_relations": {
+        "first": [
+          {
+            "related_doi": "10.26434/chemrxiv-2021-pfdcx",
+            "relation": "registry_resolved_alias_of",
+            "status": "HTTP200_CANONICAL_RESPONSE_AND_BYTE_IDENTICAL_RECORD",
+            "source": "attached Crossref receipt"
+          },
+          {
+            "related_doi": "10.1039/d1cp02999a",
+            "relation": "preprint_of",
+            "status": "REGISTRY_EXPLICIT_IS_PREPRINT_OF",
+            "source": "attached Crossref receipt"
+          }
+        ],
+        "second": [
+          {
+            "relation": "canonical_identifier",
+            "doi": "10.26434/chemrxiv-2021-pfdcx",
+            "support": "HTTP 200 exact requested-DOI registry response; legacy DOI is retained."
+          },
+          {
+            "relation": "is-preprint-of",
+            "doi": "10.1039/d1cp02999a",
+            "support": "Explicit registry relation and official preprint publication panel."
+          }
+        ]
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Retain candidate and alias/version edges before journal representative selection. Linked journal CHE formalism remains unresolved in this pass; no extra paper count.",
+      "independent_pass_unresolved_criteria_historical": [
+        "Journal row 10.1039/d1cp02999a retains rutile-polymorph and CHE-reference gaps."
+      ],
+      "remaining_actions": [
+        "Review the linked journal representative for eligibility; retain all alias/preprint records and count a qualifying study only once."
+      ]
+    },
+    {
+      "candidate_id": "317fe075c4a3eddcd2bc3231",
+      "doi": "10.1149/ma2020-01371556mtgabs",
+      "title": "First Principles Modelling of Surface Modified TiO2 for Water Activation and Oxygen Evolution",
+      "queue_occurrences": 1,
+      "first_pass": "EXCLUDE_RECORD_TYPE_PROVISIONAL",
+      "independent_pass": "PROPOSE_EXCLUDE_NOT_PRIMARY_ARTICLE",
+      "reconciled_disposition": "EXCLUDED_RECORD_TYPE",
+      "reason": "Both reviews affirmatively identify a meeting abstract, dataset or doctoral thesis; the coarse registry article label is not decisive.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "317fe075c4a3eddcd2bc3231"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "317fe075c4a3eddcd2bc3231"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Independent source-type exclusion review; preserve the abstract as a discovery record. No title-only exclusion.",
+      "independent_pass_unresolved_criteria_historical": [],
+      "remaining_actions": [
+        "Carry the reviewed reason and source occurrence into the global eligibility reconciliation; no outstanding eligibility evidence request in this subset."
+      ]
+    },
+    {
+      "candidate_id": "400b37c735ec87cc2236a52c",
+      "doi": "10.1149/ma2019-02/37/1718",
+      "title": "(Invited) Oxygen Evolution Reaction on M-Iridium Oxide (M=Ni, Co) Surfaces: Insights from First-Principles Computations and Experiments",
+      "queue_occurrences": 1,
+      "first_pass": "EXCLUDE_RECORD_TYPE_PROVISIONAL",
+      "independent_pass": "PROPOSE_EXCLUDE_NOT_PRIMARY_ARTICLE",
+      "reconciled_disposition": "EXCLUDED_RECORD_TYPE",
+      "reason": "Both reviews affirmatively identify a meeting abstract, dataset or doctoral thesis; the coarse registry article label is not decisive.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "400b37c735ec87cc2236a52c"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "400b37c735ec87cc2236a52c"
+      },
+      "version_relations": {
+        "first": [
+          {
+            "related_doi": "10.1016/j.jcat.2022.02.016",
+            "relation": "possibly_related_study",
+            "status": "NOT_A_VERIFIED_VERSION_RELATION",
+            "source": "Title/authors and topic only; preserve separately."
+          }
+        ],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Independent exclusion review. Later similarly authored article remains a possible related study, not a verified duplicate.",
+      "independent_pass_unresolved_criteria_historical": [],
+      "remaining_actions": [
+        "Carry the reviewed reason and source occurrence into the global eligibility reconciliation; no outstanding eligibility evidence request in this subset."
+      ]
+    },
+    {
+      "candidate_id": "401116182adc06e01dc93b1c",
+      "doi": "10.1016/j.apsusc.2021.149591",
+      "title": "First-principles simulation of oxygen evolution reaction (OER) catalytic performance of IrO2 bulk-like structures: Nanosphere, nanowire and nanotube",
+      "queue_occurrences": 2,
+      "first_pass": "UNRESOLVED",
+      "independent_pass": "UNRESOLVED",
+      "reconciled_disposition": "UNRESOLVED",
+      "reason": "Both primary-source reviews retain unresolved eligibility evidence.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "401116182adc06e01dc93b1c"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "401116182adc06e01dc93b1c"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Inspect complete article/SI, including comparative bulk arm. Do not exclude from the nanostructure title.",
+      "independent_pass_unresolved_criteria_historical": [
+        "Full article/SI surface structure, calculated comparison models and CHE overpotential; first-online date."
+      ],
+      "remaining_actions": [
+        "Inspect complete article/SI, including comparative bulk arm. Do not exclude from the nanostructure title."
+      ]
+    },
+    {
+      "candidate_id": "52ae5796ed909e2c483243c6",
+      "doi": "10.33774/chemrxiv-2021-pfdcx-v2",
+      "title": "Lifting the discrepancy between experimental results and the theoretical predictions for the catalytic activity of RuO2 (110) towards Oxygen Evolution Reaction",
+      "queue_occurrences": 2,
+      "first_pass": "VERSION_RELATION_SUPPORTED",
+      "independent_pass": "VERSION_OF_JOURNAL_ELIGIBILITY_UNRESOLVED",
+      "reconciled_disposition": "VERSION_RELATION_SUPPORTED_JOURNAL_ELIGIBILITY_UNRESOLVED",
+      "reason": "Verified registry preprint/journal or alias relation retained; journal eligibility remains unresolved. This record is not an additional eligible paper.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "52ae5796ed909e2c483243c6"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "52ae5796ed909e2c483243c6"
+      },
+      "version_relations": {
+        "first": [
+          {
+            "related_doi": "10.26434/chemrxiv-2021-pfdcx-v2",
+            "relation": "registry_resolved_alias_of",
+            "status": "HTTP200_CANONICAL_RESPONSE_AND_BYTE_IDENTICAL_RECORD",
+            "source": "attached Crossref receipt"
+          },
+          {
+            "related_doi": "10.1039/d1cp02999a",
+            "relation": "preprint_of",
+            "status": "REGISTRY_EXPLICIT_IS_PREPRINT_OF",
+            "source": "attached Crossref receipt"
+          }
+        ],
+        "second": [
+          {
+            "relation": "canonical_identifier",
+            "doi": "10.26434/chemrxiv-2021-pfdcx-v2",
+            "support": "HTTP 200 exact requested-DOI registry response; legacy DOI is retained."
+          },
+          {
+            "relation": "is-preprint-of",
+            "doi": "10.1039/d1cp02999a",
+            "support": "Explicit registry relation and official preprint publication panel."
+          }
+        ]
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Retain candidate and alias/version edges before journal representative selection. Linked journal CHE formalism remains unresolved in this pass; no extra paper count.",
+      "independent_pass_unresolved_criteria_historical": [
+        "Journal row 10.1039/d1cp02999a retains rutile-polymorph and CHE-reference gaps."
+      ],
+      "remaining_actions": [
+        "Review the linked journal representative for eligibility; retain all alias/preprint records and count a qualifying study only once."
+      ]
+    },
+    {
+      "candidate_id": "5c7e8833660961056da41c2b",
+      "doi": "10.1021/jacs.6b11932",
+      "title": "Influence of Surface Adsorption on the Oxygen Evolution Reaction on IrO2(110)",
+      "queue_occurrences": 1,
+      "first_pass": "UNRESOLVED",
+      "independent_pass": "UNRESOLVED",
+      "reconciled_disposition": "UNRESOLVED",
+      "reason": "Both primary-source reviews retain unresolved eligibility evidence.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "5c7e8833660961056da41c2b"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "5c7e8833660961056da41c2b"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Read article and SI for exact calculated surface and reported CHE eta; reconcile online date discrepancy.",
+      "independent_pass_unresolved_criteria_historical": [
+        "Article/SI: actual OER calculation on rutile (110) and reported CHE overpotential; exact first-publication discrepancy."
+      ],
+      "remaining_actions": [
+        "Read article and SI for exact calculated surface and reported CHE eta; reconcile online date discrepancy."
+      ]
+    },
+    {
+      "candidate_id": "6a8688ac9f2ed30f7f923304",
+      "doi": "10.2139/ssrn.7293461",
+      "title": "Unveiling the Stability of Oxygen Evolution Intermediates on RuO2 via Grand Canonical Density Functional Theory",
+      "queue_occurrences": 1,
+      "first_pass": "UNRESOLVED",
+      "independent_pass": "UNRESOLVED",
+      "reconciled_disposition": "UNRESOLVED",
+      "reason": "Both primary-source reviews retain unresolved eligibility evidence.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "6a8688ac9f2ed30f7f923304"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "6a8688ac9f2ed30f7f923304"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Read preprint and check any journal relationship, exact facet and reported CHE overpotential; grand-canonical calculations alone do not establish this criterion.",
+      "independent_pass_unresolved_criteria_historical": [
+        "Primary article/journal version status, rutile (110) model, and CHE overpotential."
+      ],
+      "remaining_actions": [
+        "Read preprint and check any journal relationship, exact facet and reported CHE overpotential; grand-canonical calculations alone do not establish this criterion."
+      ]
+    },
+    {
+      "candidate_id": "757192a686dd6c642d7da174",
+      "doi": "10.1038/s41699-026-00721-1",
+      "title": "Robust 2D-SnSe2/TiO2 S-scheme heterostructure for efficient neutral-pH oxygen evolution: experiments and DFT insights",
+      "queue_occurrences": 1,
+      "first_pass": "UNRESOLVED",
+      "independent_pass": "UNRESOLVED",
+      "reconciled_disposition": "UNRESOLVED",
+      "reason": "Both primary-source reviews retain unresolved eligibility evidence.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "757192a686dd6c642d7da174"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "757192a686dd6c642d7da174"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Inspect full article/SI for rutile identity and reported CHE eta.",
+      "independent_pass_unresolved_criteria_historical": [
+        "Full methods and SI for TiO2 polymorph, CHE reference and reported overpotential."
+      ],
+      "remaining_actions": [
+        "Inspect full article/SI for rutile identity and reported CHE eta."
+      ]
+    },
+    {
+      "candidate_id": "86fc17a1b02bfc603b1fa8fa",
+      "doi": "10.1016/j.jcat.2022.02.016",
+      "title": "Theoretical and experimental study of the effects of cobalt and nickel doping within IrO2 on the acidic oxygen evolution reaction",
+      "queue_occurrences": 1,
+      "first_pass": "UNRESOLVED",
+      "independent_pass": "UNRESOLVED",
+      "reconciled_disposition": "UNRESOLVED",
+      "reason": "Both primary-source reviews retain unresolved eligibility evidence.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "86fc17a1b02bfc603b1fa8fa"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "86fc17a1b02bfc603b1fa8fa"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Inspect full article/SI rather than substituting an activation barrier or experimental overpotential.",
+      "independent_pass_unresolved_criteria_historical": [
+        "Full article/SI: crystal/facet model and CHE overpotential; exact online date."
+      ],
+      "remaining_actions": [
+        "Inspect full article/SI rather than substituting an activation barrier or experimental overpotential."
+      ]
+    },
+    {
+      "candidate_id": "9373eb86bdea107cc0a7fea9",
+      "doi": "10.1021/acsanm.2c02760",
+      "title": "Titanium Substitution Effects on the Structure, Activity, and Stability of Nanoscale Ruthenium Oxide Oxygen Evolution Electrocatalysts: Experimental and Computational Study",
+      "queue_occurrences": 1,
+      "first_pass": "ELIGIBILITY_SUPPORTED",
+      "independent_pass": "UNRESOLVED",
+      "reconciled_disposition": "UNRESOLVED",
+      "reason": "Main article and official 39-page SI establish own rutile (110) calculations and explicitly reported theoretical overpotentials. SI S-8 defines gas-phase adsorbate energies but does not establish the H2/proton-electron reference. Named potential treatment alone does not settle the CHE eligibility criterion.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "9373eb86bdea107cc0a7fea9"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "9373eb86bdea107cc0a7fea9"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "second review. SI remains available to acquire for later full-source work; no reporting outcomes were coded.",
+      "independent_pass_unresolved_criteria_historical": [
+        "SI reference convention for CHE; official repository manuscript version designation."
+      ],
+      "remaining_actions": [
+        "Resolve the CHE reference formalism or retain UNKNOWN. Official SI access and explicit theoretical eta are now verified."
+      ]
+    },
+    {
+      "candidate_id": "962adb9326f35c9dea8abfc3",
+      "doi": "10.1039/d1cp02999a",
+      "title": "Lifting the discrepancy between experimental results and the theoretical predictions for the catalytic activity of RuO 2 (110) towards oxygen evolution reaction",
+      "queue_occurrences": 1,
+      "first_pass": "UNRESOLVED",
+      "independent_pass": "UNRESOLVED",
+      "reconciled_disposition": "UNRESOLVED",
+      "reason": "Both primary-source reviews retain unresolved eligibility evidence.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "962adb9326f35c9dea8abfc3"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "962adb9326f35c9dea8abfc3"
+      },
+      "version_relations": {
+        "first": [
+          {
+            "related_doi": "10.26434/chemrxiv-2021-pfdcx-v2",
+            "relation": "journal_version_of",
+            "status": "PRIMARY_PLATFORM_NOW_PUBLISHED_LINK",
+            "source": "https://www.cambridge.org/engage/chemrxiv/article-details/6123595bded28a50d9868081"
+          }
+        ],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Resolve CHE-formalism support without deriving eta or assuming it from a field convention. Preserve and validate the preprint/journal relation.",
+      "independent_pass_unresolved_criteria_historical": [
+        "Primary evidence of rutile polymorph and CHE reference convention."
+      ],
+      "remaining_actions": [
+        "Resolve CHE-formalism support without deriving eta or assuming it from a field convention. Preserve and validate the preprint/journal relation."
+      ]
+    },
+    {
+      "candidate_id": "a80aca2f221e668e0d67d621",
+      "doi": "10.1002/chem.202102356",
+      "title": "Water‐Assisted Chemical Route Towards the Oxygen Evolution Reaction at the Hydrated (110) Ruthenium Oxide Surface: Heterogeneous Catalysis via DFT‐MD and Metadynamics Simulations",
+      "queue_occurrences": 2,
+      "first_pass": "UNRESOLVED",
+      "independent_pass": "UNRESOLVED",
+      "reconciled_disposition": "UNRESOLVED",
+      "reason": "Both primary-source reviews retain unresolved eligibility evidence.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "a80aca2f221e668e0d67d621"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "a80aca2f221e668e0d67d621"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Inspect relevant SI and resolve whether any own calculated CHE overpotential is explicitly reported. Do not derive eta from barriers or copied literature values.",
+      "independent_pass_unresolved_criteria_historical": [
+        "SI and any own thermodynamic CHE overpotential; quoted literature overpotentials do not satisfy the reporting criterion."
+      ],
+      "remaining_actions": [
+        "Inspect relevant SI and resolve whether any own calculated CHE overpotential is explicitly reported. Do not derive eta from barriers or copied literature values."
+      ]
+    },
+    {
+      "candidate_id": "ae3d7c592d886d696d6496c0",
+      "doi": "10.26434/chemrxiv-2021-pfdcx-v2",
+      "title": "Lifting the discrepancy between experimental results and the theoretical predictions for the catalytic activity of RuO2 (110) towards Oxygen Evolution Reaction",
+      "queue_occurrences": 1,
+      "first_pass": "VERSION_RELATION_SUPPORTED",
+      "independent_pass": "VERSION_OF_JOURNAL_ELIGIBILITY_UNRESOLVED",
+      "reconciled_disposition": "VERSION_RELATION_SUPPORTED_JOURNAL_ELIGIBILITY_UNRESOLVED",
+      "reason": "Verified registry preprint/journal or alias relation retained; journal eligibility remains unresolved. This record is not an additional eligible paper.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "ae3d7c592d886d696d6496c0"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "ae3d7c592d886d696d6496c0"
+      },
+      "version_relations": {
+        "first": [
+          {
+            "related_doi": "10.1039/d1cp02999a",
+            "relation": "preprint_of",
+            "status": "REGISTRY_EXPLICIT_IS_PREPRINT_OF",
+            "source": "attached Crossref receipt"
+          }
+        ],
+        "second": [
+          {
+            "relation": "canonical_identifier",
+            "doi": "10.26434/chemrxiv-2021-pfdcx-v2",
+            "support": "HTTP 200 exact requested-DOI registry response; legacy DOI is retained."
+          },
+          {
+            "relation": "is-preprint-of",
+            "doi": "10.1039/d1cp02999a",
+            "support": "Explicit registry relation and official preprint publication panel."
+          }
+        ]
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Retain candidate and alias/version edges before journal representative selection. Linked journal CHE formalism remains unresolved in this pass; no extra paper count.",
+      "independent_pass_unresolved_criteria_historical": [
+        "Journal row 10.1039/d1cp02999a retains rutile-polymorph and CHE-reference gaps."
+      ],
+      "remaining_actions": [
+        "Review the linked journal representative for eligibility; retain all alias/preprint records and count a qualifying study only once."
+      ]
+    },
+    {
+      "candidate_id": "b4036e7f7be724492b65b093",
+      "doi": "10.1021/acsaem.5c02853",
+      "title": "Iridium-Based Materials as an Electrocatalyst in Computational Investigation of Their Performance for Hydrogen and Oxygen Evolution Reactions",
+      "queue_occurrences": 1,
+      "first_pass": "ELIGIBILITY_SUPPORTED",
+      "independent_pass": "PROPOSE_INCLUDE",
+      "reconciled_disposition": "ELIGIBILITY_SUPPORTED_PENDING_GLOBAL_FREEZE",
+      "reason": "Independent primary-source reviews agree on in-window article, own rutile (110) OER calculation and reported CHE overpotential.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "b4036e7f7be724492b65b093"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "b4036e7f7be724492b65b093"
+      },
+      "version_relations": {
+        "first": [
+          {
+            "related_doi": "10.17632/h9j6kdkys2.1",
+            "relation": "associated_dataset",
+            "status": "PRIMARY_DATASET_EXPLICIT_JOURNAL_DOI",
+            "source": "https://data.mendeley.com/datasets/h9j6kdkys2/1"
+          }
+        ],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "independent review; retain associated dataset relations without counting them as articles.",
+      "independent_pass_unresolved_criteria_historical": [],
+      "remaining_actions": [
+        "Complete one-generation references from the base-discovery article and available SI.",
+        "Retain date/version uncertainty and reconcile the full population before freeze."
+      ]
+    },
+    {
+      "candidate_id": "bcd4772acee1afa64857b1bd",
+      "doi": "10.17632/h9j6kdkys2.1",
+      "title": "QTNANO - Iridium-Based Materials as an Electrocatalyst in Computational Investigation of Their Performance for Hydrogen and Oxygen Evolution Reactions - ACS Applied Energy Materials, 2025",
+      "queue_occurrences": 1,
+      "first_pass": "EXCLUDE_RECORD_TYPE_PROVISIONAL",
+      "independent_pass": "PROPOSE_EXCLUDE_NOT_PRIMARY_ARTICLE",
+      "reconciled_disposition": "EXCLUDED_RECORD_TYPE",
+      "reason": "Both reviews affirmatively identify a meeting abstract, dataset or doctoral thesis; the coarse registry article label is not decisive.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "bcd4772acee1afa64857b1bd"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "bcd4772acee1afa64857b1bd"
+      },
+      "version_relations": {
+        "first": [
+          {
+            "related_doi": "10.17632/h9j6kdkys2",
+            "relation": "is_version_of",
+            "status": "DATACITE_EXPLICIT_RELATION",
+            "source": "attached DataCite receipt"
+          },
+          {
+            "related_doi": "10.1021/acsaem.5c02853",
+            "relation": "dataset_for",
+            "status": "PRIMARY_DESCRIPTION_EXPLICIT_DOI",
+            "source": "attached DataCite receipt"
+          }
+        ],
+        "second": [
+          {
+            "relation": "dataset_companion_of",
+            "doi": "10.1021/acsaem.5c02853",
+            "support": "Official dataset description explicitly gives article DOI."
+          }
+        ]
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Independent source-type exclusion review. Keep both discovery identities and explicit dataset/journal relations.",
+      "independent_pass_unresolved_criteria_historical": [],
+      "remaining_actions": [
+        "Carry the reviewed reason and source occurrence into the global eligibility reconciliation; no outstanding eligibility evidence request in this subset."
+      ]
+    },
+    {
+      "candidate_id": "bf25136885a43ddbd02399a5",
+      "doi": "10.17632/h9j6kdkys2",
+      "title": "QTNANO - Iridium-Based Materials as an Electrocatalyst in Computational Investigation of Their Performance for Hydrogen and Oxygen Evolution Reactions - ACS Applied Energy Materials, 2025",
+      "queue_occurrences": 1,
+      "first_pass": "EXCLUDE_RECORD_TYPE_PROVISIONAL",
+      "independent_pass": "PROPOSE_EXCLUDE_NOT_PRIMARY_ARTICLE",
+      "reconciled_disposition": "EXCLUDED_RECORD_TYPE",
+      "reason": "Both reviews affirmatively identify a meeting abstract, dataset or doctoral thesis; the coarse registry article label is not decisive.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "bf25136885a43ddbd02399a5"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "bf25136885a43ddbd02399a5"
+      },
+      "version_relations": {
+        "first": [
+          {
+            "related_doi": "10.17632/h9j6kdkys2.1",
+            "relation": "has_version",
+            "status": "DATACITE_EXPLICIT_RELATION",
+            "source": "attached DataCite receipt"
+          },
+          {
+            "related_doi": "10.1021/acsaem.5c02853",
+            "relation": "dataset_for",
+            "status": "PRIMARY_DESCRIPTION_EXPLICIT_DOI",
+            "source": "attached DataCite receipt"
+          }
+        ],
+        "second": [
+          {
+            "relation": "dataset_companion_of",
+            "doi": "10.1021/acsaem.5c02853",
+            "support": "Official dataset description explicitly gives article DOI."
+          }
+        ]
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Independent source-type exclusion review. Keep both discovery identities and explicit dataset/journal relations.",
+      "independent_pass_unresolved_criteria_historical": [],
+      "remaining_actions": [
+        "Carry the reviewed reason and source occurrence into the global eligibility reconciliation; no outstanding eligibility evidence request in this subset."
+      ]
+    },
+    {
+      "candidate_id": "c704f4b2ae5760a710b8eb3d",
+      "doi": "10.1021/scimeetings.0c06708",
+      "title": "Computational study of dissolution and oxygen evolution reaction mechanisms in RuO2 and IrO2",
+      "queue_occurrences": 1,
+      "first_pass": "UNRESOLVED",
+      "independent_pass": "UNRESOLVED",
+      "reconciled_disposition": "UNRESOLVED",
+      "reason": "Both primary-source reviews retain unresolved eligibility evidence.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "c704f4b2ae5760a710b8eb3d"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "c704f4b2ae5760a710b8eb3d"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Inspect official exhibit https://scimeetings.acs.org/exhibit/Computational-study-dissolution-oxygen-evolution/3428631 to settle presentation versus qualifying research version; generic registry type alone is insufficient.",
+      "independent_pass_unresolved_criteria_historical": [
+        "Official exhibit format/full content and any corresponding primary article; rutile (110) and CHE overpotential."
+      ],
+      "remaining_actions": [
+        "Inspect official exhibit https://scimeetings.acs.org/exhibit/Computational-study-dissolution-oxygen-evolution/3428631 to settle presentation versus qualifying research version; generic registry type alone is insufficient."
+      ]
+    },
+    {
+      "candidate_id": "c7378f300398e67170bd287f",
+      "doi": "10.1016/j.mtener.2022.101087",
+      "title": "Breaking OER and CER scaling relations via strain and its relaxation in RuO2 (101)",
+      "queue_occurrences": 2,
+      "first_pass": "EXCLUDE_SCIENTIFIC_SCOPE_PROVISIONAL",
+      "independent_pass": "UNRESOLVED",
+      "reconciled_disposition": "UNRESOLVED",
+      "reason": "Retain disagreement as unresolved. The inspected main article is experimental; an unread supplement prevents ruling out a qualifying computational control. No negative decision from the main focus alone.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "c7378f300398e67170bd287f"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "c7378f300398e67170bd287f"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Independent review of provisional scientific-scope exclusion. SI was not inspected; retain that access limitation and revisit if a separate computational arm is documented.",
+      "independent_pass_unresolved_criteria_historical": [
+        "SI scope and any own qualifying OER calculation/CHE overpotential; manuscript version and first-online date."
+      ],
+      "remaining_actions": [
+        "Inspect relevant SI for any own qualifying computational control before a scientific-scope exclusion."
+      ]
+    },
+    {
+      "candidate_id": "c8566815052f0a101aa773c3",
+      "doi": "10.1149/ma2020-02643264mtgabs",
+      "title": "First-Principles Study of Oxygen Evolution Reaction Mechanisms in RuO2 and IrO2",
+      "queue_occurrences": 2,
+      "first_pass": "EXCLUDE_RECORD_TYPE_PROVISIONAL",
+      "independent_pass": "PROPOSE_EXCLUDE_NOT_PRIMARY_ARTICLE",
+      "reconciled_disposition": "EXCLUDED_RECORD_TYPE",
+      "reason": "Both reviews affirmatively identify a meeting abstract, dataset or doctoral thesis; the coarse registry article label is not decisive.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "c8566815052f0a101aa773c3"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "c8566815052f0a101aa773c3"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Independent source-type exclusion review; preserve the abstract as a discovery record. No title-only exclusion.",
+      "independent_pass_unresolved_criteria_historical": [],
+      "remaining_actions": [
+        "Carry the reviewed reason and source occurrence into the global eligibility reconciliation; no outstanding eligibility evidence request in this subset."
+      ]
+    },
+    {
+      "candidate_id": "cd6db113a8ab7f179ec53ee9",
+      "doi": "10.1021/acs.jpcc.7b03481",
+      "title": "A Theoretical Investigation into the Role of Surface Defects for Oxygen Evolution on RuO2",
+      "queue_occurrences": 1,
+      "first_pass": "ELIGIBILITY_SUPPORTED",
+      "independent_pass": "PROPOSE_INCLUDE",
+      "reconciled_disposition": "ELIGIBILITY_SUPPORTED_PENDING_GLOBAL_FREEZE",
+      "reason": "Independent primary-source reviews agree on in-window article, own rutile (110) OER calculation and reported CHE overpotential.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "cd6db113a8ab7f179ec53ee9"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "cd6db113a8ab7f179ec53ee9"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Reconcile indexed heading versus online-history date; independent inclusion review. Exact DOI validated.",
+      "independent_pass_unresolved_criteria_historical": [
+        "Record the repository's formal version designation before final article-bundle completion; positive eligibility evidence is already present."
+      ],
+      "remaining_actions": [
+        "Complete one-generation references from the base-discovery article and available SI.",
+        "Retain date/version uncertainty and reconcile the full population before freeze."
+      ]
+    },
+    {
+      "candidate_id": "d99334a308afefc1d1a98c40",
+      "doi": "10.1016/j.jpowsour.2014.06.029",
+      "title": "Oxygen evolution in Co-doped RuO2 and IrO2: Experimental and theoretical insights to diminish electrolysis overpotential",
+      "queue_occurrences": 2,
+      "first_pass": "UNRESOLVED",
+      "independent_pass": "UNRESOLVED",
+      "reconciled_disposition": "UNRESOLVED",
+      "reason": "Both primary-source reviews retain unresolved eligibility evidence.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "d99334a308afefc1d1a98c40"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "d99334a308afefc1d1a98c40"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Read full article and SI. Experimental eta and kinetic barriers are not substitutes for the registered CHE-overpotential criterion.",
+      "independent_pass_unresolved_criteria_historical": [
+        "Full article/SI surface models, thermodynamic reference and reported CHE overpotential; first-online date."
+      ],
+      "remaining_actions": [
+        "Read full article and SI. Experimental eta and kinetic barriers are not substitutes for the registered CHE-overpotential criterion."
+      ]
+    },
+    {
+      "candidate_id": "db250ab14efa8bf605ac627e",
+      "doi": "10.1002/cssc.202200015",
+      "title": "Epitaxial Core‐Shell Oxide Nanoparticles: First‐Principles Evidence for Increased Activity and Stability of Rutile Catalysts for Acidic Oxygen Evolution",
+      "queue_occurrences": 2,
+      "first_pass": "ELIGIBILITY_SUPPORTED",
+      "independent_pass": "PROPOSE_INCLUDE",
+      "reconciled_disposition": "ELIGIBILITY_SUPPORTED_PENDING_GLOBAL_FREEZE",
+      "reason": "Independent primary-source reviews agree on in-window article, own rutile (110) OER calculation and reported CHE overpotential.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "db250ab14efa8bf605ac627e"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "db250ab14efa8bf605ac627e"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Independent inclusion review and once-only base references; repository cover-sheet page offset retained.",
+      "independent_pass_unresolved_criteria_historical": [],
+      "remaining_actions": [
+        "Complete one-generation references from the base-discovery article and available SI.",
+        "Retain date/version uncertainty and reconcile the full population before freeze."
+      ]
+    },
+    {
+      "candidate_id": "db86cd4212819af4fc6a16c4",
+      "doi": "10.1149/ma2019-01/33/1707",
+      "title": "(Invited) How Ti Modifies Oxygen Electro-Adsorption and Oxygen Evolution Reaction on IrO2(110) and RuO2(110) Surfaces",
+      "queue_occurrences": 1,
+      "first_pass": "EXCLUDE_RECORD_TYPE_PROVISIONAL",
+      "independent_pass": "PROPOSE_EXCLUDE_NOT_PRIMARY_ARTICLE",
+      "reconciled_disposition": "EXCLUDED_RECORD_TYPE",
+      "reason": "Both reviews affirmatively identify a meeting abstract, dataset or doctoral thesis; the coarse registry article label is not decisive.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "db86cd4212819af4fc6a16c4"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "db86cd4212819af4fc6a16c4"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Independent source-type exclusion review; exact DOI is validated by attached receipt.",
+      "independent_pass_unresolved_criteria_historical": [],
+      "remaining_actions": [
+        "Carry the reviewed reason and source occurrence into the global eligibility reconciliation; no outstanding eligibility evidence request in this subset."
+      ]
+    },
+    {
+      "candidate_id": "dd65f355f71e0c87d04a1516",
+      "doi": "10.1038/s41467-019-12886-z",
+      "title": "Dynamic oxygen adsorption on single-atomic Ruthenium catalyst with high performance for acidic oxygen evolution reaction",
+      "queue_occurrences": 1,
+      "first_pass": "UNRESOLVED",
+      "independent_pass": "PROPOSE_EXCLUDE_NO_RUTILE_110_CALCULATION",
+      "reconciled_disposition": "EXCLUDED_NO_RUTILE_110_OER_CALCULATION",
+      "reason": "Second reviewer and root inspected the official SI: the calculated OER models are Ru1N4 and its O/OH variants. The rutile (110) reference is experimental diffraction. Initial missing-SI uncertainty is resolved additively.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "dd65f355f71e0c87d04a1516"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "dd65f355f71e0c87d04a1516"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Inspect SI for any rutile (110) computational control. Do not exclude solely because the main model is a single-atom catalyst.",
+      "independent_pass_unresolved_criteria_historical": [],
+      "remaining_actions": [
+        "Carry the reviewed reason and source occurrence into the global eligibility reconciliation; no outstanding eligibility evidence request in this subset."
+      ]
+    },
+    {
+      "candidate_id": "ed64dd5db9e2ce8d8483f79b",
+      "doi": "10.14279/depositonce-25923",
+      "title": "Site-specific doping of RuO₂: computational design for breaking the activity-stability trade-off in oxygen evolution catalysts",
+      "queue_occurrences": 1,
+      "first_pass": "EXCLUDE_RECORD_TYPE_PROVISIONAL",
+      "independent_pass": "PROPOSE_EXCLUDE_NOT_PRIMARY_ARTICLE",
+      "reconciled_disposition": "EXCLUDED_RECORD_TYPE",
+      "reason": "Both reviews affirmatively identify a meeting abstract, dataset or doctoral thesis; the coarse registry article label is not decisive.",
+      "first_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/first_pass.json",
+        "candidate_id": "ed64dd5db9e2ce8d8483f79b"
+      },
+      "independent_pass_record": {
+        "path": "results/s2_2026-09-20/priority_primary_triage/independent_pass.json",
+        "candidate_id": "ed64dd5db9e2ce8d8483f79b"
+      },
+      "version_relations": {
+        "first": [],
+        "second": []
+      },
+      "methods": "NOT_CODED",
+      "first_pass_remaining_evidence_historical": "Independent source-type exclusion review. No component-paper expansion was performed within this 29-record task.",
+      "independent_pass_unresolved_criteria_historical": [],
+      "remaining_actions": [
+        "Carry the reviewed reason and source occurrence into the global eligibility reconciliation; no outstanding eligibility evidence request in this subset."
+      ]
+    }
+  ],
+  "adjudication_evidence": [
+    {
+      "doi": "10.1038/s41467-019-12886-z",
+      "reviewers": [
+        "/root/literature_progress_review",
+        "/root"
+      ],
+      "url": "https://media.springernature.com/original/springer-static/esm/art:10.1038%2Fs41467-019-12886-z/MediaObjects/41467_2019_12886_MOESM1_ESM.pdf",
+      "access": "Official PDF readable in web tool; direct local request returned non-PDF and was not accepted. No PDF byte hash is asserted.",
+      "locators": [
+        "Note 4 pp4-5",
+        "Figures 18-22 pp23-27",
+        "Table 4 p31",
+        "experimental XRD p7"
+      ],
+      "observation": "CHE is explicit, but calculated OER models are N4 single sites; the (110) mention is experimental XRD."
+    },
+    {
+      "doi": "10.1021/acsanm.2c02760",
+      "source_index": "results/s2_2026-09-20/priority_source_receipts/godinez_si_text_index.json",
+      "locators": [
+        "SI cover p1",
+        "Computational Methods pp5-9, especially S-8",
+        "Fig S17 p30",
+        "Table S14 p33"
+      ],
+      "observation": "Primary SI resolves access and reported-eta evidence, but CHE reference remains ambiguous. Additive independent review is pinned separately in batch verification."
+    }
+  ],
+  "remaining_work": [
+    "One-generation backward references from each of the four newly eligible base-discovery papers, including available SI.",
+    "Resolve all unknown eligibility, versions and source access across full candidate union.",
+    "Complete base discovery and independent population reconciliation before method-reporting coding."
+  ]
+}

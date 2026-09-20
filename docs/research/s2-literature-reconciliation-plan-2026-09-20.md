@@ -10,17 +10,20 @@ The [September 18 scientific rule](s2-operating-decisions-2026-09-18.md#p-lit-pr
 - [x] Specify complete disjoint calendar-year partitions, with full month/day subdivision when observations are unstable.
 - [x] Add a standalone manifest builder and offline page-receipt validator without importing or editing the active engine/worker.
 - [x] Add focused offline tests for coverage, clipping/leap dates, receipts/cursors, count drift, identity failures, identity union and preserved old evidence.
-- [x] Run the focused suite and prepare the prospective manifest from the quiescent preserved cache: 30 tests pass; all 64 initial partitions retained; zero requests.
-- [ ] Review and bank the note, source, tests and manifest before any new retrieval implementation or run.
+- [x] Run the initial focused suite and prepare the original prospective manifest: 30 tests passed; all 64 initial partitions retained; zero requests.
+- [x] Review and bank the initial note, source, tests and manifest in 784d5a2, preserving that boundary as history.
+- [x] Check actual terminal responses and correct the prospective terminal rule before any new retrieval: 33 tests pass; the revised manifest retains 64 partitions and zero requests. No reconciliation requests or live runner.
 
-The implementation is [reconcile_plan.py](../../src/s2/literature/reconcile_plan.py), with [offline tests](../../tests/s2/test_literature_reconcile_plan.py). The preparation command is:
+The implementation is [reconcile_plan.py](../../src/s2/literature/reconcile_plan.py), with [offline tests](../../tests/s2/test_literature_reconcile_plan.py). The corrected preparation used:
 
 ```powershell
 python -m pytest tests/s2/test_literature_reconcile_plan.py -q
-python src/s2/literature/reconcile_plan.py --source results/s2_2026-09-19/literature_openalex_continuation --out results/s2_2026-09-20/reconciliation_plan
+python src/s2/literature/reconcile_plan.py --source results/s2_2026-09-19/literature_openalex_continuation --out results/s2_2026-09-20/reconciliation_plan_terminal_revision
 ```
 
-The output directory must be new and separate from the old cache. Preparation pins the prior search specification, readout, candidate export and available stream-status files, verifies they did not change while read, and retains the old identity/occurrence inventory. The source export is pinned as historical evidence; it is not newly certified as complete or as a raw-cache audit. The existing raw pages and their receipts remain at their recorded locations.
+The [corrected manifest](../../results/s2_2026-09-20/reconciliation_plan_terminal_revision/plan.json) supersedes the [initial prospective manifest](../../results/s2_2026-09-20/reconciliation_plan/plan.json) for future retrieval. The initial manifest and its 30-test verification remain preserved in the original directory and pushed commit 784d5a2. The corrected directory is separate and pins the revised validator; no earlier manifest or response is replaced.
+
+The output directory must be new and separate from the old cache; the command above records completed preparation and cannot overwrite its existing output. Preparation pins the prior search specification, readout, candidate export and available stream-status files, verifies they did not change while read, and retains the old identity/occurrence inventory. The source export is pinned as historical evidence; it is not newly certified as complete or as a raw-cache audit. The existing raw pages and their receipts remain at their recorded locations.
 
 ## Exact enumeration contract
 
@@ -30,7 +33,11 @@ Successful raw pages and receipts use the existing naming/schema convention: `pa
 
 A partition passes only if its page chain is intact, all observed totals are identical and equal to the raw record count, all provider work IDs are valid and unique, returned publication dates lie within that partition in nondecreasing order, and a terminal receipt exists. There is no count tolerance, top-N cutoff, or deduplication that can conceal repeated source rows. A missing page or transport interruption remains resumable and unresolved; a byte/request mismatch is a hard integrity error.
 
-The prospective terminal rule requires both an explicitly null `next_cursor` and empty `results`, as described in the [current paging documentation](https://help.openalex.org/api/paging/). A nonempty null-cursor response is preserved but remains unresolved under this rule. A shorter nonterminal page is not a substitute for the terminal receipt. Prior failed requests may coexist with a subsequently verified successful chain; their failure artifacts remain recorded.
+The corrected prospective terminal rule requires an explicitly null `next_cursor`; `results` may be empty or nonempty, including a full 100-row final page. Every final-page record is indexed before terminal status is assigned. A missing or malformed cursor is not a terminal receipt. A short page with a non-null cursor remains nonterminal; an empty page with a non-null cursor leaves the attempt unresolved. Cached pages after a null-cursor terminal receipt are an integrity error. Exact count equality, unchanged totals, valid unique identities, date ordering and receipt integrity remain required for a partition to pass. Prior failed requests may coexist with a subsequently verified successful chain; their failure artifacts remain recorded.
+
+This is an empirical compatibility correction. The [official paging documentation](https://help.openalex.org/api/paging/), checked on September 20, still describes termination with both a null cursor and empty results. The preserved broad-window query 1 page 223 instead has 91 results and an explicit null cursor; query 2 page 68 has 95 results and an explicit null cursor. The [response observations](../../results/s2_2026-09-20/reconciliation_plan_terminal_revision/terminal_response_observations.json) pin both raw-page and receipt hashes. With no next cursor available, requiring another empty page would reject these terminal response shapes indefinitely.
+
+The correction does not validate those existing streams. Query 1 retains 22,291 raw rows, changing totals ending at 22,265, and duplicate identities; query 2 retains 6,795 raw rows and changing totals ending at 6,796. Both remain unresolved under the unchanged count and identity requirements. The initial manifest's empty-and-null rule remains historical evidence; the separately pinned corrected manifest governs any future reconciliation attempt.
 
 A year with observed count, identity, ordering, or termination instability is subdivided into every month intersecting that year. An unstable month is subdivided into every day. Child partitions must cover the entire parent without gaps or overlaps, including leap days and the clipped final month. The original unstable attempt stays preserved. A day that remains unstable stays unresolved; no smaller interval or relaxed threshold is silently substituted. Incomplete retrieval without instability is resumed rather than treated as a completed or omitted partition.
 
@@ -48,4 +55,6 @@ A future separately banked retrieval runner must honor the provider-wide cooldow
 
 ## Validation record
 
-The focused suite passed all 30 tests on the verified isolated background desktop. Preparation against the current real cache succeeded with 64 partitions and zero requests. The old identity inventory retains 28,226 unique provider work IDs, including all source occurrences; these are provider IDs, not the 28,191 DOI/title-deduplicated candidate keys. Source files were unchanged while read. The [execution record](../../results/s2_2026-09-20/reconciliation_plan/verification.json) pins the tested source and test-file hashes. The manifest remains `PROSPECTIVE_NOT_RETRIEVED`; no reconciliation collector is running.
+The corrected focused suite passed all 33 tests on the verified isolated background desktop. The terminal regressions include a nonempty single-page result, a multipage chain ending with 100 rows, and count drift even when the final total equals the raw row count. The [corrected execution record](../../results/s2_2026-09-20/reconciliation_plan_terminal_revision/verification.json) pins the tested source SHA-256 `b6dac6d110389051c2ffc240b056b071c28dccc1baa0a62aaffec9028bb57d73` and the test-file hash; it also retains the earlier 32-test run. The [initial 30-test execution record](../../results/s2_2026-09-20/reconciliation_plan/verification.json) remains unchanged.
+
+Corrected preparation against the preserved cache succeeded with 64 partitions and zero requests. Its old identity inventory is byte-identical to the initial inventory and retains 28,226 unique provider work IDs, including all source occurrences; these are provider IDs, not the 28,191 DOI/title-deduplicated candidate keys. Source files were unchanged while read. The corrected manifest remains `PROSPECTIVE_NOT_RETRIEVED` with `global_p_lit_complete=false`; no reconciliation retrieval runner or new request is part of this preparation.
