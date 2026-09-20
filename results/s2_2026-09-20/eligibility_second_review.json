@@ -1,0 +1,712 @@
+{
+  "schema_version": 1,
+  "review_date_utc": "2026-09-20",
+  "scope": "Independent eligibility assessment of ten verified article/SI identities. This is a provisional subset, not a frozen inclusion list or coverage-completion claim. The independent primary eligibility outcomes were not consulted.",
+  "rule_source": "docs/research/s2-operating-decisions-2026-09-18.md#p-lit-prospective-search-and-coding-choices",
+  "eligibility_rule": "Primary research first published 2011-01-01 through 2026-09-18, calculating OER on a rutile-oxide (110) surface and explicitly reporting a CHE overpotential in article or SI. No eta is derived from intermediate energies.",
+  "status_meaning": {
+    "ELIGIBLE_PENDING_DISCOVERY_FREEZE": "All required eligibility criteria supported in the inspected sources; this does not freeze the denominator or imply a complete methods-access bundle.",
+    "EXCLUDE": "A required criterion fails with affirmative primary-source evidence.",
+    "UNRESOLVED": "A required criterion still lacks sufficient evidence or needs reconciliation against the fixed rule; not an exclusion."
+  },
+  "source_limitations": [
+    "Page-marker text is used for textual evidence; extraction warnings prevent unverified claims about figure layout.",
+    "Visual claims are limited to independently inspected Xu article PDF p5 and Divanis SI PDF pp27–28.",
+    "Official RSC article HTML was readable with the web tool even though direct PDF/HTTP retrieval failed.",
+    "Missing SI does not reverse a positive eligibility decision when the article already supports all criteria.",
+    "No method-check outcome fields, rate estimates, HELD/FALSIFIED conclusion, or frozen inclusion list appear in this record."
+  ],
+  "rows": [
+    {
+      "doi": "10.1002/cctc.201000397",
+      "label": "Man 2011",
+      "eligibility": "ELIGIBLE_PENDING_DISCOVERY_FREEZE",
+      "reason": "Original rutile (110) OER calculations explicitly report theoretical CHE overpotentials.",
+      "criteria": {
+        "primary_research": "YES",
+        "date_window": "YES",
+        "rutile_110_oer": "YES",
+        "reported_che_overpotential": "YES"
+      },
+      "first_publication_observed": "2011-03-16",
+      "date_note": "Article PDF p7 online date agrees with Crossref; print date is 2011-07-11.",
+      "evidence": [
+        {
+          "source": "ARTICLE",
+          "pdf_pages": [
+            1,
+            2
+          ],
+          "locator": "Abstract; Free energy diagram, equations 2–7",
+          "paraphrase": "The study calculates original OER energetics with the computational standard hydrogen electrode and defines the theoretical overpotential."
+        },
+        {
+          "source": "ARTICLE",
+          "pdf_pages": [
+            5,
+            6
+          ],
+          "locator": "Figure 4; Experimental Section and Figure 5",
+          "paraphrase": "Figure 4 reports the negative theoretical overpotential for oxide points; Figure 5 and the surface-model discussion identify stoichiometric and reduced rutile-like (110) MO2 slabs."
+        }
+      ],
+      "remaining": "The article suffices for eligibility. Any missing SI still matters for later full methods access.",
+      "initial_source": {
+        "doi": "10.1002/cctc.201000397",
+        "role": "ARTICLE",
+        "pdf": "docs/research/papers/man2011.pdf",
+        "pdf_sha256": "9c61b31e2d4ecb91a0908134981522e080f74f60bd5a192cfcbed1583238ea43",
+        "pages": 7,
+        "text": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-fulltexts\\01_man2011.txt",
+        "text_sha256": "f79164b7ab8efe830dd7dd0fcc390b07a977391a6ebc5bddb34a9a5ee3ace939"
+      },
+      "crossref_dates_and_source": {
+        "online": {
+          "date-parts": [
+            [
+              2011,
+              3,
+              16
+            ]
+          ]
+        },
+        "print": {
+          "date-parts": [
+            [
+              2011,
+              7,
+              11
+            ]
+          ]
+        },
+        "raw_path": "results/s2_2026-09-19/primary_identity_review/crossref/10.1002__cctc.201000397.json",
+        "raw_sha256": "4f04fe7f4820d98b8c89ef60d0d4e14efeb603b76171323f6f9205ebd96ed829"
+      }
+    },
+    {
+      "doi": "10.1002/cctc.202400813",
+      "label": "Inico 2024",
+      "eligibility": "UNRESOLVED",
+      "reason": "Rutile (110) OER intermediate calculations and CHE are established, but an explicitly reported CHE overpotential is not established in the inspected article; SI is missing.",
+      "criteria": {
+        "primary_research": "YES",
+        "date_window": "YES",
+        "rutile_110_oer": "YES",
+        "reported_che_overpotential": "UNRESOLVED"
+      },
+      "first_publication_observed": "2024-09-12",
+      "date_note": "Crossref online 2024-09-12; print 2024-11-11.",
+      "evidence": [
+        {
+          "source": "ARTICLE",
+          "pdf_pages": [
+            2,
+            3
+          ],
+          "locator": "Study scope and computational setup",
+          "paraphrase": "The paper compares OER intermediate energetics on rutile TiO2, RuO2 and IrO2 (110), using CHE thermodynamics."
+        },
+        {
+          "source": "ARTICLE",
+          "pdf_pages": [
+            4,
+            5,
+            6,
+            8,
+            9
+          ],
+          "locator": "Table 1; Figure 4; conclusions and Supporting Information notice",
+          "paraphrase": "The inspected results report intermediate or solvation energy differences. These do not themselves constitute a reported overpotential. Additional SI is identified but not locally available."
+        }
+      ],
+      "remaining": "Acquire and inspect the actual SI and relevant graphical material before deciding the reporting criterion. Do not derive eta from intermediate energies or exclude from keyword absence.",
+      "initial_source": {
+        "doi": "10.1002/cctc.202400813",
+        "role": "ARTICLE",
+        "pdf": "docs/research/papers/Inico-2024_ChemCatChem_stability-solvation-TiO2-RuO2-IrO2-110.pdf",
+        "pdf_sha256": "376b20e509fa15efd18c1887d2822cbedc5798176957abc5a00b2a597ed22628",
+        "pages": 11,
+        "text": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-fulltexts\\02_Inico-2024_ChemCatChem_stability-solvation-TiO2-RuO2-IrO2-110.txt",
+        "text_sha256": "ec148e4700429bfe25b22c02b57574d1732bb52d3bbdbc7646d4a56709fb0ab4"
+      },
+      "crossref_dates_and_source": {
+        "online": {
+          "date-parts": [
+            [
+              2024,
+              9,
+              12
+            ]
+          ]
+        },
+        "print": {
+          "date-parts": [
+            [
+              2024,
+              11,
+              11
+            ]
+          ]
+        },
+        "raw_path": "results/s2_2026-09-19/primary_identity_review/crossref/10.1002__cctc.202400813.json",
+        "raw_sha256": "f4090ba9b68b17ee8c79de08dee1fe6c076fb02d9ee6218cd1b6ce7e40682c5b"
+      }
+    },
+    {
+      "doi": "10.1016/j.jcat.2025.115968",
+      "label": "Feng 2025",
+      "eligibility": "ELIGIBLE_PENDING_DISCOVERY_FREEZE",
+      "reason": "The study includes a neutral CHE comparison on RuO2 (110) and explicitly reports its theoretical overpotential, alongside constant-potential calculations.",
+      "criteria": {
+        "primary_research": "YES",
+        "date_window": "YES",
+        "rutile_110_oer": "YES",
+        "reported_che_overpotential": "YES"
+      },
+      "first_publication_observed": "2025-01-23",
+      "date_note": "Article PDF p1 says available online 2025-01-23; Crossref has print 2025-03 and no online date.",
+      "evidence": [
+        {
+          "source": "ARTICLE",
+          "pdf_pages": [
+            1,
+            2
+          ],
+          "locator": "Title, introduction and section 2.1",
+          "paraphrase": "This is Feng and colleagues' GC-DFT study; the model is a rutile RuO2 (110) slab with doped variants."
+        },
+        {
+          "source": "ARTICLE",
+          "pdf_pages": [
+            5,
+            6
+          ],
+          "locator": "Sections 3.2–3.3 and Figure 4",
+          "paraphrase": "The neutral calculations explicitly report theoretical overpotential (including 0.38 V for a Co-doped configuration), and the text identifies the neutral method as CHE when contrasting it with constant-potential results."
+        }
+      ],
+      "remaining": "Preserve Feng as the verified identity rather than the earlier Inico misassignment. The neutral CHE arm supplies eligibility; experimental or constant-potential overpotentials are not substitutes.",
+      "initial_source": {
+        "doi": "10.1016/j.jcat.2025.115968",
+        "role": "ARTICLE",
+        "pdf": "docs/research/papers/1-s2.0-S0021951725000338-main.pdf",
+        "pdf_sha256": "3713cc72527229ce580e46b7e7be0efc08d8eab51eb7ad981b8a849a7dab6d01",
+        "pages": 10,
+        "text": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-fulltexts\\03_1-s2.0-S0021951725000338-main.txt",
+        "text_sha256": "e0a1b20194ac9209c5b6df8d9ad7f9137973fb3373e8bbf8274c429871a0422f"
+      },
+      "crossref_dates_and_source": {
+        "online": null,
+        "print": {
+          "date-parts": [
+            [
+              2025,
+              3
+            ]
+          ]
+        },
+        "raw_path": "results/s2_2026-09-19/primary_identity_review/crossref/10.1016__j.jcat.2025.115968.json",
+        "raw_sha256": "5124e8234dbe1e0aa6d147fdf0fcb9f43b8c6da6a5d2048c88d085e40fb024f3"
+      }
+    },
+    {
+      "doi": "10.1021/acs.jpcc.7b02383",
+      "label": "Gauthier 2017",
+      "eligibility": "UNRESOLVED",
+      "reason": "Original CHE-based IrO2 (110) OER calculations are present; an explicitly reported CHE overpotential has not been established from the available article.",
+      "criteria": {
+        "primary_research": "YES",
+        "date_window": "YES",
+        "rutile_110_oer": "YES",
+        "reported_che_overpotential": "UNRESOLVED"
+      },
+      "first_publication_observed": "2017-05-10",
+      "date_note": "Article PDF p1 Published 2017-05-10 differs from Crossref online 2017-05-17; print 2017-06-01. Preserve the discrepancy; all dates are within the window.",
+      "evidence": [
+        {
+          "source": "ARTICLE",
+          "pdf_pages": [
+            1,
+            2
+          ],
+          "locator": "Abstract and Methods",
+          "paraphrase": "The primary study calculates solvation effects for OER intermediates on rutile IrO2 (110) using CHE."
+        },
+        {
+          "source": "ARTICLE",
+          "pdf_pages": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "locator": "Figures 4–7; section 3.3; Conclusions",
+          "paraphrase": "The reported quantities include binding energies, descriptor differences and a free-energy landscape at 0 V RHE. Statements of reaction-step energies or a required potential above equilibrium are insufficient to infer a separately reported eta."
+        }
+      ],
+      "remaining": "Verify the publisher's complete article/SI inventory and inspect relevant figures. Do not convert the reported 1.8 eV step to a new overpotential. An empty Figshare search does not prove no SI exists.",
+      "initial_source": {
+        "doi": "10.1021/acs.jpcc.7b02383",
+        "role": "ARTICLE",
+        "pdf": "docs/research/papers/Gauthier-2017_JPCC_solvation-IrO2-110.pdf",
+        "pdf_sha256": "f635c2454c02352108c7176ad6df02aee82921db86a1b7f7d3f8151402ac8216",
+        "pages": 9,
+        "text": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-fulltexts\\04_Gauthier-2017_JPCC_solvation-IrO2-110.txt",
+        "text_sha256": "55aa31984d59941a2210edaa8b50c0983f78aa95b745da080c9f0305aed2aea7"
+      },
+      "crossref_dates_and_source": {
+        "online": {
+          "date-parts": [
+            [
+              2017,
+              5,
+              17
+            ]
+          ]
+        },
+        "print": {
+          "date-parts": [
+            [
+              2017,
+              6,
+              1
+            ]
+          ]
+        },
+        "raw_path": "results/s2_2026-09-19/primary_identity_review/crossref/10.1021__acs.jpcc.7b02383.json",
+        "raw_sha256": "65fad6cd96c99ea825854271ca11fed766ed2797202841ec339963e2881e8d04"
+      }
+    },
+    {
+      "doi": "10.1021/acs.jpcc.7b07660",
+      "label": "Tripkovic 2017/2018",
+      "eligibility": "EXCLUDE",
+      "reason": "The article and full nine-page SI study perovskite (001) surfaces, not rutile-oxide (110) OER.",
+      "criteria": {
+        "primary_research": "YES",
+        "date_window": "YES",
+        "rutile_110_oer": "NO",
+        "reported_che_overpotential": "YES_OTHER_SURFACE"
+      },
+      "first_publication_observed": "2017-12-11",
+      "date_note": "Article PDF p1 Published 2017-12-11 differs from Crossref online 2018-01-08; print 2018-01-18. Preserve both publication years; the mismatch does not change window eligibility.",
+      "evidence": [
+        {
+          "source": "ARTICLE",
+          "pdf_pages": [
+            1,
+            2
+          ],
+          "locator": "Abstract and Methods",
+          "paraphrase": "The material class is ABO3 perovskites; the modeled surface is the perovskite (001) facet."
+        },
+        {
+          "source": "ARTICLE",
+          "pdf_pages": [
+            7,
+            8,
+            10
+          ],
+          "locator": "Figure 5 and Conclusions",
+          "paraphrase": "Reported theoretical overpotentials belong to the perovskite systems."
+        },
+        {
+          "source": "TRIPKOVIC_SI",
+          "pdf_pages": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "locator": "Title, Note 1, Tables S1–S3 and remaining supporting figures",
+          "paraphrase": "The SI stays within pure and substituted perovskites. Other bulk reference phases or cited rutile studies do not provide a rutile (110) OER calculation in this article."
+        }
+      ],
+      "remaining": "No eligibility access gap remains for the facet exclusion. This is not an exclusion based on the title alone.",
+      "initial_source": {
+        "doi": "10.1021/acs.jpcc.7b07660",
+        "role": "ARTICLE",
+        "pdf": "docs/research/papers/Tripkovic-2018_JPCC_DFTU-vs-HSE-perovskite-OER.pdf",
+        "pdf_sha256": "ad3cbad53908bb2ef4112c65219d49e0c494f2842a3151643dd9c39467dd79b4",
+        "pages": 13,
+        "text": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-fulltexts\\05_Tripkovic-2018_JPCC_DFTU-vs-HSE-perovskite-OER.txt",
+        "text_sha256": "b5b233eaecd0a2f902f9b65091877ca5704900f3173f5e9f5ad1baa760f30bc9"
+      },
+      "crossref_dates_and_source": {
+        "online": {
+          "date-parts": [
+            [
+              2018,
+              1,
+              8
+            ]
+          ]
+        },
+        "print": {
+          "date-parts": [
+            [
+              2018,
+              1,
+              18
+            ]
+          ]
+        },
+        "raw_path": "results/s2_2026-09-19/primary_identity_review/crossref/10.1021__acs.jpcc.7b07660.json",
+        "raw_sha256": "4e3139d463b02afb7328b0a10623112ff01080fad3be126cfef7ffa2f2398f38"
+      }
+    },
+    {
+      "doi": "10.1021/acscatal.0c03865",
+      "label": "Exner 2020",
+      "eligibility": "UNRESOLVED",
+      "reason": "The Viewpoint contains a new theoretical descriptor analysis using previously published rutile (110) data. Whether this qualifies as primary research under the fixed rule requires reconciliation; the publication label alone is insufficient.",
+      "criteria": {
+        "primary_research": "UNRESOLVED",
+        "date_window": "YES",
+        "rutile_110_oer": "YES_REANALYSIS",
+        "reported_che_overpotential": "GRAPHICAL_COMPARISON_OF_PRIOR_VALUES"
+      },
+      "first_publication_observed": "2020-10-15",
+      "date_note": "Crossref online 2020-10-15; print 2020-11-06.",
+      "evidence": [
+        {
+          "source": "ARTICLE",
+          "pdf_pages": [
+            1,
+            6,
+            7,
+            8
+          ],
+          "locator": "Viewpoint heading; section 5 and Figure 6",
+          "paraphrase": "The work introduces a descriptor and compares it against thermodynamic overpotential graphically; section 5 explicitly reuses an earlier data set rather than reporting a new DFT campaign."
+        },
+        {
+          "source": "EXNER_SI",
+          "pdf_pages": [
+            1,
+            2,
+            10
+          ],
+          "locator": "Sections 1 and 3.1; Table S2",
+          "paraphrase": "The SI identifies MO2 (110), M = Ru, Ir, Ti, Pt, Rh, Sn, V. Its reaction energies and thermodynamic overpotentials originate in earlier literature; the table reports the new descriptor values. Applied target overpotential is distinct from the CHE limiting overpotential."
+        }
+      ],
+      "remaining": "Reconcile the primary-research criterion against the actual original theoretical contribution and secondary-data use. Do not automatically exclude every Viewpoint or automatically count every paper citing rutile CHE data. No method outcomes are relevant to this decision.",
+      "initial_source": {
+        "doi": "10.1021/acscatal.0c03865",
+        "role": "ARTICLE",
+        "pdf": "docs/research/papers/Exner-2020_ACSCatal_universal-descriptor-beyond-eta.pdf",
+        "pdf_sha256": "c7ede81696117643d738f13edf4945ca41c8f02eb03e96c325cb36c65abf7a8e",
+        "pages": 11,
+        "text": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-fulltexts\\06_Exner-2020_ACSCatal_universal-descriptor-beyond-eta.txt",
+        "text_sha256": "80219d9ab36d9ad8c435903b18e0ceed6613187c3203e30a939cb7be7b42d807"
+      },
+      "crossref_dates_and_source": {
+        "online": {
+          "date-parts": [
+            [
+              2020,
+              10,
+              15
+            ]
+          ]
+        },
+        "print": {
+          "date-parts": [
+            [
+              2020,
+              11,
+              6
+            ]
+          ]
+        },
+        "raw_path": "results/s2_2026-09-19/primary_identity_review/crossref/10.1021__acscatal.0c03865.json",
+        "raw_sha256": "7fd5ec7e2c0386170cb78a3288c085a09526b36cc004922b4b03c770534ad9cc"
+      }
+    },
+    {
+      "doi": "10.1021/jp511426q",
+      "label": "Xu 2015",
+      "eligibility": "ELIGIBLE_PENDING_DISCOVERY_FREEZE",
+      "reason": "Original rutile (110) OER calculations explicitly report CHE overpotential points in Figure 4.",
+      "criteria": {
+        "primary_research": "YES",
+        "date_window": "YES",
+        "rutile_110_oer": "YES",
+        "reported_che_overpotential": "YES"
+      },
+      "first_publication_observed": "2015-02-09",
+      "date_note": "Article PDF p1 Published 2015-02-09 differs from Crossref online 2015-02-20; print 2015-03-05. Preserve the discrepancy; all dates are within the window.",
+      "evidence": [
+        {
+          "source": "ARTICLE",
+          "pdf_pages": [
+            1,
+            2
+          ],
+          "locator": "Structural Parameters; atomistic thermodynamics, equation 12",
+          "paraphrase": "The study calculates OER intermediates on rutile (110) surfaces and explicitly defines the CHE theoretical overpotential."
+        },
+        {
+          "source": "ARTICLE",
+          "pdf_pages": [
+            5
+          ],
+          "locator": "Figure 4, journal p4831; independently inspected page image",
+          "paraphrase": "The vertical axis explicitly reports theoretical OER overpotential in volts; named IrO2, RhO2, RuO2 and PtO2 points compare calculations with and without the linear-response U. No coordinates or eta values were digitized."
+        }
+      ],
+      "remaining": "The article establishes eligibility; any later SI access gap is a separate methods-access matter.",
+      "initial_source": {
+        "doi": "10.1021/jp511426q",
+        "role": "ARTICLE",
+        "pdf": "docs/research/papers/jp511426q.pdf",
+        "pdf_sha256": "40e802e74d0031e5afe66331da701260c5d6821e46dad4a8b6d08f7a93bd674d",
+        "pages": 7,
+        "text": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-fulltexts\\07_jp511426q.txt",
+        "text_sha256": "91795623966e3d6bc3121300f468108b98b9f7ea56e3b1ec321c55dedc8ff1a1"
+      },
+      "crossref_dates_and_source": {
+        "online": {
+          "date-parts": [
+            [
+              2015,
+              2,
+              20
+            ]
+          ]
+        },
+        "print": {
+          "date-parts": [
+            [
+              2015,
+              3,
+              5
+            ]
+          ]
+        },
+        "raw_path": "results/s2_2026-09-19/primary_identity_review/crossref/10.1021__jp511426q.json",
+        "raw_sha256": "a539d83a6172e4a71b6e8ec207d026dacb8830f1bc0d5868faa94b8a587fce10"
+      }
+    },
+    {
+      "doi": "10.1039/c9sc05897d",
+      "label": "Divanis 2020",
+      "eligibility": "UNRESOLVED",
+      "reason": "Original TiO2 (110) calculations and a graphical OER overpotential are confirmed. The rutile polymorph still needs a direct primary-source locator rather than assuming it from TiO2 (110).",
+      "criteria": {
+        "primary_research": "YES",
+        "date_window": "YES",
+        "rutile_110_oer": "UNRESOLVED_POLYMORPH",
+        "reported_che_overpotential": "YES_GRAPHICAL"
+      },
+      "first_publication_observed": "2020-02-11",
+      "date_note": "Official RSC HTML gives first publication 2020-02-11; Crossref records only 2020.",
+      "evidence": [
+        {
+          "source": "RSC_ARTICLE_HTML",
+          "pdf_pages": [],
+          "locator": "Sections 2.1 and 3",
+          "paraphrase": "New one- and two-dopant TiO2 calculations supplement the literature analysis; the modeled surface is TiO2 (110)."
+        },
+        {
+          "source": "DIVANIS_SI",
+          "pdf_pages": [
+            27
+          ],
+          "locator": "Figure SI-18; independently inspected rendered page",
+          "paraphrase": "Panel b explicitly labels eta_OER as the vertical difference between the 1.23 V baseline and a modeled n-type-doped TiO2 point; panel a shows the OER intermediate free-energy sequence ending at 4.92 eV. This is a reported graphical overpotential; no numerical value was inferred."
+        },
+        {
+          "source": "DIVANIS_SI",
+          "pdf_pages": [
+            28
+          ],
+          "locator": "Figures SI-19 and SI-20; independently inspected rendered page",
+          "paraphrase": "The atomic illustrations show dopants and adsorbates, but the captions do not identify the polymorph or provide a unit cell. This review does not claim crystallographic identification from that schematic alone."
+        }
+      ],
+      "remaining": "Confirm the rutile identity from the structural figures or an unambiguous original structure source. The article is accessible through official HTML despite direct PDF retrieval failure; do not label it inaccessible. The perspective title does not remove its original calculation component.",
+      "initial_source": {
+        "doi": "10.1039/c9sc05897d",
+        "role": "SUPPORTING_INFORMATION",
+        "pdf": "docs/research/2026-08-15-sampling/SC-011-C9SC05897D-s001.pdf",
+        "pdf_sha256": "348462f71f6f102b713e1a292ff97812f635255c3bf514c434099608d5adc02a",
+        "pages": 29,
+        "text": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-fulltexts\\08_SC-011-C9SC05897D-s001.txt",
+        "text_sha256": "6176dee3cd9bd54b57c389ee63d60a5ce9b9fada005e0242e6e180ae447660dd"
+      },
+      "crossref_dates_and_source": {
+        "online": {
+          "date-parts": [
+            [
+              2020
+            ]
+          ]
+        },
+        "print": null,
+        "raw_path": "results/s2_2026-09-19/primary_identity_review/crossref/10.1039__c9sc05897d.json",
+        "raw_sha256": "8b45bc17d4a2a69a530205ca9d838d2d0655ea14f2ac7ec0d124f2eefba9e6dd"
+      }
+    },
+    {
+      "doi": "10.1002/cctc.201100160",
+      "label": "Garcia-Mota 2011",
+      "eligibility": "ELIGIBLE_PENDING_DISCOVERY_FREEZE",
+      "reason": "Original transition-metal substitution calculations on rutile TiO2 (110) explicitly tabulate CHE overpotentials.",
+      "criteria": {
+        "primary_research": "YES",
+        "date_window": "YES",
+        "rutile_110_oer": "YES",
+        "reported_che_overpotential": "YES"
+      },
+      "first_publication_observed": "2011-08-25",
+      "date_note": "Article PDF p5 online date agrees with Crossref; print 2011-10-17.",
+      "evidence": [
+        {
+          "source": "ARTICLE",
+          "pdf_pages": [
+            1,
+            2
+          ],
+          "locator": "Title; Computational Methods; equation 2",
+          "paraphrase": "The primary study uses the computational standard hydrogen electrode for transition-metal-substituted rutile TiO2 (110)."
+        },
+        {
+          "source": "ARTICLE",
+          "pdf_pages": [
+            4
+          ],
+          "locator": "Table 1 and Figure 3",
+          "paraphrase": "The article explicitly reports an eta_OER column in volts for its own doped configurations, including Cr and Mo substitution; Figure 3 presents their calculated overpotentials."
+        }
+      ],
+      "remaining": "The article suffices for eligibility. Do not treat earlier literature volcano context as the sole evidence when the primary results already contain an eta table.",
+      "initial_source": {
+        "doi": "10.1002/cctc.201100160",
+        "role": "ARTICLE",
+        "pdf": "docs/research/papers/Garcia-Mota-2011_ChemCatChem_TiO2-110-TM-substitution.pdf",
+        "pdf_sha256": "e096ac4a6fdaf8b520a4c4ae2170534738e59c44192deb17ce82ef39469cb9de",
+        "pages": 5,
+        "text": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-fulltexts\\09_Garcia-Mota-2011_ChemCatChem_TiO2-110-TM-substitution.txt",
+        "text_sha256": "67816fdb84dc0175844c81ca0a021e6ee64ce08142adaf0e2bc2cd18e92fab06"
+      },
+      "crossref_dates_and_source": {
+        "online": {
+          "date-parts": [
+            [
+              2011,
+              8,
+              25
+            ]
+          ]
+        },
+        "print": {
+          "date-parts": [
+            [
+              2011,
+              10,
+              17
+            ]
+          ]
+        },
+        "raw_path": "results/s2_2026-09-19/primary_identity_review/crossref/10.1002__cctc.201100160.json",
+        "raw_sha256": "654d37b086290fef77417be0ed2555d527bea189a8829e8d655e28b729b28015"
+      }
+    },
+    {
+      "doi": "10.1021/jp409373c",
+      "label": "Mom 2014",
+      "eligibility": "UNRESOLVED",
+      "reason": "Only SI is available. It identifies rutile calculations and explains how to calculate an overpotential from energies, but the required facet and an explicitly reported CHE overpotential require the missing article.",
+      "criteria": {
+        "primary_research": "UNRESOLVED_ARTICLE_MISSING",
+        "date_window": "YES",
+        "rutile_110_oer": "UNRESOLVED_FACET",
+        "reported_che_overpotential": "UNRESOLVED"
+      },
+      "first_publication_observed": "2014-02-11",
+      "date_note": "Crossref online 2014-02-11; print 2014-02-27.",
+      "evidence": [
+        {
+          "source": "MOM_SI",
+          "pdf_pages": [
+            1,
+            2,
+            3
+          ],
+          "locator": "Computational details; Tables S1–S3 and equations S1–S6",
+          "paraphrase": "The SI discusses a rutile slab and tabulates adsorption energies. It directs readers to calculate thermodynamic overpotential using main-text equation 6 after energy corrections; this instruction and the energies are not an explicitly reported eta result."
+        }
+      ],
+      "remaining": "Obtain the primary article and inspect its surface definition and reported overpotentials. Do not derive eta from the SI or exclude on missing article access.",
+      "initial_source": {
+        "doi": "10.1021/jp409373c",
+        "role": "SUPPORTING_INFORMATION",
+        "pdf": "docs/research/papers/Mom-2014_JPCC_unrestricted-DFT-OER-oxides_SI.pdf",
+        "pdf_sha256": "0ac763a6fbb5e987481cbf7ac2de869e7f7e13f1463d8653adc4c292d3b9d3fd",
+        "pages": 3,
+        "text": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-fulltexts\\10_Mom-2014_JPCC_unrestricted-DFT-OER-oxides_SI.txt",
+        "text_sha256": "c193e353905fd203dfaeac6cdb5a16a86c28f285e47f23859585d159b6f8a050"
+      },
+      "crossref_dates_and_source": {
+        "online": {
+          "date-parts": [
+            [
+              2014,
+              2,
+              11
+            ]
+          ]
+        },
+        "print": {
+          "date-parts": [
+            [
+              2014,
+              2,
+              27
+            ]
+          ]
+        },
+        "raw_path": "results/s2_2026-09-19/primary_identity_review/crossref/10.1021__jp409373c.json",
+        "raw_sha256": "f549c1095e38fcbed1fe98fc0e4f26075d17a6c04fa8ee294854270c6d88a534"
+      }
+    }
+  ],
+  "supplementary_sources": [
+    {
+      "id": "TRIPKOVIC_SI",
+      "path": "docs/research/papers/2026-09-20-access/tripkovic_si.pdf",
+      "sha256": "0c2cc32e8e8e176e4fef8017cd81fa5ec4d8be2864f2bf804979e2d0d3bb2bbc"
+    },
+    {
+      "id": "EXNER_SI",
+      "path": "docs/research/papers/2026-09-20-access/exner_si_13100308_1.pdf",
+      "sha256": "4a3ae8636d7c44dda4efa88b3bc8fad2540e4387c07e24b4a1aeaf826b18c403"
+    }
+  ],
+  "visually_inspected_images": [
+    {
+      "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-fulltexts\\xu_pdf_page5.png",
+      "sha256": "05467ecea7cbe7bfa480bbf1a2b6c66fd4ebdb5b6eb945ecc2d693c635450e08"
+    },
+    {
+      "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-fulltexts\\divanis_SI_pdf_page27.png",
+      "sha256": "64c7768dff3b5d9a66f1258f0e5fb10a58e274f3f40d82e3b7e28b797d6b2930"
+    },
+    {
+      "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-fulltexts\\divanis_SI_pdf_page28.png",
+      "sha256": "469568908d446db2316203d023c848703f061d015b700142eac2c028679d079b"
+    }
+  ],
+  "official_html_source": {
+    "url": "https://pubs.rsc.org/en/content/articlehtml/2020/sc/c9sc05897d",
+    "accessed_utc_date": "2026-09-20",
+    "access": "Read through official publisher HTML using web tool; no local article PDF."
+  }
+}

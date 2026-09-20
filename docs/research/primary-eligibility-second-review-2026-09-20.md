@@ -1,0 +1,30 @@
+# Primary eligibility: independent second review — 2026-09-20
+
+This assessment covers ten verified source identities under the unchanged P-LIT population rule in [the September 18 operating decisions](s2-operating-decisions-2026-09-18.md#p-lit-prospective-search-and-coding-choices). Four currently have sufficient eligibility evidence, one fails the surface criterion, and five remain unresolved. These are provisional decisions within an unfinished discovery process, not the final inclusion list or a denominator.
+
+The [structured record](../../results/s2_2026-09-20/eligibility_second_review.json) preserves criterion-level reasons, page locators, article/SI hashes and both Crossref and article publication dates. The other independent eligibility pass was not consulted before these decisions. No reporting-method outcomes were coded.
+
+| Identity | Second-pass decision | Decisive evidence or remaining gap |
+|---|---|---|
+| Man 2011, 10.1002/cctc.201000397 | Eligible pending discovery freeze | Article pp2,5–6: CHE definition, reported theoretical-overpotential volcano, and rutile-like (110) models. |
+| Inico 2024, 10.1002/cctc.202400813 | Unresolved | Article establishes rutile (110) OER and CHE; inspected results contain intermediate/solvation energies. An explicitly reported eta still needs confirmation, including the missing SI. |
+| Feng 2025, 10.1016/j.jcat.2025.115968 | Eligible pending discovery freeze | Article pp2,5–6: RuO2 (110), reported theoretical overpotential, and an explicitly identified neutral CHE comparison arm. This source is Feng, not Inico. |
+| Gauthier 2017, 10.1021/acs.jpcc.7b02383 | Unresolved | CHE IrO2 (110) energetics are clear, but binding energies and the p7 free-energy diagram do not by themselves establish a separately reported eta. Verify the complete article/SI inventory and figures. |
+| Tripkovic 2017/2018, 10.1021/acs.jpcc.7b07660 | Exclude: surface | Article p2 specifies perovskite (001); the complete nine-page SI stays within perovskites. Reported eta does not remedy the absence of a rutile (110) OER calculation. |
+| Exner 2020, 10.1021/acscatal.0c03865 | Unresolved: rule application | Original theoretical descriptor analysis reuses published MO2 (110) data. Reconcile whether this is primary research under the fixed rule, considering the actual contribution rather than the Viewpoint label alone. |
+| Xu 2015, 10.1021/jp511426q | Eligible pending discovery freeze | Article p2 defines CHE eta; Figure 4 on PDF p5 / journal p4831 explicitly plots theoretical OER overpotential in volts for named rutile oxide points. Axis visually verified. |
+| Divanis 2020, 10.1039/c9sc05897d | Unresolved: polymorph locator | Original TiO2 (110) calculations and a graphical eta are verified. Obtain an unambiguous rutile identity locator; neither the inspected text nor the structural figure captions name the polymorph. |
+| Garcia-Mota 2011, 10.1002/cctc.201100160 | Eligible pending discovery freeze | Article pp1–2 specifies rutile TiO2 (110) and CHE; p4 Table 1 explicitly reports eta_OER in volts for the study's doped configurations. |
+| Mom 2014, 10.1021/jp409373c | Unresolved: article missing | SI establishes rutile calculations and adsorption energies, but the primary article is needed for the facet and reported eta. Instructions to calculate eta are not a reported eta result. |
+
+For Divanis, the [official RSC article](https://pubs.rsc.org/en/content/articlehtml/2020/sc/c9sc05897d) identifies new one- and two-dopant calculations in section 2.1 and TiO2 (110) in section 3; its first-publication date is February 11, 2020. The article is accessible as HTML despite the PDF access failure. Its perspective title does not justify excluding its original calculations. SI Figure SI-18, PDF p27, visibly labels an eta_OER arrow from the 1.23 V baseline to a modeled doped-TiO2 point. That is an explicitly reported graphical overpotential. No numeric eta was inferred. SI p28 depicts the atomic models, but this review does not identify a polymorph from the schematic alone.
+
+For Exner, article section 5 and Figure 6 compare a new descriptor against thermodynamic overpotential using a previous dataset. SI section 3.1, pS10, identifies MO2 (110) and attributes the reaction energies and eta values to earlier literature. Its new descriptor table and chosen applied overpotential are different quantities from a newly reported CHE limiting overpotential. The unresolved issue is the primary-research qualification of this theoretical reanalysis; neither its label nor its reuse of data alone settles that interpretation.
+
+The exclusion is affirmative: Tripkovic's modeled systems are perovskite (001) in both article and SI. Inico and Gauthier are not excluded because an overpotential keyword was absent. Their inspected energy quantities must not be converted into eta to satisfy the reporting criterion. Mom remains unresolved because only the SI is available.
+
+Several dates need preservation even though none changes the window decision: Gauthier's article says May 10, 2017 versus Crossref online May 17; Xu says February 9, 2015 versus February 20; Tripkovic says December 11, 2017 versus January 8, 2018. Feng's article supplies January 23, 2025, where the recorded Crossref metadata only supplies March 2025 print publication. The structured record retains both sources rather than silently overwriting the conflicts.
+
+Text extraction carries PDF warnings. Figure-layout statements above are supported only by the separately inspected Xu p5 and Divanis SI pp27–28 images. The existing article/SI PDFs remain the evidence sources; temporary text and image files are inspection aids.
+
+Reconcile the two independent passes against these locators, resolve the stated access and rule-application gaps, then continue the registered discovery and one-generation reference work before freezing inclusion. Eligible status here does not mean the later methods bundle is complete, and missing later methods evidence must not retroactively turn an eligible paper into an exclusion.

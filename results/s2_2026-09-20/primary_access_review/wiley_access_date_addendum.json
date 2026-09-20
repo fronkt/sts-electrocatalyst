@@ -1,0 +1,68 @@
+{
+  "schema": "sts.p_lit.publisher_access_date_addendum.v1",
+  "recorded_utc": "2026-09-20T02:09:19.2886411Z",
+  "scope": "Additive publisher observation and direct SI access failures; no frozen outcome, eligibility, search or method-code changes.",
+  "inico_date_observation": {
+    "doi": "10.1002/cctc.202400813",
+    "official_url": "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/cctc.202400813",
+    "publisher_label": "First published",
+    "publisher_date": "2024-07-19",
+    "observation_basis": "Parent /root directly inspected publisher web representation, line 99, on 2026-09-20 and supplied this observation. This file-only agent did not re-fetch the page.",
+    "crossref_online": {
+      "date-parts": [
+        [
+          2024,
+          9,
+          12
+        ]
+      ]
+    },
+    "crossref_print": {
+      "date-parts": [
+        [
+          2024,
+          11,
+          11
+        ]
+      ]
+    },
+    "crossref_raw_path": "results/s2_2026-09-19/primary_identity_review/crossref/10.1002__cctc.202400813.json",
+    "crossref_raw_sha256": "f4090ba9b68b17ee8c79de08dee1fe6c076fb02d9ee6218cd1b6ce7e40682c5b",
+    "status": "DATE_DISCREPANCY_RETAINED",
+    "interpretation": "The publisher observation precedes the registered Crossref online date 2024-09-12. Preserve both with labels; determine first publication from publisher version/history when resolving dates. Both fall within the frozen population window.",
+    "eligibility_change": false
+  },
+  "direct_si_access": {
+    "receipt_path": "results/s2_2026-09-20/primary_download_receipts/wiley_direct_supplement_receipts.json",
+    "receipt_sha256": "b6490c7a4f1cef6f65de65eba3913271b5902254cfb73b5229e3451e7d018b73",
+    "observations": [
+      {
+        "label": "inico_si",
+        "request_url": "https://chemistry-europe.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Fcctc.202400813&file=cctc202400813-sup-0001-misc_information.pdf",
+        "observed_from": "Official publisher Supporting Information link, web read 2026-09-20",
+        "requested_utc": "2026-09-19T22:05:28.154487-04:00",
+        "status": 403,
+        "error": "HTTP Error 403: Forbidden"
+      },
+      {
+        "label": "garcia_si",
+        "request_url": "https://chemistry-europe.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Fcctc.201100160&file=cctc_201100160_sm_miscellaneous_information.pdf",
+        "observed_from": "Official publisher Supporting Information link, web read 2026-09-20",
+        "requested_utc": "2026-09-19T22:05:29.348723-04:00",
+        "status": 403,
+        "error": "HTTP Error 403: Forbidden"
+      },
+      {
+        "label": "man_si",
+        "request_url": "https://chemistry-europe.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Fcctc.201000397&file=cctc_201000397_sm_miscellaneous_information.pdf",
+        "observed_from": "Official publisher Supporting Information link, web read 2026-09-20",
+        "requested_utc": "2026-09-19T22:05:30.502816-04:00",
+        "status": 403,
+        "error": "HTTP Error 403: Forbidden"
+      }
+    ],
+    "interpretation": "All three actually observed publisher action/downloadSupplement links returned 403. SI components remain unresolved-access. No bypass or paid fallback followed."
+  },
+  "method_coding_status": "NOT_CODED",
+  "final_eligibility_decision": null
+}

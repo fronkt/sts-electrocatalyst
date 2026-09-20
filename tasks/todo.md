@@ -1,5 +1,21 @@
 # STS 2027 — TODO
 
+## 2026-09-20 — Complete literature coverage
+
+Scope: finish the amended P-LIT discovery and primary-source coverage under the unchanged 2011-01-01–2026-09-18 population rule. Preserve every prior cache, source occurrence, conflicting identity and unknown. Completion requires database pagination integrity, complementary identities, primary eligibility decisions and one-generation reference discovery; methods stay uncoded until the candidate/inclusion lists are frozen. Work continues on available sources while respecting the provider-wide cooldown.
+
+- [x] Verify the resumed retrieval, preserve the new evidence and determine the exact remaining completeness gaps: 28,191 candidates archived; count drift and two interrupted streams remain explicit.
+- [ ] Reconcile complementary DOI/title/author identities and join all occurrences without dropping unresolved leads.
+- [ ] Review primary article/SI access, obtain legitimate available counterparts and retain version/access uncertainty.
+- [ ] Perform evidence-based eligibility triage and the registered one-generation reference pass; independently review decisions before freeze.
+- [ ] Resolve database count/identity drift using a separately recorded and tested continuation procedure if needed; retain the original stream results.
+- [ ] Verify and push completed coverage evidence; keep any genuinely unresolved provider or access dependency explicit and continue it through completion.
+
+
+### Literature progress review
+
+The reviewed batch retains all 120 complementary identities / 271 occurrences (103 resolved keys; 17 unresolved), ten independently reviewed eligibility cases (4 supported, 1 excluded, 5 unresolved), and 217 reference occurrences from four eligible base papers plus Xu SI. Three official supplements are now verified. The offline pagination plan passes 30 focused tests and preserves 64 date partitions; its live runner remains pending. The user chose scheduled quota resets; the existing collector waits until September 20 at 8 p.m. EDT and a daily 8:20 p.m. task follow-up continues the full work. See docs/research/literature-coverage-readout-2026-09-20.md. Overall coverage and population freeze remain open.
+
 ## 2026-09-19 — Offline research during the confirmed Anvil outage
 
 Scope: continue useful scientific and implementation work while Anvil is unavailable through the officially announced September 21, 8 p.m. EDT endpoint (https://rcac.purdue.edu/news/7788). Preserve the queued array, frozen diagnostic physical parameters and active literature continuation; no new compute or method coding in this pass.
