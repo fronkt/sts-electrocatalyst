@@ -1,0 +1,269 @@
+{
+  "schema": "p-lit-reconciliation-live-independent-review-v1",
+  "reviewed_utc": "2026-09-21T00:56:34Z",
+  "status": "PASS_WITH_ENUMERATION_INCOMPLETE",
+  "pass_id": "027b0610c21a4b429d76a8fdffa15c9e",
+  "scope": "File-only independent review of the first live reconciliation pass. No retrieval, subprocess collector, provider request, source edit, or scientific coding was performed by this review.",
+  "findings": [],
+  "operation_status": "DEFERRED_API_BUDGET",
+  "requests_this_pass": 19,
+  "successful_pages": 18,
+  "transport_failures": 1,
+  "validated_leaves": 3,
+  "leaf_partitions": 64,
+  "next_allowed_utc": "2026-09-22T00:00:00.430096+00:00",
+  "page_and_boundary_audit": {
+    "issues": [],
+    "external_manifest_sha256": "d3d361e0268edc1e56499222695c99ff9d7ab60b736851d89903946c58015cec",
+    "pins": {
+      "runner_sha256": {
+        "sha256": "6ecd9129850d4c3d36569bf8003a3edd8c7e48d1cfe1c68036ea99d210f8e37b",
+        "matches_all": true
+      },
+      "quota_sha256": {
+        "sha256": "57e4199879b1f1ff34c327be34fadd8402f02f67dbee9865d76f5a22536a338c",
+        "matches_all": true
+      },
+      "engine_sha256": {
+        "sha256": "824e5218744e4af1182a21db4bcb43c3dd9e0ae7885ed7581bfc3dee4bbdef19",
+        "matches_all": true
+      },
+      "planner_sha256": {
+        "sha256": "b6dac6d110389051c2ffc240b056b071c28dccc1baa0a62aaffec9028bb57d73",
+        "matches_all": true
+      },
+      "plan_sha256": {
+        "sha256": "2e9f5344375671d9e302c9b0f8eab74572859b3b97f662d441581a9534e5e95e",
+        "matches_all": true
+      },
+      "old_inventory_sha256": {
+        "sha256": "68fb1a680325b6c8a509e27b7bb3d25cc61ef4f545fd801e3968248205fdb8af",
+        "matches_all": true
+      }
+    },
+    "artifacts": {
+      "identity_reconciliation.json": {
+        "sha256": "7e741d0a053547ba9da1e372f64211b0645d4798571c926a6353ff23bafa2375",
+        "matches": true
+      },
+      "partition_reports.json": {
+        "sha256": "5cd22d797288a4d41304f561e43a4358385cb1aecd6a51471c9c22f414b53d47",
+        "matches": true
+      },
+      "leaf_validation.json": {
+        "sha256": "a19ffffdf2000d33c5e2be5aed3dcba9819104e524908b40ddb40b40a07485c4",
+        "matches": true
+      }
+    },
+    "summary_sha256": "d9a3cf995d5b6701cc6a311225346a34136783399708d2375013f3bfe15e2536",
+    "summary_and_last_pass_byte_equal_and_immutable_readout_semantically_equal": true,
+    "partition_reports": 64,
+    "successful_pages": 18,
+    "raw_records": 1697,
+    "query_identity_count": 1697,
+    "cross_leaf_reported_duplicates": 0,
+    "partition_checks": [
+      {
+        "partition_id": "q01_year_2011-01-01_2011-12-31",
+        "status": "VALIDATED_OBSERVED_PARTITION",
+        "pages": 4,
+        "raw_records": 365,
+        "unique_ids": 365,
+        "reported_totals": [
+          365
+        ],
+        "terminal_cursor_null": true,
+        "issues": [],
+        "preserved_failure_artifacts": []
+      },
+      {
+        "partition_id": "q01_year_2012-01-01_2012-12-31",
+        "status": "VALIDATED_OBSERVED_PARTITION",
+        "pages": 5,
+        "raw_records": 451,
+        "unique_ids": 451,
+        "reported_totals": [
+          451
+        ],
+        "terminal_cursor_null": true,
+        "issues": [],
+        "preserved_failure_artifacts": []
+      },
+      {
+        "partition_id": "q01_year_2013-01-01_2013-12-31",
+        "status": "VALIDATED_OBSERVED_PARTITION",
+        "pages": 6,
+        "raw_records": 581,
+        "unique_ids": 581,
+        "reported_totals": [
+          581
+        ],
+        "terminal_cursor_null": true,
+        "issues": [],
+        "preserved_failure_artifacts": []
+      },
+      {
+        "partition_id": "q01_year_2014-01-01_2014-12-31",
+        "status": "UNRESOLVED_PARTITION",
+        "pages": 3,
+        "raw_records": 300,
+        "unique_ids": 300,
+        "reported_totals": [
+          706
+        ],
+        "terminal_cursor_null": false,
+        "issues": [
+          "MISSING_TERMINAL_RECEIPT"
+        ],
+        "preserved_failure_artifacts": [
+          {
+            "path": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation\\raw\\openalex\\q01_year_2014-01-01_2014-12-31\\attempt_000001\\failures.jsonl",
+            "sha256": "67f26c5cc786fc87dedeb6ec072b4aa585a810684b13d7ac0a32a1a3c20f5dd7"
+          }
+        ]
+      }
+    ]
+  },
+  "identity_and_cooldown_audit": {
+    "issues": [],
+    "old_identity_rows": 31429,
+    "retained_old_occurrences": 38127,
+    "union_identity_rows": 31429,
+    "new_occurrences_exactly_match_all_partition_reports": true,
+    "new_occurrences": 1697,
+    "old_only_ids": 29732,
+    "shared_ids": 1697,
+    "new_only_ids": 0,
+    "all_old_occurrence_objects_equal": true,
+    "old_unresolved_occurrences_unchanged": true,
+    "historical_broad_sources": {
+      "raw/openalex/q03/status.json": {
+        "sha256": "7e3b4ce8100abe385f6c3138496852343fd024667b3d66c6a4d19ccddc0f62db",
+        "unchanged": true
+      },
+      "raw/openalex/q04/status.json": {
+        "sha256": "e75239c66cd8960b09b1d2cc2aef330e501d56fd48da1d2f47bbce6cd38d7a39",
+        "unchanged": true
+      },
+      "raw/openalex/q02/status.json": {
+        "sha256": "6135626920ca0cb2c5498147e9492c40eab33e2f7b2ffb745f4e3225ad2dc951",
+        "unchanged": true
+      },
+      "search_spec.json": {
+        "sha256": "1542159934f84b9485c14781789f6e631dce18b26f0f54d37bf6d9a51102c4a8",
+        "unchanged": true
+      },
+      "candidates.jsonl": {
+        "sha256": "6830c14bce79e6f9edf562848f62ee8ab817226f016b461ceb2d46c3c71d83d4",
+        "unchanged": true
+      },
+      "search_readout.json": {
+        "sha256": "dc85ba26b1b753d57dad597717a6bad0dd7fd4ed4b21133bf2d80a617da8c371",
+        "unchanged": true
+      },
+      "raw/openalex/q01/status.json": {
+        "sha256": "89746dbdfb8b07c0bc8936fa04a9ef5331f9140c79ad7cebc050b4426b127ff6",
+        "unchanged": true
+      }
+    },
+    "cooldown": {
+      "history": [
+        {
+          "sha256": "76e7dd0aca69445010c655b792015cdea6953b554d355396d19baef0c7d7cf02",
+          "path": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation\\provider_cooldowns\\history\\76e7dd0aca69445010c655b792015cdea6953b554d355396d19baef0c7d7cf02.json"
+        },
+        {
+          "sha256": "981d1ca22792656e1758227606617c5c35840221e4f6e19a428f57b2cd25e309",
+          "path": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation\\provider_cooldowns\\history\\981d1ca22792656e1758227606617c5c35840221e4f6e19a428f57b2cd25e309.json"
+        },
+        {
+          "sha256": "bd0dd8f66dd60ba141f000e8712c15f0c03a5e85b975a179a8cc3c048e6256d4",
+          "path": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation\\provider_cooldowns\\history\\bd0dd8f66dd60ba141f000e8712c15f0c03a5e85b975a179a8cc3c048e6256d4.json"
+        },
+        {
+          "sha256": "76e7dd0aca69445010c655b792015cdea6953b554d355396d19baef0c7d7cf02",
+          "path": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-19\\literature_openalex_continuation\\provider_cooldowns\\history\\76e7dd0aca69445010c655b792015cdea6953b554d355396d19baef0c7d7cf02.json"
+        },
+        {
+          "sha256": "968239980d6c4a46056f05611f6cfea48a4a387bfa7362f14157a87b5c9f378a",
+          "path": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-19\\literature_openalex_continuation\\provider_cooldowns\\history\\968239980d6c4a46056f05611f6cfea48a4a387bfa7362f14157a87b5c9f378a.json"
+        },
+        {
+          "sha256": "981d1ca22792656e1758227606617c5c35840221e4f6e19a428f57b2cd25e309",
+          "path": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-19\\literature_openalex_continuation\\provider_cooldowns\\history\\981d1ca22792656e1758227606617c5c35840221e4f6e19a428f57b2cd25e309.json"
+        }
+      ],
+      "failure_ledger_rows": 1,
+      "failure_ledger_sha256": "67f26c5cc786fc87dedeb6ec072b4aa585a810684b13d7ac0a32a1a3c20f5dd7",
+      "current_sha256": "981d1ca22792656e1758227606617c5c35840221e4f6e19a428f57b2cd25e309",
+      "retry_after_boundary_exact": true,
+      "reason": "DEFERRED_API_BUDGET",
+      "transport_receipt_sha256": "b31171fcf0778d179394702d6c62247264cdb4ec037f649166275be3007cecb9",
+      "retry_after_seconds": 83442,
+      "local_and_shared_byte_equal": true,
+      "raw_body_sha256": "0cc424aa94c9935d32a03c603cba8a817496fe50234d56db24dcc5a617824759",
+      "failed_page": 4,
+      "next_allowed_utc": "2026-09-22T00:00:00.4300960+00:00",
+      "http_status": 429
+    },
+    "runtime": {
+      "receipt_sha256": "721da2f409c2e39c3393aeee78580ecf310cb2286ab13524ccd17fb5535317bd",
+      "banked_commit": "d3de0922be8342b4dba2cc3fbf0ff82790e8ed83",
+      "exit_code": 2,
+      "status": "FINISHED"
+    },
+    "collector_observation": {
+      "root_snapshot_sha256": "9e9fb5eeced0b57ffa72cda33f5544d62e5be1f8181b29ebf01aabb211fc213f",
+      "local_review_reconciliation_lock_present": false,
+      "root_snapshot": {
+        "reconciliation_lock_present": false,
+        "processes": [
+          {
+            "pid": 30280,
+            "present": false,
+            "process_name": null
+          },
+          {
+            "pid": 37648,
+            "present": false,
+            "process_name": null
+          },
+          {
+            "pid": 28468,
+            "present": false,
+            "process_name": null
+          }
+        ],
+        "provider_lock_present": false,
+        "checked_utc": "2026-09-21T00:51:39.082021Z"
+      },
+      "scope": "File-only audit plus root-observed process snapshot; no independent process enumeration.",
+      "local_review_provider_lock_present": false,
+      "root_snapshot_path": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\collector_process_snapshot.json"
+    }
+  },
+  "inventory_checks": {
+    "initial_partition_set_exact": true,
+    "partition_ids_unique": true,
+    "raw_page_files": 18,
+    "successful_receipt_files": 18,
+    "transport_failure_bodies": 1,
+    "actual_attempts_reconciled": true,
+    "summary_unchanged_through_review": true,
+    "summary_sha256": "d9a3cf995d5b6701cc6a311225346a34136783399708d2375013f3bfe15e2536"
+  },
+  "notes": [
+    "The first three q1 year partitions pass exact totals, raw count, unique provider identities, receipt hashes, cursor chains, ordered publication dates within bounds, and terminal cursor checks. Their raw counts are 365, 451, and 581.",
+    "Q1 year 2014 remains incomplete: 300 records from three pages against an observed total of 706. Page 4 was deferred. Its successful prefix, exact continuation cursor, failure ledger, HTTP 429 body, receipt, and cooldown history are retained.",
+    "Every old occurrence object and old query membership matches the frozen inventory. Every new occurrence matches the complete set of partition-report occurrences, with identity/date/raw-reference verification against all successful raw pages. No unstable parents occurred in this pass.",
+    "The mutable summary and last-pass pointer are byte-identical. The immutable pass readout uses different serialization bytes but is semantically identical.",
+    "Current source/plan/inventory hashes match the external v2 manifest, immutable run specification, and pass summary. The banked commit identity is supported by the root's preserved launch receipt; this file-only review did not execute Git.",
+    "The root-observed process snapshot confirms the three known collector PIDs were absent at 00:51:39Z. Both locks were independently absent during this file-only review; no independent operating-system process enumeration was performed.",
+    "Provider allowance is shared by the unkeyed public IP. The captured HTTP 429 body states exhausted budget and its Retry-After value exactly produces the preserved next-allowed boundary. No further request is justified before that boundary.",
+    "All 29,732 old-only provider IDs remain preserved candidates. Absence from this incomplete new enumeration is not exclusion."
+  ],
+  "recommended_next_step": "Resume the same pinned output after the shared provider boundary permits it, using the intact q1-2014 page-4 cursor. Keep all incomplete leaves and coverage-completion flags unresolved.",
+  "global_p_lit_complete": false,
+  "database_search_complete": false,
+  "inclusion_list_frozen": false
+}

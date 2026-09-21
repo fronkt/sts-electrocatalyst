@@ -4,7 +4,7 @@
 
 - [x] Inspect existing collector and cooldown; preserve its stopped state. Ten-pass supervisor stopped after HTTP 503 retries; 65 new candidates, coverage incomplete.
 - [x] Resume remaining broad-search pages within provider boundaries without a duplicate collector. All four cursors exhausted; 31,392 candidates / 38,127 occurrences; count drift remains.
-- [ ] Implement, independently review, test and bank the date-partition runner before its first request.
+- [x] Implement, independently review, test and bank the date-partition runner before its first request. Boundary d3de092; 87 tests and real-cache zero-request preflight passed; first live pass validated 3/64 partitions then deferred at public quota.
 - [ ] Extend and independently review one-generation references from Lim, Neto, Dickens and Lee.
 - [ ] Preserve new raw evidence, verify the readout and push the completed batch; retain all unresolved population/access gaps.
 

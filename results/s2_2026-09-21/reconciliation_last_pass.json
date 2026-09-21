@@ -1,0 +1,74 @@
+{
+  "schema": "p-lit-reconciliation-readout-v1",
+  "pass_id": "027b0610c21a4b429d76a8fdffa15c9e",
+  "updated_utc": "2026-09-21T00:49:22.984860+00:00",
+  "operation_status": "DEFERRED_API_BUDGET",
+  "requests_this_pass": 19,
+  "deferral": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-21T00:49:18.430096+00:00",
+    "evidence": {
+      "provider": "openalex",
+      "params": {
+        "search": "rutile oxygen evolution",
+        "filter": "from_publication_date:2014-01-01,to_publication_date:2014-12-31",
+        "sort": "publication_date:asc,display_name:asc",
+        "per_page": 100,
+        "cursor": "IlsxMzk0MTUwNDAwMDAwLCAncmVkdWN0aW9uIG9mIHRoZSB0aW8yXHUyMDEzeCBtZWx0aW5nIHRlbXBlcmF0dXJlIGluZHVjZWQgYnkgb3h5Z2VuIGRlZmljaWVuY3kgd2l0aCBpbXBsaWNhdGlvbnMgb24gZXhwZXJpbWVudGFsIGRhdGEgYWNjdXJhY3kgYW5kIHN0cnVjdHVyYWwgdHJhbnNpdGlvbiBwcm9jZXNzZXMnLCA5Ny4wLCAxOCwgJ2h0dHBzOi8vb3BlbmFsZXgub3JnL1cxNTkwNDI0NDczJ10i"
+      },
+      "at": "2026-09-21T00:49:18.430096+00:00",
+      "http_status": 429,
+      "raw_path": "transport_failures/d79cade72ecf4acd9382661a889ff70e.body",
+      "raw_sha256": "0cc424aa94c9935d32a03c603cba8a817496fe50234d56db24dcc5a617824759",
+      "response_headers": {
+        "date": "Mon, 21 Sep 2026 00:49:18 GMT",
+        "content-type": "application/json",
+        "retry-after": "83442"
+      },
+      "deferral": {
+        "reason": "DEFERRED_API_BUDGET",
+        "next_allowed_utc": "2026-09-22T00:00:00.430096+00:00"
+      }
+    },
+    "reason": "DEFERRED_API_BUDGET",
+    "next_allowed_utc": "2026-09-22T00:00:00.430096+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+  },
+  "leaf_status": "UNRESOLVED",
+  "leaf_partitions": 64,
+  "validated_leaves": 3,
+  "partition_reports": 64,
+  "old_occurrences": 38127,
+  "new_occurrences_including_unstable_parents": 1697,
+  "identity_counts": {
+    "old_unique": 31429,
+    "new_unique": 1697,
+    "union_unique": 31429
+  },
+  "artifacts": {
+    "partition_reports.json": {
+      "path": "passes/027b0610c21a4b429d76a8fdffa15c9e/partition_reports.json",
+      "sha256": "5cd22d797288a4d41304f561e43a4358385cb1aecd6a51471c9c22f414b53d47"
+    },
+    "leaf_validation.json": {
+      "path": "passes/027b0610c21a4b429d76a8fdffa15c9e/leaf_validation.json",
+      "sha256": "a19ffffdf2000d33c5e2be5aed3dcba9819104e524908b40ddb40b40a07485c4"
+    },
+    "identity_reconciliation.json": {
+      "path": "passes/027b0610c21a4b429d76a8fdffa15c9e/identity_reconciliation.json",
+      "sha256": "7e741d0a053547ba9da1e372f64211b0645d4798571c926a6353ff23bafa2375"
+    }
+  },
+  "pins": {
+    "runner_sha256": "6ecd9129850d4c3d36569bf8003a3edd8c7e48d1cfe1c68036ea99d210f8e37b",
+    "planner_sha256": "b6dac6d110389051c2ffc240b056b071c28dccc1baa0a62aaffec9028bb57d73",
+    "engine_sha256": "824e5218744e4af1182a21db4bcb43c3dd9e0ae7885ed7581bfc3dee4bbdef19",
+    "quota_sha256": "57e4199879b1f1ff34c327be34fadd8402f02f67dbee9865d76f5a22536a338c",
+    "plan_sha256": "2e9f5344375671d9e302c9b0f8eab74572859b3b97f662d441581a9534e5e95e",
+    "old_inventory_sha256": "68fb1a680325b6c8a509e27b7bb3d25cc61ef4f545fd801e3968248205fdb8af"
+  },
+  "global_p_lit_complete": false,
+  "database_search_complete": false,
+  "inclusion_list_frozen": false,
+  "limitation": "Observed cursor/count/identity consistency is not an immutable API snapshot or proof of global P-LIT completion. Equal date/title sort keys can tie; records and query membership can change without a count change."
+}
