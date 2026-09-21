@@ -51,8 +51,8 @@ deposit. This ledger tracks what exists and what is owed.
 | A6 | A0 cell scope + U-by-cell interaction | committed (2214b68); deposited in the combined A1–A7 record — 6A launch gate DISCHARGED | done 2026-08-16 |
 | A7 | P-PROJ, P-PLS, P-FLOOR-U, nine S0 capability gates, phase-reality ledger | drafted (d1032e5) + **DEPOSITED: 10.5281/zenodo.21963144** (restricted; flip to open at submission) | done 2026-08-16 |
 | **A8** | S3 protocol (off-plane = nosym + displacement, noinv pending S0(b), dy ladder, GATE-1 depth, CONFOUND rule, P-SYMCOV) + Anvil migration + measured cost + block 1C's σ_F instrument question | **ADOPTED + DEPOSITED 2026-08-23** — entrant reviewed docs/52 and adopted every drafted proposal; appended to docs/43 (2e61bf0, verified 1c09c38); **DOI 10.5281/zenodo.22072991**. Open in the deposited text: the A8.1/A8.5 AFM-scope line (gate-(h) HOLD), --bind-to, walltime value | Aug 24, before first S3 deck launches |
-| **A9** | external-census controls (P-CTRL as a gate: OC20 negative / in-house 9-of-9 + 0-of-11 positive), detector scope + authorship boundary, the Xu/Divanis/pymatgen/lit census deliverables, both outcomes pre-stated, scope limits | **ADOPTED + DEPOSITED 2026-08-23** — same version as A8, **DOI 10.5281/zenodo.22072991**; OC20 fixed to val_id first-500-lexical; z-gate withdrawn as correction of record. Open in the deposited text: CI mechanism, Xu repair (a)/(b), P-BUILDER values, P-LIT values, six-row displacement + claim sentence (Sep 20), molecule jobs | Aug 22 (**overdue**), before any corpus is parsed |
-| **A10** | BEEF row | NOT DRAFTED; gated on S0(a) | Sep 18 |
+| **A9** | external-census controls (P-CTRL as a gate: OC20 negative / in-house 9-of-9 + 0-of-11 positive), detector scope + authorship boundary, the Xu/Divanis/pymatgen/lit census deliverables, both outcomes pre-stated, scope limits | **ADOPTED + DEPOSITED 2026-08-23** — same version as A8, **DOI 10.5281/zenodo.22072991**; OC20 fixed to val_id first-500-lexical; z-gate withdrawn as correction of record. Open in the deposited text: CI mechanism, Xu repair (a)/(b), P-BUILDER values, P-LIT values, molecule jobs — the six-row displacement was resolved 2026-09-18 and the claim sentence of record was written 2026-09-21 (both below in this section) | Aug 22 (**overdue**), before any corpus is parsed |
+| **A10** | BEEF row | **ADOPTED 2026-09-21** by the A8 instrument (docs/43 AMENDMENT 10 and the dated addendum of 2026-09-21); the fourteen S5 decks ran on 2026-09-17, before adoption and before any deposit — a breach of the registered ordering, recorded as a correction of record in that addendum; P-BEEF stays a scored body row (CONFIRMED 3/3) carrying that correction; deposit: DOI A10-DEPOSIT-PENDING | Sep 18 (**missed**; adopted Sep 21) |
 | **S8 freeze** | melt-set predictions frozen before first melt | registered as rule (round-2 addendum ccb1806); deposit owed before first ingot | before first melt |
 
 **The binding sequence (updated 2026-08-16):** A1–A7 deposited as one restricted
@@ -74,6 +74,31 @@ not as a quotation. Registered in docs/43's dated addendum of 2026-09-05 (sessio
 **[EARLY CLAIM RE-TEST AND BODY ALLOCATION 2026-09-18]** — The completed, independently verified Xu census supports this bounded scientific claim: **A tested output detector identifies symmetry constraints concentrated in the four-layer subset of a complete 810-output adsorption corpus, while full-population counts reject the registered high-exposure prediction.** This replaces reliance on the unlanded-census premise above; the September 20 re-check remains scheduled. The [current scientific readout](research/s2-scientific-readout-2026-09-18.md) preserves all clause denominators, the held 10/10 named pairs, the failed Divanis prediction and incomplete auxiliary branches. S6 independently retains P-PLS 5/6 CONFIRMED and P-FLOOR-U 3/6 SCORED — MIDDLE BAND / NOT MET; neither revives the withdrawn 0.223 V / 25-times / 9 meV headline. No general coverage consequence enters the claim.
 
 The A9.4 body displacement is **P-SYMCOV to the appendix, P-XU to the body**. The six body rows are P7, P-PROJ, P-PLS, P-FLOOR-U, P-XU and P-BEEF; P-CTRL has no row. The combined P-XU failure stays in the body with its positive subclause. P-XU-SPAN, P-DIVANIS, P-BUILDER and P-LIT keep their appendix allocation regardless of outcomes. Pending literature coding, molecule references and Cr validation do not support the present central claim.
+
+**[CLAIM-SENTENCE RE-TEST 2026-09-21 — the Sep 20 check of docs/43:1932, run one day late]** — The
+entrant, in session 2026-09-21, ran the scheduled re-test against the 2026-09-19 worksheet
+(research/claim-sentence-retest-worksheet-2026-09-19.md) and the evidence audit
+(research/claim-evidence-audit-2026-09-19.md) and elected: (i) the claim sentence of record is
+**A tested output detector finds the detected symmetry locks, a lower bound, concentrated in the four-layer subset of a complete 810-output adsorption corpus, while full-population counts reject the registered high-exposure prediction.** It replaces the 2026-09-18 sentence above by one change, the verb, so that what is
+found is the detected (LOCKED) count, a lower bound on constrained outputs, and C10 cannot be misread.
+(ii) The central claim is scorable from S1 + S2 + S6 alone. (iii) No stage is cut: P-LIT, P-XU-SPAN and
+the Xu reference molecules stay appendix rows with their own dates, and P-LIT unlanded by Oct 15 becomes
+WITHDRAWN-UNSCORED with its date (A7.7). (iv) C9: no sentence of A9 or of either lit-sweep synthesis is
+reproduced; the phrase "high-exposure prediction" occurs in none of them (docs/43, docs/50, the round-1
+and round-2 syntheses; checked 2026-09-21). (v) Constraint verdicts: C1, C7, C8, C10, the
+exposure-versus-consequence rule (docs/43:1942) and graspability (docs/75:95-96) pass; C2, C3, C4 and C5
+are not engaged. Counts of record: 50 LOCKED outputs, all four-layer; 70/810 nontrivial headers, a
+separate count; final-force denominator 626 = 50 successes / 496 known failures / 80 unknowns; the two
+denominators are never fused. (vi) The A9.4 displacement is the 2026-09-18 allocation above (P-XU body,
+P-SYMCOV appendix), unchanged. The audit's limits travel with the sentence wherever it is reported: the
+four-layer concentration is an observed job-class association, not a controlled thickness effect; the
+fixed negative-control samples do not establish a universal zero false-positive rate; four of the ten
+named OH/OOH pairs fail the energy-usability gate. Nothing that landed between 2026-09-19 and
+2026-09-21 (the S8 ranking review, the literature reconciliation and backward-reference extension, the
+Cr relaxation array) enters this claim. Recorded as his instruction, not as a quotation, except the
+sentence itself, which is his sentence of record. Mirrored in docs/43's dated addendum of 2026-09-21,
+which also closes the "claim sentence (Sep 20)" item left open in the A9 adoption status (docs/43:1950)
+and in row A9 above.
 
 ---
 

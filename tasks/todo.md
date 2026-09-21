@@ -2741,3 +2741,13 @@ Scope: the parallel session stopped on usage after six pushed commits (4792397..
 - [ ] Melt-list dependencies after the readout: entrant's dated ranking-rule line, S8 freeze and deposit, weigh sheet. DFT generalization sized in the session report; decks only after the diagnostic fixes the clean-slab SCF recipe.
 
 Verification: pins for the reconciliation runner re-hashed against `reconciliation_launch_pins_v2.json` (all six match); launcher tests 40/40 and deck rebuild `--check` OK on this worktree; pinned launch paths identical to 4792397; no calculation restarted; no OpenAlex request made.
+
+## 2026-09-21 — The three entrant-owned items, done in one sitting (user: "Lets get the 3 things that are mine done right now")
+
+Scope: put each item in front of Frank as a decision with the facts attached, take his wording, land it in the doc, commit with explicit paths, push, deposit where the rule requires. Nothing launched on Anvil; nothing sent by email.
+
+- [ ] Sep 20 claim-sentence re-test: C9 verbatim comparison done and recorded; Frank's dated line in docs/45 (and the docs/43 pointer if the rule asks for one).
+- [ ] docs/88 A10 threshold slots: inventory (slot, quantity, value in use, source, outcome) shown to Frank; his wording landed in docs/88 and the mirrored banners; Zenodo version deposited, DOI recorded.
+- [ ] Recommenders / report / essays: rule text verified from the official source; project and educator recommender asks drafted as Gmail drafts (never sent); essay prompts and report rules recorded in docs/25; report source pack scoped (figures, numbers, sources), prose stays Frank's.
+
+Verification: each doc edit diffed before commit; deposit receipt recorded with DOI; drafts listed by draft id.

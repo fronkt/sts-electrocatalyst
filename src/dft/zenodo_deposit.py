@@ -53,11 +53,16 @@ API = "https://zenodo.org/api"
 # The concept record. Versions attach to THIS, not to any version DOI.
 CONCEPT_RECID = "21963143"
 # The most recently published version; the new version drafts off it.
-LATEST_PUBLISHED_RECID = "22213117"
+LATEST_PUBLISHED_RECID = "22304889"
 
 # repo path -> name the file carries in the deposit
 FILESET = [
-    ("docs/43-prereg-week1-factorial.md", "43-prereg-week1-factorial-A1-A13.md"),
+    ("docs/43-prereg-week1-factorial.md", "43-prereg-week1-factorial-A1-A13-plus-A10.md"),
+    ("docs/45-error-ledger.md", "45-error-ledger.md"),
+    ("docs/74-amendment-10-DRAFT.md", "74-amendment-10-DRAFT-v2-as-adopted-2026-09-21.md"),
+    ("docs/88-a10-signature-sheet-2026-09-05.md", "88-a10-signature-sheet-filled-2026-09-21.md"),
+    ("docs/research/research-decisions-2026-09-16.md", "research-decisions-2026-09-16.md"),
+    ("results/s5_beef_2026-09-17/readout.json", "s5_beef_readout_2026-09-17.json"),
     ("docs/77-amendment-12-pproj6-DRAFT.md", "77-amendment-12-pproj6-DRAFT.md"),
     ("docs/79-hp-cro2-ortho-readout-2026-09-04.md", "79-hp-cro2-ortho-readout-2026-09-04.md"),
     ("docs/80-own-u-arm-killtest-2026-09-04.md", "80-own-u-arm-killtest-2026-09-04.md"),
