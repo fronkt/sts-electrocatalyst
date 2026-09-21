@@ -10,6 +10,10 @@ ase>=3.23
 # repo-tests CI job errors at collection (38 of 38 runs red, 2026-08-27 .. 2026-09-05).
 pymatgen>=2024.1.27
 pytest>=7.4
+# src/dft/lowtail_launch_ops.py, src/s2/lowtail_dft/lt_anvil_snapshot.py and
+# src/dft/lowtail_slab_scf_diag_launch.py import paramiko at module level; without it
+# three launcher test modules error at collection (repo-tests red since 2026-09-18).
+paramiko>=3.4
 
 # Optional — real adsorption-energy backend (needs GPU; run on Vast.ai):
 #   uv pip install fairchem-core   # + accept UMA license + huggingface-cli login
