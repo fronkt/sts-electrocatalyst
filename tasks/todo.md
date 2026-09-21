@@ -1,5 +1,13 @@
 # STS 2027 — TODO
 
+## 2026-09-21 — Resume literature coverage after the provider reset
+
+- [x] Inspect existing collector and cooldown; preserve its stopped state. Ten-pass supervisor stopped after HTTP 503 retries; 65 new candidates, coverage incomplete.
+- [x] Resume remaining broad-search pages within provider boundaries without a duplicate collector. All four cursors exhausted; 31,392 candidates / 38,127 occurrences; count drift remains.
+- [ ] Implement, independently review, test and bank the date-partition runner before its first request.
+- [ ] Extend and independently review one-generation references from Lim, Neto, Dickens and Lee.
+- [ ] Preserve new raw evidence, verify the readout and push the completed batch; retain all unresolved population/access gaps.
+
 ## 2026-09-20 — Complete literature coverage
 
 Scope: finish the amended P-LIT discovery and primary-source coverage under the unchanged 2011-01-01–2026-09-18 population rule. Preserve every prior cache, source occurrence, conflicting identity and unknown. Completion requires database pagination integrity, complementary identities, primary eligibility decisions and one-generation reference discovery; methods stay uncoded until the candidate/inclusion lists are frozen. Work continues on available sources while respecting the provider-wide cooldown.

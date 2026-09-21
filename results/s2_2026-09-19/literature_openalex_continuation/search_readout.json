@@ -1,6 +1,6 @@
 {
   "schema": "p-lit-continuation-readout-v1",
-  "updated_utc": "2026-09-20T00:17:01.863163+00:00",
+  "updated_utc": "2026-09-21T00:28:19.773830+00:00",
   "streams": [
     {
       "database": "openalex",
@@ -190,7 +190,7 @@
           "occurrences": 2
         }
       ],
-      "updated_utc": "2026-09-20T00:14:01.115992+00:00"
+      "updated_utc": "2026-09-21T00:24:57.946750+00:00"
     },
     {
       "database": "openalex",
@@ -214,7 +214,7 @@
       "unresolved_provider_identity_records": 0,
       "duplicate_source_records": 0,
       "duplicate_provider_identifiers": [],
-      "updated_utc": "2026-09-20T00:16:40.342259+00:00"
+      "updated_utc": "2026-09-21T00:25:03.887651+00:00"
     },
     {
       "database": "openalex",
@@ -224,28 +224,31 @@
         "2011-01-01",
         "2026-09-18"
       ],
-      "status": "INCOMPLETE",
-      "pages": 8,
-      "returned_records": 800,
+      "status": "ENUMERATED_WITH_COUNT_DRIFT",
+      "pages": 52,
+      "returned_records": 5143,
       "reported_totals": [
         5138,
-        5143
+        5143,
+        5144
       ],
-      "termination": "REQUEST_OR_CACHE_FAILURE",
-      "last_retrieved_utc": "2026-09-20T00:16:58.440971+00:00",
-      "error_type": "DeferredRequest",
-      "error": "DEFERRED_API_BUDGET; see provider_cooldowns/openalex.json",
-      "indexed_source_records": 800,
-      "unique_provider_identifiers": 799,
+      "termination": "API_EXHAUSTED",
+      "last_retrieved_utc": "2026-09-21T00:26:42.429112+00:00",
+      "indexed_source_records": 5143,
+      "unique_provider_identifiers": 5141,
       "unresolved_provider_identity_records": 0,
-      "duplicate_source_records": 1,
+      "duplicate_source_records": 2,
       "duplicate_provider_identifiers": [
+        {
+          "identity": "https://openalex.org/W3027532774",
+          "occurrences": 2
+        },
         {
           "identity": "https://openalex.org/W4300772321",
           "occurrences": 2
         }
       ],
-      "updated_utc": "2026-09-20T00:16:59.603872+00:00"
+      "updated_utc": "2026-09-21T00:26:42.544872+00:00"
     },
     {
       "database": "openalex",
@@ -255,20 +258,26 @@
         "2011-01-01",
         "2026-09-18"
       ],
-      "status": "INCOMPLETE",
-      "pages": 1,
-      "returned_records": 100,
+      "status": "ENUMERATED_WITH_COUNT_DRIFT",
+      "pages": 39,
+      "returned_records": 3898,
       "reported_totals": [
-        3892
+        3892,
+        3897
       ],
-      "termination": "CACHED_PREFIX_VERIFIED",
-      "last_retrieved_utc": "2026-09-18T04:34:56.440536+00:00",
-      "indexed_source_records": 100,
-      "unique_provider_identifiers": 100,
+      "termination": "API_EXHAUSTED",
+      "last_retrieved_utc": "2026-09-21T00:28:15.583522+00:00",
+      "indexed_source_records": 3898,
+      "unique_provider_identifiers": 3897,
       "unresolved_provider_identity_records": 0,
-      "duplicate_source_records": 0,
-      "duplicate_provider_identifiers": [],
-      "updated_utc": "2026-09-20T00:12:44.635542+00:00"
+      "duplicate_source_records": 1,
+      "duplicate_provider_identifiers": [
+        {
+          "identity": "https://openalex.org/W2797023389",
+          "occurrences": 2
+        }
+      ],
+      "updated_utc": "2026-09-21T00:28:15.687486+00:00"
     }
   ],
   "discovery_databases": [
@@ -277,46 +286,19 @@
   "amended_protocol": true,
   "database_search_complete": false,
   "candidate_index": {
-    "candidates": 28191,
-    "candidates_with_metadata_variants": 35,
-    "source_occurrences": 29986,
+    "candidates": 31392,
+    "candidates_with_metadata_variants": 40,
+    "source_occurrences": 38127,
     "file": "candidates.jsonl",
-    "sha256": "08f78c3383415219592c04f5a1c0c8838b3042791d1fa5cea19b2d6c6bd0de4b"
+    "sha256": "6830c14bce79e6f9edf562848f62ee8ab817226f016b461ceb2d46c3c71d83d4"
   },
   "pipeline_sha256": "824e5218744e4af1182a21db4bcb43c3dd9e0ae7885ed7581bfc3dee4bbdef19",
   "pipeline_end_sha256": "824e5218744e4af1182a21db4bcb43c3dd9e0ae7885ed7581bfc3dee4bbdef19",
   "driver_sha256": "57e4199879b1f1ff34c327be34fadd8402f02f67dbee9865d76f5a22536a338c",
   "driver_end_sha256": "57e4199879b1f1ff34c327be34fadd8402f02f67dbee9865d76f5a22536a338c",
   "pipeline_status": "SOURCE_UNCHANGED",
-  "operation_status": "DEFERRED_API_BUDGET",
-  "deferral": {
-    "provider": "openalex",
-    "observed_utc": "2026-09-20T00:16:59.594195+00:00",
-    "evidence": {
-      "provider": "openalex",
-      "params": {
-        "search": "IrO2 oxygen evolution",
-        "filter": "from_publication_date:2011-01-01,to_publication_date:2026-09-18",
-        "per_page": 100,
-        "cursor": "IlsxMTIuNTU0ODYsIDE0NjM5NjE2MDAwMDAsICdodHRwczovL29wZW5hbGV4Lm9yZy9XMjQwMzExODUyMyddIg=="
-      },
-      "at": "2026-09-20T00:16:59.594195+00:00",
-      "http_status": 429,
-      "raw_path": "transport_failures/07c7b8ba42c346bf81b538b8d76425be.body",
-      "raw_sha256": "7084c9c9cc7a35036c1ea64cb4ce9b61e9581148fbe8387cec095dc94828c090",
-      "response_headers": {
-        "date": "Sun, 20 Sep 2026 00:16:59 GMT",
-        "content-type": "application/json",
-        "retry-after": "85381"
-      },
-      "deferral": {
-        "reason": "DEFERRED_API_BUDGET",
-        "next_allowed_utc": "2026-09-21T00:00:00.594195+00:00"
-      }
-    },
-    "reason": "DEFERRED_API_BUDGET",
-    "next_allowed_utc": "2026-09-21T00:00:00.594195+00:00"
-  },
+  "operation_status": "RETRIEVAL_PASS_ENDED",
+  "deferral": null,
   "inclusion_list_frozen": false,
   "methods_coded": 0,
   "limitations": [
