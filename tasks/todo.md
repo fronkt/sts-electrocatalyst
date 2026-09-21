@@ -2728,3 +2728,16 @@ Scope: the review addendum closed the Hubbard-occupation check (no plateau snaps
 - [ ] Readouts: diagnostic outcomes via `qe_relax_trace.py`; nine-leg array readout after 2026-09-22; Sep 20 dated line is the entrant's.
 
 Verification: deck rebuild byte-identical; spec pins current runner/validator hashes; no calculation restarted; census values unchanged; no melt selected, no claim sentence of record written.
+
+## 2026-09-21 — Review the parallel session's stopped work and continue it (user: "continue it; how long; candidates list soon; then generalization of DFTs")
+
+Scope: the parallel session stopped on usage after six pushed commits (4792397..4c3dd64) and one unpushed batch. Audit what landed, finish the interrupted batch, keep the two automated continuations alive, and give the timeline to the melt list.
+
+- [x] Audit: diagnostic launcher hardened and boundary moved to 4792397 (190 tests; wait deadline 2026-09-23 12:00 UTC); S8 and claim-evidence independent reviews banked; broad OpenAlex retrieval terminal on all four cursors (31,392 candidate keys, count drift unresolved); reconciliation runner banked d3de092, first live pass 3/64 leaves, quota boundary 2026-09-22 00:00 UTC; Codex daily 20:20 EDT automation `complete-literature-coverage` exists but depends on Codex usage.
+- [x] Finish the interrupted batch (312 occurrences from the 312 preserved groups; 205 intact records agree field for field, 0 mismatches; counts identical; boundary map 312/312; `backward_reference_index.py`, 5 tests): `results/s2_2026-09-21/backward_reference_extension/reference_occurrences.json.partial` was cut mid-write (312 group records intact, ~205 occurrence records complete); complete the occurrence index from the preserved groups with a field-for-field overlap check, structural verification, dated section in `docs/research/backward-reference-extension-2026-09-21.md`; commit with explicit paths and push.
+- [x] Reconciliation loop wrapper `src/s2/literature/reconcile_until_complete.py` (six offline tests) committed 8e0ccff; starting it in the isolated desktop was denied by the auto-mode classifier — start command recorded in the session report; session wake-up scheduled for 20:04 EDT.
+- [ ] Diagnostic launch after 2026-09-22 00:00 UTC: `wait` → `stage` → `submit` → `inspect` → `release` → `watch`, receipts under `results/lowtail_slab_scf_diag_2026-09-19/`; session wake-ups at 20:04 EDT (launch) and 04:33 EDT Sep 22 (watch). Array 20813525 untouched.
+- [ ] Nine-leg readout: collector pid 28636 alive with a stale observation during maintenance (window to 2026-09-28 23:50 UTC); legs 3–9 serial at concurrency one (observed 8.7 h adsorbate leg, 4.2 h failed clean-slab leg).
+- [ ] Melt-list dependencies after the readout: entrant's dated ranking-rule line, S8 freeze and deposit, weigh sheet. DFT generalization sized in the session report; decks only after the diagnostic fixes the clean-slab SCF recipe.
+
+Verification: pins for the reconciliation runner re-hashed against `reconciliation_launch_pins_v2.json` (all six match); launcher tests 40/40 and deck rebuild `--check` OK on this worktree; pinned launch paths identical to 4792397; no calculation restarted; no OpenAlex request made.
