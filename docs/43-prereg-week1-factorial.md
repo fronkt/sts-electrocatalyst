@@ -4563,7 +4563,7 @@ of the registered ordering, recorded as such; it is not a clarification.
 
 **4. Deposit.** Amendment 10, this addendum, docs/88, docs/74, the operating-decisions table, the error
 ledger and the S5 readout are deposited as a new restricted version of concept record 21963143:
-DOI A10-DEPOSIT-PENDING, from commit A10-COMMIT-PENDING.
+**DOI 10.5281/zenodo.22884160** (record 22884160, restricted; published 2026-09-21), files as the git blobs of commit cccdbc8, manifest at 27ced99 (docs/deposits/2026-09-21-A10.manifest.txt).
 
 # AMENDMENT 10 — 2026-09-21, adopted by the entrant, AFTER the fourteen S5 decks ran on 2026-09-17 (correction of record in the dated addendum of 2026-09-21)
 

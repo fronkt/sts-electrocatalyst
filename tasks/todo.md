@@ -2746,8 +2746,8 @@ Verification: pins for the reconciliation runner re-hashed against `reconciliati
 
 Scope: put each item in front of Frank as a decision with the facts attached, take his wording, land it in the doc, commit with explicit paths, push, deposit where the rule requires. Nothing launched on Anvil; nothing sent by email.
 
-- [ ] Sep 20 claim-sentence re-test: C9 verbatim comparison done and recorded; Frank's dated line in docs/45 (and the docs/43 pointer if the rule asks for one).
-- [ ] docs/88 A10 threshold slots: inventory (slot, quantity, value in use, source, outcome) shown to Frank; his wording landed in docs/88 and the mirrored banners; Zenodo version deposited, DOI recorded.
-- [ ] Recommenders / report / essays: rule text verified from the official source; project and educator recommender asks drafted as Gmail drafts (never sent); essay prompts and report rules recorded in docs/25; report source pack scoped (figures, numbers, sources), prose stays Frank's.
+- [x] Sep 20 claim-sentence re-test (run 2026-09-21): C9 clean ("high-exposure" in none of docs/43, docs/50, the two syntheses); sentence of record elected with the lower-bound verb; dated line in docs/45 §D, mirrored addendum in docs/43, A9/A10 rows updated (cccdbc8).
+- [x] docs/88 A10: 15 decisions / 17 slot positions filled by Frank's "Adopt as proposed" directive (A8 instrument), docs/74 appended to docs/43 as AMENDMENT 10 with annotated markers, S5 ordering breach recorded as a correction of record (P-BEEF stays scored); Zenodo version PUBLISHED 10.5281/zenodo.22884160 (draft 22884160, 12 files verified; commits cccdbc8, 421e4f0, 27ced99). docs/86/89/92 carry separate slot families (P-DIVANIS, RU-PP, HEA), not A10 mirrors — untouched.
+- [~] Recommenders / report / essays: educator rec already SUBMITTED (Lenfestey 2026-09-17); project rec open — Gmail drafts to Tackett (r3505741237403056344), Wang (r5222830703680462478), Eric Riesel (r-4044711013295709594, address unverified, `to` empty), parent facts sheet in Downloads; 2027 rule text verified from the seven official PDFs (scratchpad extracts); docs/25 2027 section + docs/report/source-pack pending the running pass; portal requests, sending, essays and report prose are Frank's.
 
 Verification: each doc edit diffed before commit; deposit receipt recorded with DOI; drafts listed by draft id.

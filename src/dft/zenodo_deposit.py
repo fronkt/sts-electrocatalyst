@@ -53,7 +53,7 @@ API = "https://zenodo.org/api"
 # The concept record. Versions attach to THIS, not to any version DOI.
 CONCEPT_RECID = "21963143"
 # The most recently published version; the new version drafts off it.
-LATEST_PUBLISHED_RECID = "22304889"
+LATEST_PUBLISHED_RECID = "22884160"
 
 # repo path -> name the file carries in the deposit
 FILESET = [
