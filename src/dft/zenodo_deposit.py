@@ -151,12 +151,13 @@ def cmd_manifest(commit):
 
     date = subprocess.run(["git", "-C", ROOT, "log", "-1", "--format=%cs", commit],
                           check=True, stdout=subprocess.PIPE).stdout.decode().strip()
-    out = os.path.join(ROOT, "docs", "deposits", f"{date}-A13.manifest.txt")
+    out = os.path.join(ROOT, "docs", "deposits", f"{date}-A10.manifest.txt")
     lines = [
-        f"# Zenodo deposit fileset manifest -- {date} A12+A12b+A13 deposit (A12-A13.DEP)",
+        f"# Zenodo deposit fileset manifest -- {date} A10 deposit (adopted 2026-09-21 by the A8 instrument;"
+        f" the S5 decks ran 2026-09-17 before adoption and deposit -- correction of record in docs/43)",
         f"# All files: the GIT-BLOB (LF) serialization at commit {commit}. Not the CRLF"
         f" working tree; the two differ by one CR per line on the authoring machine."
-        f" Deposit name for docs/43: 43-prereg-week1-factorial-A1-A13.md",
+        f" Deposit name for docs/43: 43-prereg-week1-factorial-A1-A13-plus-A10.md",
         "# columns: bytes  md5  sha256  repo-path",
     ]
     for n, m, s, path, _name in rows:
@@ -241,9 +242,9 @@ def cmd_upload(commit):
             "title": (
                 "Pre-registration record, DFT error-budget campaign "
                 "(sts-electrocatalyst): Week-1 factorial, Hessian test, U gate "
-                "— Amendments 1-13 (A10 pending) + the Hubbard-projector arms, "
-                "frozen 2026-09-04"),
-            "version": "A1-A13",
+                "— Amendments 1-13 complete (A10 adopted 2026-09-21) + the "
+                "Hubbard-projector arms, frozen 2026-09-21"),
+            "version": "A1-A13-plus-A10",
             "upload_type": "publication",
             "publication_type": "other",
             "access_right": "restricted",
@@ -288,7 +289,24 @@ def cmd_upload(commit):
                 "text. Files are the git-blob (LF) serialization of commit "
                 "72aeee9 (branch r0-catalysis-revival); per-file md5 and sha256 "
                 "manifest committed in-repo at "
-                "docs/deposits/2026-09-04-A13.manifest.txt.</p>"),
+                "docs/deposits/2026-09-04-A13.manifest.txt.</p>"
+                "<p>New version, 2026-09-21: Amendment 10 (the S5 BEEF-vdW σ row: "
+                "what σ_BEEF(η) is, Ladder B with the < 0.25 V / ≥ 0.30 V bands, the "
+                "descriptive U-sensitivity comparison, scope label XC-only "
+                "non-magnetic Ru/Ir/Ti, no Cr extension), adopted by the entrant on "
+                "2026-09-21 by the same instrument as Amendment 8 (the fifteen "
+                "operating decisions adopted as proposed; signature sheet docs/88 "
+                "filled), together with the dated claim-sentence re-test line of "
+                "2026-09-21 (the sentence of record and its constraint verdicts) and "
+                "the error ledger. RECORDED DEPARTURE: the fourteen S5 decks ran on "
+                "2026-09-17, before Amendment 10 was adopted and before this deposit, "
+                "and their result (P-BEEF CONFIRMED 3/3) was known when the amendment "
+                "was adopted; the thresholds stood in written draft before the run "
+                "and were not changed after it; the departure is stated in the "
+                "document at the dated addendum of 2026-09-21. Files are the "
+                "git-blob (LF) serialization of commit cccdbc8 (branch "
+                "r0-catalysis-revival); per-file md5 and sha256 manifest committed "
+                "in-repo at docs/deposits/2026-09-21-A10.manifest.txt.</p>"),
         }
     }
     api("PUT", f"{API}/deposit/depositions/{did}", data=meta)
