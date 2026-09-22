@@ -42,6 +42,8 @@ ARRAY_SPEC = Path("results/lowtail_dft_2026-09-18/launch_spec.json")
 EXCLUDE = "a024,a049,a050,a088,a196,a220,a223,a171,a120,a200"
 AUTHORIZATION = ("Entrant's election of 2026-09-22, from the session record: \"Restart from low state + seed two more\"; "
                  "A11.R3 dated line in docs/43, second addendum of 2026-09-22.")
+ARM_B_AUTHORIZATION = ("Entrant's election of 2026-09-22, from the session record: \"Both arms\"; A11.R3 dated line in "
+                       "docs/43, fourth addendum of 2026-09-22 (Arm B: planning 590 core-hours, ceiling 1,667.6, cap 1,664).")
 CU8 = "Cu8Cr23Mn35Co34__s20_site2"
 FE25 = "Fe25Co25Ni25Cr25__s2_site0"
 O_UNRECON_POSITIONS = Path("results/lowtail_low_state_restart_2026-09-22/o_unrecon_last_positions.txt")
@@ -92,6 +94,16 @@ BATCHES = {
                    seed="retained_cu8_o_unrecon", conv_thr="5.53d-8"),  # the killed relaxation's own last announced threshold
               dict(site=FE25, job="slab_g0__rho", source="slab__atomic.in", geometry="start",
                    seed="retained_fe25_slab_b010", conv_thr="8.08d-8")]),
+    # Arm B of the protocol experiment (fourth licensed line of 2026-09-22): the seeded relaxation of
+    # array 20851756 with the Hubbard occupations held for the first 15 iterations of every SCF.
+    "slab_relax_fixedns": dict(
+        res=Path("results/lowtail_low_state_restart_2026-09-22/fixedns"),
+        dst=Path("runs/hea/lowtail_low_state_restart_2026-09-22"),
+        manifest=Path("runs/m_lowtail_slab_relax_fixedns_2026-09-22.txt"),
+        slurm=Path("anvil/84_slab_relax_fixedns.slurm"), submit=Path("anvil/85_submit_slab_relax_fixedns.sh"),
+        kind="relax", concurrency=1, wall_minutes=780, scf_seconds=46000, log="slabrelaxfixedns",
+        jobs=[dict(site=CU8, job="slab_c5low__fixedns15", source="slab__atomic.in", geometry="cycle5",
+                   seed="low_state_cu8_slab", conv_thr=None, extra_electrons=("mixing_fixed_ns = 15",))]),
 }
 
 
@@ -113,7 +125,7 @@ def replace_positions(text: str, rows: list[str]) -> str:
     return head + "ATOMIC_POSITIONS angstrom\n" + "\n".join(out) + "\n" + tail
 
 
-def derive_leg(text: str, job: str, kind: str, geometry: str, conv_thr) -> str:
+def derive_leg(text: str, job: str, kind: str, geometry: str, conv_thr, extra_electrons=()) -> str:
     n = 0
     if kind != "relax":
         text, k = re.subn(r"calculation = 'relax'", "calculation = 'scf'", text); n += k
@@ -122,8 +134,9 @@ def derive_leg(text: str, job: str, kind: str, geometry: str, conv_thr) -> str:
     text, k = re.subn(r"prefix = '[^']*'", f"prefix = '{job}'", text); n += k
     if conv_thr is not None:
         text, k = re.subn(r"conv_thr = 1\.0d-6", f"conv_thr = {conv_thr}", text); n += k
+    extra = "".join("  " + line + "\n" for line in extra_electrons)
     text, k = re.subn(r"(  electron_maxstep = 300\n)",
-                      "  startingwfc = 'atomic+random'\n  startingpot = 'file'\n\\1", text); n += k
+                      "  startingwfc = 'atomic+random'\n  startingpot = 'file'\n" + extra + "\\1", text); n += k
     if k != 1:
         raise ValueError("electrons namelist anchor not unique")
     if geometry == "cycle5":
@@ -200,7 +213,7 @@ def build(check: bool) -> None:
             src = SRC / j["site"] / j["source"]
             text = src.read_text(encoding="utf-8")
             upf |= set(re.findall(r"[A-Za-z0-9_.+-]+\.(?:UPF|upf)", text))
-            deck = derive_leg(text, j["job"], b["kind"], j["geometry"], j["conv_thr"])
+            deck = derive_leg(text, j["job"], b["kind"], j["geometry"], j["conv_thr"], j.get("extra_electrons", ()))
             dst = b["dst"] / j["site"] / f"{j['job']}.in"
             write_or_check(dst, deck, check, seen)
             digest = hashlib.sha256(deck.encode("utf-8")).hexdigest()
@@ -215,8 +228,12 @@ def build(check: bool) -> None:
             files[str(dst).replace("\\", "/")] = digest
             manifest_rows.append(f"{rel_dir} {j['job']} .in {NK}")
         manifest = "\n".join([
-            f"# LICENSED 2026-09-22: {stage} — the entrant's election of 2026-09-22 (\"Restart from low state + seed two more\"),",
-            "# dated A11.R3 line in docs/43, second addendum of 2026-09-22. Densities seeded from retained save directories pinned by content;",
+            (f"# LICENSED 2026-09-22: {stage} — the entrant's election of 2026-09-22 (\"Both arms\"), Arm B of the protocol experiment,"
+             if stage == "slab_relax_fixedns" else
+             f"# LICENSED 2026-09-22: {stage} — the entrant's election of 2026-09-22 (\"Restart from low state + seed two more\"),"),
+            ("# dated A11.R3 line in docs/43, fourth addendum of 2026-09-22. Densities seeded from retained save directories pinned by content;"
+             if stage == "slab_relax_fixedns" else
+             "# dated A11.R3 line in docs/43, second addendum of 2026-09-22. Densities seeded from retained save directories pinned by content;"),
             "# executed by src/dft/research_batch_seeded.py; SCF iteration ceiling 126; no retries; a stopped leg is no result.",
             f"# SUBMIT WITH EXCLUDE={EXCLUDE}",
             "# NP=128 NCONC=1",
@@ -233,7 +250,7 @@ def build(check: bool) -> None:
         per_job_ceiling = round((b["scf_seconds"] + PROJECTION_SECONDS) * 128 / 3600, 1)
         spec = {
             "schema": "research-batch-2026-09-16", "np": 128, "exclusions": EXCLUDE,
-            "authorization": AUTHORIZATION,
+            "authorization": (ARM_B_AUTHORIZATION if stage == "slab_relax_fixedns" else AUTHORIZATION),
             "scope": ("Seeded numerical diagnostic under HEA-4 supervision; densities read by copy from retained scratch, "
                       "sources never written; arrays 20813525, 20840139 and 20845364 untouched. A converged relaxation "
                       "leg here is a numerical outcome for the stall question, not a census result or a claim."),
@@ -260,7 +277,9 @@ def build(check: bool) -> None:
         write_or_check(spec_path, spec_text, check, seen)
         spec_hash = hashlib.sha256(spec_text.encode("utf-8")).hexdigest()
         slurm, submit = wrappers(stage, spec_path, spec_hash, files[RUNNER], b["slurm"], b["log"],
-                                 "Low-state relaxation restart, 2026-09-22" if b["kind"] == "relax" else "Seeded SCFs on two more retained densities, 2026-09-22")
+                                 {"slab_relax_seeded": "Low-state relaxation restart, 2026-09-22",
+                                  "slab_relax_fixedns": "Arm B: low-state relaxation with mixing_fixed_ns = 15, 2026-09-22"
+                                  }.get(stage, "Seeded SCFs on two more retained densities, 2026-09-22"))
         write_or_check(b["slurm"], slurm, check, seen)
         write_or_check(b["submit"], submit, check, seen)
         receipts[stage] = {"spec_sha256": spec_hash, "runner_sha256": files[RUNNER], "jobs": len(jobs),
