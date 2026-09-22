@@ -1,0 +1,17 @@
+# Literature coverage progress — 2026-09-22
+
+**Pagination reconciliation is verified; full literature coverage remains open.** The recorded plan-v3 amendment completed all 64 date partitions in 414 pages. Independent raw-page recomputation and separate report/inventory review agree: 38,137 new source occurrences, 31,471 provider identities, all 31,429 old identities and all 38,127 old occurrence objects retained, and 42 new-only identities. No duplicate query/identity pairs or unresolved provider identities remain within this enumeration.
+
+The raw-row difference is accounted for: the old 38,127 rows contain 38,083 distinct query/identity pairs plus 44 duplicate occurrences. The new run contains those 38,083 pairs, 44 query memberships from the 42 new identities, and ten additional memberships across nine existing identities. Provider identities are not yet deduplicated scientific studies or eligible-paper counts.
+
+[Raw-page verification](../../results/s2_2026-09-22/raw_reconciliation_verification.json) checks every response hash, receipt, literal query, cursor chain, date interval, observed count and old/new identity occurrence. The [independent review](../../results/s2_2026-09-22/reconciliation_independent_review.json) confirms the pinned plans, inventory equivalence and accounting. Its two documentation corrections now qualify the cursor-failure diagnosis and report ten query gains across nine identities. There were no data defects.
+
+The old display-name cursor repeatedly failed with HTTP 400; its pages and failures remain evidence. Numeric secondary sorting under the dated plan-v3 amendment paginated successfully. No provider request was necessary in this verification pass, and no collector is running. The scheduled follow-up now continues source and eligibility work instead of relaunching completed or failed searches.
+
+The [raw-evidence archive](../../results/s2_2026-09-22/raw_evidence_archive/manifest.json) preserves every new response, receipt, failure, cooldown, pass readout and both latest full pass reports in hash-checked shards. Earlier unchanged evidence remains linked to the September 21 archive. Repeated intermediate derived reports stay locally available and are hash-indexed; their pinned raw inputs are preserved for recomputation.
+
+The [provider-identity handoff](../../results/s2_2026-09-22/identity_handoff/README.md) keeps all old candidate keys, every old/new occurrence and selected metadata variants, with the 42 new-only identities separately listed. It complements the existing eligibility subsets and complementary/reference indexes; it does not reverse their decisions or freeze the population.
+
+The [four-paper reference extension](backward-reference-extension-2026-09-21.md) now passes independent review: 312 citation groups across six article/SI bibliographies, including all 107 recovered occurrence records and 108 printed DOI transcriptions. These are citation groups, not unique or eligible papers. Lim's five declared supplemental files and Lee's supplement remain inaccessible; the Lee article remains a web-only transcription.
+
+Remaining work is cited-reference and complementary identity resolution, primary article/SI eligibility review across the full discovery union, one-generation references for any additional eligible base papers, and independent reconciliation before the registered candidate/inclusion freeze. All method-reporting fields remain NOT_CODED. No P-LIT proportion or verdict is available, and the daily continuation remains active.

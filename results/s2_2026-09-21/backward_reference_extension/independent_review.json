@@ -1,0 +1,345 @@
+{
+  "schema": "sts.p_lit.backward_reference_independent_review.v1",
+  "status": "PASS",
+  "scope": "Independent bounded review of the six preserved bibliography blocks, all 312 citation groups and occurrence records, the 107 recovered records, and the scope note. This is a discovery-integrity review, not discovered-work identity resolution, eligibility adjudication, method coding, recursive expansion, or global coverage certification.",
+  "reviewed_index": {
+    "path": "results/s2_2026-09-21/backward_reference_extension/reference_occurrences.json",
+    "sha256": "8a16a6216c0a1ad49e199fac93a37709c0e1e7569ea0115e6837412fea8388e5"
+  },
+  "independent_boundary_map": {
+    "path": "results/s2_2026-09-21/backward_reference_extension/reference_boundaries_independent.json",
+    "sha256": "38a2db6391b08847000cb23e57cae7cd41d596007cd86170531a06341886ab74"
+  },
+  "reviewed_scope_note": {
+    "path": "docs/research/backward-reference-extension-2026-09-21.md",
+    "sha256": "3cb588bbcb45fcfef3dbce12a9d5ceb7230899565d36970623b53f71ed99484e"
+  },
+  "counts": {
+    "source_documents": 6,
+    "base_papers": 4,
+    "citation_groups": 312,
+    "occurrence_records": 312,
+    "article_groups": 241,
+    "supplement_groups": 71,
+    "preserved_complete_occurrences_reported_by_structural_check": 205,
+    "recovered_occurrences_independently_read": 107,
+    "explicit_doi_occurrences": 108,
+    "unnumbered_lim_groups": 42,
+    "local_pdf_hashes_checked": 5,
+    "local_fulltext_hashes_checked": 5,
+    "raw_block_hashes_checked": 6
+  },
+  "per_document": [
+    {
+      "document": "neto2025_article",
+      "groups": 78,
+      "occurrences": 78,
+      "ordinal_sequence": "PASS"
+    },
+    {
+      "document": "dickens2017_article",
+      "groups": 54,
+      "occurrences": 54,
+      "ordinal_sequence": "PASS"
+    },
+    {
+      "document": "lim2021_article",
+      "groups": 42,
+      "occurrences": 42,
+      "ordinal_sequence": "PASS"
+    },
+    {
+      "document": "neto2025_si",
+      "groups": 67,
+      "occurrences": 67,
+      "ordinal_sequence": "PASS"
+    },
+    {
+      "document": "dickens2017_si",
+      "groups": 4,
+      "occurrences": 4,
+      "ordinal_sequence": "PASS"
+    },
+    {
+      "document": "lee2022_article",
+      "groups": 67,
+      "occurrences": 67,
+      "ordinal_sequence": "PASS"
+    }
+  ],
+  "checks": [
+    {
+      "id": "complete_boundaries",
+      "status": "PASS",
+      "evidence": "The independent map preserves all numbered sequences and all 42 Lim author-year groups; its raw spans reconstruct the six full blocks. Five local blocks match the complete bibliography intervals in the source texts. Lee is limited to the preserved web transcription."
+    },
+    {
+      "id": "exact_citation_text",
+      "status": "PASS",
+      "evidence": "Independently removed only observed page layout and web locator prefixes from each raw span. All 312 resulting texts match group bibliography_verbatim exactly; removal of only the leading reference label yields all 312 occurrence bibliography_verbatim fields exactly. Display whitespace normalization also agrees."
+    },
+    {
+      "id": "discovery_edges_and_locators",
+      "status": "PASS",
+      "evidence": "All parent DOIs, document IDs, group joins, ordinal sequences and occurrence locators agree. Local PDF pages were independently read from source-text page markers; Lee web lines and zero-based to one-based page conversion agree.",
+      "trailing_layout_span_extensions": [
+        "neto2025_article-ref-23",
+        "neto2025_article-ref-67",
+        "lim2021_article-ref-u06",
+        "neto2025_si-ref-20",
+        "neto2025_si-ref-28",
+        "neto2025_si-ref-35",
+        "neto2025_si-ref-50",
+        "neto2025_si-ref-59"
+      ]
+    },
+    {
+      "id": "literal_doi_provenance",
+      "status": "PASS",
+      "evidence": "All 108 explicit DOI source fragments occur literally in their own citation text and yield the recorded DOI under the stated whitespace/resolver-prefix/terminal-period rule. No unindexed DOI-like string occurs in the remaining citation texts. Parent DOI footer strings are excluded. DOI identity or validity is not established by this check."
+    },
+    {
+      "id": "source_evidence_pins",
+      "status": "PASS",
+      "evidence": "All 16 available PDF/fulltext/block hashes and all six access/protocol/base-eligibility evidence pins match their recorded values."
+    },
+    {
+      "id": "recovered_records",
+      "status": "PASS",
+      "evidence": "All 107 completed occurrence records were read, including Neto SI 32–67, Dickens SI 1–4, and Lee 1–67. Text, DOI provenance, layout handling, source links, statuses and locators agree with the frozen group evidence. Their empty flags lists remain historical; anomalies noted below are additive review observations."
+    },
+    {
+      "id": "false_label_traps",
+      "status": "PASS",
+      "evidence": "Dickens '(23), 32–34.' remains within reference 22 and true reference 23 starts with Rossmeisl on block line 74. Other journal-issue continuations and Neto (110)/(001)/(0001) surface labels remain inside their citations. Isolated O lines in chemical formulas remain intact; only the observed Neto footer O/P in groups 23/67 are layout."
+    },
+    {
+      "id": "lee_compound_and_page_boundary",
+      "status": "PASS",
+      "evidence": "Lee 44 retains both English and German journal statements under one printed label, without a unique-work or version-relation assertion. Lee 57 excludes the parent DOI/footer; Lee 58 starts at the literal mid-line [58] and retains its own printed 10.1021/acs.chemrev.1c00675."
+    },
+    {
+      "id": "scope_and_coding",
+      "status": "PASS",
+      "evidence": "All 312 occurrences remain discovery_generation=1, UNRESOLVED_NO_EXTERNAL_LOOKUP, NOT_SCREENED and NOT_CODED. No binary method codes or recursive source expansion appear. Counts describe citation groups/occurrences, not unique papers."
+    },
+    {
+      "id": "documentation_and_gaps",
+      "status": "PASS",
+      "evidence": "The scope note matches the counts, boundary traps, source identities, extraction limitations and access gaps. Lee local PDF/text hashes remain null; five Lim supplemental files and the Lee supplement remain uninspected. No full bundle, population freeze, P-LIT proportion or verdict is claimed."
+    }
+  ],
+  "recovered_record_observations": [
+    {
+      "occurrence_ids": [
+        "neto2025_si-ref-40"
+      ],
+      "observation": "No DOI is printed in this citation; the empty DOI list is correct despite DOI-rich neighboring entries.",
+      "action": "Keep unresolved; no DOI inference."
+    },
+    {
+      "occurrence_ids": [
+        "neto2025_si-ref-45",
+        "neto2025_si-ref-47",
+        "neto2025_si-ref-52",
+        "neto2025_si-ref-63",
+        "neto2025_si-ref-66"
+      ],
+      "observation": "DOIs wrap over extracted lines, including after punctuation or the resolver prefix. Source fragments retain the wraps and the recorded strings remove only extraction whitespace.",
+      "action": "No correction needed."
+    },
+    {
+      "occurrence_ids": [
+        "neto2025_si-ref-59",
+        "lim2021_article-ref-u27"
+      ],
+      "observation": "The same case-insensitive printed DOI has years 1996 and 1997 respectively. Both years remain literal, with no correction or identity merge; the earlier Lim flag already records the discrepancy.",
+      "action": "Resolve only in a later identity review."
+    },
+    {
+      "occurrence_ids": [
+        "dickens2017_si-ref-1",
+        "dickens2017_si-ref-3"
+      ],
+      "observation": "Extraction strings Well7Defined, Abild7Pedersen and BEEF7vdW remain literal. Campbell/Sellers has the short printed page field 6902.",
+      "action": "Do not treat these strings or the short page field as corrected bibliographic metadata."
+    },
+    {
+      "occurrence_ids": [
+        "lee2022_article-ref-17"
+      ],
+      "observation": "The Umicore URL retains its printed en dash and line wrap. The index does not claim a verified destination.",
+      "action": "Any later URL or identity normalization needs separate evidence."
+    },
+    {
+      "occurrence_ids": [
+        "lee2022_article-ref-35",
+        "lee2022_article-ref-44",
+        "lee2022_article-ref-58"
+      ],
+      "observation": "Journal/volume fields and incomplete title/page information remain as transcribed. Reference 44 has two journal statements; reference 58 has a DOI but no printed title in this block.",
+      "action": "Keep discovery status unresolved. The generic title_resolution_status field does not supply an absent title."
+    }
+  ],
+  "source_pin_checks": [
+    {
+      "sha256": "00322dede36527f6a74ad95e3e0412be16bf0d8ce371f5393cd225a6fb4ff801",
+      "path": "docs/research/papers/2026-09-20-access/neto2025_article.pdf",
+      "id": "neto2025_article",
+      "field": "source_pdf",
+      "matches": true
+    },
+    {
+      "sha256": "ca289fc15d48037b90692bf0cf74fd642b7a21d8a010d1e57fd6b337a949b2ef",
+      "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-priority-fulltexts\\neto2025.txt",
+      "id": "neto2025_article",
+      "field": "source_text",
+      "matches": true
+    },
+    {
+      "sha256": "a2ef9e5173c5c36d6037a7029d7da0505a19ec4453fa6ecdbec9ae22a7d83dab",
+      "path": "results/s2_2026-09-21/backward_reference_extension/neto2025_article_reference_block.txt",
+      "id": "neto2025_article",
+      "field": "reference_block",
+      "matches": true
+    },
+    {
+      "sha256": "a612bf9b89b23edc3aaa6c94aabea7a93be27dbf23b8e7012a1168ae93d9f028",
+      "path": "docs/research/papers/2026-09-20-access/dickens2017_article.pdf",
+      "id": "dickens2017_article",
+      "field": "source_pdf",
+      "matches": true
+    },
+    {
+      "sha256": "840315039e3c545405250448fae6a39326c5b205c6c3d7f646000cb2b0a3a3c8",
+      "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-lit-20260920-priority-fulltexts\\dickens2017.txt",
+      "id": "dickens2017_article",
+      "field": "source_text",
+      "matches": true
+    },
+    {
+      "sha256": "d4a807ae09a49019eca7deb535f5962053500f1e3dae7d71ed94947bdf52d28a",
+      "path": "results/s2_2026-09-21/backward_reference_extension/dickens2017_article_reference_block.txt",
+      "id": "dickens2017_article",
+      "field": "reference_block",
+      "matches": true
+    },
+    {
+      "sha256": "25ff0ba00a56c206a946a26904abe1640a84f4e819a6cbab56d2e456f61cb1b7",
+      "path": "docs/research/papers/2026-09-21-access/lim2021_article.pdf",
+      "id": "lim2021_article",
+      "field": "source_pdf",
+      "matches": true
+    },
+    {
+      "sha256": "a2cf6e910b2f6ab4d3dae03d799c2957033ad19e6f911044ecbb7cf535527d43",
+      "path": "C:/Users/frank/AppData/Local/Temp/sts-lit-20260921-fulltexts/lim2021_article.txt",
+      "id": "lim2021_article",
+      "field": "source_text",
+      "matches": true
+    },
+    {
+      "sha256": "023f609e85c9c5fdde05d68a49d7c643f3d43506cd10eabe44abc1b6a2c3cdcd",
+      "path": "results/s2_2026-09-21/backward_reference_extension/lim2021_article_reference_block.txt",
+      "id": "lim2021_article",
+      "field": "reference_block",
+      "matches": true
+    },
+    {
+      "sha256": "c3eb758b4de96fbe58e98c3e800eee42bdeb12dcadf1307f5285ae5c93783217",
+      "path": "docs/research/papers/2026-09-21-access/neto2025_si_59377566.pdf",
+      "id": "neto2025_si",
+      "field": "source_pdf",
+      "matches": true
+    },
+    {
+      "sha256": "6c39a40a12c53f8e3e40a21c062a29a29afea299e19465d6686afb40b9a972c7",
+      "path": "C:/Users/frank/AppData/Local/Temp/sts-lit-20260921-fulltexts/neto2025_si_59377566.txt",
+      "id": "neto2025_si",
+      "field": "source_text",
+      "matches": true
+    },
+    {
+      "sha256": "acc8eca5a6bbe35697ee3a92ee6b8fd078f3626d27ef7e584e65b726e07d8b2b",
+      "path": "results/s2_2026-09-21/backward_reference_extension/neto2025_si_reference_block.txt",
+      "id": "neto2025_si",
+      "field": "reference_block",
+      "matches": true
+    },
+    {
+      "sha256": "a566b21c49a5e95e0a29384490d093e0097686275ba683d43643f407e4dcd0a2",
+      "path": "docs/research/papers/2026-09-21-access/dickens2017_si_9118096.pdf",
+      "id": "dickens2017_si",
+      "field": "source_pdf",
+      "matches": true
+    },
+    {
+      "sha256": "78d6968653b303b5d4af80652b9d116a16a18abc39a3c528d74a589042decf5b",
+      "path": "C:/Users/frank/AppData/Local/Temp/sts-lit-20260921-fulltexts/dickens2017_si_9118096.txt",
+      "id": "dickens2017_si",
+      "field": "source_text",
+      "matches": true
+    },
+    {
+      "sha256": "cb06e2f3e63c7d784477bcdbf86ac907fb1a7fccc4c3ccb7ade3e285221f1167",
+      "path": "results/s2_2026-09-21/backward_reference_extension/dickens2017_si_reference_block.txt",
+      "id": "dickens2017_si",
+      "field": "reference_block",
+      "matches": true
+    },
+    {
+      "sha256": "db0d32b35cdaa7d088f765ece89a5c25711ca5fdd2ed2f2f9511af0e050e2b88",
+      "path": "results/s2_2026-09-21/backward_reference_extension/lee2022_article_reference_block.txt",
+      "id": "lee2022_article",
+      "field": "reference_block",
+      "matches": true
+    }
+  ],
+  "source_access_protocol_base_evidence_pins": [
+    {
+      "path": "results/s2_2026-09-21/primary_access/receipts.json",
+      "sha256": "6b022d34c4849e2d81170b6f50e793948d703a4960e00ed4c1ec62c998417689",
+      "matches": true
+    },
+    {
+      "path": "results/s2_2026-09-21/primary_access/lim_xml_links.json",
+      "sha256": "b13eb9a2f7689cfa0b5b51a9273ffcbf1aaae9166b62db69e9b5e544ce59df13",
+      "matches": true
+    },
+    {
+      "path": "results/s2_2026-09-21/primary_access/neto2025_figshare_30559998.json",
+      "sha256": "ee7abaa4d359731b26474cdd2349e9796886bdfa4f84c39c9a72dc0bf279db58",
+      "matches": true
+    },
+    {
+      "path": "results/s2_2026-09-21/primary_access/dickens2017_figshare_5318200.json",
+      "sha256": "7a15e56bd0bef0259cf5f453ae5ca8de733021fe7b2bf03ecb968601cefae0a9",
+      "matches": true
+    },
+    {
+      "path": "docs/research/s2-operating-decisions-2026-09-18.md",
+      "sha256": "3398598fe9f3fdeac417e448eb8f6922dd9d152eefa8fe995a9be0c0cf9b2a16",
+      "matches": true
+    },
+    {
+      "path": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json",
+      "sha256": "6001ae1e1538fbf7bfad1ad76f08aff7496250d6669a43026e89ecd24fedb4c5",
+      "matches": true
+    }
+  ],
+  "necessary_index_fixes": [],
+  "completeness_limits": [
+    "PASS applies only to the six preserved bibliography blocks.",
+    "The five Lim supplemental files and the Lee supplementary PDF remain uninspected; their reference contents are unknown.",
+    "Lee evidence is a preserved web transcription, not locally retained PDF bytes or visual inspection.",
+    "Exact agreement with extracted text does not establish printed-paper typography accuracy or cited-work identity.",
+    "312 occurrence records are not 312 unique works; Lee 44 alone preserves two printed journal statements.",
+    "No identity resolution, scientific eligibility decision, method coding, recursive discovery or global population freeze was performed."
+  ],
+  "network_requests": 0,
+  "coverage_complete": false,
+  "global_p_lit_complete": false,
+  "candidate_population_frozen": false,
+  "method_status": "NOT_CODED",
+  "reviewed_utc": "2026-09-22T05:46:29.8953727Z"
+}

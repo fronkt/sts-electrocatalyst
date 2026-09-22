@@ -1,12 +1,21 @@
 # STS 2027 — TODO
 
+## 2026-09-22 — Verify completed retrieval and continue literature coverage
+
+- [x] Verify the newer plan-v3 terminal run against all raw pages and prior identities; 414 pages and 64/64 partitions pass, all old identities/occurrences retained; v2 failures preserved.
+- [x] Finish independent review of the recovered 312-group reference extension; no index defects, supplement gaps remain.
+- [x] Preserve the new raw evidence and provider-identity handoff: 21 verified archive shards, 31,471 provider identities, all 31,392 prior candidate keys and 42 new identities; existing complementary/reference indexes remain separate.
+- [x] Update the stale follow-up, dated readout and verified backup; the follow-up now advances source/eligibility work. Population freeze and method coding remain open.
+
+Review: all 414 raw pages and 64 partitions independently recomputed; every old occurrence and identity retained. The 312-group reference index independently passes. Two wording findings were corrected; exact pinned plan/inventory bytes are preserved in Git. Full primary-source eligibility, cited-work identity and supplement coverage remain open. See docs/research/literature-coverage-readout-2026-09-22.md.
+
 ## 2026-09-21 — Resume literature coverage after the provider reset
 
 - [x] Inspect existing collector and cooldown; preserve its stopped state. Ten-pass supervisor stopped after HTTP 503 retries; 65 new candidates, coverage incomplete.
 - [x] Resume remaining broad-search pages within provider boundaries without a duplicate collector. All four cursors exhausted; 31,392 candidates / 38,127 occurrences; count drift remains.
 - [x] Implement, independently review, test and bank the date-partition runner before its first request. Boundary d3de092; 87 tests and real-cache zero-request preflight passed; first live pass validated 3/64 partitions then deferred at public quota.
-- [ ] Extend and independently review one-generation references from Lim, Neto, Dickens and Lee.
-- [ ] Preserve new raw evidence, verify the readout and push the completed batch; retain all unresolved population/access gaps.
+- [x] Extend and independently review the six accessible article/SI bibliographies from Lim, Neto, Dickens and Lee: 312 groups; unavailable supplements remain open.
+- [x] Preserve new raw evidence, verify the readout and push the completed batch; completed in the September 22 verification batch, with unresolved population/access gaps retained.
 
 ## 2026-09-20 — Complete literature coverage
 
@@ -16,7 +25,7 @@ Scope: finish the amended P-LIT discovery and primary-source coverage under the 
 - [ ] Reconcile complementary DOI/title/author identities and join all occurrences without dropping unresolved leads.
 - [ ] Review primary article/SI access, obtain legitimate available counterparts and retain version/access uncertainty.
 - [ ] Perform evidence-based eligibility triage and the registered one-generation reference pass; independently review decisions before freeze.
-- [ ] Resolve database count/identity drift using a separately recorded and tested continuation procedure if needed; retain the original stream results.
+- [x] Resolve observed database pagination/count/identity drift under the recorded plan-v3 amendment; 64/64 partitions verified, original streams and failures retained. Global coverage remains open.
 - [ ] Verify and push completed coverage evidence; keep any genuinely unresolved provider or access dependency explicit and continue it through completion.
 
 

@@ -1,0 +1,245 @@
+{
+  "schema": "p-lit-reconciliation-independent-review-v1",
+  "reviewed_utc": "2026-09-22T05:45:37Z",
+  "pass_id": "121b9b79443d427591d2c0adfd4a8ba5",
+  "status": "RETRIEVAL_RESULT_SUPPORTED_WITH_DOCUMENTATION_CORRECTIONS",
+  "scope": {
+    "performed": "Read-only local inspection and PowerShell aggregation of the pinned plans, inventories, source hashes, final partition reports, complete identity union, digests, pass records, and preserved v2 failure artifacts.",
+    "excluded": "No OpenAlex request, secret inspection, source edit, research/test program execution, or process launch. The root task separately owns executable raw-page hash, receipt-chain, count, and identity revalidation plus archival.",
+    "comparison": "The independent data checks here use full report/inventory objects and content hashes. They are not a substitute for the root's complete raw-page revalidation."
+  },
+  "data_findings": [],
+  "documentation_findings": [
+    {
+      "id": "D1",
+      "severity": "wording_correction",
+      "path": "docs/research/s2-literature-reconciliation-runner-2026-09-21.md",
+      "line": 76,
+      "issue": "The note isolates an apostrophe as the only cursor-tuple difference and describes the stalled leaf as permanent.",
+      "evidence": "The preserved run shows repeated Invalid cursor value responses under display_name sorting. Changing the secondary sort also changes ordering and cursor content, so the two-sort comparison does not isolate the apostrophe or establish a permanent provider failure.",
+      "requested_correction": "State that the returned display-name cursor repeatedly failed while numeric secondary sorting paginated successfully; the exact provider-side cause remains unconfirmed.",
+      "disposition": "Sent to root for documentation correction; no pinned executable changes requested."
+    },
+    {
+      "id": "D2",
+      "severity": "count_wording_correction",
+      "path": "docs/research/s2-literature-reconciliation-runner-2026-09-21.md",
+      "line": 80,
+      "issue": "The note says nine shared identities each match one additional query.",
+      "evidence": "Eight shared identities gain one query; https://openalex.org/W7213504828 gains queries 1 and 3 in addition to its old query 2. There are nine affected identities and ten added query memberships, with zero losses.",
+      "requested_correction": "Say nine shared identities gained ten query memberships in total, with no query losses.",
+      "disposition": "Sent to root for documentation correction; the underlying full identity union and digest lists are correct."
+    }
+  ],
+  "checks": {
+    "issues": [],
+    "old_inventory_sha256": "68fb1a680325b6c8a509e27b7bb3d25cc61ef4f545fd801e3968248205fdb8af",
+    "old_inventory_byte_identical_to_v2": true,
+    "plan_unchanged_fields": {
+      "terminal_rule": true,
+      "count_tolerance": true,
+      "date_window": true,
+      "page_size": true,
+      "queries": true,
+      "endpoint": true,
+      "refinement": true,
+      "provider": true,
+      "preserved_source": true
+    },
+    "sort": "publication_date:asc,cited_by_count:asc",
+    "exact_calendar_partitions": true,
+    "partition_issues": [],
+    "pins": {
+      "plan_sha256": {
+        "sha256": "b92e9de3f18f525e842808c52642aa2decb4a5a284112f5b231fc62c4788ce92",
+        "matches_manifest_run_spec_summary": true
+      },
+      "runner_sha256": {
+        "sha256": "6ecd9129850d4c3d36569bf8003a3edd8c7e48d1cfe1c68036ea99d210f8e37b",
+        "matches_manifest_run_spec_summary": true
+      },
+      "old_inventory_sha256": {
+        "sha256": "68fb1a680325b6c8a509e27b7bb3d25cc61ef4f545fd801e3968248205fdb8af",
+        "matches_manifest_run_spec_summary": true
+      },
+      "engine_sha256": {
+        "sha256": "824e5218744e4af1182a21db4bcb43c3dd9e0ae7885ed7581bfc3dee4bbdef19",
+        "matches_manifest_run_spec_summary": true
+      },
+      "planner_sha256": {
+        "sha256": "5a6c225b5b215d0bdaed2328a97b8b13347bf735de3a3ee76f70c8cb8d9f803e",
+        "matches_manifest_run_spec_summary": true
+      },
+      "quota_sha256": {
+        "sha256": "57e4199879b1f1ff34c327be34fadd8402f02f67dbee9865d76f5a22536a338c",
+        "matches_manifest_run_spec_summary": true
+      }
+    },
+    "launch_manifest_sha256": "6208913952d53e1bef505ee9b5537b5a1629afbfe17719b1aafe06f2509be10b",
+    "artifact_checks": {
+      "leaf_validation.json": {
+        "sha256": "a7de49afeb7566999a783a2116a0d817d78217802ba57981ab0d826bed378ac1",
+        "bytes": 52779633,
+        "matches_summary_and_digest": true
+      },
+      "identity_reconciliation.json": {
+        "sha256": "94368fa4e786e8710116b6b538bfbaa65844baed842e620d3972ed8a514e9c5c",
+        "bytes": 50157490,
+        "matches_summary_and_digest": true
+      },
+      "partition_reports.json": {
+        "sha256": "37027a8727b3493c2f14953c3aea4c8afd882df0ad4e14ccc771adb9b2f4cdb1",
+        "bytes": 24029262,
+        "matches_summary_and_digest": true
+      }
+    },
+    "reports": {
+      "pages": 414,
+      "rows": 38137,
+      "by_query": {
+        "1": {
+          "leaves": 16,
+          "rows": 22291,
+          "pages": 231
+        },
+        "2": {
+          "leaves": 16,
+          "rows": 6802,
+          "pages": 76
+        },
+        "3": {
+          "leaves": 16,
+          "rows": 5147,
+          "pages": 59
+        },
+        "4": {
+          "leaves": 16,
+          "rows": 3897,
+          "pages": 48
+        }
+      },
+      "terminal": 64,
+      "unique_registered_partitions": 64,
+      "count": 64
+    },
+    "identities": {
+      "old_unique_query_pairs": 38083,
+      "shared_ids": 31429,
+      "new_unique_query_pairs": 38137,
+      "unresolved_identity_occurrences": 0,
+      "gained_query_memberships": 10,
+      "changed_identities": [
+        {
+          "gained_queries": [
+            2
+          ],
+          "lost_queries": [],
+          "provider_id": "https://openalex.org/W2053869264"
+        },
+        {
+          "gained_queries": [
+            3
+          ],
+          "lost_queries": [],
+          "provider_id": "https://openalex.org/W2971224322"
+        },
+        {
+          "gained_queries": [
+            1
+          ],
+          "lost_queries": [],
+          "provider_id": "https://openalex.org/W2998068475"
+        },
+        {
+          "gained_queries": [
+            3
+          ],
+          "lost_queries": [],
+          "provider_id": "https://openalex.org/W3105524520"
+        },
+        {
+          "gained_queries": [
+            3
+          ],
+          "lost_queries": [],
+          "provider_id": "https://openalex.org/W4396722006"
+        },
+        {
+          "gained_queries": [
+            1
+          ],
+          "lost_queries": [],
+          "provider_id": "https://openalex.org/W7213441729"
+        },
+        {
+          "gained_queries": [
+            1
+          ],
+          "lost_queries": [],
+          "provider_id": "https://openalex.org/W7213461450"
+        },
+        {
+          "gained_queries": [
+            1,
+            3
+          ],
+          "lost_queries": [],
+          "provider_id": "https://openalex.org/W7213504828"
+        },
+        {
+          "gained_queries": [
+            1
+          ],
+          "lost_queries": [],
+          "provider_id": "https://openalex.org/W7213637605"
+        }
+      ],
+      "new_only_ids": 42,
+      "new_only_query_pairs": 44,
+      "lost_query_memberships": 0,
+      "new_repeated_same_query_occurrences": 0,
+      "shared_ids_with_query_changes": 9,
+      "old_ids": 31429,
+      "new_occurrences": 38137,
+      "old_occurrences": 38127,
+      "new_identity_digest_matches": true,
+      "new_ids": 31471,
+      "old_repeated_same_query_occurrences": 44,
+      "old_only_ids": 0
+    }
+  },
+  "preserved_v2": {
+    "status": "STOPPED_REPEATED_FAILURE",
+    "passes": 26,
+    "pass_record": "results/s2_2026-09-21/reconciliation_continuation_passes.json",
+    "pass_record_sha256": "71c9d04119cb959759aef08c96b2d55f036ba87717569625ba4d7adfddd8c087",
+    "failed_partition": "q01_year_2017-01-01_2017-12-31",
+    "first_page_and_receipt_present": true,
+    "repeated_page_2_error_bodies": 3,
+    "error_body_sha256": "255c80fd5d04c0fca45f1eb7630b61d1c08463b30b4d6f0ac1cbeeb9425cdacb",
+    "error_body": {
+      "error": "Pagination error.",
+      "message": "Invalid cursor value"
+    },
+    "failure_ledger_sha256": "7a44f00bde6331b414cc9c3f060f13ce26d1b5a8ebf958bd541b2579fafa6fdc",
+    "interpretation": "The failed v2 cursor chain remains preserved separately. No v2 pages were used as v3 observations in the reviewed final reports."
+  },
+  "reviewed_documents": {
+    "docs/research/s2-literature-reconciliation-runner-2026-09-21.md": "afed4cb10aaa8373b88fe1b5c60c82d2ead6a6584bdd159a32b84704675e4e50",
+    "results/s2_2026-09-22/reconciliation_final_pass/final_pass_digest.json": "88f1939a9bf657b00ced5987031a870830c4526fd7f919d3b36d5bbc32f6d5ce",
+    "results/s2_2026-09-22/reconciliation_final_pass/identity_reconciliation_digest.json": "4f02ab3b957c6654b3b955b927a937434b3fe669e0d295c7ba14a57206c0318b",
+    "results/s2_2026-09-22/reconciliation_continuation_passes.json": "322185ef7c93568dd11763968a96963201e7789840bd738657c0e93f091f3ced",
+    "results/s2_2026-09-22/reconciliation_plan/preparation_receipt.json": "bb5a50fdd7477ced6ea42ae73ea37ba52598dcc5f9e174d0e1a98cfcd5727ba5"
+  },
+  "scientific_interpretation": [
+    "The amended sort changes retrieval order, not the registered literal queries, date window, or eligibility population definition. Its operational effect does not guarantee an immutable database snapshot: citation counts and records can change during collection, and ties remain possible.",
+    "The final reports support observed consistency across the exact 64 complete calendar-year partitions, with 414 pages and 38,137 new occurrences. The root's independent raw-page revalidation remains the separate evidence for the underlying response chains.",
+    "Every one of the 31,429 old provider IDs remains in the new 31,471-ID union, and all 38,127 old occurrence objects are preserved. The 42 new-only IDs are candidate additions requiring ordinary identity/date and eligibility review, not automatic inclusions.",
+    "The old inventory has 38,083 unique query-ID pairs plus 44 repeated same-query occurrences. New-only IDs contribute 44 query memberships, and nine shared IDs gain ten more. Thus 38,127 - 44 + 44 + 10 = 38,137 new occurrences without any identity or query-membership loss.",
+    "The strongest supported claim is OBSERVED_PARTITION_ENUMERATION_CONSISTENT. This is neither an inclusion freeze nor a scientific proportion estimate. Known-source candidates, backward references, source-version/date reconciliation, primary-source eligibility, unresolved access, and independent coding remain separate coverage work.",
+    "The reviewed final summary correctly leaves global_p_lit_complete, database_search_complete, and inclusion_list_frozen false."
+  ],
+  "global_p_lit_complete": false,
+  "database_search_complete": false,
+  "inclusion_list_frozen": false
+}
