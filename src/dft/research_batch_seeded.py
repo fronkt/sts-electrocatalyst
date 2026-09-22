@@ -1,4 +1,8 @@
-"""Execute the exact approved September 16 fixed-geometry batches on Anvil.
+"""Execute approved fixed-geometry batches on Anvil, optionally seeded from a retained density.
+
+Sibling of research_batch.py, kept as its own pinned file so that the batches pinned to the
+original runner (the 2026-09-18 relaxation array and the 2026-09-19 diagnostic) keep their
+bytes; this file adds the content-pinned scratch seed (job field "scratch_source").
 
 The scheduler pins this file and the specification. No retries, relaxation,
 overwrites or scratch deletion occur here. A stopped SCF never becomes a result.
@@ -12,6 +16,7 @@ import math
 import os
 from pathlib import Path
 import re
+import shutil
 import signal
 import subprocess
 import sys
@@ -89,6 +94,22 @@ def validate(spec, root, stage, row=None, pseudo=None):
         scratch = directory / ("tmp_" + job["job"])
         if scratch.exists() or scratch.is_symlink():
             raise ValueError("prior scratch: " + str(scratch))
+        source = job.get("scratch_source")
+        if source is not None:
+            # A retained density from an earlier run seeds this job's scratch: pinned by
+            # content, copied never moved, refused on any drift before scratch exists.
+            save = within(root, source["save_dir"])
+            if save.is_symlink() or not save.is_dir():
+                raise ValueError("scratch source missing: " + str(source["save_dir"]))
+            if not {"charge-density.hdf5", "data-file-schema.xml"} <= set(source["files"]):
+                raise ValueError("scratch source must pin the density and its XML")
+            for name, expected in source["files"].items():
+                if "/" in name or "\\" in name or name in ("", ".", "..") or (save / name).is_symlink():
+                    raise ValueError("unsafe scratch source entry: " + str(name))
+                if digest(save / name) != expected:
+                    raise ValueError("scratch source file drifted: " + name)
+            if not re.search(r"(?m)^\s*startingpot\s*=\s*'file'", deck.read_text(encoding="utf-8")):
+                raise ValueError("scratch source pinned but the deck does not read it")
         if pseudo is not None:
             for name in set(re.findall(r"[A-Za-z0-9_.+-]+\.(?:UPF|upf)", text)):
                 if name not in spec["pseudo_md5"] or digest(pseudo / name, "md5") != spec["pseudo_md5"][name]:
@@ -115,6 +136,22 @@ def projection_check(text, nat):
     else:
         from projection_qc import projection_check as checked_projection
     return checked_projection(text, nat)
+
+
+def seed_scratch(source_dir, target_dir, expected):
+    """Copy the pinned save files into a fresh <job>.save; verify each byte stream twice."""
+    target_dir.mkdir()  # exclusive: a seeded directory is never overwritten
+    copied, total = {}, 0
+    for name, digest_expected in expected.items():
+        src, dst = source_dir / name, target_dir / name
+        if digest(src) != digest_expected:
+            raise ValueError("scratch source file drifted: " + name)
+        shutil.copyfile(src, dst)
+        if digest(dst) != digest_expected:
+            raise ValueError("scratch seed copy mismatch: " + name)
+        copied[name] = digest_expected
+        total += dst.stat().st_size
+    return {"save_dir": str(source_dir), "copied": copied, "bytes": total}
 
 
 def stop_process(process):
@@ -191,6 +228,9 @@ def run(spec, root, stage, row, pseudo, qe):
               "input_sha256": job["sha256"], "scratch_retained": str(scratch)}
     output = directory / (name + ".out")
     try:
+        if job.get("scratch_source") is not None:
+            record["scratch_source"] = seed_scratch(within(root, job["scratch_source"]["save_dir"]),
+                                                   scratch / (name + ".save"), job["scratch_source"]["files"])
         result = execute(base + [str(qe / "bin/pw.x"), "-nk", str(job["nk"]), "-in", str(runtime)],
                          output, directory, env, job["scf_seconds"], job.get("max_iterations"), scratch / (name + ".EXIT"))
         record["scf_process"] = result

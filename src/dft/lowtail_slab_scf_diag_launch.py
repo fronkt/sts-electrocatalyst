@@ -45,6 +45,7 @@ PYTHON = "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3"
 SPEC = "results/lowtail_slab_scf_diag_2026-09-19/launch_spec.json"
 SLURM = "anvil/76_slab_scf_diag.slurm"
 SUBMIT = "anvil/77_submit_slab_scf_diag.sh"
+RUNNER = "src/dft/research_batch.py"
 STAGE = "slab_scf_diag"
 JOB_NAME = "research-" + STAGE
 POPULATION = 5
@@ -445,7 +446,7 @@ def stage(client) -> None:
     sftp.close()
     for script in (SLURM, SUBMIT):
         receipt["checks"].append(command(client, ["bash", "-n", REMOTE + "/" + script]))
-    receipt["checks"].append(command(client, [PYTHON, REMOTE + "/src/dft/research_batch.py", "--spec", REMOTE + "/" + SPEC,
+    receipt["checks"].append(command(client, [PYTHON, REMOTE + "/" + RUNNER, "--spec", REMOTE + "/" + SPEC,
                                               "--root", REMOTE, "--stage", STAGE, "--pseudo", PROJECT + "/pseudo", "--preflight"]))
     assert_pins(pins)
     write("transfer.json", receipt)
@@ -638,6 +639,7 @@ def add_batch_options(parser) -> None:
     parser.add_argument("--slurm", default=None, help="repository-relative slurm wrapper")
     parser.add_argument("--submit", default=None, help="repository-relative submit script")
     parser.add_argument("--stage", default=None, help="stage name inside the specification")
+    parser.add_argument("--runner", default=None, help="repository-relative batch runner the wrappers execute")
     parser.add_argument("--population", type=int, default=None, help="exact number of array tasks")
 
 
@@ -647,7 +649,7 @@ def configure(argv) -> None:
     opts, _ = pre.parse_known_args(argv)
     if opts.results is not None:
         globals()["RESULTS"] = ROOT / portable(opts.results)
-    for key in ("spec", "slurm", "submit"):
+    for key in ("spec", "slurm", "submit", "runner"):
         if getattr(opts, key) is not None:
             globals()[key.upper()] = portable(getattr(opts, key))
     if opts.stage is not None:

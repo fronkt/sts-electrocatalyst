@@ -22,7 +22,7 @@ self-consistent solution exists; a KILLED receipt repeats the production conditi
 Numerical diagnostic only: no relaxed slab, adsorption reference or census result.
 
 Usage:
-    python src/dft/lowtail_slab_scf_restart.py           # build decks, manifest, spec, wrappers
+    python src/dft/lowtail_slab_scf_restart.py           # build decks, manifest, spec, wrappers (stage slab_scf_seeded)
     python src/dft/lowtail_slab_scf_restart.py --check   # verify a rebuild is byte-identical
 """
 from __future__ import annotations
@@ -33,17 +33,25 @@ import json
 import re
 from pathlib import Path
 
-from lowtail_slab_scf_diag import (BASE_SPEC, CONCURRENCY, MAX_ITERATIONS, NK, PINNED_HELPERS, POSITIONS,
+from lowtail_slab_scf_diag import (BASE_SPEC, CONCURRENCY, MAX_ITERATIONS, NK, POSITIONS,
                                    PROJECTION_SECONDS, SCF_SECONDS, SRC, WALL_MINUTES, derive, sha,
                                    write_or_check)
 
 DST = Path("runs/hea/lowtail_slab_scf_restart_2026-09-22")
-RES = Path("results/lowtail_slab_scf_restart_2026-09-22")
-MANIFEST = Path("runs/m_lowtail_slab_scf_restart_2026-09-22.txt")
+RES = Path("results/lowtail_slab_scf_seeded_2026-09-22")
+MANIFEST = Path("runs/m_lowtail_slab_scf_seeded_2026-09-22.txt")
 SPEC = RES / "launch_spec.json"
-SLURM = Path("anvil/78_slab_scf_restart.slurm")
-SUBMIT = Path("anvil/79_submit_slab_scf_restart.sh")
-STAGE = "slab_scf_restart"
+SLURM = Path("anvil/78_slab_scf_seeded.slurm")
+SUBMIT = Path("anvil/79_submit_slab_scf_seeded.sh")
+STAGE = "slab_scf_seeded"
+# The seeded runner is its own pinned file; the original runner is pinned beside it unchanged
+# because the 2026-09-18 relaxation array and the 2026-09-19 diagnostic verify its bytes.
+RUNNER = "src/dft/research_batch_seeded.py"
+PINNED = [RUNNER, "src/dft/research_batch.py", "src/dft/projection_qc.py", "src/dft/hea_force_audit.py",
+          "src/dft/queue_r1.sh"]
+# Attempt 1 of this batch (stage slab_scf_restart, held job 20845265, never released) was withdrawn on
+# 2026-09-22 05:40 UTC because its wrappers executed src/dft/research_batch.py, whose bytes the running
+# relaxation array pins; its receipts stay under results/lowtail_slab_scf_restart_2026-09-22/.
 SITE = "Cu8Cr23Mn35Co34__s20_site2"
 DIAG_SPEC = Path("results/lowtail_slab_scf_diag_2026-09-19/launch_spec.json")
 
@@ -108,7 +116,7 @@ def build(check: bool) -> None:
         files[str(dst).replace("\\", "/")] = digest
         manifest_rows.append(f"{rel_dir} {job} .in {NK}")
     manifest = "\n".join([
-        "# LICENSED 2026-09-22: two discriminating fixed-geometry SCFs on the Cu8 clean-slab stall, from the retained density;",
+        "# LICENSED 2026-09-22: two discriminating fixed-geometry SCFs on the Cu8 clean-slab stall, from the retained density (attempt 2, seeded runner);",
         "# the entrant's election of 2026-09-22 (\"License both legs\"), dated A11.R3 line in docs/43, addendum of 2026-09-22.",
         "# Separate from arrays 20813525 and 20840139; cycle-5 coordinates; startingpot file (copied, pinned by content);",
         "# target 8.08e-8 Ry; ceiling 126 iterations / 7200 s; no retries; a stopped SCF is no result.",
@@ -117,7 +125,7 @@ def build(check: bool) -> None:
     ] + manifest_rows) + "\n"
     write_or_check(MANIFEST, manifest, check, seen)
     files[MANIFEST.as_posix()] = hashlib.sha256(manifest.encode("utf-8")).hexdigest()
-    for helper in PINNED_HELPERS:
+    for helper in PINNED:
         files[helper] = sha(Path(helper))
     for positions in (POSITIONS, POSITIONS.with_suffix(".json")):
         files[positions.as_posix()] = sha(positions)
@@ -153,7 +161,7 @@ def build(check: bool) -> None:
     spec_text = json.dumps(spec, indent=1) + "\n"
     write_or_check(SPEC, spec_text, check, seen)
     spec_hash = hashlib.sha256(spec_text.encode("utf-8")).hexdigest()
-    runner_hash = files["src/dft/research_batch.py"]
+    runner_hash = files[RUNNER]
     slurm = f"""#!/bin/bash
 # Discriminating SCFs from the retained density, 2026-09-22; scheduler resources set at submission.
 #SBATCH -p shared
@@ -167,7 +175,7 @@ set -euo pipefail
 [ "${{STAGE:-}}" = {STAGE} ] || exit 2
 ROOT="$PROJECT/sts"
 SPEC="$ROOT/{SPEC.as_posix()}"
-RUNNER="$ROOT/src/dft/research_batch.py"
+RUNNER="$ROOT/{RUNNER}"
 check_hash() {{ [ "$(sha256sum "$1" | awk '{{print $1}}')" = "$2" ] || {{ echo "REFUSE: hash $1"; exit 2; }}; }}
 check_hash "$SPEC" {spec_hash}
 check_hash "$RUNNER" {runner_hash}
@@ -183,7 +191,7 @@ export PROJECT=/anvil/projects/x-che260157
 export STAGE={STAGE}
 ROOT="$PROJECT/sts"
 SPEC="$ROOT/{SPEC.as_posix()}"
-RUNNER="$ROOT/src/dft/research_batch.py"
+RUNNER="$ROOT/{RUNNER}"
 PYTHON=/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3
 check_hash() {{ [ "$(sha256sum "$1" | awk '{{print $1}}')" = "$2" ] || {{ echo "REFUSE: hash $1"; exit 2; }}; }}
 check_hash "$SPEC" {spec_hash}
