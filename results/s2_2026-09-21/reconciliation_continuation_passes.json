@@ -1,0 +1,1237 @@
+{
+ "passes": [
+  {
+   "started_utc": "2026-09-22T00:00:30.431562+00:00",
+   "finished_utc": "2026-09-22T00:00:45.325156+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"REQUEST_FAILED\", \"requests_this_pass\": 1, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 3, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "RETRY_AFTER_IDLE",
+   "summary": {
+    "pass_id": "c86fb5a70ab94d5b836a98b2a2ebc3b2",
+    "operation_status": "REQUEST_FAILED",
+    "requests_this_pass": 1,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 3,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "c86fb5a70ab94d5b836a98b2a2ebc3b2",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-21T00:49:18.430096+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2014-01-01,to_publication_date:2014-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxMzk0MTUwNDAwMDAwLCAncmVkdWN0aW9uIG9mIHRoZSB0aW8yXHUyMDEzeCBtZWx0aW5nIHRlbXBlcmF0dXJlIGluZHVjZWQgYnkgb3h5Z2VuIGRlZmljaWVuY3kgd2l0aCBpbXBsaWNhdGlvbnMgb24gZXhwZXJpbWVudGFsIGRhdGEgYWNjdXJhY3kgYW5kIHN0cnVjdHVyYWwgdHJhbnNpdGlvbiBwcm9jZXNzZXMnLCA5Ny4wLCAxOCwgJ2h0dHBzOi8vb3BlbmFsZXgub3JnL1cxNTkwNDI0NDczJ10i"
+     },
+     "at": "2026-09-21T00:49:18.430096+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/d79cade72ecf4acd9382661a889ff70e.body",
+     "raw_sha256": "0cc424aa94c9935d32a03c603cba8a817496fe50234d56db24dcc5a617824759",
+     "response_headers": {
+      "date": "Mon, 21 Sep 2026 00:49:18 GMT",
+      "content-type": "application/json",
+      "retry-after": "83442"
+     },
+     "deferral": {
+      "reason": "DEFERRED_API_BUDGET",
+      "next_allowed_utc": "2026-09-22T00:00:00.430096+00:00"
+     }
+    },
+    "reason": "DEFERRED_API_BUDGET",
+    "next_allowed_utc": "2026-09-22T00:00:00.430096+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:15:45.326183+00:00",
+   "finished_utc": "2026-09-22T00:15:48.566280+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 1, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 3, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "dbe48c251cdf4940b5fa2cf0a5f590b5",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 1,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 3,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "dbe48c251cdf4940b5fa2cf0a5f590b5",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:15:46.458582+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2014-01-01,to_publication_date:2014-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxMzk0MTUwNDAwMDAwLCAncmVkdWN0aW9uIG9mIHRoZSB0aW8yXHUyMDEzeCBtZWx0aW5nIHRlbXBlcmF0dXJlIGluZHVjZWQgYnkgb3h5Z2VuIGRlZmljaWVuY3kgd2l0aCBpbXBsaWNhdGlvbnMgb24gZXhwZXJpbWVudGFsIGRhdGEgYWNjdXJhY3kgYW5kIHN0cnVjdHVyYWwgdHJhbnNpdGlvbiBwcm9jZXNzZXMnLCA5Ny4wLCAxOCwgJ2h0dHBzOi8vb3BlbmFsZXgub3JnL1cxNTkwNDI0NDczJ10i"
+     },
+     "at": "2026-09-22T00:15:46.458582+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/bbdd88ed61a14e9080da631d291d9ff7.body",
+     "raw_sha256": "e2853e1081387fb57084d3fbaa427c9e4dc1562c2af5ff09044420a58189aca6",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:15:46 GMT",
+      "content-type": "application/json",
+      "retry-after": "33"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:16:19.458582+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:16:19.458582+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:16:49.461122+00:00",
+   "finished_utc": "2026-09-22T00:16:59.246804+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 3, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 3, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "e68bfe40cca9421d8403267f523e5194",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 3,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 3,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "e68bfe40cca9421d8403267f523e5194",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:16:55.712561+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2014-01-01,to_publication_date:2014-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDA4NjY1NjAwMDAwLCAnZXN0dWRvIGRvIGRlc2VtcGVuaG8gZGUgZmlsbWVzIGRlIHRpMDIgY29tbyBhY2VwdG9yIGRlIGVsXHUwMGU5dHJvbnMgZSBvYnRlblx1MDBlN1x1MDBlM28gZGUgZmFzZXMgcHVyYXMgZGUgbmFub3BhcnRcdTAwZWRjdWxhcyBkZSB0aTAyOiBhbmF0YXNlIGUgcnV0aWxhLCBzaW50ZXRpemFkbyBwb3IgdW1hIG5vdmEgcm90YSBxdVx1MDBlZG1pY2EnLCAnLUluZmluaXR5JywgMCwgJ2h0dHBzOi8vb3BlbmFsZXgub3JnL1cxNTc5MTEwOTU2J10i"
+     },
+     "at": "2026-09-22T00:16:55.712561+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/5cdd73abe13e4bc3ac7509fdc4ef555d.body",
+     "raw_sha256": "aef6f67d9fb952150ada288c7cbb286b5f65bf40220e9dfd8545a0f1d0d6773e",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:16:55 GMT",
+      "content-type": "application/json",
+      "retry-after": "30"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:17:25.712561+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:17:25.712561+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:17:55.714637+00:00",
+   "finished_utc": "2026-09-22T00:17:59.468731+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 1, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 3, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "42d6895ff33c43349b7bdfccfcdb2f2e",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 1,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 3,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "42d6895ff33c43349b7bdfccfcdb2f2e",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:17:56.875777+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2014-01-01,to_publication_date:2014-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDA4NjY1NjAwMDAwLCAnZXN0dWRvIGRvIGRlc2VtcGVuaG8gZGUgZmlsbWVzIGRlIHRpMDIgY29tbyBhY2VwdG9yIGRlIGVsXHUwMGU5dHJvbnMgZSBvYnRlblx1MDBlN1x1MDBlM28gZGUgZmFzZXMgcHVyYXMgZGUgbmFub3BhcnRcdTAwZWRjdWxhcyBkZSB0aTAyOiBhbmF0YXNlIGUgcnV0aWxhLCBzaW50ZXRpemFkbyBwb3IgdW1hIG5vdmEgcm90YSBxdVx1MDBlZG1pY2EnLCAnLUluZmluaXR5JywgMCwgJ2h0dHBzOi8vb3BlbmFsZXgub3JnL1cxNTc5MTEwOTU2J10i"
+     },
+     "at": "2026-09-22T00:17:56.875777+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/e8ae7cba0e66408d9bdce171d8b77aaa.body",
+     "raw_sha256": "96197e453da746fbfca3a8fc80d52723b1a6f680e429cbdfc26ef1a199099f13",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:17:56 GMT",
+      "content-type": "application/json",
+      "retry-after": "34"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:18:30.875777+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:18:30.875777+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:19:00.882363+00:00",
+   "finished_utc": "2026-09-22T00:19:11.785991+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 3, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 3, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "07fd53e5ed984712b24f1d068f87eab1",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 3,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 3,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "07fd53e5ed984712b24f1d068f87eab1",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:19:07.607916+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2014-01-01,to_publication_date:2014-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDE5ODk3NjAwMDAwLCAnbWF0ZXJpYWxzIGRpcmVjdGVkIHRvIGltcGxhbnRzIGZvciByZXBhaXJpbmcgY2VudHJhbCBuZXJ2b3VzIHN5c3RlbScsICctSW5maW5pdHknLCAwLCAnaHR0cHM6Ly9vcGVuYWxleC5vcmcvVzEzMzkyOTA3NiddIg=="
+     },
+     "at": "2026-09-22T00:19:07.607916+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/5ae6be07c4d4415bb6a377eaf62127b2.body",
+     "raw_sha256": "4df46f850a56ed09566c367f6c0ab21b3401d9277cdf219621d9618afd79ae54",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:19:07 GMT",
+      "content-type": "application/json",
+      "retry-after": "31"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:19:38.607916+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:19:38.607916+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:20:08.608458+00:00",
+   "finished_utc": "2026-09-22T00:20:12.683638+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 1, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 3, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "b872b58929dc4982b6a605be8b68856e",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 1,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 3,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "b872b58929dc4982b6a605be8b68856e",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:20:09.793119+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2014-01-01,to_publication_date:2014-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDE5ODk3NjAwMDAwLCAnbWF0ZXJpYWxzIGRpcmVjdGVkIHRvIGltcGxhbnRzIGZvciByZXBhaXJpbmcgY2VudHJhbCBuZXJ2b3VzIHN5c3RlbScsICctSW5maW5pdHknLCAwLCAnaHR0cHM6Ly9vcGVuYWxleC5vcmcvVzEzMzkyOTA3NiddIg=="
+     },
+     "at": "2026-09-22T00:20:09.793119+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/076a7ec677c44e979963f0cd715e15a1.body",
+     "raw_sha256": "0e6c28b8ca41a4bd9036e69205e470eb446e5f52ddd6513d37c06f7fdbf430d4",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:20:09 GMT",
+      "content-type": "application/json",
+      "retry-after": "36"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:20:45.793119+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:20:45.793119+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:21:15.794148+00:00",
+   "finished_utc": "2026-09-22T00:21:23.350042+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 2, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 4, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "bcfd12eed8814a9994dfc2bbd2194ca8",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 2,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 4,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "bcfd12eed8814a9994dfc2bbd2194ca8",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:21:19.019519+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2015-01-01,to_publication_date:2015-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "*"
+     },
+     "at": "2026-09-22T00:21:19.019519+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/326faff5b1094e569f7d87a46c50b383.body",
+     "raw_sha256": "e2853e1081387fb57084d3fbaa427c9e4dc1562c2af5ff09044420a58189aca6",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:21:18 GMT",
+      "content-type": "application/json",
+      "retry-after": "33"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:21:52.019519+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:21:52.019519+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:22:22.020175+00:00",
+   "finished_utc": "2026-09-22T00:22:30.083075+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 2, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 4, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "e55dd02a79bf4d1f83ee1bd05499e7fc",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 2,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 4,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "e55dd02a79bf4d1f83ee1bd05499e7fc",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:22:25.795044+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2015-01-01,to_publication_date:2015-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDIwMDcwNDAwMDAwLCAnaW5mbHVlbmNlIG9mIHRpbzIgZW5naW5lZXJlZCBuYW5vcGFydGljbGVzIG9uIHBob3Rvc3ludGhldGljIGVmZmljaWVuY3kgYW5kIGNvbnRhbWluYW50IHVwdGFrZScsICctSW5maW5pdHknLCAzLCAnaHR0cHM6Ly9vcGVuYWxleC5vcmcvVzIxMTA5MDA1MDUnXSI="
+     },
+     "at": "2026-09-22T00:22:25.795044+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/c368b0252d4d42428e06adc047ab9883.body",
+     "raw_sha256": "4df46f850a56ed09566c367f6c0ab21b3401d9277cdf219621d9618afd79ae54",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:22:25 GMT",
+      "content-type": "application/json",
+      "retry-after": "31"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:22:56.795044+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:22:56.795044+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:23:26.796319+00:00",
+   "finished_utc": "2026-09-22T00:23:35.522685+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 3, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 4, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "4ef755a664dc4302a71a5d0d6697889e",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 3,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 4,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "4ef755a664dc4302a71a5d0d6697889e",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:23:33.390761+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2015-01-01,to_publication_date:2015-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDIzMjY3MjAwMDAwLCAnZ2VvbG9naWNhbCBjaGFyYWN0ZXJpc3RpY3MgYW5kIGdlbmVzaXMgb2YgdGhlIGp1cmFzc2ljIG5vLiBpIHBvcnBoeXJ5IGN1XHUyMDEzYXUgZGVwb3NpdCBpbiB0aGUgeGlvbmdjdW4gZGlzdHJpY3QsIGdhbmdkZXNlIHBvcnBoeXJ5IGNvcHBlciBiZWx0LCB0aWJldCcsIDEwMC4wLCAxMjcsICdodHRwczovL29wZW5hbGV4Lm9yZy9XMTk2OTgxODgxMSddIg=="
+     },
+     "at": "2026-09-22T00:23:33.390761+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/a3ca59ddf4f54c0789e209e89b1c0532.body",
+     "raw_sha256": "da102027542cf0dd8be8f9bb4d179ab434bb781cd9fa2afd0fc824e225ce79d4",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:23:33 GMT",
+      "content-type": "application/json",
+      "retry-after": "10"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:23:43.390761+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:23:43.390761+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:24:13.393614+00:00",
+   "finished_utc": "2026-09-22T00:24:32.157012+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 4, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 4, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "76d3f55f96504cfc95cb33fdddd61823",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 4,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 4,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "76d3f55f96504cfc95cb33fdddd61823",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:24:29.856586+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2015-01-01,to_publication_date:2015-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDQwMDI4ODAwMDAwLCAncGhvdG9jYXRhbHl0aWMgcmVkdWN0aW9uIGFuZCBveGlkYXRpb24gYWN0aXZpdGllcyBvZiBuYW5vc2hlZXRcdTIwMTBhc3NlbWJsZWQgYW5hdGFzZSB0aW8gMiBtaWNyb3NwaGVyZXMnLCA5NC4wLCAyLCAnaHR0cHM6Ly9vcGVuYWxleC5vcmcvVzE2MTQyNTEyNDcnXSI="
+     },
+     "at": "2026-09-22T00:24:29.856586+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/f2903c8c481740c48dad88bce4523364.body",
+     "raw_sha256": "da7f947137859b11df3267a4617c41739fade9d6b62c066645b2db75081ceae3",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:24:29 GMT",
+      "content-type": "application/json",
+      "retry-after": "12"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:24:41.856586+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:24:41.856586+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:25:11.859698+00:00",
+   "finished_utc": "2026-09-22T00:25:18.520699+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 2, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 4, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "20e9e6633899454dab20ab07c5a21751",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 2,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 4,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "20e9e6633899454dab20ab07c5a21751",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:25:16.148700+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2015-01-01,to_publication_date:2015-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDQ0MTc2MDAwMDAwLCAndGl0YW5pdW0gZGlveGlkZSBuYW5vcGFydGljbGUtYmFzZWQgaW50ZXJkaWdpdGF0ZWQgZWxlY3Ryb2RlczogYSBub3ZlbCBjdXJyZW50IHRvIHZvbHRhZ2UgZG5hIGJpb3NlbnNvciByZWNvZ25pemVzIGUuIGNvbGkgbzE1NzpoNycsIDk5LjAsIDY3LCAnaHR0cHM6Ly9vcGVuYWxleC5vcmcvVzIxOTk2NjQwNDEnXSI="
+     },
+     "at": "2026-09-22T00:25:16.148700+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/febafa7c58d0487a8606ad9222736e71.body",
+     "raw_sha256": "e2df1d1e5a392082c43f59eb8094ced4da7e1e1c8cdd7e685cec9c0084fe942b",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:25:16 GMT",
+      "content-type": "application/json",
+      "retry-after": "35"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:25:51.148700+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:25:51.148700+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:26:21.153232+00:00",
+   "finished_utc": "2026-09-22T00:26:33.036516+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 4, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 5, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "edc847fdc14948ed86ba5550cdd1f0e5",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 4,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 5,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "edc847fdc14948ed86ba5550cdd1f0e5",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:26:30.750473+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2016-01-01,to_publication_date:2016-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDUxNjA2NDAwMDAwLCAnZmFicmljYXRpb24gb2YgY29tcG9zaXRlIGVsZWN0cm9kZXMgYW5kIHN1cGVyY2FwYWNpdG9yIGRldmljZXMnLCAnLUluZmluaXR5JywgMiwgJ2h0dHBzOi8vb3BlbmFsZXgub3JnL1cyNDAxMzE3ODk5J10i"
+     },
+     "at": "2026-09-22T00:26:30.750473+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/50e1093c8d604a80aa747f1cca467a40.body",
+     "raw_sha256": "4df46f850a56ed09566c367f6c0ab21b3401d9277cdf219621d9618afd79ae54",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:26:30 GMT",
+      "content-type": "application/json",
+      "retry-after": "31"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:27:01.750473+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:27:01.750473+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:27:31.751368+00:00",
+   "finished_utc": "2026-09-22T00:27:40.623743+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 3, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 5, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "394a0a323fb341568d7e6c3beed786a0",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 3,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 5,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "394a0a323fb341568d7e6c3beed786a0",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:27:38.089868+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2016-01-01,to_publication_date:2016-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDUzMTYxNjAwMDAwLCAndHVuaW5nIGZ1bmN0aW9uYWxpdHkgb2YgcGhvdG9jYXRhbHl0aWMgbWF0ZXJpYWxzOiBhbiBpbmZyYXJlZCBzdHVkeSBvbiBoeWRyb2NhcmJvbiBveGlkYXRpb24nLCAnLUluZmluaXR5JywgMCwgJ2h0dHBzOi8vb3BlbmFsZXgub3JnL1cyNDgzNzg5OTcyJ10i"
+     },
+     "at": "2026-09-22T00:27:38.089868+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/c97c804862cc4bc88b17807f165bc593.body",
+     "raw_sha256": "936465afb154a5f93ccd529cc7d3cfdef10e28690609668837225e9cf16e3e3e",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:27:38 GMT",
+      "content-type": "application/json",
+      "retry-after": "32"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:28:10.089868+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:28:10.089868+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:28:40.095181+00:00",
+   "finished_utc": "2026-09-22T00:28:52.383149+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 3, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 5, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "5881ef87f8b34d659bb76733fbafcc72",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 3,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 5,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "5881ef87f8b34d659bb76733fbafcc72",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:28:47.012518+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2016-01-01,to_publication_date:2016-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDYyODM4NDAwMDAwLCAncG9kem9scyBvZiBpbGhhIGNvbXByaWRhIChzZSwgYnJhemlsKTogb3JnYW5pYyBtYXR0ZXIgY2hlbWlzdHJ5IGFuZCBkZWNheSBmZWF0dXJlcycsICctSW5maW5pdHknLCAwLCAnaHR0cHM6Ly9vcGVuYWxleC5vcmcvVzIzODgxMDY5OTcnXSI="
+     },
+     "at": "2026-09-22T00:28:47.012518+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/fe3eacbaadb2406bbec4fee3a799fb4d.body",
+     "raw_sha256": "fa665c3355876e26a52b9bac9497abf468deec7fb8f0eb40d28ad092964d9084",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:28:46 GMT",
+      "content-type": "application/json",
+      "retry-after": "38"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:29:25.012518+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:29:25.012518+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:29:55.016085+00:00",
+   "finished_utc": "2026-09-22T00:30:00.567246+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 1, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 5, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "80e3be3fe30c4360b9670b99687c39d5",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 1,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 5,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "80e3be3fe30c4360b9670b99687c39d5",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:29:56.670817+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2016-01-01,to_publication_date:2016-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDYyODM4NDAwMDAwLCAncG9kem9scyBvZiBpbGhhIGNvbXByaWRhIChzZSwgYnJhemlsKTogb3JnYW5pYyBtYXR0ZXIgY2hlbWlzdHJ5IGFuZCBkZWNheSBmZWF0dXJlcycsICctSW5maW5pdHknLCAwLCAnaHR0cHM6Ly9vcGVuYWxleC5vcmcvVzIzODgxMDY5OTcnXSI="
+     },
+     "at": "2026-09-22T00:29:56.670817+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/37615a67818a437081df3ed9ff662f61.body",
+     "raw_sha256": "4fccbe8307e89b5987778801e70277153e0249945d178ad3cb93b83b402555ae",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:29:56 GMT",
+      "content-type": "application/json",
+      "retry-after": "40"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:30:36.670817+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:30:36.670817+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:31:06.672290+00:00",
+   "finished_utc": "2026-09-22T00:31:11.914822+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 1, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 5, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "c95b4feb60484dc69dff4246a3874eb6",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 1,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 5,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "c95b4feb60484dc69dff4246a3874eb6",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:31:08.207852+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2016-01-01,to_publication_date:2016-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDYyODM4NDAwMDAwLCAncG9kem9scyBvZiBpbGhhIGNvbXByaWRhIChzZSwgYnJhemlsKTogb3JnYW5pYyBtYXR0ZXIgY2hlbWlzdHJ5IGFuZCBkZWNheSBmZWF0dXJlcycsICctSW5maW5pdHknLCAwLCAnaHR0cHM6Ly9vcGVuYWxleC5vcmcvVzIzODgxMDY5OTcnXSI="
+     },
+     "at": "2026-09-22T00:31:08.207852+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/ccc63b8a4c5c41e98b967711bcb709ae.body",
+     "raw_sha256": "8c5670a29a921e382e8992873ce88fe83e82d67af7571b6525fed41749d7fba3",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:31:08 GMT",
+      "content-type": "application/json",
+      "retry-after": "37"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:31:45.207852+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:31:45.207852+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:32:15.218457+00:00",
+   "finished_utc": "2026-09-22T00:32:20.660949+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 1, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 5, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "be6b0c5875084dd5b1ca2e427ce6bff6",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 1,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 5,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "be6b0c5875084dd5b1ca2e427ce6bff6",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:32:16.885870+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2016-01-01,to_publication_date:2016-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDYyODM4NDAwMDAwLCAncG9kem9scyBvZiBpbGhhIGNvbXByaWRhIChzZSwgYnJhemlsKTogb3JnYW5pYyBtYXR0ZXIgY2hlbWlzdHJ5IGFuZCBkZWNheSBmZWF0dXJlcycsICctSW5maW5pdHknLCAwLCAnaHR0cHM6Ly9vcGVuYWxleC5vcmcvVzIzODgxMDY5OTcnXSI="
+     },
+     "at": "2026-09-22T00:32:16.885870+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/dd71f81441334a92b550ea19950a6c53.body",
+     "raw_sha256": "4df46f850a56ed09566c367f6c0ab21b3401d9277cdf219621d9618afd79ae54",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:32:16 GMT",
+      "content-type": "application/json",
+      "retry-after": "31"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:32:47.885870+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:32:47.885870+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:33:17.890333+00:00",
+   "finished_utc": "2026-09-22T00:33:23.069300+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 1, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 5, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "e74be12df802487b943feb7dbf9f5e47",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 1,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 5,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "e74be12df802487b943feb7dbf9f5e47",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:33:19.455591+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2016-01-01,to_publication_date:2016-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDYyODM4NDAwMDAwLCAncG9kem9scyBvZiBpbGhhIGNvbXByaWRhIChzZSwgYnJhemlsKTogb3JnYW5pYyBtYXR0ZXIgY2hlbWlzdHJ5IGFuZCBkZWNheSBmZWF0dXJlcycsICctSW5maW5pdHknLCAwLCAnaHR0cHM6Ly9vcGVuYWxleC5vcmcvVzIzODgxMDY5OTcnXSI="
+     },
+     "at": "2026-09-22T00:33:19.455591+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/5a18aaeb5fb9453ea673f6f232969737.body",
+     "raw_sha256": "e2853e1081387fb57084d3fbaa427c9e4dc1562c2af5ff09044420a58189aca6",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:33:19 GMT",
+      "content-type": "application/json",
+      "retry-after": "33"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:33:52.455591+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:33:52.455591+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:34:22.461416+00:00",
+   "finished_utc": "2026-09-22T00:34:36.958075+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 3, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 5, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "7041c33d58f04f9faf39694fd2d5436b",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 3,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 5,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "7041c33d58f04f9faf39694fd2d5436b",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:34:29.946437+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2016-01-01,to_publication_date:2016-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDcyNjAxNjAwMDAwLCAnc3VwcG9ydGVkIGdvbGQgbmFub3BhcnRpY2xlcyBhcyBwcm9taXNpbmcgY2F0YWx5c3RzJywgOTguMCwgMTgsICdodHRwczovL29wZW5hbGV4Lm9yZy9XMjUxNTI0ODc2OCddIg=="
+     },
+     "at": "2026-09-22T00:34:29.946437+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/9b29f401b6064f06a9de3281df1058b2.body",
+     "raw_sha256": "8c5670a29a921e382e8992873ce88fe83e82d67af7571b6525fed41749d7fba3",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:34:29 GMT",
+      "content-type": "application/json",
+      "retry-after": "37"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:35:06.946437+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:35:06.946437+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:35:36.950135+00:00",
+   "finished_utc": "2026-09-22T00:35:51.792365+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 3, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 5, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "885195d6f0674fc785474928a54760a1",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 3,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 5,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "885195d6f0674fc785474928a54760a1",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:35:44.715981+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2016-01-01,to_publication_date:2016-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDgyMTkyMDAwMDAwLCAnZGV2ZWxvcG1lbnQgb2YgaHlicmlkIGNvYXRpbmdzIGZvciBvc3Nlb2ludGVncmF0aW9uIGltcHJvdmVtZW50IG9mIG1ldGFsIGRlbnRhbCBpbXBsYW50cycsICctSW5maW5pdHknLCAwLCAnaHR0cHM6Ly9vcGVuYWxleC5vcmcvVzI1NjUwMjc2MzEnXSI="
+     },
+     "at": "2026-09-22T00:35:44.715981+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/a4a70eaab62841239af626e949447ff2.body",
+     "raw_sha256": "e2df1d1e5a392082c43f59eb8094ced4da7e1e1c8cdd7e685cec9c0084fe942b",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:35:44 GMT",
+      "content-type": "application/json",
+      "retry-after": "35"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:36:19.715981+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:36:19.715981+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:36:49.716240+00:00",
+   "finished_utc": "2026-09-22T00:36:56.663528+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 1, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 5, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "21a4df983b63435c97621c8a57ea866b",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 1,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 5,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "21a4df983b63435c97621c8a57ea866b",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:36:51.655133+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2016-01-01,to_publication_date:2016-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDgyMTkyMDAwMDAwLCAnZGV2ZWxvcG1lbnQgb2YgaHlicmlkIGNvYXRpbmdzIGZvciBvc3Nlb2ludGVncmF0aW9uIGltcHJvdmVtZW50IG9mIG1ldGFsIGRlbnRhbCBpbXBsYW50cycsICctSW5maW5pdHknLCAwLCAnaHR0cHM6Ly9vcGVuYWxleC5vcmcvVzI1NjUwMjc2MzEnXSI="
+     },
+     "at": "2026-09-22T00:36:51.655133+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/e84c2784ccbc4a25b1f35554a42b0099.body",
+     "raw_sha256": "96197e453da746fbfca3a8fc80d52723b1a6f680e429cbdfc26ef1a199099f13",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:36:51 GMT",
+      "content-type": "application/json",
+      "retry-after": "34"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:37:25.655133+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:37:25.655133+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:37:55.656089+00:00",
+   "finished_utc": "2026-09-22T00:38:02.506222+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 1, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 5, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "65990456ba734026ba069943a9a0c590",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 1,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 5,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "65990456ba734026ba069943a9a0c590",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:37:57.684366+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2016-01-01,to_publication_date:2016-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "IlsxNDgyMTkyMDAwMDAwLCAnZGV2ZWxvcG1lbnQgb2YgaHlicmlkIGNvYXRpbmdzIGZvciBvc3Nlb2ludGVncmF0aW9uIGltcHJvdmVtZW50IG9mIG1ldGFsIGRlbnRhbCBpbXBsYW50cycsICctSW5maW5pdHknLCAwLCAnaHR0cHM6Ly9vcGVuYWxleC5vcmcvVzI1NjUwMjc2MzEnXSI="
+     },
+     "at": "2026-09-22T00:37:57.684366+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/d43d1423d462433b9e8fc783090da820.body",
+     "raw_sha256": "e2df1d1e5a392082c43f59eb8094ced4da7e1e1c8cdd7e685cec9c0084fe942b",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:37:57 GMT",
+      "content-type": "application/json",
+      "retry-after": "35"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:38:32.684366+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:38:32.684366+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:39:02.689284+00:00",
+   "finished_utc": "2026-09-22T00:39:12.454889+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"DEFERRED_RATE_LIMIT\", \"requests_this_pass\": 2, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 6, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "DEFERRED",
+   "summary": {
+    "pass_id": "4a82bd73e80f4ec19d43a2d12e2de458",
+    "operation_status": "DEFERRED_RATE_LIMIT",
+    "requests_this_pass": 2,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 6,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "4a82bd73e80f4ec19d43a2d12e2de458",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:39:06.711573+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2017-01-01,to_publication_date:2017-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "*"
+     },
+     "at": "2026-09-22T00:39:06.711573+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/fc938202006a45819a91ed4af4268594.body",
+     "raw_sha256": "e2df1d1e5a392082c43f59eb8094ced4da7e1e1c8cdd7e685cec9c0084fe942b",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:39:06 GMT",
+      "content-type": "application/json",
+      "retry-after": "35"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:39:41.711573+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:39:41.711573+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:40:11.713730+00:00",
+   "finished_utc": "2026-09-22T00:40:22.438353+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"REQUEST_FAILED\", \"requests_this_pass\": 2, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 6, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "RETRY_AFTER_IDLE",
+   "summary": {
+    "pass_id": "cc6f14fb6374402cb7cecd590d1883ef",
+    "operation_status": "REQUEST_FAILED",
+    "requests_this_pass": 2,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 6,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "cc6f14fb6374402cb7cecd590d1883ef",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:39:06.711573+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2017-01-01,to_publication_date:2017-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "*"
+     },
+     "at": "2026-09-22T00:39:06.711573+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/fc938202006a45819a91ed4af4268594.body",
+     "raw_sha256": "e2df1d1e5a392082c43f59eb8094ced4da7e1e1c8cdd7e685cec9c0084fe942b",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:39:06 GMT",
+      "content-type": "application/json",
+      "retry-after": "35"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:39:41.711573+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:39:41.711573+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T00:55:22.441196+00:00",
+   "finished_utc": "2026-09-22T00:55:29.067811+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"REQUEST_FAILED\", \"requests_this_pass\": 1, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 6, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "RETRY_AFTER_IDLE",
+   "summary": {
+    "pass_id": "3899d2e36f674cfeb2dc5b0ed5d532ec",
+    "operation_status": "REQUEST_FAILED",
+    "requests_this_pass": 1,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 6,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "3899d2e36f674cfeb2dc5b0ed5d532ec",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:39:06.711573+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2017-01-01,to_publication_date:2017-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "*"
+     },
+     "at": "2026-09-22T00:39:06.711573+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/fc938202006a45819a91ed4af4268594.body",
+     "raw_sha256": "e2df1d1e5a392082c43f59eb8094ced4da7e1e1c8cdd7e685cec9c0084fe942b",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:39:06 GMT",
+      "content-type": "application/json",
+      "retry-after": "35"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:39:41.711573+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:39:41.711573+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  },
+  {
+   "started_utc": "2026-09-22T01:10:29.073407+00:00",
+   "finished_utc": "2026-09-22T01:10:35.659452+00:00",
+   "rc": 2,
+   "stdout_tail": "{\"operation_status\": \"REQUEST_FAILED\", \"requests_this_pass\": 1, \"leaf_status\": \"UNRESOLVED\", \"validated_leaves\": 6, \"leaf_partitions\": 64, \"global_p_lit_complete\": false}\n",
+   "stderr_tail": "",
+   "verdict": "RETRY_AFTER_IDLE",
+   "summary": {
+    "pass_id": "550a8867936a424eb31de872b1e51abd",
+    "operation_status": "REQUEST_FAILED",
+    "requests_this_pass": 1,
+    "leaf_status": "UNRESOLVED",
+    "validated_leaves": 6,
+    "leaf_partitions": 64
+   },
+   "last_pass_id": "550a8867936a424eb31de872b1e51abd",
+   "boundary": {
+    "provider": "openalex",
+    "observed_utc": "2026-09-22T00:39:06.711573+00:00",
+    "evidence": {
+     "provider": "openalex",
+     "params": {
+      "search": "rutile oxygen evolution",
+      "filter": "from_publication_date:2017-01-01,to_publication_date:2017-12-31",
+      "sort": "publication_date:asc,display_name:asc",
+      "per_page": 100,
+      "cursor": "*"
+     },
+     "at": "2026-09-22T00:39:06.711573+00:00",
+     "http_status": 429,
+     "raw_path": "transport_failures/fc938202006a45819a91ed4af4268594.body",
+     "raw_sha256": "e2df1d1e5a392082c43f59eb8094ced4da7e1e1c8cdd7e685cec9c0084fe942b",
+     "response_headers": {
+      "date": "Tue, 22 Sep 2026 00:39:06 GMT",
+      "content-type": "application/json",
+      "retry-after": "35"
+     },
+     "deferral": {
+      "reason": "DEFERRED_RATE_LIMIT",
+      "next_allowed_utc": "2026-09-22T00:39:41.711573+00:00"
+     }
+    },
+    "reason": "DEFERRED_RATE_LIMIT",
+    "next_allowed_utc": "2026-09-22T00:39:41.711573+00:00",
+    "evidence_directory": "C:\\Users\\frank\\sts-electrocatalyst\\results\\s2_2026-09-21\\literature_reconciliation"
+   }
+  }
+ ],
+ "driver": "C:/Users/frank/sts-electrocatalyst/src/s2/literature/reconcile_search.py",
+ "plan": "results/s2_2026-09-21/reconciliation_plan",
+ "out": "results/s2_2026-09-21/literature_reconciliation",
+ "provider_cache": "results/s2_2026-09-19/literature_openalex_continuation",
+ "pins": "results/s2_2026-09-21/reconciliation_launch_pins_v2.json",
+ "pins_sha256": "d3d361e0268edc1e56499222695c99ff9d7ab60b736851d89903946c58015cec",
+ "deadline_utc": "2026-09-28T00:00:00+00:00",
+ "pid": 29192,
+ "status": "STOPPED_REPEATED_FAILURE",
+ "note": "three consecutive passes failed without a boundary",
+ "updated_utc": "2026-09-22T01:10:35.659452+00:00"
+}

@@ -51,7 +51,7 @@ def test_exact_queries_calendar_coverage_sort_and_maximum_date():
         request = rp.request_params(leaf)
         assert request["search"] == search.QUERIES[leaf["query_index"] - 1]
         assert request["per_page"] == 100 and request["cursor"] == "*"
-        assert request["sort"] == "publication_date:asc,display_name:asc"
+        assert request["sort"] == "publication_date:asc,cited_by_count:asc"
     assert leaves[-1]["end"] == "2026-09-18"
 
 

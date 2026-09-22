@@ -21,7 +21,10 @@ QUERIES = (
     "rutile oxide computational hydrogen electrode",
 )
 START, END = "2011-01-01", "2026-09-18"
-SORT = "publication_date:asc,display_name:asc"
+# 2026-09-22: the secondary key is numeric. OpenAlex rejected its own continuation cursor
+# ("Pagination error. Invalid cursor value") whenever a display_name sort key carried an
+# apostrophe; cursors built from date, citation count and the provider id paginate.
+SORT = "publication_date:asc,cited_by_count:asc"
 PAGE_SIZE = 100
 BASE = "https://api.openalex.org/works"
 DOCUMENTATION = {
@@ -31,7 +34,7 @@ DOCUMENTATION = {
 }
 LIMITATION = (
     "Observed cursor/count/identity consistency is not an immutable API snapshot "
-    "or proof of global P-LIT completion. Equal date/title sort keys can tie; "
+    "or proof of global P-LIT completion. Equal date/citation-count sort keys can tie; "
     "records and query membership can change without a count change."
 )
 

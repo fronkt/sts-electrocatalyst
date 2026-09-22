@@ -1,0 +1,19 @@
+{
+ "schema": "p-lit-reconciliation-plan-preparation-v1",
+ "prepared_utc": "2026-09-22T01:41:39.067785+00:00",
+ "command": [
+  "C:\\Users\\frank\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+  "src/s2/literature/reconcile_plan.py",
+  "--source",
+  "results/s2_2026-09-19/literature_openalex_continuation",
+  "--out",
+  "results/s2_2026-09-22/reconciliation_plan"
+ ],
+ "exit_code": 0,
+ "stdout": "{\"state\": \"PROSPECTIVE_NOT_RETRIEVED\", \"partitions\": 64, \"requests\": 0, \"global_p_lit_complete\": false}",
+ "change_from_v2": "secondary sort key display_name -> cited_by_count (planner SORT); queries, window, partitions, page size and the frozen old inventory unchanged",
+ "old_inventory_identical_to_v2": true,
+ "reason": "OpenAlex rejected its own next_cursor on leaf q01_year_2017 under the display_name sort (HTTP 400 'Pagination error. Invalid cursor value'; title with an apostrophe inside the cursor); reproduced 2026-09-22 01:15Z; a cited_by_count secondary key paginated the same leaf (page 2: 200, 100 rows)",
+ "plan_sha256": "b92e9de3f18f525e842808c52642aa2decb4a5a284112f5b231fc62c4788ce92",
+ "planner_sha256": "5a6c225b5b215d0bdaed2328a97b8b13347bf735de3a3ee76f70c8cb8d9f803e"
+}
