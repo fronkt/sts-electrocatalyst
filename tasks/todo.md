@@ -2766,3 +2766,15 @@ Scope: put each item in front of Frank as a decision with the facts attached, ta
 - [x] Recommenders / report / essays: educator rec already SUBMITTED (Lenfestey 2026-09-17); project rec open — Gmail drafts to Tackett (r3505741237403056344), Wang (r5222830703680462478), Eric Riesel (r-4044711013295709594, address unverified, `to` empty), parent facts sheet in Downloads; 2027 rule text verified from the seven official PDFs (scratchpad extracts); docs/25 gained the verified 2027 section (151 lines); docs/report/source-pack-2026-09-21.md (11 figures, 55 numbers of record, 244 DOIs + 64 arXiv ids, 39 timeline rows); portal requests, sending, essays and report prose are Frank's.
 
 Verification: each doc edit diffed before commit; deposit receipt recorded with DOI; drafts listed by draft id.
+
+## 2026-09-22 — Low-state test, seeded SCFs and program direction (user: "License both legs"; "Restart from low state + seed two more"; "Protocol research first, freeze later")
+
+- [x] Array 20845364 (two SCFs from the retained Cu8 density): both KILLED, stationary at the stagnating energy; occupation comparison localizes the two states' difference to one surface Co (atom 20, spin-down orbital reorientation, 94.7 meV). Readout in the stall note.
+- [x] Array 20851753 (seeded SCFs: Cu8 O_unrecon at its 19th-cycle geometry; Fe25 slab from the killed 0.10 density): both KILLED, stationary; occupations unchanged within 0.005 / 0.05; residual floors 2.5e-6 / 1.2e-5 Ry. Readout in the stall note.
+- [x] Array 20851756 (Cu8 slab relaxation restarted from the low state): cycle 1 = low state in 3 it; cycles 2–6 converged at thresholds to 4.3e-8 Ry, −94 meV; cycle 7 stalled (residual 1.4e-7); Co-20 configuration retained. Re-seeding is not a protocol. Readout in the stall note.
+- [x] Seeded runner `src/dft/research_batch_seeded.py` (content-pinned scratch seed; relax kind), launcher batch options + one-task inspector fix; two withdrawn stagings recorded (pin near-miss; array-id format); lessons: never edit a file a live batch pins; pinned files LF; sorted JSON blocks.
+- [x] Direction election recorded in docs/43 (third addendum of 2026-09-22): protocol research first, freeze later; S8 hold unchanged; row NOT LICENSED; plan `docs/research/lowtail-stall-robust-protocol-plan-2026-09-22.md` (Arm A checked relaxation with fresh-start comparison at δ = 10 meV; Arm B mixing_fixed_ns = 15).
+- [ ] Licence for the experiment (Frank's dated line with §4 counts/costs) → implement the checked-relax stage kind + tests → build → launch → readout → decide whether the protocol goes to the remaining Cr-site legs.
+- [ ] Cr array 20813525: tasks 6–9 running/queued (tally 2 complete / 3 stalled); collector pid 3128 watching; nine-leg readout when terminal.
+
+Verification: every readout number above is copied from the banked readouts/traces/outputs under results/lowtail_slab_scf_seeded_2026-09-22/ and results/lowtail_low_state_restart_2026-09-22/{scf,relax2}/; occupation comparisons from the retained and final occup.txt files fetched read-only from Anvil.
