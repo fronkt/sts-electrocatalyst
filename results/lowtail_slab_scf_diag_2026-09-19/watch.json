@@ -1,0 +1,55 @@
+{
+  "at": "2026-09-22T05:02:24.370181+00:00",
+  "job_id": "20840139",
+  "tasks": {
+    "1": {
+      "job_id": "20840139_1",
+      "state": "FAILED",
+      "exit": "10:0",
+      "elapsed_s": 5787,
+      "allocated_cpus": 128,
+      "terminal": true
+    },
+    "2": {
+      "job_id": "20840139_2",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "elapsed_s": 3601,
+      "allocated_cpus": 128,
+      "terminal": true
+    },
+    "3": {
+      "job_id": "20840139_3",
+      "state": "FAILED",
+      "exit": "10:0",
+      "elapsed_s": 6521,
+      "allocated_cpus": 128,
+      "terminal": true
+    },
+    "4": {
+      "job_id": "20840139_4",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "elapsed_s": 2237,
+      "allocated_cpus": 128,
+      "terminal": true
+    },
+    "5": {
+      "job_id": "20840139_5",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "elapsed_s": 3112,
+      "allocated_cpus": 128,
+      "terminal": true
+    }
+  },
+  "raw": {
+    "command": "sacct --array -n -P -X -j 20840139 --format=JobID%80,State%30,ExitCode,ElapsedRaw,AllocCPUS",
+    "stdout": "20840139_1|FAILED|10:0|5787|128\n20840139_2|COMPLETED|0:0|3601|128\n20840139_3|FAILED|10:0|6521|128\n20840139_4|COMPLETED|0:0|2237|128\n20840139_5|COMPLETED|0:0|3112|128\n",
+    "stderr": "",
+    "rc": 0,
+    "at": "2026-09-22T05:02:24.370181+00:00"
+  },
+  "missing_tasks": [],
+  "all_terminal": true
+}
