@@ -1,4 +1,5 @@
 """PREPARED relaxation decks: geometry construction, one-line relax conversion, manifests, determinism."""
+import dataclasses
 import hashlib
 import sys
 from pathlib import Path
@@ -143,3 +144,97 @@ def test_costs_are_positive_and_ceiling_not_below_planning(built):
         assert c["fits_node"] and not c["ceiling_exceeds_deck_max_seconds"]
     t = built["plan"]["totals"]["primary"]
     assert t["planning_core_h"] == pytest.approx(sum(d["cost"]["planning_core_h"] for d in built["plan"]["decks"] if d["role"] == "primary"))
+
+
+# --------------------------------------------------------------------------- explicit rows (CLI --sites-json)
+GEN_RESULTS = ROOT / "results/lowtail_generalization_2026-09-22"
+GEN_DECKS = ROOT / "runs/hea/lowtail_generalization_2026-09-22"
+
+
+def _rows(text: str) -> list:
+    return [ln for ln in text.split("\n") if ln and not ln.startswith("#")]
+
+
+def _cost_free(text: str) -> list:
+    """Manifest lines that carry neither costs (anchors drift as SCFs are banked) nor the results path."""
+    return [ln for ln in text.split("\n") if not (ln.startswith("# Plan, costs") or ln.startswith("# PLANNING") or ln.startswith("#   "))]
+
+
+def _md5s(text: str) -> set:
+    return {ln.split()[-1] for ln in text.split("\n") if ln.startswith("#   ")}
+
+
+def test_default_row_rendered_elsewhere_reproduces_the_eighteen_decks(tmp_path):
+    base = tmp_path / "runs" / "hea" / decks.DECK_ROOT.name
+    results = tmp_path / "results" / decks.RESULTS.name
+    row = dataclasses.replace(decks.DEFAULT_ROW, deck_root=base, results=results, decisions=results / "operating_decisions.json",
+                              manifests={"primary": base / decks.MANIFEST_PRIMARY.name,
+                                         "paired projector control": base / decks.MANIFEST_CONTROL.name})
+    built = decks.build(write=True, row=row)
+    assert len(built["rendered"]) == 18 and built["plan"]["header"] == decks.HEADER
+    for path in built["rendered"]:
+        original = decks.DECK_ROOT / path.relative_to(base)
+        assert path.read_bytes() == original.read_bytes(), original
+    for role, path in row.manifests.items():
+        original = decks.MANIFEST_PRIMARY if role == "primary" else decks.MANIFEST_CONTROL
+        fresh, frozen = path.read_text(encoding="utf-8"), original.read_text(encoding="utf-8")
+        assert _rows(fresh) == _rows(frozen) and _cost_free(fresh) == _cost_free(frozen) and _md5s(fresh) == _md5s(frozen)
+        assert (f"# Plan, costs and basin rules: {lt_common.rel(results / 'deck_plan.json')}, "
+                f"{lt_common.rel(results / 'operating_decisions.json')}.") in fresh
+    for name in ("operating_decisions.json", "deck_plan.json", "relax_survey_manifest.json"):
+        assert (results / name).exists()
+
+
+def test_explicit_site_list_cli_reproduces_generalization_row1_byte_for_byte(tmp_path):
+    prep = lt_common.read_json(GEN_RESULTS / "row1_preparation.json")
+    assert prep["licensed"] is False and prep["authorization"] is None
+    assert prep["note"] == "NOT LICENSED: needs the entrant's dated A11.R3 line after the discriminating SCF test reads out"
+    argv = list(prep["builder_argv"])
+    out_root = tmp_path / "runs" / "hea" / GEN_DECKS.name
+    argv[argv.index("--out-root") + 1] = str(out_root)
+    argv[argv.index("--results-dir") + 1] = str(tmp_path / "results")
+    assert decks.main(argv) == 0
+    legs = prep["legs"]
+    assert len(legs) == 12 and all(leg["projector"] == "atomic" for leg in legs)
+    assert {(leg["site"], leg["state"]) for leg in legs} == {(s["tag"], st) for s in prep["sites"] for st in decks.STATES}
+    for leg in legs:
+        built = ROOT / leg["path"]
+        fresh = out_root / leg["site"] / f"{leg['job']}.in"
+        assert fresh.read_bytes() == built.read_bytes(), leg["path"]
+        assert lt_common.sha256_file(built) == leg["sha256"] and hea_deck.md5_file(built) == leg["md5"]
+        assert built.parent.parent == GEN_DECKS and built.name == f"{leg['state']}__atomic.in"
+    manifest = ROOT / prep["manifest"]["path"]
+    fresh = (out_root / manifest.name).read_text(encoding="utf-8")
+    frozen = manifest.read_text(encoding="utf-8")
+    assert _rows(fresh) == _rows(frozen) and _cost_free(fresh) == _cost_free(frozen) and _md5s(fresh) == _md5s(frozen)
+    assert lt_common.sha256_file(manifest) == prep["manifest"]["sha256"]
+    plan = lt_common.read_json(GEN_RESULTS / "deck_plan.json")
+    assert manifest.read_bytes() == decks.manifest_text(plan, "primary").encode("utf-8")
+    info = hea_deck.check_manifest_text(frozen, expect_not_licensed=True)
+    assert info["n_rows"] == 12 and info["not_licensed"] and info["np_directive"]
+    assert prep["manifest"]["not_licensed_line"] in frozen and "A11.R3" in prep["manifest"]["not_licensed_line"]
+    assert "# NP=128 NCONC=1" in frozen and f"# SUBMIT WITH EXCLUDE={hea_deck.EXCLUDE}" in frozen
+
+
+def test_row1_sites_are_the_p10_bracketing_cr_sites_and_none_reuses_a_2026_09_16_deck():
+    prep = lt_common.read_json(GEN_RESULTS / "row1_preparation.json")
+    want = {("Cu8Cr23Mn35Co34", 16, 2), ("Cu8Cr23Mn35Co34", 26, 1), ("Cu26Ni9Cr31Co33", 1, 0), ("Cu26Ni9Cr31Co33", 17, 1)}
+    assert {(s["formula"], s["seed"], s["site"]) for s in prep["sites"]} == want
+    for s in prep["sites"]:
+        assert s["census_checks"]["initial_metal"] == "Cr" and s["endpoint"]["all_states_adsorbate_intact"]
+        expected = "RECONSTRUCTED" if s["endpoint"]["O"] == "RECONSTRUCTION" else "UNRECONSTRUCTED"
+        assert s["census_O_endpoint_basin_under_operating_thresholds"] == expected, s["tag"]
+    old = {p.read_bytes() for p in decks.DECK_ROOT.rglob("*.in")}
+    assert all((ROOT / leg["path"]).read_bytes() not in old for leg in prep["legs"])
+
+
+def test_guard_refuses_a_site_whose_O_is_not_cr_bound():
+    census = ROOT / "results/site_census_2026-09-06/results/mpa0__Cu26Ni9Cr31Co33_result.json"
+    doc = lt_common.read_json(census)
+    row = [r for r in doc["results"] if r.get("status") == "evaluated"][0]["row"]
+    other = next((p for p in row["per_site_records"] if p["initial_binding_metal"] != "Cr"), None)
+    if other is None:
+        pytest.skip("no non-Cr site in this census file")
+    site = dict(formula="Cu26Ni9Cr31Co33", census=lt_common.rel(census), seed=other["seed"], site=other["site_index"])
+    with pytest.raises(ValueError, match="not a Cr-bound"):
+        decks.site_geometries(site, 1.635)

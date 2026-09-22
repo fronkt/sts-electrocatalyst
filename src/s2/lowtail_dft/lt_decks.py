@@ -14,11 +14,22 @@ Usage:
   python src/s2/lowtail_dft/lt_decks.py            # build decks, plan, manifests, decisions, cost
   python src/s2/lowtail_dft/lt_decks.py --check    # re-render and compare bytes, write nothing
   python src/s2/lowtail_dft/lt_decks.py --mace-starts   # also relax each deck start with MACE-MPA-0
+  python src/s2/lowtail_dft/lt_decks.py --sites-json SITES.json --out-root runs/hea/<row> [--results-dir DIR
+      --manifest NAME --projectors atomic --date YYYY-MM-DD --note TEXT --licence TEXT --decisions PATH
+      --comment TEXT ...] [--check]              # an explicit row: same rendering, its own deck root and manifest
+
+Without --sites-json the three sites, both projectors, deck root, manifests and results of 2026-09-16 are built
+exactly as before. With it, the listed sites ({formula, census, seed, site}; census paths repository-relative)
+go through the same site_geometries / render_relax / deck_cost path under --out-root, so their decks are
+byte-consistent with the 2026-09-16 set; relative flag paths resolve against the repository root.
 """
 from __future__ import annotations
 
 import argparse
+import dataclasses
+import functools
 import math
+import re
 import sys
 from pathlib import Path
 
@@ -52,6 +63,76 @@ MANIFEST_PRIMARY = DECK_ROOT / "m_lowtail_validation_2026-09-16.txt"
 MANIFEST_CONTROL = DECK_ROOT / "m_lowtail_validation_projector_control_2026-09-16.txt"
 SURVEY_MANIFEST = RESULTS / "relax_survey_manifest.json"
 HEADER = "# PREPARED 2026-09-16 - submission sequenced after arrays 20781971/20781972 report measured per-SCF cost"
+LICENCE = "a dated approval line after the two arrays report"
+ROLES = {"atomic": "primary", "ortho": "paired projector control"}
+
+
+@dataclasses.dataclass(frozen=True)
+class Row:
+    """One prepared deck set: sites x STATES x projectors under one deck root, one manifest per projector role.
+
+    DEFAULT_ROW is the 2026-09-16 validation set. An explicit row (CLI --sites-json) renders through the same
+    build() path. `decisions` is written from lt_decisions.build() when it lies in `results`; otherwise it is
+    an existing file that is read and cross-checked against lt_decisions.build() on every value the row uses.
+    """
+    sites: tuple
+    projectors: tuple = PROJECTORS
+    date: str = DATE
+    header: str = HEADER
+    licence: str = LICENCE
+    comments: tuple = ()
+    deck_root: Path = DECK_ROOT
+    results: Path = RESULTS
+    manifests: dict = dataclasses.field(default_factory=lambda: {"primary": MANIFEST_PRIMARY,
+                                                                 "paired projector control": MANIFEST_CONTROL})
+    decisions: Path = RESULTS / "operating_decisions.json"
+
+    @property
+    def roles(self) -> list:
+        return [ROLES[p] for p in self.projectors]
+
+    @property
+    def survey_manifest(self) -> Path:
+        return self.results / "relax_survey_manifest.json"
+
+    @property
+    def writes_decisions(self) -> bool:
+        return self.decisions.resolve().parent == self.results.resolve()
+
+
+DEFAULT_ROW = Row(sites=SITES)
+
+
+def licence_line(condition: str) -> str:
+    return f"# Not licensed for submission by this preparation: submission needs {condition}."
+
+
+def manifest_dir(path: Path) -> str:
+    """The deck directory as a manifest row names it: relative to the runs tree the submitter walks."""
+    resolved = Path(path).resolve()
+    for parent in resolved.parents:
+        if parent.name == "runs":
+            return resolved.parent.relative_to(parent).as_posix()
+    raise ValueError(f"{path}: deck root must lie under a directory named runs")
+
+
+@functools.lru_cache(maxsize=None)
+def cost_evidence() -> tuple:
+    """Measured HEA anchors and the relaxation survey: banked files only, read once per process."""
+    return cost.measured_hea_scfs(), cost.relax_survey()
+
+
+def check_recorded_decisions(path: Path, ops: dict) -> dict:
+    """A row referencing decisions it does not write must agree with lt_decisions.build() on every value it uses."""
+    recorded = read_json(path)
+    for keys in (("construction", "unreconstructed_O_height_A"), ("kill_rule", "stop_when_iteration_begins"),
+                 ("kill_rule", "max_scf_iterations"), ("kill_rule", "electron_maxstep"), ("thresholds",)):
+        a, b = recorded, ops
+        for k in keys:
+            a, b = a[k], b[k]
+        if a != b:
+            raise ValueError(f"{rel(path)}: {'.'.join(keys)} = {a!r} differs from lt_decisions.build() {b!r}")
+    return recorded
 
 
 def site_tag(site: dict) -> str:
@@ -113,28 +194,30 @@ def render_relax(prefix: str, symbols, positions, cell, fixed, projector: str) -
     return relax
 
 
-def build(write: bool = True) -> dict:
+def build(write: bool = True, row: Row = DEFAULT_ROW) -> dict:
     ops = decisions.build()
+    if not row.writes_decisions:
+        check_recorded_decisions(row.decisions, ops)
     height = ops["construction"]["unreconstructed_O_height_A"]
     zc = read_json(ZERO_COMPUTE)
     inputs = cost.cost_model_inputs()
-    measured = cost.measured_hea_scfs()
-    survey = cost.relax_survey()
+    measured, survey = cost_evidence()
     fref = {}
     for r in zc["realizations"]:
         if r["geometry"] in ("winner_slab", "winner_O") and r["variant"] == "baseline":
             fref[(r["geometry"], r["projector"])] = r["DFT"]["fmax_free_eV_A"]
     kill = ops["kill_rule"]
     survey_manifest = cost.survey_manifest(survey)
-    plan = dict(schema="lowtail-deck-plan-v1", date=DATE, status="PREPARED_NOT_SUBMITTED", header=HEADER,
-                operating_decisions=rel(RESULTS / "operating_decisions.json"), sites=[], decks=[],
+    plan = dict(schema="lowtail-deck-plan-v1", date=row.date, status="PREPARED_NOT_SUBMITTED", header=row.header,
+                licence=licence_line(row.licence), comments=list(row.comments),
+                operating_decisions=rel(row.decisions), deck_plan=rel(row.results / "deck_plan.json"), sites=[], decks=[],
                 kill_rule=dict(source=kill["source"], stop_when_iteration_begins=kill["stop_when_iteration_begins"],
                                wall_limit=kill["wall_limit"], on_stop=kill["on_stop"], readout_enforcement=kill["readout_enforcement"]),
                 cost_inputs=dict(cost_model=inputs, anchors={p: cost.anchors(measured, p) for p in PROJECTORS},
                                  survey_counts=dict(n_rows=len(survey["rows"]), n_excluded=len(survey["excluded"]),
                                                     excluded=[{k: v for k, v in e.items() if k != "files"} for e in survey["excluded"]]),
                                  survey_qc=cost.survey_qc(survey),
-                                 survey_manifest=dict(path=rel(SURVEY_MANIFEST), n_used=survey_manifest["n_used"],
+                                 survey_manifest=dict(path=rel(row.survey_manifest), n_used=survey_manifest["n_used"],
                                                       n_excluded=survey_manifest["n_excluded"]),
                                  force_reference=dict(source=rel(ZERO_COMPUTE),
                                                       values={f"{g}|{p}": v for (g, p), v in sorted(fref.items())}),
@@ -144,7 +227,7 @@ def build(write: bool = True) -> dict:
         bands[key] = cost.band_statistics(survey, f)
     plan["cost_inputs"]["bands"] = {f"{g}|{p}": b for (g, p), b in sorted(bands.items())}
     rendered = {}
-    for site in SITES:
+    for site in row.sites:
         sg = site_geometries(site, height)
         plan["sites"].append(dict(tag=sg["tag"], formula=site["formula"], seed=site["seed"], site=site["site"],
                                   census=evidence(ROOT / site["census"]), site_index=sg["site_index"], n_slab=sg["n_slab"],
@@ -155,11 +238,11 @@ def build(write: bool = True) -> dict:
                                   clean_positions_A=sg["geometries"]["slab"]["positions"], cell_A=sg["cell"]))
         for state in STATES:
             g = sg["geometries"][state]
-            for proj in PROJECTORS:
+            for proj in row.projectors:
                 job = f"{state}__{proj}"
                 prefix = f"lt__{sg['tag']}__{job}"
                 text = render_relax(prefix, g["symbols"], g["positions"], sg["cell"], sg["fixed"], proj)
-                path = DECK_ROOT / sg["tag"] / f"{job}.in"
+                path = row.deck_root / sg["tag"] / f"{job}.in"
                 data = text.encode("utf-8")
                 rendered[path] = text
                 parsed = qe.parse_input(text)
@@ -172,7 +255,7 @@ def build(write: bool = True) -> dict:
                               leg_wall_ceiling_s=int(math.ceil(c["ceiling_wall_s"])), electron_maxstep=parsed["params"]["electron_maxstep"],
                               source=kill["source"])
                 plan["decks"].append(dict(site=sg["tag"], state=state, projector=proj, job=job, prefix=prefix,
-                                          path=rel(path), manifest_dir=rel(path.parent)[len("runs/"):],
+                                          path=rel(path), manifest_dir=manifest_dir(path),
                                           md5=md5_bytes(data), sha256=sha256_bytes(data), nat=parsed["nat"],
                                           ntyp=len(parsed["species"]), kmesh=list(hea_deck.kgrid_from_cell(sg["cell"])),
                                           nk=hea_deck.choose_nk(hea_deck.kpoint_count(hea_deck.kgrid_from_cell(sg["cell"]))),
@@ -180,9 +263,9 @@ def build(write: bool = True) -> dict:
                                           axial_O_index=sg["axial_O_index"], fixed=sg["fixed"],
                                           forc_conv_thr_Ry_bohr=parsed["params"]["forc_conv_thr"], nstep=parsed["params"]["nstep"],
                                           max_seconds=parsed["params"]["max_seconds"], cost=c, supervisor_limits=limits,
-                                          start=g["source"], role=("primary" if proj == "atomic" else "paired projector control")))
+                                          start=g["source"], role=ROLES[proj]))
     totals = {}
-    for role in ("primary", "paired projector control"):
+    for role in row.roles:
         rows = [d for d in plan["decks"] if d["role"] == role]
         totals[role] = dict(n_decks=len(rows), planning_core_h=sum(d["cost"]["planning_core_h"] for d in rows),
                             ceiling_core_h=sum(d["cost"]["ceiling_core_h"] for d in rows),
@@ -190,31 +273,34 @@ def build(write: bool = True) -> dict:
                             max_memory_maxrss_scaled_GiB=max(d["cost"]["memory_maxrss_scaled_GiB"] for d in rows),
                             any_ceiling_exceeds_max_seconds=any(d["cost"]["ceiling_exceeds_deck_max_seconds"] for d in rows))
     plan["totals"] = totals
-    manifests = {MANIFEST_PRIMARY: manifest_text(plan, "primary"), MANIFEST_CONTROL: manifest_text(plan, "paired projector control")}
+    manifests = {row.manifests[role]: manifest_text(plan, role) for role in row.roles}
     for text in manifests.values():
         hea_deck.check_manifest_text(text, expect_not_licensed=True)
     if write:
-        plan["cost_inputs"]["survey_manifest"]["sha256"] = write_json(SURVEY_MANIFEST, survey_manifest)
+        plan["cost_inputs"]["survey_manifest"]["sha256"] = write_json(row.survey_manifest, survey_manifest)
         for path, text in rendered.items():
             write_text_lf(path, text, refuse_different=True)
         for path, text in manifests.items():
             write_text_lf(path, text)
-        write_json(RESULTS / "operating_decisions.json", ops)
+        if row.writes_decisions:
+            write_json(row.decisions, ops)
         plan["manifests"] = {rel(p): sha256_bytes(t.encode("utf-8")) for p, t in manifests.items()}
         plan["implementation"] = [evidence(p) for p in sorted(HERE.glob("lt_*.py"))] + [evidence(ROOT / "src/dft/hea_deck.py")]
-        write_json(RESULTS / "deck_plan.json", plan)
+        write_json(row.results / "deck_plan.json", plan)
     return dict(plan=plan, rendered=rendered, manifests=manifests, decisions=ops, survey_manifest=survey_manifest)
 
 
 def manifest_text(plan: dict, role: str) -> str:
+    """Manifest bytes from a plan; plans written before the explicit-row keys existed render exactly as before."""
     rows = [d for d in plan["decks"] if d["role"] == role]
     t = plan["totals"][role]
-    lines = [HEADER,
+    lines = [plan["header"],
              f"# Low-tail Cr-site DFT relaxations ({role}): per site clean slab, *O from the census MACE reconstructed endpoint,",
              "# *O from the unreconstructed start (census clean slab + O on top of the site Cr). docs/92 settings of record,",
              f"# {'HUBBARD (atomic)' if role == 'primary' else 'HUBBARD (ortho-atomic)'}, FM starts, k 4 2 1, calculation = 'relax' (bfgs; census FixAtoms as if_pos 0 0 0).",
-             "# Not licensed for submission by this preparation: submission needs a dated approval line after the two arrays report.",
-             f"# Plan, costs and basin rules: {rel(RESULTS / 'deck_plan.json')}, {rel(RESULTS / 'operating_decisions.json')}.",
+             plan.get("licence", licence_line(LICENCE)),
+             *plan.get("comments", []),
+             f"# Plan, costs and basin rules: {plan.get('deck_plan', rel(RESULTS / 'deck_plan.json'))}, {plan['operating_decisions']}.",
              "# Readout: python src/s2/lowtail_dft/lt_readout.py (accepts a leg only when src/dft/hea_panel_readout.py parse_out(allow_relax=True) is CONVERGED,",
              "# read with two recorded input corrections: pw.x hour-format wall tokens and the gfortran exit note; IEEE_INVALID still rejects).",
              f"# KILL RULE ({plan['kill_rule']['source']}, carried to relaxation legs): stop once any SCF begins iteration "
@@ -271,21 +357,64 @@ def mace_start_check(threads: int = 2) -> dict:
     return out
 
 
+def row_from_args(args) -> Row:
+    """An explicit row from the CLI flags; relative paths resolve against the repository root."""
+    if args.out_root is None:
+        raise ValueError("--sites-json needs --out-root")
+    sites = read_json(ROOT / args.sites_json)
+    if not isinstance(sites, list) or not sites:
+        raise ValueError(f"{args.sites_json}: expected a non-empty JSON list of sites")
+    for s in sites:
+        if set(s) != {"formula", "census", "seed", "site"} or not (ROOT / s["census"]).is_file():
+            raise ValueError(f"site entries need exactly formula, census (an existing repository-relative file), seed, site: {s}")
+    deck_root = (ROOT / args.out_root).resolve()
+    results = (ROOT / (args.results_dir or Path("results") / deck_root.name)).resolve()
+    projectors = tuple(args.projectors.split(","))
+    if any(p not in ROLES for p in projectors) or len(set(projectors)) != len(projectors):
+        raise ValueError(f"--projectors must name distinct entries of {sorted(ROLES)}: {args.projectors!r}")
+    name = Path(args.manifest or f"m_{deck_root.name}.txt")
+    manifests = {"primary": deck_root / name.name,
+                 "paired projector control": deck_root / f"{name.stem}_projector_control{name.suffix}"}
+    date = args.date or (re.search(r"\d{4}-\d{2}-\d{2}$", deck_root.name) or [None])[0]
+    if date is None:
+        raise ValueError("--date is needed when the out-root name carries no trailing YYYY-MM-DD")
+    decisions = (ROOT / (args.decisions or results / "operating_decisions.json")).resolve()
+    return Row(sites=tuple(dict(formula=s["formula"], census=s["census"], seed=int(s["seed"]), site=int(s["site"])) for s in sites),
+               projectors=projectors, date=date, header=f"# PREPARED {date} - {args.note}", licence=args.licence,
+               comments=tuple(f"# {c}" for c in args.comment), deck_root=deck_root, results=results,
+               manifests={r: p for r, p in manifests.items() if r in [ROLES[q] for q in projectors]}, decisions=decisions)
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--check", action="store_true", help="re-render and compare with the written decks; write nothing")
     ap.add_argument("--mace-starts", action="store_true")
+    ex = ap.add_argument_group("explicit row", "an explicit site list rendered under its own deck root (the default row is untouched)")
+    ex.add_argument("--sites-json", type=Path, help="JSON list of {formula, census, seed, site}; census paths repository-relative")
+    ex.add_argument("--out-root", type=Path, help="deck root under a runs tree; the manifest is written beside the site directories")
+    ex.add_argument("--results-dir", type=Path, help="plan and survey-manifest directory (default results/<out-root name>)")
+    ex.add_argument("--manifest", help="primary manifest file name (default m_<out-root name>.txt); ortho adds _projector_control")
+    ex.add_argument("--projectors", default=",".join(PROJECTORS), help="comma list drawn from atomic, ortho (default both)")
+    ex.add_argument("--date", help="preparation date (default: the trailing YYYY-MM-DD of the out-root name)")
+    ex.add_argument("--note", default="explicit site list", help="header text after '# PREPARED <date> - '")
+    ex.add_argument("--licence", default=LICENCE, help="what submission needs, after 'submission needs '")
+    ex.add_argument("--decisions", type=Path, help="operating decisions to reference: written from lt_decisions.build() when "
+                                                   "inside --results-dir, otherwise an existing file read and cross-checked")
+    ex.add_argument("--comment", action="append", default=[], help="extra manifest comment line after the licence line (repeatable)")
     args = ap.parse_args(argv)
+    row = row_from_args(args) if args.sites_json is not None else DEFAULT_ROW
     if args.check:
-        built = build(write=False)
+        built = build(write=False, row=row)
         bad = [rel(p) for p, t in built["rendered"].items() if not p.exists() or p.read_bytes() != t.encode("utf-8")]
         bad += [rel(p) for p, t in built["manifests"].items() if not p.exists() or p.read_bytes() != t.encode("utf-8")]
         print("CHECK OK" if not bad else "CHECK DIFFERS: " + ", ".join(bad))
         return 0 if not bad else 2
-    built = build(write=True)
+    built = build(write=True, row=row)
     for role, t in built["plan"]["totals"].items():
         print(f"{role}: {t['n_decks']} decks, planning {t['planning_core_h']:.1f} core-h, ceiling {t['ceiling_core_h']:.1f} core-h")
     if args.mace_starts:
+        if row is not DEFAULT_ROW:
+            raise ValueError("--mace-starts applies to the default row only")
         write_json(RESULTS / "mace_start_check.json", mace_start_check())
         print("mace start check written")
     return 0

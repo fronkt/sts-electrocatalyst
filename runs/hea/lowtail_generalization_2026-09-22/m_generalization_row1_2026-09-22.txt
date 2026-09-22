@@ -1,0 +1,41 @@
+# PREPARED 2026-09-22 - generalization row1: p10 bracketing sites (adsorbate_intact policy) of Cu8Cr23Mn35Co34 and Cu26Ni9Cr31Co33; sequenced after the discriminating SCF test on the Cu8 clean-slab stall reads out
+# Low-tail Cr-site DFT relaxations (primary): per site clean slab, *O from the census MACE reconstructed endpoint,
+# *O from the unreconstructed start (census clean slab + O on top of the site Cr). docs/92 settings of record,
+# HUBBARD (atomic), FM starts, k 4 2 1, calculation = 'relax' (bfgs; census FixAtoms as if_pos 0 0 0).
+# Not licensed for submission by this preparation: submission needs the entrant's dated A11.R3 line after the discriminating SCF test reads out.
+# Census *O endpoint category per site (results/site_census_2026-09-06/readout_full/per_site.csv O_category): Cu8Cr23Mn35Co34 s16 site2 RECONSTRUCTION; Cu8Cr23Mn35Co34 s26 site1 RECONSTRUCTION; Cu26Ni9Cr31Co33 s1 site0 RECONSTRUCTION; Cu26Ni9Cr31Co33 s17 site1 NORMAL (intact: its O_recon leg starts from an unlifted census endpoint).
+# Plan, costs and basin rules: results/lowtail_generalization_2026-09-22/deck_plan.json, results/lowtail_dft_2026-09-18/operating_decisions.json.
+# Readout: python src/s2/lowtail_dft/lt_readout.py (accepts a leg only when src/dft/hea_panel_readout.py parse_out(allow_relax=True) is CONVERGED,
+# read with two recorded input corrections: pw.x hour-format wall tokens and the gfortran exit note; IEEE_INVALID still rejects).
+# KILL RULE (docs/research/research-decisions-2026-09-16.md:81 (HEA-4), carried to relaxation legs): stop once any SCF begins iteration 127 or the leg wall exceeds its ceiling wall s below;
+# record KILLED, preserve scratch, no automatic restart; a stopped leg yields no energy, geometry or basin.
+# PLANNING 7123.7 core-h, CEILING 22995.0 core-h for 12 decks (measured HEA per-SCF cost x banked relaxation steps; lt_cost.py). Max memory 103.4 GB printed-estimate basis, 114.6 GiB MaxRSS basis per deck.
+#
+# per deck (site  job  nat  planning core-h  ceiling core-h  planning wall h  ceiling wall h  ceiling wall s  memory GB  md5):
+#   Cu8Cr23Mn35Co34__s16_site2       slab__atomic        72     589.8    1904.0    4.61   14.87   53550   102.4  06df5d5673bfdf7b95cc8759757d9560
+#   Cu8Cr23Mn35Co34__s16_site2       O_recon__atomic     73     595.9    1923.4    4.66   15.03   54097   103.4  3e220482b690f1edb697a5033f05c8cf
+#   Cu8Cr23Mn35Co34__s16_site2       O_unrecon__atomic   73     595.9    1923.4    4.66   15.03   54097   103.4  1119dd3b58147d011dfc6546ea7a78b9
+#   Cu8Cr23Mn35Co34__s26_site1       slab__atomic        72     589.8    1904.0    4.61   14.87   53550   102.4  054db062b0377c945123447c08454a43
+#   Cu8Cr23Mn35Co34__s26_site1       O_recon__atomic     73     595.9    1923.4    4.66   15.03   54097   103.4  602f8b2c9eb0dfa32d33a9a5c39b401d
+#   Cu8Cr23Mn35Co34__s26_site1       O_unrecon__atomic   73     595.9    1923.4    4.66   15.03   54097   103.4  55e4002acffb2478b3b58227d6835b77
+#   Cu26Ni9Cr31Co33__s1_site0        slab__atomic        72     590.4    1905.6    4.61   14.89   53597   102.5  c6e46dace4b17e34249e7d3fe8213a31
+#   Cu26Ni9Cr31Co33__s1_site0        O_recon__atomic     73     595.0    1920.5    4.65   15.00   54015   103.3  2ade07a959e8936bed3929e8c62b7058
+#   Cu26Ni9Cr31Co33__s1_site0        O_unrecon__atomic   73     595.0    1920.5    4.65   15.00   54015   103.3  2e0b89325b729fcbccadb83f2a6e407d
+#   Cu26Ni9Cr31Co33__s17_site1       slab__atomic        72     590.4    1905.6    4.61   14.89   53597   102.5  9cb346f7a2eacc44e137d5f017131156
+#   Cu26Ni9Cr31Co33__s17_site1       O_recon__atomic     73     595.0    1920.5    4.65   15.00   54015   103.3  5ad931e324bc50e87673d3f62ed841d8
+#   Cu26Ni9Cr31Co33__s17_site1       O_unrecon__atomic   73     595.0    1920.5    4.65   15.00   54015   103.3  c39c4ec5456bdbc1664850bdb65dfda6
+#
+# SUBMIT WITH EXCLUDE=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200
+# NP=128 NCONC=1
+hea/lowtail_generalization_2026-09-22/Cu8Cr23Mn35Co34__s16_site2 slab__atomic .in 8
+hea/lowtail_generalization_2026-09-22/Cu8Cr23Mn35Co34__s16_site2 O_recon__atomic .in 8
+hea/lowtail_generalization_2026-09-22/Cu8Cr23Mn35Co34__s16_site2 O_unrecon__atomic .in 8
+hea/lowtail_generalization_2026-09-22/Cu8Cr23Mn35Co34__s26_site1 slab__atomic .in 8
+hea/lowtail_generalization_2026-09-22/Cu8Cr23Mn35Co34__s26_site1 O_recon__atomic .in 8
+hea/lowtail_generalization_2026-09-22/Cu8Cr23Mn35Co34__s26_site1 O_unrecon__atomic .in 8
+hea/lowtail_generalization_2026-09-22/Cu26Ni9Cr31Co33__s1_site0 slab__atomic .in 8
+hea/lowtail_generalization_2026-09-22/Cu26Ni9Cr31Co33__s1_site0 O_recon__atomic .in 8
+hea/lowtail_generalization_2026-09-22/Cu26Ni9Cr31Co33__s1_site0 O_unrecon__atomic .in 8
+hea/lowtail_generalization_2026-09-22/Cu26Ni9Cr31Co33__s17_site1 slab__atomic .in 8
+hea/lowtail_generalization_2026-09-22/Cu26Ni9Cr31Co33__s17_site1 O_recon__atomic .in 8
+hea/lowtail_generalization_2026-09-22/Cu26Ni9Cr31Co33__s17_site1 O_unrecon__atomic .in 8

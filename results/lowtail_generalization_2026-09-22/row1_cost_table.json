@@ -1,0 +1,391 @@
+{
+  "schema": "lowtail-generalization-cost-table-v1",
+  "row": "row1",
+  "date": "2026-09-22",
+  "status": "PREPARED_NOT_SUBMITTED",
+  "licensed": false,
+  "note": "NOT LICENSED: needs the entrant's dated A11.R3 line after the discriminating SCF test reads out",
+  "projector": "atomic",
+  "ranks": 128,
+  "concurrency": 1,
+  "cost_model": {
+    "module": "src/s2/lowtail_dft/lt_cost.py",
+    "rule": "deck_cost: measured HEA per-SCF anchors x banked relaxation-step bands; ceiling = max(3 x planning, p90 formula); force reference = winner endpoints of the 2026-09-16 zero-compute readout (no DFT force exists at any row-1 site)",
+    "force_reference": {
+      "source": "results/lowtail_dft_2026-09-16/zero_compute/zero_compute_readout.json",
+      "values": {
+        "winner_O|atomic": 1.58255978350026,
+        "winner_O|ortho": 1.518580629163242,
+        "winner_slab|atomic": 1.5621142603152407,
+        "winner_slab|ortho": 1.5298026971418026
+      }
+    },
+    "bands": {
+      "winner_O|atomic": {
+        "scf_cycles_p50": 20,
+        "scf_cycles_p90": 50,
+        "subsequent_iterations_p50": 14.0,
+        "subsequent_iterations_p90": 19,
+        "n_basis": 45
+      },
+      "winner_slab|atomic": {
+        "scf_cycles_p50": 20,
+        "scf_cycles_p90": 50,
+        "subsequent_iterations_p50": 14,
+        "subsequent_iterations_p90": 19,
+        "n_basis": 44
+      }
+    }
+  },
+  "anchors": {
+    "current": {
+      "n_accepted_atomic_scfs": 21,
+      "first_iterations_p50": 40,
+      "first_iterations_p90": 75,
+      "per_iteration_norm": 6.993083853729829e-05
+    },
+    "spec_2026_09_18": {
+      "n_accepted_atomic_scfs": 14,
+      "first_iterations_p50": 37,
+      "first_iterations_p90": 87,
+      "per_iteration_norm": 6.993858382629042e-05,
+      "source": {
+        "path": "results/lowtail_dft_2026-09-18/deck_plan.json",
+        "sha256": "2ff8a2e2c1e299ed7c942384024baacf573806007f1bf39eab6ba0380e364da6",
+        "bytes": 97868
+      }
+    }
+  },
+  "legs": [
+    {
+      "site": "Cu8Cr23Mn35Co34__s16_site2",
+      "job": "slab__atomic",
+      "state": "slab",
+      "nat": 72,
+      "path": "runs/hea/lowtail_generalization_2026-09-22/Cu8Cr23Mn35Co34__s16_site2/slab__atomic.in",
+      "planning_core_h": 589.8452284930859,
+      "ceiling_core_h": 1903.9812362542614,
+      "p90_formula_core_h": 1903.9812362542614,
+      "planning_wall_h": 4.608165847602233,
+      "ceiling_wall_h": 14.874853408236417,
+      "leg_wall_ceiling_s": 53550,
+      "planning_ionic_steps": 20,
+      "ceiling_ionic_steps_p90": 50,
+      "memory_printed_estimate_GB": 102.37647316012739,
+      "memory_maxrss_scaled_GiB": 113.47060420892397,
+      "fits_node": true,
+      "ceiling_exceeds_deck_max_seconds": false,
+      "spec_basis": {
+        "planning_core_h": 585.6215385388858,
+        "ceiling_core_h": 1928.3561658902754,
+        "leg_wall_ceiling_s": 54236
+      }
+    },
+    {
+      "site": "Cu8Cr23Mn35Co34__s16_site2",
+      "job": "O_recon__atomic",
+      "state": "O_recon",
+      "nat": 73,
+      "path": "runs/hea/lowtail_generalization_2026-09-22/Cu8Cr23Mn35Co34__s16_site2/O_recon__atomic.in",
+      "planning_core_h": 595.8600057653796,
+      "ceiling_core_h": 1923.4395418112852,
+      "p90_formula_core_h": 1923.4395418112852,
+      "planning_wall_h": 4.655156295042028,
+      "ceiling_wall_h": 15.026871420400665,
+      "leg_wall_ceiling_s": 54097,
+      "planning_ionic_steps": 20,
+      "ceiling_ionic_steps_p90": 50,
+      "memory_printed_estimate_GB": 103.42648826946203,
+      "memory_maxrss_scaled_GiB": 114.63440527773345,
+      "fits_node": true,
+      "ceiling_exceeds_deck_max_seconds": false,
+      "spec_basis": {
+        "planning_core_h": 591.5856459427035,
+        "ceiling_core_h": 1948.0460711814574,
+        "leg_wall_ceiling_s": 54789
+      }
+    },
+    {
+      "site": "Cu8Cr23Mn35Co34__s16_site2",
+      "job": "O_unrecon__atomic",
+      "state": "O_unrecon",
+      "nat": 73,
+      "path": "runs/hea/lowtail_generalization_2026-09-22/Cu8Cr23Mn35Co34__s16_site2/O_unrecon__atomic.in",
+      "planning_core_h": 595.8600057653796,
+      "ceiling_core_h": 1923.4395418112852,
+      "p90_formula_core_h": 1923.4395418112852,
+      "planning_wall_h": 4.655156295042028,
+      "ceiling_wall_h": 15.026871420400665,
+      "leg_wall_ceiling_s": 54097,
+      "planning_ionic_steps": 20,
+      "ceiling_ionic_steps_p90": 50,
+      "memory_printed_estimate_GB": 103.42648826946203,
+      "memory_maxrss_scaled_GiB": 114.63440527773345,
+      "fits_node": true,
+      "ceiling_exceeds_deck_max_seconds": false,
+      "spec_basis": {
+        "planning_core_h": 591.5856459427035,
+        "ceiling_core_h": 1948.0460711814574,
+        "leg_wall_ceiling_s": 54789
+      }
+    },
+    {
+      "site": "Cu8Cr23Mn35Co34__s26_site1",
+      "job": "slab__atomic",
+      "state": "slab",
+      "nat": 72,
+      "path": "runs/hea/lowtail_generalization_2026-09-22/Cu8Cr23Mn35Co34__s26_site1/slab__atomic.in",
+      "planning_core_h": 589.8452284930859,
+      "ceiling_core_h": 1903.9812362542614,
+      "p90_formula_core_h": 1903.9812362542614,
+      "planning_wall_h": 4.608165847602233,
+      "ceiling_wall_h": 14.874853408236417,
+      "leg_wall_ceiling_s": 53550,
+      "planning_ionic_steps": 20,
+      "ceiling_ionic_steps_p90": 50,
+      "memory_printed_estimate_GB": 102.37647316012739,
+      "memory_maxrss_scaled_GiB": 113.47060420892397,
+      "fits_node": true,
+      "ceiling_exceeds_deck_max_seconds": false,
+      "spec_basis": {
+        "planning_core_h": 585.6215385388858,
+        "ceiling_core_h": 1928.3561658902754,
+        "leg_wall_ceiling_s": 54236
+      }
+    },
+    {
+      "site": "Cu8Cr23Mn35Co34__s26_site1",
+      "job": "O_recon__atomic",
+      "state": "O_recon",
+      "nat": 73,
+      "path": "runs/hea/lowtail_generalization_2026-09-22/Cu8Cr23Mn35Co34__s26_site1/O_recon__atomic.in",
+      "planning_core_h": 595.8600057653796,
+      "ceiling_core_h": 1923.4395418112852,
+      "p90_formula_core_h": 1923.4395418112852,
+      "planning_wall_h": 4.655156295042028,
+      "ceiling_wall_h": 15.026871420400665,
+      "leg_wall_ceiling_s": 54097,
+      "planning_ionic_steps": 20,
+      "ceiling_ionic_steps_p90": 50,
+      "memory_printed_estimate_GB": 103.42648826946203,
+      "memory_maxrss_scaled_GiB": 114.63440527773345,
+      "fits_node": true,
+      "ceiling_exceeds_deck_max_seconds": false,
+      "spec_basis": {
+        "planning_core_h": 591.5856459427035,
+        "ceiling_core_h": 1948.0460711814574,
+        "leg_wall_ceiling_s": 54789
+      }
+    },
+    {
+      "site": "Cu8Cr23Mn35Co34__s26_site1",
+      "job": "O_unrecon__atomic",
+      "state": "O_unrecon",
+      "nat": 73,
+      "path": "runs/hea/lowtail_generalization_2026-09-22/Cu8Cr23Mn35Co34__s26_site1/O_unrecon__atomic.in",
+      "planning_core_h": 595.8600057653796,
+      "ceiling_core_h": 1923.4395418112852,
+      "p90_formula_core_h": 1923.4395418112852,
+      "planning_wall_h": 4.655156295042028,
+      "ceiling_wall_h": 15.026871420400665,
+      "leg_wall_ceiling_s": 54097,
+      "planning_ionic_steps": 20,
+      "ceiling_ionic_steps_p90": 50,
+      "memory_printed_estimate_GB": 103.42648826946203,
+      "memory_maxrss_scaled_GiB": 114.63440527773345,
+      "fits_node": true,
+      "ceiling_exceeds_deck_max_seconds": false,
+      "spec_basis": {
+        "planning_core_h": 591.5856459427035,
+        "ceiling_core_h": 1948.0460711814574,
+        "leg_wall_ceiling_s": 54789
+      }
+    },
+    {
+      "site": "Cu26Ni9Cr31Co33__s1_site0",
+      "job": "slab__atomic",
+      "state": "slab",
+      "nat": 72,
+      "path": "runs/hea/lowtail_generalization_2026-09-22/Cu26Ni9Cr31Co33__s1_site0/slab__atomic.in",
+      "planning_core_h": 590.3568855180191,
+      "ceiling_core_h": 1905.6364893552216,
+      "p90_formula_core_h": 1905.6364893552216,
+      "planning_wall_h": 4.612163168109524,
+      "ceiling_wall_h": 14.887785073087668,
+      "leg_wall_ceiling_s": 53597,
+      "planning_ionic_steps": 20,
+      "ceiling_ionic_steps_p90": 50,
+      "memory_printed_estimate_GB": 102.46579444047669,
+      "memory_maxrss_scaled_GiB": 113.5696048810227,
+      "fits_node": true,
+      "ceiling_exceeds_deck_max_seconds": false,
+      "spec_basis": {
+        "planning_core_h": 586.1288852472463,
+        "ceiling_core_h": 1930.031120407529,
+        "leg_wall_ceiling_s": 54283
+      }
+    },
+    {
+      "site": "Cu26Ni9Cr31Co33__s1_site0",
+      "job": "O_recon__atomic",
+      "state": "O_recon",
+      "nat": 73,
+      "path": "runs/hea/lowtail_generalization_2026-09-22/Cu26Ni9Cr31Co33__s1_site0/O_recon__atomic.in",
+      "planning_core_h": 594.9544242209453,
+      "ceiling_core_h": 1920.5099100725383,
+      "p90_formula_core_h": 1920.5099100725383,
+      "planning_wall_h": 4.648081439226135,
+      "ceiling_wall_h": 15.003983672441706,
+      "leg_wall_ceiling_s": 54015,
+      "planning_ionic_steps": 20,
+      "ceiling_ionic_steps_p90": 50,
+      "memory_printed_estimate_GB": 103.2683985744752,
+      "memory_maxrss_scaled_GiB": 114.45918403152679,
+      "fits_node": true,
+      "ceiling_exceeds_deck_max_seconds": false,
+      "spec_basis": {
+        "planning_core_h": 590.6876932256843,
+        "ceiling_core_h": 1945.0815699146372,
+        "leg_wall_ceiling_s": 54706
+      }
+    },
+    {
+      "site": "Cu26Ni9Cr31Co33__s1_site0",
+      "job": "O_unrecon__atomic",
+      "state": "O_unrecon",
+      "nat": 73,
+      "path": "runs/hea/lowtail_generalization_2026-09-22/Cu26Ni9Cr31Co33__s1_site0/O_unrecon__atomic.in",
+      "planning_core_h": 594.9544242209453,
+      "ceiling_core_h": 1920.5099100725383,
+      "p90_formula_core_h": 1920.5099100725383,
+      "planning_wall_h": 4.648081439226135,
+      "ceiling_wall_h": 15.003983672441706,
+      "leg_wall_ceiling_s": 54015,
+      "planning_ionic_steps": 20,
+      "ceiling_ionic_steps_p90": 50,
+      "memory_printed_estimate_GB": 103.2683985744752,
+      "memory_maxrss_scaled_GiB": 114.45918403152679,
+      "fits_node": true,
+      "ceiling_exceeds_deck_max_seconds": false,
+      "spec_basis": {
+        "planning_core_h": 590.6876932256843,
+        "ceiling_core_h": 1945.0815699146372,
+        "leg_wall_ceiling_s": 54706
+      }
+    },
+    {
+      "site": "Cu26Ni9Cr31Co33__s17_site1",
+      "job": "slab__atomic",
+      "state": "slab",
+      "nat": 72,
+      "path": "runs/hea/lowtail_generalization_2026-09-22/Cu26Ni9Cr31Co33__s17_site1/slab__atomic.in",
+      "planning_core_h": 590.3568855180191,
+      "ceiling_core_h": 1905.6364893552216,
+      "p90_formula_core_h": 1905.6364893552216,
+      "planning_wall_h": 4.612163168109524,
+      "ceiling_wall_h": 14.887785073087668,
+      "leg_wall_ceiling_s": 53597,
+      "planning_ionic_steps": 20,
+      "ceiling_ionic_steps_p90": 50,
+      "memory_printed_estimate_GB": 102.46579444047669,
+      "memory_maxrss_scaled_GiB": 113.5696048810227,
+      "fits_node": true,
+      "ceiling_exceeds_deck_max_seconds": false,
+      "spec_basis": {
+        "planning_core_h": 586.1288852472463,
+        "ceiling_core_h": 1930.031120407529,
+        "leg_wall_ceiling_s": 54283
+      }
+    },
+    {
+      "site": "Cu26Ni9Cr31Co33__s17_site1",
+      "job": "O_recon__atomic",
+      "state": "O_recon",
+      "nat": 73,
+      "path": "runs/hea/lowtail_generalization_2026-09-22/Cu26Ni9Cr31Co33__s17_site1/O_recon__atomic.in",
+      "planning_core_h": 594.9544242209453,
+      "ceiling_core_h": 1920.5099100725383,
+      "p90_formula_core_h": 1920.5099100725383,
+      "planning_wall_h": 4.648081439226135,
+      "ceiling_wall_h": 15.003983672441706,
+      "leg_wall_ceiling_s": 54015,
+      "planning_ionic_steps": 20,
+      "ceiling_ionic_steps_p90": 50,
+      "memory_printed_estimate_GB": 103.2683985744752,
+      "memory_maxrss_scaled_GiB": 114.45918403152679,
+      "fits_node": true,
+      "ceiling_exceeds_deck_max_seconds": false,
+      "spec_basis": {
+        "planning_core_h": 590.6876932256843,
+        "ceiling_core_h": 1945.0815699146372,
+        "leg_wall_ceiling_s": 54706
+      }
+    },
+    {
+      "site": "Cu26Ni9Cr31Co33__s17_site1",
+      "job": "O_unrecon__atomic",
+      "state": "O_unrecon",
+      "nat": 73,
+      "path": "runs/hea/lowtail_generalization_2026-09-22/Cu26Ni9Cr31Co33__s17_site1/O_unrecon__atomic.in",
+      "planning_core_h": 594.9544242209453,
+      "ceiling_core_h": 1920.5099100725383,
+      "p90_formula_core_h": 1920.5099100725383,
+      "planning_wall_h": 4.648081439226135,
+      "ceiling_wall_h": 15.003983672441706,
+      "leg_wall_ceiling_s": 54015,
+      "planning_ionic_steps": 20,
+      "ceiling_ionic_steps_p90": 50,
+      "memory_printed_estimate_GB": 103.2683985744752,
+      "memory_maxrss_scaled_GiB": 114.45918403152679,
+      "fits_node": true,
+      "ceiling_exceeds_deck_max_seconds": false,
+      "spec_basis": {
+        "planning_core_h": 590.6876932256843,
+        "ceiling_core_h": 1945.0815699146372,
+        "leg_wall_ceiling_s": 54706
+      }
+    }
+  ],
+  "totals": {
+    "current_anchors": {
+      "n_legs": 12,
+      "planning_core_h": 7123.661947967509,
+      "ceiling_core_h": 22995.033258754258,
+      "relaxation_ceiling_core_h": 22995.27111111111,
+      "projection_ceiling_core_h": 768.0,
+      "wall_minutes": 934,
+      "scheduler_ceiling_core_h": 23910.4
+    },
+    "spec_2026_09_18_anchors": {
+      "n_legs": 12,
+      "planning_core_h": 7072.5942042458155,
+      "ceiling_core_h": 23289.285136979986,
+      "relaxation_ceiling_core_h": 23289.52888888889,
+      "projection_ceiling_core_h": 768.0,
+      "wall_minutes": 946,
+      "scheduler_ceiling_core_h": 24217.6
+    }
+  },
+  "reference": {
+    "launch_spec_2026_09_18": {
+      "path": "results/lowtail_dft_2026-09-18/launch_spec.json",
+      "n_legs": 9,
+      "planning_core_h": 5443.195485907215,
+      "relaxation_ceiling_core_h": 17925.226666666666,
+      "projection_ceiling_core_h": 576.0,
+      "wall_minutes": 1005,
+      "scheduler_ceiling_core_h": 19296.0
+    },
+    "sizing_note": {
+      "path": "docs/research/lowtail-generalization-sizing-2026-09-22.md",
+      "rule": "4 x the Cu8Cr23Mn35Co34 seed20 site2 legs of the 2026-09-18 spec",
+      "planning_core_h": 7075.171321697171,
+      "ceiling_core_h": 23297.79323301276
+    }
+  },
+  "limitations": [
+    "Planning and ceiling costs are empirical estimates, not guarantees of convergence.",
+    "No DFT force exists at any row-1 site: the Ni31 seed-1 endpoint forces of the 2026-09-16 zero-compute readout set the step bands, as in the 2026-09-18 spec.",
+    "Array 20813525 observed a clean-slab leg fail at the SCF ceiling (538 core-h) and an adsorbate leg reach 1,194 core-h before its kill (docs/research/lowtail-generalization-sizing-2026-09-22.md section 3); the bands do not model that failure mode."
+  ]
+}
