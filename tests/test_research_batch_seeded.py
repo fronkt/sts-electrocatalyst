@@ -1,4 +1,5 @@
-"""The seeded runner: the full runner suite bound to research_batch_seeded plus the scratch-seed guards.
+"""The seeded runner: the full runner suite bound to research_batch_seeded, the scratch-seed guards
+and the relaxation stage kind.
 
 No real process or signal is sent.  Corruption tests exercise the actual public
 validation/run paths; process-lifecycle tests use deterministic process doubles.
@@ -15,6 +16,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src/dft"))
 import research_batch_seeded as batch
+import hea_panel_readout
 
 SCF = """Program PWSCF
 number of atoms/cell = 2
@@ -442,4 +444,171 @@ def test_missing_density_pin_is_refused(approved):
     del job["scratch_source"]["files"]["charge-density.hdf5"]
     with pytest.raises(ValueError, match="must pin the density"):
         batch.validate(spec, root, "pilot", row=1, pseudo=pseudo)
+
+
+RELAXATION = """Program PWSCF
+number of atoms/cell = 2
+iteration #  1
+iteration # 20
+!    total energy = -10.00000000 Ry
+convergence has been achieved in 20 iterations
+iteration #  1
+iteration # 12
+!    total energy = -1.050000000D+01 Ry
+convergence has been achieved in 12 iterations
+bfgs converged in 2 scf cycles and 1 bfgs steps
+Final energy = -10.5000000000 Ry
+JOB DONE.
+"""
+
+
+def relaxed(approved):
+    """The unit fixture as a one-leg relaxation stage: relax deck, kind "relax", leg wall above the SCF bound."""
+    spec, root, pseudo, directory = approved
+    deck = directory / "point.in"
+    deck.write_text(deck.read_text(encoding="utf-8").replace(" calculation = 'scf'\n", " calculation = 'relax'\n"),
+                    encoding="utf-8", newline="\n")
+    stage = spec["stages"]["pilot"]
+    stage["kind"] = "relax"
+    job = stage["jobs"][0]
+    job["sha256"] = sha(deck)
+    job["scf_seconds"] = 50000
+    return spec, root, pseudo, directory, job
+
+
+def relaxation_doubles(monkeypatch, output_text, status="CONVERGED"):
+    """pw.x writes output_text and a retained density; projwfc writes PROJECTION; the readout is a stub."""
+    calls, seen = [], {}
+
+    def execute(command, output, cwd, env, seconds, max_iterations=None, exitfile=None):
+        calls.append({"command": command, "seconds": seconds, "max_iterations": max_iterations})
+        if len(calls) == 1:
+            output.write_text(output_text, encoding="utf-8", newline="\n")
+            save = exitfile.parent / "point.save"
+            save.mkdir()
+            (save / "data-file-schema.xml").write_text("<qes/>", encoding="utf-8")
+            (save / "charge-density.dat").write_bytes(b"density")
+        else:
+            output.write_text(PROJECTION, encoding="utf-8", newline="\n")
+        return {"rc": 0, "stop_reason": None, "wall_seconds": 11}
+
+    def parse_out(path, *, allow_relax=False):
+        seen["path"], seen["allow_relax"] = Path(path), allow_relax
+        return {"status": status}
+
+    monkeypatch.setattr(batch, "execute", execute)
+    monkeypatch.setattr(hea_panel_readout, "parse_out", parse_out)
+    return calls, seen
+
+
+@pytest.mark.parametrize("kind,seconds,accepted", [
+    ("relax", 50000, True), ("relax", 60000, True), ("relax", 60001, False),
+    ("hea", 50000, False), ("hea", 19000, True),
+])
+def test_relaxation_leg_wall_is_admitted_only_for_the_relax_kind(approved, kind, seconds, accepted):
+    spec, root, pseudo, directory = approved
+    if kind == "relax":
+        spec, root, pseudo, directory, _ = relaxed(approved)
+    job = spec["stages"]["pilot"]["jobs"][0]
+    job["scf_seconds"] = seconds
+    if accepted:
+        assert batch.validate(spec, root, "pilot", row=1, pseudo=pseudo)["kind"] == kind
+    else:
+        with pytest.raises(ValueError, match="bounded runtime"):
+            batch.validate(spec, root, "pilot", row=1, pseudo=pseudo)
+    assert not (directory / "tmp_point").exists()
+
+
+def test_relax_stage_refuses_a_fixed_geometry_deck(approved):
+    spec, root, pseudo, directory = approved
+    spec["stages"]["pilot"]["kind"] = "relax"
+    with pytest.raises(ValueError, match="calculation.*expected 'relax'"):
+        batch.validate(spec, root, "pilot", row=1, pseudo=pseudo)
+    assert not (directory / "tmp_point").exists()
+
+
+def test_fixed_geometry_stage_refuses_a_relaxation_deck(approved):
+    spec, root, pseudo, directory, job = relaxed(approved)
+    spec["stages"]["pilot"]["kind"] = "hea"
+    job["scf_seconds"] = 60
+    with pytest.raises(ValueError, match="calculation.*expected 'scf'"):
+        batch.validate(spec, root, "pilot", row=1, pseudo=pseudo)
+
+
+def test_relax_stage_requires_the_registered_iteration_ceiling(approved):
+    spec, root, pseudo, directory, job = relaxed(approved)
+    job["max_iterations"] = 200
+    with pytest.raises(ValueError, match="126"):
+        batch.validate(spec, root, "pilot", row=1, pseudo=pseudo)
+
+
+def test_converged_relaxation_is_projected_and_banked_complete(approved, monkeypatch):
+    spec, root, pseudo, directory, job = relaxed(approved)
+    calls, seen = relaxation_doubles(monkeypatch, RELAXATION)
+    assert batch.run(spec, root, "pilot", 1, pseudo, root / "qe") == 0
+    qc = json.loads((directory / "point.qc.json").read_text(encoding="utf-8"))
+    assert qc["status"] == "COMPLETE"
+    assert qc["relaxation"] == {"status": "CONVERGED", "maximum_scf_iteration": 20, "bfgs_converged": True,
+                                "final_energy_Ry": -10.5, "ionic_steps": 2}
+    assert seen == {"path": directory / "point.out", "allow_relax": True}
+    assert [c["seconds"] for c in calls] == [50000, 60] and calls[0]["max_iterations"] == 126
+    assert any(str(part).endswith("projwfc.x") for part in calls[1]["command"])
+    assert not {"scf", "force", "complete_audit"} & set(qc)
+    assert qc["output_sha256"] == sha(directory / "point.out")
+    assert (directory / "point.projwfc.in").is_file() and (directory / "tmp_point/point.save").is_dir()
+    assert not (directory / "point.REJECTED").exists() and not (directory / "point.KILLED").exists()
+
+
+def test_unconverged_relaxation_is_rejected_before_projection_with_scratch_retained(approved, monkeypatch):
+    spec, root, pseudo, directory, job = relaxed(approved)
+    calls, _ = relaxation_doubles(monkeypatch, RELAXATION, status="UNCONVERGED")
+    assert batch.run(spec, root, "pilot", 1, pseudo, root / "qe") == 10
+    qc = json.loads((directory / "point.qc.json").read_text(encoding="utf-8"))
+    assert qc["status"] == "REJECTED" and "UNCONVERGED" in qc["reason"] and "relaxation" not in qc
+    assert len(calls) == 1 and not (directory / "point.projwfc.in").exists()
+    assert (directory / "point.REJECTED").read_text(encoding="utf-8") == qc["reason"] + "\n"
+    assert (directory / "tmp_point/point.save/charge-density.dat").is_file()
+
+
+def test_relaxation_scf_beyond_the_iteration_ceiling_is_rejected(approved, monkeypatch):
+    spec, root, pseudo, directory, job = relaxed(approved)
+    calls, _ = relaxation_doubles(monkeypatch, RELAXATION.replace("iteration # 12\n", "iteration # 127\n"))
+    assert batch.run(spec, root, "pilot", 1, pseudo, root / "qe") == 10
+    qc = json.loads((directory / "point.qc.json").read_text(encoding="utf-8"))
+    assert qc["status"] == "REJECTED" and "iteration" in qc["reason"] and "relaxation" not in qc
+    assert len(calls) == 1 and (directory / "point.REJECTED").is_file()
+    assert (directory / "tmp_point").is_dir()
+
+
+def test_relaxation_supervisor_stop_is_killed_without_consulting_the_readout(approved, monkeypatch):
+    spec, root, pseudo, directory, job = relaxed(approved)
+
+    def stopped(command, output, cwd, env, seconds, max_iterations=None, exitfile=None):
+        output.write_text("iteration # 1\n", encoding="utf-8", newline="\n")
+        return {"rc": 0, "stop_reason": "wall-time ceiling", "wall_seconds": seconds}
+
+    monkeypatch.setattr(batch, "execute", stopped)
+    monkeypatch.setattr(hea_panel_readout, "parse_out",
+                        lambda *a, **k: pytest.fail("readout consulted after a supervisor stop"))
+    assert batch.run(spec, root, "pilot", 1, pseudo, root / "qe") == 10
+    qc = json.loads((directory / "point.qc.json").read_text(encoding="utf-8"))
+    assert qc["status"] == "REJECTED" and qc["reason"] == "wall-time ceiling" and "relaxation" not in qc
+    assert (directory / "point.KILLED").read_text(encoding="utf-8") == "wall-time ceiling\n"
+    assert not (directory / "point.REJECTED").exists() and (directory / "tmp_point").is_dir()
+
+
+def test_relaxation_check_uses_the_real_readout(tmp_path):
+    output = tmp_path / "leg.out"
+    output.write_text(RELAXATION, encoding="utf-8", newline="\n")
+    assert batch.relaxation_check(output, 126) == {
+        "status": "CONVERGED", "maximum_scf_iteration": 20, "bfgs_converged": True,
+        "final_energy_Ry": -10.5, "ionic_steps": 2}
+    for mutation, expected in (
+            (lambda s: s.replace("bfgs converged in 2 scf cycles and 1 bfgs steps\n", ""), "REJECTED"),
+            (lambda s: s + "convergence NOT achieved after 300 iterations\n", "NOT CONVERGED"),
+            (lambda s: s.replace("JOB DONE.\n", ""), "PENDING"),
+            (lambda s: s + "Error in routine electrons (1)\n", "REJECTED")):
+        output.write_text(mutation(RELAXATION), encoding="utf-8", newline="\n")
+        with pytest.raises(ValueError, match=expected):
+            batch.relaxation_check(output, 126)
 

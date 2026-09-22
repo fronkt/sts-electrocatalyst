@@ -4,8 +4,11 @@ Sibling of research_batch.py, kept as its own pinned file so that the batches pi
 original runner (the 2026-09-18 relaxation array and the 2026-09-19 diagnostic) keep their
 bytes; this file adds the content-pinned scratch seed (job field "scratch_source").
 
-The scheduler pins this file and the specification. No retries, relaxation,
-overwrites or scratch deletion occur here. A stopped SCF never becomes a result.
+The scheduler pins this file and the specification. No retries, overwrites or
+scratch deletion occur here. A stage of kind "relax" runs one pw.x relaxation leg
+under the same supervisor (leg wall up to RELAX_SECONDS, SCF iteration ceiling 126)
+and is accepted by the canonical relaxation readout; every other kind is a
+fixed-geometry SCF. A stopped leg never becomes a result.
 """
 from __future__ import annotations
 
@@ -27,6 +30,10 @@ FAIL = re.compile(r"convergence NOT achieved|Maximum (?:CPU|wall) time exceeded|
                   r"SIGTERM|SIGINT|SIGSEGV|Segmentation fault|Floating point exception|"
                   r"IEEE_INVALID_FLAG|IEEE_OVERFLOW_FLAG|IEEE_DIVIDE_BY_ZERO|forrtl:\s*severe", re.I)
 NUM = r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eEdD][+-]?\d+)?"
+SCF_SECONDS, RELAX_SECONDS = 19000, 60000       # per-job pw.x wall by stage kind
+RELAX_MAX_ITERATIONS = 126                       # registered SCF ceiling of a relaxation leg
+# Deck calculation each stage kind may run; kinds not listed are fixed-geometry SCFs.
+CALCULATION = {"relax": "relax", "beef": "ensemble"}
 
 
 def digest(path, algorithm="sha256"):
@@ -74,11 +81,16 @@ def validate(spec, root, stage, row=None, pseudo=None):
         raise ValueError("manifest identity/order mismatch")
     if row is not None and (type(row) is not int or not 1 <= row <= len(expected_rows)):
         raise ValueError("invalid task index")
+    relax = group["kind"] == "relax"
+    calculation = CALCULATION.get(group["kind"], "scf")
     for job in group["jobs"] if row is None else [group["jobs"][row-1]]:
         if type(job["nk"]) is not int or job["nk"] <= 0 or 128 % job["nk"]:
             raise ValueError("invalid pool/rank shape")
-        if not 0 < job["scf_seconds"] <= 19000 or not 0 < job["projection_seconds"] <= 1800:
+        if (not 0 < job["scf_seconds"] <= (RELAX_SECONDS if relax else SCF_SECONDS)
+                or not 0 < job["projection_seconds"] <= 1800):
             raise ValueError("invalid bounded runtime")
+        if relax and job.get("max_iterations") != RELAX_MAX_ITERATIONS:
+            raise ValueError("relaxation requires the registered %d-iteration SCF ceiling" % RELAX_MAX_ITERATIONS)
         directory = within(root, "runs/" + job["dir"])
         deck = directory / (job["job"] + ".in")
         if digest(deck) != job["sha256"] or b"\r" in deck.read_bytes():
@@ -87,6 +99,8 @@ def validate(spec, root, stage, row=None, pseudo=None):
         prefixes = re.findall(r"(?m)^\s*prefix\s*=\s*'([^']+)'", text)
         if prefixes != [job["job"]]:
             raise ValueError("input prefix mismatch")
+        if re.findall(r"(?m)^\s*calculation\s*=\s*'([^']+)'", text) != [calculation]:
+            raise ValueError("deck calculation does not match stage kind: expected '" + calculation + "'")
         for suffix in (".out", ".run.in", ".projwfc.in", ".projwfc.out", ".qc.json", ".KILLED", ".REJECTED"):
             p = directory / (job["job"] + suffix)
             if p.exists() or p.is_symlink():
@@ -127,6 +141,29 @@ def scf_check(text):
     if not math.isfinite(energy):
         raise ValueError("nonfinite energy")
     return {"energy_Ry": energy, "iterations": int(conv[0])}
+
+
+def relaxation_check(output, max_iterations):
+    """Accept a relaxation leg as lowtail_batch.relaxation_check does: the canonical readout
+    decides completion, then every SCF cycle must sit within the registered iteration ceiling."""
+    import hea_panel_readout
+    try:
+        score = hea_panel_readout.parse_out(output, allow_relax=True)
+    except hea_panel_readout.Fatal as error:
+        raise ValueError("relaxation readout failed: " + str(error))
+    if score["status"] != "CONVERGED":
+        raise ValueError("relaxation not complete/clean: " + str(score["status"]))
+    text = output.read_text(encoding="utf-8", errors="strict")
+    iterations = [int(v) for v in re.findall(r"iteration\s*#\s*(\d+)", text)]
+    if not iterations or max(iterations) > max_iterations:
+        raise ValueError("relaxation SCF iteration count missing or above the %d ceiling" % max_iterations)
+    energies = [float(e.replace("D", "e").replace("d", "e")) for e in
+                re.findall(r"^!\s+total energy\s*=\s*(" + NUM + r")\s+Ry\s*$", text, re.M)]
+    if energies and not math.isfinite(energies[-1]):
+        raise ValueError("nonfinite energy")
+    return {"status": score["status"], "maximum_scf_iteration": max(iterations),
+            "bfgs_converged": "bfgs converged" in text,
+            "final_energy_Ry": energies[-1] if energies else None, "ionic_steps": len(energies)}
 
 
 def projection_check(text, nat):
@@ -241,7 +278,10 @@ def run(spec, root, stage, row, pseudo, qe):
             raise ValueError(result["stop_reason"])
         if result["rc"] != 0:
             raise ValueError("pw.x failed: " + str(result["rc"]))
-        record["scf"] = scf_check(output.read_text(encoding="utf-8", errors="strict"))
+        if group["kind"] == "relax":
+            record["relaxation"] = relaxation_check(output, job["max_iterations"])
+        else:
+            record["scf"] = scf_check(output.read_text(encoding="utf-8", errors="strict"))
         if group["kind"] == "beef":
             check = subprocess.run([sys.executable, str(root / "src/dft/p_beef_readout.py"),
                                     "--check-output", str(output)], capture_output=True, text=True, timeout=120)
@@ -249,11 +289,12 @@ def run(spec, root, stage, row, pseudo, qe):
             if check.returncode:
                 raise ValueError("BEEF ensemble/contribution validation failed")
         else:
-            from hea_force_audit import audit_files
-            force = audit_files(runtime, output)
-            if force["status"] != "VALID_SCF":
-                raise ValueError("force/SCF validation failed: " + repr(force["reasons"]))
-            record["force"] = force
+            if group["kind"] != "relax":
+                from hea_force_audit import audit_files
+                force = audit_files(runtime, output)
+                if force["status"] != "VALID_SCF":
+                    raise ValueError("force/SCF validation failed: " + repr(force["reasons"]))
+                record["force"] = force
             projection_input = directory / (name + ".projwfc.in")
             with projection_input.open("x", encoding="utf-8") as handle:
                 handle.write("&PROJWFC\n prefix = '" + name + "'\n outdir = '" + str(scratch) + "'\n lsym = .true.\n/\n")
