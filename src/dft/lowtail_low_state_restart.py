@@ -246,7 +246,7 @@ def build(check: bool) -> None:
                             "occupation comparison against the retained occup.txt is the readout")),
             "reference_energies_Ry": {"cu8_slab_cycle5_low_state": -7551.86633525, "cu8_slab_cycle5_stagnating": -7551.85936520,
                                       "cu8_slab_relax_cycle4_converged": -7551.85641872},
-            "seeds": {k: SEEDS[k] for k in {j["seed"] for j in b["jobs"]}},
+            "seeds": {k: SEEDS[k] for k in sorted({j["seed"] for j in b["jobs"]})},
             "relaxation_supervisor": array["jobs"][0]["supervisor_limits"] if b["kind"] == "relax" else None,
             "files": files, "pseudo_md5": pseudo_md5,
             "stages": {stage: {"kind": b["kind"], "manifest": b["manifest"].as_posix(), "concurrency": b["concurrency"],
