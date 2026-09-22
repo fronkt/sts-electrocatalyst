@@ -8,7 +8,7 @@ SPEC="$ROOT/results/lowtail_low_state_restart_2026-09-22/scf/launch_spec.json"
 RUNNER="$ROOT/src/dft/research_batch_seeded.py"
 PYTHON=/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3
 check_hash() { [ "$(sha256sum "$1" | awk '{print $1}')" = "$2" ] || { echo "REFUSE: hash $1"; exit 2; }; }
-check_hash "$SPEC" 77b5aca4f69529e822596ca741607d735348aadc141e2d0584e0b91fa24e5be7
+check_hash "$SPEC" 5b3dfd1121027e55aa42f2078ac2916ae6e26dc36041a981598ffafa114a4c4d
 check_hash "$RUNNER" 32d705a5cda6467d6f0b48bbc274abd751ed6959e583375bd62de9d1ce0a7231
 [ -f "$PROJECT/parity/PARITY_PASS" ] || { echo 'REFUSE: parity absent'; exit 2; }
 [ -f "$ROOT/anvil/pseudo_md5_preflight_2026-08-23.md" ] || exit 2
