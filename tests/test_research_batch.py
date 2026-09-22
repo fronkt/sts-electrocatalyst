@@ -378,3 +378,68 @@ def test_production_projection_validator_uses_shared_failure_guards():
     for suffix in ("IEEE_UNKNOWN_EXCEPTION_FLAG\n", "IEEE_INVALID_FLAG\n", "JOB DONE.\n"):
         with pytest.raises(ValueError):
             batch.projection_check(PROJECTION + suffix, 2)
+
+
+SEED = {"charge-density.hdf5": b"retained density", "data-file-schema.xml": b"<qes/>",
+        "occup.txt": b"hubbard ns", "paw.txt": b"becsum"}
+
+
+def seeded(approved):
+    spec, root, pseudo, directory = approved
+    save = root / "runs/prior/tmp_prior/prior.save"
+    save.mkdir(parents=True)
+    for name, data in SEED.items():
+        (save / name).write_bytes(data)
+    deck = directory / "point.in"
+    deck.write_text(deck.read_text(encoding="utf-8").replace(" prefix = 'point'\n",
+                    " prefix = 'point'\n startingpot = 'file'\n"), encoding="utf-8", newline="\n")
+    job = spec["stages"]["pilot"]["jobs"][0]
+    job["sha256"] = sha(deck)
+    job["scratch_source"] = {"save_dir": "runs/prior/tmp_prior/prior.save",
+                             "files": {name: sha(save / name) for name in SEED}}
+    return spec, root, pseudo, directory, save, job
+
+
+def test_scratch_source_is_copied_and_verified_before_execution(approved, monkeypatch):
+    spec, root, pseudo, directory, save, job = seeded(approved)
+    seen = {}
+
+    def observe(command, output, cwd, env, seconds, max_iterations=None, exitfile=None):
+        seen["copied"] = {p.name: p.read_bytes() for p in (directory / "tmp_point/point.save").iterdir()}
+        raise OSError("observed, not executed")
+
+    monkeypatch.setattr(batch, "execute", observe)
+    assert batch.run(spec, root, "pilot", 1, pseudo, root / "qe") != 0
+    assert seen["copied"] == SEED
+    qc = json.loads((directory / "point.qc.json").read_text(encoding="utf-8"))
+    assert qc["scratch_source"]["copied"] == job["scratch_source"]["files"]
+    assert qc["scratch_source"]["bytes"] == sum(len(v) for v in SEED.values())
+    assert {p.name: p.read_bytes() for p in save.iterdir()} == SEED
+
+
+@pytest.mark.parametrize("name", ["charge-density.hdf5", "occup.txt"])
+def test_drifted_scratch_source_is_refused_before_scratch_and_execution(approved, monkeypatch, name):
+    spec, root, pseudo, directory, save, job = seeded(approved)
+    (save / name).write_bytes(b"changed after pinning")
+    monkeypatch.setattr(batch, "execute", lambda *a, **k: pytest.fail("executed despite drift"))
+    with pytest.raises(ValueError, match="scratch source file drifted"):
+        batch.validate(spec, root, "pilot", row=1, pseudo=pseudo)
+    assert not (directory / "tmp_point").exists()
+
+
+def test_scratch_source_requires_a_deck_that_reads_it(approved):
+    spec, root, pseudo, directory, save, job = seeded(approved)
+    deck = directory / "point.in"
+    deck.write_text(deck.read_text(encoding="utf-8").replace(" startingpot = 'file'\n", ""),
+                    encoding="utf-8", newline="\n")
+    job["sha256"] = sha(deck)
+    with pytest.raises(ValueError, match="does not read it"):
+        batch.validate(spec, root, "pilot", row=1, pseudo=pseudo)
+
+
+def test_missing_density_pin_is_refused(approved):
+    spec, root, pseudo, directory, save, job = seeded(approved)
+    del job["scratch_source"]["files"]["charge-density.hdf5"]
+    with pytest.raises(ValueError, match="must pin the density"):
+        batch.validate(spec, root, "pilot", row=1, pseudo=pseudo)
+

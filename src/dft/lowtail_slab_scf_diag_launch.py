@@ -47,6 +47,7 @@ SLURM = "anvil/76_slab_scf_diag.slurm"
 SUBMIT = "anvil/77_submit_slab_scf_diag.sh"
 STAGE = "slab_scf_diag"
 JOB_NAME = "research-" + STAGE
+POPULATION = 5
 TRACER = ROOT / "src/dft/qe_relax_trace.py"
 
 
@@ -129,8 +130,8 @@ def validate_spec(value):
     if value.get("schema") != "research-batch-2026-09-16" or value.get("np") != 128:
         raise ValueError("unexpected diagnostic specification")
     group = value["stages"][STAGE]
-    if len(group["jobs"]) != 5:
-        raise ValueError("diagnostic population must contain five jobs")
+    if len(group["jobs"]) != POPULATION:
+        raise ValueError(f"population must contain {POPULATION} jobs")
     for relative in (*value["files"], group["manifest"]):
         portable(relative)
     identities = set()
@@ -213,7 +214,7 @@ def parse_accounting(text, job_id):
         if not match:
             continue
         task = int(match[1])
-        if task not in range(1, 6):
+        if task not in range(1, POPULATION + 1):
             raise ValueError("unexpected diagnostic task")
         state = fields[1].split()[0].rstrip("+")
         record = dict(job_id=fields[0], state=state, exit=fields[2],
@@ -228,7 +229,7 @@ def parse_accounting(text, job_id):
 
 
 def all_terminal(tasks):
-    return set(tasks) == set(range(1, 6)) and all(task["terminal"] for task in tasks.values())
+    return set(tasks) == set(range(1, POPULATION + 1)) and all(task["terminal"] for task in tasks.values())
 
 
 def remote_bytes(sftp, path):
@@ -547,7 +548,7 @@ def watch(deadline: dt.datetime, poll: int = 600) -> None:
                 client.close()
         tasks = parse_accounting(acct["stdout"], job_id)
         record = dict(at=now(), job_id=job_id, tasks=tasks, raw=acct,
-                      missing_tasks=sorted(set(range(1, 6)) - set(tasks)),
+                      missing_tasks=sorted(set(range(1, POPULATION + 1)) - set(tasks)),
                       all_terminal=all_terminal(tasks))
         write("watch.json", record)
         if record["all_terminal"]:
@@ -565,7 +566,7 @@ def watch(deadline: dt.datetime, poll: int = 600) -> None:
 
 def collect(tasks: dict, pins=None) -> dict:
     if not all_terminal(tasks):
-        raise ValueError("collection requires the exact five terminal tasks")
+        raise ValueError(f"collection requires the exact {POPULATION} terminal tasks")
     pins = snapshot() if pins is None else pins
     assert_pins(pins)
     jobs = spec()["stages"][STAGE]["jobs"]
@@ -621,16 +622,49 @@ def collect(tasks: dict, pins=None) -> dict:
         client.close()
     assert_pins(pins)
     write("traces.json", traces)
-    readout = dict(at=now(), status="READY_FOR_REVIEW", population=5, legs=legs,
+    readout = dict(at=now(), status="READY_FOR_REVIEW", population=POPULATION, legs=legs,
                    accepted=sum(leg["tier_2_accepted"] for leg in legs), tasks=tasks, pins=pins,
                    scope="Numerical diagnostic outcomes; no relaxed slab, adsorption reference or census result")
     write("readout.json", readout)
     return readout
 
 
+def add_batch_options(parser) -> None:
+    """The five module constants of the 2026-09-19 diagnostic remain the defaults; another
+    batch of the same research-batch schema names its own results directory, specification,
+    wrappers, stage and population.  Receipts, locks and pins then live under that directory."""
+    parser.add_argument("--results", default=None, help="repository-relative results directory")
+    parser.add_argument("--spec", default=None, help="repository-relative launch specification")
+    parser.add_argument("--slurm", default=None, help="repository-relative slurm wrapper")
+    parser.add_argument("--submit", default=None, help="repository-relative submit script")
+    parser.add_argument("--stage", default=None, help="stage name inside the specification")
+    parser.add_argument("--population", type=int, default=None, help="exact number of array tasks")
+
+
+def configure(argv) -> None:
+    pre = argparse.ArgumentParser(add_help=False)
+    add_batch_options(pre)
+    opts, _ = pre.parse_known_args(argv)
+    if opts.results is not None:
+        globals()["RESULTS"] = ROOT / portable(opts.results)
+    for key in ("spec", "slurm", "submit"):
+        if getattr(opts, key) is not None:
+            globals()[key.upper()] = portable(getattr(opts, key))
+    if opts.stage is not None:
+        if not re.fullmatch(r"[A-Za-z0-9_-]+", opts.stage):
+            raise ValueError("unsafe stage name")
+        globals()["STAGE"] = opts.stage
+        globals()["JOB_NAME"] = "research-" + opts.stage
+    if opts.population is not None:
+        if not 1 <= opts.population <= 64:
+            raise ValueError("population out of range")
+        globals()["POPULATION"] = opts.population
+
+
 def _main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("phase", choices=("wait", "stage", "submit", "inspect", "release", "watch", "auto"))
+    add_batch_options(parser)
     parser.add_argument("--wait-deadline", default="2026-09-23T12:00:00+00:00")
     parser.add_argument("--watch-deadline", default="2026-09-25T12:00:00+00:00")
     parser.add_argument("--poll", type=int, default=600)
@@ -679,6 +713,7 @@ def _main(argv=None) -> int:
 
 
 def main(argv=None) -> int:
+    configure(sys.argv[1:] if argv is None else argv)
     RESULTS.mkdir(parents=True, exist_ok=True)
     lock = RESULTS / ".launcher.lock"
     token = uuid.uuid4().hex
