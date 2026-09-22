@@ -1,0 +1,80 @@
+{
+  "at": "2026-09-22T18:44:53.866550+00:00",
+  "legs": [
+    {
+      "task": 1,
+      "job": "slab_c5low__relax",
+      "site": "Cu8Cr23Mn35Co34__s20_site2",
+      "scheduler": {
+        "job_id": "20851756_1",
+        "state": "FAILED",
+        "exit": "10:0",
+        "elapsed_s": 14035,
+        "allocated_cpus": 128,
+        "terminal": true
+      },
+      "evidence_status": "QC_EVIDENCE_INVALID",
+      "reasons": [
+        "scheduler did not complete cleanly at 128 ranks",
+        "missing artifact .projwfc.in",
+        "missing artifact .projwfc.out",
+        "failure sidecar present"
+      ],
+      "files": [
+        {
+          "suffix": ".out",
+          "path": "results/lowtail_low_state_restart_2026-09-22/relax2/outputs/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.out",
+          "status": "MIRRORED",
+          "sha256": "6a99fcd94e2b9b5756aa5a9ee905dc16b330deab69c43bff414f50b2aeb24082",
+          "bytes": 1001996
+        },
+        {
+          "suffix": ".run.in",
+          "path": "results/lowtail_low_state_restart_2026-09-22/relax2/outputs/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.run.in",
+          "status": "MIRRORED",
+          "sha256": "85bf2db8e89601ae27167831f6f98277c3a76a18950f71886a1fad6ead64da46",
+          "bytes": 5017
+        },
+        {
+          "suffix": ".qc.json",
+          "path": "results/lowtail_low_state_restart_2026-09-22/relax2/outputs/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.qc.json",
+          "status": "MIRRORED",
+          "sha256": "b2c607de3e9c46781100c78d16cfedb67dd561f5b2fa2f4666b19cc7983ee7e3",
+          "bytes": 1092
+        },
+        {
+          "suffix": ".projwfc.in",
+          "status": "REMOTE_ABSENT"
+        },
+        {
+          "suffix": ".projwfc.out",
+          "status": "REMOTE_ABSENT"
+        },
+        {
+          "suffix": ".KILLED",
+          "path": "results/lowtail_low_state_restart_2026-09-22/relax2/outputs/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.KILLED",
+          "status": "MIRRORED",
+          "sha256": "371f1d4d7a315b1b898cc138a52531d5a01a47134642e8c1e4ac50c08fdae0ab",
+          "bytes": 22
+        },
+        {
+          "suffix": ".REJECTED",
+          "status": "REMOTE_ABSENT"
+        }
+      ],
+      "tier_2_accepted": false,
+      "input_identity_verified": true,
+      "identity_reasons": [],
+      "diagnostic_trace": {
+        "completed_iterations": null,
+        "started_iterations": null,
+        "first_iter_below": null,
+        "acc_min_Ry": null,
+        "acc_last_Ry": null,
+        "tier_1_crossing_observed": false,
+        "interpretation": "Residual crossing only; failed or partial output is not an accepted SCF result"
+      }
+    }
+  ],
+  "expected_legs": 5
+}
