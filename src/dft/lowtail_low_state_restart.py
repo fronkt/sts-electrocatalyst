@@ -35,8 +35,14 @@ from lowtail_slab_scf_diag import (BASE_SPEC, MAX_ITERATIONS, NK, POSITIONS, PRO
                                    split_deck, traced_block, write_or_check)
 
 RUNNER = "src/dft/research_batch_seeded.py"
+CHECKED_RUNNER = "src/dft/research_batch_checked.py"
 PINNED = [RUNNER, "src/dft/research_batch.py", "src/dft/projection_qc.py", "src/dft/hea_force_audit.py",
           "src/dft/hea_panel_readout.py", "src/dft/queue_r1.sh"]
+CHECKED = {"delta_meV": 10.0, "max_segments": 40, "max_reseeds": 10, "fresh_conv_thr": "8.08d-8",
+           "segment_nstep": 1, "leg_seconds": 240000}
+ARM_A_AUTHORIZATION = ("Entrant's election of 2026-09-22, from the session record: \"Both arms\"; A11.R3 dated line in "
+                       "docs/43, fourth addendum of 2026-09-22 (Arm A: planning about 3,600 core-hours, ceiling about "
+                       "8,500, cap 9,216).")
 DIAG_SPEC = Path("results/lowtail_slab_scf_diag_2026-09-19/launch_spec.json")
 ARRAY_SPEC = Path("results/lowtail_dft_2026-09-18/launch_spec.json")
 EXCLUDE = "a024,a049,a050,a088,a196,a220,a223,a171,a120,a200"
@@ -104,6 +110,19 @@ BATCHES = {
         kind="relax", concurrency=1, wall_minutes=780, scf_seconds=46000, log="slabrelaxfixedns",
         jobs=[dict(site=CU8, job="slab_c5low__fixedns15", source="slab__atomic.in", geometry="cycle5",
                    seed="low_state_cu8_slab", conv_thr=None, extra_electrons=("mixing_fixed_ns = 15",))]),
+    # Arm A of the protocol experiment: the checked relaxation (one BFGS step per segment, a fresh-start
+    # SCF at every accepted geometry, re-seeding on a drop of more than delta or on a stall), executed
+    # by the sibling runner research_batch_checked.py.  scf_seconds caps each pw.x process; leg_seconds
+    # caps the leg.
+    "slab_relax_checked": dict(
+        res=Path("results/lowtail_low_state_restart_2026-09-22/checked"),
+        dst=Path("runs/hea/lowtail_low_state_restart_2026-09-22"),
+        manifest=Path("runs/m_lowtail_slab_relax_checked_2026-09-22.txt"),
+        slurm=Path("anvil/86_slab_relax_checked.slurm"), submit=Path("anvil/87_submit_slab_relax_checked.sh"),
+        kind="checked_relax", concurrency=1, wall_minutes=4320, scf_seconds=7200, log="slabrelaxchecked",
+        runner=CHECKED_RUNNER,
+        jobs=[dict(site=CU8, job="slab_c5low__checked", source="slab__atomic.in", geometry="cycle5",
+                   seed="low_state_cu8_slab", conv_thr=None, checked=CHECKED)]),
 }
 
 
@@ -127,7 +146,7 @@ def replace_positions(text: str, rows: list[str]) -> str:
 
 def derive_leg(text: str, job: str, kind: str, geometry: str, conv_thr, extra_electrons=()) -> str:
     n = 0
-    if kind != "relax":
+    if kind not in ("relax", "checked_relax"):
         text, k = re.subn(r"calculation = 'relax'", "calculation = 'scf'", text); n += k
         if k != 1:
             raise ValueError("calculation line not unique")
@@ -149,7 +168,7 @@ def derive_leg(text: str, job: str, kind: str, geometry: str, conv_thr, extra_el
     return text
 
 
-def wrappers(stage: str, spec_path: Path, spec_hash: str, runner_hash: str, slurm_path: Path, log: str, title: str):
+def wrappers(stage: str, spec_path: Path, spec_hash: str, runner_hash: str, slurm_path: Path, log: str, runner: str, title: str):
     slurm = f"""#!/bin/bash
 # {title}; scheduler resources set at submission.
 #SBATCH -p shared
@@ -163,7 +182,7 @@ set -euo pipefail
 [ "${{STAGE:-}}" = {stage} ] || exit 2
 ROOT="$PROJECT/sts"
 SPEC="$ROOT/{spec_path.as_posix()}"
-RUNNER="$ROOT/{RUNNER}"
+RUNNER="$ROOT/{runner}"
 check_hash() {{ [ "$(sha256sum "$1" | awk '{{print $1}}')" = "$2" ] || {{ echo "REFUSE: hash $1"; exit 2; }}; }}
 check_hash "$SPEC" {spec_hash}
 check_hash "$RUNNER" {runner_hash}
@@ -179,7 +198,7 @@ export PROJECT=/anvil/projects/x-che260157
 export STAGE={stage}
 ROOT="$PROJECT/sts"
 SPEC="$ROOT/{spec_path.as_posix()}"
-RUNNER="$ROOT/{RUNNER}"
+RUNNER="$ROOT/{runner}"
 PYTHON=/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3
 check_hash() {{ [ "$(sha256sum "$1" | awk '{{print $1}}')" = "$2" ] || {{ echo "REFUSE: hash $1"; exit 2; }}; }}
 check_hash "$SPEC" {spec_hash}
@@ -224,15 +243,16 @@ def build(check: bool) -> None:
                          "geometry": j["geometry"], "mixing_beta": 0.30, "mixing_mode": "local-TF",
                          "startingpot": "file", "startingwfc": "atomic+random",
                          "scratch_source": {"save_dir": seed["save_dir"], "files": seed["files"]},
-                         "seed_state": seed["state"], "source_deck": str(src).replace("\\", "/"), "source_sha256": sha(src)})
+                         "seed_state": seed["state"], "source_deck": str(src).replace("\\", "/"), "source_sha256": sha(src),
+                         **({"checked": dict(j["checked"])} if j.get("checked") else {})})
             files[str(dst).replace("\\", "/")] = digest
             manifest_rows.append(f"{rel_dir} {j['job']} .in {NK}")
         manifest = "\n".join([
-            (f"# LICENSED 2026-09-22: {stage} — the entrant's election of 2026-09-22 (\"Both arms\"), Arm B of the protocol experiment,"
-             if stage == "slab_relax_fixedns" else
+            (f"# LICENSED 2026-09-22: {stage} — the entrant's election of 2026-09-22 (\"Both arms\"), Arm {'B' if stage == 'slab_relax_fixedns' else 'A'} of the protocol experiment,"
+             if stage in ("slab_relax_fixedns", "slab_relax_checked") else
              f"# LICENSED 2026-09-22: {stage} — the entrant's election of 2026-09-22 (\"Restart from low state + seed two more\"),"),
             ("# dated A11.R3 line in docs/43, fourth addendum of 2026-09-22. Densities seeded from retained save directories pinned by content;"
-             if stage == "slab_relax_fixedns" else
+             if stage in ("slab_relax_fixedns", "slab_relax_checked") else
              "# dated A11.R3 line in docs/43, second addendum of 2026-09-22. Densities seeded from retained save directories pinned by content;"),
             "# executed by src/dft/research_batch_seeded.py; SCF iteration ceiling 126; no retries; a stopped leg is no result.",
             f"# SUBMIT WITH EXCLUDE={EXCLUDE}",
@@ -240,17 +260,19 @@ def build(check: bool) -> None:
         ] + manifest_rows) + "\n"
         write_or_check(b["manifest"], manifest, check, seen)
         files[b["manifest"].as_posix()] = hashlib.sha256(manifest.encode("utf-8")).hexdigest()
-        for helper in PINNED:
+        runner = b.get("runner", RUNNER)
+        for helper in [runner] + [h for h in PINNED if h != runner]:
             files[helper] = sha(Path(helper))
         for positions in (POSITIONS, POSITIONS.with_suffix(".json")):
             files[positions.as_posix()] = sha(positions)
         if any(j["geometry"] == "o_unrecon_last" for j in b["jobs"]):
             files[O_UNRECON_POSITIONS.as_posix()] = sha(O_UNRECON_POSITIONS)
         pseudo_md5 = {name: base["pseudo_md5"][name] for name in sorted(upf)}
-        per_job_ceiling = round((b["scf_seconds"] + PROJECTION_SECONDS) * 128 / 3600, 1)
+        per_job_ceiling = round(((b["jobs"][0]["checked"]["leg_seconds"] if b["kind"] == "checked_relax" else b["scf_seconds"])
+                                 + PROJECTION_SECONDS) * 128 / 3600, 1)
         spec = {
             "schema": "research-batch-2026-09-16", "np": 128, "exclusions": EXCLUDE,
-            "authorization": (ARM_B_AUTHORIZATION if stage == "slab_relax_fixedns" else AUTHORIZATION),
+            "authorization": {"slab_relax_fixedns": ARM_B_AUTHORIZATION, "slab_relax_checked": ARM_A_AUTHORIZATION}.get(stage, AUTHORIZATION),
             "scope": ("Seeded numerical diagnostic under HEA-4 supervision; densities read by copy from retained scratch, "
                       "sources never written; arrays 20813525, 20840139 and 20845364 untouched. A converged relaxation "
                       "leg here is a numerical outcome for the stall question, not a census result or a claim."),
@@ -270,15 +292,16 @@ def build(check: bool) -> None:
                                "wall_minutes": b["wall_minutes"], "jobs": jobs}},
             "ceiling": {"per_job_core_hours": per_job_ceiling,
                         "scheduler_core_hours": round(b["wall_minutes"] * 60 * 128 / 3600 * len(jobs), 1),
-                        "planning_core_hours": 590.0 if b["kind"] == "relax" else 130.0 * len(jobs)},
+                        "planning_core_hours": {"relax": 590.0, "checked_relax": 3600.0}.get(b["kind"], 130.0 * len(jobs))},
         }
         spec_path = b["res"] / "launch_spec.json"
         spec_text = json.dumps(spec, indent=1) + "\n"
         write_or_check(spec_path, spec_text, check, seen)
         spec_hash = hashlib.sha256(spec_text.encode("utf-8")).hexdigest()
-        slurm, submit = wrappers(stage, spec_path, spec_hash, files[RUNNER], b["slurm"], b["log"],
+        slurm, submit = wrappers(stage, spec_path, spec_hash, files[runner], b["slurm"], b["log"], runner,
                                  {"slab_relax_seeded": "Low-state relaxation restart, 2026-09-22",
-                                  "slab_relax_fixedns": "Arm B: low-state relaxation with mixing_fixed_ns = 15, 2026-09-22"
+                                  "slab_relax_fixedns": "Arm B: low-state relaxation with mixing_fixed_ns = 15, 2026-09-22",
+                                  "slab_relax_checked": "Arm A: checked low-state relaxation, 2026-09-22"
                                   }.get(stage, "Seeded SCFs on two more retained densities, 2026-09-22"))
         write_or_check(b["slurm"], slurm, check, seen)
         write_or_check(b["submit"], submit, check, seen)

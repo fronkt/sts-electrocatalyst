@@ -58,3 +58,8 @@ Estimated time: implementation and offline tests one working day; Arm B reads ou
 ## 6. What this plan does not do
 
 It does not change U values, projectors, magnetic starts, thresholds, cutoffs, smearing or the kill rule; it does not license any leg; it does not touch arrays 20813525, 20840139, 20845364, 20851753 or 20851756; it does not make the generalization row licensable; and it does not claim that a converged Arm A geometry is the ground-state geometry, only that every accepted step was checked against a fresh start at δ.
+
+## 7. Implementation note, 2026-09-22 20:40 UTC
+
+Arm A's driver (`src/dft/research_batch_checked.py`, a sibling of the seeded runner so that Arm B's pinned runner stays untouched) runs every segment as a from-scratch pw.x process with `nstep = 1`, seeded from the previous segment's own save directory (accepted step) or from the fresh reference's save directory (re-seed) by the same content-pinned copy, with the `<prefix>.bfgs` history file carried between scratches; QE's BFGS module reads that file from the output directory when present, so the optimizer history continues without `restart_mode = 'restart'`, whose step-counting on a restarted ionic loop was not verified and is not relied on. §3's phrase "BFGS history continued from the retained `.bfgs` file with `restart_mode = 'restart'`" is superseded by this note. Every segment's scratch is retained; the receipts name the save directory that seeded each scratch.
+
