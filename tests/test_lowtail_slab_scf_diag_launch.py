@@ -314,3 +314,10 @@ def test_expired_watch_never_attempts_a_connection(tmp_path, monkeypatch):
         launch.watch(dt.datetime.now(dt.timezone.utc) - dt.timedelta(seconds=1), poll=1)
     with pytest.raises(ValueError, match="timezone-aware"):
         launch.watch(dt.datetime(2026, 9, 25), poll=1)
+
+
+def test_array_task_field_matches_scontrol_for_single_and_multi_task_arrays():
+    assert launch.array_task_field(5, 2) == "1-5%2"
+    assert launch.array_task_field(2, 2) == "1-2%2"
+    assert launch.array_task_field(1, 1) == "1%1"
+

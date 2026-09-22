@@ -473,6 +473,11 @@ def submit(client) -> str:
     return job_id
 
 
+def array_task_field(n: int, concurrency: int) -> str:
+    """scontrol prints a held array as 1-N%C for N > 1 and as 1%C for a single task."""
+    return f"1-{n}%{concurrency}" if n > 1 else f"1%{concurrency}"
+
+
 def inspect_held(client, job_id: str) -> dict:
     if not re.fullmatch(r"\d+", str(job_id)):
         raise ValueError("numeric array id required")
@@ -486,7 +491,7 @@ def inspect_held(client, job_id: str) -> dict:
     minutes = stage_spec["wall_minutes"]
     needed = dict(JobId=str(job_id), ArrayJobId=str(job_id), WorkDir=PROJECT,
                   **{"CPUs/Task": "1"}, JobState="PENDING", Reason="JobHeldUser", NumCPUs="128", NumTasks="128", Requeue="0",
-                  Account="che260157", ArrayTaskId=f"1-{n}%{stage_spec['concurrency']}", MinMemoryNode="237G",
+                  Account="che260157", ArrayTaskId=array_task_field(n, stage_spec["concurrency"]), MinMemoryNode="237G",
                   TimeLimit=f"{minutes // 60:02d}:{minutes % 60:02d}:00", Partition="shared", JobName=JOB_NAME)
     mismatches = {k: fields.get(k) for k, v in needed.items() if fields.get(k) != v}
     if fields.get("NumNodes") not in ("1", "1-1"):
