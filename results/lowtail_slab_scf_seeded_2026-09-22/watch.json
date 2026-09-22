@@ -1,0 +1,31 @@
+{
+  "at": "2026-09-22T11:32:40.733355+00:00",
+  "job_id": "20845364",
+  "tasks": {
+    "1": {
+      "job_id": "20845364_1",
+      "state": "FAILED",
+      "exit": "10:0",
+      "elapsed_s": 7225,
+      "allocated_cpus": 128,
+      "terminal": true
+    },
+    "2": {
+      "job_id": "20845364_2",
+      "state": "FAILED",
+      "exit": "10:0",
+      "elapsed_s": 5892,
+      "allocated_cpus": 128,
+      "terminal": true
+    }
+  },
+  "raw": {
+    "command": "sacct --array -n -P -X -j 20845364 --format=JobID%80,State%30,ExitCode,ElapsedRaw,AllocCPUS",
+    "stdout": "20845364_1|FAILED|10:0|7225|128\n20845364_2|FAILED|10:0|5892|128\n",
+    "stderr": "",
+    "rc": 0,
+    "at": "2026-09-22T11:32:40.731895+00:00"
+  },
+  "missing_tasks": [],
+  "all_terminal": true
+}
