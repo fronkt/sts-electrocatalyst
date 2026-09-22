@@ -1,0 +1,26 @@
+{
+  "at": "2026-09-22T19:48:41.105095+00:00",
+  "job_id": "20862936",
+  "submission": {
+    "command": "bash /anvil/projects/x-che260157/sts/anvil/87_submit_slab_relax_checked.sh",
+    "stdout": "VALID\nPREFLIGHT manifest=/anvil/projects/x-che260157/sts/runs/m_lowtail_slab_relax_checked_2026-09-22.txt lines=1 to_run=1 already_done=0 stale=0 bad=0 NP=128 NCONC=1 expect_cap=0\nPREFLIGHT manifest=/anvil/projects/x-che260157/sts/runs/m_lowtail_slab_relax_checked_2026-09-22.txt lines=1 to_run=1 already_done=0 stale=0 bad=0 NP=128 NCONC=1 expect_cap=0\nPREFLIGHT_OK (PREFLIGHT_ONLY=1, nothing launched) Tue Sep 22 19:48:40 UTC 2026\nPREFLIGHT_OK (PREFLIGHT_ONLY=1, nothing launched) Tue Sep 22 19:48:40 UTC 2026\nHELD slab_relax_checked tasks=1 concurrency=1 minutes=4320 cores=128\n20862936\n",
+    "stderr": "",
+    "rc": 0,
+    "at": "2026-09-22T19:48:41.105095+00:00"
+  },
+  "balance": {
+    "command": "mybalance",
+    "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    100000.0     56728.9    56728.9     43271.1\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+    "stderr": "",
+    "rc": 0,
+    "at": "2026-09-22T19:48:39.800993+00:00"
+  },
+  "queue_before": {
+    "command": "squeue -u x-fcai3 -h -o '%i|%j|%T'",
+    "stdout": "20813525_9|lowtail-primary|PENDING\n20813525_8|lowtail-primary|PENDING\n20813525_7|lowtail-primary|PENDING\n20862631_1|research-slab_relax_fixedns|PENDING\n20813525_6|lowtail-primary|RUNNING\n",
+    "stderr": "",
+    "rc": 0,
+    "at": "2026-09-22T19:48:40.355099+00:00"
+  },
+  "released": false
+}
