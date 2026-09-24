@@ -1,0 +1,70 @@
+{
+ "recorded_utc": "2026-09-24T01:54:36.365041+00:00",
+ "inputs": {
+  "pilot/pilot_input.jsonl": "6dd6904426b5c367be7d38afd5f27064101f6c4046316e8d617b08ef66f78369"
+ },
+ "pass_a": {
+  "path": "pilot/pass_A.jsonl",
+  "sha256": "efd6b961b5460bb87fa1eef8c34c6b26dfe9f8f45c622ab47045b1c65125ad60"
+ },
+ "pass_b": {
+  "path": "pilot/pass_B.jsonl",
+  "sha256": "8fd7a4870e65334349ba6757b9e9c19753f9e713c0692835ad2f5cd52315ea6d"
+ },
+ "records": 200,
+ "routes": {
+  "PRESCREEN_EXCLUDED": 156,
+  "FULL_TEXT_REVIEW": 44
+ },
+ "label_pairs": {
+  "CLEARLY_IRRELEVANT|CLEARLY_IRRELEVANT": 156,
+  "CLEARLY_IRRELEVANT|POSSIBLY_RELEVANT": 4,
+  "LIKELY_RELEVANT|LIKELY_RELEVANT": 8,
+  "POSSIBLY_RELEVANT|CLEARLY_IRRELEVANT": 5,
+  "POSSIBLY_RELEVANT|POSSIBLY_RELEVANT": 27
+ },
+ "exclusion_agreement": {
+  "agree": 191,
+  "disagree": 9,
+  "rate": 0.955
+ },
+ "rule": "PRESCREEN_EXCLUDED only when both independent passes label CLEARLY_IRRELEVANT; all else FULL_TEXT_REVIEW",
+ "sentinels": {
+  "S01041": {
+   "route": "FULL_TEXT_REVIEW",
+   "a": "LIKELY_RELEVANT",
+   "b": "LIKELY_RELEVANT"
+  },
+  "S02706": {
+   "route": "FULL_TEXT_REVIEW",
+   "a": "LIKELY_RELEVANT",
+   "b": "LIKELY_RELEVANT"
+  },
+  "S04757": {
+   "route": "FULL_TEXT_REVIEW",
+   "a": "LIKELY_RELEVANT",
+   "b": "LIKELY_RELEVANT"
+  },
+  "S11774": {
+   "route": "FULL_TEXT_REVIEW",
+   "a": "LIKELY_RELEVANT",
+   "b": "LIKELY_RELEVANT"
+  },
+  "S14849": {
+   "route": "FULL_TEXT_REVIEW",
+   "a": "LIKELY_RELEVANT",
+   "b": "LIKELY_RELEVANT"
+  },
+  "S24907": {
+   "route": "FULL_TEXT_REVIEW",
+   "a": "LIKELY_RELEVANT",
+   "b": "LIKELY_RELEVANT"
+  },
+  "S27382": {
+   "route": "FULL_TEXT_REVIEW",
+   "a": "LIKELY_RELEVANT",
+   "b": "LIKELY_RELEVANT"
+  }
+ },
+ "sentinel_recall": 1.0
+}

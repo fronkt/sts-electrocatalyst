@@ -1,5 +1,21 @@
 # STS 2027 — TODO
 
+## 2026-09-23 — Continue citation identity and primary eligibility coverage
+
+- [x] Confirm completed retrieval, no active collectors, and unchanged population/method-coding boundary.
+- [x] Link the preserved backward-reference occurrences to DOI/provider evidence without deleting conflicts or unresolved citations. 529/529 linked: 104 printed-DOI + 242 bibliographic resolutions (299 DOIs), 6 conflicts with both sides, 168 candidates, 9 unresolved; 238 resolved DOIs are new to the provider union. `results/s2_2026-09-23/backward_reference_identity/`.
+- [ ] Independently review the unresolved journal eligibility cases and resolve supported complementary citation identities. First review done for all 18 cases (proposed: 4 eligible, 9 exclude, 5 unresolved; prior records untouched); the independent second review is still owed. 1 more complementary key resolved (Dickens), 16 stay unresolved. `results/s2_2026-09-23/eligibility_identity_review/`.
+- [x] Check remaining Lim/Lee supplement access through actual publisher or repository links; retain failures. All five Lim files (publisher figshare, MD5-matched) and the Lee SI (Europe PMC + PMC store, identical SHA-256) closed; Lee publisher PDF (PuRe, CC BY) confirms all 67 transcribed references. Wiley routes 403, retained. `results/s2_2026-09-23/supplement_access/`.
+- [ ] Verify the additive evidence, update the readout, commit explicit paths and push.
+
+## 2026-09-24 — Title/abstract pre-screen of the full provider-identity union
+
+- [x] Build the screening inputs offline from the handoff and hash-verified raw pages; keep the DOI-level record of every screened identity (`screened_identities.csv`).
+- [x] Fix the screening instructions and the merge rule before any full run: pre-screen exclusion only when both independent passes say CLEARLY_IRRELEVANT.
+- [x] Pilot on 200 records with 7 hidden known-eligible sentinels: recall 7/7, agreement 0.955, 19% of random records to full text.
+- [ ] Run both passes over all 31,471 identities (Batch API once credentials exist); screen the 238 new reference-pass DOIs the same way.
+- [ ] Design the full-text stage for the ~6,000 routed records (access, two independent passes, second review of every exclusion) before running it.
+
 ## 2026-09-22 — Verify completed retrieval and continue literature coverage
 
 - [x] Verify the newer plan-v3 terminal run against all raw pages and prior identities; 414 pages and 64/64 partitions pass, all old identities/occurrences retained; v2 failures preserved.

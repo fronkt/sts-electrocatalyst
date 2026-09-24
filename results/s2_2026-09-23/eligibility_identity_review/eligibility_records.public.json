@@ -1,0 +1,1206 @@
+{
+ "schema": "sts.p_lit.eligibility_identity_review.eligibility.v1",
+ "built_utc": "2026-09-24T02:00:54.685579+00:00",
+ "population_rule": "primary research first published 2011-01-01..2026-09-18, calculating OER on a rutile-oxide (110) surface and reporting a CHE overpotential in article or SI",
+ "global_freeze": false,
+ "p_lit_verdict": null,
+ "records": [
+  {
+   "case_id": "T01",
+   "label": "Inico 2024",
+   "doi": "10.1002/cctc.202400813",
+   "prior": {
+    "source": "results/s2_2026-09-20/reviewed_eligibility_subset.json",
+    "disposition": "UNRESOLVED",
+    "gap": "reported CHE eta; SI missing"
+   },
+   "evidence": {
+    "local": [
+     {
+      "path": "docs/research/papers/Inico-2024_ChemCatChem_stability-solvation-TiO2-RuO2-IrO2-110.pdf",
+      "sha256": "376b20e509fa15efd18c1887d2822cbedc5798176957abc5a00b2a597ed22628",
+      "bytes": 1974027
+     }
+    ],
+    "remote": [
+     {
+      "item": "official SI cctc202400813-sup-0001-misc_information.pdf (Wiley, CC-BY article)",
+      "route": "BROWSER_SESSION_READ (ordinary Chrome session; sha256 computed in-browser at read time; bytes not retained locally)",
+      "sha256": "eb918e40cee22bfc45e67fa143deac7e586ffe2830cb36bb52008f3429e7125d",
+      "bytes": 753762,
+      "pages": 6,
+      "read_utc": "2026-09-24 browser session (approx. 01:45-02:00 UTC)",
+      "note": "Scripted GETs to Wiley returned HTTP 403 (receipts.jsonl); SI read via browser session."
+     }
+    ]
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "YES - original DFT/AIMD comparison, article p2 methods",
+     "first_publication_in_window": "YES - publisher first published 2024-07-19; Crossref online 2024-09-12 (both retained)",
+     "oer_calculated": "PARTIAL - stability/solvation of OER intermediates (-OH/-O-H, -OOH/-OO-H) only; no full OER free-energy pathway (article Table 1 p5, Fig 4 p6)",
+     "rutile_oxide": "YES - article p2 'three oxides display a rutile crystal structure'",
+     "surface_110": "YES - title; article Figs 1-3 (110) surfaces",
+     "che_overpotential_reported_article_or_si": "NO - full-text search of all 11 article pages and all 6 SI pages: no overpotential, eta, limiting potential or 1.23 V construction; Fig 4 p6 plots relative free energies of intermediate couples (visually checked), not an overpotential"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "che_overpotential_reported_article_or_si"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "YES",
+     "first_publication_in_window": "YES (2024-07-19 / 2024-09-12)",
+     "oer_calculated": "PARTIAL - CHE used for relative stability of intermediates (article p3 'Computational Hydrogen Electrode'); SI Tables S1-S7 geometries, SI Figs S1-S4 pair distribution functions",
+     "rutile_oxide": "YES (article p2, p3 'rutile-like')",
+     "surface_110": "YES",
+     "che_overpotential_reported_article_or_si": "NO - SI pp1-6 contain lattice/cell tables, bond-length tables and PDFs; no eta anywhere in article or SI"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "che_overpotential_reported_article_or_si"
+   },
+   "agreement": true,
+   "final_disposition": "EXCLUDE",
+   "proposed_change": {
+    "status": "PROPOSED_CHANGE",
+    "from": "UNRESOLVED",
+    "to": "EXCLUDE",
+    "prior_record_left_untouched": "results/s2_2026-09-20/reviewed_eligibility_subset.json"
+   },
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "T02",
+   "label": "Gauthier 2017",
+   "doi": "10.1021/acs.jpcc.7b02383",
+   "prior": {
+    "source": "results/s2_2026-09-20/reviewed_eligibility_subset.json",
+    "disposition": "UNRESOLVED",
+    "gap": "separately reported eta; final version/SI inventory"
+   },
+   "evidence": {
+    "local": [
+     {
+      "path": "docs/research/papers/Gauthier-2017_JPCC_solvation-IrO2-110.pdf",
+      "sha256": "f635c2454c02352108c7176ad6df02aee82921db86a1b7f7d3f8151402ac8216",
+      "bytes": 4490964
+     }
+    ],
+    "remote": [
+     {
+      "item": "final published HTML full text, pubs.acs.org (J. Phys. Chem. C 121(21) 11455)",
+      "route": "INSTITUTIONAL_SUBSCRIPTION_SESSION (institutional library subscription; publisher page labels access 'Purdue'; read-only, no file saved)",
+      "innertext_sha256": "9590fe4543b7aa972422a51cf3aea633550d6bf0fa36ba26337e1bb3c3455167",
+      "chars": 49172,
+      "note": "Article page has no Supporting Information section (checked page text); OSTI record 1369414 has no full-text link."
+     }
+    ]
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "YES",
+     "first_publication_in_window": "YES - OSTI 2017-05-11, Crossref online 2017-05-17",
+     "oer_calculated": "YES - OER intermediates and free-energy diagram, section 3.2-3.3",
+     "rutile_oxide": "YES - 'rutile IrO2(110)' abstract, Computational Details, Fig 4/5/7 captions",
+     "surface_110": "YES",
+     "che_overpotential_reported_article_or_si": "NO - final text: Fig 7 free-energy diagram at 0 V vs RHE (visually checked, no eta annotation); text states only that a potential above 1.23 V is required and that concerted *OOH removal costs 1.8 eV; no reported overpotential/limiting potential; no SI"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "che_overpotential_reported_article_or_si"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "YES",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "YES",
+     "rutile_oxide": "YES",
+     "surface_110": "YES",
+     "che_overpotential_reported_article_or_si": "NO - 'overpotential' occurs only in the introduction and reference titles; Fig 5 plots descriptors (dG_O-dG_OH, dG_OOH-dG_OH), not eta; deriving 1.8-1.23 would be a reviewer calculation, not a reported value"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "che_overpotential_reported_article_or_si"
+   },
+   "access_caveat": "Final-version evidence came through an institutional subscription session. If the batch rule is read as open-access only, this case reverts to UNRESOLVED (proof copy only).",
+   "agreement": true,
+   "final_disposition": "EXCLUDE",
+   "proposed_change": {
+    "status": "PROPOSED_CHANGE",
+    "from": "UNRESOLVED",
+    "to": "EXCLUDE",
+    "prior_record_left_untouched": "results/s2_2026-09-20/reviewed_eligibility_subset.json"
+   },
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "T03",
+   "label": "Exner 2020",
+   "doi": "10.1021/acscatal.0c03865",
+   "prior": {
+    "source": "results/s2_2026-09-20/reviewed_eligibility_subset.json",
+    "disposition": "UNRESOLVED",
+    "gap": "primary-research rule application"
+   },
+   "evidence": {
+    "local": [
+     {
+      "path": "docs/research/papers/Exner-2020_ACSCatal_universal-descriptor-beyond-eta.pdf",
+      "sha256": "c7ede81696117643d738f13edf4945ca41c8f02eb03e96c325cb36c65abf7a8e",
+      "bytes": 1738414
+     },
+     {
+      "path": "docs/research/papers/2026-09-20-access/exner_si_13100308_1.pdf",
+      "sha256": "4a3ae8636d7c44dda4efa88b3bc8fad2540e4387c07e24b4a1aeaf826b18c403",
+      "bytes": 2345703
+     }
+    ],
+    "remote": []
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "NO (as a calculating study) - Viewpoint introducing descriptor Gmax(eta); article p6 'the same data set is used to validate Gmax'",
+     "first_publication_in_window": "YES - Crossref online 2020-10-15",
+     "oer_calculated": "NO own calculation - SI S1 p2 'The data is taken from the work of Viswanathan and co-workers' for RuO2(110) free energies; Gmax values are arithmetic on published dG",
+     "rutile_oxide": "YES (RuO2/IrO2 (110) data sets)",
+     "surface_110": "YES",
+     "che_overpotential_reported_article_or_si": "REPRODUCED ONLY - thermodynamic overpotentials come from the reused literature data"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "oer_calculated (no own OER electronic-structure calculation; CHE eta values are reused literature values)"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "UNCLEAR by label; decisive point is below",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "NO - SI Section 1 pp2-6 derives Gmax for RuO2(110) from dG1-dG4 attributed to ref 6; SI Table p8 G#rds values attributed to refs 7 and 10; no computational-details section or DFT setup of its own",
+     "rutile_oxide": "YES",
+     "surface_110": "YES",
+     "che_overpotential_reported_article_or_si": "REPRODUCED ONLY"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "oer_calculated"
+   },
+   "rule_note": "Rule-application decision: 'calculating OER on a rutile-oxide (110) surface' read as requiring the study's own OER energetics calculation (consistent with the Tripkovic and Cao reasons in prior records). A human adjudicator who reads 'calculating' to include descriptor arithmetic on published energies would reverse this. Flagged for adjudication.",
+   "agreement": true,
+   "final_disposition": "EXCLUDE",
+   "proposed_change": {
+    "status": "PROPOSED_CHANGE",
+    "from": "UNRESOLVED",
+    "to": "EXCLUDE",
+    "prior_record_left_untouched": "results/s2_2026-09-20/reviewed_eligibility_subset.json"
+   },
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "T04",
+   "label": "Divanis 2020",
+   "doi": "10.1039/c9sc05897d",
+   "prior": {
+    "source": "results/s2_2026-09-20/reviewed_eligibility_subset.json",
+    "disposition": "UNRESOLVED",
+    "gap": "rutile polymorph locator for new TiO2(110) arm"
+   },
+   "evidence": {
+    "local": [
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/divanis2020_curis_pdf__745e3781e8a0cce8.pdf",
+      "sha256": "745e3781e8a0cce8e9ce1cd156e3dbaa38dfef7969247e5d36f256ca119584c6",
+      "bytes": 1202246
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/divanis2020_epmc_xml__55022df79d6fc31d.xml",
+      "sha256": "55022df79d6fc31dbc25709fd76e5b27ef60406a21eb9aec9150d2dcc090434b",
+      "bytes": 100242
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/divanis2020_epmc_suppl__304770562ad501a4.bin",
+      "sha256": "304770562ad501a42915754e1cf05532cff0821844d79ec250e59b70743809b3",
+      "bytes": 4269594
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/divanis2020_katladb_page__cbf60f7bb02a90b8.html",
+      "sha256": "cbf60f7bb02a90b8cf0253e4fba1a74079b9b3cbbb6a38cb5c3c6a61d9907edf",
+      "bytes": 60347
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/divanis2020_erda_data__417f591ea3487c6e.bin",
+      "sha256": "417f591ea3487c6e90084480a199e2352b928d8cf71959841e07399db8d16373",
+      "bytes": 34023
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/divanis2020_erda_members/TiO2_double_dopants__2Pt__clean__TiO2-2Pt-3-fd.txt",
+      "sha256": "67e6301e654fdbea7833fd4d03a4076dd12d08cf1893c3471e3f00fd6b58432e",
+      "bytes": 294586
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/divanis2020_erda_members/TiO2_double_dopants__2Pt__clean__TiO2-fd.traj",
+      "sha256": "3b77f841d813cdb4c30c404b7a4e38f415910b9dc0c74a69e117d9634deba9eb",
+      "bytes": 46954
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/divanis2020_erda_traj_listing.json",
+      "sha256": "9af4b18b534c56190b3a187e340cc80240c78b8787e4fc2a2385df45d5cd4ebe",
+      "bytes": 159163
+     }
+    ],
+    "remote": [],
+    "notes": [
+     "Europe PMC supplementary zip member SC-011-C9SC05897D-s001.pdf is byte-identical to the local ESI (sha256 348462f7...).",
+     "The KU CURIS PDF labelled submittedVersion by Unpaywall carries the published RSC header ('Published on 11 February 2020').",
+     "katlaDB trajectories archive (3,502,414,611 bytes) was NOT downloaded; only its zip central directory and two small members were fetched by HTTP Range (receipts.jsonl)."
+    ]
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "YES - new one/two-dopant TiO2 calculations, article section 2.1 (EPMC XML / CURIS p9)",
+     "first_publication_in_window": "YES - published 2020-02-11",
+     "oer_calculated": "YES - OH*/O*/OOH* on doped TiO2; ESI Fig SI-18 free-energy diagram and volcano",
+     "rutile_oxide": "YES - author-deposited host slab TiO2_double_dopants/2Pt/clean/TiO2-fd.traj (linked from the article Conclusions katlaDB URL): Ti24O48 slab, in-plane cell 6.557 x 8.947 A = sqrt2*a x 3c of rutile (a~4.64, c~2.98 A); anatase (110)/(101) cells are incompatible; GPAW log TiO2-2Pt-3-fd.txt shows the identical cell for the doped slab",
+     "surface_110": "YES - article section 3 'TiO2(110) structure'",
+     "che_overpotential_reported_article_or_si": "YES_GRAPHICAL - ESI p27 Fig SI-18 eta_OER arrow (prior visual check; not re-derived numerically)"
+    },
+    "disposition": "ELIGIBLE_PENDING_DISCOVERY_FREEZE"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "YES",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "YES",
+     "rutile_oxide": "YES - same deposited host slab: 6 five-fold and 18 six-fold Ti (the 5c-Ti/cus motif of rutile (110)), shortest Ti-Ti 2.982 A (edge-sharing chains along rutile c); katlaDB data CSV row label 'Nb-Ti15O32 5c-M (cus(M))' uses the rutile-(110) cus nomenclature",
+     "surface_110": "YES",
+     "che_overpotential_reported_article_or_si": "YES_GRAPHICAL (ESI p27)"
+    },
+    "disposition": "ELIGIBLE_PENDING_DISCOVERY_FREEZE"
+   },
+   "rule_note": "No literal word 'rutile' appears in article or ESI; polymorph established from the authors' own deposited structure files (ERDA share, Last-Modified 2021-04-27, after publication). Accepting deposited primary structure data as the polymorph locator is a reviewer judgment recorded here for adjudication.",
+   "agreement": true,
+   "final_disposition": "ELIGIBLE_PENDING_DISCOVERY_FREEZE",
+   "proposed_change": {
+    "status": "PROPOSED_CHANGE",
+    "from": "UNRESOLVED",
+    "to": "ELIGIBLE_PENDING_DISCOVERY_FREEZE",
+    "prior_record_left_untouched": "results/s2_2026-09-20/reviewed_eligibility_subset.json"
+   },
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "T05",
+   "label": "Mom 2014",
+   "doi": "10.1021/jp409373c",
+   "prior": {
+    "source": "results/s2_2026-09-20/reviewed_eligibility_subset.json",
+    "disposition": "UNRESOLVED",
+    "gap": "primary article missing"
+   },
+   "evidence": {
+    "local": [
+     {
+      "path": "docs/research/papers/Mom-2014_JPCC_unrestricted-DFT-OER-oxides_SI.pdf",
+      "sha256": "0ac763a6fbb5e987481cbf7ac2de869e7f7e13f1463d8653adc4c292d3b9d3fd",
+      "bytes": 395982
+     }
+    ],
+    "remote": [
+     {
+      "item": "final published HTML full text, pubs.acs.org (J. Phys. Chem. C 118(8) 4095)",
+      "route": "INSTITUTIONAL_SUBSCRIPTION_SESSION (institutional library subscription; publisher page labels access 'Purdue'; read-only, no file saved)",
+      "innertext_sha256": "1e5249d6869442ef5f61faf5a248b4bfdc4ae03c938d361802082dff3ea52727",
+      "chars": 45498
+     }
+    ]
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "YES - own restricted/unrestricted DFT on oxide surfaces (Methods)",
+     "first_publication_in_window": "YES - article header 2014-02-03 ASAP; Crossref online 2014-02-11",
+     "oer_calculated": "YES - OH/O/OOH reaction energies, eq 6 thermodynamic overpotential",
+     "rutile_oxide": "YES - Methods: 'rutile structures of the SnO2, reduced SnO2, TiO2, PbO2, and PtO2'",
+     "surface_110": "YES - Methods: 4x2 unit cell of the (110) surface; Table 1 orientation (110)",
+     "che_overpotential_reported_article_or_si": "YES_GRAPHICAL - reaction energies referenced to SHE with released protons 'taken into account as hydrogen' (Methods); eq 6 eta = max(dG_O-dG_OH, dG_OOH-dG_O) - 1.23; Fig 6b volcano y-axis -eta (restricted/unrestricted), Fig 6c eta differences (visually checked); SI Tables S1-S3 list the per-oxide reaction energies"
+    },
+    "disposition": "ELIGIBLE_PENDING_DISCOVERY_FREEZE"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "YES",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "YES",
+     "rutile_oxide": "YES (Methods)",
+     "surface_110": "YES (Table 1)",
+     "che_overpotential_reported_article_or_si": "YES_GRAPHICAL - Fig 6b/6c report eta for the full calculated set, which includes the rutile (110) oxides; individual points are not labelled by material, and the SI (p2) gives energies plus instructions to compute eta rather than a tabulated eta"
+    },
+    "disposition": "ELIGIBLE_PENDING_DISCOVERY_FREEZE"
+   },
+   "rule_note": "Graphical eta covers the whole calculated set (rutile (110) plus rock-salt and perovskite surfaces) without per-point labels. Treated as a study-level reported CHE overpotential; flagged because the Xu inclusion cited named points.",
+   "access_caveat": "Article text came through an institutional subscription session; under an open-access-only reading this case stays UNRESOLVED.",
+   "agreement": true,
+   "final_disposition": "ELIGIBLE_PENDING_DISCOVERY_FREEZE",
+   "proposed_change": {
+    "status": "PROPOSED_CHANGE",
+    "from": "UNRESOLVED",
+    "to": "ELIGIBLE_PENDING_DISCOVERY_FREEZE",
+    "prior_record_left_untouched": "results/s2_2026-09-20/reviewed_eligibility_subset.json"
+   },
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "P01",
+   "label": "Zheng 2025 Sn-RuO2",
+   "doi": "10.3390/catal15080770",
+   "prior": {
+    "source": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json",
+    "disposition": "UNRESOLVED",
+    "gap": "CHE reference formalism (eqs 5-7)"
+   },
+   "evidence": {
+    "local": [
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/zheng2025_mdpi_html__6cdacd01223aa7c9.html",
+      "sha256": "6cdacd01223aa7c9eef004da620968a6486259d14764ef1370b3761b9cb924d7",
+      "bytes": 400
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/zheng2025_mdpi_pdf__db7329cf493b7d84.html",
+      "sha256": "db7329cf493b7d84c502fccf95910cbe20327be05960917c7aefc7c33d494253",
+      "bytes": 413
+     }
+    ],
+    "remote": [
+     {
+      "item": "MDPI open-access HTML full text (CC BY)",
+      "route": "BROWSER_SESSION_READ (ordinary Chrome session; sha256 computed in-browser at read time; bytes not retained locally)",
+      "body_innertext_sha256": "cb0948bb4e2fad5f950a57a1173295c398722d7b3648a58370373f8edc592ab7",
+      "chars": 44535,
+      "read_utc": "2026-09-24T01:38:29Z",
+      "note": "Scripted GETs returned HTTP 403 bot pages (saved)."
+     }
+    ]
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "YES - DFT+U study (section 3)",
+     "first_publication_in_window": "YES - published 2025-08-13",
+     "oer_calculated": "YES - eqs 1-4, Fig 4 free-energy diagrams",
+     "rutile_oxide": "YES - section 3 'p(2x2x2) rutile Ru16O32'; introduction 'Rutile-phase RuO2'",
+     "surface_110": "YES - Sn/RuO2(110) and (1-10) slabs; undoped RuO2(110) control",
+     "che_overpotential_reported_article_or_si": "YES - eqs 5-7 reference each adsorbate to 1/2, 1 and 3/2 G_H2 (proton-electron pair as 1/2 H2); Fig 4 diagrams at U = 1.23 V; eq 8 eta_OER = max dG/e - 1.23 V; section 2.3 reports 46-Ru_cus 0.51 V and RuO2(110) 0.87 V (0.14 lower with U)"
+    },
+    "disposition": "ELIGIBLE_PENDING_DISCOVERY_FREEZE"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "YES",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "YES",
+     "rutile_oxide": "YES",
+     "surface_110": "YES",
+     "che_overpotential_reported_article_or_si": "YES - hydrogen reference explicit in eqs 5-7; eq 4 uses 4.92 eV total; Fig 5b volcano of eta vs dG_O-dG_OH; SI Fig S3 RuO2(110) free-energy diagram listed"
+    },
+    "disposition": "ELIGIBLE_PENDING_DISCOVERY_FREEZE"
+   },
+   "agreement": true,
+   "final_disposition": "ELIGIBLE_PENDING_DISCOVERY_FREEZE",
+   "proposed_change": {
+    "status": "PROPOSED_CHANGE",
+    "from": "UNRESOLVED",
+    "to": "ELIGIBLE_PENDING_DISCOVERY_FREEZE",
+    "prior_record_left_untouched": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json"
+   },
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "P02",
+   "label": "IrO2 nanostructures 2021 (Appl. Surf. Sci.)",
+   "doi": "10.1016/j.apsusc.2021.149591",
+   "prior": {
+    "source": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json",
+    "disposition": "UNRESOLVED",
+    "gap": "full article/SI"
+   },
+   "evidence": {
+    "local": [
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/iro2nano_elsevier_api__20332b7f504e84c1.xml",
+      "sha256": "20332b7f504e84c1bbbc7570f8728d79b2c2db445b3365e667a37eac42f06bdc",
+      "bytes": 159
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/iro2nano_si_mmc1_docx__83cf0fd7cf274012.xml",
+      "sha256": "83cf0fd7cf2740129f2ddedb484cf2f65c2f831820454bbd6fa35dad094a4d8d",
+      "bytes": 189
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/iro2nano_si_mmc1_pdf__83cf0fd7cf274012.xml",
+      "sha256": "83cf0fd7cf2740129f2ddedb484cf2f65c2f831820454bbd6fa35dad094a4d8d",
+      "bytes": 189
+     }
+    ],
+    "remote": [
+     {
+      "item": "ScienceDirect article page",
+      "route": "BLOCKED - Cloudflare CAPTCHA challenge; not attempted (bot-check completion is prohibited)"
+     },
+     {
+      "item": "Elsevier TDM API text/plain",
+      "route": "HTTP 400 without API key"
+     },
+     {
+      "item": "ars.els-cdn.com mmc1 pdf/docx",
+      "route": "HTTP 404"
+     }
+    ]
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "LIKELY_YES (DFT study per registry metadata)",
+     "first_publication_in_window": "YES - Crossref print 2021-07",
+     "oer_calculated": "UNKNOWN",
+     "rutile_oxide": "UNKNOWN",
+     "surface_110": "UNKNOWN",
+     "che_overpotential_reported_article_or_si": "UNKNOWN"
+    },
+    "disposition": "UNRESOLVED",
+    "missing": "article full text and SI"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "UNKNOWN",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "UNKNOWN",
+     "rutile_oxide": "UNKNOWN",
+     "surface_110": "UNKNOWN",
+     "che_overpotential_reported_article_or_si": "UNKNOWN"
+    },
+    "disposition": "UNRESOLVED",
+    "missing": "article full text and SI; a search-engine abstract summary mentions an overpotential for a 'rutile IrO2 bulk' comparison, which is not primary evidence and does not give the facet"
+   },
+   "agreement": true,
+   "final_disposition": "UNRESOLVED",
+   "proposed_change": null,
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "P03",
+   "label": "Kuo 2017 JACS",
+   "doi": "10.1021/jacs.6b11932",
+   "prior": {
+    "source": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json",
+    "disposition": "UNRESOLVED",
+    "gap": "calculated surface, reported CHE eta, date conflict"
+   },
+   "evidence": {
+    "local": [],
+    "remote": [
+     {
+      "item": "final published HTML full text (JACS 139(9) 3473)",
+      "route": "INSTITUTIONAL_SUBSCRIPTION_SESSION (institutional library subscription; publisher page labels access 'Purdue'; read-only, no file saved)",
+      "innertext_sha256": "58f0ea4d6d363a504bdf9c9214b5f9c45554965af964f8e6ee777d37e6b8102c",
+      "chars": 43992
+     },
+     {
+      "item": "official SI ja6b11932_si_001.pdf",
+      "route": "INSTITUTIONAL_SUBSCRIPTION_SESSION (institutional library subscription; publisher page labels access 'Purdue'; read-only, no file saved)",
+      "sha256": "1d94ba1cb0741947790e85a5e395c2167bcf91fae3c09c5b432011899ac0ace7",
+      "bytes": 1232183,
+      "pages": 13
+     }
+    ]
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "YES - experimental thin films plus DFT (FHI-aims) adsorption energies",
+     "first_publication_in_window": "YES - ASAP 2017-02-09 / Crossref online 2017-02-21 (both retained)",
+     "oer_calculated": "PARTIAL - DFT only for OH_ad and O_ad electroadsorption on Ir_cus; article: 'peak energies of OHad and Oad on Ircus are 0.92 and 1.31 V vs computational hydrogen electrode'",
+     "rutile_oxide": "YES - 'rutile IrO2(110) films'",
+     "surface_110": "YES",
+     "che_overpotential_reported_article_or_si": "NO - all reported OER overpotentials are experimental (Fig 3c at 5 uA/cm2; SI Fig S4 p11); no computed OOH energetics or theoretical eta in article or SI (SI p2 CHE used for OH/O transition energies only)"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "che_overpotential_reported_article_or_si"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "YES",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "PARTIAL (OH/O only; OOH formation discussed via the dG_O-dG_OH approximation applied to experimental peaks, Fig 4c)",
+     "rutile_oxide": "YES",
+     "surface_110": "YES",
+     "che_overpotential_reported_article_or_si": "NO - SI p6 kinetic rate-law analysis and p11 experimental eta only"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "che_overpotential_reported_article_or_si"
+   },
+   "access_caveat": "Institutional subscription session; under an open-access-only reading this case stays UNRESOLVED.",
+   "agreement": true,
+   "final_disposition": "EXCLUDE",
+   "proposed_change": {
+    "status": "PROPOSED_CHANGE",
+    "from": "UNRESOLVED",
+    "to": "EXCLUDE",
+    "prior_record_left_untouched": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json"
+   },
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "P04",
+   "label": "Spotti 2026 SSRN (GC-DFT RuO2)",
+   "doi": "10.2139/ssrn.7293461",
+   "prior": {
+    "source": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json",
+    "disposition": "UNRESOLVED",
+    "gap": "version status, facet, CHE eta"
+   },
+   "evidence": {
+    "local": [
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/ssrn7293461_landing__ab7e298e1546b598.html",
+      "sha256": "ab7e298e1546b598f72009ce0c4efd92a4c42c3d542a36c9285a312e673435ba",
+      "bytes": 5765
+     }
+    ],
+    "remote": [
+     {
+      "item": "SSRN preprint PDF (19 pp, posted 2026-08-16)",
+      "route": "BROWSER_SESSION_READ (ordinary Chrome session; sha256 computed in-browser at read time; bytes not retained locally)",
+      "sha256": "6c28e85db970070b97894d17096cea2f9da96ce6bd7f606d4dd465011bbaeb24",
+      "bytes": 1169051
+     }
+    ]
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "YES - GCP-K DFT study (preprint, not peer reviewed; no journal relation found)",
+     "first_publication_in_window": "YES - posted 2026-08-16",
+     "oer_calculated": "PARTIAL - potential-dependent stability of -OOH vs -OO-H intermediates",
+     "rutile_oxide": "YES - p7 'rutile-like structure'",
+     "surface_110": "YES - RuO2(110) throughout (pp7-11)",
+     "che_overpotential_reported_article_or_si": "NOT_FOUND_IN_MAIN_TEXT - 'overpotential' only p3/p7 experimental context; p12 CHE mentioned only as a previous analysis; SI (cited p5 'Section S1/S3 of the Supporting Information') is not posted on SSRN"
+    },
+    "disposition": "UNRESOLVED",
+    "missing": "Supporting Information (not on SSRN) and any journal version"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "YES",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "PARTIAL",
+     "rutile_oxide": "YES",
+     "surface_110": "YES",
+     "che_overpotential_reported_article_or_si": "NOT_FOUND_IN_MAIN_TEXT; SI unavailable"
+    },
+    "disposition": "UNRESOLVED",
+    "missing": "SI"
+   },
+   "agreement": true,
+   "final_disposition": "UNRESOLVED",
+   "proposed_change": null,
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "P05",
+   "label": "Ricci 2026 SnSe2/TiO2 (npj 2D Mater. Appl.)",
+   "doi": "10.1038/s41699-026-00721-1",
+   "prior": {
+    "source": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json",
+    "disposition": "UNRESOLVED",
+    "gap": "TiO2 polymorph, CHE, eta"
+   },
+   "evidence": {
+    "local": [
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/snse2tio2_article_aap_pdf__7278f7203be0189a.pdf",
+      "sha256": "7278f7203be0189a591b35a5928006fb15893571fa91f853ea011cdd6b7e4581",
+      "bytes": 955725
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/snse2tio2_nature_html__c1776efd92229354.html",
+      "sha256": "c1776efd92229354d81b1b8311c974cf700079802642e1c57a1b806caff1d734",
+      "bytes": 239468
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/snse2tio2_nature_pdf__553691ea2fe8bea6.html",
+      "sha256": "553691ea2fe8bea62f5016d68c3eb1f1395312b1bf6cd2d0dd1decf4fc841b47",
+      "bytes": 239468
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/snse2tio2_si_moesm1__35c7231e25324b73.pdf",
+      "sha256": "35c7231e25324b7353042acd6f453b200b2ac0b9516f11515408a217af558b34",
+      "bytes": 1280438
+     }
+    ],
+    "remote": []
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "YES - experiments plus DFT",
+     "first_publication_in_window": "YES - received 2026-02-18, published 2026-07-15 (accelerated article preview)",
+     "oer_calculated": "YES - article pp23-24 OER free energies on defective (100)/(110) TiO2",
+     "rutile_oxide": "NO - SI p7 S5.1 'Relaxed TiO2 (anatase) structure' a=3.825, c=9.686 A; article p7 GI-XRD anatase; SI p7: rutile evaluated only as a (100) surface-energy check and discarded",
+     "surface_110": "YES (anatase (110))",
+     "che_overpotential_reported_article_or_si": "YES_OTHER_POLYMORPH - article p23 CHE (Norskov) with eta = 1.17 V (100) and p24 eta = 0.67 V (110), both anatase"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "rutile_oxide"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "YES",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "YES",
+     "rutile_oxide": "NO - SI S5.1-S5.2 p7 anatase bulk and anatase (100)/(110) terminations; Methods p30 CHE on the same models",
+     "surface_110": "YES (anatase)",
+     "che_overpotential_reported_article_or_si": "YES (anatase only)"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "rutile_oxide"
+   },
+   "version_note": "Evidence file is the unedited accelerated article preview (nature.com _reference.pdf); final typeset version not inspected, polymorph statement is in the official SI.",
+   "agreement": true,
+   "final_disposition": "EXCLUDE",
+   "proposed_change": {
+    "status": "PROPOSED_CHANGE",
+    "from": "UNRESOLVED",
+    "to": "EXCLUDE",
+    "prior_record_left_untouched": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json"
+   },
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "P06",
+   "label": "Camacho-Forero 2022 Co/Ni-IrO2 (J. Catal.)",
+   "doi": "10.1016/j.jcat.2022.02.016",
+   "prior": {
+    "source": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json",
+    "disposition": "UNRESOLVED",
+    "gap": "facet model and CHE eta"
+   },
+   "evidence": {
+    "local": [
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/conirO2_elsevier_api__20332b7f504e84c1.xml",
+      "sha256": "20332b7f504e84c1bbbc7570f8728d79b2c2db445b3365e667a37eac42f06bdc",
+      "bytes": 159
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/conirO2_nsfpar_doi__df1e4150dd280636.html",
+      "sha256": "df1e4150dd28063679f10e83739d3bc324b52d5da3b9a385e84640d0f56687a3",
+      "bytes": 298122
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/conirO2_si_mmc1_docx__550014d4b95112b4.bin",
+      "sha256": "550014d4b95112b42635308cb57f3f9a27cdc3c7f78bb65d8fee3d6ee829ae53",
+      "bytes": 561604
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/conirO2_si_mmc1_pdf__83cf0fd7cf274012.xml",
+      "sha256": "83cf0fd7cf2740129f2ddedb484cf2f65c2f831820454bbd6fa35dad094a4d8d",
+      "bytes": 189
+     }
+    ],
+    "remote": [
+     {
+      "item": "ScienceDirect article",
+      "route": "BLOCKED - CAPTCHA; not attempted"
+     }
+    ]
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "YES (SI p1 computational details; experimental + theoretical)",
+     "first_publication_in_window": "YES - Crossref print 2022-04",
+     "oer_calculated": "YES (SI Tables S1-S4 reaction/activation energies)",
+     "rutile_oxide": "UNKNOWN (SI does not name the polymorph; article not inspected)",
+     "surface_110": "UNKNOWN (SI refers to 5-fold Ir sites only)",
+     "che_overpotential_reported_article_or_si": "NOT_FOUND_IN_SI - SI tables give activation barriers and reaction energies of recombination/associative steps and Tafel-slope analysis; no CHE eta; article not accessible"
+    },
+    "disposition": "UNRESOLVED",
+    "missing": "article full text"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "YES",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "YES",
+     "rutile_oxide": "UNKNOWN",
+     "surface_110": "UNKNOWN",
+     "che_overpotential_reported_article_or_si": "NOT_FOUND_IN_SI"
+    },
+    "disposition": "UNRESOLVED",
+    "missing": "article full text"
+   },
+   "note": "Godinez-Salomon 2022 (P07) cites this work as its ref 114 (same groups).",
+   "agreement": true,
+   "final_disposition": "UNRESOLVED",
+   "proposed_change": null,
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "P07",
+   "label": "Godinez-Salomon 2022 (ACS Appl. Nano Mater.)",
+   "doi": "10.1021/acsanm.2c02760",
+   "prior": {
+    "source": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json",
+    "disposition": "UNRESOLVED",
+    "gap": "CHE reference convention (first pass SUPPORTED vs independent UNRESOLVED)"
+   },
+   "evidence": {
+    "local": [
+     {
+      "path": "docs/research/papers/2026-09-20-access/godinez2022_article.pdf",
+      "sha256": "984d592b7472789c0bf543de5ee8a66ad563edb01a98621d0cc5b0b1553d25e3",
+      "bytes": 8202713
+     },
+     {
+      "path": "docs/research/papers/2026-09-20-access/godinez2022_si_36462591.pdf",
+      "sha256": "b4cfb32357fb1a9f574425cddb9320278e5d30d3359fae31cfccc778c186ca57",
+      "bytes": 2430538
+     }
+    ],
+    "remote": []
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "YES",
+     "first_publication_in_window": "YES - Crossref online 2022-07-28",
+     "oer_calculated": "YES - article p15 energy profiles of OER steps; SI Fig S17",
+     "rutile_oxide": "YES - SI p8 RuO2 cell a=4.483, c=3.108 A (rutile); article p16 'rutile phases'",
+     "surface_110": "YES - (110)-Ru1-xTixO2 slabs",
+     "che_overpotential_reported_article_or_si": "YES - article p15 potential effect added 'using Norskov's approach' (ref 115, Valdes et al. 2008); article p16 descriptor dE_O - dE_OH = E_O* + 1/2 E_H2(g) - E_OH* (proton-electron pair referenced to 1/2 H2) and eta_OER = {max[(dG_O*-dG_OH*), 3.2 eV-(dG_O*-dG_OH*)]/e} - 1.23 V; theoretical eta plotted Fig 8b,c, values in ESI Table S14"
+    },
+    "disposition": "ELIGIBLE_PENDING_DISCOVERY_FREEZE"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "YES",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "YES",
+     "rutile_oxide": "YES",
+     "surface_110": "YES",
+     "che_overpotential_reported_article_or_si": "YES - page image of article p16 checked: the 1/2 E_H2(g) term is explicit; SI p8 gas-phase adsorption-energy definition applies to Eads tables, not to the eta descriptor"
+    },
+    "disposition": "ELIGIBLE_PENDING_DISCOVERY_FREEZE"
+   },
+   "rule_note": "Resolves the prior reviewer disagreement toward eligibility using the p16 equation that neither prior record quoted; the eta uses Man et al.'s 3.2 eV OOH-OH scaling rather than a computed OOH energy.",
+   "agreement": true,
+   "final_disposition": "ELIGIBLE_PENDING_DISCOVERY_FREEZE",
+   "proposed_change": {
+    "status": "PROPOSED_CHANGE",
+    "from": "UNRESOLVED",
+    "to": "ELIGIBLE_PENDING_DISCOVERY_FREEZE",
+    "prior_record_left_untouched": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json"
+   },
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "P08",
+   "label": "Divanis 2021 PCCP",
+   "doi": "10.1039/d1cp02999a",
+   "linked_version_candidate_ids": [
+    "120cfbcb077ef9080bd24a8b",
+    "1e3ea86259784c51b6c43de2",
+    "52ae5796ed909e2c483243c6",
+    "ae3d7c592d886d696d6496c0"
+   ],
+   "prior": {
+    "source": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json",
+    "disposition": "UNRESOLVED (+4 VERSION rows)",
+    "gap": "rutile polymorph and CHE reference"
+   },
+   "evidence": {
+    "local": [],
+    "remote": [
+     {
+      "item": "RSC published HTML full text (CC BY 4.0)",
+      "route": "BROWSER_SESSION_READ (ordinary Chrome session; sha256 computed in-browser at read time; bytes not retained locally)",
+      "innertext_sha256": "2a523ff17983b88c2e2e3fff8f1595f2cda85f087bd6955dd8d710f9f568710f",
+      "chars": 25357
+     },
+     {
+      "item": "ChemRxiv v2 PDF 10.26434/chemrxiv-2021-pfdcx-v2 (10 pp)",
+      "route": "BROWSER_SESSION_READ (ordinary Chrome session; sha256 computed in-browser at read time; bytes not retained locally)",
+      "sha256": "5aec7f02bb28e5b16b577177515c1573572088fb3a117543dc78fea051835252",
+      "bytes": 6004454
+     }
+    ]
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "YES - own GPAW/BEEF-vdW calculations (Computational methods)",
+     "first_publication_in_window": "YES - 2021 (preprint v1 posted 2021-06-29; Crossref journal year only; EPMC first publication 2021-09-15)",
+     "oer_calculated": "YES - new RuO2 pathway (Fig 1b), Fig 2 volcano",
+     "rutile_oxide": "SUPPORTED_BY_MATERIAL_IDENTITY_ONLY - RuO2(110)/IrO2(110) cus and bridge sites (Fig 1c); the word 'rutile' appears only in cited titles",
+     "surface_110": "YES",
+     "che_overpotential_reported_article_or_si": "UNRESOLVED_REFERENCE - Fig 2 left axis 'theoretical overpotential' with own blue-pentagon point; 'each step accompanied with the exchange of a proton-electron pair'; conventional pathway cited to Norskov 2004 (ref 21); no explicit hydrogen-electrode / 1/2 H2 reference statement in journal text, and no ESI declared; preprint v2 adds none"
+    },
+    "disposition": "UNRESOLVED",
+    "missing": "explicit CHE reference statement (or a ruling that a PCET-volcano theoretical overpotential citing Norskov 2004 suffices)"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "YES",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "YES",
+     "rutile_oxide": "SUPPORTED_BY_MATERIAL_IDENTITY_ONLY",
+     "surface_110": "YES",
+     "che_overpotential_reported_article_or_si": "UNRESOLVED_REFERENCE - Computational methods give functional/slab/k-points only; no free-energy reference, ZPE/TS or potential-shift statement"
+    },
+    "disposition": "UNRESOLVED",
+    "missing": "CHE reference evidence"
+   },
+   "note": "Same criterion standard as applied to P07 (explicit 1/2 H2 or named CHE). The four ChemRxiv alias/preprint rows collapse to this case and are not additional studies.",
+   "agreement": true,
+   "final_disposition": "UNRESOLVED",
+   "proposed_change": null,
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "P09",
+   "label": "Creazzo & Luber 2021 (Chem. Eur. J.)",
+   "doi": "10.1002/chem.202102356",
+   "prior": {
+    "source": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json",
+    "disposition": "UNRESOLVED",
+    "gap": "own CHE eta in article/SI"
+   },
+   "evidence": {
+    "local": [
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/chem2021_epmc_suppl__ee16e7c1bdbc55dc.bin",
+      "sha256": "ee16e7c1bdbc55dc95a6924c5642e43e1a53f6aa15c880ba889b8c8bde252113",
+      "bytes": 922042
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/chem2021_epmc_xml__f19c34e78a32e58a.xml",
+      "sha256": "f19c34e78a32e58a434a1b3b355ca0073c6187dbb6b4a5bf235fe0a3684b5a37",
+      "bytes": 171125
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/chem2021_wiley_pdfdirect__05a62147b01c2162.html",
+      "sha256": "05a62147b01c2162844bb58a2b42287f84dca4a62635ddb19c297002ae3d0f3f",
+      "bytes": 5757
+     }
+    ],
+    "remote": []
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "YES - DFT-MD/metadynamics (Computational methods)",
+     "first_publication_in_window": "YES - Crossref online 2021-10-15",
+     "oer_calculated": "YES - OER free-energy barriers via metadynamics",
+     "rutile_oxide": "YES - 'the rutile RuO2 bulk' (section on the (110) model)",
+     "surface_110": "YES - hydrated (110)-RuO2",
+     "che_overpotential_reported_article_or_si": "NO - explicitly 'free energy activation barriers ... in contrast to traditional thermodynamic free energy differences'; eq 6 defines G_OER only generically; the 0.5-0.7 eV overpotential quoted is Norskov et al.'s literature value; no hydrogen-electrode reference; PMC XML declares no supplementary material and the text cites no Supporting Information"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "che_overpotential_reported_article_or_si"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "YES",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "YES (kinetic)",
+     "rutile_oxide": "YES",
+     "surface_110": "YES",
+     "che_overpotential_reported_article_or_si": "NO - 0 occurrences of 'hydrogen electrode'/'CHE'; reported quantities are activation barriers (e.g. 1.64 eV, 0.46 eV); Europe PMC supplementary bundle contains only figure images"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "che_overpotential_reported_article_or_si"
+   },
+   "residual": "Wiley landing/SI listing returned HTTP 403; SI absence rests on the PMC XML and the article text.",
+   "agreement": true,
+   "final_disposition": "EXCLUDE",
+   "proposed_change": {
+    "status": "PROPOSED_CHANGE",
+    "from": "UNRESOLVED",
+    "to": "EXCLUDE",
+    "prior_record_left_untouched": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json"
+   },
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "P10",
+   "label": "Zagalskaya & Alexandrov ACS Fall 2020 poster",
+   "doi": "10.1021/scimeetings.0c06708",
+   "prior": {
+    "source": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json",
+    "disposition": "UNRESOLVED",
+    "gap": "resource type/content"
+   },
+   "evidence": {
+    "local": [
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/scimeetings_exhibit__8f3e499a303b9631.html",
+      "sha256": "8f3e499a303b9631c74ce6ad5b25f777851423bc900b7c7375c64d84976909a1",
+      "bytes": 74020
+     }
+    ],
+    "remote": [
+     {
+      "item": "SciMeetings exhibit page (rendered)",
+      "route": "BROWSER_SESSION_READ (ordinary Chrome session; sha256 computed in-browser at read time; bytes not retained locally)",
+      "observed": "labelled 'POSTER', ACS Fall 2020; abstract only; poster download requires sign-in (not attempted)"
+     }
+    ]
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "NO_AS_RECORD_TYPE - conference poster exhibit",
+     "first_publication_in_window": "YES - Crossref posted 2020-10-05",
+     "oer_calculated": "YES per abstract (CHE calculations on RuO2/IrO2)",
+     "rutile_oxide": "UNKNOWN",
+     "surface_110": "UNKNOWN",
+     "che_overpotential_reported_article_or_si": "abstract mentions a theoretical overpotential; poster content not accessible"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "primary_research (resource type: meeting poster, consistent with the prior ECS meeting-abstract exclusions)"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "NO_AS_RECORD_TYPE",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "YES (abstract)",
+     "rutile_oxide": "UNKNOWN",
+     "surface_110": "UNKNOWN",
+     "che_overpotential_reported_article_or_si": "UNKNOWN"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "primary_research (record type)"
+   },
+   "note": "Any corresponding journal article is a separate candidate and is not asserted here.",
+   "agreement": true,
+   "final_disposition": "EXCLUDE",
+   "proposed_change": {
+    "status": "PROPOSED_CHANGE",
+    "from": "UNRESOLVED",
+    "to": "EXCLUDE",
+    "prior_record_left_untouched": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json"
+   },
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "P11",
+   "label": "Adiga 2022 strain RuO2(101) (Mater. Today Energy)",
+   "doi": "10.1016/j.mtener.2022.101087",
+   "prior": {
+    "source": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json",
+    "disposition": "UNRESOLVED",
+    "gap": "SI (first pass EXCLUDE vs independent UNRESOLVED)"
+   },
+   "evidence": {
+    "local": [
+     {
+      "path": "docs/research/papers/2026-09-20-access/strain2022_article.pdf",
+      "sha256": "e6ff1386179116468002615f9184534294f355fa7375f0c28dde6cd36f8187d7",
+      "bytes": 493571
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/strain2022_si_mmc1_pdf__c771e2d7cfddaa03.pdf",
+      "sha256": "c771e2d7cfddaa03b22a22652552570665059b592641df508f6924ed923431c1",
+      "bytes": 840297
+     }
+    ],
+    "remote": []
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "NO_CALCULATION - experimental thin-film study",
+     "first_publication_in_window": "YES - OSTI 2022-07-02; Crossref print 2022-08",
+     "oer_calculated": "NO - article pp1-8: all calculations cited to literature (refs 17-20, 25, 26, Zagalskaya)",
+     "rutile_oxide": "n/a",
+     "surface_110": "n/a (own work is (101) and (110) films experimentally)",
+     "che_overpotential_reported_article_or_si": "NO - SI pp1-8 (official Elsevier mmc1): film growth, electrochemistry, CV; no DFT"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "oer_calculated (purely experimental)"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "NO_CALCULATION",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "NO",
+     "rutile_oxide": "n/a",
+     "surface_110": "n/a",
+     "che_overpotential_reported_article_or_si": "NO"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "oer_calculated"
+   },
+   "version_note": "Article evidence is the OSTI accepted manuscript; final typeset version not inspected.",
+   "agreement": true,
+   "final_disposition": "EXCLUDE",
+   "proposed_change": {
+    "status": "PROPOSED_CHANGE",
+    "from": "UNRESOLVED",
+    "to": "EXCLUDE",
+    "prior_record_left_untouched": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json"
+   },
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "P12",
+   "label": "Gonzalez-Huerta 2014 Co-doped RuO2/IrO2 (J. Power Sources)",
+   "doi": "10.1016/j.jpowsour.2014.06.029",
+   "prior": {
+    "source": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json",
+    "disposition": "UNRESOLVED",
+    "gap": "surface models, reference, CHE eta"
+   },
+   "evidence": {
+    "local": [
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/copo2014_elsevier_api__02f6d1d49ded4e0b.json",
+      "sha256": "02f6d1d49ded4e0b0898231f5939ef4ad814352d39372ed5e91b8f5b69bf0d8c",
+      "bytes": 180
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/copo2014_elsevier_api__20332b7f504e84c1.xml",
+      "sha256": "20332b7f504e84c1bbbc7570f8728d79b2c2db445b3365e667a37eac42f06bdc",
+      "bytes": 159
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/copo2014_si_mmc1_docx__79449b36c969d5d9.bin",
+      "sha256": "79449b36c969d5d9d94b73881d29b80ef1a143ae9bac67ab5f3544accc1e6b3d",
+      "bytes": 887058
+     },
+     {
+      "path": "results/s2_2026-09-23/eligibility_identity_review/files/copo2014_si_mmc1_pdf__83cf0fd7cf274012.xml",
+      "sha256": "83cf0fd7cf2740129f2ddedb484cf2f65c2f831820454bbd6fa35dad094a4d8d",
+      "bytes": 189
+     }
+    ],
+    "remote": [
+     {
+      "item": "ScienceDirect article",
+      "route": "BLOCKED - CAPTCHA; not attempted"
+     }
+    ]
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "YES (experimental + DFT per title/SI)",
+     "first_publication_in_window": "YES - Crossref print 2014-12",
+     "oer_calculated": "UNKNOWN",
+     "rutile_oxide": "UNKNOWN",
+     "surface_110": "UNKNOWN",
+     "che_overpotential_reported_article_or_si": "NOT_FOUND_IN_SI - SI (official mmc1) contains only experimental LSV (Fig S1) and SEM (Fig S2)"
+    },
+    "disposition": "UNRESOLVED",
+    "missing": "article full text"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "YES",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "UNKNOWN",
+     "rutile_oxide": "UNKNOWN",
+     "surface_110": "UNKNOWN",
+     "che_overpotential_reported_article_or_si": "NOT_FOUND_IN_SI"
+    },
+    "disposition": "UNRESOLVED",
+    "missing": "article full text"
+   },
+   "agreement": true,
+   "final_disposition": "UNRESOLVED",
+   "proposed_change": null,
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  },
+  {
+   "case_id": "V01",
+   "label": "Navodye & Gunasooriya 2024 (J. Phys. Chem. C) + ChemRxiv preprint",
+   "doi": "10.1021/acs.jpcc.3c08103",
+   "linked_version_candidate_ids": [
+    "1183b3c2cfd620788e81af05"
+   ],
+   "prior": {
+    "source": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json",
+    "disposition": "VERSION_RELATION_SUPPORTED_JOURNAL_ELIGIBILITY_UNRESOLVED (preprint row)",
+    "gap": "journal rutile model and CHE eta"
+   },
+   "evidence": {
+    "local": [],
+    "remote": [
+     {
+      "item": "ChemRxiv preprint PDF (32 pp)",
+      "route": "BROWSER_SESSION_READ (ordinary Chrome session; sha256 computed in-browser at read time; bytes not retained locally)",
+      "sha256": "6a7bf33fea4371e9ba0e48595cbf189afae364b2bd4cc5e80d9b9212160a51cc",
+      "bytes": 12593363
+     },
+     {
+      "item": "ChemRxiv preprint SI (30 pp)",
+      "route": "BROWSER_SESSION_READ (ordinary Chrome session; sha256 computed in-browser at read time; bytes not retained locally)",
+      "sha256": "21912707da0e61529e350765bc359d15e031622448a714641828c80ff398a009",
+      "bytes": 19376364
+     },
+     {
+      "item": "journal HTML full text (JPCC 128(14) 6041)",
+      "route": "INSTITUTIONAL_SUBSCRIPTION_SESSION (institutional library subscription; publisher page labels access 'Purdue'; read-only, no file saved)",
+      "innertext_sha256": "6b2244825f7420a6a06111d3f35fa44ed00aaafd1d20a83fcb5a54f837807d52",
+      "chars": 77067
+     },
+     {
+      "item": "journal SI jp3c08103_si_001.pdf (32 pp; watermark shows Purdue download)",
+      "route": "INSTITUTIONAL_SUBSCRIPTION_SESSION (institutional library subscription; publisher page labels access 'Purdue'; read-only, no file saved)",
+      "sha256": "2934e057df98994e0ed95dfcef234e9972cfe522a1a37ded4f20e5ebfdb99964",
+      "bytes": 21313728
+     },
+     {
+      "item": "journal SI jp3c08103_si_002.xlsx",
+      "route": "INSTITUTIONAL_SUBSCRIPTION_SESSION (institutional library subscription; publisher page labels access 'Purdue'; read-only, no file saved)",
+      "sha256": "fcbfe1392ddf0b919d7cdfe4d5a214645ac901d5bf74b5493164ed6250d3103f",
+      "bytes": 18530
+     }
+    ]
+   },
+   "pass1": {
+    "criteria": {
+     "primary_research": "YES - DFT study",
+     "first_publication_in_window": "YES - preprint 2023-12-12; journal online 2024-03-29",
+     "oer_calculated": "PARTIAL - OH*, O*, OOH* adsorption free energies with/without anions (journal Table 4; SI Figs S9-S11)",
+     "rutile_oxide": "YES - 'rutile IrO2(110) surface' (preprint p8)",
+     "surface_110": "YES",
+     "che_overpotential_reported_article_or_si": "NO_OWN - the only limiting potential ('OER thermodynamic limiting potential at 1.6 V vs RHE') is cited to ref 45 = Man et al. 2011; no own eta in preprint, journal text, journal SI PDF or SI spreadsheet (string scan of all sheets)"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "che_overpotential_reported_article_or_si"
+   },
+   "pass2": {
+    "criteria": {
+     "primary_research": "YES",
+     "first_publication_in_window": "YES",
+     "oer_calculated": "PARTIAL",
+     "rutile_oxide": "YES",
+     "surface_110": "YES",
+     "che_overpotential_reported_article_or_si": "NO_OWN - preprint pp6-7 overpotentials are experimental literature; p17 1.6 V cited (45); journal identical wording; SI p19 lists adsorption energies on Cl*/Br* only"
+    },
+    "disposition": "EXCLUDE",
+    "failed_criterion": "che_overpotential_reported_article_or_si"
+   },
+   "access_caveat": "Journal-version evidence via institutional subscription session. Under an open-access-only reading the preprint and preprint SI alone give the same negative finding but the journal representative stays UNRESOLVED.",
+   "agreement": true,
+   "final_disposition": "EXCLUDE",
+   "proposed_change": {
+    "status": "PROPOSED_CHANGE",
+    "from": "VERSION_RELATION_SUPPORTED_JOURNAL_ELIGIBILITY_UNRESOLVED (preprint row)",
+    "to": "EXCLUDE",
+    "prior_record_left_untouched": "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json"
+   },
+   "method_reporting_fields": "NOT_CODED",
+   "pass_independence_note": "Both passes were performed by the same reviewer in one session; the second pass re-read the primary sources and wrote its criterion evidence before comparing, per the task instruction, but it is not an independent second reviewer in the registered sense. Treat these as a within-reviewer double pass."
+  }
+ ]
+}

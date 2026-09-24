@@ -1,0 +1,29 @@
+{
+ "schema": "sts.p_lit.unresolved_eligibility_case_list.v1",
+ "created_utc": "2026-09-23",
+ "sources": [
+  "results/s2_2026-09-20/reviewed_eligibility_subset.json (5 UNRESOLVED of 10)",
+  "results/s2_2026-09-20/priority_primary_triage/reconciled_subset.json (12 UNRESOLVED + 5 VERSION_RELATION_SUPPORTED_JOURNAL_ELIGIBILITY_UNRESOLVED of 29)"
+ ],
+ "note_on_six": "tasks/todo.md says 'six unresolved journal eligibility cases'. No record in the repo enumerates six. The five version-linked rows point to exactly two journal representatives (10.1039/d1cp02999a, which is itself one of the 12 unresolved rows, and 10.1021/acs.jpcc.3c08103, which has no row of its own). Covering every unresolved case: 5 + 12 + 1 journal representative without its own row = 18 distinct study-level cases; the 4 Divanis-2021 alias/preprint rows collapse onto case P08 and the IrO2-anion preprint row onto case V01.",
+ "cases": [
+  {"case_id": "T01", "subset": "ten_study", "label": "Inico 2024", "doi": "10.1002/cctc.202400813", "prior": "UNRESOLVED", "prior_gap": "reported CHE eta not established; SI missing"},
+  {"case_id": "T02", "subset": "ten_study", "label": "Gauthier 2017", "doi": "10.1021/acs.jpcc.7b02383", "prior": "UNRESOLVED", "prior_gap": "separately reported eta not established; final-version/SI inventory"},
+  {"case_id": "T03", "subset": "ten_study", "label": "Exner 2020", "doi": "10.1021/acscatal.0c03865", "prior": "UNRESOLVED", "prior_gap": "primary-research rule application (reanalysis of published MO2(110) data)"},
+  {"case_id": "T04", "subset": "ten_study", "label": "Divanis 2020", "doi": "10.1039/c9sc05897d", "prior": "UNRESOLVED", "prior_gap": "rutile polymorph locator for new TiO2(110) arm"},
+  {"case_id": "T05", "subset": "ten_study", "label": "Mom 2014", "doi": "10.1021/jp409373c", "prior": "UNRESOLVED", "prior_gap": "primary article missing"},
+  {"case_id": "P01", "subset": "priority_29", "candidate_id": "0939106d7cc0659540f3d012", "label": "Zheng 2025 Sn-RuO2", "doi": "10.3390/catal15080770", "prior": "UNRESOLVED", "prior_gap": "CHE reference formalism (eqs 5-7)"},
+  {"case_id": "P02", "subset": "priority_29", "candidate_id": "401116182adc06e01dc93b1c", "label": "IrO2 nanostructures 2021", "doi": "10.1016/j.apsusc.2021.149591", "prior": "UNRESOLVED", "prior_gap": "full article/SI surface, comparison models, CHE eta"},
+  {"case_id": "P03", "subset": "priority_29", "candidate_id": "5c7e8833660961056da41c2b", "label": "Kuo 2017", "doi": "10.1021/jacs.6b11932", "prior": "UNRESOLVED", "prior_gap": "calculated surface and reported CHE eta; date conflict"},
+  {"case_id": "P04", "subset": "priority_29", "candidate_id": "6a8688ac9f2ed30f7f923304", "label": "SSRN GC-DFT RuO2", "doi": "10.2139/ssrn.7293461", "prior": "UNRESOLVED", "prior_gap": "preprint/journal status, facet, CHE eta"},
+  {"case_id": "P05", "subset": "priority_29", "candidate_id": "757192a686dd6c642d7da174", "label": "SnSe2/TiO2 2026", "doi": "10.1038/s41699-026-00721-1", "prior": "UNRESOLVED", "prior_gap": "TiO2 polymorph, CHE reference, reported eta"},
+  {"case_id": "P06", "subset": "priority_29", "candidate_id": "86fc17a1b02bfc603b1fa8fa", "label": "Co/Ni-doped IrO2 2022", "doi": "10.1016/j.jcat.2022.02.016", "prior": "UNRESOLVED", "prior_gap": "facet model and CHE eta; online date"},
+  {"case_id": "P07", "subset": "priority_29", "candidate_id": "9373eb86bdea107cc0a7fea9", "label": "Godinez-Salomon 2022", "doi": "10.1021/acsanm.2c02760", "prior": "UNRESOLVED", "prior_gap": "CHE reference convention (reviewer disagreement retained)"},
+  {"case_id": "P08", "subset": "priority_29", "candidate_id": "962adb9326f35c9dea8abfc3", "label": "Divanis 2021 PCCP", "doi": "10.1039/d1cp02999a", "prior": "UNRESOLVED", "prior_gap": "rutile polymorph and CHE reference", "linked_version_dois": ["10.26434/chemrxiv-2021-pfdcx", "10.26434/chemrxiv-2021-pfdcx-v2"], "linked_version_candidate_ids": ["120cfbcb077ef9080bd24a8b", "1e3ea86259784c51b6c43de2", "52ae5796ed909e2c483243c6", "ae3d7c592d886d696d6496c0"]},
+  {"case_id": "P09", "subset": "priority_29", "candidate_id": "a80aca2f221e668e0d67d621", "label": "Water-assisted RuO2 DFT-MD 2021", "doi": "10.1002/chem.202102356", "prior": "UNRESOLVED", "prior_gap": "own CHE eta in article/SI"},
+  {"case_id": "P10", "subset": "priority_29", "candidate_id": "c704f4b2ae5760a710b8eb3d", "label": "ACS SciMeetings RuO2/IrO2", "doi": "10.1021/scimeetings.0c06708", "prior": "UNRESOLVED", "prior_gap": "resource type/content of exhibit"},
+  {"case_id": "P11", "subset": "priority_29", "candidate_id": "c7378f300398e67170bd287f", "label": "Strain RuO2(101) 2022", "doi": "10.1016/j.mtener.2022.101087", "prior": "UNRESOLVED", "prior_gap": "SI for any own computational control (reviewer disagreement retained)"},
+  {"case_id": "P12", "subset": "priority_29", "candidate_id": "d99334a308afefc1d1a98c40", "label": "Co-doped RuO2/IrO2 2014", "doi": "10.1016/j.jpowsour.2014.06.029", "prior": "UNRESOLVED", "prior_gap": "surface models, thermodynamic reference, reported CHE eta"},
+  {"case_id": "V01", "subset": "priority_29_journal_representative", "candidate_id": null, "label": "IrO2 acid anions JPCC 2024 (journal of chemrxiv-2023-jhnj4)", "doi": "10.1021/acs.jpcc.3c08103", "prior": "VERSION_RELATION_SUPPORTED_JOURNAL_ELIGIBILITY_UNRESOLVED (via preprint row)", "prior_gap": "journal rutile model and CHE eta", "linked_version_dois": ["10.26434/chemrxiv-2023-jhnj4"], "linked_version_candidate_ids": ["1183b3c2cfd620788e81af05"]}
+ ]
+}
