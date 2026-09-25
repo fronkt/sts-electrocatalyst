@@ -13,8 +13,18 @@ import datetime as dt
 import hashlib
 import json
 import pathlib
+import re
 
 HERE = pathlib.Path(__file__).resolve().parent
+# Safety net (--rescue), added 2026-09-25 after an audit found screeners split on an ambiguity in the
+# instructions: "any OER work on RuO2, IrO2 ..." (POSSIBLY_RELEVANT) versus "purely experimental ... no
+# computation mentioned" (CLEARLY_IRRELEVANT).  A record both passes excluded is still sent to full text
+# when its title/abstract names a rutile-family oxide within 300 characters of an OER term.  The net only
+# ever adds records to full-text review; it never excludes one.
+RESCUE = re.compile(
+    r"(RuO2|IrO2|rutile|SnO2|MnO2|PbO2|TiO2\s*\(110\)).{0,300}(oxygen evolution|\bOER\b|water oxidation|water splitting)"
+    r"|(oxygen evolution|\bOER\b|water oxidation|water splitting).{0,300}(RuO2|IrO2|rutile|SnO2|MnO2|PbO2|TiO2\s*\(110\))",
+    re.I | re.S)
 
 
 def read(path):
@@ -32,18 +42,21 @@ def main():
     p.add_argument("--inputs", nargs="*", default=None, help="input JSONL files (default: all chunks)")
     p.add_argument("--out", required=True)
     p.add_argument("--key", default=None, help="pilot sentinel key (known-eligible screen_ids)")
+    p.add_argument("--rescue", action="store_true", help="apply the rutile-oxide + OER safety net (see RESCUE)")
     a = p.parse_args()
     files = a.inputs or sorted(str(f) for f in HERE.glob("inputs/chunk_*.jsonl"))
     records = [json.loads(l) for f in files for l in open(f, encoding="utf-8")]
     A, B = read(a.a), read(a.b)
     out = pathlib.Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
-    rows, pair = [], collections.Counter()
+    rows, pair, rescued = [], collections.Counter(), 0
     for r in records:
         la = A.get(r["screen_id"], {}).get("label", "MISSING")
         lb = B.get(r["screen_id"], {}).get("label", "MISSING")
         pair[(la, lb)] += 1
         route = "PRESCREEN_EXCLUDED" if la == lb == "CLEARLY_IRRELEVANT" else "FULL_TEXT_REVIEW"
+        if route == "PRESCREEN_EXCLUDED" and a.rescue and RESCUE.search((r.get("title") or "") + " " + (r.get("abstract") or "")):
+            route, rescued = "FULL_TEXT_REVIEW_RESCUE", rescued + 1
         rows.append(dict(screen_id=r["screen_id"], doi=r.get("doi") or "", title=r.get("title") or "",
                          publication_date=r.get("publication_date") or "", label_a=la, label_b=lb,
                          reason_a=A.get(r["screen_id"], {}).get("reason", ""),
@@ -61,7 +74,8 @@ def main():
         records=len(rows), routes=collections.Counter(r["route"] for r in rows),
         label_pairs={"%s|%s" % k: v for k, v in sorted(pair.items())},
         exclusion_agreement=dict(agree=agree, disagree=len(rows) - agree, rate=round(agree / len(rows), 4)),
-        rule="PRESCREEN_EXCLUDED only when both independent passes label CLEARLY_IRRELEVANT; all else FULL_TEXT_REVIEW")
+        rule="PRESCREEN_EXCLUDED only when both independent passes label CLEARLY_IRRELEVANT; all else FULL_TEXT_REVIEW",
+        rescue=dict(applied=a.rescue, pattern=RESCUE.pattern if a.rescue else None, rescued=rescued))
     if a.key:
         key = json.load(open(a.key))["known_eligible_sentinels"]
         by = {r["screen_id"]: r for r in rows}

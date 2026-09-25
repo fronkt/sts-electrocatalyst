@@ -13,8 +13,8 @@
 - [x] Build the screening inputs offline from the handoff and hash-verified raw pages; keep the DOI-level record of every screened identity (`screened_identities.csv`).
 - [x] Fix the screening instructions and the merge rule before any full run: pre-screen exclusion only when both independent passes say CLEARLY_IRRELEVANT.
 - [x] Pilot on 200 records with 7 hidden known-eligible sentinels: recall 7/7, agreement 0.955, 19% of random records to full text.
-- [ ] Run both passes over all 31,471 identities (Batch API once credentials exist); screen the 238 new reference-pass DOIs the same way.
-- [ ] Design the full-text stage for the ~6,000 routed records (access, two independent passes, second review of every exclusion) before running it.
+- [x] Run both passes over all 31,471 identities plus the 238 reference-pass DOIs (2026-09-25, in-session screeners as in the pilot, 159 batches per pass, 0 invalid): agreement 0.958, sentinels 7/7; 4,604 to full text by the fixed rule, plus 982 via the declared rutile-oxide+OER safety net → 5,586 (`passes/merge/`).
+- [ ] Design the full-text stage for the 5,586 routed records (access, two independent passes, second review of every exclusion) before running it.
 
 ## 2026-09-22 — Verify completed retrieval and continue literature coverage
 

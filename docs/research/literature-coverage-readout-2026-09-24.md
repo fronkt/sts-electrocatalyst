@@ -72,9 +72,22 @@ The 200-record pilot, with 7 known-eligible papers hidden in it:
 - **Agreement:** 0.955 on exclusion.
 - **Routing:** 19% of random records sent to full text, which extrapolates to about 6,000 identities. That full-text stage has not been designed or run.
 
+### Full run, 2026-09-25
+
+Both passes covered all 31,709 records: the 31,471 union identities plus the 238 reference-pass DOIs.
+
+- **Batches:** 159 per pass, 0 invalid.
+- **Agreement on exclusion:** 0.958.
+- **Recall:** all 7 sentinels were routed to full text, and both passes labelled every one LIKELY_RELEVANT.
+- **Fixed rule:** 4,604 records routed to full text.
+- **Safety net:** a declared net, added during the run, sends another 982 records to full text on their own route. These are records both passes excluded but whose title or abstract names a rutile-family oxide next to an OER term. It was added because an audit found the instructions ambiguous for experimental rutile-oxide OER papers.
+- **Total:** 5,586 records go to full-text review.
+
+The details are in the [README](../../results/s2_2026-09-24/title_abstract_screen/README.md).
+
 ## What remains
 
-1. The full two-pass pre-screen of the union, plus the 238 new reference-pass DOIs.
+1. ~~The full two-pass pre-screen of the union, plus the 238 new reference-pass DOIs.~~ Done 2026-09-25; 5,586 records routed to full text.
 2. The full-text stage for the routed records, with a second independent review of every exclusion.
 3. The independent second review of the 18 proposed dispositions.
 4. The three blocked articles and one missing SI.
