@@ -1,0 +1,103 @@
+{
+  "at": "2026-09-25T13:58:37.750762+00:00",
+  "status": "READY_FOR_REVIEW",
+  "population": 1,
+  "legs": [
+    {
+      "task": 1,
+      "job": "slab_c5low__checked",
+      "site": "Cu8Cr23Mn35Co34__s20_site2",
+      "scheduler": {
+        "job_id": "20862968_1",
+        "state": "FAILED",
+        "exit": "10:0",
+        "elapsed_s": 115537,
+        "allocated_cpus": 128,
+        "terminal": true
+      },
+      "evidence_status": "QC_EVIDENCE_INVALID",
+      "reasons": [
+        "identity unverified: missing .out",
+        "identity unverified: missing .run.in",
+        "scheduler did not complete cleanly at 128 ranks",
+        "missing artifact .out",
+        "missing artifact .run.in",
+        "missing artifact .projwfc.in",
+        "missing artifact .projwfc.out",
+        "failure sidecar present"
+      ],
+      "files": [
+        {
+          "suffix": ".out",
+          "status": "REMOTE_ABSENT"
+        },
+        {
+          "suffix": ".run.in",
+          "status": "REMOTE_ABSENT"
+        },
+        {
+          "suffix": ".qc.json",
+          "path": "results/lowtail_low_state_restart_2026-09-22/checked2/outputs/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__checked.qc.json",
+          "status": "MIRRORED",
+          "sha256": "e163b365376e6f00661566c5df8f071b9b9e2143f22ddf941f098a084ef12451",
+          "bytes": 46384
+        },
+        {
+          "suffix": ".projwfc.in",
+          "status": "REMOTE_ABSENT"
+        },
+        {
+          "suffix": ".projwfc.out",
+          "status": "REMOTE_ABSENT"
+        },
+        {
+          "suffix": ".KILLED",
+          "path": "results/lowtail_low_state_restart_2026-09-22/checked2/outputs/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__checked.KILLED",
+          "status": "MIRRORED",
+          "sha256": "eb26f4f185a5e9a22043be6d791a3d8acca79325394c3bd748f7977f7795c124",
+          "bytes": 83
+        },
+        {
+          "suffix": ".REJECTED",
+          "status": "REMOTE_ABSENT"
+        }
+      ],
+      "tier_2_accepted": false,
+      "input_identity_verified": false,
+      "identity_reasons": [
+        "identity unverified: missing .out",
+        "identity unverified: missing .run.in"
+      ]
+    }
+  ],
+  "accepted": 0,
+  "tasks": {
+    "1": {
+      "job_id": "20862968_1",
+      "state": "FAILED",
+      "exit": "10:0",
+      "elapsed_s": 115537,
+      "allocated_cpus": 128,
+      "terminal": true
+    }
+  },
+  "pins": {
+    "runs/hea/lowtail_low_state_restart_2026-09-22/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__checked.in": "fbc8addea65912dc6ce822060141e07fcffb89007d96055eb6dfceaf8401695c",
+    "runs/m_lowtail_slab_relax_checked_2026-09-22.txt": "289d67b6143b9babbc2d17a3f982fa3d3d8610119f0d9715496dfe338537a0cd",
+    "src/dft/research_batch_checked.py": "b8744a14b064e8313d4e64b6542314faf0405539bf6ba1c74e22654304ceb75a",
+    "src/dft/research_batch_seeded.py": "32d705a5cda6467d6f0b48bbc274abd751ed6959e583375bd62de9d1ce0a7231",
+    "src/dft/research_batch.py": "4195ef7b7b23096c982d78f80b5a8d78884bc8d9b7e2fc8a150f747e1cf2c404",
+    "src/dft/projection_qc.py": "dfc075634a99cee71e7287ea7868f62c59aa2666e4a593c61470b43d1bdd50f4",
+    "src/dft/hea_force_audit.py": "bddbe7ba3bed9874e723d88f8bdab724bb4e83178f1f75bbc3a1f4034b9fd5d7",
+    "src/dft/hea_panel_readout.py": "f0deef7a465db98e55bd1549c95c1cf9338c9c5b28885e06433d3157834cad57",
+    "src/dft/queue_r1.sh": "064311d0f5bc8a3fb581149c560fe47341d1cf834865112f35ac4e04771ac92c",
+    "results/lowtail_slab_scf_diag_2026-09-19/cu8_cycle5_positions.txt": "d4fbff42a154ca937f4cb3832531374b849575f044a95a9a48658a238b6a4649",
+    "results/lowtail_slab_scf_diag_2026-09-19/cu8_cycle5_positions.json": "b1ecea2ffbd2c1fce96461505ebf66dd781bc7084bd6d5b66e34b66d723f412f",
+    "src/dft/lowtail_batch_launch.py": "80f85158a5680e2a9933b2c160bd8690f574814d5124406873fa04d0ca23ad53",
+    "src/dft/qe_relax_trace.py": "993e6362c0b0090a807a5e970f4affb02fbb332d7671fab2682eb41af7d92d26",
+    "results/lowtail_low_state_restart_2026-09-22/checked/launch_spec.json": "d361aa8080f131e2db0e48be9e973b212afac97a464b9a28c0ead881ee3f5454",
+    "anvil/86_slab_relax_checked.slurm": "dcfae15d79fd69765afaa4625651775a111515bb8fe66eecf616ab886266adf0",
+    "anvil/87_submit_slab_relax_checked.sh": "6ad8051621dea0e21b84d366ef78c55f7058daba78ab1df2a2557f2b2d0d7827"
+  },
+  "scope": "Numerical diagnostic outcomes; no relaxed slab, adsorption reference or census result"
+}

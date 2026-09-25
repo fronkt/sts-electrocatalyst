@@ -1,0 +1,72 @@
+{
+  "at": "2026-09-25T13:58:37.724088+00:00",
+  "legs": [
+    {
+      "task": 1,
+      "job": "slab_c5low__checked",
+      "site": "Cu8Cr23Mn35Co34__s20_site2",
+      "scheduler": {
+        "job_id": "20862968_1",
+        "state": "FAILED",
+        "exit": "10:0",
+        "elapsed_s": 115537,
+        "allocated_cpus": 128,
+        "terminal": true
+      },
+      "evidence_status": "QC_EVIDENCE_INVALID",
+      "reasons": [
+        "identity unverified: missing .out",
+        "identity unverified: missing .run.in",
+        "scheduler did not complete cleanly at 128 ranks",
+        "missing artifact .out",
+        "missing artifact .run.in",
+        "missing artifact .projwfc.in",
+        "missing artifact .projwfc.out",
+        "failure sidecar present"
+      ],
+      "files": [
+        {
+          "suffix": ".out",
+          "status": "REMOTE_ABSENT"
+        },
+        {
+          "suffix": ".run.in",
+          "status": "REMOTE_ABSENT"
+        },
+        {
+          "suffix": ".qc.json",
+          "path": "results/lowtail_low_state_restart_2026-09-22/checked2/outputs/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__checked.qc.json",
+          "status": "MIRRORED",
+          "sha256": "e163b365376e6f00661566c5df8f071b9b9e2143f22ddf941f098a084ef12451",
+          "bytes": 46384
+        },
+        {
+          "suffix": ".projwfc.in",
+          "status": "REMOTE_ABSENT"
+        },
+        {
+          "suffix": ".projwfc.out",
+          "status": "REMOTE_ABSENT"
+        },
+        {
+          "suffix": ".KILLED",
+          "path": "results/lowtail_low_state_restart_2026-09-22/checked2/outputs/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__checked.KILLED",
+          "status": "MIRRORED",
+          "sha256": "eb26f4f185a5e9a22043be6d791a3d8acca79325394c3bd748f7977f7795c124",
+          "bytes": 83
+        },
+        {
+          "suffix": ".REJECTED",
+          "status": "REMOTE_ABSENT"
+        }
+      ],
+      "tier_2_accepted": false,
+      "input_identity_verified": false,
+      "identity_reasons": [
+        "identity unverified: missing .out",
+        "identity unverified: missing .run.in"
+      ]
+    }
+  ],
+  "expected_legs": 5
+}
