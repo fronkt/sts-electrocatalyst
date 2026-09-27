@@ -11,7 +11,9 @@ is one request carrying eligibility_instructions.md, the brief's judging rules a
 full text inline (the agents read the same text in 12,000-character chunks).  The model returns
 one JSON row; rows are written to <batch>.out.jsonl in input order and checked with
 ft_screen.check.  A batch that already has a valid output is skipped.  Each row carries
-"_screener" (method, model id, UTC time), which reconcile.py and third_read.py ignore.
+"_screener" (method, model id, UTC time, token counts), which reconcile.py and third_read.py ignore.
+The system prompt (rules + instructions) is identical for every request in a run and is sent with a
+prompt-cache marker from 2026-09-27; the model sees the same input either way, only the billing changes.
 
 Key: ~/.config/anthropic/api_key (or ANTHROPIC_API_KEY); never printed.
 """
@@ -87,7 +89,8 @@ def one(c, model, system, rec, extra):
     user = "screen_id: %s\ndoi: %s\n%s<paper>\n%s\n</paper>" % (rec["screen_id"], rec.get("doi", ""), extra, text)
     last = None
     for attempt in range(2):
-        with c.messages.stream(model=model, max_tokens=16000, thinking={"type": "adaptive"}, system=system,
+        with c.messages.stream(model=model, max_tokens=16000, thinking={"type": "adaptive"},
+                               system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
                                messages=[{"role": "user", "content": user}]) as s:
             msg = s.get_final_message()
         out = "".join(b.text for b in msg.content if b.type == "text")
@@ -99,8 +102,11 @@ def one(c, model, system, rec, extra):
             row["screen_id"], row["doi"] = rec["screen_id"], rec.get("doi", "")
             if row["disposition"] != "EXCLUDE":
                 row["exclude_criterion"] = None
+            u = msg.usage
             row["_screener"] = dict(method="api", model=msg.model, at=dt.datetime.now(dt.timezone.utc).isoformat(),
-                                    input_tokens=msg.usage.input_tokens, output_tokens=msg.usage.output_tokens)
+                                    input_tokens=u.input_tokens, output_tokens=u.output_tokens,
+                                    cache_write_tokens=u.cache_creation_input_tokens or 0,
+                                    cache_read_tokens=u.cache_read_input_tokens or 0)
             return row
         last = out[-300:]
     raise RuntimeError("%s: no valid JSON row after 2 attempts: %r" % (rec["screen_id"], last))
@@ -128,12 +134,16 @@ def run_batch(c, inp, out, model, system, third, workers):
     if probs:
         raise RuntimeError("%s failed validation: %s" % (inp.name, probs))
     tmp.replace(out)
-    tok = sum(r["_screener"]["input_tokens"] for r in rows), sum(r["_screener"]["output_tokens"] for r in rows)
+    sc = [r["_screener"] for r in rows]
+    tok = (sum(s["input_tokens"] + s["cache_write_tokens"] + s["cache_read_tokens"] for s in sc),
+           sum(s["output_tokens"] for s in sc), sum(s["cache_read_tokens"] for s in sc))
     disp = {}
     for r in rows:
         k = r["disposition"] + (":" + r["exclude_criterion"] if r.get("exclude_criterion") else "")
         disp[k] = disp.get(k, 0) + 1
-    print(inp.name.split(".")[0], disp, "tokens in/out", tok, flush=True)
+    print(inp.name.split(".")[0], disp, "tokens in/out/cache-read", tok, flush=True)
+    if len(rows) > 1 and not tok[2]:
+        print("WARNING: no cache reads in this batch; the system prompt is not being cached", flush=True)
     return tok
 
 
@@ -174,15 +184,14 @@ def main():
         todo = [b for b in todo if b == a.batch]
     todo = todo[: a.limit]
     c = client()
-    total = [0, 0]
+    total = [0, 0, 0]
     for b in todo:
         try:
-            i, o = run_batch(c, d / (b + ".in.jsonl"), d / (b + ".out.jsonl"), model, system, a.third, a.workers)
-            total[0] += i
-            total[1] += o
+            for k, n in enumerate(run_batch(c, d / (b + ".in.jsonl"), d / (b + ".out.jsonl"), model, system, a.third, a.workers)):
+                total[k] += n
         except Exception as e:
             print(b, "FAILED", type(e).__name__, str(e)[:200], flush=True)
-    print("done", len(todo), "batches; tokens in/out", total)
+    print("done", len(todo), "batches; tokens in/out/cache-read", total)
 
 
 if __name__ == "__main__":
