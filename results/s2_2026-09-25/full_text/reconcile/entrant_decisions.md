@@ -66,3 +66,31 @@ The third reads raised 72 questions (52 in the first round, 9 after the 2026-09-
 - S26062: "RuO2" alone establishes neither rutile nor the facet; stays UNRESOLVED pending SI.
 - S24020: Research Square preprint of the Nature Communications article 10.1038/s41467-025-62665-2 (census record S26608). Version-linked; counted once, through S26608. The 0.72 eV (110) step at U = 1.23 V counts under ruling 1 if the figure/methods confirm the CHE reading.
 - S24393: E6 YES. Figure 1D is captioned "Theoretical overpotential"; section 4.5 gives the methods. The separate 0.46–0.66 eV "energy barriers" are not needed.
+
+## v5 rulings — adopted 2026-09-27 (answers to the v4-triage questions)
+
+After the v4 re-read, 137 records raised 14 new rule-level questions (`reconcile/v4_questions_triage.md`, D1–D14). The entrant adopted v5 on 2026-09-27 with these explicit conditions, verbatim:
+
+> Yes—adopt v5, dated September 27, 2026, with these explicit conditions:
+> - Q3: adopt the conditional v5 rule. Accept an author-reported comparison of the actual maximum CHE reaction steps at a common documented potential, with matching reference conditions and standard one-electron CHE dependence. Generic "lower barriers," arbitrary steps, and comparisons reconstructed by us do not qualify. If those conditions are unclear, leave the record unresolved.
+> - Q10: adopt v5's verified-no-SI exception. E6 may be NO after complete article review when publisher evidence confirms no SI exists. An apparently irrelevant SI contents list is insufficient. Existing but inaccessible SI remains unresolved.
+> - Adopt the remaining recommendations. Preserve v3/v4 instructions and decisions, document the changes, and apply v5 consistently before freezing membership.
+
+("Q3" is triage D4 and "Q10" is triage D10.) The rulings below go into `eligibility_instructions.md` as v5; v4 is kept as `eligibility_instructions_v4.md` and v3 as `eligibility_instructions_v3.md`. Items marked AMENDMENT change adopted v4 text; the others clarify it.
+
+- **D1 (46 records) — rutile evidence from the sample.** Counts for the model when the paper documents the connection (the model represents that characterized catalyst, a caption or methods sentence ties the structure to the model, or the doped model's parent is the identified rutile phase) and nothing contradicts it. A shared formula, a technique name, or evidence for another component is not a connection; an assumed shared polymorph leaves E4 UNCLEAR. Not applied to the 46 records as a group.
+- **D2 (9) — Pourbaix or spectra only. AMENDMENT (E5 wording).** Species studied as OER intermediates satisfy E3 even when the analysis is stability or spectra, and E5 when on rutile (110); E6 then decides. The E5 "other purposes" exclusion now covers only (110) calculations without the qualifying OER intermediates or steps.
+- **D3 (17) — partial or other-purpose adsorbates.** One new intermediate, adsorption energy or PCET step used to investigate water/hydroxide oxidation to O2 satisfies E3. Calculations only for other reactions, photo-holes, generic benchmarks, reused dataset entries, pretrained-model predictions or PDOS-only structures do not. OER studied as a competing reaction counts.
+- **D4 (15) — author-reported comparison of maximum steps. AMENDMENT (entrant's condition above).** Counts as a relative η when the authors report the comparison of the actual largest one-electron CHE steps at a common documented potential with matching reference conditions; otherwise the record stays unresolved.
+- **D5 (11) — unstated potential.** A value unambiguously assigned to a diagram or caption explicitly at U = 1.23 V (RHE) counts under ruling 1; the magnitude of a value never shows its reference potential.
+- **D6 (9) — rutile named in passing.** Referential meaning decides: a sentence identifying the material actually modelled as rutile counts; generic mentions, cited titles and background do not.
+- **D7 (7) — standalone forms. AMENDMENT (E1 form ruling, fills a gap D3 left).** A complete primary-research preprint counts (form "preprint", posting date as first publication); a standalone technical report does not. A later out-of-window journal version does not replace in-window preprint evidence.
+- **D8 (5) — clusters and single atoms.** A specific statement or mapping figure that a cluster represents rutile (110) suffices; a single atom in a bridging-O vacancy of a persisting rutile (110) surface is an atom-modified rutile (110) model that can qualify.
+- **D9 (5) — rutile-type phases.** β-PbO2 establishes E4 after an identity check (not E5 by itself); "similar to rutile" does not; a distorted-rutile phase of another crystal system (monoclinic WO2) is not in the population (no scope extension adopted); a rutile (110)-derived overlayer can qualify. Every model in a paper, benchmarks included, is checked before a NO.
+- **D10 (4) — no SI. AMENDMENT (entrant's condition above).** E6 may be NO after complete article review when publisher evidence confirms no SI exists (source and date recorded). A contents list is not enough; existing but inaccessible SI stays unresolved.
+- **D11 (4) — re-analysis flag. AMENDMENT (ruling 9's secondary-set definition).** `secondary: reanalysis` covers original re-analysis of own, external or mixed data, with a separate `provenance` field. Primary membership is unchanged.
+- **D12 (2) — author-labelled overpotential at U = 0.** Counts as an author-reported η with the inconsistency recorded; a U = 0 "energy barrier", even in volts, does not.
+- **D13 (2) — ΔG_max spanning steps.** Counts only when it is the largest single one-electron step between adjacent intermediates.
+- **D14 (1) — η descriptors.** `eta_form` (presentation) and `eta_derivation` (direct/equivalent/scaling) are recorded separately; v4 values are migrated by a fixed map.
+
+**Public supporting information (entrant, 2026-09-27, verbatim):** "Public SI: yes. Download freely available SI directly from official publisher pages, slowly, using the existing rate limits and retrieval logs. No Purdue proxy is needed for public files. Respect access blocks and leave unsuccessful downloads unresolved." Implemented in `retrieve_si_public.py`.

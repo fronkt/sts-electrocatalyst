@@ -22,7 +22,7 @@ import sys
 
 HERE = pathlib.Path(__file__).resolve().parent
 # A screening-only run (--no-retrieve) can go alongside a retrieval run, so it keeps its own files.
-TAG = "_v3" if "--v3" in sys.argv else "_v4" if "--v4" in sys.argv else "_screen" if "--no-retrieve" in sys.argv else ""
+TAG = "_v5" if "--v5" in sys.argv else "_si" if "--si" in sys.argv else "_v3" if "--v3" in sys.argv else "_v4" if "--v4" in sys.argv else "_screen" if "--no-retrieve" in sys.argv else ""
 LOG = HERE / ("pipeline%s.log" % TAG)
 STATUS = HERE / ("pipeline%s_status.json" % TAG)
 PY = str(pathlib.Path(sys.executable).with_name("python.exe"))
@@ -41,6 +41,10 @@ STEPS = [
 V4_STEPS = [["v4_read.py", "prepare"], ["api_screen.py", "--v4"], ["v4_read.py", "collect"]]
 # --v3: the v3 sensitivity reads for records screened only under v4 (v3_read.py), logged to pipeline_v3.log.
 V3_STEPS = [["v3_read.py", "prepare"], ["api_screen.py", "--v3"], ["v3_read.py", "collect"]]
+# --si: public supporting-information retrieval (retrieve_si_public.py), logged to pipeline_si.log.
+SI_STEPS = [["retrieve_si_public.py"]]
+# --v5: the v5 re-read of records the v5 rulings can change (v5_read.py), logged to pipeline_v5.log.
+V5_STEPS = [["v5_read.py", "prepare"], ["api_screen.py", "--v5"], ["v5_read.py", "collect"]]
 
 
 def now():
@@ -52,7 +56,7 @@ def status(**kw):
 
 
 def main():
-    steps = V3_STEPS if "--v3" in sys.argv else V4_STEPS if "--v4" in sys.argv else STEPS[1:] if "--no-retrieve" in sys.argv else STEPS
+    steps = V5_STEPS if "--v5" in sys.argv else SI_STEPS if "--si" in sys.argv else V3_STEPS if "--v3" in sys.argv else V4_STEPS if "--v4" in sys.argv else STEPS[1:] if "--no-retrieve" in sys.argv else STEPS
     env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUNBUFFERED="1")
     with open(LOG, "a", encoding="utf-8", newline="\n") as log:
         log.write("\n== pipeline start %s pid %d\n" % (now(), os.getpid()))

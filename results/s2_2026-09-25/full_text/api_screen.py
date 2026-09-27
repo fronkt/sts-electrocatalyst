@@ -4,6 +4,7 @@
   python api_screen.py --third [--batch T_0063] [--limit N]
   python api_screen.py --v4 [--batch V4_0001] [--limit N]     (v4 re-read; same model and prompt as --third)
   python api_screen.py --v3 [--batch V3_0001] [--limit N]     (v3 sensitivity read; v3 bytes, no hints)
+  python api_screen.py --v5 [--batch V5_0001] [--limit N]     (v5 re-read; same model and prompt as --third)
 
 Same instructions, same inputs, same output files and validator as the agent route: each paper
 is one request carrying eligibility_instructions.md, the brief's judging rules and the paper's
@@ -52,6 +53,10 @@ THIRD = """This is a third read (reconciliation).
 
 V4 = """- This read applies instruction v4 (the entrant's rulings of 2026-09-27). The earlier rows were made under v3; where v4 changes a criterion, v4 decides.
 - Fill "eta_form" and "secondary" as the v4 output schema says."""
+
+V5 = """- This read applies instruction v5 (the entrant's v5 rulings of 2026-09-27). The earlier rows were made under v3 or v4; where v5 changes a criterion, v5 decides.
+- Fill every output field of the v5 schema ("form", "eta_form", "eta_derivation", "eta_note", "secondary", "provenance").
+- Set "entrant_question" only for a judgement v5 itself does not settle; cases v5 settles are not questions."""
 
 
 def client():
@@ -109,8 +114,10 @@ def run_batch(c, inp, out, model, system, third, workers):
             return ""
         s = "why this record is here: %s\npass1 row: %s\npass2 row: %s\n" % (
             r.get("why"), json.dumps(r.get("pass1"), ensure_ascii=False), json.dumps(r.get("pass2"), ensure_ascii=False))
-        if "third" in r:  # v4 re-read: the earlier third read (under v3) is one more hint
+        if "third" in r:  # v4/v5 re-read: the earlier third read (under v3) is one more hint
             s += "third-read row (v3): %s\n" % json.dumps(r.get("third"), ensure_ascii=False)
+        if "v4" in r:  # v5 re-read: the v4 re-read row is one more hint
+            s += "v4 re-read row: %s\n" % json.dumps(r.get("v4"), ensure_ascii=False)
         return s
 
     with cf.ThreadPoolExecutor(workers) as ex:
@@ -136,12 +143,18 @@ def main():
     a.add_argument("--third", action="store_true")
     a.add_argument("--v4", action="store_true")
     a.add_argument("--v3", action="store_true")
+    a.add_argument("--v5", action="store_true")
     a.add_argument("--batch")
     a.add_argument("--limit", type=int)
     a.add_argument("--workers", type=int, default=4)
     a = a.parse_args()
     instr = (HERE / "eligibility_instructions.md").read_text(encoding="utf-8")
-    if a.v3:  # sensitivity read: historical v3 bytes, no hints, adjudicator model
+    if a.v5:
+        import v5_read
+        d, model, todo = HERE / "v5_read" / "batches", MODELS["third"], sorted(v5_read.status(quiet=True))
+        system = RULES + "\n\n" + THIRD + "\n" + V5 + "\n\n<instructions>\n" + instr + "\n</instructions>"
+        a.third = True
+    elif a.v3:  # sensitivity read: historical v3 bytes, no hints, adjudicator model
         import v3_read
         d, model, todo = HERE / "v3_read" / "batches", MODELS["third"], sorted(v3_read.status(quiet=True))
         system = RULES + "\n\n<instructions>\n" + v3_read.v3_text() + "\n</instructions>"
