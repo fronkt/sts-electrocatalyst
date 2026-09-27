@@ -1260,3 +1260,7 @@ I told the user that Purdue VPN plus an Elsevier API key would give full-text ac
 ## 2026-09-27 — Read the library's licence terms before automating downloads through its proxy
 
 The P-LIT browser retrieval downloaded thousands of papers through Purdue's EZproxy with a rate limit, but nobody had checked the library's own terms. Purdue's text-mining guide says most licences restrict systematic or automated downloading. Before any automated retrieval through an institution's access (proxy, IP, token), read that institution's TDM/licence page and follow it; a rate limit is not permission.
+
+## 2026-09-27 — A mechanical rule applies to exactly the cases its recorded wording names
+
+I applied rule D3 (non-article forms carried only through a linked journal article) to every non-journal record type, including preprints, which D3 does not name, and to backward-reference records that simply had no OpenAlex type. That moved 33 records to EXCLUDE:E1 and I reported the wrong counts. Before encoding an adopted rule, reopen its recorded text and implement its explicit list; a missing metadata field is "unknown", never a category.

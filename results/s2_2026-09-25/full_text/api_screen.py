@@ -3,6 +3,7 @@
   python api_screen.py --pass 1 [--batch P1_0184] [--limit N] [--workers 4]
   python api_screen.py --third [--batch T_0063] [--limit N]
   python api_screen.py --v4 [--batch V4_0001] [--limit N]     (v4 re-read; same model and prompt as --third)
+  python api_screen.py --v3 [--batch V3_0001] [--limit N]     (v3 sensitivity read; v3 bytes, no hints)
 
 Same instructions, same inputs, same output files and validator as the agent route: each paper
 is one request carrying eligibility_instructions.md, the brief's judging rules and the paper's
@@ -134,12 +135,17 @@ def main():
     a.add_argument("--pass", dest="n", choices=["1", "2"])
     a.add_argument("--third", action="store_true")
     a.add_argument("--v4", action="store_true")
+    a.add_argument("--v3", action="store_true")
     a.add_argument("--batch")
     a.add_argument("--limit", type=int)
     a.add_argument("--workers", type=int, default=4)
     a = a.parse_args()
     instr = (HERE / "eligibility_instructions.md").read_text(encoding="utf-8")
-    if a.v4:
+    if a.v3:  # sensitivity read: historical v3 bytes, no hints, adjudicator model
+        import v3_read
+        d, model, todo = HERE / "v3_read" / "batches", MODELS["third"], sorted(v3_read.status(quiet=True))
+        system = RULES + "\n\n<instructions>\n" + v3_read.v3_text() + "\n</instructions>"
+    elif a.v4:
         import v4_read
         d, model, todo = HERE / "v4_read" / "batches", MODELS["third"], sorted(v4_read.status(quiet=True))
         system = RULES + "\n\n" + THIRD + "\n" + V4 + "\n\n<instructions>\n" + instr + "\n</instructions>"

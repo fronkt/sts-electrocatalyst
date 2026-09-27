@@ -13,8 +13,10 @@ nothing decides eligibility.  Links, strongest first:
              flagged "check" (probable, not certain)
 Each group's primary is its journal article (type article or review), preferring one with a DOI, then
 one inside the date window, then one in the full-text set, then the earliest.  Preprints, theses, conference abstracts and
-reports collapse into it (rule D3).  A non-article form with no linked journal article is marked
-"unlinked non-article" (D3: EXCLUDE:E1 unless its text names a journal article).
+reports collapse into it (rule D3).  A D3 form (conference abstract or paper, dissertation, report, dataset)
+with no linked journal article is marked "unlinked D3 form" (D3: EXCLUDE:E1).  An unlinked preprint is
+marked "unlinked preprint" and is left to the reading (D3 does not name preprints).  A record with no
+OpenAlex type (backward-reference records) is never treated as a non-article form.
 Writes reconcile/version_groups.csv and reconcile/version_groups.json.
 """
 import collections
@@ -28,6 +30,8 @@ import retrieve_http as rh
 HERE = pathlib.Path(__file__).resolve().parent
 LO, HI = "2011-01-01", "2026-09-18"
 JOURNAL = {"article", "review", "letter"}
+# the forms rule D3 (full-text-access-amendment-2026-09-25.md, item 3) names; a preprint is not one of them
+D3_FORMS = {"conference-abstract", "conference-paper", "dissertation", "report", "dataset"}
 DOI_IN_TEXT = re.compile(r"(?:version of record|published (?:version|article|in|at)|now published)[^\n]{0,200}?"
                          r"(?:doi\.org/|doi:\s*)(10\.\d{4,9}/[^\s\"<>)\]]+)", re.I)
 ARXIV_IN_TEXT = re.compile(r"arxiv[:\s]*(\d{4}\.\d{4,5})", re.I)
@@ -146,9 +150,9 @@ def main():
                 role = "linked"
             else:
                 role = "group without journal article"
-            nonart = m["type"] not in JOURNAL
-            status = ("unlinked non-article" if nonart and not primary else
-                      "collapses into primary" if role == "linked" else "")
+            status = ("collapses into primary" if role == "linked" else
+                      "unlinked D3 form" if m["type"] in D3_FORMS and not primary else
+                      "unlinked preprint" if m["type"] == "preprint" and not primary else "")
             rows.append(dict(screen_id=s, group=gid, role=role, primary=primary or "", primary_in_fulltext=bool(primary in ft),
                              primary_date=primary and meta[primary]["date"], doi=m["doi"], type=m["type"],
                              link=";".join(sorted(why.get(s, ()))), check="yes" if "similar" in why.get(s, ()) and

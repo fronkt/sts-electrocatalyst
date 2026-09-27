@@ -16,7 +16,8 @@ Mechanical steps on the v4 decision (column v4_final), each logged in instructio
   dates          an E2 UNCLEAR row takes E2 from reconcile/date_check.csv (ruling 10); the disposition is
                  re-derived from the six verdicts by the instructions' rule.
   versions       reconcile/version_groups.csv: a linked version is counted through its group's primary
-                 ("collapsed"); an unlinked non-article form is EXCLUDE:E1 (D3) unless already excluded.
+                 ("collapsed"); an unlinked D3 form (conference abstract or paper, dissertation, report,
+                 dataset) is EXCLUDE:E1 unless already excluded.  Unlinked preprints wait for a ruling.
 Writes reconcile/current_state.csv and reconcile/current_state.json.
 """
 import csv
@@ -103,7 +104,7 @@ def main():
         vg = vers.get(sid) or {}
         if vg.get("status") == "collapses into primary":
             member = "collapsed into " + vg["primary"]
-        elif vg.get("status") == "unlinked non-article" and f4 and not f4.startswith("EXCLUDE"):
+        elif vg.get("status") == "unlinked D3 form" and f4 and not f4.startswith("EXCLUDE"):
             member, step = "EXCLUDE:E1", (step + ";" if step else "") + "D3"
         else:
             member = f4 or s4
