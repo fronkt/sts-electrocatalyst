@@ -35,6 +35,10 @@ NOCALC = re.compile(r"no (dft|density functional|calculation|computation|electro
                     r"simulation)|purely experimental|entirely experimental|experimental (study|work|paper) only|without any "
                     r"(dft|calculation)|does not (perform|report|include) (any )?(dft|calculation)|no computational", re.I)
 K1 = re.compile(r"preprint|research square|arxiv|chemrxiv|report|repository|osti|technical", re.I)
+# a row that says a calculation was run for another reaction does not say "no calculation at all", even when it
+# also calls the OER work purely experimental (v5 D3; S07433 and S15859, added 2026-09-27)
+CALC_ELSEWHERE = re.compile(r"\b(DFT|calculations?)\b[^.;]{0,40}\b(for|target|targets|on)\b[^.;]{0,15}"
+                            r"\b(HER|hydrogen evolution|H\*|CO2|NRR|nitrate|chlorine|CER|ORR)\b", re.I)
 
 
 def third_rows():
@@ -80,7 +84,8 @@ def prepare():
         rs = [(k, x) for k, x in (("pass1", p1.get(sid)), ("pass2", p2.get(sid)), ("third", t3.get(sid)),
                                   ("v4", v4.get(sid)), ("v3 sensitivity", v3s.get(sid))) if x]
         e3 = [x for _, x in rs if x.get("exclude_criterion") == "E3"]
-        e3_calc = any(not NOCALC.search(json.dumps({kk: x.get(kk) for kk in ("E3", "note")}, ensure_ascii=False)) for x in e3)
+        blobs = [json.dumps({kk: x.get(kk) for kk in ("E3", "note")}, ensure_ascii=False) for x in e3]
+        e3_calc = any(not NOCALC.search(b) or CALC_ELSEWHERE.search(b) for b in blobs)
         why = sorted({"%s %s" % (k, w) for k, x in rs for w in [reasons(x, vtype.get(sid), e3_calc)] if w})
         if why:
             todo.append(dict(screen_id=sid, doi=q["doi"], text="text/%s.txt" % sid, chars=chars.get(sid),

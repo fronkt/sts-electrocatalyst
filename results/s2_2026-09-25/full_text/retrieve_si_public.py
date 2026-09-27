@@ -4,8 +4,9 @@ leave unsuccessful downloads unresolved").
 
   python retrieve_si_public.py [--limit N] [--ids S1,S2] [--no-browser]
 
-Records: every record whose decision in reconcile/current_state.csv (v4_final) is NEEDS_SI or UNRESOLVED,
-plus any --ids.  Routes, in order; a record stops at the first route that yields SI files:
+Records: every record whose current decision in reconcile/current_state.csv (v5_final) or v4 sensitivity
+decision (v4_final) is NEEDS_SI or UNRESOLVED, plus any --ids.  (Before the v5 layer of 2026-09-27 the
+selection was v4_final alone.)  Routes, in order; a record stops at the first route that yields SI files:
   1. Europe PMC  /{pmcid}/supplementaryFiles for records with an open-access PMC copy (zip, unpacked).
   2. figshare    the figshare API (api.figshare.com), items whose resource_doi is the article DOI; this is
                  where ACS publishes its supporting information.
@@ -191,7 +192,7 @@ def records(ids):
             pmc[e["screen_id"]] = e["url"]
     out = []
     for r in csv.DictReader(open(HERE / "reconcile" / "current_state.csv", encoding="utf-8")):
-        if r["v4_final"] in ("NEEDS_SI", "UNRESOLVED") or r["screen_id"] in ids:
+        if r.get("v5_final") in ("NEEDS_SI", "UNRESOLVED") or r["v4_final"] in ("NEEDS_SI", "UNRESOLVED") or r["screen_id"] in ids:
             out.append(dict(screen_id=r["screen_id"], doi=r["doi"], pmcid=pmc.get(r["screen_id"])))
     return out
 

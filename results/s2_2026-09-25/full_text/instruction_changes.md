@@ -81,3 +81,65 @@ Reconciliation re-applies the latest rule to the rows of earlier batches.
   - Sensitivity reads: a v3 read as for the v4-only records (V3_0016–0019), and a new v4 sensitivity read (`v4s_read.py`: exact v4 bytes sha256 18fe8fd1…, no earlier rows as hints, adjudicator model; V4S_0001–0004). v3 and v4 membership therefore cover these records too. `api_screen.py --v4s` runs the same read through the API.
   - `current_state.py` has no v5 layer yet. Until it does, these records' pass and third-read decisions (v5) appear in its v4 columns, and the v4 sensitivity reads are not joined.
   - 15 of the 32 need supporting information (14 Elsevier, 1 ECS). None is in `files_si/` yet.
+- 2026-09-27: v5 layer in `current_state.py` (columns `v5_decision` … `v5_check`, plus `v3_final` / `v3_step`).
+  - **v5 decision.**
+    - The v5 re-read decides where it exists (1,079 records).
+    - For the 32 records whose two passes both ran under v5, their passes decide (20 records) or their third read does (12).
+    - Everywhere else the v4 decision stands (1,353 records; 31 more have no readable text). Re-applying the `v5_read.py` selection rule to the current data selects no record that lacks a v5 read, so v5 cannot change those decisions.
+    - For the 32, the v4 decision is now their v4 sensitivity read (it differs from the v5 decision on 7 of them), and the v3 decision is their v3 sensitivity read (it differs on 5). The v3 and v4 decisions of every other record are unchanged.
+  - **The same mechanical steps on all three versions.** `v3_final` applies the E6, date and version steps that `v4_final` already applied, so v3, v4 and v5 membership are counted the same way. Before, v3 counted the 64 linked versions separately.
+  - **v5 D7 steps.**
+    - A preprint is not collapsed into a journal version first published after 2026-09-18. The primary's date comes from the date check, else from `version_groups.csv`.
+    - An unlinked report or dataset record in which every row deciding the v5 decision found an article manuscript is judged as that manuscript, not excluded as a D3 form.
+    - Neither step applies to any record now.
+  - **SI in the file.** NEEDS_SI requires that the SI is not in the file. So a disposition re-derived as NEEDS_SI by the date step stays UNRESOLVED when the text holds the SI, meaning two or more SI figure or table captions at line starts. The test was checked on the files known to carry SI (S08878, S24175, S28488, S28662, S29024) and on those known not to (S09618, S23884, S29788). No record changes now.
+  - **v5 output fields.** These come from the rows that decide the v5 decision. They are blank where those rows differ, or where the decision is carried over from an earlier version, since no v4 value is mapped.
+  - **`v5_question` and `v5_check`.** `v5_question` marks the 77 v5 reads that carry an entrant question; these are not triaged yet. `v5_check` lists what reconciliation still settles by hand:
+    - identity check (42);
+    - scope extension needed (2);
+    - version primary not screened (1): S25842 collapses into S27700, which has no DOI and is not in the full-text set;
+    - D7 primary date unclear (1, the same record).
+  - **Renamed columns.** The v4 row fields `eta_form`, `secondary` and `entrant_question` are now `v4_eta_form`, `v4_secondary` and `v4_question`. No script read them.
+- 2026-09-27: date check (`date_check.py`) for the v5 layer.
+  - **Coverage.** It now also dates records that are live under the v5 decision or marked ELIGIBLE by a v5 read: 490 records, previously 426.
+    - The wider coverage let the existing date step settle three v4 rows with E2 UNCLEAR: S29024 and S31018 (UNRESOLVED → ELIGIBLE) and S30433 (UNRESOLVED → NEEDS_SI).
+  - **Preprints (v5 D7).** A preprint's date is the posting date the server deposited with Crossref. This is used for 22 Research Square records, all version 1 and all on the same day as OpenAlex. A DOI that names a later version (v2, v3) is flagged PREPRINT_NOT_V1 and not used. No such record is in play.
+  - **Partial dates.** Crossref sometimes gives only a year or a month.
+    - A partial date now stands for its whole span. The earliest possible day and the earliest latest-possible day of the candidates bound the first publication.
+    - A span that crosses a window edge is flagged PARTIAL_DATE_AT_EDGE and stays UNRESOLVED. Eight records carry this flag: year-only "2026" for S28289, S28617, S28766, S29537, S29646, S29863 and S30619, and "2026-09" for S30334.
+    - Until now a year-only "2026" counted as inside the window. The date step had therefore moved S28289, S29537 and S30619 from UNRESOLVED to NEEDS_SI on no evidence, in v4 and in v5. All three are UNRESOLVED again.
+    - Where a precise and a partial date agree, the precise one is shown (e.g. S08766: 2019-11-20, not 2019).
+  - **Straddle order.** A Crossref–OpenAlex conflict across a window edge is tested before OUTSIDE_WINDOW, as ruling 10 requires ("a conflict across a window edge stays UNRESOLVED").
+    - Three Elsevier records carry only a future print-issue date in Crossref (2026-11 or 2026-12), with the online date of 2 or 4 September 2026 in OpenAlex: S31037, S31125 and S31137. They were flagged OUTSIDE_WINDOW and are now SOURCES_STRADDLE_BOUNDARY.
+    - Every read of the three takes E2 YES from the printed "Available online 2/4 September 2026". The date check is used only for E2 UNCLEAR, so no decision changes.
+- 2026-09-27: v5 selection, two records added. The rule re-reads an E3 exclusion unless every row says the paper has no calculation at all.
+  - The rows of S07433 and S15859 say the authors ran DFT for the hydrogen evolution reaction. They also call the OER work "purely experimental", which the no-calculation pattern matched.
+  - `v5_read.py` now counts a row that names a calculation run for another reaction as a calculation. Re-running prepare added exactly these two records (V5_0131).
+  - A sweep of the carried-over E3 exclusions whose rows mention DFT found 72. The 70 besides these two cite other groups' calculations or name none.
+  - V5_0131 was read on the in-session agent route (claude-opus-5-5, stamped by `agent_stamp.py`). Both records are EXCLUDE:E3: the DFT serves HER only, and the OER is experimental. Both excerpts verify, and there are no entrant questions.
+- 2026-09-27: public SI retrieval (`retrieve_si_public.py`) now selects records by `v5_final` or `v4_final`. Before, it used `v4_final` alone. 59 records live only under v5 had never been attempted.
+  - A run on the API routes only (Europe PMC, figshare; `--no-browser`) tried the 191 selected records that have no SI file. It found SI for 14.
+  - Of the 290 records that are NEEDS_SI or UNRESOLVED under v5, 169 have no SI file and no SI in the text: Wiley 92, Elsevier 20, RSC 19, ACS 9, Nature 7, others 22. The publisher-page route (browser) was not run.
+- 2026-09-27: verification of the v5 layer, by independent agents:
+  - a blind recomputation from a written specification, without the code: 2,495 records × 21 columns, 0 mismatches;
+  - a hand trace of more than 150 records from the raw rows;
+  - a code review against the previous version: v3 and v4 unchanged outside the 32;
+  - a rules-completeness check against instructions v5 and the entrant's v5 rulings.
+  - Each finding was verified by a separate agent. The confirmed ones are fixed above:
+    - SI selection;
+    - year-only dates;
+    - the two missed E3 records;
+    - the D7 date source;
+    - non-v1 preprint DOIs;
+    - the SI-in-file condition;
+    - the wrapper test;
+    - the v3 counting.
+  - Not a defect: 63 of the 1,077 v5-read deciding rows fail the mechanical excerpt check, as do 65 of 530 v4 reads and 59 third reads. That check routes pass rows; it has never been applied to adjudicating reads. The inspected excerpts differ from the text only by extraction artifacts (line numbers inside sentences, citation brackets, lost glyphs).
+  - **Still to do before the freeze:**
+    - triage of the 77 v5 entrant questions;
+    - the 42 identity checks and 2 scope-extension flags (v5 D9: no scope extension is adopted);
+    - the D10 review, where 11 live records have a saved publisher page with no SI link and E6 UNCLEAR;
+    - the SI read;
+    - S27700;
+    - the 31 RERETRIEVE texts;
+    - the date re-check on the final ELIGIBLE set.
