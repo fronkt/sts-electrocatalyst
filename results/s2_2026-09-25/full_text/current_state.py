@@ -8,7 +8,7 @@ Mechanical join, no judgement:
   v4 decision  the v4 re-read where one exists (v4_read.py); otherwise the v3 decision, which v4 cannot
                change for that record by the v4_read.py selection rule.
 Passes run after instruction v4 took effect (2026-09-27 07:50Z) are v4 reads; for those records the v3
-decision is left empty ("v3 not read") and needs a v3 read before the sensitivity comparison.
+decision comes from the independent v3 sensitivity read (v3_read.py) once it exists, else "v3 not read".
 
 Mechanical steps on the v4 decision (column v4_final), each logged in instruction_changes.md:
   E6_WITHOUT_SI  an EXCLUDE:E6 whose file holds no SI breaks the rule that E6 is never excluded from
@@ -73,6 +73,7 @@ def main():
     p1, p2 = rows("1"), rows("2")
     t3 = jsonl(HERE / "third_read" / "third_read.jsonl")
     v4 = jsonl(HERE / "v4_read" / "v4_read.jsonl")
+    v3s = jsonl(HERE / "v3_read" / "v3_read.jsonl")
     dp = HERE / "reconcile" / "date_check.csv"
     dates = {r["screen_id"]: r for r in csv.DictReader(open(dp, encoding="utf-8"))} if dp.exists() else {}
     vp = HERE / "reconcile" / "version_groups.csv"
@@ -85,7 +86,7 @@ def main():
         if ln == "RERETRIEVE":
             d3, s3 = "", "no readable text"
         elif v4_pass:
-            d3, s3 = "", "v3 not read"
+            d3, s3 = (label(v3s[sid]), "v3 sensitivity read") if sid in v3s else ("", "v3 not read")
         elif ln == "THIRD_READ":
             d3, s3 = label(t3.get(sid)) or "", "third read" if sid in t3 else "third read pending"
         elif ln == "NEEDS_SI":
