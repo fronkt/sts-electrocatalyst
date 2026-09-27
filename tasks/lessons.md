@@ -1252,3 +1252,11 @@ A status report suggested holding the queued S5 preflight until the A10 threshol
 ## 2026-09-17 — A status report is not a running follow-through
 
 The user had to ask whether diagnoses and scientific readouts were actually running after a status report listed them as pending. State plainly which jobs/processes are active and continue authorized analysis after compute finishes; a list of next steps does not start those steps. Keep concrete completion tracking through diagnosis, readout, verification and backup.
+
+## 2026-09-27 — Check an access route against the institution's own page before recommending it
+
+I told the user that Purdue VPN plus an Elsevier API key would give full-text access. Purdue IT's VPN article says the VPN IP pool does not reach library electronic resources ("you will not be able to access the library electronic resources when connecting through the campus VPN"). Before proposing an access route (VPN, proxy, token, API entitlement), read the institution's or publisher's own statement and give the steps it names; never quote setup time or an expected recovery count that has not been tested.
+
+## 2026-09-27 — Read the library's licence terms before automating downloads through its proxy
+
+The P-LIT browser retrieval downloaded thousands of papers through Purdue's EZproxy with a rate limit, but nobody had checked the library's own terms. Purdue's text-mining guide says most licences restrict systematic or automated downloading. Before any automated retrieval through an institution's access (proxy, IP, token), read that institution's TDM/licence page and follow it; a rate limit is not permission.
