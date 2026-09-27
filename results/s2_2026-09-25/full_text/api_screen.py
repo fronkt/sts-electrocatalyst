@@ -5,6 +5,7 @@
   python api_screen.py --v4 [--batch V4_0001] [--limit N]     (v4 re-read; same model and prompt as --third)
   python api_screen.py --v3 [--batch V3_0001] [--limit N]     (v3 sensitivity read; v3 bytes, no hints)
   python api_screen.py --v5 [--batch V5_0001] [--limit N]     (v5 re-read; same model and prompt as --third)
+  python api_screen.py --v4s [--batch V4S_0001] [--limit N]   (v4 sensitivity read; v4 bytes, no hints)
 
 Same instructions, same inputs, same output files and validator as the agent route: each paper
 is one request carrying eligibility_instructions.md, the brief's judging rules and the paper's
@@ -154,6 +155,7 @@ def main():
     a.add_argument("--v4", action="store_true")
     a.add_argument("--v3", action="store_true")
     a.add_argument("--v5", action="store_true")
+    a.add_argument("--v4s", action="store_true")
     a.add_argument("--batch")
     a.add_argument("--limit", type=int)
     a.add_argument("--workers", type=int, default=4)
@@ -164,6 +166,10 @@ def main():
         d, model, todo = HERE / "v5_read" / "batches", MODELS["third"], sorted(v5_read.status(quiet=True))
         system = RULES + "\n\n" + THIRD + "\n" + V5 + "\n\n<instructions>\n" + instr + "\n</instructions>"
         a.third = True
+    elif a.v4s:  # sensitivity read: historical v4 bytes, no hints, adjudicator model
+        import v4s_read
+        d, model, todo = HERE / "v4s_read" / "batches", MODELS["third"], sorted(v4s_read.status(quiet=True))
+        system = RULES + "\n\n<instructions>\n" + v4s_read.v4_text() + "\n</instructions>"
     elif a.v3:  # sensitivity read: historical v3 bytes, no hints, adjudicator model
         import v3_read
         d, model, todo = HERE / "v3_read" / "batches", MODELS["third"], sorted(v3_read.status(quiet=True))

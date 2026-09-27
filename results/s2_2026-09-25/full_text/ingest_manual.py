@@ -1,6 +1,7 @@
 """Picks up the hand-downloaded priority papers (manual_priority.csv) whatever their file names.
 
   python ingest_manual.py [--src DIR ...] [--since 2026-09-27]
+  python ingest_manual.py --place
 
 Looks at PDFs in the source folders (default: files_manual/ and ~/Downloads; only files modified on or
 after --since), reads the first two pages, and matches each PDF to a record by the DOI printed on it,
@@ -8,6 +9,10 @@ with the title as a fallback.  A match is copied to files_manual/<screen_id>.pdf
 left where it is.  Every copy goes to manual_ingest_log.jsonl (source name, sha256, how it matched).
 Prints which records are in, which PDFs matched nothing, and which records are still missing.
 Nothing here reads beyond page 2 or decides eligibility.
+
+--place (after the matches have been checked) copies each files_manual/<screen_id>.pdf into files/, where
+ft_screen.py extract picks it up, for records that have no file there yet, and logs route "manual_purdue"
+to retrieval_log.jsonl like every other retrieval route.
 """
 import argparse
 import csv
@@ -16,6 +21,7 @@ import hashlib
 import json
 import pathlib
 import re
+import sys
 
 import fitz
 
@@ -55,13 +61,20 @@ def match(pdf, want):
         meta = " ".join(v for v in (doc.metadata or {}).values() if isinstance(v, str)) + (doc.get_xml_metadata() or "")
     except Exception as e:
         return None, "not a readable PDF (%s)" % type(e).__name__
+    def found(text):
+        t = squash(text)
+        return sorted({s for s, r in want.items() for k in keys(r["doi"]) if k in t})
+
     # page 1 first: a short paper's page 2 can cite other DOIs
     for where, text in [("page 1", pages[0] if pages else ""), ("PDF metadata", meta)] + [("page 2", t) for t in pages[1:2]]:
-        t = squash(text)
-        hits = sorted({s for s, r in want.items() for k in keys(r["doi"]) if k in t})
+        hits = found(text)
         if len(hits) == 1:
             return hits[0], "DOI in %s" % where
         if len(hits) > 1:
+            # a corrigendum's page 1 also prints the corrected article's DOI; the publisher's metadata names the file's own
+            own = [s for s in found(meta) if s in hits] if where != "PDF metadata" else []
+            if len(own) == 1:
+                return own[0], "DOI in PDF metadata (%s also names %s)" % (where, ", ".join(s for s in hits if s != own[0]))
             return None, "several listed DOIs in %s: %s" % (where, ", ".join(hits))
     t = letters(pages[0]) if pages else ""
     hits = [s for s, r in want.items() if len(letters(r["title"])) >= 30 and letters(r["title"])[:60] in t]
@@ -70,11 +83,36 @@ def match(pdf, want):
     return None, "no listed DOI or title on pages 1-2"
 
 
+def place(want):
+    files = HERE / "files"
+    have = {f.stem for f in files.iterdir()}
+    src = {json.loads(l)["screen_id"]: json.loads(l) for l in open(LOG, encoding="utf-8") if l.strip()}
+    n = 0
+    for f in sorted(DEST.glob("S*.pdf")):
+        sid = f.stem
+        if sid not in want or sid in have:
+            continue
+        body = f.read_bytes()
+        (files / f.name).write_bytes(body)
+        with open(HERE / "retrieval_log.jsonl", "a", encoding="utf-8", newline="\n") as fh:
+            fh.write(json.dumps(dict(screen_id=sid, route="manual_purdue", url="https://doi.org/" + want[sid]["doi"],
+                                     status="downloaded by hand by the entrant (Purdue library)", bytes=len(body),
+                                     accepted=True, sha256=hashlib.sha256(body).hexdigest(),
+                                     source_name=src.get(sid, {}).get("source_name"),
+                                     at=dt.datetime.now(dt.timezone.utc).isoformat())) + "\n")
+        n += 1
+    print(n, "files placed in files/")
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--src", nargs="*", default=[str(DEST), str(pathlib.Path.home() / "Downloads")])
     p.add_argument("--since", default="2026-09-27")
+    p.add_argument("--place", action="store_true")
     a = p.parse_args()
+    sys.stdout.reconfigure(errors="replace")  # titles carry Greek letters; a cp1252 console can't print them
+    if a.place:
+        return place(wanted())
     since = dt.datetime.fromisoformat(a.since).timestamp()
     want = wanted()
     DEST.mkdir(exist_ok=True)

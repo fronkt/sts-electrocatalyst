@@ -14,6 +14,8 @@ Selection (routing only; nothing here decides eligibility).  A record is re-read
   - EXCLUDE on E1 where the record is a preprint or report, or a row's note mentions one (D7).
 EXCLUDE on E2 alone, and E3 exclusions whose every row says there is no calculation, are unchanged by v5.
 RERETRIEVE records wait for a readable text.  v3 and v4 decisions stay on record for the sensitivity comparison.
+Records whose two passes both ran under v5 (_screener.at from V5_FROM, e.g. the manual downloads screened
+2026-09-27) are not re-read: their passes and third read already apply v5.
 """
 import argparse
 import csv
@@ -28,6 +30,7 @@ from third_read import slim
 
 HERE = pathlib.Path(__file__).resolve().parent
 D = HERE / "v5_read"
+V5_FROM = "2026-09-27T10:34:50"  # eligibility_instructions.md became v5; the last pre-v5 pass row is from 09:08Z
 NOCALC = re.compile(r"no (dft|density functional|calculation|computation|electronic[- ]structure|theoretical|first[- ]principles|"
                     r"simulation)|purely experimental|entirely experimental|experimental (study|work|paper) only|without any "
                     r"(dft|calculation)|does not (perform|report|include) (any )?(dft|calculation)|no computational", re.I)
@@ -71,6 +74,8 @@ def prepare():
     for q in csv.DictReader(open(HERE / "reconcile" / "queue.csv", encoding="utf-8")):
         sid = q["screen_id"]
         if q["lane"] == "RERETRIEVE" or sid in done:
+            continue
+        if all(x and (x.get("_screener") or {}).get("at", "") >= V5_FROM for x in (p1.get(sid), p2.get(sid))):
             continue
         rs = [(k, x) for k, x in (("pass1", p1.get(sid)), ("pass2", p2.get(sid)), ("third", t3.get(sid)),
                                   ("v4", v4.get(sid)), ("v3 sensitivity", v3s.get(sid))) if x]

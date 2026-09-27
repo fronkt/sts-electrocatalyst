@@ -17,7 +17,8 @@ Mechanical steps only; nothing here decides an interpretive case.
                          E1 non-article forms (D3 version linking), an ELIGIBLE row the
                          entrant has flagged as interpretive
        NEEDS_SI          either pass NEEDS_SI and neither pass a verified EXCLUDE
-       RERETRIEVE        text_short, or a pass reports the file unreadable (text_ok false);
+       RERETRIEVE        text_short (unless the file was opened and is the complete record: COMPLETE_SHORT),
+                         or a pass reports the file unreadable (text_ok false);
                          an UNRESOLVED on a readable text goes to THIRD_READ
        ONE_PASS          only one pass has read the record so far
 Writes reconcile/queue.csv and reconcile/summary.json.
@@ -31,6 +32,8 @@ HERE = pathlib.Path(__file__).resolve().parent
 CRIT = ["E1", "E2", "E3", "E4", "E5", "E6"]
 V3_FROM = {"1": 22, "2": 21}  # first batch number screened under instruction v3
 INTERPRETIVE = {"R0003", "S26608", "S30910", "S25109", "S08932"}  # listed in instruction_changes.md / design doc
+# text_short normally means a landing or abstract page; these files were opened and are the complete record
+COMPLETE_SHORT = {"S11816"}  # two-page JES erratum, 3,318 characters (checked 2026-09-27)
 NON_ARTICLE = re.compile(r"thesis|dissertation|conference|abstract|report|presentation|preprint|poster", re.I)
 
 
@@ -84,7 +87,7 @@ def no_computation(text):
 
 def lane(sid, a, b, text, tstat):
     rs = [x for x in (a, b) if x]
-    if tstat != "ok" or any(x.get("text_ok") is False for x in rs):
+    if (tstat != "ok" and not (tstat == "text_short" and sid in COMPLETE_SHORT)) or any(x.get("text_ok") is False for x in rs):
         return "RERETRIEVE"  # unreadable, truncated or wrong-paper file
     if len(rs) == 1:
         return "ONE_PASS"
