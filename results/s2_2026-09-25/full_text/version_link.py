@@ -11,8 +11,8 @@ nothing decides eligibility.  Links, strongest first:
   title      identical normalised title and the same first-author surname
   similar    title word overlap (Jaccard) >= 0.8 over titles of 6+ words, same first-author surname;
              flagged "check" (probable, not certain)
-Each group's primary is its journal article (type article or review), preferring one inside the date
-window, then one in the full-text set, then the earliest.  Preprints, theses, conference abstracts and
+Each group's primary is its journal article (type article or review), preferring one with a DOI, then
+one inside the date window, then one in the full-text set, then the earliest.  Preprints, theses, conference abstracts and
 reports collapse into it (rule D3).  A non-article form with no linked journal article is marked
 "unlinked non-article" (D3: EXCLUDE:E1 unless its text names a journal article).
 Writes reconcile/version_groups.csv and reconcile/version_groups.json.
@@ -130,8 +130,9 @@ def main():
         if not any(s in ft for s in members):
             continue
         journals = [s for s in members if meta[s]["type"] in JOURNAL]
-        primary = min(journals, key=lambda s: (not (LO <= (meta[s]["date"] or "0") <= HI), s not in ft,
-                                               meta[s]["date"] or "9999", s)) if journals else None
+        # a repository copy (no DOI, often a year-only date) is never preferred over the DOI-registered article
+        primary = min(journals, key=lambda s: (not meta[s]["doi"], not (LO <= (meta[s]["date"] or "0") <= HI),
+                                               s not in ft, meta[s]["date"] or "9999", s)) if journals else None
         gid = primary or min(members)
         for s in sorted(members):
             if s not in ft:
