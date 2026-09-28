@@ -8,7 +8,12 @@ Mechanical join, no judgement:
   v4 decision  the v4 re-read where one exists (v4_read.py); otherwise the v3 decision, which v4 cannot
                change for that record by the v4_read.py selection rule.
   v5 decision  the v5 re-read where one exists (v5_read.py); otherwise the v4 decision, which v5 cannot
-               change for that record by the v5_read.py selection rule.
+               change for that record by the v5_read.py selection rule.  The SI read (si_read.py: main text
+               plus downloaded SI, two passes and a third read) replaces it once it settles the record:
+               the SI third read, else two passes that agree with verified excerpts, else two passes that
+               both find the SI incomplete (NEEDS_SI).  A record whose SI read is still open keeps its
+               earlier v5 decision; column si_read shows the SI read's state, and v5_final_before_si the v5 final
+               decision the record would have without the SI read.
 Passes are dated by _screener.at.  Passes run after instruction v4 took effect (2026-09-27 07:50Z) are v4
 reads; when both passes ran after v5 took effect (V5_FROM) they are v5 reads.  A THIRD_READ record's
 third read has the version of its passes.  For v4 and v5 reads the v3 decision comes from the independent
@@ -33,6 +38,11 @@ v3 and v4 get the same steps without the v5 D7 branches, so the three sets are c
                  decision (step "D7").  An unlinked report or dataset record in which every row deciding the v5
                  decision found an article manuscript (form journal or preprint) is judged as that manuscript,
                  not excluded as a D3 form (step "D7 wrapper").
+  v5 triage A    V5_TRIAGE_A: a v5 row whose verdict conflicts with the v5 sentence that answers its entrant
+                 question (reconcile/v5_questions_triage.md, section A) takes the verdict v5 gives, and the
+                 disposition is re-derived; the source reads "...; v5 triage A".  The v5 output fields then
+                 come from that row, and eta_form, eta_derivation and eta_note are null when E6 is no longer
+                 YES (v5 D14).  Only an SI read that had the record's whole SI supersedes it.
 v5 output fields (form, eta_form, eta_derivation, eta_note, secondary, provenance) come from the rows that
 decide the v5 decision (both passes where the passes decide) and are left blank where those rows differ, and
 where the v5 decision is carried over from an earlier version (those rows predate the v5 schema; their entrant
@@ -56,6 +66,11 @@ HERE = pathlib.Path(__file__).resolve().parent
 V4_FROM = "2026-09-27T07:50"
 HI = "2026-09-18"
 E6_WITHOUT_SI = {"S09618", "S23884", "S29788"}  # v4 EXCLUDE:E6, no SI in the file (checked 2026-09-27)
+# v5 triage (reconcile/v5_questions_triage.md, section A): a v5 row whose verdict conflicts with a v5 sentence that
+# answers its entrant question; the verdict v5 gives replaces it and the disposition is re-derived (step "v5 triage A")
+V5_TRIAGE_A = {"S05043": {"E6": "UNCLEAR"},  # D4 largest-step condition not shown; RDS label alone (D13); Fig. 1d
+               "S22122": {"E6": "UNCLEAR"},  # ruling 4 sends its 'kinetic overpotential' to SI review (D12)
+               "S23639": {"E6": "UNCLEAR"}}  # 'limiting free energy barrier' is an RDS label (D4, D13)
 V5_FIELDS = ("form", "eta_form", "eta_derivation", "eta_note", "secondary", "provenance")
 LIVE = ("ELIGIBLE", "NEEDS_SI", "UNRESOLVED")
 NOTE_CHECKS = {"identity check": r"identity check", "scope extension needed": r"scope extension"}  # v5 D9 note markers
@@ -66,6 +81,24 @@ def si_in_file(sid):
     """The record's text holds SI: two or more SI figure or table captions at line starts."""
     p = HERE / "text" / (sid + ".txt")
     return p.exists() and len(SI_CAPTION.findall(p.read_text(encoding="utf-8"))) >= 2
+
+
+def triage_a(sid, r):
+    """The row with the V5_TRIAGE_A verdicts applied; eta_form, eta_derivation and eta_note become null when E6 is
+    no longer YES (v5 D14)."""
+    r = dict(r, **{c: dict(r.get(c) or {}, v=v) for c, v in V5_TRIAGE_A[sid].items()})
+    if (r.get("E6") or {}).get("v") != "YES":
+        r.update(eta_form=None, eta_derivation=None, eta_note=None)
+    return r
+
+
+def with_triage_a(sid, d, s, r, rs):
+    """(decision, source, row, rows) after the V5_TRIAGE_A step."""
+    r = triage_a(sid, r or rs[0])
+    d = derive(r)
+    if d == "NEEDS_SI" and si_in_file(sid):
+        d = "UNRESOLVED"
+    return d, s + "; v5 triage A", r, [r]
 
 
 def derive(r):
@@ -83,11 +116,12 @@ def derive(r):
     return "UNRESOLVED"
 
 
-def final(sid, d, r, dates):
-    """(decision, step) after the E6 and date steps; r is the row that decided d (None for agreed passes)."""
+def final(sid, d, r, dates, si_whole=False):
+    """(decision, step) after the E6 and date steps; r is the row that decided d (None for agreed passes);
+    si_whole: r read the record's whole SI (an SI read with si_complete)."""
     def rederive(row):
         f = derive(row)
-        return "UNRESOLVED" if f == "NEEDS_SI" and si_in_file(sid) else f
+        return "UNRESOLVED" if f == "NEEDS_SI" and (si_whole or si_in_file(sid)) else f
     if not r:
         return d, ""
     if sid in E6_WITHOUT_SI and d == "EXCLUDE:E6":
@@ -140,6 +174,12 @@ def main():
     v5 = jsonl(HERE / "v5_read" / "v5_read.jsonl")
     v3s = jsonl(HERE / "v3_read" / "v3_read.jsonl")
     v4s = jsonl(HERE / "v4s_read" / "v4s_read.jsonl")
+    si_t3 = jsonl(HERE / "si_read" / "third_read.jsonl")
+    si_p = {n: jsonl(HERE / "si_read" / ("pass_%s.jsonl" % n)) for n in ("1", "2")}
+    sq = HERE / "si_read" / "queue.csv"
+    si_lane = {r["screen_id"]: r["lane"] for r in csv.DictReader(open(sq, encoding="utf-8"))} if sq.exists() else {}
+    st = HERE / "si_texts.csv"
+    si_whole = {r["screen_id"]: r["si_complete"] == "True" for r in csv.DictReader(open(st, encoding="utf-8"))} if st.exists() else {}
     dp = HERE / "reconcile" / "date_check.csv"
     dates = {r["screen_id"]: r for r in csv.DictReader(open(dp, encoding="utf-8"))} if dp.exists() else {}
     vp = HERE / "reconcile" / "version_groups.csv"
@@ -181,6 +221,18 @@ def main():
             rs5 = [r5] if r5 else []
         else:  # v5 cannot change this record (v5_read.py selection); its v4 decision stands
             d5, s5, r5, rs5 = d4, s4, r4, []
+        pre = (d5, s5, r5, rs5)  # the v5 decision without the SI read, for v5_final_before_si
+        si_state, whole = "", False
+        if sid in si_t3:
+            d5, s5, r5, rs5 = label(si_t3[sid]), "SI read: third read", si_t3[sid], [si_t3[sid]]
+            si_state, whole = "third read", si_whole.get(sid, False)
+        elif si_lane.get(sid) in ("AGREED", "NEEDS_SI"):
+            a5, b5 = si_p["1"][sid], si_p["2"][sid]
+            d5 = label(a5) if si_lane[sid] == "AGREED" else "NEEDS_SI"
+            s5, r5, rs5, si_state = "SI read: passes agree", None, [a5, b5], si_lane[sid].lower()
+            whole = si_whole.get(sid, False)
+        elif sid in si_lane:
+            si_state = si_lane[sid].lower().replace("_", " ") + " pending" if si_lane[sid] == "THIRD_READ" else si_lane[sid].lower()
         vg = vers.get(sid) or {}
         fields = {k: agreed(rs5, k) for k in V5_FIELDS}
         pd = dates.get(vg.get("primary")) or {}  # the primary's ruling-10 date, where it was checked
@@ -189,8 +241,18 @@ def main():
         m3, step3 = member(vg, f3, step3, s3)
         f4, step4 = final(sid, d4, r4, dates)
         m4, step4 = member(vg, f4, step4, s4)
-        f5, step5 = final(sid, d5, r5, dates)
+        if sid in V5_TRIAGE_A and (r5 or rs5) and not (si_state and whole):  # only a read with the whole SI supersedes it
+            d5, s5, r5, rs5 = with_triage_a(sid, d5, s5, r5, rs5)
+            fields = {k: agreed(rs5, k) for k in V5_FIELDS}
+        f5, step5 = final(sid, d5, r5, dates, whole)
         m5, step5 = member(vg, f5, step5, s5, [x.get("form") for x in rs5], pdate or "")
+        m5_pre = m5
+        if si_state in ("third read", "agreed", "needs_si"):
+            pd5, ps5, pr5, prs5 = pre
+            if sid in V5_TRIAGE_A and (pr5 or prs5):
+                pd5, ps5, pr5, prs5 = with_triage_a(sid, pd5, ps5, pr5, prs5)
+            pf5, pstep5 = final(sid, pd5, pr5, dates)
+            m5_pre, _ = member(vg, pf5, pstep5, ps5, [x.get("form") for x in prs5], pdate or "")
         check = sorted({c for x in rs5 for c, pat in NOTE_CHECKS.items() if re.search(pat, x.get("note") or "", re.I)})
         if m5.startswith("collapsed") and vg.get("primary_in_fulltext") != "True" and f5.startswith(LIVE):
             check.append("version primary not screened")
@@ -202,7 +264,8 @@ def main():
                         v4_eta_form=(r4 or {}).get("eta_form"), v4_secondary=(r4 or {}).get("secondary"),
                         v4_question=bool((r4 or {}).get("entrant_question")),
                         **{"v5_" + k: v for k, v in fields.items()},
-                        v5_question=any(bool(x.get("entrant_question")) for x in rs5), v5_check=";".join(check)))
+                        v5_question=any(bool(x.get("entrant_question")) for x in rs5), v5_check=";".join(check),
+                        si_read=si_state, v5_final_before_si=m5_pre))
         for n, d, s in ((n3, d3, s3), (n4, d4, s4), (n5, d5, s5)):
             n[d or s] = n.get(d or s, 0) + 1
         for n, m in ((nf3, m3), (nf, m4), (nf5, m5)):

@@ -1,7 +1,8 @@
 """Full-text retrieval, scripted routes (see docs/research/full-text-access-amendment-2026-09-25.md).
 
-For every record the pre-screen routed to full text, in priority order (records with a LIKELY label
-first, then both-POSSIBLY, split, safety-net), try in turn:
+For every record the pre-screen routed to full text, and every journal version in VERSION_PRIMARY, in
+priority order (records with a LIKELY label first, then both-POSSIBLY, split, safety-net, version primaries),
+try in turn:
   1. OpenAlex open-access PDF locations (from the hashed raw pages)
   2. Unpaywall open-access locations (contact address sent as the API requires; redacted in the log)
   3. Europe PMC full-text XML (when the work has a PMCID)
@@ -29,12 +30,19 @@ ROOT = HERE.parents[2]
 SCREEN = ROOT / "results/s2_2026-09-24/title_abstract_screen"
 EMAIL_FILE = pathlib.Path.home() / ".config/unpaywall/email"
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36"}
-PRIORITY = {"any_LIKELY": 0, "both_POSSIBLY": 1, "split": 2, "rescue": 3}
+PRIORITY = {"any_LIKELY": 0, "both_POSSIBLY": 1, "split": 2, "rescue": 3, "version_primary": 4}
+# Journal versions the pre-screen excluded although a live full-text record collapses into them (version linking
+# counts the work through its journal version).  Entrant, 2026-09-28: "A missing DOI does not itself disqualify the
+# published version; establish its identity and screen it."  Identity: DOI, venue and date from Crossref.
+VERSION_PRIMARY = {"S27700": "journal version of S25842 (Crossref has-preprint 10.21203/rs.3.rs-6646407/v1; "
+                             "S25842 names it as its Version of Record)"}
 FILES = HERE / "files"
 LOCK = threading.Lock()
 
 
 def stratum(r):
+    if r["screen_id"] in VERSION_PRIMARY:
+        return "version_primary"
     labels = {r["label_a"], r["label_b"]}
     if "LIKELY_RELEVANT" in labels:
         return "any_LIKELY"
@@ -45,7 +53,7 @@ def stratum(r):
 
 def load_records():
     routes = [r for r in csv.DictReader(open(SCREEN / "passes/merge/merged_routes.csv", encoding="utf-8"))
-              if r["route"].startswith("FULL_TEXT")]
+              if r["route"].startswith("FULL_TEXT") or r["screen_id"] in VERSION_PRIMARY]
     ids = {r["screen_id"]: r for r in csv.DictReader(open(SCREEN / "screened_identities.csv", encoding="utf-8"))}
     pages, out = {}, []
     for r in routes:

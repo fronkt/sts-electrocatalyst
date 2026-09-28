@@ -88,8 +88,12 @@ def eligible():
     for r in (csv.DictReader(open(vg, encoding="utf-8")) if vg.exists() else []):
         if r["screen_id"] in out and r["primary"] and r["primary"] != r["screen_id"]:
             out.setdefault(r["primary"], "")
-    if vg.exists():  # a version primary outside the full-text set: take its DOI from the group file or leave for lookup
+    if vg.exists():  # a version primary outside the full-text set: its DOI from the group file, else the screened identities
         dois = {r["screen_id"]: r["doi"] for r in csv.DictReader(open(vg, encoding="utf-8"))}
+        ids = HERE.parents[1] / "s2_2026-09-24" / "title_abstract_screen" / "screened_identities.csv"
+        for r in (csv.DictReader(open(ids, encoding="utf-8")) if ids.exists() else []):
+            if not dois.get(r["screen_id"]):  # until 2026-09-28 such a primary was flagged NO_DOI (S27700)
+                dois[r["screen_id"]] = r["doi"]
         for s in out:
             out[s] = out[s] or dois.get(s, "")
     for f in sorted(glob.glob(str(HERE / "pass_*" / "batches" / "*.out.jsonl")) +

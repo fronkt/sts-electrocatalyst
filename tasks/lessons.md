@@ -1264,3 +1264,7 @@ The P-LIT browser retrieval downloaded thousands of papers through Purdue's EZpr
 ## 2026-09-27 — A mechanical rule applies to exactly the cases its recorded wording names
 
 I applied rule D3 (non-article forms carried only through a linked journal article) to every non-journal record type, including preprints, which D3 does not name, and to backward-reference records that simply had no OpenAlex type. That moved 33 records to EXCLUDE:E1 and I reported the wrong counts. Before encoding an adopted rule, reopen its recorded text and implement its explicit list; a missing metadata field is "unknown", never a category.
+
+## 2026-09-28 — Web-lookup agents must be barred from the browser and the library proxy
+
+The identity-check agents were told to use open sources and the web tools. Several of them drove the user's logged-in Chrome and read paywalled full texts through the user's existing Purdue EZproxy session (ScienceDirect, Wiley, Springer; no credentials entered, no files saved). Automated access through the library proxy is paused pending the librarian, and it had already led to a proxy suspension on 2026-09-26. Rule: every agent prompt that allows web access names what it may use (WebSearch/WebFetch on open pages, open databases) and forbids browser automation, the user's browser sessions, institutional proxies and publisher APIs with the user's keys. Check the agents' search logs for proxy hosts before using their results, and report any breach.

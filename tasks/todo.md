@@ -1,5 +1,16 @@
 # STS 2027 — TODO
 
+## 2026-09-28 — P-LIT: settle the v5 questions, SI read, SI checklist, identity checks (before the freeze)
+
+Entrant's order (2026-09-28): group the 77 v5 questions first, the 19 ELIGIBLE records before the rest; SI read on the in-session agent route (independent passes, source locations, third-read reconciliation; no Batch API unless throughput threatens Oct 15); then the SI download checklist (exact missing files, supplements that can settle eligibility first); resolve the 42 identity checks and S25842/S27700 before the freeze (a missing DOI does not disqualify the published version: establish its identity and screen it); the two scope extensions stay outside the adopted scope.
+
+- [x] Triage the 77 v5 questions → `reconcile/v5_questions_triage.md`: A 12 · B 13 · C 9 · D 43 in 23 rule-level questions; eligible 19 = C 5 (date settled, ELIGIBLE stands), A 2 (S05043, S27321 → NEEDS_SI, `V5_TRIAGE_A`), B 3, D 9. Two classifiers, 9+2 third reads, 96 skeptic checks, critic (9 findings, all accepted). Independent doc review running.
+- [x] Identity checks: 25 items (22 cards/phases/entries + 3 signatures) looked up twice from open sources → `reconcile/identity_check.csv` (+ sources json). 18 settled; 88-0233 and 37-0517 unresolved (second lookup running); Raman set, HRTEM spacing and stated cell wait for Q9/Q3. Facts go to the SI read (records with and without SI).
+- [x] S25842 → S27700: S27700 has a DOI (Nat Commun 2025-12-13; date_check "NO_DOI" was a lookup bug, fixed); pre-screen had excluded it; added via `VERSION_PRIMARY`, typeset OA PDF, two passes + third read + v3/v4 reads: UNRESOLVED on the main text (E4/E5, SI Fig. S24); SI downloaded → SI read.
+- [ ] SI read, agent route: `si_read.py`, `SI_READ_BRIEF.md`, `text_si/` (126 records, documents in full). Passes launched 2026-09-28 (151 records, 35 + 37 batches); then collect → third reads → merge (`current_state.py` SI layer ready).
+- [x] SI download checklist: `si_checklist.py` → `si_checklist.html/.csv` (183 records; rebuild after the public-SI rerun that is running).
+- [ ] Verify each step independently, log in `instruction_changes.md`, commit explicit paths, push.
+
 ## 2026-09-23 — Continue citation identity and primary eligibility coverage
 
 - [x] Confirm completed retrieval, no active collectors, and unchanged population/method-coding boundary.

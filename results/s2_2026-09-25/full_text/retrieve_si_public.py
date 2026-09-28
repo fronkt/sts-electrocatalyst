@@ -6,7 +6,9 @@ leave unsuccessful downloads unresolved").
 
 Records: every record whose current decision in reconcile/current_state.csv (v5_final) or v4 sensitivity
 decision (v4_final) is NEEDS_SI or UNRESOLVED, plus any --ids.  (Before the v5 layer of 2026-09-27 the
-selection was v4_final alone.)  Routes, in order; a record stops at the first route that yields SI files:
+selection was v4_final alone.)  Routes, in order; a record stops at the first route that yields an SI document
+(PDF or Word, also inside a zip).  Until 2026-09-28 it stopped at any file, so a figshare item holding only
+source data or structure files ended the search before the article page was tried:
   1. Europe PMC  /{pmcid}/supplementaryFiles for records with an open-access PMC copy (zip, unpacked).
   2. figshare    the figshare API (api.figshare.com), items whose resource_doi is the article DOI; this is
                  where ACS publishes its supporting information.
@@ -41,6 +43,22 @@ SI = HERE / "files_si"
 PAGES = HERE / "si_pages"
 LOG = HERE / "si_public_log.jsonl"
 KEEP = (".pdf", ".docx", ".doc", ".xlsx", ".xls", ".csv", ".txt", ".zip")
+DOCS = (".pdf", ".docx", ".doc")
+
+
+def has_document(sid):
+    """The record's SI files include a document (PDF or Word, also inside a zip), not only source data or
+    structure files; a route that yields only those does not end the search (2026-09-28)."""
+    for f in SI.glob(sid + "_SI*"):
+        if f.suffix.lower() in DOCS:
+            return True
+        if f.suffix.lower() == ".zip":
+            try:
+                if any(n.lower().endswith(DOCS) for n in zipfile.ZipFile(f).namelist()):
+                    return True
+            except zipfile.BadZipFile:
+                pass
+    return False
 CHALLENGE = re.compile(r"just a moment|client challenge|attention required|verify you are human|are you a robot|"
                        r"captcha|unusual traffic|access denied|perfdrive|cf-chl", re.I)
 SI_LINK = re.compile(r"/doi/suppl/|suppdata|downloadsupplement|moesm|/esm/|mmc\d|supplementary|supporting", re.I)
@@ -66,6 +84,9 @@ def save(sid, k, name, body, route, url):
         log(dict(screen_id=sid, route=route, url=url, status="SKIPPED_TYPE", ext=ext))
         return False
     p = SI / ("%s_SI%d%s" % (sid, k, ext))
+    while p.exists():  # a later route never overwrites a file an earlier route kept
+        k += 1
+        p = SI / ("%s_SI%d%s" % (sid, k, ext))
     p.write_bytes(body)
     log(dict(screen_id=sid, route=route, url=url, status="OK", file=p.name, bytes=len(body),
              sha256=hashlib.sha256(body).hexdigest()))
@@ -204,7 +225,7 @@ def main():
     p.add_argument("--no-browser", action="store_true")
     a = p.parse_args()
     SI.mkdir(exist_ok=True)
-    done = {f.name.split("_SI")[0] for f in SI.iterdir()}
+    done = {s for s in {f.name.split("_SI")[0] for f in SI.iterdir()} if has_document(s)}
     tried_pages = set()
     if LOG.exists():
         for l in open(LOG, encoding="utf-8"):
@@ -218,10 +239,12 @@ def main():
     need_page = []
     got = 0
     for r in recs:
-        k = (via_epmc(r["screen_id"], r["pmcid"]) if r["pmcid"] else 0) or via_figshare(r["screen_id"], r["doi"])
+        sid = r["screen_id"]
+        have = {f.name for f in SI.glob(sid + "_SI*")}  # data files an earlier run kept; the API routes are not repeated
+        k = 0 if have else (via_epmc(sid, r["pmcid"]) if r["pmcid"] else 0) or via_figshare(sid, r["doi"])
         got += bool(k)
-        print(r["screen_id"], "api", k, flush=True)
-        if not k and r["screen_id"] not in tried_pages:
+        print(sid, "api", k, flush=True)
+        if not has_document(sid) and sid not in tried_pages:
             need_page.append(r)
     if not a.no_browser and need_page:
         from playwright.sync_api import sync_playwright
