@@ -71,6 +71,11 @@ E6_WITHOUT_SI = {"S09618", "S23884", "S29788"}  # v4 EXCLUDE:E6, no SI in the fi
 V5_TRIAGE_A = {"S05043": {"E6": "UNCLEAR"},  # D4 largest-step condition not shown; RDS label alone (D13); Fig. 1d
                "S22122": {"E6": "UNCLEAR"},  # ruling 4 sends its 'kinetic overpotential' to SI review (D12)
                "S23639": {"E6": "UNCLEAR"}}  # 'limiting free energy barrier' is an RDS label (D4, D13)
+# SI-read verification (2026-09-28): SI-read decisions a skeptic refuted and a judge upheld against v5; the record is
+# UNRESOLVED until a fresh read settles it (reasons in instruction_changes.md). S26608: ELIGIBLE by the D4 route only
+# if Q1/Q4 (unstated CHE reference) are ruled that way.
+SI_VERIFY = {"S10906": "E4 (FCC vs rutile)", "S14755": "E4", "S16822": "E5", "S20248": "E6", "S25141": "E4",
+             "S26256": "E6 (D4 assignment)", "S26608": "E6 (D4 route, Q1/Q4)", "S30061": "E6"}
 V5_FIELDS = ("form", "eta_form", "eta_derivation", "eta_note", "secondary", "provenance")
 LIVE = ("ELIGIBLE", "NEEDS_SI", "UNRESOLVED")
 NOTE_CHECKS = {"identity check": r"identity check", "scope extension needed": r"scope extension"}  # v5 D9 note markers
@@ -253,6 +258,8 @@ def main():
                 pd5, ps5, pr5, prs5 = with_triage_a(sid, pd5, ps5, pr5, prs5)
             pf5, pstep5 = final(sid, pd5, pr5, dates)
             m5_pre, _ = member(vg, pf5, pstep5, ps5, [x.get("form") for x in prs5], pdate or "")
+        if sid in SI_VERIFY and si_state in ("third read", "agreed", "needs_si"):
+            m5, step5 = "UNRESOLVED", (step5 + ";" if step5 else "") + "SI verification: " + SI_VERIFY[sid]
         check = sorted({c for x in rs5 for c, pat in NOTE_CHECKS.items() if re.search(pat, x.get("note") or "", re.I)})
         if m5.startswith("collapsed") and vg.get("primary_in_fulltext") != "True" and f5.startswith(LIVE):
             check.append("version primary not screened")
