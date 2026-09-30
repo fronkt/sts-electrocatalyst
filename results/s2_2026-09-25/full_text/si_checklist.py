@@ -30,7 +30,7 @@ import re
 import time
 import urllib.request
 
-from current_state import triage_a
+from current_state import adjudicated_row, si_adjudications, triage_a
 from reconcile import rows
 from retrieve_si_public import has_document
 
@@ -56,8 +56,13 @@ def deciding(st, p1, p2, t3, v4, v5, v4s):
     if s.startswith("SI read"):
         d = HERE / "si_read"
         if "third read" in s:
-            return [jsonl(d / "third_read.jsonl")[sid]]
-        return [jsonl(d / ("pass_%s.jsonl" % n))[sid] for n in ("1", "2")]
+            rs = [jsonl(d / "third_read.jsonl")[sid]]
+        else:
+            rs = [jsonl(d / ("pass_%s.jsonl" % n))[sid] for n in ("1", "2")]
+        if "v5 triage A" in s:
+            rs = [triage_a(sid, x) for x in rs]
+        ruling = si_adjudications().get(sid)
+        return [adjudicated_row(x, ruling) for x in rs] if ruling else rs
     if "v5 triage A" in s:
         base = v5.get(sid) or t3.get(sid)
         return [triage_a(sid, base)] if base else []
@@ -207,13 +212,13 @@ def write_html(out):
 tr.h td{background:#eef;font-weight:600;padding-top:10px}tr.done td{color:#999}li{margin:3px 0}#n{font-weight:600}</style>
 <h2>%d papers whose supporting information is still missing</h2>
 <ol>
-<li>Click "SI location". It opens the paper's supplementary section, not the article PDF. You already have every article; download only the SI file named in the row.</li>
-<li>SI is free on these publisher pages. If a page asks for your Purdue login, use the library link as before; never pay.</li>
+<li>Click "SI location". It opens the paper's supplementary section, not the article PDF. Download the SI file named in the row; article-identity or missing-main-text issues are tracked separately.</li>
+<li>Use the public SI links. If access is blocked or a page asks for institutional login, leave the row open and report the access result.</li>
 <li>Keep the default file name and the Downloads folder. The script matches each file by the article code in its name, or by the title printed on it.</li>
-<li>If the page lists several SI files, download each PDF or Word file. Skip videos and data spreadsheets.</li>
+<li>If the page lists several SI files, download each PDF or Word file and any source-data spreadsheet or structure file needed for the named open criterion. Skip videos unless the row specifically needs them.</li>
 <li>If the page shows no SI at all, tick the box and write "no SI" next to the ID in your message. That is evidence for the verified-no-SI rule (D10).</li>
 <li>Go at a normal pace, one at a time. Priority 1 first: those files decide eligibility directly.</li>
-<li>Tick the box when a paper is done (ticks are kept only in this browser). Tell Claude when you are finished, or partway.</li>
+<li>Tick the box when a paper is done (ticks are kept only in this browser). Send the completed IDs when you are finished, or partway.</li>
 </ol>
 <p><span id="n"></span></p>
 <table><tr><th>Done</th><th>Publisher</th><th>ID</th><th>Link</th><th>File to download</th><th>Open criteria</th><th>Title</th></tr>

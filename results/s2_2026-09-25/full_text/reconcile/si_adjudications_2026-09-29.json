@@ -1,0 +1,176 @@
+{
+ "date": "2026-09-29",
+ "scope": "Explicit v5 source-review corrections for the completed SI round; historical reader rows and v3/v4 decisions are unchanged. No pending policy recommendation is adopted.",
+ "records": [
+  {
+   "screen_id": "S24149",
+   "effect": "retain exclusion after challenge",
+   "criteria": {"E6": {"v": "NO", "where": "main: OER activation-energy comparison and theoretical methods; SI1.pdf pp. 6–7 Additional Theory Discussion", "excerpt": "GO*+H* + GOH"}},
+   "reason": "The D4 objection is rejected. The SI explicitly defines chemical adsorption/reaction steps with gas-phase OH and surface H, not conventional one-electron CHE steps. The compared O2 activation energy is not eta/UL. This is an established failure of the D4 quantity/step condition, not a missing-reference inference; the completed source reads report no qualifying alternative.",
+   "review": ["original independent SI passes: complete sources", "economy1 S24149: focused challenge", "root: main theoretical methods and complete SI reaction definition"]
+  },
+  {
+   "screen_id": "S25616",
+   "effect": "retain exclusion after challenge",
+   "criteria": {"E6": {"v": "NO", "where": "main: Fig. 6c and DFT discussion; SI1.pdf p. 41 Fig. 40 and SI3.pdf reaction-energy table", "excerpt": "overcoming a kinetic barrier of 0.81 eV"}},
+   "reason": "The D4 objection is rejected. The .81/1.03/1.38 eV comparison is explicitly kinetic overpotential from transition-state barriers, including AEM TS states. It is not a largest thermodynamic CHE step comparison or a thermodynamic eta/UL. Missing reference is not the deciding defect; the completed source reads report no qualifying alternative.",
+   "review": ["original independent SI passes: complete sources", "economy1 S25616: focused challenge", "root: main TS1 comparison and SI AEM transition-state definition"]
+  },
+  {
+   "screen_id": "S27224",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: Fig. 5d and computational methods; SI1.pdf computational methods", "excerpt": "methodologies for the surface Pourbaix diagrams computations"}},
+   "reason": "The stated CHE and electrode references are scoped to the Pourbaix calculations. They do not document the reference of the separate OER profile at U=1.23. Do not carry an experimental or other-figure reference to the OER calculation; D4/D5 remain unestablished.",
+   "review": ["economy3 S27224: main/SI computational-reference check", "root: CHE sentence scope and separate mechanism profile"]
+  },
+  {
+   "screen_id": "S30828",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: computational methods; SI1.pdf p. 35 Fig. S34", "excerpt": "free energy contribution induced by the applied electrode potential"}},
+   "reason": "The maximum-step label at U=1.23 is present, but its computational reference is undocumented. Experimental RHE statements do not establish the DFT reference. No equivalent eta is inferred from the magnitude.",
+   "review": ["economy3 S30828: complete main/SI reference search", "root: computational methods and experimental-reference scope"]
+  },
+  {
+   "screen_id": "S30652",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: pp. 6–7 Fig. 5b/c and OER discussion; SI1.pdf Figs. S23–S28", "excerpt": "the OPM displays a lower calculated energy barrier than the AEM and LOM pathways"}},
+   "reason": "Author energy comparisons and model-specific figure labels exist, so the experimental-eta excerpt is not a sufficient absence justification. The OPM includes chemical coupling and two-electron transfers and does not meet D4; a qualifying AEM largest-step assignment at a documented common potential/reference is not established either. Retain uncertainty without calculating eta or adopting a multielectron extension. E5 remains independently UNCLEAR.",
+   "review": ["economy3 S30652: primary main/SI objection", "root: complete Fig. 5b/c and discussion"]
+  },
+  {
+   "screen_id": "S31014",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: p. 6 Fig. 5c and discussion; SI1.pdf computational methods", "excerpt": "comparison of the free energy diagrams for RuO2 and altermagnetic RuO2"}},
+   "reason": "The original figure labels the compared largest steps, but the common computational potential/reference is not established. Apply D4 UNCLEAR rather than an absence exclusion; E5 remains independently UNCLEAR.",
+   "review": ["economy3 S31014: primary main/SI objection", "root: complete Fig. 5c, caption and discussion"]
+  },
+  {
+   "screen_id": "S25284",
+   "effect": "retain exclusion after challenge",
+   "criteria": {"E6": {"v": "NO", "where": "main: Secs. 2.6 and 3, eq. 10; SI1.pdf p. 23 Table S6", "excerpt": "O * + O L = O 2 ( g ) + V O"}},
+   "reason": "The D4 objection is rejected: the compared six-step pathways explicitly include non-electrochemical lattice-O coupling, a known failure of the conventional-one-electron condition rather than merely missing reference evidence. The authors report U=0 energy barriers, not eta/UL; the complete SI supplies step/RDS inputs only. No reader conversion is allowed. Retain the original E6 exclusion.",
+   "review": ["original independent SI passes and third read: complete sources", "economy2 S25284: focused challenge", "root: explicit chemical step, model comparison and Table S6"]
+  },
+  {
+   "screen_id": "S26065",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: OER mechanism discussion Fig. 6; SI1.pdf pp. 2–3 DFT/measurement methods", "excerpt": "0.58 eV. Gd−RuO2 lowers this barrier to 0.51 eV"}},
+   "reason": "The authors compare the AEM RDS but do not document the common computational potential/reference. The RHE conversion is scoped to measured potentials. Apply D4 UNCLEAR rather than NO.",
+   "review": ["economy2 S26065: focused primary-source check", "root: main comparison and SI method/reference scope"]
+  },
+  {
+   "screen_id": "S29537",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: Fig. 6m discussion; SI1.pdf p. 47 Fig. S42 visual and p. 5 DFT methods", "excerpt": "decreases the energy barrier of the rate-determining step in the LOM pathway"}},
+   "reason": "The original SI figure contains model-specific step labels and the main text compares the RDS, but no computational curve potential/reference is documented. The lost extracted values do not justify an absence exclusion; D4 conditions remain unestablished.",
+   "review": ["economy3 S29537", "root: original Fig. S42 and computational/reference scope"]
+  },
+  {
+   "screen_id": "S16872",
+   "criteria": {"E6": {"v": "YES", "where": "main: Fig. 5a visual and caption; SI1.pdf pp. 2, 4", "excerpt": "Limiting Potential [V vs RHE] … OER activity volcano: the limiting potential"}},
+   "fields": {"eta_form": "graphical", "eta_derivation": "equivalent", "eta_note": null},
+   "reason": "The recovered figure explicitly names RuO2, IrO2 and other computed rutile(110) models at OER limiting-potential points on the RHE scale. Own OH/O inputs support the parasitic-OER study. This is not an unlabelled point or a reader-computed eta. No numeric value is transcribed.",
+   "review": ["group1 S16872: full main/SI", "root: Fig. 5a and model/input passages", "economy1 S16872: independent visual and primary-source positive check"],
+   "visual_evidence": "si_read/visual_review/S16872/jz2c02459_0005.jpg.json"
+  },
+  {
+   "screen_id": "S21183",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: p. 6 OER mechanism; SI1.xlsx Figure 4a/c/e", "excerpt": "the RDS may switch from the dehydrogenation of *OO–H to the formation of *OOH."}},
+   "reason": "The authors compare actual largest OER steps, not merely cumulative OOH energies. Their common potential/reference is not established; D4 requires UNCLEAR instead of NO.",
+   "review": ["economy2 S21183: full main/SI", "root: author comparison and source-data context"]
+  },
+  {
+   "screen_id": "S22730",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: p. 6 and Fig. 5e; SI1.pdf p. 2", "excerpt": "the RDS of Ru/RuO2 is the generation of O2, and the free energy barrier is 2.11 eV."}},
+   "reason": "An author RDS comparison exists, but shared potential/reference and CHE conditions are unestablished. D4 uncertainty is not an E6 absence exclusion.",
+   "review": ["economy2 S22730: full main/SI", "root: author RDS comparison checked"]
+  },
+  {
+   "screen_id": "S26503",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: Fig. 5d discussion; SI1.pdf p. 8 Table S2", "excerpt": "2.24 eV, whereas LFR necessitates a larger energy of 6.69 eV."}},
+   "reason": "The author comparison lacks an established common potential and other D4 conditions. The experimental-overpotential table does not settle them; apply UNCLEAR, not NO.",
+   "review": ["economy3 S26503: full main/SI", "root: comparison passage and adopted D4 clause"]
+  },
+  {
+   "screen_id": "S26540",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: Sec. 2.3; SI1.pdf p. 42 Fig. S35", "excerpt": "the calculated Gibbs free energy change for the second intermediate step is lower for Co/Mn-RuO2 with spin alignment"}},
+   "reason": "The author comparison does not establish shared potential and largest-step assignment; extracted Fig. S35 values are missing. D4 requires UNCLEAR.",
+   "review": ["economy3 S26540", "root: comparison and stated uncertainty"]
+  },
+  {
+   "screen_id": "S29934",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: Fig. 5a/b and Figs. S27–28 discussion", "excerpt": "*OOH formation was the OER rate-determining step (RDS, 0.52 eV) on CeTa-MnRuO2, compared with O2 formation on Mn-RuO2 (0.59 eV)"}},
+   "reason": "An author comparison exists, but conventional one-electron step accounting and matching potential/reference are unestablished. D4 requires UNCLEAR even with SI.",
+   "review": ["economy3 S29934", "root: source-located comparison and adopted D4 conditions"]
+  },
+  {
+   "screen_id": "S30435",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: Fig. 3e discussion; SI1.pdf p. 24 Fig. S24", "excerpt": "the rate-determining step (RDS) for IrO2 occurs during the *OH … while RuO2 demonstrates a lower barrier of 0.785 eV"}},
+   "reason": "The authors compare RDS free energies without a documented common computational potential/reference. Complete SI does not turn that D4 uncertainty into NO.",
+   "review": ["economy3 S30435", "root: main RDS comparison checked"]
+  },
+  {
+   "screen_id": "S01741",
+   "text_ok": false,
+   "criteria": {"E3": {"v": "UNCLEAR", "where": "main: title page; recorded DOI 10.1021/acs.jpcc.5b00861", "excerpt": "Solvation eﬀects on the band edge positions of"}},
+   "reason": "The main text is a different PCCP paper, not the recorded ACS paper. Missing correct text never supports an exclusion.",
+   "review": ["group1 S01741", "root: title, journal and DOI mismatch checked"]
+  },
+  {
+   "screen_id": "S08596",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: Fig. 4b caption; Electrochemical measurements; SI1.pdf p. 24 Fig. 44", "excerpt": "surfaces with Ir (blue line) and Ru (cyan line) as the active sites at U = 1.23 eV (b)."}},
+   "reason": "The computational reference is not established. The RHE sentence is scoped to electrochemical measurements; a pending reference relaxation is not adopted.",
+   "review": ["group1 S08596: full main/SI", "root: theoretical caption and measurement-reference scope"]
+  },
+  {
+   "screen_id": "S08829",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: Fig. 5C visual; SI1.pdf pp. 19–20", "excerpt": "2.18 (0.95 v.s. RHE) … 1.94 (0.71 v.s. RHE)"}},
+   "reason": "The figure gives paired RDS values but no documented curve potential or explicit subtraction/eta assignment. Do not infer U=1.23 or U=0 from magnitudes. SI establishes the electrode scale, not this curve's potential.",
+   "review": ["group1 S08829: full main/SI", "root: recovered Fig. 5C and SI reference equations"],
+   "visual_evidence": "si_read/visual_review/S08829/gr5.jpg.json"
+  },
+  {
+   "screen_id": "S17129",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: Mechanism understanding, Fig. 4e; Electrochemical measurements; SI1.pdf p. 56", "excerpt": "surface was predicted to be 1.70 V (Fig. 4e), which is about 0.2 V lower"}},
+   "reason": "The reported limiting potential lacks a computational reference; the stated conversion concerns potentials measured against SCE. Date reconciliation does not resolve E6.",
+   "review": ["group1 S17129: full main/SI", "triage S17129", "root: SCE reference scope"]
+  },
+  {
+   "screen_id": "S14387",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: pp. 1266–1267, Fig. 4g; SI1.pdf p. 3", "excerpt": "reduced the free energy barrier of RDS"}},
+   "reason": "There is an author OER RDS comparison, but the common potential/reference and conventional one-electron CHE conditions are not established. D4 explicitly requires UNCLEAR, not an absence exclusion.",
+   "review": ["group1 S14387: full main/SI", "root: adopted D4 failure clause and source-located comparison"]
+  },
+  {
+   "screen_id": "R0138",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: pp. 4099–4100 Eq. 6 and Fig. 6b/c visual", "excerpt": "Diﬀerence in thermodynamic overpotential calculated using restricted and unrestricted DFT."}},
+   "reason": "Author-plotted eta exists, but Fig. 6 does not identify individual materials. The plotted descriptor alone does not map a rutile(110) model to a point. Do not exclude because extracted figure labels are absent or manufacture a model assignment.",
+   "review": ["group1 R0138: full main/SI", "root: complete Fig. 6 and caption visual review"]
+  },
+  {
+   "screen_id": "S06998",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: Fig. 8c and DFT discussion/methods", "excerpt": "was calculated to be 1.87 eV, which is approximately 0.1 eV lower"}},
+   "reason": "The author comparison has no common documented potential. CHE naming and the 4.92 eV closure do not establish U=0. D4 requires UNCLEAR; the date join had made the raw UNRESOLVED reader row ELIGIBLE.",
+   "review": ["triage S06998", "root: Fig. 8c discussion and methods"]
+  },
+  {
+   "screen_id": "S21660",
+   "criteria": {"E6": {"v": "UNCLEAR", "where": "main: DFT calculation, Fig. 5; SI1.pdf p. 4", "excerpt": "RDS thus becomes a low energy process from OOH* to O2 (1.68 eV)"}},
+   "reason": "Author RDS comparison exists but common potential/reference is not established. Complete SI does not repeal D4's explicit UNCLEAR clause.",
+   "review": ["group2 S21660: full main/SI", "triage S21660", "root: DFT/SI passages"]
+  },
+  {
+   "screen_id": "S19847",
+   "criteria": {"E4": {"v": "YES", "where": "main: characterization Fig. 1c and DFT comparison-model paragraph; supplied 88-0322 identity fact", "excerpt": "the synthesized tetragonal RuO2 (JCPDS no. 88–0322) … so it was chosen as the comparison sample."}},
+   "reason": "The comparison-sample referent documents the D1 connection to the characterized RuO2 comparator; the supplied card identity establishes rutile. E6 remains UNCLEAR and SI is absent, so the derived disposition is NEEDS_SI, not ELIGIBLE.",
+   "review": ["triage S19847", "root: characterized comparator and DFT referent checked"]
+  },
+  {
+   "screen_id": "S22530",
+   "criteria": {"E6": {"v": "NO", "where": "SI1.pdf pp. 4–5 Secs. 1.5–1.6; main pp. 11722–11723", "excerpt": "For CV simulation, all the redox reaction energies at a given potential are described using the computational hydrogen electrode (CHE) method"}},
+   "reason": "Full main/SI and figures distinguish CHE surface-redox/CV from GCP-K OER pathways. The kinetic DRC RDS and active-O formation ranking are not a reported CHE OER-cycle eta or UL for (110).",
+   "review": ["group2 S22530: full main/SI and main/SI figures", "economy1 S22530: independent full main/SI", "root: mixed-method rule adjudication"]
+  },
+  {
+   "screen_id": "S16105",
+   "fields": {"eta_form": "relative", "eta_derivation": "direct", "eta_note": null},
+   "reason": "The supplied peer-review response explicitly reports theoretical overpotential reduction for the qualifying model. Its step energies are not numeric eta; the qualifying presentation is relative/direct, without an established D12 inconsistency.",
+   "source": {"where": "SI2.pdf p. 20", "excerpt": "the DFT calculations demonstrate the obvious reduction … of overpotential by Li insertion."},
+   "review": ["group1 S16105", "root: complete relevant SI2 response"]
+  }
+ ]
+}

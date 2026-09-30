@@ -43,6 +43,10 @@ v3 and v4 get the same steps without the v5 D7 branches, so the three sets are c
                  disposition is re-derived; the source reads "...; v5 triage A".  The v5 output fields then
                  come from that row, and eta_form, eta_derivation and eta_note are null when E6 is no longer
                  YES (v5 D14).  Only an SI read that had the record's whole SI supersedes it.
+  SI adjudication  explicit source-reviewed corrections in reconcile/si_adjudications_2026-09-29.json replace
+                 only the stated criteria/fields before the date/version joins. Raw read files and the v3/v4
+                 branches stay unchanged. Unusable text cannot be rescued by a date join. Earlier SI_VERIFY
+                 holds remain UNRESOLVED; E6 holds clear eta descriptors rather than retaining invalid fields.
 v5 output fields (form, eta_form, eta_derivation, eta_note, secondary, provenance) come from the rows that
 decide the v5 decision (both passes where the passes decide) and are left blank where those rows differ, and
 where the v5 decision is carried over from an earlier version (those rows predate the v5 schema; their entrant
@@ -76,6 +80,7 @@ V5_TRIAGE_A = {"S05043": {"E6": "UNCLEAR"},  # D4 largest-step condition not sho
 # if Q1/Q4 (unstated CHE reference) are ruled that way.
 SI_VERIFY = {"S10906": "E4 (FCC vs rutile)", "S14755": "E4", "S16822": "E5", "S20248": "E6", "S25141": "E4",
              "S26256": "E6 (D4 assignment)", "S26608": "E6 (D4 route, Q1/Q4)", "S30061": "E6"}
+SI_ADJUDICATION_FILE = HERE / "reconcile" / "si_adjudications_2026-09-29.json"
 V5_FIELDS = ("form", "eta_form", "eta_derivation", "eta_note", "secondary", "provenance")
 LIVE = ("ELIGIBLE", "NEEDS_SI", "UNRESOLVED")
 NOTE_CHECKS = {"identity check": r"identity check", "scope extension needed": r"scope extension"}  # v5 D9 note markers
@@ -129,6 +134,8 @@ def final(sid, d, r, dates, si_whole=False):
         return "UNRESOLVED" if f == "NEEDS_SI" and (si_whole or si_in_file(sid)) else f
     if not r:
         return d, ""
+    if r.get("text_ok") is False:
+        return "UNRESOLVED", "text not usable"
     if sid in E6_WITHOUT_SI and d == "EXCLUDE:E6":
         return derive(dict(r, E6={"v": "UNCLEAR"})), "E6_WITHOUT_SI"
     if (r.get("E2") or {}).get("v") == "UNCLEAR" and d in ("UNRESOLVED", "NEEDS_SI", "ELIGIBLE"):
@@ -172,7 +179,30 @@ def jsonl(p):
     return {json.loads(l)["screen_id"]: json.loads(l) for l in open(p, encoding="utf-8") if l.strip()} if p.exists() else {}
 
 
+def si_adjudications():
+    """Explicit, source-reviewed rulings; never infer a verdict from text or keywords."""
+    if not SI_ADJUDICATION_FILE.exists():
+        return {}
+    entries = json.loads(SI_ADJUDICATION_FILE.read_text(encoding="utf-8"))["records"]
+    if len({r["screen_id"] for r in entries}) != len(entries):
+        raise ValueError("Duplicate SI adjudication")
+    return {r["screen_id"]: r for r in entries}
+
+
+def adjudicated_row(row, ruling):
+    """Overlay a recorded ruling without changing any historical read."""
+    result = dict(row)
+    result.update(ruling.get("criteria", {}))
+    result.update(ruling.get("fields", {}))
+    if "text_ok" in ruling:
+        result["text_ok"] = ruling["text_ok"]
+    if result.get("text_ok") is False or (result.get("E6") or {}).get("v") != "YES":
+        result.update(eta_form=None, eta_derivation=None, eta_note=None)
+    return result
+
+
 def main():
+    adjudications = si_adjudications()
     p1, p2 = rows("1"), rows("2")
     t3 = jsonl(HERE / "third_read" / "third_read.jsonl")
     v4 = jsonl(HERE / "v4_read" / "v4_read.jsonl")
@@ -249,6 +279,14 @@ def main():
         if sid in V5_TRIAGE_A and (r5 or rs5) and not (si_state and whole):  # only a read with the whole SI supersedes it
             d5, s5, r5, rs5 = with_triage_a(sid, d5, s5, r5, rs5)
             fields = {k: agreed(rs5, k) for k in V5_FIELDS}
+        if sid in adjudications and si_state in ("third read", "agreed", "needs_si"):
+            r5 = adjudicated_row(dict(r5 or rs5[0], **fields), adjudications[sid])
+            rs5 = [r5]
+            d5 = "UNRESOLVED" if r5.get("text_ok") is False else derive(r5)
+            if d5 == "NEEDS_SI" and (whole or si_in_file(sid)):
+                d5 = "UNRESOLVED"
+            s5 += "; SI adjudication 2026-09-29"
+            fields = {k: agreed(rs5, k) for k in V5_FIELDS}
         f5, step5 = final(sid, d5, r5, dates, whole)
         m5, step5 = member(vg, f5, step5, s5, [x.get("form") for x in rs5], pdate or "")
         m5_pre = m5
@@ -260,6 +298,8 @@ def main():
             m5_pre, _ = member(vg, pf5, pstep5, ps5, [x.get("form") for x in prs5], pdate or "")
         if sid in SI_VERIFY and si_state in ("third read", "agreed", "needs_si"):
             m5, step5 = "UNRESOLVED", (step5 + ";" if step5 else "") + "SI verification: " + SI_VERIFY[sid]
+            if SI_VERIFY[sid].startswith("E6"):
+                fields.update(eta_form=None, eta_derivation=None, eta_note=None)
         check = sorted({c for x in rs5 for c, pat in NOTE_CHECKS.items() if re.search(pat, x.get("note") or "", re.I)})
         if m5.startswith("collapsed") and vg.get("primary_in_fulltext") != "True" and f5.startswith(LIVE):
             check.append("version primary not screened")

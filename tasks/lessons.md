@@ -1,5 +1,18 @@
 # Lessons (corrections log)
 
+## 2026-09-29 — Use cost-aware models and explicit verification coverage
+
+**What happened:** SI verification agents inherited the main model, and missing
+provenance for the previously verified 56 records led to expanding the audit to
+all 129 changed decisions. The user flagged avoidable model/token usage.
+
+**Rule:** use an explicitly selected lower-tier model for routine literature
+screening when requested; reserve the main model for disputed evidence and final
+adjudication. Persist reviewed IDs so continuation audits do not repeat completed
+work. If coverage provenance is missing, report the uncertainty and check the
+scope before expanding a full-text reread. Avoid full conversation forks for
+routine screening agents; pass only the rules, assigned IDs and output contract.
+
 ## 2026-07-01 — Archive superseded planning docs explicitly, don't rely on git history
 **What happened:** during the thermal pivot I rewrote `tasks/todo.md` in place,
 counting on git history to preserve the old content. The user wanted the old plan

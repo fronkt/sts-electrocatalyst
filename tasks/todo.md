@@ -1,5 +1,38 @@
 # STS 2027 — TODO
 
+## 2026-09-29 — P-LIT SI screening continuation for arms A and B
+
+Scope: complete the 168-record SI round under eligibility instructions v5; retain the adopted population, v3/v4 sensitivity decisions and all unresolved evidence/policy questions. No method coding or population freeze. Use the in-session reader route, with no Batch API spending or institutional access.
+
+- [x] Batch and run the seven unbatched third reads; validate all 104 required third-read records and all 81 pass batches. Final seven: 1 EXCLUDE:E5, 6 UNRESOLVED; 3 additional entrant questions (21 total).
+- [x] Verify SI changes against primary evidence, reusing the independent reader coverage and saved audits; use a second independent source check for newly adjudicated ELIGIBLE or EXCLUDE:E6 results, adjudicate objections, and record supported corrections. Preserve the explicit 130-record audit target list; prior-56 overlap is acknowledged, not counted as newly unverified work.
+- [x] Triage the 18 existing third-read entrant questions plus any additions from the final seven reads into answered rules, missing evidence, reconciliation facts and new policy choices; keep recommendations distinct from adopted rulings.
+- [x] Rebuild current state and SI checklist from the settled round, independently verify coverage and sensitivity preservation, record review results, commit explicit paths and push.
+
+Review: all 168 records have two completed passes, with all 104 required third
+reads complete. All 130 preserved audit targets have source checks (132 audit
+rows, including two additional positive/absence checks); this overlaps the prior
+56-record audit and is not 130 newly unverified records. The lower-tier
+continuation records focused/full review modes; the 40 saved pre-cost-control
+audit rows did not record that field and were reused, not relabelled. Twenty-seven
+explicit adjudications include three rejected challenges with retained exclusions.
+Eight regression tests pass; batch inputs/outputs, aggregate equality, all 21
+question rows, checklist coverage and all 2,496 v3/v4 sensitivity rows verify with
+zero errors. Final v5: 170 ELIGIBLE, 107 NEEDS_SI, 117 UNRESOLVED. Checklist:
+164 records (71/38/48/7 by priority), including 17 D10 page checks. Seven policy
+questions remain open; S01741 needs the correct main article. No policy extension,
+method coding or population freeze. Raw evidence was committed/pushed as 697a4ff;
+final reconciliation/checklist files are included in this completion commit.
+
+Cost-control re-plan after the entrant's 2026-09-29 correction:
+all three inherited-model audit agents interrupted; preserve completed review
+artifacts, use an explicitly selected lower-tier model for remaining routine
+screening and escalate only disputed calls. The seven third reads and the
+21-question triage are complete. Continuation audits focus on the changed criterion and its primary
+source context; complete rereads are reserved for disputed E6 absence claims. Logs
+distinguish focused verification from full rereads; no unsupported holds or automatic
+verdict assignment. Repeated verification coverage must be identified explicitly.
+
 ## 2026-09-28 — P-LIT: settle the v5 questions, SI read, SI checklist, identity checks (before the freeze)
 
 Entrant's order (2026-09-28): group the 77 v5 questions first, the 19 ELIGIBLE records before the rest; SI read on the in-session agent route (independent passes, source locations, third-read reconciliation; no Batch API unless throughput threatens Oct 15); then the SI download checklist (exact missing files, supplements that can settle eligibility first); resolve the 42 identity checks and S25842/S27700 before the freeze (a missing DOI does not disqualify the published version: establish its identity and screen it); the two scope extensions stay outside the adopted scope.
