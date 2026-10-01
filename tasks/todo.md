@@ -12,7 +12,7 @@ adoption, population freeze or method coding.
 - [x] Recover the correct S01741 main and priority SI through legitimate public publisher/repository routes; retain blocks and exact source/file identities. Caltech main and Cambridge S26375 SI PDF + 10 source-data spreadsheets verified against repository MD5, printed title/DOI and linked item identity. Nineteen assigned SI gaps remain open.
 - [x] Use GPT-6 Luna for independent screening of newly recovered evidence only, escalating disagreements and new positive/absence decisions for verification. Four complete-source independent reads: S01741 EXCLUDE:E3, S26375 ELIGIBLE. Root resolves S26375's direct/equivalent field difference under D12 without recalculating eta.
 - [x] Present seven open policy choices with concrete effects, without applying recommendations. `reconcile/si_policy_choices_2026-10-01.md`; all remain unadopted.
-- [ ] Verify coverage and preservation, update the checklist/readout, commit specific paths and push the completed recovery phase.
+- [x] Verify coverage and preservation, update the checklist/readout, commit specific paths and push the completed recovery phase. Pushed as `936bab9`; origin branch SHA independently matches local HEAD.
 
 Model choice: official model pages checked 2026-10-01 list GPT-6 Luna standard
 input/output at $0.10/$0.50 per million tokens versus GPT-5.6 Luna $0.20/$1.20.
@@ -36,7 +36,9 @@ must be sequential within each publisher gate.
 The archived SI-round verifier also passes without changing its September 29
 report: all 109 raw outputs, 104 required third reads and 130 audit targets remain
 verified. Its new report is retained under the dated recovery directory. The
-remaining checkbox is banking/pushing this verified phase.
+verified recovery phase is pushed as `936bab9`; completed reads are not scheduled
+again. Further institutional access depends on the supplied librarian reply;
+policy adoption remains an entrant choice.
 
 ## 2026-09-29 — P-LIT SI screening continuation for arms A and B
 
