@@ -87,3 +87,8 @@ Seven entrant policy choices remain unadopted. Inclusion freeze and method codin
 remain open. Missing access is never an exclusion. The next public-source work
 is distinct exact-record repository/SI discovery, skipping completed routes and
 reads; a blocked institutional route does not pause that work.
+
+Verified scientific batch pushed as `20e2c3d`; the remote branch SHA matches
+the local commit. Exactly27 explicit non-secret paths were staged. All21 unrelated
+DFT files remain untracked and untouched; PDFs, full article/SI text, packages
+and rendered source images remain local.

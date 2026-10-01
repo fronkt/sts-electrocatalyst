@@ -11,15 +11,16 @@ unless newly recovered primary evidence supports a reviewed update.
 - [x] Pin the current checklist/state and prior retrieval coverage; select distinct exact-record public repository follow-ups, including S11392's versioned lead.
 - [x] Verify public repository metadata and actual attachments; preserve blocked, unrelated and version-mismatched routes as unresolved access/identity outcomes, not SI absence. S19909 complete 51-page SI recovered; S13316 package holds main-figure images only. Four targeted repository checks retain missing SI; S11392 journal lead is existing S13010, with no verified pairwise version relation.
 - [x] Independently read only any newly recovered complete evidence; verify decisive excerpts and figures, and adjudicate disagreements under adopted rules. Two GPT-6 Luna complete-source reads, followed by focused existing-C05 and Fig.5D reconciliation: S19909 ELIGIBLE, relative/equivalent under unchanged D4. Blind primary-only rows and initial objection retained; no new numeric eta.
-- [x] Rebuild only affected state/checklist outputs, verify history and sensitivity preservation, update the public-only recovery readout. Offline rebuild complete; only S19909 changes and the checklist drops163→162. Commit/push pending below.
-- [ ] Commit explicit non-secret paths and push this verified public-only batch; leave all21 unrelated DFT files and local reading copies untouched.
+- [x] Rebuild only affected state/checklist outputs, verify history and sensitivity preservation, update the public-only recovery readout. Offline rebuild complete; only S19909 changes and the checklist drops163→162.
+- [x] Commit explicit non-secret paths and push this verified public-only batch; leave all21 unrelated DFT files and local reading copies untouched. Scientific batch pushed as `20e2c3d`; local HEAD and remote branch SHA match. Exactly27 approved non-secret paths staged; PDFs/full texts remain local.
 
 Review: 26 regression tests and both dated/completed-round verifiers pass with
 zero errors. Only S19909 changes; 119 immutable pins and all 2,496 v3/v4 rows
 remain unchanged. Independent implementation review prompted exact ruling-to-state,
 full assessed-excerpt/schema, retained checklist-content and path/alias checks.
 Current 172 ELIGIBLE, 105 NEEDS_SI, 116 UNRESOLVED; checklist162 (69/38/48/7),
-17 D10 checks. Seven policy choices stay unadopted. Commit/push pending.
+17 D10 checks. Seven policy choices stay unadopted. Scientific batch verified
+and pushed as `20e2c3d`; remote branch SHA matches local commit.
 Institutional/proxy and publisher-key access stay paused; no paid OpenAI requests
 in this phase. Paid-runner control flags do not block public-source work.
 
