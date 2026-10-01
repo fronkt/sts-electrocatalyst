@@ -21,13 +21,41 @@ class RecoveryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             path = pathlib.Path(temp) / "rulings.json"
             path.write_text(json.dumps({"records": records}), encoding="utf-8")
-            with patch.object(recovery_state, "RULINGS", path), patch.object(recovery_state, "independent_rows", return_value=[dict(records[0]["row"]), dict(records[0]["row"])]):
+            with patch.object(recovery_state, "RULINGS", path), patch.object(recovery_state, "FOLLOWUP_RULINGS", pathlib.Path(temp) / "missing"), patch.object(recovery_state, "independent_rows", return_value=[dict(records[0]["row"]), dict(records[0]["row"])]):
                 return recovery_state.recovery_decisions()
 
     def test_missing_layer_leaves_existing_state_alone(self):
         with tempfile.TemporaryDirectory() as temp:
-            with patch.object(recovery_state, "RULINGS", pathlib.Path(temp) / "missing"):
+            with patch.object(recovery_state, "RULINGS", pathlib.Path(temp) / "missing"), patch.object(recovery_state, "FOLLOWUP_RULINGS", pathlib.Path(temp) / "missing2"):
                 self.assertEqual(recovery_state.recovery_decisions(), {})
+
+    def test_additive_layers_and_cross_layer_duplicates(self):
+        with tempfile.TemporaryDirectory() as temp:
+            old = pathlib.Path(temp) / "old.json"
+            new = pathlib.Path(temp) / "new.json"
+            first, second = self.entry(), self.entry()
+            second["row"]["screen_id"] = "OTHER"
+            old.write_text(json.dumps({"records": [first]}), encoding="utf-8")
+            new.write_text(json.dumps({"records": [second]}), encoding="utf-8")
+            with patch.object(recovery_state, "RULINGS", old), patch.object(recovery_state, "FOLLOWUP_RULINGS", new), patch.object(recovery_state, "independent_rows", side_effect=lambda e: [dict(e["row"]), dict(e["row"])]):
+                self.assertEqual(set(recovery_state.recovery_decisions()), {"TEST", "OTHER"})
+                new.write_text(json.dumps({"records": [first]}), encoding="utf-8")
+                with self.assertRaises(ValueError):
+                    recovery_state.recovery_decisions()
+
+    def test_alias_reads_and_outside_paths_are_rejected(self):
+        with tempfile.TemporaryDirectory() as temp:
+            base = pathlib.Path(temp)
+            (base / "folder").mkdir()
+            row = self.entry()["row"]
+            (base / "pass.jsonl").write_text(json.dumps(row) + "\n", encoding="utf-8")
+            entry = self.entry()
+            entry["independent_reads"] = ["pass.jsonl", "folder/../pass.jsonl"]
+            with patch.object(recovery_state, "HERE", base):
+                with self.assertRaises(ValueError):
+                    recovery_state.independent_rows(entry)
+                with self.assertRaises(ValueError):
+                    recovery_state.evidence_path("../outside.json")
 
     def test_two_distinct_reads_required(self):
         entry = self.entry()

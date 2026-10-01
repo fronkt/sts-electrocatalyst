@@ -1,5 +1,13 @@
 # Lessons (corrections log)
 
+## 2026-10-01 — Continue the unblocked public-source work
+
+The entrant directs continuation without Purdue/Elsevier access. A paused
+institutional route or local paid-runner guard must not pause the whole research
+workflow. Separate those boundaries from legitimate public repository recovery;
+continue distinct useful leads, preserve finished reads, and do not repeatedly
+ask for permission already supplied for public-source continuation.
+
 ## 2026-10-01 — Preserve exact requested credential names
 
 The entrant replaces the proposed long research-key name with `electro-public-si`.

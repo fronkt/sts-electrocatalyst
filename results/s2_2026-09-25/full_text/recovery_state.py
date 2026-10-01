@@ -8,7 +8,15 @@ import pathlib
 
 HERE = pathlib.Path(__file__).resolve().parent
 RULINGS = HERE / "evidence_recovery_2026-10-01" / "reviewed_decisions.json"
+FOLLOWUP_RULINGS = HERE / "public_followup_2026-10-01" / "reviewed_decisions.json"
 READ_FIELDS = ("form", "eta_form", "eta_derivation", "eta_note", "secondary", "provenance")
+
+
+def evidence_path(name):
+    path = (HERE / name).resolve()
+    if not path.is_relative_to(HERE.resolve()):
+        raise ValueError("Recovery path outside evidence root")
+    return path
 
 
 def validate_fields(entry, reads):
@@ -40,10 +48,12 @@ def validate_fields(entry, reads):
 def independent_rows(entry):
     sid = entry["row"]["screen_id"]
     rows = []
+    seen = set()
     for name in entry["independent_reads"]:
-        path = (HERE / name).resolve()
-        if not path.is_relative_to(HERE.resolve()):
-            raise ValueError("Recovery read path outside evidence root")
+        path = evidence_path(name)
+        if path in seen:
+            raise ValueError("Recovery read aliases are not independent: " + sid)
+        seen.add(path)
         found = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
         if len(found) != 1 or found[0].get("screen_id") != sid or found[0].get("doi") != entry["row"].get("doi"):
             raise ValueError("Recovery independent-read identity mismatch: " + sid)
@@ -52,9 +62,10 @@ def independent_rows(entry):
 
 
 def recovery_decisions():
-    if not RULINGS.exists():
-        return {}
-    entries = json.loads(RULINGS.read_text(encoding="utf-8"))["records"]
+    entries = []
+    for path in (RULINGS, FOLLOWUP_RULINGS):
+        if path.exists():
+            entries.extend(json.loads(path.read_text(encoding="utf-8"))["records"])
     result = {}
     for entry in entries:
         sid = entry["row"]["screen_id"]
