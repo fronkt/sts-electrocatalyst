@@ -13,7 +13,7 @@ Use GPT-6 Luna for routine discovery/read work; escalate only disputed evidence.
 - [x] Pin the current scientific state and select a distinct priority queue with all previous attempts supplied; no duplicate paid discovery. Ten distinct tier-1 NEEDS_SI targets, 135 pins; prior pilot reestimated pessimistically at $0.55567585 (original $0.22567585 retained).
 - [x] Run a serial first tranche capped at $5 including prior spending; ten GPT-6 Luna requests completed without control anomalies, zero candidate routes. New conservative estimate $0.55484955; total with carry-forward $1.1105254. Stop low-yield paid discovery and checkpoint before expanding.
 - [x] Verify candidate attachments and independently screen only newly recovered complete evidence; 30 exact-DOI public metadata checks identify S16003, whose complete17-page SI and nine-page main PDF pass primary identity/checksum checks. Two independent Luna assessments plus actual figure reconciliation settle UNRESOLVED, E5/E6 UNCLEAR; original disagreement retained. No new qualifying eta or policy adoption.
-- [ ] Rebuild affected checklist/state only when supported by reviewed evidence; run regression/preservation checks, commit explicit paths and push the verified checkpoint.
+- [x] Rebuild affected checklist/state only when supported by reviewed evidence;27 scientific regressions and72 API safety tests pass, both dated verifiers have zero errors. Scientific checkpoint `4c71518` pushed; remote SHA matches local. Exactly61 changed, explicit non-secret paths committed; source PDFs/text/images and21 unrelated DFT files remain outside the commit.
 
 Budget controls: reserve before requesting, include reasoning/tool tokens in
 conservative estimates, keep full reservations for ambiguous requests, forbid
@@ -30,8 +30,11 @@ receipt. Estimated total $1.11/$50 is not an invoice or account-wide cap.
 The first tranche is a checkpoint, not an instruction to spend the entire $50.
 The pre-scientific API verification is retained; immutable manifest pins now
 deliberately refuse another request until reviewed-state re-pinning with the
-same lifetime ledger. Purdue/Elsevier and DFT remain outside scope. Commit/push
-receipt pending below.
+same lifetime ledger. Purdue/Elsevier and DFT remain outside scope. Scientific
+checkpoint pushed as `4c71518549953c3a053406e38b6fca21fc48154a`; remote branch SHA
+matches local. Remaining work is targeted public-source recovery, unresolved
+evidence/version/date gaps and entrant policy decisions, not repetition of the
+completed seven third reads or automatic expansion to compute/melt selection.
 
 ## 2026-10-01 — Public-only continuation without institutional APIs
 

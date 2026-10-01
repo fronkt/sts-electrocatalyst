@@ -93,3 +93,9 @@ tranche must explicitly re-pin the reviewed state while retaining this ledger an
 the lifetime ceiling; do not overwrite this manifest or reset carried spending.
 This is a spending/yield checkpoint, not completion of the remaining public queue
 or authorization for method coding, DFT compute, inclusion freeze or melt selection.
+
+Scientific checkpoint `4c71518549953c3a053406e38b6fca21fc48154a` is committed and
+pushed on `r0-catalysis-revival`; exact remote/local SHA comparison passes.
+The 61 explicit changed paths exclude all local full texts/PDFs/images and all21
+unrelated DFT files. The $50 authorization and this settled checkpoint are retained
+in project memory; no credential secret is retained there.
