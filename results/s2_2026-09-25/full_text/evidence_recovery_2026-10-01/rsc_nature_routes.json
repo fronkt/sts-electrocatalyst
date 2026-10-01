@@ -1,0 +1,92 @@
+{
+  "date": "2026-10-01",
+  "scope": "Tier-1 RSC IDs S01251, S01836, S05155, S09964, S12208, S23927, S26744; Nature ID S26375",
+  "existing_attempts_checked": "si_checklist.csv and si_public_log.jsonl",
+  "downloaded_files": [],
+  "records": [
+    {
+      "screen_id": "S01251",
+      "publisher": "RSC",
+      "doi": "10.1039/c4cp04159c",
+      "existing_attempt": {"route": "Figshare DOI lookup", "outcome": "NO_ITEM", "last_logged": "2026-09-28"},
+      "new_routes": [
+        {"route": "Targeted official RSC web search", "url": null, "outcome": "No article result surfaced for this DOI. Search was not followed by a direct publisher-page request after the RSC 403 response on other assigned records."}
+      ],
+      "result": "No SI recovered; no file downloaded."
+    },
+    {
+      "screen_id": "S01836",
+      "publisher": "RSC",
+      "doi": "10.1039/c2cp42149f",
+      "existing_attempt": {"route": "Figshare DOI lookup", "outcome": "NO_ITEM", "last_logged": "2026-09-28"},
+      "new_routes": [
+        {"route": "Official RSC article page", "url": "https://pubs.rsc.org/en/content/articlehtml/2012/cp/c2cp42149f", "outcome": "RSC search result lists Supplementary information PDF (339K); opening the article page returned 403 Forbidden."}
+      ],
+      "result": "SI availability confirmed from RSC search result, but publisher access was blocked; no file downloaded."
+    },
+    {
+      "screen_id": "S05155",
+      "publisher": "RSC",
+      "doi": "10.1039/c7ee02307c",
+      "existing_attempt": {"route": "Figshare DOI lookup", "outcome": "NO_ITEM", "last_logged": "2026-09-28"},
+      "new_routes": [
+        {"route": "Official RSC article page", "url": "https://pubs.rsc.org/en/content/articlelanding/2017/ee/c7ee02307c", "outcome": "RSC search result lists Supplementary information PDF (9696K); opening the article page returned 403 Forbidden."}
+      ],
+      "result": "SI availability confirmed from RSC search result, but publisher access was blocked; no file downloaded."
+    },
+    {
+      "screen_id": "S09964",
+      "publisher": "RSC",
+      "doi": "10.1039/d0sc01052a",
+      "existing_attempt": {"route": "Figshare DOI lookup", "outcome": "NO_ITEM", "last_logged": "2026-09-28"},
+      "new_routes": [
+        {"route": "Official RSC article page", "url": "https://pubs.rsc.org/en/content/articlelanding/2020/sc/d0sc01052a", "outcome": "RSC search result lists Supplementary information PDF (666K); opening the article page returned 403 Forbidden."}
+      ],
+      "result": "SI availability confirmed from RSC search result, but publisher access was blocked; no file downloaded."
+    },
+    {
+      "screen_id": "S12208",
+      "publisher": "RSC",
+      "doi": "10.1039/d1sc00752a",
+      "existing_attempt": {"route": "Figshare DOI lookup", "outcome": "NO_ITEM", "last_logged": "2026-09-28"},
+      "new_routes": [
+        {"route": "Official RSC article PDF page (main article, not SI)", "url": "https://pubs.rsc.org/en/content/articlepdf/2021/sc/d1sc00752a", "outcome": "Search-indexed RSC article text identifies electronic supplementary information; direct SI file URL was not exposed, and no publisher page request was made after the RSC 403 response."}
+      ],
+      "result": "SI existence confirmed; public SI file route not established; no file downloaded."
+    },
+    {
+      "screen_id": "S23927",
+      "publisher": "RSC",
+      "doi": "10.1039/d4nr02745k",
+      "existing_attempt": {"route": "Figshare DOI lookup", "outcome": "NO_ITEM", "last_logged": "2026-09-28"},
+      "new_routes": [
+        {"route": "Official RSC article page", "url": "https://pubs.rsc.org/en/content/articlelanding/2024/nr/d4nr02745k", "outcome": "RSC search result lists Supplementary information PDF (10361K); opening the article page returned 403 Forbidden."}
+      ],
+      "result": "SI availability confirmed from RSC search result, but publisher access was blocked; no file downloaded."
+    },
+    {
+      "screen_id": "S26744",
+      "publisher": "RSC",
+      "doi": "10.1039/d5cc04003e",
+      "existing_attempt": {"route": "Figshare DOI lookup", "outcome": "NO_ITEM", "last_logged": "2026-09-28"},
+      "new_routes": [
+        {"route": "Official RSC article page", "url": "https://pubs.rsc.org/en/content/articlelanding/2025/cc/d5cc04003e", "outcome": "RSC search result lists Supplementary information PDF (1278K); opening the article page returned 403 Forbidden."}
+      ],
+      "result": "SI availability confirmed from RSC search result, but publisher access was blocked; no file downloaded."
+    },
+    {
+      "screen_id": "S26375",
+      "publisher": "Nature",
+      "doi": "10.1038/s41560-025-01812-x",
+      "existing_attempts": [
+        {"route": "Figshare DOI lookup", "outcome": "NO_ITEM", "last_logged": "2026-09-28"},
+        {"route": "Nature article fragments MOESM1-6, MOESM8-9", "outcome": "NOT_FILE (HTML, HTTP 200)", "last_logged": "2026-09-28"}
+      ],
+      "new_routes": [
+        {"route": "Official Nature article page", "url": "https://www.nature.com/articles/s41560-025-01812-x", "outcome": "Search result confirms supplementary information exists; opening redirected to Nature IDP cookie authorization and was inaccessible via web tool."},
+        {"route": "Cambridge repository bitstream", "url": "https://api.repository.cam.ac.uk/server/api/core/bitstreams/09dfbb2f-5937-4b71-9b57-b244fde5b54c/content", "outcome": "Public repository result is the article manuscript PDF, not a supplementary-information file; excluded from recovery."}
+      ],
+      "result": "No SI recovered; publisher route blocked and repository item was article text rather than SI. No file downloaded."
+    }
+  ]
+}

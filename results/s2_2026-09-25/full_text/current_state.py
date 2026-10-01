@@ -202,6 +202,8 @@ def adjudicated_row(row, ruling):
 
 
 def main():
+    from recovery_state import recovery_decisions
+    recoveries = recovery_decisions()
     adjudications = si_adjudications()
     p1, p2 = rows("1"), rows("2")
     t3 = jsonl(HERE / "third_read" / "third_read.jsonl")
@@ -287,10 +289,18 @@ def main():
                 d5 = "UNRESOLVED"
             s5 += "; SI adjudication 2026-09-29"
             fields = {k: agreed(rs5, k) for k in V5_FIELDS}
+        if sid in recoveries:
+            recovered = recoveries[sid]
+            r5 = dict(recovered["row"])
+            rs5 = [r5]
+            d5 = label(r5)
+            s5 = "public evidence recovery 2026-10-01: independent reads reviewed"
+            si_state, whole = "recovery reviewed", recovered["si_complete"]
+            fields = {k: agreed(rs5, k) for k in V5_FIELDS}
         f5, step5 = final(sid, d5, r5, dates, whole)
         m5, step5 = member(vg, f5, step5, s5, [x.get("form") for x in rs5], pdate or "")
         m5_pre = m5
-        if si_state in ("third read", "agreed", "needs_si"):
+        if si_state in ("third read", "agreed", "needs_si", "recovery reviewed"):
             pd5, ps5, pr5, prs5 = pre
             if sid in V5_TRIAGE_A and (pr5 or prs5):
                 pd5, ps5, pr5, prs5 = with_triage_a(sid, pd5, ps5, pr5, prs5)

@@ -1,5 +1,20 @@
 # Lessons (corrections log)
 
+## 2026-10-01 — Compare prices without assuming equal reasoning
+
+The entrant asked whether GPT-5.6 Luna or GPT-6 Luna would be cheaper for the
+screening continuation. Check the exact official model pages and in-session
+availability, not family names or identical reasoning-effort controls. Published
+API prices are not an account-specific usage/billing measurement. Use the
+available lower-cost tier for routine screening, retain independent reads, and
+adjudicate field differences explicitly rather than treating agreement on the
+overall disposition as agreement on every field. Persist recovered-source and
+reviewed-ID hashes so finished audits are not repeated.
+
+Public access gates must be checked sequentially per publisher. Parallelise
+different publishers/repositories, not multiple pending requests to one publisher
+when the first block is supposed to stop that publisher.
+
 ## 2026-09-29 — Use cost-aware models and explicit verification coverage
 
 **What happened:** SI verification agents inherited the main model, and missing

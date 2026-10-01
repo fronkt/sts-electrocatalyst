@@ -1,5 +1,43 @@
 # STS 2027 — TODO
 
+## 2026-10-01 — Public evidence recovery after the completed SI round
+
+Scope: continue arms A/B P-LIT with only newly recovered evidence. Preserve the
+completed 2026-09-29 reads/audits, adopted v5 rules and v3/v4 sensitivities.
+Institutional/proxy access remains paused; the librarian reply must be supplied
+and reviewed before any change to that boundary. No Batch API spending, policy
+adoption, population freeze or method coding.
+
+- [x] Pin missing-evidence priorities and prior attempts; verify public-only routes before retrieval. Focused batch: 20 priority SI records plus S01741, not the whole 164-record checklist.
+- [x] Recover the correct S01741 main and priority SI through legitimate public publisher/repository routes; retain blocks and exact source/file identities. Caltech main and Cambridge S26375 SI PDF + 10 source-data spreadsheets verified against repository MD5, printed title/DOI and linked item identity. Nineteen assigned SI gaps remain open.
+- [x] Use GPT-6 Luna for independent screening of newly recovered evidence only, escalating disagreements and new positive/absence decisions for verification. Four complete-source independent reads: S01741 EXCLUDE:E3, S26375 ELIGIBLE. Root resolves S26375's direct/equivalent field difference under D12 without recalculating eta.
+- [x] Present seven open policy choices with concrete effects, without applying recommendations. `reconcile/si_policy_choices_2026-10-01.md`; all remain unadopted.
+- [ ] Verify coverage and preservation, update the checklist/readout, commit specific paths and push the completed recovery phase.
+
+Model choice: official model pages checked 2026-10-01 list GPT-6 Luna standard
+input/output at $0.10/$0.50 per million tokens versus GPT-5.6 Luna $0.20/$1.20.
+GPT-6 Luna is available to in-session agents; GPT-5.6 Luna is not listed there.
+Matching reasoning-effort controls are not proof of equivalent task accuracy.
+Short focused assignments and persistent reviewed-ID coverage prevent repeated audits.
+
+Review: 18 regression tests pass, including five checks added after independent
+implementation review caught a gap in adjudicated-field validation. The state
+loader now enforces those checks even when run without the separate verifier.
+The dated verifier has zero errors: four
+independent reads, only the two recovered rows changed, 115 historical evidence
+files byte-preserved, and every v3/v4 field for all 2,496 records unchanged.
+Current v5: 171 ELIGIBLE, 106 NEEDS_SI, 116 UNRESOLVED. Checklist: 163 records,
+tiers 70/38/48/7 and 17 D10 checks. PDFs, spreadsheets and complete article/SI
+text remain local, not in the public repository. The librarian reply has been
+requested but not supplied; institutional retrieval remains paused. Some initial
+publisher opens were queued together before their 403 results could stop later
+requests; these blocks remain recorded, with no bypass. Future publisher checks
+must be sequential within each publisher gate.
+The archived SI-round verifier also passes without changing its September 29
+report: all 109 raw outputs, 104 required third reads and 130 audit targets remain
+verified. Its new report is retained under the dated recovery directory. The
+remaining checkbox is banking/pushing this verified phase.
+
 ## 2026-09-29 — P-LIT SI screening continuation for arms A and B
 
 Scope: complete the 168-record SI round under eligibility instructions v5; retain the adopted population, v3/v4 sensitivity decisions and all unresolved evidence/policy questions. No method coding or population freeze. Use the in-session reader route, with no Batch API spending or institutional access.

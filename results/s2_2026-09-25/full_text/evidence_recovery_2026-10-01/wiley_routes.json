@@ -1,0 +1,173 @@
+{
+  "date": "2026-10-01",
+  "scope": "Public SI route discovery only; no screening or restricted access used.",
+  "prior_indexes_checked": [
+    {
+      "path": "si_checklist.csv",
+      "result": "Confirmed all six assignments as tier 1 Wiley and captured DOI, title, and listed SI expectations."
+    },
+    {
+      "path": "si_public_log.jsonl",
+      "result": "All six had prior figshare DOI lookup results of NO_ITEM. R0003 additionally had two publisher SI download attempts, both HTTP 403 with HTML responses."
+    },
+    {
+      "path": "si_public_0928.log",
+      "result": "All six show api 0 and page 0 attempts."
+    },
+    {
+      "path": "si_public_v5.log",
+      "result": "R0003, S19847, and S22122 show api 0 attempts. No separate supplementary-access index file was found in the full_text root."
+    }
+  ],
+  "records": [
+    {
+      "screen_id": "R0003",
+      "doi": "10.1002/advs.202104636",
+      "title": "Strong Oxide-Support Interaction over IrO2/V2O5 for Efficient pH-Universal Water Splitting",
+      "prior_attempts": [
+        {
+          "reference": "si_public_log.jsonl, 2026-09-28T14:31:48.841122+00:00",
+          "route": "Wiley publisher SI",
+          "url": "https://advanced.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Fadvs.202104636&file=advs3624-sup-0001-SuppMat.pdf",
+          "outcome": "HTTP 403, text/html"
+        },
+        {
+          "reference": "si_public_log.jsonl, 2026-09-28T14:32:25.591105+00:00",
+          "route": "Wiley publisher SI",
+          "url": "https://advanced.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Fadvs.202104636&file=advs3624-sup-0002-MovieS1.mp4",
+          "outcome": "HTTP 403, text/html"
+        }
+      ],
+      "new_public_routes": [
+        {
+          "route": "Official Wiley article page; SI filename indexed on page",
+          "url": "https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/advs.202104636",
+          "evidence": "Official page confirms DOI/title and lists advs3624-sup-0001-SuppMat.pdf (2.7 MB) and advs3624-sup-0002-MovieS1.mp4.",
+          "outcome": "SI file route remains blocked by the prior 403; no further Wiley requests made. No new file."
+        }
+      ],
+      "new_files": []
+    },
+    {
+      "screen_id": "S19847",
+      "doi": "10.1002/anie.202308704",
+      "title": "Low Ruthenium Content Confined on Boron Carbon Nitride as an Efficient and Stable Electrocatalyst for Acidic Oxygen Evolution Reaction",
+      "prior_attempts": [
+        {
+          "reference": "si_public_log.jsonl, 2026-09-27T10:01:11.453383+00:00 and 2026-09-28T14:14:10.905346+00:00",
+          "route": "figshare DOI lookup",
+          "outcome": "NO_ITEM"
+        }
+      ],
+      "new_public_routes": [
+        {
+          "route": "Official Wiley article page and linked SI",
+          "url": "https://onlinelibrary.wiley.com/doi/abs/10.1002/anie.202308704",
+          "si_url": "https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Fanie.202308704&file=anie202308704-sup-0001-misc_information.pdf",
+          "evidence": "Official Wiley page confirms DOI/title and names anie202308704-sup-0001-misc_information.pdf (2.2 MB) as Supporting Information.",
+          "outcome": "Direct SI link returned 403 Forbidden; stopped publisher attempts for this record. No new file."
+        }
+      ],
+      "new_files": []
+    },
+    {
+      "screen_id": "S22122",
+      "doi": "10.1002/adfm.202401134",
+      "title": "Screening Spinel Oxide Supports for RuO2 to Boost Bifunctional Electrocatalysts for Advanced Zn-Air Batteries",
+      "prior_attempts": [
+        {
+          "reference": "si_public_log.jsonl, 2026-09-27T23:25:51.250922+00:00 and 2026-09-28T14:14:39.498561+00:00",
+          "route": "figshare DOI lookup",
+          "outcome": "NO_ITEM"
+        }
+      ],
+      "new_public_routes": [
+        {
+          "route": "Official Wiley article page and listed SI",
+          "url": "https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/adfm.202401134",
+          "evidence": "Official indexed page confirms DOI/title and lists adfm202401134-sup-0001-SuppMat.pdf (2.9 MB).",
+          "outcome": "Wiley article page fetch returned 403 Forbidden; no further Wiley request made. No SI file retrieved."
+        },
+        {
+          "route": "PolyU Institutional Research Archive",
+          "url": "https://ira.lib.polyu.edu.hk/handle/10397/109036",
+          "file_url": "https://ira.lib.polyu.edu.hk/bitstream/10397/109036/1/Zou_Screening_Spinel_Oxide.pdf",
+          "evidence": "Public repository record identifies the DOI and deposits the article PDF.",
+          "outcome": "Article PDF only; not a route to the SI file. No download made."
+        }
+      ],
+      "new_files": []
+    },
+    {
+      "screen_id": "S10090",
+      "doi": "10.1002/cctc.202000617",
+      "title": "Facet-dependent Chlorine and Oxygen Evolution Selectivity on RuO2: An Ab initio Atomistic Thermodynamic Study",
+      "prior_attempts": [
+        {
+          "reference": "si_public_log.jsonl, 2026-09-28T14:13:43.830864+00:00",
+          "route": "figshare DOI lookup",
+          "outcome": "NO_ITEM"
+        }
+      ],
+      "new_public_routes": [
+        {
+          "route": "Official Wiley SI PDF",
+          "url": "https://chemistry-europe.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Fcctc.202000617&file=cctc202000617-sup-0001-misc_information.pdf",
+          "article_url": "https://chemistry-europe.onlinelibrary.wiley.com/doi/abs/10.1002/cctc.202000617",
+          "evidence": "Official Wiley page links cctc202000617-sup-0001-misc_information.pdf (741.7 KB). Web PDF open returned 14 pages and matching ChemCatChem SI title/authors.",
+          "outcome": "Direct local retrieval returned a Cloudflare JavaScript/cookie challenge. Stopped without bypass. No verified local file."
+        }
+      ],
+      "new_files": []
+    },
+    {
+      "screen_id": "S22807",
+      "doi": "10.1002/cssc.202400827",
+      "title": "Origin of the Activity of Electrochemical Ozone Production Over Rutile PbO2 Surfaces",
+      "prior_attempts": [
+        {
+          "reference": "si_public_log.jsonl, 2026-09-28T14:14:45.472106+00:00",
+          "route": "figshare DOI lookup",
+          "outcome": "NO_ITEM"
+        }
+      ],
+      "new_public_routes": [
+        {
+          "route": "Official Wiley full-text page and linked SI",
+          "url": "https://chemistry-europe.onlinelibrary.wiley.com/doi/full/10.1002/cssc.202400827",
+          "si_url": "https://chemistry-europe.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Fcssc.202400827&file=cssc202400827-sup-0001-misc_information.pdf",
+          "evidence": "Official Wiley page confirms DOI/title and lists cssc202400827-sup-0001-misc_information.pdf (872.8 KB).",
+          "outcome": "SI-link click returned an internal fetch error; file access unresolved. No retry or file download."
+        },
+        {
+          "route": "Deutsche Nationalbibliothek repository copy of article",
+          "url": "https://d-nb.info/1336145234/34",
+          "evidence": "Public repository article copy matches DOI/title and states that supporting information is available under the DOI.",
+          "outcome": "Repository holds the article PDF, not a separate SI file. No download made."
+        }
+      ],
+      "new_files": []
+    },
+    {
+      "screen_id": "S26024",
+      "doi": "10.1002/anie.202507468",
+      "title": "Enhancing Acidic Oxygen Evolution Activity by Controlling Oxidation State of Iridium",
+      "prior_attempts": [
+        {
+          "reference": "si_public_log.jsonl, 2026-09-28T14:15:30.389632+00:00",
+          "route": "figshare DOI lookup",
+          "outcome": "NO_ITEM"
+        }
+      ],
+      "new_public_routes": [
+        {
+          "route": "Official Wiley article page and linked SI",
+          "url": "https://onlinelibrary.wiley.com/doi/abs/10.1002/anie.202507468",
+          "evidence": "Official page confirms DOI/title and lists anie202507468-sup-0001-SuppMat.docx (15.4 MB) as Supporting Information.",
+          "outcome": "SI-link click returned an internal fetch error; file access unresolved. No retry or file download."
+        }
+      ],
+      "new_files": []
+    }
+  ]
+}

@@ -53,6 +53,9 @@ def jsonl(p):
 
 def deciding(st, p1, p2, t3, v4, v5, v4s):
     s, sid = st["v5_source"], st["screen_id"]
+    if s.startswith("public evidence recovery"):
+        from recovery_state import recovery_decisions
+        return [recovery_decisions()[sid]["row"]]
     if s.startswith("SI read"):
         d = HERE / "si_read"
         if "third read" in s:
