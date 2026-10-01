@@ -1,5 +1,28 @@
 # STS 2027 — TODO
 
+## 2026-10-01 — $50 public-literature continuation
+
+Scope: Frank authorizes continuation with a $50 total literature/API ceiling.
+Count the prior $0.22567585 pilot estimate within that ceiling conservatively.
+This supersedes the earlier no-further-paid-runs instruction only after the
+continuation guard passes. It licenses no Anvil/DFT submission, institutional
+access, policy adoption, inclusion freeze, or repeat read of unchanged evidence.
+Use GPT-6 Luna for routine discovery/read work; escalate only disputed evidence.
+
+- [x] Verify the prior tool-event anomaly and implement/test a bounded continuation guard; retain the historical strict flags and raw responses. Independent review addressed prior receipt consistency and final-message shape; 43 continuation + 23 original + 6 state tests pass in a fresh background runtime. All prior receipt/raw/ledger links and 135 pinned hashes verify before paid continuation.
+- [x] Pin the current scientific state and select a distinct priority queue with all previous attempts supplied; no duplicate paid discovery. Ten distinct tier-1 NEEDS_SI targets, 135 pins; prior pilot reestimated pessimistically at $0.55567585 (original $0.22567585 retained).
+- [ ] Run a serial first tranche capped at $5 including prior spending; checkpoint identity-verified SI yield before expanding, within the $50 overall ceiling.
+- [ ] Verify candidate attachments and independently screen only newly recovered complete evidence; preserve unresolved access/version outcomes and all seven open policy choices.
+- [ ] Rebuild affected checklist/state only when supported by reviewed evidence; run regression/preservation checks, commit explicit paths and push the verified checkpoint.
+
+Budget controls: reserve before requesting, include reasoning/tool tokens in
+conservative estimates, keep full reservations for ambiguous requests, forbid
+automatic retries and concurrent writers, and stop on unknown usage or control
+violations. The application ledger is not an account-wide billing enforcement.
+
+Review: pending. The first tranche is a checkpoint, not an instruction to spend
+the entire $50. Purdue/Elsevier access remains outside scope.
+
 ## 2026-10-01 — Public-only continuation without institutional APIs
 
 Scope: entrant directs continuation of all useful public-source work now, without
