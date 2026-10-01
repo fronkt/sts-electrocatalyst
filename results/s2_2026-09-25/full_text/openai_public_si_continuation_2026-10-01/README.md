@@ -49,4 +49,47 @@ unadopted; no exclusion follows from unsuccessful discovery. Publisher-only SI
 may remain unresolved. No institutional proxy/browser, publisher API, CAPTCHA
 bypass, DFT launch, inclusion freeze or melt selection is authorized by this cap.
 
-Tranche results and primary-evidence verification are pending.
+## Settled first-tranche checkpoint
+
+All ten serial GPT-6 Luna discovery requests completed, with no pending events,
+control violations or candidate routes. New conservative estimated spending is
+**$0.55484955**; including the pessimistic carry-forward, the total is
+**$1.1105254 of $50**. About **$48.89** remains unspent. The low-yield paid
+discovery tranche stops here rather than automatically expanding.
+
+Thirty exact-DOI public Europe PMC metadata checks (21 tier-1, nine tier-2)
+returned 15 matches and 15 no-matches. These are metadata discovery checks, not
+30 scientific reads. They identified S16003 / DOI `10.1002/advs.202201654`,
+PMC9376819, with one declared supplement. After an unretried Europe PMC package
+timeout, its independent public NLM cloud route supplied the exact complete
+17-page SI and nine-page main PDF. XML identity, declared size, attachment MD5,
+PDF pages and SHA-256 reading-copy pins all check. No Purdue/Elsevier key was used.
+
+Two independent complete-source Luna assessments initially disagreed on E6.
+Reader 2's focused visual refinement and root inspection of main Fig. 4c–d and
+SI Figs. S27–S28 establish visible step values at 0/1.23 V. Original blind outputs
+and the initial exclusion remain separate. Neither the computed Miller facet nor
+an explicit reference-scale assignment is established; experimental (110) is not
+silently transferred to the DFT slab. **S16003 is UNRESOLVED, E5/E6 UNCLEAR**, not
+excluded or assigned a numerical qualifying eta. Complete SI closes its access
+gap, not its scientific eligibility gap.
+
+Final checks: 27 scientific regressions and 72 API safety tests pass. Both dated
+scientific verifiers report zero errors; 119 historic pins and all 2,496 v3/v4
+records are preserved. Against pre-run commit `73bf2a3`, S16003 is the sole state
+change. Checklist162→161 (69/37/48/7), with every retained row identical and all
+four explicit eligible SI-question IDs retained. Current v5 counts:172 ELIGIBLE,
+104 NEEDS_SI,117 UNRESOLVED;17 D10 checks remain. Seven policy choices stay open.
+
+The initial rebuild accidentally omitted four explicitly included eligible
+SI-question rows; preservation checks caught it. The corrected rebuild carries
+those IDs, and the failed check remains in the checkpoint evidence.
+
+`verification.json` is the clean API-ledger snapshot **before** the intentional
+S16003 state change. `scientific_final/` is the authoritative post-adjudication
+verification. The immutable request manifest still pins the pre-adjudication
+state, so it deliberately refuses further requests after this change. A later
+tranche must explicitly re-pin the reviewed state while retaining this ledger and
+the lifetime ceiling; do not overwrite this manifest or reset carried spending.
+This is a spending/yield checkpoint, not completion of the remaining public queue
+or authorization for method coding, DFT compute, inclusion freeze or melt selection.

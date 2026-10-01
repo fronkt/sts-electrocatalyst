@@ -1,0 +1,23 @@
+{
+ "date":"2026-10-01",
+ "records":[{
+  "row":{
+   "screen_id":"S16003","doi":"10.1002/advs.202201654","text_ok":true,
+   "E1":{"v":"YES","where":"main: p. 1","excerpt":"RESEARCH ARTICLE"},
+   "E2":{"v":"YES","where":"main: p. 8","excerpt":"Published online: June 19, 2022"},
+   "E3":{"v":"YES","where":"main: p. 6; main: p. 8","excerpt":"Four elemental steps of OER are considered in the calculation … the Gibbs free energy calculation is operated with the computational hydrogen electrode (CHE) model."},
+   "E4":{"v":"YES","where":"main: p. 5; main: p. 6","excerpt":"rutile-structured RuO2 … DFT was employed to investigate the effect of tensile strains. Two relatively simple models"},
+   "E5":{"v":"UNCLEAR","where":"main: p. 8; Fig. 4c–d; SI: Figs. S27–S28, pp. 14–15","excerpt":"The RuO2 facets were modeled using a four atomic layer 1 × 2 supercell slab … calculated on the coordinatively unsaturated sites (CUS, colored with green)"},
+   "E6":{"v":"UNCLEAR","where":"main: Fig. 4c–d; SI: Figs. S27–S28, pp. 14–15","excerpt":"The free energy diagrams of RuO2 and strained RuO2 calculated on the coordinatively unsaturated sites (CUS, colored with green) … The free energy diagram of the strained RuO2 with full coverage of bridge-O."},
+   "disposition":"UNRESOLVED","exclude_criterion":null,"form":"journal",
+   "eta_form":null,"eta_derivation":null,"eta_note":null,"secondary":null,"provenance":null,
+   "note":"Strained/unstrained RuO2 models: complete SI recovered. CUS and bridge-O diagrams show CHE step values at 0/1.23 V, but no computed Miller facet or explicit reference-scale definition. Do not infer (110) from slab dimensions."
+  },
+  "si_complete":true,
+  "independent_reads":["openai_public_si_continuation_2026-10-01/s16003_pass1.out.jsonl","openai_public_si_continuation_2026-10-01/s16003_pass2_visual.out.jsonl"],
+  "source_metadata":"openai_public_si_continuation_2026-10-01/s16003/source_metadata.json",
+  "reason":"The exact public 17-page supplementary file is complete, closing the missing-document state. Under unchanged v5 rules, E5 and E6 remain unclear because the computed facet and qualifying reference assignment are not explicit; no exclusion or numeric eta is inferred.",
+  "review":"Two independent GPT-6 Luna full-source assessments were reconciled by a focused visual refinement of reader 2 and root inspection of the actual main Fig. 4c–d and SI Figs. S27–S28. Reader 2's initial E6 exclusion is retained and withdrawn after the figures establish step values. Root verified 0.84/0.81 eV CUS labels and 0.61/0.90 eV bridge-O labels at 1.23 V. These are visible primary labels, not an assigned qualifying eta. Reader 1's missing-common-potential explanation is superseded by the actual 0/1.23 V annotations; facet and reference-scale uncertainty persist. Experimental (110) characterization is not transferred to the DFT slab. The focused refinement is not an additional independent reader. Seven policy choices remain unadopted.",
+  "field_decisions":{}
+ }]
+}

@@ -1321,3 +1321,11 @@ I applied rule D3 (non-article forms carried only through a linked journal artic
 ## 2026-09-28 — Web-lookup agents must be barred from the browser and the library proxy
 
 The identity-check agents were told to use open sources and the web tools. Several of them drove the user's logged-in Chrome and read paywalled full texts through the user's existing Purdue EZproxy session (ScienceDirect, Wiley, Springer; no credentials entered, no files saved). Automated access through the library proxy is paused pending the librarian, and it had already led to a proxy suspension on 2026-09-26. Rule: every agent prompt that allows web access names what it may use (WebSearch/WebFetch on open pages, open databases) and forbids browser automation, the user's browser sessions, institutional proxies and publisher APIs with the user's keys. Check the agents' search logs for proxy hosts before using their results, and report any breach.
+## 2026-10-01 — Preserve explicit eligible SI-question IDs on rebuild
+
+The SI checklist also contains eligible papers with unresolved SI questions.
+Its CLI requires the carried `--ids` set; a default invocation silently drops
+those rows. Before any rebuild, retain the eligible IDs from the pinned
+checklist (currently S29721, S10090, S22807, S26024), use them explicitly, and
+verify exact retained-row content. A lower count without reviewed evidence is
+a rebuild discrepancy, not scientific progress. Keep the failed check separately.

@@ -230,3 +230,9 @@ export async function verifyContinuation(root,outDir) {
     controls:receipts.map(x=>({sid:x.sid,...x.controls})),
     further_requests_stop:errors.length>0};
 }
+
+export async function checkpointContinuation(root,outDir) {
+  const report=await verifyContinuation(root,outDir);
+  await jsonNew(path.join(outDir,'verification.json'),report);
+  return report;
+}

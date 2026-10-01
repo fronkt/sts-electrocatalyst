@@ -11,8 +11,8 @@ Use GPT-6 Luna for routine discovery/read work; escalate only disputed evidence.
 
 - [x] Verify the prior tool-event anomaly and implement/test a bounded continuation guard; retain the historical strict flags and raw responses. Independent review addressed prior receipt consistency and final-message shape; 43 continuation + 23 original + 6 state tests pass in a fresh background runtime. All prior receipt/raw/ledger links and 135 pinned hashes verify before paid continuation.
 - [x] Pin the current scientific state and select a distinct priority queue with all previous attempts supplied; no duplicate paid discovery. Ten distinct tier-1 NEEDS_SI targets, 135 pins; prior pilot reestimated pessimistically at $0.55567585 (original $0.22567585 retained).
-- [ ] Run a serial first tranche capped at $5 including prior spending; checkpoint identity-verified SI yield before expanding, within the $50 overall ceiling.
-- [ ] Verify candidate attachments and independently screen only newly recovered complete evidence; preserve unresolved access/version outcomes and all seven open policy choices.
+- [x] Run a serial first tranche capped at $5 including prior spending; ten GPT-6 Luna requests completed without control anomalies, zero candidate routes. New conservative estimate $0.55484955; total with carry-forward $1.1105254. Stop low-yield paid discovery and checkpoint before expanding.
+- [x] Verify candidate attachments and independently screen only newly recovered complete evidence; 30 exact-DOI public metadata checks identify S16003, whose complete17-page SI and nine-page main PDF pass primary identity/checksum checks. Two independent Luna assessments plus actual figure reconciliation settle UNRESOLVED, E5/E6 UNCLEAR; original disagreement retained. No new qualifying eta or policy adoption.
 - [ ] Rebuild affected checklist/state only when supported by reviewed evidence; run regression/preservation checks, commit explicit paths and push the verified checkpoint.
 
 Budget controls: reserve before requesting, include reasoning/tool tokens in
@@ -20,8 +20,18 @@ conservative estimates, keep full reservations for ambiguous requests, forbid
 automatic retries and concurrent writers, and stop on unknown usage or control
 violations. The application ledger is not an account-wide billing enforcement.
 
-Review: pending. The first tranche is a checkpoint, not an instruction to spend
-the entire $50. Purdue/Elsevier access remains outside scope.
+Review: 27 scientific regression tests and72 API safety tests pass; both dated
+scientific verifiers have zero errors. Against pre-run `73bf2a3`, only S16003
+changes; all2,496 v3/v4 rows and119 historical pins are preserved. Checklist
+162→161 (69/37/48/7), all retained rows exact, explicit eligible IDs preserved.
+Current172 ELIGIBLE,104 NEEDS_SI,117 UNRESOLVED;17 D10 checks. The accidental
+four-row checklist omission was caught, corrected and retained as a failed-check
+receipt. Estimated total $1.11/$50 is not an invoice or account-wide cap.
+The first tranche is a checkpoint, not an instruction to spend the entire $50.
+The pre-scientific API verification is retained; immutable manifest pins now
+deliberately refuse another request until reviewed-state re-pinning with the
+same lifetime ledger. Purdue/Elsevier and DFT remain outside scope. Commit/push
+receipt pending below.
 
 ## 2026-10-01 — Public-only continuation without institutional APIs
 

@@ -21,12 +21,12 @@ class RecoveryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             path = pathlib.Path(temp) / "rulings.json"
             path.write_text(json.dumps({"records": records}), encoding="utf-8")
-            with patch.object(recovery_state, "RULINGS", path), patch.object(recovery_state, "FOLLOWUP_RULINGS", pathlib.Path(temp) / "missing"), patch.object(recovery_state, "independent_rows", return_value=[dict(records[0]["row"]), dict(records[0]["row"])]):
+            with patch.object(recovery_state, "RULINGS", path), patch.object(recovery_state, "FOLLOWUP_RULINGS", pathlib.Path(temp) / "missing"), patch.object(recovery_state, "CONTINUATION_RULINGS", pathlib.Path(temp) / "missing3"), patch.object(recovery_state, "independent_rows", return_value=[dict(records[0]["row"]), dict(records[0]["row"])]):
                 return recovery_state.recovery_decisions()
 
     def test_missing_layer_leaves_existing_state_alone(self):
         with tempfile.TemporaryDirectory() as temp:
-            with patch.object(recovery_state, "RULINGS", pathlib.Path(temp) / "missing"), patch.object(recovery_state, "FOLLOWUP_RULINGS", pathlib.Path(temp) / "missing2"):
+            with patch.object(recovery_state, "RULINGS", pathlib.Path(temp) / "missing"), patch.object(recovery_state, "FOLLOWUP_RULINGS", pathlib.Path(temp) / "missing2"), patch.object(recovery_state, "CONTINUATION_RULINGS", pathlib.Path(temp) / "missing3"):
                 self.assertEqual(recovery_state.recovery_decisions(), {})
 
     def test_additive_layers_and_cross_layer_duplicates(self):
@@ -37,9 +37,22 @@ class RecoveryTests(unittest.TestCase):
             second["row"]["screen_id"] = "OTHER"
             old.write_text(json.dumps({"records": [first]}), encoding="utf-8")
             new.write_text(json.dumps({"records": [second]}), encoding="utf-8")
-            with patch.object(recovery_state, "RULINGS", old), patch.object(recovery_state, "FOLLOWUP_RULINGS", new), patch.object(recovery_state, "independent_rows", side_effect=lambda e: [dict(e["row"]), dict(e["row"])]):
+            with patch.object(recovery_state, "RULINGS", old), patch.object(recovery_state, "FOLLOWUP_RULINGS", new), patch.object(recovery_state, "CONTINUATION_RULINGS", pathlib.Path(temp) / "missing3"), patch.object(recovery_state, "independent_rows", side_effect=lambda e: [dict(e["row"]), dict(e["row"])]):
                 self.assertEqual(set(recovery_state.recovery_decisions()), {"TEST", "OTHER"})
                 new.write_text(json.dumps({"records": [first]}), encoding="utf-8")
+                with self.assertRaises(ValueError):
+                    recovery_state.recovery_decisions()
+
+    def test_continuation_layer_and_duplicate_guard(self):
+        with tempfile.TemporaryDirectory() as temp:
+            old, follow, cont = [pathlib.Path(temp) / n for n in ("old.json", "follow.json", "cont.json")]
+            entries = [self.entry() for _ in range(3)]
+            for sid, entry, path in zip(("OLD", "FOLLOW", "CONT"), entries, (old, follow, cont)):
+                entry["row"]["screen_id"] = sid
+                path.write_text(json.dumps({"records": [entry]}), encoding="utf8")
+            with patch.object(recovery_state, "RULINGS", old), patch.object(recovery_state, "FOLLOWUP_RULINGS", follow), patch.object(recovery_state, "CONTINUATION_RULINGS", cont), patch.object(recovery_state, "independent_rows", side_effect=lambda e: [dict(e["row"]), dict(e["row"])]):
+                self.assertEqual(set(recovery_state.recovery_decisions()), {"OLD", "FOLLOW", "CONT"})
+                cont.write_text(json.dumps({"records": [entries[0]]}), encoding="utf8")
                 with self.assertRaises(ValueError):
                     recovery_state.recovery_decisions()
 
