@@ -1,5 +1,22 @@
 # Lessons (corrections log)
 
+## 2026-10-01 — Preserve exact requested credential names
+
+The entrant replaces the proposed long research-key name with `electro-public-si`.
+Use that exact name, not a repository-derived expansion. Keep a question about
+creating a separate project distinct from permission to create that project or
+move credentials into it. A disconnected browser is not evidence of insufficient
+account permissions.
+
+## 2026-10-01 — Distinguish an employer allowance from an API provider
+
+The entrant clarified that 83 Sciences is their employer and provides OpenAI
+platform usage, not a separate API provider. Keep employer authorization, actual
+project/API access, and publisher full-text entitlement separate. Inspect the
+named company platform and credential presence without exposing secrets; do not
+assume company permission supplies an existing key or removes publisher access
+limits. Creating persistent credentials requires its own action-time confirmation.
+
 ## 2026-10-01 — Compare prices without assuming equal reasoning
 
 The entrant asked whether GPT-5.6 Luna or GPT-6 Luna would be cheaper for the

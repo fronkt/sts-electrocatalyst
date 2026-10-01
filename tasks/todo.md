@@ -1,5 +1,32 @@
 # STS 2027 — TODO
 
+## 2026-10-01 — Employer-approved OpenAI API continuation
+
+Scope: the entrant confirms 83 Sciences permits this research to use its OpenAI
+API allowance. Continue public-source evidence recovery only; this does not
+authorize institutional/proxy retrieval, Elsevier entitlement changes, policy
+adoption, population freeze or repeat screening of unchanged evidence.
+
+- [x] Check official authentication/search documentation and local credential presence without exposing secrets. No dedicated key connector, configured OpenAI environment variables, or standard project `.env` files found.
+- [x] Inspect the company platform session. Organization `83sciences`; only available project `electrolyte-supercapacitor-dev`; its API-key page shows zero results.
+- [x] Check whether the company account permits a separate project. Browser reconnected; organization settings explicitly require missing `organization.write`, and project settings require missing `project.write`. A separate project or project-setting changes need a company administrator.
+- [x] Confirm the existing `electrolyte-supercapacitor-dev` project, restricted key `electro-public-si`, and $1 ten-record pilot limit. Entrant says "Go ahead". Key creation verified Active with Oct 8 expiry, model-list Read and Responses Write; other capabilities, Files and Batch remain None. Secret handed to the local API runtime only in encrypted form; no plaintext key in chat, command arguments, or repository. Model-list request HTTP 200 confirms GPT-6 Luna access.
+- [x] Configure the approved credential securely, verify permitted model access, and prepare a resumable ten-record public-source pilot with application-level request/token/spend guards. Credential is runtime-only, not permanently installed; save-key browser dialog remains for the entrant's approved credential-manager backup. Exclusive ledger locking, before-request reservations, atomic ledger updates and no automatic ambiguous retries; 23 unit and 6 state-safety tests pass.
+- [x] Run route discovery; verify any recovered document identity and completeness; independently screen only new evidence with the approved lower-cost model. All 10 API responses completed; no verifiable new SI candidate or recovered document, so no new screening or scientific decision. Conservative estimate $0.22567585, below $1. S11392 has two completed tool events and one source-free `searching` event despite the requested two-call limit; strict verifier flags retained and further paid runs blocked. Not proof of an executed/billed third search.
+- [ ] Verify history preservation and checklist changes, then commit specific non-secret paths and push completed work.
+
+Review: company permission and the exact existing-project key/cost scope are
+confirmed. Separate project creation remains unavailable under this account.
+Restricted key creation, authentication and the ten-record pilot completed.
+No new SI recovery; no exclusion follows from unsuccessful search. The pilot
+retains a tool-event envelope anomaly, so the API control check is not an
+unqualified pass. All six baseline hashes remain unchanged after the byte-identical
+checklist rebuild. Eighteen scientific regression tests pass; completed-round and
+recovery verifiers have zero scientific errors. Current checklist 163 (70/38/48/7);
+current v5 171 ELIGIBLE, 106 NEEDS_SI, 116 UNRESOLVED. Cara's supplied reply is a
+pending Elsevier entitlement inquiry, not institutional-automation permission.
+Seven policy choices remain unadopted. No further paid runs are scheduled.
+
 ## 2026-10-01 — Public evidence recovery after the completed SI round
 
 Scope: continue arms A/B P-LIT with only newly recovered evidence. Preserve the
