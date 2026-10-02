@@ -14,14 +14,18 @@ No Purdue/Elsevier, paid discovery repeats, compute jobs or melt selection.
 - [x] Review the seven existing policy questions, evidence, recommendations and scientific impact. Frank explicitly approved the proposed seven choices, including revised S05004(a); no automatic eligibility follows.
 - [x] Apply approved case-specific consequences after independent focused review, and perform S26411's authorized coordinate identity check. Each of three blocks declares108 atoms but supplies53 coordinate rows; a fresh public download is byte-identical. Incomplete-coordinate gate refuses reconstruction/phase assignment. All seven policy-question flags close; five scientific evidence holds remain. S02708 first failure E6→E3; S05004 stays EXCLUDE:E6. Original assessments and v5 instructions preserved.
 - [x] Validate assessments and unchanged historical fields, rebuild the affected checklist, and verify exact change coverage with regression tests. Fresh56 tests pass without warnings; ten final rows and14 policy-source pins verify; both scientific verifiers have zero errors. Exactly11 canonical rows change; all2496 v3/v4/membership fields,118 immutable baseline files and109 historical raw outputs preserved. Checklist157→153 (66/34/47/6),17 D10; four forced eligible question IDs retained. Current174 ELIGIBLE/98 NEEDS_SI/117 UNRESOLVED.
-- [ ] Commit explicit non-secret paths, push, verify the remote SHA, and update project memory with outcomes and next steps.
+- [x] Commit explicit non-secret paths, push, verify the remote SHA, and update project memory with outcomes and next steps. Scientific checkpoint 2ceeaa5ec15bea4085490d863514cba9e502dd76 pushed on r0-catalysis-revival; exact local/remote SHA match. All83 explicit non-secret paths committed; tracked worktree clean after scientific push,21 unrelated DFT files hash-preserved.
 
 Review: independent read-only scientific/code clearance finds no defect. All143
 SI-PDF pages,173 structure-only trajectories and44 Word media items covered;
 DOCX layout and movie audio/full playback remain explicitly unreviewed. Missing
 layout/audio is not an E6 absence argument. No paid external API requests this
 phase; conservative tracked estimate remains $1.1105254/$50. No Purdue/Elsevier,
-DFT launch, inclusion freeze or melt selection. Commit/push verification pending.
+DFT launch, inclusion freeze or melt selection. Scientific commit/push verified
+as 2ceeaa5; source payloads and unrelated DFT files remain outside the commit.
+Next: distinct public-source missing-SI/version/date recovery and explicit
+facet/reference/complete-coordinate evidence for unresolved cases; no repeat of
+completed third reads or automatic compute/melt selection.
 
 ## 2026-10-01 — Next public-source screening batch
 
