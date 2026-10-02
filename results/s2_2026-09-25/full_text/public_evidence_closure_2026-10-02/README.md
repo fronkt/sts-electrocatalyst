@@ -71,3 +71,8 @@ distinct untried primary repositories/author clarification. Failed retrieval
 never excludes a paper. Do not repeat this batch's queries or the cached review
 PDFs/source workbook. No obligation to exhaust low-yield searches before asking
 Frank to choose a literature cutoff.
+
+Scientific checkpoint0595b6e5047d8843f7aece9c942107ed907dada9 pushed on
+r0-catalysis-revival; exact local/remote SHA match,24 explicit non-secret paths.
+Tracked worktree clean after scientific push;304 baseline pins and21 unrelated
+DFT files unchanged. Source payloads and credentials remain outside Git.

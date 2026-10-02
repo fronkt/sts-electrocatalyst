@@ -13,7 +13,7 @@ author email, inclusion freeze, new compute, or melt selection.
 - [x] Check a bounded, prioritized set of new public repository/SI/version/date routes against all previous attempts. Ten scoped repository/SI targets and three preprint/version targets; four exact attachment listings retained, no SI payload recovered. Four primary DOI relation checks succeed but show no authoritative pairwise version links. No completed Europe PMC batch repeated; Zenodo500/Wiley403 are access/service outcomes, not SI absence.
 - [x] Review only newly recovered scientific evidence with independent lower-tier assessments and focused adjudication; preserve initial disagreement. No genuinely new scientific evidence meets the read gate, so zero new blind reads/eligibility changes; GPT-6 Luna used for discovery. Do not count duplicate page inspection as independent reads.
 - [x] Validate excerpts, source identity/completeness, historical fields and exact change scope; rebuild current state/checklist only as supported. Fresh56 regressions pass; both scientific verifiers have zero errors. All304 baseline files and all2496 rows byte/structure-preserved; deterministic checklist remains153, tiers66/34/47/6,17 D10. All21 unrelated DFT files untouched.
-- [ ] Commit specific non-secret paths, push, verify remote SHA and update memory with outcomes, cost and the remaining evidence tasks.
+- [x] Commit specific non-secret paths, push, verify remote SHA and update memory with outcomes, cost and the remaining evidence tasks. Scientific checkpoint 0595b6e5047d8843f7aece9c942107ed907dada9 pushed on r0-catalysis-revival; exact remote SHA match,24 explicit non-secret paths. Tracked worktree clean after push; all304 baseline pins and21 unrelated DFT files preserved. Memory updated with no-new-SI outcomes, exact-file handoff and unchanged budget.
 
 Review: scientific verification passes with zero canonical changes. Three discovery
 workers used ordinary read-only shell checks instead of the required background
@@ -23,7 +23,7 @@ new paid external API calls; tracked estimate remains$1.1105254/$50. No Purdue,
 compute launch, inclusion freeze or melt selection. Independent read-only
 filesystem/crypto clearance finds no scientific/reconciliation defect; the
 receipt explicitly distinguishes duplicate inspection from zero new independent
-screening reads. Commit/push pending. Exact missing-file handoff retained for next
+screening reads. Scientific commit/push0595b6e verified. Exact-file handoff retained for next
 recovery; unresolved access/evidence is not exclusion.
 
 ## 2026-10-02 — Four mixed-format SI packages and seven policy choices
