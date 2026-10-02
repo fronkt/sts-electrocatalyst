@@ -1,0 +1,229 @@
+{
+  "reviewed_at": "2026-10-02T04:24:26.091Z",
+  "records": [
+    {
+      "row": {
+        "screen_id": "S09964",
+        "doi": "10.1039/d0sc01052a",
+        "text_ok": true,
+        "E1": {
+          "v": "YES",
+          "where": "main PDF p. 1, journal header",
+          "excerpt": "Chemical Science … EDGE ARTICLE"
+        },
+        "E2": {
+          "v": "YES",
+          "where": "main PDF p. 1",
+          "excerpt": "Open Access Article. Published on 03 June 2020."
+        },
+        "E3": {
+          "v": "YES",
+          "where": "main PDF p. 5, Results and discussion, Fig. 4 discussion",
+          "excerpt": "In order to investigate the effect of the surface hydroxylation on OER kinetics in the acidic solution, the water molecule dissociation process on the surface of TiO2 is simulated by DFT calculation"
+        },
+        "E4": {
+          "v": "YES",
+          "where": "main PDF p. 2, Fig. 1 discussion … main PDF p. 5, Fig. 4 caption",
+          "excerpt": "strongest peak corresponds to the (101) plane of rutile TiO2 (JCPDS 21-1276) … A slab model of the rutile TiO2 (110) surface with H2O adsorbed on Ti atoms"
+        },
+        "E5": {
+          "v": "YES",
+          "where": "main PDF p. 5, Fig. 4 caption",
+          "excerpt": "A slab model of the rutile TiO2 (110) surface with H2O adsorbed on Ti atoms"
+        },
+        "E6": {
+          "v": "NO",
+          "where": "main PDF p. 5, Fig. 4 discussion … SC-011-D0SC01052A-s001.pdf p. 4",
+          "excerpt": "there is an energy barrier height of about 0.153 eV … we only considered partial decomposition of water in this article"
+        },
+        "disposition": "EXCLUDE",
+        "exclude_criterion": "E6",
+        "form": "journal",
+        "eta_form": null,
+        "eta_derivation": null,
+        "eta_note": null,
+        "secondary": null,
+        "provenance": null,
+        "note": "DFT evaluates OER-related water dissociation on rutile TiO2(110), but reports only activation barriers for this partial step, not a CHE overpotential. Main PDF p. 5, Fig. 4 is the model/reaction-path figure for visual verification; no plotted values inferred."
+      },
+      "si_complete": true,
+      "independent_reads": [
+        "public_screening_next_2026-10-01/s09964_pass1.out.jsonl",
+        "public_screening_next_2026-10-01/s09964_pass2.out.jsonl"
+      ],
+      "source_metadata": "public_screening_next_2026-10-01/files/S09964/source_metadata.json",
+      "reason": "Complete main and 11-page SI show OER-related rutile TiO2(110) water dissociation, but only kinetic activation barriers, not a reported CHE overpotential. E6 exclusion now rests on complete evidence, not missing access.",
+      "review": "Two independent GPT-6 Luna full-source reads agree on all criteria/fields. Root inspected actual main Fig.4 on PDF p5 and SI identity/computational evidence; 0.153 eV labels a transition-state activation barrier. Exact-quote and page repairs do not change the verdict.",
+      "field_decisions": {}
+    },
+    {
+      "row": {
+        "screen_id": "S00475",
+        "doi": "10.1039/c5sc01251a",
+        "text_ok": true,
+        "E1": {
+          "v": "YES",
+          "where": "main PDF p. 1, title and EDGE ARTICLE header",
+          "excerpt": "An efficiently tuned d-orbital occupation of IrO2 by doping with Cu for enhancing the oxygen evolution reaction activity"
+        },
+        "E2": {
+          "v": "YES",
+          "where": "main PDF p. 1",
+          "excerpt": "Open Access Article. Published on 12 June 2015."
+        },
+        "E3": {
+          "v": "YES",
+          "where": "main PDF p. 5, Fig. 7a discussion … SC-006-C5SC01251A-s001.pdf p. 3, Computational Details",
+          "excerpt": "The binding free energies of all the reaction intermediates (HO*, O*, HOO*) involved in Fig. S9 are described in Fig. 7a … All first-principle calculations were performed using the density functional theory (DFT) methodology"
+        },
+        "E4": {
+          "v": "YES",
+          "where": "SC-006-C5SC01251A-s001.pdf p. 3, Computational Details",
+          "excerpt": "rutile IrO2 supercell was simulated for undoped IrO2"
+        },
+        "E5": {
+          "v": "YES",
+          "where": "SC-006-C5SC01251A-s001.pdf p. 3, Computational Details",
+          "excerpt": "The (001) surfaces were chosen as slab models for pure IrO2, Ir0.9Cu0.1Oδ, and Ir0.7Cu0.3Oδ, which were same as the common rutile (110) surfaces suggested by XRD results"
+        },
+        "E6": {
+          "v": "YES",
+          "where": "main PDF p. 6, Results and discussion … SC-006-C5SC01251A-s001.pdf p. 12, Fig. S11 caption",
+          "excerpt": "reached a lower theoretical overpotential (ηthe (x = 0.3) = 0.39 eV with ηthe (x = 0) = 0.51 eV) … the theoretical overpotential was defined as ηthe=ΔG3-1.229 (V)"
+        },
+        "disposition": "ELIGIBLE",
+        "exclude_criterion": null,
+        "form": "journal",
+        "eta_form": "numeric",
+        "eta_derivation": "direct",
+        "eta_note": "Authors report η = 0.39 eV (x=0.3) and 0.51 eV (x=0); main text links it to ΔG3−ΔG2, while SI defines η=ΔG3−1.229 V.",
+        "secondary": null,
+        "provenance": null,
+        "note": "The qualifying calculation is the rutile IrO2 model; SI says its (001) slab model is the common rutile (110) surface. Main PDF p. 5, Fig. 7a is the free-energy diagram for visual review; I did not infer plotted values."
+      },
+      "si_complete": true,
+      "independent_reads": [
+        "public_screening_next_2026-10-01/s00475_pass1.out.jsonl",
+        "public_screening_next_2026-10-01/s00475_pass2.out.jsonl"
+      ],
+      "source_metadata": "public_screening_next_2026-10-01/files/S00475/source_metadata.json",
+      "reason": "Complete 13-page SI establishes rutile IrO2 models and explicitly maps the described (001) slabs to common rutile (110) surfaces. Both readers find author-labeled numerical theoretical overpotentials. Apply existing v5 author-stated mapping and D12 rules; do not reconstruct a facet or correct author values.",
+      "review": "Two independent GPT-6 Luna full-source reads agree on eligibility and numeric/direct descriptors. Root inspected actual main Fig.7a on PDF p5, author numerical eta text p6, and SI pp3/12. The authors state the facet mapping; no geometric transformation is inferred. Author units and the main/SI definition inconsistency are retained, not recalculated or endorsed. The readers differ only on eta_note; the explicit field decision records the retained explanation. Mangled square-root extraction was removed from the evidence excerpt, not converted into a different supercell. The initial E1 header-only fragments failed the legacy minimum-length excerpt check; the exact primary article title now supplies the quotation, without an E1 verdict change. Initial reader1 output and failed verification are retained.",
+      "field_decisions": {
+        "eta_note": {
+          "value": "Authors report η = 0.39 eV (x=0.3) and 0.51 eV (x=0); main text links it to ΔG3−ΔG2, while SI defines η=ΔG3−1.229 V.",
+          "reason": "Retain the explicit author-unit/definition caveat rather than an empty note. Main theoretical-eta labels and SI Fig.S11 definition were visually checked; no corrected value is substituted."
+        }
+      }
+    },
+    {
+      "row": {
+        "screen_id": "S03669",
+        "doi": "10.1039/c6sc04622c",
+        "text_ok": true,
+        "E1": {
+          "v": "YES",
+          "where": "main PDF p. 1, journal header and article form",
+          "excerpt": "Chemical Science … EDGE ARTICLE"
+        },
+        "E2": {
+          "v": "YES",
+          "where": "main PDF p. 1",
+          "excerpt": "Open Access Article. Published on 01 December 2016."
+        },
+        "E3": {
+          "v": "YES",
+          "where": "main PDF p. 4, Results and discussion … main PDF p. 5, OER mechanism",
+          "excerpt": "to compute the potential at which OI− forms from surface OH groups … a similar mechanism with a ligand-centered oxidation prior to O–O bond formation applies to the OER over iridium oxides"
+        },
+        "E4": {
+          "v": "YES",
+          "where": "SC-008-C6SC04622C-s001.pdf p. 23, Calculation details",
+          "excerpt": "We investigated O- and OH-groups on the (110) and (100) surfaces of rutile-type IrO2"
+        },
+        "E5": {
+          "v": "YES",
+          "where": "SC-008-C6SC04622C-s001.pdf p. 23, Calculation details … main PDF p. 5, OER mechanism",
+          "excerpt": "We investigated O- and OH-groups on the (110) and (100) surfaces of rutile-type IrO2 … applies to the OER over iridium oxides"
+        },
+        "E6": {
+          "v": "NO",
+          "where": "main PDF p. 4, Results and discussion",
+          "excerpt": "to compute the potential at which OI− forms from surface OH groups … supports the hypothesis that OI− formation accounts for the ≈1.4 V oxidation signal observed experimentally"
+        },
+        "disposition": "EXCLUDE",
+        "exclude_criterion": "E6",
+        "form": "journal",
+        "eta_form": null,
+        "eta_derivation": null,
+        "eta_note": null,
+        "secondary": null,
+        "provenance": null,
+        "note": "DFT uses rutile-type IrO2(110)/(100); 1.2–1.3 V is an OH-to-OI redox potential, not an OER CHE overpotential."
+      },
+      "si_complete": true,
+      "independent_reads": [
+        "public_screening_next_2026-10-01/s03669_pass1.out.jsonl",
+        "public_screening_next_2026-10-01/s03669_pass2.out.jsonl"
+      ],
+      "source_metadata": "public_screening_next_2026-10-01/files/S03669/source_metadata.json",
+      "reason": "Complete main and 27-page SI establish a qualifying OER-related rutile IrO2(110) partial calculation but report only species-formation redox potentials, not a CHE OER overpotential. Full source review supports E6 exclusion.",
+      "review": "Two independent GPT-6 Luna complete-source reads agree on all criteria/fields. Root inspected main redox/OER context, SI p23 definitions/potentials and p24 Fig.S30; these are partial OH/O formation potentials, not the full-cycle limiting potential or an author-reported largest-step comparison. Quote locations were checked against actual PDF pages.",
+      "field_decisions": {}
+    },
+    {
+      "row": {
+        "screen_id": "S03699",
+        "doi": "10.1039/c6sc04378j",
+        "text_ok": true,
+        "E1": {
+          "v": "YES",
+          "where": "main PDF p. 1, journal header",
+          "excerpt": "Chemical Science … EDGE ARTICLE"
+        },
+        "E2": {
+          "v": "YES",
+          "where": "main PDF p. 2",
+          "excerpt": "Open Access Article. Published on 07 December 2016."
+        },
+        "E3": {
+          "v": "YES",
+          "where": "main PDF p. 1, Introduction … main PDF p. 2, Results and discussion",
+          "excerpt": "The first of the four one-electron oxidation steps is likely rate-limiting … the reaction starts by electron–proton transfer (EPT) from physisorbed water to the photohole"
+        },
+        "E4": {
+          "v": "UNCLEAR",
+          "where": "main PDF p. 2, Results and discussion … SI p. 2, Computational details",
+          "excerpt": "small hydrated (TiO2)4(OH)4 nanoparticles … The structures were obtained by adding water molecules to the previously published global minima structures for small TiO2 nanoparticles"
+        },
+        "E5": {
+          "v": "NO",
+          "where": "main PDF p. 2, Results and discussion … SI p. 2, Computational details",
+          "excerpt": "we simulated small hydrated (TiO2)4(OH)4 nanoparticles with two, four, eight or ten additional water molecules … The structures were obtained by adding water molecules to the previously published global minima structures for small TiO2 nanoparticles"
+        },
+        "E6": {
+          "v": "NOT_ASSESSED"
+        },
+        "disposition": "EXCLUDE",
+        "exclude_criterion": "E5",
+        "form": "journal",
+        "eta_form": null,
+        "eta_derivation": null,
+        "eta_note": null,
+        "secondary": null,
+        "provenance": null,
+        "note": "The computed objects are finite hydrated nanoparticle clusters, with no mapping to rutile (110). Main PDF p. 2, Fig. 1 is the particle-model figure for visual review; no plotted values inferred."
+      },
+      "si_complete": true,
+      "independent_reads": [
+        "public_screening_next_2026-10-01/s03699_pass1.out.jsonl",
+        "public_screening_next_2026-10-01/s03699_third.out.jsonl"
+      ],
+      "source_metadata": "public_screening_next_2026-10-01/files/S03699/source_metadata.json",
+      "reason": "Complete primary sources describe hydrated finite global-minimum nanoparticle models without a mapping to rutile(110). Phase is UNCLEAR, not NO merely because the models are finite. The first clear exclusion is E5 under existing D8; no scope extension or new policy.",
+      "review": "Three independent GPT-6 Luna full-source assessments retained. Reader2 initial E4 NO is not adopted: formula/finite size does not establish a non-rutile polymorph. Reader1 and the independent third reader agree on E4 UNCLEAR/E5 NO/E6 NOT_ASSESSED and first failure E5. Root inspected main pp1/2/3 and SI p2: Fig.1 is p2, not p3; nanoparticles are described without a facet mapping. The original dissenting assessment is retained unchanged; no entrant question or policy adoption. Reader2 quote-only repair uses the actual main abstract; the initial output including the failed excerpt is preserved in s03699_pass2_primary.out.jsonl. This is a corrected source quotation, not another independent assessment or a revised E4 verdict.",
+      "field_decisions": {}
+    }
+  ],
+  "scope": "Four complete PDF-only sources independently assessed under unchanged v5. Other four mixed inventories remain unchecked and unchanged; seven policy choices unadopted."
+}

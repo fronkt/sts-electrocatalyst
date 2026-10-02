@@ -1,5 +1,15 @@
 # Lessons (corrections log)
 
+## 2026-10-02 — Verify exact deciding evidence before the scientific rebuild
+
+Run both all-fragment validation and `reconcile.verified` on new rows before
+rebuilding state. For eligibility, each deciding criterion needs a usable long
+verbatim fragment; two short header labels are not enough for the legacy check.
+Use explicit PDF page markers, not a chunk index or combined XML/PDF position.
+Never turn missing square-root glyphs into integer supercell dimensions. Repair
+quotes/page labels separately from scientific verdicts, preserve initial dissent
+and failed checks, and adjudicate criterion differences even when dispositions agree.
+
 ## 2026-10-01 — Continue the unblocked public-source work
 
 The entrant directs continuation without Purdue/Elsevier access. A paused

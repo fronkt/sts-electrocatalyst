@@ -1,5 +1,27 @@
 # STS 2027 — TODO
 
+## 2026-10-01 — Next public-source screening batch
+
+Scope: continue the remaining public-only SI work under the existing $50 lifetime
+literature/API cap. Start with distinct free repository metadata routes; do not
+repeat completed reads or low-yield paid discovery. Seven entrant policy choices
+remain unadopted. No institutional access, inclusion freeze, or DFT spending.
+
+- [x] Verify the current worktree, prior recovery coverage and scientific baseline. HEAD 0983987; only this plan changes tracked files. Four canonical scientific hashes pinned; 21 unrelated DFT files untouched. Europe PMC selection excludes historical retrieval-log attempts, previous 30-query coverage, known S13316 package-only route, and duplicate DOIs.
+- [x] Check remaining exact-DOI Europe PMC routes and targeted independent public repository leads; retain identity/access outcomes separately from eligibility. 64 distinct metadata queries, 32 exact matches, eight PMC leads; all eight declared inventories downloaded with matching cloud MD5 checksums and exact XML/cloud DOI. Four PDF-only inventories ready for blind reads; four mixed/Word inventories await full-format review. Separate repository searches for eight targets retain missing SI and duplicate leads explicitly; no paid API requests.
+- [x] Independently assess only newly recovered complete main/SI evidence with GPT-6 Luna, if any; adjudicate disputed evidence under current rules. Nine assessments for four PDF-only cases: S00475 ELIGIBLE; S09964/S03669 EXCLUDE:E6; S03699 EXCLUDE:E5 after a third read, retaining E4 UNCLEAR and the original dissent. Explicit eta-note field choice; root checked actual decisive figures/pages. Four mixed-format inventories remain unassessed and unchanged.
+- [x] Verify preserved state/history and checklist contents; document batch outcomes and remaining work. 37 regression tests pass, eight cached inventories verify without network, all nine current rows pass both excerpt checks, both scientific verifiers have zero errors. Exact four-row change against 0983987; 119 historical pins and all 2,496 v3/v4 rows preserved. Checklist161→157, retained rows exact and four explicit eligible IDs retained. Current173 ELIGIBLE/102 NEEDS_SI/115 UNRESOLVED;17 D10 checks.
+- [ ] Commit specific non-secret paths and push the verified checkpoint.
+
+Review (2026-10-02): independent read-only clearance confirms selected criteria,
+fields, source identities/hashes and final clean verification reports. Initial
+fixture/quote failures halted progress before acceptance and remain available;
+repairs preserve scientific rulings and the original dissent. No additional paid
+API calls; tracked estimate remains $1.1105254/$50. Seven policies stay unadopted,
+and no DFT jobs were submitted. Source payloads and 21 unrelated DFT files stay
+outside the commit. Phase folder retains its local start date, 2026-10-01.
+
+
 ## 2026-10-01 — $50 public-literature continuation
 
 Scope: Frank authorizes continuation with a $50 total literature/API ceiling.
