@@ -12,10 +12,10 @@ discovery, publisher retrieval, author email, compute or melt selection.
 - [x] Run two independent GPT-6 Luna reads per ready package and focused third reads for criterion disagreements; preserve initial assessments. Twelve source assessments complete: eight initial, three focused third, one additional blind reference check. Original hashes and dissent retained; checked transcription copies are not additional reads.
 - [x] Validate source excerpts and deciding figures, apply only supported reconciliation changes, and rebuild current state/checklist. S11310/S23207 ELIGIBLE; S20440 EXCLUDE:E6; S21356 UNRESOLVED pending computational reference. One new question answered by existing D5. Checklist149, tiers63/33/47/6;176 ELIGIBLE/94 NEEDS_SI/118 UNRESOLVED.
 - [x] Run regression tests and both scientific verifiers; prove exact four-record change scope and historical/unrelated-file preservation. Fresh67 tests and both scientific verifiers/phase verifier pass, zero errors. Only four of2496 canonical rows change; all323 immutable historical pins,12 original assessments,8 Downloads files and21 unrelated DFT files preserved.
-- [ ] Commit specific non-secret paths, push, verify remote SHA and update memory with results, cost and remaining evidence needs.
+- [x] Commit specific non-secret paths, push, verify remote SHA and update memory with results, cost and remaining evidence needs. Scientific checkpoint6f0ee96aa7eed2e40ffe4841322ba01380569d9a pushed on r0-catalysis-revival, exact remote match;105 explicit non-secret paths. Tracked worktree clean after push, phase verifier passes again. Memory records the four outcomes, unchanged budget and remaining reference/evidence needs.
 
-Review: scientific verification and independent read-only clearance complete;
-commit/push pending. Frank confirms every listed attachment downloaded. DOCX text/table
+Review: scientific verification, independent read-only clearance and scientific
+commit/push complete. Frank confirms every listed attachment downloaded. DOCX text/table
 paragraphs and all41 figures reviewed; Word page-layout rendering is not claimed.
 No paid external API calls; tracked lifetime estimate remains$1.1105254/$50.
 

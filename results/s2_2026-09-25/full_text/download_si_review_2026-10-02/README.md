@@ -68,4 +68,8 @@ Purdue/Elsevier; compute, method coding, freeze and melt selection are separate.
 
 Final reports: `scientific_final/`. Independent read-only Node filesystem/crypto
 clearance finds no blocker and confirms source/pair/state/cache joins. The
-clearance does not count as another scientific read. Publication receipt is pending.
+clearance does not count as another scientific read. Scientific checkpoint
+`6f0ee96aa7eed2e40ffe4841322ba01380569d9a` is pushed on
+`r0-catalysis-revival`; the remote SHA exactly matches. All105 explicit paths
+exclude source payloads and unrelated DFT. Tracked worktree is clean after the
+scientific push, and the phase verifier passes again. See `commit_receipt.json`.
