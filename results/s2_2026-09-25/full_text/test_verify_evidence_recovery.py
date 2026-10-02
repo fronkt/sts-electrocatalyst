@@ -3,9 +3,12 @@ import unittest
 import json
 import pathlib
 import tempfile
+import hashlib
 from unittest.mock import patch
 
-from verify_evidence_recovery import row_errors, rebuilt_errors, checklist_errors, all_fragments_present, policy_rebuilt_errors
+from verify_evidence_recovery import (row_errors, rebuilt_errors, checklist_errors, all_fragments_present,
+                                     policy_rebuilt_errors, validate_recovery_evidence)
+from verify_si_round import recovery_validation
 
 
 class VerificationTests(unittest.TestCase):
@@ -18,6 +21,38 @@ class VerificationTests(unittest.TestCase):
                "secondary": None, "provenance": None, "note": "Model identified."}
         row.update({"E" + str(n): {"v": "YES", "where": "main", "excerpt": self.TEXT} for n in range(1, 7)})
         return {"row": row, "si_complete": True}
+
+    def write_recovery_fixture(self, root):
+        (root / "source").mkdir(parents=True)
+        (root / "reads").mkdir()
+        main = root / "source" / "main.txt"
+        si = root / "source" / "si.txt"
+        binary = root / "source" / "article.bin"
+        main.write_text(self.TEXT, encoding="utf-8")
+        si.write_text("Supplementary source text.", encoding="utf-8")
+        binary.write_bytes(b"pinned article source")
+        entry = self.ruling()
+        entry["row"]["screen_id"] = "TEST"
+        entry["source"] = "downloaded SI review 2026-10-02: independent reads reviewed"
+        entry["independent_reads"] = ["reads/pass1.out.jsonl", "reads/pass2.out.jsonl"]
+        entry["source_metadata"] = "source/metadata.json"
+        entry["field_decisions"] = {}
+        for n in (1, 2):
+            (root / "reads" / f"pass{n}.in.jsonl").write_text(json.dumps({
+                "screen_id": "TEST", "doi": entry["row"]["doi"], "text": "source/main.txt",
+                "si_text": "source/si.txt", "si_complete": True,
+            }) + "\n", encoding="utf-8")
+            (root / "reads" / f"pass{n}.out.jsonl").write_text(json.dumps(entry["row"]) + "\n", encoding="utf-8")
+        pinned = [main, si, binary]
+        metadata = {
+            "doi": entry["row"]["doi"],
+            "files": [{"file": p.relative_to(root).as_posix(), "sha256": hashlib.sha256(p.read_bytes()).hexdigest()}
+                      for p in pinned],
+            "text": "source/main.txt",
+            "text_sha256": hashlib.sha256(main.read_bytes()).hexdigest(),
+        }
+        (root / "source" / "metadata.json").write_text(json.dumps(metadata), encoding="utf-8")
+        return entry
 
     def test_valid_schema_and_all_criteria_excerpts(self):
         entry = self.ruling()
@@ -68,6 +103,83 @@ class VerificationTests(unittest.TestCase):
         row["v5_eta_derivation"] = "equivalent"
         row["v5_final"] = "UNRESOLVED"
         self.assertTrue(rebuilt_errors(row, entry, {}, {}))
+
+    def test_rebuilt_errors_uses_entry_source_and_historical_fallback(self):
+        entry = self.ruling()
+        row = {"doi": entry["row"]["doi"], "v5_decision": "ELIGIBLE", "v5_final": "ELIGIBLE",
+               "si_read": "recovery reviewed", "v5_question": "False", "v5_step": "",
+               "v5_source": "downloaded SI review 2026-10-02: independent reads reviewed"}
+        for key in ("form", "eta_form", "eta_derivation", "eta_note", "secondary", "provenance"):
+            row["v5_" + key] = entry["row"][key] or ""
+        entry["source"] = row["v5_source"]
+        self.assertEqual(rebuilt_errors(row, entry, {}, {}), [])
+        entry.pop("source")
+        row["v5_source"] = "public evidence recovery 2026-10-01: independent reads reviewed"
+        self.assertEqual(rebuilt_errors(row, entry, {}, {}), [])
+
+    def test_shared_recovery_validation_rejects_tampered_source_and_assessment(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = pathlib.Path(temp)
+            entry = self.write_recovery_fixture(root)
+            recoveries = {"TEST": entry}
+            with patch("verify_evidence_recovery.HERE", root), \
+                    patch("verify_evidence_recovery.evidence_path", lambda name: root / name), \
+                    patch("verify_evidence_recovery.check", return_value=[]), \
+                    patch("verify_evidence_recovery.verified", return_value=True):
+                errors, _, reads = validate_recovery_evidence(recoveries)
+                self.assertEqual(errors, [])
+                self.assertEqual(reads, 2)
+                (root / "source" / "article.bin").write_bytes(b"changed source")
+                errors, _, _ = validate_recovery_evidence(recoveries)
+                self.assertTrue(any("recovered file hash mismatch" in str(e) for e in errors))
+                (root / "source" / "article.bin").write_bytes(b"pinned article source")
+                output = root / "reads" / "pass2.out.jsonl"
+                damaged = entry["row"] | {"E3": {"v": "YES", "where": "main", "excerpt": "fabricated evidence"}}
+                output.write_text(json.dumps(damaged) + "\n", encoding="utf-8")
+                errors, _, _ = validate_recovery_evidence(recoveries)
+                self.assertTrue(any("E3: excerpt not present in source" in str(e) for e in errors))
+
+    def test_si_round_shared_validation_rejects_tampered_current_state(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = pathlib.Path(temp)
+            entry = self.write_recovery_fixture(root)
+            ruling = entry["row"]
+            row = {"screen_id": "TEST", "doi": ruling["doi"], "v5_decision": "ELIGIBLE",
+                   "v5_final": "ELIGIBLE", "v5_source": entry["source"], "v5_step": "",
+                   "si_read": "recovery reviewed", "v5_question": "False"}
+            for key in ("form", "eta_form", "eta_derivation", "eta_note", "secondary", "provenance"):
+                row["v5_" + key] = ruling[key] or ""
+            with patch("verify_evidence_recovery.HERE", root), \
+                    patch("verify_evidence_recovery.evidence_path", lambda name: root / name), \
+                    patch("verify_evidence_recovery.check", return_value=[]), \
+                    patch("verify_evidence_recovery.verified", return_value=True):
+                errors, _, reads = recovery_validation([row], {"TEST": entry}, {}, {})
+                self.assertEqual(errors, [])
+                self.assertEqual(reads, 2)
+                row["v5_eta_derivation"] = "scaling"
+                errors, _, _ = recovery_validation([row], {"TEST": entry}, {}, {})
+                self.assertTrue(any("rebuilt state differs" in str(e) for e in errors))
+
+    def test_explicit_si_metadata_rejects_unpinned_read_paths(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = pathlib.Path(temp)
+            entry = self.write_recovery_fixture(root)
+            metadata_path = root / "source" / "metadata.json"
+            metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+            metadata.update(si_text="source/si.txt", si_text_sha256=hashlib.sha256((root / "source" / "si.txt").read_bytes()).hexdigest())
+            metadata_path.write_text(json.dumps(metadata), encoding="utf-8")
+            with patch("verify_evidence_recovery.HERE", root), \
+                    patch("verify_evidence_recovery.evidence_path", lambda name: root / name), \
+                    patch("verify_evidence_recovery.check", return_value=[]), \
+                    patch("verify_evidence_recovery.verified", return_value=True):
+                self.assertEqual(validate_recovery_evidence({"TEST": entry})[0], [])
+                alternate = root / "source" / "unpinned.txt"
+                alternate.write_text("Supplementary source text.", encoding="utf-8")
+                input_path = root / "reads" / "pass2.in.jsonl"
+                inp = json.loads(input_path.read_text(encoding="utf-8"))
+                inp["si_text"] = "source/unpinned.txt"
+                input_path.write_text(json.dumps(inp) + "\n", encoding="utf-8")
+                self.assertTrue(any("read paths differ" in str(e) for e in validate_recovery_evidence({"TEST": entry})[0]))
 
     def test_checklist_content_and_duplicates_not_only_ids(self):
         previous = [{"screen_id": "TEST", "doi": "10.test/paper"}]

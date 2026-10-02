@@ -34,6 +34,23 @@ def sensitivity(rows):
     return [{k: r[k] for k in ("screen_id", "v3_decision", "v3_final", "v4_decision", "v4_final")} for r in rows]
 
 
+def recovery_validation(st, recoveries, dates, versions):
+    """Check shared recovery evidence and its exact current-state projection."""
+    from verify_evidence_recovery import rebuilt_errors, validate_recovery_evidence
+
+    errors, hashes, reads = validate_recovery_evidence(recoveries)
+    by_id = {}
+    for row in st:
+        by_id.setdefault(row["screen_id"], []).append(row)
+    for sid, ruling in recoveries.items():
+        rows = by_id.get(sid, [])
+        if len(rows) != 1:
+            errors.append([sid, "reviewed recovery must occur exactly once in current state"])
+        else:
+            errors.extend([sid, error] for error in rebuilt_errors(rows[0], ruling, dates, versions))
+    return errors, hashes, reads
+
+
 def main(snapshot=False, require_audits=False):
     st = state()
     if snapshot:
@@ -43,6 +60,12 @@ def main(snapshot=False, require_audits=False):
         print("Sensitivity baseline:", len(st), "records")
         return
     errors, seen, counts, inputs = [], {}, {}, {}
+    from recovery_state import recovery_decisions
+    recoveries = recovery_decisions()
+    dates = {r["screen_id"]: r for r in csv.DictReader((HERE / "reconcile" / "date_check.csv").open(encoding="utf-8"))}
+    versions = {r["screen_id"]: r for r in csv.DictReader((HERE / "reconcile" / "version_groups.csv").open(encoding="utf-8"))}
+    recovery_errors, recovery_hashes, recovery_reads = recovery_validation(st, recoveries, dates, versions)
+    errors.extend(recovery_errors)
     for name in ("pass_1", "pass_2", "third"):
         d = HERE / "si_read" / name
         plan = json.loads((d / "plan.json").read_text(encoding="utf-8"))
@@ -154,11 +177,14 @@ def main(snapshot=False, require_audits=False):
                   verification_targets=len(target_ids), verified_target_records=len(target_ids & audited),
                   missing_verification=missing_audits,
                   adjudicated_records=len(adjudications), unadjudicated_objections=unadjudicated,
+                  reviewed_recoveries=len(recoveries), recovery_independent_reads=recovery_reads,
+                  recovery_source_hashes=recovery_hashes,
                   audit_rows=len(audit_rows), audit_review_modes=dict(Counter(r.get("review_mode", "not recorded in saved pre-cost-control audit") for r in audit_rows)),
                   verification_files={p.name: digest(p) for p in audit_files},
                   source_hashes=evidence, errors=errors)
     AUDIT.write_text(json.dumps(report, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(json.dumps({k: v for k, v in report.items() if k not in ("source_hashes", "changed_records")}, indent=1))
+    print(json.dumps({k: v for k, v in report.items()
+                      if k not in ("source_hashes", "recovery_source_hashes", "changed_records")}, indent=1))
     if errors:
         raise SystemExit(1)
 

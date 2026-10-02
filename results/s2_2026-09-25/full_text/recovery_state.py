@@ -12,6 +12,8 @@ FOLLOWUP_RULINGS = HERE / "public_followup_2026-10-01" / "reviewed_decisions.jso
 CONTINUATION_RULINGS = HERE / "openai_public_si_continuation_2026-10-01" / "reviewed_decisions.json"
 NEXT_PUBLIC_RULINGS = HERE / "public_screening_next_2026-10-01" / "reviewed_decisions.json"
 MIXED_SI_RULINGS = HERE / "mixed_si_review_2026-10-02" / "reviewed_decisions.json"
+DOWNLOAD_SI_RULINGS = HERE / "download_si_review_2026-10-02" / "reviewed_decisions.json"
+DEFAULT_RECOVERY_SOURCE = "public evidence recovery 2026-10-01: independent reads reviewed"
 READ_FIELDS = ("form", "eta_form", "eta_derivation", "eta_note", "secondary", "provenance")
 
 
@@ -66,7 +68,8 @@ def independent_rows(entry):
 
 def recovery_decisions():
     entries = []
-    for path in (RULINGS, FOLLOWUP_RULINGS, CONTINUATION_RULINGS, NEXT_PUBLIC_RULINGS, MIXED_SI_RULINGS):
+    for path in (RULINGS, FOLLOWUP_RULINGS, CONTINUATION_RULINGS, NEXT_PUBLIC_RULINGS,
+                 MIXED_SI_RULINGS, DOWNLOAD_SI_RULINGS):
         if path.exists():
             entries.extend(json.loads(path.read_text(encoding="utf-8"))["records"])
     result = {}
@@ -77,6 +80,8 @@ def recovery_decisions():
         reads = entry.get("independent_reads", [])
         if not entry.get("reason") or not entry.get("review") or len(set(reads)) < 2:
             raise ValueError("Unreviewed recovery decision: " + sid)
+        if "source" in entry and (not isinstance(entry["source"], str) or not entry["source"].strip()):
+            raise ValueError("Invalid recovery source label: " + sid)
         if entry["row"].get("text_ok") is not True:
             raise ValueError("Recovery must have usable reviewed text: " + sid)
         row = entry["row"]

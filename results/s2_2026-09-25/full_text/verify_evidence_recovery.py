@@ -10,7 +10,7 @@ from collections import Counter
 
 from ft_screen import check
 from reconcile import verified
-from recovery_state import recovery_decisions, validate_fields, evidence_path
+from recovery_state import recovery_decisions, validate_fields, evidence_path, DEFAULT_RECOVERY_SOURCE
 from current_state import label, final, member, V5_FIELDS
 
 HERE = pathlib.Path(__file__).resolve().parent
@@ -95,13 +95,86 @@ def rebuilt_errors(row, ruling, dates, versions):
     pdate = pd.get("first_publication", "") if pd.get("flag") in ("", "OUTSIDE_WINDOW") else ""
     if not pd:
         pdate = vg.get("primary_date", "")
-    source = "public evidence recovery 2026-10-01: independent reads reviewed"
+    source = ruling.get("source", DEFAULT_RECOVERY_SOURCE)
     membership, step = member(vg, f, step, source, [chosen["form"]], pdate)
     expected = {"doi": chosen["doi"], "v5_decision": label(chosen), "v5_final": membership,
                 "v5_source": source, "v5_step": step,
                 "si_read": "recovery reviewed", "v5_question": str(bool(chosen.get("entrant_question")))}
     expected.update({"v5_" + k: str(chosen[k]) if chosen[k] is not None else "" for k in V5_FIELDS})
     return [k + ": rebuilt state differs from reviewed ruling" for k, value in expected.items() if row.get(k) != value]
+
+
+def validate_recovery_evidence(recoveries):
+    """Validate the pinned sources and both independent reads for every recovery layer."""
+    errors, hashes, reads = [], {}, 0
+    for sid, ruling in recoveries.items():
+        chosen = ruling["row"]
+        meta_path = evidence_path(ruling.get("source_metadata", "evidence_recovery_2026-10-01/" + sid.lower() + "_recovery.json"))
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        hashes[meta_path.relative_to(HERE).as_posix()] = sha(meta_path)
+        sources = meta.get("files", [meta])
+        for source in sources:
+            source_path = evidence_path(source["file"])
+            if sha(source_path) != source["sha256"]:
+                errors.append([sid, "recovered file hash mismatch"])
+            hashes[source_path.relative_to(HERE).as_posix()] = sha(source_path)
+        text_path = evidence_path(meta["text"])
+        if sha(text_path) != meta["text_sha256"]:
+            errors.append([sid, "recovered text hash mismatch"])
+        hashes[text_path.relative_to(HERE).as_posix()] = sha(text_path)
+        if "si_text" in meta:
+            si_path = evidence_path(meta["si_text"])
+            if sha(si_path) != meta.get("si_text_sha256"):
+                errors.append([sid, "recovered SI text hash mismatch"])
+            hashes[si_path.relative_to(HERE).as_posix()] = sha(si_path)
+        if sid == "S01741":
+            for key, pathkey in (("prior_wrong_file_sha256", "prior_wrong_file"),):
+                if sha(evidence_path(meta[pathkey])) != meta[key]:
+                    errors.append([sid, "prior wrong file not preserved"])
+            if sha(HERE / "text" / "S01741.txt") != meta["prior_wrong_text_sha256"]:
+                errors.append([sid, "prior wrong text not preserved"])
+        signatures, read_rows = [], []
+        input_rows = []
+        for outpath in ruling["independent_reads"]:
+            output = evidence_path(outpath)
+            inp = evidence_path(pathlib.Path(str(output).replace(".out.", ".in.")))
+            errors.extend([sid, e] for e in check(inp, output))
+            input_row = json.loads(inp.read_text(encoding="utf-8"))
+            row = json.loads(output.read_text(encoding="utf-8"))
+            if "si_text" in meta and any(evidence_path(input_row[field]) != evidence_path(meta[field])
+                                         for field in ("text", "si_text")):
+                errors.append([sid, "read paths differ from pinned source metadata"])
+            if (input_row.get("screen_id") != sid or row.get("screen_id") != sid
+                    or input_row.get("doi") != meta["doi"] or row.get("doi") != meta["doi"]
+                    or input_row["si_complete"] != ruling["si_complete"]):
+                errors.append([sid, "input identity/completeness mismatch"])
+            text = evidence_path(input_row["text"]).read_text(encoding="utf-8") + "\n" + evidence_path(input_row["si_text"]).read_text(encoding="utf-8")
+            errors.extend([sid, outpath, e] for e in row_errors(row, text, ruling["si_complete"]))
+            if not verified(row, text):
+                errors.append([sid, "deciding excerpt not present in source"])
+            for c in CRIT:
+                if row[c]["v"] not in ("YES", "NO", "UNCLEAR", "NOT_ASSESSED"):
+                    errors.append([sid, c, "invalid criterion"])
+            if row["E6"]["v"] != "YES" and any(row.get(k) is not None for k in ("eta_form", "eta_derivation", "eta_note")):
+                errors.append([sid, "non-YES E6 carries eta fields"])
+            signatures.append(tuple(row[c]["v"] for c in CRIT) + (row["disposition"], row.get("exclude_criterion")))
+            read_rows.append(row)
+            input_rows.append(input_row)
+            hashes[outpath] = sha(output)
+            hashes[inp.relative_to(HERE).as_posix()] = sha(inp)
+            hashes[input_row["text"]] = sha(evidence_path(input_row["text"]))
+            hashes[input_row["si_text"]] = sha(evidence_path(input_row["si_text"]))
+            reads += 1
+        expected = tuple(chosen[c]["v"] for c in CRIT) + (chosen["disposition"], chosen.get("exclude_criterion"))
+        if len(set(signatures)) != 1 or not signatures or signatures[0] != expected:
+            errors.append([sid, "independent reads disagree or ruling mismatch; third read required"])
+        errors.extend([sid, error] for error in validate_fields(ruling, read_rows))
+        if input_rows:
+            chosen_text = evidence_path(input_rows[-1]["text"]).read_text(encoding="utf-8") + "\n" + evidence_path(input_rows[-1]["si_text"]).read_text(encoding="utf-8")
+            errors.extend([sid, e] for e in row_errors(chosen, chosen_text, ruling["si_complete"]))
+            if not verified(chosen, chosen_text):
+                errors.append([sid, "reviewed deciding excerpts not present"])
+    return errors, hashes, reads
 
 
 def checklist_errors(checklist, previous, recoveries):
@@ -192,56 +265,8 @@ def main(baseline_dir=D, output_dir=D):
             errors.extend([row["screen_id"], error] for error in rebuilt_errors(row, recoveries[row["screen_id"]], dates, versions))
         if row["screen_id"] in policies:
             errors.extend([row["screen_id"], error] for error in policy_rebuilt_errors(row, policies[row["screen_id"]], dates, versions))
-    hashes, reads = {}, 0
-    for sid, ruling in recoveries.items():
-        chosen = ruling["row"]
-        meta_path = evidence_path(ruling.get("source_metadata", "evidence_recovery_2026-10-01/" + sid.lower() + "_recovery.json"))
-        meta = json.loads(meta_path.read_text(encoding="utf-8"))
-        sources = meta.get("files", [meta])
-        for source in sources:
-            if sha(evidence_path(source["file"])) != source["sha256"]:
-                errors.append([sid, "recovered file hash mismatch"])
-        if sha(evidence_path(meta["text"])) != meta["text_sha256"]:
-            errors.append([sid, "recovered text hash mismatch"])
-        if sid == "S01741":
-            for key, pathkey in (("prior_wrong_file_sha256", "prior_wrong_file"),):
-                if sha(evidence_path(meta[pathkey])) != meta[key]:
-                    errors.append([sid, "prior wrong file not preserved"])
-            if sha(HERE / "text" / "S01741.txt") != meta["prior_wrong_text_sha256"]:
-                errors.append([sid, "prior wrong text not preserved"])
-        signatures, read_rows = [], []
-        for outpath in ruling["independent_reads"]:
-            output = evidence_path(outpath)
-            inp = evidence_path(pathlib.Path(str(output).replace(".out.", ".in.")))
-            errors.extend([sid, e] for e in check(inp, output))
-            input_row = json.loads(inp.read_text(encoding="utf-8"))
-            row = json.loads(output.read_text(encoding="utf-8"))
-            if input_row["si_complete"] != ruling["si_complete"] or row["doi"] != meta["doi"]:
-                errors.append([sid, "input identity/completeness mismatch"])
-            text = evidence_path(input_row["text"]).read_text(encoding="utf-8") + "\n" + evidence_path(input_row["si_text"]).read_text(encoding="utf-8")
-            errors.extend([sid, outpath, e] for e in row_errors(row, text, ruling["si_complete"]))
-            if not verified(row, text):
-                errors.append([sid, "deciding excerpt not present in source"])
-            for c in CRIT:
-                if row[c]["v"] not in ("YES", "NO", "UNCLEAR", "NOT_ASSESSED"):
-                    errors.append([sid, c, "invalid criterion"])
-            if row["E6"]["v"] != "YES" and any(row.get(k) is not None for k in ("eta_form", "eta_derivation", "eta_note")):
-                errors.append([sid, "non-YES E6 carries eta fields"])
-            signatures.append(tuple(row[c]["v"] for c in CRIT) + (row["disposition"], row.get("exclude_criterion")))
-            read_rows.append(row)
-            hashes[outpath] = sha(output)
-            hashes[inp.relative_to(HERE).as_posix()] = sha(inp)
-            hashes[input_row["text"]] = sha(evidence_path(input_row["text"]))
-            hashes[input_row["si_text"]] = sha(evidence_path(input_row["si_text"]))
-            reads += 1
-        expected = tuple(chosen[c]["v"] for c in CRIT) + (chosen["disposition"], chosen.get("exclude_criterion"))
-        if len(set(signatures)) != 1 or signatures[0] != expected:
-            errors.append([sid, "independent reads disagree or ruling mismatch; third read required"])
-        errors.extend([sid, error] for error in validate_fields(ruling, read_rows))
-        chosen_text = evidence_path(input_row["text"]).read_text(encoding="utf-8") + "\n" + evidence_path(input_row["si_text"]).read_text(encoding="utf-8")
-        errors.extend([sid, e] for e in row_errors(chosen, chosen_text, ruling["si_complete"]))
-        if not verified(chosen, chosen_text):
-            errors.append([sid, "reviewed deciding excerpts not present"])
+    evidence_errors, hashes, reads = validate_recovery_evidence(recoveries)
+    errors.extend(evidence_errors)
     checklist = list(csv.DictReader((HERE / "si_checklist.csv").open(encoding="utf-8")))
     errors.extend(checklist_errors(checklist, baseline["checklist"], recoveries))
     for name in ("rsc_nature_routes.json", "wiley_routes.json", "acs_routes.json"):

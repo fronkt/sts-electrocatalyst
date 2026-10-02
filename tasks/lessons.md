@@ -1,5 +1,15 @@
 # Lessons (corrections log)
 
+## 2026-10-02 — Freeze reader originals before evidence-transcription fixes
+
+Once a reader output is hash-pinned, every quote or page-location correction
+belongs in a separately named checked copy. Do not edit even a rejected original
+while another reviewer is validating it. Confirm all readers have finished their
+original output before pinning, and recheck the pins at final clearance. If a late
+edit slips through, retain the intermediate contents and restore the original
+only from a captured candidate whose complete byte hash matches the prior receipt;
+never silently refresh the receipt. Checked copies are not additional reads.
+
 ## 2026-10-02 — Deduplicate exact attachments before calling a route new
 
 Match public attachment basenames/file IDs against si_texts.csv and text_si file

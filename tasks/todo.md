@@ -1,5 +1,24 @@
 # STS 2027 — TODO
 
+## 2026-10-02 — Four user-downloaded Wiley SI packages
+
+Scope: continue S11310, S20440, S21356 and S23207 from the four main
+articles and exact SI attachments in Downloads. Preserve the existing v5
+rules, completed reads and $50 lifetime literature/API ledger. No paid
+discovery, publisher retrieval, author email, compute or melt selection.
+
+- [x] Pin the 3e010d6 checkpoint, scientific state/history and unrelated DFT files; verify source identity, hashes and declared attachment coverage. Four DOI/main/SI identities match; entrant confirms every listed attachment downloaded. Baseline and 21 unrelated DFT files pinned; fresh 56 tests pass.
+- [x] Inspect all three SI PDFs and the DOCX text, equations and embedded figures without changing Downloads; retain any rendering/completeness limitations. Root and readers inspect all 48 SI-PDF pages and 41 DOCX images, including 22 TIFF conversions; all 43 main pages available. No OMML/legacy objects/embedded attachments; Word page layout not rendered.
+- [x] Run two independent GPT-6 Luna reads per ready package and focused third reads for criterion disagreements; preserve initial assessments. Twelve source assessments complete: eight initial, three focused third, one additional blind reference check. Original hashes and dissent retained; checked transcription copies are not additional reads.
+- [x] Validate source excerpts and deciding figures, apply only supported reconciliation changes, and rebuild current state/checklist. S11310/S23207 ELIGIBLE; S20440 EXCLUDE:E6; S21356 UNRESOLVED pending computational reference. One new question answered by existing D5. Checklist149, tiers63/33/47/6;176 ELIGIBLE/94 NEEDS_SI/118 UNRESOLVED.
+- [x] Run regression tests and both scientific verifiers; prove exact four-record change scope and historical/unrelated-file preservation. Fresh67 tests and both scientific verifiers/phase verifier pass, zero errors. Only four of2496 canonical rows change; all323 immutable historical pins,12 original assessments,8 Downloads files and21 unrelated DFT files preserved.
+- [ ] Commit specific non-secret paths, push, verify remote SHA and update memory with results, cost and remaining evidence needs.
+
+Review: scientific verification and independent read-only clearance complete;
+commit/push pending. Frank confirms every listed attachment downloaded. DOCX text/table
+paragraphs and all41 figures reviewed; Word page-layout rendering is not claimed.
+No paid external API calls; tracked lifetime estimate remains$1.1105254/$50.
+
 ## 2026-10-02 — Targeted evidence holds and distinct public SI recovery
 
 Scope: Frank requests steps 1–3: close targeted evidence holds where new primary

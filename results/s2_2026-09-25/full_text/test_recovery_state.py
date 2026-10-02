@@ -9,6 +9,11 @@ import recovery_state
 
 
 class RecoveryTests(unittest.TestCase):
+    def setUp(self):
+        patcher = patch.object(recovery_state, "DOWNLOAD_SI_RULINGS", pathlib.Path("missing-download-review.json"))
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
     def entry(self):
         row = {"screen_id": "TEST", "text_ok": True, "disposition": "ELIGIBLE", "form": "journal",
                "eta_form": "numeric", "eta_derivation": "direct", "eta_note": None,
@@ -83,6 +88,36 @@ class RecoveryTests(unittest.TestCase):
                 mixed.write_text(json.dumps({"records": [first]}), encoding="utf-8")
                 with self.assertRaises(ValueError):
                     recovery_state.recovery_decisions()
+
+    def test_download_si_layer_is_additive_and_rejects_cross_layer_duplicates(self):
+        with tempfile.TemporaryDirectory() as temp:
+            old = pathlib.Path(temp) / "old.json"
+            downloads = pathlib.Path(temp) / "downloads.json"
+            first, second = self.entry(), self.entry()
+            first["row"]["screen_id"] = "OLD"
+            second["row"]["screen_id"] = "DOWNLOAD"
+            second["source"] = "downloaded SI review 2026-10-02: independent reads reviewed"
+            old.write_text(json.dumps({"records": [first]}), encoding="utf-8")
+            downloads.write_text(json.dumps({"records": [second]}), encoding="utf-8")
+            with patch.object(recovery_state, "RULINGS", old), \
+                    patch.object(recovery_state, "FOLLOWUP_RULINGS", pathlib.Path(temp) / "missing2"), \
+                    patch.object(recovery_state, "CONTINUATION_RULINGS", pathlib.Path(temp) / "missing3"), \
+                    patch.object(recovery_state, "NEXT_PUBLIC_RULINGS", pathlib.Path(temp) / "missing4"), \
+                    patch.object(recovery_state, "MIXED_SI_RULINGS", pathlib.Path(temp) / "missing5"), \
+                    patch.object(recovery_state, "DOWNLOAD_SI_RULINGS", downloads), \
+                    patch.object(recovery_state, "independent_rows", side_effect=lambda e: [dict(e["row"]), dict(e["row"])]):
+                self.assertEqual(set(recovery_state.recovery_decisions()), {"OLD", "DOWNLOAD"})
+                downloads.write_text(json.dumps({"records": [first]}), encoding="utf-8")
+                with self.assertRaises(ValueError):
+                    recovery_state.recovery_decisions()
+
+    def test_optional_source_label_must_be_nonempty(self):
+        entry = self.entry()
+        entry["source"] = "downloaded SI review 2026-10-02"
+        self.assertEqual(self.load([entry])["TEST"]["source"], entry["source"])
+        entry["source"] = " "
+        with self.assertRaises(ValueError):
+            self.load([entry])
 
     def test_alias_reads_and_outside_paths_are_rejected(self):
         with tempfile.TemporaryDirectory() as temp:

@@ -67,6 +67,7 @@ import re
 from date_check import span
 from reconcile import rows
 from policy_reconciliation import merge_adjudications, policy_adjudications as load_policy_adjudications
+from recovery_state import DEFAULT_RECOVERY_SOURCE
 from v5_read import V5_FROM
 
 HERE = pathlib.Path(__file__).resolve().parent
@@ -307,7 +308,7 @@ def main():
             r5 = dict(recovered["row"])
             rs5 = [r5]
             d5 = label(r5)
-            s5 = "public evidence recovery 2026-10-01: independent reads reviewed"
+            s5 = recovered.get("source", DEFAULT_RECOVERY_SOURCE)
             si_state, whole = "recovery reviewed", recovered["si_complete"]
             fields = {k: agreed(rs5, k) for k in V5_FIELDS}
         f5, step5 = final(sid, d5, r5, dates, whole)
