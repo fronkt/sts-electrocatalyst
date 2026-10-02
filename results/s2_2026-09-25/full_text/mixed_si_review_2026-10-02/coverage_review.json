@@ -1,0 +1,89 @@
+{
+  "scope": "Four recovered public SI inventories under unchanged v5; scientific-document completeness is distinct from full-media playback or DOCX layout rendering.",
+  "model": "GPT-6 Luna",
+  "readers": [
+    "mixed_si_pass1",
+    "mixed_si_pass2"
+  ],
+  "original_inventory_status": "AWAITING_HUMAN_FORMAT_REVIEW retained unchanged as preparation history",
+  "records": [
+    {
+      "screen_id": "S12208",
+      "main_text_full": true,
+      "root_main_pdf_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "si_pdf_pages": 60,
+      "independent_si_contact_sheets_each": 7,
+      "trajectory_files": 173,
+      "parsed_frames": 173,
+      "all_trajectory_info_empty": true,
+      "all_trajectory_calculator_results_absent": true,
+      "reconstruction_performed": false,
+      "si_complete_for_eligibility": true
+    },
+    {
+      "screen_id": "R0003",
+      "main_text_full": true,
+      "si_pdf_pages": 27,
+      "independent_si_contact_sheets_each": 3,
+      "movies": 1,
+      "sampled_frames_per_movie": 12,
+      "audio_transcribed": false,
+      "entire_movie_review": false,
+      "movie_caption_scope": "Experimental AA-battery water splitting, not computational OER evidence",
+      "absence_exclusion_relies_on_movie": false,
+      "si_complete_for_eligibility": true,
+      "verified_visual_transcription": {
+        "source": "R0003_main.pdf",
+        "page": 8,
+        "figure": "4d",
+        "panel": "rutile IrO2 comparison at pH=0",
+        "label": "η=0.58 V"
+      }
+    },
+    {
+      "screen_id": "S24821",
+      "main_text_full": true,
+      "si_pdf_pages": 56,
+      "independent_si_contact_sheets_each": 7,
+      "movies": 2,
+      "sampled_frames_per_movie": 12,
+      "audio_transcribed": false,
+      "entire_movie_review": false,
+      "movie_caption_scope": "Experimental battery/solar-cell water splitting, not computational OER evidence",
+      "absence_exclusion_relies_on_movie": false,
+      "si_complete_for_eligibility": true
+    },
+    {
+      "screen_id": "S25024",
+      "main_text_full": true,
+      "all_word_scientific_text_math_tables_reviewed": true,
+      "original_embedded_media": 44,
+      "emf_rasterizations": 29,
+      "successful_emf_rasterizations": 29,
+      "independent_word_contact_sheets_each": 8,
+      "layout_render_complete": false,
+      "limitation": "Packaged renderer failed dependency resolution (pdf2image), no bundled loader/LibreOffice on this Windows runtime. Original embedded images and OOXML text/math reviewed directly; no Word page numbers inferred.",
+      "si_complete_for_eligibility": true
+    }
+  ],
+  "source_reading_copies": {
+    "initial": "Preserved original XML-only copies",
+    "repaired": "Full PDF text in original block order plus original XML; only R0003 figure4d has explicit root-checked visual transcription",
+    "paid_api_calls": 0
+  },
+  "provisional_inputs_retained": "*_initial.in.jsonl",
+  "initial_assessments_retained": "*_initial.out.jsonl",
+  "S25024_pass1_early_revision": {
+    "initial_E4": "YES",
+    "later_E4": "UNCLEAR",
+    "reason": "Source check distinguished AIMD rutile(110) segment from static OER model linkage before root snapshot; initial E5 UNCLEAR retained."
+  }
+}

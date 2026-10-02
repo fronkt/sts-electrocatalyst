@@ -21,6 +21,16 @@ class ReconciliationTests(unittest.TestCase):
         self.assertEqual(result["E6"]["v"], "UNCLEAR")
         self.assertTrue(all(result[k] is None for k in ("eta_form", "eta_derivation", "eta_note")))
 
+    def test_only_explicitly_resolved_question_is_closed(self):
+        row = sample_row()
+        row["entrant_question"] = "pending question"
+        before = copy.deepcopy(row)
+        still_open = adjudicated_row(row, {"question_resolved": False})
+        self.assertEqual(still_open["entrant_question"], "pending question")
+        closed = adjudicated_row(row, {"question_resolved": True})
+        self.assertNotIn("entrant_question", closed)
+        self.assertEqual(row, before)
+
     def test_date_does_not_rescue_wrong_text(self):
         row = sample_row()
         row.update(text_ok=False, E2={"v": "UNCLEAR"})

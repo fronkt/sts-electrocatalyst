@@ -43,10 +43,12 @@ v3 and v4 get the same steps without the v5 D7 branches, so the three sets are c
                  disposition is re-derived; the source reads "...; v5 triage A".  The v5 output fields then
                  come from that row, and eta_form, eta_derivation and eta_note are null when E6 is no longer
                  YES (v5 D14).  Only an SI read that had the record's whole SI supersedes it.
-  SI adjudication  explicit source-reviewed corrections in reconcile/si_adjudications_2026-09-29.json replace
-                 only the stated criteria/fields before the date/version joins. Raw read files and the v3/v4
-                 branches stay unchanged. Unusable text cannot be rescued by a date join. Earlier SI_VERIFY
-                 holds remain UNRESOLVED; E6 holds clear eta descriptors rather than retaining invalid fields.
+  SI adjudication  explicit source-reviewed corrections in reconcile/si_adjudications_2026-09-29.json and the
+                     non-overlapping approved case layer in mixed_si_review_2026-10-02/approved_policy_adjudications.json
+                     replace only stated criteria/fields before the date/version joins. Raw read files and the v3/v4
+                     branches stay unchanged. The original adjudication file is never rewritten. Unusable text
+                     cannot be rescued by a date join. Earlier SI_VERIFY holds remain UNRESOLVED; E6 holds clear
+                     eta descriptors rather than retaining invalid fields.
 v5 output fields (form, eta_form, eta_derivation, eta_note, secondary, provenance) come from the rows that
 decide the v5 decision (both passes where the passes decide) and are left blank where those rows differ, and
 where the v5 decision is carried over from an earlier version (those rows predate the v5 schema; their entrant
@@ -64,6 +66,7 @@ import re
 
 from date_check import span
 from reconcile import rows
+from policy_reconciliation import merge_adjudications, policy_adjudications as load_policy_adjudications
 from v5_read import V5_FROM
 
 HERE = pathlib.Path(__file__).resolve().parent
@@ -180,13 +183,20 @@ def jsonl(p):
 
 
 def si_adjudications():
-    """Explicit, source-reviewed rulings; never infer a verdict from text or keywords."""
-    if not SI_ADJUDICATION_FILE.exists():
-        return {}
-    entries = json.loads(SI_ADJUDICATION_FILE.read_text(encoding="utf-8"))["records"]
-    if len({r["screen_id"] for r in entries}) != len(entries):
-        raise ValueError("Duplicate SI adjudication")
-    return {r["screen_id"]: r for r in entries}
+    """Historical rulings plus a non-overlapping, approved additive policy layer."""
+    historical = {}
+    if SI_ADJUDICATION_FILE.exists():
+        entries = json.loads(SI_ADJUDICATION_FILE.read_text(encoding="utf-8"))["records"]
+        if len({r["screen_id"] for r in entries}) != len(entries):
+            raise ValueError("Duplicate SI adjudication")
+        historical = {r["screen_id"]: r for r in entries}
+    approved = policy_adjudications()
+    return merge_adjudications(historical, approved)
+
+
+def policy_adjudications():
+    """Explicitly approved case-scoped choices, with no scientific inference."""
+    return load_policy_adjudications()
 
 
 def adjudicated_row(row, ruling):
@@ -196,6 +206,8 @@ def adjudicated_row(row, ruling):
     result.update(ruling.get("fields", {}))
     if "text_ok" in ruling:
         result["text_ok"] = ruling["text_ok"]
+    if ruling.get("question_resolved") is True:
+        result.pop("entrant_question", None)
     if result.get("text_ok") is False or (result.get("E6") or {}).get("v") != "YES":
         result.update(eta_form=None, eta_derivation=None, eta_note=None)
     return result
@@ -287,7 +299,8 @@ def main():
             d5 = "UNRESOLVED" if r5.get("text_ok") is False else derive(r5)
             if d5 == "NEEDS_SI" and (whole or si_in_file(sid)):
                 d5 = "UNRESOLVED"
-            s5 += "; SI adjudication 2026-09-29"
+            entry_date = adjudications[sid].get("entry_date", "2026-09-29")
+            s5 += "; SI adjudication " + entry_date
             fields = {k: agreed(rs5, k) for k in V5_FIELDS}
         if sid in recoveries:
             recovered = recoveries[sid]

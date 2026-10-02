@@ -1,7 +1,11 @@
 """Checks that a valid ruling cannot mask corrupted rebuilt state or checklist."""
 import unittest
+import json
+import pathlib
+import tempfile
+from unittest.mock import patch
 
-from verify_evidence_recovery import row_errors, rebuilt_errors, checklist_errors, all_fragments_present
+from verify_evidence_recovery import row_errors, rebuilt_errors, checklist_errors, all_fragments_present, policy_rebuilt_errors
 
 
 class VerificationTests(unittest.TestCase):
@@ -71,6 +75,33 @@ class VerificationTests(unittest.TestCase):
         self.assertTrue(checklist_errors([dict(previous[0], doi="wrong")], previous, {}))
         self.assertTrue(checklist_errors(previous * 2, previous, {}))
         self.assertEqual(checklist_errors([], previous, {"TEST": self.ruling()}), [])
+
+    def test_policy_overlay_exact_state_and_evidence(self):
+        original = self.ruling()["row"]
+        original.update(entrant_question="Unresolved scientific choice", eta_form=None, eta_derivation=None)
+        original["E6"]["v"] = "NO"
+        original.update(disposition="EXCLUDE", exclude_criterion="E6")
+        ruling = {"screen_id": "TEST", "date": "2026-10-02", "question_resolved": True,
+                  "criteria": {"E3": {"v": "NO", "where": "main", "excerpt": self.TEXT}}}
+        current = {"doi": original["doi"], "v5_decision": "EXCLUDE:E3", "v5_final": "EXCLUDE:E3",
+                   "v5_source": "SI read: third read; SI adjudication 2026-10-02", "v5_step": "",
+                   "si_read": "third read", "v5_question": "False", "v5_form": "journal"}
+        current.update({"v5_" + key: "" for key in ("eta_form", "eta_derivation", "eta_note", "secondary", "provenance")})
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            for directory in ("si_read", "text", "text_si"):
+                (root / directory).mkdir()
+            (root / "si_read" / "third_read.jsonl").write_text(json.dumps(original) + "\n", encoding="utf-8")
+            (root / "si_texts.csv").write_text("screen_id,si_complete\nTEST,True\n", encoding="utf-8")
+            (root / "text" / "TEST.txt").write_text(self.TEXT, encoding="utf-8")
+            (root / "text_si" / "TEST.txt").write_text("", encoding="utf-8")
+            with patch("verify_evidence_recovery.HERE", root):
+                self.assertEqual(policy_rebuilt_errors(current, ruling, {}, {}), [])
+                current["v5_question"] = "True"
+                self.assertTrue(policy_rebuilt_errors(current, ruling, {}, {}))
+                current["v5_question"] = "False"
+                ruling["criteria"]["E3"]["excerpt"] = "Unseen fabricated evidence"
+                self.assertTrue(policy_rebuilt_errors(current, ruling, {}, {}))
 
 
 if __name__ == "__main__":

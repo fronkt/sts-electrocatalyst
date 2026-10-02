@@ -1,0 +1,169 @@
+{
+  "status": "ADOPTED",
+  "date": "2026-10-02",
+  "approval": {
+    "answer": "Approve the proposed seven choices",
+    "case_ids": [
+      "S25856",
+      "S26411",
+      "S02708",
+      "S05004",
+      "S16323",
+      "S26256",
+      "S27700"
+    ],
+    "scope": "The proposed seven case-specific choices in policy_review.md; no automatic eligibility, inferred eta, general scope extension or DFT spending."
+  },
+  "source_pins": "mixed_si_review_2026-10-02/policy_source_pins.json",
+  "focused_review_receipt": "mixed_si_review_2026-10-02/policy_focused_reviews.json",
+  "records": [
+    {
+      "screen_id": "S25856",
+      "choice": "Q2(c): follow contradictory phase-label referents",
+      "criteria": {
+        "E4": {
+          "v": "UNCLEAR",
+          "where": "main HRTEM Fig.1f–h and operando Raman Fig.3d",
+          "excerpt": "Raman features of rutile RuO2 … lattice fringes of face-centred cubic (FCC) RuO2"
+        }
+      },
+      "reason": "Both phase labels refer to the characterized catalyst supporting the computed model. Do not assume a typo or transfer rutile identification across the contradiction.",
+      "date": "2026-10-02",
+      "question_resolved": true,
+      "review": [
+        "mixed_si_pass1: independent focused primary-evidence review",
+        "root: focused primary-source and approved-choice reconciliation"
+      ],
+      "prior_row": "si_read/third_read.jsonl#S25856",
+      "approval_scope": "Case-specific scientific interpretation; original v5 instructions and all historical reads preserved"
+    },
+    {
+      "screen_id": "S26411",
+      "choice": "Q3(c): documented coordinate identity check at reconciliation",
+      "criteria": {
+        "E4": {
+          "v": "UNCLEAR",
+          "where": "main DFT methods; SI2 p.1; SI3 coordinate count validation",
+          "excerpt": "The RuO2 (110) surface was modeled using a 3 × 3 × 2 supercell comprising 72 O and 36 Ru atoms"
+        }
+      },
+      "reason": "Coordinate check authorized and attempted, but all three published blocks declare108 atoms and contain53 rows. Fresh public byte check matches preserved source. No missing atoms or parent polymorph inferred; identity remains unresolved.",
+      "coordinate_receipt": "mixed_si_review_2026-10-02/coordinate_validation.json",
+      "date": "2026-10-02",
+      "question_resolved": true,
+      "review": [
+        "mixed_si_pass1: independent focused primary-evidence review",
+        "root: focused primary-source and approved-choice reconciliation",
+        "mixed_si_pass2: independent focused primary-evidence review"
+      ],
+      "prior_row": "si_read/third_read.jsonl#S26411",
+      "approval_scope": "Case-specific scientific interpretation; original v5 instructions and all historical reads preserved"
+    },
+    {
+      "screen_id": "S02708",
+      "choice": "Q8(b): require explicit oxidation-to-O2 pathway connection",
+      "criteria": {
+        "E3": {
+          "v": "NO",
+          "where": "main Abstract and Sec.4 Conclusions; complete main/SI review under approved Q8(b)",
+          "excerpt": "The results were reported in a surface Pourbaix diagram that provided a visual representation of the pH and potential dependence of the interfacial structures."
+        }
+      },
+      "reason": "The authors investigate interfacial states, not present computed species/steps as part of oxidation toO2. Generic OER-region/pH relevance and a sampled molecular-O2 configuration are not pathway connection. Partial cycles may qualify generally; missing transition states or a complete cycle are not the exclusion rule.",
+      "date": "2026-10-02",
+      "question_resolved": true,
+      "review": [
+        "mixed_si_pass1: independent focused primary-evidence review",
+        "root: focused primary-source and approved-choice reconciliation",
+        "mixed_si_pass2: independent focused primary-evidence review"
+      ],
+      "prior_row": "si_read/third_read.jsonl#S02708",
+      "approval_scope": "Case-specific scientific interpretation; original v5 instructions and all historical reads preserved"
+    },
+    {
+      "screen_id": "S05004",
+      "choice": "Q11(a): new FEFF spectra of OER intermediates count; not reanalysis",
+      "criteria": {
+        "E3": {
+          "v": "YES",
+          "where": "main Introduction and Simulating XAS Spectra; results Fig.8",
+          "excerpt": "we have chosen the four intermediates mentioned in the proposed reaction mechanism … simulating the XAS spectra obtained on the 2 Å IrOx/RuO2/Au system using FEFF"
+        }
+      },
+      "fields": {
+        "secondary": null,
+        "provenance": null
+      },
+      "reason": "Approved spectra-clause boundary counts the new FEFF property simulation of explicitly chosen OER intermediates. Borrowed geometries are not reanalysis of existing electronic-structure results. Prior E6 NO remains: free-energy results are attributed to other papers.",
+      "date": "2026-10-02",
+      "question_resolved": true,
+      "review": [
+        "mixed_si_pass1: independent focused primary-evidence review",
+        "root: focused primary-source and approved-choice reconciliation",
+        "mixed_si_pass2: independent focused primary-evidence review"
+      ],
+      "prior_row": "si_read/third_read.jsonl#S05004",
+      "approval_scope": "Case-specific scientific interpretation; original v5 instructions and all historical reads preserved"
+    },
+    {
+      "screen_id": "S16323",
+      "choice": "SI-Q1: experimental paragraph scope for RHE conversion",
+      "criteria": {
+        "E6": {
+          "v": "UNCLEAR",
+          "where": "main Fig.3c DFT discussion and Electrochemical Measurements paragraph",
+          "excerpt": "Figure 3c depicts the thermodynamic OER limiting potential (UL) between LOM and AEM … All potentials in this work were converted to reversible hydrogen electrode (RHE) scale"
+        }
+      },
+      "reason": "The conversion describes experimental SCE-to-RHE measurements, not the computational potential reference. Fig.3c limiting-potential assignment therefore remains uncertain; no E6 NO or new eta.",
+      "date": "2026-10-02",
+      "question_resolved": true,
+      "review": [
+        "mixed_si_pass1: independent focused primary-evidence review",
+        "root: focused primary-source and approved-choice reconciliation"
+      ],
+      "prior_row": "si_read/third_read.jsonl#S16323",
+      "approval_scope": "Case-specific scientific interpretation; original v5 instructions and all historical reads preserved"
+    },
+    {
+      "screen_id": "S26256",
+      "choice": "SI-Q2: hold conflicting surface assignment/ranking",
+      "criteria": {
+        "E6": {
+          "v": "UNCLEAR",
+          "where": "main Fig.5g discussion; SI5 source-data sheet figure5g; existing SI_VERIFY hold retained",
+          "excerpt": "the energy barrier at Ru1 is lower than that at Ru2 … *O 1.98 1.89"
+        }
+      },
+      "reason": "Author comparison conflicts with source-data surface assignments. Retain uncertainty, without reader-ranked reversal, new eta or typo correction; existing verification hold persists.",
+      "date": "2026-10-02",
+      "question_resolved": true,
+      "review": [
+        "mixed_si_pass1: independent focused primary-evidence review",
+        "root: focused primary-source and approved-choice reconciliation"
+      ],
+      "prior_row": "si_read/third_read.jsonl#S26256",
+      "approval_scope": "Case-specific scientific interpretation; original v5 instructions and all historical reads preserved"
+    },
+    {
+      "screen_id": "S27700",
+      "choice": "SI-Q3: explicit eta or minimum UL assignment required",
+      "criteria": {
+        "E6": {
+          "v": "UNCLEAR",
+          "where": "main Fig.6g caption; SI4 peer-review response7",
+          "excerpt": "based on the corresponding theoretical overpotential of NiFeOOH-Vo and IrO2 structure."
+        }
+      },
+      "reason": "An axis/line based on theoretical eta does not itself identify the line as eta or minimum UL. E4/E5 remain separately unresolved; no conversion of U=0 steps or inferred new eta.",
+      "date": "2026-10-02",
+      "question_resolved": true,
+      "review": [
+        "mixed_si_pass1: independent focused primary-evidence review",
+        "root: focused primary-source and approved-choice reconciliation"
+      ],
+      "prior_row": "si_read/third_read.jsonl#S27700",
+      "approval_scope": "Case-specific scientific interpretation; original v5 instructions and all historical reads preserved"
+    }
+  ]
+}

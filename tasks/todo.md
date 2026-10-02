@@ -1,5 +1,28 @@
 # STS 2027 — TODO
 
+## 2026-10-02 — Four mixed-format SI packages and seven policy choices
+
+Scope: continue S12208, R0003, S24821 and S25024 from the recovered public
+inventories under unchanged v5 rules and the same $50 lifetime API cap.
+Review all seven pending policy choices, distinguish rule interpretation from
+scope extension, and apply only the case-specific choices explicitly approved by Frank.
+No Purdue/Elsevier, paid discovery repeats, compute jobs or melt selection.
+
+- [x] Pin the 68da54c scientific baseline and verify the four source inventories. All122 initial scientific/evidence hashes unchanged; four exact DOI/attachment inventories match prior receipts. Existing21 unrelated DFT files untouched. Fresh43 regression tests pass before any canonical rebuild.
+- [x] Inspect every attachment format: all143 SI-PDF pages, all173 one-frame structure-only trajectory entries and all44 original Word figures; experimental movies sampled12frames each without audio transcription. Scientific-document coverage is complete; full movie playback and DOCX page-layout rendering are not claimed. Original inventories and provisional inputs retained.
+- [x] Complete two independent GPT-6 Luna assessments per paper; adjudicate disagreements with exact source evidence and independent third reads where needed. Ten final assessments retained; S12208/S25024 third reads resolve source-reference disagreements without inferring eta. R0003 ELIGIBLE (direct eta 0.58 V); S12208 EXCLUDE:E6; S24821/S25024 UNRESOLVED. Original assessments and dissent retained.
+- [x] Review the seven existing policy questions, evidence, recommendations and scientific impact. Frank explicitly approved the proposed seven choices, including revised S05004(a); no automatic eligibility follows.
+- [x] Apply approved case-specific consequences after independent focused review, and perform S26411's authorized coordinate identity check. Each of three blocks declares108 atoms but supplies53 coordinate rows; a fresh public download is byte-identical. Incomplete-coordinate gate refuses reconstruction/phase assignment. All seven policy-question flags close; five scientific evidence holds remain. S02708 first failure E6→E3; S05004 stays EXCLUDE:E6. Original assessments and v5 instructions preserved.
+- [x] Validate assessments and unchanged historical fields, rebuild the affected checklist, and verify exact change coverage with regression tests. Fresh56 tests pass without warnings; ten final rows and14 policy-source pins verify; both scientific verifiers have zero errors. Exactly11 canonical rows change; all2496 v3/v4/membership fields,118 immutable baseline files and109 historical raw outputs preserved. Checklist157→153 (66/34/47/6),17 D10; four forced eligible question IDs retained. Current174 ELIGIBLE/98 NEEDS_SI/117 UNRESOLVED.
+- [ ] Commit explicit non-secret paths, push, verify the remote SHA, and update project memory with outcomes and next steps.
+
+Review: independent read-only scientific/code clearance finds no defect. All143
+SI-PDF pages,173 structure-only trajectories and44 Word media items covered;
+DOCX layout and movie audio/full playback remain explicitly unreviewed. Missing
+layout/audio is not an E6 absence argument. No paid external API requests this
+phase; conservative tracked estimate remains $1.1105254/$50. No Purdue/Elsevier,
+DFT launch, inclusion freeze or melt selection. Commit/push verification pending.
+
 ## 2026-10-01 — Next public-source screening batch
 
 Scope: continue the remaining public-only SI work under the existing $50 lifetime

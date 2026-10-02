@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-02",
+  "scope": "Scientific source/format corrections before canonical acceptance",
+  "initial_errors": {
+    "r0003_pass1.out.jsonl": {
+      "errors": [
+        "E6: excerpt not present in source"
+      ],
+      "strict_deciding_excerpt": true
+    },
+    "r0003_pass2.out.jsonl": {
+      "errors": [
+        "E1: excerpt not present in source",
+        "E6: excerpt not present in source"
+      ],
+      "strict_deciding_excerpt": false
+    },
+    "s12208_pass1.out.jsonl": {
+      "errors": [],
+      "strict_deciding_excerpt": true
+    },
+    "s12208_pass2.out.jsonl": {
+      "errors": [
+        "E1: excerpt not present in source"
+      ],
+      "strict_deciding_excerpt": true
+    },
+    "s24821_pass1.out.jsonl": {
+      "errors": [
+        "E4: excerpt exceeds schema word limit",
+        "criterion/disposition inconsistency"
+      ],
+      "strict_deciding_excerpt": true
+    },
+    "s24821_pass2.out.jsonl": {
+      "errors": [
+        "E1: excerpt not present in source",
+        "E4: excerpt exceeds schema word limit",
+        "criterion/disposition inconsistency"
+      ],
+      "strict_deciding_excerpt": true
+    },
+    "s25024_pass1.out.jsonl": {
+      "errors": [
+        "E4: excerpt not present in source",
+        "E5: excerpt not present in source"
+      ],
+      "strict_deciding_excerpt": true
+    },
+    "s25024_pass2.out.jsonl": {
+      "errors": [
+        "E1: excerpt not present in source",
+        "criterion/disposition inconsistency"
+      ],
+      "strict_deciding_excerpt": true
+    }
+  },
+  "repairs": [
+    "Preserve8 initial inputs/outputs; replaceXML-only readerreference with fullactualPDFblocktext pluspreservedXML.",
+    "R0003 actualFig4d η=0.58V visualtranscriptionexplicitlymarked andsupportedbyoriginalPDF.",
+    "Repair verbatimfragments, paired25wordcaps andactualPDFpage locators; no criterionchanges for thesequote repairs.",
+    "Scientificdocumentcompleteness resolved afterfullSI-PDF/Word44figurecoverage; movies/audio andDOCXpagelayoutlimits retained separately.",
+    "S12208 independentthird agreesE2UNCLEAR,E6NO; citation-year E2YES retaineddissent.",
+    "S25024 independentthird initiallyE6NO, preserved separately; fullD4comparativeparagraph/refcheck yieldsE6UNCLEAR. First+third agreeE4/E5/E6UNCLEAR; secondE4/E5YES remains dissent.",
+    "Third notes shortened without scientificchanges."
+  ],
+  "paid_api_calls": 0
+}

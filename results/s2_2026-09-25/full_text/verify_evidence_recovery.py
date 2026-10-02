@@ -118,6 +118,45 @@ def checklist_errors(checklist, previous, recoveries):
     return errors
 
 
+def policy_rebuilt_errors(row, ruling, dates, versions):
+    """Check the exact approved overlay against the preserved deciding SI row."""
+    from current_state import adjudicated_row, derive, si_in_file, SI_VERIFY
+    sid = ruling["screen_id"]
+    original = [json.loads(line) for line in (HERE / "si_read" / "third_read.jsonl").read_text(encoding="utf-8").splitlines()
+                if line.strip() and json.loads(line).get("screen_id") == sid]
+    if len(original) != 1:
+        return ["policy deciding-row identity mismatch"]
+    chosen = adjudicated_row(original[0], ruling)
+    with (HERE / "si_texts.csv").open(encoding="utf-8") as stream:
+        whole = {r["screen_id"]: r["si_complete"] == "True" for r in csv.DictReader(stream)}.get(sid, False)
+    decision = derive(chosen)
+    if decision == "NEEDS_SI" and (whole or si_in_file(sid)):
+        decision = "UNRESOLVED"
+    result, step = final(sid, decision, chosen, dates, whole)
+    vg = versions.get(sid, {})
+    pd = dates.get(vg.get("primary"), {})
+    pdate = pd.get("first_publication", "") if pd.get("flag") in ("", "OUTSIDE_WINDOW") else ""
+    if not pd:
+        pdate = vg.get("primary_date", "")
+    source = "SI read: third read; SI adjudication " + ruling["date"]
+    membership, step = member(vg, result, step, source, [chosen["form"]], pdate)
+    if sid in SI_VERIFY:
+        membership = "UNRESOLVED"
+        step += (";" if step else "") + "SI verification: " + SI_VERIFY[sid]
+    expected = {"doi": chosen["doi"], "v5_decision": decision, "v5_final": membership,
+                "v5_source": source, "v5_step": step, "si_read": "third read", "v5_question": "False"}
+    expected.update({"v5_" + k: str(chosen[k]) if chosen.get(k) is not None else "" for k in V5_FIELDS})
+    errors = [k + ": rebuilt policy state differs from approved ruling" for k, value in expected.items() if row.get(k) != value]
+    text = (HERE / "text" / (sid + ".txt")).read_text(encoding="utf-8") + "\n" + (HERE / "text_si" / (sid + ".txt")).read_text(encoding="utf-8")
+    for name, criterion in ruling.get("criteria", {}).items():
+        if not all_fragments_present(criterion["excerpt"], text):
+            errors.append(name + ": approved-policy excerpt not present")
+        fragments = re.split(r"…|\.\.\.", criterion["excerpt"])
+        if any(len(part.split()) > (25 if len(fragments) > 1 else 40) for part in fragments):
+            errors.append(name + ": approved-policy excerpt exceeds word limit")
+    return errors
+
+
 def main(baseline_dir=D, output_dir=D):
     errors = []
     preserved = 0
@@ -130,6 +169,8 @@ def main(baseline_dir=D, output_dir=D):
         else:
             preserved += 1
     recoveries = recovery_decisions()
+    from current_state import policy_adjudications
+    policies = policy_adjudications()
     dates = {r["screen_id"]: r for r in csv.DictReader(evidence_path("reconcile/date_check.csv").open(encoding="utf-8"))}
     versions = {r["screen_id"]: r for r in csv.DictReader(evidence_path("reconcile/version_groups.csv").open(encoding="utf-8"))}
     current = list(csv.DictReader((HERE / "reconcile" / "current_state.csv").open(encoding="utf-8")))
@@ -145,10 +186,12 @@ def main(baseline_dir=D, output_dir=D):
             errors.append([row["screen_id"], "unaffected reconciliation membership/history changed"])
         if row != previous:
             changed.append(row["screen_id"])
-            if row["screen_id"] not in recoveries:
+            if row["screen_id"] not in recoveries and row["screen_id"] not in policies:
                 errors.append([row["screen_id"], "unreviewed row change"])
         if row["screen_id"] in recoveries:
             errors.extend([row["screen_id"], error] for error in rebuilt_errors(row, recoveries[row["screen_id"]], dates, versions))
+        if row["screen_id"] in policies:
+            errors.extend([row["screen_id"], error] for error in policy_rebuilt_errors(row, policies[row["screen_id"]], dates, versions))
     hashes, reads = {}, 0
     for sid, ruling in recoveries.items():
         chosen = ruling["row"]
@@ -208,6 +251,7 @@ def main(baseline_dir=D, output_dir=D):
         else:
             hashes[path.relative_to(HERE).as_posix()] = sha(path)
     report = {"records": len(current), "reviewed_recoveries": sorted(recoveries), "independent_reads": reads,
+              "approved_policy_cases": sorted(policies),
               "changed_rows": sorted(changed), "historical_evidence_files_preserved": preserved,
               "v3_v4_preserved": not any("sensitivity" in str(e) for e in errors),
               "checklist_records": len(checklist), "v5_counts": dict(Counter("collapsed" if r["v5_final"].startswith("collapsed") else r["v5_final"] for r in current)),

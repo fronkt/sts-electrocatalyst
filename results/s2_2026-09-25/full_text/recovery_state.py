@@ -11,6 +11,7 @@ RULINGS = HERE / "evidence_recovery_2026-10-01" / "reviewed_decisions.json"
 FOLLOWUP_RULINGS = HERE / "public_followup_2026-10-01" / "reviewed_decisions.json"
 CONTINUATION_RULINGS = HERE / "openai_public_si_continuation_2026-10-01" / "reviewed_decisions.json"
 NEXT_PUBLIC_RULINGS = HERE / "public_screening_next_2026-10-01" / "reviewed_decisions.json"
+MIXED_SI_RULINGS = HERE / "mixed_si_review_2026-10-02" / "reviewed_decisions.json"
 READ_FIELDS = ("form", "eta_form", "eta_derivation", "eta_note", "secondary", "provenance")
 
 
@@ -65,7 +66,7 @@ def independent_rows(entry):
 
 def recovery_decisions():
     entries = []
-    for path in (RULINGS, FOLLOWUP_RULINGS, CONTINUATION_RULINGS, NEXT_PUBLIC_RULINGS):
+    for path in (RULINGS, FOLLOWUP_RULINGS, CONTINUATION_RULINGS, NEXT_PUBLIC_RULINGS, MIXED_SI_RULINGS):
         if path.exists():
             entries.extend(json.loads(path.read_text(encoding="utf-8"))["records"])
     result = {}
