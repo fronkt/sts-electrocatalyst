@@ -52,3 +52,8 @@ freeze, method coding, compute spending or melt selection is authorized here. Th
 paid-runner manifest still intentionally refuses calls after scientific-state
 changes; any future paid tranche requires reviewed-state pins and the same lifetime
 ledger, not a budget reset. Public-source work does not depend on that gate.
+
+Scientific checkpoint `f7c619ba2aa187a791f52d2f3394aa13c1e2d542` pushed on
+`r0-catalysis-revival`; exact local/remote SHA match. All 54 explicit non-secret
+paths committed. Tracked worktree clean after the scientific push; 21 unrelated
+DFT files remain untouched. This completion receipt carries no new scientific change.
