@@ -1,5 +1,31 @@
 # STS 2027 — TODO
 
+## 2026-10-02 — Targeted evidence holds and distinct public SI recovery
+
+Scope: Frank requests steps 1–3: close targeted evidence holds where new primary
+evidence permits; continue distinct high-priority public SI/version/date leads;
+independently assess only genuinely new evidence with GPT-6 Luna. Preserve the
+$50 lifetime literature/API ledger and completed reads. No Purdue/Elsevier API,
+author email, inclusion freeze, new compute, or melt selection.
+
+- [x] Pin the completed 56158e5 checkpoint, current state/checklist and historical evidence; confirm unrelated work is preserved. Baseline304 files,2496 rows,153 checklist records and21 unrelated DFT files; fresh56 regressions pass.
+- [x] Seek distinct primary-source clarification for S24821/S25024 and the five approved-policy evidence holds; retain unresolved cases without guessing. Seven holds remain; no new resolving author evidence. S25856/S26411 peer-review leads are cached SI4, and S27700 Figshare workbook exactly matches cached size/MD5. Preliminary classifications and corrections retained.
+- [x] Check a bounded, prioritized set of new public repository/SI/version/date routes against all previous attempts. Ten scoped repository/SI targets and three preprint/version targets; four exact attachment listings retained, no SI payload recovered. Four primary DOI relation checks succeed but show no authoritative pairwise version links. No completed Europe PMC batch repeated; Zenodo500/Wiley403 are access/service outcomes, not SI absence.
+- [x] Review only newly recovered scientific evidence with independent lower-tier assessments and focused adjudication; preserve initial disagreement. No genuinely new scientific evidence meets the read gate, so zero new blind reads/eligibility changes; GPT-6 Luna used for discovery. Do not count duplicate page inspection as independent reads.
+- [x] Validate excerpts, source identity/completeness, historical fields and exact change scope; rebuild current state/checklist only as supported. Fresh56 regressions pass; both scientific verifiers have zero errors. All304 baseline files and all2496 rows byte/structure-preserved; deterministic checklist remains153, tiers66/34/47/6,17 D10. All21 unrelated DFT files untouched.
+- [ ] Commit specific non-secret paths, push, verify remote SHA and update memory with outcomes, cost and the remaining evidence tasks.
+
+Review: scientific verification passes with zero canonical changes. Three discovery
+workers used ordinary read-only shell checks instead of the required background
+desktop; further process work stopped, root audited/corrected the receipts, and
+all rebuilding/verification/Git operations use the verified hidden worker. No
+new paid external API calls; tracked estimate remains$1.1105254/$50. No Purdue,
+compute launch, inclusion freeze or melt selection. Independent read-only
+filesystem/crypto clearance finds no scientific/reconciliation defect; the
+receipt explicitly distinguishes duplicate inspection from zero new independent
+screening reads. Commit/push pending. Exact missing-file handoff retained for next
+recovery; unresolved access/evidence is not exclusion.
+
 ## 2026-10-02 — Four mixed-format SI packages and seven policy choices
 
 Scope: continue S12208, R0003, S24821 and S25024 from the recovered public

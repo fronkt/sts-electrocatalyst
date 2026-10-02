@@ -1,0 +1,111 @@
+{
+  "phase": "public_evidence_closure_2026-10-02",
+  "scope": "Targeted new public primary-source routes for four existing evidence holds. No eligibility changes, repeat full reads, new compute, author contact, institutional access, or paid API calls.",
+  "checked_at_utc": "2026-10-02",
+  "identity_basis": {
+    "local_record": "results/s2_2026-09-25/full_text/reconcile/current_state.csv",
+    "source_inventory": "results/s2_2026-09-25/full_text/mixed_si_review_2026-10-02/{s24821_source_metadata.json,s25024_source_metadata.json,approved_policy_adjudications.json,coordinate_primary_recheck.json}",
+    "prior_route_receipts": [
+      "results/s2_2026-09-25/full_text/public_screening_next_2026-10-01/repository_outcomes.json",
+      "results/s2_2026-09-25/full_text/public_followup_2026-10-01/repository_outcomes.json",
+      "results/s2_2026-09-25/full_text/evidence_recovery_2026-10-01/routes_summary.json"
+    ]
+  },
+  "searches": [
+    {
+      "screen_id": "S24821",
+      "doi": "10.1002/advs.202409249",
+      "identity_check": "DOI/title match: Modulation of RuO2 Nanocrystals with Facile Annealing Method for Enhancing the Electrocatalytic Activity on Overall Water Splitting in Acid Solution; author list matches the local article inventory. Existing source package is SHA-pinned in mixed_si_review_2026-10-02/s24821_source_metadata.json.",
+      "queries": [
+        "\"10.1002/advs.202409249\" repository data RuO2",
+        "\"Modulation of RuO2 Nanocrystals with Facile Annealing Method\" dataset repository",
+        "\"RuO2-200\" \"202409249\" DFT facet OER",
+        "\"Modulation of RuO2 Nanocrystals with Facile Annealing Method\" preprint OR repository OR data"
+      ],
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11884526/",
+        "https://advanced.onlinelibrary.wiley.com/doi/10.1002/advs.202409249",
+        "https://www.researchgate.net/journal/Advanced-Science-2198-3844/publication/388031322_Modulation_of_RuO2_Nanocrystals_with_Facile_Annealing_Method_for_Enhancing_the_Electrocatalytic_Activity_on_Overall_Water_Splitting_in_Acid_Solution/links/6787ea7555274940f128ef4b/Modulation-of-RuO2-Nanocrystals-with-Facile-Annealing-Method-for-Enhancing-the-Electrocatalytic-Activity-on-Overall-Water-Splitting-in-Acid-Solution.pdf"
+      ],
+      "outcome": "Searches surfaced the same DOI-matched published article and its already recovered Supporting Information, not a distinct author repository, correction, review response, or new model file. Article-level XRD/rutile statements are not a new clarification of the DFT surface facet or the conventional CHE/common-reference conditions requested by the hold.",
+      "lead_class": "duplicate published article/SI; no new evidence",
+      "limits": "No attachment was re-downloaded and no full text was reread. Third-party ResearchGate mirror was not accepted as a source of new evidence."
+    },
+    {
+      "screen_id": "S25024",
+      "doi": "10.1002/adma.202417374",
+      "identity_check": "DOI/title match: Supramolecular Engineering of Vinylene-Linked Covalent Organic Framework – Ruthenium Oxide Hybrids for Highly Active Proton Exchange Membrane Water Electrolysis; PubMed record identifies PMID 39901501 and PMCID PMC11923516. Local complete Word SI inventory is SHA-pinned in mixed_si_review_2026-10-02/s25024_source_metadata.json.",
+      "queries": [
+        "\"10.1002/adma.202417374\" repository RuO2 COF oxygen evolution",
+        "\"Supramolecular Engineering of Vinylene-Linked Covalent Organic Framework\" dataset repository",
+        "\"Supramolecular Engineering of Vinylene-Linked\" 202417374 repository author manuscript",
+        "\"RuO2@COF-O(3)\" DFT facet CHE 10.1002/adma.202417374"
+      ],
+      "urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/39901501/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11923516/",
+        "https://advanced.onlinelibrary.wiley.com/doi/full/10.1002/adma.202417374"
+      ],
+      "outcome": "Exact DOI search surfaced the already identified publisher/PubMed/PMC publication, not a distinct author repository, correction, or reviewer response. No new evidence established that the rutile(110) AIMD model is the static OER profile model, or established conventional CHE/common-reference conditions.",
+      "lead_class": "duplicate published article/SI; no new evidence",
+      "limits": "No full text or supplementary file was reread or downloaded. PMC/PubMed are alternate public access routes for the same article identity, not independent scientific evidence."
+    },
+    {
+      "screen_id": "S25856",
+      "doi": "10.1038/s41467-025-60083-y",
+      "identity_check": "Official Nature Communications page identifies Wang et al., Nat Commun 16, 4845 (2025), DOI 10.1038/s41467-025-60083-y, published 2025-05-24. Local main/SI hashes are pinned in the completed-round recheck. The policy record preserves both same-sample labels and does not assume typo correction.",
+      "queries": [
+        "\"10.1038/s41467-025-60083-y\" peer review response dataset RuO2 FCC rutile",
+        "site:nature.com/articles/s41467-025-60083-y \"peer review\" PDF response",
+        "\"Orbital-level band gap engineering of RuO2\" \"author response\" reviewer \"face-centred cubic\"",
+        "\"Orbital-level band gap engineering of RuO2\" FCC typo correction"
+      ],
+      "urls": [
+        "https://www.nature.com/articles/s41467-025-60083-y",
+        "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-025-60083-y/MediaObjects/41467_2025_60083_MOESM4_ESM.pdf",
+        "https://crossmark.crossref.org/dialog/?doi=10.1038%2Fs41467-025-60083-y"
+      ],
+      "outcome": "Official article metadata confirms a transparent peer-review file is published, a distinct primary-source lead. The linked PDF fetch was stopped by the web reader's 10 MiB content-length ceiling (HTTP 400 from the reader); no challenge, alternate attachment URL, or bypass was attempted. Search surfaced no DOI-matched correction or independent repository that clarifies the FCC/rutile referent conflict.",
+      "lead_class": "DUPLICATE_ALREADY_CACHED_SI4",
+      "corrected_outcome": "DUPLICATE_ALREADY_CACHED_SI4: already preserved as files_si/S25856_SI4.pdf and tagged at text_si/S25856.txt:1266 as 41467_2025_60083_MOESM4_ESM.pdf. The 10 MiB web-reader ceiling blocked only a repeat fetch; this is not missing local evidence. No new bytes, independent read, or phase clarification resulted.",
+      "limits": "Peer-review contents are uninspected. Current article and Crossmark pages are identity/version surfaces, not author clarification; no claim that no correction exists beyond the searched public surfaces."
+    },
+    {
+      "screen_id": "S26411",
+      "doi": "10.1038/s41467-025-62036-x",
+      "identity_check": "Official Nature Communications article and peer-review file match Zheng et al., Nat Commun 16, 6716 (2025), DOI 10.1038/s41467-025-62036-x. Existing coordinate receipt says the published SI3 TXT has 6,649 bytes and SHA256 2f75e9cbcf9928aa5dd4acf8f3ee2c82868c952d96c377093d4e352594a4742b, matching the preserved September file.",
+      "queries": [
+        "\"10.1038/s41467-025-62036-x\" repository data DFT coordinates",
+        "site:nature.com/articles/s41467-025-62036-x \"peer review\" PDF response",
+        "\"Heteroatom dopants overcome the activity-stability trade-off\" CONTCAR Github",
+        "\"Heteroatom dopants overcome the activity-stability trade-off\" dataset repository RuO2"
+      ],
+      "urls": [
+        "https://www.nature.com/articles/s41467-025-62036-x",
+        "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-025-62036-x/MediaObjects/41467_2025_62036_MOESM4_ESM.pdf",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12279930/",
+        "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-025-62036-x/MediaObjects/41467_2025_62036_MOESM3_ESM.txt"
+      ],
+      "outcome": "The distinct 20-page transparent peer-review file is publicly readable. It records a reviewer asking for the optimized CONTCAR to be included in SI; the authors replied that they addressed the request. The file does not identify the model polymorph or provide another coordinate source. Text search found no \"rutile\" or \"facet\" clarification in the peer-review file. PMC repeats the paper's public DFT description (optimized RuO2(110) facets) and lists the already known SI3 TXT; it is the same article/artifact, not a new complete coordinate file. No alternate public author repository was found.",
+      "lead_class": "DUPLICATE_ALREADY_CACHED_SI4",
+      "corrected_outcome": "DUPLICATE_ALREADY_CACHED_SI4: already preserved as files_si/S26411_SI4.pdf and tagged at text_si/S26411.txt:779 as 41467_2025_62036_MOESM4_ESM.pdf. Its contents were already present in historical SI material; this was not a new independent read. It adds no phase or coordinate evidence.",
+      "limits": "Known SI3 was not downloaded again. Its atom-count gate remains 108 declared versus 53 rows; no atoms or polymorph were inferred. DFT facet wording alone does not establish the catalyst phase."
+    }
+  ],
+  "overall": {
+    "new_leads": [],
+    "correction_history": [
+      {
+        "date": "2026-10-02",
+        "prior_classification": "S25856 and S26411 transparent peer-review PDFs treated as new primary-source leads.",
+        "correction": "Both public MOESM4 URLs identify artifacts already preserved locally as SI4 and tagged in text_si. They are DUPLICATE_ALREADY_CACHED_SI4; no new bytes, content, independent read, phase evidence, or coordinate evidence resulted. S25856's 10 MiB web-reader limit is not missing local evidence.",
+        "basis": "S25856 text_si/S25856.txt:1266; S26411 text_si/S26411.txt:779; local files_si SI4 published-name tags."
+      }
+    ],
+    "unresolved": ["S24821", "S25024", "S25856", "S26411"],
+    "eligibility_changes": 0,
+    "paid_api_calls": 0,
+    "new_downloads": 0,
+    "s26411_known_incomplete_txt_redownloaded": false
+  }
+}

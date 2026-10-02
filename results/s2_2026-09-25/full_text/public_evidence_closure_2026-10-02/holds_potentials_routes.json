@@ -1,0 +1,139 @@
+{
+  "phase": "public_evidence_closure_2026-10-02",
+  "scope": "Targeted public-primary-source discovery for S16323, S26256, and S27700 only; no eligibility changes, repeat full reads, compute, email, institutional access, Purdue/Elsevier, paid API calls, or inclusion freeze.",
+  "identity_checks": [
+    {
+      "screen_id": "S16323",
+      "doi": "10.1021/acscatal.2c01944",
+      "title": "Electronic Structure Modulation of RuO2 by TiO2 Enriched with Oxygen Vacancies to Boost Acidic O2 Evolution",
+      "local_identity": "current_state.csv exact DOI; local text heading names Xiaojun Wang et al.; consistent with ACS article search result and Shanghai Jiao Tong University lab news."
+    },
+    {
+      "screen_id": "S26256",
+      "doi": "10.1038/s41467-025-58570-3",
+      "title": "Strain heterogeneity in RuO2 for efficient acidic oxygen evolution reaction in proton exchange membrane water electrolysis",
+      "local_identity": "current_state.csv exact DOI; local text heading names Xuejie Cao et al.; consistent with Nature Communications page/search result and Crossmark record."
+    },
+    {
+      "screen_id": "S27700",
+      "doi": "10.1038/s41467-025-67439-4",
+      "title": "Substrate-adaptive sacrificial corrosion strategy enables 700 mV oxygen evolution window for enhanced seawater electrolysis",
+      "local_identity": "current_state.csv exact DOI; local text heading names Xu Zhang et al.; consistent with Nature Communications page/search result, PMC indexed record, and linked Figshare DOI 10.6084/m9.figshare.30704777."
+    }
+  ],
+  "previous_route_receipts": {
+    "checked": [
+      "mixed_si_review_2026-10-02/policy_source_pins.json",
+      "mixed_si_review_2026-10-02/scientific_final/si_round_verification.json",
+      "public_followup_2026-10-01/public_routes.json",
+      "evidence_recovery_2026-10-01/routes_summary.json",
+      "public_evidence_closure_2026-10-02/precheck.json"
+    ],
+    "distinction": "The local main/SI/source-data passages for these IDs were already pinned and verified as completed reads. Earlier public_followup target list/routes do not include these three IDs; no route receipt in the inspected recovery summaries reports a distinct author-side clarification for them. The existing local files and their byte pins are historical evidence, not newly discovered public evidence."
+  },
+  "process_boundary": "Ordinary exec_command/PowerShell was used for filesystem reads. The first command ran before launch.py and worker.py were read, so hidden-desktop execution cannot be claimed. Both scripts were read in the second command. No scientific or compute process was launched afterward.",
+  "searches": [
+    "\"10.1021/acscatal.2c01944\" DFT potential reference RHE",
+    "\"10.1038/s41467-025-58570-3\" source data Ru1 Ru2 ranking correction",
+    "\"10.1038/s41467-025-67439-4\" \"theoretical overpotential\" model facet",
+    "\"Substrate-adaptive sacrificial corrosion strategy\" reviewer response Fig 6g",
+    "\"Electronic Structure Modulation of RuO2\" \"Computational Details\" SCE RHE",
+    "\"Electronic Structure Modulation of RuO2 by TiO2\" data repository OR Zenodo OR GitHub",
+    "\"Strain heterogeneity in RuO2\" \"Fig. 5g\" Supplementary Data 1 2 correction",
+    "\"Substrate-adaptive sacrificial corrosion\" supplementary data NiFeOOH facet DOI",
+    "site:nature.com/articles/s41467-025-58570-3 \"Supplementary Data 1\" \"Ru1\"",
+    "site:nature.com/articles/s41467-025-58570-3 \"peer review\" \"Ru1\"",
+    "site:figshare.com/articles/dataset \"Substrate-adaptive sacrificial corrosion strategy\"",
+    "site:sjtu.edu.cn \"Electronic Structure Modulation\" RuO2 TiO2 \"ul\"",
+    "\"10.6084/m9.figshare.30704777\"",
+    "\"Substrate-adaptive sacrificial corrosion strategy\" \"30704777\" figshare data files",
+    "\"10.6084/m9.figshare.30704777\" model DFT NiFeOOH structure",
+    "\"RuO2/D-TiO2\" \"0.58\" \"limiting potential\"",
+    "\"Electronic Structure Modulation\" \"reversible hydrogen electrode\" \"SCE\"",
+    "\"10.1021/acscatal.2c01944\" \"RHE\" \"DFT\"",
+    "\"acscatal.2c01944\" \"supporting\" \"limiting potential\""
+  ],
+  "records": [
+    {
+      "screen_id": "S16323",
+      "outcome": "HOLD_RETAINED",
+      "public_sources": [
+        {
+          "url": "https://me.sjtu.edu.cn/tsfx-kjqy/65223.html",
+          "identity": "Shanghai Jiao Tong University School of Mechanical Engineering news item, 2022-08-30; names the paper and corresponding author Kun Jiang.",
+          "access": "Search-indexed public content accessible.",
+          "finding": "Reports DFT on a RuO2(110)/D-TiO2 model surface and says its OER limiting potential is lowest relative to defect-free TiO2-supported and RuO2(110) models.",
+          "limit": "No explicit DFT potential reference (e.g. CHE/RHE/SHE) was located. The DFT model/facet claim duplicates the already reviewed paper; the model-comparison summary does not resolve the reference convention."
+        },
+        {
+          "url": "https://doi.org/10.1021/acscatal.2c01944",
+          "identity": "Exact DOI resolves to the ACS Catalysis article identified in current_state.csv.",
+          "access": "ACS publisher open returned HTTP 403. Stopped on that publisher surface; no retry, alternate attachment URL, or access workaround.",
+          "finding": "No new content obtained."
+        }
+      ],
+      "new_vs_duplicate": "The institutional lab-news page is a distinct public author-affiliated route, but its model/limiting-potential claims repeat the paper's already reviewed content. It adds no DFT potential-reference clarification. The publisher route was blocked."
+    },
+    {
+      "screen_id": "S26256",
+      "outcome": "HOLD_RETAINED",
+      "public_sources": [
+        {
+          "url": "https://doi.org/10.1038/s41467-025-58570-3",
+          "identity": "Exact Nature Communications DOI; title and authors match local text and current_state.csv.",
+          "access": "Search-indexed Nature content exposed article/source-data and peer-review metadata. A subsequent open redirected to Nature's cookie/identity-provider endpoint and was non-retryable. Stopped on the publisher surface.",
+          "finding": "No correction or author clarification surfaced in the public-indexed material. The reported Ru1/Ru2 ranking remains in conflict with the source-data assignments already documented in the local SI read."
+        },
+        {
+          "url": "https://crossmark.crossref.org/dialog/?doi=10.1038%2Fs41467-025-58570-3",
+          "identity": "Crossmark record is for the exact article DOI and title.",
+          "access": "Public Crossmark page/search result accessible.",
+          "finding": "Crossmark labels the document current and says future updates would be listed there; no correction/update was listed at lookup.",
+          "limit": "Metadata status is not evidence resolving the authors' assignment discrepancy."
+        },
+        {
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12228735/",
+          "identity": "PMC search result matches the exact Nature Communications article and DOI.",
+          "access": "Open returned a browser reCAPTCHA challenge. Stopped on that challenge; no retry or alternate access method.",
+          "finding": "Search-indexed record lists Supplementary Information, transparent peer-review file, Supplementary Data 1-2, and source data, but contents were not re-read because the primary article/SI/source-data package already has pinned local coverage and the access surface challenged."
+        }
+      ],
+      "new_vs_duplicate": "Crossmark is a distinct metadata check but does not adjudicate scientific assignments. PMC's listed peer-review/source-data materials appear to be the same article-associated files already covered in the local review package; no distinct author clarification was accessed. No ranking reversal, typo correction, or eta was inferred."
+    },
+    {
+      "screen_id": "S27700",
+      "outcome": "HOLD_RETAINED",
+      "public_sources": [
+        {
+          "url": "https://www.nature.com/articles/s41467-025-67439-4",
+          "identity": "Nature Communications article title, authors, and exact DOI match current_state.csv and local text heading.",
+          "access": "Public article text was accessible in one read-only open; later DOI resolution attempt to Figshare was unavailable through the web tool. No publisher challenge was encountered during the article read.",
+          "finding": "Article describes the active model phase as gamma-NiFeOOH and constructs NiFeOOH with oxygen vacancies near Fe. It assigns theoretical OER overpotentials: pristine NiFeOOH Fe 1.14 eV, Ni 1.36 eV; NiFeOOH-Vo Fe 0.19 eV, Ni 0.68 eV. Figure 6g says its chlorine-water Pourbaix diagram is based on corresponding theoretical overpotentials for NiFeOOH-Vo and IrO2.",
+          "limit": "No explicit crystallographic model facet/surface termination was found in the article text for the plotted models; the Fig. 6g potentials are not individually labelled as eta/minimum UL beyond the caption's 'based on' wording. This duplicates the already reviewed article content and does not close the approved hold."
+        },
+        {
+          "url": "https://doi.org/10.6084/m9.figshare.30704777",
+          "identity": "The Nature article cites this as the authors' Source Data deposit for this exact paper.",
+          "access": "Root phase receipt `phase/source_data_dedup.json` independently audited deposit 30704777.v1, file 59826623 (`source data.xlsx`), size 225118706 bytes, MD5 5810e9b6a9988ae8e628dd5aea4f2282.",
+          "finding": "The Figshare source-data file is byte-identical by MD5 to cached `files_si/S27700_SI1.xlsx`; it is a duplicate of already reviewed source data, not new evidence."
+        },
+        {
+          "url": "https://assets-eu.researchsquare.com/files/rs-6646407/v1_covered_593c6d19-0fc7-42ca-b99a-2240288ad4dc.pdf",
+          "identity": "Search-indexed Research Square preprint has the same title and author list as the article.",
+          "access": "Public search-indexed preprint content available.",
+          "finding": "Preprint abstract reports the same 0.19 eV Fe-site overpotential, but no distinct phase/facet assignment was found in targeted queries.",
+          "limit": "Version-level duplicate lead; not a distinct author clarification, and no full reread was performed."
+        }
+      ],
+      "new_vs_duplicate": "Correction: initially recorded the Figshare DOI as an inaccessible distinct-data lead. Root's phase/source_data_dedup.json audit establishes that its source data.xlsx file is MD5-identical to the cached S27700 SI1 workbook, so it adds no distinct bytes or evidence. The article and preprint repeat the same model/overpotential claims already reviewed locally. None yields the required facet/termination or explicit individual eta/minimum-UL assignment for Fig. 6g.",
+      "correction_history": [
+        {
+          "initial_classification": "Distinct author-associated source-data lead; DOI could not be opened through the web tool.",
+          "corrected_classification": "Duplicate cached bytes, not new evidence.",
+          "basis": "Root phase receipt `phase/source_data_dedup.json`: deposit 30704777.v1 file 59826623, 225118706 bytes, MD5 5810e9b6a9988ae8e628dd5aea4f2282, exactly matches cached `files_si/S27700_SI1.xlsx` MD5."
+        }
+      ]
+    }
+  ],
+  "disposition": "No evidence supports changing any eligibility field or resolving any of the three holds. Negative discovery is not an exclusion."
+}

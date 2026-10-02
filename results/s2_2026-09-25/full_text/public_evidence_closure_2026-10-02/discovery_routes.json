@@ -1,0 +1,236 @@
+{
+  "date": "2026-10-02",
+  "scope": "Bounded distinct public missing-SI discovery; no Europe PMC DOI reruns, paid discovery, institutional/proxy/Purdue/Elsevier routes, author contact, or publisher access after the first 403. No screening or inclusion decisions.",
+  "selection_count": 10,
+  "repository_checks": {
+    "zenodo_api": {
+      "base_url": "https://zenodo.org/api/records/",
+      "exact_query_template": "https://zenodo.org/api/records/?q=<URL-encoded DOI>&size=5",
+      "records_checked": [
+        "S11310", "S18904", "S20440", "S21048", "S21131", "S21356", "S23207", "S23881"
+      ],
+      "result": "All eight public exact-DOI requests returned HTTP 500; no record manifests or attachments were returned. This is a service failure, not evidence of absence."
+    },
+    "scoped_index_searches": {
+      "exact_patterns": [
+        "site:zenodo.org/records \"<DOI>\"",
+        "site:osf.io \"<DOI>\"",
+        "\"<DOI>\" \"Zenodo\" OR \"OSF\""
+      ],
+      "records_checked": [
+        "S03607", "S08766", "S11310", "S18904", "S20440", "S21048", "S21131", "S21356", "S23207", "S23881"
+      ],
+      "result": "No Zenodo/OSF search hits surfaced for the selected DOIs. General web-index results were retained only when they exposed a primary publisher attachment manifest; article copies and citation pages were not counted as SI."
+    }
+  },
+  "records": [
+    {
+      "screen_id": "S03607",
+      "doi": "10.1134/s1023193516110124",
+      "title": "Iridium-nickel composite oxide catalysts for oxygen evolution reaction in acidic water electrolysis",
+      "prior_coverage": "Scoped-route claim only: no Zenodo/OSF exact-DOI result was found in the supplied route receipts. No first-ever SI-search claim is made. No Europe PMC query repeated.",
+      "identity_url": "https://doi.org/10.1134/s1023193516110124",
+      "identity_check": "Record identity is taken from the existing checklist. EBSCO was used only as a bibliographic discovery hint; no technical evidence is based on it.",
+      "search_strings": [
+        "\"10.1134/s1023193516110124\" \"Zenodo\" OR \"OSF\"",
+        "site:zenodo.org/records \"10.1134/s1023193516110124\"",
+        "site:osf.io \"10.1134/s1023193516110124\""
+      ],
+      "discovery_urls": [
+        "https://doi.org/10.1134/s1023193516110124",
+        "https://openurl.ebsco.com/contentitem/doi%3A10.1134%2Fs1023193516110124?id=ebsco%3Adoi%3A10.1134%2Fs1023193516110124&sid=ebsco%3Aplink%3Acrawler"
+      ],
+      "outcome": "No public Zenodo/OSF SI deposit found. No complete SI manifest or file verified."
+    },
+    {
+      "screen_id": "S08766",
+      "doi": "10.1149/2.0771915jes",
+      "title": "The Roles of Oxide Growth and Sub-Surface Facets in Oxygen Evolution Activity of Iridium and Its Impact on Electrolysis",
+      "prior_coverage": "Scoped-route claim only: no Zenodo/OSF exact-DOI result was found in the supplied route receipts. No first-ever SI-search claim is made. No Europe PMC query repeated.",
+      "identity_url": "https://doi.org/10.1149/2.0771915jes",
+      "identity_check": "Record identity is taken from the existing checklist. ResearchGate/SciSpace were third-party discovery hints only; no technical evidence is based on them. Their surfaced article copies are not counted as SI.",
+      "search_strings": [
+        "\"10.1149/2.0771915jes\" \"Zenodo\" OR \"OSF\"",
+        "site:zenodo.org/records \"10.1149/2.0771915jes\"",
+        "site:osf.io \"10.1149/2.0771915jes\""
+      ],
+      "discovery_urls": [
+        "https://doi.org/10.1149/2.0771915jes",
+        "https://www.researchgate.net/publication/337408525_The_Roles_of_Oxide_Growth_and_Sub-Surface_Facets_in_Oxygen_Evolution_Activity_of_Iridium_and_Its_Impact_on_Electrolysis"
+      ],
+      "outcome": "No public Zenodo/OSF SI deposit found. Article PDF is not SI; no verified SI attachment."
+    },
+    {
+      "screen_id": "S11310",
+      "doi": "10.1002/adfm.202009610",
+      "title": "Substitutionally Dispersed High-Oxidation CoOx Clusters in the Lattice of Rutile TiO2 Triggering Efficient CoTi Cooperative Catalytic Centers for Oxygen Evolution Reactions",
+      "prior_coverage": "Scoped-route claim only: no Zenodo/OSF exact-DOI result was found in the supplied route receipts. Earlier Figshare attempts are recorded in openai_public_si_continuation_2026-10-01/epmc_metadata_routes.json; no first-ever SI-search claim is made. No Europe PMC query repeated.",
+      "identity_url": "https://doi.org/10.1002/adfm.202009610",
+      "identity_check": "Official Wiley indexed result matches the title and lists adfm202009610-sup-0001-SuppMat.pdf (1.7 MB). Source: https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/adfm.202009610",
+      "search_strings": [
+        "\"10.1002/adfm.202009610\" \"Zenodo\" OR \"OSF\"",
+        "site:zenodo.org/records \"10.1002/adfm.202009610\"",
+        "site:osf.io \"10.1002/adfm.202009610\"",
+        "\"10.1002/adfm.202009610\" supporting information repository"
+      ],
+      "primary_urls": [
+        "https://doi.org/10.1002/adfm.202009610",
+        "https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/adfm.202009610"
+      ],
+      "manifest": "adfm202009610-sup-0001-SuppMat.pdf, 1.7 MB (publisher-indexed filename only; not downloaded or independently byte-verified).",
+      "outcome": "No Zenodo/OSF deposit found. Publisher manifest is an attachment lead only. After the S20440 attachment returned 403, no Wiley attachment request was made."
+    },
+    {
+      "screen_id": "S18904",
+      "doi": "10.1002/aenm.202300152",
+      "title": "Ultrathin Carbon Coating and Defect Engineering Promote RuO2 as an Efficient Catalyst for Acidic Oxygen Evolution Reaction with Super-High Durability",
+      "prior_coverage": "Scoped-route claim only: no Zenodo/OSF exact-DOI result was found in the supplied route receipts. Three earlier Figshare attempts are recorded in openai_public_si_continuation_2026-10-01/epmc_metadata_routes.json; no first-ever SI-search claim is made. No Europe PMC query repeated.",
+      "identity_url": "https://doi.org/10.1002/aenm.202300152",
+      "identity_check": "Record identity is taken from the existing checklist. CiNii was used only as a third-party bibliographic discovery hint; no technical evidence is based on it.",
+      "search_strings": [
+        "\"10.1002/aenm.202300152\" \"Zenodo\" OR \"OSF\"",
+        "site:zenodo.org/records \"10.1002/aenm.202300152\"",
+        "site:osf.io \"10.1002/aenm.202300152\"",
+        "\"10.1002/aenm.202300152\" repository supporting information"
+      ],
+      "discovery_urls": [
+        "https://doi.org/10.1002/aenm.202300152",
+        "https://cir.nii.ac.jp/crid/1360869862183681152"
+      ],
+      "outcome": "No Zenodo/OSF deposit or independent author/data repository SI manifest found. A request-only file-sharing result was excluded. No verified SI."
+    },
+    {
+      "screen_id": "S20440",
+      "doi": "10.1002/sstr.202300276",
+      "title": "Substrate-Driven Catalyst Reducibility for Oxygen Evolution and Its Effect on the Operation of Proton Exchange Membrane Water Electrolyzers",
+      "prior_coverage": "Scoped-route claim only: no Zenodo/OSF exact-DOI result was found in the supplied route receipts. Three earlier Figshare attempts are recorded in openai_public_si_continuation_2026-10-01/epmc_metadata_routes.json; no first-ever SI-search claim is made. No Europe PMC query repeated.",
+      "identity_url": "https://onlinelibrary.wiley.com/doi/abs/10.1002/sstr.202300276",
+      "identity_check": "Official Wiley page identifies title, authors Jaewoo Cho, Kyu-Su Kim, Soo Kim, Yuyan Shao, Yong-Tae Kim, Sehkyu Park, and affiliations at Kwangwoon University, POSTECH, Rivian, and PNNL. Its data statement says data are available on request. Lines 175-181 list the SI manifest.",
+      "search_strings": [
+        "\"10.1002/sstr.202300276\" \"Zenodo\" OR \"OSF\"",
+        "site:zenodo.org/records \"10.1002/sstr.202300276\"",
+        "site:osf.io \"10.1002/sstr.202300276\"",
+        "\"10.1002/sstr.202300276\" supporting information repository"
+      ],
+      "primary_urls": [
+        "https://onlinelibrary.wiley.com/doi/abs/10.1002/sstr.202300276",
+        "https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Fsstr.202300276&file=sstr202300276-sup-0001-SuppData-S1.pdf"
+      ],
+      "manifest": "sstr202300276-sup-0001-SuppData-S1.pdf, 846.2 KB; official page identifies it as Supplementary Material.",
+      "access_stop": "The official SI click returned HTTP 403. Stopped publisher requests at this challenge; no bypass or retry.",
+      "outcome": "Attachment identity and listed size verified from the official manifest; bytes and completeness are unverified; no SI recovered."
+    },
+    {
+      "screen_id": "S21048",
+      "doi": "10.1002/ange.202316903",
+      "title": "Breaking the Ru-O-Ru Symmetry of a RuO2 Catalyst for Sustainable Acidic Water Oxidation",
+      "prior_coverage": "Scoped-route claim only: no Zenodo/OSF exact-DOI result was found in the supplied route receipts. Three earlier Figshare attempts are recorded in openai_public_si_continuation_2026-10-01/epmc_metadata_routes.json; no first-ever SI-search claim is made. No Europe PMC query repeated.",
+      "identity_url": "https://doi.org/10.1002/ange.202316903",
+      "identity_check": "Record identity is taken from the existing checklist. EBSCO was used only as a bibliographic discovery hint; no technical evidence is based on it.",
+      "search_strings": [
+        "\"10.1002/ange.202316903\" \"Zenodo\" OR \"OSF\"",
+        "site:zenodo.org/records \"10.1002/ange.202316903\"",
+        "site:osf.io \"10.1002/ange.202316903\"",
+        "\"10.1002/ange.202316903\" repository supporting information"
+      ],
+      "discovery_urls": [
+        "https://doi.org/10.1002/ange.202316903",
+        "https://openurl.ebsco.com/contentitem/gcd%3A174690811?crl=f&id=ebsco%3Agcd%3A174690811&jrnl=00448249&sid=ebsco%3Aplink%3Acrawler"
+      ],
+      "outcome": "No Zenodo/OSF deposit or primary SI manifest established. No Wiley request made after publisher-level 403 stop. No verified SI."
+    },
+    {
+      "screen_id": "S21131",
+      "doi": "10.1002/smll.202306914",
+      "title": "Porous Tellurium-Doped Ruthenium Dioxide Nanotubes for Enhanced Acidic Water Oxidation",
+      "prior_coverage": "Scoped-route claim only: no Zenodo/OSF exact-DOI result was found in the supplied route receipts. Three earlier Figshare attempts are recorded in openai_public_si_continuation_2026-10-01/epmc_metadata_routes.json; no first-ever SI-search claim is made. No Europe PMC query repeated.",
+      "identity_url": "https://doi.org/10.1002/smll.202306914",
+      "identity_check": "Record identity is taken from the existing checklist. PubMed/OpenAlex and third-party article-copy results were used only for bibliographic discovery; no technical evidence is based on them. Main-article material is not counted as SI.",
+      "search_strings": [
+        "\"10.1002/smll.202306914\" \"Zenodo\" OR \"OSF\"",
+        "site:zenodo.org/records \"10.1002/smll.202306914\"",
+        "site:osf.io \"10.1002/smll.202306914\"",
+        "\"10.1002/smll.202306914\" \"supporting information\""
+      ],
+      "discovery_urls": [
+        "https://doi.org/10.1002/smll.202306914",
+        "https://pubmed.ncbi.nlm.nih.gov/38041488/",
+        "https://onlinelibrary.wiley.com/doi/full/10.1002/smll.202306914"
+      ],
+      "outcome": "No Zenodo/OSF deposit surfaced. Main article copies are not SI; no full SI manifest or attachment verified. Wiley publisher requests stopped after the S20440 403."
+    },
+    {
+      "screen_id": "S21356",
+      "doi": "10.1002/adma.202306934",
+      "title": "Sr-Stabilized IrMnO2 Solid Solution Nano-Electrocatalysts with Superior Activity and Excellent Durability for Oxygen Evolution Reaction in Acid Media",
+      "prior_coverage": "Scoped-route claim only: no Zenodo/OSF exact-DOI result was found in the supplied route receipts. Two earlier Figshare attempts are recorded in openai_public_si_continuation_2026-10-01/epmc_metadata_routes.json; no first-ever SI-search claim is made. No Europe PMC query repeated.",
+      "identity_url": "https://doi.org/10.1002/adma.202306934",
+      "identity_check": "Official Wiley indexed result matches title and authors J. Kuang, B. Deng, Z. Jiang, Y. Wang, Z.-J. Jiang. It states data are available from the corresponding author on request and lists adma202306934-sup-0001-SuppMat.pdf (1.2 MB). Source: https://advanced.onlinelibrary.wiley.com/doi/10.1002/adma.202306934?af=R",
+      "search_strings": [
+        "\"10.1002/adma.202306934\" \"Zenodo\" OR \"OSF\"",
+        "site:zenodo.org/records \"10.1002/adma.202306934\"",
+        "site:osf.io \"10.1002/adma.202306934\"",
+        "\"10.1002/adma.202306934\" \"Supporting Information\" repository"
+      ],
+      "primary_urls": [
+        "https://doi.org/10.1002/adma.202306934",
+        "https://advanced.onlinelibrary.wiley.com/doi/10.1002/adma.202306934?af=R"
+      ],
+      "manifest": "adma202306934-sup-0001-SuppMat.pdf, 1.2 MB (publisher-indexed filename only; not downloaded or byte-verified).",
+      "outcome": "No Zenodo/OSF deposit found. Publisher-indexed SI manifest is an attachment lead only. No publisher request made after the S20440 403."
+    },
+    {
+      "screen_id": "S23207",
+      "doi": "10.1002/adfm.202409714",
+      "title": "Rutile-Structured Ru0.48Mn0.52O2 Solid Solution for Highly Active and Stable Oxygen Evolution at Large Current Density in Acidic Media",
+      "prior_coverage": "Scoped-route claim only: no Zenodo/OSF exact-DOI result was found in the supplied route receipts. Two earlier Figshare attempts are recorded in openai_public_si_continuation_2026-10-01/epmc_metadata_routes.json; no first-ever SI-search claim is made. No Europe PMC query repeated.",
+      "identity_url": "https://onlinelibrary.wiley.com/doi/abs/10.1002/adfm.202409714",
+      "identity_check": "Official Wiley indexed result matches title, authors Zonglin Li, Haoyun Sheng, Yichao Lin, Lingzhi Wei, and others; it lists a 10.1 MB SI DOCX. Source: https://onlinelibrary.wiley.com/doi/full/10.1002/adfm.202409714",
+      "search_strings": [
+        "\"10.1002/adfm.202409714\" \"Zenodo\" OR \"OSF\"",
+        "site:zenodo.org/records \"10.1002/adfm.202409714\"",
+        "site:osf.io \"10.1002/adfm.202409714\"",
+        "\"10.1002/adfm.202409714\" repository dataset SI"
+      ],
+      "primary_urls": [
+        "https://doi.org/10.1002/adfm.202409714",
+        "https://onlinelibrary.wiley.com/doi/full/10.1002/adfm.202409714"
+      ],
+      "manifest": "adfm202409714-sup-0001-SuppMat.docx, 10.1 MB (publisher-indexed filename only; not downloaded or byte-verified).",
+      "outcome": "No Zenodo/OSF deposit found. Publisher-indexed SI manifest is an attachment lead only. No publisher request made after the S20440 403."
+    },
+    {
+      "screen_id": "S23881",
+      "doi": "10.1002/anie.202413334",
+      "title": "Unveiling the Structure and Dissociation of Interfacial Water on RuO2 for Efficient Acidic Oxygen Evolution Reaction",
+      "prior_coverage": "Scoped-route claim only: no Zenodo/OSF exact-DOI result was found in the supplied route receipts. No first-ever SI-search claim is made. No Europe PMC query repeated.",
+      "identity_url": "https://doi.org/10.1002/anie.202413334",
+      "identity_check": "Record identity is taken from the existing checklist. OpenAlex was used only as a bibliographic discovery hint; no technical evidence is based on it. The OA article PDF is not counted as SI.",
+      "search_strings": [
+        "\"10.1002/anie.202413334\" \"Zenodo\" OR \"OSF\"",
+        "site:zenodo.org/records \"10.1002/anie.202413334\"",
+        "site:osf.io \"10.1002/anie.202413334\"",
+        "\"10.1002/anie.202413334\" repository dataset"
+      ],
+      "discovery_urls": [
+        "https://doi.org/10.1002/anie.202413334",
+        "https://openalex.org/W4403218349"
+      ],
+      "outcome": "No Zenodo/OSF deposit or SI attachment manifest verified. Available article/version copies are not SI. No Wiley request made after the S20440 403."
+    }
+  ],
+  "duplicates_and_exclusions": [
+    "Excluded S11549/NLR and S14704/NSF PAR repeats per prior public outcomes.",
+    "Excluded S21177, S30575, and S16392 because the parent agent owns those distinct-version leads.",
+    "Did not repeat Europe PMC DOI metadata or supplementaryFiles searches.",
+    "Did not count article manuscripts, thesis/citation pages, request-only sharing pages, or guessed SI filenames as SI recovery.",
+    "S20440 official publisher SI attachment request returned 403; no bypass or subsequent Wiley/RSC/ACS publisher requests were made."
+  ],
+  "correction_history": [
+    "The initial receipt text incorrectly said there was no exact-ID hit in si_public_log.jsonl for all ten records. That broad first-ever-search claim is withdrawn. For S11310, S18904, S20440, S21048, and S21131, the prior continuation receipt records three Figshare attempts each; for S21356 and S23207 it records two each. Current newness claims are limited to the scoped Zenodo/OSF routes described above.",
+    "EBSCO, ResearchGate, CiNii, PubMed, and OpenAlex entries are discovery/bibliographic hints only. They are not treated as technical evidence or SI verification. Official Wiley SI manifests are used only for the explicitly listed attachment inventory leads."
+  ],
+  "verified_si_recovered": [],
+  "attachments_inventory_only": ["S11310", "S20440", "S21356", "S23207"],
+  "no_verified_si_distinction": "All ten remain missing-SI records for this discovery round. No attachment bytes or complete SI package were verified locally."
+}

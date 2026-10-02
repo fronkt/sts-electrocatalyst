@@ -1,5 +1,16 @@
 # Lessons (corrections log)
 
+## 2026-10-02 — Deduplicate exact attachments before calling a route new
+
+Match public attachment basenames/file IDs against si_texts.csv and text_si file
+tags before discovery or reread. A cached SI4 peer-review PDF is not new evidence,
+and a new route to a workbook is still a duplicate when size/checksum match.
+Distinguish a newly queried repository from a never-searched record. Give research
+workers explicit node_repl filesystem-only instructions: no exec_command or
+ordinary PowerShell, even for reading or parsing. Root runs all process checks
+through the verified hidden worker and records exceptions without claiming
+universal execution compliance.
+
 ## 2026-10-02 — Verify exact deciding evidence before the scientific rebuild
 
 Run both all-fragment validation and `reconcile.verified` on new rows before
