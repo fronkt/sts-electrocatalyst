@@ -1,5 +1,39 @@
 # Lessons (corrections log)
 
+## 2026-10-03 — Separate SSH-client failure from remote access failure
+
+Windows OpenSSH returned255 with empty streams even for -V on the isolated
+desktop. DNS and an SSH banner succeeded; the installed Git OpenSSH client then
+authenticated and completed read-only checks. A failed client is not proof that
+Anvil credentials or networking are blocked. Preserve each receipt, test the
+client version and use an existing compatible client without changing keys,
+host verification, security settings or the required execution desktop.
+
+Use the known Python3.9 binary for remote helpers. Anvil's default python3 lacks
+capture_output; preserve the initial metadata errors and repeat only the failed
+read-only checks with compatible subprocess arguments/runtime.
+
+## 2026-10-03 — Enforce publisher stops inside a batch
+
+A preassembled request list must check a shared blocked-host/publisher set before
+each request, not only describe a stop rule in prose. If one article returns403,
+429 or a challenge, skip later articles from that publisher and retain the skip
+reason. Distinct article URLs are not permission to continue after a publisher
+block. Preserve both actual receipts if a batch violates the rule; do not relabel
+the second request as a skip or claim universal compliance.
+
+## 2026-10-03 — Runtime consumption, not copied bytes, verifies a restart
+
+The checked-relaxation tests verified copied .bfgs bytes but not whether QE read
+them. QE7.5 from_scratch deletes that history at input setup, as the retained
+segment logs confirm. A restart contract needs a real split-run versus continuous
+control, complete clean-stop checkpoint inventory and observed optimizer state.
+Process-double tests alone cannot establish external-program restart behavior.
+
+Keep regex verification patterns simple across JS/JSON/Python layers and assert
+exactly one parsed restart_mode. Retain initial failed extraction separately from
+its checked receipt; an empty parser result is not an absent input field.
+
 ## 2026-10-02 — Freeze reader originals before evidence-transcription fixes
 
 Once a reader output is hash-pinned, every quote or page-location correction

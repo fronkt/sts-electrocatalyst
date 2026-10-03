@@ -1,5 +1,44 @@
 # STS 2027 — TODO
 
+## 2026-10-03 — Sequential evidence continuation and compute/melt readiness
+
+Scope: Frank requests all scientifically defensible work independent of the
+pending Purdue/Elsevier access, with legitimate public/manual alternatives and
+compute/melt preparation. Preserve approved v5 rules, completed reads, evidence
+holds and the same $50 lifetime literature/API cap. The literature cap is not a
+compute budget. No forced inclusion freeze, author messages, cloud launch or
+melt execution without the corresponding scientific and resource decisions.
+
+- [x] Pin the current Git/scientific checkpoint and unrelated work; review latest registered scientific, compute and laboratory gates. Baseline7aa9de8,426 file pins,2496 records,149 checklist rows and21 unrelated DFT files; original A/B failures and S8 selection hold preserved.
+- [x] Prioritize a bounded 5–10 genuinely new public SI leads, deduplicate all prior routes/payloads and stop challenged publishers; retain exact manual handoffs for inaccessible attachments. Five exact SI filenames/routes; ERDA426017216-byte archive retained and all-member CRC valid, but no missing S29447 SI DOCX. Two actual SciOpen403 receipts retained, including the second after the first block; subsequent publisher requests stopped.
+- [x] Seek new resolving primary evidence for the eight targeted holds; distinguish evidence gaps from rule questions and access gaps from exclusion. Eight holds remain with exact clarification needs; no distinct resolving public artifact and no author message.
+- [x] Inspect and independently screen only genuinely new complete evidence with GPT-6 Luna, adjudicate source disagreements, then verify and rebuild only supported state/checklist changes. No new complete SI, so zero new blind reads/canonical changes. Fresh67 evidence tests, both scientific verifiers and deterministic rebuild pass; all426 pins,2496 rows,149 checklist rows and21 unrelated files preserved.
+- [ ] Identify the actual dependencies from literature to extraction, validated computation and melt selection; implement and test the smallest licensed offline preparation, keeping failed A/B results unchanged.
+- [ ] Record remaining entrant direction/resource/lab decisions and concrete access workarounds; verify tests, history preservation and exact change scope.
+- [ ] Commit explicit non-secret paths, push and verify remote SHA; update memory and a review with what progressed, what did not launch and costs.
+
+Review: pending. Plan check-in: evidence discovery first, new-evidence screening
+second, offline compute/melt readiness third. Existing incomplete-source holds
+stay visible and do not become exclusions or melt recommendations.
+
+Direction confirmed: Frank elects offline P-A restart repair/test first and
+confirms the Fort Wayne Metals melt slot and potentiostat are available ASAP.
+Exact dates, stock/composition and sample-form limits remain unspecified. This
+licenses offline probe preparation/testing, not production DFT, an allocation
+expansion, selection freeze or laboratory sample preparation. The additive probe
+must compare continuous, clean-stop/restart and copied-history/from_scratch arms,
+prove actual optimizer-state continuation and preserve the production runner.
+
+Subsequent direction: Frank permits the optimal local/Anvil tiny test with a
+suggested cap. Anvil preferred; proposed total8SU, one shared job, four cores,
+two hours,6GB memory, all controls sequentially, no automatic retries. Git SSH
+client verifies the existing pinned7.5 build, H UPF, current36878.4SU balance,
+shared partition billing and no user jobs; initial Windows-client failures and
+default-Python helper errors remain separate receipts. Exact scientific-input
+and stop/checkpoint validation still precede submission. Frank updates the lab
+target to about one week, says timing/availability is not binding and prioritizes
+evidence closure. No confirmed appointment time or composition/form limits.
+
 ## 2026-10-02 — Four user-downloaded Wiley SI packages
 
 Scope: continue S11310, S20440, S21356 and S23207 from the four main
