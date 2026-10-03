@@ -1,0 +1,44 @@
+{
+  "calls": [
+    {
+      "args": [
+        "status",
+        "--short",
+        "--untracked-files=no"
+      ],
+      "stdout": " M tasks/todo.md\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "args": [
+        "diff",
+        "--stat"
+      ],
+      "stdout": " tasks/todo.md | 22 ++++++++++++++++++++++\n 1 file changed, 22 insertions(+)\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "args": [
+        "diff",
+        "--cached",
+        "--name-only"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "returncode": 0
+    }
+  ],
+  "source_test_pins_match_fresh_regression": true,
+  "historical_byte_pins_match": true
+}

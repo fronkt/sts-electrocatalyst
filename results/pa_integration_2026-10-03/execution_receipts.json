@@ -1,0 +1,217 @@
+{
+  "verified_background_desktop": true,
+  "local_jobs": [
+    {
+      "job": "pa-integration-baseline-2026-10-03",
+      "status": {
+        "exit_code": 1,
+        "desktop_requested": "Codex_STS_Background"
+      },
+      "note": "Initial nested-code newline syntax error; no baseline mutation",
+      "files": {
+        "config": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-integration-baseline-2026-10-03.json",
+          "bytes": 2296,
+          "sha256": "55fedaf0acd79ed8fb4d02a58705429eebc67fb239a038a95c17ded08adf75c4"
+        },
+        "log": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-integration-baseline-2026-10-03.log",
+          "bytes": 2365,
+          "sha256": "0acb95fc886dbfce800261bc449e6a3927c0ccbf6cf21d69acecfe9f832e90f0"
+        },
+        "status": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-integration-baseline-2026-10-03.status.json",
+          "bytes": 61,
+          "sha256": "f7a0564903bf9b5e4e48d0db0db9c97d57989fe111a2ada0d4f22ed3c4f74fe8"
+        }
+      },
+      "failure_tail": [
+        "Verified background desktop: Codex_STS_Background",
+        "Traceback (most recent call last):",
+        "  File \"C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\worker.py\", line 19, in <module>",
+        "    exec(compile(cfg['code'], '<background-task>', 'exec'), {'__name__': '__main__'})",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"<background-task>\", line 9",
+        "    paths=git('ls-files').splitlines(); pins=[pin(root/p) for p in paths if p!='tasks/todo.md']; unrelated=git('ls-files','--others','--exclude-standard').splitlines(); unrelated_pins=[pin(root/p) for p in unrelated if not p.startswith('results/pa_integration_2026-10-03/')]; ft=root/'results/s2_2026-09-25/full_text'; previous=ft/'download_si_review_2026-10-03'; inventory=json.loads((previous/'source_read_gate.json').read_text()); baseline={'at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'starting_head':head,'branch':git('branch','--show-current').strip(),'status_before':status,'tracked_pins':pins,'untracked_pins':unrelated_pins,'source_gate_pin':pin(previous/'source_read_gate.json'),'prior_phase_verification_pin':pin(previous/'scientific_final_checked/phase_verification.json'),'budget_estimate_usd':1.1105254,'budget_cap_usd':50,'production_accepted':False,'new_jobs':0}; (phase/'baseline.json').write_text(json.dumps(baseline,indent=2)+'",
+        "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ^",
+        "SyntaxError: unterminated string literal (detected at line 9)"
+      ]
+    },
+    {
+      "job": "pa-integration-baseline-checked-2026-10-03",
+      "status": {
+        "exit_code": 0,
+        "desktop_requested": "Codex_STS_Background"
+      },
+      "note": "Corrected clean checkpoint and whole tracked/unrelated byte pins",
+      "files": {
+        "config": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-integration-baseline-checked-2026-10-03.json",
+          "bytes": 2237,
+          "sha256": "72942c43fb40360bde5331d19977afe6e0e99bd7fd0d04dfc0260635b049e144"
+        },
+        "log": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-integration-baseline-checked-2026-10-03.log",
+          "bytes": 233,
+          "sha256": "6a56d1f56dec38784731e173077ec705c810aca256b8a19fa4d8580e3076941d"
+        },
+        "status": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-integration-baseline-checked-2026-10-03.status.json",
+          "bytes": 61,
+          "sha256": "2e9445d567e0e01f1db98090b469345d6dfa63dd5f03cd8141bee77c473bf331"
+        }
+      },
+      "failure_tail": []
+    },
+    {
+      "job": "pa-extraction-check-2026-10-03",
+      "status": {
+        "exit_code": 1,
+        "desktop_requested": "Codex_STS_Background"
+      },
+      "note": "Initial global Word-table-count assumption refused extraction",
+      "files": {
+        "config": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-extraction-check-2026-10-03.json",
+          "bytes": 963,
+          "sha256": "dd95d2ed94c9c552b5b106c19e36ca6cd16258b38dda298e5bdb47811ffeaf96"
+        },
+        "log": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-extraction-check-2026-10-03.log",
+          "bytes": 724,
+          "sha256": "88fc8217a33f2b3c338234785136868a7a1ba060c3fb421ebf784fd244f37698"
+        },
+        "status": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-extraction-check-2026-10-03.status.json",
+          "bytes": 61,
+          "sha256": "f7a0564903bf9b5e4e48d0db0db9c97d57989fe111a2ada0d4f22ed3c4f74fe8"
+        }
+      },
+      "failure_tail": [
+        "Verified background desktop: Codex_STS_Background",
+        "Traceback (most recent call last):",
+        "  File \"C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\worker.py\", line 19, in <module>",
+        "    exec(compile(cfg['code'], '<background-task>', 'exec'), {'__name__': '__main__'})",
+        "  File \"<background-task>\", line 2, in <module>",
+        "  File \"C:\\Users\\frank\\sts-electrocatalyst\\results\\pa_integration_2026-10-03\\extract_evidence.py\", line 117, in main",
+        "    raw = table_s3(xml)",
+        "          ^^^^^^^^^^^^^",
+        "  File \"C:\\Users\\frank\\sts-electrocatalyst\\results\\pa_integration_2026-10-03\\extract_evidence.py\", line 46, in table_s3",
+        "    raise ValueError('expected three original Word tables')",
+        "ValueError: expected three original Word tables"
+      ]
+    },
+    {
+      "job": "pa-extraction-check-v2-2026-10-03",
+      "status": {
+        "exit_code": 0,
+        "desktop_requested": "Codex_STS_Background"
+      },
+      "note": "Unique source-header selection and exact literal site transcription",
+      "files": {
+        "config": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-extraction-check-v2-2026-10-03.json",
+          "bytes": 969,
+          "sha256": "f6343967e8acdb79db4cc573107c28382292290a7f9db62db702e0bcd5f39dfc"
+        },
+        "log": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-extraction-check-v2-2026-10-03.log",
+          "bytes": 1960,
+          "sha256": "f7b86bee4fd4fb3462d29f81a0ded85676e2005d2101f457e9ca23d97dfc7871"
+        },
+        "status": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-extraction-check-v2-2026-10-03.status.json",
+          "bytes": 61,
+          "sha256": "2e9445d567e0e01f1db98090b469345d6dfa63dd5f03cd8141bee77c473bf331"
+        }
+      },
+      "failure_tail": []
+    },
+    {
+      "job": "pa-package-verify-2026-10-03",
+      "status": {
+        "exit_code": 1,
+        "desktop_requested": "Codex_STS_Background"
+      },
+      "note": "Initial fixture helper argument mismatch; immutable failure receipt retained",
+      "files": {
+        "config": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-package-verify-2026-10-03.json",
+          "bytes": 727,
+          "sha256": "9fd3a302f164d103e1e22831e57c4fb8d7af212ceedf5e2cf36f6ab59748fa7c"
+        },
+        "log": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-package-verify-2026-10-03.log",
+          "bytes": 5136,
+          "sha256": "32a8bae6a2a7c60819344e9cf86dfe6556c6cf0fbbb2b9a9af90515828b32af2"
+        },
+        "status": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-package-verify-2026-10-03.status.json",
+          "bytes": 61,
+          "sha256": "f7a0564903bf9b5e4e48d0db0db9c97d57989fe111a2ada0d4f22ed3c4f74fe8"
+        }
+      },
+      "failure_tail": [
+        "................................................                         [100%]",
+        "================================== FAILURES ===================================",
+        "____ test_counter_and_terminal_bool_types_are_strict[reseeds_so_far-True] _____",
+        "",
+        "tmp_path = WindowsPath('C:/Users/frank/AppData/Local/Temp/pytest-of-unknown/pytest-96/test_counter_and_terminal_bool1')",
+        "field = 'reseeds_so_far', value = True",
+        "",
+        "    @pytest.mark.parametrize(\"field,value\", [",
+        "        (\"segment_index\", True), (\"reseeds_so_far\", True),",
+        "        (\"max_segments\", True), (\"max_reseeds\", True), (\"terminal\", 1),",
+        "    ])",
+        "    def test_counter_and_terminal_bool_types_are_strict(tmp_path, field, value):",
+        "        kwargs = {\"warm\": scf(), \"fresh\": scf()}",
+        "        kwargs[field] = value",
+        "        with pytest.raises(ValueError):",
+        ">           decide(tmp_path, **kwargs)",
+        "E           TypeError: decide() got an unexpected keyword argument 'reseeds_so_far'",
+        "",
+        "tests\\test_pa_checked_contract.py:357: TypeError",
+        "=========================== short test summary info ===========================",
+        "FAILED tests/test_pa_checked_contract.py::test_counter_and_terminal_bool_types_are_strict[reseeds_so_far-True]",
+        "1 failed, 327 passed, 1 skipped, 7 subtests passed in 9.24s",
+        "",
+        "Traceback (most recent call last):",
+        "  File \"C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\worker.py\", line 19, in <module>",
+        "    exec(compile(cfg['code'], '<background-task>', 'exec'), {'__name__': '__main__'})",
+        "  File \"<background-task>\", line 2, in <module>",
+        "  File \"C:\\Users\\frank\\sts-electrocatalyst\\results\\pa_integration_2026-10-03\\verify_package.py\", line 87, in main",
+        "    raise ValueError('offline compute tests fail: '+process.stderr)",
+        "ValueError: offline compute tests fail: "
+      ]
+    },
+    {
+      "job": "pa-package-verify-v2-2026-10-03",
+      "status": {
+        "exit_code": 0,
+        "desktop_requested": "Codex_STS_Background"
+      },
+      "note": "Fresh corrected offline regressions, science and whole-byte preservation",
+      "files": {
+        "config": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-package-verify-v2-2026-10-03.json",
+          "bytes": 736,
+          "sha256": "a18872e1837b1dc5802a9ff461528e44deca5cce5e0b7b4c153ab4ffc490bfaf"
+        },
+        "log": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-package-verify-v2-2026-10-03.log",
+          "bytes": 9673,
+          "sha256": "d5c8fe74a01f8da01f50c7bcaf1d55673ea5f4f87198a4b280671a6acbb2a5f4"
+        },
+        "status": {
+          "path": "C:\\Users\\frank\\AppData\\Local\\Temp\\sts-background-2026-09-06\\pa-package-verify-v2-2026-10-03.status.json",
+          "bytes": 61,
+          "sha256": "2e9445d567e0e01f1db98090b469345d6dfa63dd5f03cd8141bee77c473bf331"
+        }
+      },
+      "failure_tail": []
+    }
+  ],
+  "new_qe_or_slurm_jobs": 0,
+  "new_paid_external_api_calls": 0,
+  "all_initial_failures_preserved": true
+}

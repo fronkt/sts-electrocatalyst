@@ -1,5 +1,31 @@
 # STS 2027 — TODO
 
+## 2026-10-03 — Eligible evidence extraction and offline catalyst P-A integration
+
+Scope: extract S29420/S29447 without altering screening decisions; prepare and
+test an additive catalyst P-A restart/check/reseed contract using the accepted
+tiny-QE evidence. Preserve failed A/B records and all scientific settings. No
+publisher/API request, new QE/Slurm job, production licence or melt selection.
+
+- [x] Pin the clean Git/scientific checkpoint, cached sources and unrelated work; inspect the exact prior P-A semantics and acceptance limitations. HEAD6178257;9791 tracked byte pins and21 unrelated files. Historical runner, partial checkpoint copy, missing-reference acceptance and proposal/evaluation distinctions inspected.
+- [x] Retain a comparative evidence table with primary-source locations, reported quantities/reference conditions and the unresolved S29420 numeric discrepancy; independently review extraction. Eleven exact-location claims/four conflicting eta rows and62 literal TableS3 site rows verify; all four binary/text pins match, five extraction guards pass. Independent GPT-6 Luna extraction memo retained; original endpoint blanks and decimal strings preserved, no ranking/neweta/screening change.
+- [x] Specify and implement the smallest offline restart/fresh-check/reseed contract with checkpoint isolation and evaluated/proposed geometry gates; exercise adversarial transitions without QE. Additive post-hoc P-A-v2 contract, not an actual QE driver; fresh failures HOLD, strict10meV/cell reseed/reset, cell/constraint and terminal evaluated-force gates, positive exact resume counters and complete recursive checkpoint identity. Historical runners untouched.
+- [x] Present a separately capped catalyst validation proposal, acceptance criteria and remaining production/melt dependencies; do not reuse the tiny-job allowance. Proposed one-boundary numerical trial only: one regular wholenode128-core job,16h/2048SU,200GiB,at most six sequential2h solver calls. Adapter/source review and explicit new protocol/resource approval precede any trial; every-step P-A/production/melt remain separate gates.
+- [x] Run relevant historical/new tests and scientific/preservation verification; independently review the scoped package. Fresh83 evidence tests and330 compute tests/7 subtests pass; one Windows symlink fixture skips for unavailable creation privileges. Both scientific verifiers pass,9791 tracked/21 unrelated byte pins match before and after, and canonical/checklist state is unchanged. Independent GPT-6 Luna review GO for offline extraction/contract only; real adapter/runtime and platform fixture remain pending.
+- [ ] Commit explicit non-secret paths, push and verify the remote SHA; update project memory and this review with outcomes, costs and remaining gates.
+
+Plan check-in: source extraction and prior-runtime analysis in parallel, followed
+by the additive offline contract and tests, independent review and preservation
+checks. The literature/API budget remains $50 lifetime (tracked estimate
+$1.1105254); compute approval is separate. This package cannot establish actual
+catalyst restart or electronic-state acceptance without the later reviewed run.
+
+Review: scoped offline package verified and independently cleared. The literal
+62-row table and four conflicting reported eta values preserve primary-source
+units, reference conditions and uncertainty; no ranking or melt selection.
+The contract is a post-hoc audit, not a QE driver. Publication and memory update
+remain pending; the separately proposed2048SU trial is not approved or submitted.
+
 ## 2026-10-03 — Five manual priority SI packages
 
 Scope: continue the five new Downloads attachments for S29636, S29420, S29447,

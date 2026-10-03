@@ -1,0 +1,116 @@
+{
+  "schema": "eligible-comparison-2026-10-03-v1",
+  "fragment_representation": "Pinned reading-text transcription, not original Word mathematical typography; matching normalizes compatibility glyphs and layout punctuation/whitespace. Original XML and binary sources remain authoritative.",
+  "screen_ids": ["S29420", "S29447"],
+  "screening_changes": false,
+  "cross_study_ranking_permitted": false,
+  "derived_eta": false,
+  "melt_candidates_selected": false,
+  "claims": [
+    {
+      "id": "gdy_model",
+      "screen_id": "S29420",
+      "source": "si",
+      "locator": "PDF p.2, Calculation methods",
+      "marker": "[si: 8680_ESM.pdf p. 2]",
+      "fragment": "RuO2 (110) had been established using the RuO2 bulk structures with the 5-layer of O-Ru-O layers.",
+      "interpretation": "Ideal rutile RuO2(110) slab; 144 atoms. Composite uses five O-Ru-O layers plus one GDY layer, 333 atoms, fixed strained lattice; no melt-alloy model."
+    },
+    {
+      "id": "gdy_numerics",
+      "screen_id": "S29420",
+      "source": "si",
+      "locator": "PDF p.2, Calculation methods",
+      "marker": "[si: 8680_ESM.pdf p. 2]",
+      "fragment": "The Vienna Ab Initio Package (VASP) was employed to perform all the density functional theory (DFT) calculations within the generalized gradient approximation (GGA) using the Perdew, Burke, and Enzerhof (PBE) formulation[1-3].",
+      "interpretation": "VASP/PBE/PAW,450eV,0.05eV Gaussian width,DFT-D3,20angstrom vacuum. SI distinguishes3x3x1 optimization sampling and1x1x1 surface sampling; preserve both statements."
+    },
+    {
+      "id": "gdy_main_eta",
+      "screen_id": "S29420",
+      "source": "main",
+      "locator": "PDF p.4, section3.1, Fig.2(f) discussion",
+      "marker": "[main: S29420_main.pdf p. 4]",
+      "fragment": "the theoretical AEM overpotential (η) at U = 1.23 V (where U is the theoretical potential required for driving the OER process in theoretical calculations) on the GDY@RuO2 model is as low as 0.59 eV, whereas this value on RuO2−x surface is 0.75 eV",
+      "interpretation": "Direct author-reported eta; retain eV unit and explicit U=1.23V label. Do not infer theoretical RHE reference from experimental paragraphs."
+    },
+    {
+      "id": "gdy_si_eta",
+      "screen_id": "S29420",
+      "source": "si",
+      "locator": "PDF p.4, Fig.S5 caption",
+      "marker": "[si: 8680_ESM.pdf p. 4]",
+      "fragment": "the overpotential was lowered from 0.73 eV of RuO2 to 0.56 eV (GDY@RuO2).",
+      "interpretation": "Separate conflicting direct pair; no averaging, correction, or preference imposed. SI caption does not independently assign a potential/reference."
+    },
+    {
+      "id": "gdy_mechanism",
+      "screen_id": "S29420",
+      "source": "main",
+      "locator": "PDF p.4, section3.1",
+      "marker": "[main: S29420_main.pdf p. 4]",
+      "fragment": "GDY can significantly suppress the LOM proportion and compel it to follow the AEM pathway",
+      "interpretation": "Authors propose LOM suppression by interfacial electronic modulation. Computational free-energy comparisons are not kinetic activation barriers or direct proof of oxygen-origin fractions."
+    },
+    {
+      "id": "ruir_methods",
+      "screen_id": "S29447",
+      "source": "main",
+      "locator": "PDF p.4 section2.6; continuation p.5",
+      "marker": "[main: S29447_main.pdf p. 4]",
+      "fragment": "The exchange and correlation energy was calculated with the RPBE functional.33 The calculations were spin-paired. The surface was modeled as a 3 × 1 slab of the rutile (110) surface, and the Brillouin zone was sampled by 2 × 2 k-points.",
+      "interpretation": "GPAW/ASE,RPBE,spin-paired,500eV,four-layer rutile(110),bottom two layers fixed,20angstrom vacuum,dipole correction,0.05eV/angstrom force threshold. No equality to the project's spin-polarized DFT+U protocol."
+    },
+    {
+      "id": "ruir_site_population",
+      "screen_id": "S29447",
+      "source": "main",
+      "locator": "PDF p.7, section3.3",
+      "marker": "[main: S29447_main.pdf p. 7]",
+      "fragment": "20 Ru1−xIrxO2(110) slabs, where Ir or Ru were randomly placed in the 24 metal atom lattice sites defined in the slab. Each slab featured three cus sites on its top (110) surface.",
+      "interpretation": "Twenty mixed configurations plus pure rutile controls; authors assess62 cus sites, not62 bulk melt compositions."
+    },
+    {
+      "id": "ruir_ul_assignment",
+      "screen_id": "S29447",
+      "source": "main",
+      "locator": "PDF p.7, section3.3, TableS3 discussion",
+      "marker": "[main: S29447_main.pdf p. 7]",
+      "fragment": "maximum value of ΔG1, ΔG2, ΔG3, or ΔG4 at 0 V vs RHE, which corresponds to the limiting potential of that site.7",
+      "interpretation": "Explicit author limiting-potential assignment. Table max-deltaG retains eV; one-electron equivalence is documented, but no new eta subtraction/conversion or highlighting-based derivation."
+    },
+    {
+      "id": "ruir_thermodynamic_limit",
+      "screen_id": "S29447",
+      "source": "main",
+      "locator": "PDF p.7, section3.3",
+      "marker": "[main: S29447_main.pdf p. 7]",
+      "fragment": "it is not possible to calculate the activation energies of the individual elemental steps using this computational approach; instead, it yields thermodynamic spontaneity of the OER sequence.",
+      "interpretation": "CHE thermodynamic descriptors, not kinetic barriers. Authors compare bridge-enabled versus cus-only intermediates."
+    },
+    {
+      "id": "ruir_che_reference",
+      "screen_id": "S29447",
+      "source": "si",
+      "locator": "DOCX paragraph110, Additional computational details",
+      "marker": "[cs-2025-08494p_si_001.docx paragraph 110]",
+      "fragment": "which sets GH++e– = ½GH2(g) – eU (U is the potential vs the reversible hydrogen electrode)",
+      "interpretation": "Explicit H2/RHE CHE relation; retain TableS2 author half-reactions/equations, including any printed omissions, without silently repairing them."
+    },
+    {
+      "id": "ruir_site_table",
+      "screen_id": "S29447",
+      "source": "si",
+      "locator": "DOCX paragraph161 and TableS3 paragraph163",
+      "marker": "[cs-2025-08494p_si_001.docx paragraph 161]",
+      "fragment": "We have calculated the OER activity of 62 different cus sites. Table S3 lists the slab composition (x in Ru1-xIrxO2), reaction free energies for formation of the OER intermediates at all the different cus sites, the maximum value of ΔG1, ΔG2, ΔG3, and ΔG4 at U = 0 V vs RHE, and the surface number (used for identification).",
+      "interpretation": "Mechanical transcription of reported TableS3 only; preserve decimal strings/source row identities, no calculated max/eta/site ranking."
+    }
+  ],
+  "reported_quantities": [
+    {"screen_id":"S29420","model":"GDY@RuO2","source":"main","claim_id":"gdy_main_eta","quantity_label":"theoretical AEM overpotential eta","value":"0.59","reported_unit":"eV","potential_label":"U=1.23V; theoretical scale not explicitly RHE","conflict_group":"S29420_AEM_pair"},
+    {"screen_id":"S29420","model":"RuO2-x (author main label)","source":"main","claim_id":"gdy_main_eta","quantity_label":"theoretical AEM overpotential eta","value":"0.75","reported_unit":"eV","potential_label":"U=1.23V; theoretical scale not explicitly RHE","conflict_group":"S29420_AEM_pair"},
+    {"screen_id":"S29420","model":"GDY@RuO2","source":"si","claim_id":"gdy_si_eta","quantity_label":"AEM overpotential eta","value":"0.56","reported_unit":"eV","potential_label":"not independently assigned in Fig.S5 caption","conflict_group":"S29420_AEM_pair"},
+    {"screen_id":"S29420","model":"RuO2 (author SI label)","source":"si","claim_id":"gdy_si_eta","quantity_label":"AEM overpotential eta","value":"0.73","reported_unit":"eV","potential_label":"not independently assigned in Fig.S5 caption","conflict_group":"S29420_AEM_pair"}
+  ]
+}
