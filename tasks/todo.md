@@ -12,7 +12,7 @@ publisher/API request, new QE/Slurm job, production licence or melt selection.
 - [x] Specify and implement the smallest offline restart/fresh-check/reseed contract with checkpoint isolation and evaluated/proposed geometry gates; exercise adversarial transitions without QE. Additive post-hoc P-A-v2 contract, not an actual QE driver; fresh failures HOLD, strict10meV/cell reseed/reset, cell/constraint and terminal evaluated-force gates, positive exact resume counters and complete recursive checkpoint identity. Historical runners untouched.
 - [x] Present a separately capped catalyst validation proposal, acceptance criteria and remaining production/melt dependencies; do not reuse the tiny-job allowance. Proposed one-boundary numerical trial only: one regular wholenode128-core job,16h/2048SU,200GiB,at most six sequential2h solver calls. Adapter/source review and explicit new protocol/resource approval precede any trial; every-step P-A/production/melt remain separate gates.
 - [x] Run relevant historical/new tests and scientific/preservation verification; independently review the scoped package. Fresh83 evidence tests and330 compute tests/7 subtests pass; one Windows symlink fixture skips for unavailable creation privileges. Both scientific verifiers pass,9791 tracked/21 unrelated byte pins match before and after, and canonical/checklist state is unchanged. Independent GPT-6 Luna review GO for offline extraction/contract only; real adapter/runtime and platform fixture remain pending.
-- [ ] Commit explicit non-secret paths, push and verify the remote SHA; update project memory and this review with outcomes, costs and remaining gates.
+- [x] Commit explicit non-secret paths, push and verify the remote SHA; update project memory and this review with outcomes, costs and remaining gates. Scientific checkpoint0ff694efdc429bfc457c103768abc91332f879d0 pushed with exact remote match,25 explicit paths, tracked worktree clean and9791 historical/21 unrelated pins unchanged after publication. Project memory records extraction, offline-only scope,83/330/7 checks plus one platform skip, unchanged$1.1105254/$50 estimate and separate unapproved2048SU trial. Completion notes/publication receipt retained in a separate exact-path follow-up.
 
 Plan check-in: source extraction and prior-runtime analysis in parallel, followed
 by the additive offline contract and tests, independent review and preservation
@@ -23,8 +23,11 @@ catalyst restart or electronic-state acceptance without the later reviewed run.
 Review: scoped offline package verified and independently cleared. The literal
 62-row table and four conflicting reported eta values preserve primary-source
 units, reference conditions and uncertainty; no ranking or melt selection.
-The contract is a post-hoc audit, not a QE driver. Publication and memory update
-remain pending; the separately proposed2048SU trial is not approved or submitted.
+The contract is a post-hoc audit, not a QE driver. Scientific checkpoint0ff694ef
+is pushed with exact remote match; memory is updated and publication receipt
+retains the exact path/preservation proof. No new paid API calls or compute jobs.
+The separately proposed2048SU trial is not approved or submitted; actual adapter,
+source review and platform-specific guard exercise remain the next preparation.
 
 ## 2026-10-03 — Five manual priority SI packages
 

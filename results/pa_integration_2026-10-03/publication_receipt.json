@@ -1,0 +1,305 @@
+{
+  "scope": "OFFLINE_EXTRACTION_AND_PA_CONTRACT_ONLY",
+  "calls": [
+    {
+      "args": [
+        "rev-parse",
+        "HEAD"
+      ],
+      "stdout": "61782579eb064f562a10c0f7598d3cd2873c077d\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "args": [
+        "branch",
+        "--show-current"
+      ],
+      "stdout": "r0-catalysis-revival\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "args": [
+        "diff",
+        "--cached",
+        "--name-only"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "args": [
+        "add",
+        "-f",
+        "--",
+        "src/dft/pa_checked_contract.py",
+        "tests/test_pa_checked_contract.py",
+        "docs/research/eligible-comparison-pa-readiness-2026-10-03.md",
+        "tasks/todo.md",
+        "results/pa_integration_2026-10-03/baseline.json",
+        "results/pa_integration_2026-10-03/compute_tests.json",
+        "results/pa_integration_2026-10-03/compute_tests_initial_failure.json",
+        "results/pa_integration_2026-10-03/evidence_spec.json",
+        "results/pa_integration_2026-10-03/evidence_tests.json",
+        "results/pa_integration_2026-10-03/execution_receipts.json",
+        "results/pa_integration_2026-10-03/extraction_review.md",
+        "results/pa_integration_2026-10-03/extraction_tests.json",
+        "results/pa_integration_2026-10-03/extraction_verification.json",
+        "results/pa_integration_2026-10-03/extract_evidence.py",
+        "results/pa_integration_2026-10-03/final_review.md",
+        "results/pa_integration_2026-10-03/git_preflight.json",
+        "results/pa_integration_2026-10-03/package_verification.json",
+        "results/pa_integration_2026-10-03/retain_receipts.py",
+        "results/pa_integration_2026-10-03/s29420_reported_eta.csv",
+        "results/pa_integration_2026-10-03/s29447_table_s3.csv",
+        "results/pa_integration_2026-10-03/si_round_verification.json",
+        "results/pa_integration_2026-10-03/test_extract_evidence.py",
+        "results/pa_integration_2026-10-03/verification.json",
+        "results/pa_integration_2026-10-03/verify_package.py",
+        "results/pa_integration_2026-10-03/publication_manifest.json"
+      ],
+      "stdout": "",
+      "stderr": "warning: in the working copy of 'docs/research/eligible-comparison-pa-readiness-2026-10-03.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'results/pa_integration_2026-10-03/evidence_spec.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'results/pa_integration_2026-10-03/extract_evidence.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'results/pa_integration_2026-10-03/extraction_review.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'results/pa_integration_2026-10-03/final_review.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'results/pa_integration_2026-10-03/publication_manifest.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'results/pa_integration_2026-10-03/retain_receipts.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'results/pa_integration_2026-10-03/s29420_reported_eta.csv', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'results/pa_integration_2026-10-03/s29447_table_s3.csv', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'results/pa_integration_2026-10-03/test_extract_evidence.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'results/pa_integration_2026-10-03/verify_package.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/dft/pa_checked_contract.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tests/test_pa_checked_contract.py', LF will be replaced by CRLF the next time Git touches it\n",
+      "returncode": 0
+    },
+    {
+      "args": [
+        "diff",
+        "--cached",
+        "--name-only"
+      ],
+      "stdout": "docs/research/eligible-comparison-pa-readiness-2026-10-03.md\nresults/pa_integration_2026-10-03/baseline.json\nresults/pa_integration_2026-10-03/compute_tests.json\nresults/pa_integration_2026-10-03/compute_tests_initial_failure.json\nresults/pa_integration_2026-10-03/evidence_spec.json\nresults/pa_integration_2026-10-03/evidence_tests.json\nresults/pa_integration_2026-10-03/execution_receipts.json\nresults/pa_integration_2026-10-03/extract_evidence.py\nresults/pa_integration_2026-10-03/extraction_review.md\nresults/pa_integration_2026-10-03/extraction_tests.json\nresults/pa_integration_2026-10-03/extraction_verification.json\nresults/pa_integration_2026-10-03/final_review.md\nresults/pa_integration_2026-10-03/git_preflight.json\nresults/pa_integration_2026-10-03/package_verification.json\nresults/pa_integration_2026-10-03/publication_manifest.json\nresults/pa_integration_2026-10-03/retain_receipts.py\nresults/pa_integration_2026-10-03/s29420_reported_eta.csv\nresults/pa_integration_2026-10-03/s29447_table_s3.csv\nresults/pa_integration_2026-10-03/si_round_verification.json\nresults/pa_integration_2026-10-03/test_extract_evidence.py\nresults/pa_integration_2026-10-03/verification.json\nresults/pa_integration_2026-10-03/verify_package.py\nsrc/dft/pa_checked_contract.py\ntasks/todo.md\ntests/test_pa_checked_contract.py\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "args": [
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "args": [
+        "commit",
+        "-m",
+        "Add source-grounded comparison and offline P-A audit to prepare catalyst validation"
+      ],
+      "stdout": "[r0-catalysis-revival 0ff694e] Add source-grounded comparison and offline P-A audit to prepare catalyst validation\n 25 files changed, 53040 insertions(+)\n create mode 100644 docs/research/eligible-comparison-pa-readiness-2026-10-03.md\n create mode 100644 results/pa_integration_2026-10-03/baseline.json\n create mode 100644 results/pa_integration_2026-10-03/compute_tests.json\n create mode 100644 results/pa_integration_2026-10-03/compute_tests_initial_failure.json\n create mode 100644 results/pa_integration_2026-10-03/evidence_spec.json\n create mode 100644 results/pa_integration_2026-10-03/evidence_tests.json\n create mode 100644 results/pa_integration_2026-10-03/execution_receipts.json\n create mode 100644 results/pa_integration_2026-10-03/extract_evidence.py\n create mode 100644 results/pa_integration_2026-10-03/extraction_review.md\n create mode 100644 results/pa_integration_2026-10-03/extraction_tests.json\n create mode 100644 results/pa_integration_2026-10-03/extraction_verification.json\n create mode 100644 results/pa_integration_2026-10-03/final_review.md\n create mode 100644 results/pa_integration_2026-10-03/git_preflight.json\n create mode 100644 results/pa_integration_2026-10-03/package_verification.json\n create mode 100644 results/pa_integration_2026-10-03/publication_manifest.json\n create mode 100644 results/pa_integration_2026-10-03/retain_receipts.py\n create mode 100644 results/pa_integration_2026-10-03/s29420_reported_eta.csv\n create mode 100644 results/pa_integration_2026-10-03/s29447_table_s3.csv\n create mode 100644 results/pa_integration_2026-10-03/si_round_verification.json\n create mode 100644 results/pa_integration_2026-10-03/test_extract_evidence.py\n create mode 100644 results/pa_integration_2026-10-03/verification.json\n create mode 100644 results/pa_integration_2026-10-03/verify_package.py\n create mode 100644 src/dft/pa_checked_contract.py\n create mode 100644 tests/test_pa_checked_contract.py\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "args": [
+        "rev-parse",
+        "HEAD"
+      ],
+      "stdout": "0ff694efdc429bfc457c103768abc91332f879d0\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "args": [
+        "diff-tree",
+        "--no-commit-id",
+        "--name-only",
+        "-r",
+        "0ff694efdc429bfc457c103768abc91332f879d0"
+      ],
+      "stdout": "docs/research/eligible-comparison-pa-readiness-2026-10-03.md\nresults/pa_integration_2026-10-03/baseline.json\nresults/pa_integration_2026-10-03/compute_tests.json\nresults/pa_integration_2026-10-03/compute_tests_initial_failure.json\nresults/pa_integration_2026-10-03/evidence_spec.json\nresults/pa_integration_2026-10-03/evidence_tests.json\nresults/pa_integration_2026-10-03/execution_receipts.json\nresults/pa_integration_2026-10-03/extract_evidence.py\nresults/pa_integration_2026-10-03/extraction_review.md\nresults/pa_integration_2026-10-03/extraction_tests.json\nresults/pa_integration_2026-10-03/extraction_verification.json\nresults/pa_integration_2026-10-03/final_review.md\nresults/pa_integration_2026-10-03/git_preflight.json\nresults/pa_integration_2026-10-03/package_verification.json\nresults/pa_integration_2026-10-03/publication_manifest.json\nresults/pa_integration_2026-10-03/retain_receipts.py\nresults/pa_integration_2026-10-03/s29420_reported_eta.csv\nresults/pa_integration_2026-10-03/s29447_table_s3.csv\nresults/pa_integration_2026-10-03/si_round_verification.json\nresults/pa_integration_2026-10-03/test_extract_evidence.py\nresults/pa_integration_2026-10-03/verification.json\nresults/pa_integration_2026-10-03/verify_package.py\nsrc/dft/pa_checked_contract.py\ntasks/todo.md\ntests/test_pa_checked_contract.py\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "args": [
+        "push",
+        "origin",
+        "r0-catalysis-revival"
+      ],
+      "stdout": "",
+      "stderr": "To https://github.com/fronkt/sts-electrocatalyst.git\n   6178257..0ff694e  r0-catalysis-revival -> r0-catalysis-revival\n",
+      "returncode": 0
+    },
+    {
+      "args": [
+        "ls-remote",
+        "--heads",
+        "origin",
+        "r0-catalysis-revival"
+      ],
+      "stdout": "0ff694efdc429bfc457c103768abc91332f879d0\trefs/heads/r0-catalysis-revival\n",
+      "stderr": "",
+      "returncode": 0
+    },
+    {
+      "args": [
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "returncode": 0
+    }
+  ],
+  "new_paid_external_api_calls": 0,
+  "new_qe_or_slurm_jobs": 0,
+  "production_accepted": false,
+  "completed": true,
+  "preservation_before": {
+    "tracked_files": 9791,
+    "unrelated_untracked_files": 21,
+    "errors": []
+  },
+  "staged_input_pins": [
+    {
+      "path": "src/dft/pa_checked_contract.py",
+      "bytes": 25077,
+      "sha256": "67412c8363877f0a6407e382a4d3c33c6c0f6dac7b1f5de3e3968bf77755ae39"
+    },
+    {
+      "path": "tests/test_pa_checked_contract.py",
+      "bytes": 17649,
+      "sha256": "7ab803c0838c0b65bfc3a1520aa65f9bd7845ed62b2d448921574408d21cca6d"
+    },
+    {
+      "path": "docs/research/eligible-comparison-pa-readiness-2026-10-03.md",
+      "bytes": 13506,
+      "sha256": "2e81315482195f7a5936d85d28318c871211eb6392708958552f4bfbdd096a56"
+    },
+    {
+      "path": "tasks/todo.md",
+      "bytes": 379524,
+      "sha256": "79803fc9cfce5e5c60d657e444e1fa588a86cb8a1f71e513f0835161295d07d4"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/baseline.json",
+      "bytes": 1991278,
+      "sha256": "03d190957322a9d6f9c70f7daee8dc9ea9854a03f91fc1450122b212cec9985e"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/compute_tests.json",
+      "bytes": 1232,
+      "sha256": "c7ed2eb4dc26dbab1b737d4d11ffc00cee81c1ecb413a0c3d1c8f873932f5773"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/compute_tests_initial_failure.json",
+      "bytes": 2348,
+      "sha256": "b50495964ee7e7eca0656ae7a90a7d6a6b090b296dc28790b9c5a9756bf73dd3"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/evidence_spec.json",
+      "bytes": 7899,
+      "sha256": "7f8a5feaa51af54f4a2aedd39d0ce0aa260aab330237e228a3a4ad61f785c006"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/evidence_tests.json",
+      "bytes": 82,
+      "sha256": "ae4e36a54adef946e0ffa5ffb8aa6afb5e9c44982421b56c8cc0a402e3fac719"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/execution_receipts.json",
+      "bytes": 12468,
+      "sha256": "7146f686b79d5e51aa7a4ad4b0b2d67ff78370aad4232a4c8dd402d2d3053a47"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/extraction_review.md",
+      "bytes": 9338,
+      "sha256": "d799e35e89605f3ec34b14405eacf38d45fcb20e1343863ef2de10f8ae0098f3"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/extraction_tests.json",
+      "bytes": 79,
+      "sha256": "2065ffcf74614ca2dffaf383c42614094fb0bac3a5a0e5dec39aa150b58393ec"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/extraction_verification.json",
+      "bytes": 4173,
+      "sha256": "5fbf86934589ff2bf70e785e3a345eca4a08c9ca02540d6b15128f53a400e492"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/extract_evidence.py",
+      "bytes": 7057,
+      "sha256": "becf95892dbd5a79b842dd5f7de13a8ff01972874591756c71ad7768da9242a1"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/final_review.md",
+      "bytes": 3709,
+      "sha256": "61bc3a0fef7b61d30c98a92530556058791d91f7c0ddba002d25b7ba75698f89"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/git_preflight.json",
+      "bytes": 841,
+      "sha256": "ce53567bf56ab8ee6a0b952133366fbacc395c95461e39b6bacd8af09d7a0483"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/package_verification.json",
+      "bytes": 3531,
+      "sha256": "4fc0be3380abc14089fc233173e6763e5022c37e8055bffd7819fcdc35a68bb1"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/retain_receipts.py",
+      "bytes": 2282,
+      "sha256": "95585ec235db51a50770aac0a04b248e9db6f2ee0fb39f23b824f801750fe45d"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/s29420_reported_eta.csv",
+      "bytes": 648,
+      "sha256": "a646f8836c34523c2ecb105af3dc4e122ea3985367a88cc09aacefa85c493f79"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/s29447_table_s3.csv",
+      "bytes": 11215,
+      "sha256": "cc514c2fc34111b9e38a255254cdec2da01d499d6868835f918b82bbae74c651"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/si_round_verification.json",
+      "bytes": 90370,
+      "sha256": "4fb793fd5086cfc1ed75367790fe22b7de7a14b34f6d2e197c691779bfbdf091"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/test_extract_evidence.py",
+      "bytes": 1832,
+      "sha256": "38859d0e8319f12af45bc9b74b5fc8003f00e05bb05caaf53eb2a591d0b8aa87"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/verification.json",
+      "bytes": 56653,
+      "sha256": "b2e1f92854e2b0df20b82957fd85c93bd1dec42d75a5ac4cb60f0ef62d7b36d7"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/verify_package.py",
+      "bytes": 5852,
+      "sha256": "fbef031941c4f9eb0164a558d3356e630840d673e4528c643928015daca1c86f"
+    },
+    {
+      "path": "results/pa_integration_2026-10-03/publication_manifest.json",
+      "bytes": 1773,
+      "sha256": "991fbbca3cf5271b2d5aa3ff12c6e6d8083498db025574a8b59d3d109b8ffbfe"
+    }
+  ],
+  "exact_staged_path_count": 25,
+  "preservation_after": {
+    "tracked_files": 9791,
+    "unrelated_untracked_files": 21,
+    "errors": []
+  },
+  "commit": "0ff694efdc429bfc457c103768abc91332f879d0",
+  "remote_sha": "0ff694efdc429bfc457c103768abc91332f879d0",
+  "exact_remote_match": true,
+  "tracked_worktree_clean": true
+}
