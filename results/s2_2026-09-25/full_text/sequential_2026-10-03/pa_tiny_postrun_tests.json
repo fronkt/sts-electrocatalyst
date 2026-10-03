@@ -1,0 +1,27 @@
+{
+  "command": [
+    "C:\\Users\\frank\\AppData\\Local\\Programs\\Python\\Python312\\pythonw.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_pa_restart_diagnostic.py",
+    "tests/test_pa_tiny_restart_probe.py",
+    "tests/test_research_batch_checked.py",
+    "tests/test_research_batch_seeded.py",
+    "tests/test_lowtail_batch_launch.py",
+    "tests/test_pa_tiny_readonly_watch.py",
+    "tests/test_pa_tiny_raw_readout.py"
+  ],
+  "returncode": 1,
+  "stdout": "................................................................. [ 23%]\n......F................................................................. [ 49%]\n........................................................................ [ 75%]\n..................................................................F      [100%]\n================================== FAILURES ===================================\n_______ test_negative_end_cleanup_does_not_prove_startup_history_reset ________\n\nfake_probe = (namespace(output_dir=WindowsPath('C:/Users/frank/AppData/Local/Temp/pytest-of-unknown/pytest-94/test_negative_end_cle...'continuous', 'candidate-stop', 'negative-fresh', 'resumed'], <function fake_probe.<locals>.arm at 0x000001B5A7CD6DE0>)\nmonkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001B5A7CA4560>\n\n    def test_negative_end_cleanup_does_not_prove_startup_history_reset(fake_probe,monkeypatch):\n        args,calls,arm=fake_probe\n        def no_startup_reset(*a,**kw):\n            result=arm(*a,**kw)\n            if a[0]==\"negative-fresh\":\n                path=a[2]/\"stdout.log\"\n                text=path.read_text(encoding=\"utf-8\")\n                path.write_text(text.replace(\"File h2_probe.bfgs deleted, as requested\\n\",\"\",1),encoding=\"utf-8\")\n            return result\n        monkeypatch.setattr(probe,\"run_arm\",no_startup_reset)\n>       with pytest.raises(probe.ProbeError,match=\"negative control\"):probe.run_probe(args)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       Failed: DID NOT RAISE <class 'src.dft.pa_tiny_restart_probe.ProbeError'>\n\ntests\\test_pa_tiny_restart_probe.py:384: Failed\n_______________ test_differences_use_all_coordinates_and_forces _______________\n\n    def test_differences_use_all_coordinates_and_forces():\n        first=qc.evaluated(node());second=qc.evaluated(node())\n        second['positions_bohr'][1][2]+=0.25\n        second['forces_Ry_per_bohr'][0][2]+=0.5\n        second['energy_Ry']+=1\n>       assert qc.differences(first,second)=={'energy_Ry':1,'position_bohr':.25,'force_Ry_per_bohr':.5}\nE       AssertionError: assert {'energy_Ry':...n_bohr': 0.25} == {'energy_Ry':...n_bohr': 0.25}\nE         \nE         Omitting 2 identical items, use -vv to show\nE         Differing items:\nE         {'force_Ry_per_bohr': 0.49999999999999994} != {'force_Ry_per_bohr': 0.5}\nE         Use -v to get more diff\n\ntests\\test_pa_tiny_raw_readout.py:52: AssertionError\n=========================== short test summary info ===========================\nFAILED tests/test_pa_tiny_restart_probe.py::test_negative_end_cleanup_does_not_prove_startup_history_reset\nFAILED tests/test_pa_tiny_raw_readout.py::test_differences_use_all_coordinates_and_forces\n2 failed, 274 passed, 7 subtests passed in 9.78s\n",
+  "stderr": "",
+  "qe_executed": false,
+  "source_sha256": {
+    "src/dft/pa_tiny_restart_probe.py": "5cec00a14827111161d90a5b41cf01dff8e06a1b1bc9c21ccfe4529f56e0cf3a",
+    "tests/test_pa_tiny_restart_probe.py": "d3861214330c733df880fb7decdaa1642403164e7f83b7548a45a34328b48fdf",
+    "anvil/88_pa_tiny_restart_probe.slurm": "6869d4637ca25b6501093dc12477b1418e0c498b0d3794e4f3dad4541a4089fa",
+    "tests/test_pa_tiny_readonly_watch.py": "f17c8a663e0ebd2cac9e1bb4b874b5b22f36e9489eff36ad6fd32d319a8b0c1d",
+    "tests/test_pa_tiny_raw_readout.py": "790709b8f0c24e36e65d7531339a42401601c2bdfe2be1a009b7cc4bd88b7593"
+  }
+}

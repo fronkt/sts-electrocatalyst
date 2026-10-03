@@ -19,7 +19,7 @@ QE=/anvil/projects/x-che260157/qe/env/bin/pw.x
 UPF=/anvil/projects/x-che260157/pseudo/H.pbe-rrkjus_psl.1.0.0.UPF
 OUTPUT=/anvil/projects/x-che260157/sts_pa_probe_2026-10-03/tiny_results
 [[ ! -e "$OUTPUT" && ! -L "$OUTPUT" ]] || { echo 'REFUSE: prior output'; exit 2; }
-[[ "$(sha256sum "$RUNNER" | awk '{print $1}')" = 136d5f7ef00c4014a78897951d6cd287d0bb5058b3e12fe317d61ad6c1f47ec4 ]] || { echo 'REFUSE: runner hash'; exit 2; }
+[[ "$(sha256sum "$RUNNER" | awk '{print $1}')" = 5cec00a14827111161d90a5b41cf01dff8e06a1b1bc9c21ccfe4529f56e0cf3a ]] || { echo 'REFUSE: runner hash'; exit 2; }
 # The runner checks the actual scheduler job and AllocTRES before any QE call.
 export SLURM_JOB_TIME_LIMIT=02:00:00
 export SLURM_JOB_ACCOUNT=che260157

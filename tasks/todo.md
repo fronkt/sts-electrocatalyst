@@ -14,7 +14,7 @@ melt execution without the corresponding scientific and resource decisions.
 - [x] Seek new resolving primary evidence for the eight targeted holds; distinguish evidence gaps from rule questions and access gaps from exclusion. Eight holds remain with exact clarification needs; no distinct resolving public artifact and no author message.
 - [x] Inspect and independently screen only genuinely new complete evidence with GPT-6 Luna, adjudicate source disagreements, then verify and rebuild only supported state/checklist changes. No new complete SI, so zero new blind reads/canonical changes. Fresh67 evidence tests, both scientific verifiers and deterministic rebuild pass; all426 pins,2496 rows,149 checklist rows and21 unrelated files preserved.
 - [x] Identify the actual dependencies from literature to extraction, validated computation and melt selection; implement and test the smallest licensed offline preparation, keeping failed A/B results unchanged. Additive diagnostic/tiny runner, source-verified checkpoint gates,261 tests/7 subtests; production/samples remain gated. Real tiny probe pending separately.
-- [ ] Record remaining entrant direction/resource/lab decisions and concrete access workarounds; verify tests, history preservation and exact change scope.
+- [x] Record remaining entrant direction/resource/lab decisions and concrete access workarounds; verify tests, history preservation and exact change scope. P-A first, single8SU tiny test, lab about one week and five-file manual handoff recorded;276 tests/7 subtests,66 mirror pins,426 historical/21 unrelated/6 production/16 source pins verify. No production/slab/melt authority inferred.
 - [ ] Commit explicit non-secret paths, push and verify remote SHA; update memory and a review with what progressed, what did not launch and costs.
 
 Review: pending. Plan check-in: evidence discovery first, new-evidence screening
@@ -74,10 +74,14 @@ checked in the raw restart log because XML can restore candidate pseudo_dir.
 
 Tiny Anvil execution:
 
-- [ ] Save explicit non-secret paths locally, push and verify exact remote SHA.
-- [ ] Fresh sparse checkout and byte pins; one held4-core/6GB/2h shared job, inspect and release with total8SU ceiling.
-- [ ] Retain raw stop/checkpoint/control outputs and scheduler accounting; compare complete evaluated trajectories and report pass/failure/inconclusive without retry.
+- [x] Save explicit non-secret paths locally, push and verify exact remote SHA. Probe checkpoint9cbcab25ff4f462ab9d1a3d0f6ad7a51fcc8c051,22 explicit paths, exact remote match.
+- [x] Fresh sparse checkout and byte pins; one held4-core/6GB/2h shared job, inspect and release with total8SU ceiling. Job21024848 held shape and actual RUNNING billing4 verified; no requeue/retry.
+- [x] Retain raw stop/checkpoint/control outputs and scheduler accounting; compare complete evaluated trajectories and report pass/failure/inconclusive without retry.66 raw files hash-match; continuous8 vs split1+7, full E/R/F tolerance pass and independent confirmation. Original SlurmFAILED2:0 is a terminal-cleanup false-positive gate, not QE failure. jobsu0.1376CPU SU,124s, final balance36878.2; no second job. Offline gate correction/fresh276 tests/7 subtests; scientific readout separate from production acceptance.
 - [ ] Bank outcome and update memory; production P-A repair/resource proposal only after real acceptance.
+Post-run review: tiny plumbing accepted, catalyst fresh-SCF/reseed protocol and
+production remain unvalidated. Five SI still absent; Frank agrees to download.
+Eight targeted evidence holds and S8 superior-melt hold remain; no canonical
+scientific/checklist change or melt execution. Final explicit-path bank pending.
 
 ## 2026-10-02 — Four user-downloaded Wiley SI packages
 

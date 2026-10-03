@@ -475,15 +475,17 @@ def completed_arm(arm: Path, receipt: dict, kind: str, proposal) -> dict:
             or USER_STOP_MARKER in output or "maximum number of steps" in output.lower()
             or "Maximum CPU time" in output or "Maximum wall time" in output):
         raise ProbeError(kind + " arm did not converge normally; no automatic retry")
-    counts = [int(v) for v in re.findall(r"number of bfgs steps\s*=\s*(\d+)",output)]
+    count_matches = list(re.finditer(r"number of bfgs steps\s*=\s*(\d+)",output))
+    counts = [int(v.group(1)) for v in count_matches]
+    startup = output[:count_matches[0].start()] if count_matches else output
     cycles = [int(v) for v in re.findall(r"number of scf cycles\s*=\s*(\d+)",output)]
     if kind == "negative":
-        if ".bfgs deleted, as requested" not in output or not counts or counts[0] != 0:
+        if ".bfgs deleted, as requested" not in startup or not counts or counts[0] != 0:
             raise ProbeError("negative control did not prove copied optimizer reset")
     else:
         if ("restart disabled: needed files not found" in output.lower()
                 or re.search(r"(?m)^\s*BFGS Geometry Optimization\s*$",output)
-                or ".bfgs deleted, as requested" in output
+                or ".bfgs deleted, as requested" in startup
                 or not counts or counts[0] != 1 or not cycles or cycles[0] != 2):
             raise ProbeError("resumed arm did not prove inherited optimizer counters")
         root = ET.parse(arm / "scratch/h2_probe.save/data-file-schema.xml").getroot()

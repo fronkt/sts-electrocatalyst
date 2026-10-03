@@ -145,3 +145,20 @@ pushed with exact remote SHA verification. No new paid API request
 or key use this phase; conservative tracked literature estimate remains
 $1.1105254/$50, not an account invoice. The$50 cap does not authorize compute.
 Discovery/gate research uses GPT-6 Luna; completed screening is not repeated.
+
+## Subsequent tiny-compute outcome
+
+Job21024848 ran once under the8SU ceiling; jobsu reports0.1376CPU SU. The
+continuous8-step trajectory agrees with the complete1+7 clean-stop/restart
+trajectory inside all registered tolerances, with inherited optimizer state,
+negative-control startup reset, correct actual UPFs/version/rank shape and66
+mirrored-file pins. Independent review confirms tiny restart plumbing only.
+SlurmFAILED2:0 remains as the original launcher's normal-terminal-cleanup false
+positive; an offline startup-only gate correction and276 tests/7 subtests pass,
+with no rerun. Production P-A interleaved fresh-SCF/reseed integration and a
+separate count/cost/cap proposal remain next. S8 stays held; no melt candidates
+elected. Details: [tiny restart readout](pa-tiny-restart-readout-2026-10-03.md).
+
+Frank agrees to download the five exact next SI attachments. They remain absent
+at the latest Downloads check; this is willingness to retrieve, not a completeness
+confirmation. No source exclusion, eligibility change or method coding follows.

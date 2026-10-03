@@ -1,5 +1,16 @@
 # Lessons (corrections log)
 
+## 2026-10-03 — Separate optimizer startup reset from normal terminal cleanup
+
+The actual tiny QE runs all returned0 and converged as intended, but the resumed
+gate rejected a deletion anywhere in the full log. QE normally deletes .bfgs after
+convergence. Match reset/deletion to the startup interval before the first BFGS
+counter, and require negative-control deletion there too; terminal cleanup cannot
+prove an initial reset. Fixtures must include the real normal cleanup lifecycle,
+not only simplified success text. Preserve Slurm FAILED2:0 and original launch
+pins; correct/report from full immutable trajectories without rerunning compute
+when the required raw evidence is already complete.
+
 ## 2026-10-03 — Prove a stop trigger's first-occurrence semantics
 
 A familiar optimizer log marker can be exclusive to a later branch. QE7.5's

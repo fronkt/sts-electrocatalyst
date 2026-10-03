@@ -32,7 +32,11 @@ nonexclusive, CPU billing weight1, maximum1896MB/core, so6GB fits four cores.
 These are current receipts, not the stale September balance. The reported
 binary version and actual job allocation still need verification at execution.
 The$50 literature budget does not cover this test.
-No real QE invocation or new Slurm submission has occurred in this phase.
+At the prelaunch checkpoint no real QE invocation or new Slurm submission had
+occurred. Subsequently job21024848 ran once: tiny scientific comparison passes,
+with the original wrapper FAILED2:0 retained and its cleanup gate corrected
+offline. jobsu reports0.1376 CPU SU. Full outcome:
+[tiny restart readout](pa-tiny-restart-readout-2026-10-03.md).
 
 Pre-launch implementation check after source/input corrections:70 offline tests and7
 subtests pass; the combined historical/new compute regressions pass261 tests and7
@@ -61,8 +65,10 @@ use that retained, equally pinned candidate-local copy on fallback; check the
 actual read-path log. Directory paths differ, not pseudopotential contents.
 [Checkpoint output](https://github.com/QEF/q-e/blob/qe-7.5/PW/src/punch.f90),
 [UPF fallback](https://github.com/QEF/q-e/blob/qe-7.5/Modules/read_pseudo.f90)
-Independent final source review clears the tiny launcher, with fresh tests and
-the final wrapper pin verified. Full real trajectory acceptance is still pending.
+Independent prelaunch source review cleared the tiny launcher, with fresh tests
+and wrapper pin verified. Real trajectory acceptance later passes; see the
+separate readout for the wrapper false negative, unchanged historical job and
+production limitations.
 
 ## Prospective three-arm protocol
 

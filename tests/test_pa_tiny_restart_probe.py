@@ -211,10 +211,10 @@ def fake_probe(tmp_path, monkeypatch):
                 assert "restart_mode = 'restart'" in deck and "nstep = 29" in deck
                 log += "number of bfgs steps = 1\nnumber of scf cycles = 2\n"
             (save/"data-file-schema.xml").write_text(xml_checkpoint(0,3),encoding="utf-8")
-            log += "bfgs converged in 3 steps\n"
+            log += "bfgs converged in 3 steps\nFile h2_probe.bfgs deleted, as requested\n"
         else:
             (save/"data-file-schema.xml").write_text(xml_checkpoint(0,3),encoding="utf-8")
-            log += "bfgs converged in 3 steps\n"
+            log += "bfgs converged in 3 steps\nFile h2_probe.bfgs deleted, as requested\n"
         (cwd/"stdout.log").write_text(log+"JOB DONE.\n",encoding="utf-8")
         (cwd/"stderr.log").write_text("",encoding="utf-8")
         return {"arm": name, "returncode": 0, "timed_out": False,
@@ -280,7 +280,7 @@ def test_saved_proposal_requires_units_identity_finite_and_interruption_status(t
     with pytest.raises(probe.ProbeError): probe.checkpoint_geometry(tmp_path)
 
 
-@pytest.mark.parametrize("mutation", ["fallback","reset","timeout","no_job_done","failed_scf","wrong_geometry"])
+@pytest.mark.parametrize("mutation", ["fallback","reset","timeout","no_job_done","failed_scf","wrong_geometry","startup_deleted"])
 def test_resumed_failure_never_completes_probe(fake_probe,monkeypatch,mutation):
     args,calls,arm = fake_probe
     def corrupt(*a,**kw):
@@ -293,6 +293,7 @@ def test_resumed_failure_never_completes_probe(fake_probe,monkeypatch,mutation):
             elif mutation == "timeout": r["timed_out"] = True
             elif mutation == "no_job_done": text = text.replace("JOB DONE.", "")
             elif mutation == "failed_scf": text += "convergence NOT achieved\n"
+            elif mutation == "startup_deleted":text="File h2_probe.bfgs deleted, as requested\n"+text
             elif mutation == "wrong_geometry":
                 p=a[2]/"scratch/h2_probe.save/data-file-schema.xml"
                 p.write_text(xml_checkpoint(0,3).replace("0 0 0.1","0 0 0.5"),encoding="utf-8")
@@ -368,3 +369,17 @@ def test_corrupt_arm_local_copy_cannot_reach_qe(fake_probe,monkeypatch):
     monkeypatch.setattr(probe.shutil,"copy2",corrupt)
     with pytest.raises(probe.ProbeError,match="arm-local hydrogen"):probe.run_probe(args)
     assert calls==[]
+
+
+def test_negative_end_cleanup_does_not_prove_startup_history_reset(fake_probe,monkeypatch):
+    args,calls,arm=fake_probe
+    def no_startup_reset(*a,**kw):
+        result=arm(*a,**kw)
+        if a[0]=="negative-fresh":
+            path=a[2]/"stdout.log"
+            text=path.read_text(encoding="utf-8")
+            path.write_text(text.replace("h2_probe.bfgs deleted, as requested\n","",1),encoding="utf-8")
+        return result
+    monkeypatch.setattr(probe,"run_arm",no_startup_reset)
+    with pytest.raises(probe.ProbeError,match="negative control"):probe.run_probe(args)
+    assert calls==["continuous","candidate-stop","negative-fresh"]
