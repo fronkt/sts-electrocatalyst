@@ -34,6 +34,36 @@ binary version and actual job allocation still need verification at execution.
 The$50 literature budget does not cover this test.
 No real QE invocation or new Slurm submission has occurred in this phase.
 
+Pre-launch implementation check after source/input corrections:70 offline tests and7
+subtests pass; the combined historical/new compute regressions pass261 tests and7
+subtests. Coverage includes
+a four-invocation process double, whole-tree sibling-history/WFC preservation,
+separate checkpoint copies, missed-boundary/no-retry, actual scheduler billing
+and invalid XML identity/units/status checks. These are not real-QE evidence.
+The additive tiny runner and pinned88 wrapper remain separate from production.
+The actual job's scheduler allocation is checked before the first QE call.
+The initial independent review withheld release because failed or downgraded
+copied arms could return0 and the saved checkpoint's UPF was unchecked. Those
+gates now require normal convergence, negative-control history deletion/count0,
+resumed inherited BFGS1/SCF2 with no fallback or fresh initialization, the exact
+saved-UPF pin when present, pinned external UPF and a nonzero proposal. Adverse fixtures exercise these
+conditions. The campaign binary/lib paths and one-thread environment are the
+same for every arm. Initial test receipts remain separate from release checks.
+The follow-up source review corrected an overly strict saved-UPF assumption:
+clean-stop config/config-only does not copy UPFs into .save; only punch(all) does.
+The runner checks the XML filename, pins the source UPF before every arm and
+rejects a differing saved copy if one exists. An absent saved copy is recorded as
+the supported arm-local-file fallback, without modifying the stopped checkpoint.
+Every deck's pseudo_dir points to that arm's copied UPF, checked again after
+copying; input/UPF manifests retain its path and hash. The shared external source
+is not the consumed file. Restart may restore the candidate XML's pseudo_dir and
+use that retained, equally pinned candidate-local copy on fallback; check the
+actual read-path log. Directory paths differ, not pseudopotential contents.
+[Checkpoint output](https://github.com/QEF/q-e/blob/qe-7.5/PW/src/punch.f90),
+[UPF fallback](https://github.com/QEF/q-e/blob/qe-7.5/Modules/read_pseudo.f90)
+Independent final source review clears the tiny launcher, with fresh tests and
+the final wrapper pin verified. Full real trajectory acceptance is still pending.
+
 ## Prospective three-arm protocol
 
 Use H2 in a fixed cubic cell at a non-minimum separation, Gamma sampling and
@@ -45,14 +75,20 @@ three evaluated ionic geometries; an already-converged input cannot test restart
 1. Pin the actual executable SHA-256 and reported7.5 version, UPF SHA-256s,
    process/rank/pool/thread shape, all deck bytes and numerical settings. Keep
    independent scratch directories. Permit only documented restart_mode,
-   outdir/prefix, stop controls and remaining-nstep differences between arms.
+   outdir/prefix, arm-local pseudo_dir, stop controls and remaining-nstep differences between arms.
 2. Run a continuous relaxation to convergence. Retain every evaluated geometry,
    converged SCF energy, force, BFGS counter/trust state and terminal outcome.
-3. Run the candidate from the same start; after the first BFGS move begins,
+3. Run the candidate from the same start; during the first BFGS call,
    place prefix.EXIT and retain its path/timestamp and triggering output line.
-   Wait for QE's normal user-stop/checkpoint completion, not a process kill.
+   The observer uses the first number-of-BFGS-steps0 marker inside the call and
+   retains its exact line/timestamp. Wait for QE's normal user-stop/checkpoint
+   completion, not a process kill. Require exactly one evaluated XML step at
+   that checkpoint; a missed boundary remains inconclusive without retry.
    Inspect the saved proposal and optimizer state before resumption. Stop timing
    cannot be inferred from JOB DONE or the later absence of EXIT.
+   The initial new-trust-radius trigger was rejected at independent source review:
+   it is only printed in the Wolfe-rejection branch with scf_iter>1, after a
+   second XML step already exists. That cannot satisfy the one-step checkpoint.
 4. Snapshot every file recursively under outdir and any distinct wfcdir with
    relative name, size and SHA-256 before resume. Preserve the complete snapshot;
    four density/XML files are not a restart contract. Resume using the same
@@ -71,6 +107,13 @@ to the former, and the first resumed evaluation must match the latter.
 [QE7.5 loop](https://github.com/QEF/q-e/blob/qe-7.5/PW/src/run_pwscf.f90),
 [SCF stop check](https://github.com/QEF/q-e/blob/qe-7.5/PW/src/electrons.f90),
 [stop handling](https://github.com/QEF/q-e/blob/qe-7.5/Modules/check_stop.f90)
+
+The first optimizer call prints BFGS count0, saves count1, then moves. The first
+resumed optimizer call should therefore print saved count1, with its SCF counter
+advancing; do not require an immediate printed count2. Convergence can remove
+.bfgs normally. A recognized user stop has XML exit_status255; shell return0
+versus255 depends on the build. The marker, saved status, normal completion and
+checkpoint are required together, not a shell return-code assumption.
 
 ## Acceptance, before repairing a production runner
 

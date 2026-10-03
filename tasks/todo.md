@@ -13,7 +13,7 @@ melt execution without the corresponding scientific and resource decisions.
 - [x] Prioritize a bounded 5–10 genuinely new public SI leads, deduplicate all prior routes/payloads and stop challenged publishers; retain exact manual handoffs for inaccessible attachments. Five exact SI filenames/routes; ERDA426017216-byte archive retained and all-member CRC valid, but no missing S29447 SI DOCX. Two actual SciOpen403 receipts retained, including the second after the first block; subsequent publisher requests stopped.
 - [x] Seek new resolving primary evidence for the eight targeted holds; distinguish evidence gaps from rule questions and access gaps from exclusion. Eight holds remain with exact clarification needs; no distinct resolving public artifact and no author message.
 - [x] Inspect and independently screen only genuinely new complete evidence with GPT-6 Luna, adjudicate source disagreements, then verify and rebuild only supported state/checklist changes. No new complete SI, so zero new blind reads/canonical changes. Fresh67 evidence tests, both scientific verifiers and deterministic rebuild pass; all426 pins,2496 rows,149 checklist rows and21 unrelated files preserved.
-- [ ] Identify the actual dependencies from literature to extraction, validated computation and melt selection; implement and test the smallest licensed offline preparation, keeping failed A/B results unchanged.
+- [x] Identify the actual dependencies from literature to extraction, validated computation and melt selection; implement and test the smallest licensed offline preparation, keeping failed A/B results unchanged. Additive diagnostic/tiny runner, source-verified checkpoint gates,261 tests/7 subtests; production/samples remain gated. Real tiny probe pending separately.
 - [ ] Record remaining entrant direction/resource/lab decisions and concrete access workarounds; verify tests, history preservation and exact change scope.
 - [ ] Commit explicit non-secret paths, push and verify remote SHA; update memory and a review with what progressed, what did not launch and costs.
 
@@ -38,6 +38,46 @@ default-Python helper errors remain separate receipts. Exact scientific-input
 and stop/checkpoint validation still precede submission. Frank updates the lab
 target to about one week, says timing/availability is not binding and prioritizes
 evidence closure. No confirmed appointment time or composition/form limits.
+
+Pre-launch re-plan: independent review refuses release of the initial tiny
+runner because negative/resumed failures could return0 and the checkpoint's
+copied UPF was unchecked. No job submitted. Add explicit reset/inherited-state,
+normal-convergence and saved-UPF/proposal gates; add adverse lifecycle fixtures,
+repeat regressions/review, then refresh runner/wrapper pins before release.
+Release regression:254 tests and7 subtests pass (63 additive/offline and191
+historical). Saved-UPF/counter/proposal gates and nine adverse fixtures now pass;
+runner/wrapper pins refreshed. Independent source re-review pending; no job yet.
+Second source-review refusal: new-trust-radius is a later Wolfe-rejection marker,
+not a first-move boundary. Switch to the first printed BFGS count0; require the
+same one-step XML/saved1/1/0/proposal gates, add marker rejection tests, and repeat
+regressions/source clearance. No automatic retry or job submitted.
+Corrected-marker regression passes257 tests and7 subtests. Fresh preservation
+audit checks426 historical,21 unrelated DFT,6 production and16 source pins with
+zero errors. Frank agrees to the five-file manual handoff; exact filenames are
+not present in Downloads at the first check, so no new package completeness claim.
+Third source-review correction: clean-stop .save need not contain UPFs; QE falls
+back to input pseudo_dir. Require the pinned external file before each arm, pin a
+saved copy if present and retain XML identity/fallback metadata. Do not mutate the
+checkpoint to satisfy a mistaken completeness rule. New fallback/adverse tests
+and fresh regression/clearance precede launch.
+Final pinning review requires each deck to read its own hash-checked UPF copy,
+not the mutable shared source. Deck pseudo_dir now points to the arm directory;
+copy hashes and input manifests verify exact consumed inputs. Corrupt-copy test
+refuses before any QE call. No scientific setting or checkpoint bytes changed.
+Final arm-local regression passes261 tests and7 subtests; source/test/wrapper
+hashes are pinned in pa_tiny_regression_arm_local_final.json. Release clearance,
+explicit-path commit/push and fresh remote checkout precede the single held-job
+inspection/release. No production relaxation or melt selection is authorized.
+Independent final review: GO for tiny launcher only, contingent on fresh tests
+and matching wrapper pin, now verified. Actual consumed UPF path must still be
+checked in the raw restart log because XML can restore candidate pseudo_dir.
+
+Tiny Anvil execution:
+
+- [ ] Save explicit non-secret paths locally, push and verify exact remote SHA.
+- [ ] Fresh sparse checkout and byte pins; one held4-core/6GB/2h shared job, inspect and release with total8SU ceiling.
+- [ ] Retain raw stop/checkpoint/control outputs and scheduler accounting; compare complete evaluated trajectories and report pass/failure/inconclusive without retry.
+- [ ] Bank outcome and update memory; production P-A repair/resource proposal only after real acceptance.
 
 ## 2026-10-02 — Four user-downloaded Wiley SI packages
 

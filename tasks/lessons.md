@@ -1,5 +1,27 @@
 # Lessons (corrections log)
 
+## 2026-10-03 — Prove a stop trigger's first-occurrence semantics
+
+A familiar optimizer log marker can be exclusive to a later branch. QE7.5's
+new-trust-radius line requires scf_iter>1 and cannot establish the registered
+one-step checkpoint. Trace the exact source branch and stop polls before choosing
+a trigger; test rejection of later-only markers and validate saved step count,
+history counters and proposal after shutdown. Preserve source-review refusals;
+offline process doubles cannot validate external log-event timing.
+
+## 2026-10-03 — Check every control and checkpoint-local dependency
+
+A completed continuous control does not establish that either copied arm worked.
+Require each arm's normal convergence and explicit fresh/inherited optimizer
+semantics before a launcher returns0. Exercise failed SCF, timeout, missing
+completion, silent restart downgrade and wrong resumed geometry adversarially.
+QE restart tries .save first but may fall back to input pseudo_dir; clean-stop
+config output need not copy UPFs. Pin a saved copy if present and the external
+file before every arm, checking XML identity and retaining actual path/fallback
+evidence. Do not invent a mandatory file or mutate a checkpoint to satisfy it.
+Preserve the first review refusal and test
+receipts. A launcher success remains distinct from full real trajectory acceptance.
+
 ## 2026-10-03 — Separate SSH-client failure from remote access failure
 
 Windows OpenSSH returned255 with empty streams even for -V on the isolated

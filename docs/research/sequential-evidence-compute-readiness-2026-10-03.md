@@ -105,7 +105,7 @@ Prospective tiny-system acceptance requirements; production remains unlicensed:
    counter alone or a copied file is insufficient. Retain every failed attempt.
 5. Only after real-QE acceptance, implement the additive repaired runner and its
    process-double regressions. Review a fresh A11.R3 count/cost/cap and boundary
-   before any slab rerun. No new remote job, substitute optimizer, threshold
+   before any slab rerun. No new production slab job, substitute optimizer, threshold
    relaxation, allocation expansion or retry is licensed here. See the separate
    pa-offline-restart-probe-2026-10-03.md for the tiny Anvil8-SU ceiling, remaining
    nstep accounting, exact stop-boundary caveats and offline-checker limitations.
@@ -135,9 +135,13 @@ validation -> dated ranking/freeze -> supervised sample preparation/measurement.
 
 ## Verification and cost
 
-Fresh evidence regressions67/67 and compute-runner regressions191/191 pass.
+Fresh evidence regressions67/67, compute-runner regressions191/191 and additive
+offline diagnostic regressions36/36 pass.
 Final scientific verifiers, deterministic rebuild and preservation receipts are
-in results/s2_2026-09-25/full_text/sequential_2026-10-03. No new paid API request
+in results/s2_2026-09-25/full_text/sequential_2026-10-03: zero errors and zero
+canonical changes; all426 baseline pins/2496 records/149 checklist rows and21
+unrelated DFT files remain unchanged. Evidence/offline checkpoint8aafa8c is
+pushed with exact remote SHA verification. No new paid API request
 or key use this phase; conservative tracked literature estimate remains
 $1.1105254/$50, not an account invoice. The$50 cap does not authorize compute.
 Discovery/gate research uses GPT-6 Luna; completed screening is not repeated.
