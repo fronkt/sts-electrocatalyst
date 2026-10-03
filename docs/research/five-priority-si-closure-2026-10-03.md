@@ -5,6 +5,10 @@ every listed SI attachment was downloaded. The ACS attachment's actual name is
 `cs-2025-08494p_si_001.docx`; its content matches S29447 despite the alternate name.
 The phase uses unchanged v5 rules and existing approved identity/date checks.
 
+Scientific checkpoint `1f69ee65e4337157b94fb85b1838ed1958366a62` is pushed on
+`r0-catalysis-revival` with an exact remote SHA match and clean tracked worktree;
+137 explicit evidence-only paths, without full source payloads or unrelated DFT.
+
 ## Source-grounded outcomes
 
 | Paper | Current disposition | Deciding evidence or remaining gap |

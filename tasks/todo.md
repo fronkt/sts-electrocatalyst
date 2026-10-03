@@ -13,10 +13,13 @@ infer production compute or melt authority from evidence recovery.
 - [x] Obtain two independent GPT-6 Luna assessments per ready package; adjudicate criterion disagreements with exact evidence and focused third reads only where needed. Fifteen source assessments in eight frozen batches; checked transcripts do not count as new reads. S29420/S29447 eligible; S29636/S24094/S28435 scientifically held, with dissent preserved.
 - [x] Triage any new entrant questions against existing approved rules; apply only supported case-specific reconciliation and rebuild the SI checklist preserving forced eligible IDs. One unique S28435 eta-label question deferred class D, missing facet independently holds it; no new policy.144 checklist rows,60/31/47/6 tiers,14 D10 checks and all four forced IDs retained.
 - [x] Run regression/scientific/phase verifiers, prove exact changed-row scope and unchanged historical/source/unrelated-work hashes; independently review the closure.78 regressions and both scientific/phase verifiers pass; deterministic rebuild,421 immutable historical pins/21 unrelated files and all source/read pins preserved. Independent GPT-6 Luna final review GO for scoped rebuild only, not production/melt release.
-- [ ] Commit explicit non-secret paths, push and verify remote SHA; update memory and retain scientific outcomes, costs and remaining compute/melt gates.
+- [x] Commit explicit non-secret paths, push and verify remote SHA; update memory and retain scientific outcomes, costs and remaining compute/melt gates. Scientific checkpoint1f69ee65e4337157b94fb85b1838ed1958366a62 pushed with exact remote match,137 explicit evidence-only paths, tracked worktree clean. Project memory records all five complete packages/outcomes, unchanged$1.1105254/$50 estimate and separate compute/melt gates.
 
 Review: final offline verification passes78 regressions, both scientific verifiers
-and the exact five-row phase verifier; independent closure review GO, push pending.
+and the exact five-row phase verifier; independent closure review GO, scientific
+checkpoint1f69ee65 pushed with exact remote match. Phase complete: two inclusions,
+three scientific holds; all five leave the missing-SI checklist. Current178
+ELIGIBLE/89 NEEDS_SI/121 UNRESOLVED, checklist144. No production/melt release.
 Historical/source/read pins and21 unrelated DFT files pass. Failed fixture/import
 receipts retained; prior phase report restored to its original byte pin. No new
 paid API calls or compute jobs. Plan check-in: identity/coverage first, independent reads second,
