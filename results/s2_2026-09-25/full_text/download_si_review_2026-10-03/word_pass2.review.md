@@ -1,0 +1,12 @@
+# Word pass 2 review
+
+As of 2026-10-03. Independent source pass for S29447 and S24094; no earlier assessments or other pass outputs were consulted.
+
+Coverage: read each assigned main text and complete SI scientific-reading text in sequential chunks no larger than 12,000 characters. Inspected every contact sheet in each package (`main_01`–`main_03` and all `word_*` sheets). For S29447, inspected original main-page PNGs p. 2, p. 5, and p. 7–10; visually inspected the retained `docx_media/image1.emf.png` XRD preview only (OLE internals not parsed or executed). For S24094, inspected original main-page PNGs p. 1, p. 4, p. 12, p. 13, and p. 15, plus SI media previews `image40.tif.png` and `image41.tif.png` for the slab/intermediate and free-energy figures. Word page layout was not rendered; SI locations are paragraph numbers. The assigned SI attachments are identified by matching covers/title/authors/DOI and were supplied as complete.
+
+Decisions:
+
+- **S29447 — ELIGIBLE.** Model judged: Ru₁₋ₓIrₓO₂(110) solid-solution cus sites; the pure RuO₂/IrO₂ slabs are reported benchmarks. Main p. 7 identifies the per-site largest ΔG step at 0 V vs RHE as that site's limiting potential; SI para. 110 gives the CHE relation and RHE reference. SI Table S3 paras. 161–163 list per-site maxima at 0 V vs RHE. This is the authors' reported limiting-potential equivalent, not a value reconstructed from the activity plot. Table S3's “most active” highlighting was not treated by itself as a D4 η comparison; Fig. 10 plots activity/current fractions against potential. The p. 10 “1.5 V” phrase occurs in the activity-at-potential discussion and was not used as η evidence.
+- **S24094 — UNRESOLVED.** Model judged: InSnRuO₂(110) with three vacancy sites under the LOM model. The computed 1.52 eV RDS/energy-barrier comparison does not expressly identify a CHE U_L or η. The complete SI provides ΔG equations with a variable U but no explicit CHE reference/potential for the compared barrier; it also does not establish that the compared values are the largest conventional one-electron steps at one shared documented potential. Accordingly E6 is UNCLEAR under the D4/D12 conditions, rather than treating a generic barrier or the experimental 183 mV as computational η.
+
+No manuscript, SI original, or visual source was edited. The pass output has two JSONL records in input order; parent validation remains outstanding.

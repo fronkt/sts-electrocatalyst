@@ -1,0 +1,38 @@
+{
+  "csv_scope": "All retained checklist rows exactly match baseline; original title trailing spaces preserved, not silently edited",
+  "head": {
+    "code": 0,
+    "stdout": "3fe7219fee1cdc2604f4455e9589e937980d8431\n",
+    "stderr": ""
+  },
+  "branch": {
+    "code": 0,
+    "stdout": "r0-catalysis-revival\n",
+    "stderr": ""
+  },
+  "tracked_status": {
+    "code": 0,
+    "stdout": " M results/s2_2026-09-25/full_text/download_si_review_2026-10-02/scientific_final/phase_verification.json\n M results/s2_2026-09-25/full_text/reconcile/current_state.csv\n M results/s2_2026-09-25/full_text/reconcile/current_state.json\n M results/s2_2026-09-25/full_text/recovery_state.py\n M results/s2_2026-09-25/full_text/si_checklist.csv\n M results/s2_2026-09-25/full_text/si_checklist.html\n M results/s2_2026-09-25/full_text/test_recovery_state.py\n M tasks/lessons.md\n M tasks/todo.md\n",
+    "stderr": ""
+  },
+  "staged": {
+    "code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "diff": {
+    "code": 0,
+    "stdout": " .../scientific_final/phase_verification.json       | 164 +++++-----\n .../full_text/reconcile/current_state.csv          |  10 +-\n .../full_text/reconcile/current_state.json         |  12 +-\n results/s2_2026-09-25/full_text/recovery_state.py  |   3 +-\n results/s2_2026-09-25/full_text/si_checklist.csv   | 295 +++++++++---------\n results/s2_2026-09-25/full_text/si_checklist.html  | 345 ++++++++++-----------\n .../s2_2026-09-25/full_text/test_recovery_state.py |  30 +-\n tasks/lessons.md                                   |  27 ++\n tasks/todo.md                                      |  23 ++\n 9 files changed, 487 insertions(+), 422 deletions(-)\n",
+    "stderr": ""
+  },
+  "diff_check": {
+    "code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "implementation_diff": {
+    "code": 0,
+    "stdout": "diff --git a/results/s2_2026-09-25/full_text/recovery_state.py b/results/s2_2026-09-25/full_text/recovery_state.py\nindex aa00487..05e1f9f 100644\n--- a/results/s2_2026-09-25/full_text/recovery_state.py\n+++ b/results/s2_2026-09-25/full_text/recovery_state.py\n@@ -13,6 +13,7 @@ CONTINUATION_RULINGS = HERE / \"openai_public_si_continuation_2026-10-01\" / \"revi\n NEXT_PUBLIC_RULINGS = HERE / \"public_screening_next_2026-10-01\" / \"reviewed_decisions.json\"\n MIXED_SI_RULINGS = HERE / \"mixed_si_review_2026-10-02\" / \"reviewed_decisions.json\"\n DOWNLOAD_SI_RULINGS = HERE / \"download_si_review_2026-10-02\" / \"reviewed_decisions.json\"\n+PRIORITY_SI_RULINGS = HERE / \"download_si_review_2026-10-03\" / \"reviewed_decisions.json\"\n DEFAULT_RECOVERY_SOURCE = \"public evidence recovery 2026-10-01: independent reads reviewed\"\n READ_FIELDS = (\"form\", \"eta_form\", \"eta_derivation\", \"eta_note\", \"secondary\", \"provenance\")\n \n@@ -69,7 +70,7 @@ def independent_rows(entry):\n def recovery_decisions():\n     entries = []\n     for path in (RULINGS, FOLLOWUP_RULINGS, CONTINUATION_RULINGS, NEXT_PUBLIC_RULINGS,\n-                 MIXED_SI_RULINGS, DOWNLOAD_SI_RULINGS):\n+                 MIXED_SI_RULINGS, DOWNLOAD_SI_RULINGS, PRIORITY_SI_RULINGS):\n         if path.exists():\n             entries.extend(json.loads(path.read_text(encoding=\"utf-8\"))[\"records\"])\n     result = {}\ndiff --git a/results/s2_2026-09-25/full_text/test_recovery_state.py b/results/s2_2026-09-25/full_text/test_recovery_state.py\nindex 0fd909e..69f00c8 100644\n--- a/results/s2_2026-09-25/full_text/test_recovery_state.py\n+++ b/results/s2_2026-09-25/full_text/test_recovery_state.py\n@@ -10,9 +10,12 @@ import recovery_state\n \n class RecoveryTests(unittest.TestCase):\n     def setUp(self):\n-        patcher = patch.object(recovery_state, \"DOWNLOAD_SI_RULINGS\", pathlib.Path(\"missing-download-review.json\"))\n-        patcher.start()\n-        self.addCleanup(patcher.stop)\n+        isolated = tempfile.TemporaryDirectory()\n+        self.addCleanup(isolated.cleanup)\n+        for name in (\"DOWNLOAD_SI_RULINGS\", \"PRIORITY_SI_RULINGS\"):\n+            patcher = patch.object(recovery_state, name, pathlib.Path(isolated.name) / (name + \".missing\"))\n+            patcher.start()\n+            self.addCleanup(patcher.stop)\n \n     def entry(self):\n         row = {\"screen_id\": \"TEST\", \"text_ok\": True, \"disposition\": \"ELIGIBLE\", \"form\": \"journal\",\n@@ -119,6 +122,27 @@ class RecoveryTests(unittest.TestCase):\n         with self.assertRaises(ValueError):\n             self.load([entry])\n \n+    def test_priority_si_layer_is_additive_and_rejects_cross_layer_duplicates(self):\n+        with tempfile.TemporaryDirectory() as temp:\n+            old, priority = [pathlib.Path(temp) / name for name in (\"old.json\", \"priority.json\")]\n+            first, second = self.entry(), self.entry()\n+            first[\"row\"][\"screen_id\"] = \"OLD\"\n+            second[\"row\"][\"screen_id\"] = \"PRIORITY\"\n+            second[\"source\"] = \"manual priority SI 2026-10-03: independent reads reviewed\"\n+            old.write_text(json.dumps({\"records\": [first]}), encoding=\"utf-8\")\n+            priority.write_text(json.dumps({\"records\": [second]}), encoding=\"utf-8\")\n+            with patch.object(recovery_state, \"RULINGS\", old), \\\n+                    patch.object(recovery_state, \"FOLLOWUP_RULINGS\", pathlib.Path(temp) / \"missing2\"), \\\n+                    patch.object(recovery_state, \"CONTINUATION_RULINGS\", pathlib.Path(temp) / \"missing3\"), \\\n+                    patch.object(recovery_state, \"NEXT_PUBLIC_RULINGS\", pathlib.Path(temp) / \"missing4\"), \\\n+                    patch.object(recovery_state, \"MIXED_SI_RULINGS\", pathlib.Path(temp) / \"missing5\"), \\\n+                    patch.object(recovery_state, \"PRIORITY_SI_RULINGS\", priority), \\\n+                    patch.object(recovery_state, \"independent_rows\", side_effect=lambda e: [dict(e[\"row\"]), dict(e[\"row\"])]):\n+                self.assertEqual(set(recovery_state.recovery_decisions()), {\"OLD\", \"PRIORITY\"})\n+                priority.write_text(json.dumps({\"records\": [first]}), encoding=\"utf-8\")\n+                with self.assertRaises(ValueError):\n+                    recovery_state.recovery_decisions()\n+\n     def test_alias_reads_and_outside_paths_are_rejected(self):\n         with tempfile.TemporaryDirectory() as temp:\n             base = pathlib.Path(temp)\n",
+    "stderr": ""
+  }
+}

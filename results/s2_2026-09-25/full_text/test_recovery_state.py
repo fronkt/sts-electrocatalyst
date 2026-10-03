@@ -10,9 +10,12 @@ import recovery_state
 
 class RecoveryTests(unittest.TestCase):
     def setUp(self):
-        patcher = patch.object(recovery_state, "DOWNLOAD_SI_RULINGS", pathlib.Path("missing-download-review.json"))
-        patcher.start()
-        self.addCleanup(patcher.stop)
+        isolated = tempfile.TemporaryDirectory()
+        self.addCleanup(isolated.cleanup)
+        for name in ("DOWNLOAD_SI_RULINGS", "PRIORITY_SI_RULINGS"):
+            patcher = patch.object(recovery_state, name, pathlib.Path(isolated.name) / (name + ".missing"))
+            patcher.start()
+            self.addCleanup(patcher.stop)
 
     def entry(self):
         row = {"screen_id": "TEST", "text_ok": True, "disposition": "ELIGIBLE", "form": "journal",
@@ -118,6 +121,27 @@ class RecoveryTests(unittest.TestCase):
         entry["source"] = " "
         with self.assertRaises(ValueError):
             self.load([entry])
+
+    def test_priority_si_layer_is_additive_and_rejects_cross_layer_duplicates(self):
+        with tempfile.TemporaryDirectory() as temp:
+            old, priority = [pathlib.Path(temp) / name for name in ("old.json", "priority.json")]
+            first, second = self.entry(), self.entry()
+            first["row"]["screen_id"] = "OLD"
+            second["row"]["screen_id"] = "PRIORITY"
+            second["source"] = "manual priority SI 2026-10-03: independent reads reviewed"
+            old.write_text(json.dumps({"records": [first]}), encoding="utf-8")
+            priority.write_text(json.dumps({"records": [second]}), encoding="utf-8")
+            with patch.object(recovery_state, "RULINGS", old), \
+                    patch.object(recovery_state, "FOLLOWUP_RULINGS", pathlib.Path(temp) / "missing2"), \
+                    patch.object(recovery_state, "CONTINUATION_RULINGS", pathlib.Path(temp) / "missing3"), \
+                    patch.object(recovery_state, "NEXT_PUBLIC_RULINGS", pathlib.Path(temp) / "missing4"), \
+                    patch.object(recovery_state, "MIXED_SI_RULINGS", pathlib.Path(temp) / "missing5"), \
+                    patch.object(recovery_state, "PRIORITY_SI_RULINGS", priority), \
+                    patch.object(recovery_state, "independent_rows", side_effect=lambda e: [dict(e["row"]), dict(e["row"])]):
+                self.assertEqual(set(recovery_state.recovery_decisions()), {"OLD", "PRIORITY"})
+                priority.write_text(json.dumps({"records": [first]}), encoding="utf-8")
+                with self.assertRaises(ValueError):
+                    recovery_state.recovery_decisions()
 
     def test_alias_reads_and_outside_paths_are_rejected(self):
         with tempfile.TemporaryDirectory() as temp:

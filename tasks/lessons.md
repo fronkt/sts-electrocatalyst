@@ -1,5 +1,32 @@
 # Lessons (corrections log)
 
+## 2026-10-03 — Pin phase modules independently of unittest import state
+
+Test discovery can cache a same-named verifier from an earlier phase. Import the
+current verifier by an explicit unique module name and absolute source path,
+then assert its phase root before execution. Preserve the mistaken report and
+restore historical bytes only from a candidate matching the original pin;
+Git blob and Windows worktree line endings may differ. A passing scientific
+verifier does not substitute for the exact current phase preservation check.
+
+## 2026-10-03 — Isolate every additive evidence layer in regression fixtures
+
+Adding a new recovery layer must also isolate that layer in every fixture and
+test its additivity/duplicate guard. Otherwise real local evidence leaks into
+unit tests. Use a temporary-directory missing path, not a presumed missing
+relative filename. Scientific baselines may exclude unit-test modules: pin the
+clean tracked Git version separately before changing their verification scope.
+Retain failed receipts, then rerun the full scientific and preservation checks.
+
+## 2026-10-03 — Count Office XML elements and preserve source-level uncertainty
+
+Substring matches for oMath or ins count wrappers/table-border tags, not just
+equations/revisions. Count exact namespace-qualified elements and retain the
+original XML, structured equations and media. Validate excerpt length, every
+verbatim fragment and actual source location before release; keep frozen reads
+separate from checked transcripts. Undocumented D4 conditions remain UNCLEAR,
+and an activity-at-potential label is not a numerical CHE η conversion.
+
 ## 2026-10-03 — Separate optimizer startup reset from normal terminal cleanup
 
 The actual tiny QE runs all returned0 and converged as intended, but the resumed

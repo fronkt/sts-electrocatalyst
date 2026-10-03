@@ -1,0 +1,59 @@
+{
+  "records": [
+    {
+      "input": "s29447_pass1.in.jsonl",
+      "original": "s29447_pass1.out.jsonl",
+      "checked": "s29447_pass1_checked.out.jsonl",
+      "patches": {
+        "E2.excerpt": "Published: April 10, 2026",
+        "E6.excerpt": "the highest activity (at a low theoretical overpotential of 1.5 V) requires the presence of both Ir and Ru atoms."
+      },
+      "reason": "Restore longer verbatim deciding excerpts to meet the legacy 20-normalized-character evidence floor; preserve all scientific verdicts and descriptors.",
+      "original_sha256": "19dbab8397696af589c10e60bc5d621cbd8d845ead4cf0a7296fd70f05c9c7f2",
+      "checked_sha256": "a0dbc14b3fbc2326cd180d3705e92420d4fcdb5f1cf0d4424d981530061fb970",
+      "new_source_assessment": false
+    },
+    {
+      "input": "s28435_pass1.in.jsonl",
+      "original": "s28435_pass1.out.jsonl",
+      "checked": "s28435_pass1_checked.out.jsonl",
+      "patches": {
+        "E6.excerpt": "Both Co3O4-RuO2 and Co3O4-RuO2@NCP catalysts possessed identical RDS … and the similar reaction energy barriers (η = 0.47 eV and η = 0.50 eV)."
+      },
+      "reason": "Shorten the original over-limit excerpt to two exact main p7 fragments; no verdict change.",
+      "original_sha256": "b61a6cbc73ec7229dd79a9aa84701ce815c10d42ebf6c7c6be5e2e865700ac6f",
+      "checked_sha256": "274c56cac05d8dd817d0fdc449b63a3c6f2ba1ef181bd3fa19d82717e412e9c1",
+      "new_source_assessment": false
+    },
+    {
+      "input": "s29420_pass2.in.jsonl",
+      "original": "s29420_pass2.out.jsonl",
+      "checked": "s29420_pass2_checked.out.jsonl",
+      "patches": {
+        "E1.excerpt": "Research Article … Simulations study reveals that GDY induces interfacial directional charge transfer",
+        "E3.excerpt": "To comprehensively evaluate the OER reaction process, Gibbs free energy calculations of both adsorbate evolution mechanism (AEM) and LOM pathways were further performed for both pristine RuO2 and GDY@RuO2",
+        "E3.where": "main: S29420_main.pdf p. 4, Sec. 3.1"
+      },
+      "reason": "The label is separate from the title in source reading order; E3 original shortened caption was not verbatim. Replace with exact main p1/p4 fragments without changing criteria.",
+      "original_sha256": "ee78f19139b2e7bb4da0e5849560cbd65934f025834bc268c75bc5f467bc5f60",
+      "checked_sha256": "b79cea4186260550a623ad136b827e834a4849ae821b3e69709ea3cfe7813303",
+      "new_source_assessment": false
+    },
+    {
+      "input": "s28435_pass2.in.jsonl",
+      "original": "s28435_pass2.out.jsonl",
+      "checked": "s28435_pass2_checked.out.jsonl",
+      "patches": {
+        "E1.excerpt": "Research Article … Density functional theory (DFT) calculations also suggested these structural properties optimized the adsorption and activation process of key active species",
+        "E4.excerpt": "The diffraction peaks located at 28.0°, 40.6°, and 45.0°, corresponding to the (110), (111), and (210) crystal planes of RuO2 (PDF #40-1290) … Co3O4-Ru, Co3O4-RuO2 and Co3O4-RuO2@NCP models were built to calculate the adsorption energies and Gibbs free energies",
+        "E5.excerpt": "Co3O4-Ru, Co3O4-RuO2 and Co3O4-RuO2@NCP models were built to calculate the adsorption energies and Gibbs free energies … Free energy paths of (a) HER and (b) OER on Co3O4-Ru, Co3O4-RuO2, Co3O4-RuO2@NCP",
+        "note": "Identity check: PDF #40-1290. Computed OER facet is unreported, so η cannot be assigned to rutile (110). No first-publication date is printed. Experimental diffraction indices do not establish the calculated OER facet."
+      },
+      "reason": "Replace non-verbatim abbreviated fragments with exact main p2/p7 and SI p5 wording and shorten note; preserve all verdicts and descriptors.",
+      "original_sha256": "7302bc98db4375332e00bbcf306f0afaccaf6ae6cef429f14dbaf05cb5cea248",
+      "checked_sha256": "bab0bdd80e2329eb81a2678114322fdedde3a124c06b88a877afc1669d11ea44",
+      "new_source_assessment": false
+    }
+  ],
+  "errors": []
+}

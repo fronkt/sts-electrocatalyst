@@ -1,0 +1,11 @@
+# PDF pass 2 review
+
+As of 2026-10-03. Three listed records were read independently from the assigned main-text and SI reading files. For each, the full main text and full listed SI were read; `text_ok` is true. The original PDFs were preserved.
+
+Coverage and decisions:
+
+- **S29636** (`10.26599/nre.2026.9120228`): main text 42,811 characters / 10 pages; SI 17,461 characters / 10 pages. Inspected all four contact sheets (`main_01.png`, `main_02.png`, `si_01.png`, `si_02.png`) and original deciding pages: main 1, 2, 8; SI 2, 8. E1–E5 YES; E6 NO, EXCLUDE. The article identifies 1.80 eV as the O2-formation energy barrier and maximum ΔG. Although SI names CHE, its equation has no applied-potential or reference specification, and the paper does not report a CHE overpotential or qualifying equivalent.
+- **S29420** (`10.26599/nr.2026.94908680`): main text 60,173 characters / 13 pages; SI 10,756 characters / 18 pages. Inspected all six contact sheets (`main_01.png`–`main_03.png`, `si_01.png`–`si_03.png`) and original deciding pages: main 1, 5, 6; SI 2, 4. E1, E3–E6 YES; E2 UNCLEAR, UNRESOLVED. The paper prints received/revised/accepted dates and a 2026 citation year but no first-publication date. The SI gives the RuO2(110)/GDY model and reports the AEM overpotential comparison; the paper also identifies rutile RuO2 in its HRTEM discussion.
+- **S28435** (`10.26599/nr.2026.94908487`): main text 44,692 characters / 9 pages; SI 10,966 characters / 18 pages. Inspected all five contact sheets (`main_01.png`, `main_02.png`, `si_01.png`–`si_03.png`) and original deciding pages: main 1, 2, 7; SI 5, 16. E1 and E3 YES; E2, E4, E5, E6 UNCLEAR, UNRESOLVED. The text reports RuO2 PDF #40-1290 but does not identify that card as rutile; v5 D9 requires reconciliation identity checking. The computed OER facet is not specified, so the reported η values cannot be assigned to a qualifying rutile (110) model. The first-publication date is not printed.
+
+The JSONL has three rows in input order and parses as JSON. Excerpts are source-located, each shorter than 40 words (two fragments are joined by an ellipsis where needed), and each has at least 20 normalized alphanumeric characters. No model methods details outside the eligibility criteria are recorded. No entrant-question field is present in the schema.

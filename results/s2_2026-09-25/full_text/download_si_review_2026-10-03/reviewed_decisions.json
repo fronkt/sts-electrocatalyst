@@ -1,0 +1,297 @@
+{
+  "date": "2026-10-03",
+  "scope": "Five manually downloaded priority SI packages under unchanged v5; scientific decisions explicit, not inferred by code",
+  "records": [
+    {
+      "row": {
+        "screen_id": "S29636",
+        "doi": "10.26599/nre.2026.9120228",
+        "text_ok": true,
+        "E1": {
+          "v": "YES",
+          "where": "main: S29636_main.pdf p. 1, article label",
+          "excerpt": "Research Article"
+        },
+        "E2": {
+          "v": "YES",
+          "where": "main: S29636_main.pdf p. 1, front matter",
+          "excerpt": "Published date: 9 May 2026"
+        },
+        "E3": {
+          "v": "YES",
+          "where": "main: S29636_main.pdf p. 6, §2.6",
+          "excerpt": "Density functional theory (DFT) simulations were performed to analyze the OER mechanisms on well-defined RuO2/Co3O4 and pure RuO2"
+        },
+        "E4": {
+          "v": "YES",
+          "where": "main: S29636_main.pdf p. 2, §2.1 … main: S29636_main.pdf p. 6, §2.6",
+          "excerpt": "diffraction peaks of the newly formed rutile-phase RuO2 were also observed … Density functional theory (DFT) simulations were performed to analyze the OER mechanisms on well-defined RuO2/Co3O4 and pure RuO2"
+        },
+        "E5": {
+          "v": "YES",
+          "where": "main: S29636_main.pdf p. 6, §2.6",
+          "excerpt": "we calculated the energy barrier (ΔG) for each elementary step within the AEM on RuO2(110) and RuO2(110)/Co3O4"
+        },
+        "E6": {
+          "v": "UNCLEAR",
+          "where": "main: S29636_main.pdf p. 6, §2.6 … SI: nre-0228_ESM.pdf p. 2, §1.8",
+          "excerpt": "The energy barrier for O2 formation on RuO2/Co3O4 is 1.80 eV, which is lower than that on RuO2(1.88 eV) … The Gibbs free energy changes (ΔG) for each elementary steps were based on the computational hydrogen electrode (CHE) model"
+        },
+        "disposition": "UNRESOLVED",
+        "exclude_criterion": null,
+        "form": "journal",
+        "eta_form": null,
+        "eta_derivation": null,
+        "eta_note": null,
+        "secondary": null,
+        "provenance": null,
+        "note": "Model selected for E3–E6: RuO2(110)/Co3O4. The paper compares reported maximum-step barriers, but documents neither their common applied potential nor CHE reference scale; D4 therefore remains uncertain.",
+        "entrant_question": null
+      },
+      "reason": "Author largest-step comparison is documented, but its common computational potential and reference are not; v5 D4 explicitly requires UNCLEAR when these conditions cannot be established.",
+      "review": "Pass1 and focused third agree. Pass2 E6 exclusion is retained as dissent, not adopted. Full main/SI and Fig6b do not establish a common potential/reference, and experimental RHE conversion is not transferred.",
+      "independent_reads": [
+        "download_si_review_2026-10-03/s29636_pass1.out.jsonl",
+        "download_si_review_2026-10-03/s29636_pass3.out.jsonl"
+      ],
+      "source_metadata": "download_si_review_2026-10-03/s29636_source_metadata.json",
+      "source": "manual priority SI 2026-10-03: independent reads reviewed",
+      "si_complete": true,
+      "field_decisions": {}
+    },
+    {
+      "row": {
+        "screen_id": "S29420",
+        "doi": "10.26599/nr.2026.94908680",
+        "text_ok": true,
+        "E1": {
+          "v": "YES",
+          "where": "main: S29420_main.pdf p. 1",
+          "excerpt": "Research Article"
+        },
+        "E2": {
+          "v": "UNCLEAR",
+          "where": "main: S29420_main.pdf p. 1, citation and dates",
+          "excerpt": "Nano Research, 2026, 19, 94908680 … Received: January 8, 2026; Revised: March 7, 2026; Accepted: March 28, 2026"
+        },
+        "E3": {
+          "v": "YES",
+          "where": "main: S29420_main.pdf p. 4, §3.1",
+          "excerpt": "To comprehensively evaluate the OER reaction process, Gibbs free energy calculations of both adsorbate evolution mechanism (AEM) and LOM pathways were further performed for both pristine RuO2 and GDY@RuO2"
+        },
+        "E4": {
+          "v": "YES",
+          "where": "main: S29420_main.pdf p. 5, §3.2 and Fig. 3 caption; SI: 8680_ESM.pdf p. 2, Calculation methods",
+          "excerpt": "clear lattice fringes corresponding to the (110) planes of rutile RuO2 … We then use it to construct a RuO2 (110) and GDY (002) surface model"
+        },
+        "E5": {
+          "v": "YES",
+          "where": "SI: 8680_ESM.pdf p. 2, Calculation methods; main: S29420_main.pdf p. 4, §3.1",
+          "excerpt": "We then use it to construct a RuO2 (110) and GDY (002) surface model … Gibbs free energy calculations of both adsorbate evolution mechanism (AEM) and LOM pathways were further performed for both pristine RuO2 and GDY@RuO2"
+        },
+        "E6": {
+          "v": "YES",
+          "where": "main: S29420_main.pdf p. 4, §3.1; SI: 8680_ESM.pdf p. 4, Fig. S5 caption and plot",
+          "excerpt": "the theoretical AEM overpotential (η) at U = 1.23 V … on the GDY@RuO2 model is as low as 0.59 eV, whereas this value on RuO2−x surface is 0.75 eV"
+        },
+        "disposition": "UNRESOLVED",
+        "exclude_criterion": null,
+        "form": "journal",
+        "eta_form": "numeric",
+        "eta_derivation": "direct",
+        "eta_note": null,
+        "secondary": null,
+        "provenance": null,
+        "note": "Model: GDY@RuO2(110). Main AEM η 0.59/0.75 eV conflicts with SI Fig. S5 0.56/0.73 eV; retain both, without recalculation. E2 is settled by the existing in-window date check."
+      },
+      "reason": "Both reads establish new OER CHE η on the linked rutile(110) GDY/RuO2 model. Printed publication date remains UNCLEAR in the read; existing DOI-matched July2026 date reconciliation is in-window.",
+      "review": "Root checked original main p4 and SI p4/FigS5 plus model/phase connection. Direct η assignment is supported, but main/SI numbers differ. Neither is corrected, averaged or reconciled numerically; this inconsistency stays on record.",
+      "independent_reads": [
+        "download_si_review_2026-10-03/s29420_pass1.out.jsonl",
+        "download_si_review_2026-10-03/s29420_pass2_checked.out.jsonl"
+      ],
+      "source_metadata": "download_si_review_2026-10-03/s29420_source_metadata.json",
+      "source": "manual priority SI 2026-10-03: independent reads reviewed",
+      "si_complete": true,
+      "field_decisions": {}
+    },
+    {
+      "row": {
+        "screen_id": "S29447",
+        "doi": "10.1021/acscatal.5c08494",
+        "text_ok": true,
+        "E1": {
+          "v": "YES",
+          "where": "main: S29447_main.pdf p. 2; p. 7, Sec. 3.3",
+          "excerpt": "Research Article … We evaluated activities of theoretically conceived slabs in the Ru-Ir-O system by calculating the reaction free energies"
+        },
+        "E2": {
+          "v": "YES",
+          "where": "main: S29447_main.pdf p. 2",
+          "excerpt": "Published: April 10, 2026"
+        },
+        "E3": {
+          "v": "YES",
+          "where": "main: S29447_main.pdf p. 7, Sec. 3.3",
+          "excerpt": "We evaluated activities of theoretically conceived slabs in the Ru-Ir-O system by calculating the reaction free energies (ΔG1, ΔG2, ΔG3, ΔG4) of reactions expressed in eqs 1−4."
+        },
+        "E4": {
+          "v": "YES",
+          "where": "main: S29447_main.pdf p. 2, Abstract; p. 7, Sec. 3.3",
+          "excerpt": "Prepared materials were single-phase solid solutions conforming to the rutile structural type with random mixing of both cations in the lattice positions … To assess the effect of variable chemical composition in the Ru1−xIrxO2 oxides, we have compared the behavior of 20 Ru1−xIrxO2(110) slabs"
+        },
+        "E5": {
+          "v": "YES",
+          "where": "main: S29447_main.pdf p. 5, Sec. 2.6",
+          "excerpt": "The surface was modeled as a 3 × 1 slab of the rutile (110) surface"
+        },
+        "E6": {
+          "v": "YES",
+          "where": "main: S29447_main.pdf p. 7, Sec. 3.3; SI: cs-2025-08494p_si_001.docx paras. 110, 161–163",
+          "excerpt": "the resulting maximum value of ΔG1, ΔG2, ΔG3, or ΔG4 at 0 V vs RHE, which corresponds to the limiting potential of that site … computational hydrogen electrode approach [3], which sets GH++e– = ½GH2(g) – eU (U is the potential vs the reversible hydrogen electrode)"
+        },
+        "disposition": "ELIGIBLE",
+        "exclude_criterion": null,
+        "form": "journal",
+        "eta_form": "numeric",
+        "eta_derivation": "equivalent",
+        "eta_note": null,
+        "secondary": null,
+        "provenance": null,
+        "note": "Model: Ru1−xIrxO2(110) solid-solution cus sites (with RuO2/IrO2 benchmarks). Per-site maxima are expressly called limiting potentials. Fig. 10 activity fractions are not η; p. 10's 1.5 V wording is an activity-at-potential statement, not used as η."
+      },
+      "reason": "Main p7 explicitly assigns TableS3 per-site maximum of the four CHE free-energy steps at0V vsRHE to that site's limiting potential. SI para110 supplies CHE/RHE and TableS3 reports these values for identifiable rutile(110) slabs.",
+      "review": "Both reads agree on E1–E6 and eligibility; E6 descriptors differ. Adopt pass2's author-reported limiting-potential equivalent, not pass1's interpretation of1.5V. Fig10 activity/current fractions and the p10 low-theoretical-overpotential wording remain historical source data, not the numerical η used for eligibility. No1.23V subtraction or new η is calculated.",
+      "independent_reads": [
+        "download_si_review_2026-10-03/s29447_pass1_located_checked.out.jsonl",
+        "download_si_review_2026-10-03/s29447_pass2.out.jsonl"
+      ],
+      "source_metadata": "download_si_review_2026-10-03/s29447_source_metadata.json",
+      "source": "manual priority SI 2026-10-03: independent reads reviewed",
+      "si_complete": true,
+      "field_decisions": {
+        "eta_derivation": {
+          "value": "equivalent",
+          "reason": "Use the explicit per-site limiting-potential assignment in main p7/TableS3, not the activity-at-potential1.5V label."
+        },
+        "eta_note": {
+          "value": null,
+          "reason": "The canonical result is the explicit limiting-potential equivalent, not the inconsistent1.5V direct label. The alternative label and interpretation remain in original pass1 and this review."
+        }
+      }
+    },
+    {
+      "row": {
+        "screen_id": "S24094",
+        "doi": "10.1002/adma.202414579",
+        "text_ok": true,
+        "E1": {
+          "v": "YES",
+          "where": "main: S24094_main.pdf p. 1; SI: adma202414579-sup-0001-suppmat.docx para. 44",
+          "excerpt": "RESEARCH ARTICLE … DFT simulations were performed with the DMol3 module of Materials Studio (MS)."
+        },
+        "E2": {
+          "v": "YES",
+          "where": "main: S24094_main.pdf p. 15",
+          "excerpt": "Published online: November 3, 2024"
+        },
+        "E3": {
+          "v": "YES",
+          "where": "SI: adma202414579-sup-0001-suppmat.docx paras. 44–48",
+          "excerpt": "RuO2 (110) surfaces substituted with In/Sn atoms and equipped with In-Ov-Ru-O-Sn structure is constructed to analyze the the intermediates adsorption on InSnRuO2 … The OER process followed the elementary steps listed below in acidic media"
+        },
+        "E4": {
+          "v": "YES",
+          "where": "main: S24094_main.pdf p. 4; SI: adma202414579-sup-0001-suppmat.docx para. 44",
+          "excerpt": "planes of the rutile RuO2 with P42mnm (136) space group … RuO2 (110) surfaces substituted with In/Sn atoms and equipped with In-Ov-Ru-O-Sn structure is constructed to analyze the the intermediates adsorption on InSnRuO2."
+        },
+        "E5": {
+          "v": "YES",
+          "where": "SI: adma202414579-sup-0001-suppmat.docx para. 44",
+          "excerpt": "RuO2 (110) surfaces substituted with In/Sn atoms and equipped with In-Ov-Ru-O-Sn structure"
+        },
+        "E6": {
+          "v": "UNCLEAR",
+          "where": "main: S24094_main.pdf p. 13, Sec. 2.4, Fig. 7c; SI: adma202414579-sup-0001-suppmat.docx paras. 55–61",
+          "excerpt": "the determined rate-determining step (RDS) has been classified as being *H deprotonated to form *OO* for the LOM kinetics. Interestingly, the Ov-t site in the In-Ov-Ru-O-Sn substructures displays the lowest energy barrier (1.52 eV)"
+        },
+        "disposition": "UNRESOLVED",
+        "exclude_criterion": null,
+        "form": "journal",
+        "eta_form": null,
+        "eta_derivation": null,
+        "eta_note": null,
+        "secondary": null,
+        "provenance": null,
+        "note": "Model: InSnRuO2(110), three vacancy sites (LOM). Complete SI does not identify the 1.52 eV RDS/barrier comparison as CHE U_L/η or establish the common potential and one-electron-step basis required for D4; E6 is UNCLEAR."
+      },
+      "reason": "Complete SI establishes the rutile(110) OER model, but the author RDS/barrier comparison does not document shared computational U/reference and conventional one-electron-step conditions required by D4.",
+      "review": "Both completed independent reads agree on E6 UNCLEAR. Root checked main Fig7c and SI equation context/all22 structured math expressions. VariableU and experimental RHE conversion do not settle computational reference. Ru-site/LOM alternatives were reviewed; no η or electron count is invented.",
+      "independent_reads": [
+        "download_si_review_2026-10-03/s24094_pass1_located_checked.out.jsonl",
+        "download_si_review_2026-10-03/s24094_pass2.out.jsonl"
+      ],
+      "source_metadata": "download_si_review_2026-10-03/s24094_source_metadata.json",
+      "source": "manual priority SI 2026-10-03: independent reads reviewed",
+      "si_complete": true,
+      "field_decisions": {}
+    },
+    {
+      "row": {
+        "screen_id": "S28435",
+        "doi": "10.26599/nr.2026.94908487",
+        "text_ok": true,
+        "E1": {
+          "v": "YES",
+          "where": "main: S28435_main.pdf p. 1, article label",
+          "excerpt": "Research Article"
+        },
+        "E2": {
+          "v": "UNCLEAR",
+          "where": "main: S28435_main.pdf p. 1, front matter … main: S28435_main.pdf p. 1, front matter",
+          "excerpt": "Cite this article: Nano Research, 2026, 19, 94908487 … Received: September 18, 2025; Revised: January 20, 2026"
+        },
+        "E3": {
+          "v": "YES",
+          "where": "main: S28435_main.pdf p. 6, §2.4 … main: S28435_main.pdf p. 6, §2.4",
+          "excerpt": "were constructed to verify the mechanism conclusion by DFT calculation [41] … On Co3O4-RuO2 surface, the rate-determining step (RDS) for alkaline OER is the conversion of OOH* to O2"
+        },
+        "E4": {
+          "v": "YES",
+          "where": "main: S28435_main.pdf p. 2, §2.1 … main: S28435_main.pdf p. 6, §2.4",
+          "excerpt": "corresponding to the (110), (111), and (210) crystal planes of RuO2 (PDF #40-1290) … were constructed to verify the mechanism conclusion by DFT calculation [41]"
+        },
+        "E5": {
+          "v": "UNCLEAR",
+          "where": "main: S28435_main.pdf p. 7, Fig. 6 caption … SI: 8487_ESM.pdf p. 5, DFT calculation",
+          "excerpt": "Free energy paths of (a) HER and (b) OER on Co3O4-Ru, Co3O4-RuO2, Co3O4-RuO2@NCP … Co3O4-Ru, Co3O4-RuO2 and Co3O4-RuO2@NCP models were built to calculate the adsorption energies and Gibbs free energies"
+        },
+        "E6": {
+          "v": "UNCLEAR",
+          "where": "main: S28435_main.pdf p. 6, §2.4 … SI: 8487_ESM.pdf p. 5, DFT calculation, Eq. (2)",
+          "excerpt": "A significant reduction in the activation barrier on Co3O4-RuO2 surface (η = 0.50 eV) … The free energies of the intermediates at 298.15 K were obtained by: ΔG=ΔE+ΔEZPE−TΔS−eU"
+        },
+        "disposition": "UNRESOLVED",
+        "exclude_criterion": null,
+        "form": "journal",
+        "eta_form": null,
+        "eta_derivation": null,
+        "eta_note": null,
+        "secondary": null,
+        "provenance": null,
+        "note": "Model: Co3O4-RuO2. C01 identifies PDF #40-1290 as rutile, linked to the catalyst; no computed OER facet is stated. Authors call η a barrier; the CHE method does not settle its overpotential status. No publication date is printed.",
+        "entrant_question": "Under D12, does a plotted η on a CHE OER free-energy path count as an author-labeled overpotential when the prose calls it an activation/reaction-energy barrier?"
+      },
+      "reason": "Approved C01 establishes the diffraction-card identity and source model connection supports E4. Neither complete main nor SI indexes the computed OER facet; E5 remains UNCLEAR. E6 assignment/conditions remain unestablished.",
+      "review": "Original blind reads lacked C01. Fact-aware pass4 and source-adjudication pass6 must agree before release. Third and fact-pass5 E6 YES readings and the original η-label question remain on record; neither establishes the missing rutile(110) assignment. No model facet is inferred from experimental diffraction. Existing date check settles E2 outside the source read.",
+      "independent_reads": [
+        "download_si_review_2026-10-03/s28435_pass4_checked.out.jsonl",
+        "download_si_review_2026-10-03/s28435_pass6.out.jsonl"
+      ],
+      "source_metadata": "download_si_review_2026-10-03/s28435_source_metadata.json",
+      "source": "manual priority SI 2026-10-03: independent reads reviewed",
+      "si_complete": true,
+      "field_decisions": {}
+    }
+  ]
+}

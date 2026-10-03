@@ -1,5 +1,28 @@
 # STS 2027 — TODO
 
+## 2026-10-03 — Five manual priority SI packages
+
+Scope: continue the five new Downloads attachments for S29636, S29420, S29447,
+S28435 and S24094 under unchanged approved v5 rules and the same $50 lifetime
+literature/API cap. Verify the ACS alternate filename by content. Keep source
+payloads local, preserve completed reads/history and unrelated DFT, and do not
+infer production compute or melt authority from evidence recovery.
+
+- [x] Pin the current scientific/Git checkpoint, original Downloads and unrelated work; inspect source identity and all attachment formats. Baseline3fe7219,426 historical pins/2496 records/149 checklist rows/21 unrelated DFT; all five main/SI identities match. Entrant confirms every listed attachment downloaded, including the ACS alternate filename.
+- [x] Retain read-only source copies, text/equations and rendered PDF pages/Word figures with coverage limitations and exact byte pins.63 main/46 SI PDF pages and100 Word media items;22 actual OMML equations, zero actual content revisions. WDP/WIC conversions, Original MathML encoding and initial failed receipts retained;72 regressions pass. No Word page-layout render or execution/parsing of the editable Origin XRD internals; its visible preview reviewed. Original asset white masks remain visible, never filled by inference.
+- [x] Obtain two independent GPT-6 Luna assessments per ready package; adjudicate criterion disagreements with exact evidence and focused third reads only where needed. Fifteen source assessments in eight frozen batches; checked transcripts do not count as new reads. S29420/S29447 eligible; S29636/S24094/S28435 scientifically held, with dissent preserved.
+- [x] Triage any new entrant questions against existing approved rules; apply only supported case-specific reconciliation and rebuild the SI checklist preserving forced eligible IDs. One unique S28435 eta-label question deferred class D, missing facet independently holds it; no new policy.144 checklist rows,60/31/47/6 tiers,14 D10 checks and all four forced IDs retained.
+- [x] Run regression/scientific/phase verifiers, prove exact changed-row scope and unchanged historical/source/unrelated-work hashes; independently review the closure.78 regressions and both scientific/phase verifiers pass; deterministic rebuild,421 immutable historical pins/21 unrelated files and all source/read pins preserved. Independent GPT-6 Luna final review GO for scoped rebuild only, not production/melt release.
+- [ ] Commit explicit non-secret paths, push and verify remote SHA; update memory and retain scientific outcomes, costs and remaining compute/melt gates.
+
+Review: final offline verification passes78 regressions, both scientific verifiers
+and the exact five-row phase verifier; independent closure review GO, push pending.
+Historical/source/read pins and21 unrelated DFT files pass. Failed fixture/import
+receipts retained; prior phase report restored to its original byte pin. No new
+paid API calls or compute jobs. Plan check-in: identity/coverage first, independent reads second,
+source-grounded adjudication and verification third. No automated publisher or
+institutional access, paid discovery repeat, production job or melt selection.
+
 ## 2026-10-03 — Sequential evidence continuation and compute/melt readiness
 
 Scope: Frank requests all scientifically defensible work independent of the
