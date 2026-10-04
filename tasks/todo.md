@@ -1,5 +1,31 @@
 # STS 2027 — TODO
 
+## 2026-10-04 — Offline catalyst XML validator repair
+
+Scope: continue the cause-specific validator correction and replay after job
+21034683 ended FAILED3:0 / scientific INCONCLUSIVE. Exactly one control call
+completed three converged evaluations;102.8622CPU SU charged. No new job, retry,
+production/every-step protocol, S8 or melt selection is authorized by this repair.
+Preserve the frozen launch/deck/spec, original refusal and existing mirrored raw
+control; reuse the already completed mirror/dry-run rather than repeat retrieval.
+
+- [x] Reconcile the current clean checkpoint and pin historical/unrelated work before edits. HEADcbf7c7d;10005 tracked/21 unrelated pins. Four intervening commits contain existing readout/dry-run and unrelated SI recovery; preserve all. Initial stale-HEAD gate refusal retained, no code edit or compute attempt.
+- [x] Confirm the QE7.5 emitted DFT+U format from pinned primary source. Exactly one dftU/new_format=true with explicit kind/U/projector; no lda_plus_u field. Optional coupling absences are not permission to fill missing registered values from the deck. Source/default limitations retained.
+- [x] Correct only the validator and faulty synthetic Hubbard fixture; add source-faithful/adversarial regression tests without changing physical settings, runtime, controller or launch spec. Adapter5e77b8b3...,47 new parameter-expanded cases; new-formattrue/optional unique true flag, explicit kind/projector/Umap remain bound; unregistered Um/V/back channels refused.
+- [x] Replay the original rejection and corrected control acceptance on the existing19-file verified mirror; check actual72-atom saved optimizer and unchanged tiny non-Hubbard plumbing. Original25546421... rejection reproduces; repaired control3 evaluations/global[1,2,3]/target1e-6/MPI128/ELPA4x4 and BFGS3/3/0 pass; all19 mirror files unchanged. This is control-only validation, not a continuity/fresh/reseed or whole-trial pass.
+- [x] Run fresh relevant regressions/scientific verifiers and historical/source/mirror preservation; independently review the diff and actual replay, at most two full rounds. Checked83/610 plus7 subtests and two equivalent frozen-source checks pass; three platform skips retained; both scientific verifiers,10002+21 preservation and19 mirror pins pass. Independent26a65e66... GO_OFFLINE_XML_REPAIR_ONLY; reviewed source/replay/receipt pins agree, no second-job or production authority.
+- [ ] Retain a scoped readout and separately reviewed unsubmitted compute proposal if useful; commit/push exact non-secret paths and update memory with tested outcomes and remaining gates.
+
+Plan check-in: checkpoint/source audit first; bounded validator/fixture correction
+second; fresh adversarial and actual raw replay third; independent review and
+scientific preservation before explicit-path publication. DoD is a source-bound
+offline correction with the original failure reproducible, not a repaired Anvil
+trial. Review: checked83 evidence/610 automated tests/7 subtests pass, three
+existing Windows filesystem skips; two frozen-source test logics separately
+pass, both scientific verifiers and10002 untouched tracked/21 unrelated pins
+pass. Initial historical-line-number failure remains retained. Independent
+offline-only final clearance complete; publication pending, no new compute or paid API call.
+
 ## 2026-10-03 — Approved catalyst P-A adapter and one-boundary trial
 
 Scope: user approves implementation and the dated proposed trial. Implement a

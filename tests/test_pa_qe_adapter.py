@@ -528,7 +528,7 @@ def scientific_arm(tmp_path):
            .replace('<lsda>false</lsda>', '<lsda>true</lsda>')
            .replace('<occupations>fixed</occupations>', '<occupations>smearing</occupations><smearing degauss=".005">mv</smearing>')
            .replace('<k_points_IBZ><nk>1</nk></k_points_IBZ>', '<k_points_IBZ><monkhorst_pack nk1="4" nk2="2" nk3="1" k1="0" k2="0" k3="0"/></k_points_IBZ>')
-           .replace('<dft><functional>PBE</functional></dft>', '<dft><functional>PBE</functional><dftU><lda_plus_u>true</lda_plus_u>'
+           .replace('<dft><functional>PBE</functional></dft>', '<dft><functional>PBE</functional><dftU new_format="true">'
                     '<lda_plus_u_kind>0</lda_plus_u_kind><U_projection_type>atomic</U_projection_type>'
                     '<Hubbard_U specie="H" label="1s">{:.17g}</Hubbard_U></dftU></dft>'.format(3.32/(2*adapter.RY_EV)))
            .replace('</input>', '<symmetry_flags><nosym>true</nosym><noinv>true</noinv></symmetry_flags></input>'))

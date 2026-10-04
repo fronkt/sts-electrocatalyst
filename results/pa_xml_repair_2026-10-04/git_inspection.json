@@ -1,0 +1,61 @@
+[
+  {
+    "args": [
+      "rev-parse",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "stdout": "cbf7c7d81dc42b05bf81ca952d57dda8bafaa2a5\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "branch",
+      "--show-current"
+    ],
+    "returncode": 0,
+    "stdout": "r0-catalysis-revival\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "status",
+      "--short",
+      "--untracked-files=no"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "diff",
+      "--cached",
+      "--name-only"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "log",
+      "-5",
+      "--oneline"
+    ],
+    "returncode": 0,
+    "stdout": "cbf7c7d Extend Elsevier SI route to 10 records (9 recovered) and stage 22-package blind-read inputs; record Frank's S11392 linkage-only ruling\nfb95da9 Read out catalyst trial 21034683: INCONCLUSIVE from adapter lda_plus_u false rejection, zero-SU dry-run clears control\n580ec48 Record public SI recovery round: 14 packages retrieved for tier-1 records, binaries kept local\n4cc9ed1 Add cited post-run readout tool and unadopted next-step pricing for catalyst trial 21034683\nb3b64ce Record approved singleton catalyst trial launch and read-only watch\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "diff",
+      "--stat",
+      "b3b64ce38c7994038adf53bb2d3e29380b8f8de0",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "stdout": " .../pa-catalyst-trial-readout-2026-10-04.md        |  334 ++++\n .../pa-catalyst-trial-readout-prep-2026-10-04.md   |  237 +++\n .../dryrun/adapter_patch.diff                      |   11 +\n .../dryrun/dryrun_control.py                       |  171 ++\n .../dryrun/dryrun_control_result.json              |  954 +++++++++++\n .../dryrun/dryrun_evidence.json                    |   75 +\n .../dryrun/dryrun_evidence.py                      |   92 ++\n .../dryrun/latent_probes.py                        |  250 +++\n .../dryrun/latent_probes_result.json               | 1610 ++++++++++++++++++\n .../mirror_copy_list.txt                           |   19 +\n .../mirror_verification_pass1.json                 |  114 ++\n .../mirror_verification_pass2.json                 |  117 ++\n .../readout/readout_table.md                       |   88 +\n .../readout/readout_verdict.json                   | 1713 ++++++++++++++++++++\n .../remote_inventory.json                          |    1 +\n .../remote_inventory.stderr.txt                    |    3 +\n .../remote_inventory_pass2.json                    |    1 +\n .../remote_inventory_pass2.stderr.txt              |    3 +\n .../remote_inventory_pass2_run_utc.txt             |    2 +\n .../remote_inventory_run_utc.txt                   |    2 +\n .../remote_inventory_snippet.sha256                |    1 +\n .../sched_probe_remote.py                          |   26 +\n .../sched_probe_remote2.py                         |    9 +\n .../scheduler/jobsu.txt                            |   10 +\n .../scheduler/mybalance.txt                        |    7 +\n .../scheduler/sacct.txt                            |    4 +\n .../scheduler/sacct_watcher_format_nheader.txt     |    3 +\n .../scheduler/sched_probe.json                     |    1 +\n .../scheduler/sched_probe.stderr.txt               |    3 +\n .../scheduler/sched_probe2.json                    |    1 +\n .../verify_mirror.py                               |   72 +\n .../readout_trial.py                               | 1429 ++++++++++++++++\n .../regression_final3.json                         |  114 ++\n .../regression_final3.stderr.txt                   |    5 +\n .../regression_final3.stdout.txt                   |  188 +++\n .../regression_post_readout.json                   |  113 ++\n .../remote_inventory_snippet.py                    |   66 +\n .../run_regression.py                              |  111 ++\n .../scientific_final3/si_round_verification.json   | 1240 ++++++++++++++\n .../scientific_final3/verification.json            |  461 ++++++\n .../si_round_verification.json                     | 1240 ++++++++++++++\n .../scientific_post_readout/verification.json      |  461 ++++++\n .../test_readout_trial.py                          | 1067 ++++++++++++\n .../tiny_replay.py                                 |   99 ++\n .../tiny_replay_output/tiny_replay_readout.json    |  467 ++++++\n .../tiny_replay_output/tiny_replay_readout.md      |   18 +\n .../public_si_recovery_2026-10-04/analyze_sweep.py |   45 +\n .../build_manifest.py                              |  118 ++\n .../public_si_recovery_2026-10-04/build_targets.py |   70 +\n .../date_identity_probe.py                         |   52 +\n .../full_text/public_si_recovery_2026-10-04/dl.py  |   29 +\n .../public_si_recovery_2026-10-04/downloads.jsonl  |   30 +\n .../public_si_recovery_2026-10-04/els_cdn.py       |   66 +\n .../public_si_recovery_2026-10-04/els_run.out      |   20 +\n .../public_si_recovery_2026-10-04/epmc_supp.py     |   33 +\n .../public_si_recovery_2026-10-04/extra_repos.py   |   61 +\n .../public_si_recovery_2026-10-04/extra_run.out    |   38 +\n .../public_si_recovery_2026-10-04/host_gates.json  |   62 +\n .../public_si_recovery_2026-10-04/inspect_pdf.py   |   27 +\n .../linkage_s11392.py                              |   45 +\n .../public_si_recovery_2026-10-04/log_outcomes.py  |   72 +\n .../log_skipped_gates.py                           |   30 +\n .../public_si_recovery_2026-10-04/logrow.py        |   19 +\n .../public_si_recovery_2026-10-04/make_authors.py  |   19 +\n .../metadata_sweep.py                              |  156 ++\n .../outcomes_logged.json                           |   23 +\n .../public_si_recovery_2026-10-04/preprint_run.out |   38 +\n .../preprint_search.py                             |   53 +\n .../public_si_recovery_2026-10-04/probe_urls.py    |   75 +\n .../public_si_recovery_2026-10-04/readout.md       |  137 ++\n .../recovered_manifest.json                        | 1152 +++++++++++++\n .../public_si_recovery_2026-10-04/rs_files.py      |   51 +\n .../public_si_recovery_2026-10-04/search_log.jsonl |  722 +++++++++\n .../si_recovery_lib.py                             |  203 +++\n .../public_si_recovery_2026-10-04/summarize_log.py |   28 +\n .../public_si_recovery_2026-10-04/sweep_run.out    |   39 +\n .../public_si_recovery_2026-10-04/targets.json     |  909 +++++++++++\n .../public_si_recovery_2026-10-04/verify_si.py     |  140 ++\n .../verify_summary.py                              |   25 +\n .../public_si_recovery_2026-10-04/write_readout.py |  151 ++\n .../build_manifest.py                              |  178 ++\n .../build_targets.py                               |   30 +\n .../downloads.jsonl                                |   10 +\n .../public_si_recovery_2026-10-04_ext/els_cdn.py   |   65 +\n .../public_si_recovery_2026-10-04_ext/els_run.out  |   20 +\n .../meta_check.py                                  |   64 +\n .../outcomes_logged.json                           |   12 +\n .../public_si_recovery_2026-10-04_ext/readout.md   |   67 +\n .../recovered_manifest.json                        | 1022 ++++++++++++\n .../relog_final_rows.py                            |   14 +\n .../search_log.jsonl                               |  108 ++\n .../si_recovery_lib.py                             |  208 +++\n .../public_si_recovery_2026-10-04_ext/targets.json |  129 ++\n .../public_si_recovery_2026-10-04_ext/verify_si.py |  152 ++\n .../write_readout.py                               |   80 +\n .../si_read_round_2026-10-04/build_inputs.py       |  159 ++\n .../decisions_2026-10-04.md                        |   23 +\n .../si_read_round_2026-10-04/intake_manifest.json  | 1596 ++++++++++++++++++\n .../si_read_round_2026-10-04/intake_readout.md     |   80 +\n .../pass_1/batches/SI1_pdf_01.in.jsonl             |    4 +\n .../pass_1/batches/SI1_word_01.in.jsonl            |    6 +\n .../pass_1/batches/SI1_word_02.in.jsonl            |    4 +\n .../pass_1/batches/SI1_word_03.in.jsonl            |    5 +\n .../pass_1/batches/SI1_word_04.in.jsonl            |    3 +\n .../si_read_round_2026-10-04/pass_1/plan.json      |   64 +\n .../pass_2/batches/SI2_pdf_01.in.jsonl             |    4 +\n .../pass_2/batches/SI2_word_01.in.jsonl            |    6 +\n .../pass_2/batches/SI2_word_02.in.jsonl            |    4 +\n .../pass_2/batches/SI2_word_03.in.jsonl            |    5 +\n .../pass_2/batches/SI2_word_04.in.jsonl            |    3 +\n .../si_read_round_2026-10-04/pass_2/plan.json      |   64 +\n .../si_read_round_2026-10-04/prepare_run.out       |   22 +\n .../si_read_round_2026-10-04/prepare_si_round.py   |  688 ++++++++\n .../reading_copies_summary.json                    | 1090 +++++++++++++\n .../si_read_round_2026-10-04/render_metafile.ps1   |   28 +\n .../si_read_round_2026-10-04/verify_intake.py      |  171 ++\n .../write_intake_readout.py                        |  106 ++\n 117 files changed, 24045 insertions(+)\n",
+    "stderr": ""
+  }
+]

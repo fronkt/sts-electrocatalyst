@@ -623,13 +623,7 @@ def _check_xml_common_source(node, deck):
         if len(dftu_nodes) != 1:
             raise AdapterError("one source-matched XML Hubbard correction required")
         dftu = dftu_nodes[0]
-        # QE7.5 qexsd_init:510 emits new_format=true and no lda_plus_u child;
-        # qexsd_copy:403 derives that flag from dftU presence.  An optional
-        # explicit flag must still be unique/true, never an invented default.
-        if dftu.attrib.get("new_format") != "true":
-            raise AdapterError("explicit new-format XML Hubbard correction required")
-        if any(_tag(child) == "lda_plus_u" for child in dftu):
-            value(dftu, "lda_plus_u", True)
+        value(dftu, "lda_plus_u", True)
         value(dftu, "lda_plus_u_kind", 0)
         value(dftu, "U_projection_type", source_hubbard["unit"])
         expected = {(row[1].rsplit("-", 1)[0], row[1].rsplit("-", 1)[1]): _number(row[2])
@@ -645,11 +639,6 @@ def _check_xml_common_source(node, deck):
             elif tag in {"Hubbard_J0", "Hubbard_alpha", "Hubbard_alpha_back", "Hubbard_beta", "Hubbard_J"}:
                 if any(v != 0 for v in _numbers(child.text)):
                     raise AdapterError("unregistered nonzero XML Hubbard correction")
-            elif tag in {"Hubbard_Um", "Hubbard_V", "Hubbard_back"}:
-                # qexsd_init:575-699 emits Um/V only for nonzero couplings;
-                # :851-905 marks an additional background orbital channel.
-                # None is registered by the supported U-only HUBBARD card.
-                raise AdapterError("unregistered XML Hubbard correction channel: " + tag)
         if set(actual) != set(expected) or any(abs(actual[key]-expected[key]) > 1e-10 for key in actual):
             raise AdapterError("XML Hubbard_U species/shell/eV setting differs")
 

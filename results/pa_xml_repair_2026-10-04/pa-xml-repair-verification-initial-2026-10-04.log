@@ -1,0 +1,57 @@
+Verified background desktop: Codex_STS_Background
+................S_TEST RECOVERY_UNRESOLVED None None Cloud checksum mismatch
+...S_TEST retained checkpoint RECOVERED_DECLARED_INVENTORY
+.S_TEST RECOVERY_UNRESOLVED None None Unsafe local filename/member: '../outside.pdf'
+.S_TEST RECOVERY_UNRESOLVED None None Cloud DOI mismatch
+..S_TEST RECOVERY_UNRESOLVED None None Unsafe local filename/member: '..\\outside.pdf'
+S_TEST RECOVERY_UNRESOLVED None None Unsafe local filename/member: 'C:outside.pdf'
+S_TEST RECOVERY_UNRESOLVED None None Unsafe local filename/member: '/outside.pdf'
+.S_TEST retained checkpoint RECOVERY_UNRESOLVED
+...........................................................
+----------------------------------------------------------------------
+Ran 83 tests in 1.286s
+
+OK
+..............................s.....s................................... [ 11%]
+........................................................................ [ 23%]
+........................................................................ [ 35%]
+.......................................s................................ [ 46%]
+................................................................. [ 57%]
+........................................................................ [ 69%]
+........................................................................ [ 80%]
+..............................................F......................... [ 92%]
+.............................................                            [100%]
+================================== FAILURES ===================================
+____________ test_registered_call_table_matches_controller_source _____________
+
+    def test_registered_call_table_matches_controller_source():
+        lines = (REPO / R.CTRL).read_text(encoding="utf-8").splitlines()
+        for name, reg in R.REGISTERED.items():
+            window = " ".join(lines[reg["site"] - 1:reg["site"] + 1])
+            assert 'self.execute("%s", kind="%s"' % (name, reg["kind"]) in window, name
+            assert "expected_cycles=%s" % reg["expected_cycles"] in window, name
+            assert "expected_steps=%d" % reg["expected_steps"] in window, name
+        assert R.PREFIX == trial.PREFIX
+        assert R.LOG_XML_ENERGY_TOL_RY == 5.1e-8
+>       assert "5.1e-8" in (REPO / R.ADP).read_text(encoding="utf-8").splitlines()[844]
+E       AssertionError: assert '5.1e-8' in '        proposal = None'
+
+results\pa_catalyst_trial_readout_prep_2026-10-04\test_readout_trial.py:88: AssertionError
+=========================== short test summary info ===========================
+FAILED results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py::test_registered_call_table_matches_controller_source
+1 failed, 610 passed, 3 skipped, 1 deselected, 7 subtests passed in 29.84s
+
+Traceback (most recent call last):
+  File "C:\Users\frank\AppData\Local\Temp\sts-background-2026-09-06\worker.py", line 19, in <module>
+    exec(compile(cfg['code'], '<background-task>', 'exec'), {'__name__': '__main__'})
+  File "<background-task>", line 1, in <module>
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:/Users/frank/sts-electrocatalyst/results/pa_xml_repair_2026-10-04/verify_repair.py", line 70, in <module>
+    if __name__=='__main__':main(sys.argv[1])
+                            ^^^^^^^^^^^^^^^^^
+  File "C:/Users/frank/sts-electrocatalyst/results/pa_xml_repair_2026-10-04/verify_repair.py", line 57, in main
+    assert result.wasSuccessful() and r['compute_and_readout_tests']['returncode']==0,'fresh regression failed'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: fresh regression failed

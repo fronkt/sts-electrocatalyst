@@ -1,0 +1,52 @@
+[
+  {
+    "args": [
+      "rev-parse",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "stdout": "bc89a50965b85970af8116188ebd00a6fcf31243\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "status",
+      "--short",
+      "--untracked-files=no"
+    ],
+    "returncode": 0,
+    "stdout": " M src/dft/pa_qe_adapter.py\n M tasks/todo.md\n M tests/test_pa_qe_adapter.py\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "diff",
+      "--cached",
+      "--name-only"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "log",
+      "-3",
+      "--oneline"
+    ],
+    "returncode": 0,
+    "stdout": "bc89a50 Bank two independent SI read passes (21/22 dispositions agree) and stage visual-completion third reads with main-text page renders\ncbf7c7d Extend Elsevier SI route to 10 records (9 recovered) and stage 22-package blind-read inputs; record Frank's S11392 linkage-only ruling\nfb95da9 Read out catalyst trial 21034683: INCONCLUSIVE from adapter lda_plus_u false rejection, zero-SU dry-run clears control\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "diff",
+      "--name-status",
+      "cbf7c7d81dc42b05bf81ca952d57dda8bafaa2a5",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "stdout": "A\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/build_third_inputs.py\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S00358/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S00882/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S00887/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S05043/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S11279/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S14386/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S14704/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S20599/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S21070/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S21177/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S21253/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S22127/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S23135/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S23308/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S23544/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S27476/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S29795/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S30334/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S30575/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S31037/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S31125/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S31137/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/main_visual_summary.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/render_main_visual.py\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual_readout.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_pdf_01.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_pdf_01.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_01.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_01.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_02.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_02.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_03.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_03.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_04.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_04.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_pdf_01.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_pdf_01.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_01.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_01.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_02.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_02.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_03.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_03.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_04.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_04.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/third/batches/T3_pdf_01.in.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/third/batches/T3_word_01.in.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/third/batches/T3_word_02.in.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/third/batches/T3_word_03.in.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/third/batches/T3_word_04.in.jsonl\n",
+    "stderr": ""
+  }
+]

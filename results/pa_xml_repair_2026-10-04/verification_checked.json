@@ -1,0 +1,586 @@
+{
+  "successful": true,
+  "scope": "OFFLINE_XML_REPAIR_ONLY",
+  "new_jobs_submitted": 0,
+  "qe_executed": false,
+  "complete_trial_pass": false,
+  "production_accepted": false,
+  "label": "checked",
+  "before": {
+    "unchanged_historical_files": 10002,
+    "unchanged_unrelated_files": 21,
+    "checked_files": 10023,
+    "errors": []
+  },
+  "code_pins": {
+    "src/dft/pa_qe_adapter.py": "5e77b8b30789acadd104d9ac14368dfe28b5a88b2b2b84e7b8c8f2bfad10980a",
+    "tests/test_pa_qe_adapter.py": "aa0944f823c1fdd04a4ce0588f36ffa75908cc897854aad732c5b6c8841e308f",
+    "tests/test_pa_qe_schema_repair.py": "808d6f1a51d231e053dce8f87b4670de11c334b9379ba57f734b0e8db6ad9559",
+    "src/dft/pa_catalyst_trial.py": "d00656aa0e7e666f75900190ccc703c1fd0fee8293738a311ea9ab5880b368ce",
+    "results/pa_xml_repair_2026-10-04/replay_control.py": "496f4937a218ebf6a38aace5d797d5321bfc224b9e207d58bcfccf4d71b3d103"
+  },
+  "evidence_tests": {
+    "tests_run": 83,
+    "successful": true,
+    "failures": 0,
+    "errors": 0
+  },
+  "frozen_readout_citation_test": {
+    "passed": true,
+    "launch_adapter_sha256": "255464215aa898d0c9d34317a1be9b16fb27ba6d35108e0ca78215331a628879",
+    "citations": [
+      {
+        "criterion": "SCHED_ALLOC",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 8,
+        "quote": "Approval is one regular",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "SCHED_ALLOC",
+        "file": "results/pa_catalyst_trial_2026-10-03/launch_spec.json",
+        "line": 48,
+        "quote": "\"max_cpu_su\": 2048",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "SCHED_CALLS",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 9,
+        "quote": "at most six sequential QE calls",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "SCHED_CALLS",
+        "file": "results/pa_catalyst_trial_2026-10-03/launch_spec.json",
+        "line": 51,
+        "quote": "\"max_calls\": 6",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "SCHED_CAP_SU",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 85,
+        "quote": "The scheduler charge is capped",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "SCHED_CAP_SU",
+        "file": "docs/research/eligible-comparison-pa-readiness-2026-10-03.md",
+        "line": 127,
+        "quote": "node-exclusive billing charges the entire",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "SCHED_PER_CALL",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 79,
+        "quote": "Every QE call requires actual scheduler",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "SCHED_PER_CALL",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 80,
+        "quote": "within remaining aggregate time",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "SCHED_SEPARATE",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 105,
+        "quote": "Scheduler and scientific outcomes",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "REPORT_RULE",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 106,
+        "quote": "report a source-bound numerical",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "REPORT_RULE",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 107,
+        "quote": "without a hidden rerun",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "NO_PRODUCTION",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 10,
+        "quote": "not approve production relaxation",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "NO_PRODUCTION",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 123,
+        "quote": "No production or catalyst-runtime success",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "NO_PRODUCTION",
+        "file": "results/pa_catalyst_trial_2026-10-03/launch_spec.json",
+        "line": 56,
+        "quote": "\"production_accepted\": false",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "SEQUENCE",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 31,
+        "quote": "Sequence: three-evaluation",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "SEQUENCE",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 33,
+        "quote": "geometry, not its post-move proposal",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "BRANCH_RESUME",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 34,
+        "quote": "If the fresh state is not more than",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "BRANCH_RESUME",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 35,
+        "quote": "with inherited optimizer state for two",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "BRANCH_RESEED",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 36,
+        "quote": "more than10meV lower",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "BRANCH_RESEED",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 37,
+        "quote": "reseed/history reset at the evaluated geometry",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "BRANCH_RESEED",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 38,
+        "quote": "Exactly10meV or a higher fresh state",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "BRANCH_HOLD",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 39,
+        "quote": "fresh reference holds continuation",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "NEG_CONTROL",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 40,
+        "quote": "negative control establishes actual startup",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "RESEED_VALID",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 41,
+        "quote": "The reseed branch is only numerically validated",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "RESEED_VALID",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 42,
+        "quote": "energy remains within1e-6Ry",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "RESEED_VALID",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 43,
+        "quote": "below the original warm state",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "RESEED_VALID",
+        "file": "results/pa_catalyst_trial_2026-10-03/implementation_findings.md",
+        "line": 23,
+        "quote": "within1e-6Ry and remain strictly",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CONTINUITY_TOL",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 46,
+        "quote": "Control and candidate+resume must match",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CONTINUITY_TOL",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 47,
+        "quote": "1e-6Ry energy,1e-5bohr",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CONTINUITY_TOL",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 48,
+        "quote": "endpoint-only comparison",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CONTINUITY_TOL",
+        "file": "results/pa_xml_repair_2026-10-04/launch_adapter_original.py",
+        "line": 31,
+        "quote": "TOLERANCES = {\"energy_Ry\": 1e-6",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "NO_SPLICE",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 49,
+        "quote": "branch cannot be spliced",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "NO_SPLICE",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 50,
+        "quote": "occurs, genuine catalyst reseed remains unvalidated",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "NO_SPLICE",
+        "file": "results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md",
+        "line": 140,
+        "quote": "uses new history and cannot be spliced",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "BOUNDARY_COUNTS",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 59,
+        "quote": "exact saved evaluated XML count",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "BOUNDARY_COUNTS",
+        "file": "results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md",
+        "line": 67,
+        "quote": "Candidate/control/resumed require exact local XML counts",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "BOUNDARY_COUNTS",
+        "file": "results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md",
+        "line": 68,
+        "quote": "global stdout sequences1",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "FIRST_THRESHOLD",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 23,
+        "quote": "target is1e-6Ry",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "FIRST_THRESHOLD",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 25,
+        "quote": "first warm target must verify",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "FIRST_THRESHOLD",
+        "file": "src/dft/pa_catalyst_trial.py",
+        "line": 857,
+        "quote": "if kind in {\"control\", \"candidate\", \"fresh\", \"reseed\", \"negative\"}:",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "REJECT_LIST",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 82,
+        "quote": "symlinks/special files, fallback/reset",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "REJECT_LIST",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 83,
+        "quote": "failed/stalled energies",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "SUPERVISION",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 83,
+        "quote": "SCF iteration127 supervision",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "RAW_BINDING",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 68,
+        "quote": "Raw bindings include source deck bytes",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "RAW_BINDING",
+        "file": "results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md",
+        "line": 137,
+        "quote": "Actual catalyst MPI/ELPA/UPF/settings/source identity",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "INCONC_BOUNDARY",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 61,
+        "quote": "Early convergence, nstep exhaustion",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "INCONC_BOUNDARY",
+        "file": "results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md",
+        "line": 70,
+        "quote": "natural convergence, skipped boundary",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "INCONC_BOUNDARY",
+        "file": "results/pa_catalyst_trial_2026-10-03/source_boundary_review.md",
+        "line": 39,
+        "quote": "Natural BFGS convergence before the registered boundary",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "INCONC_PROCESS",
+        "file": "results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md",
+        "line": 134,
+        "quote": "A solver limit, HEA4",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "INCONC_PROCESS",
+        "file": "results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md",
+        "line": 136,
+        "quote": "justify exceeding authority",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "INCONC_PROCESS",
+        "file": "results/pa_catalyst_trial_2026-10-03/source_boundary_review.md",
+        "line": 298,
+        "quote": "stall/timeout/OOM or missed boundary",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "INCONC_RESEED",
+        "file": "results/pa_catalyst_trial_2026-10-03/implementation_findings.md",
+        "line": 24,
+        "quote": "An attempted or upper-state reseed stays",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "INCONC_RESEED",
+        "file": "results/pa_catalyst_trial_2026-10-03/independent_launch_review.md",
+        "line": 36,
+        "quote": "Failure must remain inconclusive/attempted",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "LATER_GATES",
+        "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+        "line": 51,
+        "quote": "terminal fresh acceptance remain later gates",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "LATER_GATES",
+        "file": "docs/research/eligible-comparison-pa-readiness-2026-10-03.md",
+        "line": 162,
+        "quote": "Full every-step checking/reseeding",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CTRL_STATUS_MAP",
+        "file": "src/dft/pa_catalyst_trial.py",
+        "line": 934,
+        "quote": "self.receipt[\"scientific_status\"] = \"HOLD\"",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CTRL_STATUS_MAP",
+        "file": "src/dft/pa_catalyst_trial.py",
+        "line": 951,
+        "quote": "self.receipt[\"scientific_status\"] = \"RESEED_BRANCH_ONLY\"",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CTRL_STATUS_MAP",
+        "file": "src/dft/pa_catalyst_trial.py",
+        "line": 964,
+        "quote": "raise TrialError(\"all three ordered evaluations did not agree\")",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CTRL_STATUS_MAP",
+        "file": "src/dft/pa_catalyst_trial.py",
+        "line": 970,
+        "quote": "self.receipt[\"scientific_status\"] = \"PASS_ONE_BOUNDARY\"",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CTRL_STATUS_MAP",
+        "file": "src/dft/pa_catalyst_trial.py",
+        "line": 983,
+        "quote": "self.receipt[\"scientific_status\"] = \"INCONCLUSIVE\"",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CTRL_NEGATIVE_BLOCKS",
+        "file": "results/pa_catalyst_trial_2026-10-03/launch_spec.json",
+        "line": 55,
+        "quote": "\"optional_negative_control\": true",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CTRL_NEGATIVE_BLOCKS",
+        "file": "src/dft/pa_catalyst_trial.py",
+        "line": 965,
+        "quote": "if self.spec[\"optional_negative_control\"]:",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CTRL_NEGATIVE_BLOCKS",
+        "file": "src/dft/pa_catalyst_trial.py",
+        "line": 970,
+        "quote": "self.receipt[\"scientific_status\"] = \"PASS_ONE_BOUNDARY\"",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CTRL_EXIT_CODE",
+        "file": "src/dft/pa_catalyst_trial.py",
+        "line": 1021,
+        "quote": "return 0 if result[\"scientific_status\"] == \"PASS_ONE_BOUNDARY\" else 3",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CTRL_EXIT_CODE",
+        "file": "src/dft/pa_catalyst_trial.py",
+        "line": 1023,
+        "quote": "\"scientific_status\": \"INCONCLUSIVE\", \"scheduler_status\": \"UNVERIFIED\"",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CTRL_EXIT_CODE",
+        "file": "anvil/89_pa_catalyst_boundary_trial.slurm",
+        "line": 30,
+        "quote": "exec \"$PYTHON\"",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CTRL_CALL_CONTRACT",
+        "file": "src/dft/pa_catalyst_trial.py",
+        "line": 840,
+        "quote": "if (process.get(\"timed_out\") or process.get(\"within_per_call_cap\") is not True",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CTRL_CALL_CONTRACT",
+        "file": "src/dft/pa_catalyst_trial.py",
+        "line": 846,
+        "quote": "raise TrialError(name + \" lacks the registered boundary stop receipt\")",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CTRL_CALL_CONTRACT",
+        "file": "src/dft/pa_catalyst_trial.py",
+        "line": 870,
+        "quote": "call[\"status\"] = \"NUMERICAL_RECEIPT_VALIDATED\"",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CTRL_AGGREGATE",
+        "file": "src/dft/pa_catalyst_trial.py",
+        "line": 694,
+        "quote": "raise TrialError(\"full registered 7200-second call plus cleanup does not fit",
+        "status": "EXACT"
+      },
+      {
+        "criterion": "CTRL_AGGREGATE",
+        "file": "src/dft/pa_catalyst_trial.py",
+        "line": 981,
+        "quote": "raise TrialError(\"aggregate elapsed time reached 16h\")",
+        "status": "EXACT"
+      }
+    ],
+    "current_repaired_path_deliberately_not_substituted_for_launch_source": true
+  },
+  "frozen_registered_call_table_test": {
+    "passed": true,
+    "controller_unchanged": true,
+    "adapter_literal_line845_checked_on_exact_launch_snapshot": true,
+    "launch_adapter_sha256": "255464215aa898d0c9d34317a1be9b16fb27ba6d35108e0ca78215331a628879"
+  },
+  "compute_and_readout_tests": {
+    "args": [
+      "C:\\Users\\frank\\AppData\\Local\\Programs\\Python\\Python312\\pythonw.exe",
+      "-B",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "--deselect=results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py::test_every_citation_resolves_exactly_in_the_pinned_files",
+      "--deselect=results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py::test_registered_call_table_matches_controller_source",
+      "tests/test_pa_qe_adapter.py",
+      "tests/test_pa_qe_schema_repair.py",
+      "tests/test_pa_catalyst_trial.py",
+      "tests/test_pa_catalyst_watch.py",
+      "tests/test_pa_checked_contract.py",
+      "tests/test_pa_restart_diagnostic.py",
+      "tests/test_pa_tiny_restart_probe.py",
+      "tests/test_pa_tiny_raw_readout.py",
+      "tests/test_pa_tiny_readonly_watch.py",
+      "tests/test_research_batch_checked.py",
+      "tests/test_research_batch_seeded.py",
+      "tests/test_lowtail_batch_launch.py",
+      "results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py"
+    ],
+    "returncode": 0,
+    "stdout": "..............................s.....s................................... [ 11%]\n........................................................................ [ 23%]\n........................................................................ [ 35%]\n.......................................s................................ [ 46%]\n................................................................. [ 57%]\n........................................................................ [ 69%]\n........................................................................ [ 81%]\n........................................................................ [ 92%]\n............................................                             [100%]\n610 passed, 3 skipped, 2 deselected, 7 subtests passed in 44.30s\n",
+    "stderr": ""
+  },
+  "raw_replay": {
+    "args": [
+      "C:\\Users\\frank\\AppData\\Local\\Programs\\Python\\Python312\\pythonw.exe",
+      "-B",
+      "C:\\Users\\frank\\sts-electrocatalyst\\results\\pa_xml_repair_2026-10-04\\replay_control.py",
+      "checked"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"successful\": true,\n  \"control_evaluations\": 3,\n  \"original_rejection_reproduced\": \"one XML lda_plus_u required\",\n  \"complete_trial_pass\": false,\n  \"qe_executed\": false\n}\n",
+    "stderr": ""
+  },
+  "scientific_verifiers_pass": true,
+  "registered_recovery_reads": 42,
+  "after": {
+    "unchanged_historical_files": 10002,
+    "unchanged_unrelated_files": 21,
+    "checked_files": 10023,
+    "errors": []
+  }
+}
