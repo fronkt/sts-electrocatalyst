@@ -1,0 +1,800 @@
+{
+  "successful": true,
+  "commands": [
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "rev-parse",
+        "HEAD"
+      ],
+      "returncode": 0,
+      "stdout": "bc89a50965b85970af8116188ebd00a6fcf31243\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "merge-base",
+        "--is-ancestor",
+        "cbf7c7d81dc42b05bf81ca952d57dda8bafaa2a5",
+        "bc89a50965b85970af8116188ebd00a6fcf31243"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "diff",
+        "--name-status",
+        "cbf7c7d81dc42b05bf81ca952d57dda8bafaa2a5",
+        "bc89a50965b85970af8116188ebd00a6fcf31243"
+      ],
+      "returncode": 0,
+      "stdout": "A\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/build_third_inputs.py\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S00358/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S00882/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S00887/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S05043/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S11279/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S14386/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S14704/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S20599/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S21070/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S21177/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S21253/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S22127/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S23135/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S23308/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S23544/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S27476/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S29795/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S30334/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S30575/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S31037/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S31125/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S31137/main_visual_index.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/main_visual_summary.json\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/render_main_visual.py\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual_readout.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_pdf_01.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_pdf_01.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_01.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_01.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_02.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_02.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_03.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_03.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_04.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_04.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_pdf_01.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_pdf_01.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_01.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_01.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_02.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_02.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_03.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_03.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_04.out.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_04.review.md\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/third/batches/T3_pdf_01.in.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/third/batches/T3_word_01.in.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/third/batches/T3_word_02.in.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/third/batches/T3_word_03.in.jsonl\nA\tresults/s2_2026-09-25/full_text/si_read_round_2026-10-04/third/batches/T3_word_04.in.jsonl\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "rev-parse",
+        "HEAD"
+      ],
+      "returncode": 0,
+      "stdout": "bc89a50965b85970af8116188ebd00a6fcf31243\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "branch",
+        "--show-current"
+      ],
+      "returncode": 0,
+      "stdout": "r0-catalysis-revival\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "diff",
+        "--cached",
+        "--name-only"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "diff",
+        "--name-only"
+      ],
+      "returncode": 0,
+      "stdout": "src/dft/pa_qe_adapter.py\ntasks/todo.md\ntests/test_pa_qe_adapter.py\n",
+      "stderr": "warning: in the working copy of 'src/dft/pa_qe_adapter.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tests/test_pa_qe_adapter.py', LF will be replaced by CRLF the next time Git touches it\n"
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "add",
+        "-f",
+        "--",
+        "docs/research/pa-xml-repair-2026-10-04.md",
+        "results/pa_xml_repair_2026-10-04/.gitattributes",
+        "results/pa_xml_repair_2026-10-04/baseline.json",
+        "results/pa_xml_repair_2026-10-04/capture_baseline.py",
+        "results/pa_xml_repair_2026-10-04/git_inspection.json",
+        "results/pa_xml_repair_2026-10-04/git_inspection_checked.json",
+        "results/pa_xml_repair_2026-10-04/independent_repair_review.md",
+        "results/pa_xml_repair_2026-10-04/launch_adapter_original.py",
+        "results/pa_xml_repair_2026-10-04/pa-xml-repair-baseline-2026-10-04.log",
+        "results/pa_xml_repair_2026-10-04/pa-xml-repair-baseline-2026-10-04.status.json",
+        "results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-checked-2026-10-04.status.json",
+        "results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-initial-2026-10-04.log",
+        "results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-initial-2026-10-04.status.json",
+        "results/pa_xml_repair_2026-10-04/publication.json",
+        "results/pa_xml_repair_2026-10-04/publish_repair.py",
+        "results/pa_xml_repair_2026-10-04/raw_replay_checked.json",
+        "results/pa_xml_repair_2026-10-04/replay_control.py",
+        "results/pa_xml_repair_2026-10-04/resume_publication.py",
+        "results/pa_xml_repair_2026-10-04/scientific_checked/si_round_verification.json",
+        "results/pa_xml_repair_2026-10-04/scientific_checked/verification.json",
+        "results/pa_xml_repair_2026-10-04/source_schema_review.md",
+        "results/pa_xml_repair_2026-10-04/terminal_trial_observations.jsonl",
+        "results/pa_xml_repair_2026-10-04/terminal_trial_watch_status.json",
+        "results/pa_xml_repair_2026-10-04/verification_checked.json",
+        "results/pa_xml_repair_2026-10-04/verification_initial.json",
+        "results/pa_xml_repair_2026-10-04/verify_repair.py",
+        "src/dft/pa_qe_adapter.py",
+        "tasks/todo.md",
+        "tests/test_pa_qe_adapter.py",
+        "tests/test_pa_qe_schema_repair.py"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "warning: in the working copy of 'src/dft/pa_qe_adapter.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tests/test_pa_qe_adapter.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/research/pa-xml-repair-2026-10-04.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tests/test_pa_qe_schema_repair.py', LF will be replaced by CRLF the next time Git touches it\n"
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "diff",
+        "--cached",
+        "--name-only"
+      ],
+      "returncode": 0,
+      "stdout": "docs/research/pa-xml-repair-2026-10-04.md\nresults/pa_xml_repair_2026-10-04/.gitattributes\nresults/pa_xml_repair_2026-10-04/baseline.json\nresults/pa_xml_repair_2026-10-04/capture_baseline.py\nresults/pa_xml_repair_2026-10-04/git_inspection.json\nresults/pa_xml_repair_2026-10-04/git_inspection_checked.json\nresults/pa_xml_repair_2026-10-04/independent_repair_review.md\nresults/pa_xml_repair_2026-10-04/launch_adapter_original.py\nresults/pa_xml_repair_2026-10-04/pa-xml-repair-baseline-2026-10-04.log\nresults/pa_xml_repair_2026-10-04/pa-xml-repair-baseline-2026-10-04.status.json\nresults/pa_xml_repair_2026-10-04/pa-xml-repair-verification-checked-2026-10-04.status.json\nresults/pa_xml_repair_2026-10-04/pa-xml-repair-verification-initial-2026-10-04.log\nresults/pa_xml_repair_2026-10-04/pa-xml-repair-verification-initial-2026-10-04.status.json\nresults/pa_xml_repair_2026-10-04/publication.json\nresults/pa_xml_repair_2026-10-04/publish_repair.py\nresults/pa_xml_repair_2026-10-04/raw_replay_checked.json\nresults/pa_xml_repair_2026-10-04/replay_control.py\nresults/pa_xml_repair_2026-10-04/resume_publication.py\nresults/pa_xml_repair_2026-10-04/scientific_checked/si_round_verification.json\nresults/pa_xml_repair_2026-10-04/scientific_checked/verification.json\nresults/pa_xml_repair_2026-10-04/source_schema_review.md\nresults/pa_xml_repair_2026-10-04/terminal_trial_observations.jsonl\nresults/pa_xml_repair_2026-10-04/terminal_trial_watch_status.json\nresults/pa_xml_repair_2026-10-04/verification_checked.json\nresults/pa_xml_repair_2026-10-04/verification_initial.json\nresults/pa_xml_repair_2026-10-04/verify_repair.py\nsrc/dft/pa_qe_adapter.py\ntasks/todo.md\ntests/test_pa_qe_adapter.py\ntests/test_pa_qe_schema_repair.py\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "-c",
+        "core.whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":docs/research/pa-xml-repair-2026-10-04.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/.gitattributes"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/baseline.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/capture_baseline.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/git_inspection.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/git_inspection_checked.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/independent_repair_review.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/launch_adapter_original.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/pa-xml-repair-baseline-2026-10-04.log"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/pa-xml-repair-baseline-2026-10-04.status.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-checked-2026-10-04.status.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-initial-2026-10-04.log"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-initial-2026-10-04.status.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/publication.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/publish_repair.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/raw_replay_checked.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/replay_control.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/resume_publication.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/scientific_checked/si_round_verification.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/scientific_checked/verification.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/source_schema_review.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/terminal_trial_observations.jsonl"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/terminal_trial_watch_status.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/verification_checked.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/verification_initial.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_xml_repair_2026-10-04/verify_repair.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":src/dft/pa_qe_adapter.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tasks/todo.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/test_pa_qe_adapter.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/test_pa_qe_schema_repair.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "commit",
+        "-m",
+        "Repair QE7.5 Hubbard XML validation and verify retained catalyst control offline"
+      ],
+      "returncode": 0,
+      "stdout": "[r0-catalysis-revival 9639eaa] Repair QE7.5 Hubbard XML validation and verify retained catalyst control offline\n 30 files changed, 63478 insertions(+), 2 deletions(-)\n create mode 100644 docs/research/pa-xml-repair-2026-10-04.md\n create mode 100644 results/pa_xml_repair_2026-10-04/.gitattributes\n create mode 100644 results/pa_xml_repair_2026-10-04/baseline.json\n create mode 100644 results/pa_xml_repair_2026-10-04/capture_baseline.py\n create mode 100644 results/pa_xml_repair_2026-10-04/git_inspection.json\n create mode 100644 results/pa_xml_repair_2026-10-04/git_inspection_checked.json\n create mode 100644 results/pa_xml_repair_2026-10-04/independent_repair_review.md\n create mode 100644 results/pa_xml_repair_2026-10-04/launch_adapter_original.py\n create mode 100644 results/pa_xml_repair_2026-10-04/pa-xml-repair-baseline-2026-10-04.log\n create mode 100644 results/pa_xml_repair_2026-10-04/pa-xml-repair-baseline-2026-10-04.status.json\n create mode 100644 results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-checked-2026-10-04.status.json\n create mode 100644 results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-initial-2026-10-04.log\n create mode 100644 results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-initial-2026-10-04.status.json\n create mode 100644 results/pa_xml_repair_2026-10-04/publication.json\n create mode 100644 results/pa_xml_repair_2026-10-04/publish_repair.py\n create mode 100644 results/pa_xml_repair_2026-10-04/raw_replay_checked.json\n create mode 100644 results/pa_xml_repair_2026-10-04/replay_control.py\n create mode 100644 results/pa_xml_repair_2026-10-04/resume_publication.py\n create mode 100644 results/pa_xml_repair_2026-10-04/scientific_checked/si_round_verification.json\n create mode 100644 results/pa_xml_repair_2026-10-04/scientific_checked/verification.json\n create mode 100644 results/pa_xml_repair_2026-10-04/source_schema_review.md\n create mode 100644 results/pa_xml_repair_2026-10-04/terminal_trial_observations.jsonl\n create mode 100644 results/pa_xml_repair_2026-10-04/terminal_trial_watch_status.json\n create mode 100644 results/pa_xml_repair_2026-10-04/verification_checked.json\n create mode 100644 results/pa_xml_repair_2026-10-04/verification_initial.json\n create mode 100644 results/pa_xml_repair_2026-10-04/verify_repair.py\n create mode 100644 tests/test_pa_qe_schema_repair.py\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "rev-parse",
+        "HEAD"
+      ],
+      "returncode": 0,
+      "stdout": "9639eaa8cb04cdcee53ca6f11479ed1d424dbbb1\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "push",
+        "origin",
+        "r0-catalysis-revival"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "To https://github.com/fronkt/sts-electrocatalyst.git\n   bc89a50..9639eaa  r0-catalysis-revival -> r0-catalysis-revival\n"
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "ls-remote",
+        "origin",
+        "refs/heads/r0-catalysis-revival"
+      ],
+      "returncode": 0,
+      "stdout": "9639eaa8cb04cdcee53ca6f11479ed1d424dbbb1\trefs/heads/r0-catalysis-revival\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "diff",
+        "--name-only"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "diff",
+        "--cached",
+        "--name-only"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "scope": "OFFLINE_XML_REPAIR_ONLY",
+  "new_jobs_submitted": 0,
+  "qe_executed": false,
+  "production_accepted": false,
+  "before": {
+    "unchanged_historical_files": 10002,
+    "unchanged_unrelated_files": 21,
+    "checked_files": 10023,
+    "errors": []
+  },
+  "review_sha256": "26a65e666b8068ec2e017b25604dfbbd8e4f76ae7edaeb26153a9d88e845c593",
+  "publication_parent": "bc89a50965b85970af8116188ebd00a6fcf31243",
+  "concurrent_addition_pins": {
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/build_third_inputs.py": "0eac3b9547c36beb9a3cf0e77660c37d2d8c4a432ad7edc69e217f5ee367c732",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S00358/main_visual_index.json": "7605c304a1564fc5ddb5548653a849032750460b1fea57e5c46742636bd3253e",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S00882/main_visual_index.json": "4bbd8916f9015b65d4ee0c2efe83a3b9e540e0fc0b4c3e50d7b9706920a6139f",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S00887/main_visual_index.json": "b363762176d8adf7607eaa2f742fb50e8824a1bac54b9cd817b83cc0aee52469",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S05043/main_visual_index.json": "7b02377e5fe4f7322184609eaab232c48495cbccee7f9274a1e5903fd16cfde2",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S11279/main_visual_index.json": "ab57e28f28b248d10ddc270aa379cb82c352b1d3949121a65a4f2f1eda07c4f6",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S14386/main_visual_index.json": "616e497c30ff61a231bdbacc01433c61fd7a39fcb4287b84564f334f8b99393c",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S14704/main_visual_index.json": "553f4f6667d86dcad42ba3ded93aff301a8663ada9ec1c165fca174e29959212",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S20599/main_visual_index.json": "521984ecf0e9ea35f72af7326f60fc33fb34ab3a3fca29ed0209b5376fd782dd",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S21070/main_visual_index.json": "c850d8608612bfbe7bcc938d2d2d2e90bae7b0a13e408fec8d475f2a35aeff4b",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S21177/main_visual_index.json": "791158375e65116ed19dbae91cc6e481d62db18810ac781674a80de727e5ae39",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S21253/main_visual_index.json": "fe6933e2f4b836069f93a909c00a0f3389763028d5c2457e0dc1a7448a5cf75b",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S22127/main_visual_index.json": "816179e6af9404ac2033936e75fefa2004916890597a249a8e2e6b4016ddea3d",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S23135/main_visual_index.json": "53bceadfd26acc3c044f1cc79df8b794ba5f7be8233823e59c88dd14014486de",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S23308/main_visual_index.json": "95410ed105474e09056aac92ca840471ee86d240537987db7aa20740fca659f4",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S23544/main_visual_index.json": "4ec3b0fb4ddbf861a09c70d1649cf8a337fc731e09506b5b549afd6549a9189c",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S27476/main_visual_index.json": "30c3a5e36877c618f0fd3daaf51b2f6bfbbde8fe64caba0e9876395794f38137",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S29795/main_visual_index.json": "85970e4787d1dec325ab49f595067346a21b79f4d3ea6eb555abebfbfa2f68c5",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S30334/main_visual_index.json": "576a1a0cd6054acd93e3ae71335960f86d48dbb016b38b7b1c3ff10d8c6be6d5",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S30575/main_visual_index.json": "77c1eaabf11533a756bbaa5ee871fc4f0d0d1071f61a67a87854c7783c1dba46",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S31037/main_visual_index.json": "6b00f359907277c8c999d01c75f1835277512b85c5814feac85c5e0bf0972ef2",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S31125/main_visual_index.json": "73dcafcd5b4dcf8831135e39c2dfc0b68da8bb6924f7bfc6d1afd8904d13df7a",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/S31137/main_visual_index.json": "e943722faeab18c3cb0ce331bc66e0c25dcce8544f3c97baa338d2baa0747690",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/main_visual_summary.json": "e4a0958c450752dd211bfebae9feb73fe4a079d27d3fb11e1b287adfa95b4d0b",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual/render_main_visual.py": "bcd32075dec63708253aac5ae1f63434da00e6a12c76752db62330581ce34ba8",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/main_visual_readout.md": "3a17cb4a0f836b26268ebe696284c69465e7c67d59f0c00e7fe52b42279facdf",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_pdf_01.out.jsonl": "b6013e33d220f266c7944a6f495c2e9cd20da8cacb9bc269eacfdea709a7ac57",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_pdf_01.review.md": "9caaeafa90cbcce627abc499fedfebc62c6f1665083b9edbc6f44b8bd2d196b1",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_01.out.jsonl": "4034a48626f3d88df85891b87a3dd26ee8c44ff37768c749cc004029a6590ceb",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_01.review.md": "f7bc9f00ffcb351b0b805bfe53b622d77ef33fedc6b097e638ec79fb5ed8c196",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_02.out.jsonl": "390e31ce7456b20784f28d7169148a386d8409b75cc73e21bd1f60bcb480abeb",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_02.review.md": "968e7327edc89e736341d55b6a496061d01cee7b2fa78b0900f7aae0186982b5",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_03.out.jsonl": "c93c502a86de155a12443435d2d851d7ccd48fa11dea4c7c76b2857a1d62ab99",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_03.review.md": "b5b5161423773045dba6a3b2662a90c49111b9a7efe4af0235455c818a5041a1",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_04.out.jsonl": "26fd2313f58a8b25d78e305851c272fd0b6bc48b178f0910bd44621e4e232931",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_1/batches/SI1_word_04.review.md": "8b6baa9fa710f2d159c99c7837761b81a43870b447309cb0bafe03f2e5a85537",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_pdf_01.out.jsonl": "5c6bc44d36bd998b54c703339cb432765c000f131892845fb0f8c7ffdbb7b634",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_pdf_01.review.md": "f495aa4824c3a3c70e8168083262fac5af813114e52ca2b6146609085a301d04",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_01.out.jsonl": "c6246801f821ae71597b9d98e1a759d86f19f398845e1f319e977b963cb1cec6",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_01.review.md": "1e109ab33364af4ac755ef98ff98b4e6aeb800bf4a2473dd3cd54dc9b78facf8",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_02.out.jsonl": "990cb5e7bfc79c1e6a555527d45b4cec4281891f3faa35236eb58ef0a4eb8f0b",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_02.review.md": "5c5ff387a80bcb39b9dbfd1bcda3f81931e59f9827cf63eab614c5d2473b9171",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_03.out.jsonl": "9b4c99919ef170db9475b2f40ccadc3fb7930134db5cab514032be33adb9c6df",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_03.review.md": "a3c38f4251c7ae53f03e531a767558fe70ab3a2f1070bea0f3e9f9b95bcf0b69",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_04.out.jsonl": "ea385fea289f5a687f74b8177794a1360b95ac30e9bb5f3431ce76c02dec301c",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/pass_2/batches/SI2_word_04.review.md": "2a59fc7f58f6d7ca02dc141237862fa7e3618aa6f91134f39f2029f27f0d1858",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/third/batches/T3_pdf_01.in.jsonl": "520f92ab47487ddf34b3ff254150ffc63825ea95211d968ef5678b11184917c0",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/third/batches/T3_word_01.in.jsonl": "527a9ffebe3d67e09f7cfe1bdea6f98dd098e7e8179c8f848d663de66ee719e3",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/third/batches/T3_word_02.in.jsonl": "1256cf0b3a5f0ed3643dbee508fb4bcece3585333d9d26126bfdb8dde2710e45",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/third/batches/T3_word_03.in.jsonl": "75bde44d04c369e5811533c4b37126d3d448a1efeb9a89973e69dc75d70aba4a",
+    "results/s2_2026-09-25/full_text/si_read_round_2026-10-04/third/batches/T3_word_04.in.jsonl": "26eae19351fb2f1dc15cd306c1e7b703c0c8838fcc4717e31c7b4810bdb16975"
+  },
+  "paths": [
+    "docs/research/pa-xml-repair-2026-10-04.md",
+    "results/pa_xml_repair_2026-10-04/.gitattributes",
+    "results/pa_xml_repair_2026-10-04/baseline.json",
+    "results/pa_xml_repair_2026-10-04/capture_baseline.py",
+    "results/pa_xml_repair_2026-10-04/git_inspection.json",
+    "results/pa_xml_repair_2026-10-04/git_inspection_checked.json",
+    "results/pa_xml_repair_2026-10-04/independent_repair_review.md",
+    "results/pa_xml_repair_2026-10-04/launch_adapter_original.py",
+    "results/pa_xml_repair_2026-10-04/pa-xml-repair-baseline-2026-10-04.log",
+    "results/pa_xml_repair_2026-10-04/pa-xml-repair-baseline-2026-10-04.status.json",
+    "results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-checked-2026-10-04.status.json",
+    "results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-initial-2026-10-04.log",
+    "results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-initial-2026-10-04.status.json",
+    "results/pa_xml_repair_2026-10-04/publication.json",
+    "results/pa_xml_repair_2026-10-04/publish_repair.py",
+    "results/pa_xml_repair_2026-10-04/raw_replay_checked.json",
+    "results/pa_xml_repair_2026-10-04/replay_control.py",
+    "results/pa_xml_repair_2026-10-04/resume_publication.py",
+    "results/pa_xml_repair_2026-10-04/scientific_checked/si_round_verification.json",
+    "results/pa_xml_repair_2026-10-04/scientific_checked/verification.json",
+    "results/pa_xml_repair_2026-10-04/source_schema_review.md",
+    "results/pa_xml_repair_2026-10-04/terminal_trial_observations.jsonl",
+    "results/pa_xml_repair_2026-10-04/terminal_trial_watch_status.json",
+    "results/pa_xml_repair_2026-10-04/verification_checked.json",
+    "results/pa_xml_repair_2026-10-04/verification_initial.json",
+    "results/pa_xml_repair_2026-10-04/verify_repair.py",
+    "src/dft/pa_qe_adapter.py",
+    "tasks/todo.md",
+    "tests/test_pa_qe_adapter.py",
+    "tests/test_pa_qe_schema_repair.py"
+  ],
+  "local_pins": {
+    "docs/research/pa-xml-repair-2026-10-04.md": "e2b6bba8c3f0dd2adf8d39f74f055e87146524fcb263786649598521462a6067",
+    "results/pa_xml_repair_2026-10-04/.gitattributes": "f3fcd44e54add5ffb7275c733c4076c1687d154c172e4d7e781f440707a1e356",
+    "results/pa_xml_repair_2026-10-04/baseline.json": "d64457792af5f44950fce9436558551272efad780b34d341f4fa355f219418bc",
+    "results/pa_xml_repair_2026-10-04/capture_baseline.py": "4efdbfbd6ecb3a3205fb964b3d90de7f38d960b423bf68a38002aa479b863cae",
+    "results/pa_xml_repair_2026-10-04/git_inspection.json": "6184702fde6d13ea995793ca37cba1becf67f9124abc8161c09c5d0fa38efddf",
+    "results/pa_xml_repair_2026-10-04/git_inspection_checked.json": "294d01ec48209f1934f3fb1427aeb2f11ab994d77bb459dedb966ebfdeecb889",
+    "results/pa_xml_repair_2026-10-04/independent_repair_review.md": "26a65e666b8068ec2e017b25604dfbbd8e4f76ae7edaeb26153a9d88e845c593",
+    "results/pa_xml_repair_2026-10-04/launch_adapter_original.py": "255464215aa898d0c9d34317a1be9b16fb27ba6d35108e0ca78215331a628879",
+    "results/pa_xml_repair_2026-10-04/pa-xml-repair-baseline-2026-10-04.log": "8fc996cd356cbc09f2a73d60ad2b8be08e5cb8ef9e9733ffcca2c6e92cab3dc5",
+    "results/pa_xml_repair_2026-10-04/pa-xml-repair-baseline-2026-10-04.status.json": "f7a0564903bf9b5e4e48d0db0db9c97d57989fe111a2ada0d4f22ed3c4f74fe8",
+    "results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-checked-2026-10-04.status.json": "2e9445d567e0e01f1db98090b469345d6dfa63dd5f03cd8141bee77c473bf331",
+    "results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-initial-2026-10-04.log": "e8716a6ffdd6a2e219a7f2a50e8f75c2b791bfec047988fca1611687f036d01b",
+    "results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-initial-2026-10-04.status.json": "f7a0564903bf9b5e4e48d0db0db9c97d57989fe111a2ada0d4f22ed3c4f74fe8",
+    "results/pa_xml_repair_2026-10-04/publication.json": "d94f4fda39f76bd81ab279022d0bd2ebe809439974145177b47541794ef58663",
+    "results/pa_xml_repair_2026-10-04/publish_repair.py": "37cc2726fa94948611894119c2f3f9eea73c2ff5cb3b54992d01a43476fdfdd2",
+    "results/pa_xml_repair_2026-10-04/raw_replay_checked.json": "c4fcf94f77c42daab8e955043346eacedd1d2d1239d11cbe232148c93ad886c1",
+    "results/pa_xml_repair_2026-10-04/replay_control.py": "496f4937a218ebf6a38aace5d797d5321bfc224b9e207d58bcfccf4d71b3d103",
+    "results/pa_xml_repair_2026-10-04/resume_publication.py": "563d1ac1afb7a5235f0c5e346478177cb44355d16ab752fccbc18599b673c068",
+    "results/pa_xml_repair_2026-10-04/scientific_checked/si_round_verification.json": "4fb793fd5086cfc1ed75367790fe22b7de7a14b34f6d2e197c691779bfbdf091",
+    "results/pa_xml_repair_2026-10-04/scientific_checked/verification.json": "b2e1f92854e2b0df20b82957fd85c93bd1dec42d75a5ac4cb60f0ef62d7b36d7",
+    "results/pa_xml_repair_2026-10-04/source_schema_review.md": "f99bb7cd345da1e1cc09cf39c6cd26d8026d236241a02f54e3a44df388ef35ea",
+    "results/pa_xml_repair_2026-10-04/terminal_trial_observations.jsonl": "797732b5f99ccf2deb6ff90aa4a3f2ca625d39a394a196a5fa07e4032d6eac89",
+    "results/pa_xml_repair_2026-10-04/terminal_trial_watch_status.json": "0104614b2965148873bbb683211d89ca6502f33ecfb6b40a928bc6d3c798046b",
+    "results/pa_xml_repair_2026-10-04/verification_checked.json": "74e5610244d2a292b2d3e65b6094f57916b99356a2b89d4f9ddc39e5b41d6386",
+    "results/pa_xml_repair_2026-10-04/verification_initial.json": "d20514ba5f76ce2bb19e99a1493d03c7ca97234e66c3327f99bdc357b167f3ba",
+    "results/pa_xml_repair_2026-10-04/verify_repair.py": "be553498bc852f1ba0e7df119816930471c90e4e375b0dd9b0674207df31a64e",
+    "src/dft/pa_qe_adapter.py": "5e77b8b30789acadd104d9ac14368dfe28b5a88b2b2b84e7b8c8f2bfad10980a",
+    "tasks/todo.md": "27480342874afc59934505a29cec0d74d81a487284003be54033d97ce01830a0",
+    "tests/test_pa_qe_adapter.py": "aa0944f823c1fdd04a4ce0588f36ffa75908cc897854aad732c5b6c8841e308f",
+    "tests/test_pa_qe_schema_repair.py": "808d6f1a51d231e053dce8f87b4670de11c334b9379ba57f734b0e8db6ad9559"
+  },
+  "blob_pins": {
+    "docs/research/pa-xml-repair-2026-10-04.md": {
+      "sha256": "e2b6bba8c3f0dd2adf8d39f74f055e87146524fcb263786649598521462a6067",
+      "bytes": 6206
+    },
+    "results/pa_xml_repair_2026-10-04/.gitattributes": {
+      "sha256": "f3fcd44e54add5ffb7275c733c4076c1687d154c172e4d7e781f440707a1e356",
+      "bytes": 82
+    },
+    "results/pa_xml_repair_2026-10-04/baseline.json": {
+      "sha256": "d64457792af5f44950fce9436558551272efad780b34d341f4fa355f219418bc",
+      "bytes": 2035593
+    },
+    "results/pa_xml_repair_2026-10-04/capture_baseline.py": {
+      "sha256": "4efdbfbd6ecb3a3205fb964b3d90de7f38d960b423bf68a38002aa479b863cae",
+      "bytes": 2432
+    },
+    "results/pa_xml_repair_2026-10-04/git_inspection.json": {
+      "sha256": "6184702fde6d13ea995793ca37cba1becf67f9124abc8161c09c5d0fa38efddf",
+      "bytes": 9037
+    },
+    "results/pa_xml_repair_2026-10-04/git_inspection_checked.json": {
+      "sha256": "294d01ec48209f1934f3fb1427aeb2f11ab994d77bb459dedb966ebfdeecb889",
+      "bytes": 6363
+    },
+    "results/pa_xml_repair_2026-10-04/independent_repair_review.md": {
+      "sha256": "26a65e666b8068ec2e017b25604dfbbd8e4f76ae7edaeb26153a9d88e845c593",
+      "bytes": 9684
+    },
+    "results/pa_xml_repair_2026-10-04/launch_adapter_original.py": {
+      "sha256": "255464215aa898d0c9d34317a1be9b16fb27ba6d35108e0ca78215331a628879",
+      "bytes": 74077
+    },
+    "results/pa_xml_repair_2026-10-04/pa-xml-repair-baseline-2026-10-04.log": {
+      "sha256": "8fc996cd356cbc09f2a73d60ad2b8be08e5cb8ef9e9733ffcca2c6e92cab3dc5",
+      "bytes": 744
+    },
+    "results/pa_xml_repair_2026-10-04/pa-xml-repair-baseline-2026-10-04.status.json": {
+      "sha256": "f7a0564903bf9b5e4e48d0db0db9c97d57989fe111a2ada0d4f22ed3c4f74fe8",
+      "bytes": 61
+    },
+    "results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-checked-2026-10-04.status.json": {
+      "sha256": "2e9445d567e0e01f1db98090b469345d6dfa63dd5f03cd8141bee77c473bf331",
+      "bytes": 61
+    },
+    "results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-initial-2026-10-04.log": {
+      "sha256": "e8716a6ffdd6a2e219a7f2a50e8f75c2b791bfec047988fca1611687f036d01b",
+      "bytes": 3822
+    },
+    "results/pa_xml_repair_2026-10-04/pa-xml-repair-verification-initial-2026-10-04.status.json": {
+      "sha256": "f7a0564903bf9b5e4e48d0db0db9c97d57989fe111a2ada0d4f22ed3c4f74fe8",
+      "bytes": 61
+    },
+    "results/pa_xml_repair_2026-10-04/publication.json": {
+      "sha256": "d94f4fda39f76bd81ab279022d0bd2ebe809439974145177b47541794ef58663",
+      "bytes": 703
+    },
+    "results/pa_xml_repair_2026-10-04/publish_repair.py": {
+      "sha256": "37cc2726fa94948611894119c2f3f9eea73c2ff5cb3b54992d01a43476fdfdd2",
+      "bytes": 5145
+    },
+    "results/pa_xml_repair_2026-10-04/raw_replay_checked.json": {
+      "sha256": "c4fcf94f77c42daab8e955043346eacedd1d2d1239d11cbe232148c93ad886c1",
+      "bytes": 173769
+    },
+    "results/pa_xml_repair_2026-10-04/replay_control.py": {
+      "sha256": "496f4937a218ebf6a38aace5d797d5321bfc224b9e207d58bcfccf4d71b3d103",
+      "bytes": 5758
+    },
+    "results/pa_xml_repair_2026-10-04/resume_publication.py": {
+      "sha256": "563d1ac1afb7a5235f0c5e346478177cb44355d16ab752fccbc18599b673c068",
+      "bytes": 2152
+    },
+    "results/pa_xml_repair_2026-10-04/scientific_checked/si_round_verification.json": {
+      "sha256": "4fb793fd5086cfc1ed75367790fe22b7de7a14b34f6d2e197c691779bfbdf091",
+      "bytes": 90370
+    },
+    "results/pa_xml_repair_2026-10-04/scientific_checked/verification.json": {
+      "sha256": "b2e1f92854e2b0df20b82957fd85c93bd1dec42d75a5ac4cb60f0ef62d7b36d7",
+      "bytes": 56653
+    },
+    "results/pa_xml_repair_2026-10-04/source_schema_review.md": {
+      "sha256": "f99bb7cd345da1e1cc09cf39c6cd26d8026d236241a02f54e3a44df388ef35ea",
+      "bytes": 10971
+    },
+    "results/pa_xml_repair_2026-10-04/terminal_trial_observations.jsonl": {
+      "sha256": "797732b5f99ccf2deb6ff90aa4a3f2ca625d39a394a196a5fa07e4032d6eac89",
+      "bytes": 1827083
+    },
+    "results/pa_xml_repair_2026-10-04/terminal_trial_watch_status.json": {
+      "sha256": "0104614b2965148873bbb683211d89ca6502f33ecfb6b40a928bc6d3c798046b",
+      "bytes": 675
+    },
+    "results/pa_xml_repair_2026-10-04/verification_checked.json": {
+      "sha256": "74e5610244d2a292b2d3e65b6094f57916b99356a2b89d4f9ddc39e5b41d6386",
+      "bytes": 21041
+    },
+    "results/pa_xml_repair_2026-10-04/verification_initial.json": {
+      "sha256": "d20514ba5f76ce2bb19e99a1493d03c7ca97234e66c3327f99bdc357b167f3ba",
+      "bytes": 21211
+    },
+    "results/pa_xml_repair_2026-10-04/verify_repair.py": {
+      "sha256": "be553498bc852f1ba0e7df119816930471c90e4e375b0dd9b0674207df31a64e",
+      "bytes": 7018
+    },
+    "src/dft/pa_qe_adapter.py": {
+      "sha256": "5e77b8b30789acadd104d9ac14368dfe28b5a88b2b2b84e7b8c8f2bfad10980a",
+      "bytes": 74899
+    },
+    "tasks/todo.md": {
+      "sha256": "27480342874afc59934505a29cec0d74d81a487284003be54033d97ce01830a0",
+      "bytes": 388096
+    },
+    "tests/test_pa_qe_adapter.py": {
+      "sha256": "aa0944f823c1fdd04a4ce0588f36ffa75908cc897854aad732c5b6c8841e308f",
+      "bytes": 32102
+    },
+    "tests/test_pa_qe_schema_repair.py": {
+      "sha256": "808d6f1a51d231e053dce8f87b4670de11c334b9379ba57f734b0e8db6ad9559",
+      "bytes": 7328
+    }
+  },
+  "commit": "9639eaa8cb04cdcee53ca6f11479ed1d424dbbb1",
+  "remote_commit": "9639eaa8cb04cdcee53ca6f11479ed1d424dbbb1",
+  "after": {
+    "unchanged_historical_files": 10002,
+    "unchanged_unrelated_files": 21,
+    "checked_files": 10023,
+    "errors": []
+  }
+}

@@ -14,7 +14,7 @@ control; reuse the already completed mirror/dry-run rather than repeat retrieval
 - [x] Correct only the validator and faulty synthetic Hubbard fixture; add source-faithful/adversarial regression tests without changing physical settings, runtime, controller or launch spec. Adapter5e77b8b3...,47 new parameter-expanded cases; new-formattrue/optional unique true flag, explicit kind/projector/Umap remain bound; unregistered Um/V/back channels refused.
 - [x] Replay the original rejection and corrected control acceptance on the existing19-file verified mirror; check actual72-atom saved optimizer and unchanged tiny non-Hubbard plumbing. Original25546421... rejection reproduces; repaired control3 evaluations/global[1,2,3]/target1e-6/MPI128/ELPA4x4 and BFGS3/3/0 pass; all19 mirror files unchanged. This is control-only validation, not a continuity/fresh/reseed or whole-trial pass.
 - [x] Run fresh relevant regressions/scientific verifiers and historical/source/mirror preservation; independently review the diff and actual replay, at most two full rounds. Checked83/610 plus7 subtests and two equivalent frozen-source checks pass; three platform skips retained; both scientific verifiers,10002+21 preservation and19 mirror pins pass. Independent26a65e66... GO_OFFLINE_XML_REPAIR_ONLY; reviewed source/replay/receipt pins agree, no second-job or production authority.
-- [ ] Retain a scoped readout and separately reviewed unsubmitted compute proposal if useful; commit/push exact non-secret paths and update memory with tested outcomes and remaining gates.
+- [x] Retain a scoped readout and separately reviewed unsubmitted compute proposal; commit/push exact non-secret paths and update memory with tested outcomes and remaining gates. Scientific checkpoint9639eaa8cb04cdcee53ca6f11479ed1d424dbbb1 pushed with exact remote match,30 explicit paths, tracked worktree clean. All10002 historical/21 unrelated pins and51 concurrent additive SI paths preserved; stale-publication-HEAD refusal retained. Only the offline repair is cleared; a new16h/2048SU singleton remains proposed/unapproved/unsubmitted. Completion status and successful publication receipt accompany the follow-up.
 
 Plan check-in: checkpoint/source audit first; bounded validator/fixture correction
 second; fresh adversarial and actual raw replay third; independent review and
@@ -24,7 +24,10 @@ trial. Review: checked83 evidence/610 automated tests/7 subtests pass, three
 existing Windows filesystem skips; two frozen-source test logics separately
 pass, both scientific verifiers and10002 untouched tracked/21 unrelated pins
 pass. Initial historical-line-number failure remains retained. Independent
-offline-only final clearance complete; publication pending, no new compute or paid API call.
+offline-only final clearance and scientific publication9639eaa8 complete; no
+new compute or paid API call. Original trial remains INCONCLUSIVE; current
+adapter clears only retained control/tiny reader checks. Next explicit decision:
+new separately capped singleton under the proposal, not automatic continuation.
 
 ## 2026-10-03 — Approved catalyst P-A adapter and one-boundary trial
 
@@ -41,16 +44,17 @@ The approval does not bypass raw-source, scientific or resource preflight gates.
 - [x] Independently review implementation and trial inputs; run fresh relevant regressions, Linux symlink guards and exact preservation checks. Refuse launch on any unresolved blocking finding. IndependentfinalGO0d8c4e0e... for exactboundedtrial only;83evidence/491compute/7subtests, bothscientificverifiers,16actualLinuxFSchecks plusrawtinyreplay,9816+21before/afterpins pass. ThreeWindowsFSskips coveredseparatelyLinux. Finalspec4bed5002..., productionfalse; remote/live/runtimegates stillmandatory.
 - [x] Commit/push the reviewed implementation locally first; stage the exact remote package, verify build/settings/UPFs, balance, requested allocation shape and singleton2048SU/16h cap; submit once only if all prelaunch gates pass. Implementationb9f0208ee6f3cd71d0201d03b964b5c23f53d644 pushed,60 explicit paths/63 remote blob pins; freshPREFLIGHT_PASS. Exactly one held submission21034683, then the same job released once. Original pending `NumNodes=1-1` inspection failure retained; separate checked receipt proves both bounds1 and exact128CPU/200G/16h/billing128 shape. No replacement or retry. Actual RUNNING/runtime allocation proof remains pending.
 - [x] Start the bounded read-only watcher and retain launch metadata without changing reviewed scientific bytes. First observation2026-10-04T02:16:37Z: PENDING/Priority, elapsed0, allocatedCPUs0,CPUTimeRAW0. Background desktop verified; watcher cannot submit/cancel/retry/QE and stops at terminal state, three collection failures or24h.
-- [ ] Monitor the bounded trial, retain immutable scheduler/raw-call/checkpoint receipts, report numerical acceptance or inconclusive/failure without rerun or production claims, and record actual SU separately from the literature budget.
-- [ ] Verify scientific/history preservation, commit/push explicit non-secret results, and update memory/review with actual outcomes and the next production/melt gates.
+- [x] Monitor the bounded trial, retain immutable scheduler/raw-call/checkpoint receipts, report numerical acceptance or inconclusive/failure without rerun or production claims, and record actual SU separately from the literature budget. Terminal21034683 FAILED3:0 / INCONCLUSIVE after one control call;48m13s,102.8622CPU SU. QEreturn0/three converged evaluations/registered clean stop; original validator rejects absent lda_plus_u. Existing readout/mirror retained, watcher stops normally; no rerun or unexecuted-arm pass.
+- [x] Verify scientific/history preservation, commit/push explicit non-secret results, and update memory/review with actual outcomes and the next production/melt gates. Committed readout/dry-run already atfb95da9; independently cleared cause-specific offline repair/replay checkpoint9639eaa8 preserves original failure and source/deck/spec/remotecheckout, with10002 historical/21 unrelated pins passing. Control-only reinterpretation does not release production/melt or a second job.
 
 Plan check-in: checkpoint and source-boundary review first; implementation and
 adversarial/raw replay tests second; independent launch gate third; only then the
 single approved Anvil trial and acceptance readout. Literature estimate remains
 $1.1105254/$50 with no paid API work planned. Review: implementation/prelaunch
 clearance, local publication, isolated staging and once-only release complete;
-scientific trial outcome and final compute accounting pending. Launch-only
-preservation/publication handoff follows without another code/test review cycle.
+trial outcome retained as INCONCLUSIVE/FAILED3:0 and final charge102.8622SU.
+Launch/readout/repair preservation and publication are complete; a new corrected
+singleton is a separate proposed decision, not a completion or retry of this job.
 
 ## 2026-10-03 — Eligible evidence extraction and offline catalyst P-A integration
 

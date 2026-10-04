@@ -1,7 +1,8 @@
 # Catalyst XML validator repair — 2026-10-04
 
 Status: source-backed correction, checked offline verification and independent
-GO_OFFLINE_XML_REPAIR_ONLY clearance pass; publication pending. No new Anvil job or paid literature/API
+GO_OFFLINE_XML_REPAIR_ONLY clearance pass; scientific checkpoint9639eaa8 is
+pushed with exact remote SHA agreement. No new Anvil job or paid literature/API
 call is part of this phase. Original job21034683 remains FAILED3:0 and its trial
 receipt remains INCONCLUSIVE. A corrected post-hoc control receipt cannot turn
 the unexecuted candidate/fresh/resume/reseed/negative arms into a trial pass.
