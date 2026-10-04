@@ -1,7 +1,10 @@
 # Approved catalyst P-A boundary trial — 2026-10-03
 
-Status: implementation/prelaunch verification cleared, not yet submitted. Frank
-approves the dated one-boundary trial proposed in the eligible-comparison memo.
+Status: implementation/prelaunch verification cleared and pushed; singleton
+Anvil job21034683 is released and queued for scheduling priority. The read-only
+background watcher is active. No allocated-node, QE-runtime or numerical pass
+is claimed while pending. Frank approves the dated one-boundary trial proposed
+in the eligible-comparison memo.
 Approval is one regular whole128-core job with16h/2048CPU SU ceiling,<=200GiB,
 at most six sequential QE calls each<=2h, no retry/requeue/array/chaining. It does
 not approve production relaxation, a full every-step P-A trajectory, S8 ranking
@@ -126,3 +129,33 @@ implementation finding remains in the frozen reviewed package.
 Production references, matched adsorption/free-energy conventions, uncertainty-
 aware ranking, population freeze and melt stock/sample-form constraints still
 precede a melt candidate. None of this preparation requires Purdue/Elsevier API.
+
+## Published implementation and once-only launch
+
+Implementation checkpointb9f0208ee6f3cd71d0201d03b964b5c23f53d644 is pushed with
+exact remote SHA agreement. Sixty explicit paths are published; all9816 historical
+and21 unrelated DFT byte pins remain intact. The isolated Anvil checkout at
+`/anvil/projects/x-che260157/sts_pa_catalyst_2026-10-03` verifies63 exact Git blob
+pins, wrapper syntax and fresh controller PREFLIGHT_PASS. No historical checkout
+or source checkpoint is rewritten. Publication receipts retain two local
+whitespace/native-newline inspection failures and the final successful check;
+neither involved an additional compute attempt or scientific-file change.
+
+Exactly one `sbatch --hold --parsable --no-requeue` submission returned21034683.
+Its original inspection receipt failed only because Slurm displays the pending
+one-node bounds as `1-1`, not `1`. That failure remains unchanged. A separate
+read-only validation proves both bounds equal1,128 CPUs/tasks,200G memory,16h,
+128 billing CPUs, no array/dependency/requeue/restart. The same existing job was
+released once after another PREFLIGHT_PASS, singleton-queue check and36878.2SU
+balance check. There was no replacement submission or retry.
+
+The first watcher observation at2026-10-04T02:16:37Z reports PENDING/Priority,
+elapsed0, allocated CPUs0 and CPUTimeRAW0. This is not final compute accounting.
+Actual RUNNING allocation and raw128-MPI/one-thread/eight-pool/ELPA4x4 bindings
+remain mandatory before accepting any solver call. The watcher polls read-only
+for up to24h, stopping at a terminal state or three collection failures; it
+cannot submit, cancel, retry or invoke QE. Mutable watcher output stays local;
+an immutable launch snapshot and explicit non-secret receipts accompany the
+handoff publication. Trial outcome, raw-artifact mirroring and final charged SU
+remain pending. The2048SU ceiling is unchanged and separate from the literature
+estimate$1.1105254/$50; no paid literature API/key call occurred in this phase.

@@ -1,0 +1,38 @@
+{
+  "snapshot_utc": "2026-10-04T02:21:36.370905+00:00",
+  "job_id": "21034683",
+  "implementation_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "watcher_desktop_verified": true,
+  "latest_complete_observation": {
+    "observed_utc": "2026-10-04T02:20:42.470396+00:00",
+    "returncode": 0,
+    "stdout": "{\"job_id\": \"21034683\", \"commands\": {\"queue\": {\"returncode\": 0, \"stdout\": \"21034683|PENDING|0:00|128|(Priority)\\n\", \"stderr\": \"\"}, \"accounting\": {\"returncode\": 0, \"stdout\": \"21034683|PENDING|0:0|0|0|200G||0\\n\", \"stderr\": \"\"}, \"job\": {\"returncode\": 0, \"stdout\": \"JobId=21034683 JobName=pa-catalyst-boundary UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=77 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=Priority Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=16:00:00 TimeMin=N/A SubmitTime=2026-10-03T22:06:59 EligibleTime=2026-10-03T22:16:03 AccrueTime=2026-10-03T22:16:03 StartTime=2026-10-05T15:35:00 EndTime=2026-10-06T07:35:00 Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-03T22:20:09 Scheduler=Main Partition=wholenode AllocNode:Sid=login04:3593111 ReqNodeList=(null) ExcNodeList=(null) NodeList= SchedNodeList=a569 NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=200G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=200G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NODE Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts_pa_catalyst_2026-10-03/anvil/89_pa_catalyst_boundary_trial.slurm SubmitLine=sbatch --hold --parsable --no-requeue --chdir=/anvil/projects/x-che260157/sts_pa_catalyst_2026-10-03 --export=ALL,STS_PA_SPEC_SHA256=4bed5002a88857515940230b20ad59e6adc345e29d8567d5b9c5f5511b0b28a2 /anvil/projects/x-che260157/sts_pa_catalyst_2026-10-03/anvil/89_pa_catalyst_boundary_trial.slurm WorkDir=/anvil/projects/x-che260157/sts_pa_catalyst_2026-10-03 StdErr=/anvil/projects/x-che260157/sts_pa_catalyst_2026-10-03/trial_21034683.log StdIn=/dev/null StdOut=/anvil/projects/x-che260157/sts_pa_catalyst_2026-10-03/trial_21034683.log TresPerTask=cpu=1\\n\", \"stderr\": \"\"}}, \"arms\": {}, \"readonly\": true, \"qe_executed\": false}\n",
+    "stderr": "** WARNING: connection is not using a post-quantum key exchange algorithm.\n** This session may be vulnerable to \"store now, decrypt later\" attacks.\n** The server may need to be upgraded. See https://openssh.com/pq.html\n"
+  },
+  "final_scientific_outcome_pending": true,
+  "final_cpu_su_pending": true,
+  "compute_cpu_su_ceiling": 2048,
+  "literature_estimate_usd": 1.1105254,
+  "literature_ceiling_usd": 50,
+  "new_paid_literature_calls": 0,
+  "production_accepted": false,
+  "no_retry_authorized": true,
+  "frozen_code_pins": {
+    "src/dft/pa_qe_adapter.py": "255464215aa898d0c9d34317a1be9b16fb27ba6d35108e0ca78215331a628879",
+    "src/dft/pa_catalyst_trial.py": "d00656aa0e7e666f75900190ccc703c1fd0fee8293738a311ea9ab5880b368ce",
+    "tests/test_pa_qe_adapter.py": "2e0814f7e179360c9e6ca8f8bc08b66115166a8ef45e536612f8f006230432a0",
+    "tests/test_pa_catalyst_trial.py": "5ef87c78939714a47d3f8933ff40202f37d307ab8887c87eaa63bf95f4562994",
+    "tests/test_pa_catalyst_watch.py": "53e9fe84fe2ffda2efebcf80344bac575368db9d55f9595d2a1e393a0f3b7511",
+    "anvil/89_pa_catalyst_boundary_trial.slurm": "0ff3deac8c28537a197020e832903f61d47864113406c616f9f9462bb5cc1ed3",
+    "results/pa_catalyst_trial_2026-10-03/source_boundary_review.md": "7efb6e27d9859eff629df0cc6dfcd90ef9e17b74819e9500ee398b5e432addac",
+    "results/pa_catalyst_trial_2026-10-03/launch_spec.json": "4bed5002a88857515940230b20ad59e6adc345e29d8567d5b9c5f5511b0b28a2",
+    "results/pa_catalyst_trial_2026-10-03/replay_retained_raw.py": "e004cd7dc62442b7d9428788bf2e3765145f17aa1c57c889df6f8bbd7c3c88e5",
+    "results/pa_catalyst_trial_2026-10-03/watch_trial_readonly.py": "7ff35fc877decfbeddcf24f3becaf75af235d07b9e724d6a56ff916163fef08e",
+    "results/pa_catalyst_trial_2026-10-03/verify_trial_offline.py": "3e0ec4e1c196ede694481d81f17ca0093fd9bf3a22734d22b63f7a13e09905d6"
+  },
+  "preserved": {
+    "tracked_files": 9816,
+    "unrelated_files": 21,
+    "errors": []
+  }
+}

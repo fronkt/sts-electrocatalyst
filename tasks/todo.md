@@ -13,14 +13,18 @@ The approval does not bypass raw-source, scientific or resource preflight gates.
 - [x] Source-review first/third evaluated-boundary stop semantics and raw geometry/energy/force/checkpoint bindings; specify controller versus post-hoc audit responsibilities. Official27-file cache pinned; actual seed/deck72atom/fullcell/216mask correspondence passes. First/thirdSCF-cycle observer, maskedforces, fractionalBFGS, sourceunitexceptions and XMLbandgroup/actualELPA distinction verified. Memo7efb6e27...; raw adapter/runtime acceptance remains separate.
 - [x] Implement the additive real adapter, full checkpoint isolation/copy, fresh-decision-before-resume, intentional reseed/reset and bounded six-arm supervisor; test adversarial fixtures and replay retained raw evidence. Exact reviewed code/runtime/rawsettings bindings, observed lowerstate-reseed retention and collective7200s teardown gates implemented. Current targeted161pass/2Windows skips; actual tiny candidate raw/BFGS replay passes. Failed initial fixtures retained, no QE/job yet.
 - [x] Independently review implementation and trial inputs; run fresh relevant regressions, Linux symlink guards and exact preservation checks. Refuse launch on any unresolved blocking finding. IndependentfinalGO0d8c4e0e... for exactboundedtrial only;83evidence/491compute/7subtests, bothscientificverifiers,16actualLinuxFSchecks plusrawtinyreplay,9816+21before/afterpins pass. ThreeWindowsFSskips coveredseparatelyLinux. Finalspec4bed5002..., productionfalse; remote/live/runtimegates stillmandatory.
-- [ ] Commit/push the reviewed implementation locally first; stage the exact remote package, verify build/parallelization/settings/UPFs, balance, memory/AllocTRES assumptions and singleton2048SU/16h cap; submit once only if all gates pass.
+- [x] Commit/push the reviewed implementation locally first; stage the exact remote package, verify build/settings/UPFs, balance, requested allocation shape and singleton2048SU/16h cap; submit once only if all prelaunch gates pass. Implementationb9f0208ee6f3cd71d0201d03b964b5c23f53d644 pushed,60 explicit paths/63 remote blob pins; freshPREFLIGHT_PASS. Exactly one held submission21034683, then the same job released once. Original pending `NumNodes=1-1` inspection failure retained; separate checked receipt proves both bounds1 and exact128CPU/200G/16h/billing128 shape. No replacement or retry. Actual RUNNING/runtime allocation proof remains pending.
+- [x] Start the bounded read-only watcher and retain launch metadata without changing reviewed scientific bytes. First observation2026-10-04T02:16:37Z: PENDING/Priority, elapsed0, allocatedCPUs0,CPUTimeRAW0. Background desktop verified; watcher cannot submit/cancel/retry/QE and stops at terminal state, three collection failures or24h.
 - [ ] Monitor the bounded trial, retain immutable scheduler/raw-call/checkpoint receipts, report numerical acceptance or inconclusive/failure without rerun or production claims, and record actual SU separately from the literature budget.
 - [ ] Verify scientific/history preservation, commit/push explicit non-secret results, and update memory/review with actual outcomes and the next production/melt gates.
 
 Plan check-in: checkpoint and source-boundary review first; implementation and
 adversarial/raw replay tests second; independent launch gate third; only then the
 single approved Anvil trial and acceptance readout. Literature estimate remains
-$1.1105254/$50 with no paid API work planned. Review: pending.
+$1.1105254/$50 with no paid API work planned. Review: implementation/prelaunch
+clearance, local publication, isolated staging and once-only release complete;
+scientific trial outcome and final compute accounting pending. Launch-only
+preservation/publication handoff follows without another code/test review cycle.
 
 ## 2026-10-03 — Eligible evidence extraction and offline catalyst P-A integration
 
