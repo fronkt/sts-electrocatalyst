@@ -1,0 +1,188 @@
+S_TEST RECOVERY_UNRESOLVED None None Cloud checksum mismatch
+S_TEST retained checkpoint RECOVERED_DECLARED_INVENTORY
+S_TEST RECOVERY_UNRESOLVED None None Unsafe local filename/member: '../outside.pdf'
+S_TEST RECOVERY_UNRESOLVED None None Cloud DOI mismatch
+S_TEST RECOVERY_UNRESOLVED None None Unsafe local filename/member: '..\\outside.pdf'
+S_TEST RECOVERY_UNRESOLVED None None Unsafe local filename/member: 'C:outside.pdf'
+S_TEST RECOVERY_UNRESOLVED None None Unsafe local filename/member: '/outside.pdf'
+S_TEST retained checkpoint RECOVERY_UNRESOLVED
+{
+ "records": 2496,
+ "reviewed_recoveries": [
+  "R0003",
+  "S00475",
+  "S01741",
+  "S03669",
+  "S03699",
+  "S09964",
+  "S11310",
+  "S12208",
+  "S16003",
+  "S19909",
+  "S20440",
+  "S21356",
+  "S23207",
+  "S24094",
+  "S24821",
+  "S25024",
+  "S26375",
+  "S28435",
+  "S29420",
+  "S29447",
+  "S29636"
+ ],
+ "independent_reads": 42,
+ "approved_policy_cases": [
+  "S02708",
+  "S05004",
+  "S16323",
+  "S25856",
+  "S26256",
+  "S26411",
+  "S27700"
+ ],
+ "changed_rows": [
+  "S24094",
+  "S28435",
+  "S29420",
+  "S29447",
+  "S29636"
+ ],
+ "historical_evidence_files_preserved": 423,
+ "v3_v4_preserved": true,
+ "checklist_records": 144,
+ "v5_counts": {
+  "UNRESOLVED": 121,
+  "ELIGIBLE": 178,
+  "EXCLUDE:E5": 30,
+  "EXCLUDE:E3": 1206,
+  "EXCLUDE:E1": 612,
+  "EXCLUDE:E4": 113,
+  "EXCLUDE:E2": 11,
+  "EXCLUDE:E6": 44,
+  "NEEDS_SI": 89,
+  "no readable text": 28,
+  "collapsed": 64
+ },
+ "errors": []
+}
+{
+ "records": 2496,
+ "batches": {
+  "pass_1": {
+   "batches": 40,
+   "records": 168
+  },
+  "pass_2": {
+   "batches": 41,
+   "records": 168
+  },
+  "third": {
+   "batches": 28,
+   "records": 104
+  }
+ },
+ "required_third_reads": 104,
+ "sensitivity_preserved": true,
+ "checklist_records": 144,
+ "historical_outputs_preserved": 109,
+ "entrant_questions": 21,
+ "triage_classes": {
+  "A": 14,
+  "B": 0,
+  "C": 0,
+  "D": 7
+ },
+ "verification_targets": 130,
+ "verified_target_records": 130,
+ "missing_verification": [],
+ "adjudicated_records": 34,
+ "unadjudicated_objections": [],
+ "reviewed_recoveries": 21,
+ "recovery_independent_reads": 42,
+ "audit_rows": 132,
+ "audit_review_modes": {
+  "focused verification": 79,
+  "full source second check": 1,
+  "visual second check": 1,
+  "full reread": 2,
+  "full verification": 9,
+  "not recorded in saved pre-cost-control audit": 40
+ },
+ "verification_files": {
+  "si_verification_2026-09-29_economy1.jsonl": "5c789137a549f477ef46071f430ad4676234d312ce4e0d13af2bc9e77a83bb0c",
+  "si_verification_2026-09-29_economy2.jsonl": "5cfb6c4bb4523c6763cbb7cf326ce1094af60ed4361dc97a814b80e9667521fb",
+  "si_verification_2026-09-29_economy2_tail.jsonl": "17b7b57024bda444da4ea100dae5569b0347461c61ae0c2247e3256a6455c2d4",
+  "si_verification_2026-09-29_economy3.jsonl": "da27e110663cc3a4771f3b430fe337db097570069d41c4434285e98fea240fa0",
+  "si_verification_2026-09-29_group1.jsonl": "6d55dddd1b3ec94d491116ecfffaaaad8093fe296352dea7fb5664de3084f963",
+  "si_verification_2026-09-29_group2.jsonl": "1177846631a39cc15969ccab779ea7643eaf2ea8640b412e17ece8eeff390bb2"
+ },
+ "errors": []
+}
+{
+  "scope": "READOUT_PREP_REGRESSION_ONLY",
+  "label": "final3",
+  "qe_executed": false,
+  "new_jobs_submitted": 0,
+  "successful": true,
+  "head": [
+    "b3b64ce38c7994038adf53bb2d3e29380b8f8de0"
+  ],
+  "branch": [
+    "r0-catalysis-revival"
+  ],
+  "tracked_dirty_before": [],
+  "before": {
+    "tracked_files": 9816,
+    "unrelated_files": 21,
+    "errors": []
+  },
+  "evidence_tests": {
+    "tests_run": 83,
+    "successful": true,
+    "failures": 0,
+    "errors": 0
+  },
+  "compute_tests": {
+    "args": [
+      "pytest",
+      "-q",
+      "tests/test_pa_qe_adapter.py",
+      "tests/test_pa_catalyst_trial.py",
+      "tests/test_pa_catalyst_watch.py",
+      "tests/test_pa_checked_contract.py",
+      "tests/test_pa_restart_diagnostic.py",
+      "tests/test_pa_tiny_restart_probe.py",
+      "tests/test_pa_tiny_raw_readout.py",
+      "tests/test_pa_tiny_readonly_watch.py",
+      "tests/test_research_batch_checked.py",
+      "tests/test_research_batch_seeded.py",
+      "tests/test_lowtail_batch_launch.py"
+    ],
+    "returncode": 0,
+    "summary": "491 passed, 3 skipped, 7 subtests passed in 23.98s",
+    "stdout_tail": "..............................s.....s................................... [ 14%]\n........................................................................ [ 29%]\n................................................................s....... [ 43%]\n................................................................. [ 56%]\n........................................................................ [ 71%]\n........................................................................ [ 86%]\n.....................................................................    [100%]\n491 passed, 3 skipped, 7 subtests passed in 23.98s\n",
+    "stderr_tail": ""
+  },
+  "readout_tool_tests": {
+    "args": [
+      "pytest",
+      "-q",
+      "results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py"
+    ],
+    "returncode": 0,
+    "summary": "74 passed in 21.55s",
+    "stdout_tail": "........................................................................ [ 97%]\n..                                                                       [100%]\n74 passed in 21.55s\n",
+    "stderr_tail": ""
+  },
+  "scientific_verifiers_pass": true,
+  "registered_recovery_reads": 42,
+  "code_pins_unchanged": true,
+  "after": {
+    "tracked_files": 9816,
+    "unrelated_files": 21,
+    "errors": []
+  },
+  "tracked_dirty_after": []
+}
+exit=0
