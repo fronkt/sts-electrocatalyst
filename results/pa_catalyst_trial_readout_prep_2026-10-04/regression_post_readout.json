@@ -1,0 +1,113 @@
+{
+  "scope": "READOUT_PREP_REGRESSION_ONLY",
+  "label": "post_readout",
+  "qe_executed": false,
+  "new_jobs_submitted": 0,
+  "successful": true,
+  "head": [
+    "580ec48b23e79ad8550a2c011eb2c2507a80872b"
+  ],
+  "branch": [
+    "r0-catalysis-revival"
+  ],
+  "git_status_before": [
+    "?? runs/hea/lowtail_validation_2026-09-16/Cu8Cr23Mn35Co34__s20_site2/O_unrecon__atomic.KILLED",
+    "?? runs/hea/lowtail_validation_2026-09-16/Cu8Cr23Mn35Co34__s20_site2/O_unrecon__atomic.out",
+    "?? runs/hea/lowtail_validation_2026-09-16/Cu8Cr23Mn35Co34__s20_site2/O_unrecon__atomic.qc.json",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_recon__atomic.KILLED",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_recon__atomic.out",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_recon__atomic.qc.json",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_unrecon__atomic.KILLED",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_unrecon__atomic.out",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_unrecon__atomic.qc.json",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/slab__atomic.KILLED",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/slab__atomic.out",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/slab__atomic.qc.json",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_recon__atomic.REJECTED",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_recon__atomic.out",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_recon__atomic.qc.json",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_unrecon__atomic.out",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_unrecon__atomic.projwfc.in",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_unrecon__atomic.qc.json",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/slab__atomic.out",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/slab__atomic.projwfc.in",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/slab__atomic.qc.json"
+  ],
+  "tracked_dirty_before": [],
+  "before": {
+    "tracked_files": 9816,
+    "unrelated_files": 21,
+    "errors": []
+  },
+  "evidence_tests": {
+    "tests_run": 83,
+    "successful": true,
+    "failures": 0,
+    "errors": 0
+  },
+  "compute_tests": {
+    "args": [
+      "pytest",
+      "-q",
+      "tests/test_pa_qe_adapter.py",
+      "tests/test_pa_catalyst_trial.py",
+      "tests/test_pa_catalyst_watch.py",
+      "tests/test_pa_checked_contract.py",
+      "tests/test_pa_restart_diagnostic.py",
+      "tests/test_pa_tiny_restart_probe.py",
+      "tests/test_pa_tiny_raw_readout.py",
+      "tests/test_pa_tiny_readonly_watch.py",
+      "tests/test_research_batch_checked.py",
+      "tests/test_research_batch_seeded.py",
+      "tests/test_lowtail_batch_launch.py"
+    ],
+    "returncode": 0,
+    "summary": "491 passed, 3 skipped, 7 subtests passed in 17.48s",
+    "stdout_tail": "..............................s.....s................................... [ 14%]\n........................................................................ [ 29%]\n................................................................s....... [ 43%]\n................................................................. [ 56%]\n........................................................................ [ 71%]\n........................................................................ [ 86%]\n.....................................................................    [100%]\n491 passed, 3 skipped, 7 subtests passed in 17.48s\n",
+    "stderr_tail": ""
+  },
+  "readout_tool_tests": {
+    "args": [
+      "pytest",
+      "-q",
+      "results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py"
+    ],
+    "returncode": 0,
+    "summary": "74 passed in 18.86s",
+    "stdout_tail": "........................................................................ [ 97%]\n..                                                                       [100%]\n74 passed in 18.86s\n",
+    "stderr_tail": ""
+  },
+  "scientific_verifiers_pass": true,
+  "registered_recovery_reads": 42,
+  "code_pins_unchanged": true,
+  "after": {
+    "tracked_files": 9816,
+    "unrelated_files": 21,
+    "errors": []
+  },
+  "git_status_after": [
+    "?? docs/research/pa-catalyst-trial-readout-2026-10-04.md",
+    "?? runs/hea/lowtail_validation_2026-09-16/Cu8Cr23Mn35Co34__s20_site2/O_unrecon__atomic.KILLED",
+    "?? runs/hea/lowtail_validation_2026-09-16/Cu8Cr23Mn35Co34__s20_site2/O_unrecon__atomic.out",
+    "?? runs/hea/lowtail_validation_2026-09-16/Cu8Cr23Mn35Co34__s20_site2/O_unrecon__atomic.qc.json",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_recon__atomic.KILLED",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_recon__atomic.out",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_recon__atomic.qc.json",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_unrecon__atomic.KILLED",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_unrecon__atomic.out",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_unrecon__atomic.qc.json",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/slab__atomic.KILLED",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/slab__atomic.out",
+    "?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/slab__atomic.qc.json",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_recon__atomic.REJECTED",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_recon__atomic.out",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_recon__atomic.qc.json",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_unrecon__atomic.out",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_unrecon__atomic.projwfc.in",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_unrecon__atomic.qc.json",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/slab__atomic.out",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/slab__atomic.projwfc.in",
+    "?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/slab__atomic.qc.json"
+  ],
+  "tracked_dirty_after": []
+}

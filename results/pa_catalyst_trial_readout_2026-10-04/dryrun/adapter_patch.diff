@@ -1,0 +1,11 @@
+--- src/dft/pa_qe_adapter.py	2026-10-03 21:45:23.905800900 -0400
++++ results/pa_catalyst_trial_readout_2026-10-04/dryrun/scratch/pa_qe_adapter.py	2026-10-04 15:36:13.818323400 -0400
+@@ -623,7 +623,7 @@
+         if len(dftu_nodes) != 1:
+             raise AdapterError("one source-matched XML Hubbard correction required")
+         dftu = dftu_nodes[0]
+-        value(dftu, "lda_plus_u", True)
++        # SCRATCH PATCH (dry-run only): QE 7.5 qes_init_dftU has no lda_plus_u element; requirement removed.
+         value(dftu, "lda_plus_u_kind", 0)
+         value(dftu, "U_projection_type", source_hubbard["unit"])
+         expected = {(row[1].rsplit("-", 1)[0], row[1].rsplit("-", 1)[1]): _number(row[2])

@@ -1,0 +1,1713 @@
+{
+  "allocation_receipts": {
+    "control": {
+      "compliant": true,
+      "node": "a616",
+      "observed_utc": "2026-10-04T13:38:47.258996+00:00",
+      "remaining_ge_7320": true,
+      "remaining_seconds": 57591,
+      "runtime_seconds": 9
+    }
+  },
+  "calls": [
+    {
+      "elapsed_seconds": 2883.939311186994,
+      "error": "one XML lda_plus_u required",
+      "failure_class": "RAW_VALIDATION_REFUSED",
+      "index": 1,
+      "kind": "control",
+      "name": "control",
+      "process_flags": {
+        "HEA4_stall_observed": false,
+        "failure_marker_observed": false,
+        "solver_limit_observed": false,
+        "timed_out": false,
+        "within_per_call_cap": true
+      },
+      "raw": {
+        "arm_dir_present": true,
+        "header_binding": {
+          "checked": true,
+          "diagonalization": "ELPA",
+          "elpa_subgroup": [
+            4,
+            4
+          ],
+          "npool": 8,
+          "nprocs": 128,
+          "nthreads": 1,
+          "ok": true
+        },
+        "log_vs_xml_energy_max_abs_Ry": 4.630237526725978e-09,
+        "log_xml_energy_counts": [
+          3,
+          3
+        ],
+        "stderr_bytes": 8472,
+        "stdout": {
+          "bfgs_converged": false,
+          "bfgs_counts": [
+            0,
+            1,
+            2
+          ],
+          "bytes": 466261,
+          "cpu_seconds": 2780.59,
+          "failure_markers": [],
+          "first_conv_thr_Ry": 1e-06,
+          "job_done": true,
+          "last_scf_accuracy_Ry": 8e-08,
+          "max_scf_iteration_seen": 23,
+          "mpi_processes": 128,
+          "present": true,
+          "qe_banners": [
+            "7.5"
+          ],
+          "scf_converged_count": 3,
+          "scf_cycles": [
+            1,
+            2,
+            3
+          ],
+          "scf_iterations_to_converge": [
+            3,
+            12,
+            23
+          ],
+          "scf_not_converged_count": 0,
+          "startup_history_deleted": false,
+          "stopped_by_user": true,
+          "time_or_nstep_limit": false,
+          "total_energies_Ry": [
+            -7551.86633471,
+            -7551.86820513,
+            -7551.86947589
+          ],
+          "wall_seconds": 2874.61
+        },
+        "xml": {
+          "creator_version": "7.5",
+          "exit_status": 255,
+          "output_etot_Ry": -7551.869475892178,
+          "parallel": {
+            "nbgrp": 1,
+            "ndiag": 16,
+            "npool": 8,
+            "nprocs": 128,
+            "ntasks": 1,
+            "nthreads": 1
+          },
+          "parse_ok": true,
+          "present": true,
+          "sha256": "3b556aa74327969f2799e19c0a3ad9153e44ec33dd656e2332043221db0b699d",
+          "steps": [
+            {
+              "converged": true,
+              "etot_Ry": -7551.866334708392,
+              "n_scf_iterations": null,
+              "n_step": null
+            },
+            {
+              "converged": true,
+              "etot_Ry": -7551.86820512537,
+              "n_scf_iterations": null,
+              "n_step": null
+            },
+            {
+              "converged": true,
+              "etot_Ry": -7551.869475892178,
+              "n_scf_iterations": null,
+              "n_step": null
+            }
+          ],
+          "units": "Hartree atomic units"
+        },
+        "xml_candidates_present": 1,
+        "xml_path": "results\\pa_catalyst_trial_readout_2026-10-04\\mirror\\trial_results\\control\\outdir\\slab_c5low__pa_boundary.save\\data-file-schema.xml"
+      },
+      "receipt_energies_Ry": [],
+      "receipt_eval_status": [],
+      "receipt_optimizer_counts": null,
+      "receipt_scf_counts": null,
+      "receipt_xml_exit_status": null,
+      "registered_evaluations": 3,
+      "registered_expected_cycles": [
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "status": "INCONCLUSIVE",
+      "stop_reason": "registered-evaluated-boundary",
+      "timed_out": false,
+      "within_per_call_cap": true
+    }
+  ],
+  "citation_check": [],
+  "continuity_receipt": null,
+  "controller": {
+    "call_count": 1,
+    "continuity_validated": null,
+    "elapsed_seconds": 2887.907100487995,
+    "error": "one XML lda_plus_u required",
+    "every_step_pa_validated": false,
+    "fresh_failure": null,
+    "genuine_lower_state_reseed_validated": false,
+    "production_accepted": false,
+    "reseed_branch_status": null,
+    "scheduler_status": "COMPLIANT",
+    "scientific_status": "INCONCLUSIVE",
+    "terminal_fresh_acceptance_validated": false
+  },
+  "criteria": [
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 8,
+          "quote": "Approval is one regular"
+        },
+        {
+          "file": "results/pa_catalyst_trial_2026-10-03/launch_spec.json",
+          "line": 48,
+          "quote": "\"max_cpu_su\": 2048"
+        }
+      ],
+      "evidence": {
+        "alloc_cpus": 128,
+        "no_gres": [
+          "billing",
+          "cpu",
+          "mem",
+          "node"
+        ],
+        "tres_billing": "128",
+        "tres_cpu": "128",
+        "tres_mem_gib": 200.0,
+        "tres_node": "1"
+      },
+      "id": "SCHED_ALLOC",
+      "kind": "PRESTATED",
+      "result": "MET",
+      "text": "One regular whole 128-core node, 16 h / 2048 CPU SU ceiling, <=200 GiB."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 9,
+          "quote": "at most six sequential QE calls"
+        },
+        {
+          "file": "results/pa_catalyst_trial_2026-10-03/launch_spec.json",
+          "line": 51,
+          "quote": "\"max_calls\": 6"
+        }
+      ],
+      "evidence": {
+        "calls": 1,
+        "duplicate_names": false,
+        "over_7200s": []
+      },
+      "id": "SCHED_CALLS",
+      "kind": "PRESTATED",
+      "result": "MET",
+      "text": "At most six sequential QE calls each <=2 h; no retry/requeue/array/chaining."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 85,
+          "quote": "The scheduler charge is capped"
+        },
+        {
+          "file": "docs/research/eligible-comparison-pa-readiness-2026-10-03.md",
+          "line": 127,
+          "quote": "node-exclusive billing charges the entire"
+        }
+      ],
+      "evidence": {
+        "cap": 2048,
+        "charged_cpu_su": 102.86222222222223
+      },
+      "id": "SCHED_CAP_SU",
+      "kind": "PRESTATED",
+      "result": "MET",
+      "text": "The scheduler charge is capped by one 128-core 16 h allocation."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 79,
+          "quote": "Every QE call requires actual scheduler"
+        },
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 80,
+          "quote": "within remaining aggregate time"
+        }
+      ],
+      "evidence": {
+        "control": {
+          "compliant": true,
+          "node": "a616",
+          "observed_utc": "2026-10-04T13:38:47.258996+00:00",
+          "remaining_ge_7320": true,
+          "remaining_seconds": 57591,
+          "runtime_seconds": 9
+        }
+      },
+      "id": "SCHED_PER_CALL",
+      "kind": "PRESTATED",
+      "result": "MET",
+      "text": "Every QE call needs actual scheduler accounting and the full registered 7200 s plus cleanup inside remaining time."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 105,
+          "quote": "Scheduler and scientific outcomes"
+        }
+      ],
+      "evidence": "scheduler and scientific outcomes are separate fields",
+      "id": "SCHED_SEPARATE",
+      "kind": "PRESTATED",
+      "result": "MET",
+      "text": "Scheduler and scientific outcomes are retained separately."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 106,
+          "quote": "report a source-bound numerical"
+        },
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 107,
+          "quote": "without a hidden rerun"
+        }
+      ],
+      "evidence": "outcome label + charged SU reported; this tool never launches anything",
+      "id": "REPORT_RULE",
+      "kind": "PRESTATED",
+      "result": "MET",
+      "text": "Report a source-bound numerical pass, failure or inconclusive result and actual SU without a hidden rerun."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 10,
+          "quote": "not approve production relaxation"
+        },
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 123,
+          "quote": "No production or catalyst-runtime success"
+        },
+        {
+          "file": "results/pa_catalyst_trial_2026-10-03/launch_spec.json",
+          "line": 56,
+          "quote": "\"production_accepted\": false"
+        }
+      ],
+      "evidence": {
+        "every_step_pa_validated": false,
+        "production_accepted": false,
+        "terminal_fresh_acceptance_validated": false
+      },
+      "id": "NO_PRODUCTION",
+      "kind": "PRESTATED",
+      "result": "MET",
+      "text": "No production relaxation, every-step P-A, S8 ranking or melt release follows; production_accepted stays false."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 31,
+          "quote": "Sequence: three-evaluation"
+        },
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 33,
+          "quote": "geometry, not its post-move proposal"
+        }
+      ],
+      "evidence": {
+        "branch_action": null,
+        "observed": [
+          "control"
+        ],
+        "registered_for_branch": [
+          "control",
+          "candidate",
+          "fresh",
+          "resumed",
+          "negative"
+        ]
+      },
+      "id": "SEQUENCE",
+      "kind": "PRESTATED",
+      "result": "PARTIAL_PREFIX",
+      "text": "Control(3 evaluations), stopped candidate(1), fresh SCF at the evaluated geometry, then the fresh decision before any resume."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 34,
+          "quote": "If the fresh state is not more than"
+        },
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 35,
+          "quote": "with inherited optimizer state for two"
+        }
+      ],
+      "evidence": {
+        "controller_action": null,
+        "recomputed_action": null,
+        "warm_minus_fresh_meV": null
+      },
+      "id": "BRANCH_RESUME",
+      "kind": "PRESTATED",
+      "result": "NOT_EVALUATED",
+      "text": "Fresh state not more than 10 meV/cell lower: the copied candidate resumes with inherited optimizer state for two further evaluations."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 36,
+          "quote": "more than10meV lower"
+        },
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 37,
+          "quote": "reseed/history reset at the evaluated geometry"
+        },
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 38,
+          "quote": "Exactly10meV or a higher fresh state"
+        }
+      ],
+      "evidence": {
+        "controller_action": null,
+        "recomputed_action": null,
+        "warm_minus_fresh_meV": null
+      },
+      "id": "BRANCH_RESEED",
+      "kind": "PRESTATED",
+      "result": "NOT_EVALUATED",
+      "text": "Fresh state strictly more than 10 meV lower: intentional density reseed/history reset, reported separately; exactly 10 meV or higher does not trigger."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 39,
+          "quote": "fresh reference holds continuation"
+        }
+      ],
+      "evidence": {
+        "fresh_failure": null,
+        "fresh_status": null
+      },
+      "id": "BRANCH_HOLD",
+      "kind": "PRESTATED",
+      "result": "NOT_TRIGGERED",
+      "text": "A failed/missing fresh reference holds continuation."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 40,
+          "quote": "negative control establishes actual startup"
+        }
+      ],
+      "evidence": "negative control not executed",
+      "id": "NEG_CONTROL",
+      "kind": "PRESTATED",
+      "result": "NOT_APPLICABLE",
+      "text": "Copied-history/from-scratch negative control establishes actual startup deletion and optimizer count 0."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 41,
+          "quote": "The reseed branch is only numerically validated"
+        },
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 42,
+          "quote": "energy remains within1e-6Ry"
+        },
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 43,
+          "quote": "below the original warm state"
+        },
+        {
+          "file": "results/pa_catalyst_trial_2026-10-03/implementation_findings.md",
+          "line": 23,
+          "quote": "within1e-6Ry and remain strictly"
+        }
+      ],
+      "evidence": null,
+      "id": "RESEED_VALID",
+      "kind": "PRESTATED",
+      "result": "NOT_APPLICABLE",
+      "text": "Reseed branch is numerically validated only if its first evaluated energy is within 1e-6 Ry of the lower fresh reference and strictly >10 meV/cell below the original warm state, same geometry/settings."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 46,
+          "quote": "Control and candidate+resume must match"
+        },
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 47,
+          "quote": "1e-6Ry energy,1e-5bohr"
+        },
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 48,
+          "quote": "endpoint-only comparison"
+        },
+        {
+          "file": "src/dft/pa_qe_adapter.py",
+          "line": 31,
+          "quote": "TOLERANCES = {\"energy_Ry\": 1e-6"
+        }
+      ],
+      "evidence": "no trajectory comparison available",
+      "id": "CONTINUITY_TOL",
+      "kind": "PRESTATED",
+      "result": "NOT_EVALUATED",
+      "text": "Control and candidate+resume match all three ordered evaluations within 1e-6 Ry, 1e-5 bohr, 1e-5 Ry/bohr; no interpolation, endpoint-only comparison, remapping or dropped frames."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 49,
+          "quote": "branch cannot be spliced"
+        },
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 50,
+          "quote": "occurs, genuine catalyst reseed remains unvalidated"
+        },
+        {
+          "file": "results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md",
+          "line": 140,
+          "quote": "uses new history and cannot be spliced"
+        }
+      ],
+      "evidence": {
+        "genuine_lower_state_reseed_validated": false
+      },
+      "id": "NO_SPLICE",
+      "kind": "PRESTATED",
+      "result": "MET",
+      "text": "A reseed branch cannot be spliced into a continuity pass; without a true lower-state trigger genuine catalyst reseed remains unvalidated."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 59,
+          "quote": "exact saved evaluated XML count"
+        },
+        {
+          "file": "results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md",
+          "line": 67,
+          "quote": "Candidate/control/resumed require exact local XML counts"
+        },
+        {
+          "file": "results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md",
+          "line": 68,
+          "quote": "global stdout sequences1"
+        }
+      ],
+      "evidence": {},
+      "id": "BOUNDARY_COUNTS",
+      "kind": "PRESTATED",
+      "result": "NOT_EVALUATED",
+      "text": "Exact saved evaluated XML counts 1/3/2 and global SCF-cycle sequences [1]/[1,2,3]/[2,3] (candidate/control/resumed), user stop, status 255, JOB DONE, no stale EXIT."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 23,
+          "quote": "target is1e-6Ry"
+        },
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 25,
+          "quote": "first warm target must verify"
+        },
+        {
+          "file": "src/dft/pa_catalyst_trial.py",
+          "line": 857,
+          "quote": "if kind in {\"control\", \"candidate\", \"fresh\", \"reseed\", \"negative\"}:"
+        }
+      ],
+      "evidence": {},
+      "id": "FIRST_THRESHOLD",
+      "kind": "PRESTATED",
+      "result": "NOT_EVALUATED",
+      "text": "Warm first-boundary target and the fresh SCF target are both 1e-6 Ry, verified in the raw log (control, candidate, fresh, reseed, negative; not the resumed call)."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 82,
+          "quote": "symlinks/special files, fallback/reset"
+        },
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 83,
+          "quote": "failed/stalled energies"
+        }
+      ],
+      "evidence": {
+        "refused_calls": [
+          "control"
+        ]
+      },
+      "id": "REJECT_LIST",
+      "kind": "PRESTATED",
+      "result": "NOT_MET",
+      "text": "Reject symlinks/special files, fallback/reset on continuation, unverified consumed UPFs, failed/stalled energies or expanded allocation."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 83,
+          "quote": "SCF iteration127 supervision"
+        }
+      ],
+      "evidence": {
+        "control": {
+          "HEA4_stall_observed": false,
+          "failure_marker_observed": false,
+          "solver_limit_observed": false,
+          "timed_out": false,
+          "within_per_call_cap": true
+        }
+      },
+      "id": "SUPERVISION",
+      "kind": "PRESTATED",
+      "result": "MET",
+      "text": "SCF iteration 127 supervision, clean-stop request, hard process-group deadline and no retry apply to every call."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 68,
+          "quote": "Raw bindings include source deck bytes"
+        },
+        {
+          "file": "results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md",
+          "line": 137,
+          "quote": "Actual catalyst MPI/ELPA/UPF/settings/source identity"
+        }
+      ],
+      "evidence": {
+        "arms_rederived_ok": [],
+        "raw_rederivation_failures_on_validated_calls": {},
+        "validated_calls_not_rederived": []
+      },
+      "id": "RAW_BINDING",
+      "kind": "PRESTATED",
+      "result": "MET",
+      "text": "Raw bindings: source deck bytes, executable/MPI/UPF hashes and actual runtime parallel shape (MPI128, 1 thread, 8 pools, ELPA 4x4)."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 61,
+          "quote": "Early convergence, nstep exhaustion"
+        },
+        {
+          "file": "results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md",
+          "line": 70,
+          "quote": "natural convergence, skipped boundary"
+        },
+        {
+          "file": "results/pa_catalyst_trial_2026-10-03/source_boundary_review.md",
+          "line": 39,
+          "quote": "Natural BFGS convergence before the registered boundary"
+        }
+      ],
+      "evidence": null,
+      "id": "INCONC_BOUNDARY",
+      "kind": "PRESTATED",
+      "result": "NOT_TRIGGERED",
+      "text": "Early convergence, nstep exhaustion or a missed boundary is inconclusive without retry."
+    },
+    {
+      "cites": [
+        {
+          "file": "results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md",
+          "line": 134,
+          "quote": "A solver limit, HEA4"
+        },
+        {
+          "file": "results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md",
+          "line": 136,
+          "quote": "justify exceeding authority"
+        },
+        {
+          "file": "results/pa_catalyst_trial_2026-10-03/source_boundary_review.md",
+          "line": 298,
+          "quote": "stall/timeout/OOM or missed boundary"
+        }
+      ],
+      "evidence": {
+        "scheduler_status": "COMPLIANT",
+        "slurm_state": "FAILED"
+      },
+      "id": "INCONC_PROCESS",
+      "kind": "PRESTATED",
+      "result": "NOT_TRIGGERED",
+      "text": "A solver limit, HEA4 stall, resource problem or missing clean boundary is inconclusive; teardown cannot justify exceeding authority or launching a replacement."
+    },
+    {
+      "cites": [
+        {
+          "file": "results/pa_catalyst_trial_2026-10-03/implementation_findings.md",
+          "line": 24,
+          "quote": "An attempted or upper-state reseed stays"
+        },
+        {
+          "file": "results/pa_catalyst_trial_2026-10-03/independent_launch_review.md",
+          "line": 36,
+          "quote": "Failure must remain inconclusive/attempted"
+        }
+      ],
+      "evidence": null,
+      "id": "INCONC_RESEED",
+      "kind": "PRESTATED",
+      "result": "NOT_TRIGGERED",
+      "text": "An attempted or upper-state reseed stays inconclusive, not a genuine lower-state validation."
+    },
+    {
+      "cites": [
+        {
+          "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+          "line": 51,
+          "quote": "terminal fresh acceptance remain later gates"
+        },
+        {
+          "file": "docs/research/eligible-comparison-pa-readiness-2026-10-03.md",
+          "line": 162,
+          "quote": "Full every-step checking/reseeding"
+        }
+      ],
+      "evidence": "unchanged by any outcome",
+      "id": "LATER_GATES",
+      "kind": "PRESTATED",
+      "result": "INFORMATIONAL",
+      "text": "Full every-step checks and terminal fresh acceptance remain later gates regardless of this trial's outcome."
+    },
+    {
+      "cites": [
+        {
+          "file": "src/dft/pa_catalyst_trial.py",
+          "line": 934,
+          "quote": "self.receipt[\"scientific_status\"] = \"HOLD\""
+        },
+        {
+          "file": "src/dft/pa_catalyst_trial.py",
+          "line": 951,
+          "quote": "self.receipt[\"scientific_status\"] = \"RESEED_BRANCH_ONLY\""
+        },
+        {
+          "file": "src/dft/pa_catalyst_trial.py",
+          "line": 964,
+          "quote": "raise TrialError(\"all three ordered evaluations did not agree\")"
+        },
+        {
+          "file": "src/dft/pa_catalyst_trial.py",
+          "line": 970,
+          "quote": "self.receipt[\"scientific_status\"] = \"PASS_ONE_BOUNDARY\""
+        },
+        {
+          "file": "src/dft/pa_catalyst_trial.py",
+          "line": 983,
+          "quote": "self.receipt[\"scientific_status\"] = \"INCONCLUSIVE\""
+        }
+      ],
+      "evidence": "frozen controller behaviour used to read the receipt",
+      "id": "CTRL_STATUS_MAP",
+      "kind": "FROZEN_CONTROLLER_BEHAVIOUR",
+      "result": "INFORMATIONAL",
+      "text": "Frozen controller records HOLD / RESEED_BRANCH_ONLY / PASS_ONE_BOUNDARY / INCONCLUSIVE; a continuity-tolerance miss and any raised TrialError are recorded INCONCLUSIVE."
+    },
+    {
+      "cites": [
+        {
+          "file": "results/pa_catalyst_trial_2026-10-03/launch_spec.json",
+          "line": 55,
+          "quote": "\"optional_negative_control\": true"
+        },
+        {
+          "file": "src/dft/pa_catalyst_trial.py",
+          "line": 965,
+          "quote": "if self.spec[\"optional_negative_control\"]:"
+        },
+        {
+          "file": "src/dft/pa_catalyst_trial.py",
+          "line": 970,
+          "quote": "self.receipt[\"scientific_status\"] = \"PASS_ONE_BOUNDARY\""
+        }
+      ],
+      "evidence": "frozen controller behaviour used to read the receipt",
+      "id": "CTRL_NEGATIVE_BLOCKS",
+      "kind": "FROZEN_CONTROLLER_BEHAVIOUR",
+      "result": "INFORMATIONAL",
+      "text": "Frozen controller runs the optional negative control before assigning PASS_ONE_BOUNDARY, so a failed negative control leaves the trial INCONCLUSIVE."
+    },
+    {
+      "cites": [
+        {
+          "file": "src/dft/pa_catalyst_trial.py",
+          "line": 1021,
+          "quote": "return 0 if result[\"scientific_status\"] == \"PASS_ONE_BOUNDARY\" else 3"
+        },
+        {
+          "file": "src/dft/pa_catalyst_trial.py",
+          "line": 1023,
+          "quote": "\"scientific_status\": \"INCONCLUSIVE\", \"scheduler_status\": \"UNVERIFIED\""
+        },
+        {
+          "file": "anvil/89_pa_catalyst_boundary_trial.slurm",
+          "line": 30,
+          "quote": "exec \"$PYTHON\""
+        }
+      ],
+      "evidence": "frozen controller behaviour used to read the receipt",
+      "id": "CTRL_EXIT_CODE",
+      "kind": "FROZEN_CONTROLLER_BEHAVIOUR",
+      "result": "INFORMATIONAL",
+      "text": "Controller exit status: 0 only for PASS_ONE_BOUNDARY, otherwise 3; refusal before a result exits 2 printing INCONCLUSIVE/UNVERIFIED."
+    },
+    {
+      "cites": [
+        {
+          "file": "src/dft/pa_catalyst_trial.py",
+          "line": 840,
+          "quote": "if (process.get(\"timed_out\") or process.get(\"within_per_call_cap\") is not True"
+        },
+        {
+          "file": "src/dft/pa_catalyst_trial.py",
+          "line": 846,
+          "quote": "raise TrialError(name + \" lacks the registered boundary stop receipt\")"
+        },
+        {
+          "file": "src/dft/pa_catalyst_trial.py",
+          "line": 870,
+          "quote": "call[\"status\"] = \"NUMERICAL_RECEIPT_VALIDATED\""
+        }
+      ],
+      "evidence": "frozen controller behaviour used to read the receipt",
+      "id": "CTRL_CALL_CONTRACT",
+      "kind": "FROZEN_CONTROLLER_BEHAVIOUR",
+      "result": "INFORMATIONAL",
+      "text": "A call is VALIDATED only if not timed out, within the 7200 s cap, no supervisor/capture error, no failure marker, no HEA4 stall, no solver limit and the registered boundary stop receipt."
+    },
+    {
+      "cites": [
+        {
+          "file": "src/dft/pa_catalyst_trial.py",
+          "line": 694,
+          "quote": "raise TrialError(\"full registered 7200-second call plus cleanup does not fit"
+        },
+        {
+          "file": "src/dft/pa_catalyst_trial.py",
+          "line": 981,
+          "quote": "raise TrialError(\"aggregate elapsed time reached 16h\")"
+        }
+      ],
+      "evidence": "frozen controller behaviour used to read the receipt",
+      "id": "CTRL_AGGREGATE",
+      "kind": "FROZEN_CONTROLLER_BEHAVIOUR",
+      "result": "INFORMATIONAL",
+      "text": "Controller refuses a call whose full 7200 s plus 120 s cleanup does not fit and records INCONCLUSIVE at 16 h aggregate."
+    }
+  ],
+  "criteria_registry_ref": "see criteria[] below",
+  "criteria_results": {
+    "BOUNDARY_COUNTS": {
+      "evidence": {},
+      "result": "NOT_EVALUATED"
+    },
+    "BRANCH_HOLD": {
+      "evidence": {
+        "fresh_failure": null,
+        "fresh_status": null
+      },
+      "result": "NOT_TRIGGERED"
+    },
+    "BRANCH_RESEED": {
+      "evidence": {
+        "controller_action": null,
+        "recomputed_action": null,
+        "warm_minus_fresh_meV": null
+      },
+      "result": "NOT_EVALUATED"
+    },
+    "BRANCH_RESUME": {
+      "evidence": {
+        "controller_action": null,
+        "recomputed_action": null,
+        "warm_minus_fresh_meV": null
+      },
+      "result": "NOT_EVALUATED"
+    },
+    "CONTINUITY_TOL": {
+      "evidence": "no trajectory comparison available",
+      "result": "NOT_EVALUATED"
+    },
+    "CTRL_AGGREGATE": {
+      "evidence": "frozen controller behaviour used to read the receipt",
+      "result": "INFORMATIONAL"
+    },
+    "CTRL_CALL_CONTRACT": {
+      "evidence": "frozen controller behaviour used to read the receipt",
+      "result": "INFORMATIONAL"
+    },
+    "CTRL_EXIT_CODE": {
+      "evidence": "frozen controller behaviour used to read the receipt",
+      "result": "INFORMATIONAL"
+    },
+    "CTRL_NEGATIVE_BLOCKS": {
+      "evidence": "frozen controller behaviour used to read the receipt",
+      "result": "INFORMATIONAL"
+    },
+    "CTRL_STATUS_MAP": {
+      "evidence": "frozen controller behaviour used to read the receipt",
+      "result": "INFORMATIONAL"
+    },
+    "FIRST_THRESHOLD": {
+      "evidence": {},
+      "result": "NOT_EVALUATED"
+    },
+    "INCONC_BOUNDARY": {
+      "evidence": null,
+      "result": "NOT_TRIGGERED"
+    },
+    "INCONC_PROCESS": {
+      "evidence": {
+        "scheduler_status": "COMPLIANT",
+        "slurm_state": "FAILED"
+      },
+      "result": "NOT_TRIGGERED"
+    },
+    "INCONC_RESEED": {
+      "evidence": null,
+      "result": "NOT_TRIGGERED"
+    },
+    "LATER_GATES": {
+      "evidence": "unchanged by any outcome",
+      "result": "INFORMATIONAL"
+    },
+    "NEG_CONTROL": {
+      "evidence": "negative control not executed",
+      "result": "NOT_APPLICABLE"
+    },
+    "NO_PRODUCTION": {
+      "evidence": {
+        "every_step_pa_validated": false,
+        "production_accepted": false,
+        "terminal_fresh_acceptance_validated": false
+      },
+      "result": "MET"
+    },
+    "NO_SPLICE": {
+      "evidence": {
+        "genuine_lower_state_reseed_validated": false
+      },
+      "result": "MET"
+    },
+    "RAW_BINDING": {
+      "evidence": {
+        "arms_rederived_ok": [],
+        "raw_rederivation_failures_on_validated_calls": {},
+        "validated_calls_not_rederived": []
+      },
+      "result": "MET"
+    },
+    "REJECT_LIST": {
+      "evidence": {
+        "refused_calls": [
+          "control"
+        ]
+      },
+      "result": "NOT_MET"
+    },
+    "REPORT_RULE": {
+      "evidence": "outcome label + charged SU reported; this tool never launches anything",
+      "result": "MET"
+    },
+    "RESEED_VALID": {
+      "evidence": null,
+      "result": "NOT_APPLICABLE"
+    },
+    "SCHED_ALLOC": {
+      "evidence": {
+        "alloc_cpus": 128,
+        "no_gres": [
+          "billing",
+          "cpu",
+          "mem",
+          "node"
+        ],
+        "tres_billing": "128",
+        "tres_cpu": "128",
+        "tres_mem_gib": 200.0,
+        "tres_node": "1"
+      },
+      "result": "MET"
+    },
+    "SCHED_CALLS": {
+      "evidence": {
+        "calls": 1,
+        "duplicate_names": false,
+        "over_7200s": []
+      },
+      "result": "MET"
+    },
+    "SCHED_CAP_SU": {
+      "evidence": {
+        "cap": 2048,
+        "charged_cpu_su": 102.86222222222223
+      },
+      "result": "MET"
+    },
+    "SCHED_PER_CALL": {
+      "evidence": {
+        "control": {
+          "compliant": true,
+          "node": "a616",
+          "observed_utc": "2026-10-04T13:38:47.258996+00:00",
+          "remaining_ge_7320": true,
+          "remaining_seconds": 57591,
+          "runtime_seconds": 9
+        }
+      },
+      "result": "MET"
+    },
+    "SCHED_SEPARATE": {
+      "evidence": "scheduler and scientific outcomes are separate fields",
+      "result": "MET"
+    },
+    "SEQUENCE": {
+      "evidence": {
+        "branch_action": null,
+        "observed": [
+          "control"
+        ],
+        "registered_for_branch": [
+          "control",
+          "candidate",
+          "fresh",
+          "resumed",
+          "negative"
+        ]
+      },
+      "result": "PARTIAL_PREFIX"
+    },
+    "SUPERVISION": {
+      "evidence": {
+        "control": {
+          "HEA4_stall_observed": false,
+          "failure_marker_observed": false,
+          "solver_limit_observed": false,
+          "timed_out": false,
+          "within_per_call_cap": true
+        }
+      },
+      "result": "MET"
+    }
+  },
+  "integrity_flags": [],
+  "job_id": "21034683",
+  "mirror": {
+    "local_inventory": [
+      {
+        "path": "trial_21034683.log",
+        "sha256": "bb12b60d1fb73a70b39f2d380d0e7dc978ccbec1eaee9f6623f06dff45fec612",
+        "size": 118
+      },
+      {
+        "path": "trial_results/allocation_before_call_01.json",
+        "sha256": "8fd46b2a630614c7e734e16a09015a9051f27a757691e86cfca374418cd77198",
+        "size": 1983
+      },
+      {
+        "path": "trial_results/common_pseudo/Co_pbe_v1.2.uspp.F.UPF",
+        "sha256": "a5f392a0d35fc78cc9e2ac1636bb1cd02e9b80a063ea368e85be83b0e4523c45",
+        "size": 606524
+      },
+      {
+        "path": "trial_results/common_pseudo/cr_pbe_v1.5.uspp.F.UPF",
+        "sha256": "c7449bbfea358d76832cf2f7b43dc89101ead6891806773121bfaa93a140f6de",
+        "size": 584698
+      },
+      {
+        "path": "trial_results/common_pseudo/Cu.paw.z_11.ld1.psl.v1.0.0-low.upf",
+        "sha256": "b31028b2bae60cd9903260715a49b4c6d2b6dc654558c87023fa5206e427a16d",
+        "size": 1855080
+      },
+      {
+        "path": "trial_results/common_pseudo/mn_pbe_v1.5.uspp.F.UPF",
+        "sha256": "c5b6117e22f571895b69dbec8491df6afb2efee1206dad54680881dbd33eb8f0",
+        "size": 601365
+      },
+      {
+        "path": "trial_results/common_pseudo/O.pbe-n-kjpaw_psl.0.1.UPF",
+        "sha256": "7c4b6ed541f83d0afdf5c1d3a8c611340f073f3e2b11e95b7963bb2ee26929aa",
+        "size": 930566
+      },
+      {
+        "path": "trial_results/control/input.in",
+        "sha256": "5148e8b20373374ee3588c68a112a8cf36858770f1a416c525e79a962dc42790",
+        "size": 5057
+      },
+      {
+        "path": "trial_results/control/outdir/slab_c5low__pa_boundary.bfgs",
+        "sha256": "f601b8f3dc8ef14de3e8f2d4d2edcf22065643de9797a16454391d02cee8f1e8",
+        "size": 1351591
+      },
+      {
+        "path": "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf",
+        "sha256": "9f1ee9f7f83c4b9eecf7e6aa8995b27d56b705b55624e989bcb30121f66e6891",
+        "size": 20346
+      },
+      {
+        "path": "trial_results/control/outdir/slab_c5low__pa_boundary.save/data-file-schema.xml",
+        "sha256": "3b556aa74327969f2799e19c0a3ad9153e44ec33dd656e2332043221db0b699d",
+        "size": 437772
+      },
+      {
+        "path": "trial_results/control/outdir/slab_c5low__pa_boundary.save/occup.txt",
+        "sha256": "d762021d6000d935c9d60197608e74a8bf587c0eb72755cfad7562831ffa88d8",
+        "size": 93601
+      },
+      {
+        "path": "trial_results/control/outdir/slab_c5low__pa_boundary.save/paw.txt",
+        "sha256": "dd90679756edbdbc661865c5a290998fcd87dde2e335aa25eb82c560f5a00786",
+        "size": 640225
+      },
+      {
+        "path": "trial_results/control/outdir/slab_c5low__pa_boundary.update",
+        "sha256": "68c9d491f79b120a8f7da8243310084651fcb04d9ca9f460e6652a9abbdecfef",
+        "size": 16862
+      },
+      {
+        "path": "trial_results/control/process_receipt.json",
+        "sha256": "6db2620490cb2d5662d594ad6ea9ca8f0821c2a6d35ec3e0804cd786e1a73865",
+        "size": 1297
+      },
+      {
+        "path": "trial_results/control/setup_receipt.json",
+        "sha256": "e2cf94395338794f2e77f8ca38e58023a91c0355dff393c9834eb208b3110b06",
+        "size": 6325
+      },
+      {
+        "path": "trial_results/control/stderr.log",
+        "sha256": "3d8165bc5d885215be20fc4411c896bb7632fc2bf2c07853c7c33858694cc5b8",
+        "size": 8472
+      },
+      {
+        "path": "trial_results/control/stdout.log",
+        "sha256": "56c02e6db6618dd011d736827fe3646b7ea58de8060f858d0ede5b91a069becc",
+        "size": 466261
+      },
+      {
+        "path": "trial_results/trial_receipt.json",
+        "sha256": "832dd3ef2b1f63c1f0fa4bcb9f6185c907b8ffc2af5df92db58b5570c444b313",
+        "size": 34554
+      }
+    ],
+    "local_inventory_files": 19,
+    "local_inventory_sha256_of_rows": "ecdb5a1aee3918ab1711d56e33d83d859ea1e4db35ee7674f35460ebfb8341a2",
+    "remote_inventory_comparison": {
+      "local_only": [],
+      "matched": 19,
+      "mismatched": [],
+      "not_mirrored": [
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix1",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix10",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix100",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix101",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix102",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix103",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix104",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix105",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix106",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix107",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix108",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix109",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix11",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix110",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix111",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix112",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix113",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix114",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix115",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix116",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix117",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix118",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix119",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix12",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix120",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix121",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix122",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix123",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix124",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix125",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix126",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix127",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix128",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix13",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix14",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix15",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix16",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix17",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix18",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix19",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix2",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix20",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix21",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix22",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix23",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix24",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix25",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix26",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix27",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix28",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix29",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix3",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix30",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix31",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix32",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix33",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix34",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix35",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix36",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix37",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix38",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix39",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix4",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix40",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix41",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix42",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix43",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix44",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix45",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix46",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix47",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix48",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix49",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix5",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix50",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix51",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix52",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix53",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix54",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix55",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix56",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix57",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix58",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix59",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix6",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix60",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix61",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix62",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix63",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix64",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix65",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix66",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix67",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix68",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix69",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix7",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix70",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix71",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix72",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix73",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix74",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix75",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix76",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix77",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix78",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix79",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix8",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix80",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix81",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix82",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix83",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix84",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix85",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix86",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix87",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix88",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix89",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix9",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix90",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix91",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix92",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix93",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix94",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix95",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix96",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix97",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix98",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.mix99",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf10",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf100",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf101",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf102",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf103",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf104",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf105",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf106",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf107",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf108",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf109",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf11",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf110",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf111",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf112",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf113",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf114",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf115",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf116",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf117",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf118",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf119",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf12",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf120",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf121",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf122",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf123",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf124",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf125",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf126",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf127",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf128",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf13",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf14",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf15",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf16",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf17",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf18",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf19",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf2",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf20",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf21",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf22",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf23",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf24",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf25",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf26",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf27",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf28",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf29",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf3",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf30",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf31",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf32",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf33",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf34",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf35",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf36",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf37",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf38",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf39",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf4",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf40",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf41",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf42",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf43",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf44",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf45",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf46",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf47",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf48",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf49",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf5",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf50",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf51",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf52",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf53",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf54",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf55",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf56",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf57",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf58",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf59",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf6",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf60",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf61",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf62",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf63",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf64",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf65",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf66",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf67",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf68",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf69",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf7",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf70",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf71",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf72",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf73",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf74",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf75",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf76",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf77",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf78",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf79",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf8",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf80",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf81",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf82",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf83",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf84",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf85",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf86",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf87",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf88",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf89",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf9",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf90",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf91",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf92",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf93",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf94",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf95",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf96",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf97",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf98",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.restart_scf99",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc1",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc10",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc100",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc101",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc102",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc103",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc104",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc105",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc106",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc107",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc108",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc109",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc11",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc110",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc111",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc112",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc113",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc114",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc115",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc116",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc117",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc118",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc119",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc12",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc120",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc121",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc122",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc123",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc124",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc125",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc126",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc127",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc128",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc13",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc14",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc15",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc16",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc17",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc18",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc19",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc2",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc20",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc21",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc22",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc23",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc24",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc25",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc26",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc27",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc28",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc29",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc3",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc30",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc31",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc32",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc33",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc34",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc35",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc36",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc37",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc38",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc39",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc4",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc40",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc41",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc42",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc43",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc44",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc45",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc46",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc47",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc48",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc49",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc5",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc50",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc51",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc52",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc53",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc54",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc55",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc56",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc57",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc58",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc59",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc6",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc60",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc61",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc62",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc63",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc64",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc65",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc66",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc67",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc68",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc69",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc7",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc70",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc71",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc72",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc73",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc74",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc75",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc76",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc77",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc78",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc79",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc8",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc80",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc81",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc82",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc83",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc84",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc85",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc86",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc87",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc88",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc89",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc9",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc90",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc91",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc92",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc93",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc94",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc95",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc96",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc97",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc98",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.wfc99",
+        "trial_results/control/outdir/slab_c5low__pa_boundary.save/charge-density.hdf5"
+      ],
+      "remote_rows": 403,
+      "size_only_matched": 0
+    },
+    "required_gaps": [],
+    "slurm_log": "results\\pa_catalyst_trial_readout_2026-10-04\\mirror\\trial_21034683.log",
+    "trial_dir": "results\\pa_catalyst_trial_readout_2026-10-04\\mirror\\trial_results"
+  },
+  "mirror_root": "results\\pa_catalyst_trial_readout_2026-10-04\\mirror",
+  "network_or_ssh_used": false,
+  "open_questions_text": {
+    "OQ8": "Raw-validation refusals (UPF/settings/shape/XML parse) are recorded INCONCLUSIVE by the controller (CTRL:876) while the doc says 'reject' (DOC:81-83); the label is the controller's, not stated in the doc."
+  },
+  "outcome": {
+    "candidate_labels": [],
+    "controller_scientific_status": "INCONCLUSIVE",
+    "corroboration": null,
+    "criteria": [
+      "REJECT_LIST",
+      "CTRL_STATUS_MAP"
+    ],
+    "label": "INCONCLUSIVE",
+    "label_basis": "FROZEN_CONTROLLER_RECORD_ONLY",
+    "open_questions": [
+      "OQ8"
+    ],
+    "pass_gates": null,
+    "reasons": [
+      "call control: status INCONCLUSIVE, class RAW_VALIDATION_REFUSED (one XML lda_plus_u required)"
+    ]
+  },
+  "pre_resume_decision": null,
+  "production_accepted": false,
+  "qe_executed": false,
+  "readonly": true,
+  "rederivation": {
+    "arms": {
+      "control": {
+        "error": "AdapterError: one XML lda_plus_u required",
+        "ok": false,
+        "post_checks": {}
+      }
+    },
+    "derived": {}
+  },
+  "reseed_binding_receipt": null,
+  "scheduler": {
+    "aggregate_seconds_cap": 57600,
+    "all_resource_checks_ok": true,
+    "balance_after_su_exact_product": 36775.33777777777,
+    "balance_before_su": 36878.2,
+    "cap_su": 2048,
+    "charged_cpu_su": 102.86222222222223,
+    "checks": [
+      {
+        "expected": 128,
+        "id": "alloc_cpus",
+        "observed": 128,
+        "ok": true
+      },
+      {
+        "expected": "128",
+        "id": "tres_cpu",
+        "observed": "128",
+        "ok": true
+      },
+      {
+        "expected": "128",
+        "id": "tres_billing",
+        "observed": "128",
+        "ok": true
+      },
+      {
+        "expected": "1",
+        "id": "tres_node",
+        "observed": "1",
+        "ok": true
+      },
+      {
+        "expected": "<=200",
+        "id": "tres_mem_gib",
+        "observed": 200.0,
+        "ok": true
+      },
+      {
+        "expected": "no gres/*",
+        "id": "no_gres",
+        "observed": [
+          "billing",
+          "cpu",
+          "mem",
+          "node"
+        ],
+        "ok": true
+      },
+      {
+        "expected": "<=57600",
+        "id": "elapsed_within_time_limit",
+        "observed": 2893,
+        "ok": true
+      },
+      {
+        "expected": "<=2048",
+        "id": "charged_su_within_cap",
+        "observed": 102.86222222222223,
+        "ok": true
+      }
+    ],
+    "cputimeraw_su": 102.86222222222223,
+    "found": true,
+    "jobsu_minus_computed_su": -0.0014222222222315395,
+    "jobsu_reported_su": 102.8608,
+    "record": {
+      "alloc_cpus": 128,
+      "alloc_tres": {
+        "billing": "128",
+        "cpu": "128",
+        "mem": "200G",
+        "node": "1"
+      },
+      "columns": [
+        "JobIDRaw",
+        "State",
+        "ExitCode",
+        "ElapsedRaw",
+        "AllocCPUS",
+        "ReqMem",
+        "AllocTRES",
+        "CPUTimeRAW",
+        "MaxRSS",
+        "Start",
+        "End"
+      ],
+      "cputime_raw_s": 370304,
+      "elapsed_s": 2893,
+      "exit_code": 3,
+      "exit_signal": 0,
+      "extra": {
+        "End": "2026-10-04T10:26:51",
+        "MaxRSS": "",
+        "Start": "2026-10-04T09:38:38"
+      },
+      "found": true,
+      "job_id": "21034683",
+      "req_mem": "200G",
+      "rows": 3,
+      "state": "FAILED",
+      "state_raw": "FAILED",
+      "steps": [
+        {
+          "exit": "3:0",
+          "id": "21034683.batch",
+          "state": "FAILED"
+        },
+        {
+          "exit": "0:0",
+          "id": "21034683.extern",
+          "state": "COMPLETED"
+        }
+      ],
+      "terminal": true
+    },
+    "slurm_exit_vs_controller": "controller wrote a non-PASS result (CTRL:1021 exit 3)",
+    "state": "FAILED",
+    "terminal": true,
+    "time_limit_s": 57600
+  },
+  "schema": "pa-catalyst-readout-v1",
+  "slurm_log_tail": "{\"scientific_status\": \"INCONCLUSIVE\", \"scheduler_status\": \"COMPLIANT\", \"production_accepted\": false, \"call_count\": 1}\n",
+  "spec_sha256": "4bed5002a88857515940230b20ad59e6adc345e29d8567d5b9c5f5511b0b28a2",
+  "trial_dir_found": true
+}

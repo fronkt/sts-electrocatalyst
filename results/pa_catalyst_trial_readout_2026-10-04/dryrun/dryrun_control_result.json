@@ -1,0 +1,954 @@
+{
+  "baseline_frozen_adapter": {
+    "accepted": false,
+    "adapter_error": "AdapterError: one XML lda_plus_u required",
+    "controller_chain": [
+      {
+        "check": "process contract flags",
+        "detail": {
+          "HEA4_stall_observed": false,
+          "capture_error": null,
+          "failure_marker_observed": false,
+          "solver_limit_observed": false,
+          "supervisor_error": null,
+          "timed_out": false,
+          "within_per_call_cap": true
+        },
+        "result": "PASS",
+        "source": "pa_catalyst_trial.py:840-844"
+      },
+      {
+        "check": "registered-evaluated-boundary stop receipt",
+        "detail": "registered-evaluated-boundary",
+        "result": "PASS",
+        "source": "pa_catalyst_trial.py:845-846"
+      },
+      {
+        "check": "no stale EXIT file after shutdown",
+        "detail": {
+          "local_EXIT_files": [],
+          "remote_inventory_EXIT_files": []
+        },
+        "result": "PASS",
+        "source": "pa_catalyst_trial.py:847-849"
+      },
+      {
+        "check": "read_qe_arm (raw input/log/XML/process validation, 3 evaluated steps, clean stop)",
+        "detail": "AdapterError: one XML lda_plus_u required",
+        "result": "FAIL",
+        "source": "pa_catalyst_trial.py:850-854 -> pa_qe_adapter.py:761-914"
+      }
+    ],
+    "label": "frozen adapter, unpatched",
+    "summary": null,
+    "xml_lookups": [
+      {
+        "found": 1,
+        "parent": "espresso",
+        "wanted": "general_info"
+      },
+      {
+        "found": 1,
+        "parent": "general_info",
+        "wanted": "creator"
+      },
+      {
+        "found": 1,
+        "parent": "espresso",
+        "wanted": "parallel_info"
+      },
+      {
+        "found": 1,
+        "parent": "espresso",
+        "wanted": "input"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "atomic_structure"
+      },
+      {
+        "found": 1,
+        "parent": "atomic_structure",
+        "wanted": "atomic_positions"
+      },
+      {
+        "found": 1,
+        "parent": "atomic_structure",
+        "wanted": "cell"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "atomic_species"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "mass"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "pseudo_file"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "mass"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "pseudo_file"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "mass"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "pseudo_file"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "mass"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "pseudo_file"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "mass"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "pseudo_file"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "free_positions"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "electron_control"
+      },
+      {
+        "found": 1,
+        "parent": "electron_control",
+        "wanted": "conv_thr"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "basis"
+      },
+      {
+        "found": 1,
+        "parent": "basis",
+        "wanted": "ecutwfc"
+      },
+      {
+        "found": 1,
+        "parent": "basis",
+        "wanted": "ecutrho"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "spin"
+      },
+      {
+        "found": 1,
+        "parent": "spin",
+        "wanted": "lsda"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "control_variables"
+      },
+      {
+        "found": 1,
+        "parent": "control_variables",
+        "wanted": "forces"
+      },
+      {
+        "found": 1,
+        "parent": "control_variables",
+        "wanted": "forc_conv_thr"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "electron_control"
+      },
+      {
+        "found": 1,
+        "parent": "electron_control",
+        "wanted": "mixing_mode"
+      },
+      {
+        "found": 1,
+        "parent": "electron_control",
+        "wanted": "mixing_beta"
+      },
+      {
+        "found": 1,
+        "parent": "electron_control",
+        "wanted": "max_nstep"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "ion_control"
+      },
+      {
+        "found": 1,
+        "parent": "ion_control",
+        "wanted": "ion_dynamics"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "spin"
+      },
+      {
+        "found": 1,
+        "parent": "spin",
+        "wanted": "noncolin"
+      },
+      {
+        "found": 1,
+        "parent": "spin",
+        "wanted": "spinorbit"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "atomic_species"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "starting_magnetization"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "starting_magnetization"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "starting_magnetization"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "starting_magnetization"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "starting_magnetization"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "bands"
+      },
+      {
+        "found": 1,
+        "parent": "bands",
+        "wanted": "occupations"
+      },
+      {
+        "found": 1,
+        "parent": "bands",
+        "wanted": "smearing"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "symmetry_flags"
+      },
+      {
+        "found": 1,
+        "parent": "symmetry_flags",
+        "wanted": "nosym"
+      },
+      {
+        "found": 1,
+        "parent": "symmetry_flags",
+        "wanted": "noinv"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "k_points_IBZ"
+      },
+      {
+        "found": 1,
+        "parent": "k_points_IBZ",
+        "wanted": "monkhorst_pack"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "dft"
+      },
+      {
+        "found": 1,
+        "parent": "dft",
+        "wanted": "functional"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "dft"
+      },
+      {
+        "found": 0,
+        "parent": "dftU",
+        "wanted": "lda_plus_u"
+      }
+    ]
+  },
+  "contract_sha256": "67412c8363877f0a6407e382a4d3c33c6c0f6dac7b1f5de3e3968bf77755ae39",
+  "control_xml_sha256": "3b556aa74327969f2799e19c0a3ad9153e44ec33dd656e2332043221db0b699d",
+  "frozen_adapter_sha256": "255464215aa898d0c9d34317a1be9b16fb27ba6d35108e0ca78215331a628879",
+  "frozen_copy_sha256": "255464215aa898d0c9d34317a1be9b16fb27ba6d35108e0ca78215331a628879",
+  "mirror_control_stdout_sha256": "56c02e6db6618dd011d736827fe3646b7ea58de8060f858d0ede5b91a069becc",
+  "patched_copy_sha256": "e16c925c79897c89bb340b099811d181276677af8c48f965df773074eb92f820",
+  "patched_lda_plus_u_only": {
+    "accepted": true,
+    "adapter_error": null,
+    "controller_chain": [
+      {
+        "check": "process contract flags",
+        "detail": {
+          "HEA4_stall_observed": false,
+          "capture_error": null,
+          "failure_marker_observed": false,
+          "solver_limit_observed": false,
+          "supervisor_error": null,
+          "timed_out": false,
+          "within_per_call_cap": true
+        },
+        "result": "PASS",
+        "source": "pa_catalyst_trial.py:840-844"
+      },
+      {
+        "check": "registered-evaluated-boundary stop receipt",
+        "detail": "registered-evaluated-boundary",
+        "result": "PASS",
+        "source": "pa_catalyst_trial.py:845-846"
+      },
+      {
+        "check": "no stale EXIT file after shutdown",
+        "detail": {
+          "local_EXIT_files": [],
+          "remote_inventory_EXIT_files": []
+        },
+        "result": "PASS",
+        "source": "pa_catalyst_trial.py:847-849"
+      },
+      {
+        "check": "read_qe_arm (raw input/log/XML/process validation, 3 evaluated steps, clean stop)",
+        "detail": "returned a raw-validated arm",
+        "result": "PASS",
+        "source": "pa_catalyst_trial.py:850-854 -> pa_qe_adapter.py:761-914"
+      },
+      {
+        "check": "ordered global SCF counters equal the registered boundary [1,2,3]",
+        "detail": [
+          1,
+          2,
+          3
+        ],
+        "result": "PASS",
+        "source": "pa_catalyst_trial.py:855-856"
+      },
+      {
+        "check": "first-boundary SCF threshold equals registered 1e-6 Ry (control, candidate, fresh, reseed, negative)",
+        "detail": {
+          "deck_conv_thr_Ry": 1e-06,
+          "first_conv_thr_Ry": 1e-06
+        },
+        "result": "PASS",
+        "source": "pa_catalyst_trial.py:857-858 -> pa_qe_adapter.py:917-920"
+      },
+      {
+        "check": "control XML settings identity recorded for later arms",
+        "detail": "3bd17094ff7919c4d831d8725d6297eac21858be16143dae686883c27ea232f0",
+        "result": "PASS",
+        "source": "pa_catalyst_trial.py:859-860"
+      },
+      {
+        "check": "common_pseudo UPF copies match the launch-spec pins (checkable part of verify_sources)",
+        "detail": [
+          {
+            "mirror_sha256_matches_spec_pin": true,
+            "upf": "Co_pbe_v1.2.uspp.F.UPF"
+          },
+          {
+            "mirror_sha256_matches_spec_pin": true,
+            "upf": "cr_pbe_v1.5.uspp.F.UPF"
+          },
+          {
+            "mirror_sha256_matches_spec_pin": true,
+            "upf": "Cu.paw.z_11.ld1.psl.v1.0.0-low.upf"
+          },
+          {
+            "mirror_sha256_matches_spec_pin": true,
+            "upf": "mn_pbe_v1.5.uspp.F.UPF"
+          },
+          {
+            "mirror_sha256_matches_spec_pin": true,
+            "upf": "O.pbe-n-kjpaw_psl.0.1.UPF"
+          }
+        ],
+        "result": "PASS",
+        "source": "pa_catalyst_trial.py:872,714-723"
+      },
+      {
+        "check": "repo copies of the frozen dependency modules match their launch-spec pins",
+        "detail": [
+          {
+            "path": "pa_catalyst_trial.py",
+            "repo_sha256_matches_spec": true
+          },
+          {
+            "path": "pa_qe_adapter.py",
+            "repo_sha256_matches_spec": true
+          },
+          {
+            "path": "pa_checked_contract.py",
+            "repo_sha256_matches_spec": true
+          }
+        ],
+        "result": "PASS",
+        "source": "pa_catalyst_trial.py:716-717"
+      }
+    ],
+    "label": "scratch copy with only the lda_plus_u requirement removed",
+    "summary": {
+      "evaluations": [
+        {
+          "energy_Ry": -7551.866334708392,
+          "status": "CONVERGED"
+        },
+        {
+          "energy_Ry": -7551.86820512537,
+          "status": "CONVERGED"
+        },
+        {
+          "energy_Ry": -7551.869475892178,
+          "status": "CONVERGED"
+        }
+      ],
+      "evidence_sha256": "9fb608c33b1930ca9379fcc27e1ff78792cc4ba5bd51695adc5ad7430b2424b1",
+      "first_conv_thr_Ry": 1e-06,
+      "optimizer_counts": [
+        0,
+        1,
+        2
+      ],
+      "restart_fallback": false,
+      "runtime_parallel": {
+        "diagonalization_algorithm": "ELPA",
+        "elpa_subgroup": [
+          4,
+          4
+        ],
+        "npool": 8,
+        "nprocs": 128,
+        "nthreads": 1
+      },
+      "scf_counts": [
+        1,
+        2,
+        3
+      ],
+      "settings_identity": "fee4fc4720e219d82deb1f506f88f2c77b7c3fd1b63a84dd7d14fee53e0e9855",
+      "startup_history_deleted": false,
+      "startup_optimizer_initialized": true,
+      "upf_reads": [
+        {
+          "actual_logged_read_path": "/anvil/projects/x-che260157/sts_pa_catalyst_2026-10-03/trial_results/common_pseudo/Co_pbe_v1.2.uspp.F.UPF",
+          "md5": "5f91765df6ddd3222702df6e7b74a16d",
+          "sha256": "a5f392a0d35fc78cc9e2ac1636bb1cd02e9b80a063ea368e85be83b0e4523c45",
+          "species": "Co"
+        },
+        {
+          "actual_logged_read_path": "/anvil/projects/x-che260157/sts_pa_catalyst_2026-10-03/trial_results/common_pseudo/cr_pbe_v1.5.uspp.F.UPF",
+          "md5": "0d52af634a40206e4dee301ad30da4bf",
+          "sha256": "c7449bbfea358d76832cf2f7b43dc89101ead6891806773121bfaa93a140f6de",
+          "species": "Cr"
+        },
+        {
+          "actual_logged_read_path": "/anvil/projects/x-che260157/sts_pa_catalyst_2026-10-03/trial_results/common_pseudo/Cu.paw.z_11.ld1.psl.v1.0.0-low.upf",
+          "md5": "619f40885d92a09a85a8b37550532d0c",
+          "sha256": "b31028b2bae60cd9903260715a49b4c6d2b6dc654558c87023fa5206e427a16d",
+          "species": "Cu"
+        },
+        {
+          "actual_logged_read_path": "/anvil/projects/x-che260157/sts_pa_catalyst_2026-10-03/trial_results/common_pseudo/mn_pbe_v1.5.uspp.F.UPF",
+          "md5": "82ef2b46521d7a7d9e736dc3972e4928",
+          "sha256": "c5b6117e22f571895b69dbec8491df6afb2efee1206dad54680881dbd33eb8f0",
+          "species": "Mn"
+        },
+        {
+          "actual_logged_read_path": "/anvil/projects/x-che260157/sts_pa_catalyst_2026-10-03/trial_results/common_pseudo/O.pbe-n-kjpaw_psl.0.1.UPF",
+          "md5": "0234752ac141de4415c5fc33072bef88",
+          "sha256": "7c4b6ed541f83d0afdf5c1d3a8c611340f073f3e2b11e95b7963bb2ee26929aa",
+          "species": "O"
+        }
+      ],
+      "xml_exit_status": 255,
+      "xml_settings_identity": "3bd17094ff7919c4d831d8725d6297eac21858be16143dae686883c27ea232f0"
+    },
+    "xml_lookups": [
+      {
+        "found": 1,
+        "parent": "espresso",
+        "wanted": "general_info"
+      },
+      {
+        "found": 1,
+        "parent": "general_info",
+        "wanted": "creator"
+      },
+      {
+        "found": 1,
+        "parent": "espresso",
+        "wanted": "parallel_info"
+      },
+      {
+        "found": 1,
+        "parent": "espresso",
+        "wanted": "input"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "atomic_structure"
+      },
+      {
+        "found": 1,
+        "parent": "atomic_structure",
+        "wanted": "atomic_positions"
+      },
+      {
+        "found": 1,
+        "parent": "atomic_structure",
+        "wanted": "cell"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "atomic_species"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "mass"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "pseudo_file"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "mass"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "pseudo_file"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "mass"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "pseudo_file"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "mass"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "pseudo_file"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "mass"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "pseudo_file"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "free_positions"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "electron_control"
+      },
+      {
+        "found": 1,
+        "parent": "electron_control",
+        "wanted": "conv_thr"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "basis"
+      },
+      {
+        "found": 1,
+        "parent": "basis",
+        "wanted": "ecutwfc"
+      },
+      {
+        "found": 1,
+        "parent": "basis",
+        "wanted": "ecutrho"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "spin"
+      },
+      {
+        "found": 1,
+        "parent": "spin",
+        "wanted": "lsda"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "control_variables"
+      },
+      {
+        "found": 1,
+        "parent": "control_variables",
+        "wanted": "forces"
+      },
+      {
+        "found": 1,
+        "parent": "control_variables",
+        "wanted": "forc_conv_thr"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "electron_control"
+      },
+      {
+        "found": 1,
+        "parent": "electron_control",
+        "wanted": "mixing_mode"
+      },
+      {
+        "found": 1,
+        "parent": "electron_control",
+        "wanted": "mixing_beta"
+      },
+      {
+        "found": 1,
+        "parent": "electron_control",
+        "wanted": "max_nstep"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "ion_control"
+      },
+      {
+        "found": 1,
+        "parent": "ion_control",
+        "wanted": "ion_dynamics"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "spin"
+      },
+      {
+        "found": 1,
+        "parent": "spin",
+        "wanted": "noncolin"
+      },
+      {
+        "found": 1,
+        "parent": "spin",
+        "wanted": "spinorbit"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "atomic_species"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "starting_magnetization"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "starting_magnetization"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "starting_magnetization"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "starting_magnetization"
+      },
+      {
+        "found": 1,
+        "parent": "species",
+        "wanted": "starting_magnetization"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "bands"
+      },
+      {
+        "found": 1,
+        "parent": "bands",
+        "wanted": "occupations"
+      },
+      {
+        "found": 1,
+        "parent": "bands",
+        "wanted": "smearing"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "symmetry_flags"
+      },
+      {
+        "found": 1,
+        "parent": "symmetry_flags",
+        "wanted": "nosym"
+      },
+      {
+        "found": 1,
+        "parent": "symmetry_flags",
+        "wanted": "noinv"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "k_points_IBZ"
+      },
+      {
+        "found": 1,
+        "parent": "k_points_IBZ",
+        "wanted": "monkhorst_pack"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "dft"
+      },
+      {
+        "found": 1,
+        "parent": "dft",
+        "wanted": "functional"
+      },
+      {
+        "found": 1,
+        "parent": "input",
+        "wanted": "dft"
+      },
+      {
+        "found": 1,
+        "parent": "dftU",
+        "wanted": "lda_plus_u_kind"
+      },
+      {
+        "found": 1,
+        "parent": "dftU",
+        "wanted": "U_projection_type"
+      },
+      {
+        "found": 1,
+        "parent": "step",
+        "wanted": "scf_conv"
+      },
+      {
+        "found": 1,
+        "parent": "scf_conv",
+        "wanted": "convergence_achieved"
+      },
+      {
+        "found": 1,
+        "parent": "step",
+        "wanted": "total_energy"
+      },
+      {
+        "found": 1,
+        "parent": "total_energy",
+        "wanted": "etot"
+      },
+      {
+        "found": 1,
+        "parent": "step",
+        "wanted": "forces"
+      },
+      {
+        "found": 1,
+        "parent": "step",
+        "wanted": "atomic_structure"
+      },
+      {
+        "found": 1,
+        "parent": "atomic_structure",
+        "wanted": "atomic_positions"
+      },
+      {
+        "found": 1,
+        "parent": "atomic_structure",
+        "wanted": "cell"
+      },
+      {
+        "found": 1,
+        "parent": "step",
+        "wanted": "scf_conv"
+      },
+      {
+        "found": 1,
+        "parent": "scf_conv",
+        "wanted": "convergence_achieved"
+      },
+      {
+        "found": 1,
+        "parent": "step",
+        "wanted": "total_energy"
+      },
+      {
+        "found": 1,
+        "parent": "total_energy",
+        "wanted": "etot"
+      },
+      {
+        "found": 1,
+        "parent": "step",
+        "wanted": "forces"
+      },
+      {
+        "found": 1,
+        "parent": "step",
+        "wanted": "atomic_structure"
+      },
+      {
+        "found": 1,
+        "parent": "atomic_structure",
+        "wanted": "atomic_positions"
+      },
+      {
+        "found": 1,
+        "parent": "atomic_structure",
+        "wanted": "cell"
+      },
+      {
+        "found": 1,
+        "parent": "step",
+        "wanted": "scf_conv"
+      },
+      {
+        "found": 1,
+        "parent": "scf_conv",
+        "wanted": "convergence_achieved"
+      },
+      {
+        "found": 1,
+        "parent": "step",
+        "wanted": "total_energy"
+      },
+      {
+        "found": 1,
+        "parent": "total_energy",
+        "wanted": "etot"
+      },
+      {
+        "found": 1,
+        "parent": "step",
+        "wanted": "forces"
+      },
+      {
+        "found": 1,
+        "parent": "step",
+        "wanted": "atomic_structure"
+      },
+      {
+        "found": 1,
+        "parent": "atomic_structure",
+        "wanted": "atomic_positions"
+      },
+      {
+        "found": 1,
+        "parent": "atomic_structure",
+        "wanted": "cell"
+      },
+      {
+        "found": 1,
+        "parent": "espresso",
+        "wanted": "output"
+      },
+      {
+        "found": 1,
+        "parent": "espresso",
+        "wanted": "exit_status"
+      },
+      {
+        "found": 1,
+        "parent": "output",
+        "wanted": "atomic_structure"
+      },
+      {
+        "found": 1,
+        "parent": "atomic_structure",
+        "wanted": "atomic_positions"
+      },
+      {
+        "found": 1,
+        "parent": "atomic_structure",
+        "wanted": "cell"
+      }
+    ]
+  }
+}
