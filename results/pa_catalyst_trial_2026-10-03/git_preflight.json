@@ -1,0 +1,84 @@
+{
+  "read_only": true,
+  "commands": {
+    "head": {
+      "args": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "returncode": 0,
+      "stdout": "20119bb5cedea1ac957920133a6f7ff3396f7924\n",
+      "stderr": ""
+    },
+    "branch": {
+      "args": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "returncode": 0,
+      "stdout": "r0-catalysis-revival\n",
+      "stderr": ""
+    },
+    "status": {
+      "args": [
+        "git",
+        "status",
+        "--short",
+        "--untracked-files=all"
+      ],
+      "returncode": 0,
+      "stdout": " M tasks/todo.md\n?? anvil/89_pa_catalyst_boundary_trial.slurm\n?? docs/research/pa-catalyst-trial-2026-10-03.md\n?? runs/hea/lowtail_validation_2026-09-16/Cu8Cr23Mn35Co34__s20_site2/O_unrecon__atomic.KILLED\n?? runs/hea/lowtail_validation_2026-09-16/Cu8Cr23Mn35Co34__s20_site2/O_unrecon__atomic.out\n?? runs/hea/lowtail_validation_2026-09-16/Cu8Cr23Mn35Co34__s20_site2/O_unrecon__atomic.qc.json\n?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_recon__atomic.KILLED\n?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_recon__atomic.out\n?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_recon__atomic.qc.json\n?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_unrecon__atomic.KILLED\n?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_unrecon__atomic.out\n?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/O_unrecon__atomic.qc.json\n?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/slab__atomic.KILLED\n?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/slab__atomic.out\n?? runs/hea/lowtail_validation_2026-09-16/Fe25Co25Ni25Cr25__s2_site0/slab__atomic.qc.json\n?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_recon__atomic.REJECTED\n?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_recon__atomic.out\n?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_recon__atomic.qc.json\n?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_unrecon__atomic.out\n?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_unrecon__atomic.projwfc.in\n?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/O_unrecon__atomic.qc.json\n?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/slab__atomic.out\n?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/slab__atomic.projwfc.in\n?? runs/hea/lowtail_validation_2026-09-16/Ni31Cr29Cu5Mn35__s1_site0/slab__atomic.qc.json\n?? src/dft/pa_catalyst_trial.py\n?? src/dft/pa_qe_adapter.py\n?? tests/test_pa_catalyst_trial.py\n?? tests/test_pa_qe_adapter.py\n",
+      "stderr": ""
+    },
+    "source_tracked": {
+      "args": [
+        "git",
+        "ls-files",
+        "--",
+        "runs/hea/lowtail_low_state_restart_2026-09-22/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.in"
+      ],
+      "returncode": 0,
+      "stdout": "runs/hea/lowtail_low_state_restart_2026-09-22/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.in\n",
+      "stderr": ""
+    },
+    "staged": {
+      "args": [
+        "git",
+        "diff",
+        "--cached",
+        "--name-only"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "remotes": {
+      "args": [
+        "git",
+        "remote",
+        "-v"
+      ],
+      "returncode": 0,
+      "stdout": "origin\thttps://github.com/fronkt/sts-electrocatalyst.git (fetch)\norigin\thttps://github.com/fronkt/sts-electrocatalyst.git (push)\n",
+      "stderr": ""
+    },
+    "attributes": {
+      "args": [
+        "git",
+        "check-attr",
+        "text",
+        "eol",
+        "--",
+        "src/dft/pa_qe_adapter.py",
+        "src/dft/pa_catalyst_trial.py",
+        "anvil/89_pa_catalyst_boundary_trial.slurm"
+      ],
+      "returncode": 0,
+      "stdout": "src/dft/pa_qe_adapter.py: text: unspecified\nsrc/dft/pa_qe_adapter.py: eol: unspecified\nsrc/dft/pa_catalyst_trial.py: text: unspecified\nsrc/dft/pa_catalyst_trial.py: eol: unspecified\nanvil/89_pa_catalyst_boundary_trial.slurm: text: set\nanvil/89_pa_catalyst_boundary_trial.slurm: eol: lf\n",
+      "stderr": ""
+    }
+  },
+  "new_jobs": 0
+}

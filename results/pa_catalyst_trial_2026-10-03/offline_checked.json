@@ -1,0 +1,237 @@
+{
+  "scope": "ONE_BOUNDARY_TRIAL_PRELAUNCH_ONLY",
+  "label": "checked",
+  "new_jobs_submitted": 0,
+  "qe_executed": false,
+  "production_accepted": false,
+  "successful": true,
+  "before": {
+    "tracked_files": 9816,
+    "unrelated_files": 21,
+    "errors": []
+  },
+  "evidence_tests": {
+    "tests_run": 83,
+    "successful": true,
+    "failures": 0,
+    "errors": 0
+  },
+  "compute_tests": {
+    "args": [
+      "C:\\Users\\frank\\AppData\\Local\\Programs\\Python\\Python312\\pythonw.exe",
+      "-B",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/test_pa_qe_adapter.py",
+      "tests/test_pa_catalyst_trial.py",
+      "tests/test_pa_catalyst_watch.py",
+      "tests/test_pa_checked_contract.py",
+      "tests/test_pa_restart_diagnostic.py",
+      "tests/test_pa_tiny_restart_probe.py",
+      "tests/test_pa_tiny_raw_readout.py",
+      "tests/test_pa_tiny_readonly_watch.py",
+      "tests/test_research_batch_checked.py",
+      "tests/test_research_batch_seeded.py",
+      "tests/test_lowtail_batch_launch.py"
+    ],
+    "returncode": 0,
+    "stdout": "..............................s.....s................................... [ 14%]\n........................................................................ [ 29%]\n................................................................s....... [ 43%]\n................................................................. [ 56%]\n........................................................................ [ 71%]\n........................................................................ [ 86%]\n.....................................................................    [100%]\n491 passed, 3 skipped, 7 subtests passed in 8.87s\n",
+    "stderr": ""
+  },
+  "code_pins": {
+    "src/dft/pa_qe_adapter.py": "255464215aa898d0c9d34317a1be9b16fb27ba6d35108e0ca78215331a628879",
+    "src/dft/pa_catalyst_trial.py": "d00656aa0e7e666f75900190ccc703c1fd0fee8293738a311ea9ab5880b368ce",
+    "tests/test_pa_qe_adapter.py": "2e0814f7e179360c9e6ca8f8bc08b66115166a8ef45e536612f8f006230432a0",
+    "tests/test_pa_catalyst_trial.py": "5ef87c78939714a47d3f8933ff40202f37d307ab8887c87eaa63bf95f4562994",
+    "tests/test_pa_catalyst_watch.py": "53e9fe84fe2ffda2efebcf80344bac575368db9d55f9595d2a1e393a0f3b7511",
+    "anvil/89_pa_catalyst_boundary_trial.slurm": "0ff3deac8c28537a197020e832903f61d47864113406c616f9f9462bb5cc1ed3",
+    "results/pa_catalyst_trial_2026-10-03/source_boundary_review.md": "7efb6e27d9859eff629df0cc6dfcd90ef9e17b74819e9500ee398b5e432addac",
+    "results/pa_catalyst_trial_2026-10-03/launch_spec.json": "4bed5002a88857515940230b20ad59e6adc345e29d8567d5b9c5f5511b0b28a2",
+    "results/pa_catalyst_trial_2026-10-03/replay_retained_raw.py": "e004cd7dc62442b7d9428788bf2e3765145f17aa1c57c889df6f8bbd7c3c88e5",
+    "results/pa_catalyst_trial_2026-10-03/watch_trial_readonly.py": "7ff35fc877decfbeddcf24f3becaf75af235d07b9e724d6a56ff916163fef08e",
+    "results/pa_catalyst_trial_2026-10-03/verify_trial_offline.py": "3e0ec4e1c196ede694481d81f17ca0093fd9bf3a22734d22b63f7a13e09905d6"
+  },
+  "actual_raw_replay_pass": true,
+  "linux_guard_checks": 16,
+  "scientific_verifiers_pass": true,
+  "registered_recovery_reads": 42,
+  "canonical_rows": 2496,
+  "checklist_rows": 144,
+  "source_files": [
+    {
+      "path": "Modules/qes_libs_module.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/Modules/qes_libs_module.f90",
+      "bytes": 661,
+      "sha256": "276b2743686dd1b669027ba1e72f477b0fb8e8b807fe5b9c95488e3616c9e4b5"
+    },
+    {
+      "path": "Modules/qes_init_module.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/Modules/qes_init_module.f90",
+      "bytes": 160169,
+      "sha256": "2e81cdbd15d941d23deb371190d5ea41bd51bf90c82f8aae0aa96b413417637f"
+    },
+    {
+      "path": "PW/src/set_occupations.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/PW/src/set_occupations.f90",
+      "bytes": 4905,
+      "sha256": "feb6505fd556b89d64f103b7709de83136d4c3277e594480a9790283235ce985"
+    },
+    {
+      "path": "PW/src/forces.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/PW/src/forces.f90",
+      "bytes": 17858,
+      "sha256": "acc46cb14d2f08f2dbedeb0451f69e29d21ae880d3009886041cf71cb1e55efa"
+    },
+    {
+      "path": "PW/src/pw_restart_new.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/PW/src/pw_restart_new.f90",
+      "bytes": 73482,
+      "sha256": "82dfdef8ded7f853b705762036fda7a7694e3a4af6e00e1bfeffa50d35cc46ef"
+    },
+    {
+      "path": "Modules/io_files.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/Modules/io_files.f90",
+      "bytes": 20198,
+      "sha256": "9882ee911e667b836024601be193177a6eb5bc4284ddbf7b217f81bb1f9312fd"
+    },
+    {
+      "path": "PW/src/pw_init_qexsd_input.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/PW/src/pw_init_qexsd_input.f90",
+      "bytes": 42901,
+      "sha256": "6ae9b025936035e551cb2d8ee9d4a60325b9df6f6c53be096377349ffe1fe56a"
+    },
+    {
+      "path": "Modules/qexsd_input.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/Modules/qexsd_input.f90",
+      "bytes": 42238,
+      "sha256": "fd4c91478fb8520e786c90c6a90081ce769f4b168cc39a76f210641a9ec03c25"
+    },
+    {
+      "path": "Modules/qexsd.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/Modules/qexsd.f90",
+      "bytes": 25814,
+      "sha256": "4f55aa0660ee30a616ade35e0a04ceec133c3631e5dce5d5750f1303d2193782"
+    },
+    {
+      "path": "Modules/input_parameters.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/Modules/input_parameters.f90",
+      "bytes": 85551,
+      "sha256": "0a871234d0983b2203c1e3550a1711cdf43cbc2145ce3d4e6f3285f814336f56"
+    },
+    {
+      "path": "Modules/read_namelists.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/Modules/read_namelists.f90",
+      "bytes": 101400,
+      "sha256": "dacf74da652b2a07b22e27b383c828885f58078287a84143feb5a6c224b9f7ea"
+    },
+    {
+      "path": "PW/src/run_pwscf.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/PW/src/run_pwscf.f90",
+      "bytes": 17912,
+      "sha256": "3783fee67652c4d220f94d6a59a16ae5a0c2f8d34589551e35177419861ce8ae"
+    },
+    {
+      "path": "PW/src/electrons.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/PW/src/electrons.f90",
+      "bytes": 72280,
+      "sha256": "e62ea5f6c65039481f5fa5b580765dac5e3074e9e2d40c0c7ab9d7acd3be8175"
+    },
+    {
+      "path": "PW/src/move_ions.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/PW/src/move_ions.f90",
+      "bytes": 17260,
+      "sha256": "29e7145ca0db1fc675a179baf28639f22138bf068dbea78833ae4c6dc67e0b2f"
+    },
+    {
+      "path": "PW/src/punch.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/PW/src/punch.f90",
+      "bytes": 6994,
+      "sha256": "288fe98445b014f9693eeaca53cf90f1deeb080532fe747bcdc88452e39f6cd8"
+    },
+    {
+      "path": "PW/src/input.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/PW/src/input.f90",
+      "bytes": 72486,
+      "sha256": "bbfe23ac73ccd363812dfd1fb2d6b1784db7e2d430d7a18df177108d3ea4d85a"
+    },
+    {
+      "path": "Modules/bfgs_module.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/Modules/bfgs_module.f90",
+      "bytes": 41307,
+      "sha256": "80417f1e5cd5f52a84ab81878d50175ea078071ce3b76fcb4a959089ab4d9432"
+    },
+    {
+      "path": "Modules/check_stop.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/Modules/check_stop.f90",
+      "bytes": 6209,
+      "sha256": "9ace8cf292c57c671f7df629643817f4342dd27f521b96b6908ebcf741211b86"
+    },
+    {
+      "path": "Modules/read_pseudo.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/Modules/read_pseudo.f90",
+      "bytes": 18993,
+      "sha256": "24e93b4fe7214d978034441dba42cbcc7407e2bff9b11c7c891ccb55f0c94fc4"
+    },
+    {
+      "path": "PW/src/utils.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/PW/src/utils.f90",
+      "bytes": 19873,
+      "sha256": "362438958d6ffd70fe7a454f56e27455811c44d1de3a0bfdaa44aa1ea39f20bd"
+    },
+    {
+      "path": "Modules/constants.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/Modules/constants.f90",
+      "bytes": 5984,
+      "sha256": "56c39e90c6f0592aff13972cd090292024a3d4e9e86d0ce4fdfdb5643f1ac1c0"
+    },
+    {
+      "path": "Modules/Makefile",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/Modules/Makefile",
+      "bytes": 3934,
+      "sha256": "bffcfc7edf22ad11af1521d935a4f0920ed8c5665e7296bc4a225ab389d931c1"
+    },
+    {
+      "path": "PW/src/Makefile",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/PW/src/Makefile",
+      "bytes": 5213,
+      "sha256": "88a18e47a92b82aeed3d55239c4b615b58d2238b277a62c685fe354bcfaefb02"
+    },
+    {
+      "path": "Modules/qexsd_copy.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/Modules/qexsd_copy.f90",
+      "bytes": 47340,
+      "sha256": "850f6afe33a0871bd88f3e87069a902f2b1cd152973667b0b4bba1181d5b7a23"
+    },
+    {
+      "path": "Modules/wgauss.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/Modules/wgauss.f90",
+      "bytes": 2505,
+      "sha256": "78145ca2423a14f3a761737f9eb54ed6e52755c441bd79997da3a138f5d42a8c"
+    },
+    {
+      "path": "PW/src/add_qexsd_step.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/PW/src/add_qexsd_step.f90",
+      "bytes": 4396,
+      "sha256": "3c9e1a63049e9c52d40b7b48deae1651a9e9c559c3f13440dc22866b56cfbf21"
+    },
+    {
+      "path": "Modules/qexsd_init.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/Modules/qexsd_init.f90",
+      "bytes": 74976,
+      "sha256": "aa4d0cab034ec79d39a55afa1ae5f6b78fb08c5864789a05e16eae69dd59231d"
+    }
+  ],
+  "unsuccessful_source_locations_retained": [
+    {
+      "path": "PW/src/schema.f90",
+      "url": "https://raw.githubusercontent.com/QEF/q-e/qe-7.5/PW/src/schema.f90",
+      "receipt": "qe_source_schema_retrieval.json"
+    }
+  ],
+  "after": {
+    "tracked_files": 9816,
+    "unrelated_files": 21,
+    "errors": []
+  }
+}

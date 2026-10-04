@@ -1,5 +1,27 @@
 # STS 2027 — TODO
 
+## 2026-10-03 — Approved catalyst P-A adapter and one-boundary trial
+
+Scope: user approves implementation and the dated proposed trial. Implement a
+source-bound QE7.5 adapter for the existing Cu8Cr23Mn35Co34 seed20/site2 cycle5
+low-state clean slab. One regular whole128-core Anvil job,16h/2048CPU SU maximum,
+memory<=200GiB, at most six sequential solver calls<=2h each. No requeue, automatic
+retry, array, chained job, highmem/GPU, production relaxation, S8 or melt release.
+The approval does not bypass raw-source, scientific or resource preflight gates.
+
+- [x] Pin the current Git/scientific/source checkpoint and unrelated work; verify exact slab/deck/UPF/runtime identity, live allocation and existing queue without launching compute. HEAD20119bb5;9816 tracked and21 unrelated byte pins. Local/remote72-atom deck bytes matchdfed65ab..., known four-file seed and five UPFs match, QE7.5 binary1d66c785... and MPI5.0.10a256bdce... verify. WholenodeUP,CPU balance36878.2SU,empty user queue; exact allocation and balance rechecked again at release. Initial two read-only parser failures retained, not compute/access failures.
+- [x] Source-review first/third evaluated-boundary stop semantics and raw geometry/energy/force/checkpoint bindings; specify controller versus post-hoc audit responsibilities. Official27-file cache pinned; actual seed/deck72atom/fullcell/216mask correspondence passes. First/thirdSCF-cycle observer, maskedforces, fractionalBFGS, sourceunitexceptions and XMLbandgroup/actualELPA distinction verified. Memo7efb6e27...; raw adapter/runtime acceptance remains separate.
+- [x] Implement the additive real adapter, full checkpoint isolation/copy, fresh-decision-before-resume, intentional reseed/reset and bounded six-arm supervisor; test adversarial fixtures and replay retained raw evidence. Exact reviewed code/runtime/rawsettings bindings, observed lowerstate-reseed retention and collective7200s teardown gates implemented. Current targeted161pass/2Windows skips; actual tiny candidate raw/BFGS replay passes. Failed initial fixtures retained, no QE/job yet.
+- [x] Independently review implementation and trial inputs; run fresh relevant regressions, Linux symlink guards and exact preservation checks. Refuse launch on any unresolved blocking finding. IndependentfinalGO0d8c4e0e... for exactboundedtrial only;83evidence/491compute/7subtests, bothscientificverifiers,16actualLinuxFSchecks plusrawtinyreplay,9816+21before/afterpins pass. ThreeWindowsFSskips coveredseparatelyLinux. Finalspec4bed5002..., productionfalse; remote/live/runtimegates stillmandatory.
+- [ ] Commit/push the reviewed implementation locally first; stage the exact remote package, verify build/parallelization/settings/UPFs, balance, memory/AllocTRES assumptions and singleton2048SU/16h cap; submit once only if all gates pass.
+- [ ] Monitor the bounded trial, retain immutable scheduler/raw-call/checkpoint receipts, report numerical acceptance or inconclusive/failure without rerun or production claims, and record actual SU separately from the literature budget.
+- [ ] Verify scientific/history preservation, commit/push explicit non-secret results, and update memory/review with actual outcomes and the next production/melt gates.
+
+Plan check-in: checkpoint and source-boundary review first; implementation and
+adversarial/raw replay tests second; independent launch gate third; only then the
+single approved Anvil trial and acceptance readout. Literature estimate remains
+$1.1105254/$50 with no paid API work planned. Review: pending.
+
 ## 2026-10-03 — Eligible evidence extraction and offline catalyst P-A integration
 
 Scope: extract S29420/S29447 without altering screening decisions; prepare and

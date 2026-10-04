@@ -1,0 +1,17 @@
+{
+  "args": [
+    "C:\\Users\\frank\\AppData\\Local\\Programs\\Python\\Python312\\pythonw.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_pa_qe_adapter.py",
+    "tests/test_pa_catalyst_trial.py"
+  ],
+  "returncode": 1,
+  "stdout": "..............................ss........................................ [ 48%]\n...............................................F........................ [ 96%]\n.....                                                                    [100%]\n================================== FAILURES ===================================\n____________ test_teardown_waits_share_remaining_literal_deadline _____________\n\ntmp_path = WindowsPath('C:/Users/frank/AppData/Local/Temp/pytest-of-unknown/pytest-100/test_teardown_waits_share_rema0')\nmonkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000027821F76090>\n\n    def test_teardown_waits_share_remaining_literal_deadline(tmp_path, monkeypatch):\n        clock = Clock()\n        clock.value = 7198\n        waits, signals = [], []\n        class UnreapedProcess:\n            pid = 812345\n            def poll(self):\n                return None\n            def wait(self, *, timeout):\n                waits.append(timeout)\n                clock.value += timeout\n                raise subprocess.TimeoutExpired(\"owned fake process\", timeout)\n>       monkeypatch.setattr(trial.os, \"killpg\", lambda pid, sig: signals.append((pid, sig)))\nE       AttributeError: <module 'os' (frozen)> has no attribute 'killpg'\n\ntests\\test_pa_catalyst_trial.py:325: AttributeError\n=========================== short test summary info ===========================\nFAILED tests/test_pa_catalyst_trial.py::test_teardown_waits_share_remaining_literal_deadline\n1 failed, 146 passed, 2 skipped in 3.46s\n",
+  "stderr": "",
+  "scope": "OFFLINE_PROCESS_DOUBLES_ONLY",
+  "qe_executed": false,
+  "new_jobs": 0
+}
