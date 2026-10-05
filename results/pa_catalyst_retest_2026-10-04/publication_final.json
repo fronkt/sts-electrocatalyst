@@ -1,0 +1,3692 @@
+{
+  "scope": "REVIEWED_ONE_BOUNDARY_RETEST_PRELAUNCH_PACKAGE",
+  "successful": true,
+  "commands": [
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "rev-parse",
+        "HEAD"
+      ],
+      "returncode": 0,
+      "stdout": "bf07807d766aca767fbcfa1f36fdf2b687d260ea\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "branch",
+        "--show-current"
+      ],
+      "returncode": 0,
+      "stdout": "r0-catalysis-revival\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "diff",
+        "--cached",
+        "--name-only"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "diff",
+        "--name-only"
+      ],
+      "returncode": 0,
+      "stdout": "results/pa_catalyst_trial_readout_prep_2026-10-04/readout_trial.py\nresults/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py\ntasks/todo.md\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "add",
+        "-f",
+        "--",
+        "anvil/90_pa_catalyst_retest.slurm",
+        "docs/research/pa-catalyst-retest-2026-10-04.md",
+        "results/pa_catalyst_retest_2026-10-04/.gitattributes",
+        "results/pa_catalyst_retest_2026-10-04/adapter_v2_vs_frozen.diff",
+        "results/pa_catalyst_retest_2026-10-04/audit_real_outputs.json",
+        "results/pa_catalyst_retest_2026-10-04/audit_real_outputs.py",
+        "results/pa_catalyst_retest_2026-10-04/audit_table.md",
+        "results/pa_catalyst_retest_2026-10-04/build_fixtures.py",
+        "results/pa_catalyst_retest_2026-10-04/build_historical_snapshot.py",
+        "results/pa_catalyst_retest_2026-10-04/build_launch_spec.py",
+        "results/pa_catalyst_retest_2026-10-04/capture_pins.py",
+        "results/pa_catalyst_retest_2026-10-04/commit_paths.json",
+        "results/pa_catalyst_retest_2026-10-04/controller_retest_vs_frozen.diff",
+        "results/pa_catalyst_retest_2026-10-04/cost_envelope.json",
+        "results/pa_catalyst_retest_2026-10-04/cost_envelope.py",
+        "results/pa_catalyst_retest_2026-10-04/focused-verification-checked.job.json",
+        "results/pa_catalyst_retest_2026-10-04/focused-verification-checked.log",
+        "results/pa_catalyst_retest_2026-10-04/focused-verification-checked.status.json",
+        "results/pa_catalyst_retest_2026-10-04/focused-verification.job.json",
+        "results/pa_catalyst_retest_2026-10-04/focused-verification.log",
+        "results/pa_catalyst_retest_2026-10-04/focused-verification.status.json",
+        "results/pa_catalyst_retest_2026-10-04/historical_citation_rebinding.json",
+        "results/pa_catalyst_retest_2026-10-04/independent_launch_review_before_lf.md",
+        "results/pa_catalyst_retest_2026-10-04/independent_launch_review_before_lf_pins.json",
+        "results/pa_catalyst_retest_2026-10-04/independent_launch_review_final.md",
+        "results/pa_catalyst_retest_2026-10-04/independent_launch_review_final_pins.json",
+        "results/pa_catalyst_retest_2026-10-04/independent_launch_review_initial.md",
+        "results/pa_catalyst_retest_2026-10-04/independent_launch_review_initial_checked.md",
+        "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-held-validation-2026-10-04.py.txt",
+        "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-release-2026-10-04.py.txt",
+        "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-remote-stage-2026-10-04.py.txt",
+        "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-submit-held-2026-10-04.py.txt",
+        "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/watch_retest_readonly.py.txt",
+        "results/pa_catalyst_retest_2026-10-04/launch_spec.json",
+        "results/pa_catalyst_retest_2026-10-04/line_ending_equivalence.json",
+        "results/pa_catalyst_retest_2026-10-04/mutation_checks.json",
+        "results/pa_catalyst_retest_2026-10-04/offline-verification-checked.job.json",
+        "results/pa_catalyst_retest_2026-10-04/offline-verification-checked.log",
+        "results/pa_catalyst_retest_2026-10-04/offline-verification-checked.status.json",
+        "results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.job.json",
+        "results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.log",
+        "results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.status.json",
+        "results/pa_catalyst_retest_2026-10-04/offline-verification-final.job.json",
+        "results/pa_catalyst_retest_2026-10-04/offline-verification-final.log",
+        "results/pa_catalyst_retest_2026-10-04/offline-verification-final.status.json",
+        "results/pa_catalyst_retest_2026-10-04/offline_initial.json",
+        "results/pa_catalyst_retest_2026-10-04/offline_release.json",
+        "results/pa_catalyst_retest_2026-10-04/offline_release_lf.json",
+        "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-held-validation-2026-10-04.py",
+        "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-release-2026-10-04.py",
+        "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-remote-stage-2026-10-04.py",
+        "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-submit-held-2026-10-04.py",
+        "results/pa_catalyst_retest_2026-10-04/pins.json",
+        "results/pa_catalyst_retest_2026-10-04/provenance.md",
+        "results/pa_catalyst_retest_2026-10-04/publish_reviewed_package.py",
+        "results/pa_catalyst_retest_2026-10-04/publish_whitespace_refusal.json",
+        "results/pa_catalyst_retest_2026-10-04/readout_trial_before_snapshot.py",
+        "results/pa_catalyst_retest_2026-10-04/render_audit_table.py",
+        "results/pa_catalyst_retest_2026-10-04/run_mutation_checks.py",
+        "results/pa_catalyst_retest_2026-10-04/scientific_initial/si_round_verification.json",
+        "results/pa_catalyst_retest_2026-10-04/scientific_initial/verification.json",
+        "results/pa_catalyst_retest_2026-10-04/scientific_release/si_round_verification.json",
+        "results/pa_catalyst_retest_2026-10-04/scientific_release/verification.json",
+        "results/pa_catalyst_retest_2026-10-04/scientific_release_lf/si_round_verification.json",
+        "results/pa_catalyst_retest_2026-10-04/scientific_release_lf/verification.json",
+        "results/pa_catalyst_retest_2026-10-04/snapshot-build.job.json",
+        "results/pa_catalyst_retest_2026-10-04/snapshot-build.log",
+        "results/pa_catalyst_retest_2026-10-04/snapshot-build.status.json",
+        "results/pa_catalyst_retest_2026-10-04/source_xml_input_review.md",
+        "results/pa_catalyst_retest_2026-10-04/stale_verification_stop.json",
+        "results/pa_catalyst_retest_2026-10-04/stop-stale-verification.job.json",
+        "results/pa_catalyst_retest_2026-10-04/stop-stale-verification.log",
+        "results/pa_catalyst_retest_2026-10-04/stop-stale-verification.status.json",
+        "results/pa_catalyst_retest_2026-10-04/test_readout_trial_before_lf.py",
+        "results/pa_catalyst_retest_2026-10-04/test_readout_trial_before_snapshot.py",
+        "results/pa_catalyst_retest_2026-10-04/verification-process-observation.job.json",
+        "results/pa_catalyst_retest_2026-10-04/verification-process-observation.log",
+        "results/pa_catalyst_retest_2026-10-04/verification-process-observation.status.json",
+        "results/pa_catalyst_retest_2026-10-04/verification_final_summary.md",
+        "results/pa_catalyst_retest_2026-10-04/verification_replan.md",
+        "results/pa_catalyst_retest_2026-10-04/verify_retest_offline.py",
+        "results/pa_catalyst_retest_2026-10-04/watch_retest_readonly.py",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/.gitattributes",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot.json",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/anvil/89_pa_catalyst_boundary_trial.slurm",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/eligible-comparison-pa-readiness-2026-10-03.md",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/implementation_findings.md",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/independent_launch_review.md",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/launch_spec.json",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/source_boundary_review.md",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/watch_trial_readonly.py",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/runs/hea/lowtail_low_state_restart_2026-09-22/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.in",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_catalyst_trial.py",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_checked_contract.py",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_qe_adapter.py",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_sources.py",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/readout_trial.py",
+        "results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py",
+        "src/dft/pa_catalyst_retest.py",
+        "src/dft/pa_qe_adapter_v2.py",
+        "tasks/todo.md",
+        "tests/fixtures/qe75_real/.gitattributes",
+        "tests/fixtures/qe75_real/README.txt",
+        "tests/fixtures/qe75_real/control/common_pseudo/Co_pbe_v1.2.uspp.F.UPF.gz",
+        "tests/fixtures/qe75_real/control/common_pseudo/Cu.paw.z_11.ld1.psl.v1.0.0-low.upf.gz",
+        "tests/fixtures/qe75_real/control/common_pseudo/O.pbe-n-kjpaw_psl.0.1.UPF.gz",
+        "tests/fixtures/qe75_real/control/common_pseudo/cr_pbe_v1.5.uspp.F.UPF.gz",
+        "tests/fixtures/qe75_real/control/common_pseudo/mn_pbe_v1.5.uspp.F.UPF.gz",
+        "tests/fixtures/qe75_real/control/data-file-schema.xml.gz",
+        "tests/fixtures/qe75_real/control/input.in.gz",
+        "tests/fixtures/qe75_real/control/process_receipt.json.gz",
+        "tests/fixtures/qe75_real/control/slab_c5low__pa_boundary.bfgs.gz",
+        "tests/fixtures/qe75_real/control/stderr.log.gz",
+        "tests/fixtures/qe75_real/control/stdout.log.gz",
+        "tests/fixtures/qe75_real/fresh_logs/slab_c5low__checked.fresh10.out.gz",
+        "tests/fixtures/qe75_real/fresh_logs/slab_c5low__checked.fresh3.out.gz",
+        "tests/fixtures/qe75_real/manifest.json",
+        "tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.in.gz",
+        "tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.out.gz",
+        "tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.xml.gz",
+        "tests/fixtures/qe75_real/tiny_h2/candidate-stop/H.pbe-rrkjus_psl.1.0.0.UPF.gz",
+        "tests/fixtures/qe75_real/tiny_h2/candidate-stop/data-file-schema.xml.gz",
+        "tests/fixtures/qe75_real/tiny_h2/candidate-stop/h2_probe.bfgs.gz",
+        "tests/fixtures/qe75_real/tiny_h2/candidate-stop/input.in.gz",
+        "tests/fixtures/qe75_real/tiny_h2/candidate-stop/receipt.json.gz",
+        "tests/fixtures/qe75_real/tiny_h2/candidate-stop/stderr.log.gz",
+        "tests/fixtures/qe75_real/tiny_h2/candidate-stop/stdout.log.gz",
+        "tests/fixtures/qe75_real/tiny_h2/continuous/data-file-schema.xml.gz",
+        "tests/fixtures/qe75_real/tiny_h2/continuous/input.in.gz",
+        "tests/fixtures/qe75_real/tiny_h2/continuous/receipt.json.gz",
+        "tests/fixtures/qe75_real/tiny_h2/continuous/stderr.log.gz",
+        "tests/fixtures/qe75_real/tiny_h2/continuous/stdout.log.gz",
+        "tests/fixtures/qe75_real/tiny_h2/negative-fresh/data-file-schema.xml.gz",
+        "tests/fixtures/qe75_real/tiny_h2/negative-fresh/input.in.gz",
+        "tests/fixtures/qe75_real/tiny_h2/negative-fresh/receipt.json.gz",
+        "tests/fixtures/qe75_real/tiny_h2/negative-fresh/stderr.log.gz",
+        "tests/fixtures/qe75_real/tiny_h2/negative-fresh/stdout.log.gz",
+        "tests/fixtures/qe75_real/tiny_h2/resumed/data-file-schema.xml.gz",
+        "tests/fixtures/qe75_real/tiny_h2/resumed/input.in.gz",
+        "tests/fixtures/qe75_real/tiny_h2/resumed/receipt.json.gz",
+        "tests/fixtures/qe75_real/tiny_h2/resumed/stderr.log.gz",
+        "tests/fixtures/qe75_real/tiny_h2/resumed/stdout.log.gz",
+        "tests/qe75_real_fixtures.py",
+        "tests/test_pa_catalyst_retest.py",
+        "tests/test_pa_catalyst_retest_scripts.py",
+        "tests/test_pa_qe_adapter_v2.py",
+        "tests/test_pa_qe_adapter_v2_real.py"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "warning: in the working copy of 'docs/research/pa-catalyst-retest-2026-10-04.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/dft/pa_catalyst_retest.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/dft/pa_qe_adapter_v2.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tests/qe75_real_fixtures.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tests/test_pa_catalyst_retest.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tests/test_pa_catalyst_retest_scripts.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tests/test_pa_qe_adapter_v2.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tests/test_pa_qe_adapter_v2_real.py', LF will be replaced by CRLF the next time Git touches it\n"
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "diff",
+        "--cached",
+        "--name-only"
+      ],
+      "returncode": 0,
+      "stdout": "anvil/90_pa_catalyst_retest.slurm\ndocs/research/pa-catalyst-retest-2026-10-04.md\nresults/pa_catalyst_retest_2026-10-04/.gitattributes\nresults/pa_catalyst_retest_2026-10-04/adapter_v2_vs_frozen.diff\nresults/pa_catalyst_retest_2026-10-04/audit_real_outputs.json\nresults/pa_catalyst_retest_2026-10-04/audit_real_outputs.py\nresults/pa_catalyst_retest_2026-10-04/audit_table.md\nresults/pa_catalyst_retest_2026-10-04/build_fixtures.py\nresults/pa_catalyst_retest_2026-10-04/build_historical_snapshot.py\nresults/pa_catalyst_retest_2026-10-04/build_launch_spec.py\nresults/pa_catalyst_retest_2026-10-04/capture_pins.py\nresults/pa_catalyst_retest_2026-10-04/commit_paths.json\nresults/pa_catalyst_retest_2026-10-04/controller_retest_vs_frozen.diff\nresults/pa_catalyst_retest_2026-10-04/cost_envelope.json\nresults/pa_catalyst_retest_2026-10-04/cost_envelope.py\nresults/pa_catalyst_retest_2026-10-04/focused-verification-checked.job.json\nresults/pa_catalyst_retest_2026-10-04/focused-verification-checked.log\nresults/pa_catalyst_retest_2026-10-04/focused-verification-checked.status.json\nresults/pa_catalyst_retest_2026-10-04/focused-verification.job.json\nresults/pa_catalyst_retest_2026-10-04/focused-verification.log\nresults/pa_catalyst_retest_2026-10-04/focused-verification.status.json\nresults/pa_catalyst_retest_2026-10-04/historical_citation_rebinding.json\nresults/pa_catalyst_retest_2026-10-04/independent_launch_review_before_lf.md\nresults/pa_catalyst_retest_2026-10-04/independent_launch_review_before_lf_pins.json\nresults/pa_catalyst_retest_2026-10-04/independent_launch_review_final.md\nresults/pa_catalyst_retest_2026-10-04/independent_launch_review_final_pins.json\nresults/pa_catalyst_retest_2026-10-04/independent_launch_review_initial.md\nresults/pa_catalyst_retest_2026-10-04/independent_launch_review_initial_checked.md\nresults/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-held-validation-2026-10-04.py.txt\nresults/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-release-2026-10-04.py.txt\nresults/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-remote-stage-2026-10-04.py.txt\nresults/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-submit-held-2026-10-04.py.txt\nresults/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/watch_retest_readonly.py.txt\nresults/pa_catalyst_retest_2026-10-04/launch_spec.json\nresults/pa_catalyst_retest_2026-10-04/line_ending_equivalence.json\nresults/pa_catalyst_retest_2026-10-04/mutation_checks.json\nresults/pa_catalyst_retest_2026-10-04/offline-verification-checked.job.json\nresults/pa_catalyst_retest_2026-10-04/offline-verification-checked.log\nresults/pa_catalyst_retest_2026-10-04/offline-verification-checked.status.json\nresults/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.job.json\nresults/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.log\nresults/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.status.json\nresults/pa_catalyst_retest_2026-10-04/offline-verification-final.job.json\nresults/pa_catalyst_retest_2026-10-04/offline-verification-final.log\nresults/pa_catalyst_retest_2026-10-04/offline-verification-final.status.json\nresults/pa_catalyst_retest_2026-10-04/offline_initial.json\nresults/pa_catalyst_retest_2026-10-04/offline_release.json\nresults/pa_catalyst_retest_2026-10-04/offline_release_lf.json\nresults/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-held-validation-2026-10-04.py\nresults/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-release-2026-10-04.py\nresults/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-remote-stage-2026-10-04.py\nresults/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-submit-held-2026-10-04.py\nresults/pa_catalyst_retest_2026-10-04/pins.json\nresults/pa_catalyst_retest_2026-10-04/provenance.md\nresults/pa_catalyst_retest_2026-10-04/publish_reviewed_package.py\nresults/pa_catalyst_retest_2026-10-04/publish_whitespace_refusal.json\nresults/pa_catalyst_retest_2026-10-04/readout_trial_before_snapshot.py\nresults/pa_catalyst_retest_2026-10-04/render_audit_table.py\nresults/pa_catalyst_retest_2026-10-04/run_mutation_checks.py\nresults/pa_catalyst_retest_2026-10-04/scientific_initial/si_round_verification.json\nresults/pa_catalyst_retest_2026-10-04/scientific_initial/verification.json\nresults/pa_catalyst_retest_2026-10-04/scientific_release/si_round_verification.json\nresults/pa_catalyst_retest_2026-10-04/scientific_release/verification.json\nresults/pa_catalyst_retest_2026-10-04/scientific_release_lf/si_round_verification.json\nresults/pa_catalyst_retest_2026-10-04/scientific_release_lf/verification.json\nresults/pa_catalyst_retest_2026-10-04/snapshot-build.job.json\nresults/pa_catalyst_retest_2026-10-04/snapshot-build.log\nresults/pa_catalyst_retest_2026-10-04/snapshot-build.status.json\nresults/pa_catalyst_retest_2026-10-04/source_xml_input_review.md\nresults/pa_catalyst_retest_2026-10-04/stale_verification_stop.json\nresults/pa_catalyst_retest_2026-10-04/stop-stale-verification.job.json\nresults/pa_catalyst_retest_2026-10-04/stop-stale-verification.log\nresults/pa_catalyst_retest_2026-10-04/stop-stale-verification.status.json\nresults/pa_catalyst_retest_2026-10-04/test_readout_trial_before_lf.py\nresults/pa_catalyst_retest_2026-10-04/test_readout_trial_before_snapshot.py\nresults/pa_catalyst_retest_2026-10-04/verification-process-observation.job.json\nresults/pa_catalyst_retest_2026-10-04/verification-process-observation.log\nresults/pa_catalyst_retest_2026-10-04/verification-process-observation.status.json\nresults/pa_catalyst_retest_2026-10-04/verification_final_summary.md\nresults/pa_catalyst_retest_2026-10-04/verification_replan.md\nresults/pa_catalyst_retest_2026-10-04/verify_retest_offline.py\nresults/pa_catalyst_retest_2026-10-04/watch_retest_readonly.py\nresults/pa_catalyst_trial_readout_prep_2026-10-04/.gitattributes\nresults/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot.json\nresults/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/anvil/89_pa_catalyst_boundary_trial.slurm\nresults/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/eligible-comparison-pa-readiness-2026-10-03.md\nresults/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md\nresults/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/implementation_findings.md\nresults/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/independent_launch_review.md\nresults/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md\nresults/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/launch_spec.json\nresults/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/source_boundary_review.md\nresults/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/watch_trial_readonly.py\nresults/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/runs/hea/lowtail_low_state_restart_2026-09-22/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.in\nresults/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_catalyst_trial.py\nresults/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_checked_contract.py\nresults/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_qe_adapter.py\nresults/pa_catalyst_trial_readout_prep_2026-10-04/launch_sources.py\nresults/pa_catalyst_trial_readout_prep_2026-10-04/readout_trial.py\nresults/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py\nsrc/dft/pa_catalyst_retest.py\nsrc/dft/pa_qe_adapter_v2.py\ntasks/todo.md\ntests/fixtures/qe75_real/.gitattributes\ntests/fixtures/qe75_real/README.txt\ntests/fixtures/qe75_real/control/common_pseudo/Co_pbe_v1.2.uspp.F.UPF.gz\ntests/fixtures/qe75_real/control/common_pseudo/Cu.paw.z_11.ld1.psl.v1.0.0-low.upf.gz\ntests/fixtures/qe75_real/control/common_pseudo/O.pbe-n-kjpaw_psl.0.1.UPF.gz\ntests/fixtures/qe75_real/control/common_pseudo/cr_pbe_v1.5.uspp.F.UPF.gz\ntests/fixtures/qe75_real/control/common_pseudo/mn_pbe_v1.5.uspp.F.UPF.gz\ntests/fixtures/qe75_real/control/data-file-schema.xml.gz\ntests/fixtures/qe75_real/control/input.in.gz\ntests/fixtures/qe75_real/control/process_receipt.json.gz\ntests/fixtures/qe75_real/control/slab_c5low__pa_boundary.bfgs.gz\ntests/fixtures/qe75_real/control/stderr.log.gz\ntests/fixtures/qe75_real/control/stdout.log.gz\ntests/fixtures/qe75_real/fresh_logs/slab_c5low__checked.fresh10.out.gz\ntests/fixtures/qe75_real/fresh_logs/slab_c5low__checked.fresh3.out.gz\ntests/fixtures/qe75_real/manifest.json\ntests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.xml.gz\ntests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.in.gz\ntests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.out.gz\ntests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.xml.gz\ntests/fixtures/qe75_real/tiny_h2/candidate-stop/H.pbe-rrkjus_psl.1.0.0.UPF.gz\ntests/fixtures/qe75_real/tiny_h2/candidate-stop/data-file-schema.xml.gz\ntests/fixtures/qe75_real/tiny_h2/candidate-stop/h2_probe.bfgs.gz\ntests/fixtures/qe75_real/tiny_h2/candidate-stop/input.in.gz\ntests/fixtures/qe75_real/tiny_h2/candidate-stop/receipt.json.gz\ntests/fixtures/qe75_real/tiny_h2/candidate-stop/stderr.log.gz\ntests/fixtures/qe75_real/tiny_h2/candidate-stop/stdout.log.gz\ntests/fixtures/qe75_real/tiny_h2/continuous/data-file-schema.xml.gz\ntests/fixtures/qe75_real/tiny_h2/continuous/input.in.gz\ntests/fixtures/qe75_real/tiny_h2/continuous/receipt.json.gz\ntests/fixtures/qe75_real/tiny_h2/continuous/stderr.log.gz\ntests/fixtures/qe75_real/tiny_h2/continuous/stdout.log.gz\ntests/fixtures/qe75_real/tiny_h2/negative-fresh/data-file-schema.xml.gz\ntests/fixtures/qe75_real/tiny_h2/negative-fresh/input.in.gz\ntests/fixtures/qe75_real/tiny_h2/negative-fresh/receipt.json.gz\ntests/fixtures/qe75_real/tiny_h2/negative-fresh/stderr.log.gz\ntests/fixtures/qe75_real/tiny_h2/negative-fresh/stdout.log.gz\ntests/fixtures/qe75_real/tiny_h2/resumed/data-file-schema.xml.gz\ntests/fixtures/qe75_real/tiny_h2/resumed/input.in.gz\ntests/fixtures/qe75_real/tiny_h2/resumed/receipt.json.gz\ntests/fixtures/qe75_real/tiny_h2/resumed/stderr.log.gz\ntests/fixtures/qe75_real/tiny_h2/resumed/stdout.log.gz\ntests/qe75_real_fixtures.py\ntests/test_pa_catalyst_retest.py\ntests/test_pa_catalyst_retest_scripts.py\ntests/test_pa_qe_adapter_v2.py\ntests/test_pa_qe_adapter_v2_real.py\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "-c",
+        "core.whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":anvil/90_pa_catalyst_retest.slurm"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":docs/research/pa-catalyst-retest-2026-10-04.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/.gitattributes"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/adapter_v2_vs_frozen.diff"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/audit_real_outputs.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/audit_real_outputs.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/audit_table.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/build_fixtures.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/build_historical_snapshot.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/build_launch_spec.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/capture_pins.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/commit_paths.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/controller_retest_vs_frozen.diff"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/cost_envelope.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/cost_envelope.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/focused-verification-checked.job.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/focused-verification-checked.log"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/focused-verification-checked.status.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/focused-verification.job.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/focused-verification.log"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/focused-verification.status.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/historical_citation_rebinding.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/independent_launch_review_before_lf.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/independent_launch_review_before_lf_pins.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/independent_launch_review_final.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/independent_launch_review_final_pins.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/independent_launch_review_initial.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/independent_launch_review_initial_checked.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-held-validation-2026-10-04.py.txt"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-release-2026-10-04.py.txt"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-remote-stage-2026-10-04.py.txt"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-submit-held-2026-10-04.py.txt"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/watch_retest_readonly.py.txt"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/launch_spec.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/line_ending_equivalence.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/mutation_checks.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/offline-verification-checked.job.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/offline-verification-checked.log"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/offline-verification-checked.status.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.job.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.log"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.status.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/offline-verification-final.job.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/offline-verification-final.log"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/offline-verification-final.status.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/offline_initial.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/offline_release.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/offline_release_lf.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-held-validation-2026-10-04.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-release-2026-10-04.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-remote-stage-2026-10-04.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-submit-held-2026-10-04.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/pins.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/provenance.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/publish_reviewed_package.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/publish_whitespace_refusal.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/readout_trial_before_snapshot.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/render_audit_table.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/run_mutation_checks.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/scientific_initial/si_round_verification.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/scientific_initial/verification.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/scientific_release/si_round_verification.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/scientific_release/verification.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/scientific_release_lf/si_round_verification.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/scientific_release_lf/verification.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/snapshot-build.job.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/snapshot-build.log"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/snapshot-build.status.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/source_xml_input_review.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/stale_verification_stop.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/stop-stale-verification.job.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/stop-stale-verification.log"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/stop-stale-verification.status.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/test_readout_trial_before_lf.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/test_readout_trial_before_snapshot.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/verification-process-observation.job.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/verification-process-observation.log"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/verification-process-observation.status.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/verification_final_summary.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/verification_replan.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/verify_retest_offline.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_retest_2026-10-04/watch_retest_readonly.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/.gitattributes"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/anvil/89_pa_catalyst_boundary_trial.slurm"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/eligible-comparison-pa-readiness-2026-10-03.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/implementation_findings.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/independent_launch_review.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/launch_spec.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/source_boundary_review.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/watch_trial_readonly.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/runs/hea/lowtail_low_state_restart_2026-09-22/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.in"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_catalyst_trial.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_checked_contract.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_qe_adapter.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/launch_sources.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/readout_trial.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":src/dft/pa_catalyst_retest.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":src/dft/pa_qe_adapter_v2.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tasks/todo.md"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/.gitattributes"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/README.txt"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/control/common_pseudo/Co_pbe_v1.2.uspp.F.UPF.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/control/common_pseudo/Cu.paw.z_11.ld1.psl.v1.0.0-low.upf.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/control/common_pseudo/O.pbe-n-kjpaw_psl.0.1.UPF.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/control/common_pseudo/cr_pbe_v1.5.uspp.F.UPF.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/control/common_pseudo/mn_pbe_v1.5.uspp.F.UPF.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/control/data-file-schema.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/control/input.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/control/process_receipt.json.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/control/slab_c5low__pa_boundary.bfgs.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/control/stderr.log.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/control/stdout.log.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/fresh_logs/slab_c5low__checked.fresh10.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/fresh_logs/slab_c5low__checked.fresh3.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/manifest.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.out.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/candidate-stop/H.pbe-rrkjus_psl.1.0.0.UPF.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/candidate-stop/data-file-schema.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/candidate-stop/h2_probe.bfgs.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/candidate-stop/input.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/candidate-stop/receipt.json.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/candidate-stop/stderr.log.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/candidate-stop/stdout.log.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/continuous/data-file-schema.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/continuous/input.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/continuous/receipt.json.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/continuous/stderr.log.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/continuous/stdout.log.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/negative-fresh/data-file-schema.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/negative-fresh/input.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/negative-fresh/receipt.json.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/negative-fresh/stderr.log.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/negative-fresh/stdout.log.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/resumed/data-file-schema.xml.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/resumed/input.in.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/resumed/receipt.json.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/resumed/stderr.log.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/fixtures/qe75_real/tiny_h2/resumed/stdout.log.gz"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/qe75_real_fixtures.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/test_pa_catalyst_retest.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/test_pa_catalyst_retest_scripts.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/test_pa_qe_adapter_v2.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        ":tests/test_pa_qe_adapter_v2_real.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "commit",
+        "-m",
+        "Add corrected one-boundary catalyst re-test (unsubmitted): QE 7.5 XML adapter v2 with real-output tests, PREFLIGHT replay of the real control call, dated spec and held-submit scripts"
+      ],
+      "returncode": 0,
+      "stdout": "[r0-catalysis-revival c5b33c2] Add corrected one-boundary catalyst re-test (unsubmitted): QE 7.5 XML adapter v2 with real-output tests, PREFLIGHT replay of the real control call, dated spec and held-submit scripts\n 203 files changed, 28084 insertions(+), 49 deletions(-)\n create mode 100644 anvil/90_pa_catalyst_retest.slurm\n create mode 100644 docs/research/pa-catalyst-retest-2026-10-04.md\n create mode 100644 results/pa_catalyst_retest_2026-10-04/.gitattributes\n create mode 100644 results/pa_catalyst_retest_2026-10-04/adapter_v2_vs_frozen.diff\n create mode 100644 results/pa_catalyst_retest_2026-10-04/audit_real_outputs.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/audit_real_outputs.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/audit_table.md\n create mode 100644 results/pa_catalyst_retest_2026-10-04/build_fixtures.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/build_historical_snapshot.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/build_launch_spec.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/capture_pins.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/commit_paths.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/controller_retest_vs_frozen.diff\n create mode 100644 results/pa_catalyst_retest_2026-10-04/cost_envelope.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/cost_envelope.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/focused-verification-checked.job.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/focused-verification-checked.log\n create mode 100644 results/pa_catalyst_retest_2026-10-04/focused-verification-checked.status.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/focused-verification.job.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/focused-verification.log\n create mode 100644 results/pa_catalyst_retest_2026-10-04/focused-verification.status.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/historical_citation_rebinding.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/independent_launch_review_before_lf.md\n create mode 100644 results/pa_catalyst_retest_2026-10-04/independent_launch_review_before_lf_pins.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/independent_launch_review_final.md\n create mode 100644 results/pa_catalyst_retest_2026-10-04/independent_launch_review_final_pins.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/independent_launch_review_initial.md\n create mode 100644 results/pa_catalyst_retest_2026-10-04/independent_launch_review_initial_checked.md\n create mode 100644 results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-held-validation-2026-10-04.py.txt\n create mode 100644 results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-release-2026-10-04.py.txt\n create mode 100644 results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-remote-stage-2026-10-04.py.txt\n create mode 100644 results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-submit-held-2026-10-04.py.txt\n create mode 100644 results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/watch_retest_readonly.py.txt\n create mode 100644 results/pa_catalyst_retest_2026-10-04/launch_spec.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/line_ending_equivalence.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/mutation_checks.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/offline-verification-checked.job.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/offline-verification-checked.log\n create mode 100644 results/pa_catalyst_retest_2026-10-04/offline-verification-checked.status.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.job.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.log\n create mode 100644 results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.status.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/offline-verification-final.job.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/offline-verification-final.log\n create mode 100644 results/pa_catalyst_retest_2026-10-04/offline-verification-final.status.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/offline_initial.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/offline_release.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/offline_release_lf.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-held-validation-2026-10-04.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-release-2026-10-04.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-remote-stage-2026-10-04.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-submit-held-2026-10-04.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/pins.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/provenance.md\n create mode 100644 results/pa_catalyst_retest_2026-10-04/publish_reviewed_package.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/publish_whitespace_refusal.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/readout_trial_before_snapshot.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/render_audit_table.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/run_mutation_checks.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/scientific_initial/si_round_verification.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/scientific_initial/verification.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/scientific_release/si_round_verification.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/scientific_release/verification.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/scientific_release_lf/si_round_verification.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/scientific_release_lf/verification.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/snapshot-build.job.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/snapshot-build.log\n create mode 100644 results/pa_catalyst_retest_2026-10-04/snapshot-build.status.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/source_xml_input_review.md\n create mode 100644 results/pa_catalyst_retest_2026-10-04/stale_verification_stop.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/stop-stale-verification.job.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/stop-stale-verification.log\n create mode 100644 results/pa_catalyst_retest_2026-10-04/stop-stale-verification.status.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/test_readout_trial_before_lf.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/test_readout_trial_before_snapshot.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/verification-process-observation.job.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/verification-process-observation.log\n create mode 100644 results/pa_catalyst_retest_2026-10-04/verification-process-observation.status.json\n create mode 100644 results/pa_catalyst_retest_2026-10-04/verification_final_summary.md\n create mode 100644 results/pa_catalyst_retest_2026-10-04/verification_replan.md\n create mode 100644 results/pa_catalyst_retest_2026-10-04/verify_retest_offline.py\n create mode 100644 results/pa_catalyst_retest_2026-10-04/watch_retest_readonly.py\n create mode 100644 results/pa_catalyst_trial_readout_prep_2026-10-04/.gitattributes\n create mode 100644 results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot.json\n create mode 100644 results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/anvil/89_pa_catalyst_boundary_trial.slurm\n create mode 100644 results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/eligible-comparison-pa-readiness-2026-10-03.md\n create mode 100644 results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md\n create mode 100644 results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/implementation_findings.md\n create mode 100644 results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/independent_launch_review.md\n create mode 100644 results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md\n create mode 100644 results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/launch_spec.json\n create mode 100644 results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/source_boundary_review.md\n create mode 100644 results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/watch_trial_readonly.py\n create mode 100644 results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/runs/hea/lowtail_low_state_restart_2026-09-22/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.in\n create mode 100644 results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_catalyst_trial.py\n create mode 100644 results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_checked_contract.py\n create mode 100644 results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_qe_adapter.py\n create mode 100644 results/pa_catalyst_trial_readout_prep_2026-10-04/launch_sources.py\n create mode 100644 src/dft/pa_catalyst_retest.py\n create mode 100644 src/dft/pa_qe_adapter_v2.py\n create mode 100644 tests/fixtures/qe75_real/.gitattributes\n create mode 100644 tests/fixtures/qe75_real/README.txt\n create mode 100644 tests/fixtures/qe75_real/control/common_pseudo/Co_pbe_v1.2.uspp.F.UPF.gz\n create mode 100644 tests/fixtures/qe75_real/control/common_pseudo/Cu.paw.z_11.ld1.psl.v1.0.0-low.upf.gz\n create mode 100644 tests/fixtures/qe75_real/control/common_pseudo/O.pbe-n-kjpaw_psl.0.1.UPF.gz\n create mode 100644 tests/fixtures/qe75_real/control/common_pseudo/cr_pbe_v1.5.uspp.F.UPF.gz\n create mode 100644 tests/fixtures/qe75_real/control/common_pseudo/mn_pbe_v1.5.uspp.F.UPF.gz\n create mode 100644 tests/fixtures/qe75_real/control/data-file-schema.xml.gz\n create mode 100644 tests/fixtures/qe75_real/control/input.in.gz\n create mode 100644 tests/fixtures/qe75_real/control/process_receipt.json.gz\n create mode 100644 tests/fixtures/qe75_real/control/slab_c5low__pa_boundary.bfgs.gz\n create mode 100644 tests/fixtures/qe75_real/control/stderr.log.gz\n create mode 100644 tests/fixtures/qe75_real/control/stdout.log.gz\n create mode 100644 tests/fixtures/qe75_real/fresh_logs/slab_c5low__checked.fresh10.out.gz\n create mode 100644 tests/fixtures/qe75_real/fresh_logs/slab_c5low__checked.fresh3.out.gz\n create mode 100644 tests/fixtures/qe75_real/manifest.json\n create mode 100644 tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.in.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.out.gz\n create mode 100644 tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.xml.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/candidate-stop/H.pbe-rrkjus_psl.1.0.0.UPF.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/candidate-stop/data-file-schema.xml.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/candidate-stop/h2_probe.bfgs.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/candidate-stop/input.in.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/candidate-stop/receipt.json.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/candidate-stop/stderr.log.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/candidate-stop/stdout.log.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/continuous/data-file-schema.xml.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/continuous/input.in.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/continuous/receipt.json.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/continuous/stderr.log.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/continuous/stdout.log.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/negative-fresh/data-file-schema.xml.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/negative-fresh/input.in.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/negative-fresh/receipt.json.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/negative-fresh/stderr.log.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/negative-fresh/stdout.log.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/resumed/data-file-schema.xml.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/resumed/input.in.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/resumed/receipt.json.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/resumed/stderr.log.gz\n create mode 100644 tests/fixtures/qe75_real/tiny_h2/resumed/stdout.log.gz\n create mode 100644 tests/qe75_real_fixtures.py\n create mode 100644 tests/test_pa_catalyst_retest.py\n create mode 100644 tests/test_pa_catalyst_retest_scripts.py\n create mode 100644 tests/test_pa_qe_adapter_v2.py\n create mode 100644 tests/test_pa_qe_adapter_v2_real.py\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "rev-parse",
+        "HEAD"
+      ],
+      "returncode": 0,
+      "stdout": "c5b33c28bb09324d7decf5c2bb5f6100a877a366\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "push",
+        "origin",
+        "r0-catalysis-revival"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "To https://github.com/fronkt/sts-electrocatalyst.git\n   bf07807..c5b33c2  r0-catalysis-revival -> r0-catalysis-revival\n"
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "ls-remote",
+        "origin",
+        "refs/heads/r0-catalysis-revival"
+      ],
+      "returncode": 0,
+      "stdout": "c5b33c28bb09324d7decf5c2bb5f6100a877a366\trefs/heads/r0-catalysis-revival\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        "HEAD:.gitattributes"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        "HEAD:src/dft/pa_checked_contract.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "show",
+        "HEAD:runs/hea/lowtail_low_state_restart_2026-09-22/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.in"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "diff",
+        "--name-only"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-c",
+        "credential.interactive=never",
+        "diff",
+        "--cached",
+        "--name-only"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "new_jobs_submitted": 0,
+  "qe_executed": false,
+  "production_accepted": false,
+  "final_review_sha256": "9bdacc1afb23ba0bfc40f174e028294192e4f642e39b05bd46b64bfd06d88e88",
+  "final_review_pins_sha256": "df268e666c0f6e93c110acfaca17ba1b9b45f3460246fc6532012602aa7a5b7b",
+  "checked_receipt_sha256": "dbeabe311d10e758567d9177db5d93d93ae9be0e53f6fd6097b3d04b047c2e12",
+  "before": {
+    "tracked_files": 9816,
+    "unrelated_files": 21,
+    "errors": []
+  },
+  "base_head": "bf07807d766aca767fbcfa1f36fdf2b687d260ea",
+  "paths": [
+    "anvil/90_pa_catalyst_retest.slurm",
+    "docs/research/pa-catalyst-retest-2026-10-04.md",
+    "results/pa_catalyst_retest_2026-10-04/.gitattributes",
+    "results/pa_catalyst_retest_2026-10-04/adapter_v2_vs_frozen.diff",
+    "results/pa_catalyst_retest_2026-10-04/audit_real_outputs.json",
+    "results/pa_catalyst_retest_2026-10-04/audit_real_outputs.py",
+    "results/pa_catalyst_retest_2026-10-04/audit_table.md",
+    "results/pa_catalyst_retest_2026-10-04/build_fixtures.py",
+    "results/pa_catalyst_retest_2026-10-04/build_historical_snapshot.py",
+    "results/pa_catalyst_retest_2026-10-04/build_launch_spec.py",
+    "results/pa_catalyst_retest_2026-10-04/capture_pins.py",
+    "results/pa_catalyst_retest_2026-10-04/commit_paths.json",
+    "results/pa_catalyst_retest_2026-10-04/controller_retest_vs_frozen.diff",
+    "results/pa_catalyst_retest_2026-10-04/cost_envelope.json",
+    "results/pa_catalyst_retest_2026-10-04/cost_envelope.py",
+    "results/pa_catalyst_retest_2026-10-04/focused-verification-checked.job.json",
+    "results/pa_catalyst_retest_2026-10-04/focused-verification-checked.log",
+    "results/pa_catalyst_retest_2026-10-04/focused-verification-checked.status.json",
+    "results/pa_catalyst_retest_2026-10-04/focused-verification.job.json",
+    "results/pa_catalyst_retest_2026-10-04/focused-verification.log",
+    "results/pa_catalyst_retest_2026-10-04/focused-verification.status.json",
+    "results/pa_catalyst_retest_2026-10-04/historical_citation_rebinding.json",
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_before_lf.md",
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_before_lf_pins.json",
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_final.md",
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_final_pins.json",
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_initial.md",
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_initial_checked.md",
+    "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-held-validation-2026-10-04.py.txt",
+    "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-release-2026-10-04.py.txt",
+    "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-remote-stage-2026-10-04.py.txt",
+    "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-submit-held-2026-10-04.py.txt",
+    "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/watch_retest_readonly.py.txt",
+    "results/pa_catalyst_retest_2026-10-04/launch_spec.json",
+    "results/pa_catalyst_retest_2026-10-04/line_ending_equivalence.json",
+    "results/pa_catalyst_retest_2026-10-04/mutation_checks.json",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-checked.job.json",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-checked.log",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-checked.status.json",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.job.json",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.log",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.status.json",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final.job.json",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final.log",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final.status.json",
+    "results/pa_catalyst_retest_2026-10-04/offline_initial.json",
+    "results/pa_catalyst_retest_2026-10-04/offline_release.json",
+    "results/pa_catalyst_retest_2026-10-04/offline_release_lf.json",
+    "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-held-validation-2026-10-04.py",
+    "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-release-2026-10-04.py",
+    "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-remote-stage-2026-10-04.py",
+    "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-submit-held-2026-10-04.py",
+    "results/pa_catalyst_retest_2026-10-04/pins.json",
+    "results/pa_catalyst_retest_2026-10-04/provenance.md",
+    "results/pa_catalyst_retest_2026-10-04/publish_reviewed_package.py",
+    "results/pa_catalyst_retest_2026-10-04/publish_whitespace_refusal.json",
+    "results/pa_catalyst_retest_2026-10-04/readout_trial_before_snapshot.py",
+    "results/pa_catalyst_retest_2026-10-04/render_audit_table.py",
+    "results/pa_catalyst_retest_2026-10-04/run_mutation_checks.py",
+    "results/pa_catalyst_retest_2026-10-04/scientific_initial/si_round_verification.json",
+    "results/pa_catalyst_retest_2026-10-04/scientific_initial/verification.json",
+    "results/pa_catalyst_retest_2026-10-04/scientific_release/si_round_verification.json",
+    "results/pa_catalyst_retest_2026-10-04/scientific_release/verification.json",
+    "results/pa_catalyst_retest_2026-10-04/scientific_release_lf/si_round_verification.json",
+    "results/pa_catalyst_retest_2026-10-04/scientific_release_lf/verification.json",
+    "results/pa_catalyst_retest_2026-10-04/snapshot-build.job.json",
+    "results/pa_catalyst_retest_2026-10-04/snapshot-build.log",
+    "results/pa_catalyst_retest_2026-10-04/snapshot-build.status.json",
+    "results/pa_catalyst_retest_2026-10-04/source_xml_input_review.md",
+    "results/pa_catalyst_retest_2026-10-04/stale_verification_stop.json",
+    "results/pa_catalyst_retest_2026-10-04/stop-stale-verification.job.json",
+    "results/pa_catalyst_retest_2026-10-04/stop-stale-verification.log",
+    "results/pa_catalyst_retest_2026-10-04/stop-stale-verification.status.json",
+    "results/pa_catalyst_retest_2026-10-04/test_readout_trial_before_lf.py",
+    "results/pa_catalyst_retest_2026-10-04/test_readout_trial_before_snapshot.py",
+    "results/pa_catalyst_retest_2026-10-04/verification-process-observation.job.json",
+    "results/pa_catalyst_retest_2026-10-04/verification-process-observation.log",
+    "results/pa_catalyst_retest_2026-10-04/verification-process-observation.status.json",
+    "results/pa_catalyst_retest_2026-10-04/verification_final_summary.md",
+    "results/pa_catalyst_retest_2026-10-04/verification_replan.md",
+    "results/pa_catalyst_retest_2026-10-04/verify_retest_offline.py",
+    "results/pa_catalyst_retest_2026-10-04/watch_retest_readonly.py",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/.gitattributes",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot.json",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/anvil/89_pa_catalyst_boundary_trial.slurm",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/eligible-comparison-pa-readiness-2026-10-03.md",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/implementation_findings.md",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/independent_launch_review.md",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/launch_spec.json",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/source_boundary_review.md",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/watch_trial_readonly.py",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/runs/hea/lowtail_low_state_restart_2026-09-22/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.in",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_catalyst_trial.py",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_checked_contract.py",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_qe_adapter.py",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_sources.py",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/readout_trial.py",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py",
+    "src/dft/pa_catalyst_retest.py",
+    "src/dft/pa_qe_adapter_v2.py",
+    "tasks/todo.md",
+    "tests/fixtures/qe75_real/.gitattributes",
+    "tests/fixtures/qe75_real/README.txt",
+    "tests/fixtures/qe75_real/control/common_pseudo/Co_pbe_v1.2.uspp.F.UPF.gz",
+    "tests/fixtures/qe75_real/control/common_pseudo/Cu.paw.z_11.ld1.psl.v1.0.0-low.upf.gz",
+    "tests/fixtures/qe75_real/control/common_pseudo/O.pbe-n-kjpaw_psl.0.1.UPF.gz",
+    "tests/fixtures/qe75_real/control/common_pseudo/cr_pbe_v1.5.uspp.F.UPF.gz",
+    "tests/fixtures/qe75_real/control/common_pseudo/mn_pbe_v1.5.uspp.F.UPF.gz",
+    "tests/fixtures/qe75_real/control/data-file-schema.xml.gz",
+    "tests/fixtures/qe75_real/control/input.in.gz",
+    "tests/fixtures/qe75_real/control/process_receipt.json.gz",
+    "tests/fixtures/qe75_real/control/slab_c5low__pa_boundary.bfgs.gz",
+    "tests/fixtures/qe75_real/control/stderr.log.gz",
+    "tests/fixtures/qe75_real/control/stdout.log.gz",
+    "tests/fixtures/qe75_real/fresh_logs/slab_c5low__checked.fresh10.out.gz",
+    "tests/fixtures/qe75_real/fresh_logs/slab_c5low__checked.fresh3.out.gz",
+    "tests/fixtures/qe75_real/manifest.json",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.in.gz",
+    "tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.out.gz",
+    "tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.xml.gz",
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/H.pbe-rrkjus_psl.1.0.0.UPF.gz",
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/data-file-schema.xml.gz",
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/h2_probe.bfgs.gz",
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/input.in.gz",
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/receipt.json.gz",
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/stderr.log.gz",
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/stdout.log.gz",
+    "tests/fixtures/qe75_real/tiny_h2/continuous/data-file-schema.xml.gz",
+    "tests/fixtures/qe75_real/tiny_h2/continuous/input.in.gz",
+    "tests/fixtures/qe75_real/tiny_h2/continuous/receipt.json.gz",
+    "tests/fixtures/qe75_real/tiny_h2/continuous/stderr.log.gz",
+    "tests/fixtures/qe75_real/tiny_h2/continuous/stdout.log.gz",
+    "tests/fixtures/qe75_real/tiny_h2/negative-fresh/data-file-schema.xml.gz",
+    "tests/fixtures/qe75_real/tiny_h2/negative-fresh/input.in.gz",
+    "tests/fixtures/qe75_real/tiny_h2/negative-fresh/receipt.json.gz",
+    "tests/fixtures/qe75_real/tiny_h2/negative-fresh/stderr.log.gz",
+    "tests/fixtures/qe75_real/tiny_h2/negative-fresh/stdout.log.gz",
+    "tests/fixtures/qe75_real/tiny_h2/resumed/data-file-schema.xml.gz",
+    "tests/fixtures/qe75_real/tiny_h2/resumed/input.in.gz",
+    "tests/fixtures/qe75_real/tiny_h2/resumed/receipt.json.gz",
+    "tests/fixtures/qe75_real/tiny_h2/resumed/stderr.log.gz",
+    "tests/fixtures/qe75_real/tiny_h2/resumed/stdout.log.gz",
+    "tests/qe75_real_fixtures.py",
+    "tests/test_pa_catalyst_retest.py",
+    "tests/test_pa_catalyst_retest_scripts.py",
+    "tests/test_pa_qe_adapter_v2.py",
+    "tests/test_pa_qe_adapter_v2_real.py"
+  ],
+  "local_pins": {
+    "anvil/90_pa_catalyst_retest.slurm": "d30ca93fc02b4153c6aaeb8eefb8bf27eede3fc9bb171307b53cd021c8aeaf13",
+    "docs/research/pa-catalyst-retest-2026-10-04.md": "40d75c8dfc093c07216007da1df861a8104ff3ac239a2da4c49fa68433cdc863",
+    "results/pa_catalyst_retest_2026-10-04/.gitattributes": "246bc98411b0ac7fc2a2a037262aa9e29720b49636c4e2f3cdae1ca053b7faff",
+    "results/pa_catalyst_retest_2026-10-04/adapter_v2_vs_frozen.diff": "e05f089e3de10b20e7c06c754a823c58d60604fc0adce3171dc730c68a64f67d",
+    "results/pa_catalyst_retest_2026-10-04/audit_real_outputs.json": "878df387af3aefda65f5e4907b0bafa90cfd915dd0f633fda1c81120d5dab863",
+    "results/pa_catalyst_retest_2026-10-04/audit_real_outputs.py": "f2cccda347306001958ff7cdc473be7c4a6543d25091d1ee9fdf8d48cea7caeb",
+    "results/pa_catalyst_retest_2026-10-04/audit_table.md": "dfb31e34fe02519a5b587fb64c6d2bebacb7cf49a5fb7bddc4d0c16fd157b23c",
+    "results/pa_catalyst_retest_2026-10-04/build_fixtures.py": "c74d2ca266ae96a039709ca458a67d8f5affc3eba891c9e2937a60fa3cb05a9c",
+    "results/pa_catalyst_retest_2026-10-04/build_historical_snapshot.py": "169f7694178b2435c9d7fdb08a4dad7b7f0af3e614b963c9b048fd26e0ad6be0",
+    "results/pa_catalyst_retest_2026-10-04/build_launch_spec.py": "7280bf0a9b77a30df629d5b90d83d560446a1ef86a1c8b86febb75f84afbbb26",
+    "results/pa_catalyst_retest_2026-10-04/capture_pins.py": "ada6171cd56942a303bfc034e5043a665a8b30480ee6014ae66022db3dc828b0",
+    "results/pa_catalyst_retest_2026-10-04/commit_paths.json": "c861c816acd8c5b2cf4876104bccd6149fa557067eb1826c2031c43a6ced13a1",
+    "results/pa_catalyst_retest_2026-10-04/controller_retest_vs_frozen.diff": "0307d1e3018dbd197cfec0f4b4868bfb3f1adc21faeb91a4dd9ad15a50d52ccd",
+    "results/pa_catalyst_retest_2026-10-04/cost_envelope.json": "be31a16d4b598277b57c81f17bca080c08f74a924967b84e32fe5bd41cd82222",
+    "results/pa_catalyst_retest_2026-10-04/cost_envelope.py": "542a0d825661157cc25f2559d9a3c563f548bdce19cc8730a5f2731759650b3c",
+    "results/pa_catalyst_retest_2026-10-04/focused-verification-checked.job.json": "cb86750ebb1dc5be3a97aae941cac4e296caa145b2603fcb281e6bcc5339ef29",
+    "results/pa_catalyst_retest_2026-10-04/focused-verification-checked.log": "93104d48a3f45ff341f245fb11bbb1fa53ce8429f193522b35fa10dbd4206289",
+    "results/pa_catalyst_retest_2026-10-04/focused-verification-checked.status.json": "f7a0564903bf9b5e4e48d0db0db9c97d57989fe111a2ada0d4f22ed3c4f74fe8",
+    "results/pa_catalyst_retest_2026-10-04/focused-verification.job.json": "e8803c78aa3db1e9b125e1de1f2408d12798f6a74cac56bf82476bb20a1cf27f",
+    "results/pa_catalyst_retest_2026-10-04/focused-verification.log": "80366b78b35ba47fb54e274a9ab6bb1db65c22fb1f3b4391bd634913c2a956ac",
+    "results/pa_catalyst_retest_2026-10-04/focused-verification.status.json": "f7a0564903bf9b5e4e48d0db0db9c97d57989fe111a2ada0d4f22ed3c4f74fe8",
+    "results/pa_catalyst_retest_2026-10-04/historical_citation_rebinding.json": "2951f4ac130d41d2b7df741629419f2634e027d9bf6a3e0399e64ce8b5c8510a",
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_before_lf.md": "8c38e0f59cd8185e3cb8c29ecbd986163baa3021a433d45d11cdddece99749be",
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_before_lf_pins.json": "24d51435e7a7d3d4253a42afcc0ecc9e982cdbad9658932a1ea0078575b17716",
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_final.md": "9bdacc1afb23ba0bfc40f174e028294192e4f642e39b05bd46b64bfd06d88e88",
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_final_pins.json": "df268e666c0f6e93c110acfaca17ba1b9b45f3460246fc6532012602aa7a5b7b",
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_initial.md": "9de342a13f25e99429a8cfc71d71b706a3ef9d66d981a24a2bb3b6c700210f01",
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_initial_checked.md": "fd696f61ce74650a6b361899228eb5242c0ad40c98dc80a5580dc0d2b878d6f6",
+    "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-held-validation-2026-10-04.py.txt": "7846e9ea1ee11a9dc618892037b0cdee4797db7da1b3283a9cb93f597f830507",
+    "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-release-2026-10-04.py.txt": "cc51a7813e63f4ccb8337323d0825d7b77a10ecf56e502e74be91268205db4d0",
+    "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-remote-stage-2026-10-04.py.txt": "065b69805c9300ccb9ccfcf473cf5350cf77b1ef51d50197afbb5fd4252a80da",
+    "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-submit-held-2026-10-04.py.txt": "cfce0af85ec47099b1caf74064c54716ca6e3a24abfb58e86edc12af81b6c314",
+    "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/watch_retest_readonly.py.txt": "0e1c13467b02e52eb78dbf011bc2063c30cb2386ac0aec6fbe73efdd6e1c90c9",
+    "results/pa_catalyst_retest_2026-10-04/launch_spec.json": "4c2384c6375f1c7892d33d8f6c37478243f41af3da9dd0f9ec507bcd8423e435",
+    "results/pa_catalyst_retest_2026-10-04/line_ending_equivalence.json": "e9ce57755b27da1eac108401dcc77a095d46eec87f880e2656cbc007fedcea9e",
+    "results/pa_catalyst_retest_2026-10-04/mutation_checks.json": "5f1992b92c01246e65090486b394fc055a636733d89c2a94d8b3d3c79c329362",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-checked.job.json": "768dbd483c0c30d96256a5fce2e57887a0ed0ef899cff32ba703b95f53e68639",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-checked.log": "3395cbb9322d3f2727a7fe64d51d0711511791955b124462eb55b58e9f9782c1",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-checked.status.json": "46dff1538327c56bf7432a5e3ef1d8962872bc5d4cb08d0b675980cea2fa0c68",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.job.json": "5575174004f86ff0c373feccb5ae1bb9084536e9f10168915fc970c4ef5c7780",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.log": "9aa101a62702964ef5fc06c9fe37f3a1ea0db359f05058e7f5f78cf8b9ec9e2a",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.status.json": "2e9445d567e0e01f1db98090b469345d6dfa63dd5f03cd8141bee77c473bf331",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final.job.json": "a66915f5353ffc315778c373b7155841fff67702946045ee88e6c5dc1c65431d",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final.log": "abe452794735b4d28dd9052c481d91ea5adb5acf491cfd4f4af73ac55d92fe52",
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final.status.json": "2e9445d567e0e01f1db98090b469345d6dfa63dd5f03cd8141bee77c473bf331",
+    "results/pa_catalyst_retest_2026-10-04/offline_initial.json": "12589177a82fe3b429bc774ff4048bb65bb60c7f13198eceb0a5c1d3c3d6f89e",
+    "results/pa_catalyst_retest_2026-10-04/offline_release.json": "723a52576ca41aef7451dd35fcfe80c0beb4ef8b6d09be5f1cae9500807cc2c4",
+    "results/pa_catalyst_retest_2026-10-04/offline_release_lf.json": "dbeabe311d10e758567d9177db5d93d93ae9be0e53f6fd6097b3d04b047c2e12",
+    "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-held-validation-2026-10-04.py": "7846e9ea1ee11a9dc618892037b0cdee4797db7da1b3283a9cb93f597f830507",
+    "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-release-2026-10-04.py": "829c8aae7eaab8fb0c833fe493470eb34b4cac5815b986d55f9dd57438420c01",
+    "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-remote-stage-2026-10-04.py": "065b69805c9300ccb9ccfcf473cf5350cf77b1ef51d50197afbb5fd4252a80da",
+    "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-submit-held-2026-10-04.py": "f07fb4c7cb5bd88c76e47a9ee11a84794a0393da3495ac7757068b72ddf79096",
+    "results/pa_catalyst_retest_2026-10-04/pins.json": "32997beb3948f422d8fe3bac04ed619ffa018cdd71058348e035bce3d060d830",
+    "results/pa_catalyst_retest_2026-10-04/provenance.md": "9f1dd26b6a29029ccedd9e9db7143c7008819084d4c54a6b2fea951bb1025e18",
+    "results/pa_catalyst_retest_2026-10-04/publish_reviewed_package.py": "25936e758ab54dcfa9bdee8cbfd6a4754b40b87443a16cdab340a15e09667c31",
+    "results/pa_catalyst_retest_2026-10-04/publish_whitespace_refusal.json": "c7828bfbb96bf479e4775b2f0edf68d882c5b145aaf5c95a715885cdf77dbb29",
+    "results/pa_catalyst_retest_2026-10-04/readout_trial_before_snapshot.py": "d6e759ffef4ec499c6a2ba3ce27c6af6d5d12a29d14435d34fa83aea0d16ce51",
+    "results/pa_catalyst_retest_2026-10-04/render_audit_table.py": "3504a190e0740392eeddf2b6ec159f84be97d5065fca616c4caafb8f29c897e6",
+    "results/pa_catalyst_retest_2026-10-04/run_mutation_checks.py": "098206f8eff35df90c3a6e9a55fa47b115756fa95e19093c8eb2812ca9087d8d",
+    "results/pa_catalyst_retest_2026-10-04/scientific_initial/si_round_verification.json": "4fb793fd5086cfc1ed75367790fe22b7de7a14b34f6d2e197c691779bfbdf091",
+    "results/pa_catalyst_retest_2026-10-04/scientific_initial/verification.json": "b2e1f92854e2b0df20b82957fd85c93bd1dec42d75a5ac4cb60f0ef62d7b36d7",
+    "results/pa_catalyst_retest_2026-10-04/scientific_release/si_round_verification.json": "4fb793fd5086cfc1ed75367790fe22b7de7a14b34f6d2e197c691779bfbdf091",
+    "results/pa_catalyst_retest_2026-10-04/scientific_release/verification.json": "b2e1f92854e2b0df20b82957fd85c93bd1dec42d75a5ac4cb60f0ef62d7b36d7",
+    "results/pa_catalyst_retest_2026-10-04/scientific_release_lf/si_round_verification.json": "4fb793fd5086cfc1ed75367790fe22b7de7a14b34f6d2e197c691779bfbdf091",
+    "results/pa_catalyst_retest_2026-10-04/scientific_release_lf/verification.json": "b2e1f92854e2b0df20b82957fd85c93bd1dec42d75a5ac4cb60f0ef62d7b36d7",
+    "results/pa_catalyst_retest_2026-10-04/snapshot-build.job.json": "262dab1ba1957dbde4becda3847c7d8df47028ff641ca753c5cf6620678ba4b7",
+    "results/pa_catalyst_retest_2026-10-04/snapshot-build.log": "fe84514ef507b854538dd3a1b57dd06405abb8c796bf766c643050e0ab074583",
+    "results/pa_catalyst_retest_2026-10-04/snapshot-build.status.json": "2e9445d567e0e01f1db98090b469345d6dfa63dd5f03cd8141bee77c473bf331",
+    "results/pa_catalyst_retest_2026-10-04/source_xml_input_review.md": "3c2c9dc101c0d4e1779aff8abee588a6ff18a4a61904b023ac40808b2dac5929",
+    "results/pa_catalyst_retest_2026-10-04/stale_verification_stop.json": "3c0db0041cf921f089e7af9108d968eb647473a5d2a8b543cf8217d3cc30390e",
+    "results/pa_catalyst_retest_2026-10-04/stop-stale-verification.job.json": "1ddf881c4608275bf285419c13ad5402f298065820e1414b4b199767e40f1d5c",
+    "results/pa_catalyst_retest_2026-10-04/stop-stale-verification.log": "7c9a90317e4adfed9a9c83233159433dac1a6dade6c851051674304e42be565b",
+    "results/pa_catalyst_retest_2026-10-04/stop-stale-verification.status.json": "2e9445d567e0e01f1db98090b469345d6dfa63dd5f03cd8141bee77c473bf331",
+    "results/pa_catalyst_retest_2026-10-04/test_readout_trial_before_lf.py": "dc8a42c8105d13fb11c98da56d8844bd2382686f622ceb64d13606563e4107c1",
+    "results/pa_catalyst_retest_2026-10-04/test_readout_trial_before_snapshot.py": "da557492d8857a406612df4514313bfcebe4fa8f941dd4dcda2a440d4c7927fd",
+    "results/pa_catalyst_retest_2026-10-04/verification-process-observation.job.json": "8b50a1a060ba913062ae7d4614b3b097024b67ec042d3fb976332d56f945830f",
+    "results/pa_catalyst_retest_2026-10-04/verification-process-observation.log": "68ea02e3acc0a557db2dd20d34a4d6746cbbbdfdff4862380e605bc2b9cc28dd",
+    "results/pa_catalyst_retest_2026-10-04/verification-process-observation.status.json": "2e9445d567e0e01f1db98090b469345d6dfa63dd5f03cd8141bee77c473bf331",
+    "results/pa_catalyst_retest_2026-10-04/verification_final_summary.md": "b96769df2668ba2d194757827eeb5382e356933ca946c610f9af4b3745025a53",
+    "results/pa_catalyst_retest_2026-10-04/verification_replan.md": "cd6c2282afaec54c351e40f5a66a13533d1eb93b797881297532677987d984ae",
+    "results/pa_catalyst_retest_2026-10-04/verify_retest_offline.py": "0d3b283da564f0e658a5b0eceb7e80e1bb55eabbf86ef2a72bb4ae9c496cbcf4",
+    "results/pa_catalyst_retest_2026-10-04/watch_retest_readonly.py": "e002b26c8129094af6c7c8a0ff6860089d06b5caee86452717b36425f37b4d31",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/.gitattributes": "730a35ae3d558080083c3103d9ac8100c3f6561678092abe341701dfa331eb1d",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot.json": "dcb15854775caa79577ee6eb6b623dc135d4de487e3c2b027949f8c5da2ade0b",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/anvil/89_pa_catalyst_boundary_trial.slurm": "0ff3deac8c28537a197020e832903f61d47864113406c616f9f9462bb5cc1ed3",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/eligible-comparison-pa-readiness-2026-10-03.md": "c5b560d7d2eab1dc12bbfd8b730a43458c614c34d2585bbf4acd0bb662b29a3c",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/implementation_findings.md": "6e9c382537ce67629d7e6efd15b584cf8d554d18af843cbb6f71fbf0448b175e",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/independent_launch_review.md": "fd22b78092c09c955e2d3d5adb58670cceb2f371526426c2e3c7b0556b3223ef",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md": "0d8c4e0ea2eb4775fe5bf233326f8d5c86c765bb133ce1163cb9c2c49761d587",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/launch_spec.json": "4bed5002a88857515940230b20ad59e6adc345e29d8567d5b9c5f5511b0b28a2",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/source_boundary_review.md": "7efb6e27d9859eff629df0cc6dfcd90ef9e17b74819e9500ee398b5e432addac",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/watch_trial_readonly.py": "7ff35fc877decfbeddcf24f3becaf75af235d07b9e724d6a56ff916163fef08e",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/runs/hea/lowtail_low_state_restart_2026-09-22/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.in": "dfed65abc93a5eb5ef350c31f963fd6044c5b6e68fd39904063a0292de5f8539",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_catalyst_trial.py": "d00656aa0e7e666f75900190ccc703c1fd0fee8293738a311ea9ab5880b368ce",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_checked_contract.py": "67412c8363877f0a6407e382a4d3c33c6c0f6dac7b1f5de3e3968bf77755ae39",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_qe_adapter.py": "255464215aa898d0c9d34317a1be9b16fb27ba6d35108e0ca78215331a628879",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_sources.py": "1b93e0847b022798f6f4f03551f76d052757aa163de81d823f09205cfab5d08a",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/readout_trial.py": "f9324e71a2b63a066ca6bde39c9dafe6f2d1f6f4b5712f47c8a0f58cad8b60ae",
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py": "f6b8ceecc432ae255a594bdf015122304ddfa8bd0b3f6e7ecb6b5b0e3b30c4e3",
+    "src/dft/pa_catalyst_retest.py": "b1c49d2d06c93fed4438d46491d8a01532f05cd6d8b6adfed90ca9689a65baf1",
+    "src/dft/pa_qe_adapter_v2.py": "63655f45531939a84ad2db4c5c5debab159427bae42e7a02abf0312f9a348f11",
+    "tasks/todo.md": "5d0285799083404c956ba010a116cab2c817c75a5303fd6c02e036e1b75200b6",
+    "tests/fixtures/qe75_real/.gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+    "tests/fixtures/qe75_real/README.txt": "cca6186c48f3eee1f05e4e0c7e4460c13364a497c2cb9e314e786ae3422d0dfb",
+    "tests/fixtures/qe75_real/control/common_pseudo/Co_pbe_v1.2.uspp.F.UPF.gz": "fbbad605e579e33e9c1cb70b435aa82672de4de7c0cca58462eec2bcd25f6099",
+    "tests/fixtures/qe75_real/control/common_pseudo/Cu.paw.z_11.ld1.psl.v1.0.0-low.upf.gz": "f3bc13a1a3b66bca84305cb8bf77086d0da1fae802e23c47274384141061eaec",
+    "tests/fixtures/qe75_real/control/common_pseudo/O.pbe-n-kjpaw_psl.0.1.UPF.gz": "d159560b238fed3aa3168f6a3a5b7ac67a0a08bcbc38ca3f25bb117026d09d03",
+    "tests/fixtures/qe75_real/control/common_pseudo/cr_pbe_v1.5.uspp.F.UPF.gz": "12ac23e28abb0420d80ad5af84ab2a4d73b3b387637419c4d46f74d3123bf22a",
+    "tests/fixtures/qe75_real/control/common_pseudo/mn_pbe_v1.5.uspp.F.UPF.gz": "01c11f2cc3710827ceeece93512ad4362698a6d122aca5b4ae2fec60ad29270a",
+    "tests/fixtures/qe75_real/control/data-file-schema.xml.gz": "b833e6ea0925eeeb12b81efd5749e419857fc923a802e9f73cfda96888bdf6c2",
+    "tests/fixtures/qe75_real/control/input.in.gz": "e5f726c0d413250745acbc6b7e4930ba1df5edc52bd0419108ffc0b2cef003b9",
+    "tests/fixtures/qe75_real/control/process_receipt.json.gz": "79af8b203a0677bb7222507d442f3140326d620caebc09d33f150e4e4527bf09",
+    "tests/fixtures/qe75_real/control/slab_c5low__pa_boundary.bfgs.gz": "6e0d9f7c5b97b069875819e16aefae248c12f87263ab2ef3f049c66ef4348d3c",
+    "tests/fixtures/qe75_real/control/stderr.log.gz": "4100c375158627daa5b137bcb0f7cb0298fb9f5904e376c6d669c8691fffd982",
+    "tests/fixtures/qe75_real/control/stdout.log.gz": "70a3d183ecf9c6a2a7f89b1b3f2c956834c1029ed2d6425faeaf3bad811a1c47",
+    "tests/fixtures/qe75_real/fresh_logs/slab_c5low__checked.fresh10.out.gz": "544512f621c9152c4656912cca214a8aeaafc32b69a2994132ad353c0d00a1b4",
+    "tests/fixtures/qe75_real/fresh_logs/slab_c5low__checked.fresh3.out.gz": "55217459d2e75497b75bb105603a81896eea197489ba23e00cf66a2ecdcef2bb",
+    "tests/fixtures/qe75_real/manifest.json": "6054cd6ee9d554b43d9a9a4be41a5daa3b32fdd48c6ac5ef25cef363299ca8d0",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.in.gz": "8056a083efe2d1782ffcf82d33a08c6cbf278802e7e49c2c885085861ab2d803",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.out.gz": "cff926ccc5323d6d35c444bb29a35b1255f201b1a423c96276616d254f962834",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.xml.gz": "6600c47bc5fd9ca1afba57948ffe4772e4d5ef5b44303165a7aea644f3e422a2",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.in.gz": "546075b7bf2186f71aed1a246e081698ccb836d3bdba290ab0873c061b332cc2",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.out.gz": "fd67b7f13eb1b6eb4a67fca0a73e955bab4bd3c3e1206e7e998b9a522b656304",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.xml.gz": "2e0b6c44fc82c8eec0398ee6cc77e5c4662f3a478eb6b4b3bf466c687788cfce",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.in.gz": "df38b82151413d77715b7c95cf3372b6f618d55556d7bece521bef2886c33e43",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.out.gz": "aeae8cce127917c36724eabd16b4089e159302a77e699d22398ce3c7ed1b98d3",
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.xml.gz": "95925b9a508a5dbd83a7cf84285d7ab3a519fa2264919a28aecbdbbf0674fb81",
+    "tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.in.gz": "95029129f483291903939513436a60fd8066afb24432a125edd972414d87e7d8",
+    "tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.out.gz": "591474e26dd94e34ad0bcfa588c4e004c98415d65ddc5de1f6990b06454bb7ea",
+    "tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.xml.gz": "e2b1a7339ec26ca8f6c5f46f7c431041fd97542d5058a34231eaa75b556372d1",
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.in.gz": "ff874c34891e467603c2b2f735698d612256a9b70b3fae7fc1d335f2418d8e21",
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.out.gz": "58eb98e54974b396bae1c1cc8cac74cd1543afe36e07b8007372a55421ee63cd",
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.xml.gz": "ea60146151492e387d970ee0ef18cd1db35ea21d783c03e025d817c48cd246b5",
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.in.gz": "f2791973bfd661b77b3b0f866d58dcd407baa20e46ce63ebbea02cfcfd72d189",
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.out.gz": "28597fb3fe507fcd160d79dc78888fd1629b4584aac8d2bfe457f181a8664ad5",
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.xml.gz": "e3a2c443fa55646089aab713e6c3fdf006f17278463ff8417a9ec779fdca342f",
+    "tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.in.gz": "8391e63d1d3b5696871ffa81f94e85324afd2767abb3b6e55e1b20834e4e591e",
+    "tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.out.gz": "fe3fdbac8fca89054d2c448fd4ad56046d81fb59864b5684a7573135d64b678c",
+    "tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.xml.gz": "e3b96dfdfd6d8f384ed058a0377c9748a0c750bf14bd468edc910be76d86f31c",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.in.gz": "3dba7bb0b4f8e37bf134a7ed351e2e9f7f3b658911e7acbe0666d2c88624d80e",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.out.gz": "d41cf8173b6d95aafda80889b190c708a8bbef37cc7f2275b8106bf76508b24a",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.xml.gz": "5b34b12d8e840ba09762b5353d5197654b327b1b401e6080a517dfa86dc55377",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.in.gz": "f1c4c99af1d6fff6b16c1aa0de894ff845b96d1577e269d02669c7c020fd7357",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.out.gz": "947b7e440f0fddab960a517bfb0978655dbada23e30e0f753e9dacbcd1e6b778",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.xml.gz": "9a0d1a177c130969d2b1cbcbd78e6910f06e84ce12737fe6ecac0c2aa7f867cf",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.in.gz": "6b7ecf99e95d2a0b1f4999d1563f1bfd972c57425b59e9edc1c2dee2ac8c65d1",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.out.gz": "2115b842dd994b3e9a80ed25fb680b0fbcb4e2c5b70fe882e948d5f604919737",
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.xml.gz": "8fc78621c3cd945f1d154ee95f20d3138434a196f44af51e2b7b5169ca444101",
+    "tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.in.gz": "c9a31db38cb843db24fd3cdac8987a013b73fce59885b56af038d047b6adab3f",
+    "tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.out.gz": "926148d1edd6b839f91180096e90aaf8b11cca45c1501c6735cfc688b24c9d97",
+    "tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.xml.gz": "91b61d1a8f68cc50b6b662c181a1cec968106a51655e440a67e4e2576ff24c3d",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.in.gz": "5e9ba9403a94a32f55326d579c45e2bad5f022572d3c1a52c6ff690db0246655",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.out.gz": "9a11a7c3fa2d511131884fd6fc8db27e737540bec00f8b0755a1f32bf5adef37",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.xml.gz": "a0fbd0130caa8a55398d0241b88e38f3042303ef6cc521b0675e7b3ed0a72b1a",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.in.gz": "b1a72c49e9c70424ba14c0583e032c3488f30022e5ebbe33e2b946097b1142d6",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.out.gz": "2c6bd93ec5dadf5829503e22b136646681441be20c1dfaf8e43045dcd0fdd81c",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.xml.gz": "1614c294c032fcb9f9a1432b98d6565d5d96561fc8ad23381012d5447a24b651",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.in.gz": "1c5d16f7876196c883925cd2e85d33190c784ba85d80ec16cb1bf27a6df16685",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.out.gz": "4fbcee16fdefd43126315308e631751e0e33058c72b3e3f619ae2bd177da89dc",
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.xml.gz": "e102ff8b7dba73278b7635c71a128d238c7d295deefb80b93d9a31e73a5d4092",
+    "tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.in.gz": "de38d7d16c70d9989117391416533f8b71c3a4d4a0a57c9e16b570203991cef6",
+    "tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.out.gz": "6d93d93adc1d9e215ac79378742fc657871ef1f1933aad6a088a42fd9a94512c",
+    "tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.xml.gz": "2b6094c9e5d8253f6a3fcdc98467608b6c695780a5739c8a2ffe00d30dd40435",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.in.gz": "bf060813fa6faa62db9fdd766741e67ed214b84f63e0965207cbca0193898c3c",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.out.gz": "9b23f86c02dccff49301fdd2815f6ae0ca6317c0173df4435713d8520160b51a",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.xml.gz": "f4fbe16891f10fe8fb45bed6ab0cb66b23e9f7da25d07471428a2ee349051c64",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.in.gz": "76c1255e7f7ab8d7030e22e0b5aa79e22444083ac01ba38116b49333317d5c96",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.out.gz": "c59dbce4d291ea8352892fe0fcac10f649175ef94fa3ce681c299c9dd40eb637",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.xml.gz": "2f663c315ba7d6909450c52f5d863ff9922680550874d2ba6f5a9b057273a1ed",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.in.gz": "f578658d4622207f696a5bfe0a04639dd2052556f7a8c90fa08c385ca6fc9afd",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.out.gz": "8ab73d87c42cfe8950dfcfa89eda71a3437c19f149e1d420fcc572dd8c7831b8",
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.xml.gz": "072e7af685937d35118f53a0042510b941223faa710b4e933e8c2f67826af3c2",
+    "tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.in.gz": "c043340e6a3080fe30ac151b2c50a7cc2c592e134ef22543d64cdbccb59fccd4",
+    "tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.out.gz": "5fc36ff483abcea36bca31527b308faf0579545e9ba3e910573d85302531f235",
+    "tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.xml.gz": "fbb79bf0a5507fb445312f75e0d0a866a7410c947985a09c8be105e43e03f295",
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/H.pbe-rrkjus_psl.1.0.0.UPF.gz": "0a7a3b9a7e683868735c90cb15c8428713e83ba0c24509425f779b67d52e4efb",
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/data-file-schema.xml.gz": "69bee516fb12521d308672056ddfda1e16daefa49862c8d7602461bf6123012f",
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/h2_probe.bfgs.gz": "c8ccac0f1f4b91d897775cfa7c9aa597b7a235c84bf574c8b9bc94294260a802",
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/input.in.gz": "4297cac3228140ec89d44b6656291acdc696f402759d69fbbc06e8e11d1374e3",
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/receipt.json.gz": "c727d348b310bf77d55cf9f2dc789e81993630240c58e93fa39c395480ad2d76",
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/stderr.log.gz": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/stdout.log.gz": "a79df30871af81152336676726e34ba19fdea6e70541052cee49e16bfb51bedf",
+    "tests/fixtures/qe75_real/tiny_h2/continuous/data-file-schema.xml.gz": "796777c1fabbee761f7d72c89439980abe83f0fc03b3921808d1ca06706ba84f",
+    "tests/fixtures/qe75_real/tiny_h2/continuous/input.in.gz": "138ed69e94dc661361b625a9fee88a2a1c43279ce87b98a376968573e7ba17a7",
+    "tests/fixtures/qe75_real/tiny_h2/continuous/receipt.json.gz": "87d6dc6c00ca046f776932cb91a1fa7312420322a94d2bbad1513bab08e4a5e5",
+    "tests/fixtures/qe75_real/tiny_h2/continuous/stderr.log.gz": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+    "tests/fixtures/qe75_real/tiny_h2/continuous/stdout.log.gz": "5a1f3edf8ce1175348bf71973c188df83e5918c4618f0fa75f962a8a6061eb11",
+    "tests/fixtures/qe75_real/tiny_h2/negative-fresh/data-file-schema.xml.gz": "547bf70a56354f8a479824c7e589841b3e44f51326cd7b049c5cb1c84565b88e",
+    "tests/fixtures/qe75_real/tiny_h2/negative-fresh/input.in.gz": "3276b9b600cfd2ad957607a5658f9301efcfde0161412c0135f18abec5a70847",
+    "tests/fixtures/qe75_real/tiny_h2/negative-fresh/receipt.json.gz": "103b9f1d4cce26f7281e7557fbacc34b4c10ca60a52a62c0d8555bccbdd0413e",
+    "tests/fixtures/qe75_real/tiny_h2/negative-fresh/stderr.log.gz": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+    "tests/fixtures/qe75_real/tiny_h2/negative-fresh/stdout.log.gz": "8426d66e6d1136900cca1ff34cb4a3b122caa25a889525c72446150ae24cc671",
+    "tests/fixtures/qe75_real/tiny_h2/resumed/data-file-schema.xml.gz": "57945876407725e119b670889cbaaa27fabb044e31ea8e5d383891d3886518f8",
+    "tests/fixtures/qe75_real/tiny_h2/resumed/input.in.gz": "9240e4b3b64bd0995799ff5e275dafb80270acc9ee692ab17b388fa76757debf",
+    "tests/fixtures/qe75_real/tiny_h2/resumed/receipt.json.gz": "eb34b9282f5e384c854dd3a1dd0d5cc145e13e140732d85af831eb46533afecf",
+    "tests/fixtures/qe75_real/tiny_h2/resumed/stderr.log.gz": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+    "tests/fixtures/qe75_real/tiny_h2/resumed/stdout.log.gz": "3dede1f2a0ea52c4af31d56b129dd97d1746288b99a2d9b86444c0519ecba8b7",
+    "tests/qe75_real_fixtures.py": "5aeddf0fb22da95c54ad00cdbb7ef7099346f39d36b9907f29111b32ad5f73db",
+    "tests/test_pa_catalyst_retest.py": "cccc28c1e1ebf2e85dc714c10a5a7476733db92b4cebd72221ad3eed0843590e",
+    "tests/test_pa_catalyst_retest_scripts.py": "46628d04389bffd24c83e8d0e2bc85663bdf710fc7b448270e583aed9a7b3574",
+    "tests/test_pa_qe_adapter_v2.py": "1f9ed1be9775cb1d5d2481ac3e29f9c85117c4dbf90e1e9b340c61b5bae9efc2",
+    "tests/test_pa_qe_adapter_v2_real.py": "7ec9e1d7b26112246ae100e0b242a8d71b3da9d0dcf846abd2aba8923a2df6da"
+  },
+  "staged_blob_pins": {
+    "anvil/90_pa_catalyst_retest.slurm": {
+      "sha256": "d30ca93fc02b4153c6aaeb8eefb8bf27eede3fc9bb171307b53cd021c8aeaf13",
+      "bytes": 1794
+    },
+    "docs/research/pa-catalyst-retest-2026-10-04.md": {
+      "sha256": "40d75c8dfc093c07216007da1df861a8104ff3ac239a2da4c49fa68433cdc863",
+      "bytes": 28950
+    },
+    "results/pa_catalyst_retest_2026-10-04/.gitattributes": {
+      "sha256": "246bc98411b0ac7fc2a2a037262aa9e29720b49636c4e2f3cdae1ca053b7faff",
+      "bytes": 107
+    },
+    "results/pa_catalyst_retest_2026-10-04/adapter_v2_vs_frozen.diff": {
+      "sha256": "e05f089e3de10b20e7c06c754a823c58d60604fc0adce3171dc730c68a64f67d",
+      "bytes": 10422
+    },
+    "results/pa_catalyst_retest_2026-10-04/audit_real_outputs.json": {
+      "sha256": "878df387af3aefda65f5e4907b0bafa90cfd915dd0f633fda1c81120d5dab863",
+      "bytes": 54404
+    },
+    "results/pa_catalyst_retest_2026-10-04/audit_real_outputs.py": {
+      "sha256": "f2cccda347306001958ff7cdc473be7c4a6543d25091d1ee9fdf8d48cea7caeb",
+      "bytes": 21937
+    },
+    "results/pa_catalyst_retest_2026-10-04/audit_table.md": {
+      "sha256": "dfb31e34fe02519a5b587fb64c6d2bebacb7cf49a5fb7bddc4d0c16fd157b23c",
+      "bytes": 13930
+    },
+    "results/pa_catalyst_retest_2026-10-04/build_fixtures.py": {
+      "sha256": "c74d2ca266ae96a039709ca458a67d8f5affc3eba891c9e2937a60fa3cb05a9c",
+      "bytes": 5029
+    },
+    "results/pa_catalyst_retest_2026-10-04/build_historical_snapshot.py": {
+      "sha256": "169f7694178b2435c9d7fdb08a4dad7b7f0af3e614b963c9b048fd26e0ad6be0",
+      "bytes": 2130
+    },
+    "results/pa_catalyst_retest_2026-10-04/build_launch_spec.py": {
+      "sha256": "7280bf0a9b77a30df629d5b90d83d560446a1ef86a1c8b86febb75f84afbbb26",
+      "bytes": 4356
+    },
+    "results/pa_catalyst_retest_2026-10-04/capture_pins.py": {
+      "sha256": "ada6171cd56942a303bfc034e5043a665a8b30480ee6014ae66022db3dc828b0",
+      "bytes": 2525
+    },
+    "results/pa_catalyst_retest_2026-10-04/commit_paths.json": {
+      "sha256": "c861c816acd8c5b2cf4876104bccd6149fa557067eb1826c2031c43a6ced13a1",
+      "bytes": 15426
+    },
+    "results/pa_catalyst_retest_2026-10-04/controller_retest_vs_frozen.diff": {
+      "sha256": "0307d1e3018dbd197cfec0f4b4868bfb3f1adc21faeb91a4dd9ad15a50d52ccd",
+      "bytes": 9731
+    },
+    "results/pa_catalyst_retest_2026-10-04/cost_envelope.json": {
+      "sha256": "be31a16d4b598277b57c81f17bca080c08f74a924967b84e32fe5bd41cd82222",
+      "bytes": 3796
+    },
+    "results/pa_catalyst_retest_2026-10-04/cost_envelope.py": {
+      "sha256": "542a0d825661157cc25f2559d9a3c563f548bdce19cc8730a5f2731759650b3c",
+      "bytes": 6708
+    },
+    "results/pa_catalyst_retest_2026-10-04/focused-verification-checked.job.json": {
+      "sha256": "cb86750ebb1dc5be3a97aae941cac4e296caa145b2603fcb281e6bcc5339ef29",
+      "bytes": 914
+    },
+    "results/pa_catalyst_retest_2026-10-04/focused-verification-checked.log": {
+      "sha256": "93104d48a3f45ff341f245fb11bbb1fa53ce8429f193522b35fa10dbd4206289",
+      "bytes": 2056
+    },
+    "results/pa_catalyst_retest_2026-10-04/focused-verification-checked.status.json": {
+      "sha256": "f7a0564903bf9b5e4e48d0db0db9c97d57989fe111a2ada0d4f22ed3c4f74fe8",
+      "bytes": 61
+    },
+    "results/pa_catalyst_retest_2026-10-04/focused-verification.job.json": {
+      "sha256": "e8803c78aa3db1e9b125e1de1f2408d12798f6a74cac56bf82476bb20a1cf27f",
+      "bytes": 907
+    },
+    "results/pa_catalyst_retest_2026-10-04/focused-verification.log": {
+      "sha256": "80366b78b35ba47fb54e274a9ab6bb1db65c22fb1f3b4391bd634913c2a956ac",
+      "bytes": 26732
+    },
+    "results/pa_catalyst_retest_2026-10-04/focused-verification.status.json": {
+      "sha256": "f7a0564903bf9b5e4e48d0db0db9c97d57989fe111a2ada0d4f22ed3c4f74fe8",
+      "bytes": 61
+    },
+    "results/pa_catalyst_retest_2026-10-04/historical_citation_rebinding.json": {
+      "sha256": "2951f4ac130d41d2b7df741629419f2634e027d9bf6a3e0399e64ce8b5c8510a",
+      "bytes": 1967
+    },
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_before_lf.md": {
+      "sha256": "8c38e0f59cd8185e3cb8c29ecbd986163baa3021a433d45d11cdddece99749be",
+      "bytes": 10223
+    },
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_before_lf_pins.json": {
+      "sha256": "24d51435e7a7d3d4253a42afcc0ecc9e982cdbad9658932a1ea0078575b17716",
+      "bytes": 4024
+    },
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_final.md": {
+      "sha256": "9bdacc1afb23ba0bfc40f174e028294192e4f642e39b05bd46b64bfd06d88e88",
+      "bytes": 10984
+    },
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_final_pins.json": {
+      "sha256": "df268e666c0f6e93c110acfaca17ba1b9b45f3460246fc6532012602aa7a5b7b",
+      "bytes": 4030
+    },
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_initial.md": {
+      "sha256": "9de342a13f25e99429a8cfc71d71b706a3ef9d66d981a24a2bb3b6c700210f01",
+      "bytes": 6966
+    },
+    "results/pa_catalyst_retest_2026-10-04/independent_launch_review_initial_checked.md": {
+      "sha256": "fd696f61ce74650a6b361899228eb5242c0ad40c98dc80a5580dc0d2b878d6f6",
+      "bytes": 7288
+    },
+    "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-held-validation-2026-10-04.py.txt": {
+      "sha256": "7846e9ea1ee11a9dc618892037b0cdee4797db7da1b3283a9cb93f597f830507",
+      "bytes": 3660
+    },
+    "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-release-2026-10-04.py.txt": {
+      "sha256": "cc51a7813e63f4ccb8337323d0825d7b77a10ecf56e502e74be91268205db4d0",
+      "bytes": 5795
+    },
+    "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-remote-stage-2026-10-04.py.txt": {
+      "sha256": "065b69805c9300ccb9ccfcf473cf5350cf77b1ef51d50197afbb5fd4252a80da",
+      "bytes": 7242
+    },
+    "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/pa-catalyst-retest-submit-held-2026-10-04.py.txt": {
+      "sha256": "cfce0af85ec47099b1caf74064c54716ca6e3a24abfb58e86edc12af81b6c314",
+      "bytes": 6213
+    },
+    "results/pa_catalyst_retest_2026-10-04/independent_review_original_scripts/watch_retest_readonly.py.txt": {
+      "sha256": "0e1c13467b02e52eb78dbf011bc2063c30cb2386ac0aec6fbe73efdd6e1c90c9",
+      "bytes": 4788
+    },
+    "results/pa_catalyst_retest_2026-10-04/launch_spec.json": {
+      "sha256": "4c2384c6375f1c7892d33d8f6c37478243f41af3da9dd0f9ec507bcd8423e435",
+      "bytes": 7292
+    },
+    "results/pa_catalyst_retest_2026-10-04/line_ending_equivalence.json": {
+      "sha256": "e9ce57755b27da1eac108401dcc77a095d46eec87f880e2656cbc007fedcea9e",
+      "bytes": 390
+    },
+    "results/pa_catalyst_retest_2026-10-04/mutation_checks.json": {
+      "sha256": "5f1992b92c01246e65090486b394fc055a636733d89c2a94d8b3d3c79c329362",
+      "bytes": 5484
+    },
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-checked.job.json": {
+      "sha256": "768dbd483c0c30d96256a5fce2e57887a0ed0ef899cff32ba703b95f53e68639",
+      "bytes": 670
+    },
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-checked.log": {
+      "sha256": "3395cbb9322d3f2727a7fe64d51d0711511791955b124462eb55b58e9f9782c1",
+      "bytes": 800
+    },
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-checked.status.json": {
+      "sha256": "46dff1538327c56bf7432a5e3ef1d8962872bc5d4cb08d0b675980cea2fa0c68",
+      "bytes": 62
+    },
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.job.json": {
+      "sha256": "5575174004f86ff0c373feccb5ae1bb9084536e9f10168915fc970c4ef5c7780",
+      "bytes": 675
+    },
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.log": {
+      "sha256": "9aa101a62702964ef5fc06c9fe37f3a1ea0db359f05058e7f5f78cf8b9ec9e2a",
+      "bytes": 10606
+    },
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final-lf.status.json": {
+      "sha256": "2e9445d567e0e01f1db98090b469345d6dfa63dd5f03cd8141bee77c473bf331",
+      "bytes": 61
+    },
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final.job.json": {
+      "sha256": "a66915f5353ffc315778c373b7155841fff67702946045ee88e6c5dc1c65431d",
+      "bytes": 666
+    },
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final.log": {
+      "sha256": "abe452794735b4d28dd9052c481d91ea5adb5acf491cfd4f4af73ac55d92fe52",
+      "bytes": 10602
+    },
+    "results/pa_catalyst_retest_2026-10-04/offline-verification-final.status.json": {
+      "sha256": "2e9445d567e0e01f1db98090b469345d6dfa63dd5f03cd8141bee77c473bf331",
+      "bytes": 61
+    },
+    "results/pa_catalyst_retest_2026-10-04/offline_initial.json": {
+      "sha256": "12589177a82fe3b429bc774ff4048bb65bb60c7f13198eceb0a5c1d3c3d6f89e",
+      "bytes": 8423
+    },
+    "results/pa_catalyst_retest_2026-10-04/offline_release.json": {
+      "sha256": "723a52576ca41aef7451dd35fcfe80c0beb4ef8b6d09be5f1cae9500807cc2c4",
+      "bytes": 12438
+    },
+    "results/pa_catalyst_retest_2026-10-04/offline_release_lf.json": {
+      "sha256": "dbeabe311d10e758567d9177db5d93d93ae9be0e53f6fd6097b3d04b047c2e12",
+      "bytes": 12443
+    },
+    "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-held-validation-2026-10-04.py": {
+      "sha256": "7846e9ea1ee11a9dc618892037b0cdee4797db7da1b3283a9cb93f597f830507",
+      "bytes": 3660
+    },
+    "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-release-2026-10-04.py": {
+      "sha256": "829c8aae7eaab8fb0c833fe493470eb34b4cac5815b986d55f9dd57438420c01",
+      "bytes": 6295
+    },
+    "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-remote-stage-2026-10-04.py": {
+      "sha256": "065b69805c9300ccb9ccfcf473cf5350cf77b1ef51d50197afbb5fd4252a80da",
+      "bytes": 7242
+    },
+    "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-submit-held-2026-10-04.py": {
+      "sha256": "f07fb4c7cb5bd88c76e47a9ee11a84794a0393da3495ac7757068b72ddf79096",
+      "bytes": 6411
+    },
+    "results/pa_catalyst_retest_2026-10-04/pins.json": {
+      "sha256": "32997beb3948f422d8fe3bac04ed619ffa018cdd71058348e035bce3d060d830",
+      "bytes": 3329
+    },
+    "results/pa_catalyst_retest_2026-10-04/provenance.md": {
+      "sha256": "9f1dd26b6a29029ccedd9e9db7143c7008819084d4c54a6b2fea951bb1025e18",
+      "bytes": 807
+    },
+    "results/pa_catalyst_retest_2026-10-04/publish_reviewed_package.py": {
+      "sha256": "25936e758ab54dcfa9bdee8cbfd6a4754b40b87443a16cdab340a15e09667c31",
+      "bytes": 8914
+    },
+    "results/pa_catalyst_retest_2026-10-04/publish_whitespace_refusal.json": {
+      "sha256": "c7828bfbb96bf479e4775b2f0edf68d882c5b145aaf5c95a715885cdf77dbb29",
+      "bytes": 82610
+    },
+    "results/pa_catalyst_retest_2026-10-04/readout_trial_before_snapshot.py": {
+      "sha256": "d6e759ffef4ec499c6a2ba3ce27c6af6d5d12a29d14435d34fa83aea0d16ce51",
+      "bytes": 91998
+    },
+    "results/pa_catalyst_retest_2026-10-04/render_audit_table.py": {
+      "sha256": "3504a190e0740392eeddf2b6ec159f84be97d5065fca616c4caafb8f29c897e6",
+      "bytes": 8791
+    },
+    "results/pa_catalyst_retest_2026-10-04/run_mutation_checks.py": {
+      "sha256": "098206f8eff35df90c3a6e9a55fa47b115756fa95e19093c8eb2812ca9087d8d",
+      "bytes": 5665
+    },
+    "results/pa_catalyst_retest_2026-10-04/scientific_initial/si_round_verification.json": {
+      "sha256": "4fb793fd5086cfc1ed75367790fe22b7de7a14b34f6d2e197c691779bfbdf091",
+      "bytes": 90370
+    },
+    "results/pa_catalyst_retest_2026-10-04/scientific_initial/verification.json": {
+      "sha256": "b2e1f92854e2b0df20b82957fd85c93bd1dec42d75a5ac4cb60f0ef62d7b36d7",
+      "bytes": 56653
+    },
+    "results/pa_catalyst_retest_2026-10-04/scientific_release/si_round_verification.json": {
+      "sha256": "4fb793fd5086cfc1ed75367790fe22b7de7a14b34f6d2e197c691779bfbdf091",
+      "bytes": 90370
+    },
+    "results/pa_catalyst_retest_2026-10-04/scientific_release/verification.json": {
+      "sha256": "b2e1f92854e2b0df20b82957fd85c93bd1dec42d75a5ac4cb60f0ef62d7b36d7",
+      "bytes": 56653
+    },
+    "results/pa_catalyst_retest_2026-10-04/scientific_release_lf/si_round_verification.json": {
+      "sha256": "4fb793fd5086cfc1ed75367790fe22b7de7a14b34f6d2e197c691779bfbdf091",
+      "bytes": 90370
+    },
+    "results/pa_catalyst_retest_2026-10-04/scientific_release_lf/verification.json": {
+      "sha256": "b2e1f92854e2b0df20b82957fd85c93bd1dec42d75a5ac4cb60f0ef62d7b36d7",
+      "bytes": 56653
+    },
+    "results/pa_catalyst_retest_2026-10-04/snapshot-build.job.json": {
+      "sha256": "262dab1ba1957dbde4becda3847c7d8df47028ff641ca753c5cf6620678ba4b7",
+      "bytes": 607
+    },
+    "results/pa_catalyst_retest_2026-10-04/snapshot-build.log": {
+      "sha256": "fe84514ef507b854538dd3a1b57dd06405abb8c796bf766c643050e0ab074583",
+      "bytes": 207
+    },
+    "results/pa_catalyst_retest_2026-10-04/snapshot-build.status.json": {
+      "sha256": "2e9445d567e0e01f1db98090b469345d6dfa63dd5f03cd8141bee77c473bf331",
+      "bytes": 61
+    },
+    "results/pa_catalyst_retest_2026-10-04/source_xml_input_review.md": {
+      "sha256": "3c2c9dc101c0d4e1779aff8abee588a6ff18a4a61904b023ac40808b2dac5929",
+      "bytes": 7414
+    },
+    "results/pa_catalyst_retest_2026-10-04/stale_verification_stop.json": {
+      "sha256": "3c0db0041cf921f089e7af9108d968eb647473a5d2a8b543cf8217d3cc30390e",
+      "bytes": 232
+    },
+    "results/pa_catalyst_retest_2026-10-04/stop-stale-verification.job.json": {
+      "sha256": "1ddf881c4608275bf285419c13ad5402f298065820e1414b4b199767e40f1d5c",
+      "bytes": 1159
+    },
+    "results/pa_catalyst_retest_2026-10-04/stop-stale-verification.log": {
+      "sha256": "7c9a90317e4adfed9a9c83233159433dac1a6dade6c851051674304e42be565b",
+      "bytes": 250
+    },
+    "results/pa_catalyst_retest_2026-10-04/stop-stale-verification.status.json": {
+      "sha256": "2e9445d567e0e01f1db98090b469345d6dfa63dd5f03cd8141bee77c473bf331",
+      "bytes": 61
+    },
+    "results/pa_catalyst_retest_2026-10-04/test_readout_trial_before_lf.py": {
+      "sha256": "dc8a42c8105d13fb11c98da56d8844bd2382686f622ceb64d13606563e4107c1",
+      "bytes": 68681
+    },
+    "results/pa_catalyst_retest_2026-10-04/test_readout_trial_before_snapshot.py": {
+      "sha256": "da557492d8857a406612df4514313bfcebe4fa8f941dd4dcda2a440d4c7927fd",
+      "bytes": 66625
+    },
+    "results/pa_catalyst_retest_2026-10-04/verification-process-observation.job.json": {
+      "sha256": "8b50a1a060ba913062ae7d4614b3b097024b67ec042d3fb976332d56f945830f",
+      "bytes": 824
+    },
+    "results/pa_catalyst_retest_2026-10-04/verification-process-observation.log": {
+      "sha256": "68ea02e3acc0a557db2dd20d34a4d6746cbbbdfdff4862380e605bc2b9cc28dd",
+      "bytes": 285
+    },
+    "results/pa_catalyst_retest_2026-10-04/verification-process-observation.status.json": {
+      "sha256": "2e9445d567e0e01f1db98090b469345d6dfa63dd5f03cd8141bee77c473bf331",
+      "bytes": 61
+    },
+    "results/pa_catalyst_retest_2026-10-04/verification_final_summary.md": {
+      "sha256": "b96769df2668ba2d194757827eeb5382e356933ca946c610f9af4b3745025a53",
+      "bytes": 1322
+    },
+    "results/pa_catalyst_retest_2026-10-04/verification_replan.md": {
+      "sha256": "cd6c2282afaec54c351e40f5a66a13533d1eb93b797881297532677987d984ae",
+      "bytes": 1071
+    },
+    "results/pa_catalyst_retest_2026-10-04/verify_retest_offline.py": {
+      "sha256": "0d3b283da564f0e658a5b0eceb7e80e1bb55eabbf86ef2a72bb4ae9c496cbcf4",
+      "bytes": 12836
+    },
+    "results/pa_catalyst_retest_2026-10-04/watch_retest_readonly.py": {
+      "sha256": "e002b26c8129094af6c7c8a0ff6860089d06b5caee86452717b36425f37b4d31",
+      "bytes": 5309
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/.gitattributes": {
+      "sha256": "730a35ae3d558080083c3103d9ac8100c3f6561678092abe341701dfa331eb1d",
+      "bytes": 29
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot.json": {
+      "sha256": "dcb15854775caa79577ee6eb6b623dc135d4de487e3c2b027949f8c5da2ade0b",
+      "bytes": 4424
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/anvil/89_pa_catalyst_boundary_trial.slurm": {
+      "sha256": "0ff3deac8c28537a197020e832903f61d47864113406c616f9f9462bb5cc1ed3",
+      "bytes": 1768
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/eligible-comparison-pa-readiness-2026-10-03.md": {
+      "sha256": "c5b560d7d2eab1dc12bbfd8b730a43458c614c34d2585bbf4acd0bb662b29a3c",
+      "bytes": 13987
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md": {
+      "sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+      "bytes": 8604
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/implementation_findings.md": {
+      "sha256": "6e9c382537ce67629d7e6efd15b584cf8d554d18af843cbb6f71fbf0448b175e",
+      "bytes": 2679
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/independent_launch_review.md": {
+      "sha256": "fd22b78092c09c955e2d3d5adb58670cceb2f371526426c2e3c7b0556b3223ef",
+      "bytes": 7276
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md": {
+      "sha256": "0d8c4e0ea2eb4775fe5bf233326f8d5c86c765bb133ce1163cb9c2c49761d587",
+      "bytes": 10993
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/launch_spec.json": {
+      "sha256": "4bed5002a88857515940230b20ad59e6adc345e29d8567d5b9c5f5511b0b28a2",
+      "bytes": 3906
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/source_boundary_review.md": {
+      "sha256": "7efb6e27d9859eff629df0cc6dfcd90ef9e17b74819e9500ee398b5e432addac",
+      "bytes": 24989
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/results/pa_catalyst_trial_2026-10-03/watch_trial_readonly.py": {
+      "sha256": "7ff35fc877decfbeddcf24f3becaf75af235d07b9e724d6a56ff916163fef08e",
+      "bytes": 4723
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/runs/hea/lowtail_low_state_restart_2026-09-22/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.in": {
+      "sha256": "dfed65abc93a5eb5ef350c31f963fd6044c5b6e68fd39904063a0292de5f8539",
+      "bytes": 4888
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_catalyst_trial.py": {
+      "sha256": "d00656aa0e7e666f75900190ccc703c1fd0fee8293738a311ea9ab5880b368ce",
+      "bytes": 56768
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_checked_contract.py": {
+      "sha256": "67412c8363877f0a6407e382a4d3c33c6c0f6dac7b1f5de3e3968bf77755ae39",
+      "bytes": 25077
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/src/dft/pa_qe_adapter.py": {
+      "sha256": "255464215aa898d0c9d34317a1be9b16fb27ba6d35108e0ca78215331a628879",
+      "bytes": 74077
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_sources.py": {
+      "sha256": "1b93e0847b022798f6f4f03551f76d052757aa163de81d823f09205cfab5d08a",
+      "bytes": 2999
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/readout_trial.py": {
+      "sha256": "f9324e71a2b63a066ca6bde39c9dafe6f2d1f6f4b5712f47c8a0f58cad8b60ae",
+      "bytes": 91420
+    },
+    "results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py": {
+      "sha256": "f6b8ceecc432ae255a594bdf015122304ddfa8bd0b3f6e7ecb6b5b0e3b30c4e3",
+      "bytes": 67645
+    },
+    "src/dft/pa_catalyst_retest.py": {
+      "sha256": "b1c49d2d06c93fed4438d46491d8a01532f05cd6d8b6adfed90ca9689a65baf1",
+      "bytes": 62282
+    },
+    "src/dft/pa_qe_adapter_v2.py": {
+      "sha256": "63655f45531939a84ad2db4c5c5debab159427bae42e7a02abf0312f9a348f11",
+      "bytes": 79932
+    },
+    "tasks/todo.md": {
+      "sha256": "5d0285799083404c956ba010a116cab2c817c75a5303fd6c02e036e1b75200b6",
+      "bytes": 391549
+    },
+    "tests/fixtures/qe75_real/.gitattributes": {
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "bytes": 8
+    },
+    "tests/fixtures/qe75_real/README.txt": {
+      "sha256": "cca6186c48f3eee1f05e4e0c7e4460c13364a497c2cb9e314e786ae3422d0dfb",
+      "bytes": 1154
+    },
+    "tests/fixtures/qe75_real/control/common_pseudo/Co_pbe_v1.2.uspp.F.UPF.gz": {
+      "sha256": "fbbad605e579e33e9c1cb70b435aa82672de4de7c0cca58462eec2bcd25f6099",
+      "bytes": 190363
+    },
+    "tests/fixtures/qe75_real/control/common_pseudo/Cu.paw.z_11.ld1.psl.v1.0.0-low.upf.gz": {
+      "sha256": "f3bc13a1a3b66bca84305cb8bf77086d0da1fae802e23c47274384141061eaec",
+      "bytes": 653770
+    },
+    "tests/fixtures/qe75_real/control/common_pseudo/O.pbe-n-kjpaw_psl.0.1.UPF.gz": {
+      "sha256": "d159560b238fed3aa3168f6a3a5b7ac67a0a08bcbc38ca3f25bb117026d09d03",
+      "bytes": 309108
+    },
+    "tests/fixtures/qe75_real/control/common_pseudo/cr_pbe_v1.5.uspp.F.UPF.gz": {
+      "sha256": "12ac23e28abb0420d80ad5af84ab2a4d73b3b387637419c4d46f74d3123bf22a",
+      "bytes": 183558
+    },
+    "tests/fixtures/qe75_real/control/common_pseudo/mn_pbe_v1.5.uspp.F.UPF.gz": {
+      "sha256": "01c11f2cc3710827ceeece93512ad4362698a6d122aca5b4ae2fec60ad29270a",
+      "bytes": 189292
+    },
+    "tests/fixtures/qe75_real/control/data-file-schema.xml.gz": {
+      "sha256": "b833e6ea0925eeeb12b81efd5749e419857fc923a802e9f73cfda96888bdf6c2",
+      "bytes": 97866
+    },
+    "tests/fixtures/qe75_real/control/input.in.gz": {
+      "sha256": "e5f726c0d413250745acbc6b7e4930ba1df5edc52bd0419108ffc0b2cef003b9",
+      "bytes": 2033
+    },
+    "tests/fixtures/qe75_real/control/process_receipt.json.gz": {
+      "sha256": "79af8b203a0677bb7222507d442f3140326d620caebc09d33f150e4e4527bf09",
+      "bytes": 643
+    },
+    "tests/fixtures/qe75_real/control/slab_c5low__pa_boundary.bfgs.gz": {
+      "sha256": "6e0d9f7c5b97b069875819e16aefae248c12f87263ab2ef3f049c66ef4348d3c",
+      "bytes": 216846
+    },
+    "tests/fixtures/qe75_real/control/stderr.log.gz": {
+      "sha256": "4100c375158627daa5b137bcb0f7cb0298fb9f5904e376c6d669c8691fffd982",
+      "bytes": 185
+    },
+    "tests/fixtures/qe75_real/control/stdout.log.gz": {
+      "sha256": "70a3d183ecf9c6a2a7f89b1b3f2c956834c1029ed2d6425faeaf3bad811a1c47",
+      "bytes": 102376
+    },
+    "tests/fixtures/qe75_real/fresh_logs/slab_c5low__checked.fresh10.out.gz": {
+      "sha256": "544512f621c9152c4656912cca214a8aeaafc32b69a2994132ad353c0d00a1b4",
+      "bytes": 16241
+    },
+    "tests/fixtures/qe75_real/fresh_logs/slab_c5low__checked.fresh3.out.gz": {
+      "sha256": "55217459d2e75497b75bb105603a81896eea197489ba23e00cf66a2ecdcef2bb",
+      "bytes": 38382
+    },
+    "tests/fixtures/qe75_real/manifest.json": {
+      "sha256": "6054cd6ee9d554b43d9a9a4be41a5daa3b32fdd48c6ac5ef25cef363299ca8d0",
+      "bytes": 22309
+    },
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.in.gz": {
+      "sha256": "8056a083efe2d1782ffcf82d33a08c6cbf278802e7e49c2c885085861ab2d803",
+      "bytes": 853
+    },
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.out.gz": {
+      "sha256": "cff926ccc5323d6d35c444bb29a35b1255f201b1a423c96276616d254f962834",
+      "bytes": 20170
+    },
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OH__u750_ortho.xml.gz": {
+      "sha256": "6600c47bc5fd9ca1afba57948ffe4772e4d5ef5b44303165a7aea644f3e422a2",
+      "bytes": 42010
+    },
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.in.gz": {
+      "sha256": "546075b7bf2186f71aed1a246e081698ccb836d3bdba290ab0873c061b332cc2",
+      "bytes": 867
+    },
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.out.gz": {
+      "sha256": "fd67b7f13eb1b6eb4a67fca0a73e955bab4bd3c3e1206e7e998b9a522b656304",
+      "bytes": 20471
+    },
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_OOH__u750_ortho.xml.gz": {
+      "sha256": "2e0b6c44fc82c8eec0398ee6cc77e5c4662f3a478eb6b4b3bf466c687788cfce",
+      "bytes": 43380
+    },
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.in.gz": {
+      "sha256": "df38b82151413d77715b7c95cf3372b6f618d55556d7bece521bef2886c33e43",
+      "bytes": 757
+    },
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.out.gz": {
+      "sha256": "aeae8cce127917c36724eabd16b4089e159302a77e699d22398ce3c7ed1b98d3",
+      "bytes": 18785
+    },
+    "tests/fixtures/qe75_real/pproj6/Cr__s0_O__u750_ortho.xml.gz": {
+      "sha256": "95925b9a508a5dbd83a7cf84285d7ab3a519fa2264919a28aecbdbbf0674fb81",
+      "bytes": 41101
+    },
+    "tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.in.gz": {
+      "sha256": "95029129f483291903939513436a60fd8066afb24432a125edd972414d87e7d8",
+      "bytes": 798
+    },
+    "tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.out.gz": {
+      "sha256": "591474e26dd94e34ad0bcfa588c4e004c98415d65ddc5de1f6990b06454bb7ea",
+      "bytes": 19758
+    },
+    "tests/fixtures/qe75_real/pproj6/Cr__slab__u750_ortho.xml.gz": {
+      "sha256": "e2b1a7339ec26ca8f6c5f46f7c431041fd97542d5058a34231eaa75b556372d1",
+      "bytes": 77371
+    },
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.in.gz": {
+      "sha256": "ff874c34891e467603c2b2f735698d612256a9b70b3fae7fc1d335f2418d8e21",
+      "bytes": 926
+    },
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.out.gz": {
+      "sha256": "58eb98e54974b396bae1c1cc8cac74cd1543afe36e07b8007372a55421ee63cd",
+      "bytes": 21441
+    },
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_OOH__u750_ortho.xml.gz": {
+      "sha256": "ea60146151492e387d970ee0ef18cd1db35ea21d783c03e025d817c48cd246b5",
+      "bytes": 81882
+    },
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.in.gz": {
+      "sha256": "f2791973bfd661b77b3b0f866d58dcd407baa20e46ce63ebbea02cfcfd72d189",
+      "bytes": 847
+    },
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.out.gz": {
+      "sha256": "28597fb3fe507fcd160d79dc78888fd1629b4584aac8d2bfe457f181a8664ad5",
+      "bytes": 20959
+    },
+    "tests/fixtures/qe75_real/pproj6/Fe__s0_O__u750_ortho.xml.gz": {
+      "sha256": "e3a2c443fa55646089aab713e6c3fdf006f17278463ff8417a9ec779fdca342f",
+      "bytes": 78736
+    },
+    "tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.in.gz": {
+      "sha256": "8391e63d1d3b5696871ffa81f94e85324afd2767abb3b6e55e1b20834e4e591e",
+      "bytes": 804
+    },
+    "tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.out.gz": {
+      "sha256": "fe3fdbac8fca89054d2c448fd4ad56046d81fb59864b5684a7573135d64b678c",
+      "bytes": 19424
+    },
+    "tests/fixtures/qe75_real/pproj6/Fe__slab__u750_ortho.xml.gz": {
+      "sha256": "e3b96dfdfd6d8f384ed058a0377c9748a0c750bf14bd468edc910be76d86f31c",
+      "bytes": 75153
+    },
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.in.gz": {
+      "sha256": "3dba7bb0b4f8e37bf134a7ed351e2e9f7f3b658911e7acbe0666d2c88624d80e",
+      "bytes": 913
+    },
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.out.gz": {
+      "sha256": "d41cf8173b6d95aafda80889b190c708a8bbef37cc7f2275b8106bf76508b24a",
+      "bytes": 22964
+    },
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OH__u750_ortho.xml.gz": {
+      "sha256": "5b34b12d8e840ba09762b5353d5197654b327b1b401e6080a517dfa86dc55377",
+      "bytes": 85366
+    },
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.in.gz": {
+      "sha256": "f1c4c99af1d6fff6b16c1aa0de894ff845b96d1577e269d02669c7c020fd7357",
+      "bytes": 946
+    },
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.out.gz": {
+      "sha256": "947b7e440f0fddab960a517bfb0978655dbada23e30e0f753e9dacbcd1e6b778",
+      "bytes": 24080
+    },
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_OOH__u750_ortho.xml.gz": {
+      "sha256": "9a0d1a177c130969d2b1cbcbd78e6910f06e84ce12737fe6ecac0c2aa7f867cf",
+      "bytes": 89130
+    },
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.in.gz": {
+      "sha256": "6b7ecf99e95d2a0b1f4999d1563f1bfd972c57425b59e9edc1c2dee2ac8c65d1",
+      "bytes": 838
+    },
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.out.gz": {
+      "sha256": "2115b842dd994b3e9a80ed25fb680b0fbcb4e2c5b70fe882e948d5f604919737",
+      "bytes": 20500
+    },
+    "tests/fixtures/qe75_real/pproj6/Mn__s0_O__u750_ortho.xml.gz": {
+      "sha256": "8fc78621c3cd945f1d154ee95f20d3138434a196f44af51e2b7b5169ca444101",
+      "bytes": 82660
+    },
+    "tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.in.gz": {
+      "sha256": "c9a31db38cb843db24fd3cdac8987a013b73fce59885b56af038d047b6adab3f",
+      "bytes": 815
+    },
+    "tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.out.gz": {
+      "sha256": "926148d1edd6b839f91180096e90aaf8b11cca45c1501c6735cfc688b24c9d97",
+      "bytes": 19628
+    },
+    "tests/fixtures/qe75_real/pproj6/Mn__slab__u750_ortho.xml.gz": {
+      "sha256": "91b61d1a8f68cc50b6b662c181a1cec968106a51655e440a67e4e2576ff24c3d",
+      "bytes": 78719
+    },
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.in.gz": {
+      "sha256": "5e9ba9403a94a32f55326d579c45e2bad5f022572d3c1a52c6ff690db0246655",
+      "bytes": 823
+    },
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.out.gz": {
+      "sha256": "9a11a7c3fa2d511131884fd6fc8db27e737540bec00f8b0755a1f32bf5adef37",
+      "bytes": 13107
+    },
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OH__u750_ortho.xml.gz": {
+      "sha256": "a0fbd0130caa8a55398d0241b88e38f3042303ef6cc521b0675e7b3ed0a72b1a",
+      "bytes": 25701
+    },
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.in.gz": {
+      "sha256": "b1a72c49e9c70424ba14c0583e032c3488f30022e5ebbe33e2b946097b1142d6",
+      "bytes": 842
+    },
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.out.gz": {
+      "sha256": "2c6bd93ec5dadf5829503e22b136646681441be20c1dfaf8e43045dcd0fdd81c",
+      "bytes": 13273
+    },
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_OOH__u750_ortho.xml.gz": {
+      "sha256": "1614c294c032fcb9f9a1432b98d6565d5d96561fc8ad23381012d5447a24b651",
+      "bytes": 26356
+    },
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.in.gz": {
+      "sha256": "1c5d16f7876196c883925cd2e85d33190c784ba85d80ec16cb1bf27a6df16685",
+      "bytes": 736
+    },
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.out.gz": {
+      "sha256": "4fbcee16fdefd43126315308e631751e0e33058c72b3e3f619ae2bd177da89dc",
+      "bytes": 12435
+    },
+    "tests/fixtures/qe75_real/pproj6/Ru__s0_O__u750_ortho.xml.gz": {
+      "sha256": "e102ff8b7dba73278b7635c71a128d238c7d295deefb80b93d9a31e73a5d4092",
+      "bytes": 25251
+    },
+    "tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.in.gz": {
+      "sha256": "de38d7d16c70d9989117391416533f8b71c3a4d4a0a57c9e16b570203991cef6",
+      "bytes": 786
+    },
+    "tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.out.gz": {
+      "sha256": "6d93d93adc1d9e215ac79378742fc657871ef1f1933aad6a088a42fd9a94512c",
+      "bytes": 12932
+    },
+    "tests/fixtures/qe75_real/pproj6/Ru__slab__u750_ortho.xml.gz": {
+      "sha256": "2b6094c9e5d8253f6a3fcdc98467608b6c695780a5739c8a2ffe00d30dd40435",
+      "bytes": 40977
+    },
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.in.gz": {
+      "sha256": "bf060813fa6faa62db9fdd766741e67ed214b84f63e0965207cbca0193898c3c",
+      "bytes": 855
+    },
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.out.gz": {
+      "sha256": "9b23f86c02dccff49301fdd2815f6ae0ca6317c0173df4435713d8520160b51a",
+      "bytes": 13150
+    },
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OH__u750_ortho.xml.gz": {
+      "sha256": "f4fbe16891f10fe8fb45bed6ab0cb66b23e9f7da25d07471428a2ee349051c64",
+      "bytes": 37876
+    },
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.in.gz": {
+      "sha256": "76c1255e7f7ab8d7030e22e0b5aa79e22444083ac01ba38116b49333317d5c96",
+      "bytes": 889
+    },
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.out.gz": {
+      "sha256": "c59dbce4d291ea8352892fe0fcac10f649175ef94fa3ce681c299c9dd40eb637",
+      "bytes": 15264
+    },
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_OOH__u750_ortho.xml.gz": {
+      "sha256": "2f663c315ba7d6909450c52f5d863ff9922680550874d2ba6f5a9b057273a1ed",
+      "bytes": 38855
+    },
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.in.gz": {
+      "sha256": "f578658d4622207f696a5bfe0a04639dd2052556f7a8c90fa08c385ca6fc9afd",
+      "bytes": 789
+    },
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.out.gz": {
+      "sha256": "8ab73d87c42cfe8950dfcfa89eda71a3437c19f149e1d420fcc572dd8c7831b8",
+      "bytes": 12435
+    },
+    "tests/fixtures/qe75_real/pproj6/Ti__s0_O__u750_ortho.xml.gz": {
+      "sha256": "072e7af685937d35118f53a0042510b941223faa710b4e933e8c2f67826af3c2",
+      "bytes": 37453
+    },
+    "tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.in.gz": {
+      "sha256": "c043340e6a3080fe30ac151b2c50a7cc2c592e134ef22543d64cdbccb59fccd4",
+      "bytes": 778
+    },
+    "tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.out.gz": {
+      "sha256": "5fc36ff483abcea36bca31527b308faf0579545e9ba3e910573d85302531f235",
+      "bytes": 11815
+    },
+    "tests/fixtures/qe75_real/pproj6/Ti__slab__u750_ortho.xml.gz": {
+      "sha256": "fbb79bf0a5507fb445312f75e0d0a866a7410c947985a09c8be105e43e03f295",
+      "bytes": 34445
+    },
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/H.pbe-rrkjus_psl.1.0.0.UPF.gz": {
+      "sha256": "0a7a3b9a7e683868735c90cb15c8428713e83ba0c24509425f779b67d52e4efb",
+      "bytes": 76950
+    },
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/data-file-schema.xml.gz": {
+      "sha256": "69bee516fb12521d308672056ddfda1e16daefa49862c8d7602461bf6123012f",
+      "bytes": 5320
+    },
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/h2_probe.bfgs.gz": {
+      "sha256": "c8ccac0f1f4b91d897775cfa7c9aa597b7a235c84bf574c8b9bc94294260a802",
+      "bytes": 197
+    },
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/input.in.gz": {
+      "sha256": "4297cac3228140ec89d44b6656291acdc696f402759d69fbbc06e8e11d1374e3",
+      "bytes": 504
+    },
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/receipt.json.gz": {
+      "sha256": "c727d348b310bf77d55cf9f2dc789e81993630240c58e93fa39c395480ad2d76",
+      "bytes": 462
+    },
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/stderr.log.gz": {
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "bytes": 20
+    },
+    "tests/fixtures/qe75_real/tiny_h2/candidate-stop/stdout.log.gz": {
+      "sha256": "a79df30871af81152336676726e34ba19fdea6e70541052cee49e16bfb51bedf",
+      "bytes": 3484
+    },
+    "tests/fixtures/qe75_real/tiny_h2/continuous/data-file-schema.xml.gz": {
+      "sha256": "796777c1fabbee761f7d72c89439980abe83f0fc03b3921808d1ca06706ba84f",
+      "bytes": 6369
+    },
+    "tests/fixtures/qe75_real/tiny_h2/continuous/input.in.gz": {
+      "sha256": "138ed69e94dc661361b625a9fee88a2a1c43279ce87b98a376968573e7ba17a7",
+      "bytes": 501
+    },
+    "tests/fixtures/qe75_real/tiny_h2/continuous/receipt.json.gz": {
+      "sha256": "87d6dc6c00ca046f776932cb91a1fa7312420322a94d2bbad1513bab08e4a5e5",
+      "bytes": 265
+    },
+    "tests/fixtures/qe75_real/tiny_h2/continuous/stderr.log.gz": {
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "bytes": 20
+    },
+    "tests/fixtures/qe75_real/tiny_h2/continuous/stdout.log.gz": {
+      "sha256": "5a1f3edf8ce1175348bf71973c188df83e5918c4618f0fa75f962a8a6061eb11",
+      "bytes": 5791
+    },
+    "tests/fixtures/qe75_real/tiny_h2/negative-fresh/data-file-schema.xml.gz": {
+      "sha256": "547bf70a56354f8a479824c7e589841b3e44f51326cd7b049c5cb1c84565b88e",
+      "bytes": 5951
+    },
+    "tests/fixtures/qe75_real/tiny_h2/negative-fresh/input.in.gz": {
+      "sha256": "3276b9b600cfd2ad957607a5658f9301efcfde0161412c0135f18abec5a70847",
+      "bytes": 523
+    },
+    "tests/fixtures/qe75_real/tiny_h2/negative-fresh/receipt.json.gz": {
+      "sha256": "103b9f1d4cce26f7281e7557fbacc34b4c10ca60a52a62c0d8555bccbdd0413e",
+      "bytes": 269
+    },
+    "tests/fixtures/qe75_real/tiny_h2/negative-fresh/stderr.log.gz": {
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "bytes": 20
+    },
+    "tests/fixtures/qe75_real/tiny_h2/negative-fresh/stdout.log.gz": {
+      "sha256": "8426d66e6d1136900cca1ff34cb4a3b122caa25a889525c72446150ae24cc671",
+      "bytes": 4763
+    },
+    "tests/fixtures/qe75_real/tiny_h2/resumed/data-file-schema.xml.gz": {
+      "sha256": "57945876407725e119b670889cbaaa27fabb044e31ea8e5d383891d3886518f8",
+      "bytes": 6024
+    },
+    "tests/fixtures/qe75_real/tiny_h2/resumed/input.in.gz": {
+      "sha256": "9240e4b3b64bd0995799ff5e275dafb80270acc9ee692ab17b388fa76757debf",
+      "bytes": 517
+    },
+    "tests/fixtures/qe75_real/tiny_h2/resumed/receipt.json.gz": {
+      "sha256": "eb34b9282f5e384c854dd3a1dd0d5cc145e13e140732d85af831eb46533afecf",
+      "bytes": 265
+    },
+    "tests/fixtures/qe75_real/tiny_h2/resumed/stderr.log.gz": {
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "bytes": 20
+    },
+    "tests/fixtures/qe75_real/tiny_h2/resumed/stdout.log.gz": {
+      "sha256": "3dede1f2a0ea52c4af31d56b129dd97d1746288b99a2d9b86444c0519ecba8b7",
+      "bytes": 5407
+    },
+    "tests/qe75_real_fixtures.py": {
+      "sha256": "5aeddf0fb22da95c54ad00cdbb7ef7099346f39d36b9907f29111b32ad5f73db",
+      "bytes": 3103
+    },
+    "tests/test_pa_catalyst_retest.py": {
+      "sha256": "cccc28c1e1ebf2e85dc714c10a5a7476733db92b4cebd72221ad3eed0843590e",
+      "bytes": 42667
+    },
+    "tests/test_pa_catalyst_retest_scripts.py": {
+      "sha256": "46628d04389bffd24c83e8d0e2bc85663bdf710fc7b448270e583aed9a7b3574",
+      "bytes": 11826
+    },
+    "tests/test_pa_qe_adapter_v2.py": {
+      "sha256": "1f9ed1be9775cb1d5d2481ac3e29f9c85117c4dbf90e1e9b340c61b5bae9efc2",
+      "bytes": 36048
+    },
+    "tests/test_pa_qe_adapter_v2_real.py": {
+      "sha256": "7ec9e1d7b26112246ae100e0b242a8d71b3da9d0dcf846abd2aba8923a2df6da",
+      "bytes": 30487
+    }
+  },
+  "commit": "c5b33c28bb09324d7decf5c2bb5f6100a877a366",
+  "remote_commit": "c5b33c28bb09324d7decf5c2bb5f6100a877a366",
+  "additional_blob_pins": {
+    ".gitattributes": {
+      "sha256": "ecccb29aab10e582b006379cf0be67b5db72748da9911d80b3c38d45a156580c",
+      "bytes": 11309
+    },
+    "src/dft/pa_checked_contract.py": {
+      "sha256": "67412c8363877f0a6407e382a4d3c33c6c0f6dac7b1f5de3e3968bf77755ae39",
+      "bytes": 25077
+    },
+    "runs/hea/lowtail_low_state_restart_2026-09-22/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.in": {
+      "sha256": "dfed65abc93a5eb5ef350c31f963fd6044c5b6e68fd39904063a0292de5f8539",
+      "bytes": 4888
+    }
+  },
+  "after": {
+    "tracked_files": 9816,
+    "unrelated_files": 21,
+    "errors": []
+  }
+}
