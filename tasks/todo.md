@@ -8,13 +8,15 @@ Scope: independent review of the prepared additive V2/re-test package; bind orig
 - [x] Bind historical readout citations and code checks to hash-verified original launch sources; fail closed on drift; preserve prior failure receipts.
 - [x] Run fresh relevant regressions, scientific verifiers, Bash syntax and exact history/package preservation checks.
 - [x] Record hash-bound final independent clearance, provenance and review; commit explicit paths, push and verify remote commit.
-- [ ] Obtain staging approval and run exact published Anvil preflight at zero SU.
+- [x] Obtain staging approval and run exact published Anvil preflight at zero SU.
 - [ ] Obtain submission approval, submit exactly one held job, validate its resources, release once and start read-only follow-through.
 
 Plan check-in: exact original-launch snapshot binding and independent review precede verification; publication precedes Anvil staging. The prior job remains INCONCLUSIVE, and the retained control replay is not evidence of catalyst restart continuity.
 
 Review: final offline_release_lf.json succeeded: 83 evidence tests, 491 first-trial tests plus 7 subtests, 294 re-test tests and all 78 historical readout tests; five existing Windows filesystem skips. Both scientific verifiers, 27 primary-source pins, 19 real SCF XML pairs, real control replay, 12 mutation checks and Bash syntax pass. All 9,816 historical and 21 unrelated byte pins pass before/after. Snapshot manifest binds 13 original launch files and 71 fixed-coordinate citation quotes. Independent review confirms atomic submission/release guards and bounded watcher; Final independent clearance binds all 26 verified code pins; reviewed package c5b33c28bb09324d7decf5c2bb5f6100a877a366 pushed with exact remote match and 203 explicit paths. Publication initially refused evidence-only whitespace, preserved its refusal, then passed after .diff/.log formatting exemptions; all code and raw evidence bytes remained pinned. No new Anvil writes, submission or QE in this continuation.
 
+
+Staging review (approved 2026-10-04 EDT; executed 2026-10-05 UTC): exact c5b33c2 checkout staged on Anvil; all 206 file pins and live deck/runtime/five UPF/four seed pins verify. Python 3.9.5 PREFLIGHT_PASS replays the retained control with cycles [1,2,3], optimizer [3,3,0] and registered XML identity. CPU balance 36,775.4 SU, empty queue, wholenode UP; project quota 44.3% of 5 TB and 8% of inode limit. No QE or job, zero CPU SU. Local Git-archive newline refusal preserved and corrected with exact cat-file blobs before Anvil contact. Submission remains pending separate user approval, with one 128-core/200-GiB/16-hour job and 2,048-SU hard ceiling, estimated 275–543 SU, no automatic retries.
 
 ## 2026-10-04 — Offline catalyst XML validator repair
 

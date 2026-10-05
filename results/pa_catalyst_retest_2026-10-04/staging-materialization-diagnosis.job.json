@@ -1,0 +1,8 @@
+{
+  "python": "C:/Users/frank/AppData/Local/Programs/Python/Python312/pythonw.exe",
+  "worker": "C:/Users/frank/AppData/Local/Temp/sts-background-2026-09-06/worker.py",
+  "cwd": "C:/Users/frank/sts-electrocatalyst",
+  "log": "C:/Users/frank/sts-electrocatalyst/results/pa_catalyst_retest_2026-10-04/staging-materialization-diagnosis.log",
+  "status": "C:/Users/frank/sts-electrocatalyst/results/pa_catalyst_retest_2026-10-04/staging-materialization-diagnosis.status.json",
+  "code": "import hashlib,io,json,pathlib,subprocess,tarfile\nroot=pathlib.Path(\"C:/Users/frank/sts-electrocatalyst\")\nphase=root/'results/pa_catalyst_retest_2026-10-04'\npub=json.loads((phase/'publication_final.json').read_text())\nrel='docs/research/pa-catalyst-retest-2026-10-04.md'\ndef git(*args):return subprocess.run(['C:/Program Files/Git/cmd/git.exe','-C',str(root),*args],capture_output=True,check=True,creationflags=0x08000000).stdout\nblob=git('cat-file','blob',pub['commit']+':'+rel)\narchive=git('archive','--format=tar',pub['commit'],'--',rel)\nwith tarfile.open(fileobj=io.BytesIO(archive),mode='r:') as stream: archived=stream.extractfile(rel).read()\nsha=lambda data:hashlib.sha256(data).hexdigest()\nrecord={'path':rel,'expected':pub['staged_blob_pins'][rel],'git_blob':{'bytes':len(blob),'sha256':sha(blob)},'git_archive':{'bytes':len(archived),'sha256':sha(archived)},'archive_normalized_lf_matches_blob':archived.replace(b'\\r\\n',b'\\n')==blob,'crlf_counts':{'blob':blob.count(b'\\r\\n'),'archive':archived.count(b'\\r\\n')},'anvil_contacted':False}\n(phase/'staging_materialization_refusal.json').write_text(json.dumps(record,indent=2)+'\\n')\nprint(json.dumps(record,indent=2),flush=True)\n"
+}

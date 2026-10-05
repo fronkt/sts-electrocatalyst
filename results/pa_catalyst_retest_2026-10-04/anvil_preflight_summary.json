@@ -1,0 +1,139 @@
+{
+  "observed_utc": "2026-10-05T02:05:03.751Z",
+  "state": "PREFLIGHT_PASS_AWAITING_SUBMISSION_APPROVAL",
+  "implementation_commit": "c5b33c28bb09324d7decf5c2bb5f6100a877a366",
+  "spec_sha256": "4c2384c6375f1c7892d33d8f6c37478243f41af3da9dd0f9ec507bcd8423e435",
+  "stage_receipt_sha256": "0177ca384b0c80adb87f057c92336522bd50422f7fb6d3dcce01adb73d6461a2",
+  "staged_file_pins": 206,
+  "all_staged_pins_match": true,
+  "remote_python": "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3",
+  "preflight_status": "PREFLIGHT_PASS",
+  "real_control_replay": {
+    "evaluations": 3,
+    "replayed": true,
+    "saved_optimizer_counters": [
+      3,
+      3,
+      0
+    ],
+    "scf_counts": [
+      1,
+      2,
+      3
+    ],
+    "staged_adapter": "/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/src/dft/pa_qe_adapter_v2.py",
+    "xml_settings_identity": "3bd17094ff7919c4d831d8725d6297eac21858be16143dae686883c27ea232f0"
+  },
+  "runtime_upf_seed_and_source_pins": {
+    "dependencies": [
+      {
+        "path": "/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/src/dft/pa_catalyst_retest.py",
+        "sha256": "b1c49d2d06c93fed4438d46491d8a01532f05cd6d8b6adfed90ca9689a65baf1",
+        "size_bytes": 62282
+      },
+      {
+        "path": "/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/src/dft/pa_qe_adapter_v2.py",
+        "sha256": "63655f45531939a84ad2db4c5c5debab159427bae42e7a02abf0312f9a348f11",
+        "size_bytes": 79932
+      },
+      {
+        "path": "/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/src/dft/pa_checked_contract.py",
+        "sha256": "67412c8363877f0a6407e382a4d3c33c6c0f6dac7b1f5de3e3968bf77755ae39",
+        "size_bytes": 25077
+      },
+      {
+        "path": "/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/anvil/90_pa_catalyst_retest.slurm",
+        "sha256": "d30ca93fc02b4153c6aaeb8eefb8bf27eede3fc9bb171307b53cd021c8aeaf13",
+        "size_bytes": 1794
+      }
+    ],
+    "initial_seed": [
+      {
+        "path": "/anvil/projects/x-che260157/sts/runs/hea/lowtail_slab_scf_diag_2026-09-19/Cu8Cr23Mn35Co34__s20_site2/tmp_slab_c5__b030/slab_c5__b030.save/charge-density.hdf5",
+        "sha256": "0aa143855c85a12e0e3ac2cc741b9b324faec9ca4ccbe85183b6550e4fe2f645",
+        "size_bytes": 149764564
+      },
+      {
+        "path": "/anvil/projects/x-che260157/sts/runs/hea/lowtail_slab_scf_diag_2026-09-19/Cu8Cr23Mn35Co34__s20_site2/tmp_slab_c5__b030/slab_c5__b030.save/data-file-schema.xml",
+        "sha256": "2360316d4d5d759bfce9e8f6dbb024acd3315df12f1039a71fb28898ae2ae0fd",
+        "size_bytes": 399395
+      },
+      {
+        "path": "/anvil/projects/x-che260157/sts/runs/hea/lowtail_slab_scf_diag_2026-09-19/Cu8Cr23Mn35Co34__s20_site2/tmp_slab_c5__b030/slab_c5__b030.save/occup.txt",
+        "sha256": "0de270621acad688e345b1253cfef5dbe185a3deb1b65811aa3b4bbe44000f14",
+        "size_bytes": 93601
+      },
+      {
+        "path": "/anvil/projects/x-che260157/sts/runs/hea/lowtail_slab_scf_diag_2026-09-19/Cu8Cr23Mn35Co34__s20_site2/tmp_slab_c5__b030/slab_c5__b030.save/paw.txt",
+        "sha256": "0972e5ad8882198aff44573a91144e50b370786454b68004c330330ab8a8449d",
+        "size_bytes": 640225
+      }
+    ],
+    "mpirun": {
+      "path": "/anvil/projects/x-che260157/qe/env/bin/mpirun",
+      "sha256": "a256bdcef89bdc61ba870e823056c51df868b4db48ab345a14278a7fe79ed75d",
+      "size_bytes": 190592
+    },
+    "pw_x": {
+      "path": "/anvil/projects/x-che260157/qe/env/bin/pw.x",
+      "sha256": "1d66c7856f5d6b3cd9c66b8578e01512b16bbe907b4360e54234890712ccd6a1",
+      "size_bytes": 10798648
+    },
+    "source_deck": {
+      "path": "/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/runs/hea/lowtail_low_state_restart_2026-09-22/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.in",
+      "sha256": "dfed65abc93a5eb5ef350c31f963fd6044c5b6e68fd39904063a0292de5f8539",
+      "size_bytes": 4888
+    },
+    "source_review": {
+      "path": "/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/results/pa_catalyst_retest_2026-10-04/source_xml_input_review.md",
+      "sha256": "3c2c9dc101c0d4e1779aff8abee588a6ff18a4a61904b023ac40808b2dac5929",
+      "size_bytes": 7414
+    },
+    "upfs": [
+      {
+        "path": "/anvil/projects/x-che260157/pseudo/Co_pbe_v1.2.uspp.F.UPF",
+        "sha256": "a5f392a0d35fc78cc9e2ac1636bb1cd02e9b80a063ea368e85be83b0e4523c45",
+        "size_bytes": 606524
+      },
+      {
+        "path": "/anvil/projects/x-che260157/pseudo/cr_pbe_v1.5.uspp.F.UPF",
+        "sha256": "c7449bbfea358d76832cf2f7b43dc89101ead6891806773121bfaa93a140f6de",
+        "size_bytes": 584698
+      },
+      {
+        "path": "/anvil/projects/x-che260157/pseudo/Cu.paw.z_11.ld1.psl.v1.0.0-low.upf",
+        "sha256": "b31028b2bae60cd9903260715a49b4c6d2b6dc654558c87023fa5206e427a16d",
+        "size_bytes": 1855080
+      },
+      {
+        "path": "/anvil/projects/x-che260157/pseudo/mn_pbe_v1.5.uspp.F.UPF",
+        "sha256": "c5b6117e22f571895b69dbec8491df6afb2efee1206dad54680881dbd33eb8f0",
+        "size_bytes": 601365
+      },
+      {
+        "path": "/anvil/projects/x-che260157/pseudo/O.pbe-n-kjpaw_psl.0.1.UPF",
+        "sha256": "7c4b6ed541f83d0afdf5c1d3a8c611340f073f3e2b11e95b7963bb2ee26929aa",
+        "size_bytes": 930566
+      }
+    ]
+  },
+  "cpu_balance_su": 36775.4,
+  "queue_empty": true,
+  "partition_up": true,
+  "quota_raw": "\nType       Location             Size    Limit    Use   Files   Limit    Use\n===========================================================================\nhome       x-fcai3            54.9MB   25.0GB   0.2%      -       -      - \nscratch    x-fcai3             2.5MB  100.0TB   0.0%      9     1.0M   0.0%\nprojects   x-che260157         2.2TB    5.0TB  44.3%   83.4K    1.0M   8.0%\n\n",
+  "new_jobs_submitted": 0,
+  "qe_executed": false,
+  "preflight_cpu_su": 0,
+  "production_accepted": false,
+  "estimated_cpu_su": [
+    275,
+    543
+  ],
+  "hard_cpu_su_ceiling": 2048,
+  "hard_wall_seconds": 57600,
+  "nodes": 1,
+  "cpus": 128,
+  "memory_gib": 200,
+  "automatic_retry": false,
+  "submission_approval_pending": true
+}
