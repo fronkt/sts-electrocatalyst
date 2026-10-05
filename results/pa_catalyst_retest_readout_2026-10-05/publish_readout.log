@@ -1,0 +1,12 @@
+Verified background desktop: Codex_STS_Background
+Exact review, archive mapping, all 1,098 local files/tar members, launch and QE source pins verified.
+Traceback (most recent call last):
+  File "C:\Users\frank\AppData\Local\Temp\sts-background-2026-09-06\worker.py", line 19, in <module>
+    exec(compile(cfg['code'], '<background-task>', 'exec'), {'__name__': '__main__'})
+  File "<background-task>", line 3, in <module>
+  File "C:\Users\frank\sts-electrocatalyst\results\pa_catalyst_retest_readout_2026-10-05\bank_readout.py", line 124, in <module>
+    git(['diff','--cached','--check'])
+  File "C:\Users\frank\sts-electrocatalyst\results\pa_catalyst_retest_readout_2026-10-05\bank_readout.py", line 11, in git
+    if p.returncode: raise RuntimeError({'args':args,'code':p.returncode,'stderr':p.stderr.decode('utf8','replace')})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: {'args': ['diff', '--cached', '--check'], 'code': 2, 'stderr': ''}

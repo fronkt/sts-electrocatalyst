@@ -12,8 +12,6 @@ Scope: additive, exact-launch-bound preservation and scientific investigation of
 
 Plan check-in: locate the first numerical disagreement before considering any protocol change. The trial remains INCONCLUSIVE; the registered acceptance thresholds stay fixed. Concrete future compute requires a separately priced and approved proposal.
 
-Publication replan: retain the pre-commit whitespace refusal and frozen file bytes. Narrow formatting exemptions cover exact tagged QE source, retained logs and the two reviewed files with a final blank line; numerical/hash checks remain mandatory before publication.
-
 Review: independent FAILED_CONTINUITY_READOUT_ONLY clearance binds the readout, raw numerical reconstruction, complete Anvil/archive and local scientific preservation. No blockers remain. Exact source, geometry/force pairing and unchanged registered failure are confirmed; the startup-threshold difference is supported, causal attribution remains open. Full Windows binary preservation is partial. No new solver calls, implementation tests or jobs. Explicit-path publication checks the archived scientific members, historical task bytes, staged bytes and remote commit equality.
 
 ## 2026-10-05 — Current timeline and phase scope through STS submission

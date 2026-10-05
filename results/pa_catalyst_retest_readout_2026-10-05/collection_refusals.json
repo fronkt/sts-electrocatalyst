@@ -1,0 +1,15 @@
+{
+  "scope": "Read-only collector corrections; trial evidence unchanged",
+  "refusals": [
+    {
+      "script": "collect_terminal_inventory.py",
+      "reason": "squeue rejects terminal job IDs after scheduler retention; fresh sacct terminal record retained by v2"
+    },
+    {
+      "script": "preserve_terminal.py",
+      "reason": "Remote Python3.9 tarfile streaming mode rejects compresslevel keyword; explicit gzip wrapper in additive resume_v2"
+    }
+  ],
+  "raw_manifest_sha256": "c707caea13fdfb49c72fb745c7b79827879607fad93fd95b84010c3c1e7575d5",
+  "new_qe_calls": 0
+}

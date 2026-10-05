@@ -1,0 +1,18 @@
+{
+  "scope": "Independent offline parser; no changes to original trial or registered adapter",
+  "refusals": [
+    {
+      "script": "analyze_terminal.py",
+      "reason": "Independent input parser assumed angstrom; fresh/resumed inputs use bohr while control/candidate use angstrom. v2 follows the explicit unit and the fresh output convergence_info nesting."
+    },
+    {
+      "script": "analyze_terminal_v2.py",
+      "reason": "Fresh output SCF_error is serialized in Hartree, unlike unscaled Ry relaxation step SCF_error. v3 explicitly applies the field/role-specific conversion and crosschecks every printed residual."
+    },
+    {
+      "script": "analyze_terminal_v3.py",
+      "reason": "Unanchored conv_thr match also matched forc_conv_thr, causing incorrect initial threshold metadata. v4 anchors the exact input variable; ordered numerical comparisons were unaffected."
+    }
+  ],
+  "new_solver_calls": 0
+}
