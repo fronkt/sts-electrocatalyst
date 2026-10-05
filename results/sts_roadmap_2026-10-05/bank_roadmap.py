@@ -64,14 +64,14 @@ assert basis['submission_authorized'] is False
 # This checked item records the publication performed below; any failure is retained
 # in the hidden worker log and publication must be reconciled before reporting done.
 todo = ROOT / 'tasks/todo.md'
-text = todo.read_text(encoding='utf-8')
+text = todo.read_bytes().decode('utf-8')  # Preserve historical mixed line endings.
 old = '- [ ] Record results and publish the explicit planning paths to GitHub.'
 assert text.count(old) == 1
 text = text.replace(old, '- [x] Record results and publish the explicit planning paths to GitHub. Reviewed roadmap and frozen receipts; explicit paths only; remote commit equality checked by bank_roadmap.py.')
 with todo.open('w', encoding='utf-8', newline='') as stream:
     stream.write(text)
 
-git('add', '-f', '--', *PATHS)
+git('-c', 'core.autocrlf=false', 'add', '-f', '--', *PATHS)
 assert names(git('diff', '--cached', '--name-only')) == set(PATHS), 'Staged path set differs'
 git('-c', 'core.whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol', 'diff', '--cached', '--check')
 for relative in PATHS:
