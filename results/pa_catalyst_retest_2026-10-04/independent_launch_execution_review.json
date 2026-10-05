@@ -1,0 +1,71 @@
+{
+  "schema": "pa-catalyst-retest-independent-launch-execution-review-v1",
+  "decision": "PASS_ONE_AUTHORIZED_TRIAL_LAUNCH_ONLY",
+  "job_id": "21075231",
+  "commit": "c5b33c28bb09324d7decf5c2bb5f6100a877a366",
+  "spec_sha256": "4c2384c6375f1c7892d33d8f6c37478243f41af3da9dd0f9ec507bcd8423e435",
+  "immutable_receipt_sha256": {
+    "submission_approval.json": "099482608caae6a344adced5b456ab96518172b9f4215678fcfc0e2b25c724d4",
+    "submission_intent.json": "dcb92aec42bb665e90971a802268beb6dfed64adec823a54b74d88f0c75fd25a",
+    "submission.json": "6065b0226d69c45601d3fcddb8a7bcadc4a03263668211e32f22ea045c109207",
+    "held_validation_checked.json": "5215777e619ee5d47af0970799079cea2235453319859e6d7c562a75feb24a0c",
+    "release_intent.json": "5ddfa5290b8fb037c43ed757e0b0442996f671399461062ffe4f0aa5358895b1",
+    "release.json": "24c59113b16c0de5ae8b673d98bbf63ac5e8466514798ff206bb47e6f203bc5c",
+    "launch_first_observation.json": "14373d257a014f0e4b5acb628f86fb28a7eb76691d3cea240617f5afa4bebc68",
+    "launch_summary.json": "b462954411707fad57d44538e83bbd58d6aa34663ec941f1c76b6532cde9b606"
+  },
+  "reviewed_code_pins_rechecked": 26,
+  "one_held_sbatch_recorded": true,
+  "same_job_held_shape_validated": true,
+  "same_job_released_once": true,
+  "exclusive_local_and_remote_intents_in_reviewed_scripts": true,
+  "queue_before_submission": "EMPTY",
+  "queue_before_release": "SINGLETON_21075231",
+  "fresh_submission_and_release_preflight": "PREFLIGHT_PASS",
+  "requested_allocation": {
+    "nodes": 1,
+    "cpu": 128,
+    "tasks": 128,
+    "cpus_per_task": 1,
+    "memory": "200G",
+    "billing": 128,
+    "time_limit_seconds": 57600,
+    "max_cpu_su": 2048,
+    "requeue": false,
+    "dependency": null
+  },
+  "first_observation": {
+    "observed_utc": "2026-10-05T02:40:14.753245+00:00",
+    "state": "PENDING",
+    "reason": "None",
+    "allocated_cpus": 0,
+    "alloc_tres": null,
+    "cpu_time_raw": 0,
+    "arms": []
+  },
+  "scientific_status": "PENDING_TRIAL_OUTCOME",
+  "production_accepted": false,
+  "automatic_retry": false,
+  "remaining": [
+    "actual_running_allocation_proof",
+    "terminal_accounting_and_actual_cpu_su",
+    "immutable_raw_evidence_mirror",
+    "retest_scientific_readout"
+  ],
+  "blocking_findings": [],
+  "reviewer_operations": "file_reads_and_hash_checks_only",
+  "publication_helper_review": {
+    "path": "bank_launch_receipts.py",
+    "sha256": "451448208d0a82f6cf798005abb86c967520f92beb6a3b2b0b3804315aaf9925",
+    "explicit_path_count": 22,
+    "reviewed_without_execution": true,
+    "mutable_watch_observation_status_log_excluded": true,
+    "code_pin_checks_before_publication": 26,
+    "staged_bytes_checked": true,
+    "branch_and_base_head_checked": true,
+    "remote_head_checked_after_push": true,
+    "blocking_findings": [],
+    "exact_review_decision_checked": true,
+    "audit_immutable_receipt_pins_checked": 8
+  }
+}

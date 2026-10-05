@@ -1,0 +1,49 @@
+{
+  "schema": "pa-catalyst-retest-launch-v1",
+  "recorded_utc": "2026-10-05T02:41:00.864Z",
+  "job_id": "21075231",
+  "implementation_commit": "c5b33c28bb09324d7decf5c2bb5f6100a877a366",
+  "spec_sha256": "4c2384c6375f1c7892d33d8f6c37478243f41af3da9dd0f9ec507bcd8423e435",
+  "new_jobs_submitted": 1,
+  "submitted_held": true,
+  "held_shape_validated": true,
+  "released_once": true,
+  "automatic_retry": false,
+  "requeue": false,
+  "estimated_cpu_su": [
+    275,
+    543
+  ],
+  "max_cpu_su": 2048,
+  "max_wall_seconds": 57600,
+  "nodes": 1,
+  "cpus": 128,
+  "memory_gib": 200,
+  "first_observed_utc": "2026-10-05T02:40:14.753245+00:00",
+  "first_observed_state": "PENDING",
+  "first_accounting_raw": "21075231|PENDING|0:0|0|0|200G||0\n",
+  "scientific_status": "PENDING_TRIAL_OUTCOME",
+  "production_accepted": false,
+  "readonly_watch": {
+    "script": "watch_retest_readonly.py",
+    "poll_seconds": 60,
+    "deadline_seconds": 86400,
+    "max_consecutive_collection_failures": 3,
+    "started": true
+  },
+  "remaining": [
+    "actual_running_allocation_proof",
+    "terminal_accounting_and_actual_cpu_su",
+    "immutable_raw_evidence_mirror",
+    "retest_scientific_readout"
+  ],
+  "receipt_sha256": {
+    "submission_approval.json": "099482608caae6a344adced5b456ab96518172b9f4215678fcfc0e2b25c724d4",
+    "submission_intent.json": "dcb92aec42bb665e90971a802268beb6dfed64adec823a54b74d88f0c75fd25a",
+    "submission.json": "6065b0226d69c45601d3fcddb8a7bcadc4a03263668211e32f22ea045c109207",
+    "held_validation_checked.json": "5215777e619ee5d47af0970799079cea2235453319859e6d7c562a75feb24a0c",
+    "release_intent.json": "5ddfa5290b8fb037c43ed757e0b0442996f671399461062ffe4f0aa5358895b1",
+    "release.json": "24c59113b16c0de5ae8b673d98bbf63ac5e8466514798ff206bb47e6f203bc5c",
+    "launch_first_observation.json": "14373d257a014f0e4b5acb628f86fb28a7eb76691d3cea240617f5afa4bebc68"
+  }
+}

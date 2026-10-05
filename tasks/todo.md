@@ -9,7 +9,8 @@ Scope: independent review of the prepared additive V2/re-test package; bind orig
 - [x] Run fresh relevant regressions, scientific verifiers, Bash syntax and exact history/package preservation checks.
 - [x] Record hash-bound final independent clearance, provenance and review; commit explicit paths, push and verify remote commit.
 - [x] Obtain staging approval and run exact published Anvil preflight at zero SU.
-- [ ] Obtain submission approval, submit exactly one held job, validate its resources, release once and start read-only follow-through.
+- [x] Obtain submission approval, submit exactly one held job, validate its resources, release once and start read-only follow-through. Job 21075231; fresh submission/release preflights pass, exact held 128CPU/200G/16h/billing128 shape; same job released once.
+- [ ] Retain actual running allocation, terminal accounting/raw evidence and scientific readout for job 21075231; no automatic retry.
 
 Plan check-in: exact original-launch snapshot binding and independent review precede verification; publication precedes Anvil staging. The prior job remains INCONCLUSIVE, and the retained control replay is not evidence of catalyst restart continuity.
 
@@ -17,6 +18,8 @@ Review: final offline_release_lf.json succeeded: 83 evidence tests, 491 first-tr
 
 
 Staging review (approved 2026-10-04 EDT; executed 2026-10-05 UTC): exact c5b33c2 checkout staged on Anvil; all 206 file pins and live deck/runtime/five UPF/four seed pins verify. Python 3.9.5 PREFLIGHT_PASS replays the retained control with cycles [1,2,3], optimizer [3,3,0] and registered XML identity. CPU balance 36,775.4 SU, empty queue, wholenode UP; project quota 44.3% of 5 TB and 8% of inode limit. No QE or job, zero CPU SU. Local Git-archive newline refusal preserved and corrected with exact cat-file blobs before Anvil contact. Submission remains pending separate user approval, with one 128-core/200-GiB/16-hour job and 2,048-SU hard ceiling, estimated 275–543 SU, no automatic retries.
+
+Submission review (approved 2026-10-04 EDT; released 2026-10-05 UTC): explicit user approval covers one held submission, checked resources, and release of the same job. Exactly one sbatch --hold --no-requeue returned 21075231; exact c5b33c2/spec and real-control preflight checked again before submission and release. Checked held shape is 1-1 node bounds, 128CPU/tasks, 200G, 16h, billing128, exclusive NODE, no array/dependency/requeue/restart. Same job released once. First read-only observation 2026-10-05T02:40:14.753245Z is PENDING/None, allocated CPUs 0 and CPUTimeRAW 0: no running or scientific acceptance claim. Bounded watcher is active; actual allocation, terminal charge, raw mirror and readout remain pending. Original job 21034683 remains FAILED3:0 / INCONCLUSIVE; no automatic retry or production release. Independent execution audit PASS_ONE_AUTHORIZED_TRIAL_LAUNCH_ONLY binds eight immutable launch receipts and rechecks all 26 reviewed code pins; no blocking findings.
 
 ## 2026-10-04 — Offline catalyst XML validator repair
 
