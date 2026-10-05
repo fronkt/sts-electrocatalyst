@@ -1454,3 +1454,7 @@ those rows. Before any rebuild, retain the eligible IDs from the pinned
 checklist (currently S29721, S10090, S22807, S26024), use them explicitly, and
 verify exact retained-row content. A lower count without reviewed evidence is
 a rebuild discrepancy, not scientific progress. Keep the failed check separately.
+
+## 2026-10-05 — Carry a predecessor validator's field rules into a new one
+
+The fixed-geometry held validation refused all three healthy held jobs twice: first on `NumNodes=1-1` (Slurm's pending min-max form of one node), then on a `SubmitLine` check that split the scontrol record on whitespace although that field contains spaces. The retest's own held validator already accepted `{'1', '1-1'}`, and its docstring records that the first trial failed on exactly that. Rule: before writing a new scheduler or output validator, read the predecessor validator and port its field rules; match fields that may contain spaces against the raw record, not a whitespace split. Keep each refused receipt and write the corrected check to a new, superseding receipt; never overwrite.

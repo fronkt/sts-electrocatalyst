@@ -1,0 +1,45 @@
+{
+  "phase": "preflight",
+  "at": "2026-10-05T21:56:45.306698+00:00",
+  "commands": {
+    "preflight": {
+      "command": "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 -B -c '\nimport json, sys\nsys.path.insert(0, \"/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/src/dft\")\nimport pa_fixed_geometry_diag as d\nspec = json.load(open(\"/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/launch_spec.json\"))\nout = {\"python\": sys.version}\nfor g in d.GROUPS:\n    d.validate_spec(spec, g)\n    d.Group(spec, g).verify_sources()\n    out[g] = \"sources verified\"\nimport os\nroot = spec[\"checkpoint\"][\"outdir\"]\nfiles = [os.path.join(c, f) for c, _, fs in os.walk(root) for f in fs]\nout[\"checkpoint_files\"] = len(files)\nout[\"checkpoint_bytes\"] = sum(os.lstat(f).st_size for f in files)\nout[\"checkpoint_matches_pinned_count_and_bytes\"] = (out[\"checkpoint_files\"] == spec[\"checkpoint\"][\"files\"]\n                                                  and out[\"checkpoint_bytes\"] == spec[\"checkpoint\"][\"bytes\"])\nprint(json.dumps(out))\n'",
+      "stdout": "{\"python\": \"3.9.5 (default, Oct  6 2021, 01:03:59) \\n[GCC 11.2.0]\", \"replay\": \"sources verified\", \"ladder\": \"sources verified\", \"fresh\": \"sources verified\", \"checkpoint_files\": 390, \"checkpoint_bytes\": 15225129073, \"checkpoint_matches_pinned_count_and_bytes\": true}\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-05T21:56:46.837605+00:00"
+    },
+    "mybalance": {
+      "command": "mybalance",
+      "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    100000.0     63578.6    63578.6     36421.4\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-05T21:56:47.419750+00:00"
+    },
+    "squeue": {
+      "command": "squeue -u x-fcai3 -h -o '%i|%j|%T'",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-05T21:56:47.883558+00:00"
+    },
+    "remote_spec_sha": {
+      "command": "sha256sum /anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/launch_spec.json",
+      "stdout": "de20fc6e16c66a7a6ca1972c30e9c64d4f668a35460ea89a0d29f01cbfef7bd5  /anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/launch_spec.json\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-05T21:56:48.337436+00:00"
+    }
+  },
+  "spec_sha256": "de20fc6e16c66a7a6ca1972c30e9c64d4f668a35460ea89a0d29f01cbfef7bd5",
+  "result": {
+    "python": "3.9.5 (default, Oct  6 2021, 01:03:59) \n[GCC 11.2.0]",
+    "replay": "sources verified",
+    "ladder": "sources verified",
+    "fresh": "sources verified",
+    "checkpoint_files": 390,
+    "checkpoint_bytes": 15225129073,
+    "checkpoint_matches_pinned_count_and_bytes": true
+  },
+  "passed": true
+}

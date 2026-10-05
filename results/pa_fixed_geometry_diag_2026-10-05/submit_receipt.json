@@ -1,0 +1,33 @@
+{
+  "phase": "submit",
+  "at": "2026-10-05T21:57:03.497656+00:00",
+  "commands": {
+    "sbatch:replay": {
+      "command": "sbatch --hold --parsable --no-requeue --time=04:30:00 --job-name=pa-fgd-replay --export=ALL,STS_DIAG_GROUP=replay,STS_DIAG_SPEC_SHA256=de20fc6e16c66a7a6ca1972c30e9c64d4f668a35460ea89a0d29f01cbfef7bd5 /anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/anvil/91_pa_fixed_geometry_diag.slurm",
+      "stdout": "21105325\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-05T21:57:05.286004+00:00"
+    },
+    "sbatch:ladder": {
+      "command": "sbatch --hold --parsable --no-requeue --time=06:45:00 --job-name=pa-fgd-ladder --export=ALL,STS_DIAG_GROUP=ladder,STS_DIAG_SPEC_SHA256=de20fc6e16c66a7a6ca1972c30e9c64d4f668a35460ea89a0d29f01cbfef7bd5 /anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/anvil/91_pa_fixed_geometry_diag.slurm",
+      "stdout": "21105326\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-05T21:57:05.877558+00:00"
+    },
+    "sbatch:fresh": {
+      "command": "sbatch --hold --parsable --no-requeue --time=04:20:00 --job-name=pa-fgd-fresh --export=ALL,STS_DIAG_GROUP=fresh,STS_DIAG_SPEC_SHA256=de20fc6e16c66a7a6ca1972c30e9c64d4f668a35460ea89a0d29f01cbfef7bd5 /anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/anvil/91_pa_fixed_geometry_diag.slurm",
+      "stdout": "21105327\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-05T21:57:06.363141+00:00"
+    }
+  },
+  "jobs": {
+    "replay": "21105325",
+    "ladder": "21105326",
+    "fresh": "21105327"
+  },
+  "spec_sha256": "de20fc6e16c66a7a6ca1972c30e9c64d4f668a35460ea89a0d29f01cbfef7bd5"
+}

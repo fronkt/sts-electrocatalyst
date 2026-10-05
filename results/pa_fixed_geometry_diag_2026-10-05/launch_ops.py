@@ -171,23 +171,36 @@ def validate():
         row = run(client, ["scontrol", "show", "job", job, "-o"], receipt, "held:" + name)
         fields = dict(part.split("=", 1) for part in row["stdout"].split() if "=" in part)
         group = SPEC["groups"][name]
-        expected = {"JobState": "PENDING", "Account": "che260157", "Partition": "wholenode", "NumNodes": "1",
+        # A pending job shows its node bounds as "1-1" (same rule as the retest's held validation);
+        # ReqTRES must still request exactly one node.
+        expected = {"JobState": "PENDING", "Account": "che260157", "Partition": "wholenode",
                     "NumCPUs": "128", "NumTasks": "128", "CPUs/Task": "1", "Requeue": "0",
                     "Dependency": "(null)", "TimeLimit": group["time_limit"], "JobName": "pa-fgd-" + name,
                     "Command": SPEC["slurm"]["path"]}
         bad = {k: fields.get(k) for k, v in expected.items() if fields.get(k) != v}
+        if fields.get("NumNodes") not in {"1", "1-1"}:
+            bad["NumNodes"] = fields.get("NumNodes")
+        tres = dict(part.split("=", 1) for part in fields.get("ReqTRES", "").split(",") if "=" in part)
+        if tres.get("node") != "1" or tres.get("cpu") != "128" or tres.get("billing") != "128":
+            bad["ReqTRES"] = fields.get("ReqTRES")
+        # SubmitLine contains spaces, so check the raw record rather than the split fields.
+        export = "--export=ALL,STS_DIAG_GROUP=" + name + ",STS_DIAG_SPEC_SHA256=" + spec_sha() + " "
+        if row["stdout"].count(export) != 1:
+            bad["SubmitLine"] = "group/spec pin absent from the submitted environment"
         held = fields.get("Reason") == "JobHeldUser" or fields.get("Priority") == "0"
         receipt["checks"][name] = {"job": job, "mismatches": bad, "held": held,
                                    "max_cpu_su": group["max_cpu_su"]}
     client.close()
     receipt["passed"] = all(not c["mismatches"] and c["held"] for c in receipt["checks"].values())
-    write("validate_receipt.json", receipt)
+    receipt["supersedes"] = ["validate_receipt.json (refused on the pending NumNodes=1-1 representation)",
+                             "validate_receipt_v2.json (refused by a whitespace-split SubmitLine parse)"]
+    write("validate_receipt_v3.json", receipt)
     if not receipt["passed"]:
         raise SystemExit("held shape differs")
 
 
 def release():
-    if not json.loads((HERE / "validate_receipt.json").read_text())["passed"]:
+    if not json.loads((HERE / "validate_receipt_v3.json").read_text())["passed"]:
         raise SystemExit("held shape not validated")
     jobs = json.loads((HERE / "submit_receipt.json").read_text())["jobs"]
     receipt = {"phase": "release", "at": now(), "commands": {}, "released": {}}

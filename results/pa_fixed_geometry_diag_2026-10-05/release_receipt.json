@@ -1,0 +1,39 @@
+{
+  "phase": "release",
+  "at": "2026-10-05T21:58:06.108926+00:00",
+  "commands": {
+    "release:replay": {
+      "command": "scontrol release 21105325",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-05T21:58:07.147849+00:00"
+    },
+    "release:ladder": {
+      "command": "scontrol release 21105326",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-05T21:58:07.618183+00:00"
+    },
+    "release:fresh": {
+      "command": "scontrol release 21105327",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-05T21:58:08.126737+00:00"
+    },
+    "after": {
+      "command": "squeue -u x-fcai3 -o '%i|%j|%T|%M|%l|%R'",
+      "stdout": "JOBID|NAME|STATE|TIME|TIME_LIMIT|NODELIST(REASON)\n21105327|pa-fgd-fresh|PENDING|0:00|4:20:00|(None)\n21105326|pa-fgd-ladder|PENDING|0:00|6:45:00|(None)\n21105325|pa-fgd-replay|PENDING|0:00|4:30:00|(None)\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-05T21:58:08.584278+00:00"
+    }
+  },
+  "released": {
+    "replay": "21105325",
+    "ladder": "21105326",
+    "fresh": "21105327"
+  }
+}
