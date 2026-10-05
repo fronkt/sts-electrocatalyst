@@ -1,0 +1,200 @@
+{
+  "schema": "pa-fixed-geometry-decks-v1",
+  "anvil_base": "/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05",
+  "decks": {
+    "A_replay": {
+      "path": "runs/hea/pa_fixed_geometry_diag_2026-10-05/decks/A_replay.in",
+      "sha256": "939518ea320450981b182677923def87b49dab4dc573a776700734f5fe28220c",
+      "template": "trial_results/resumed/input.in",
+      "changes": [
+        {
+          "line": 5,
+          "old": "  outdir = '/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/resumed/checkpoint_copy/outdir'",
+          "new": "  outdir = '/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/runs/A_replay/outdir'"
+        }
+      ]
+    },
+    "B_ethr": {
+      "path": "runs/hea/pa_fixed_geometry_diag_2026-10-05/decks/B_ethr.in",
+      "sha256": "96d0884d9ce112024b61c3754fefdb579d235b3930e1684abef1d35f9a7d257b",
+      "template": "trial_results/resumed/input.in",
+      "changes": [
+        {
+          "line": 5,
+          "old": "  outdir = '/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/resumed/checkpoint_copy/outdir'",
+          "new": "  outdir = '/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/runs/B_ethr/outdir'"
+        },
+        {
+          "inserted_after_line": 31,
+          "new": "  diago_thr_init = 1.0d-6"
+        }
+      ]
+    },
+    "C1_warm_1e-6": {
+      "path": "runs/hea/pa_fixed_geometry_diag_2026-10-05/decks/C1_warm_1e-6.in",
+      "sha256": "ef702dbd0e56aec4bdbf77370265a11d5c379b338c6c0505b5653d3247337618",
+      "template": "trial_results/resumed/input.in",
+      "changes": [
+        {
+          "line": 2,
+          "old": "  restart_mode = 'restart'",
+          "new": "  restart_mode = 'from_scratch'"
+        },
+        {
+          "line": 3,
+          "old": "  calculation = 'relax'",
+          "new": "  calculation = 'scf'"
+        },
+        {
+          "line": 5,
+          "old": "  outdir = '/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/resumed/checkpoint_copy/outdir'",
+          "new": "  outdir = '/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/runs/C1_warm_1e-6/outdir'"
+        }
+      ]
+    },
+    "C2_warm_1e-8": {
+      "path": "runs/hea/pa_fixed_geometry_diag_2026-10-05/decks/C2_warm_1e-8.in",
+      "sha256": "b27d211b39bfb3ea644a2d390d1c05c344cc878badebfe24e476d43950fef867",
+      "template": "trial_results/resumed/input.in",
+      "changes": [
+        {
+          "line": 2,
+          "old": "  restart_mode = 'restart'",
+          "new": "  restart_mode = 'from_scratch'"
+        },
+        {
+          "line": 3,
+          "old": "  calculation = 'relax'",
+          "new": "  calculation = 'scf'"
+        },
+        {
+          "line": 5,
+          "old": "  outdir = '/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/resumed/checkpoint_copy/outdir'",
+          "new": "  outdir = '/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/runs/C2_warm_1e-8/outdir'"
+        },
+        {
+          "line": 31,
+          "old": "  conv_thr = 1.0d-6",
+          "new": "  conv_thr = 1.0d-8"
+        },
+        {
+          "line": 36,
+          "old": "  electron_maxstep = 300",
+          "new": "  electron_maxstep = 80"
+        },
+        {
+          "inserted_after_line": 36,
+          "new": "  scf_must_converge = .false."
+        }
+      ]
+    },
+    "C3_warm_1e-10": {
+      "path": "runs/hea/pa_fixed_geometry_diag_2026-10-05/decks/C3_warm_1e-10.in",
+      "sha256": "0f86122331fe084a394b28d5412430e9100df515115028b15d4101e5f5e9a19b",
+      "template": "trial_results/resumed/input.in",
+      "changes": [
+        {
+          "line": 2,
+          "old": "  restart_mode = 'restart'",
+          "new": "  restart_mode = 'from_scratch'"
+        },
+        {
+          "line": 3,
+          "old": "  calculation = 'relax'",
+          "new": "  calculation = 'scf'"
+        },
+        {
+          "line": 5,
+          "old": "  outdir = '/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/resumed/checkpoint_copy/outdir'",
+          "new": "  outdir = '/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/runs/C3_warm_1e-10/outdir'"
+        },
+        {
+          "line": 31,
+          "old": "  conv_thr = 1.0d-6",
+          "new": "  conv_thr = 1.0d-10"
+        },
+        {
+          "line": 36,
+          "old": "  electron_maxstep = 300",
+          "new": "  electron_maxstep = 75"
+        },
+        {
+          "inserted_after_line": 36,
+          "new": "  scf_must_converge = .false."
+        }
+      ]
+    },
+    "D1_fresh_1e-8": {
+      "path": "runs/hea/pa_fixed_geometry_diag_2026-10-05/decks/D1_fresh_1e-8.in",
+      "sha256": "f94f73c1c7e44477b33fac21780b667fe50b485001192dbe36d51ebd2b8c5d3e",
+      "template": "trial_results/fresh/input.in",
+      "changes": [
+        {
+          "line": 5,
+          "old": "  outdir = '/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/fresh/outdir'",
+          "new": "  outdir = '/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/runs/D1_fresh_1e-8/outdir'"
+        },
+        {
+          "line": 31,
+          "old": "  conv_thr = 1.0d-6",
+          "new": "  conv_thr = 1.0d-8"
+        },
+        {
+          "line": 36,
+          "old": "  electron_maxstep = 300",
+          "new": "  electron_maxstep = 80"
+        },
+        {
+          "inserted_after_line": 36,
+          "new": "  scf_must_converge = .false."
+        },
+        {
+          "positions": "replaced by the resumed deck's bohr G2 block",
+          "old_header": "ATOMIC_POSITIONS bohr",
+          "new_header": "ATOMIC_POSITIONS bohr"
+        }
+      ]
+    },
+    "D2_fresh_1e-10": {
+      "path": "runs/hea/pa_fixed_geometry_diag_2026-10-05/decks/D2_fresh_1e-10.in",
+      "sha256": "22aeaab4f765b887683cd99b6ab1d24f9fead2efa58d57c2abb3b174738196f0",
+      "template": "trial_results/fresh/input.in",
+      "changes": [
+        {
+          "line": 5,
+          "old": "  outdir = '/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/fresh/outdir'",
+          "new": "  outdir = '/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/runs/D2_fresh_1e-10/outdir'"
+        },
+        {
+          "line": 31,
+          "old": "  conv_thr = 1.0d-6",
+          "new": "  conv_thr = 1.0d-10"
+        },
+        {
+          "line": 36,
+          "old": "  electron_maxstep = 300",
+          "new": "  electron_maxstep = 75"
+        },
+        {
+          "line": 34,
+          "old": "  startingwfc = 'atomic+random'",
+          "new": "  startingwfc = 'file'"
+        },
+        {
+          "line": 35,
+          "old": "  startingpot = 'atomic'",
+          "new": "  startingpot = 'file'"
+        },
+        {
+          "inserted_after_line": 36,
+          "new": "  scf_must_converge = .false."
+        },
+        {
+          "positions": "replaced by the resumed deck's bohr G2 block",
+          "old_header": "ATOMIC_POSITIONS bohr",
+          "new_header": "ATOMIC_POSITIONS bohr"
+        }
+      ]
+    }
+  }
+}

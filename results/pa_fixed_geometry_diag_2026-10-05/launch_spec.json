@@ -1,0 +1,172 @@
+{
+  "schema": "pa-fixed-geometry-diag-v1",
+  "date": "2026-10-05",
+  "target": "Cu8Cr23Mn35Co34__s20_site2",
+  "geometry": "G2 = first resumed evaluation of job 21075231 (candidate checkpoint XML output positions)",
+  "decision_ref": "docs/research/pa-fixed-geometry-diagnostic-2026-10-05.md (Frank, 2026-10-05: \"I approve the next DFT run\")",
+  "base": "/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05",
+  "controller": {
+    "path": "/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/src/dft/pa_fixed_geometry_diag.py",
+    "sha256": "39d99ad8e3517d067bcac2b57dc81dc0ca441a6310828bc849d9a770b6e98445"
+  },
+  "helper": {
+    "path": "/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/src/dft/pa_catalyst_retest.py",
+    "sha256": "b1c49d2d06c93fed4438d46491d8a01532f05cd6d8b6adfed90ca9689a65baf1"
+  },
+  "slurm": {
+    "path": "/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/anvil/91_pa_fixed_geometry_diag.slurm",
+    "sha256": "96fa1dbad663ecffd71f84b4b3edfc6fc0f741b7653f3acc15acedd437fca1da"
+  },
+  "pw_x": {
+    "path": "/anvil/projects/x-che260157/qe/env/bin/pw.x",
+    "sha256": "1d66c7856f5d6b3cd9c66b8578e01512b16bbe907b4360e54234890712ccd6a1"
+  },
+  "mpirun": {
+    "path": "/anvil/projects/x-che260157/qe/env/bin/mpirun",
+    "sha256": "a256bdcef89bdc61ba870e823056c51df868b4db48ab345a14278a7fe79ed75d"
+  },
+  "upfs": [
+    {
+      "path": "/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/common_pseudo/Co_pbe_v1.2.uspp.F.UPF",
+      "sha256": "a5f392a0d35fc78cc9e2ac1636bb1cd02e9b80a063ea368e85be83b0e4523c45"
+    },
+    {
+      "path": "/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/common_pseudo/cr_pbe_v1.5.uspp.F.UPF",
+      "sha256": "c7449bbfea358d76832cf2f7b43dc89101ead6891806773121bfaa93a140f6de"
+    },
+    {
+      "path": "/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/common_pseudo/Cu.paw.z_11.ld1.psl.v1.0.0-low.upf",
+      "sha256": "b31028b2bae60cd9903260715a49b4c6d2b6dc654558c87023fa5206e427a16d"
+    },
+    {
+      "path": "/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/common_pseudo/mn_pbe_v1.5.uspp.F.UPF",
+      "sha256": "c5b6117e22f571895b69dbec8491df6afb2efee1206dad54680881dbd33eb8f0"
+    },
+    {
+      "path": "/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/common_pseudo/O.pbe-n-kjpaw_psl.0.1.UPF",
+      "sha256": "7c4b6ed541f83d0afdf5c1d3a8c611340f073f3e2b11e95b7963bb2ee26929aa"
+    }
+  ],
+  "checkpoint": {
+    "outdir": "/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/candidate_immutable/outdir",
+    "tree_sha256": "dc3637bce66f8c9d85bd7d29f77af40810302650b8eed1f02bdf9de83c98a32c",
+    "files": 390,
+    "bytes": 15225129073
+  },
+  "parallel_shape": {
+    "nprocs": 128,
+    "npool": 8,
+    "ndiag": 16,
+    "nthreads": 1
+  },
+  "per_call_seconds": 7200,
+  "groups": {
+    "replay": {
+      "time_limit_seconds": 16200,
+      "time_limit": "04:30:00",
+      "max_cpu_su": 576,
+      "calls": [
+        {
+          "name": "A_replay",
+          "start": "checkpoint",
+          "target_cycle": 2,
+          "deck": {
+            "path": "/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/decks/A_replay.in",
+            "sha256": "939518ea320450981b182677923def87b49dab4dc573a776700734f5fe28220c"
+          }
+        },
+        {
+          "name": "B_ethr",
+          "start": "checkpoint",
+          "target_cycle": 3,
+          "deck": {
+            "path": "/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/decks/B_ethr.in",
+            "sha256": "96d0884d9ce112024b61c3754fefdb579d235b3930e1684abef1d35f9a7d257b"
+          }
+        }
+      ]
+    },
+    "ladder": {
+      "time_limit_seconds": 24300,
+      "time_limit": "06:45:00",
+      "max_cpu_su": 864,
+      "calls": [
+        {
+          "name": "C1_warm_1e-6",
+          "start": "checkpoint",
+          "target_cycle": null,
+          "deck": {
+            "path": "/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/decks/C1_warm_1e-6.in",
+            "sha256": "ef702dbd0e56aec4bdbf77370265a11d5c379b338c6c0505b5653d3247337618"
+          }
+        },
+        {
+          "name": "C2_warm_1e-8",
+          "start": "C1_warm_1e-6",
+          "target_cycle": null,
+          "deck": {
+            "path": "/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/decks/C2_warm_1e-8.in",
+            "sha256": "b27d211b39bfb3ea644a2d390d1c05c344cc878badebfe24e476d43950fef867"
+          }
+        },
+        {
+          "name": "C3_warm_1e-10",
+          "start": "C2_warm_1e-8",
+          "target_cycle": null,
+          "deck": {
+            "path": "/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/decks/C3_warm_1e-10.in",
+            "sha256": "0f86122331fe084a394b28d5412430e9100df515115028b15d4101e5f5e9a19b"
+          }
+        }
+      ]
+    },
+    "fresh": {
+      "time_limit_seconds": 15600,
+      "time_limit": "04:20:00",
+      "max_cpu_su": 555,
+      "calls": [
+        {
+          "name": "D1_fresh_1e-8",
+          "start": null,
+          "target_cycle": null,
+          "deck": {
+            "path": "/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/decks/D1_fresh_1e-8.in",
+            "sha256": "f94f73c1c7e44477b33fac21780b667fe50b485001192dbe36d51ebd2b8c5d3e"
+          }
+        },
+        {
+          "name": "D2_fresh_1e-10",
+          "start": "D1_fresh_1e-8",
+          "target_cycle": null,
+          "deck": {
+            "path": "/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/decks/D2_fresh_1e-10.in",
+            "sha256": "22aeaab4f765b887683cd99b6ab1d24f9fead2efa58d57c2abb3b174738196f0"
+          }
+        }
+      ]
+    }
+  },
+  "hard_ceiling_cpu_su": 1995,
+  "estimate_cpu_su": {
+    "replay": [
+      130,
+      170
+    ],
+    "ladder": [
+      270,
+      370
+    ],
+    "fresh": [
+      245,
+      445
+    ],
+    "total": [
+      645,
+      985
+    ]
+  },
+  "estimate_basis": "job 21075231 measured: resumed evaluation 2 = 898.5 s CPU, resumed call (evaluations 2+3) = 2,549 s wall, fresh SCF = 65 s/iteration (50 iterations, 3,353 s), forces 63 s; tight-rung iteration counts extrapolated from the evaluation-3 residual tail (about 0.84 per iteration) and the fresh tail (about 0.77 per iteration)",
+  "production_accepted": false,
+  "automatic_retry": false,
+  "requeue": false
+}

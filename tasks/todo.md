@@ -3318,3 +3318,12 @@ Verification: each doc edit diffed before commit; deposit receipt recorded with 
 - [ ] Cr array 20813525: tasks 6–9 running/queued (tally 2 complete / 3 stalled); collector pid 3128 watching; nine-leg readout when terminal.
 
 Verification: every readout number above is copied from the banked readouts/traces/outputs under results/lowtail_slab_scf_seeded_2026-09-22/ and results/lowtail_low_state_restart_2026-09-22/{scf,relax2}/; occupation comparisons from the retained and final occup.txt files fetched read-only from Anvil.
+
+## 2026-10-05 — Fixed-geometry initialization / force-convergence diagnostic (user: "Continue the next steps of pricing a fixed geometry.... I approve the next DFT run")
+
+- [x] Design frozen in `docs/research/pa-fixed-geometry-diagnostic-2026-10-05.md`: G2 = first resumed evaluation geometry; arms A_replay (E4), B_ethr = diago_thr_init 1e-6 (E1), C1-C3 conv_thr ladder 1e-6/1e-8/1e-10 (E2, F*), D1-D2 fresh to 1e-10 (E5); readings R1-R5 with thresholds; QE's own SCF correction at evaluation 2 (3.1e-3 Ry/bohr) recorded as the E2 evidence.
+- [x] Decks from the raw-manifest-pinned trial decks (declared line edits only), controller reusing the pinned retest run_arm/allocation validator, readout parser reproducing all banked trial comparisons; 35 new tests + 99 retest tests pass.
+- [x] Priced: estimate 645-985 SU, hard ceiling 1,995 SU (replay 576 / ladder 864 / fresh 555); balance 36,421.4 SU.
+- [x] Independent pre-launch review: no blocker; fixes folded in (C3/D2 electron_maxstep 75 and D1 80, sized to QE's iteration-start max_seconds check; SIGTERM handler; no launch with a surviving pw.x or after an incomplete teardown; solver-limit/cap flags; fit check before copying; all pins incl. Slurm before the group directory; readout INCOMPLETE/exclusion rules). 41 new + 99 retest tests pass.
+- [ ] Commit + push; stage pinned bytes; remote preflight; three held submissions; held-shape validation; release once each.
+- [ ] Read-only watch to terminal; accounting; small-file mirror; registered readout R1-R5; dated readout doc.

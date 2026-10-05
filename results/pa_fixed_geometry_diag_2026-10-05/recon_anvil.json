@@ -1,0 +1,62 @@
+{
+ "mybalance": {
+  "cmd": "mybalance",
+  "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    100000.0     63578.6    63578.6     36421.4\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+  "stderr": "",
+  "rc": 0
+ },
+ "squeue": {
+  "cmd": "squeue -u x-fcai3 -o '%i|%j|%T|%M|%l|%D|%C'",
+  "stdout": "JOBID|NAME|STATE|TIME|TIME_LIMIT|NODES|CPUS\n",
+  "stderr": "",
+  "rc": 0
+ },
+ "trial_results_ls": {
+  "cmd": "ls -la /anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results /anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/candidate_immutable /anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/candidate_immutable/outdir | head -40",
+  "stdout": "/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results:\ntotal 2058\ndrwx--S---+  8 x-fcai3 x-che260157    4096 Oct  5 11:38 .\ndrwxrwsr-x+ 12 x-fcai3 x-che260157    4096 Oct  5 16:10 ..\n-rw-rw-r--   1 x-fcai3 x-che260157    1938 Oct  5 09:40 allocation_before_call_01.json\n-rw-rw-r--   1 x-fcai3 x-che260157    1938 Oct  5 10:29 allocation_before_call_02.json\n-rw-rw-r--   1 x-fcai3 x-che260157    1938 Oct  5 10:40 allocation_before_call_03.json\n-rw-rw-r--   1 x-fcai3 x-che260157    1938 Oct  5 11:43 allocation_before_call_04.json\ndrwx--S---+  3 x-fcai3 x-che260157    4096 Oct  5 10:38 candidate\ndr-xr-xr-x+  3 x-fcai3 x-che260157    4096 Oct  5 10:40 candidate_immutable\ndr-xr-xr-x+  2 x-fcai3 x-che260157    4096 Oct  5 09:40 common_pseudo\ndrwx--S---+  3 x-fcai3 x-che260157    4096 Oct  5 10:29 control\ndrwx--S---+  3 x-fcai3 x-che260157    4096 Oct  5 11:36 fresh\n-rw-rw-r--   1 x-fcai3 x-che260157   13178 Oct  5 11:38 pre_resume_decision.json\ndrwx--S---+  3 x-fcai3 x-che260157    4096 Oct  5 12:25 resumed\n-rw-rw-r--   1 x-fcai3 x-che260157 1398345 Oct  5 12:26 trial_receipt.json\n\n/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/candidate_immutable:\ntotal 578\ndr-xr-xr-x+ 3 x-fcai3 x-che260157   4096 Oct  5 10:40 .\ndrwx--S---+ 8 x-fcai3 x-che260157   4096 Oct  5 11:38 ..\n-r--r--r--  1 x-fcai3 x-che260157 389774 Oct  5 10:40 inventory.json\ndr-xr-xr-x+ 3 x-fcai3 x-che260157  32768 Oct  5 10:39 outdir\n\n/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/candidate_immutable/outdir:\ntotal 14821442\ndr-xr-xr-x+ 3 x-fcai3 x-che260157     32768 Oct  5 10:39 .\ndr-xr-xr-x+ 3 x-fcai3 x-che260157      4096 Oct  5 10:40 ..\n-r--r--r--  1 x-fcai3 x-che260157   1351591 Oct  5 10:38 slab_c5low__pa_boundary.bfgs\n-r--r--r--  1 x-fcai3 x-che260157         0 Oct  5 10:38 slab_c5low__pa_boundary.mix1\n-r--r--r--  1 x-fcai3 x-che260157         0 Oct  5 10:38 slab_c5low__pa_boundary.mix10\n-r--r--r--  1 x-fcai3 x-che260157         0 Oct  5 10:38 slab_c5low__pa_boundary.mix100\n-r--r--r--  1 x-fcai3 x-che260157         0 Oct  5 10:38 slab_c5low__pa_boundary.mix101\n-r--r--r--  1 x-fcai3 x-che260157         0 Oct  5 10:38 slab_c5low__pa_boundary.mix102\n-r--r--r--  1 x-fcai3 x-che260157         0 Oct  5 10:38 slab_c5low__pa_boundary.mix103\n-r--r--r--  1 x-fcai3 x-che260157         0 Oct  5 10:38 slab_c5low__pa_boundary.mix104\n-r--r--r--  1 x-fcai3 x-che260157         0 Oct  5 10:38 slab_c5low__pa_boundary.mix105\n-r--r--r--  1 x-fcai3 x-che260157         0 Oct  5 10:38 slab_c5low__pa_boundary.mix106\n-r--r--r--  1 x-fcai3 x-che260157         0 Oct  5 10:38 slab_c5low__pa_boundary.mix107\n-r--r--r--  1 x-fcai3 x-che260157         0 Oct  5 10:38 slab_c5low__pa_boundary.mix108\n",
+  "stderr": "",
+  "rc": 0
+ },
+ "immutable_save": {
+  "cmd": "ls -la /anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/candidate_immutable/outdir/slab_c5low__pa_boundary.save | head -20; du -sh /anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/candidate_immutable",
+  "stdout": "total 148545\ndr-xr-xr-x+ 2 x-fcai3 x-che260157      4096 Oct  5 10:38 .\ndr-xr-xr-x+ 3 x-fcai3 x-che260157     32768 Oct  5 10:39 ..\n-r--r--r--  1 x-fcai3 x-che260157 149764564 Oct  5 10:38 charge-density.hdf5\n-r--r--r--  1 x-fcai3 x-che260157    408982 Oct  5 10:38 data-file-schema.xml\n-r--r--r--  1 x-fcai3 x-che260157     93601 Oct  5 10:38 occup.txt\n-r--r--r--  1 x-fcai3 x-che260157    640225 Oct  5 10:38 paw.txt\n15G\t/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/candidate_immutable\n",
+  "stderr": "",
+  "rc": 0
+ },
+ "immutable_wfc_count": {
+  "cmd": "ls /anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/candidate_immutable/outdir | sed 's/[0-9]*$//' | sort | uniq -c",
+  "stdout": "      1 slab_c5low__pa_boundary.bfgs\n    128 slab_c5low__pa_boundary.mix\n    128 slab_c5low__pa_boundary.restart_scf\n      1 slab_c5low__pa_boundary.save\n      1 slab_c5low__pa_boundary.update\n    128 slab_c5low__pa_boundary.wfc\n",
+  "stderr": "",
+  "rc": 0
+ },
+ "restart_scf": {
+  "cmd": "cat /anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/trial_results/candidate_immutable/outdir/slab_c5low__pa_boundary.restart_scf 2>&1 | head -2 | cut -c1-200",
+  "stdout": "           0   0.0000000000000000        9.9999999999999995E-007\n  -7.2793840144500059       -7.2459755466806035       -7.2220046726133527       -7.1819009881469968       -7.1672928291071809       -7.1588423534559595       -7.1545276573715251       -7.0991060554933\n",
+  "stderr": "",
+  "rc": 0
+ },
+ "quota": {
+  "cmd": "myquota 2>&1 | head -20",
+  "stdout": "\nType       Location             Size    Limit    Use   Files   Limit    Use\n===========================================================================\nhome       x-fcai3            54.9MB   25.0GB   0.2%      -       -      - \nscratch    x-fcai3             2.5MB  100.0TB   0.0%      9     1.0M   0.0%\nprojects   x-che260157         2.3TB    5.0TB  46.8%   85.9K    1.0M   8.2%\n\n",
+  "stderr": "",
+  "rc": 0
+ },
+ "src_ls": {
+  "cmd": "ls -la /anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/src/dft /anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/anvil | head -30",
+  "stdout": "/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/anvil:\ntotal 3\ndrwxrwsr-x+  2 x-fcai3 x-che260157 4096 Oct  4 22:01 .\ndrwxrwsr-x+ 12 x-fcai3 x-che260157 4096 Oct  5 16:10 ..\n-rw-rw-r--   1 x-fcai3 x-che260157 1794 Oct  4 22:01 90_pa_catalyst_retest.slurm\n\n/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/src/dft:\ntotal 1539\ndrwxrwsr-x+ 3 x-fcai3 x-che260157  4096 Oct  4 22:01 .\ndrwxrwsr-x+ 3 x-fcai3 x-che260157  4096 Oct  4 22:01 ..\n-rw-rw-r--  1 x-fcai3 x-che260157 62282 Oct  4 22:01 pa_catalyst_retest.py\n-rw-rw-r--  1 x-fcai3 x-che260157 25077 Oct  4 22:01 pa_checked_contract.py\n-rw-rw-r--  1 x-fcai3 x-che260157 79932 Oct  4 22:01 pa_qe_adapter_v2.py\ndrwxrwsr-x+ 2 x-fcai3 x-che260157  4096 Oct  4 22:01 __pycache__\n",
+  "stderr": "",
+  "rc": 0
+ },
+ "git_head": {
+  "cmd": "cd /anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04 && (git rev-parse HEAD 2>&1; git status --short 2>&1 | head -5)",
+  "stdout": "c5b33c28bb09324d7decf5c2bb5f6100a877a366\n?? evidence_archive_21075231_2026-10-05/\n?? remote_stage_receipt.json\n?? trial_results/\n",
+  "stderr": "",
+  "rc": 0
+ },
+ "free_gb_project": {
+  "cmd": "df -h /anvil/projects/x-che260157 | tail -1",
+  "stdout": "anvil           5.0T  2.4T  2.7T  47% /anvil\n",
+  "stderr": "",
+  "rc": 0
+ }
+}
