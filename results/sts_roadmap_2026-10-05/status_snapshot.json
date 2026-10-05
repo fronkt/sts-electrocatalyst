@@ -1,0 +1,51 @@
+{
+  "schema": "sts-roadmap-status-v1",
+  "observed_utc": "2026-10-05T14:52:43.155352+00:00",
+  "job_id": "21075231",
+  "state": "RUNNING",
+  "call_states": [
+    {
+      "name": "control",
+      "status": "NUMERICAL_RECEIPT_VALIDATED",
+      "error": null
+    },
+    {
+      "name": "candidate",
+      "status": "NUMERICAL_RECEIPT_VALIDATED",
+      "error": null
+    },
+    {
+      "name": "fresh",
+      "status": "STARTED",
+      "error": null
+    }
+  ],
+  "trial": {
+    "scientific_status": "INCONCLUSIVE",
+    "scheduler_status": "COMPLIANT",
+    "call_count": 3,
+    "elapsed_seconds": 3605.6029397459934,
+    "error": null,
+    "production_accepted": false,
+    "genuine_lower_state_reseed_validated": false
+  },
+  "elapsed_seconds": 4332,
+  "allocated_cpus": 128,
+  "cpu_time_raw": 554496,
+  "accrued_allocation_cpu_su": 154.02666666666667,
+  "estimate_cpu_su": [
+    275,
+    543
+  ],
+  "hard_max_cpu_su": 2048,
+  "hard_wall_seconds": 57600,
+  "automatic_retry": false,
+  "implementation_commit": "c5b33c28bb09324d7decf5c2bb5f6100a877a366",
+  "spec_sha256": "4c2384c6375f1c7892d33d8f6c37478243f41af3da9dd0f9ec507bcd8423e435",
+  "raw_observation": {
+    "observed_utc": "2026-10-05T14:52:43.155352+00:00",
+    "returncode": 0,
+    "stdout": "{\"job_id\": \"21075231\", \"commands\": {\"queue\": {\"returncode\": 0, \"stdout\": \"21075231|RUNNING|1:12:12|128|a614\\n\", \"stderr\": \"\"}, \"accounting\": {\"returncode\": 0, \"stdout\": \"21075231|RUNNING|0:0|4332|128|200G|billing=128,cpu=128,mem=200G,node=1|554496\\n21075231.batch|RUNNING|0:0|4332|128||cpu=128,mem=200G,node=1|554496\\n21075231.extern|RUNNING|0:0|4332|128||billing=128,cpu=128,mem=200G,node=1|554496\\n\", \"stderr\": \"\"}, \"job\": {\"returncode\": 0, \"stdout\": \"JobId=21075231 JobName=pa-catalyst-retest UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=1380 Nice=0 Account=che260157 QOS=cpu JobState=RUNNING Reason=None Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=01:12:12 TimeLimit=16:00:00 TimeMin=N/A SubmitTime=2026-10-04T22:38:24 EligibleTime=2026-10-04T22:39:33 AccrueTime=2026-10-04T22:39:33 StartTime=2026-10-05T09:40:32 EndTime=2026-10-06T01:40:32 Deadline=N/A PreemptEligibleTime=2026-10-05T09:40:32 PreemptTime=None SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-05T09:40:32 Scheduler=Backfill Partition=wholenode AllocNode:Sid=login07:917213 ReqNodeList=(null) ExcNodeList=(null) NodeList=a614 BatchHost=a614 NumNodes=1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=200G,node=1,billing=128 AllocTRES=cpu=128,mem=200G,node=1,billing=128 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=200G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NODE Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/anvil/90_pa_catalyst_retest.slurm SubmitLine=sbatch --hold --parsable --no-requeue --export=ALL,STS_PA_SPEC_SHA256=4c2384c6375f1c7892d33d8f6c37478243f41af3da9dd0f9ec507bcd8423e435 /anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/anvil/90_pa_catalyst_retest.slurm WorkDir=/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04 StdErr=/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/retest_21075231.log StdIn=/dev/null StdOut=/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04/retest_21075231.log TresPerTask=cpu=1\\n\", \"stderr\": \"\"}}, \"arms\": {\"control\": \"     :     25.14s CPU     25.66s WALL (     313 calls)\\n     h_psi        :    823.68s CPU    850.48s WALL (     321 calls)\\n     s_psi        :    151.26s CPU    154.17s WALL (     335 calls)\\n     g_psi        :      4.77s CPU      4.88s WALL (     241 calls)\\n\\n     Called by h_psi:\\n     h_psi:calbec :    146.01s CPU    148.95s WALL (     321 calls)\\n     vloc_psi     :    300.03s CPU    309.89s WALL (     321 calls)\\n                                        0.00s GPU  (     321 calls)\\n     add_vuspsi   :    136.35s CPU    138.45s WALL (     321 calls)\\n     vhpsi        :    231.76s CPU    237.57s WALL (     321 calls)\\n\\n     General routines\\n     calbec       :    365.25s CPU    371.77s WALL (    6032 calls)\\n     fft          :     56.40s CPU     57.34s WALL (    1092 calls)\\n     ffts         :     31.39s CPU     32.07s WALL (    4467 calls)\\n     fftw         :    312.93s CPU    322.97s WALL (  173106 calls)\\n     interpolate  :      5.39s CPU      5.48s WALL (      84 calls)\\n     davcio       :      0.00s CPU      0.29s WALL (       2 calls)\\n\\n     Parallel routines\\n\\n     Hubbard U routines\\n     new_ns       :     20.30s CPU     20.64s WALL (      39 calls)\\n     vhpsi        :    231.76s CPU    237.57s WALL (     321 calls)\\n     force_hub    :    148.41s CPU    150.14s WALL (       3 calls)\\n\\n     PWSCF        :  46m31.82s CPU  48m 8.88s WALL\\n\\n\\n   This run was terminated on:  10:29: 1   5Oct2026            \\n\\n=------------------------------------------------------------------------------=\\n   JOB DONE.\\n=------------------------------------------------------------------------------=\\n\", \"candidate\": \"     :      5.63s CPU      5.68s WALL (      65 calls)\\n     h_psi        :    142.37s CPU    144.89s WALL (      69 calls)\\n     s_psi        :     29.47s CPU     29.71s WALL (      75 calls)\\n     g_psi        :      0.99s CPU      1.01s WALL (      59 calls)\\n\\n     Called by h_psi:\\n     h_psi:calbec :     25.70s CPU     25.90s WALL (      69 calls)\\n     vloc_psi     :     51.12s CPU     51.79s WALL (      69 calls)\\n                                        0.00s GPU  (      69 calls)\\n     add_vuspsi   :     23.83s CPU     24.15s WALL (      69 calls)\\n     vhpsi        :     39.82s CPU     40.49s WALL (      69 calls)\\n\\n     General routines\\n     calbec       :     79.78s CPU     80.61s WALL (    1900 calls)\\n     fft          :      7.87s CPU      7.99s WALL (     139 calls)\\n     ffts         :      2.05s CPU      2.07s WALL (     264 calls)\\n     fftw         :     49.69s CPU     50.33s WALL (   27842 calls)\\n     interpolate  :      0.82s CPU      0.83s WALL (      10 calls)\\n     davcio       :      0.00s CPU      1.42s WALL (       2 calls)\\n\\n     Parallel routines\\n\\n     Hubbard U routines\\n     new_ns       :      2.14s CPU      2.17s WALL (       4 calls)\\n     vhpsi        :     39.82s CPU     40.49s WALL (      69 calls)\\n     force_hub    :     46.99s CPU     47.48s WALL (       1 calls)\\n\\n     PWSCF        :   8m57.20s CPU   9m10.89s WALL\\n\\n\\n   This run was terminated on:  10:38:22   5Oct2026            \\n\\n=------------------------------------------------------------------------------=\\n   JOB DONE.\\n=------------------------------------------------------------------------------=\\n\", \"fresh\": \"ag/cell\\n\\n     iteration #  7     ecut=    80.00 Ry     beta= 0.30\\n     Davidson diagonalization with overlap\\n     ethr =  4.55E-03,  avg # of iterations =  2.2\\n\\n     negative rho (up, down):  1.502E-01 1.837E-01\\n\\n     total cpu time spent up to now is      511.2 secs\\n\\n     total energy              =   -7551.63411674 Ry\\n     estimated scf accuracy    <      24.96138883 Ry\\n\\n     total magnetization       =    54.10 Bohr mag/cell\\n     absolute magnetization    =    71.95 Bohr mag/cell\\n\\n     iteration #  8     ecut=    80.00 Ry     beta= 0.30\\n     Davidson diagonalization with overlap\\n     ethr =  3.84E-03,  avg # of iterations =  2.3\\n\\n     negative rho (up, down):  1.534E-01 1.921E-01\\n\\n     total cpu time spent up to now is      578.1 secs\\n\\n     total energy              =   -7551.49503176 Ry\\n     estimated scf accuracy    <       9.31123631 Ry\\n\\n     total magnetization       =    54.71 Bohr mag/cell\\n     absolute magnetization    =    71.89 Bohr mag/cell\\n\\n     iteration #  9     ecut=    80.00 Ry     beta= 0.30\\n     Davidson diagonalization with overlap\\n     ethr =  1.43E-03,  avg # of iterations =  6.7\\n\\n     negative rho (up, down):  1.520E-01 1.908E-01\\n\\n     total cpu time spent up to now is      655.4 secs\\n\\n     total energy              =   -7551.66801087 Ry\\n     estimated scf accuracy    <       1.32743295 Ry\\n\\n     total magnetization       =    52.75 Bohr mag/cell\\n     absolute magnetization    =    70.10 Bohr mag/cell\\n\\n     iteration # 10     ecut=    80.00 Ry     beta= 0.30\\n     Davidson diagonalization with overlap\\n     ethr =  2.04E-04,  avg # of iterations =  7.9\\n\"}, \"readonly\": true, \"qe_executed\": false, \"trial\": {\"scientific_status\": \"INCONCLUSIVE\", \"scheduler_status\": \"COMPLIANT\", \"call_count\": 3, \"elapsed_seconds\": 3605.6029397459934, \"error\": null, \"production_accepted\": false, \"genuine_lower_state_reseed_validated\": false}, \"call_states\": [{\"name\": \"control\", \"status\": \"NUMERICAL_RECEIPT_VALIDATED\", \"error\": null}, {\"name\": \"candidate\", \"status\": \"NUMERICAL_RECEIPT_VALIDATED\", \"error\": null}, {\"name\": \"fresh\", \"status\": \"STARTED\", \"error\": null}], \"scheduler_log_tail\": \"\"}\n",
+    "stderr": "** WARNING: connection is not using a post-quantum key exchange algorithm.\n** This session may be vulnerable to \"store now, decrypt later\" attacks.\n** The server may need to be upgraded. See https://openssh.com/pq.html\n"
+  }
+}

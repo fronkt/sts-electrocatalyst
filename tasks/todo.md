@@ -1,5 +1,19 @@
 # STS 2027 — TODO
 
+## 2026-10-05 — Current timeline and phase scope through STS submission
+
+Scope: source-grounded, dated roadmap from the active corrected catalyst boundary trial through protocol validation, finite candidate DFT, S8/melt freeze, laboratory validation, final analysis and STS submission. Future dates are conditional planning targets; this documentation does not authorize new compute, samples, external messages or submission.
+
+- [x] Capture the latest job status and review the current compute, evidence and experimental gates. Snapshot 10:52:43 EDT: control/candidate validated, fresh running, about154.03 accrued SU;13 local source hashes retained.
+- [x] Verify the official STS 2027 submission deadline and required final package. Official Nov5 2026 8pm EST; recommendations share deadline; report/competition dates checked.
+- [x] Write a dated phase table, dependency timeline, finite compute scope, budget unknowns and decision deadlines. Proposed October windows, conditional DFT budget, current claim spine, independent P-LIT date and report-lock ruling retained.
+- [x] Independently review the roadmap for unsupported scientific claims, timing assumptions and scope expansion. Exact-hash clearance: GO_OPERATIONAL_ROADMAP_ONLY; no remaining blockers.
+- [x] Record results and publish the explicit planning paths to GitHub. Reviewed roadmap and frozen receipts; explicit paths only; remote commit equality checked by bank_roadmap.py.
+
+Plan check-in: trace established scope and current raw status first; cost and calendar unknowns stay explicit. Write and application administration proceed in parallel with gated compute and lab work. The current trial approval remains one job with no automatic retries.
+
+Review: independent clearance binds roadmap aa1a1a97373dffebcc781211f6584d5e95968bc9cb1b1e3d9f9c597734a00fa4, frozen current-status/official-fact receipts and all13 local source pins. One ambiguous Ni31 start/endpoint label was corrected; accepted unreconstructed-start O ends classified reconstructed. Future dates remain conditional and future compute/laboratory scope remains unapproved. Documentation-only checks and review; no solver run or implementation tests.
+
 ## 2026-10-04 — Review, snapshot-bind and publish the corrected catalyst re-test
 
 Scope: independent review of the prepared additive V2/re-test package; bind original-trial readout assertions to its exact launch snapshot; fresh offline verification, then explicit-path commit and push. Staging and one-job submission remain separate approval gates. Expected 275–543 CPU SU; hard ceiling 2,048 SU / 16 h; no automatic retry.
