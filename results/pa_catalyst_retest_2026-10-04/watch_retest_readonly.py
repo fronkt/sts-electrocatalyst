@@ -1,0 +1,81 @@
+"""Bounded job observations only: never submit, cancel, retry or invoke QE.  PREPARED for the re-test; run it after the release."""
+import argparse,json,pathlib,subprocess,time
+from datetime import datetime,timezone
+
+PHASE=pathlib.Path(__file__).resolve().parent
+REMOTE='/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04'
+SSH=['C:/Program Files/Git/usr/bin/ssh.exe','-i','C:/Users/frank/.ssh/id_ed25519',
+     '-o','BatchMode=yes','-o','StrictHostKeyChecking=yes','-o','ConnectTimeout=12',
+     'x-fcai3@anvil.rcac.purdue.edu']
+PYTHON='/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 -'
+TERMINAL={'COMPLETED','FAILED','CANCELLED','TIMEOUT','OUT_OF_MEMORY','NODE_FAIL',
+          'PREEMPTED','BOOT_FAIL','DEADLINE'}
+
+def scheduler_state(text,job):
+    rows=[row.split('|') for row in text.splitlines() if row.strip()]
+    match=next((row for row in rows if row[0]==job),None)
+    return match[1].split()[0].rstrip('+') if match and len(match)>1 and match[1].split() else 'ACCOUNTING_PENDING'
+
+def collection_state(data, job):
+    commands=data['commands']
+    for name in ('accounting',):
+        if commands[name]['returncode'] != 0:
+            raise RuntimeError('scheduler collection failed: '+name+' '+commands[name].get('stderr',''))
+    state=scheduler_state(commands['accounting']['stdout'],job)
+    if state not in TERMINAL:
+        for name in ('queue', 'job'):
+            if commands[name]['returncode'] != 0:
+                raise RuntimeError('scheduler collection failed: '+name+' '+commands[name].get('stderr',''))
+    return state
+
+def main(job):
+    assert job.isdigit(),'explicit singleton job ID required'
+    submitted=json.loads((PHASE/'submission.json').read_text())
+    assert submitted['job_id']==job,'watch must match the retained once-only submission'
+    assert not (PHASE/'retest_observations.jsonl').exists(),'do not overwrite a prior watch'
+    script='job='+repr(job)+'\nroot='+repr(REMOTE)+'\n'+r'''import json,pathlib,subprocess
+base=pathlib.Path(root);r={'job_id':job,'commands':{},'arms':{},'readonly':True,'qe_executed':False}
+for name,args in [('queue',['squeue','-h','-j',job,'-o','%i|%T|%M|%C|%R']),('accounting',['sacct','-n','-P','-j',job,'--format=JobIDRaw,State,ExitCode,ElapsedRaw,AllocCPUS,ReqMem,AllocTRES,CPUTimeRAW']),('job',['scontrol','show','job',job,'-o'])]:
+ p=subprocess.run(args,stdout=subprocess.PIPE,stderr=subprocess.PIPE,universal_newlines=True,timeout=12)
+ r['commands'][name]={'returncode':p.returncode,'stdout':p.stdout,'stderr':p.stderr}
+trial=base/'trial_results';report=trial/'trial_receipt.json'
+if report.exists():
+ data=json.loads(report.read_text());r['trial']={key:data.get(key) for key in ['scientific_status','scheduler_status','call_count','elapsed_seconds','error','production_accepted','genuine_lower_state_reseed_validated']}
+ r['call_states']=[{'name':x.get('name'),'status':x.get('status'),'error':x.get('error')} for x in data.get('calls',[])]
+for name in ['control','candidate','fresh','resumed','reseed','negative']:
+ path=trial/name/'stdout.log'
+ if path.exists():
+  with path.open('rb') as f:f.seek(max(0,path.stat().st_size-1600));r['arms'][name]=f.read().decode('utf-8','replace')
+log=base/('retest_'+job+'.log')
+if log.exists():
+ with log.open('rb') as f:f.seek(max(0,log.stat().st_size-2000));r['scheduler_log_tail']=f.read().decode('utf-8','replace')
+print(json.dumps(r))
+'''
+    compile(script,'<readonly-observation>','exec')
+    deadline=time.monotonic()+86400;failures=0
+    while time.monotonic()<deadline:
+        observed=datetime.now(timezone.utc).isoformat()
+        try:
+            process=subprocess.run(SSH+[PYTHON],input=script,capture_output=True,text=True,
+                encoding='utf-8',errors='replace',timeout=55,creationflags=0x08000000)
+            row={'observed_utc':observed,'returncode':process.returncode,'stdout':process.stdout,'stderr':process.stderr}
+            with (PHASE/'retest_observations.jsonl').open('a',encoding='utf-8') as stream:stream.write(json.dumps(row)+'\n')
+            assert process.returncode==0,process.stderr
+            data=json.loads(process.stdout);state=collection_state(data,job)
+            fields={'state':state,'job_id':job,'observed_utc':observed,'readonly':True,
+                'automatic_qe_retry':False,'production_accepted':False,'trial':data.get('trial'),
+                'call_states':data.get('call_states'),'consecutive_collection_failures':0}
+            failures=0
+        except Exception as exc:
+            failures+=1;fields={'state':'COLLECTION_ERROR','job_id':job,'observed_utc':observed,
+                'readonly':True,'automatic_qe_retry':False,'production_accepted':False,
+                'error':repr(exc),'consecutive_collection_failures':failures}
+        (PHASE/'retest_watch_status.json').write_text(json.dumps(fields,indent=2)+'\n',encoding='utf-8')
+        print(json.dumps(fields),flush=True)
+        if fields['state'] in TERMINAL or failures>=3:return
+        time.sleep(min(60,max(0,deadline-time.monotonic())))
+    fields['state']='WATCH_DEADLINE';(PHASE/'retest_watch_status.json').write_text(json.dumps(fields,indent=2)+'\n')
+
+if __name__=='__main__':
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--job-id',required=True)
+    main(parser.parse_args().job_id)

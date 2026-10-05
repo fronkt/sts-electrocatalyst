@@ -1,0 +1,584 @@
+Verified background desktop: Codex_STS_Background
+....................F.......................FF........................F. [ 73%]
+..........................                                               [100%]
+================================== FAILURES ===================================
+__________ test_every_citation_resolves_exactly_in_the_pinned_files ___________
+
+    def test_every_citation_resolves_exactly_in_the_pinned_files():
+        rows = R.check_citations(REPO)
+>       assert rows and all(r["status"] == "EXACT" for r in rows), [r for r in rows if r["status"] != "EXACT"]
+E       AssertionError: [{'criterion': 'SCHED_ALLOC', 'file': 'docs/research/pa-catalyst-trial-2026-10-03.md', 'launch_commit': 'b9f0208ee6f3c.../pa-catalyst-trial-2026-10-03.md', 'launch_commit': 'b9f0208ee6f3cd71d0201d03b964b5c23f53d644', 'line': 105, ...}, ...]
+E       assert ([{'criterion': 'SCHED_ALLOC', 'file': 'docs/research/pa-catalyst-trial-2026-10-03.md', 'launch_commit': 'b9f0208ee6f3c...rison-pa-readiness-2026-10-03.md', 'launch_commit': 'b9f0208ee6f3cd71d0201d03b964b5c23f53d644', 'line': 127, ...}, ...] and False)
+E        +  where False = all(<generator object test_every_citation_resolves_exactly_in_the_pinned_files.<locals>.<genexpr> at 0x0000016C87220930>)
+
+results\pa_catalyst_trial_readout_prep_2026-10-04\test_readout_trial.py:43: AssertionError
+_______________ test_pass_branch_is_corroborated_by_every_gate ________________
+
+tmp_path = WindowsPath('C:/Users/frank/AppData/Local/Temp/pytest-of-unknown/pytest-105/test_pass_branch_is_corroborat0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000016C8710AA20>
+thaw_all = WindowsPath('C:/Users/frank/AppData/Local/Temp/pytest-of-unknown/pytest-105/test_pass_branch_is_corroborat0')
+
+    def test_pass_branch_is_corroborated_by_every_gate(tmp_path, monkeypatch, thaw_all):
+        mirror, receipt, harness = make_mirror(tmp_path, monkeypatch)
+        assert receipt["scientific_status"] == "PASS_ONE_BOUNDARY"
+        verdict = read(mirror)
+        out = verdict["outcome"]
+        assert out["label"] == "PASS" and out["label_basis"] == "PRESTATED" and out["corroboration"] == "RECEIPT_ONLY"
+        assert all(out["pass_gates"].values()), out["pass_gates"]
+        assert [c["name"] for c in verdict["calls"]] == ["control", "candidate", "fresh", "resumed", "negative"]
+        assert verdict["scheduler"]["charged_cpu_su"] == pytest.approx(320.0)
+        assert result_of(verdict, "SEQUENCE") == "MET" and result_of(verdict, "CONTINUITY_TOL") == "MET"
+        assert result_of(verdict, "BOUNDARY_COUNTS") == "MET" and result_of(verdict, "NEG_CONTROL") == "MET"
+        assert result_of(verdict, "BRANCH_RESUME") == "MET" and result_of(verdict, "BRANCH_RESEED") == "NOT_APPLICABLE"
+        assert result_of(verdict, "SCHED_PER_CALL") == "MET" and result_of(verdict, "NO_PRODUCTION") == "MET"
+        assert result_of(verdict, "INCONC_PROCESS") == "NOT_TRIGGERED" and verdict["integrity_flags"] == []
+        assert verdict["production_accepted"] is False and verdict["qe_executed"] is False
+>       assert verdict["citation_check"] == []
+E       AssertionError: assert [{'criterion'...05, ...}, ...] == []
+E         
+E         Left contains 36 more items, first extra item: {'criterion': 'SCHED_ALLOC', 'file': 'docs/research/pa-catalyst-trial-2026-10-03.md', 'launch_commit': 'b9f0208ee6f3cd71d0201d03b964b5c23f53d644', 'line': 8, ...}
+E         Use -v to get more diff
+
+results\pa_catalyst_trial_readout_prep_2026-10-04\test_readout_trial.py:548: AssertionError
+______ test_pass_without_negative_control_when_spec_says_optional_false _______
+
+tmp_path = WindowsPath('C:/Users/frank/AppData/Local/Temp/pytest-of-unknown/pytest-105/test_pass_without_negative_con0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000016C871FEAE0>
+thaw_all = WindowsPath('C:/Users/frank/AppData/Local/Temp/pytest-of-unknown/pytest-105/test_pass_without_negative_con0')
+
+    def test_pass_without_negative_control_when_spec_says_optional_false(tmp_path, monkeypatch, thaw_all):
+        monkeypatch.setattr(trial, "preflight", lambda *args: {})
+        mirror = tmp_path / "m"
+        mirror.mkdir()
+        spec = copy.deepcopy(SPEC)
+        spec["optional_negative_control"] = False
+        spec["trial_parent"], spec["trial_root"] = str(mirror), str(mirror / "trial_results")
+        Double(spec).run()
+        custom = tmp_path / "spec.json"
+        custom.write_text(json.dumps(spec), encoding="utf-8")
+>       verdict = R.analyze(mirror=mirror, rederive=False, repo=REPO, sacct_text=sacct(), spec_path=custom)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+results\pa_catalyst_trial_readout_prep_2026-10-04\test_readout_trial.py:565: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def analyze(*, mirror, job_id=JOB_ID, sacct_text=None, scontrol_text=None, jobsu_text=None,
+                remote_inventory=None, repo=DEFAULT_REPO, rederive=True, spec_path=None,
+                source_deck=None, balance_before=None, hash_mirror=True):
+        repo = Path(repo)
+        trial, adapter = load_modules(repo)
+        spec_path = Path(spec_path) if spec_path else source_path(SPEC_REL, repo)
+        if sha256_file(spec_path) != sha256_file(source_path(SPEC_REL, repo)):
+>           raise ValueError("historical spec override differs from original launch snapshot")
+E           ValueError: historical spec override differs from original launch snapshot
+
+results\pa_catalyst_trial_readout_prep_2026-10-04\readout_trial.py:1188: ValueError
+___________ test_analysis_is_read_only_and_cli_refuses_to_overwrite ___________
+
+tmp_path = WindowsPath('C:/Users/frank/AppData/Local/Temp/pytest-of-unknown/pytest-105/test_analysis_is_read_only_and0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000016C87249130>
+thaw_all = WindowsPath('C:/Users/frank/AppData/Local/Temp/pytest-of-unknown/pytest-105/test_analysis_is_read_only_and0')
+capsys = <_pytest.capture.CaptureFixture object at 0x0000016C872498E0>
+
+    def test_analysis_is_read_only_and_cli_refuses_to_overwrite(tmp_path, monkeypatch, thaw_all, capsys):
+        mirror, _, _ = make_mirror(tmp_path, monkeypatch)
+        before = R.inventory_dir(mirror)
+        (tmp_path / "sacct.txt").write_text(sacct(), encoding="utf-8")
+        (tmp_path / "jobsu.txt").write_text("CPU SUs Already Used:  320.0000\nTotal CPU SUs used for all jobs: 320.0000\n", encoding="utf-8")
+        out = tmp_path / "out"
+        args = ["--mirror", str(mirror), "--sacct", str(tmp_path / "sacct.txt"), "--jobsu", str(tmp_path / "jobsu.txt"),
+                "--no-rederive", "--out", str(out), "--balance-before", "36878.2"]
+        assert R.main(args) == 0
+        assert R.inventory_dir(mirror) == before
+        verdict = json.loads((out / "readout_verdict.json").read_text(encoding="utf-8"))
+        assert verdict["outcome"]["label"] == "PASS" and verdict["scheduler"]["jobsu_minus_computed_su"] == pytest.approx(0.0)
+        assert verdict["scheduler"]["balance_after_su_exact_product"] == pytest.approx(36878.2 - 320.0)
+        assert "TRIAL OUTCOME: PASS" in (out / "readout_table.md").read_text(encoding="utf-8")
+        with pytest.raises(FileExistsError):
+            R.main(args)
+        capsys.readouterr()
+        assert R.main(["--print-mirror-selection"]) == 0 and "trial_receipt.json" in capsys.readouterr().out
+>       assert R.main(["--check-citations"]) == 0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = <function main at 0x0000016C8729C680>(['--check-citations'])
+E        +    where <function main at 0x0000016C8729C680> = R.main
+
+results\pa_catalyst_trial_readout_prep_2026-10-04\test_readout_trial.py:809: AssertionError
+---------------------------- Captured stdout call -----------------------------
+[
+ {
+  "criterion": "SCHED_ALLOC",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 8,
+  "quote": "Approval is one regular",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   5
+  ]
+ },
+ {
+  "criterion": "SCHED_CALLS",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 9,
+  "quote": "at most six sequential QE calls",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   6
+  ]
+ },
+ {
+  "criterion": "SCHED_CAP_SU",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 85,
+  "quote": "The scheduler charge is capped",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   82
+  ]
+ },
+ {
+  "criterion": "SCHED_PER_CALL",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 79,
+  "quote": "Every QE call requires actual scheduler",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   76
+  ]
+ },
+ {
+  "criterion": "SCHED_PER_CALL",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 80,
+  "quote": "within remaining aggregate time",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   77
+  ]
+ },
+ {
+  "criterion": "SCHED_SEPARATE",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 105,
+  "quote": "Scheduler and scientific outcomes",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   102
+  ]
+ },
+ {
+  "criterion": "REPORT_RULE",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 106,
+  "quote": "report a source-bound numerical",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   103
+  ]
+ },
+ {
+  "criterion": "REPORT_RULE",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 107,
+  "quote": "without a hidden rerun",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   104
+  ]
+ },
+ {
+  "criterion": "NO_PRODUCTION",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 10,
+  "quote": "not approve production relaxation",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   7
+  ]
+ },
+ {
+  "criterion": "NO_PRODUCTION",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 123,
+  "quote": "No production or catalyst-runtime success",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   120
+  ]
+ },
+ {
+  "criterion": "SEQUENCE",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 31,
+  "quote": "Sequence: three-evaluation",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   28
+  ]
+ },
+ {
+  "criterion": "SEQUENCE",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 33,
+  "quote": "geometry, not its post-move proposal",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   30
+  ]
+ },
+ {
+  "criterion": "BRANCH_RESUME",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 34,
+  "quote": "If the fresh state is not more than",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   31
+  ]
+ },
+ {
+  "criterion": "BRANCH_RESUME",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 35,
+  "quote": "with inherited optimizer state for two",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   32
+  ]
+ },
+ {
+  "criterion": "BRANCH_RESEED",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 36,
+  "quote": "more than10meV lower",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   33
+  ]
+ },
+ {
+  "criterion": "BRANCH_RESEED",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 37,
+  "quote": "reseed/history reset at the evaluated geometry",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   34
+  ]
+ },
+ {
+  "criterion": "BRANCH_RESEED",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 38,
+  "quote": "Exactly10meV or a higher fresh state",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   35
+  ]
+ },
+ {
+  "criterion": "BRANCH_HOLD",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 39,
+  "quote": "fresh reference holds continuation",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   36
+  ]
+ },
+ {
+  "criterion": "NEG_CONTROL",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 40,
+  "quote": "negative control establishes actual startup",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   37
+  ]
+ },
+ {
+  "criterion": "RESEED_VALID",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 41,
+  "quote": "The reseed branch is only numerically validated",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   38
+  ]
+ },
+ {
+  "criterion": "RESEED_VALID",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 42,
+  "quote": "energy remains within1e-6Ry",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   39
+  ]
+ },
+ {
+  "criterion": "RESEED_VALID",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 43,
+  "quote": "below the original warm state",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   40
+  ]
+ },
+ {
+  "criterion": "CONTINUITY_TOL",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 46,
+  "quote": "Control and candidate+resume must match",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   43
+  ]
+ },
+ {
+  "criterion": "CONTINUITY_TOL",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 47,
+  "quote": "1e-6Ry energy,1e-5bohr",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   44
+  ]
+ },
+ {
+  "criterion": "CONTINUITY_TOL",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 48,
+  "quote": "endpoint-only comparison",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   45
+  ]
+ },
+ {
+  "criterion": "NO_SPLICE",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 49,
+  "quote": "branch cannot be spliced",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   46
+  ]
+ },
+ {
+  "criterion": "NO_SPLICE",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 50,
+  "quote": "occurs, genuine catalyst reseed remains unvalidated",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   47
+  ]
+ },
+ {
+  "criterion": "BOUNDARY_COUNTS",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 59,
+  "quote": "exact saved evaluated XML count",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   56
+  ]
+ },
+ {
+  "criterion": "FIRST_THRESHOLD",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 23,
+  "quote": "target is1e-6Ry",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   20
+  ]
+ },
+ {
+  "criterion": "FIRST_THRESHOLD",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 25,
+  "quote": "first warm target must verify",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   22
+  ]
+ },
+ {
+  "criterion": "REJECT_LIST",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 82,
+  "quote": "symlinks/special files, fallback/reset",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   79
+  ]
+ },
+ {
+  "criterion": "REJECT_LIST",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 83,
+  "quote": "failed/stalled energies",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   80
+  ]
+ },
+ {
+  "criterion": "SUPERVISION",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 83,
+  "quote": "SCF iteration127 supervision",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   80
+  ]
+ },
+ {
+  "criterion": "RAW_BINDING",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 68,
+  "quote": "Raw bindings include source deck bytes",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   65
+  ]
+ },
+ {
+  "criterion": "INCONC_BOUNDARY",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 61,
+  "quote": "Early convergence, nstep exhaustion",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   58
+  ]
+ },
+ {
+  "criterion": "LATER_GATES",
+  "file": "docs/research/pa-catalyst-trial-2026-10-03.md",
+  "line": 51,
+  "quote": "terminal fresh acceptance remain later gates",
+  "launch_commit": "b9f0208ee6f3cd71d0201d03b964b5c23f53d644",
+  "source_sha256": "d5296e7bdefea7826478043dd2be4228163d1c44c2acc88c02b82ab6694bf11d",
+  "snapshot_file": "results/pa_catalyst_trial_readout_prep_2026-10-04/launch_snapshot/docs/research/pa-catalyst-trial-2026-10-03.md",
+  "status": "MOVED",
+  "line_now": [
+   48
+  ]
+ }
+]
+=========================== short test summary info ===========================
+FAILED results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py::test_every_citation_resolves_exactly_in_the_pinned_files
+FAILED results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py::test_pass_branch_is_corroborated_by_every_gate
+FAILED results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py::test_pass_without_negative_control_when_spec_says_optional_false
+FAILED results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py::test_analysis_is_read_only_and_cli_refuses_to_overwrite
+4 failed, 94 passed in 23.92s
+ 

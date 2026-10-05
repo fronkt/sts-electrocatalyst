@@ -1,0 +1,8 @@
+{
+  "python": "C:/Users/frank/AppData/Local/Programs/Python/Python312/pythonw.exe",
+  "worker": "C:/Users/frank/AppData/Local/Temp/sts-background-2026-09-06/worker.py",
+  "cwd": "C:/Users/frank/sts-electrocatalyst",
+  "log": "C:/Users/frank/sts-electrocatalyst/results/pa_catalyst_retest_2026-10-04/verification-process-observation.log",
+  "status": "C:/Users/frank/sts-electrocatalyst/results/pa_catalyst_retest_2026-10-04/verification-process-observation.status.json",
+  "code": "import json, pathlib, time\ntry:\n import psutil\n parent=psutil.Process(51440)\n rows=[{'pid':p.pid,'name':p.name(),'cpu':tuple(p.cpu_times())[:2],'status':p.status(),'age_s':time.time()-p.create_time()} for p in [parent]+parent.children(recursive=True)]\nexcept Exception as e: rows={'error':repr(e)}\nprint(json.dumps(rows),flush=True)"
+}

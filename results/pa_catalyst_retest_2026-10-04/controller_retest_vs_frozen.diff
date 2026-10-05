@@ -1,0 +1,161 @@
+--- frozen pa_catalyst_trial.py (sha d00656aa)	2026-10-03 21:31:29.041667900 -0400
++++ pa_catalyst_retest.py	2026-10-04 18:37:53.865656200 -0400
+@@ -1,4 +1,10 @@
+-"""One licensed catalyst P-A boundary trial; no submission or production driver.
++"""One licensed catalyst P-A boundary re-test; no submission or production driver.
++
++Sibling of pa_catalyst_trial.py, kept as its own pinned file so that the dated trial
++pinned to the original controller (job 21034683) keeps its bytes.  Same registered
++sequence, shape and ceilings; it binds the corrected pa_qe_adapter_v2 and the dated
++2026-10-04 spec, and its preflight also records the canonical XML strings expected
++for the deck.
+ 
+ The dated, externally hash-pinned spec is launch authority. Every QE call has
+ the same MPI shape, an independent two-hour ceiling, and a live Slurm check.
+@@ -7,6 +13,7 @@
+ from __future__ import annotations
+ 
+ import argparse
++import gzip
+ import hashlib
+ import json
+ import math
+@@ -17,6 +24,7 @@
+ import stat
+ import subprocess
+ import sys
++import tempfile
+ import threading
+ import time
+ from datetime import datetime, timezone
+@@ -41,6 +49,17 @@
+ SHAPE = {"nprocs": 128, "nthreads": 1, "ntasks": 1,
+          "nbgrp": 1, "npool": 8, "ndiag": 16}
+ PREFIX = "slab_c5low__pa_boundary"
++# The real QE 7.5 control call of job 21034683 (tests/fixtures/qe75_real/control).  PREFLIGHT reads it through
++# the exact staged adapter before any QE call is paid for, so a validator/schema mismatch with real output
++# fails at zero SU instead of after a 48-minute call.
++REAL_CONTROL_XML_IDENTITY = "3bd17094ff7919c4d831d8725d6297eac21858be16143dae686883c27ea232f0"
++REPLAY_FILES = frozenset({"manifest.json", "control/input.in.gz", "control/stdout.log.gz", "control/stderr.log.gz",
++    "control/process_receipt.json.gz", "control/data-file-schema.xml.gz", "control/slab_c5low__pa_boundary.bfgs.gz",
++    "control/common_pseudo/Co_pbe_v1.2.uspp.F.UPF.gz", "control/common_pseudo/Cu.paw.z_11.ld1.psl.v1.0.0-low.upf.gz",
++    "control/common_pseudo/O.pbe-n-kjpaw_psl.0.1.UPF.gz", "control/common_pseudo/cr_pbe_v1.5.uspp.F.UPF.gz",
++    "control/common_pseudo/mn_pbe_v1.5.uspp.F.UPF.gz"})
++REPLAY_EXPECTED = {"evaluations": 3, "scf_counts": [1, 2, 3], "saved_optimizer_counters": [3, 3, 0],
++                   "xml_settings_identity": REAL_CONTROL_XML_IDENTITY}
+ SCF_CYCLE = re.compile(r"(?m)^[ \t]*number of scf cycles[ \t]*=[ \t]*(\d+)[ \t]*$")
+ SCF_ITERATION = re.compile(r"(?m)^[ \t]*iteration[ \t]*#[ \t]*(\d+)")
+ FAILURE = re.compile(
+@@ -88,9 +107,9 @@
+ 
+ def validate_spec(spec: dict) -> dict:
+     """Validate immutable scientific identity and all user ceilings before writes."""
+-    if not isinstance(spec, dict) or spec.get("schema") != "pa-catalyst-trial-v1":
++    if not isinstance(spec, dict) or spec.get("schema") != "pa-catalyst-retest-v1":
+         raise TrialError("wrong catalyst trial schema")
+-    if spec.get("date") != "2026-10-03" or spec.get("target") != TARGET:
++    if spec.get("date") != "2026-10-04" or spec.get("target") != TARGET:
+         raise TrialError("trial date or singleton target differs")
+     if spec.get("caps") != CAPS or any(type(v) is not int for v in spec["caps"].values()):
+         raise TrialError("call, per-call, cleanup, or aggregate ceilings differ")
+@@ -127,8 +146,17 @@
+         if len(paths) != len(set(paths)):
+             raise TrialError("duplicate " + label + " paths")
+     names = {Path(pin["path"]).name for pin in dependencies}
+-    if not {"pa_catalyst_trial.py", "pa_qe_adapter.py", "pa_checked_contract.py"}.issubset(names):
++    if not {"pa_catalyst_retest.py", "pa_qe_adapter_v2.py", "pa_checked_contract.py"}.issubset(names):
+         raise TrialError("supervisor, adapter, and contract dependency pins required")
++    replay = spec.get("preflight_replay")
++    if (not isinstance(replay, dict) or not isinstance(replay.get("root"), str) or not Path(replay["root"]).is_absolute()
++            or not isinstance(replay.get("logged_upf_dir"), str) or not replay["logged_upf_dir"].endswith("/")
++            or replay.get("expected") != REPLAY_EXPECTED or not isinstance(replay.get("files"), list)):
++        raise TrialError("preflight replay of the real QE 7.5 control call is required")
++    for entry in replay["files"]:
++        _pin(entry, "preflight replay fixture")
++    if {entry["path"] for entry in replay["files"]} != REPLAY_FILES or len(replay["files"]) != len(REPLAY_FILES):
++        raise TrialError("preflight replay requires exactly the registered real control files")
+     seed = spec.get("initial_seed", {})
+     if seed.get("root") != SEED_ROOT or not isinstance(seed.get("files"), list):
+         raise TrialError("historical low-state initialization root differs")
+@@ -141,7 +169,7 @@
+         if not isinstance(spec.get(key), str) or not Path(spec[key]).is_absolute():
+             raise TrialError(key + " must be absolute")
+     parent, root = Path(spec["trial_parent"]), Path(spec["trial_root"])
+-    if parent.name != "sts_pa_catalyst_2026-10-03" or root.parent != parent or root.name != "trial_results":
++    if parent.name != "sts_pa_catalyst_retest_2026-10-04" or root.parent != parent or root.name != "trial_results":
+         raise TrialError("trial output is not the isolated dated checkout child")
+     return spec
+ 
+@@ -539,6 +567,47 @@
+     return receipt
+ 
+ 
++def replay_real_control(spec: dict, adapter) -> dict:
++    """Read the real control call of job 21034683 through the staged adapter; refuse on any mismatch."""
++    replay = spec["preflight_replay"]
++    root = _plain_path(Path(replay["root"]))
++    for entry in replay["files"]:
++        verify_pin({"path": str(root / entry["path"]), "sha256": entry["sha256"]}, "preflight replay fixture")
++    manifest = {row["fixture"]: row for row in json.loads((root / "manifest.json").read_text(encoding="utf-8"))}
++    registered_upfs = {Path(pin["path"]).name: pin["sha256"] for pin in spec["upfs"]}
++    with tempfile.TemporaryDirectory(prefix="pa_replay_", dir=str(_plain_path(Path(spec["trial_parent"])))) as name:
++        scratch = Path(name)
++        for entry in replay["files"]:
++            if entry["path"] == "manifest.json":
++                continue
++            raw = gzip.decompress((root / entry["path"]).read_bytes())
++            row = manifest[entry["path"]]
++            if len(raw) != row["bytes"] or hashlib.sha256(raw).hexdigest() != row["sha256"]:
++                raise TrialError("replay fixture differs from its recorded original: " + entry["path"])
++            target = scratch / entry["path"][len("control/"):-len(".gz")]
++            target.parent.mkdir(parents=True, exist_ok=True)
++            target.write_bytes(raw)
++        pins = {path.name: sha256_file(path) for path in sorted((scratch / "common_pseudo").iterdir())}
++        if pins != registered_upfs:
++            raise TrialError("replayed pseudopotentials are not the registered pins")
++        expected = adapter.parse_deck(scratch / "input.in")
++        expected["upf_pins"] = pins
++        expected["upf_read_path_map"] = {replay["logged_upf_dir"] + n: str(scratch / "common_pseudo" / n) for n in pins}
++        receipt = json.loads((scratch / "process_receipt.json").read_text(encoding="utf-8"))
++        arm = adapter.read_qe_arm(scratch / "input.in", scratch / "stdout.log", scratch / "stderr.log",
++                                  scratch / "data-file-schema.xml", receipt, expected_settings=expected,
++                                  expected_parallel=SHAPE, expected_exit="clean_stop", expected_evaluations=3)
++        adapter.require_expected_first_threshold(arm, expected)
++        last = arm["evaluations"][-1]
++        saved = adapter.read_bfgs(scratch / (PREFIX + ".bfgs"), nat=72, cell_bohr=last["geometry"]["cell"], evaluated=last)
++        observed = {"evaluations": len(arm["evaluations"]), "scf_counts": arm["scf_counts"],
++                    "saved_optimizer_counters": [saved["scf_count"], saved["bfgs_count"], saved["gdiis_count"]],
++                    "xml_settings_identity": arm["xml_settings_identity"]}
++    if observed != REPLAY_EXPECTED:
++        raise TrialError("real control replay differs from the registered result: " + json.dumps(observed))
++    return dict(observed, replayed=True, staged_adapter=str(Path(adapter.__file__).absolute()))
++
++
+ def preflight(spec: dict, adapter) -> dict:
+     validate_spec(spec)
+     parent = _plain_path(Path(spec["trial_parent"]))
+@@ -590,7 +659,12 @@
+             raise TrialError("output aliases a pinned input")
+     if _overlap(seed_root, root):
+         raise TrialError("output aliases historical initialization")
++    # Every deck string the XML check compares, in the form QE 7.5 writes it.  A string
++    # without a canonicalization rule raises here, before any QE call is paid for.
++    xml_strings = adapter.expected_xml_strings(deck_evidence)
++    replayed = replay_real_control(spec, adapter)
+     return {"status": "PREFLIGHT_PASS", "pins": pins, "deck": deck_evidence,
++            "expected_xml_input_strings": xml_strings, "real_control_replay": replayed,
+             "initialization_is_full_continuity_checkpoint": False}
+ 
+ 
+@@ -664,9 +738,9 @@
+                  runner=run_arm, clock=time.monotonic):
+         if adapter is None:
+             try:
+-                from . import pa_qe_adapter as adapter
++                from . import pa_qe_adapter_v2 as adapter
+             except ImportError:
+-                import pa_qe_adapter as adapter
++                import pa_qe_adapter_v2 as adapter
+         self.spec = validate_spec(spec)
+         self.adapter, self.allocation_reader, self.runner, self.clock = adapter, allocation_reader, runner, clock
+         self.root = Path(spec["trial_root"])

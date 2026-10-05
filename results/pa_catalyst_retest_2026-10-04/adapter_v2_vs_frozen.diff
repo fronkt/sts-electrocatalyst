@@ -1,0 +1,181 @@
+--- frozen pa_qe_adapter.py (sha 25546421)	2026-10-04 15:36:12.804253100 -0400
++++ pa_qe_adapter_v2.py	2026-10-04 17:59:26.631931800 -0400
+@@ -1,4 +1,18 @@
+-"""Raw QE 7.5 adapter for the bounded first-boundary catalyst experiment.
++"""Raw QE 7.5 adapter for the bounded first-boundary catalyst experiment, version 2.
++
++Sibling of pa_qe_adapter.py, kept as its own pinned file so that the dated trial
++pinned to the original adapter (job 21034683, spec 4bed5002...) keeps its bytes.
++This file corrects the XML input validation against real QE 7.5 output:
++
++* DFT+U is recognised the way QE 7.5 writes it.  <dftU new_format="true"> carries
++  lda_plus_u_kind, Hubbard_U and U_projection_type; the element lda_plus_u does
++  not exist (Modules/qes_init_module.f90 qes_init_dftU has no such argument, and
++  Modules/qexsd_copy.f90 derives the flag from the presence of <dftU>).
++* Every deck string compared with an XML string goes through the canonicalization
++  QE applies when it writes <input> (QE75_XML_CANONICAL below, with the cached
++  source line of each rule), instead of a literal comparison.
++* Operational control fields that the cross-arm identity excludes (calculation,
++  restart_mode, prefix, max_seconds) are bound to the deck of the arm itself.
+ 
+ This module does not launch a process or submit a job.  A pre-resume decision
+ selects a branch; acceptance of checkpoint consumption is a separate, post-hoc
+@@ -42,6 +56,37 @@
+                 "pseudo_dir", "nstep", "max_seconds"},
+     "electrons": {"startingpot", "startingwfc"},
+ }
++# The registered deck uses HUBBARD (atomic).  Tests widen this tuple to read real
++# ortho-atomic QE 7.5 files through the same parser; the trial never does.
++HUBBARD_PROJECTORS = ("atomic",)
++# Children of <input><dft><dftU> that QE 7.5 writes for a deck whose HUBBARD card
++# holds only U rows (Modules/qes_init_module.f90 qes_init_dftU).  Anything else is
++# unregistered DFT+U content and fails closed.
++DFTU_REGISTERED_CHILDREN = frozenset({"lda_plus_u_kind", "Hubbard_U", "U_projection_type"})
++# How QE 7.5 writes each deck string into <input> (cached official source under
++# results/pa_catalyst_trial_2026-10-03/qe_source/).  A deck string is compared with
++# its XML string only after this map; a compared key without a rule is an error.
++QE75_XML_CANONICAL = {
++    "diagonalization": {"kind": "map", "map": {"david": "davidson"},
++                        "source": "PW/src/pw_init_qexsd_input.f90:477-481"},
++    "disk_io": {"kind": "map", "map": {"default": "low"},
++                "source": "Modules/qexsd_input.f90:85-89"},
++    "verbosity": {"kind": "map", "map": {"default": "low"},
++                  "source": "Modules/qexsd_input.f90:80-84"},
++    "functional": {"kind": "upper",
++                   "source": "PW/src/pw_init_qexsd_input.f90:203-211 (input_dft upper-cased; "
++                             "absent input_dft gives the pseudopotential functional, PBE here)"},
++    "smearing": {"kind": "smearing",
++                 "source": "PW/src/set_occupations.f90:135-157 schema_smearing"},
++    "mixing_mode": {"kind": "verbatim", "source": "PW/src/input.f90:1163 (case-sensitive SELECT CASE)"},
++    "ion_dynamics": {"kind": "verbatim", "source": "Modules/input_parameters.f90:1099-1103 allowed list"},
++    "occupations": {"kind": "verbatim", "source": "PW/src/pw_init_qexsd_input.f90:449 ip_occupations"},
++    "calculation": {"kind": "verbatim", "source": "Modules/qexsd_input.f90:92-93 TRIM(calculation)"},
++    "restart_mode": {"kind": "verbatim", "source": "Modules/qexsd_input.f90:92-93 TRIM(restart_mode)"},
++    "prefix": {"kind": "verbatim", "source": "Modules/qexsd_input.f90:92-93 TRIM(prefix)"},
++    "U_projection_type": {"kind": "verbatim",
++                          "source": "PW/src/pw_init_qexsd_input.f90:396 ip_hubbard_projectors"},
++}
+ 
+ 
+ class AdapterError(ValueError):
+@@ -204,7 +249,7 @@
+                  "K_POINTS": 0 if unit == "gamma" else 1}.get(name)
+         i += 1
+         if name == "HUBBARD":
+-            if unit != "atomic":
++            if unit not in HUBBARD_PROJECTORS:
+                 raise AdapterError("only the pinned atomic HUBBARD projector is supported")
+             rows = []
+             while i < len(lines):
+@@ -439,6 +484,20 @@
+     raise AdapterError("unsupported source smearing")
+ 
+ 
++def _xml_canonical(key, value):
++    """The string QE 7.5 writes into <input> for a deck string (QE75_XML_CANONICAL)."""
++    rule = QE75_XML_CANONICAL.get(key)
++    if rule is None or not isinstance(value, str):
++        raise AdapterError("no QE 7.5 XML canonicalization rule for " + str(key))
++    if rule["kind"] == "map":
++        return rule["map"].get(value, value)
++    if rule["kind"] == "upper":
++        return value.upper()
++    if rule["kind"] == "smearing":
++        return _schema_smearing(value)
++    return value
++
++
+ def _xml_geometry(node, deck):
+     structure = _one(node, "atomic_structure")
+     if structure.attrib.get("nat") != str(deck["nat"]):
+@@ -551,14 +610,23 @@
+         elif type(expected) in (int, float):
+             agrees = abs(_number(child.text)*factor-expected) <= 1e-12*max(1., abs(expected))
+         else:
+-            agrees = (child.text or "").strip() == expected
++            # QE canonicalizes some strings when it writes <input>; compare the
++            # canonical form, never the raw deck string (QE75_XML_CANONICAL).
++            agrees = (child.text or "").strip() == _xml_canonical(tag, expected)
+         if not agrees:
+             raise AdapterError("XML source setting differs: " + tag)
+     xml_control = _one(node, "control_variables")
++    # Operational fields are excluded from the cross-arm identity, so bind each
++    # arm's own XML to its own deck here (QE nint()s max_seconds; nstep is not
++    # compared because QE sets its internal value to 1 for calculation='scf').
++    operations = deck["operations"]
++    for key in ("calculation", "restart_mode", "prefix", "max_seconds"):
++        if operations.get(key) is not None:
++            value(xml_control, key, operations[key])
+     for source_key, xml_key, factor in (("tprnfor", "forces", 1), ("tstress", "stress", 1),
+                                        ("forc_conv_thr", "forc_conv_thr", 2),
+                                        ("etot_conv_thr", "etot_conv_thr", 2),
+-                                       ("disk_io", "disk_io", 1)):
++                                       ("disk_io", "disk_io", 1), ("verbosity", "verbosity", 1)):
+         if source_key in control:
+             value(xml_control, xml_key, control[source_key], factor)
+     electron = _one(node, "electron_control")
+@@ -611,7 +679,7 @@
+     else:
+         value(_one(node, "basis"), "gamma_only", True)
+     functional = (_one(_one(node, "dft"), "functional").text or "").strip()
+-    if functional != system.get("input_dft", "PBE"):
++    if functional != _xml_canonical("functional", system.get("input_dft", "PBE")):
+         raise AdapterError("XML functional differs from pinned PBE source")
+     dft = _one(node, "dft")
+     dftu_nodes = [child for child in dft if _tag(child) == "dftU"]
+@@ -623,26 +691,49 @@
+         if len(dftu_nodes) != 1:
+             raise AdapterError("one source-matched XML Hubbard correction required")
+         dftu = dftu_nodes[0]
+-        value(dftu, "lda_plus_u", True)
++        # QE 7.5 writes <dftU new_format="true"> and no <lda_plus_u> element: the
++        # presence of <dftU> is the DFT+U flag (qexsd_copy.f90:403, qexsd_init.f90:510).
++        if dftu.attrib.get("new_format") != "true":
++            raise AdapterError("XML Hubbard correction is not the QE 7.5 new_format layout")
++        unregistered = sorted({_tag(child) for child in dftu} - DFTU_REGISTERED_CHILDREN)
++        if unregistered:
++            raise AdapterError("unregistered XML Hubbard content: " + ", ".join(unregistered))
+         value(dftu, "lda_plus_u_kind", 0)
+         value(dftu, "U_projection_type", source_hubbard["unit"])
+         expected = {(row[1].rsplit("-", 1)[0], row[1].rsplit("-", 1)[1]): _number(row[2])
+                     for row in source_hubbard["rows"]}
+         actual = {}
+         for child in dftu:
+-            tag = _tag(child)
+-            if tag == "Hubbard_U":
++            if _tag(child) == "Hubbard_U":
+                 key = (child.attrib.get("specie"), child.attrib.get("label"))
+                 if key in actual:
+                     raise AdapterError("duplicate XML Hubbard_U")
+                 actual[key] = _number(child.text)*2*RY_EV
+-            elif tag in {"Hubbard_J0", "Hubbard_alpha", "Hubbard_alpha_back", "Hubbard_beta", "Hubbard_J"}:
+-                if any(v != 0 for v in _numbers(child.text)):
+-                    raise AdapterError("unregistered nonzero XML Hubbard correction")
+         if set(actual) != set(expected) or any(abs(actual[key]-expected[key]) > 1e-10 for key in actual):
+             raise AdapterError("XML Hubbard_U species/shell/eV setting differs")
+ 
+ 
++def expected_xml_strings(deck):
++    """The <input> strings QE 7.5 must write for this deck, after canonicalization.
++
++    Keyed by XML tag.  This is the complete set of deck strings that the XML check
++    compares; a deck string without a QE75_XML_CANONICAL rule raises here, offline,
++    before any QE call is paid for.
++    """
++    sections = deck["settings"]["namelists"]
++    system, electrons = sections["system"], sections["electrons"]
++    control, ions = sections["control"], sections.get("ions", {})
++    pairs = [(key, deck["operations"][key]) for key in ("calculation", "restart_mode", "prefix")]
++    pairs += [(key, control[key]) for key in ("disk_io", "verbosity") if key in control]
++    pairs += [(key, electrons[key]) for key in ("mixing_mode", "diagonalization") if key in electrons]
++    pairs += [(key, ions[key]) for key in ("ion_dynamics",) if key in ions]
++    pairs += [(key, system[key]) for key in ("occupations",) if key in system]
++    pairs.append(("functional", system.get("input_dft", "PBE")))
++    if deck["settings"]["hubbard"] is not None:
++        pairs.append(("U_projection_type", deck["settings"]["hubbard"]["unit"]))
++    return {tag: _xml_canonical(tag, raw) for tag, raw in pairs if raw is not None}
++
++
+ def validate_saved_upfs(outdir, prefix, deck, expected_pins):
+     """Validate XML identity and any checkpoint-local UPFs before a copy runs."""
+     if not re.fullmatch(r"[A-Za-z0-9_]+", prefix):

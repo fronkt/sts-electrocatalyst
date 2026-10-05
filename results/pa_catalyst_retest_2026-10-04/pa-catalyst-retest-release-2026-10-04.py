@@ -1,0 +1,105 @@
+"""Release the one held re-test job, once.  PREPARED, NOT RUN: release needs Frank's separate go.
+
+Before `scontrol release` the remote program re-runs the controller PREFLIGHT (including the real-control replay),
+re-checks the held shape, requires the CPU balance to be at least the 2048 SU ceiling and the user's queue to hold
+only this job.  `scontrol release` is the only mutating command; there is no replacement submission, retry or requeue.
+"""
+import json
+import os
+import pathlib
+import subprocess
+import sys
+
+PHASE = pathlib.Path(__file__).resolve().parent
+PHASE_REL = 'results/pa_catalyst_retest_2026-10-04'
+SPEC_REL = PHASE_REL + '/launch_spec.json'
+REMOTE_ROOT = '/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04'
+SSH = ['C:/Program Files/Git/usr/bin/ssh.exe', '-i', 'C:/Users/frank/.ssh/id_ed25519', '-o', 'BatchMode=yes',
+       '-o', 'StrictHostKeyChecking=yes', '-o', 'ConnectTimeout=12', 'x-fcai3@anvil.rcac.purdue.edu']
+REMOTE_PYTHON = '/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 -'
+
+REMOTE_BODY = r'''
+import hashlib, json, os, pathlib, re, subprocess, sys
+root = pathlib.Path(remote_root); phase = root / phase_rel
+receipt = phase / 'release_remote.json'
+assert not receipt.exists(), 'once-only: a release receipt already exists'
+r = {'successful': False, 'job_id': job, 'released': False, 'automatic_retry': False, 'commands': {}, 'production_accepted': False}
+with (phase / 'release_intent_remote.json').open('x', encoding='utf-8') as claimed:
+    claimed.write(json.dumps({'job_id': job, 'commit': commit, 'state': 'RELEASE_ONCE'}) + '\n')
+    claimed.flush()
+    os.fsync(claimed.fileno())
+def run(name, args, timeout=25):
+    p = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, timeout=timeout)
+    r['commands'][name] = {'args': args, 'returncode': p.returncode, 'stdout': p.stdout, 'stderr': p.stderr}
+    assert p.returncode == 0, (name, p.stderr)
+    return p.stdout
+try:
+    submitted = json.loads((phase / 'submission_remote.json').read_text()); assert submitted['job_id'] == job
+    validated = json.loads((phase / 'held_validation_checked_remote.json').read_text())
+    assert validated['successful'] and validated['job_id'] == job and validated['held_shape_validated']
+    spec = root / spec_rel
+    assert hashlib.sha256(spec.read_bytes()).hexdigest() == spec_sha256
+    assert run('head', ['git', '-C', str(root), 'rev-parse', 'HEAD']).strip() == commit
+    run('fresh_preflight', [sys.executable, str(root / 'src/dft/pa_catalyst_retest.py'), '--spec', str(spec), '--spec-sha256', spec_sha256,
+                            '--preflight'], timeout=120)
+    pre = json.loads(r['commands']['fresh_preflight']['stdout'])
+    assert pre['status'] == 'PREFLIGHT_PASS' and pre['real_control_replay']['replayed'] is True
+    held = run('held_before_release', ['scontrol', 'show', 'job', job, '-o'])
+    f = dict(re.findall(r'(?:^|\s)([^\s=]+)=([^\s]+)', held))
+    expected = {'JobId': job, 'JobState': 'PENDING', 'Reason': 'JobHeldUser', 'Account': 'che260157', 'Partition': 'wholenode',
+                'NumCPUs': '128', 'NumTasks': '128', 'CPUs/Task': '1', 'TimeLimit': '16:00:00', 'Requeue': '0', 'Restarts': '0',
+                'BatchFlag': '1', 'Dependency': '(null)'}
+    assert all(f.get(k) == v for k, v in expected.items()) and not any(k.startswith('Array') for k in f)
+    assert f['NumNodes'] in {'1', '1-1'}, 'pending node bounds must both equal 1'
+    assert dict(x.split('=', 1) for x in f['ReqTRES'].split(',')) == {'cpu': '128', 'mem': '200G', 'node': '1', 'billing': '128'}
+    balance = run('balance', ['bash', '-lc', 'mybalance'])
+    cpu = [row.split() for row in balance.splitlines() if len(row.split()) == 6 and row.split()[:2] == ['che260157', 'CPU']]
+    assert len(cpu) == 1 and float(cpu[0][-1]) >= 2048
+    queue = run('queue', ['squeue', '-h', '-u', 'x-fcai3', '-o', '%i|%T|%j|%C|%R'])
+    assert [line.split('|')[0] for line in queue.splitlines() if line.strip()] == [job]
+    r['release_intent'] = True
+    receipt.write_text(json.dumps(r, indent=2) + '\n')
+    run('release', ['scontrol', 'release', job]); r['released'] = True
+    run('job_after_release', ['scontrol', 'show', 'job', job, '-o']); r['successful'] = True
+except BaseException as exc:
+    r['error'] = repr(exc)
+    raise
+finally:
+    receipt.write_text(json.dumps(r, indent=2) + '\n')
+    print(json.dumps(r, indent=2))
+'''
+
+
+def build(job, commit, spec_sha256):
+    assert job.isdigit()
+    header = 'job=%r\nremote_root=%r\nphase_rel=%r\nspec_rel=%r\ncommit=%r\nspec_sha256=%r\n' % (
+        job, REMOTE_ROOT, PHASE_REL, SPEC_REL, commit, spec_sha256)
+    compile(header + REMOTE_BODY, '<retest-release>', 'exec')
+    return header + REMOTE_BODY
+
+
+def main():
+    target = PHASE / 'release.json'
+    assert not target.exists(), 'once-only: a local release receipt already exists'
+    submission = json.loads((PHASE / 'submission.json').read_text(encoding='utf-8'))
+    validated = json.loads((PHASE / 'held_validation_checked.json').read_text(encoding='utf-8'))
+    assert validated['returncode'] == 0 and json.loads(validated['stdout'])['held_shape_validated']
+    published = json.loads((PHASE / 'publication_final.json').read_text(encoding='utf-8'))
+    job = submission['job_id']
+    with (PHASE / 'release_intent.json').open('x', encoding='utf-8') as claimed:
+        claimed.write(json.dumps({'job_id': job, 'commit': published['commit'], 'state': 'RELEASE_ONCE'}) + '\n')
+        claimed.flush()
+        os.fsync(claimed.fileno())
+    p = subprocess.run(SSH + [REMOTE_PYTHON], input=build(job, published['commit'], published['local_pins'][SPEC_REL]), capture_output=True,
+                       text=True, encoding='utf-8', errors='replace', timeout=160, creationflags=0x08000000)
+    result = {'returncode': p.returncode, 'stdout': p.stdout, 'stderr': p.stderr, 'job_id': job, 'automatic_retry': False,
+              'production_accepted': False}
+    target.write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
+    print('Release returncode', p.returncode, 'job', job, flush=True)
+    if p.returncode:
+        print(p.stderr[-4000:], flush=True)
+    assert p.returncode == 0 and json.loads(p.stdout)['released']
+
+
+if __name__ == '__main__':
+    sys.exit(main())

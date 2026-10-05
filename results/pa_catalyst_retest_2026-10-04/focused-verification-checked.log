@@ -1,0 +1,29 @@
+Verified background desktop: Codex_STS_Background
+........................F............................................... [ 73%]
+..........................                                               [100%]
+================================== FAILURES ===================================
+_____ test_pre_stated_numbers_are_read_from_frozen_modules_not_redefined ______
+
+    def test_pre_stated_numbers_are_read_from_frozen_modules_not_redefined():
+        # The readout defines no threshold: caps come from the pinned spec/controller, the continuity
+        # tolerances and the 10 meV drop from the frozen adapter.  Only two numeric constants exist in
+        # the tool's code, each cited: the adapter's log-vs-XML bound and the registered 1e-6 Ry target.
+        import ast
+        assert SPEC["caps"] == trial.CAPS and SPEC["allocation"]["max_cpu_su"] == 2048
+        assert adapter.TOLERANCES == {"energy_Ry": 1e-6, "position_bohr": 1e-5, "force_Ry_bohr": 1e-5}
+        assert adapter.contract.DELTA_MEV == 10.0
+        tree = ast.parse((HERE / "readout_trial.py").read_text(encoding="utf-8"))
+        numbers = {n.value for n in ast.walk(tree) if isinstance(n, ast.Constant) and isinstance(n.value, (int, float))
+                   and not isinstance(n.value, bool)}
+        floats = {n for n in numbers if isinstance(n, float)}
+        ints = {n for n in numbers if isinstance(n, int)}
+        assert not (floats & {1e-5, 10.0, 13605.693, 1e-8}), floats
+>       assert not (ints & {2048, 57600, 7200, 7320, 7080, 128, 120, 16}), ints
+E       AssertionError: {0, 1, 2, 3, 5, 6, ...}
+E       assert not ({0, 1, 2, 3, 5, 6, ...} & {16, 120, 128, 2048, 7080, 7200, ...})
+
+results\pa_catalyst_trial_readout_prep_2026-10-04\test_readout_trial.py:104: AssertionError
+=========================== short test summary info ===========================
+FAILED results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py::test_pre_stated_numbers_are_read_from_frozen_modules_not_redefined
+1 failed, 97 passed in 35.35s
+ 

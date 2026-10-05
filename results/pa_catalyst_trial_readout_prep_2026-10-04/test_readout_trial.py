@@ -25,13 +25,12 @@ sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(REPO / "src/dft"))
 sys.dont_write_bytecode = True
 import readout_trial as R  # noqa: E402
-import pa_catalyst_trial as trial  # noqa: E402
-import pa_qe_adapter as adapter  # noqa: E402
+trial, adapter = R.load_modules(REPO)
 
 PHASE = REPO / "results/s2_2026-09-25/full_text/sequential_2026-10-03"
 TINY_ROOT = PHASE / "pa_tiny_raw"
 TINY = TINY_ROOT / "tiny_results"
-SPEC = json.loads((REPO / R.SPEC_REL).read_text(encoding="utf-8"))
+SPEC = json.loads(R.source_path(R.SPEC_REL, REPO).read_text(encoding="utf-8"))
 JOB = "21034683"
 needs_tiny = pytest.mark.skipif(not TINY.is_dir(), reason="retained tiny raw outputs absent")
 
@@ -59,7 +58,7 @@ def test_citation_drift_is_reported_not_hidden(tmp_path):
 
 def _watcher():
     spec = importlib.util.spec_from_file_location("watch_module_for_test",
-                                                  REPO / "results/pa_catalyst_trial_2026-10-03/watch_trial_readonly.py")
+                                                  R.source_path(R.WATCH, REPO))
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -69,7 +68,7 @@ def test_terminal_states_and_state_parser_match_the_watcher():
     watcher = _watcher()
     assert R.TERMINAL_STATES == frozenset(watcher.TERMINAL)
     assert "--format=JobIDRaw,State,ExitCode,ElapsedRaw,AllocCPUS,ReqMem,AllocTRES,CPUTimeRAW" in \
-        (REPO / "results/pa_catalyst_trial_2026-10-03/watch_trial_readonly.py").read_text(encoding="utf-8")
+        (R.source_path(R.WATCH, REPO)).read_text(encoding="utf-8")
     text = "21034683|CANCELLED by 8320357|0:15|10|128|200G|billing=128,cpu=128,mem=200G,node=1|1280\n"
     assert watcher.scheduler_state(text, JOB) == R.parse_sacct(text, JOB)["state"] == "CANCELLED"
     pending = "21034683|PENDING|0:0|0|0|200G||0\n"
@@ -77,7 +76,7 @@ def test_terminal_states_and_state_parser_match_the_watcher():
 
 
 def test_registered_call_table_matches_controller_source():
-    lines = (REPO / R.CTRL).read_text(encoding="utf-8").splitlines()
+    lines = R.source_path(R.CTRL, REPO).read_text(encoding="utf-8").splitlines()
     for name, reg in R.REGISTERED.items():
         window = " ".join(lines[reg["site"] - 1:reg["site"] + 1])
         assert 'self.execute("%s", kind="%s"' % (name, reg["kind"]) in window, name
@@ -85,7 +84,7 @@ def test_registered_call_table_matches_controller_source():
         assert "expected_steps=%d" % reg["expected_steps"] in window, name
     assert R.PREFIX == trial.PREFIX
     assert R.LOG_XML_ENERGY_TOL_RY == 5.1e-8
-    assert "5.1e-8" in (REPO / R.ADP).read_text(encoding="utf-8").splitlines()[844]
+    assert "5.1e-8" in R.source_path(R.ADP, REPO).read_text(encoding="utf-8").splitlines()[844]
 
 
 def test_pre_stated_numbers_are_read_from_frozen_modules_not_redefined():
@@ -97,8 +96,13 @@ def test_pre_stated_numbers_are_read_from_frozen_modules_not_redefined():
     assert adapter.TOLERANCES == {"energy_Ry": 1e-6, "position_bohr": 1e-5, "force_Ry_bohr": 1e-5}
     assert adapter.contract.DELTA_MEV == 10.0
     tree = ast.parse((HERE / "readout_trial.py").read_text(encoding="utf-8"))
+    # Citation line numbers are provenance coordinates, not scientific thresholds.
+    citation_lines = {id(n.elts[1]) for n in ast.walk(tree) if isinstance(n, ast.Tuple)
+                      and len(n.elts) == 3 and isinstance(n.elts[0], ast.Name)
+                      and n.elts[0].id in {"DOC", "REV", "REV1", "IMPL", "SBR", "SPEC", "CTRL", "ADP", "ELIG", "WATCH", "WRAP"}
+                      and isinstance(n.elts[2], ast.Constant) and isinstance(n.elts[2].value, str)}
     numbers = {n.value for n in ast.walk(tree) if isinstance(n, ast.Constant) and isinstance(n.value, (int, float))
-               and not isinstance(n.value, bool)}
+               and not isinstance(n.value, bool) and id(n) not in citation_lines}
     floats = {n for n in numbers if isinstance(n, float)}
     ints = {n for n in numbers if isinstance(n, int)}
     assert not (floats & {1e-5, 10.0, 13605.693, 1e-8}), floats
@@ -553,7 +557,7 @@ def test_pass_branch_is_corroborated_by_every_gate(tmp_path, monkeypatch, thaw_a
     json.dumps(verdict)  # serialisable
 
 
-def test_pass_without_negative_control_when_spec_says_optional_false(tmp_path, monkeypatch, thaw_all):
+def test_historical_readout_refuses_altered_launch_spec(tmp_path, monkeypatch, thaw_all):
     monkeypatch.setattr(trial, "preflight", lambda *args: {})
     mirror = tmp_path / "m"
     mirror.mkdir()
@@ -563,8 +567,8 @@ def test_pass_without_negative_control_when_spec_says_optional_false(tmp_path, m
     Double(spec).run()
     custom = tmp_path / "spec.json"
     custom.write_text(json.dumps(spec), encoding="utf-8")
-    verdict = R.analyze(mirror=mirror, rederive=False, repo=REPO, sacct_text=sacct(), spec_path=custom)
-    assert verdict["outcome"]["label"] == "PASS" and result_of(verdict, "NEG_CONTROL") == "NOT_APPLICABLE"
+    with pytest.raises(ValueError, match="spec override differs"):
+        R.analyze(mirror=mirror, rederive=False, repo=REPO, sacct_text=sacct(), spec_path=custom)
 
 
 def test_scheduler_failed_3_0_does_not_change_a_corroborated_scientific_pass(tmp_path, monkeypatch, thaw_all):
@@ -1065,3 +1069,38 @@ def test_recomputed_branch_uses_the_strict_ten_meV_rule(tmp_path, drop_meV, expe
     assert out["derived"]["implied_action"] == expected
     assert out["derived"]["warm_minus_fresh_meV"] == pytest.approx(drop_meV)
     assert out["derived"]["fresh_strictly_more_than_10meV_lower"] is (expected == "RESEED_CANDIDATE")
+
+
+def test_original_launch_loader_ignores_repaired_live_import_cache(monkeypatch):
+    live = types.SimpleNamespace(TOLERANCES={'corrupted': True})
+    monkeypatch.setitem(sys.modules, 'pa_qe_adapter', live)
+    contract = types.SimpleNamespace(DELTA_MEV=-1)
+    monkeypatch.setitem(sys.modules, 'pa_checked_contract', contract)
+    frozen_trial, frozen_adapter = R.load_modules(REPO)
+    assert frozen_adapter is not live and frozen_adapter.contract is not contract
+    assert hashlib.sha256(Path(frozen_adapter.__file__).read_bytes()).hexdigest() == \
+        SPEC['dependencies'][1]['sha256']
+    assert frozen_trial.PREFIX == R.PREFIX
+    assert sys.modules['pa_checked_contract'] is contract
+    assert sys.modules['pa_qe_adapter'] is live
+
+
+@pytest.mark.parametrize('target', ['manifest', 'adapter'])
+def test_original_launch_snapshot_drift_refuses_readout_and_import(tmp_path, target):
+    directory = tmp_path / R._launch.SNAPSHOT_REL
+    shutil.copytree(REPO / R._launch.SNAPSHOT_REL, directory)
+    manifest = tmp_path / R._launch.MANIFEST_REL
+    shutil.copyfile(REPO / R._launch.MANIFEST_REL, manifest)
+    changed = manifest if target == 'manifest' else directory / R.ADP
+    changed.write_bytes(changed.read_bytes() + b'\n')
+    with pytest.raises(ValueError, match='drift'):
+        R.check_citations(tmp_path)
+    with pytest.raises(ValueError, match='drift'):
+        R.load_modules(tmp_path)
+
+
+def test_historical_citations_identify_the_original_launch():
+    rows = R.check_citations(REPO)
+    assert all(row['launch_commit'] == R._launch.COMMIT for row in rows)
+    assert all(row['source_sha256'] and row['snapshot_file'].startswith(R._launch.SNAPSHOT_REL)
+               for row in rows)

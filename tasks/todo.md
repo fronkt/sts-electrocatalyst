@@ -1,5 +1,21 @@
 # STS 2027 — TODO
 
+## 2026-10-04 — Review, snapshot-bind and publish the corrected catalyst re-test
+
+Scope: independent review of the prepared additive V2/re-test package; bind original-trial readout assertions to its exact launch snapshot; fresh offline verification, then explicit-path commit and push. Staging and one-job submission remain separate approval gates. Expected 275–543 CPU SU; hard ceiling 2,048 SU / 16 h; no automatic retry.
+
+- [x] Independently review real-QE adapter/controller, exact spec and stage/held/release safeguards; resolve blocking findings.
+- [x] Bind historical readout citations and code checks to hash-verified original launch sources; fail closed on drift; preserve prior failure receipts.
+- [x] Run fresh relevant regressions, scientific verifiers, Bash syntax and exact history/package preservation checks.
+- [ ] Record hash-bound final independent clearance, provenance and review; commit explicit paths, push and verify remote commit.
+- [ ] Obtain staging approval and run exact published Anvil preflight at zero SU.
+- [ ] Obtain submission approval, submit exactly one held job, validate its resources, release once and start read-only follow-through.
+
+Plan check-in: exact original-launch snapshot binding and independent review precede verification; publication precedes Anvil staging. The prior job remains INCONCLUSIVE, and the retained control replay is not evidence of catalyst restart continuity.
+
+Review: final offline_release_lf.json succeeded: 83 evidence tests, 491 first-trial tests plus 7 subtests, 294 re-test tests and all 78 historical readout tests; five existing Windows filesystem skips. Both scientific verifiers, 27 primary-source pins, 19 real SCF XML pairs, real control replay, 12 mutation checks and Bash syntax pass. All 9,816 historical and 21 unrelated byte pins pass before/after. Snapshot manifest binds 13 original launch files and 71 fixed-coordinate citation quotes. Independent review confirms atomic submission/release guards and bounded watcher; final hash-bound clearance/publication follow. No new Anvil writes, submission or QE in this continuation.
+
+
 ## 2026-10-04 — Offline catalyst XML validator repair
 
 Scope: continue the cause-specific validator correction and replay after job

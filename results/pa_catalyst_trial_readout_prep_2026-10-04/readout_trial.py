@@ -25,6 +25,15 @@ import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+import importlib.util
+_launch_spec = importlib.util.spec_from_file_location(
+    "pa_historical_launch_sources", Path(__file__).with_name("launch_sources.py"))
+_launch = importlib.util.module_from_spec(_launch_spec)
+_launch_spec.loader.exec_module(_launch)
+
+def source_path(rel, repo):
+    return _launch.source_path(rel, repo)
+
 SCHEMA = "pa-catalyst-readout-v1"
 HERE = Path(__file__).resolve().parent
 DEFAULT_REPO = HERE.parents[1]
@@ -72,7 +81,7 @@ BRANCH_SEQUENCES = {
 
 # ----------------------------------------------------------------------------------------
 # Criteria registry.  Quotes are single-line verbatim substrings; line numbers are as of
-# HEAD b3b64ce and are re-resolved at run time (check_citations).
+# launch commit b9f0208; every cited file is hash-verified before checking its fixed line.
 # ----------------------------------------------------------------------------------------
 DOC = "docs/research/pa-catalyst-trial-2026-10-03.md"
 REV = "results/pa_catalyst_trial_2026-10-03/independent_launch_review_final.md"
@@ -96,74 +105,74 @@ def _c(cid, kind, text, *cites):
 CRITERIA = dict([
     _c("SCHED_ALLOC", KIND_STATED,
        "One regular whole 128-core node, 16 h / 2048 CPU SU ceiling, <=200 GiB.",
-       (DOC, 8, "Approval is one regular"), (SPEC, 48, '"max_cpu_su": 2048')),
+       (DOC, 5, "Approval is one regular"), (SPEC, 48, '"max_cpu_su": 2048')),
     _c("SCHED_CALLS", KIND_STATED,
        "At most six sequential QE calls each <=2 h; no retry/requeue/array/chaining.",
-       (DOC, 9, "at most six sequential QE calls"), (SPEC, 51, '"max_calls": 6')),
+       (DOC, 6, "at most six sequential QE calls"), (SPEC, 51, '"max_calls": 6')),
     _c("SCHED_CAP_SU", KIND_STATED,
        "The scheduler charge is capped by one 128-core 16 h allocation.",
-       (DOC, 85, "The scheduler charge is capped"), (ELIG, 127, "node-exclusive billing charges the entire")),
+       (DOC, 82, "The scheduler charge is capped"), (ELIG, 127, "node-exclusive billing charges the entire")),
     _c("SCHED_PER_CALL", KIND_STATED,
        "Every QE call needs actual scheduler accounting and the full registered 7200 s plus cleanup inside remaining time.",
-       (DOC, 79, "Every QE call requires actual scheduler"), (DOC, 80, "within remaining aggregate time")),
+       (DOC, 76, "Every QE call requires actual scheduler"), (DOC, 77, "within remaining aggregate time")),
     _c("SCHED_SEPARATE", KIND_STATED,
        "Scheduler and scientific outcomes are retained separately.",
-       (DOC, 105, "Scheduler and scientific outcomes")),
+       (DOC, 102, "Scheduler and scientific outcomes")),
     _c("REPORT_RULE", KIND_STATED,
        "Report a source-bound numerical pass, failure or inconclusive result and actual SU without a hidden rerun.",
-       (DOC, 106, "report a source-bound numerical"), (DOC, 107, "without a hidden rerun")),
+       (DOC, 103, "report a source-bound numerical"), (DOC, 104, "without a hidden rerun")),
     _c("NO_PRODUCTION", KIND_STATED,
        "No production relaxation, every-step P-A, S8 ranking or melt release follows; production_accepted stays false.",
-       (DOC, 10, "not approve production relaxation"), (DOC, 123, "No production or catalyst-runtime success"),
+       (DOC, 7, "not approve production relaxation"), (DOC, 120, "No production or catalyst-runtime success"),
        (SPEC, 56, '"production_accepted": false')),
     _c("SEQUENCE", KIND_STATED,
        "Control(3 evaluations), stopped candidate(1), fresh SCF at the evaluated geometry, then the fresh decision before any resume.",
-       (DOC, 31, "Sequence: three-evaluation"), (DOC, 33, "geometry, not its post-move proposal")),
+       (DOC, 28, "Sequence: three-evaluation"), (DOC, 30, "geometry, not its post-move proposal")),
     _c("BRANCH_RESUME", KIND_STATED,
        "Fresh state not more than 10 meV/cell lower: the copied candidate resumes with inherited optimizer state for two further evaluations.",
-       (DOC, 34, "If the fresh state is not more than"), (DOC, 35, "with inherited optimizer state for two")),
+       (DOC, 31, "If the fresh state is not more than"), (DOC, 32, "with inherited optimizer state for two")),
     _c("BRANCH_RESEED", KIND_STATED,
        "Fresh state strictly more than 10 meV lower: intentional density reseed/history reset, reported separately; exactly 10 meV or higher does not trigger.",
-       (DOC, 36, "more than10meV lower"), (DOC, 37, "reseed/history reset at the evaluated geometry"),
-       (DOC, 38, "Exactly10meV or a higher fresh state")),
+       (DOC, 33, "more than10meV lower"), (DOC, 34, "reseed/history reset at the evaluated geometry"),
+       (DOC, 35, "Exactly10meV or a higher fresh state")),
     _c("BRANCH_HOLD", KIND_STATED,
        "A failed/missing fresh reference holds continuation.",
-       (DOC, 39, "fresh reference holds continuation")),
+       (DOC, 36, "fresh reference holds continuation")),
     _c("NEG_CONTROL", KIND_STATED,
        "Copied-history/from-scratch negative control establishes actual startup deletion and optimizer count 0.",
-       (DOC, 40, "negative control establishes actual startup")),
+       (DOC, 37, "negative control establishes actual startup")),
     _c("RESEED_VALID", KIND_STATED,
        "Reseed branch is numerically validated only if its first evaluated energy is within 1e-6 Ry of the lower fresh reference and strictly >10 meV/cell below the original warm state, same geometry/settings.",
-       (DOC, 41, "The reseed branch is only numerically validated"), (DOC, 42, "energy remains within1e-6Ry"),
-       (DOC, 43, "below the original warm state"), (IMPL, 23, "within1e-6Ry and remain strictly")),
+       (DOC, 38, "The reseed branch is only numerically validated"), (DOC, 39, "energy remains within1e-6Ry"),
+       (DOC, 40, "below the original warm state"), (IMPL, 23, "within1e-6Ry and remain strictly")),
     _c("CONTINUITY_TOL", KIND_STATED,
        "Control and candidate+resume match all three ordered evaluations within 1e-6 Ry, 1e-5 bohr, 1e-5 Ry/bohr; no interpolation, endpoint-only comparison, remapping or dropped frames.",
-       (DOC, 46, "Control and candidate+resume must match"), (DOC, 47, "1e-6Ry energy,1e-5bohr"),
-       (DOC, 48, "endpoint-only comparison"), (ADP, 31, 'TOLERANCES = {"energy_Ry": 1e-6')),
+       (DOC, 43, "Control and candidate+resume must match"), (DOC, 44, "1e-6Ry energy,1e-5bohr"),
+       (DOC, 45, "endpoint-only comparison"), (ADP, 31, 'TOLERANCES = {"energy_Ry": 1e-6')),
     _c("NO_SPLICE", KIND_STATED,
        "A reseed branch cannot be spliced into a continuity pass; without a true lower-state trigger genuine catalyst reseed remains unvalidated.",
-       (DOC, 49, "branch cannot be spliced"), (DOC, 50, "occurs, genuine catalyst reseed remains unvalidated"),
+       (DOC, 46, "branch cannot be spliced"), (DOC, 47, "occurs, genuine catalyst reseed remains unvalidated"),
        (REV, 140, "uses new history and cannot be spliced")),
     _c("BOUNDARY_COUNTS", KIND_STATED,
        "Exact saved evaluated XML counts 1/3/2 and global SCF-cycle sequences [1]/[1,2,3]/[2,3] (candidate/control/resumed), user stop, status 255, JOB DONE, no stale EXIT.",
-       (DOC, 59, "exact saved evaluated XML count"), (REV, 67, "Candidate/control/resumed require exact local XML counts"),
+       (DOC, 56, "exact saved evaluated XML count"), (REV, 67, "Candidate/control/resumed require exact local XML counts"),
        (REV, 68, "global stdout sequences1")),
     _c("FIRST_THRESHOLD", KIND_STATED,
        "Warm first-boundary target and the fresh SCF target are both 1e-6 Ry, verified in the raw log (control, candidate, fresh, reseed, negative; not the resumed call).",
-       (DOC, 23, "target is1e-6Ry"), (DOC, 25, "first warm target must verify"),
+       (DOC, 20, "target is1e-6Ry"), (DOC, 22, "first warm target must verify"),
        (CTRL, 857, 'if kind in {"control", "candidate", "fresh", "reseed", "negative"}:')),
     _c("REJECT_LIST", KIND_STATED,
        "Reject symlinks/special files, fallback/reset on continuation, unverified consumed UPFs, failed/stalled energies or expanded allocation.",
-       (DOC, 82, "symlinks/special files, fallback/reset"), (DOC, 83, "failed/stalled energies")),
+       (DOC, 79, "symlinks/special files, fallback/reset"), (DOC, 80, "failed/stalled energies")),
     _c("SUPERVISION", KIND_STATED,
        "SCF iteration 127 supervision, clean-stop request, hard process-group deadline and no retry apply to every call.",
-       (DOC, 83, "SCF iteration127 supervision")),
+       (DOC, 80, "SCF iteration127 supervision")),
     _c("RAW_BINDING", KIND_STATED,
        "Raw bindings: source deck bytes, executable/MPI/UPF hashes and actual runtime parallel shape (MPI128, 1 thread, 8 pools, ELPA 4x4).",
-       (DOC, 68, "Raw bindings include source deck bytes"), (REV, 137, "Actual catalyst MPI/ELPA/UPF/settings/source identity")),
+       (DOC, 65, "Raw bindings include source deck bytes"), (REV, 137, "Actual catalyst MPI/ELPA/UPF/settings/source identity")),
     _c("INCONC_BOUNDARY", KIND_STATED,
        "Early convergence, nstep exhaustion or a missed boundary is inconclusive without retry.",
-       (DOC, 61, "Early convergence, nstep exhaustion"), (REV, 70, "natural convergence, skipped boundary"),
+       (DOC, 58, "Early convergence, nstep exhaustion"), (REV, 70, "natural convergence, skipped boundary"),
        (SBR, 39, "Natural BFGS convergence before the registered boundary")),
     _c("INCONC_PROCESS", KIND_STATED,
        "A solver limit, HEA4 stall, resource problem or missing clean boundary is inconclusive; teardown cannot justify exceeding authority or launching a replacement.",
@@ -174,7 +183,7 @@ CRITERIA = dict([
        (IMPL, 24, "An attempted or upper-state reseed stays"), (REV1, 36, "Failure must remain inconclusive/attempted")),
     _c("LATER_GATES", KIND_STATED,
        "Full every-step checks and terminal fresh acceptance remain later gates regardless of this trial's outcome.",
-       (DOC, 51, "terminal fresh acceptance remain later gates"), (ELIG, 162, "Full every-step checking/reseeding")),
+       (DOC, 48, "terminal fresh acceptance remain later gates"), (ELIG, 162, "Full every-step checking/reseeding")),
     _c("CTRL_STATUS_MAP", KIND_FROZEN,
        "Frozen controller records HOLD / RESEED_BRANCH_ONLY / PASS_ONE_BOUNDARY / INCONCLUSIVE; a continuity-tolerance miss and any raised TrialError are recorded INCONCLUSIVE.",
        (CTRL, 934, 'self.receipt["scientific_status"] = "HOLD"'),
@@ -235,15 +244,21 @@ OPEN_QUESTIONS = {
 def check_citations(repo=DEFAULT_REPO, criteria=None):
     """Re-resolve every cited quote; report EXACT / MOVED / QUOTE_NOT_FOUND / FILE_MISSING."""
     repo, rows = Path(repo), []
+    snapshot = _launch.verify_snapshot(repo) if criteria is None else None
     cache = {}
-    for cid, criterion in (criteria or CRITERIA).items():
+    for cid, criterion in (CRITERIA if criteria is None else criteria).items():
         for cite in criterion["cites"]:
-            path = repo / cite["file"]
+            path = (repo / snapshot["files"][cite["file"]]["snapshot_path"]
+                    if snapshot is not None else repo / cite["file"])
             if cite["file"] not in cache:
                 cache[cite["file"]] = (path.read_text(encoding="utf-8", errors="replace").splitlines()
                                        if path.is_file() else None)
             lines = cache[cite["file"]]
             row = {"criterion": cid, "file": cite["file"], "line": cite["line"], "quote": cite["quote"]}
+            if snapshot is not None:
+                row["launch_commit"] = snapshot["commit"]
+                row["source_sha256"] = snapshot["files"][cite["file"]]["sha256"]
+                row["snapshot_file"] = snapshot["files"][cite["file"]]["snapshot_path"]
             if lines is None:
                 row["status"] = "FILE_MISSING"
             elif cite["line"] <= len(lines) and cite["quote"] in lines[cite["line"] - 1]:
@@ -309,14 +324,8 @@ def _no_bytecode():
 
 
 def load_modules(repo=DEFAULT_REPO):
-    """Import the frozen controller/adapter read-only (no bytecode written)."""
-    src = str(Path(repo) / "src" / "dft")
-    with _no_bytecode():
-        if src not in sys.path:
-            sys.path.insert(0, src)
-        import pa_catalyst_trial as trial  # noqa: WPS433
-        import pa_qe_adapter as adapter  # noqa: WPS433
-    return trial, adapter
+    """Import exact hash-verified launch modules independently of the live import cache."""
+    return _launch.load_modules(repo)
 
 
 # ----------------------------------------------------------------------------------------
@@ -1174,7 +1183,9 @@ def analyze(*, mirror, job_id=JOB_ID, sacct_text=None, scontrol_text=None, jobsu
             source_deck=None, balance_before=None, hash_mirror=True):
     repo = Path(repo)
     trial, adapter = load_modules(repo)
-    spec_path = Path(spec_path) if spec_path else repo / SPEC_REL
+    spec_path = Path(spec_path) if spec_path else source_path(SPEC_REL, repo)
+    if sha256_file(spec_path) != sha256_file(source_path(SPEC_REL, repo)):
+        raise ValueError("historical spec override differs from original launch snapshot")
     spec = json.loads(spec_path.read_text(encoding="utf-8"))
     located = locate_mirror(mirror, job_id)
     trial_dir = located["trial_dir"]
@@ -1185,6 +1196,7 @@ def analyze(*, mirror, job_id=JOB_ID, sacct_text=None, scontrol_text=None, jobsu
         sched["balance_after_su_exact_product"] = balance_before - sched["charged_cpu_su"]
     verdict = {"schema": SCHEMA, "job_id": job_id, "readonly": True, "qe_executed": False,
                "network_or_ssh_used": False, "production_accepted": False,
+               "launch_snapshot": _launch.verify_snapshot(repo),
                "spec_sha256": sha256_file(spec_path), "mirror_root": str(located["root"]),
                "trial_dir_found": trial_dir is not None, "scheduler": sched}
     mirror_gaps, receipt, calls = [], None, []
@@ -1220,7 +1232,7 @@ def analyze(*, mirror, job_id=JOB_ID, sacct_text=None, scontrol_text=None, jobsu
     verdict["slurm_log_tail"] = None if log_text is None else log_text[-1500:]
     rederived = None
     if rederive and trial_dir is not None and receipt:
-        deck = Path(source_deck) if source_deck else repo / SOURCE_DECK_REL
+        deck = Path(source_deck) if source_deck else source_path(SOURCE_DECK_REL, repo)
         try:
             rederived = rederive_trial(trial_dir, receipt, repo=repo, spec=spec, source_deck=deck,
                                        trial=trial, adapter=adapter)

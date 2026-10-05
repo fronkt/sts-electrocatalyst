@@ -1,0 +1,139 @@
+{
+  "scope": "ONE_BOUNDARY_RETEST_PRELAUNCH_ONLY",
+  "label": "initial",
+  "new_jobs_submitted": 0,
+  "qe_executed": false,
+  "anvil_writes": 0,
+  "production_accepted": false,
+  "successful": true,
+  "before": {
+    "tracked_files": 9816,
+    "unrelated_files": 21,
+    "errors": []
+  },
+  "frozen_lineage": {
+    "retained_launch_adapter_sha256": "255464215aa898d0c9d34317a1be9b16fb27ba6d35108e0ca78215331a628879",
+    "worktree_pa_qe_adapter_sha256": "5e77b8b30789acadd104d9ac14368dfe28b5a88b2b2b84e7b8c8f2bfad10980a",
+    "worktree_pa_qe_adapter_equals_launch_pin": false,
+    "first_trial_pins_verified": [
+      "anvil/89_pa_catalyst_boundary_trial.slurm",
+      "results/pa_catalyst_trial_2026-10-03/launch_spec.json",
+      "results/pa_catalyst_trial_2026-10-03/source_boundary_review.md",
+      "src/dft/pa_catalyst_trial.py",
+      "src/dft/pa_checked_contract.py"
+    ]
+  },
+  "evidence_tests": {
+    "tests_run": 83,
+    "successful": true,
+    "failures": 0,
+    "errors": 0
+  },
+  "compute_tests_first_trial_suites": {
+    "args": [
+      "pytest",
+      "-q",
+      "tests/test_pa_qe_adapter.py",
+      "tests/test_pa_catalyst_trial.py",
+      "tests/test_pa_catalyst_watch.py",
+      "tests/test_pa_checked_contract.py",
+      "tests/test_pa_restart_diagnostic.py",
+      "tests/test_pa_tiny_restart_probe.py",
+      "tests/test_pa_tiny_raw_readout.py",
+      "tests/test_pa_tiny_readonly_watch.py",
+      "tests/test_research_batch_checked.py",
+      "tests/test_research_batch_seeded.py",
+      "tests/test_lowtail_batch_launch.py"
+    ],
+    "returncode": 0,
+    "summary": "491 passed, 3 skipped, 7 subtests passed in 101.84s (0:01:41)",
+    "counts": {
+      "passed": 491,
+      "skipped": 3,
+      "subtests passed": 7
+    },
+    "failed": [],
+    "stdout_tail": "..............................s.....s................................... [ 14%]\n........................................................................ [ 29%]\n................................................................s....... [ 43%]\n................................................................. [ 56%]\n........................................................................ [ 71%]\n........................................................................ [ 86%]\n.....................................................................    [100%]\n491 passed, 3 skipped, 7 subtests passed in 101.84s (0:01:41)\n",
+    "stderr_tail": ""
+  },
+  "retest_tests": {
+    "args": [
+      "pytest",
+      "-q",
+      "tests/test_pa_qe_adapter_v2.py",
+      "tests/test_pa_qe_adapter_v2_real.py",
+      "tests/test_pa_catalyst_retest.py",
+      "tests/test_pa_catalyst_retest_scripts.py"
+    ],
+    "returncode": 0,
+    "summary": "288 passed, 2 skipped in 53.41s",
+    "counts": {
+      "passed": 288,
+      "skipped": 2
+    },
+    "failed": [],
+    "stdout_tail": "..............................s.....s................................... [ 24%]\n........................................................................ [ 49%]\n........................................................................ [ 74%]\n........................................................................ [ 99%]\n..                                                                       [100%]\n288 passed, 2 skipped in 53.41s\n",
+    "stderr_tail": ""
+  },
+  "readout_tool_tests": {
+    "args": [
+      "pytest",
+      "-q",
+      "results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py"
+    ],
+    "returncode": 1,
+    "summary": "1 failed, 73 passed in 131.35s (0:02:11)",
+    "counts": {
+      "failed": 1,
+      "passed": 73
+    },
+    "failed": [
+      "results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py::test_registered_call_table_matches_controller_source"
+    ],
+    "stdout_tail": "========================\n____________ test_registered_call_table_matches_controller_source _____________\n\n    def test_registered_call_table_matches_controller_source():\n        lines = (REPO / R.CTRL).read_text(encoding=\"utf-8\").splitlines()\n        for name, reg in R.REGISTERED.items():\n            window = \" \".join(lines[reg[\"site\"] - 1:reg[\"site\"] + 1])\n            assert 'self.execute(\"%s\", kind=\"%s\"' % (name, reg[\"kind\"]) in window, name\n            assert \"expected_cycles=%s\" % reg[\"expected_cycles\"] in window, name\n            assert \"expected_steps=%d\" % reg[\"expected_steps\"] in window, name\n        assert R.PREFIX == trial.PREFIX\n        assert R.LOG_XML_ENERGY_TOL_RY == 5.1e-8\n>       assert \"5.1e-8\" in (REPO / R.ADP).read_text(encoding=\"utf-8\").splitlines()[844]\nE       AssertionError: assert '5.1e-8' in '        proposal = None'\n\nresults\\pa_catalyst_trial_readout_prep_2026-10-04\\test_readout_trial.py:88: AssertionError\n=========================== short test summary info ===========================\nFAILED results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py::test_registered_call_table_matches_controller_source\n1 failed, 73 passed in 131.35s (0:02:11)\n",
+    "stderr_tail": ""
+  },
+  "readout_tool_source_line_tests": {
+    "failed_in_live_tree": [
+      "results/pa_catalyst_trial_readout_prep_2026-10-04/test_readout_trial.py::test_registered_call_table_matches_controller_source"
+    ],
+    "unexplained_failures": [],
+    "snapshot_check": {
+      "passed": true,
+      "launch_adapter": "results/pa_catalyst_trial_readout_2026-10-04/dryrun/scratch/pa_qe_adapter_FROZEN_COPY.py",
+      "launch_adapter_sha256": "255464215aa898d0c9d34317a1be9b16fb27ba6d35108e0ca78215331a628879",
+      "citations_exact": 71
+    }
+  },
+  "code_pins": {
+    "src/dft/pa_qe_adapter_v2.py": "63655f45531939a84ad2db4c5c5debab159427bae42e7a02abf0312f9a348f11",
+    "src/dft/pa_catalyst_retest.py": "b1c49d2d06c93fed4438d46491d8a01532f05cd6d8b6adfed90ca9689a65baf1",
+    "src/dft/pa_checked_contract.py": "67412c8363877f0a6407e382a4d3c33c6c0f6dac7b1f5de3e3968bf77755ae39",
+    "anvil/90_pa_catalyst_retest.slurm": "d30ca93fc02b4153c6aaeb8eefb8bf27eede3fc9bb171307b53cd021c8aeaf13",
+    "tests/test_pa_qe_adapter_v2.py": "1f9ed1be9775cb1d5d2481ac3e29f9c85117c4dbf90e1e9b340c61b5bae9efc2",
+    "tests/test_pa_qe_adapter_v2_real.py": "7ec9e1d7b26112246ae100e0b242a8d71b3da9d0dcf846abd2aba8923a2df6da",
+    "tests/test_pa_catalyst_retest.py": "cccc28c1e1ebf2e85dc714c10a5a7476733db92b4cebd72221ad3eed0843590e",
+    "tests/test_pa_catalyst_retest_scripts.py": "3612bb88ca289c0f1de471c0d9606a0fe62c778c6b70e7e3451564dcbc350878",
+    "tests/qe75_real_fixtures.py": "5aeddf0fb22da95c54ad00cdbb7ef7099346f39d36b9907f29111b32ad5f73db",
+    "tests/fixtures/qe75_real/manifest.json": "6054cd6ee9d554b43d9a9a4be41a5daa3b32fdd48c6ac5ef25cef363299ca8d0",
+    "results/pa_catalyst_retest_2026-10-04/launch_spec.json": "4c2384c6375f1c7892d33d8f6c37478243f41af3da9dd0f9ec507bcd8423e435",
+    "results/pa_catalyst_retest_2026-10-04/source_xml_input_review.md": "3c2c9dc101c0d4e1779aff8abee588a6ff18a4a61904b023ac40808b2dac5929",
+    "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-remote-stage-2026-10-04.py": "065b69805c9300ccb9ccfcf473cf5350cf77b1ef51d50197afbb5fd4252a80da",
+    "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-submit-held-2026-10-04.py": "cfce0af85ec47099b1caf74064c54716ca6e3a24abfb58e86edc12af81b6c314",
+    "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-held-validation-2026-10-04.py": "7846e9ea1ee11a9dc618892037b0cdee4797db7da1b3283a9cb93f597f830507",
+    "results/pa_catalyst_retest_2026-10-04/pa-catalyst-retest-release-2026-10-04.py": "cc51a7813e63f4ccb8337323d0825d7b77a10ecf56e502e74be91268205db4d0",
+    "results/pa_catalyst_retest_2026-10-04/watch_retest_readonly.py": "0e1c13467b02e52eb78dbf011bc2063c30cb2386ac0aec6fbe73efdd6e1c90c9",
+    "results/pa_catalyst_retest_2026-10-04/publish_reviewed_package.py": "d58ec607075d8a7ea171b8df9566ae18353fe8a7ffae18b924f577d89b8399e8",
+    "results/pa_catalyst_retest_2026-10-04/verify_retest_offline.py": "bf5f726d89244065f2d0d4b80d393f12bc91c8bf7779a28348d9fd392cc5b5cc"
+  },
+  "scientific_verifiers_pass": true,
+  "registered_recovery_reads": 42,
+  "canonical_rows": 2496,
+  "checklist_rows": 144,
+  "qe_source_files_verified": 27,
+  "after": {
+    "tracked_files": 9816,
+    "unrelated_files": 21,
+    "errors": []
+  }
+}

@@ -1,0 +1,116 @@
+"""Submit the ONE held re-test job.  PREPARED, NOT RUN: submission needs Frank's separate go.
+
+Exactly one `sbatch --hold --parsable --no-requeue` call, guarded once-only: the remote intent file is written
+before sbatch and a second invocation refuses to run.  Before sbatch the remote program re-runs the controller's
+PREFLIGHT (including the real-control replay), the staged commit and spec byte checks, the singleton queue check
+and the CPU balance check (>= 2048 SU).  The job stays held; pending-shape validation and release are the two
+separate scripts that follow.  No retry, array, dependency or requeue exists anywhere in this path.
+"""
+import json
+import os
+import pathlib
+import subprocess
+import sys
+
+PHASE = pathlib.Path(__file__).resolve().parent
+PHASE_REL = 'results/pa_catalyst_retest_2026-10-04'
+SPEC_REL = PHASE_REL + '/launch_spec.json'
+REMOTE_ROOT = '/anvil/projects/x-che260157/sts_pa_catalyst_retest_2026-10-04'
+SSH = ['C:/Program Files/Git/usr/bin/ssh.exe', '-i', 'C:/Users/frank/.ssh/id_ed25519', '-o', 'BatchMode=yes',
+       '-o', 'StrictHostKeyChecking=yes', '-o', 'ConnectTimeout=12', 'x-fcai3@anvil.rcac.purdue.edu']
+REMOTE_PYTHON = '/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 -'
+
+REMOTE_BODY = r'''
+import hashlib, json, os, pathlib, re, subprocess, sys
+root = pathlib.Path(remote_root); phase = root / phase_rel
+intent = phase / 'submission_intent_remote.json'
+assert not intent.exists(), 'once-only: a submission intent already exists'
+r = {'successful': False, 'held': False, 'job_id': None, 'new_job_attempt_limit': 1, 'automatic_retry': False,
+     'commands': {}, 'production_accepted': False}
+with intent.open('x', encoding='utf-8') as claimed:
+    claimed.write(json.dumps({'state': 'SUBMIT_ONCE_HELD_ONLY', 'published_commit': commit, 'approved_max_cpu_su': 2048,
+                              'max_wall_seconds': 57600, 'new_job_attempt_limit': 1, 'automatic_retry': False,
+                              'production_accepted': False}, indent=2) + '\n')
+    claimed.flush()
+    os.fsync(claimed.fileno())
+def run(name, args, timeout=25, cwd=None):
+    p = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, timeout=timeout, cwd=cwd)
+    r['commands'][name] = {'args': args, 'returncode': p.returncode, 'stdout': p.stdout, 'stderr': p.stderr}
+    assert p.returncode == 0, (name, p.stderr)
+    return p.stdout
+def digest(path):
+    h = hashlib.sha256()
+    with path.open('rb') as stream:
+        for block in iter(lambda: stream.read(1048576), b''):
+            h.update(block)
+    return h.hexdigest()
+try:
+    assert run('head', ['git', '-C', str(root), 'rev-parse', 'HEAD']).strip() == commit
+    spec = root / spec_rel
+    assert digest(spec) == spec_sha256, 'spec byte drift'
+    run('preflight', [sys.executable, str(root / 'src/dft/pa_catalyst_retest.py'), '--spec', str(spec), '--spec-sha256', spec_sha256,
+                      '--preflight'], timeout=120)
+    pre = json.loads(r['commands']['preflight']['stdout'])
+    assert pre['status'] == 'PREFLIGHT_PASS' and pre['real_control_replay']['replayed'] is True
+    assert not (root / 'trial_results').exists() and not (root / 'trial_results').is_symlink()
+    queue = run('queue', ['squeue', '-h', '-u', 'x-fcai3', '-o', '%i|%T|%j|%C|%R'])
+    assert not queue.strip(), 'singleton: the user queue must be empty'
+    balance = run('balance', ['bash', '-lc', 'mybalance'])
+    cpu = [row.split() for row in balance.splitlines() if len(row.split()) == 6 and row.split()[:2] == ['che260157', 'CPU']]
+    assert len(cpu) == 1 and float(cpu[0][-1]) >= 2048, 'CPU balance below the 2048 SU ceiling'
+    r['balance_cpu_su'] = float(cpu[0][-1])
+    wrapper = root / 'anvil/90_pa_catalyst_retest.slurm'
+    out = run('sbatch', ['sbatch', '--hold', '--parsable', '--no-requeue', '--export=ALL,STS_PA_SPEC_SHA256=' + spec_sha256, str(wrapper)],
+              timeout=40, cwd=str(root))
+    job = out.strip().split(';')[0]
+    assert job.isdigit(), 'sbatch did not return one numeric job id: ' + out
+    r['job_id'] = job
+    r['held'] = True
+    held = run('held_state', ['scontrol', 'show', 'job', job, '-o'])
+    r['raw_scontrol'] = held
+    r['successful'] = True
+except BaseException as exc:
+    r['error'] = repr(exc)
+    raise
+finally:
+    phase.mkdir(parents=True, exist_ok=True)
+    (phase / 'submission_remote.json').write_text(json.dumps(r, indent=2) + '\n')
+    print(json.dumps(r, indent=2))
+'''
+
+
+def build(commit, spec_sha256):
+    header = 'remote_root=%r\nphase_rel=%r\nspec_rel=%r\ncommit=%r\nspec_sha256=%r\n' % (
+        REMOTE_ROOT, PHASE_REL, SPEC_REL, commit, spec_sha256)
+    compile(header + REMOTE_BODY, '<retest-submit-held>', 'exec')
+    return header + REMOTE_BODY
+
+
+def main():
+    target = PHASE / 'submission.json'
+    assert not target.exists(), 'once-only: a local submission receipt already exists'
+    published = json.loads((PHASE / 'publication_final.json').read_text(encoding='utf-8'))
+    stage = json.loads((PHASE / 'remote_stage.json').read_text(encoding='utf-8'))
+    assert stage['returncode'] == 0 and json.loads(stage['stdout'])['successful'] and published['successful']
+    spec_sha256 = published['local_pins'][SPEC_REL]
+    with (PHASE / 'submission_intent.json').open('x', encoding='utf-8') as claimed:
+        claimed.write(json.dumps({
+        'state': 'SUBMIT_ONCE_HELD_ONLY', 'published_commit': published['commit'], 'approved_max_cpu_su': 2048,
+        'max_wall_seconds': 57600, 'new_job_attempt_limit': 1, 'automatic_retry': False, 'production_accepted': False},
+        indent=2) + '\n')
+        claimed.flush()
+        os.fsync(claimed.fileno())
+    p = subprocess.run(SSH + [REMOTE_PYTHON], input=build(published['commit'], spec_sha256), capture_output=True, text=True,
+                       encoding='utf-8', errors='replace', timeout=240, creationflags=0x08000000)
+    result = {'returncode': p.returncode, 'stdout': p.stdout, 'stderr': p.stderr, 'new_job_attempt_limit': 1, 'automatic_retry': False}
+    try:
+        result['job_id'] = json.loads(p.stdout).get('job_id')
+    except ValueError:
+        result['job_id'] = None
+    target.write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
+    print('Held submission returncode', p.returncode, 'job', result['job_id'], flush=True)
+    assert p.returncode == 0 and result['job_id']
+
+
+if __name__ == '__main__':
+    sys.exit(main())

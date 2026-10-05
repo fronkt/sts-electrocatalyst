@@ -1,0 +1,5 @@
+# Fresh verification replan
+
+The first full checked run was started before the source-coordinate AST test correction had actually persisted (the exact text replacement did not match its indentation). Independent review caught this. The test now excludes only structured citation line coordinates from the resource/threshold literal scan; no actual resource or scientific constant is waived. The historical watcher test also now loads exact original snapshot bytes, and a publication-script trailing space is removed. Preserve offline_checked.json/log as the first attempt; offline_release.json will be the final complete fresh gate after all corrected bytes are fixed. The publisher requires that final receipt, its exact code pins and the independently pinned review. Nothing has been staged or submitted.
+
+The superseded worker and its local pytest child were stopped deliberately; its exit15/log and stale_verification_stop.json are retained. It produced no completed verification receipt. The final run uses label release and is isolated from the superseded process.

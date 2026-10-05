@@ -1,0 +1,8 @@
+{
+  "python": "C:/Users/frank/AppData/Local/Programs/Python/Python312/pythonw.exe",
+  "worker": "C:/Users/frank/AppData/Local/Temp/sts-background-2026-09-06/worker.py",
+  "cwd": "C:/Users/frank/sts-electrocatalyst",
+  "log": "C:/Users/frank/sts-electrocatalyst/results/pa_catalyst_retest_2026-10-04/stop-stale-verification.log",
+  "status": "C:/Users/frank/sts-electrocatalyst/results/pa_catalyst_retest_2026-10-04/stop-stale-verification.status.json",
+  "code": "import json,pathlib,psutil,time\nlauncher=psutil.Process(51440)\nchildren=launcher.children(recursive=True)\nfor p in children:\n assert p.name().lower()=='pythonw.exe'\nfor p in reversed(children):\n p.terminate()\ngone,alive=psutil.wait_procs(children,timeout=5)\nassert not alive\nrecord={'reason':'Stop superseded local verification before final corrected-byte verification','terminated_worker_pids':[p.pid for p in gone],'launcher_pid':51440,'new_anvil_jobs':0,'qe_executed':False}\npathlib.Path(\"C:/Users/frank/sts-electrocatalyst/results/pa_catalyst_retest_2026-10-04/stale_verification_stop.json\").write_text(json.dumps(record,indent=2)+'\\n')\nprint(json.dumps(record),flush=True)"
+}

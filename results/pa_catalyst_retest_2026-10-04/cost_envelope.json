@@ -1,0 +1,155 @@
+{
+ "basis": "arithmetic; see the readout doc for provenance of each input",
+ "measured_first_job": {
+  "control_process_seconds": 2883.94,
+  "control_process_su": 102.5,
+  "job_elapsed_seconds": 2893,
+  "job_charged_su": 102.8622,
+  "per_second_su": 0.03556
+ },
+ "calls": {
+  "control": {
+   "seconds": 2884,
+   "basis": "measured, job 21034683"
+  },
+  "candidate": {
+   "seconds": 580,
+   "basis": "measured 478.8 s to SCF 1 plus forces, start-up and teardown"
+  },
+  "fresh_converged": {
+   "seconds": {
+    "low": 3385,
+    "mean": 3670,
+    "high": 4680
+   },
+   "basis": "September converged fresh SCFs at 8.08e-8 Ry (15 of 21 logs; CPU 3,329-4,657 s); the registered 1e-6 Ry target is looser"
+  },
+  "fresh_stalled_and_killed": {
+   "seconds": 6420,
+   "basis": "supervisor kill at SCF iteration 127; 6 of 21 September fresh SCFs stalled (CPU 6,024-6,457 s)"
+  },
+  "resumed": {
+   "seconds": 2440,
+   "basis": "measured control evaluations 2 and 3 plus restart start-up"
+  },
+  "negative": {
+   "seconds": 2884,
+   "basis": "taken equal to the control"
+  },
+  "reseed": {
+   "seconds": 600,
+   "basis": "one evaluation, planning figure"
+  }
+ },
+ "checkpoint_hashing_and_copying": {
+  "hash_passes": 22,
+  "hashed_gb": 331.5,
+  "checkpoint_copies": 3,
+  "copied_gb_each_read_and_write": 15.07,
+  "assumed_throughput_gb_per_s": {
+   "slow": 0.5,
+   "fast": 1.5
+  },
+  "idle_seconds": {
+   "fast": 266,
+   "slow": 754
+  },
+  "readout_allowance_seconds": 1800,
+  "readout_allowance_su": 64.0,
+  "status": "arithmetic from counted passes and an assumed range; not measured",
+  "idle_su": {
+   "fast": 9.5,
+   "slow": 26.8
+  }
+ },
+ "paths": {
+  "resume_fresh_low": {
+   "calls_seconds": 12173,
+   "calls_su": 432.8,
+   "with_readout_allowance_su": 496.8,
+   "with_counted_overhead_su": {
+    "fast": 442.3,
+    "slow": 459.6
+   }
+  },
+  "resume_fresh_mean": {
+   "calls_seconds": 12458,
+   "calls_su": 443.0,
+   "with_readout_allowance_su": 507.0,
+   "with_counted_overhead_su": {
+    "fast": 452.4,
+    "slow": 469.8
+   }
+  },
+  "resume_fresh_high": {
+   "calls_seconds": 13468,
+   "calls_su": 478.9,
+   "with_readout_allowance_su": 542.9,
+   "with_counted_overhead_su": {
+    "fast": 488.3,
+    "slow": 505.7
+   }
+  },
+  "hold_fresh_stalls": {
+   "calls_seconds": 9884,
+   "calls_su": 351.4,
+   "with_readout_allowance_su": 372.8
+  },
+  "reseed": {
+   "calls_seconds": 7734,
+   "calls_su": 275.0,
+   "with_readout_allowance_su": 296.3
+  }
+ },
+ "cumulative_charge_by_call_on_the_resume_path_su": [
+  {
+   "after_call": "control",
+   "cumulative_seconds": 2884,
+   "cumulative_su": 102.5
+  },
+  {
+   "after_call": "candidate",
+   "cumulative_seconds": 3464,
+   "cumulative_su": 123.2
+  },
+  {
+   "after_call": "fresh_converged_mean",
+   "cumulative_seconds": 7134,
+   "cumulative_su": 253.7
+  },
+  {
+   "after_call": "resumed",
+   "cumulative_seconds": 9574,
+   "cumulative_su": 340.4
+  },
+  {
+   "after_call": "negative",
+   "cumulative_seconds": 12458,
+   "cumulative_su": 443.0
+  }
+ ],
+ "range_su": {
+  "floor_reseed_path": 275.0,
+  "ceiling_resume_high_with_allowance": 542.9,
+  "approved_cap_su": 2048,
+  "fraction_of_cap_at_ceiling": 0.265
+ },
+ "wall_clock": {
+  "resume_mean_seconds": 12458,
+  "cap_seconds": 57600,
+  "fraction_of_wall_cap": 0.216
+ },
+ "balance_projection_su": {
+  "balance_after_first_job": 36775.4,
+  "after_floor": 36500.4,
+  "after_ceiling": 36232.5,
+  "worst_case_at_cap": 34727.4,
+  "note": "live mybalance still to be read immediately before submission"
+ },
+ "stall_rate_september_fresh_scf": {
+  "stalled": 6,
+  "of": 21,
+  "note": "different geometries from the registered evaluated state; a base rate, not a prediction"
+ },
+ "new_preflight_replay_cost": "reads 3.4 MB of fixtures and parses 0.9 MB of real output on the login or compute node: seconds, no QE"
+}
