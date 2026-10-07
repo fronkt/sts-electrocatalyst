@@ -3362,4 +3362,13 @@ Verification: readout numbers come from readout.json and informative_distances.j
 - [x] Arm-C definition proposed (C-FG): DFT+U single points at the census structures of each alloy's two arm-B p10 support sites (verified from per_site.csv), arm-B weights, IEEE re-run once, Fe25 convergence probe; C-REL and C-SKIP priced as alternatives.
 - [x] Priced: C-FG 6,000-11,000 SU expected / 16,000 hard ceiling, deposit about Oct 12-13; C-REL 17,000-35,000+ (every-step P-A 60,000-75,000); add-ons Ni34 (+2,560 ceiling) and best sites (+5,120).
 - [x] Design doc `docs/research/s8-arm-c-dft-design-2026-10-07.md` for Frank's approval.
-- [ ] Frank's decision: option, add-ons, SU ceiling. No production SU before his dated approval.
+- [x] Frank's decision (2026-10-07): "Go ahead. Yes to each add on." C-FG + Ni34 + best sites; 16 sites, 64 SCFs + Fe25 probe; ceiling 23,680 SU.
+
+## 2026-10-07 — Arm C build and launch
+
+- [x] Builder `src/dft/arm_c_build.py` (sites recomputed from per_site.csv and refused if they drift; census structures hash-checked; decks via hea_deck.render_deck): 64 production + 3 probe decks, manifests, site plan, spec (sha 0f1c0e7c...).
+- [x] Unchanged September runner `src/dft/research_batch.py`; Slurm `anvil/94_arm_c_batch.slurm` (one SCF per wholenode array task, 2:30:00); launch ops/status/collect in `results/arm_c_2026-10-07/`.
+- [x] Readout `src/dft/arm_c_readout.py` (COMPLETE receipt + CONVERGED parser + same energy; weighted C, single-site fallback, K1/K2, Ni34 top-two nomination, probe recipe); tests `tests/test_arm_c.py`; 136 pass with the QC suites. Commit d9ec033.
+- [ ] Independent pre-launch review; fold in fixes.
+- [ ] Stage, preflight, held submit (main 1-64%60, probe 1-3%3), validate, release. Launch ceiling 21,440 SU (+1,920 re-run reserve).
+- [ ] Terminal: collect, readout, re-run round if needed, arm-C deposit (target Oct 12-13).

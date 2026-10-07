@@ -32,7 +32,7 @@ def built():
 
 # ---------------------------------------------------------------- scope and selection
 def test_build_reproduces_every_committed_file_byte_for_byte(built):
-    assert len(built) == 71
+    assert len(built) == 70
     for relative, data in built.items():
         assert (ROOT / relative).read_bytes() == data, relative
         assert b"\r" not in data
@@ -88,8 +88,10 @@ def test_probe_decks_change_exactly_one_registered_thing():
     site = next(s for s in PLAN["sites"] if (s["formula"], s["seed"], s["site_index"]) == build.PROBE_SOURCE)
     base = (ROOT / site["states"]["slab"]["deck"]).read_text(encoding="utf-8").split("\n")
     probe_dir = ROOT / "runs/hea/arm_c_2026-10-07/probe__Fe25Co25Ni25Cr25__s2_site0"
-    expected = {"ndim16": ["+   mixing_ndim = 16"], "cg": ["+   diagonalization = 'cg'"]}
-    for variant in ("ndim16", "cg", "hs"):
+    expected = {"ndim16": ["+   mixing_ndim = 16"]}
+    assert [v for v, _ in build.PROBE_VARIANTS] == ["ndim16", "hs"]
+    assert not (probe_dir / "slab__atomic_cg.in").exists()
+    for variant in ("ndim16", "hs"):
         lines = (probe_dir / ("slab__atomic_" + variant + ".in")).read_text(encoding="utf-8").split("\n")
         changed = [d for d in difflib.ndiff(base, lines) if d[:2] in ("- ", "+ ")]
         prefix = [d for d in changed if "prefix" in d]
@@ -108,12 +110,13 @@ def test_spec_pins_and_shape():
     for relative, digest in SPEC["files"].items():
         assert hashlib.sha256((ROOT / relative).read_bytes()).hexdigest() == digest, relative
     main, probe = SPEC["stages"]["arm_c_main"], SPEC["stages"]["arm_c_probe"]
-    assert len(main["jobs"]) == 64 and len(probe["jobs"]) == 3
+    assert len(main["jobs"]) == 64 and len(probe["jobs"]) == 2
     for job in main["jobs"] + probe["jobs"]:
         assert (job["nk"], job["scf_seconds"], job["projection_seconds"], job["max_iterations"]) == (8, 8100, 600, 126)
     assert main["wall_minutes"] == probe["wall_minutes"] == 150
-    launch = (64 + 3) * 150 * 128 // 60
-    assert SPEC["allocation"]["this_launch_ceiling_cpu_su"] == launch == 21440
+    launch = (64 + 2) * 150 * 128 // 60
+    assert SPEC["allocation"]["this_launch_ceiling_cpu_su"] == launch == 21120
+    assert SPEC["qe_binaries_sha256"] == build.QE_BINARIES
     assert launch + SPEC["allocation"]["reserved_for_rerun_round_cpu_su"] <= SPEC["allocation"]["approved_campaign_ceiling_cpu_su"] == 23680
     assert set(SPEC["pseudo_md5"]) == {hd.ELEMENTS[e]["pseudo"] for e in ("Co", "Cr", "Cu", "Fe", "Mn", "Ni", "O", "H")}
 
@@ -219,3 +222,75 @@ def test_acceptance_needs_receipt_and_parser_and_classifies_failures(tmp_path):
     write_fake(tmp_path, "odd", -7551.5, status="REJECTED", reason="projection failed or exceeded bound")
     row = readout.accepted(tmp_path, "odd")
     assert not row["accepted"] and readout.failure_class(row) == "OTHER"
+
+
+def test_a_ceiling_stop_with_an_ieee_note_is_a_ceiling_stop_and_projection_ieee_counts(tmp_path):
+    write_fake(tmp_path, "both", None, status="REJECTED", reason="SCF iteration ceiling", killed=True,
+               note="Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG")
+    assert readout.failure_class(readout.accepted(tmp_path, "both")) == "CEILING"
+    write_fake(tmp_path, "proj", -7551.5, status="REJECTED", reason="projection failed or exceeded bound")
+    (tmp_path / "proj.projwfc.out").write_text(
+        "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG\n", encoding="utf-8")
+    assert readout.failure_class(readout.accepted(tmp_path, "proj")) == "IEEE"
+
+
+def failing(formula, seed, roles, failures, order_dir=None):
+    return {"formula": formula, "seed": seed, "site_index": 0, "roles": roles, "complete": not failures,
+            "original_failures": failures, "dir": order_dir or f"hea/arm_c_2026-10-07/{formula}__s{seed}_site0"}
+
+
+def test_rerun_selection_follows_the_registered_order_all_or_nothing():
+    support = {"support_lo": {"weight": "1/2"}}
+    best = {"best": {}}
+    sites = [
+        failing("Cu22Fe30Co32Mn15", 6, support, {"OH": "IEEE"}),
+        failing("Cu8Cr23Mn35Co34", 16, support, {"slab": "CEILING", "OH": "IEEE", "O": "IEEE"}),
+        failing("Fe25Co25Ni25Cr25", 13, support, {"slab": "CEILING"}),
+        failing("Ni31Cr29Cu5Mn35", 10, support, {"OOH": "OTHER"}),
+        failing("Cu8Cr23Mn35Co34", 20, best, {"OH": "IEEE"}),
+        failing("Ni34Fe6Cu29Co31", 22, support, {"O": "IEEE", "OOH": "IEEE"}),
+    ]
+    chosen = readout.rerun_selection(sites, "ndim16", slots=6)
+    picked = [(c["site_dir"].rsplit("/", 1)[-1], c["state"], c["recipe"], c["job"]) for c in chosen]
+    assert picked == [
+        ("Fe25Co25Ni25Cr25__s13_site0", "slab", "ndim16", "slab__atomic_ndim16"),   # tier 1, one failure
+        ("Cu8Cr23Mn35Co34__s16_site0", "slab", "ndim16", "slab__atomic_ndim16"),    # tier 1, three failures
+        ("Cu8Cr23Mn35Co34__s16_site0", "OH", "production", "OH__atomic"),
+        ("Cu8Cr23Mn35Co34__s16_site0", "O", "production", "O__atomic"),
+        ("Cu22Fe30Co32Mn15__s6_site0", "OH", "production", "OH__atomic"),           # tier 2
+        # Ni34 (tier 3) needs two slots and only one is left; the tier-4 best site fits
+        ("Cu8Cr23Mn35Co34__s20_site0", "OH", "production", "OH__atomic"),
+    ]
+    assert all(c["dir"].startswith(readout.RERUN_ROOT + "/") for c in chosen)
+    # Without a probe recipe, ceiling stops are not repairable.
+    no_recipe = readout.rerun_selection(sites, None, slots=6)
+    assert [(c["site_dir"].rsplit("/", 1)[-1], c["state"]) for c in no_recipe] == [
+        ("Cu22Fe30Co32Mn15__s6_site0", "OH"), ("Ni34Fe6Cu29Co31__s22_site0", "O"),
+        ("Ni34Fe6Cu29Co31__s22_site0", "OOH"), ("Cu8Cr23Mn35Co34__s20_site0", "OH")]
+
+
+def test_variant_transform_applies_to_any_production_deck():
+    site = next(s for s in PLAN["sites"] if s["formula"] == "Cu22Fe30Co32Mn15")
+    text = (ROOT / site["states"]["OH"]["deck"]).read_text(encoding="utf-8")
+    for variant in ("ndim16", "hs"):
+        out = build.variant_deck(text, variant, "OH__atomic_" + variant)
+        changed = [d for d in difflib.ndiff(text.split("\n"), out.split("\n")) if d[:2] in ("- ", "+ ")]
+        rest = [d for d in changed if "prefix" not in d]
+        assert "+   prefix = 'OH__atomic_" + variant + "'" in changed
+        assert rest == ["+   mixing_ndim = 16"] if variant == "ndim16" else all("starting_magnetization" in d for d in rest)
+    with pytest.raises(ValueError):
+        build.variant_deck(text, "cg", "OH__atomic_cg")
+
+
+def test_quota_parser_reads_the_project_row():
+    sys.path.insert(0, str(PACKAGE))
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("arm_c_launch_ops", PACKAGE / "launch_ops.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    text = ("Type       Location             Size    Limit    Use   Files   Limit    Use\n"
+            "home       x-fcai3            54.9MB   25.0GB   0.2%      -       -      -\n"
+            "projects   x-che260157         2.5TB    5.0TB  51.0%   90.3K    1.0M   8.6%\n")
+    assert abs(module.project_free_tb(text) - 2.5) < 1e-9
+    assert module.project_free_tb("projects x-che260157 n/a n/a\n") is None
+    assert module.ARRAYS["arm_c_probe"] == {"array": "1-2%2", "tasks": 2, "throttle": "2", "name": "arm-c-probe"}

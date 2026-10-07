@@ -192,12 +192,12 @@ Nothing is submitted before the usual build, independent review, staging, prefli
 - reads the structures from the hash-checked census result files;
 - renders the decks through `hea_deck.render_deck`.
 
-Its `--check` mode rebuilds the package in memory and compares it byte for byte with the 71 files below.
+Its `--check` mode rebuilds the package in memory and compares it byte for byte with the 70 files below.
 
 | Output | Contents |
 |---|---|
 | `runs/hea/arm_c_2026-10-07/<alloy>__s<seed>_site<i>/{slab,OH,O,OOH}__atomic.in` | 64 production decks (16 sites × 4 states) |
-| `runs/hea/arm_c_2026-10-07/probe__Fe25Co25Ni25Cr25__s2_site0/slab__atomic_{ndim16,cg,hs}.in` | 3 probe decks |
+| `runs/hea/arm_c_2026-10-07/probe__Fe25Co25Ni25Cr25__s2_site0/slab__atomic_{ndim16,hs}.in` | 2 probe decks |
 | `runs/m_arm_c_2026-10-07_{main,probe}.txt` | manifests |
 | `results/arm_c_2026-10-07/site_plan.json` | site plan: sites, roles, weights, MLIP values, census hashes |
 | `results/arm_c_2026-10-07/launch_spec.json` | launch spec |
@@ -213,7 +213,10 @@ Its `--check` mode rebuilds the package in memory and compares it byte for byte 
 **Slurm:** `anvil/94_arm_c_batch.slurm` pins the spec and runner sha256. It runs one SCF per array task on `wholenode` with 128 ranks and `-nk 8`.
 
 **Operations:**
-- `results/arm_c_2026-10-07/launch_ops.py`: stage, preflight, held submit, validate, release;
+- `results/arm_c_2026-10-07/launch_ops.py`: stage, preflight, held submit, validate, release. Preflight also requires:
+  - the stage receipt and the logs directory;
+  - at least 1.5 TB free in the project space (`myquota`), because the runner keeps about 18 GB of wavefunctions per SCF (2.5 TB free on Oct 7);
+  - the QE binary sha256 of pw.x, projwfc.x and mpirun as pinned in the spec (pw.x and mpirun equal the O1 pins);
 - `status_once.py`, `collect_terminal.py`.
 
 ### Changes from §3, made before launch
@@ -221,11 +224,12 @@ Its `--check` mode rebuilds the package in memory and compares it byte for byte 
 | Item | Design text | As built | Why |
 |---|---|---|---|
 | Job layout | one 10 h job per site chain | one 2.5 h array task per SCF (64 tasks, throttle 60) | Same 20,480 SU ceiling; faster wall clock; a stall costs only its own task |
-| Per-task limits | 2.5 h per SCF | scf_seconds 8,100, projection_seconds 600, Slurm 2:30:00 | 126 iterations at the measured ≤ 65 s each; projection measured at 44–56 s |
+| Per-task limits | 2.5 h per SCF | scf_seconds 8,100, projection_seconds 600, Slurm 2:30:00 | The 126-iteration ceiling binds first: September ceiling stops took 5,782–7,116 s (worst 60.7 s per iteration including setup) and projections 44–56 s |
 | Probe variant (c) | U-ramp start | high-spin start (`starting_magnetization = 1.0` on every metal) | The unchanged runner cannot seed a second SCF. Both change only the starting state, not the Hamiltonian |
-| Probe launch | one job | 3 array tasks × 2.5 h = 960 SU | |
+| Probe variant (b) | `diagonalization = 'cg'` | dropped before launch | Independent review: CG runs about 3× slower per iteration than Davidson (`runs/Co_slab/s0_O.out.attempt3` vs `attempt1`), so it could not finish inside the 2.5 h that any re-run task also has |
+| Probe launch | one job | 2 array tasks × 2.5 h = 640 SU | |
 
-**Launch ceiling:** 64 × 2.5 h × 128 + 3 × 2.5 h × 128 = **21,440 SU**. The re-run round is reserved at 1,920 SU (at most 6 SCFs × 2.5 h), for a campaign total of 23,360 SU, within the approved 23,680.
+**Launch ceiling:** 64 × 2.5 h × 128 + 2 × 2.5 h × 128 = **21,120 SU**. The re-run round is reserved at 1,920 SU (at most 6 SCFs × 2.5 h), for a campaign total of 23,040 SU, within the approved 23,680.
 
 ### Registered readout (`src/dft/arm_c_readout.py`)
 
@@ -238,17 +242,27 @@ Its `--check` mode rebuilds the package in memory and compares it byte for byte 
 
 **Alloy value C, re-run selection and Ni34 nomination:**
 - C follows §3.
-- **Re-run order** for the ≤ 6 reserved slots:
-  1. Cu8, Ni31 and Fe25 support sites;
-  2. Cu26 and Cu22 support sites;
-  3. Ni34 support sites;
-  4. best sites.
+- **Failure classes,** checked in this order:
+  1. CEILING: an iteration or wall-time stop. It is checked first because a stopped run still prints gfortran flag notes.
+  2. IEEE: an `IEEE_(INVALID|OVERFLOW|DIVIDE_BY_ZERO)` marker in the receipt, the SCF output or the projection output.
+  3. OTHER.
 - **Re-run recipe:**
 
   | Failure | Re-run |
   |---|---|
-  | IEEE_INVALID | identical |
-  | Ceiling stop | the first probe variant, in priority order ndim16 → cg → hs, that converges the Fe25 seed-2 slab; none if no variant converges |
+  | IEEE | identical deck, same job name |
+  | CEILING | the first probe variant, in priority order ndim16 → hs, whose SCF is accepted (converged, no IEEE marker); its energy and moments are reported against the production control on the same slab. No re-run if no variant is accepted |
+  | OTHER | none |
+
+- **Re-run selection** (`rerun_selection`, ≤ 6 SCFs, deterministic):
+  - Only sites whose every failed state is repairable are eligible.
+  - Order:
+    1. tier: (1) Cu8, Ni31, Fe25 supports; (2) Cu26, Cu22 supports; (3) Ni34 supports; (4) best-only sites;
+    2. then fewer failed states;
+    3. then site-plan order.
+  - Each chosen site re-runs all of its failed states or none. A site that does not fit the remaining slots is skipped, and the next one is considered.
+  - **Where re-runs live:** decks go in `runs/hea/arm_c_2026-10-07_rerun/<site>/`. Ceiling re-runs carry the job suffix `_<recipe>` and are built by `arm_c_build.variant_deck`.
+  - **Substitution:** a re-run replaces a failed state only if it is accepted. The state then records its recipe, and a chain that mixes recipes is flagged. The high-spin start in particular may reach a different electronic state, so its moments are reported.
 
 - **Ni34 batch-2 nomination,** registered before any result: Ni34Fe6Cu29Co31 is nominated if arm C ranks it first or second of the six alloys. That requires all six values.
 
@@ -265,4 +279,20 @@ Its `--check` mode rebuilds the package in memory and compares it byte for byte 
 - the Slurm pins are current;
 - the readout rules: weighted value, single-site fallback, K1/K2/Ni34, acceptance, and failure classes.
 
-136 tests pass with the related QC suites.
+### Independent review before launch
+
+The review found no blockers. Its should-fix items are folded in:
+- the quota check;
+- dropping `cg`;
+- the failure-class order and the projection-output IEEE scan;
+- the registered re-run selection and substitution;
+- binary sha256 pins and the logs-directory and stage-receipt checks;
+- try/finally stage receipts;
+- LF attributes for the runner helpers.
+
+**Expectations recorded, not acted on:**
+- **Cost may run above the expected range.** In September, 2 of 11 atomic HEA SCFs failed on IEEE, both Fe25, which is above the 11% budgeted. Fe appears in 32 of the 64 production SCFs, so failures may outrun the six re-run slots. The SU bound is unaffected.
+- **A free reproducibility check.** The Fe25 s2/0 slab, OH and O decks are byte-identical to the September pilot decks. That run gave: slab KILLED at the ceiling, OH converged then rejected for IEEE, O complete at −121279.02432910522 eV.
+- **The node exclusions do nothing.** The manifest's exclusion list covers only `shared` nodes (a000–a249); `wholenode` is a250–a999.
+
+140 tests pass with the related QC suites.

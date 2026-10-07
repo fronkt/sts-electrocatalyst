@@ -20,7 +20,7 @@ PYTHON=/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3
 [ "${SLURM_NTASKS:-}" = 128 ] || { echo 'REFUSE: requires 128 ranks'; exit 2; }
 case "${STAGE:-}" in arm_c_main|arm_c_probe) ;; *) echo 'REFUSE: stage'; exit 2;; esac
 check_hash() { [ "$(sha256sum "$1" | awk '{print $1}')" = "$2" ] || { echo "REFUSE: hash $1"; exit 2; }; }
-check_hash "$SPEC" 0f1c0e7c83206aceb8fe32d8d84052cdbea9b6b88d522315ff28fd6bd2a005d5
+check_hash "$SPEC" 48c7cb686d2cc73cd3f6f1e89a9fd02d7904b8181c78241f22cee6cf90ad66f4
 check_hash "$RUNNER" 4195ef7b7b23096c982d78f80b5a8d78884bc8d9b7e2fc8a150f747e1cf2c404
 export OMP_NUM_THREADS=1 OMP_THREAD_LIMIT=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 export BLIS_NUM_THREADS=1 OMP_DYNAMIC=FALSE MKL_DYNAMIC=FALSE

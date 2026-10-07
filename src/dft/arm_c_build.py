@@ -45,7 +45,7 @@ SCF_SECONDS = 8100        # 126 iterations at up to 64 s each; the iteration cei
 PROJECTION_SECONDS = 600  # measured 44-56 s in the September panel
 MAX_ITERATIONS = 126      # HEA-4 ceiling, unchanged
 WALL_MINUTES = 150        # per array task; 64 x 150 min x 128 cores = 20,480 SU
-CONCURRENCY = {"arm_c_main": 60, "arm_c_probe": 3}
+CONCURRENCY = {"arm_c_main": 60, "arm_c_probe": 2}
 
 # Approved scope (design doc §3 and decision of record). The builder recomputes every entry
 # from the census CSV and refuses to continue if the data no longer give exactly these sites.
@@ -68,9 +68,14 @@ ORDER = ("Cu8Cr23Mn35Co34", "Ni31Cr29Cu5Mn35", "Fe25Co25Ni25Cr25", "Cu26Ni9Cr31C
          "Cu22Fe30Co32Mn15", "Ni34Fe6Cu29Co31")
 PROBE_SOURCE = ("Fe25Co25Ni25Cr25", 2, 0)
 # Probe variants in registered priority order; none changes the Hamiltonian.
+# 'cg' was dropped before launch (independent review): CG runs about 3x slower per iteration than
+# Davidson, so it cannot finish inside the 2.5 h task that any re-run would also have.
 PROBE_VARIANTS = (("ndim16", "mixing_ndim = 16"),
-                  ("cg", "diagonalization = 'cg'"),
                   ("hs", "high-spin start: starting_magnetization = 1.0 on every metal"))
+# Anvil binaries the September runner executes; pw.x and mpirun equal the O1 launch pins.
+QE_BINARIES = {"pw.x": "1d66c7856f5d6b3cd9c66b8578e01512b16bbe907b4360e54234890712ccd6a1",
+               "projwfc.x": "456387be5ee32f358bc9835240b2e8bd1f8144a27a8e116731a1463dbf78ac85",
+               "mpirun": "a256bdcef89bdc61ba870e823056c51df868b4db48ab345a14278a7fe79ed75d"}
 
 
 def sha256(data: bytes) -> str:
@@ -184,29 +189,37 @@ def deck(job: str, geometry: dict) -> str:
                           geometry["fixed_atom_indices"], "atomic")
 
 
-def probe_deck(variant: str, geometry: dict) -> str:
-    """The production slab deck with exactly one registered change (asserted line by line)."""
-    job = "slab__atomic_" + variant
-    base = deck(job, geometry).split("\n")
-    lines = list(base)
+def variant_deck(text: str, variant: str, prefix: str) -> str:
+    """A production deck with a new prefix and exactly one registered recipe change (asserted).
+
+    Used for the probe decks now and, unchanged, for ceiling-stop re-run decks later.
+    """
+    base = text.split("\n")
+    prefixes = [line for line in base if line.startswith("  prefix = '")]
+    if len(prefixes) != 1:
+        raise ValueError("deck must have exactly one prefix line")
+    renamed = [f"  prefix = '{prefix}'" if line == prefixes[0] else line for line in base]
+    lines = list(renamed)
     if variant == "ndim16":
         lines.insert(lines.index("  mixing_beta = 0.3") + 1, "  mixing_ndim = 16")
-    elif variant == "cg":
-        lines.insert(lines.index("  mixing_beta = 0.3") + 1, "  diagonalization = 'cg'")
     elif variant == "hs":
-        species = hd.species_order(geometry["symbols"])
-        for i, element in enumerate(species, 1):
+        for i, element in enumerate(hd.parse_deck(text)["species"], 1):
             if element in hd.METALS:
                 old = f"  starting_magnetization({i}) = {hd.ELEMENTS[element]['mag']}"
                 lines[lines.index(old)] = f"  starting_magnetization({i}) = 1.0"
     else:
-        raise ValueError("unknown probe variant")
-    changed = [d for d in difflib.ndiff(base, lines) if d[:2] in ("- ", "+ ")]
-    if variant in ("ndim16", "cg") and changed != ["+ " + lines[lines.index("  mixing_beta = 0.3") + 1]]:
-        raise ValueError("probe deck differs by more than one inserted line")
+        raise ValueError("unknown recipe variant: " + variant)
+    changed = [d for d in difflib.ndiff(renamed, lines) if d[:2] in ("- ", "+ ")]
+    if variant == "ndim16" and changed != ["+   mixing_ndim = 16"]:
+        raise ValueError("variant deck differs by more than one inserted line")
     if variant == "hs" and (not changed or any("starting_magnetization" not in d for d in changed)):
-        raise ValueError("high-spin probe changes more than starting magnetization")
+        raise ValueError("high-spin deck changes more than starting magnetization")
     return "\n".join(lines)
+
+
+def probe_deck(variant: str, geometry: dict) -> str:
+    """The production slab deck of the probe site with one registered change."""
+    return variant_deck(deck("slab__atomic", geometry), variant, "slab__atomic_" + variant)
 
 
 def manifest_text(stage: str, jobs: list) -> str:
@@ -252,8 +265,8 @@ def build(root: Path = ROOT) -> dict:
                 probe_jobs.append({"dir": probe_dir, "job": job, "sha256": sha256(files[path]), "nk": NK,
                                    "scf_seconds": SCF_SECONDS, "projection_seconds": PROJECTION_SECONDS,
                                    "max_iterations": MAX_ITERATIONS, "variant": description})
-    if len(main_jobs) != 64 or len(probe_jobs) != 3:
-        raise ValueError("expected 64 production and 3 probe SCFs")
+    if len(main_jobs) != 64 or len(probe_jobs) != 2:
+        raise ValueError("expected 64 production and 2 probe SCFs")
     files[MANIFEST["arm_c_main"]] = manifest_text("arm_c_main", main_jobs).encode("utf-8")
     files[MANIFEST["arm_c_probe"]] = manifest_text("arm_c_probe", probe_jobs).encode("utf-8")
     upfs = sorted(hd.ELEMENTS[e]["pseudo"] for e in elements)
@@ -275,8 +288,9 @@ def build(root: Path = ROOT) -> dict:
         "decision_ref": "Frank, 2026-10-07: \"Go ahead. Yes to each add on.\"",
         "allocation": {"account": "che260157", "partition": "wholenode", "cores_per_task": 128,
                        "approved_campaign_ceiling_cpu_su": 23680,
-                       "this_launch_ceiling_cpu_su": 64 * WALL_MINUTES * 128 // 60 + 3 * WALL_MINUTES * 128 // 60,
+                       "this_launch_ceiling_cpu_su": (64 + 2) * WALL_MINUTES * 128 // 60,
                        "reserved_for_rerun_round_cpu_su": 1920},
+        "qe_binaries_sha256": QE_BINARIES,
         "files": dict(sorted(pins.items())),
         "pseudo_md5": pseudo_md5,
         "stages": {

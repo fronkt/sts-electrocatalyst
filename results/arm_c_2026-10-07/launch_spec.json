@@ -10,8 +10,13 @@
     "partition": "wholenode",
     "cores_per_task": 128,
     "approved_campaign_ceiling_cpu_su": 23680,
-    "this_launch_ceiling_cpu_su": 21440,
+    "this_launch_ceiling_cpu_su": 21120,
     "reserved_for_rerun_round_cpu_su": 1920
+  },
+  "qe_binaries_sha256": {
+    "pw.x": "1d66c7856f5d6b3cd9c66b8578e01512b16bbe907b4360e54234890712ccd6a1",
+    "projwfc.x": "456387be5ee32f358bc9835240b2e8bd1f8144a27a8e116731a1463dbf78ac85",
+    "mpirun": "a256bdcef89bdc61ba870e823056c51df868b4db48ab345a14278a7fe79ed75d"
   },
   "files": {
     "runs/hea/arm_c_2026-10-07/Cu22Fe30Co32Mn15__s24_site3/OH__atomic.in": "fcda7dad5858428bc91e9bfc9a8addb683a6eb87c6b2790fc1f09fb8102e374f",
@@ -78,11 +83,10 @@
     "runs/hea/arm_c_2026-10-07/Ni34Fe6Cu29Co31__s29_site1/OOH__atomic.in": "f93f3ef70b0dddb5321ce852f80613c04fdf0577cde261b0b6c06af2ca472938",
     "runs/hea/arm_c_2026-10-07/Ni34Fe6Cu29Co31__s29_site1/O__atomic.in": "f388432d891b8d4525b8798e4f3240bb29bde11f04a8ba0953fb2a72269153d1",
     "runs/hea/arm_c_2026-10-07/Ni34Fe6Cu29Co31__s29_site1/slab__atomic.in": "ae141ae43310c48f97a2be7fc7121ce0d085c0d76f59c57b931620c4d7069adb",
-    "runs/hea/arm_c_2026-10-07/probe__Fe25Co25Ni25Cr25__s2_site0/slab__atomic_cg.in": "80c1345d0fc70b96a05c1cae9752fd163416e46f496f4ceccd60cf942136c54f",
     "runs/hea/arm_c_2026-10-07/probe__Fe25Co25Ni25Cr25__s2_site0/slab__atomic_hs.in": "c65f664fa39f0fa3277a9016c2695162b5fe85495fceed2db94d66ce46966838",
     "runs/hea/arm_c_2026-10-07/probe__Fe25Co25Ni25Cr25__s2_site0/slab__atomic_ndim16.in": "c02740c0401718101e94bd54726e4fe1f07a1fe5a6d36a6350170c97cc6646d1",
     "runs/m_arm_c_2026-10-07_main.txt": "d8b6d37bdecf2d1fee0a5b3177fb4d61ece605860cc54deba4f0b04b1333f241",
-    "runs/m_arm_c_2026-10-07_probe.txt": "a8b142eba0ca308596abe360082a12a7c16815722502978dd6eff8191c5ecceb",
+    "runs/m_arm_c_2026-10-07_probe.txt": "d10d780c6c0f3282f87c32f89a373bc2bcdc2b737bc8160a158ae90bcde9e4db",
     "src/dft/hea_followup_qc.py": "ef9b50193f46034036b892263a3ee139426d912b2098ebdc5a897a82dc2769da",
     "src/dft/hea_force_audit.py": "bddbe7ba3bed9874e723d88f8bdab724bb4e83178f1f75bbc3a1f4034b9fd5d7",
     "src/dft/projection_qc.py": "dfc075634a99cee71e7287ea7868f62c59aa2666e4a593c61470b43d1bdd50f4",
@@ -686,7 +690,7 @@
     "arm_c_probe": {
       "kind": "hea",
       "manifest": "runs/m_arm_c_2026-10-07_probe.txt",
-      "concurrency": 3,
+      "concurrency": 2,
       "wall_minutes": 150,
       "jobs": [
         {
@@ -698,16 +702,6 @@
           "projection_seconds": 600,
           "max_iterations": 126,
           "variant": "mixing_ndim = 16"
-        },
-        {
-          "dir": "hea/arm_c_2026-10-07/probe__Fe25Co25Ni25Cr25__s2_site0",
-          "job": "slab__atomic_cg",
-          "sha256": "80c1345d0fc70b96a05c1cae9752fd163416e46f496f4ceccd60cf942136c54f",
-          "nk": 8,
-          "scf_seconds": 8100,
-          "projection_seconds": 600,
-          "max_iterations": 126,
-          "variant": "diagonalization = 'cg'"
         },
         {
           "dir": "hea/arm_c_2026-10-07/probe__Fe25Co25Ni25Cr25__s2_site0",

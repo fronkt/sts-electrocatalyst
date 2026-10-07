@@ -12,14 +12,21 @@ banked PBE H2O/H2 of runs/Cr_slab). Registered rules:
 * best sites: DFT eta at each alloy's best census site (the S8 re-rank gate), reported beside C;
 * Ni34 batch-2 nomination: Ni34Fe6Cu29Co31 is nominated if arm C ranks it first or second of
   the six alloys (requires all six values);
-* probe: the first variant in registered priority order whose SCF is accepted becomes the
-  recipe for ceiling-stopped re-runs.
+* failures: CEILING (iteration or wall ceiling; checked first, because a stopped run still prints
+  gfortran flag notes), IEEE (an IEEE_INVALID/OVERFLOW/DIVIDE_BY_ZERO marker in the SCF or the
+  projection output) or OTHER;
+* probe: the first variant in registered priority order whose SCF is accepted (converged, no IEEE
+  marker) becomes the recipe for ceiling-stopped re-runs; its energy and moments are reported
+  against the production control on the same slab;
+* re-run round (at most 6 SCFs): rerun_selection() below; a re-run replaces a failed state only if
+  it is accepted, and the state then carries its recipe; a chain mixing recipes is flagged.
 Informative only: per-site DFT - MLIP differences of eta and of each dG.
 """
 from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 import sys
 
@@ -31,6 +38,9 @@ STATES = ("slab", "OH", "O", "OOH")
 BATCH_1 = ("Cu8Cr23Mn35Co34", "Ni31Cr29Cu5Mn35", "Fe25Co25Ni25Cr25", "Cu26Ni9Cr31Co33", "Cu22Fe30Co32Mn15")
 NI34 = "Ni34Fe6Cu29Co31"
 CU8, NI31, FE25, CU22 = "Cu8Cr23Mn35Co34", "Ni31Cr29Cu5Mn35", "Fe25Co25Ni25Cr25", "Cu22Fe30Co32Mn15"
+RERUN_SLOTS = 6
+RERUN_ROOT = "hea/arm_c_2026-10-07_rerun"
+SEVERE = re.compile(r"IEEE_(?:INVALID|DIVIDE_BY_ZERO|OVERFLOW)")
 
 
 def accepted(run_dir: Path, job: str) -> dict:
@@ -39,11 +49,14 @@ def accepted(run_dir: Path, job: str) -> dict:
     parsed = hpr.parse_out(out)
     receipt_path = run_dir / (job + ".qc.json")
     receipt = json.loads(receipt_path.read_text(encoding="utf-8")) if receipt_path.exists() else None
+    projection = run_dir / (job + ".projwfc.out")
+    projection_text = projection.read_text(encoding="utf-8", errors="replace") if projection.exists() else ""
     row = {"job": job, "parser_status": parsed["status"], "receipt_status": receipt and receipt.get("status"),
            "reason": receipt and receipt.get("reason"), "severe_failures": parsed.get("severe_failures", []),
+           "projection_ieee": sorted(set(SEVERE.findall(projection_text))),
            "iterations": parsed.get("iterations"),
            "total_magnetization": parsed.get("totmag"), "absolute_magnetization": parsed.get("absmag"),
-           "E_eV": None, "accepted": False}
+           "E_eV": None, "accepted": False, "recipe": "production"}
     if receipt is None:
         row["problem"] = "no runner receipt"
         return row
@@ -59,24 +72,38 @@ def accepted(run_dir: Path, job: str) -> dict:
 
 
 def failure_class(row: dict) -> str | None:
-    """IEEE (identical re-run), CEILING (probe-recipe re-run) or OTHER; None if accepted."""
+    """CEILING (probe-recipe re-run), IEEE (identical re-run) or OTHER; None if accepted."""
     if row["accepted"]:
         return None
-    reason = (row.get("reason") or "") + " " + row["parser_status"]
-    # The runner may stop on the marker mid-run ("numerical failure marker"), so read the output too.
-    if "IEEE_" in reason or any("IEEE_" in str(f).upper() for f in row.get("severe_failures") or []):
-        return "IEEE"
-    if "ceiling" in reason.lower() or row["parser_status"] == "KILLED":
+    reason = row.get("reason") or ""
+    if row["parser_status"] == "KILLED" or "ceiling" in reason.lower():
         return "CEILING"
+    # The runner may stop on the marker mid-run ("numerical failure marker"), so read the outputs too.
+    if (SEVERE.search(reason) or any(SEVERE.search(str(f).upper()) for f in row.get("severe_failures") or [])
+            or row.get("projection_ieee")):
+        return "IEEE"
     return "OTHER"
 
 
-def site_result(site: dict, mirror: Path, gas: dict) -> dict:
+def site_result(site: dict, mirror: Path, gas: dict, substitutions: dict | None = None,
+                rerun_mirror: Path | None = None) -> dict:
     run_dir = mirror / "runs" / site["dir"]
     states = {s: accepted(run_dir, site["states"][s]["job"]) for s in STATES}
     out = {k: site[k] for k in ("formula", "seed", "site_index", "site_metal", "roles", "eta_mlip_V", "dir")}
+    out["original_failures"] = {s: failure_class(r) for s, r in states.items() if not r["accepted"]}
+    for state, sub in (substitutions or {}).items():
+        if states[state]["accepted"] or rerun_mirror is None:
+            continue
+        rerun = accepted(rerun_mirror / "runs" / sub["dir"], sub["job"])
+        rerun["recipe"] = sub["recipe"]
+        rerun["replaces"] = states[state]["job"]
+        if rerun["accepted"]:
+            states[state] = rerun
     out["states"] = states
     out["failures"] = {s: failure_class(r) for s, r in states.items() if not r["accepted"]}
+    recipes = sorted({r["recipe"] for r in states.values()})
+    out["recipes"] = recipes
+    out["mixed_recipe"] = len(recipes) > 1
     if out["failures"]:
         out["complete"] = False
         return out
@@ -90,6 +117,11 @@ def site_result(site: dict, mirror: Path, gas: dict) -> dict:
     return out
 
 
+def eval_fraction(text: str) -> float:
+    numerator, _, denominator = text.partition("/")
+    return int(numerator) / int(denominator or 1)
+
+
 def alloy_values(sites: list) -> dict:
     values = {}
     for formula in BATCH_1 + (NI34,):
@@ -99,7 +131,7 @@ def alloy_values(sites: list) -> dict:
             match = [s for s in own if slot in s["roles"]]
             if len(match) != 1:
                 raise ValueError(f"{formula}: expected one {slot} site")
-            supports.append((match[0], float(eval_fraction(match[0]["roles"][slot]["weight"]))))
+            supports.append((match[0], eval_fraction(match[0]["roles"][slot]["weight"])))
         done = [(s, w) for s, w in supports if s["complete"]]
         if len(done) == 2:
             value, status = sum(w * s["eta_dft_V"] for s, w in done), "TWO_SITE"
@@ -110,17 +142,14 @@ def alloy_values(sites: list) -> dict:
         best = [s for s in own if "best" in s["roles"]]
         values[formula] = {
             "C_V": value, "status": status,
+            "mixed_recipe": any(s.get("mixed_recipe") for s, _ in done),
             "supports": [{"site": f"s{s['seed']}/{s['site_index']}", "weight": w,
-                          "eta_dft_V": s.get("eta_dft_V"), "complete": s["complete"]} for s, w in supports],
+                          "eta_dft_V": s.get("eta_dft_V"), "complete": s["complete"],
+                          "recipes": s.get("recipes")} for s, w in supports],
             "p10_mlip_V": supports[0][0]["roles"]["support_lo"]["p10_V"],
             "best_site": ({"site": f"s{best[0]['seed']}/{best[0]['site_index']}", "eta_dft_V": best[0].get("eta_dft_V"),
                            "eta_mlip_V": best[0]["eta_mlip_V"], "complete": best[0]["complete"]} if best else None)}
     return values
-
-
-def eval_fraction(text: str) -> float:
-    numerator, _, denominator = text.partition("/")
-    return int(numerator) / int(denominator or 1)
 
 
 def predictions(values: dict) -> dict:
@@ -150,30 +179,91 @@ def predictions(values: dict) -> dict:
 def probe(plan: dict, mirror: Path) -> dict:
     source = plan["probe"]["source"]
     probe_dir = mirror / "runs" / "hea" / "arm_c_2026-10-07" / f"probe__{source['formula']}__s{source['seed']}_site{source['site_index']}"
+    control_site = next(s for s in plan["sites"] if (s["formula"], s["seed"], s["site_index"]) ==
+                        (source["formula"], source["seed"], source["site_index"]))
+    control = accepted(mirror / "runs" / control_site["dir"], control_site["states"]["slab"]["job"])
     rows = {v: accepted(probe_dir, "slab__atomic_" + v) for v in plan["probe"]["priority"]}
+    for row in rows.values():
+        if row["accepted"] and control["accepted"]:
+            row["energy_minus_control_meV"] = 1000 * (row["E_eV"] - control["E_eV"])
     chosen = next((v for v in plan["probe"]["priority"] if rows[v]["accepted"]), None)
-    return {"variants": rows, "rerun_recipe_for_ceiling_stops": chosen}
+    return {"control": control, "variants": rows, "rerun_recipe_for_ceiling_stops": chosen}
+
+
+def tier(site: dict) -> int:
+    supports = any(r.startswith("support") for r in site["roles"])
+    if supports and site["formula"] in (CU8, NI31, FE25):
+        return 1
+    if supports and site["formula"] in BATCH_1:
+        return 2
+    if supports:
+        return 3
+    return 4
+
+
+def rerun_selection(sites: list, probe_recipe: str | None, slots: int = RERUN_SLOTS) -> list:
+    """Registered re-run order; every repairable failed state of a chosen site, all or nothing.
+
+    A site is repairable only if each failed state is IEEE (identical re-run) or CEILING with a probe
+    recipe. Order: tier (1 Cu8/Ni31/Fe25 supports, 2 Cu26/Cu22 supports, 3 Ni34 supports, 4 best-only
+    sites), then fewer failed states, then site-plan order. A site whose failures exceed the remaining
+    slots is skipped and the next one is considered.
+    """
+    candidates = []
+    for order, site in enumerate(sites):
+        failures = site["original_failures"]
+        if not failures or site["complete"]:
+            continue
+        if any(c == "OTHER" or (c == "CEILING" and probe_recipe is None) for c in failures.values()):
+            continue
+        candidates.append((tier(site), len(failures), order, site))
+    chosen, remaining = [], slots
+    for _, count, _, site in sorted(candidates, key=lambda c: c[:3]):
+        if count > remaining:
+            continue
+        remaining -= count
+        name = site["dir"].rsplit("/", 1)[-1]
+        for state in STATES:
+            kind = site["original_failures"].get(state)
+            if kind is None:
+                continue
+            recipe = "production" if kind == "IEEE" else probe_recipe
+            job = state + "__atomic" + ("" if recipe == "production" else "_" + recipe)
+            chosen.append({"site_dir": site["dir"], "state": state, "failure": kind, "recipe": recipe,
+                           "dir": f"{RERUN_ROOT}/{name}", "job": job})
+    return chosen
 
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--plan", type=Path, required=True, help="results/arm_c_2026-10-07/site_plan.json")
     parser.add_argument("--mirror", type=Path, required=True, help="raw_mirror with runs/ as on Anvil")
+    parser.add_argument("--rerun-plan", type=Path, help="rerun_plan.json written by a re-run build")
+    parser.add_argument("--rerun-mirror", type=Path, help="raw_mirror of the re-run round")
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args(argv)
     plan = json.loads(args.plan.read_text(encoding="utf-8"))
     gas_records = hpr.gas_references()
     gas = {g: gas_records[g]["E_eV"] for g in ("H2O", "H2")}
-    sites = [site_result(site, args.mirror, gas) for site in plan["sites"]]
+    substitutions = {}
+    if args.rerun_plan:
+        for row in json.loads(args.rerun_plan.read_text(encoding="utf-8"))["selection"]:
+            substitutions.setdefault(row["site_dir"], {})[row["state"]] = row
+    sites = [site_result(site, args.mirror, gas, substitutions.get(site["dir"]), args.rerun_mirror)
+             for site in plan["sites"]]
     values = alloy_values(sites)
+    probe_result = probe(plan, args.mirror)
     result = {"schema": "s8-arm-c-readout-v1", "design": plan["design"], "gas_references": gas_records,
-              "sites": sites, "alloys": values, "predictions": predictions(values),
-              "probe": probe(plan, args.mirror),
-              "counts": {"scf_total": 4 * len(sites), "scf_accepted": sum(r["accepted"] for s in sites for r in s["states"].values()),
+              "sites": sites, "alloys": values, "predictions": predictions(values), "probe": probe_result,
+              "rerun_selection": (None if args.rerun_plan else
+                                  rerun_selection(sites, probe_result["rerun_recipe_for_ceiling_stops"])),
+              "counts": {"scf_total": 4 * len(sites),
+                         "scf_accepted": sum(r["accepted"] for s in sites for r in s["states"].values()),
                          "sites_complete": sum(s["complete"] for s in sites)}}
     args.out.write_bytes((json.dumps(result, indent=2) + "\n").encode("utf-8"))
     print(json.dumps({"counts": result["counts"], "predictions": result["predictions"],
-                      "probe_recipe": result["probe"]["rerun_recipe_for_ceiling_stops"]}, indent=2))
+                      "probe_recipe": probe_result["rerun_recipe_for_ceiling_stops"],
+                      "rerun_selection": result["rerun_selection"]}, indent=2))
     return 0
 
 

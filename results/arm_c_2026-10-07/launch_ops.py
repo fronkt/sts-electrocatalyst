@@ -4,10 +4,12 @@ Usage (local, background worker): python launch_ops.py <phase>
   stage     copy the committed bytes of a pushed commit to the dated Anvil root (inputs read-only), verify sha256
   preflight the unchanged runner's own --preflight for both stages, Python 3.9 imports, QE binaries,
             mybalance, an empty queue and the remote spec/Slurm sha256
-  submit    two `sbatch --hold --parsable --no-requeue` arrays: arm_c_main (1-64%60) and arm_c_probe (1-3%3)
+  submit    two `sbatch --hold --parsable --no-requeue` arrays: arm_c_main (1-64%60) and arm_c_probe (1-2%2)
   validate  scontrol shape of both held arrays
   release   one `scontrol release` per array
-Every phase writes its own receipt; no phase ever resubmits or retries a job.
+Every phase writes its own receipt; no phase ever resubmits or retries a job. The intent files
+block an automatic second submit or release: if a phase fails partway, a held array may remain on
+Anvil, and it is inspected and then cancelled or released by hand, with the action recorded.
 """
 import datetime as dt
 import hashlib
@@ -29,7 +31,8 @@ REMOTE = "/anvil/projects/x-che260157/sts_arm_c_2026-10-07"
 PROJECT = "/anvil/projects/x-che260157"
 PYTHON = "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3"
 ARRAYS = {"arm_c_main": {"array": "1-64%60", "tasks": 64, "throttle": "60", "name": "arm-c-main"},
-          "arm_c_probe": {"array": "1-3%3", "tasks": 3, "throttle": "3", "name": "arm-c-probe"}}
+          "arm_c_probe": {"array": "1-2%2", "tasks": 2, "throttle": "2", "name": "arm-c-probe"}}
+MIN_FREE_PROJECT_TB = 1.5  # about 18 GB of retained wavefunctions per SCF, 66 SCFs plus a re-run round
 TIME_LIMIT = "02:30:00"
 # repo-relative path -> expected sha256 of the committed blob (None: recorded, not pre-pinned)
 STAGE = dict(SPEC["files"])
@@ -75,7 +78,7 @@ def stage():
     remote = subprocess.check_output(["git", "ls-remote", "origin", "refs/heads/r0-catalysis-revival"], cwd=ROOT, text=True).split()[0]
     if subprocess.run(["git", "merge-base", "--is-ancestor", commit, remote], cwd=ROOT).returncode:
         raise SystemExit("launch commit is not pushed")
-    receipt = {"phase": "stage", "at": now(), "commit": commit, "files": [], "commands": {}}
+    receipt = {"phase": "stage", "at": now(), "commit": commit, "files": [], "commands": {}, "completed": False}
     # Read and verify every committed blob before touching Anvil, so a pin or line-ending
     # mismatch can never leave a half-staged, read-only root behind.
     blobs = {}
@@ -86,25 +89,47 @@ def stage():
             raise SystemExit("committed bytes differ from the pin or the working copy: " + rel)
         blobs[rel] = (REMOTE + "/" + rel, data, digest)
     client = connect()
-    sftp = client.open_sftp()
-    run(client, ["test", "!", "-e", REMOTE], receipt, "root_absent")
-    for rel, (target, data, digest) in sorted(blobs.items()):
-        run(client, ["mkdir", "-p", posixpath.dirname(target)], receipt, "mkdir:" + rel)
-        with sftp.open(target, "wb") as stream:
-            stream.write(data)
-        row = run(client, ["sha256sum", target], receipt, "sha:" + rel)
-        if row["stdout"].split()[0] != digest:
-            raise SystemExit("remote bytes differ: " + rel)
-        run(client, ["chmod", "0444", target], receipt, "chmod:" + rel)
-        receipt["files"].append({"repo_path": rel, "remote_path": target, "sha256": digest})
-    run(client, ["mkdir", REMOTE + "/logs"], receipt, "logs_dir")
-    receipt["spec_sha256"] = sha(SPEC_REL)
-    receipt["slurm_sha256"] = sha(SLURM_REL)
-    client.close()
-    write("stage_receipt.json", receipt)
+    try:
+        sftp = client.open_sftp()
+        run(client, ["test", "!", "-e", REMOTE], receipt, "root_absent")
+        for rel, (target, data, digest) in sorted(blobs.items()):
+            run(client, ["mkdir", "-p", posixpath.dirname(target)], receipt, "mkdir:" + rel)
+            with sftp.open(target, "wb") as stream:
+                stream.write(data)
+            row = run(client, ["sha256sum", target], receipt, "sha:" + rel)
+            if row["stdout"].split()[0] != digest:
+                raise SystemExit("remote bytes differ: " + rel)
+            run(client, ["chmod", "0444", target], receipt, "chmod:" + rel)
+            receipt["files"].append({"repo_path": rel, "remote_path": target, "sha256": digest})
+        run(client, ["mkdir", REMOTE + "/logs"], receipt, "logs_dir")
+        receipt["spec_sha256"] = sha(SPEC_REL)
+        receipt["slurm_sha256"] = sha(SLURM_REL)
+        receipt["completed"] = True
+    except BaseException as error:
+        receipt["error"] = repr(error)
+        raise
+    finally:
+        client.close()
+        write("stage_receipt.json", receipt)
+
+
+def project_free_tb(text):
+    """Free space of the x-che260157 project space from `myquota` (its Size and Limit columns)."""
+    units = {"KB": 1e-9, "MB": 1e-6, "GB": 1e-3, "TB": 1.0, "PB": 1e3}
+    rows = [line.split() for line in text.splitlines() if line.split()[:2] == ["projects", "x-che260157"]]
+    if len(rows) != 1:
+        return None
+    try:
+        size, limit = (float(token[:-2]) * units[token[-2:]] for token in rows[0][2:4])
+    except (KeyError, ValueError, IndexError):
+        return None
+    return limit - size
 
 
 def preflight():
+    staged = json.loads((HERE / "stage_receipt.json").read_text(encoding="utf-8"))
+    if not staged.get("completed") or staged.get("spec_sha256") != sha(SPEC_REL):
+        raise SystemExit("staging is not complete for this spec")
     receipt = {"phase": "preflight", "at": now(), "commands": {}, "spec_sha256": sha(SPEC_REL),
                "slurm_sha256": sha(SLURM_REL)}
     client = connect()
@@ -118,6 +143,10 @@ def preflight():
                  REMOTE + "/src/dft"], receipt, "imports")
     run(client, ["test", "-x", PROJECT + "/qe/env/bin/pw.x", "-a", "-x", PROJECT + "/qe/env/bin/projwfc.x",
                  "-a", "-x", PROJECT + "/qe/env/bin/mpirun"], receipt, "qe_binaries")
+    run(client, ["test", "-d", REMOTE + "/logs", "-a", "-w", REMOTE + "/logs"], receipt, "logs_dir")
+    binaries = run(client, ["sha256sum"] + [PROJECT + "/qe/env/bin/" + name for name in SPEC["qe_binaries_sha256"]],
+                   receipt, "qe_sha")
+    run(client, "bash -lc myquota", receipt, "myquota")
     run(client, "mybalance", receipt, "mybalance")
     queue = run(client, ["squeue", "-u", "x-fcai3", "-h", "-o", "%i|%j|%T"], receipt, "squeue")
     run(client, ["sha256sum", spec, REMOTE + "/" + SLURM_REL], receipt, "remote_sha")
@@ -127,13 +156,20 @@ def preflight():
     balance = [line.split() for line in receipt["commands"]["mybalance"]["stdout"].splitlines() if line.startswith("che260157 ")]
     receipt["balance_su"] = float(balance[0][-1]) if balance else None
     receipt["queued_jobs"] = [line for line in queue["stdout"].splitlines() if line.strip()]
+    found = {line.split()[1].rsplit("/", 1)[-1]: line.split()[0]
+             for line in binaries["stdout"].splitlines() if line.strip()}
+    receipt["qe_binaries_match"] = found == SPEC["qe_binaries_sha256"]
+    receipt["project_free_TB"] = project_free_tb(receipt["commands"]["myquota"]["stdout"])
     receipt["passed"] = (all(receipt["commands"]["preflight:" + s]["stdout"].strip() == "VALID" for s in ARRAYS)
                          and receipt["commands"]["imports"]["stdout"].strip() == "IMPORTS_OK"
                          and shas.get(spec) == receipt["spec_sha256"]
                          and shas.get(REMOTE + "/" + SLURM_REL) == receipt["slurm_sha256"]
                          and not receipt["queued_jobs"]
                          and receipt["balance_su"] is not None
-                         and receipt["balance_su"] >= SPEC["allocation"]["approved_campaign_ceiling_cpu_su"])
+                         and receipt["balance_su"] >= SPEC["allocation"]["approved_campaign_ceiling_cpu_su"]
+                         and receipt["qe_binaries_match"]
+                         and receipt["project_free_TB"] is not None
+                         and receipt["project_free_TB"] >= MIN_FREE_PROJECT_TB)
     write("preflight_receipt.json", receipt)
     if not receipt["passed"]:
         raise SystemExit("preflight did not pass")
