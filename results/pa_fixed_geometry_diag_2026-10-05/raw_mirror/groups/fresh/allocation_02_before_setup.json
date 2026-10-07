@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "scontrol",
+    "show",
+    "job",
+    "21105327",
+    "-o"
+  ],
+  "observed_utc": "2026-10-06T12:06:07.899893+00:00",
+  "returncode": 0,
+  "stderr": "",
+  "stdout": "JobId=21105327 JobName=pa-fgd-fresh UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=1571 Nice=0 Account=che260157 QOS=cpu JobState=RUNNING Reason=None Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=01:31:20 TimeLimit=04:20:00 TimeMin=N/A SubmitTime=2026-10-05T17:57:06 EligibleTime=2026-10-05T17:58:08 AccrueTime=2026-10-05T17:58:08 StartTime=2026-10-06T06:34:47 EndTime=2026-10-06T10:54:47 Deadline=N/A PreemptEligibleTime=2026-10-06T06:34:47 PreemptTime=None SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-06T06:34:47 Scheduler=Backfill Partition=wholenode AllocNode:Sid=login06:17286 ReqNodeList=(null) ExcNodeList=(null) NodeList=a396 BatchHost=a396 NumNodes=1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=200G,node=1,billing=128 AllocTRES=cpu=128,mem=200G,node=1,billing=128 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=200G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NODE Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/anvil/91_pa_fixed_geometry_diag.slurm SubmitLine=sbatch --hold --parsable --no-requeue --time=04:20:00 --job-name=pa-fgd-fresh --export=ALL,STS_DIAG_GROUP=fresh,STS_DIAG_SPEC_SHA256=de20fc6e16c66a7a6ca1972c30e9c64d4f668a35460ea89a0d29f01cbfef7bd5 /anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/anvil/91_pa_fixed_geometry_diag.slurm WorkDir=/home/x-fcai3 StdErr=/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/diag_pa-fgd-fresh_21105327.log StdIn=/dev/null StdOut=/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/diag_pa-fgd-fresh_21105327.log TresPerTask=cpu=1\n"
+}

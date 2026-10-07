@@ -1,0 +1,74 @@
+{
+  "at": "2026-10-06T05:41:50.701331+00:00",
+  "readonly": true,
+  "rc": 0,
+  "stderr": "",
+  "jobs": {
+    "replay": "21105325",
+    "ladder": "21105326",
+    "fresh": "21105327"
+  },
+  "remote": {
+    "commands": {
+      "squeue": {
+        "rc": 0,
+        "stdout": "21105327|pa-fgd-fresh|PENDING|0:00|4:20:00|2026-10-06T18:51:54|(Priority)\n21105325|pa-fgd-replay|PENDING|0:00|4:30:00|2026-10-06T18:37:53|(Priority)\n21105326|pa-fgd-ladder|PENDING|0:00|6:45:00|2026-10-06T18:37:53|(Priority)\n",
+        "stderr": ""
+      },
+      "squeue_start": {
+        "rc": 0,
+        "stdout": "21105325|pa-fgd-replay|PENDING|2026-10-06T18:37:53|(Priority)\n21105326|pa-fgd-ladder|PENDING|2026-10-06T18:37:53|(Priority)\n21105327|pa-fgd-fresh|PENDING|2026-10-06T18:51:54|(Priority)\n",
+        "stderr": ""
+      },
+      "sacct": {
+        "rc": 0,
+        "stdout": "21105325|pa-fgd-replay|PENDING|00:00:00|Unknown|Unknown|0:0|0\n21105326|pa-fgd-ladder|PENDING|00:00:00|Unknown|Unknown|0:0|0\n21105327|pa-fgd-fresh|PENDING|00:00:00|Unknown|Unknown|0:0|0\n",
+        "stderr": ""
+      },
+      "balance": {
+        "rc": 0,
+        "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    100000.0     63578.6    63578.6     36421.4\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+        "stderr": ""
+      },
+      "scontrol:21105325": {
+        "JobState": "PENDING",
+        "Reason": "Priority",
+        "Priority": "986",
+        "SubmitTime": "2026-10-05T17:57:05",
+        "EligibleTime": "2026-10-05T17:58:07",
+        "StartTime": "2026-10-06T18:37:53",
+        "EndTime": "2026-10-06T23:07:53",
+        "TimeLimit": "04:30:00",
+        "NodeList": "",
+        "SchedNodeList": "a632"
+      },
+      "scontrol:21105326": {
+        "JobState": "PENDING",
+        "Reason": "Priority",
+        "Priority": "986",
+        "SubmitTime": "2026-10-05T17:57:05",
+        "EligibleTime": "2026-10-05T17:58:07",
+        "StartTime": "2026-10-06T18:37:53",
+        "EndTime": "2026-10-07T01:22:53",
+        "TimeLimit": "06:45:00",
+        "NodeList": "",
+        "SchedNodeList": "a633"
+      },
+      "scontrol:21105327": {
+        "JobState": "PENDING",
+        "Reason": "Priority",
+        "Priority": "986",
+        "SubmitTime": "2026-10-05T17:57:06",
+        "EligibleTime": "2026-10-05T17:58:08",
+        "StartTime": "2026-10-06T18:51:54",
+        "EndTime": "2026-10-06T23:11:54",
+        "TimeLimit": "04:20:00",
+        "NodeList": "",
+        "SchedNodeList": "a614"
+      }
+    },
+    "groups": {},
+    "groups_dir_exists": false,
+    "slurm_logs": {}
+  }
+}

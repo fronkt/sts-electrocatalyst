@@ -1,0 +1,8 @@
+{
+  "python": "C:/Users/frank/AppData/Local/Programs/Python/Python312/pythonw.exe",
+  "worker": "C:/Users/frank/AppData/Local/Temp/sts-background-2026-09-06/worker.py",
+  "cwd": "C:/Users/frank/sts-electrocatalyst",
+  "log": "C:/Users/frank/sts-electrocatalyst/results/pa_fixed_geometry_diag_2026-10-05/interim_readout.log",
+  "status": "C:/Users/frank/sts-electrocatalyst/results/pa_fixed_geometry_diag_2026-10-05/interim_readout.status.json",
+  "code": "import sys, runpy\nfor extra, out in ((['--groups', 'results/pa_fixed_geometry_diag_2026-10-05/interim_2026-10-06_readout/groups'], 'results/pa_fixed_geometry_diag_2026-10-05/interim_2026-10-06_readout/interim_readout_registered.json'), ([], 'results/pa_fixed_geometry_diag_2026-10-05/interim_2026-10-06_readout/interim_readout_unfiltered_informative.json')):\n    sys.argv=['pa_fixed_geometry_readout.py', '--trial', 'results/pa_catalyst_retest_readout_2026-10-05/raw_mirror/trial_results', '--runs', 'results/pa_fixed_geometry_diag_2026-10-05/interim_2026-10-06_readout/runs', '--out', out]+extra\n    try:\n        runpy.run_path('src/dft/pa_fixed_geometry_readout.py', run_name='__main__')\n    except SystemExit as e:\n        print('exit', e.code, out, flush=True)\n"
+}

@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "scontrol",
+    "show",
+    "job",
+    "21105326",
+    "-o"
+  ],
+  "observed_utc": "2026-10-06T14:40:36.543765+00:00",
+  "returncode": 0,
+  "stderr": "",
+  "stdout": "JobId=21105326 JobName=pa-fgd-ladder UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=1988 Nice=0 Account=che260157 QOS=cpu JobState=RUNNING Reason=None Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:36:36 TimeLimit=06:45:00 TimeMin=N/A SubmitTime=2026-10-05T17:57:05 EligibleTime=2026-10-05T17:58:07 AccrueTime=2026-10-05T17:58:08 StartTime=2026-10-06T10:04:00 EndTime=2026-10-06T16:49:00 Deadline=N/A PreemptEligibleTime=2026-10-06T10:04:00 PreemptTime=None SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-06T10:04:00 Scheduler=Backfill Partition=wholenode AllocNode:Sid=login06:17145 ReqNodeList=(null) ExcNodeList=(null) NodeList=a558 BatchHost=a558 NumNodes=1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=200G,node=1,billing=128 AllocTRES=cpu=128,mem=200G,node=1,billing=128 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=200G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NODE Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/anvil/91_pa_fixed_geometry_diag.slurm SubmitLine=sbatch --hold --parsable --no-requeue --time=06:45:00 --job-name=pa-fgd-ladder --export=ALL,STS_DIAG_GROUP=ladder,STS_DIAG_SPEC_SHA256=de20fc6e16c66a7a6ca1972c30e9c64d4f668a35460ea89a0d29f01cbfef7bd5 /anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/anvil/91_pa_fixed_geometry_diag.slurm WorkDir=/home/x-fcai3 StdErr=/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/diag_pa-fgd-ladder_21105326.log StdIn=/dev/null StdOut=/anvil/projects/x-che260157/sts_pa_fixed_geometry_diag_2026-10-05/diag_pa-fgd-ladder_21105326.log TresPerTask=cpu=1\n"
+}

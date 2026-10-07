@@ -1,0 +1,224 @@
+{
+  "at": "2026-10-06T14:55:01.969964+00:00",
+  "readonly": true,
+  "rc": 0,
+  "stderr": "",
+  "jobs": {
+    "replay": "21105325",
+    "ladder": "21105326",
+    "fresh": "21105327"
+  },
+  "remote": {
+    "commands": {
+      "squeue": {
+        "rc": 0,
+        "stdout": "21105326|pa-fgd-ladder|RUNNING|51:01|6:45:00|2026-10-06T10:04:00|a558\n",
+        "stderr": ""
+      },
+      "squeue_start": {
+        "rc": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "sacct": {
+        "rc": 0,
+        "stdout": "21105325|pa-fgd-replay|FAILED|00:59:51|2026-10-06T05:41:09|2026-10-06T06:41:00|3:0|459648\n21105326|pa-fgd-ladder|RUNNING|00:51:01|2026-10-06T10:04:00|Unknown|0:0|391808\n21105327|pa-fgd-fresh|COMPLETED|02:13:56|2026-10-06T06:34:47|2026-10-06T08:48:43|0:0|1028608\n",
+        "stderr": ""
+      },
+      "balance": {
+        "rc": 0,
+        "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    100000.0     64094.6    64094.6     35905.4\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+        "stderr": ""
+      },
+      "scontrol:21105325": {
+        "JobState": null,
+        "Reason": null,
+        "Priority": null,
+        "SubmitTime": null,
+        "EligibleTime": null,
+        "StartTime": null,
+        "EndTime": null,
+        "TimeLimit": null,
+        "NodeList": null,
+        "SchedNodeList": null
+      },
+      "scontrol:21105326": {
+        "JobState": "RUNNING",
+        "Reason": "None",
+        "Priority": "1988",
+        "SubmitTime": "2026-10-05T17:57:05",
+        "EligibleTime": "2026-10-05T17:58:07",
+        "StartTime": "2026-10-06T10:04:00",
+        "EndTime": "2026-10-06T16:49:00",
+        "TimeLimit": "06:45:00",
+        "NodeList": "a558",
+        "SchedNodeList": null
+      },
+      "scontrol:21105327": {
+        "JobState": null,
+        "Reason": null,
+        "Priority": null,
+        "SubmitTime": null,
+        "EligibleTime": null,
+        "StartTime": null,
+        "EndTime": null,
+        "TimeLimit": null,
+        "NodeList": null,
+        "SchedNodeList": null
+      }
+    },
+    "groups": {
+      "fresh": {
+        "entries": [
+          "allocation_01_before_launch.json",
+          "allocation_01_before_setup.json",
+          "allocation_02_before_launch.json",
+          "allocation_02_before_setup.json",
+          "group_receipt.json"
+        ],
+        "calls": [
+          {
+            "name": "D1_fresh_1e-8",
+            "status": "COMPLETED",
+            "error": null
+          },
+          {
+            "name": "D2_fresh_1e-10",
+            "status": "COMPLETED",
+            "error": null
+          }
+        ],
+        "all_calls_completed": true
+      },
+      "ladder": {
+        "entries": [
+          "allocation_01_before_launch.json",
+          "allocation_01_before_setup.json",
+          "allocation_02_before_launch.json",
+          "allocation_02_before_setup.json",
+          "allocation_03_before_launch.json",
+          "allocation_03_before_setup.json",
+          "group_receipt.json"
+        ],
+        "calls": [
+          {
+            "name": "C1_warm_1e-6",
+            "status": "COMPLETED",
+            "error": null
+          },
+          {
+            "name": "C2_warm_1e-8",
+            "status": "COMPLETED",
+            "error": null
+          },
+          {
+            "name": "C3_warm_1e-10",
+            "status": null,
+            "error": null
+          }
+        ],
+        "all_calls_completed": null
+      },
+      "replay": {
+        "entries": [
+          "allocation_01_before_launch.json",
+          "allocation_01_before_setup.json",
+          "allocation_02_before_launch.json",
+          "allocation_02_before_setup.json",
+          "group_receipt.json"
+        ],
+        "calls": [
+          {
+            "name": "A_replay",
+            "status": "FAILED",
+            "error": null
+          },
+          {
+            "name": "B_ethr",
+            "status": "COMPLETED",
+            "error": null
+          }
+        ],
+        "all_calls_completed": false
+      }
+    },
+    "groups_dir_exists": true,
+    "slurm_logs": {
+      "diag_pa-fgd-fresh_21105327.log": "",
+      "diag_pa-fgd-ladder_21105326.log": "",
+      "diag_pa-fgd-replay_21105325.log": ""
+    },
+    "run_tails": {
+      "A_replay": {
+        "bytes": 186535,
+        "last_accuracy": [
+          "     estimated scf accuracy    <       0.00000314 Ry",
+          "     estimated scf accuracy    <       0.00000198 Ry",
+          "     estimated scf accuracy    <       0.00000081 Ry"
+        ],
+        "iterations": 12,
+        "done": true
+      },
+      "B_ethr": {
+        "bytes": 331231,
+        "last_accuracy": [
+          "     estimated scf accuracy    <       0.00000010 Ry",
+          "     estimated scf accuracy    <       0.00000008 Ry",
+          "     estimated scf accuracy    <       0.00000007 Ry"
+        ],
+        "iterations": 35,
+        "done": true
+      },
+      "C1_warm_1e-6": {
+        "bytes": 179953,
+        "last_accuracy": [
+          "     estimated scf accuracy    <       0.00000305 Ry",
+          "     estimated scf accuracy    <       0.00000191 Ry",
+          "     estimated scf accuracy    <       0.00000078 Ry"
+        ],
+        "iterations": 12,
+        "done": true
+      },
+      "C2_warm_1e-8": {
+        "bytes": 182167,
+        "last_accuracy": [
+          "     estimated scf accuracy    <       0.00000002 Ry",
+          "     estimated scf accuracy    <       0.00000001 Ry",
+          "     estimated scf accuracy    <          9.5E-09 Ry"
+        ],
+        "iterations": 17,
+        "done": true
+      },
+      "C3_warm_1e-10": {
+        "bytes": 77817,
+        "last_accuracy": [
+          "     estimated scf accuracy    <          5.1E-09 Ry",
+          "     estimated scf accuracy    <          4.1E-09 Ry",
+          "     estimated scf accuracy    <          4.0E-09 Ry"
+        ],
+        "iterations": 12,
+        "done": false
+      },
+      "D1_fresh_1e-8": {
+        "bytes": 212176,
+        "last_accuracy": [
+          "     estimated scf accuracy    <       0.00000002 Ry",
+          "     estimated scf accuracy    <       0.00000001 Ry",
+          "     estimated scf accuracy    <       0.00000001 Ry"
+        ],
+        "iterations": 80,
+        "done": true
+      },
+      "D2_fresh_1e-10": {
+        "bytes": 190333,
+        "last_accuracy": [
+          "     estimated scf accuracy    <          1.5E-10 Ry",
+          "     estimated scf accuracy    <          1.2E-10 Ry",
+          "     estimated scf accuracy    <          8.8E-11 Ry"
+        ],
+        "iterations": 34,
+        "done": true
+      }
+    }
+  }
+}

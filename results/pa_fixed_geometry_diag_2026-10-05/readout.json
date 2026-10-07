@@ -1,0 +1,530 @@
+{
+  "schema": "pa-fixed-geometry-readout-v1",
+  "gate": {
+    "energy_Ry": 1e-06,
+    "position_bohr": 1e-05,
+    "force_Ry_bohr": 1e-05
+  },
+  "trial_check": {
+    "metrics": {
+      "energy_Ry": 1.0524217941565439e-07,
+      "position_bohr": 1.450266573499448e-10,
+      "force_Ry_bohr": 0.00011464205365793734
+    },
+    "gate_failures": [
+      "force_Ry_bohr"
+    ],
+    "max_force_component": {
+      "absolute": 0.00011464205365793734,
+      "atom": 20,
+      "species": "Co",
+      "axis": "z",
+      "left": -0.016696717618337235,
+      "right": -0.016811359671995173
+    },
+    "max_position_component": {
+      "absolute": 1.450266573499448e-10,
+      "atom": 13,
+      "species": "Co",
+      "axis": "y",
+      "left": 2.881346777208423,
+      "right": 2.88134677735345
+    },
+    "energy_delta_meV": 0.0014318927967244695,
+    "force_delta_eV_per_angstrom": 0.002947565709411513,
+    "max_hubbard_trace_delta": 7.00000000000145e-05,
+    "total_magnetization_delta": 0.0,
+    "absolute_magnetization_delta": 0.0
+  },
+  "controller_status": {
+    "D1_fresh_1e-8": "COMPLETED",
+    "D2_fresh_1e-10": "COMPLETED",
+    "C1_warm_1e-6": "COMPLETED",
+    "C2_warm_1e-8": "COMPLETED",
+    "C3_warm_1e-10": "COMPLETED",
+    "A_replay": "FAILED",
+    "B_ethr": "COMPLETED"
+  },
+  "excluded_arms": {
+    "A_replay": "controller status FAILED"
+  },
+  "start_checks": {
+    "B_ethr": {
+      "wfc_from_file": true,
+      "wfc_fallback": false,
+      "density_from_file": true,
+      "valid": true
+    },
+    "C1_warm_1e-6": {
+      "wfc_from_file": true,
+      "wfc_fallback": false,
+      "density_from_file": true,
+      "valid": true
+    },
+    "C2_warm_1e-8": {
+      "wfc_from_file": true,
+      "wfc_fallback": false,
+      "density_from_file": true,
+      "valid": true
+    },
+    "C3_warm_1e-10": {
+      "wfc_from_file": true,
+      "wfc_fallback": false,
+      "density_from_file": true,
+      "valid": true
+    },
+    "D1_fresh_1e-8": {
+      "wfc_from_file": false,
+      "wfc_fallback": false,
+      "density_from_file": false,
+      "valid": true
+    },
+    "D2_fresh_1e-10": {
+      "wfc_from_file": true,
+      "wfc_fallback": false,
+      "density_from_file": true,
+      "valid": true
+    }
+  },
+  "arms": {
+    "B_ethr": [
+      {
+        "status": "CONVERGED",
+        "iterations": 12,
+        "xml_scf_error_Ry": 7.335460638661496e-07,
+        "final_accuracy_Ry": 7.3e-07,
+        "first_ethr_Ry": 1e-06,
+        "energy_Ry": -7551.868205100634,
+        "total_force_Ry_bohr": 0.033087,
+        "total_scf_correction_Ry_bohr": 0.002708,
+        "total_magnetization": 50.24,
+        "absolute_magnetization": 68.16,
+        "fermi_energy_eV": -0.7464
+      },
+      {
+        "status": "CONVERGED",
+        "iterations": 23,
+        "xml_scf_error_Ry": 7.287153148794782e-08,
+        "final_accuracy_Ry": 7e-08,
+        "first_ethr_Ry": 1e-06,
+        "energy_Ry": -7551.869478374532,
+        "total_force_Ry_bohr": 0.026649,
+        "total_scf_correction_Ry_bohr": 0.000238,
+        "total_magnetization": 50.23,
+        "absolute_magnetization": 68.13,
+        "fermi_energy_eV": -0.7467
+      }
+    ],
+    "C1_warm_1e-6": [
+      {
+        "status": "CONVERGED",
+        "iterations": 12,
+        "xml_scf_error_Ry": 7.849612030336626e-07,
+        "final_accuracy_Ry": 7.8e-07,
+        "first_ethr_Ry": 1e-05,
+        "energy_Ry": -7551.868205058088,
+        "total_force_Ry_bohr": 0.033119,
+        "total_scf_correction_Ry_bohr": 0.002795,
+        "total_magnetization": 50.2435689730077,
+        "absolute_magnetization": 68.15785533885128,
+        "fermi_energy_eV": -0.7464
+      }
+    ],
+    "C2_warm_1e-8": [
+      {
+        "status": "CONVERGED",
+        "iterations": 17,
+        "xml_scf_error_Ry": 9.546288385862965e-09,
+        "final_accuracy_Ry": 9.5e-09,
+        "first_ethr_Ry": 1e-05,
+        "energy_Ry": -7551.868206287446,
+        "total_force_Ry_bohr": 0.033304,
+        "total_scf_correction_Ry_bohr": 0.000112,
+        "total_magnetization": 50.24027583052221,
+        "absolute_magnetization": 68.15682551159475,
+        "fermi_energy_eV": -0.7454
+      }
+    ],
+    "C3_warm_1e-10": [
+      {
+        "status": "CONVERGED",
+        "iterations": 31,
+        "xml_scf_error_Ry": 9.112892454174288e-11,
+        "final_accuracy_Ry": 9.1e-11,
+        "first_ethr_Ry": 1e-05,
+        "energy_Ry": -7551.868206448054,
+        "total_force_Ry_bohr": 0.033346,
+        "total_scf_correction_Ry_bohr": 1.9e-05,
+        "total_magnetization": 50.23992579491688,
+        "absolute_magnetization": 68.15687460502741,
+        "fermi_energy_eV": -0.7454
+      }
+    ],
+    "D1_fresh_1e-8": [
+      {
+        "status": "CAPPED_UNCONVERGED",
+        "iterations": 80,
+        "xml_scf_error_Ry": 1.1220517571261893e-08,
+        "final_accuracy_Ry": 1e-08,
+        "first_ethr_Ry": 0.01,
+        "energy_Ry": -7551.868206257896,
+        "total_force_Ry_bohr": 0.033387,
+        "total_scf_correction_Ry_bohr": 0.000213,
+        "total_magnetization": 50.24020986722409,
+        "absolute_magnetization": 68.15725577025036,
+        "fermi_energy_eV": -0.7453
+      }
+    ],
+    "D2_fresh_1e-10": [
+      {
+        "status": "CONVERGED",
+        "iterations": 34,
+        "xml_scf_error_Ry": 8.77133078376671e-11,
+        "final_accuracy_Ry": 8.8e-11,
+        "first_ethr_Ry": 1e-05,
+        "energy_Ry": -7551.868206448762,
+        "total_force_Ry_bohr": 0.033348,
+        "total_scf_correction_Ry_bohr": 1.8e-05,
+        "total_magnetization": 50.23997666523767,
+        "absolute_magnetization": 68.15691930676113,
+        "fermi_energy_eV": -0.7454
+      }
+    ]
+  },
+  "readings": {
+    "R2_startup_threshold": {
+      "control_eval2_vs_B": {
+        "metrics": {
+          "energy_Ry": 8.158804121194407e-08,
+          "position_bohr": 1.450266573499448e-10,
+          "force_Ry_bohr": 9.182726497679794e-05
+        },
+        "gate_failures": [
+          "force_Ry_bohr"
+        ],
+        "max_force_component": {
+          "absolute": 9.182726497679794e-05,
+          "atom": 21,
+          "species": "Co",
+          "axis": "z",
+          "left": 0.002697380739852856,
+          "right": 0.002789208004829654
+        },
+        "max_position_component": {
+          "absolute": 1.450266573499448e-10,
+          "atom": 13,
+          "species": "Co",
+          "axis": "y",
+          "left": 2.881346777208423,
+          "right": 2.88134677735345
+        },
+        "energy_delta_meV": -0.0011100618512358985,
+        "force_delta_eV_per_angstrom": 0.00236097390790168,
+        "max_hubbard_trace_delta": 5.999999999994898e-05,
+        "total_magnetization_delta": 0.0,
+        "absolute_magnetization_delta": 0.0
+      },
+      "control_eval3_vs_B": {
+        "metrics": {
+          "energy_Ry": 2.468582351866644e-06,
+          "position_bohr": 0.00010588708640923983,
+          "force_Ry_bohr": 6.559037808529823e-05
+        },
+        "gate_failures": [
+          "energy_Ry",
+          "position_bohr",
+          "force_Ry_bohr"
+        ],
+        "max_force_component": {
+          "absolute": 6.559037808529823e-05,
+          "atom": 21,
+          "species": "Co",
+          "axis": "z",
+          "left": -0.002209974210069122,
+          "right": -0.00227556458815442
+        },
+        "max_position_component": {
+          "absolute": 0.00010588708640923983,
+          "atom": 21,
+          "species": "Co",
+          "axis": "z",
+          "left": 29.86605276484326,
+          "right": 29.86615865192967
+        },
+        "energy_delta_meV": -0.033586773928336346,
+        "force_delta_eV_per_angstrom": 0.0016863964238499661,
+        "max_hubbard_trace_delta": 5.0000000000105516e-05,
+        "total_magnetization_delta": 0.0,
+        "absolute_magnetization_delta": 0.0
+      },
+      "B_vs_A_eval2": null,
+      "reading": "ETHR_INSUFFICIENT"
+    },
+    "R3_force_precision": {
+      "reference": "C3_warm_1e-10",
+      "reference_summary": {
+        "status": "CONVERGED",
+        "iterations": 31,
+        "xml_scf_error_Ry": 9.112892454174288e-11,
+        "final_accuracy_Ry": 9.1e-11,
+        "first_ethr_Ry": 1e-05,
+        "energy_Ry": -7551.868206448054,
+        "total_force_Ry_bohr": 0.033346,
+        "total_scf_correction_Ry_bohr": 1.9e-05,
+        "total_magnetization": 50.23992579491688,
+        "absolute_magnetization": 68.15687460502741,
+        "fermi_energy_eV": -0.7454
+      },
+      "reference_capped": false,
+      "rung_status": [
+        "CONVERGED",
+        "CONVERGED",
+        "CONVERGED"
+      ],
+      "reference_precision_bound_Ry_bohr": 0.00014223132042675201,
+      "errors_vs_reference": {
+        "control_eval2": {
+          "metrics": {
+            "energy_Ry": 1.4290071703726426e-06,
+            "position_bohr": 1.450266573499448e-10,
+            "force_Ry_bohr": 0.00037057837062426597
+          },
+          "gate_failures": [
+            "energy_Ry",
+            "force_Ry_bohr"
+          ],
+          "max_force_component": {
+            "absolute": 0.00037057837062426597,
+            "atom": 12,
+            "species": "Co",
+            "axis": "z",
+            "left": -0.0014854357639706214,
+            "right": -0.0011148573933463554
+          },
+          "max_position_component": {
+            "absolute": 1.450266573499448e-10,
+            "atom": 13,
+            "species": "Co",
+            "axis": "y",
+            "left": 2.881346777208423,
+            "right": 2.88134677735345
+          },
+          "energy_delta_meV": -0.01944263303064818,
+          "force_delta_eV_per_angstrom": 0.009527952989753953,
+          "max_hubbard_trace_delta": 0.0008499999999997954,
+          "total_magnetization_delta": 7.420508312350194e-05,
+          "absolute_magnetization_delta": 0.003125394972585127
+        },
+        "resumed_eval2": {
+          "metrics": {
+            "energy_Ry": 1.534249349788297e-06,
+            "position_bohr": 0.0,
+            "force_Ry_bohr": 0.00040008169141430845
+          },
+          "gate_failures": [
+            "energy_Ry",
+            "force_Ry_bohr"
+          ],
+          "max_force_component": {
+            "absolute": 0.00040008169141430845,
+            "atom": 12,
+            "species": "Co",
+            "axis": "z",
+            "left": -0.0015149390847606639,
+            "right": -0.0011148573933463554
+          },
+          "max_position_component": {
+            "absolute": 0.0,
+            "atom": 72,
+            "species": "O",
+            "axis": "z",
+            "left": 30.22274469289774,
+            "right": 30.22274469289774
+          },
+          "energy_delta_meV": -0.020874525827372648,
+          "force_delta_eV_per_angstrom": 0.01028651386597458,
+          "max_hubbard_trace_delta": 0.0008499999999997954,
+          "total_magnetization_delta": 7.420508312350194e-05,
+          "absolute_magnetization_delta": 0.003125394972585127
+        },
+        "C1_1e-6": {
+          "metrics": {
+            "energy_Ry": 1.389965291309636e-06,
+            "position_bohr": 0.0,
+            "force_Ry_bohr": 0.0003583616927752176
+          },
+          "gate_failures": [
+            "energy_Ry",
+            "force_Ry_bohr"
+          ],
+          "max_force_component": {
+            "absolute": 0.0003583616927752176,
+            "atom": 21,
+            "species": "Co",
+            "axis": "z",
+            "left": 0.002781328619775358,
+            "right": 0.00242296692700014
+          },
+          "max_position_component": {
+            "absolute": 0.0,
+            "atom": 72,
+            "species": "O",
+            "axis": "z",
+            "left": 30.22274469289774,
+            "right": 30.22274469289774
+          },
+          "energy_delta_meV": -0.018911441205171867,
+          "force_delta_eV_per_angstrom": 0.009213849573408803,
+          "max_hubbard_trace_delta": 0.0008999999999996788,
+          "total_magnetization_delta": 0.0036431780908188216,
+          "absolute_magnetization_delta": 0.0009807338238658758
+        },
+        "C2_1e-8": {
+          "metrics": {
+            "energy_Ry": 1.606076693860814e-07,
+            "position_bohr": 0.0,
+            "force_Ry_bohr": 0.00014223132042675201
+          },
+          "gate_failures": [
+            "force_Ry_bohr"
+          ],
+          "max_force_component": {
+            "absolute": 0.00014223132042675201,
+            "atom": 21,
+            "species": "Co",
+            "axis": "y",
+            "left": -0.00255831277435473,
+            "right": -0.002700544094781482
+          },
+          "max_position_component": {
+            "absolute": 0.0,
+            "atom": 72,
+            "species": "O",
+            "axis": "z",
+            "left": 30.22274469289774,
+            "right": 30.22274469289774
+          },
+          "energy_delta_meV": -0.002185178662866301,
+          "force_delta_eV_per_angstrom": 0.0036569142781156853,
+          "max_hubbard_trace_delta": 0.00021000000000004349,
+          "total_magnetization_delta": 0.000350035605329424,
+          "absolute_magnetization_delta": 4.909343266490396e-05
+        },
+        "B_eval2": {
+          "metrics": {
+            "energy_Ry": 1.3474191291606985e-06,
+            "position_bohr": 0.0,
+            "force_Ry_bohr": 0.0003662410778295139
+          },
+          "gate_failures": [
+            "energy_Ry",
+            "force_Ry_bohr"
+          ],
+          "max_force_component": {
+            "absolute": 0.0003662410778295139,
+            "atom": 21,
+            "species": "Co",
+            "axis": "z",
+            "left": 0.002789208004829654,
+            "right": 0.00242296692700014
+          },
+          "max_position_component": {
+            "absolute": 0.0,
+            "atom": 72,
+            "species": "O",
+            "axis": "z",
+            "left": 30.22274469289774,
+            "right": 30.22274469289774
+          },
+          "energy_delta_meV": -0.01833257117941228,
+          "force_delta_eV_per_angstrom": 0.009416436708375792,
+          "max_hubbard_trace_delta": 0.0009099999999997443,
+          "total_magnetization_delta": 7.420508312350194e-05,
+          "absolute_magnetization_delta": 0.003125394972585127
+        }
+      },
+      "reading": "UNRESOLVED_REFERENCE"
+    },
+    "R4_scf_path_equivalence": {
+      "metrics": {
+        "energy_Ry": 1.4428405847866088e-07,
+        "position_bohr": 0.0,
+        "force_Ry_bohr": 9.610854722464398e-05
+      },
+      "gate_failures": [
+        "force_Ry_bohr"
+      ],
+      "max_force_component": {
+        "absolute": 9.610854722464398e-05,
+        "atom": 12,
+        "species": "Co",
+        "axis": "z",
+        "left": -0.0015149390847606639,
+        "right": -0.0014188305375360199
+      },
+      "max_position_component": {
+        "absolute": 0.0,
+        "atom": 72,
+        "species": "O",
+        "axis": "z",
+        "left": 30.22274469289774,
+        "right": 30.22274469289774
+      },
+      "energy_delta_meV": -0.0019630846222007804,
+      "force_delta_eV_per_angstrom": 0.002471050100218648,
+      "max_hubbard_trace_delta": 4.999999999988347e-05,
+      "total_magnetization_delta": 0.0035689730076953197,
+      "absolute_magnetization_delta": 0.0021446611487192513,
+      "reading": "SCF_PATH_DIFFERS_FROM_RESTART_PATH"
+    },
+    "R5_basin": {
+      "metrics": {
+        "energy_Ry": 7.084963726811111e-10,
+        "position_bohr": 0.0,
+        "force_Ry_bohr": 1.8418908558936282e-05
+      },
+      "gate_failures": [
+        "force_Ry_bohr"
+      ],
+      "max_force_component": {
+        "absolute": 1.8418908558936282e-05,
+        "atom": 23,
+        "species": "Co",
+        "axis": "z",
+        "left": 0.0016169454236077752,
+        "right": 0.0016353643321667115
+      },
+      "max_position_component": {
+        "absolute": 0.0,
+        "atom": 72,
+        "species": "O",
+        "axis": "z",
+        "left": 30.22274469289774,
+        "right": 30.22274469289774
+      },
+      "energy_delta_meV": -9.639584225453587e-06,
+      "force_delta_eV_per_angstrom": 0.000473569179378949,
+      "max_hubbard_trace_delta": 2.9999999999752447e-05,
+      "total_magnetization_delta": 5.087032079131859e-05,
+      "absolute_magnetization_delta": 4.470173371373676e-05,
+      "fresh_summary": {
+        "status": "CONVERGED",
+        "iterations": 34,
+        "xml_scf_error_Ry": 8.77133078376671e-11,
+        "final_accuracy_Ry": 8.8e-11,
+        "first_ethr_Ry": 1e-05,
+        "energy_Ry": -7551.868206448762,
+        "total_force_Ry_bohr": 0.033348,
+        "total_scf_correction_Ry_bohr": 1.8e-05,
+        "total_magnetization": 50.23997666523767,
+        "absolute_magnetization": 68.15691930676113,
+        "fermi_energy_eV": -0.7454
+      },
+      "capped": [
+        false,
+        false
+      ],
+      "reading": "DISTINCT_OR_UNRESOLVED_STATE"
+    }
+  }
+}
