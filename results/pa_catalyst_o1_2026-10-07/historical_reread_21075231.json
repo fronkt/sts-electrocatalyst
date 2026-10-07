@@ -1,0 +1,137 @@
+{
+  "schema": "pa-catalyst-o1-readout-v1",
+  "historical": true,
+  "date": "2026-10-04",
+  "registered": {
+    "reading": "INCONCLUSIVE",
+    "reasons": [
+      "receipt date or continuity tolerances are not the registered O1 values",
+      "conv_thr carry-over check absent",
+      "controller error: all three ordered evaluations did not agree"
+    ],
+    "scientific_status": "INCONCLUSIVE",
+    "tolerances_in_force": {
+      "energy_Ry": 1e-06,
+      "force_Ry_bohr": 1e-05,
+      "position_bohr": 1e-05
+    },
+    "max_abs_deltas": {
+      "energy_Ry": 5.044989848101977e-06,
+      "force_Ry_bohr": 0.00011464205365793734,
+      "position_bohr": 6.767888983993942e-05
+    },
+    "ordered_differences": [
+      {
+        "energy_Ry": 2.000888343900442e-11,
+        "force_Ry_bohr": 1.4502732326691914e-10,
+        "position_bohr": 0.0
+      },
+      {
+        "energy_Ry": 1.0524217941565439e-07,
+        "force_Ry_bohr": 0.00011464205365793734,
+        "position_bohr": 1.450266573499448e-10
+      },
+      {
+        "energy_Ry": 5.044989848101977e-06,
+        "force_Ry_bohr": 6.991968840434166e-05,
+        "position_bohr": 6.767888983993942e-05
+      }
+    ],
+    "conv_thr_carry": null,
+    "pre_resume_action": "RESUME_CANDIDATE",
+    "calls": {
+      "control": "NUMERICAL_RECEIPT_VALIDATED",
+      "candidate": "NUMERICAL_RECEIPT_VALIDATED",
+      "fresh": "NUMERICAL_RECEIPT_VALIDATED",
+      "resumed": "NUMERICAL_RECEIPT_VALIDATED"
+    },
+    "negative_control_status": null
+  },
+  "informative": {
+    "note": "informative: fixed-geometry parser re-read; never changes the registered reading",
+    "o1_tolerances": {
+      "energy_Ry": 3e-05,
+      "position_bohr": 0.001,
+      "force_Ry_bohr": 0.0005
+    },
+    "evaluations": [
+      {
+        "evaluation": 1,
+        "metrics": {
+          "energy_Ry": 2.000888343900442e-11,
+          "position_bohr": 0.0,
+          "force_Ry_bohr": 1.4502732326691914e-10
+        },
+        "max_force_component": {
+          "absolute": 1.4502732326691914e-10,
+          "atom": 13,
+          "species": "Co",
+          "axis": "y",
+          "left": -0.0010229096819488076,
+          "right": -0.0010229095369214843
+        },
+        "within_O1": {
+          "energy_Ry": true,
+          "position_bohr": true,
+          "force_Ry_bohr": true
+        },
+        "max_hubbard_trace_delta": 0.0,
+        "total_magnetization_delta": 0.0,
+        "same_state_by_traces": true,
+        "same_state_by_magnetization": true
+      },
+      {
+        "evaluation": 2,
+        "metrics": {
+          "energy_Ry": 1.0524217941565439e-07,
+          "position_bohr": 1.450266573499448e-10,
+          "force_Ry_bohr": 0.00011464205365793734
+        },
+        "max_force_component": {
+          "absolute": 0.00011464205365793734,
+          "atom": 20,
+          "species": "Co",
+          "axis": "z",
+          "left": -0.016696717618337235,
+          "right": -0.016811359671995173
+        },
+        "within_O1": {
+          "energy_Ry": true,
+          "position_bohr": true,
+          "force_Ry_bohr": true
+        },
+        "max_hubbard_trace_delta": 7.00000000000145e-05,
+        "total_magnetization_delta": 0.0,
+        "same_state_by_traces": true,
+        "same_state_by_magnetization": true
+      },
+      {
+        "evaluation": 3,
+        "metrics": {
+          "energy_Ry": 5.044989848101977e-06,
+          "position_bohr": 6.767888983993942e-05,
+          "force_Ry_bohr": 6.991968840434166e-05
+        },
+        "max_force_component": {
+          "absolute": 6.991968840434166e-05,
+          "atom": 21,
+          "species": "Co",
+          "axis": "z",
+          "left": -0.002209974210069122,
+          "right": -0.00214005452166478
+        },
+        "within_O1": {
+          "energy_Ry": true,
+          "position_bohr": true,
+          "force_Ry_bohr": true
+        },
+        "max_hubbard_trace_delta": 7.00000000000145e-05,
+        "total_magnetization_delta": 0.010000000000005116,
+        "same_state_by_traces": true,
+        "same_state_by_magnetization": true
+      }
+    ],
+    "all_within_O1": true
+  },
+  "label": "HISTORICAL RE-READ: not an O1 result; the original verdict stands"
+}

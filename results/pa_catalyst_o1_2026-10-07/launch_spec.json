@@ -1,0 +1,199 @@
+{
+  "schema": "pa-catalyst-o1-v1",
+  "date": "2026-10-07",
+  "target": "Cu8Cr23Mn35Co34__s20_site2",
+  "predecessor": {
+    "slurm_job": "21075231",
+    "slurm_state": "FAILED 3:0",
+    "scientific_status": "INCONCLUSIVE",
+    "charged_cpu_su": 353.92,
+    "spec_sha256": "4c2384c6375f1c7892d33d8f6c37478243f41af3da9dd0f9ec507bcd8423e435",
+    "cause": "registered continuity force gate (1e-5 Ry/bohr) below the SCF force precision at conv_thr 1e-6",
+    "readout": "docs/research/pa-fixed-geometry-diagnostic-readout-2026-10-06.md"
+  },
+  "decision_ref": "docs/research/pa-catalyst-o1-2026-10-07.md (decision of record, Frank, 2026-10-07: \"Ok do O1.\")",
+  "source_deck": {
+    "path": "/anvil/projects/x-che260157/sts_pa_catalyst_o1_2026-10-07/runs/hea/lowtail_low_state_restart_2026-09-22/Cu8Cr23Mn35Co34__s20_site2/slab_c5low__relax.in",
+    "sha256": "dfed65abc93a5eb5ef350c31f963fd6044c5b6e68fd39904063a0292de5f8539"
+  },
+  "pw_x": {
+    "path": "/anvil/projects/x-che260157/qe/env/bin/pw.x",
+    "sha256": "1d66c7856f5d6b3cd9c66b8578e01512b16bbe907b4360e54234890712ccd6a1"
+  },
+  "mpirun": {
+    "path": "/anvil/projects/x-che260157/qe/env/bin/mpirun",
+    "sha256": "a256bdcef89bdc61ba870e823056c51df868b4db48ab345a14278a7fe79ed75d"
+  },
+  "upfs": [
+    {
+      "path": "/anvil/projects/x-che260157/pseudo/Co_pbe_v1.2.uspp.F.UPF",
+      "sha256": "a5f392a0d35fc78cc9e2ac1636bb1cd02e9b80a063ea368e85be83b0e4523c45"
+    },
+    {
+      "path": "/anvil/projects/x-che260157/pseudo/cr_pbe_v1.5.uspp.F.UPF",
+      "sha256": "c7449bbfea358d76832cf2f7b43dc89101ead6891806773121bfaa93a140f6de"
+    },
+    {
+      "path": "/anvil/projects/x-che260157/pseudo/Cu.paw.z_11.ld1.psl.v1.0.0-low.upf",
+      "sha256": "b31028b2bae60cd9903260715a49b4c6d2b6dc654558c87023fa5206e427a16d"
+    },
+    {
+      "path": "/anvil/projects/x-che260157/pseudo/mn_pbe_v1.5.uspp.F.UPF",
+      "sha256": "c5b6117e22f571895b69dbec8491df6afb2efee1206dad54680881dbd33eb8f0"
+    },
+    {
+      "path": "/anvil/projects/x-che260157/pseudo/O.pbe-n-kjpaw_psl.0.1.UPF",
+      "sha256": "7c4b6ed541f83d0afdf5c1d3a8c611340f073f3e2b11e95b7963bb2ee26929aa"
+    }
+  ],
+  "dependencies": [
+    {
+      "path": "/anvil/projects/x-che260157/sts_pa_catalyst_o1_2026-10-07/src/dft/pa_catalyst_o1.py",
+      "sha256": "f9e77d15ad2b5716f9cdd41198a96e2563912ff288f174264fe710798a68dde6"
+    },
+    {
+      "path": "/anvil/projects/x-che260157/sts_pa_catalyst_o1_2026-10-07/src/dft/pa_qe_adapter_o1.py",
+      "sha256": "7959bce7f1766185aaa4cf4bf11aaa58dd1789fd04f17c4cd8287a1050e4dbf9"
+    },
+    {
+      "path": "/anvil/projects/x-che260157/sts_pa_catalyst_o1_2026-10-07/src/dft/pa_checked_contract.py",
+      "sha256": "67412c8363877f0a6407e382a4d3c33c6c0f6dac7b1f5de3e3968bf77755ae39"
+    },
+    {
+      "path": "/anvil/projects/x-che260157/sts_pa_catalyst_o1_2026-10-07/anvil/93_pa_catalyst_o1.slurm",
+      "sha256": "73c492d65f14c081b611377396ac169390984d2c8d540b8f6d5ef5631927f4fe"
+    }
+  ],
+  "source_review": {
+    "path": "/anvil/projects/x-che260157/sts_pa_catalyst_o1_2026-10-07/results/pa_catalyst_o1_2026-10-07/source_xml_input_review.md",
+    "sha256": "3c2c9dc101c0d4e1779aff8abee588a6ff18a4a61904b023ac40808b2dac5929"
+  },
+  "preflight_replay": {
+    "root": "/anvil/projects/x-che260157/sts_pa_catalyst_o1_2026-10-07/tests/fixtures/qe75_real",
+    "logged_upf_dir": "/anvil/projects/x-che260157/sts_pa_catalyst_2026-10-03/trial_results/common_pseudo/",
+    "files": [
+      {
+        "path": "control/common_pseudo/Co_pbe_v1.2.uspp.F.UPF.gz",
+        "sha256": "fbbad605e579e33e9c1cb70b435aa82672de4de7c0cca58462eec2bcd25f6099"
+      },
+      {
+        "path": "control/common_pseudo/Cu.paw.z_11.ld1.psl.v1.0.0-low.upf.gz",
+        "sha256": "f3bc13a1a3b66bca84305cb8bf77086d0da1fae802e23c47274384141061eaec"
+      },
+      {
+        "path": "control/common_pseudo/O.pbe-n-kjpaw_psl.0.1.UPF.gz",
+        "sha256": "d159560b238fed3aa3168f6a3a5b7ac67a0a08bcbc38ca3f25bb117026d09d03"
+      },
+      {
+        "path": "control/common_pseudo/cr_pbe_v1.5.uspp.F.UPF.gz",
+        "sha256": "12ac23e28abb0420d80ad5af84ab2a4d73b3b387637419c4d46f74d3123bf22a"
+      },
+      {
+        "path": "control/common_pseudo/mn_pbe_v1.5.uspp.F.UPF.gz",
+        "sha256": "01c11f2cc3710827ceeece93512ad4362698a6d122aca5b4ae2fec60ad29270a"
+      },
+      {
+        "path": "control/data-file-schema.xml.gz",
+        "sha256": "b833e6ea0925eeeb12b81efd5749e419857fc923a802e9f73cfda96888bdf6c2"
+      },
+      {
+        "path": "control/input.in.gz",
+        "sha256": "e5f726c0d413250745acbc6b7e4930ba1df5edc52bd0419108ffc0b2cef003b9"
+      },
+      {
+        "path": "control/process_receipt.json.gz",
+        "sha256": "79af8b203a0677bb7222507d442f3140326d620caebc09d33f150e4e4527bf09"
+      },
+      {
+        "path": "control/slab_c5low__pa_boundary.bfgs.gz",
+        "sha256": "6e0d9f7c5b97b069875819e16aefae248c12f87263ab2ef3f049c66ef4348d3c"
+      },
+      {
+        "path": "control/stderr.log.gz",
+        "sha256": "4100c375158627daa5b137bcb0f7cb0298fb9f5904e376c6d669c8691fffd982"
+      },
+      {
+        "path": "control/stdout.log.gz",
+        "sha256": "70a3d183ecf9c6a2a7f89b1b3f2c956834c1029ed2d6425faeaf3bad811a1c47"
+      },
+      {
+        "path": "manifest.json",
+        "sha256": "6054cd6ee9d554b43d9a9a4be41a5daa3b32fdd48c6ac5ef25cef363299ca8d0"
+      }
+    ],
+    "expected": {
+      "evaluations": 3,
+      "scf_counts": [
+        1,
+        2,
+        3
+      ],
+      "saved_optimizer_counters": [
+        3,
+        3,
+        0
+      ],
+      "xml_settings_identity": "3bd17094ff7919c4d831d8725d6297eac21858be16143dae686883c27ea232f0"
+    }
+  },
+  "initial_seed": {
+    "root": "/anvil/projects/x-che260157/sts/runs/hea/lowtail_slab_scf_diag_2026-09-19/Cu8Cr23Mn35Co34__s20_site2/tmp_slab_c5__b030/slab_c5__b030.save",
+    "files": [
+      {
+        "path": "charge-density.hdf5",
+        "size_bytes": 149764564,
+        "sha256": "0aa143855c85a12e0e3ac2cc741b9b324faec9ca4ccbe85183b6550e4fe2f645"
+      },
+      {
+        "path": "data-file-schema.xml",
+        "size_bytes": 399395,
+        "sha256": "2360316d4d5d759bfce9e8f6dbb024acd3315df12f1039a71fb28898ae2ae0fd"
+      },
+      {
+        "path": "occup.txt",
+        "size_bytes": 93601,
+        "sha256": "0de270621acad688e345b1253cfef5dbe185a3deb1b65811aa3b4bbe44000f14"
+      },
+      {
+        "path": "paw.txt",
+        "size_bytes": 640225,
+        "sha256": "0972e5ad8882198aff44573a91144e50b370786454b68004c330330ab8a8449d"
+      }
+    ]
+  },
+  "trial_parent": "/anvil/projects/x-che260157/sts_pa_catalyst_o1_2026-10-07",
+  "trial_root": "/anvil/projects/x-che260157/sts_pa_catalyst_o1_2026-10-07/trial_results",
+  "allocation": {
+    "account": "che260157",
+    "partition": "wholenode",
+    "cpus": 128,
+    "tasks": 128,
+    "cpus_per_task": 1,
+    "billing": 128,
+    "time_limit_seconds": 28800,
+    "memory_gib": 200,
+    "max_cpu_su": 1024
+  },
+  "caps": {
+    "max_calls": 6,
+    "per_call_seconds": 7200,
+    "qe_max_seconds": 7080,
+    "cleanup_seconds": 120,
+    "aggregate_seconds": 28800
+  },
+  "parallel_shape": {
+    "nprocs": 128,
+    "nthreads": 1,
+    "ntasks": 1,
+    "nbgrp": 1,
+    "npool": 8,
+    "ndiag": 16
+  },
+  "optional_negative_control": true,
+  "estimated_cpu_su": [
+    350,
+    550
+  ],
+  "estimate_basis": "job 21075231 measured 353.92 SU for control, candidate, fresh and resumed calls (9,954 s); the registered negative-control call (three evaluations from the copied checkpoint) adds about 100 SU",
+  "production_accepted": false
+}

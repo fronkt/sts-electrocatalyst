@@ -1,0 +1,127 @@
+--- src/dft/pa_catalyst_retest.py
++++ src/dft/pa_catalyst_o1.py
+@@ -1,10 +1,11 @@
+-"""One licensed catalyst P-A boundary re-test; no submission or production driver.
+-
+-Sibling of pa_catalyst_trial.py, kept as its own pinned file so that the dated trial
+-pinned to the original controller (job 21034683) keeps its bytes.  Same registered
+-sequence, shape and ceilings; it binds the corrected pa_qe_adapter_v2 and the dated
+-2026-10-04 spec, and its preflight also records the canonical XML strings expected
+-for the deck.
++"""One licensed catalyst P-A boundary re-test under precision-referenced tolerances (O1).
++
++Sibling of pa_catalyst_retest.py, kept as its own pinned file so that job 21075231,
++the fixed-geometry diagnostic and the reproducibility probe keep their pinned bytes
++(docs/research/pa-catalyst-o1-2026-10-07.md).  Same registered sequence and shape;
++it binds pa_qe_adapter_o1 (continuity tolerances 3e-5 Ry / 1e-3 bohr / 5e-4 Ry/bohr),
++the dated 2026-10-07 spec, an 8-hour / 1,024 CPU-SU ceiling, and a registered check
++that the conv_thr in effect at the candidate stop equals the resumed deck's conv_thr.
+ 
+ The dated, externally hash-pinned spec is launch authority. Every QE call has
+ the same MPI shape, an independent two-hour ceiling, and a live Slurm check.
+@@ -45,10 +46,12 @@
+     "paw.txt": "0972e5ad8882198aff44573a91144e50b370786454b68004c330330ab8a8449d",
+ }
+ CAPS = {"max_calls": 6, "per_call_seconds": 7200, "qe_max_seconds": 7080,
+-        "cleanup_seconds": 120, "aggregate_seconds": 57600}
++        "cleanup_seconds": 120, "aggregate_seconds": 28800}
+ SHAPE = {"nprocs": 128, "nthreads": 1, "ntasks": 1,
+          "nbgrp": 1, "npool": 8, "ndiag": 16}
+ PREFIX = "slab_c5low__pa_boundary"
++# QE prints the threshold it will use for the next ionic step after each one (move_ions).
++NEW_CONV_THR = re.compile(r"(?m)^[ \t]*new conv_thr[ \t]*=[ \t]*([0-9]*\.?[0-9]+(?:[eEdD][+-]?[0-9]+)?)[ \t]*Ry[ \t]*$")
+ # The real QE 7.5 control call of job 21034683 (tests/fixtures/qe75_real/control).  PREFLIGHT reads it through
+ # the exact staged adapter before any QE call is paid for, so a validator/schema mismatch with real output
+ # fails at zero SU instead of after a 48-minute call.
+@@ -107,9 +110,9 @@
+ 
+ def validate_spec(spec: dict) -> dict:
+     """Validate immutable scientific identity and all user ceilings before writes."""
+-    if not isinstance(spec, dict) or spec.get("schema") != "pa-catalyst-retest-v1":
++    if not isinstance(spec, dict) or spec.get("schema") != "pa-catalyst-o1-v1":
+         raise TrialError("wrong catalyst trial schema")
+-    if spec.get("date") != "2026-10-04" or spec.get("target") != TARGET:
++    if spec.get("date") != "2026-10-07" or spec.get("target") != TARGET:
+         raise TrialError("trial date or singleton target differs")
+     if spec.get("caps") != CAPS or any(type(v) is not int for v in spec["caps"].values()):
+         raise TrialError("call, per-call, cleanup, or aggregate ceilings differ")
+@@ -118,7 +121,7 @@
+     allocation = spec.get("allocation", {})
+     exact = {"account": "che260157", "partition": "wholenode", "cpus": 128,
+              "tasks": 128, "cpus_per_task": 1, "billing": 128,
+-             "time_limit_seconds": 57600, "max_cpu_su": 2048}
++             "time_limit_seconds": 28800, "max_cpu_su": 1024}
+     for field, value in exact.items():
+         if allocation.get(field) != value or type(allocation.get(field)) is not type(value):
+             raise TrialError("allocation cap differs: " + field)
+@@ -146,7 +149,7 @@
+         if len(paths) != len(set(paths)):
+             raise TrialError("duplicate " + label + " paths")
+     names = {Path(pin["path"]).name for pin in dependencies}
+-    if not {"pa_catalyst_retest.py", "pa_qe_adapter_v2.py", "pa_checked_contract.py"}.issubset(names):
++    if not {"pa_catalyst_o1.py", "pa_qe_adapter_o1.py", "pa_checked_contract.py"}.issubset(names):
+         raise TrialError("supervisor, adapter, and contract dependency pins required")
+     replay = spec.get("preflight_replay")
+     if (not isinstance(replay, dict) or not isinstance(replay.get("root"), str) or not Path(replay["root"]).is_absolute()
+@@ -169,7 +172,7 @@
+         if not isinstance(spec.get(key), str) or not Path(spec[key]).is_absolute():
+             raise TrialError(key + " must be absolute")
+     parent, root = Path(spec["trial_parent"]), Path(spec["trial_root"])
+-    if parent.name != "sts_pa_catalyst_retest_2026-10-04" or root.parent != parent or root.name != "trial_results":
++    if parent.name != "sts_pa_catalyst_o1_2026-10-07" or root.parent != parent or root.name != "trial_results":
+         raise TrialError("trial output is not the isolated dated checkout child")
+     return spec
+ 
+@@ -668,6 +671,16 @@
+             "initialization_is_full_continuity_checkpoint": False}
+ 
+ 
++def conv_thr_carry(candidate_stdout: Path, resumed_conv_thr: float) -> dict:
++    """The conv_thr in effect when the candidate stopped must equal the resumed deck's conv_thr."""
++    found = NEW_CONV_THR.findall(Path(candidate_stdout).read_text(encoding="utf-8", errors="replace"))
++    carried = float(found[-1].replace("D", "E").replace("d", "e")) if found else None
++    equal = (carried is not None and resumed_conv_thr > 0
++             and abs(carried - resumed_conv_thr) <= 1e-9 * resumed_conv_thr)
++    return {"candidate_last_new_conv_thr_Ry": carried, "resumed_deck_conv_thr_Ry": resumed_conv_thr,
++            "new_conv_thr_lines": len(found), "equal": equal}
++
++
+ def validate_reseed_binding(warm: dict, fresh: dict, reseed: dict, *, adapter) -> dict:
+     """Bind a new optimizer's first evaluation to the observed lower fresh state.
+ 
+@@ -738,9 +751,9 @@
+                  runner=run_arm, clock=time.monotonic):
+         if adapter is None:
+             try:
+-                from . import pa_qe_adapter_v2 as adapter
++                from . import pa_qe_adapter_o1 as adapter
+             except ImportError:
+-                import pa_qe_adapter_v2 as adapter
++                import pa_qe_adapter_o1 as adapter
+         self.spec = validate_spec(spec)
+         self.adapter, self.allocation_reader, self.runner, self.clock = adapter, allocation_reader, runner, clock
+         self.root = Path(spec["trial_root"])
+@@ -1034,8 +1047,12 @@
+                     raise TrialError("actual resumed checkpoint consumption failed")
+                 self.receipt["continuity"] = self.adapter.compare_trajectories(control["raw"]["evaluations"],
+                     candidate_raw["evaluations"] + resumed["raw"]["evaluations"])
++                self.receipt["conv_thr_carry"] = conv_thr_carry(self.root / "candidate" / "stdout.log",
++                    self.adapter.parse_deck(resumed["input_path"])["conv_thr_Ry"])
+                 if self.receipt["continuity"].get("within_tolerances") is not True:
+                     raise TrialError("all three ordered evaluations did not agree")
++                if self.receipt["conv_thr_carry"]["equal"] is not True:
++                    raise TrialError("conv_thr at the candidate stop is unavailable or differs from the resumed deck")
+                 if self.spec["optional_negative_control"]:
+                     negative = self.execute("negative", kind="negative", target_cycle=3,
+                         expected_cycles=[1, 2, 3], expected_steps=3,
+@@ -1051,8 +1068,8 @@
+             if final != before_full:
+                 raise TrialError("immutable checkpoint changed during subsequent arms")
+             self.verify_sources()
+-            if self.clock() - self.start >= 57600:
+-                raise TrialError("aggregate elapsed time reached 16h")
++            if self.clock() - self.start >= CAPS["aggregate_seconds"]:
++                raise TrialError("aggregate elapsed time reached 8h")
+         except BaseException as exc:
+             self.receipt["scientific_status"] = "INCONCLUSIVE"
+             self.receipt["error"] = str(exc)

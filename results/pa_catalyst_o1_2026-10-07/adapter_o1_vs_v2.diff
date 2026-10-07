@@ -1,0 +1,39 @@
+--- src/dft/pa_qe_adapter_v2.py
++++ src/dft/pa_qe_adapter_o1.py
+@@ -1,4 +1,8 @@
+-"""Raw QE 7.5 adapter for the bounded first-boundary catalyst experiment, version 2.
++"""Raw QE 7.5 adapter for the bounded first-boundary catalyst experiment, O1 sibling of version 2.
++
++Byte copy of pa_qe_adapter_v2.py (pinned by job 21075231) except for this paragraph and
++CONTINUITY_TOLERANCES: compare_trajectories applies the precision-referenced O1 tolerances
++of docs/research/pa-catalyst-o1-2026-10-07.md; every identity check keeps TOLERANCES.
+ 
+ Sibling of pa_qe_adapter.py, kept as its own pinned file so that the dated trial
+ pinned to the original adapter (job 21034683, spec 4bed5002...) keeps its bytes.
+@@ -44,6 +48,8 @@
+ RY_MEV = contract.RY_MEV
+ TOLERANCES = {"energy_Ry": 1e-6, "position_bohr": 1e-5,
+               "force_Ry_bohr": 1e-5}
++# O1: above the measured SCF scatter at conv_thr 1e-6, below every restart-defect signature.
++CONTINUITY_TOLERANCES = {"energy_Ry": 3e-5, "position_bohr": 1e-3, "force_Ry_bohr": 5e-4}
+ NUM = r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eEdD][+-]?\d+)?"
+ FAILURE = re.compile(
+     r"convergence NOT achieved|Error in routine|MPI_ABORT|SIGTERM|SIGINT|"
+@@ -1400,7 +1406,7 @@
+     """Compare all ordered evaluations; no dropping, alignment or remapping."""
+     if len(continuous) < 3 or len(continuous) != len(split):
+         raise AdapterError("equal complete trajectories of at least three evaluations required")
+-    maxima = dict.fromkeys(TOLERANCES, 0.0)
++    maxima = dict.fromkeys(CONTINUITY_TOLERANCES, 0.0)
+     deltas = []
+     order = continuous[0]["geometry"]["species"]
+     for left, right in zip(continuous, split):
+@@ -1415,6 +1421,6 @@
+                  "force_Ry_bohr": _matrix_delta(left["forces_Ry_bohr"], right["forces_Ry_bohr"])}
+         deltas.append(delta)
+         maxima = {key: max(maxima[key], delta[key]) for key in maxima}
+-    return {"production_accepted": False, "evaluations": len(continuous), "tolerances": TOLERANCES.copy(),
++    return {"production_accepted": False, "evaluations": len(continuous), "tolerances": CONTINUITY_TOLERANCES.copy(),
+             "ordered_differences": deltas, "max_abs_deltas": maxima,
+-            "within_tolerances": all(maxima[key] <= TOLERANCES[key] for key in maxima)}
++            "within_tolerances": all(maxima[key] <= CONTINUITY_TOLERANCES[key] for key in maxima)}

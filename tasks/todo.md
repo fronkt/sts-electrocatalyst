@@ -3341,3 +3341,13 @@ Verification: readout numbers come from readout.json and informative_distances.j
 - [x] Pushed 00db155; 6 pinned files staged read-only (remote sha256 = pins); preflight PASS (Python 3.9.5, probe sources verified, C2 outdir tree fcbbe4ab... 282 files / 15,205,248,011 bytes matches its pin, queue empty, balance 35,845.1 SU); held job 21157910 validated (no mismatches) and released once 2026-10-07 04:26Z; no retry or requeue.
 - [ ] Terminal: accounting (with NodeList), small-file mirror, registered readout PR1/PR2, dated readout doc.
 - [x] Options memo for the entrant's continuity-protocol decision (no compute): `docs/research/pa-continuity-protocol-options-2026-10-07.md` - O1 precision-referenced gate (force 5e-4, positions 1e-3 bohr, energy 1e-5 Ry; ~350 SU) recommended now, O4 side-car checks later; O2 only if PR1 is reproducible; O3 too slow for the freeze.
+
+## 2026-10-07 — O1 one-boundary re-test under precision-referenced tolerances (user: "Ok do O1.")
+
+- [x] Design frozen in `docs/research/pa-catalyst-o1-2026-10-07.md`: the launched re-test call for call; continuity tolerances 3e-5 Ry / 1e-3 bohr / 5e-4 Ry/bohr (energy raised from 1e-5 before launch: 2x margin over 21075231's 5.0e-6 was too thin; identity checks unchanged); registered conv_thr carry-over check; readings CONTINUITY_PASS / CONTINUITY_FAIL / INCONCLUSIVE.
+- [x] Build: sibling controller `src/dft/pa_catalyst_o1.py` and adapter `src/dft/pa_qe_adapter_o1.py` (diffs in `results/pa_catalyst_o1_2026-10-07/`), Slurm `anvil/93_pa_catalyst_o1.slurm`, spec builder + spec, launch ops, status/fetch/collect helpers, readout `src/dft/pa_catalyst_o1_readout.py` (reproduces 21075231's 1.1464e-4 Co 20 z; historical re-read labelled).
+- [x] Tests `tests/test_pa_catalyst_o1.py` (diff confinement, tolerances, carry-over, spec mutations, Slurm/pins, readout) with the retest, diagnostic and probe suites.
+- [x] Priced: estimate 350-550 SU, ceiling 1,024 SU (8:00:00); balance 35,845.1 SU before launch (probe 21157910 ceiling 576 SU may run concurrently).
+- [x] Independent review: no blocker; fixes folded in (docstring tolerance, verify-all-before-stage, exactly-one-job validate/release, readout requires date + registered tolerances + validated negative call); 202 tests pass.
+- [ ] Commit + push; stage; preflight (controller --preflight with real-control replay); held submit; validate; release.
+- [ ] Terminal: accounting (NodeList), small-file mirror, registered readout, dated readout doc.

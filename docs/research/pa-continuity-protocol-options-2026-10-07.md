@@ -72,3 +72,5 @@ O2 is worth its cost only if the running probe returns IDENTICAL_PATH or REPRODU
 2. The re-test controller, decks and readout are reused, with the tolerance constants and the conv_thr carry-over as the only changes. Tests are added for both.
 3. Pricing (about 350 SU, ceiling about 1,000 SU), held submit, validation and one release follow the usual procedure.
 4. Readout: PASS licenses only the separately costed production relaxation, as before. References, adsorption and ranking still precede the melt.
+
+**Correction, 2026-10-07, before launch.** The O1 energy tolerance above (1e−5 Ry, "about 4×" the measured carry-over) was computed against B's evaluation-3 difference (2.5e−6 Ry). Job 21075231's own resumed-vs-control evaluation-3 difference is 5.0e−6 Ry, which leaves only 2×. The launched O1 design therefore registers 3e−5 Ry (0.41 meV, 6× margin, 1/25 of δ) ([O1 design](pa-catalyst-o1-2026-10-07.md)). Force and position tolerances are unchanged.
