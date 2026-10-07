@@ -1,0 +1,60 @@
+{
+  "schema": "project-laboratory-and-report-review-2026-10-07",
+  "at": "2026-10-07T23:11:14.849Z",
+  "scope": "Independent file-only review of laboratory status, current S8/arm-C statements, official report framework and writing prompts.",
+  "files_sha256": {
+    "docs/report/project-review-2026-10-07.md": "f0cacf192f724afc259712cf406995ceabcba3e7055dec295393777ead3fdaa9",
+    "docs/report/report-foundation-2026-10-07.md": "cd19f8f2f6039b15746b5ca90c366546d1b4c7e5d2ac9b8c89329631e8f1ae03"
+  },
+  "verdict": "NO_BLOCKERS",
+  "checks": [
+    {
+      "id": "live_rerun_snapshot",
+      "result": "PASS",
+      "evidence": "results/project_review_2026-10-07/status_snapshot_20261007T230537Z.json",
+      "details": "23:05:40 UTC receipt has 16 RUNNING and 17 PENDING Priority, covering all 33 rerun tasks; no terminal task in squeue/sacct receipt."
+    },
+    {
+      "id": "arm_c_first_readout",
+      "result": "PASS",
+      "evidence": "results/arm_c_2026-10-07/readout.json",
+      "details": "Four complete site chains; three primary SINGLE_SITE alloy values; Cu8 separate best chain distinguished; all primary K1/K2/Ni34 comparisons not evaluable."
+    },
+    {
+      "id": "s8_adoption_and_lab",
+      "result": "PASS",
+      "evidence": "docs/research/s8-stage1-freeze-proposal-2026-10-07.md; docs/research/s8-melt-plan-2026-10-07.md",
+      "details": "Five-alloy freeze remains proposed/unfrozen/undeposited. Recorded 5 mm by 1.5 mm stationary mounted disk geometry, IrO2 availability, pending SOP/oxygen/signatures/logistics and coupon-only replication match reviewed sources."
+    },
+    {
+      "id": "report_scope_and_format",
+      "result": "PASS",
+      "evidence": "docs/45-error-ledger.md; official public 2027 Research Report Guidelines and AI Usage Chart",
+      "details": "Completed detector/corpus work leads; all six current body rows retained; separate denominators; framework supplies source navigation and independent-writing questions without initial manuscript prose or starter bibliography. Page budget totals 20; core formatting values match official sources."
+    },
+    {
+      "id": "figure_status",
+      "result": "PASS",
+      "evidence": "docs/report/source-pack-2026-09-21.md; docs/95-census-2-3-readout-2026-09-13.md; docs/research/s8-ranking-independent-review-2026-09-19.md",
+      "details": "Superseded/retracted figures qualified; retained site counts and calibration status correct."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "LOW",
+      "file": "docs/report/project-review-2026-10-07.md",
+      "location": "Remaining scientific work item 2",
+      "details": "The phrase corresponding measurement boundary is less precise than the source stage-1 boundary. If tightening the action wording, say stage-1 freeze before first ingot and arm-C predictions before any alloy OER measurement. Existing proposed/unfrozen wording is accurate; this is not a release blocker."
+    }
+  ],
+  "limits": [
+    "Underlying laboratory correspondence was not independently accessed; review checks current written records.",
+    "Snapshot verifies the stated dated observation, not the queue after 23:05:40 UTC.",
+    "No independent audit of root-only process-query coverage or new solver behavior in this review."
+  ],
+  "external_sources": [
+    "https://sspcdn.blob.core.windows.net/files/Documents/SEP/STS/2027/Application/Research-Report-Guidelines.pdf",
+    "https://sspcdn.blob.core.windows.net/files/Documents/SEP/STS/2027/Application/AI-Usage-Chart.pdf"
+  ],
+  "execution": "Native Node filesystem/hash APIs only in this review turn; no process launches, queue mutation or external messages."
+}

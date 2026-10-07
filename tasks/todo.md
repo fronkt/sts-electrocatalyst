@@ -1,5 +1,19 @@
 # STS 2027 — TODO
 
+## 2026-10-07 — Project review and paper-report foundation
+
+Scope: review current scientific and experimental evidence, take a read-only live job/process snapshot, and begin a traceable report foundation. Preserve existing calculations and historical records. This task authorizes no new solver jobs, sample work, or external messages.
+
+- [x] Review current claim, completed results, outstanding scientific gaps, and S8 laboratory scope against primary artifacts.
+- [x] Verify live Anvil jobs and relevant local processes; record timestamped status and uncertainty.
+- [x] Verify current report guidance and build an evidence-linked report structure, figures plan, and writing foundation appropriate to that guidance.
+- [x] Check every numerical statement and distinguish completed findings, active work, and proposed experiments; obtain independent review.
+- [ ] Record review results, commit only this task's explicit paths, push to GitHub, and verify the backup.
+
+Plan check-in: establish the completed detector/census result as the current report spine, evaluate how much candidate-validation evidence can support a separate extension, and keep pending outcomes labeled. Parallel reviews cover live operations, scientific claims, and laboratory/report requirements before report edits.
+
+Review: 11 factual checks pass against primary artifacts; 57 relative source links resolve and 36 source files have byte hashes. Independent scientific and laboratory reviews pass without blockers after distinguishing Cr structural versus electronic-basin repairs. Live 19:05 EDT snapshot confirms array 21176478 at 16 RUNNING / 17 PENDING; no other account queue job or matched local watcher. The report foundation supplies evidence, page/figure organization and writing prompts; STS manuscript prose remains Frank's. No new solver calls, samples, messages or protocol changes. GitHub backup pending.
+
 ## 2026-10-05 — Preserve and investigate terminal catalyst re-test 21075231
 
 Scope: additive, exact-launch-bound preservation and scientific investigation of the terminal INCONCLUSIVE continuity trial. Approved continuation covers preservation, local parsing/recomputation, independent review and explicit-path publication. The selected storage scope is a complete additional Anvil archive and local scientific bundle; original trial files remain read-only. No new QE, job submission, automatic retry or replacement of historical evidence.
