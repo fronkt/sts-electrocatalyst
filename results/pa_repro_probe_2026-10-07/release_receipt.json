@@ -1,0 +1,23 @@
+{
+  "phase": "release",
+  "at": "2026-10-07T04:26:06.266876+00:00",
+  "commands": {
+    "release:probe": {
+      "command": "scontrol release 21157910",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:26:08.942570+00:00"
+    },
+    "after": {
+      "command": "squeue -u x-fcai3 -o '%i|%j|%T|%M|%l|%R'",
+      "stdout": "JOBID|NAME|STATE|TIME|TIME_LIMIT|NODELIST(REASON)\n21157910|pa-fgd-probe|PENDING|0:00|4:30:00|(None)\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:26:11.237678+00:00"
+    }
+  },
+  "released": {
+    "probe": "21157910"
+  }
+}

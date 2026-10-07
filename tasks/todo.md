@@ -3338,5 +3338,5 @@ Verification: readout numbers come from readout.json and informative_distances.j
 - [x] Controller gains only the `probe` group; probe decks/spec/Slurm script/launch ops/readout; 13 new tests, 153 with the diagnostic and retest suites.
 - [x] Priced: estimate 165-260 SU, hard ceiling 576 SU (4:30:00); balance 35,845.1 SU.
 - [x] Independent pre-launch review: no blocker; fixes folded in (COMPLETED-status exclusion, node labels from scontrol records, real time-slack test, LF attributes, parse exclusions); 155 tests pass.
-- [ ] Commit + push; stage; preflight (full start-tree digest); held submit; validate; release.
+- [x] Pushed 00db155; 6 pinned files staged read-only (remote sha256 = pins); preflight PASS (Python 3.9.5, probe sources verified, C2 outdir tree fcbbe4ab... 282 files / 15,205,248,011 bytes matches its pin, queue empty, balance 35,845.1 SU); held job 21157910 validated (no mismatches) and released once 2026-10-07 04:26Z; no retry or requeue.
 - [ ] Terminal: accounting (with NodeList), small-file mirror, registered readout PR1/PR2, dated readout doc.

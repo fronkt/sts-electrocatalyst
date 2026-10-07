@@ -1,0 +1,22 @@
+{
+  "phase": "validate",
+  "at": "2026-10-07T04:25:59.215353+00:00",
+  "commands": {
+    "held:probe": {
+      "command": "scontrol show job 21157910 -o",
+      "stdout": "JobId=21157910 JobName=pa-fgd-probe UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=04:30:00 TimeMin=N/A SubmitTime=2026-10-07T00:25:58 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-07T00:25:58 Scheduler=Main Partition=wholenode AllocNode:Sid=login00:1359952 ReqNodeList=(null) ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=200G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=200G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NODE Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/anvil/92_pa_repro_probe.slurm SubmitLine=sbatch --hold --parsable --no-requeue --time=04:30:00 --job-name=pa-fgd-probe --export=ALL,STS_DIAG_GROUP=probe,STS_DIAG_SPEC_SHA256=4c90e2f708628813146ea192cc2f03ae0a19afaf5b627ac003d4e752824f1775 /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/anvil/92_pa_repro_probe.slurm WorkDir=/home/x-fcai3 StdErr=/anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/diag_pa-fgd-probe_21157910.log StdIn=/dev/null StdOut=/anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/diag_pa-fgd-probe_21157910.log TresPerTask=cpu=1\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:26:00.797480+00:00"
+    }
+  },
+  "checks": {
+    "probe": {
+      "job": "21157910",
+      "mismatches": {},
+      "held": true,
+      "max_cpu_su": 576
+    }
+  },
+  "passed": true
+}

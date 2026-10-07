@@ -1,0 +1,44 @@
+{
+  "phase": "preflight",
+  "at": "2026-10-07T04:25:30.468834+00:00",
+  "commands": {
+    "preflight": {
+      "command": "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 -B -c '\nimport json, sys\nsys.path.insert(0, \"/anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/src/dft\")\nimport pa_fixed_geometry_diag as d\nspec = json.load(open(\"/anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/launch_spec.json\"))\nout = {\"python\": sys.version}\nfor g in spec[\"groups\"]:\n    d.validate_spec(spec, g)\n    d.Group(spec, g).verify_sources()\n    out[g] = \"sources verified\"\ninv = d.base.inventory(d.Path(spec[\"checkpoint\"][\"outdir\"]))\nout[\"checkpoint_files\"] = len(inv[\"files\"])\nout[\"checkpoint_bytes\"] = sum(row[\"size_bytes\"] for row in inv[\"files\"])\nout[\"checkpoint_tree_sha256\"] = inv[\"sha256\"]\nout[\"checkpoint_matches_pinned_tree\"] = (inv[\"sha256\"] == spec[\"checkpoint\"][\"tree_sha256\"]\n                                         and out[\"checkpoint_files\"] == spec[\"checkpoint\"][\"files\"]\n                                         and out[\"checkpoint_bytes\"] == spec[\"checkpoint\"][\"bytes\"])\nprint(json.dumps(out))\n'",
+      "stdout": "{\"python\": \"3.9.5 (default, Oct  6 2021, 01:03:59) \\n[GCC 11.2.0]\", \"probe\": \"sources verified\", \"checkpoint_files\": 282, \"checkpoint_bytes\": 15205248011, \"checkpoint_tree_sha256\": \"fcbbe4ab1df48f07d1ba4694d8817e36abecb3b67fc6f0e6e9a7b6ea0c281a92\", \"checkpoint_matches_pinned_tree\": true}\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:48.177496+00:00"
+    },
+    "mybalance": {
+      "command": "mybalance",
+      "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    100000.0     64154.9    64154.9     35845.1\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:48.753101+00:00"
+    },
+    "squeue": {
+      "command": "squeue -u x-fcai3 -h -o '%i|%j|%T'",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:50.461419+00:00"
+    },
+    "remote_spec_sha": {
+      "command": "sha256sum /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/launch_spec.json",
+      "stdout": "4c90e2f708628813146ea192cc2f03ae0a19afaf5b627ac003d4e752824f1775  /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/launch_spec.json\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:50.891159+00:00"
+    }
+  },
+  "spec_sha256": "4c90e2f708628813146ea192cc2f03ae0a19afaf5b627ac003d4e752824f1775",
+  "result": {
+    "python": "3.9.5 (default, Oct  6 2021, 01:03:59) \n[GCC 11.2.0]",
+    "probe": "sources verified",
+    "checkpoint_files": 282,
+    "checkpoint_bytes": 15205248011,
+    "checkpoint_tree_sha256": "fcbbe4ab1df48f07d1ba4694d8817e36abecb3b67fc6f0e6e9a7b6ea0c281a92",
+    "checkpoint_matches_pinned_tree": true
+  },
+  "passed": true
+}

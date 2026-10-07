@@ -1,0 +1,215 @@
+{
+  "phase": "stage",
+  "at": "2026-10-07T04:25:11.171543+00:00",
+  "commit": "00db1557e428a8983ad5e3ae24189e47b1e4a66f",
+  "files": [
+    {
+      "repo_path": "anvil/92_pa_repro_probe.slurm",
+      "remote_path": "/anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/anvil/92_pa_repro_probe.slurm",
+      "sha256": "663ae88961dd41d52ea4380a3ebe5929f056e183a041dd5f7e2600cfb9c43392"
+    },
+    {
+      "repo_path": "results/pa_repro_probe_2026-10-07/launch_spec.json",
+      "remote_path": "/anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/launch_spec.json",
+      "sha256": "4c90e2f708628813146ea192cc2f03ae0a19afaf5b627ac003d4e752824f1775"
+    },
+    {
+      "repo_path": "runs/hea/pa_repro_probe_2026-10-07/decks/P1_C3_repeat.in",
+      "remote_path": "/anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/decks/P1_C3_repeat.in",
+      "sha256": "95d042fd0950bfc2d557e56de4b5c2cd04074b3fd6dc6b9e68f53be26d6045aa"
+    },
+    {
+      "repo_path": "runs/hea/pa_repro_probe_2026-10-07/decks/P2_C3_repeat.in",
+      "remote_path": "/anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/decks/P2_C3_repeat.in",
+      "sha256": "29ca9c8eec19f3cb7384f9e41f13e637ef59d1bc4810509437ae57765656bab6"
+    },
+    {
+      "repo_path": "src/dft/pa_catalyst_retest.py",
+      "remote_path": "/anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/src/dft/pa_catalyst_retest.py",
+      "sha256": "b1c49d2d06c93fed4438d46491d8a01532f05cd6d8b6adfed90ca9689a65baf1"
+    },
+    {
+      "repo_path": "src/dft/pa_fixed_geometry_diag.py",
+      "remote_path": "/anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/src/dft/pa_fixed_geometry_diag.py",
+      "sha256": "c11155aebd39b803b639bb5679b960fc6c03e8cb032d025706e68fdaccbab734"
+    }
+  ],
+  "commands": {
+    "no_prior_groups": {
+      "command": "test '!' -e /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/groups",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:12.911456+00:00"
+    },
+    "mkdir:anvil/92_pa_repro_probe.slurm": {
+      "command": "mkdir -p /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/anvil",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:13.556869+00:00"
+    },
+    "absent:anvil/92_pa_repro_probe.slurm": {
+      "command": "test '!' -e /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/anvil/92_pa_repro_probe.slurm",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:14.008754+00:00"
+    },
+    "sha:anvil/92_pa_repro_probe.slurm": {
+      "command": "sha256sum /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/anvil/92_pa_repro_probe.slurm",
+      "stdout": "663ae88961dd41d52ea4380a3ebe5929f056e183a041dd5f7e2600cfb9c43392  /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/anvil/92_pa_repro_probe.slurm\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:14.525461+00:00"
+    },
+    "chmod:anvil/92_pa_repro_probe.slurm": {
+      "command": "chmod 0444 /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/anvil/92_pa_repro_probe.slurm",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:14.966781+00:00"
+    },
+    "mkdir:results/pa_repro_probe_2026-10-07/launch_spec.json": {
+      "command": "mkdir -p /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:15.596586+00:00"
+    },
+    "absent:results/pa_repro_probe_2026-10-07/launch_spec.json": {
+      "command": "test '!' -e /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/launch_spec.json",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:16.040987+00:00"
+    },
+    "sha:results/pa_repro_probe_2026-10-07/launch_spec.json": {
+      "command": "sha256sum /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/launch_spec.json",
+      "stdout": "4c90e2f708628813146ea192cc2f03ae0a19afaf5b627ac003d4e752824f1775  /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/launch_spec.json\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:16.632482+00:00"
+    },
+    "chmod:results/pa_repro_probe_2026-10-07/launch_spec.json": {
+      "command": "chmod 0444 /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/launch_spec.json",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:17.100965+00:00"
+    },
+    "mkdir:runs/hea/pa_repro_probe_2026-10-07/decks/P1_C3_repeat.in": {
+      "command": "mkdir -p /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/decks",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:17.782892+00:00"
+    },
+    "absent:runs/hea/pa_repro_probe_2026-10-07/decks/P1_C3_repeat.in": {
+      "command": "test '!' -e /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/decks/P1_C3_repeat.in",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:18.236488+00:00"
+    },
+    "sha:runs/hea/pa_repro_probe_2026-10-07/decks/P1_C3_repeat.in": {
+      "command": "sha256sum /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/decks/P1_C3_repeat.in",
+      "stdout": "95d042fd0950bfc2d557e56de4b5c2cd04074b3fd6dc6b9e68f53be26d6045aa  /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/decks/P1_C3_repeat.in\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:18.843327+00:00"
+    },
+    "chmod:runs/hea/pa_repro_probe_2026-10-07/decks/P1_C3_repeat.in": {
+      "command": "chmod 0444 /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/decks/P1_C3_repeat.in",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:19.300422+00:00"
+    },
+    "mkdir:runs/hea/pa_repro_probe_2026-10-07/decks/P2_C3_repeat.in": {
+      "command": "mkdir -p /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/decks",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:19.895184+00:00"
+    },
+    "absent:runs/hea/pa_repro_probe_2026-10-07/decks/P2_C3_repeat.in": {
+      "command": "test '!' -e /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/decks/P2_C3_repeat.in",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:20.372638+00:00"
+    },
+    "sha:runs/hea/pa_repro_probe_2026-10-07/decks/P2_C3_repeat.in": {
+      "command": "sha256sum /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/decks/P2_C3_repeat.in",
+      "stdout": "29ca9c8eec19f3cb7384f9e41f13e637ef59d1bc4810509437ae57765656bab6  /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/decks/P2_C3_repeat.in\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:20.932641+00:00"
+    },
+    "chmod:runs/hea/pa_repro_probe_2026-10-07/decks/P2_C3_repeat.in": {
+      "command": "chmod 0444 /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/decks/P2_C3_repeat.in",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:21.402925+00:00"
+    },
+    "mkdir:src/dft/pa_catalyst_retest.py": {
+      "command": "mkdir -p /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/src/dft",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:21.994697+00:00"
+    },
+    "absent:src/dft/pa_catalyst_retest.py": {
+      "command": "test '!' -e /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/src/dft/pa_catalyst_retest.py",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:22.436392+00:00"
+    },
+    "sha:src/dft/pa_catalyst_retest.py": {
+      "command": "sha256sum /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/src/dft/pa_catalyst_retest.py",
+      "stdout": "b1c49d2d06c93fed4438d46491d8a01532f05cd6d8b6adfed90ca9689a65baf1  /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/src/dft/pa_catalyst_retest.py\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:23.041083+00:00"
+    },
+    "chmod:src/dft/pa_catalyst_retest.py": {
+      "command": "chmod 0444 /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/src/dft/pa_catalyst_retest.py",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:23.496220+00:00"
+    },
+    "mkdir:src/dft/pa_fixed_geometry_diag.py": {
+      "command": "mkdir -p /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/src/dft",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:24.097202+00:00"
+    },
+    "absent:src/dft/pa_fixed_geometry_diag.py": {
+      "command": "test '!' -e /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/src/dft/pa_fixed_geometry_diag.py",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:24.532422+00:00"
+    },
+    "sha:src/dft/pa_fixed_geometry_diag.py": {
+      "command": "sha256sum /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/src/dft/pa_fixed_geometry_diag.py",
+      "stdout": "c11155aebd39b803b639bb5679b960fc6c03e8cb032d025706e68fdaccbab734  /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/src/dft/pa_fixed_geometry_diag.py\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:25.070931+00:00"
+    },
+    "chmod:src/dft/pa_fixed_geometry_diag.py": {
+      "command": "chmod 0444 /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/src/dft/pa_fixed_geometry_diag.py",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T04:25:25.510916+00:00"
+    }
+  },
+  "spec_sha256": "4c90e2f708628813146ea192cc2f03ae0a19afaf5b627ac003d4e752824f1775"
+}
