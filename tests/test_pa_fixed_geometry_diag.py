@@ -92,7 +92,7 @@ def test_committed_decks_match_the_builder_and_the_spec():
 # ---------------------------------------------------------------- spec
 def test_launch_spec_validates_and_ceilings_are_consistent():
     spec = json.loads(SPEC.read_text(encoding="utf-8"))
-    for group in diag.GROUPS:
+    for group in spec["groups"]:
         diag.validate_spec(spec, group)
     total = sum(g["max_cpu_su"] for g in spec["groups"].values())
     assert total == spec["hard_ceiling_cpu_su"] <= 2048
@@ -101,7 +101,11 @@ def test_launch_spec_validates_and_ceilings_are_consistent():
         h, m, s = (int(x) for x in g["time_limit"].split(":"))
         assert h * 3600 + m * 60 + s == g["time_limit_seconds"]
     assert spec["helper"]["sha256"] == base.sha256_file(ROOT / "src/dft/pa_catalyst_retest.py")
-    assert spec["controller"]["sha256"] == base.sha256_file(ROOT / "src/dft/pa_fixed_geometry_diag.py")
+    # The launched controller bytes are the ones staged from commit 3af3b18; the module
+    # has since gained the 2026-10-07 probe group, so compare with the staging record.
+    staged = json.loads((SPEC.parent / "stage_receipt.json").read_text(encoding="utf-8"))
+    pins = {row["repo_path"]: row["sha256"] for row in staged["files"]}
+    assert spec["controller"]["sha256"] == pins["src/dft/pa_fixed_geometry_diag.py"]
 
 
 @pytest.mark.parametrize("mutate", [
@@ -116,7 +120,7 @@ def test_spec_mutations_refused(mutate):
     spec = json.loads(SPEC.read_text(encoding="utf-8"))
     mutate(spec)
     with pytest.raises((diag.DiagError, base.TrialError)):
-        for group in diag.GROUPS:
+        for group in ("replay", "ladder", "fresh"):
             diag.validate_spec(spec, group)
 
 

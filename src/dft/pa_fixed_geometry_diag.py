@@ -10,6 +10,9 @@ Three independent singleton jobs, one per group, each running its calls in order
   ladder  C1 -> C2 -> C3   SCF-only at G2 from the checkpoint; conv_thr 1e-6, 1e-8, 1e-10,
                     each rung started from a verified copy of the previous rung's outdir
   fresh   D1 -> D2  SCF-only at G2 from the atomic start; conv_thr 1e-8, then 1e-10
+  probe   P1, P2    (licensed 2026-10-07, docs/research/pa-repro-probe-2026-10-07.md)
+                    two byte-identical repeats of C3, each from its own verified copy
+                    of the pinned C2 outdir (the spec's "checkpoint" for this group)
 
 Every QE call reuses run_arm, StreamCapture and the allocation validator of the
 launched pa_catalyst_retest.py (staged byte-identical, hash-pinned): same MPI shape,
@@ -41,6 +44,7 @@ GROUPS = {
     "ladder": [("C1_warm_1e-6", "checkpoint", None), ("C2_warm_1e-8", "C1_warm_1e-6", None),
                ("C3_warm_1e-10", "C2_warm_1e-8", None)],
     "fresh": [("D1_fresh_1e-8", None, None), ("D2_fresh_1e-10", "D1_fresh_1e-8", None)],
+    "probe": [("P1_C3_repeat", "checkpoint", None), ("P2_C3_repeat", "checkpoint", None)],
 }
 CALL_SECONDS = 7200
 CLEANUP_SECONDS = 120
@@ -218,7 +222,7 @@ class Group:
             source = Path(self.spec["checkpoint"]["outdir"])
             checkpoint_inventory = base.inventory(source)
             if checkpoint_inventory["sha256"] != self.spec["checkpoint"]["tree_sha256"]:
-                raise DiagError("frozen candidate checkpoint differs from its pinned tree digest")
+                raise DiagError("pinned start tree (checkpoint) differs from its pinned tree digest")
             self.receipt["checkpoint_before"] = {"root": str(source), "sha256": checkpoint_inventory["sha256"],
                                                  "files": len(checkpoint_inventory["files"])}
             self.save()

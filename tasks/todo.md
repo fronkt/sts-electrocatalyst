@@ -3331,3 +3331,12 @@ Verification: every readout number above is copied from the banked readouts/trac
 - [ ] Entrant decides the prospective P-A continuity protocol (tight boundary SCF + measured tolerance, or a same-path 1e-10 reproducibility probe first); needs a new approval before any compute.
 
 Verification: readout numbers come from readout.json and informative_distances.json (same parser and XML), accounting from terminal_collection.json sacct; the interim readout taken before C3 finished gave the same R2.
+
+## 2026-10-07 — Same-state reproducibility probe at conv_thr 1e-10 (user: "Continue then. Do the probe.")
+
+- [x] Design frozen in `docs/research/pa-repro-probe-2026-10-07.md`: P1/P2 = byte-identical repeats of C3 (deck differs only in outdir), each from its own verified copy of C2's outdir (tree fcbbe4ab..., the state C3 started from); readings PR1 (same-state reproducibility: IDENTICAL_PATH / REPRODUCIBLE_BELOW_HALF_GATE / RUN_TO_RUN_NOISE_AT_GATE_SCALE) and PR2 (C3-D2 path spread 1.84e-5 vs run-to-run noise).
+- [x] Controller gains only the `probe` group; probe decks/spec/Slurm script/launch ops/readout; 13 new tests, 153 with the diagnostic and retest suites.
+- [x] Priced: estimate 165-260 SU, hard ceiling 576 SU (4:30:00); balance 35,845.1 SU.
+- [x] Independent pre-launch review: no blocker; fixes folded in (COMPLETED-status exclusion, node labels from scontrol records, real time-slack test, LF attributes, parse exclusions); 155 tests pass.
+- [ ] Commit + push; stage; preflight (full start-tree digest); held submit; validate; release.
+- [ ] Terminal: accounting (with NodeList), small-file mirror, registered readout PR1/PR2, dated readout doc.
