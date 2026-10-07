@@ -1,0 +1,23 @@
+{
+  "phase": "validate",
+  "at": "2026-10-07T22:43:39.956065+00:00",
+  "commands": {
+    "held:arm_c_rerun": {
+      "command": "scontrol show job 21176478 -o",
+      "stdout": "JobId=21176478 ArrayJobId=21176478 ArrayTaskId=1-33%33 ArrayTaskThrottle=33 JobName=arm-c-rerun UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=02:30:00 TimeMin=N/A SubmitTime=2026-10-07T18:43:35 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-07T18:43:35 Scheduler=Main Partition=wholenode AllocNode:Sid=login01:3020324 ReqNodeList=(null) ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=200G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=200G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NODE Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/anvil/95_arm_c_rerun.slurm SubmitLine=sbatch --hold --parsable --no-requeue --array=1-33%33 --time=02:30:00 --job-name=arm-c-rerun --export=ALL,STAGE=arm_c_rerun /anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/anvil/95_arm_c_rerun.slurm WorkDir=/home/x-fcai3 StdErr=/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/logs/arm_c_rerun_21176478_4294967294.log StdIn=/dev/null StdOut=/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/logs/arm_c_rerun_21176478_4294967294.log TresPerTask=cpu=1\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T22:43:41.002687+00:00"
+    }
+  },
+  "checks": {
+    "arm_c_rerun": {
+      "job": "21176478",
+      "mismatches": {},
+      "held": true,
+      "ceiling_cpu_su": 10560
+    }
+  },
+  "launch_ceiling_cpu_su": 10560,
+  "passed": true
+}

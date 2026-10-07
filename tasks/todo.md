@@ -3374,9 +3374,9 @@ Verification: readout numbers come from readout.json and informative_distances.j
 - [x] Terminal (2026-10-07 21:55Z): both arrays finished, queue empty, 10,876.7 SU (balance 24,298.3). Collected 364 files, all sha256 match Anvil (projwfc.out kept local). Registered readout: 33/64 SCFs accepted (28 iteration-ceiling stops, 3 IEEE notes), 4/16 sites complete; K1, K2 and Ni34 NOT_EVALUABLE_UNDER_ARM_C. Probe: ndim16 converged the stuck Fe25 s2 slab in 51 iterations, hs did not -> ndim16 is the ceiling re-run recipe. The registered 6-slot round cannot give Fe25 a value.
 - [x] Frank (2026-10-07, "Go with the full rerun."): every failed SCF (31) under the registered recipes plus the 2 proposed ndim16 recipe controls, <= 10,560 SU worst case as proposed to him (campaign <= 21,437 of the approved 23,680), instead of the registered 6-SCF round. Then re-run, readout, arm-C deposit (target Oct 12-13).
 ### S8 arm-C full re-run round (Frank 2026-10-07: "Go with the full rerun.")
-- [ ] Builder src/dft/arm_c_rerun_build.py: every failed SCF from the committed readout (31; CEILING -> ndim16, IEEE -> identical), plus 2 ndim16 slab controls by rule (accepted production slab at a site with a ceiling stop); decks, manifest, spec, rerun_plan.json; --check.
-- [ ] Readout: informative recipe-control comparison (energy and moments vs production; eta with the control slab).
-- [ ] Slurm 95_arm_c_rerun.slurm, launch_ops / status / collect for root sts_arm_c_2026-10-07_rerun; array 1-33%33, 2.5 h, ceiling 10,560 SU (campaign 21,437 <= 23,680).
-- [ ] Tests (rerun package + controls readout), design-doc amendment, independent review.
-- [ ] Commit, push, stage, preflight, held submit, validate, release.
+- [x] Builder src/dft/arm_c_rerun_build.py: every failed SCF from the committed readout (31; CEILING -> ndim16, IEEE -> identical), plus 2 ndim16 slab controls by rule (accepted production slab at a site with a ceiling stop); decks, manifest, spec, rerun_plan.json; --check.
+- [x] Readout: informative recipe-control comparison (energy and moments vs production; eta with the control slab).
+- [x] Slurm 95_arm_c_rerun.slurm, launch_ops / status / collect for root sts_arm_c_2026-10-07_rerun; array 1-33%33, 2.5 h, ceiling 10,560 SU (campaign 21,437 <= 23,680).
+- [x] Tests (rerun package + controls readout), design-doc amendment, independent review.
+- [x] Commit d9c0581, pushed; staged 40 files; preflight PASS (runner VALID, queue empty, balance 24,298.3 SU, 1.5 TB free, QE pins match); held array 21176478 (1-33%33) validated and released once 2026-10-07. Review: no blockers; its should-fix items folded in (re-run attempts recorded, missing re-run mirror refused, byte-identical terminal readout, IEEE repeat note). 153 tests pass.
 - [ ] Terminal: status, collect, readout with --rerun-plan/--rerun-mirror, arm-C deposit (target Oct 12-13).

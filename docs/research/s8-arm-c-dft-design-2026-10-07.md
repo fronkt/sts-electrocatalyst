@@ -1,6 +1,6 @@
 # S8 arm C — DFT design and pricing, 2026-10-07
 
-Status: **APPROVED and LAUNCHED.** Frank, 2026-10-07: "Go ahead. Yes to each add on." Anvil arrays 21165189 (main, 64 SCFs) and 21165190 (probe, 2 SCFs) were staged, preflighted, held, validated and released once on 2026-10-07 (receipts in `results/arm_c_2026-10-07/`).
+Status: **APPROVED and LAUNCHED.** Frank, 2026-10-07: "Go ahead. Yes to each add on." Anvil arrays 21165189 (main, 64 SCFs) and 21165190 (probe, 2 SCFs) were staged, preflighted, held, validated and released once on 2026-10-07 (receipts in `results/arm_c_2026-10-07/`). After the terminal readout, the full re-run round (§6; Frank: "Go with the full rerun.") went out the same way as array **21176478** (33 SCFs, 10,560 SU ceiling; receipts in `results/arm_c_2026-10-07_rerun/`).
 
 | Approved item | Value |
 |---|---|

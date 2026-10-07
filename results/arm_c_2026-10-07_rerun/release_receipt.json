@@ -1,0 +1,23 @@
+{
+  "phase": "release",
+  "at": "2026-10-07T22:43:44.942628+00:00",
+  "commands": {
+    "release:arm_c_rerun": {
+      "command": "scontrol release 21176478",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T22:43:46.150807+00:00"
+    },
+    "after": {
+      "command": "squeue -u x-fcai3 -o '%i|%j|%T|%M|%l|%R'",
+      "stdout": "JOBID|NAME|STATE|TIME|TIME_LIMIT|NODELIST(REASON)\n21176478_[1-33%33]|arm-c-rerun|PENDING|0:00|2:30:00|(None)\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T22:43:46.590867+00:00"
+    }
+  },
+  "released": {
+    "arm_c_rerun": "21176478"
+  }
+}
