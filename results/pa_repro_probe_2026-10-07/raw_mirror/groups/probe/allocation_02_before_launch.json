@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "scontrol",
+    "show",
+    "job",
+    "21157910",
+    "-o"
+  ],
+  "observed_utc": "2026-10-07T09:03:47.276626+00:00",
+  "returncode": 0,
+  "stderr": "",
+  "stdout": "JobId=21157910 JobName=pa-fgd-probe UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=543 Nice=0 Account=che260157 QOS=cpu JobState=RUNNING Reason=None Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:39:11 TimeLimit=04:30:00 TimeMin=N/A SubmitTime=2026-10-07T00:25:58 EligibleTime=2026-10-07T00:26:08 AccrueTime=2026-10-07T00:26:11 StartTime=2026-10-07T04:24:36 EndTime=2026-10-07T08:54:36 Deadline=N/A PreemptEligibleTime=2026-10-07T04:24:36 PreemptTime=None SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-07T04:24:36 Scheduler=Backfill Partition=wholenode AllocNode:Sid=login00:1359952 ReqNodeList=(null) ExcNodeList=(null) NodeList=a918 BatchHost=a918 NumNodes=1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=200G,node=1,billing=128 AllocTRES=cpu=128,mem=200G,node=1,billing=128 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=200G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NODE Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/anvil/92_pa_repro_probe.slurm SubmitLine=sbatch --hold --parsable --no-requeue --time=04:30:00 --job-name=pa-fgd-probe --export=ALL,STS_DIAG_GROUP=probe,STS_DIAG_SPEC_SHA256=4c90e2f708628813146ea192cc2f03ae0a19afaf5b627ac003d4e752824f1775 /anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/anvil/92_pa_repro_probe.slurm WorkDir=/home/x-fcai3 StdErr=/anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/diag_pa-fgd-probe_21157910.log StdIn=/dev/null StdOut=/anvil/projects/x-che260157/sts_pa_repro_probe_2026-10-07/diag_pa-fgd-probe_21157910.log TresPerTask=cpu=1\n"
+}

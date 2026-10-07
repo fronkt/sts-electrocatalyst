@@ -1,0 +1,91 @@
+{
+  "at": "2026-10-07T14:23:05.895204+00:00",
+  "readonly": true,
+  "rc": 0,
+  "stderr": "",
+  "jobs": {
+    "o1": "21159532"
+  },
+  "remote": {
+    "commands": {
+      "squeue": {
+        "rc": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "sacct": {
+        "rc": 0,
+        "stdout": "21159532|pa-catalyst-o1|COMPLETED|03:49:09|2026-10-07T05:48:40|2026-10-07T09:37:49|0:0|1759872|a637\n",
+        "stderr": ""
+      },
+      "balance": {
+        "rc": 0,
+        "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    100000.0     64814.3    64814.3     35185.7\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+        "stderr": ""
+      }
+    },
+    "trial_results_exists": true,
+    "trial": {
+      "scientific_status": "PASS_ONE_BOUNDARY",
+      "scheduler_status": "COMPLIANT",
+      "call_count": 5,
+      "elapsed_seconds": 13743.347223510034,
+      "error": null
+    },
+    "calls": [
+      {
+        "name": "control",
+        "kind": "control",
+        "status": "NUMERICAL_RECEIPT_VALIDATED",
+        "error": null
+      },
+      {
+        "name": "candidate",
+        "kind": "candidate",
+        "status": "NUMERICAL_RECEIPT_VALIDATED",
+        "error": null
+      },
+      {
+        "name": "fresh",
+        "kind": "fresh",
+        "status": "NUMERICAL_RECEIPT_VALIDATED",
+        "error": null
+      },
+      {
+        "name": "resumed",
+        "kind": "resumed",
+        "status": "NUMERICAL_RECEIPT_VALIDATED",
+        "error": null
+      },
+      {
+        "name": "negative",
+        "kind": "negative",
+        "status": "NUMERICAL_RECEIPT_VALIDATED",
+        "error": null
+      }
+    ],
+    "continuity": {
+      "max_abs_deltas": {
+        "energy_Ry": 1.6864942153915763e-07,
+        "force_Ry_bohr": 8.743724554055067e-05,
+        "position_bohr": 6.399413508972884e-05
+      },
+      "tolerances": {
+        "energy_Ry": 3e-05,
+        "force_Ry_bohr": 0.0005,
+        "position_bohr": 0.001
+      },
+      "within_tolerances": true
+    },
+    "conv_thr_carry": {
+      "candidate_last_new_conv_thr_Ry": 1e-06,
+      "equal": true,
+      "new_conv_thr_lines": 1,
+      "resumed_deck_conv_thr_Ry": 1e-06
+    },
+    "pre_resume_action": "RESUME_CANDIDATE",
+    "slurm_logs": {
+      "o1_21159532.log": "{\"scientific_status\": \"PASS_ONE_BOUNDARY\", \"scheduler_status\": \"COMPLIANT\", \"production_accepted\": false, \"call_count\": 5}\n"
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "at": "2026-10-07T14:23:05.776284+00:00",
+  "readonly": true,
+  "rc": 0,
+  "stderr": "",
+  "jobs": {
+    "probe": "21157910"
+  },
+  "remote": {
+    "commands": {
+      "squeue": {
+        "rc": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "squeue_start": {
+        "rc": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "sacct": {
+        "rc": 0,
+        "stdout": "21157910|pa-fgd-probe|FAILED|01:19:58|2026-10-07T04:24:36|2026-10-07T05:44:34|3:0|614144\n",
+        "stderr": ""
+      },
+      "balance": {
+        "rc": 0,
+        "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    100000.0     64814.3    64814.3     35185.7\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+        "stderr": ""
+      },
+      "scontrol:21157910": {
+        "JobState": null,
+        "Reason": null,
+        "Priority": null,
+        "SubmitTime": null,
+        "EligibleTime": null,
+        "StartTime": null,
+        "EndTime": null,
+        "TimeLimit": null,
+        "NodeList": null,
+        "SchedNodeList": null
+      }
+    },
+    "groups": {
+      "probe": {
+        "entries": [
+          "allocation_01_before_launch.json",
+          "allocation_01_before_setup.json",
+          "allocation_02_before_launch.json",
+          "allocation_02_before_setup.json",
+          "group_receipt.json"
+        ],
+        "calls": [
+          {
+            "name": "P1_C3_repeat",
+            "status": "FAILED",
+            "error": null
+          },
+          {
+            "name": "P2_C3_repeat",
+            "status": "COMPLETED",
+            "error": null
+          }
+        ],
+        "all_calls_completed": false
+      }
+    },
+    "groups_dir_exists": true,
+    "slurm_logs": {
+      "diag_pa-fgd-probe_21157910.log": ""
+    },
+    "run_tails": {
+      "P1_C3_repeat": {
+        "bytes": 188863,
+        "last_accuracy": [
+          "     estimated scf accuracy    <          1.4E-10 Ry",
+          "     estimated scf accuracy    <          1.1E-10 Ry",
+          "     estimated scf accuracy    <          9.3E-11 Ry"
+        ],
+        "iterations": 31,
+        "done": true
+      },
+      "P2_C3_repeat": {
+        "bytes": 189343,
+        "last_accuracy": [
+          "     estimated scf accuracy    <          1.1E-10 Ry",
+          "     estimated scf accuracy    <          1.0E-10 Ry",
+          "     estimated scf accuracy    <          8.1E-11 Ry"
+        ],
+        "iterations": 32,
+        "done": true
+      }
+    }
+  }
+}

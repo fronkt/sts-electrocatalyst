@@ -1,0 +1,110 @@
+{
+  "schema": "pa-repro-probe-readout-v1",
+  "controller_status": {
+    "P1_C3_repeat": "FAILED",
+    "P2_C3_repeat": "COMPLETED",
+    "D1_fresh_1e-8": "COMPLETED",
+    "D2_fresh_1e-10": "COMPLETED",
+    "C1_warm_1e-6": "COMPLETED",
+    "C2_warm_1e-8": "COMPLETED",
+    "C3_warm_1e-10": "COMPLETED",
+    "A_replay": "FAILED",
+    "B_ethr": "COMPLETED"
+  },
+  "excluded": {
+    "P1_C3_repeat": "controller status FAILED"
+  },
+  "summaries": {
+    "C3_warm_1e-10": {
+      "status": "CONVERGED",
+      "iterations": 31,
+      "xml_scf_error_Ry": 9.112892454174288e-11,
+      "final_accuracy_Ry": 9.1e-11,
+      "first_ethr_Ry": 1e-05,
+      "energy_Ry": -7551.868206448054,
+      "total_force_Ry_bohr": 0.033346,
+      "total_scf_correction_Ry_bohr": 1.9e-05,
+      "total_magnetization": 50.23992579491688,
+      "absolute_magnetization": 68.15687460502741,
+      "fermi_energy_eV": -0.7454
+    },
+    "P2_C3_repeat": {
+      "status": "CONVERGED",
+      "iterations": 32,
+      "xml_scf_error_Ry": 8.065988811478772e-11,
+      "final_accuracy_Ry": 8.1e-11,
+      "first_ethr_Ry": 1e-05,
+      "energy_Ry": -7551.868206447668,
+      "total_force_Ry_bohr": 0.033344,
+      "total_scf_correction_Ry_bohr": 2.3e-05,
+      "total_magnetization": 50.23997259485241,
+      "absolute_magnetization": 68.15688184436473,
+      "fermi_energy_eV": -0.7454
+    }
+  },
+  "D2_summary": {
+    "status": "CONVERGED",
+    "iterations": 34,
+    "xml_scf_error_Ry": 8.77133078376671e-11,
+    "final_accuracy_Ry": 8.8e-11,
+    "first_ethr_Ry": 1e-05,
+    "energy_Ry": -7551.868206448762,
+    "total_force_Ry_bohr": 0.033348,
+    "total_scf_correction_Ry_bohr": 1.8e-05,
+    "total_magnetization": 50.23997666523767,
+    "absolute_magnetization": 68.15691930676113,
+    "fermi_energy_eV": -0.7454
+  },
+  "readings": {
+    "pairs": {
+      "C3_warm_1e-10|P2_C3_repeat": {
+        "force_Ry_bohr": 6.168469479075813e-06,
+        "energy_Ry": 3.8562575355172157e-10,
+        "position_bohr": 0.0,
+        "max_force_component": {
+          "absolute": 6.168469479075813e-06,
+          "atom": 22,
+          "species": "Co",
+          "axis": "y",
+          "left": -0.002777508264697678,
+          "right": -0.002771339795218602
+        },
+        "max_hubbard_trace_delta": 1.0000000000065512e-05,
+        "total_magnetization_delta": 4.679993553224904e-05,
+        "iterations": [
+          31,
+          32
+        ],
+        "first_accuracy_divergence": 7,
+        "nodes": [
+          "a558",
+          "a918"
+        ],
+        "same_node": false
+      }
+    },
+    "path_pair_C3_vs_D2": {
+      "force_Ry_bohr": 1.8418908558936282e-05,
+      "energy_Ry": 7.084963726811111e-10,
+      "position_bohr": 0.0,
+      "max_force_component": {
+        "absolute": 1.8418908558936282e-05,
+        "atom": 23,
+        "species": "Co",
+        "axis": "z",
+        "left": 0.0016169454236077752,
+        "right": 0.0016353643321667115
+      },
+      "max_hubbard_trace_delta": 2.9999999999752447e-05,
+      "total_magnetization_delta": 5.087032079131859e-05,
+      "iterations": [
+        31,
+        34
+      ],
+      "first_accuracy_divergence": 1
+    },
+    "complete": false,
+    "PR1_same_state_reproducibility": "INCOMPLETE",
+    "PR2_path_vs_noise": "INCOMPLETE"
+  }
+}

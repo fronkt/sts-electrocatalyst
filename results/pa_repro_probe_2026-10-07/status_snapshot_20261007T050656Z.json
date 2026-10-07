@@ -1,0 +1,48 @@
+{
+  "at": "2026-10-07T05:06:58.544937+00:00",
+  "readonly": true,
+  "rc": 0,
+  "stderr": "",
+  "jobs": {
+    "probe": "21157910"
+  },
+  "remote": {
+    "commands": {
+      "squeue": {
+        "rc": 0,
+        "stdout": "21157910|pa-fgd-probe|PENDING|0:00|4:30:00|2026-10-07T22:53:44|(Priority)\n",
+        "stderr": ""
+      },
+      "squeue_start": {
+        "rc": 0,
+        "stdout": "21157910|pa-fgd-probe|PENDING|2026-10-07T22:53:44|(Priority)\n",
+        "stderr": ""
+      },
+      "sacct": {
+        "rc": 0,
+        "stdout": "21157910|pa-fgd-probe|PENDING|00:00:00|Unknown|Unknown|0:0|0\n",
+        "stderr": ""
+      },
+      "balance": {
+        "rc": 0,
+        "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    100000.0     64154.9    64154.9     35845.1\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+        "stderr": ""
+      },
+      "scontrol:21157910": {
+        "JobState": "PENDING",
+        "Reason": "Priority",
+        "Priority": "146",
+        "SubmitTime": "2026-10-07T00:25:58",
+        "EligibleTime": "2026-10-07T00:26:08",
+        "StartTime": "2026-10-07T22:53:44",
+        "EndTime": "2026-10-08T03:23:44",
+        "TimeLimit": "04:30:00",
+        "NodeList": "",
+        "SchedNodeList": "a817"
+      }
+    },
+    "groups": {},
+    "groups_dir_exists": false,
+    "slurm_logs": {}
+  }
+}
