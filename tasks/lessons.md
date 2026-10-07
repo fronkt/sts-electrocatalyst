@@ -1458,3 +1458,16 @@ a rebuild discrepancy, not scientific progress. Keep the failed check separately
 ## 2026-10-05 — Carry a predecessor validator's field rules into a new one
 
 The fixed-geometry held validation refused all three healthy held jobs twice: first on `NumNodes=1-1` (Slurm's pending min-max form of one node), then on a `SubmitLine` check that split the scontrol record on whitespace although that field contains spaces. The retest's own held validator already accepted `{'1', '1-1'}`, and its docstring records that the first trial failed on exactly that. Rule: before writing a new scheduler or output validator, read the predecessor validator and port its field rules; match fields that may contain spaces against the raw record, not a whitespace split. Keep each refused receipt and write the corrected check to a new, superseding receipt; never overwrite.
+
+## 2026-10-07 — Enumerate every error class before saying "the errors don't change the ranking"
+
+Frank asked whether to also test "DFT before the errors". I answered from the restart-continuity
+issue under study that day (forces ~1e-4 Ry/bohr, energies < 0.1 meV) and said the errors don't
+change DFT's answers. He meant the endmember DFT errors, which did change rankings: CrO2's trapped
+*O state (1.726 → 0.491 → 0.330 V) moved Cr from behind Mn and Fe to first of seven endmembers
+(docs/32, docs/33, docs/41 §6f).
+
+Rule: before claiming an error class does or does not affect a result, list the project's known
+error classes for that pipeline and scope the claim to each one by name: endmember structural
+traps and basins, OOH repairs, U sensitivity, restart continuity, alloy-chain QC failures.
+"The errors" in Frank's question means the project's history, not just today's topic.
