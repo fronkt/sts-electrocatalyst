@@ -133,6 +133,8 @@ A dated, mentor-signed Cr(VI) risk assessment is required before the first melt 
 
 The lab supervisor and mentor names are still "TBD" in docs/16 [CONFIRM].
 
+**Draft, 2026-10-07:** [s8-cr6-risk-assessment-2026-10-07.md](s8-cr6-risk-assessment-2026-10-07.md) covers these three hazards, plus Ni/Co dust, the Hg/HgO reference and the waste streams. It still needs the supervisors' names, signatures and dates.
+
 ## 8. Before the deposit
 
 1. Frank confirms or edits every **[CONFIRM]** item and the scope line.
