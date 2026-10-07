@@ -80,6 +80,8 @@ The diphenylcarbazide test measures the actual amount.
 | Melter condensate wipes, contaminated gloves and wipes | Mn/Cu-rich oxide dust; traces of chromate | Sealed bag, solid hazardous waste |
 | Broken Hg/HgO electrode | Mercury | Mercury spill kit; EHS pickup |
 
+**Measuring lab (Tackett group, Purdue ChemE; his email of 2026-10-07):** the lab has no dedicated Cr(VI) disposal method yet but will handle it on site: a separate waste container, with Purdue's waste-removal staff told about it. Nothing is shipped back. Send them this assessment and the expected chromate range so the container can be set up before the first alloy measurement.
+
 ## 5. Emergencies
 
 | Event | Response |

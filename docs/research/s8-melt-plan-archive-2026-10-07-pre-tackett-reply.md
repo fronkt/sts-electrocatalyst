@@ -1,5 +1,7 @@
 # S8 melt plan, 2026-10-07
 
+> Archived 2026-10-07 before the electrode section was rewritten after Tackett's reply (stationary coupons, 24 mm port). Current plan: [s8-melt-plan-2026-10-07.md](s8-melt-plan-2026-10-07.md).
+
 The practical plan behind the [stage-1 freeze proposal](s8-stage1-freeze-proposal-2026-10-07.md). The proposal is the authority for every frozen value; items it marks **[CONFIRM]** still need Frank's decision, and nothing is melted before the freeze is deposited.
 
 ## How many melts
@@ -82,47 +84,42 @@ No. One would arise in only two situations:
    - A miss is re-melted once.
    - If it misses again, it is kept, flagged and analysed at its measured composition.
    - It is never swapped for another composition.
-5. **Electrodes.** At least 3 mounted coupons per alloy (format below: ≤ 20 mm across, epoxy-masked to one 0.196 cm² face, silver-painted back wire), polished to an identical finish.
+5. **Electrodes.** At least 3 per alloy, in the format below (proposed: 5.0 mm × 4.0 mm cylinders, 0.196 cm²), polished to an identical finish.
 
-## Electrode format (Tackett's reply, 2026-10-07)
+## Electrode format (proposed 2026-10-07, pending Tackett's confirmation)
 
-Tackett's lab accepts flat coupons, so the plan returns to the freeze proposal's own line ("mounted coupon, epoxy-masked geometric area"); that line needs no [CONFIRM] change. The 5 × 4 mm Pine-cylinder proposal is superseded. The full earlier version is kept in [s8-melt-plan-archive-2026-10-07-pre-tackett-reply.md](s8-melt-plan-archive-2026-10-07-pre-tackett-reply.md).
+**Proposal:** wire-EDM each annealed button into **5.0 mm diameter × 4.0 mm tall cylinders** (the Pine disk-insert format). One face is polished flat and is the only exposed face: **0.196 cm² geometric area**.
 
-**His requirements:**
-- **Stationary electrodes only.** Coupons do not fit the rotating-disk hardware. He expects rotation would not change the outcome of these experiments.
-- **Size:** the coupon goes through a 24 mm port, so anything ≤ 20 mm across fits.
-- **Mask:** epoxy covers every edge and the whole back, leaving one exposed face of defined area. The face must sit fully under the electrolyte.
-- **Back contact:** a wire attached with silver paint, with electrical continuity checked *before* potting. The wire leaves the epoxy at the top of the coupon, above the electrolyte, so it adds no current.
-- **Who mounts:** the coupons arrive mounted. Mounting happens before shipping (FWM or PFW).
+**Why this format: the measuring lab already uses it.**
+- Tackett's Purdue group (JACS Au 2026, 10.1021/jacsau.6c00204, PMC13417295; Tackett corresponding): "Platinum metal disk inserts (5.0 mm outer diameter × 4.0 mm height, mirror-polished, Pine Research Instrumentation)", in a "Kel-F electrochemical cell (4 Luer-lock port, Spectro Inlets)", BioLogic VSP-300.
+- The Spectro Inlets EC-MS cell takes "standard 5 mm cylindrical electrodes, common in RDE" (spectroinlets.com/ec-ms).
+- His PhD OER work (ACS Catal. 2018, OSTI 1438306) and his NIST postdoc RRDE work (JPCC 2022) both used Pine 5 mm rotating-disk hardware in five-port glass cells.
+- Pine stocks "5 mm OD x 4 mm thick" inserts and makes "different materials and even different sizes on request".
+- His group page lists no equipment. His rigor paper (ACS Catal. 2026, 16, 13861) gives no recommended area: it favours "smaller electrodes" for current uniformity and asks for measured and iR-corrected potentials.
 
-**Proposed coupon:**
-- Section the annealed button into slices 1.5–2 mm thick, discarding the hearth-chilled bottom and the dome top.
-- Cut pieces of about 8 × 8 mm from the slices.
-- Mask each piece to a 5.0 mm circle (0.196 cm², about 2 mA at 10 mA cm⁻²), polished to an identical finish.
-- Per alloy: ≥ 3 test coupons, 1 spare, and an offcut for SEM-EDS and XRD.
-- Check the yield on the first button before cutting the rest.
+**What it buys:**
+- No custom holder: the cylinder press-fits an RDE shroud.
+- Rotation clears O₂ bubbles during the 12 h hold.
+- The same piece may fit the EC-MS cell, which could supply the missing O₂ / Faradaic-efficiency measurement (the open item in the freeze proposal).
+- Current at 10 mA cm⁻² is about 2 mA, so the iR drop is small.
 
-**O₂ / Faradaic efficiency:**
-- He suggests running without O₂ quantification. Most OER papers omit it, and the Tafel slope would show whether something other than OER dominates.
-- **Option:** if one alloy can be made into a thin disk of exactly 5.0 mm diameter, he can probably mount it in the Spectro Inlets EC-MS cell to measure O₂ directly. This takes extra time.
-- **Proposed disk:** Cu8Cr23Mn35Co34 (K1's pivot; Cr-rich, so Cr oxidation current is the obvious competing reaction). Wire-EDM a 5.0 mm disk about 1 mm thick from the same slice as its coupons.
-- **Conflict for Frank to resolve:** roadmap §5 requires an O₂ / FE method for an OER activity claim, and the freeze proposal leaves it as an open [CONFIRM] item. Either (a) the claim is framed as Tafel-checked activity without FE, or (b) the EC-MS disk is added.
+**Literature check:** bulk arc-melted alloy OER/HER electrodes are usually EDM-cut and expose 0.07–1 cm².
+- McKay et al., JPCC 2021 (PMC8392348): CoCrFeNi button "sliced into thin wafers (ca. 8 × 5 × 1 mm³) by electrical discharge machining"; electrode "0.5 mm in thickness and 5.6 mm in diameter", sealed with Crystalbond 509.
+- Other arc-melted HEA work exposes 1 cm² (PMC11978795) or a 3 mm diameter area (PMC11348829).
 
-**LSV and Tafel (his questions):**
-- He asks for a preferred LSV scan rate; anything is fine provided all samples use the same one.
-- **Proposed answer:** LSV at 5 mV s⁻¹, plus his suggested series of constant-potential holds for steady-state Tafel slopes and overpotential.
-- He named the potential at 1 mA cm⁻² as the comparison point. The freeze primary is η at 10 mA cm⁻². Ask for both. On a stationary electrode, 10 mA cm⁻² brings bubbles, so 1 mA cm⁻² is the cleaner secondary.
+**Yield from a 10 g button (estimate, not measured):**
+- At about 8 g cm⁻³, the button is about 1.25 cm³, roughly 15–18 mm across and 7–9 mm tall.
+- After removing the hearth-chilled bottom and the dome top, cores taken through the height give about 4–6 cylinders.
+- That covers ≥3 test electrodes, a spare, and offcuts for SEM-EDS and XRD. A 5 mm face is too small for a Bragg–Brentano beam footprint, so keep a wider offcut for XRD.
+- Three 1 cm² coupons plus a reference piece do not fit in one 10 g button.
 
-**IrO₂:** the lab has it and will run it as prescribed. He notes it is not the best alkaline benchmark. A Ni or NiFe reference could be added as an extra column, but IrO₂ stays because the roadmap requires it.
+**Fallback:** if the lab prefers flat samples, cut 6 × 6 mm squares, 1.5–2 mm thick, with back contact by silver epoxy or a welded wire, epoxy-mounted and masked to a 5.0 mm circle (the same 0.196 cm²).
 
-**Logistics:**
-- Ship to Jyotisman Rath, Forney Hall of Chemical Engineering, 480 Stadium Mall Drive, West Lafayette, IN 47907.
-- He asks for a completion date. PhD students will carry out the work.
-
-**Timeline risk:**
-- OER cannot start before the arm-C deposit or Oct 21, and the data lock is Oct 25.
-- 15 coupons with a 12 h hold each is about 180 channel-hours. On a single channel that does not fit in 4–5 days.
-- Ask how many VSP-300 channels are free. If too few, the hold goes on one coupon per alloy, with the deviation recorded before measurement.
+**Open before machining:**
+- Tackett confirms the shroud type, insert height and diameter tolerance (press fit).
+- Whether the EC-MS cell is used in 1 M KOH.
+- Whether his lab has an Hg/HgO reference.
+- The freeze proposal's electrode line ("mounted coupon, epoxy-masked geometric area") changes to this format only through its [CONFIRM] process, before the deposit.
 
 ## Order of operations
 
