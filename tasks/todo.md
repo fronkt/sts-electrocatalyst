@@ -3349,5 +3349,6 @@ Verification: readout numbers come from readout.json and informative_distances.j
 - [x] Tests `tests/test_pa_catalyst_o1.py` (diff confinement, tolerances, carry-over, spec mutations, Slurm/pins, readout) with the retest, diagnostic and probe suites.
 - [x] Priced: estimate 350-550 SU, ceiling 1,024 SU (8:00:00); balance 35,845.1 SU before launch (probe 21157910 ceiling 576 SU may run concurrently).
 - [x] Independent review: no blocker; fixes folded in (docstring tolerance, verify-all-before-stage, exactly-one-job validate/release, readout requires date + registered tolerances + validated negative call); 202 tests pass.
-- [ ] Commit + push; stage; preflight (controller --preflight with real-control replay); held submit; validate; release.
+- [x] Pushed ccd8648; 19 pinned files staged read-only (remote sha256 = committed blobs); preflight PASS (controller --preflight: real-control replay through the staged O1 adapter, 3 evaluations, counters [3,3,0]; balance 35,845.1 SU; queue = probe 21157910 only); held job 21159532 validated (no mismatches) and released once 2026-10-07 05:45Z; no retry or requeue.
+- [x] S8 stage-1 freeze proposal for the entrant (not frozen, not deposited): `docs/research/s8-stage1-freeze-proposal-2026-10-07.md` (two-stage MLIP-vs-DFT design; Cr(VI) risk assessment blocking; [CONFIRM] items). Three-arm option (Aug 5 screen vs census vs DFT, Fe25 as fifth melt) awaiting Frank.
 - [ ] Terminal: accounting (NodeList), small-file mirror, registered readout, dated readout doc.
