@@ -296,3 +296,80 @@ The review found no blockers. Its should-fix items are folded in:
 - **The node exclusions do nothing.** The manifest's exclusion list covers only `shared` nodes (a000–a249); `wholenode` is a250–a999.
 
 140 tests pass with the related QC suites.
+
+## 6. Terminal readout and the full re-run round, 2026-10-07
+
+### Terminal readout (`results/arm_c_2026-10-07/readout.json`, commit 066da3b)
+
+- Both arrays finished, using 10,876.7 SU by sacct.
+- 33 of 64 production SCFs were accepted: 28 stopped at the 126-iteration ceiling, 3 were rejected for an IEEE exit note, and none failed otherwise. 4 of 16 sites are complete.
+- K1, K2 and the Ni34 nomination all read NOT_EVALUABLE_UNDER_ARM_C. Cu8, Fe25 and Cu26 have no value.
+- **Probe:** ndim16 was accepted in 51 iterations on the Fe25 s2/0 slab, whose production control stopped at the ceiling. hs stopped at the ceiling. ndim16 is therefore the ceiling re-run recipe.
+- **The registered 6-slot round would not be enough.** It selects the Ni31 s10/2 slab, the Cu8 s26/1 slab, O and OOH, the Cu26 s1/0 O state and the Ni34 s22/0 slab. Even if all six were accepted, Fe25 would have no value, so K1 and K2 would stay not evaluable.
+- **Informative traces:** 9 of the 28 ceiling stops were still converging steadily (3 within about two iterations of the threshold). The other 19 were stalled or oscillating.
+- The Fe25 s2/0 pattern repeats the September pilot (§5): slab at the ceiling, OH rejected for IEEE, O complete.
+
+### Decision of record
+
+Frank, 2026-10-07: "Go with the full rerun."
+
+**The one change to §5:** the round re-runs every failed state of the terminal readout (31 SCFs) instead of at most 6. Re-running all of them, rather than choosing, keeps the round independent of the values already seen.
+
+**Unchanged:**
+- the recipes (CEILING → ndim16, IEEE → identical deck);
+- geometries, the 126-iteration ceiling, runtime bounds and the runner;
+- the substitution rule and the mixed-recipe flag;
+- the alloy value and the K1, K2 and Ni34 rules.
+
+This remains the one re-run round: a state that fails again stays failed.
+
+**Recipe controls (2 SCFs, informative).**
+- **What:** the accepted production slab of each site that has both a production slab and a ceiling stop, re-run with ndim16. Those are Fe25 s25/2 and Cu26 s1/0.
+- **Why:** they measure whether ndim16 reaches the same SCF solution as production on structures where both converge. The probe's ndim16 slab ended at a total magnetization of 35.95 μB, against about 37.8 μB where production stalled.
+- **Reported:** the energy and moment differences, and the site's η with the control slab.
+
+The Fe25 s2/0 slab re-run deck is byte-identical to the converged probe deck, so it also repeats that SCF.
+
+**The three IEEE re-runs may fail again.** All three production SCFs converged (in 61, 65 and 90 iterations) and were rejected only for an IEEE_INVALID_FLAG exit note. Fe25 s2/0 OH ended the same way in the September pilot (`runs/hea/pilot_retained/Fe25Co25Ni25Cr25__s2_site0/OH__atomic.qc.json`). The rule is unchanged: one identical re-run each, at most 960 SU together. One of the three is the Fe25 s25/2 OOH state, at the support site that carries 0.8 of Fe25's weight, so a repeat failure there leaves Fe25 depending on s13/0.
+
+**Pre-launch review** (independent, read-only): no blockers. Folded in before launch:
+- the readout records every attempted re-run, accepted or not;
+- a re-run readout refuses a missing re-run mirror;
+- the controls key is written only for a re-run readout, so the amended module reproduces the committed terminal readout byte for byte (tested);
+- this note on the IEEE re-runs.
+
+### Package
+
+| Part | Location |
+|---|---|
+| Builder | `src/dft/arm_c_rerun_build.py`: built from the committed readout (sha256-pinned), with `--check` |
+| Decks | 33 in `runs/hea/arm_c_2026-10-07_rerun/`: 28 ceiling re-runs, 3 IEEE re-runs, 2 controls |
+| Manifest | `runs/m_arm_c_2026-10-07_rerun.txt` |
+| Spec and plan | `results/arm_c_2026-10-07_rerun/launch_spec.json` and `rerun_plan.json` |
+| Slurm | `anvil/95_arm_c_rerun.slurm`, with the production resources |
+| Operations | `launch_ops.py`, `status_once.py` and `collect_terminal.py` for the Anvil root `sts_arm_c_2026-10-07_rerun`; array 1-33%33, 2.5 h per task |
+
+**Cost:** the ceiling is 33 × 2.5 h × 128 = **10,560 SU**. With the 10,876.7 SU already spent, the campaign bound is 21,436.7 SU, inside the approved 23,680.
+
+**Readout:**
+
+```
+python src/dft/arm_c_readout.py --plan results/arm_c_2026-10-07/site_plan.json \
+  --mirror results/arm_c_2026-10-07/raw_mirror \
+  --rerun-plan results/arm_c_2026-10-07_rerun/rerun_plan.json \
+  --rerun-mirror results/arm_c_2026-10-07_rerun/raw_mirror --out <readout.json>
+```
+
+**Tests:** `tests/test_arm_c_rerun.py` (10 tests) checks:
+- build reproducibility;
+- full coverage with the registered recipes and order;
+- the control rule;
+- that each deck is the production bytes or the one-line variant;
+- the repeat of the probe deck;
+- the spec shape, ceiling and campaign bound;
+- runner acceptance;
+- the Slurm pins and resources;
+- the operations targets;
+- substitution and the control readout on fake mirrors.
+
+150 tests pass with the related suites.

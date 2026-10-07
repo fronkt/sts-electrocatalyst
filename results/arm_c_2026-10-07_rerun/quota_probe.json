@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-07T22:27:25.221433+00:00",
+  "readonly": true,
+  "commands": {
+    "myquota": {
+      "command": "bash -lc myquota",
+      "stdout": "\nType       Location             Size    Limit    Use   Files   Limit    Use\n===========================================================================\nhome       x-fcai3            54.9MB   25.0GB   0.2%      -       -      - \nscratch    x-fcai3             2.5MB  100.0TB   0.0%      9     1.0M   0.0%\nprojects   x-che260157         3.5TB    5.0TB  70.4%  113.7K    1.0M  10.8%\n\n",
+      "stderr": "",
+      "rc": 0
+    },
+    "root": {
+      "command": "test -e /anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun && echo EXISTS || echo ABSENT",
+      "stdout": "ABSENT\n",
+      "stderr": "",
+      "rc": 0
+    },
+    "qe_sha": {
+      "command": "sha256sum /anvil/projects/x-che260157/qe/env/bin/pw.x /anvil/projects/x-che260157/qe/env/bin/projwfc.x /anvil/projects/x-che260157/qe/env/bin/mpirun",
+      "stdout": "1d66c7856f5d6b3cd9c66b8578e01512b16bbe907b4360e54234890712ccd6a1  /anvil/projects/x-che260157/qe/env/bin/pw.x\n456387be5ee32f358bc9835240b2e8bd1f8144a27a8e116731a1463dbf78ac85  /anvil/projects/x-che260157/qe/env/bin/projwfc.x\na256bdcef89bdc61ba870e823056c51df868b4db48ab345a14278a7fe79ed75d  /anvil/projects/x-che260157/qe/env/bin/mpirun\n",
+      "stderr": "",
+      "rc": 0
+    }
+  }
+}

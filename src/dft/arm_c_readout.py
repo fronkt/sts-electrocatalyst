@@ -20,7 +20,11 @@ banked PBE H2O/H2 of runs/Cr_slab). Registered rules:
   against the production control on the same slab;
 * re-run round (at most 6 SCFs): rerun_selection() below; a re-run replaces a failed state only if
   it is accepted, and the state then carries its recipe; a chain mixing recipes is flagged.
-Informative only: per-site DFT - MLIP differences of eta and of each dG.
+  Amended (Frank, 2026-10-07, "Go with the full rerun."): the round re-runs every failed state,
+  built by arm_c_rerun_build.py; the selection order and substitution rules are unchanged.
+Informative only: per-site DFT - MLIP differences of eta and of each dG; the re-run round's recipe
+controls (an accepted production slab re-run with the probe recipe: energy and moment differences,
+and the site's eta with the control slab).
 """
 from __future__ import annotations
 
@@ -91,14 +95,18 @@ def site_result(site: dict, mirror: Path, gas: dict, substitutions: dict | None 
     states = {s: accepted(run_dir, site["states"][s]["job"]) for s in STATES}
     out = {k: site[k] for k in ("formula", "seed", "site_index", "site_metal", "roles", "eta_mlip_V", "dir")}
     out["original_failures"] = {s: failure_class(r) for s, r in states.items() if not r["accepted"]}
+    attempts = []
     for state, sub in (substitutions or {}).items():
         if states[state]["accepted"] or rerun_mirror is None:
             continue
         rerun = accepted(rerun_mirror / "runs" / sub["dir"], sub["job"])
         rerun["recipe"] = sub["recipe"]
         rerun["replaces"] = states[state]["job"]
+        attempts.append(dict(rerun, state=state, failure=failure_class(rerun)))
         if rerun["accepted"]:
             states[state] = rerun
+    if substitutions:
+        out["rerun_attempts"] = attempts
     out["states"] = states
     out["failures"] = {s: failure_class(r) for s, r in states.items() if not r["accepted"]}
     recipes = sorted({r["recipe"] for r in states.values()})
@@ -190,6 +198,25 @@ def probe(plan: dict, mirror: Path) -> dict:
     return {"control": control, "variants": rows, "rerun_recipe_for_ceiling_stops": chosen}
 
 
+def recipe_control(row: dict, mirror: Path, rerun_mirror: Path | None, sites: list, gas: dict) -> dict:
+    """Informative: one accepted production SCF repeated under the probe recipe."""
+    production = accepted(mirror / "runs" / row["site_dir"], row["control_of"])
+    control = accepted(rerun_mirror / "runs" / row["dir"], row["job"]) if rerun_mirror else None
+    out = {"site_dir": row["site_dir"], "state": row["state"], "recipe": row["recipe"],
+           "production": production, "control": control}
+    if control and control["accepted"] and production["accepted"]:
+        out["energy_control_minus_production_meV"] = 1000 * (control["E_eV"] - production["E_eV"])
+        for key in ("total_magnetization", "absolute_magnetization"):
+            if control.get(key) is not None and production.get(key) is not None:
+                out[key + "_control_minus_production"] = control[key] - production[key]
+        site = next(s for s in sites if s["dir"] == row["site_dir"])
+        if site["complete"]:
+            energies = {s: site["states"][s]["E_eV"] for s in STATES}
+            energies[row["state"]] = control["E_eV"]
+            out["eta_dft_V_with_control"] = hpr.che_from_energies(energies, gas)["eta"]
+    return out
+
+
 def tier(site: dict) -> int:
     supports = any(r.startswith("support") for r in site["roles"])
     if supports and site["formula"] in (CU8, NI31, FE25):
@@ -242,13 +269,17 @@ def main(argv=None) -> int:
     parser.add_argument("--rerun-mirror", type=Path, help="raw_mirror of the re-run round")
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args(argv)
+    if args.rerun_plan and (args.rerun_mirror is None or not (args.rerun_mirror / "runs").is_dir()):
+        parser.error("--rerun-plan needs --rerun-mirror pointing at a collected raw_mirror with runs/")
     plan = json.loads(args.plan.read_text(encoding="utf-8"))
     gas_records = hpr.gas_references()
     gas = {g: gas_records[g]["E_eV"] for g in ("H2O", "H2")}
-    substitutions = {}
+    substitutions, control_rows = {}, []
     if args.rerun_plan:
-        for row in json.loads(args.rerun_plan.read_text(encoding="utf-8"))["selection"]:
+        rerun_plan = json.loads(args.rerun_plan.read_text(encoding="utf-8"))
+        for row in rerun_plan["selection"]:
             substitutions.setdefault(row["site_dir"], {})[row["state"]] = row
+        control_rows = rerun_plan.get("controls", [])
     sites = [site_result(site, args.mirror, gas, substitutions.get(site["dir"]), args.rerun_mirror)
              for site in plan["sites"]]
     values = alloy_values(sites)
@@ -260,6 +291,11 @@ def main(argv=None) -> int:
               "counts": {"scf_total": 4 * len(sites),
                          "scf_accepted": sum(r["accepted"] for s in sites for r in s["states"].values()),
                          "sites_complete": sum(s["complete"] for s in sites)}}
+    if args.rerun_plan:
+        attempts = [a for s in sites for a in s.get("rerun_attempts", [])]
+        result["counts"].update(rerun_attempted=len(attempts), rerun_accepted=sum(a["accepted"] for a in attempts))
+        result["recipe_controls"] = [recipe_control(row, args.mirror, args.rerun_mirror, sites, gas)
+                                     for row in control_rows]
     args.out.write_bytes((json.dumps(result, indent=2) + "\n").encode("utf-8"))
     print(json.dumps({"counts": result["counts"], "predictions": result["predictions"],
                       "probe_recipe": probe_result["rerun_recipe_for_ceiling_stops"],

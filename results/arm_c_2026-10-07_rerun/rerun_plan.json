@@ -1,0 +1,282 @@
+{
+  "schema": "s8-arm-c-rerun-plan-v1",
+  "date": "2026-10-07",
+  "design": "docs/research/s8-arm-c-dft-design-2026-10-07.md",
+  "decision_ref": "Frank, 2026-10-07: \"Go with the full rerun.\"",
+  "source_readout": {
+    "path": "results/arm_c_2026-10-07/readout.json",
+    "sha256": "3ee216b50853ea7428e51e0b6774c71a910d9794d1e4fbf2dd690209f3d36762"
+  },
+  "probe_recipe": "ndim16",
+  "rule": "every failed state of the terminal readout is re-run once: CEILING with the probe recipe, IEEE as an identical production re-run; the registered 6-slot cap is lifted",
+  "slots": 31,
+  "selection": [
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Ni31Cr29Cu5Mn35__s10_site2",
+      "state": "slab",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Ni31Cr29Cu5Mn35__s10_site2",
+      "job": "slab__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s26_site1",
+      "state": "slab",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu8Cr23Mn35Co34__s26_site1",
+      "job": "slab__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s26_site1",
+      "state": "O",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu8Cr23Mn35Co34__s26_site1",
+      "job": "O__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s26_site1",
+      "state": "OOH",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu8Cr23Mn35Co34__s26_site1",
+      "job": "OOH__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2",
+      "state": "OH",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s25_site2",
+      "job": "OH__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2",
+      "state": "O",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s25_site2",
+      "job": "O__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2",
+      "state": "OOH",
+      "failure": "IEEE",
+      "recipe": "production",
+      "dir": "hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s25_site2",
+      "job": "OOH__atomic"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s16_site2",
+      "state": "slab",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu8Cr23Mn35Co34__s16_site2",
+      "job": "slab__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s16_site2",
+      "state": "OH",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu8Cr23Mn35Co34__s16_site2",
+      "job": "OH__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s16_site2",
+      "state": "O",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu8Cr23Mn35Co34__s16_site2",
+      "job": "O__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s16_site2",
+      "state": "OOH",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu8Cr23Mn35Co34__s16_site2",
+      "job": "OOH__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s13_site0",
+      "state": "slab",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s13_site0",
+      "job": "slab__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s13_site0",
+      "state": "OH",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s13_site0",
+      "job": "OH__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s13_site0",
+      "state": "O",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s13_site0",
+      "job": "O__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s13_site0",
+      "state": "OOH",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s13_site0",
+      "job": "OOH__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s1_site0",
+      "state": "O",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu26Ni9Cr31Co33__s1_site0",
+      "job": "O__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s17_site1",
+      "state": "slab",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu26Ni9Cr31Co33__s17_site1",
+      "job": "slab__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s17_site1",
+      "state": "OH",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu26Ni9Cr31Co33__s17_site1",
+      "job": "OH__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s17_site1",
+      "state": "O",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu26Ni9Cr31Co33__s17_site1",
+      "job": "O__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu22Fe30Co32Mn15__s6_site1",
+      "state": "slab",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu22Fe30Co32Mn15__s6_site1",
+      "job": "slab__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu22Fe30Co32Mn15__s6_site1",
+      "state": "O",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu22Fe30Co32Mn15__s6_site1",
+      "job": "O__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu22Fe30Co32Mn15__s6_site1",
+      "state": "OOH",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu22Fe30Co32Mn15__s6_site1",
+      "job": "OOH__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Ni34Fe6Cu29Co31__s22_site0",
+      "state": "slab",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Ni34Fe6Cu29Co31__s22_site0",
+      "job": "slab__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s2_site0",
+      "state": "slab",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s2_site0",
+      "job": "slab__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s2_site0",
+      "state": "OH",
+      "failure": "IEEE",
+      "recipe": "production",
+      "dir": "hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s2_site0",
+      "job": "OH__atomic"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s5_site2",
+      "state": "slab",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu26Ni9Cr31Co33__s5_site2",
+      "job": "slab__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s5_site2",
+      "state": "O",
+      "failure": "IEEE",
+      "recipe": "production",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu26Ni9Cr31Co33__s5_site2",
+      "job": "O__atomic"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu22Fe30Co32Mn15__s27_site3",
+      "state": "slab",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu22Fe30Co32Mn15__s27_site3",
+      "job": "slab__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu22Fe30Co32Mn15__s27_site3",
+      "state": "OH",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu22Fe30Co32Mn15__s27_site3",
+      "job": "OH__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu22Fe30Co32Mn15__s27_site3",
+      "state": "O",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu22Fe30Co32Mn15__s27_site3",
+      "job": "O__atomic_ndim16"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu22Fe30Co32Mn15__s27_site3",
+      "state": "OOH",
+      "failure": "CEILING",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu22Fe30Co32Mn15__s27_site3",
+      "job": "OOH__atomic_ndim16"
+    }
+  ],
+  "controls_rule": "informative: the accepted production slab of every site with a CEILING stop, re-run with the probe recipe",
+  "controls": [
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2",
+      "state": "slab",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s25_site2",
+      "job": "slab__atomic_ndim16",
+      "control_of": "slab__atomic"
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s1_site0",
+      "state": "slab",
+      "recipe": "ndim16",
+      "dir": "hea/arm_c_2026-10-07_rerun/Cu26Ni9Cr31Co33__s1_site0",
+      "job": "slab__atomic_ndim16",
+      "control_of": "slab__atomic"
+    }
+  ]
+}
