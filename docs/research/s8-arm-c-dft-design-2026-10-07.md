@@ -1,6 +1,17 @@
 # S8 arm C — DFT design and pricing, 2026-10-07
 
-Status: **proposal for Frank's decision. No SU is approved.**
+Status: **APPROVED.** Frank, 2026-10-07: "Go ahead. Yes to each add on."
+
+| Approved item | Value |
+|---|---|
+| Option | C-FG |
+| Ni34 add-on | yes (sites s22/0 and s29/1) |
+| Best-site add-on | yes: Cu8 s20/2, Fe25 s2/0, Cu26 s5/2, Cu22 s27/3. Ni31's best site s1/0 is already a support site. Ni34's best site was not priced and is not included |
+| Scope | 16 sites, 64 SCFs, plus the Fe25 probe and one re-run round |
+| Hard ceiling | **23,680 SU** = 16,000 + 2,560 + 5,120 |
+| Expected | 9,300–16,400 SU |
+
+The text below is the approved design. §3 gives the implementation as built.
 
 Decision of record: Frank, 2026-10-07, "Continue it. OK With me." That started this design after O1's CONTINUITY_PASS ([readout](pa-o1-and-repro-probe-readout-2026-10-07.md)). It also kept the IEEE_INVALID rule unchanged, with about 11% re-runs budgeted.
 
@@ -169,3 +180,89 @@ This leaves a week of margin before the Oct 21 fallback. The batch-1 melt does n
 3. The SU ceiling for the chosen scope: base C-FG is 16,000 hard, 6,000–11,000 expected.
 
 Nothing is submitted before the usual build, independent review, staging, preflight, held submit, validation and single release.
+
+**Decided** (decision of record at the top): C-FG plus both add-ons, with a 23,680 SU ceiling.
+
+## 5. As built, 2026-10-07
+
+### Package
+
+**Builder:** `src/dft/arm_c_build.py`. It:
+- recomputes every site, weight and best site from `per_site.csv`, and refuses if they differ from the approved scope;
+- reads the structures from the hash-checked census result files;
+- renders the decks through `hea_deck.render_deck`.
+
+Its `--check` mode rebuilds the package in memory and compares it byte for byte with the 71 files below.
+
+| Output | Contents |
+|---|---|
+| `runs/hea/arm_c_2026-10-07/<alloy>__s<seed>_site<i>/{slab,OH,O,OOH}__atomic.in` | 64 production decks (16 sites × 4 states) |
+| `runs/hea/arm_c_2026-10-07/probe__Fe25Co25Ni25Cr25__s2_site0/slab__atomic_{ndim16,cg,hs}.in` | 3 probe decks |
+| `runs/m_arm_c_2026-10-07_{main,probe}.txt` | manifests |
+| `results/arm_c_2026-10-07/site_plan.json` | site plan: sites, roles, weights, MLIP values, census hashes |
+| `results/arm_c_2026-10-07/launch_spec.json` | launch spec |
+
+**Runner:** the unchanged September runner `src/dft/research_batch.py`, schema `research-batch-2026-09-16`, with its pinned helpers. It already applies:
+- the 126-iteration ceiling;
+- the `IEEE_(INVALID|OVERFLOW|DIVIDE_BY_ZERO)` rejection;
+- the one-SCF / one-energy / JOB DONE checks;
+- force and moment recording;
+- the projection;
+- the full HEA QC.
+
+**Slurm:** `anvil/94_arm_c_batch.slurm` pins the spec and runner sha256. It runs one SCF per array task on `wholenode` with 128 ranks and `-nk 8`.
+
+**Operations:**
+- `results/arm_c_2026-10-07/launch_ops.py`: stage, preflight, held submit, validate, release;
+- `status_once.py`, `collect_terminal.py`.
+
+### Changes from §3, made before launch
+
+| Item | Design text | As built | Why |
+|---|---|---|---|
+| Job layout | one 10 h job per site chain | one 2.5 h array task per SCF (64 tasks, throttle 60) | Same 20,480 SU ceiling; faster wall clock; a stall costs only its own task |
+| Per-task limits | 2.5 h per SCF | scf_seconds 8,100, projection_seconds 600, Slurm 2:30:00 | 126 iterations at the measured ≤ 65 s each; projection measured at 44–56 s |
+| Probe variant (c) | U-ramp start | high-spin start (`starting_magnetization = 1.0` on every metal) | The unchanged runner cannot seed a second SCF. Both change only the starting state, not the Hamiltonian |
+| Probe launch | one job | 3 array tasks × 2.5 h = 960 SU | |
+
+**Launch ceiling:** 64 × 2.5 h × 128 + 3 × 2.5 h × 128 = **21,440 SU**. The re-run round is reserved at 1,920 SU (at most 6 SCFs × 2.5 h), for a campaign total of 23,360 SU, within the approved 23,680.
+
+### Registered readout (`src/dft/arm_c_readout.py`)
+
+**Acceptance per SCF.** An SCF counts only if:
+- the runner's receipt is COMPLETE;
+- the unchanged parser (`hea_panel_readout.parse_out`) reads it as CONVERGED;
+- both report the same energy.
+
+**η.** `hea_panel_readout.che_from_energies` with the banked `runs/Cr_slab` H2O/H2.
+
+**Alloy value C, re-run selection and Ni34 nomination:**
+- C follows §3.
+- **Re-run order** for the ≤ 6 reserved slots:
+  1. Cu8, Ni31 and Fe25 support sites;
+  2. Cu26 and Cu22 support sites;
+  3. Ni34 support sites;
+  4. best sites.
+- **Re-run recipe:**
+
+  | Failure | Re-run |
+  |---|---|
+  | IEEE_INVALID | identical |
+  | Ceiling stop | the first probe variant, in priority order ndim16 → cg → hs, that converges the Fe25 seed-2 slab; none if no variant converges |
+
+- **Ni34 batch-2 nomination,** registered before any result: Ni34Fe6Cu29Co31 is nominated if arm C ranks it first or second of the six alloys. That requires all six values.
+
+### Tests
+
+`tests/test_arm_c.py` checks:
+- the build reproduces the committed files byte for byte;
+- the sites and weights match the arm-B p10;
+- the builder refuses a drifted census;
+- every deck is the census structure under the production recipe;
+- each probe deck differs only by its registered change;
+- the spec pins and shape are as registered;
+- the unchanged runner accepts both stages;
+- the Slurm pins are current;
+- the readout rules: weighted value, single-site fallback, K1/K2/Ni34, acceptance, and failure classes.
+
+136 tests pass with the related QC suites.
