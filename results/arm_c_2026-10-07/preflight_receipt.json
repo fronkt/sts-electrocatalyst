@@ -1,0 +1,90 @@
+{
+  "phase": "preflight",
+  "at": "2026-10-07T16:24:52.340632+00:00",
+  "commands": {
+    "preflight:arm_c_main": {
+      "command": "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 -B /anvil/projects/x-che260157/sts_arm_c_2026-10-07/src/dft/research_batch.py --spec /anvil/projects/x-che260157/sts_arm_c_2026-10-07/results/arm_c_2026-10-07/launch_spec.json --root /anvil/projects/x-che260157/sts_arm_c_2026-10-07 --stage arm_c_main --pseudo /anvil/projects/x-che260157/pseudo --preflight",
+      "stdout": "VALID\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T16:24:54.140267+00:00"
+    },
+    "preflight:arm_c_probe": {
+      "command": "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 -B /anvil/projects/x-che260157/sts_arm_c_2026-10-07/src/dft/research_batch.py --spec /anvil/projects/x-che260157/sts_arm_c_2026-10-07/results/arm_c_2026-10-07/launch_spec.json --root /anvil/projects/x-che260157/sts_arm_c_2026-10-07 --stage arm_c_probe --pseudo /anvil/projects/x-che260157/pseudo --preflight",
+      "stdout": "VALID\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T16:24:54.627435+00:00"
+    },
+    "imports": {
+      "command": "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 -B -c 'import sys; sys.path.insert(0, sys.argv[1]); import research_batch, projection_qc, hea_force_audit, hea_followup_qc; print('\"'\"'IMPORTS_OK'\"'\"')' /anvil/projects/x-che260157/sts_arm_c_2026-10-07/src/dft",
+      "stdout": "IMPORTS_OK\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T16:24:55.097252+00:00"
+    },
+    "qe_binaries": {
+      "command": "test -x /anvil/projects/x-che260157/qe/env/bin/pw.x -a -x /anvil/projects/x-che260157/qe/env/bin/projwfc.x -a -x /anvil/projects/x-che260157/qe/env/bin/mpirun",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T16:24:55.515801+00:00"
+    },
+    "logs_dir": {
+      "command": "test -d /anvil/projects/x-che260157/sts_arm_c_2026-10-07/logs -a -w /anvil/projects/x-che260157/sts_arm_c_2026-10-07/logs",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T16:24:55.931786+00:00"
+    },
+    "qe_sha": {
+      "command": "sha256sum /anvil/projects/x-che260157/qe/env/bin/pw.x /anvil/projects/x-che260157/qe/env/bin/projwfc.x /anvil/projects/x-che260157/qe/env/bin/mpirun",
+      "stdout": "1d66c7856f5d6b3cd9c66b8578e01512b16bbe907b4360e54234890712ccd6a1  /anvil/projects/x-che260157/qe/env/bin/pw.x\n456387be5ee32f358bc9835240b2e8bd1f8144a27a8e116731a1463dbf78ac85  /anvil/projects/x-che260157/qe/env/bin/projwfc.x\na256bdcef89bdc61ba870e823056c51df868b4db48ab345a14278a7fe79ed75d  /anvil/projects/x-che260157/qe/env/bin/mpirun\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T16:24:56.459803+00:00"
+    },
+    "myquota": {
+      "command": "bash -lc myquota",
+      "stdout": "\nType       Location             Size    Limit    Use   Files   Limit    Use\n===========================================================================\nhome       x-fcai3            54.9MB   25.0GB   0.2%      -       -      - \nscratch    x-fcai3             2.5MB  100.0TB   0.0%      9     1.0M   0.0%\nprojects   x-che260157         2.5TB    5.0TB  51.0%   90.4K    1.0M   8.6%\n\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T16:24:57.396733+00:00"
+    },
+    "mybalance": {
+      "command": "mybalance",
+      "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    100000.0     64814.3    64814.3     35185.7\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T16:24:57.945302+00:00"
+    },
+    "squeue": {
+      "command": "squeue -u x-fcai3 -h -o '%i|%j|%T'",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T16:24:58.363588+00:00"
+    },
+    "remote_sha": {
+      "command": "sha256sum /anvil/projects/x-che260157/sts_arm_c_2026-10-07/results/arm_c_2026-10-07/launch_spec.json /anvil/projects/x-che260157/sts_arm_c_2026-10-07/anvil/94_arm_c_batch.slurm",
+      "stdout": "48c7cb686d2cc73cd3f6f1e89a9fd02d7904b8181c78241f22cee6cf90ad66f4  /anvil/projects/x-che260157/sts_arm_c_2026-10-07/results/arm_c_2026-10-07/launch_spec.json\n4cbec65d1ca2f85415fba671357873d06c4d5b2c8fa4401b2d2527deaaa22415  /anvil/projects/x-che260157/sts_arm_c_2026-10-07/anvil/94_arm_c_batch.slurm\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T16:24:58.798241+00:00"
+    },
+    "slurm_syntax": {
+      "command": "bash -n /anvil/projects/x-che260157/sts_arm_c_2026-10-07/anvil/94_arm_c_batch.slurm",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-07T16:24:59.221637+00:00"
+    }
+  },
+  "spec_sha256": "48c7cb686d2cc73cd3f6f1e89a9fd02d7904b8181c78241f22cee6cf90ad66f4",
+  "slurm_sha256": "4cbec65d1ca2f85415fba671357873d06c4d5b2c8fa4401b2d2527deaaa22415",
+  "balance_su": 35185.7,
+  "queued_jobs": [],
+  "qe_binaries_match": true,
+  "project_free_TB": 2.5,
+  "passed": true
+}

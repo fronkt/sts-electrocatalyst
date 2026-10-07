@@ -3369,6 +3369,6 @@ Verification: readout numbers come from readout.json and informative_distances.j
 - [x] Builder `src/dft/arm_c_build.py` (sites recomputed from per_site.csv and refused if they drift; census structures hash-checked; decks via hea_deck.render_deck): 64 production + 3 probe decks, manifests, site plan, spec (sha 0f1c0e7c...).
 - [x] Unchanged September runner `src/dft/research_batch.py`; Slurm `anvil/94_arm_c_batch.slurm` (one SCF per wholenode array task, 2:30:00); launch ops/status/collect in `results/arm_c_2026-10-07/`.
 - [x] Readout `src/dft/arm_c_readout.py` (COMPLETE receipt + CONVERGED parser + same energy; weighted C, single-site fallback, K1/K2, Ni34 top-two nomination, probe recipe); tests `tests/test_arm_c.py`; 136 pass with the QC suites. Commit d9ec033.
-- [ ] Independent pre-launch review; fold in fixes.
-- [ ] Stage, preflight, held submit (main 1-64%60, probe 1-3%3), validate, release. Launch ceiling 21,440 SU (+1,920 re-run reserve).
+- [x] Independent pre-launch review: no blocker; fixes folded in (quota check >= 1.5 TB free, cg probe dropped, ceiling-before-IEEE classes + projwfc IEEE scan, registered re-run selection/substitution, QE binary pins, stage receipts, LF attributes); 140 tests pass. Commit 1c54ce9.
+- [x] Staged 74 files read-only (commit 1c54ce9); preflight PASS (both stages VALID, imports OK, QE binaries match, 2.5 TB free, balance 35,185.7 SU, queue empty); held arrays 21165189 (main 1-64%60) and 21165190 (probe 1-2%2) validated with no mismatches and released once 2026-10-07. Launch ceiling 21,120 SU (+1,920 re-run reserve).
 - [ ] Terminal: collect, readout, re-run round if needed, arm-C deposit (target Oct 12-13).

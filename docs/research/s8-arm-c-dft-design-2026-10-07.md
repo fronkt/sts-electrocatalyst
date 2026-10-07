@@ -1,6 +1,6 @@
 # S8 arm C — DFT design and pricing, 2026-10-07
 
-Status: **APPROVED.** Frank, 2026-10-07: "Go ahead. Yes to each add on."
+Status: **APPROVED and LAUNCHED.** Frank, 2026-10-07: "Go ahead. Yes to each add on." Anvil arrays 21165189 (main, 64 SCFs) and 21165190 (probe, 2 SCFs) were staged, preflighted, held, validated and released once on 2026-10-07 (receipts in `results/arm_c_2026-10-07/`).
 
 | Approved item | Value |
 |---|---|
