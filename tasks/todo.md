@@ -3353,3 +3353,13 @@ Verification: readout numbers come from readout.json and informative_distances.j
 - [x] S8 stage-1 freeze proposal for the entrant (not frozen, not deposited): `docs/research/s8-stage1-freeze-proposal-2026-10-07.md` (two-stage MLIP-vs-DFT design; Cr(VI) risk assessment blocking; [CONFIRM] items). Three-arm option (Aug 5 screen vs census vs DFT, Fe25 as fifth melt) awaiting Frank.
 - [x] Frank: "Add Fe25." Freeze proposal revised to five alloys / three arms (four-alloy text archived); practical plan `docs/research/s8-melt-plan-2026-10-07.md` (batch 1 = five MLIP-set alloys; batch 2 only if DFT nominates an unmelted alloy, i.e. Ni34Fe6Cu29Co31; no batch 3). Open: Frank's [CONFIRM] items, Cr(VI) risk assessment, weigh sheets, deposit.
 - [x] Terminal (2026-10-07): job 21159532 COMPLETED on a637, 3:49:09, 488.85 SU (balance 35,185.7). Registered reading CONTINUITY_PASS: max deltas 1.69e-7 Ry / 6.40e-5 bohr / 8.74e-5 Ry/bohr (0.006 / 0.064 / 0.17 of tolerance), carry-over equal, RESUME_CANDIDATE (warm - fresh -0.14 meV), all 5 calls validated, no IEEE_INVALID. Informative sensitivity: negative control (history deleted) lands 8.9x / 4.9x / 4.2x outside the tolerances one step later. Same magnitudes as 21075231; the reading changed with the registered tolerances. Next (Frank): cost the arm-C production relaxation; IEEE_INVALID rule for production (2 of 18 calls).
+
+## 2026-10-07 — Arm C (S8 stage 2): production DFT design and pricing (Frank: "Continue it. OK With me.")
+
+- [x] IEEE_INVALID rule for production: unchanged; budget about 11% re-runs (decision recorded in the O1/probe readout).
+- [x] Inventory: no alloy has a DFT chain; relaxed Ni31 s1/0 slab + *O and Cu8 s20/2 *O only; fixed-geometry chains Ni31 s0/0 and s1/0; Cu26/Cu22/Ni34 no outputs; banked PBE H2O/H2 compatible.
+- [x] Cost basis: warm step 36-50 SU; converged legs 13-23 steps / 547-1,109 SU; fresh SCF ~120 SU; every-step P-A 176 SU/step; fixed-geometry SCF 66-135 SU; stalls 5/9 relax legs (Fe25 3/3), Fe25 fixed-geometry 6/10; queue 4-16 h; wholenode 4 d / 64 jobs per user.
+- [x] Arm-C definition proposed (C-FG): DFT+U single points at the census structures of each alloy's two arm-B p10 support sites (verified from per_site.csv), arm-B weights, IEEE re-run once, Fe25 convergence probe; C-REL and C-SKIP priced as alternatives.
+- [x] Priced: C-FG 6,000-11,000 SU expected / 16,000 hard ceiling, deposit about Oct 12-13; C-REL 17,000-35,000+ (every-step P-A 60,000-75,000); add-ons Ni34 (+2,560 ceiling) and best sites (+5,120).
+- [x] Design doc `docs/research/s8-arm-c-dft-design-2026-10-07.md` for Frank's approval.
+- [ ] Frank's decision: option, add-ons, SU ceiling. No production SU before his dated approval.

@@ -153,6 +153,8 @@ The note records that an invalid operation (for example 0/0 or the square root o
 
 ## Open decisions (Frank)
 
+**Decision of record, 2026-10-07.** Frank: "Continue it. OK With me." This accepts the IEEE_INVALID recommendation in item 2: the rule stays unchanged for production, and the budget allows about 11% re-runs. It also starts the design and pricing in item 1. No production SU is approved by this decision.
+
 1. **Production relaxation.** O1's pass licenses a separately costed design and SU estimate for the arm-C production relaxations. Arm C must be deposited before OER, with Oct 21 as the fallback date.
 2. **The IEEE_INVALID rule for production.**
    - *Recommendation:* keep the rule unchanged and budget for about 11% re-runs. The alternative is a registered amendment made before production, for example failing only on a non-finite energy, force or position. Weakening a failure rule after it has bitten twice is the kind of post-hoc change the registration exists to prevent.
