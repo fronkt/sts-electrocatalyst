@@ -1,6 +1,6 @@
 # S8 arm C — DFT design and pricing, 2026-10-07
 
-Status: **APPROVED and LAUNCHED.** Frank, 2026-10-07: "Go ahead. Yes to each add on." Anvil arrays 21165189 (main, 64 SCFs) and 21165190 (probe, 2 SCFs) were staged, preflighted, held, validated and released once on 2026-10-07 (receipts in `results/arm_c_2026-10-07/`). After the terminal readout, the full re-run round (§6; Frank: "Go with the full rerun.") went out the same way as array **21176478** (33 SCFs, 10,560 SU ceiling; receipts in `results/arm_c_2026-10-07_rerun/`).
+Status: **APPROVED and LAUNCHED.** Frank, 2026-10-07: "Go ahead. Yes to each add on." Anvil arrays 21165189 (main, 64 SCFs) and 21165190 (probe, 2 SCFs) were staged, preflighted, held, validated and released once on 2026-10-07 (receipts in `results/arm_c_2026-10-07/`). After the terminal readout, the full re-run round (§6; Frank: "Go with the full rerun.") went out the same way as array **21176478** (33 SCFs, 10,560 SU ceiling; receipts in `results/arm_c_2026-10-07_rerun/`). **Arm C is terminal (§7, read out 2026-10-08):** 40/64 SCFs and 6/16 sites; Cu8 and Fe25 have no value, so K1, K2 and the Ni34 nomination are not evaluable.
 
 | Approved item | Value |
 |---|---|
@@ -373,3 +373,83 @@ python src/dft/arm_c_readout.py --plan results/arm_c_2026-10-07/site_plan.json \
 - substitution and the control readout on fake mirrors.
 
 150 tests pass with the related suites.
+
+## 7. Re-run readout: arm C is terminal, 2026-10-08
+
+Array 21176478 ran on 2026-10-07 from 19:04 to 21:53 Anvil time. All 33 tasks ended: 9 converged and 24 stopped. It used **6,523.1 SU** of its 10,560 ceiling (sacct CPUTimeRAW, equal to the `mybalance` drop). Arm C used **17,399.8 SU** in total, inside the approved 23,680. The balance afterwards is 17,775.2 SU (`mybalance`, 2026-10-08 05:08Z).
+
+The collection (`terminal_collection.json`) holds 174 files, and every remote and local sha256 matches. As in §6, the 9 projection outputs (88 MB) stay local.
+
+### Registered readout (`results/arm_c_2026-10-07_rerun/readout.json`)
+
+| | Round 1 | After the re-run |
+|---|---|---|
+| SCFs accepted | 33 / 64 | **40 / 64** |
+| Sites complete | 4 / 16 | **6 / 16** |
+| Re-runs accepted | — | 7 / 31: 5 of 28 ndim16 ceiling re-runs, 2 of 3 identical IEEE re-runs |
+| Final failures | 31 | 24: 22 iteration-ceiling stops, 2 IEEE notes |
+
+| Alloy | C value (V) | Basis | Mixed recipe |
+|---|---|---|---|
+| Cu26Ni9Cr31Co33 | 0.613 | one site: s1/0, weight 0.8 (s17/1 incomplete) | yes (O by ndim16) |
+| Ni31Cr29Cu5Mn35 | 0.934 | two sites: s1/0 0.768 × 0.3, s10/2 1.006 × 0.7 | yes (s10/2 slab by ndim16) |
+| Cu22Fe30Co32Mn15 | 0.942 | one site: s24/3, weight 0.7 (s6/1 incomplete) | no |
+| Ni34Fe6Cu29Co31 | 1.281 | one site: s29/1, weight 0.4 (s22/0 incomplete) | no |
+| Cu8Cr23Mn35Co34 | — | no value: s16/2 and s26/1 both incomplete | — |
+| Fe25Co25Ni25Cr25 | — | no value: s13/0 and s25/2 both incomplete | — |
+
+**K1, K2 and the Ni34 nomination: NOT_EVALUABLE_UNDER_ARM_C.** This was the one re-run round, so the reading is final. The order Cu26 < Ni31 < Cu22 < Ni34 is descriptive only: three of the four values rest on one site, and Ni31 and Cu22 differ by 8 mV, far inside DFT+U error.
+
+**Best-site checks:**
+- Complete: Cu8 s20/2 (0.621 V) and Ni31 s1/0 (0.768 V).
+- Not complete:
+  - Fe25 s2/0: slab ceiling, OH IEEE.
+  - Cu26 s5/2: slab ceiling.
+  - Cu22 s27/3: all four states hit the ceiling.
+
+**Recipe controls (informative).** Both ndim16 repeats of accepted production slabs reproduced them:
+- Fe25 s25/2: −0.10 meV and +0.01 μB.
+- Cu26 s1/0: +0.08 meV and 0.00 μB; its η moves by 0.08 mV.
+
+The two mixed-recipe chains (Cu26 s1/0, Ni31 s10/2) therefore carry no recipe offset at the meV level.
+
+**Descriptive, not a registered test: DFT against MLIP at the six complete sites.**
+
+| Site | MLIP η (V) | DFT η (V) | DFT − MLIP (V) |
+|---|---|---|---|
+| Cu26 s1/0 | 0.479 | 0.613 | +0.13 |
+| Cu8 s20/2 | 0.362 | 0.621 | +0.26 |
+| Ni31 s1/0 | 0.440 | 0.768 | +0.33 |
+| Cu22 s24/3 | 0.842 | 0.942 | +0.10 |
+| Ni31 s10/2 | 0.487 | 1.006 | +0.52 |
+| Ni34 s29/1 | 0.786 | 1.281 | +0.49 |
+
+The MLIP sits below DFT at every site, by 0.10 to 0.52 V. The offset changes from site to site, so it is not a constant shift.
+
+### Why the SCFs stop
+
+- **Same deck, different answer.** The Fe25 s2/0 slab re-run deck is byte-identical to the probe deck that converged in 51 iterations (same sha256 `c02740c0…`).
+  - The setup matched: the same 128-rank, 8-pool layout and 486 randomized atomic starting wavefunctions. Only `outdir` differs.
+  - The two runs already differ in the first iteration, by 3e-5 Ry. They separate into different magnetic states between iterations 12 and 16.
+  - The probe converged at 35.95 μB. The re-run stalled at 37.78 μB, with its residual held near 1e-5 Ry from about iteration 50 to the ceiling. That is the state the production slab stopped in: the same moment, and an energy within 1e-6 Ry.
+  - The stalled state lies 33.8 meV above the converged one.
+  - So the probe converged because of the magnetic state it fell into, not only because of the mixing setting. This is the same branch instability as R3 (`tasks/todo.md`, 2026-08-26 entries: the same deck on the same machine gave a different answer).
+- **Two kinds of stop.**
+  - 9 of the 22 ceiling stops sat in one magnetic state. Over the last 20 iterations, their residual stayed between 5e-6 and 1.2e-4 Ry and the energy stayed within 10 meV.
+  - The other 13 never settled: residuals reached 2e-4 to 6e-2 Ry, and the energy swung 19–461 meV over the same window.
+- **No post hoc rescue.** Accepting every near-threshold stall would still leave Cu8 and Fe25 without a value. Each of their four support sites has at least one state that never settled. So no relaxation of the acceptance rule changes K1, K2 or the Ni34 call.
+- **IEEE notes.**
+  - Fe25 s2/0 OH ended with IEEE_INVALID_FLAG for the third time (September pilot, round 1, this repeat), each time after converging.
+  - Fe25 s25/2 OOH and Cu26 s5/2 O passed on their repeat.
+  - One ndim16 run, Cu22 s6/1 O, converged in 92 iterations and then ended with the same note.
+
+### Package additions
+
+| Part | Location |
+|---|---|
+| Status snapshot | `status_snapshot_20261008T050812Z.json` |
+| Collection | `terminal_collection.json`, `raw_mirror/` (projection outputs local) |
+| Readout | `readout.json` (LF-pinned), `readout.job.json`, `readout.log` |
+| Test | `tests/test_arm_c_rerun.py::test_the_rerun_readout_reproduces_the_committed_rerun_readout` rebuilds the readout byte for byte from both mirrors; it is skipped when the projection outputs are absent |
+
+`tests/test_arm_c_rerun.py` holds 14 tests. 154 pass with `test_arm_c`, `test_hea_force_audit`, `test_hea_followup_qc` and `test_hea_panel`.

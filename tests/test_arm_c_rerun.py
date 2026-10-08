@@ -246,3 +246,14 @@ def test_the_amended_readout_reproduces_the_committed_terminal_readout(tmp_path)
     readout.main(["--plan", str(ROOT / "results/arm_c_2026-10-07/site_plan.json"), "--mirror", str(mirror),
                   "--out", str(out)])
     assert out.read_bytes() == (ROOT / "results/arm_c_2026-10-07/readout.json").read_bytes()
+
+
+def test_the_rerun_readout_reproduces_the_committed_rerun_readout(tmp_path):
+    mirror, rerun_mirror = ROOT / "results/arm_c_2026-10-07/raw_mirror", PACKAGE / "raw_mirror"
+    if not (any(mirror.rglob("*.projwfc.out")) and any(rerun_mirror.rglob("*.projwfc.out"))):
+        pytest.skip("projection outputs are kept local, outside git")
+    out = tmp_path / "readout.json"
+    readout.main(["--plan", str(ROOT / "results/arm_c_2026-10-07/site_plan.json"), "--mirror", str(mirror),
+                  "--rerun-plan", str(PACKAGE / "rerun_plan.json"), "--rerun-mirror", str(rerun_mirror),
+                  "--out", str(out)])
+    assert out.read_bytes() == (PACKAGE / "readout.json").read_bytes()
