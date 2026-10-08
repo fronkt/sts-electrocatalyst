@@ -7,6 +7,7 @@ Usage (local, background worker): python launch_ops.py <phase> [array]
   stage     copy the committed bytes of a pushed commit to the dated Anvil root (inputs read-only), verify
             sha256; upload each bundle's moved density (local, not in git) and copy its seed's XML from the
             arm-C roots, verifying both against the spec's scratch_source pins
+  resume    finish a stage that was killed before it wrote its receipt (re-runnable; see resume())
   preflight the seeded runner's own --preflight for both stages (it re-verifies every bundle file),
             Python 3.9 imports, QE binaries, mybalance, an empty queue, free project space and the remote
             spec/Slurm sha256
@@ -25,6 +26,7 @@ import posixpath
 import shlex
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import paramiko
@@ -186,6 +188,124 @@ def stage():
         write("stage_receipt.json", receipt)
 
 
+RESUME_BUDGET_SECONDS = 300  # no new upload starts after this, so one call stays well inside ten minutes
+
+
+def resume_action(remote, pin):
+    """What to do with one bundle file on Anvil: remote is None (absent) or (sha256, octal mode)."""
+    if remote is None:
+        return "upload"
+    digest, mode = remote
+    if digest == pin:
+        return "keep" if mode == "444" else "seal"
+    if mode != "444":
+        return "replace"  # an interrupted transfer: staging seals a file only after its sha256 matched
+    raise SystemExit("a sealed file differs from its pin")
+
+
+def remote_files(client, paths, receipt, label):
+    """path -> (sha256, mode) for every given path that exists on Anvil (read-only)."""
+    quoted = " ".join(shlex.quote(p) for p in paths)
+    modes = run(client, f'for f in {quoted}; do if [ -e "$f" ]; then stat -c "%a %n" "$f"; fi; done', receipt, label + ":modes")
+    found = {line.split(" ", 1)[1]: line.split(" ", 1)[0] for line in modes["stdout"].splitlines() if line.strip()}
+    if not found:
+        return {}
+    sums = run(client, "sha256sum " + " ".join(shlex.quote(p) for p in found), receipt, label + ":sha", timeout=1800)
+    digests = {line.split()[1]: line.split()[0] for line in sums["stdout"].splitlines() if line.strip()}
+    return {p: (digests[p], found[p]) for p in found}
+
+
+def resume(budget=RESUME_BUDGET_SECONDS):
+    """Finish a stage that was killed before it wrote its receipt (its state: stage_probe_*.json).
+
+    Re-runnable. It refuses unless every committed file is already on Anvil, sealed (0444) and matching its pin.
+    Then, for each moved density and seed XML: a sealed match is kept, an unsealed match is sealed, an unsealed
+    mismatch (an interrupted transfer) is removed and sent again, a missing file is sent; a sealed mismatch
+    stops everything. No new upload starts once the budget is spent. Each call writes stage_resume_<stamp>.json;
+    the call that finds every file in place writes stage_receipt.json, which preflight requires."""
+    if (HERE / "stage_receipt.json").exists():
+        raise SystemExit("staging already has a receipt")
+    started = time.monotonic()
+    commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    remote = subprocess.check_output(["git", "ls-remote", "origin", "refs/heads/r0-catalysis-revival"], cwd=ROOT, text=True).split()[0]
+    if subprocess.run(["git", "merge-base", "--is-ancestor", commit, remote], cwd=ROOT).returncode:
+        raise SystemExit("launch commit is not pushed")
+    blobs = {}
+    for rel, pin in sorted(STAGE.items()):
+        data = subprocess.check_output(["git", "show", commit + ":" + rel], cwd=ROOT)
+        digest = hashlib.sha256(data).hexdigest()
+        if b"\r" in data or (pin and digest != pin) or digest != sha(rel):
+            raise SystemExit("committed bytes differ from the pin or the working copy: " + rel)
+        blobs[rel] = (REMOTE + "/" + rel, digest)
+    copies, moved = seed_copies(), uploads()
+    for local, _, pin in moved:
+        if file_sha(local) != pin:
+            raise SystemExit("local moved density differs from its pin: " + str(local))
+    stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    receipt = {"phase": "stage_resume", "at": now(), "commit": commit, "budget_seconds": budget, "actions": {},
+               "uploads": [], "seed_copies": [], "commands": {}, "completed": False}
+    client = connect()
+    client.get_transport().set_keepalive(30)
+    try:
+        sftp = client.open_sftp()
+        run(client, ["test", "-d", REMOTE], receipt, "root_present")
+        for source, _, pin in copies:
+            row = run(client, ["sha256sum", source], receipt, "seed_sha:" + source)
+            if row["stdout"].split()[0] != pin:
+                raise SystemExit("seed drifted on Anvil: " + source)
+        staged = remote_files(client, [target for target, _ in blobs.values()], receipt, "committed")
+        for rel, (target, digest) in blobs.items():
+            if staged.get(target) != (digest, "444"):
+                raise SystemExit("a committed file is missing, unsealed or different on Anvil: " + rel)
+        for kind, rows in (("density", moved), ("xml", copies)):
+            state = remote_files(client, [target for _, target, _ in rows], receipt, kind)
+            for source, target, pin in rows:
+                action = resume_action(state.get(target), pin)
+                receipt["actions"][target] = action
+                if action == "keep":
+                    continue
+                if action == "seal":
+                    run(client, ["chmod", "0444", target], receipt, "seal:" + target)
+                    continue
+                if kind == "density" and time.monotonic() - started > budget:
+                    receipt["actions"][target] = action + ", deferred (budget spent)"
+                    continue
+                if action == "replace":
+                    run(client, ["rm", "-f", target], receipt, "remove_partial:" + target)
+                begun = time.monotonic()
+                if kind == "density":
+                    sftp.put(str(source), target, confirm=True)
+                else:
+                    run(client, ["cp", "--no-preserve=mode,ownership", source, target], receipt, "copy:" + target, timeout=900)
+                row = run(client, ["sha256sum", target], receipt, "sent_sha:" + target)
+                if row["stdout"].split()[0] != pin:
+                    raise SystemExit("sent file differs from its pin: " + target)
+                run(client, ["chmod", "0444", target], receipt, "sent_chmod:" + target)
+                receipt["uploads" if kind == "density" else "seed_copies"].append(
+                    {"source": str(source), "target": target, "sha256": pin, "seconds": round(time.monotonic() - begun, 1)})
+        run(client, ["mkdir", "-p", REMOTE + "/logs"], receipt, "logs_dir")
+        final = remote_files(client, [target for _, target, _ in moved + copies], receipt, "final")
+        receipt["completed"] = all(final.get(target) == (pin, "444") for _, target, pin in moved + copies)
+    except BaseException as error:
+        receipt["error"] = repr(error)
+        raise
+    finally:
+        client.close()
+        write("stage_resume_" + stamp + ".json", receipt)
+    if receipt["completed"]:
+        write("stage_receipt.json", {
+            "phase": "stage", "at": now(), "commit": commit, "completed": True,
+            "resumed": "the first stage was killed (local memory) before writing a receipt; stage_probe_*.json and "
+                       "stage_resume_*.json record how the root was completed",
+            "resume_receipts": sorted(p.name for p in HERE.glob("stage_resume_*.json")),
+            "files": [{"repo_path": rel, "remote_path": target, "sha256": digest} for rel, (target, digest) in sorted(blobs.items())],
+            "uploads": [{"local": str(local.relative_to(ROOT)), "target": target, "sha256": pin} for local, target, pin in moved],
+            "seed_copies": [{"source": source, "target": target, "sha256": pin} for source, target, pin in copies],
+            "spec_sha256": sha(SPEC_REL), "slurm_sha256": sha(SLURM_REL)})
+    print(json.dumps({"completed": receipt["completed"], "sent": len(receipt["uploads"]) + len(receipt["seed_copies"]),
+                      "deferred": sum("deferred" in a for a in receipt["actions"].values())}), flush=True)
+
+
 def project_free_tb(text):
     """Free space of the x-che260157 project space from `myquota` (its Size and Limit columns)."""
     units = {"KB": 1e-9, "MB": 1e-6, "GB": 1e-3, "TB": 1.0, "PB": 1e3}
@@ -341,4 +461,4 @@ if __name__ == "__main__":
     if phase == "release":
         release(sys.argv[2])
     else:
-        {"stage": stage, "preflight": preflight, "submit": submit, "validate": validate}[phase]()
+        {"stage": stage, "resume": resume, "preflight": preflight, "submit": submit, "validate": validate}[phase]()

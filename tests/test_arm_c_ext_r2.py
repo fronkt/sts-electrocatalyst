@@ -352,6 +352,22 @@ def write_fake(run_dir, job, energy_Ry=None, ceiling=False, seeded=False, iterat
         (run_dir / (job + ".KILLED")).write_text("SCF iteration ceiling\n", encoding="utf-8")
 
 
+def test_resuming_an_interrupted_stage_keeps_seals_replaces_and_refuses():
+    spec = importlib.util.spec_from_file_location("arm_c_ext_r2_launch_ops_resume", PACKAGE / "launch_ops.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    pin = "a" * 64
+    assert module.resume_action(None, pin) == "upload"
+    assert module.resume_action((pin, "444"), pin) == "keep"
+    assert module.resume_action((pin, "664"), pin) == "seal"
+    assert module.resume_action(("b" * 64, "664"), pin) == "replace"  # the interrupted transfer
+    with pytest.raises(SystemExit):
+        module.resume_action(("b" * 64, "444"), pin)  # a sealed file never changes silently
+    assert module.RESUME_BUDGET_SECONDS <= 300
+    source = (PACKAGE / "launch_ops.py").read_text(encoding="utf-8")
+    assert '"resume": resume' in source and 'raise SystemExit("staging already has a receipt")' in source
+
+
 def test_the_readout_records_whether_the_seed_density_was_copied_or_moved(tmp_path):
     site_dir = "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s26_site1"
     ext_dir = r2.RUN_ROOT + "/Cu8Cr23Mn35Co34__s26_site1"
