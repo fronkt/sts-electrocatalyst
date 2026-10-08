@@ -1,0 +1,24 @@
+{
+  "phase": "release",
+  "array": "r2_main",
+  "at": "2026-10-08T22:13:09.719693+00:00",
+  "commands": {
+    "release:r2_main": {
+      "command": "scontrol release 21195261",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-08T22:13:11.228580+00:00"
+    },
+    "after": {
+      "command": "squeue -u x-fcai3 -o '%i|%j|%T|%M|%l|%R'",
+      "stdout": "JOBID|NAME|STATE|TIME|TIME_LIMIT|NODELIST(REASON)\n21195261_[1-11%11]|arm-c-ext-r2-main|PENDING|0:00|3:45:00|(None)\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-08T22:13:11.690682+00:00"
+    }
+  },
+  "released": {
+    "r2_main": "21195261"
+  }
+}

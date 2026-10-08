@@ -1,6 +1,6 @@
 # S8 arm C extension — seeded SCFs for Cu8 and Fe25, 2026-10-08
 
-Status: **round 2 built and independently reviewed (no blockers; findings folded in), 2026-10-08 (Frank: "repair"): the seed densities are moved onto the target's atoms; offline, on 7 converged pairs (14 directions) at two sites, the moved start lies 31–77× closer to the converged density than production's atomic start ([Round 2](#round-2-repair-2026-10-08)). Round 1's canary failed and its main array was cancelled before it ran.**
+Status: **round 2 canary PASSED, 2026-10-08 (21195260): both moved-seed starts read as built and ran far ahead of production; main array 21195261 released ([Round 2 canary readout](#round-2-canary-readout-2026-10-08-passed-main-released)).** Round 2 (Frank: "repair") moves each seed density onto the target's atoms; round 1's canary failed and its main array was cancelled before it ran.
 
 Decision of record: Frank, 2026-10-08: "Let's rerun DFT for those and get values for them." It came after arm C's final readout (`results/arm_c_2026-10-07_rerun/readout.json`, commit 2229549; [design doc](s8-arm-c-dft-design-2026-10-07.md) §7) left Cu8Cr23Mn35Co34 and Fe25Co25Ni25Cr25 without a value.
 
@@ -280,3 +280,28 @@ The two pairs in the canaries' directions:
 | Decks, manifests | `runs/hea/arm_c_ext_r2_2026-10-08/` (11, plus `canary/` 2) and `runs/m_arm_c_ext_r2_2026-10-08_{canary,main}.txt` |
 | Spec, plan, operations | `results/arm_c_ext_r2_2026-10-08/` (`launch_spec.json`, `ext_plan.json`, `launch_ops.py`, `canary_check.py`, `status_once.py`, `collect_terminal.py`) |
 | Tests | `tests/test_arm_c_ext_r2.py`, 20 tests; 188 pass with the arm C and HEA QC suites |
+
+## Round 2 canary readout, 2026-10-08: passed; main released
+
+**Staging.** The first stage run was killed when the local machine ran critically low on memory. By then it had put 43 files and 3 of the 11 densities on Anvil, plus one partial density, and it wrote no receipt (`stage_probe_20261008T212434Z.json`). After Frank said "Resume", three passes of `launch_ops.py resume` replaced the partial file and sent the rest, verifying every file against its pin; `stage_receipt.json` records the result. Preflight passed. The balance was 20,193.2 SU, because Anvil raised the allocation limit from 100,000 to 102,490 SU while usage stayed at 82,296.8.
+
+**Runs.** Canary array 21195260 ran on a303 and a310; the two tasks finished after about 9.5 and 11.5 min. `canary_check.json` records `passed: true`, and main array 21195261 was released.
+
+| | Cu8 s16/2 slab | Fe25 s13/0 OOH |
+|---|---|---|
+| Read as built: "negative rho (up, down)", printed vs predicted | 7.515E-02 3.168E-01 vs 0.075152 0.316813 | 4.059E-03 2.258E-02 vs 0.004059 0.022581 |
+| Rescaled ("renormalised") | no | no |
+| QE errors; IEEE notes; graceful stop | none; none; yes | none; none; yes |
+| Accuracy at iteration 1: moved vs production (round 1 copied) | 3.44 vs 460 Ry (4,110) | 1.13 vs 299 Ry (55,573) |
+| Accuracy at iteration 8: moved vs production (round 1 copied) | 0.0114 vs 4.60 Ry (247) | 0.0069 vs 11.41 Ry (round 1 stopped at 3) |
+| Total magnetization at iteration 8 (seed converged) | 51.09 μB (49.63) | 50.31 μB (51.34) |
+| Gate | passed | passed |
+
+**What this shows.**
+- QE read the spliced files exactly as built.
+- The moved start keeps the seed's magnetic state; round 1's collapsed to 2 and 15 μB.
+- After eight iterations each run is ahead of production by more than two orders of magnitude.
+
+**What it does not show.**
+- The production runs of these states stalled with the accuracy hovering around 10⁻³–10⁻² Ry (Cu8 slab: median of the last 40 iterations 1.4×10⁻²; its ndim16 re-run 1.8×10⁻³) and 10⁻⁴–10⁻³ Ry (Fe25 OOH: 9.9×10⁻⁴; re-run 7.8×10⁻⁴), never reaching conv_thr 10⁻⁶ in 126 iterations.
+- The canaries reached 0.011 and 0.007 Ry in eight iterations; production and its ndim16 re-runs first reached those levels at iterations 20–29, then stalled. Whether the seeded runs get past the level where production stalled is what the main array shows.
