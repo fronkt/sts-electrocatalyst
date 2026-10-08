@@ -1,0 +1,25 @@
+{
+  "phase": "submit",
+  "at": "2026-10-08T21:55:57.649721+00:00",
+  "commands": {
+    "sbatch:r2_canary": {
+      "command": "sbatch --hold --parsable --no-requeue --array=1-2%2 --time=00:45:00 --job-name=arm-c-ext-r2-canary --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --export=ALL,STAGE=r2_canary /anvil/projects/x-che260157/sts_arm_c_ext_r2_2026-10-08/anvil/97_arm_c_ext_r2.slurm",
+      "stdout": "21195260\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-08T21:55:58.984393+00:00"
+    },
+    "sbatch:r2_main": {
+      "command": "sbatch --hold --parsable --no-requeue --array=1-11%11 --time=03:45:00 --job-name=arm-c-ext-r2-main --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --export=ALL,STAGE=r2_main /anvil/projects/x-che260157/sts_arm_c_ext_r2_2026-10-08/anvil/97_arm_c_ext_r2.slurm",
+      "stdout": "21195261\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-08T21:55:59.474859+00:00"
+    }
+  },
+  "jobs": {
+    "r2_canary": "21195260",
+    "r2_main": "21195261"
+  },
+  "spec_sha256": "6e9c7058e96c1dd60b10a5e9b8b6a0e401a650a586a1ea19ec4074398872a06b"
+}

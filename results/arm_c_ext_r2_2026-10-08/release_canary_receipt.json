@@ -1,0 +1,24 @@
+{
+  "phase": "release",
+  "array": "r2_canary",
+  "at": "2026-10-08T21:56:30.709052+00:00",
+  "commands": {
+    "release:r2_canary": {
+      "command": "scontrol release 21195260",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-08T21:56:33.346422+00:00"
+    },
+    "after": {
+      "command": "squeue -u x-fcai3 -o '%i|%j|%T|%M|%l|%R'",
+      "stdout": "JOBID|NAME|STATE|TIME|TIME_LIMIT|NODELIST(REASON)\n21195260_2|arm-c-ext-r2-canary|PENDING|0:00|45:00|(None)\n21195260_1|arm-c-ext-r2-canary|PENDING|0:00|45:00|(None)\n21195261_[1-11%11]|arm-c-ext-r2-main|PENDING|0:00|3:45:00|(JobHeldUser)\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-08T21:56:33.904590+00:00"
+    }
+  },
+  "released": {
+    "r2_canary": "21195260"
+  }
+}
