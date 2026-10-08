@@ -1,0 +1,25 @@
+{
+  "phase": "submit",
+  "at": "2026-10-08T06:59:57.272119+00:00",
+  "commands": {
+    "sbatch:ext_canary": {
+      "command": "sbatch --hold --parsable --no-requeue --array=1-2%2 --time=00:25:00 --job-name=arm-c-ext-canary --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --export=ALL,STAGE=ext_canary /anvil/projects/x-che260157/sts_arm_c_ext_2026-10-08/anvil/96_arm_c_ext.slurm",
+      "stdout": "21181502\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-08T07:00:00.596558+00:00"
+    },
+    "sbatch:ext_main": {
+      "command": "sbatch --hold --parsable --no-requeue --array=1-11%11 --time=03:45:00 --job-name=arm-c-ext-main --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --export=ALL,STAGE=ext_main /anvil/projects/x-che260157/sts_arm_c_ext_2026-10-08/anvil/96_arm_c_ext.slurm",
+      "stdout": "21181503\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-08T07:00:03.240417+00:00"
+    }
+  },
+  "jobs": {
+    "ext_canary": "21181502",
+    "ext_main": "21181503"
+  },
+  "spec_sha256": "02144b83e6d9f90dcba43170f33fc95ea922f3c901ea655a4514d10443433d22"
+}

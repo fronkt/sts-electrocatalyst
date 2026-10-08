@@ -55,6 +55,11 @@ def judge(seeded, production, receipt):
                 and seeded["iterations"] >= 3 and stopped and ahead)
 
 
+def production_output(source_deck):
+    """Local mirror path of the production run's output, from its deck path (runs/...)."""
+    return ROOT / "results/arm_c_2026-10-07/raw_mirror" / Path(source_deck).with_suffix(".out")
+
+
 def seed_output(save_dir):
     """Local mirror path of the seed's own output, from its Anvil save directory."""
     project = save_dir.split("/")[4]
@@ -92,8 +97,7 @@ def main():
                 files[suffix] = hashlib.sha256(target.read_bytes()).hexdigest()
             text = (local / (job["job"] + ".out")).read_text(errors="replace") if ".out" in files else ""
             runner = json.loads((local / (job["job"] + ".qc.json")).read_text())
-            production = summarize((ROOT / "results/arm_c_2026-10-07/raw_mirror" / job["source_deck"][len("runs/"):-len(".in")])
-                                   .with_suffix(".out").read_text(errors="replace"))
+            production = summarize(production_output(job["source_deck"]).read_text(errors="replace"))
             seed = summarize(seed_output(job["seed"]["save_dir"]).read_text(errors="replace"))
             seeded = summarize(text)
             receipt["canaries"].append({

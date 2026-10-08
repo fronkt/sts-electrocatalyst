@@ -261,8 +261,11 @@ def test_canary_gate_needs_the_seed_line_no_severe_note_and_a_lead_over_producti
     assert module.seed_output("/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/runs/hea/arm_c_2026-10-07_rerun/"
                               "Cu8Cr23Mn35Co34__s16_site2/tmp_O__atomic_ndim16/O__atomic_ndim16.save") == (
         ROOT / "results/arm_c_2026-10-07_rerun/raw_mirror/runs/hea/arm_c_2026-10-07_rerun/Cu8Cr23Mn35Co34__s16_site2/O__atomic_ndim16.out")
+    assert module.production_output("runs/hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s16_site2/slab__atomic.in") == (
+        ROOT / "results/arm_c_2026-10-07/raw_mirror/runs/hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s16_site2/slab__atomic.out")
     for job in CANARY:
         assert module.seed_output(job["seed"]["save_dir"]).exists()
+        assert module.production_output(job["source_deck"]).exists()
 
 
 # ---------------------------------------------------------------- the readout's extension layer

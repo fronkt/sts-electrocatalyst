@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-08T07:05:20.709844+00:00",
+  "readonly": true,
+  "rc": 0,
+  "stderr": "",
+  "jobs": {
+    "ext_canary": "21181502",
+    "ext_main": "21181503"
+  },
+  "remote": {
+    "commands": {
+      "squeue": {
+        "rc": 0,
+        "stdout": "21181502_1|arm-c-ext-canary|PENDING|0:00|25:00|(Priority)\n21181502_2|arm-c-ext-canary|PENDING|0:00|25:00|(Priority)\n21181503_[1-11%11]|arm-c-ext-main|PENDING|0:00|3:45:00|(JobHeldUser)\n",
+        "stderr": ""
+      },
+      "sacct": {
+        "rc": 0,
+        "stdout": "21181502_2|arm-c-ext-canary|PENDING|00:00:00|0:0|0|None assigned\n21181503_[1-11%11]|arm-c-ext-main|PENDING|00:00:00|0:0|0|None assigned\n",
+        "stderr": ""
+      },
+      "balance": {
+        "rc": 0,
+        "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    100000.0     82224.8    82224.8     17775.2\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+        "stderr": ""
+      }
+    },
+    "receipts": {}
+  }
+}

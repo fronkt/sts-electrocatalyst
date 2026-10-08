@@ -1,6 +1,6 @@
 # S8 arm C extension — seeded SCFs for Cu8 and Fe25, 2026-10-08
 
-Status: **built, tested and independently reviewed (no blockers; its eight should-fix items are folded in); launch in progress.**
+Status: **canary failed, 2026-10-08: the seeded start ran behind production's atomic start; main array 21181503 held, not released ([Canary readout](#canary-readout-2026-10-08-failed-main-held)).** Built, tested and independently reviewed before launch.
 
 Decision of record: Frank, 2026-10-08: "Let's rerun DFT for those and get values for them." It came after arm C's final readout (`results/arm_c_2026-10-07_rerun/readout.json`, commit 2229549; [design doc](s8-arm-c-dft-design-2026-10-07.md) §7) left Cu8Cr23Mn35Co34 and Fe25Co25Ni25Cr25 without a value.
 
@@ -161,3 +161,48 @@ python src/dft/arm_c_readout.py --plan results/arm_c_2026-10-07/site_plan.json \
 | Slurm | `anvil/96_arm_c_ext.slurm`, with the production resources |
 | Operations | `launch_ops.py` (stage with seed copies, preflight, held submit, validate, release canary/main), `canary_check.py`, `status_once.py`, `collect_terminal.py` |
 | Tests | `tests/test_arm_c_ext.py`, 14 tests; 168 pass with the arm C and HEA QC suites |
+
+## Canary readout, 2026-10-08: failed; main held
+
+**Runs.**
+- Canary array 21181502 ran 13 min 05 s (a753) and 20 min 41 s (a755): 72.0 SU. The balance went from 17,775.2 to 17,703.2 SU.
+- `canary_check.json` records `passed: false`, so `release main` refuses. Main array 21181503 is still held.
+- The first gate run stopped on a wrong production-output path before writing anything. The path now comes from `production_output()` (tested), and the gate was re-run.
+
+| | Cu8 s16/2 slab | Fe25 s13/0 OOH |
+|---|---|---|
+| Seed | O (73 atoms) | slab (72 atoms) |
+| Seed read; QE errors; IEEE notes | yes; none; none | yes; none; none |
+| Starting charge, renormalised to | 656.0 → 650.0 | 678.0 → 691.0 |
+| Iterations completed, stop | 8, iteration ceiling | 3, SCF wall (1,231 s) |
+| Accuracy at iteration 1, seeded vs production | 4,110 vs 460 Ry | 55,573 vs 299 Ry |
+| Accuracy at the last iteration, seeded vs production | 247 vs 4.60 Ry (iteration 8) | 6,467 vs 145 Ry (iteration 3) |
+| Total magnetization after iteration 1 (seed converged) | 2.0 μB (49.6) | 14.8 μB (51.3) |
+| Hubbard d occupation, start → after iteration 1 | 133.7 → 154.7 | 161.3 → 39.8 |
+| Hubbard moments, start → after iteration 1 | 51.5 → 0.6 μB | 51.9 → 5.4 μB |
+| Negative charge after iteration 1 (up, down) | 0.02, 0.04 e | 10.6, 10.7 e |
+| Gate | fails: behind production | fails: behind production, and stopped at the wall |
+
+Fe25's first iteration took 738 s. From a file density QE starts the diagonalisation at ethr 1e-5, and the atomic+random wavefunctions needed 59 Davidson steps on average. Production's first iteration took 33 s.
+
+**What went wrong.** QE read the seed's plane-wave density as it was and only rescaled it to the target's electron count. The rebuild had carried over the atom-centred parts (Hubbard occupations, PAW becsum). The density itself still described the seed's adsorbate:
+- Cu8 s16/2 slab: the removed O's six electrons stayed above the site with no nucleus under them.
+- Fe25 s13/0 OOH: the OOH's 13 valence charges had no electrons on them. The rescaling spread the missing 13 over the slab.
+
+The first diagonalisation then overfilled (Cu8) or emptied (Fe25) the metal d shells and quenched the moments. The error grows with the misplaced charge: 6 electrons gave 4,110 Ry, 13 gave 55,573 Ry. The design's assumption under "Rebuilt occupations", that the density file can be copied unchanged, is what failed.
+
+**Displacement is secondary.** Slab atoms moved little between seed and target:
+- Cu8: RMS 0.12 Å. One metal (Cr, atom 19) moved 0.85 Å; no other atom moved more than 0.29 Å.
+- Fe25: RMS 0.06 Å, with no atom past 0.26 Å.
+
+Fe25 still had the much larger error.
+
+**Consequence.** The 11 states stay failed, and Cu8 and Fe25 still have no value. Arm C's registered readings are unchanged.
+
+**Repair candidate (not adopted).** Move the density with the atoms, as QE does between ionic steps (`pot_extrapolation = 'atomic'`): subtract the superposed atomic densities at the seed's atoms and add them at the target's, using each species' UPF atomic density.
+- The result integrates to the target's electron count, so no rescaling is needed, and the adsorbate's charge sits on its atoms.
+- The rebuilt occupations and becsum stay as they are.
+- It needs the five seed densities and the UPFs from Anvil.
+- It needs a new canary, with a wall that allows the slower first iteration from a file density, and the gate unchanged.
+
+Ceilings: about 190 SU for the canary and 5,280 SU for the main array. With the 17,471.8 SU spent so far, the campaign bound is about 22,940 SU, inside the approved 23,680.
