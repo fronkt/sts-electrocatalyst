@@ -25,6 +25,13 @@ banked PBE H2O/H2 of runs/Cr_slab). Registered rules:
 Informative only: per-site DFT - MLIP differences of eta and of each dG; the re-run round's recipe
 controls (an accepted production slab re-run with the probe recipe: energy and moment differences,
 and the site's eta with the control slab).
+
+Extension (exploratory; Frank, 2026-10-08, "Let's rerun DFT for those and get values for them."):
+--ext-plan/--ext-mirror apply arm_c_ext_build.py's seeded SCFs after the re-run round, to states that
+are still failed, with the same acceptance and substitution rules. The state then carries the recipe
+"seeded" (or "unseeded_fallback" if QE did not report reading the seed). Such a readout is written with
+the schema s8-arm-c-ext-readout-v1 and reports its K1/K2/Ni34 readings as exploratory_predictions;
+arm C's registered readings stay those of the re-run readout.
 """
 from __future__ import annotations
 
@@ -90,7 +97,8 @@ def failure_class(row: dict) -> str | None:
 
 
 def site_result(site: dict, mirror: Path, gas: dict, substitutions: dict | None = None,
-                rerun_mirror: Path | None = None) -> dict:
+                rerun_mirror: Path | None = None, extension: dict | None = None,
+                ext_mirror: Path | None = None) -> dict:
     run_dir = mirror / "runs" / site["dir"]
     states = {s: accepted(run_dir, site["states"][s]["job"]) for s in STATES}
     out = {k: site[k] for k in ("formula", "seed", "site_index", "site_metal", "roles", "eta_mlip_V", "dir")}
@@ -107,6 +115,25 @@ def site_result(site: dict, mirror: Path, gas: dict, substitutions: dict | None 
             states[state] = rerun
     if substitutions:
         out["rerun_attempts"] = attempts
+    extended = []
+    for state, sub in (extension or {}).items():
+        if states[state]["accepted"] or ext_mirror is None:
+            continue
+        run_dir = ext_mirror / "runs" / sub["dir"]
+        attempt = accepted(run_dir, sub["job"])
+        output = run_dir / (sub["job"] + ".out")
+        text = output.read_text(errors="replace") if output.exists() else ""
+        read = "The initial density is read from file" in text
+        own_save = "/tmp_" + sub["job"] + "/" + sub["job"] + ".save/"
+        written = any(own_save in line for line in text.splitlines() if "Writing all to output data dir" in line)
+        attempt.update(recipe="seeded" if read else "unseeded_fallback", replaces=states[state]["job"],
+                       seed=sub["seed"]["job"], seed_state=sub["seed"]["state"], seed_read=read,
+                       save_written=written, beyond_registered_cap=(attempt.get("iterations") or 0) > 126)
+        extended.append(dict(attempt, state=state, failure=failure_class(attempt)))
+        if attempt["accepted"]:
+            states[state] = attempt
+    if extension:
+        out["extension_attempts"] = extended
     out["states"] = states
     out["failures"] = {s: failure_class(r) for s, r in states.items() if not r["accepted"]}
     recipes = sorted({r["recipe"] for r in states.values()})
@@ -267,10 +294,14 @@ def main(argv=None) -> int:
     parser.add_argument("--mirror", type=Path, required=True, help="raw_mirror with runs/ as on Anvil")
     parser.add_argument("--rerun-plan", type=Path, help="rerun_plan.json written by a re-run build")
     parser.add_argument("--rerun-mirror", type=Path, help="raw_mirror of the re-run round")
+    parser.add_argument("--ext-plan", type=Path, help="ext_plan.json written by arm_c_ext_build.py (exploratory)")
+    parser.add_argument("--ext-mirror", type=Path, help="raw_mirror of the extension")
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args(argv)
     if args.rerun_plan and (args.rerun_mirror is None or not (args.rerun_mirror / "runs").is_dir()):
         parser.error("--rerun-plan needs --rerun-mirror pointing at a collected raw_mirror with runs/")
+    if args.ext_plan and (not args.rerun_plan or args.ext_mirror is None or not (args.ext_mirror / "runs").is_dir()):
+        parser.error("--ext-plan needs --rerun-plan and --ext-mirror pointing at a collected raw_mirror with runs/")
     plan = json.loads(args.plan.read_text(encoding="utf-8"))
     gas_records = hpr.gas_references()
     gas = {g: gas_records[g]["E_eV"] for g in ("H2O", "H2")}
@@ -280,7 +311,12 @@ def main(argv=None) -> int:
         for row in rerun_plan["selection"]:
             substitutions.setdefault(row["site_dir"], {})[row["state"]] = row
         control_rows = rerun_plan.get("controls", [])
-    sites = [site_result(site, args.mirror, gas, substitutions.get(site["dir"]), args.rerun_mirror)
+    extension = {}
+    if args.ext_plan:
+        for row in json.loads(args.ext_plan.read_text(encoding="utf-8"))["selection"]:
+            extension.setdefault(row["site_dir"], {})[row["state"]] = row
+    sites = [site_result(site, args.mirror, gas, substitutions.get(site["dir"]), args.rerun_mirror,
+                         extension.get(site["dir"]), args.ext_mirror)
              for site in plan["sites"]]
     values = alloy_values(sites)
     probe_result = probe(plan, args.mirror)
@@ -296,8 +332,20 @@ def main(argv=None) -> int:
         result["counts"].update(rerun_attempted=len(attempts), rerun_accepted=sum(a["accepted"] for a in attempts))
         result["recipe_controls"] = [recipe_control(row, args.mirror, args.rerun_mirror, sites, gas)
                                      for row in control_rows]
+    if args.ext_plan:
+        attempts = [a for s in sites for a in s.get("extension_attempts", [])]
+        result["schema"] = "s8-arm-c-ext-readout-v1"
+        result["exploratory_predictions"] = result.pop("predictions")
+        result["extension_status"] = "exploratory; arm C's registered readings are those of the re-run readout"
+        result["counts"].update(ext_attempted=len(attempts), ext_accepted=sum(a["accepted"] for a in attempts),
+                                ext_seed_read=sum(a["seed_read"] for a in attempts))
+        for formula, value in values.items():
+            supports = [s for s in sites if s["formula"] == formula and {"support_lo", "support_hi"} & set(s["roles"])]
+            value["uses_extension"] = any(r["recipe"] in ("seeded", "unseeded_fallback")
+                                          for s in supports if s["complete"] for r in s["states"].values())
     args.out.write_bytes((json.dumps(result, indent=2) + "\n").encode("utf-8"))
-    print(json.dumps({"counts": result["counts"], "predictions": result["predictions"],
+    print(json.dumps({"counts": result["counts"],
+                      "predictions": result.get("predictions", result.get("exploratory_predictions")),
                       "probe_recipe": probe_result["rerun_recipe_for_ceiling_stops"],
                       "rerun_selection": result["rerun_selection"]}, indent=2))
     return 0

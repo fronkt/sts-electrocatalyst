@@ -10,7 +10,12 @@ Decisions (Frank, 2026-10-08): "Let's rerank gate." (census = re-rank of record,
 - [x] Gmail draft to Song (Ni34 200 g targets), unsent.
 - [x] Independent read-only check: all compositions, arm A/B/C values, orders, chance levels and weigh-sheet masses match sources. Fixed its 5 findings (screener-error bullet now uses the adequacy doc's gap > 2b rule: 184 mV, 6.5/14.6 mV; melt-plan coupon line and p10 wording; risk-assessment quantities; departures from the S8 rule and roadmap roles recorded in freeze §1a) and its notes (mounting site, design-doc note).
 - [x] Frank (2026-10-08): "Let's rerun DFT for those and get values for them." Freeze §4b arm C extension (exploratory) and the Oct 21 blinding fallback added.
-- [ ] Arm C extension: evidence review of past SCF rescues, design + recipe + acceptance rule, package, tests, review, stage/preflight/held submit/validate/release, readout, deposit before OER.
+- [x] Arm C extension evidence: same-structure converged-density seeds 17/17, own stalled density 0/13, beta cuts 3/21, ndim16 5/28 -> production recipe + startingpot='file' from the nearest accepted state at the same site.
+- [x] Seed probe + fetch (read-only): all seed saves retained on Anvil; 1.0 TB free; 5 seeds (sha256 of density/XML/occup/paw) + 10 layout references (Fe25 s25/2 O left no save).
+- [x] Layouts verified (occup 50*nat with zero non-U blocks; paw 171*nat*2 with species extents 171/36/3); builder `arm_c_ext_build.py` (39 files), seeded runner, Slurm 96, ops with seed copies + canary gate, readout --ext-plan layer; 13 tests, 167 pass; design record `docs/research/s8-arm-c-extension-2026-10-08.md`.
+- [ ] Independent pre-launch review; fold findings; commit + push.
+- [ ] Stage, preflight, held submit (canary 2 + main 11), validate, release canary, canary_check, release main (ceiling 5,386 SU).
+- [ ] Collect, extension readout (exploratory), commit, deposit before OER (Oct 21 fallback).
 - [ ] Frank: remaining [CONFIRM] items (scope wording, FWM values, electrochemistry values, O2 framing), supervisor names.
 - [ ] Deposit freeze + arm C readout (Zenodo restricted) before the first ingot; dated lines in docs/45 and docs/43.
 

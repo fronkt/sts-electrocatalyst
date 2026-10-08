@@ -254,3 +254,11 @@ docs/report/review-brief-2026-10-07.md text eol=lf
 
 # The S8 arm-C re-run readout; tests/test_arm_c_rerun.py reproduces it byte for byte.
 results/arm_c_2026-10-07_rerun/readout.json text eol=lf
+
+# The S8 arm-C extension pins these exact LF bytes on Anvil; its seed files must keep the bytes fetched from Anvil.
+src/dft/arm_c_ext_build.py text eol=lf
+src/dft/research_batch_seeded.py text eol=lf
+results/arm_c_ext_2026-10-08/launch_spec.json text eol=lf
+results/arm_c_ext_2026-10-08/ext_plan.json text eol=lf
+results/arm_c_ext_2026-10-08/seeds/** text eol=lf
+results/arm_c_ext_2026-10-08/seed_files/** text eol=lf

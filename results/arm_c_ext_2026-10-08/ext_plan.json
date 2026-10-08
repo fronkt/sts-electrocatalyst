@@ -1,0 +1,358 @@
+{
+  "schema": "s8-arm-c-ext-plan-v1",
+  "date": "2026-10-08",
+  "design": "docs/research/s8-arm-c-extension-2026-10-08.md",
+  "decision_ref": "Frank, 2026-10-08: \"Let's rerun DFT for those and get values for them.\"",
+  "source_readout": {
+    "path": "results/arm_c_2026-10-07_rerun/readout.json",
+    "sha256": "1d8fff1fd8ec650066d15106baf5adb8dbd56f59bfb77094adc011f102145d94"
+  },
+  "rule": "every state still failed after the re-run round at a Cu8 or Fe25 support site, once, seeded from the accepted state at the same site with the fewest differing atoms; production recipe plus startingpot = 'file'",
+  "status": "exploratory; arm C's registered readings stay final",
+  "selection": [
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s16_site2",
+      "formula": "Cu8Cr23Mn35Co34",
+      "state": "slab",
+      "failure": "CEILING",
+      "dir": "hea/arm_c_ext_2026-10-08/Cu8Cr23Mn35Co34__s16_site2",
+      "job": "slab__atomic_seeded",
+      "seed": {
+        "state": "O",
+        "job": "O__atomic_ndim16",
+        "recipe": "ndim16",
+        "root": "hea/arm_c_2026-10-07_rerun",
+        "id": "Cu8Cr23Mn35Co34__s16_site2__O__atomic_ndim16"
+      },
+      "bundle": "results/arm_c_ext_2026-10-08/seeds/Cu8Cr23Mn35Co34__s16_site2/slab",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/runs/hea/arm_c_2026-10-07_rerun/Cu8Cr23Mn35Co34__s16_site2/tmp_O__atomic_ndim16/O__atomic_ndim16.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/runs/hea/arm_c_2026-10-07_rerun/Cu8Cr23Mn35Co34__s16_site2/tmp_O__atomic_ndim16/O__atomic_ndim16.save/data-file-schema.xml"
+      },
+      "atom_sources": []
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s16_site2",
+      "formula": "Cu8Cr23Mn35Co34",
+      "state": "OH",
+      "failure": "CEILING",
+      "dir": "hea/arm_c_ext_2026-10-08/Cu8Cr23Mn35Co34__s16_site2",
+      "job": "OH__atomic_seeded",
+      "seed": {
+        "state": "O",
+        "job": "O__atomic_ndim16",
+        "recipe": "ndim16",
+        "root": "hea/arm_c_2026-10-07_rerun",
+        "id": "Cu8Cr23Mn35Co34__s16_site2__O__atomic_ndim16"
+      },
+      "bundle": "results/arm_c_ext_2026-10-08/seeds/Cu8Cr23Mn35Co34__s16_site2/OH",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/runs/hea/arm_c_2026-10-07_rerun/Cu8Cr23Mn35Co34__s16_site2/tmp_O__atomic_ndim16/O__atomic_ndim16.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/runs/hea/arm_c_2026-10-07_rerun/Cu8Cr23Mn35Co34__s16_site2/tmp_O__atomic_ndim16/O__atomic_ndim16.save/data-file-schema.xml"
+      },
+      "atom_sources": [
+        {
+          "atom": 73,
+          "role": "O1",
+          "from": "seed O1"
+        },
+        {
+          "atom": 74,
+          "role": "H",
+          "from": "zero"
+        }
+      ]
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s16_site2",
+      "formula": "Cu8Cr23Mn35Co34",
+      "state": "OOH",
+      "failure": "CEILING",
+      "dir": "hea/arm_c_ext_2026-10-08/Cu8Cr23Mn35Co34__s16_site2",
+      "job": "OOH__atomic_seeded",
+      "seed": {
+        "state": "O",
+        "job": "O__atomic_ndim16",
+        "recipe": "ndim16",
+        "root": "hea/arm_c_2026-10-07_rerun",
+        "id": "Cu8Cr23Mn35Co34__s16_site2__O__atomic_ndim16"
+      },
+      "bundle": "results/arm_c_ext_2026-10-08/seeds/Cu8Cr23Mn35Co34__s16_site2/OOH",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/runs/hea/arm_c_2026-10-07_rerun/Cu8Cr23Mn35Co34__s16_site2/tmp_O__atomic_ndim16/O__atomic_ndim16.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/runs/hea/arm_c_2026-10-07_rerun/Cu8Cr23Mn35Co34__s16_site2/tmp_O__atomic_ndim16/O__atomic_ndim16.save/data-file-schema.xml"
+      },
+      "atom_sources": [
+        {
+          "atom": 73,
+          "role": "O1",
+          "from": "seed O1"
+        },
+        {
+          "atom": 74,
+          "role": "O2",
+          "from": "seed O1"
+        },
+        {
+          "atom": 75,
+          "role": "H",
+          "from": "zero"
+        }
+      ]
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s26_site1",
+      "formula": "Cu8Cr23Mn35Co34",
+      "state": "slab",
+      "failure": "CEILING",
+      "dir": "hea/arm_c_ext_2026-10-08/Cu8Cr23Mn35Co34__s26_site1",
+      "job": "slab__atomic_seeded",
+      "seed": {
+        "state": "OH",
+        "job": "OH__atomic",
+        "recipe": "production",
+        "root": "hea/arm_c_2026-10-07",
+        "id": "Cu8Cr23Mn35Co34__s26_site1__OH__atomic"
+      },
+      "bundle": "results/arm_c_ext_2026-10-08/seeds/Cu8Cr23Mn35Co34__s26_site1/slab",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s26_site1/tmp_OH__atomic/OH__atomic.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s26_site1/tmp_OH__atomic/OH__atomic.save/data-file-schema.xml"
+      },
+      "atom_sources": []
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s26_site1",
+      "formula": "Cu8Cr23Mn35Co34",
+      "state": "O",
+      "failure": "CEILING",
+      "dir": "hea/arm_c_ext_2026-10-08/Cu8Cr23Mn35Co34__s26_site1",
+      "job": "O__atomic_seeded",
+      "seed": {
+        "state": "OH",
+        "job": "OH__atomic",
+        "recipe": "production",
+        "root": "hea/arm_c_2026-10-07",
+        "id": "Cu8Cr23Mn35Co34__s26_site1__OH__atomic"
+      },
+      "bundle": "results/arm_c_ext_2026-10-08/seeds/Cu8Cr23Mn35Co34__s26_site1/O",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s26_site1/tmp_OH__atomic/OH__atomic.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s26_site1/tmp_OH__atomic/OH__atomic.save/data-file-schema.xml"
+      },
+      "atom_sources": [
+        {
+          "atom": 73,
+          "role": "O1",
+          "from": "seed O1"
+        }
+      ]
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s26_site1",
+      "formula": "Cu8Cr23Mn35Co34",
+      "state": "OOH",
+      "failure": "CEILING",
+      "dir": "hea/arm_c_ext_2026-10-08/Cu8Cr23Mn35Co34__s26_site1",
+      "job": "OOH__atomic_seeded",
+      "seed": {
+        "state": "OH",
+        "job": "OH__atomic",
+        "recipe": "production",
+        "root": "hea/arm_c_2026-10-07",
+        "id": "Cu8Cr23Mn35Co34__s26_site1__OH__atomic"
+      },
+      "bundle": "results/arm_c_ext_2026-10-08/seeds/Cu8Cr23Mn35Co34__s26_site1/OOH",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s26_site1/tmp_OH__atomic/OH__atomic.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s26_site1/tmp_OH__atomic/OH__atomic.save/data-file-schema.xml"
+      },
+      "atom_sources": [
+        {
+          "atom": 73,
+          "role": "O1",
+          "from": "seed O1"
+        },
+        {
+          "atom": 74,
+          "role": "O2",
+          "from": "seed O1"
+        },
+        {
+          "atom": 75,
+          "role": "H",
+          "from": "seed H"
+        }
+      ]
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s13_site0",
+      "formula": "Fe25Co25Ni25Cr25",
+      "state": "OH",
+      "failure": "CEILING",
+      "dir": "hea/arm_c_ext_2026-10-08/Fe25Co25Ni25Cr25__s13_site0",
+      "job": "OH__atomic_seeded",
+      "seed": {
+        "state": "slab",
+        "job": "slab__atomic_ndim16",
+        "recipe": "ndim16",
+        "root": "hea/arm_c_2026-10-07_rerun",
+        "id": "Fe25Co25Ni25Cr25__s13_site0__slab__atomic_ndim16"
+      },
+      "bundle": "results/arm_c_ext_2026-10-08/seeds/Fe25Co25Ni25Cr25__s13_site0/OH",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/runs/hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s13_site0/tmp_slab__atomic_ndim16/slab__atomic_ndim16.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/runs/hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s13_site0/tmp_slab__atomic_ndim16/slab__atomic_ndim16.save/data-file-schema.xml"
+      },
+      "atom_sources": [
+        {
+          "atom": 73,
+          "role": "O1",
+          "from": "nearest slab O (atom 71)"
+        },
+        {
+          "atom": 74,
+          "role": "H",
+          "from": "zero"
+        }
+      ]
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s13_site0",
+      "formula": "Fe25Co25Ni25Cr25",
+      "state": "O",
+      "failure": "CEILING",
+      "dir": "hea/arm_c_ext_2026-10-08/Fe25Co25Ni25Cr25__s13_site0",
+      "job": "O__atomic_seeded",
+      "seed": {
+        "state": "slab",
+        "job": "slab__atomic_ndim16",
+        "recipe": "ndim16",
+        "root": "hea/arm_c_2026-10-07_rerun",
+        "id": "Fe25Co25Ni25Cr25__s13_site0__slab__atomic_ndim16"
+      },
+      "bundle": "results/arm_c_ext_2026-10-08/seeds/Fe25Co25Ni25Cr25__s13_site0/O",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/runs/hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s13_site0/tmp_slab__atomic_ndim16/slab__atomic_ndim16.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/runs/hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s13_site0/tmp_slab__atomic_ndim16/slab__atomic_ndim16.save/data-file-schema.xml"
+      },
+      "atom_sources": [
+        {
+          "atom": 73,
+          "role": "O1",
+          "from": "nearest slab O (atom 65)"
+        }
+      ]
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s13_site0",
+      "formula": "Fe25Co25Ni25Cr25",
+      "state": "OOH",
+      "failure": "CEILING",
+      "dir": "hea/arm_c_ext_2026-10-08/Fe25Co25Ni25Cr25__s13_site0",
+      "job": "OOH__atomic_seeded",
+      "seed": {
+        "state": "slab",
+        "job": "slab__atomic_ndim16",
+        "recipe": "ndim16",
+        "root": "hea/arm_c_2026-10-07_rerun",
+        "id": "Fe25Co25Ni25Cr25__s13_site0__slab__atomic_ndim16"
+      },
+      "bundle": "results/arm_c_ext_2026-10-08/seeds/Fe25Co25Ni25Cr25__s13_site0/OOH",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/runs/hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s13_site0/tmp_slab__atomic_ndim16/slab__atomic_ndim16.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/runs/hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s13_site0/tmp_slab__atomic_ndim16/slab__atomic_ndim16.save/data-file-schema.xml"
+      },
+      "atom_sources": [
+        {
+          "atom": 73,
+          "role": "O1",
+          "from": "nearest slab O (atom 67)"
+        },
+        {
+          "atom": 74,
+          "role": "O2",
+          "from": "nearest slab O (atom 69)"
+        },
+        {
+          "atom": 75,
+          "role": "H",
+          "from": "zero"
+        }
+      ]
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2",
+      "formula": "Fe25Co25Ni25Cr25",
+      "state": "OH",
+      "failure": "CEILING",
+      "dir": "hea/arm_c_ext_2026-10-08/Fe25Co25Ni25Cr25__s25_site2",
+      "job": "OH__atomic_seeded",
+      "seed": {
+        "state": "OOH",
+        "job": "OOH__atomic",
+        "recipe": "production",
+        "root": "hea/arm_c_2026-10-07_rerun",
+        "id": "Fe25Co25Ni25Cr25__s25_site2__OOH__atomic"
+      },
+      "bundle": "results/arm_c_ext_2026-10-08/seeds/Fe25Co25Ni25Cr25__s25_site2/OH",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/runs/hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s25_site2/tmp_OOH__atomic/OOH__atomic.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07_rerun/runs/hea/arm_c_2026-10-07_rerun/Fe25Co25Ni25Cr25__s25_site2/tmp_OOH__atomic/OOH__atomic.save/data-file-schema.xml"
+      },
+      "atom_sources": [
+        {
+          "atom": 73,
+          "role": "O1",
+          "from": "seed O1"
+        },
+        {
+          "atom": 74,
+          "role": "H",
+          "from": "seed H"
+        }
+      ]
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2",
+      "formula": "Fe25Co25Ni25Cr25",
+      "state": "O",
+      "failure": "CEILING",
+      "dir": "hea/arm_c_ext_2026-10-08/Fe25Co25Ni25Cr25__s25_site2",
+      "job": "O__atomic_seeded",
+      "seed": {
+        "state": "slab",
+        "job": "slab__atomic",
+        "recipe": "production",
+        "root": "hea/arm_c_2026-10-07",
+        "id": "Fe25Co25Ni25Cr25__s25_site2__slab__atomic"
+      },
+      "bundle": "results/arm_c_ext_2026-10-08/seeds/Fe25Co25Ni25Cr25__s25_site2/O",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2/tmp_slab__atomic/slab__atomic.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2/tmp_slab__atomic/slab__atomic.save/data-file-schema.xml"
+      },
+      "atom_sources": [
+        {
+          "atom": 73,
+          "role": "O1",
+          "from": "nearest slab O (atom 65)"
+        }
+      ]
+    }
+  ],
+  "canary": [
+    {
+      "site": "Cu8Cr23Mn35Co34__s16_site2",
+      "state": "slab",
+      "dir": "hea/arm_c_ext_2026-10-08/canary/Cu8Cr23Mn35Co34__s16_site2",
+      "job": "slab__atomic_seeded"
+    },
+    {
+      "site": "Fe25Co25Ni25Cr25__s13_site0",
+      "state": "OOH",
+      "dir": "hea/arm_c_ext_2026-10-08/canary/Fe25Co25Ni25Cr25__s13_site0",
+      "job": "OOH__atomic_seeded"
+    }
+  ]
+}
