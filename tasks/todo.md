@@ -1,5 +1,19 @@
 # STS 2027 — TODO
 
+## 2026-10-08 — S8 freeze revision after Frank's decisions
+
+Decisions (Frank, 2026-10-08): "Let's rerank gate." (census = re-rank of record, S8 exploratory); "Your call on Ni34" (added as sixth alloy; K1/K2 stay on the five); "yes IrO2" (registered secondary outcome). "Song knows as we've talked in person." Gmail: Song (FWM) melts 200 g buttons (10-07).
+
+- [x] Archive five-alloy freeze proposal and melt plan; revise both for six alloys, 200 g buttons, arm C final (no batch 2), gate line (§1a) and IrO2 outcome (§6).
+- [x] Weigh sheet 2026-10-08: `weigh_sheet_s8.py` six alloys at 200 g (1,206.6 g; Cr 198.9 g); 10 g sheet marked superseded.
+- [x] Risk assessment: six 200 g buttons, Ni34 Cr-free.
+- [x] Gmail draft to Song (Ni34 200 g targets), unsent.
+- [x] Independent read-only check: all compositions, arm A/B/C values, orders, chance levels and weigh-sheet masses match sources. Fixed its 5 findings (screener-error bullet now uses the adequacy doc's gap > 2b rule: 184 mV, 6.5/14.6 mV; melt-plan coupon line and p10 wording; risk-assessment quantities; departures from the S8 rule and roadmap roles recorded in freeze §1a) and its notes (mounting site, design-doc note).
+- [x] Frank (2026-10-08): "Let's rerun DFT for those and get values for them." Freeze §4b arm C extension (exploratory) and the Oct 21 blinding fallback added.
+- [ ] Arm C extension: evidence review of past SCF rescues, design + recipe + acceptance rule, package, tests, review, stage/preflight/held submit/validate/release, readout, deposit before OER.
+- [ ] Frank: remaining [CONFIRM] items (scope wording, FWM values, electrochemistry values, O2 framing), supervisor names.
+- [ ] Deposit freeze + arm C readout (Zenodo restricted) before the first ingot; dated lines in docs/45 and docs/43.
+
 ## 2026-10-07 — Project review and paper-report foundation
 
 Scope: review current scientific and experimental evidence, take a read-only live job/process snapshot, and begin a traceable report foundation. Preserve existing calculations and historical records. This task authorizes no new solver jobs, sample work, or external messages.

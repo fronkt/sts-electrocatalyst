@@ -453,3 +453,8 @@ The MLIP sits below DFT at every site, by 0.10 to 0.52 V. The offset changes fro
 | Test | `tests/test_arm_c_rerun.py::test_the_rerun_readout_reproduces_the_committed_rerun_readout` rebuilds the readout byte for byte from both mirrors; it is skipped when the projection outputs are absent |
 
 `tests/test_arm_c_rerun.py` holds 14 tests. 154 pass with `test_arm_c`, `test_hea_force_audit`, `test_hea_followup_qc` and `test_hea_panel`.
+
+**After this readout (2026-10-08):**
+- **Six alloys.** The freeze proposal now covers six alloys (Ni34 added), so the "five alloys" in the introduction and §3 describe the design at the time.
+- **Deposit.** Arm C's readout is deposited with the freeze itself.
+- **Oct 21 fallback.** It now applies to the targeted extension round for Cu8 and Fe25 (Frank: "Let's rerun DFT for those and get values for them."; freeze proposal §4b).

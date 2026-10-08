@@ -1,5 +1,7 @@
 # S8 batch-1 weigh sheet, 2026-10-07
 
+> **Superseded 2026-10-08** by [s8-weigh-sheet-2026-10-08.md](s8-weigh-sheet-2026-10-08.md): six alloys (Ni34Fe6Cu29Co31 added) at the 200 g button Fort Wayne Metals melts. Kept because its 10 g numbers went to Fort Wayne Metals on 2026-10-07; `src/scripts/weigh_sheet_s8.py` at commit c3a4353 reproduces it.
+
 Status: proposed; basis **10.0 g** per button and **+4% Mn** are [CONFIRM] values in the [stage-1 freeze proposal](s8-stage1-freeze-proposal-2026-10-07.md). Nothing is melted before the freeze is deposited. Compositions are the exact at.% of `results/r4_gated.json`; molar masses are IUPAC standard atomic weights (`src/scripts/weigh_sheet.py`). Reproduce with `PYTHONPATH=src/scripts python src/scripts/weigh_sheet_s8.py`.
 
 Mass fraction w_i = x_i M_i / Σ_j x_j M_j; nominal mass = basis × w_i; the Mn weigh target adds the over-charge. The at.% is the design target: verify the actual composition by SEM-EDS after melting.

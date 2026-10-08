@@ -2,18 +2,18 @@
 
 Status: **draft for the supervisors' review and signature. Nothing is melted until it is signed and dated** (freeze proposal §7; docs/25 §5, which also expects the STS Rules Wizard's hazardous-activities paperwork; docs/37 §6).
 
-Scope: the five batch-1 alloys of the [S8 melt plan](s8-melt-plan-2026-10-07.md), any re-melt, and an optional Ni34Fe6Cu29Co31 button, from weighing to waste. Exposure limits and waste codes below are the usual US references. Each site's Safety Data Sheets, chemical hygiene plan and EHS office have the final word.
+Scope: the six batch-1 alloys of the [S8 melt plan](s8-melt-plan-2026-10-07.md) (Ni34Fe6Cu29Co31 added 2026-10-08) and any re-melt, from weighing to waste. Revised 2026-10-08 for the 200 g buttons Fort Wayne Metals melts. Exposure limits and waste codes below are the usual US references. Each site's Safety Data Sheets, chemical hygiene plan and EHS office have the final word.
 
 ## 1. Activities, sites and supervision
 
 | Step | Site | Designated supervisor |
 |---|---|---|
-| Weigh pure-metal feedstock (Co, Cr, Cu, Fe, Mn, Ni; about 50 g in total) | Fort Wayne Metals (FWM) | TBD (FWM) |
-| Arc-melt 10 g buttons under argon, flipped and remelted 4× | FWM | TBD (FWM) |
+| Weigh pure-metal feedstock (Co, Cr, Cu, Fe, Mn, Ni; about 1.2 kg in total) | Fort Wayne Metals (FWM) | TBD (FWM) |
+| Arc-melt 200 g buttons (about 2 in. across) under argon, flipped and remelted 4× | FWM | TBD (FWM) |
 | Homogenization anneal under argon, then quench | FWM | TBD (FWM) |
-| Wire-EDM cutting, grinding, polishing | FWM, or the electrochemistry lab | TBD |
+| Wire-EDM cutting, electrode mounting (silver-paint wire, epoxy potting), grinding, polishing | FWM or PFW, before shipping (the coupons arrive mounted) | TBD |
 | SEM-EDS and XRD | FWM or the electrochemistry lab | TBD |
-| Electrode mounting, OER in 1 M KOH with an Hg/HgO reference, holds of up to 12 h | Purdue electrochemistry lab (pending confirmation) | TBD (Purdue) |
+| OER in 1 M KOH with an Hg/HgO reference, holds of up to 12 h | Purdue electrochemistry lab (Tackett group; agreed 2026-10-07) | TBD (Purdue) |
 | Cr(VI) test of spent electrolyte (1,5-diphenylcarbazide) | Purdue electrochemistry lab | TBD (Purdue) |
 
 The entrant works only under the designated supervisor's direct supervision. Equipment (arc melter, furnace, EDM, potentiostat) is run or supervised by the trained person at each site, following that site's training requirements.
@@ -22,7 +22,7 @@ The entrant works only under the designated supervisor's direct supervision. Equ
 
 | Material or activity | Where | Hazard | Reference limit |
 |---|---|---|---|
-| **Chromium(VI) (chromate)** | Spent KOH electrolyte and rinse water from the four Cr-bearing alloys (22.6–31.5 at.% Cr; Cu22Fe30Co32Mn15 has none). At OER potentials in alkaline solution, Cr dissolves as chromate; the project's Pourbaix gate predicts chromate for every Cr-bearing candidate (docs/37) | Carcinogen (IARC Group 1), skin sensitizer, toxic | OSHA 29 CFR 1910.1026: PEL 5 µg/m³ (8 h TWA), action level 2.5 µg/m³ (airborne). In solution the exposure route is skin and eye contact, or aerosol |
+| **Chromium(VI) (chromate)** | Spent KOH electrolyte and rinse water from the four Cr-bearing alloys (22.6–31.5 at.% Cr; Cu22Fe30Co32Mn15 and Ni34Fe6Cu29Co31 have none). At OER potentials in alkaline solution, Cr dissolves as chromate; the project's Pourbaix gate predicts chromate for every Cr-bearing candidate (docs/37) | Carcinogen (IARC Group 1), skin sensitizer, toxic | OSHA 29 CFR 1910.1026: PEL 5 µg/m³ (8 h TWA), action level 2.5 µg/m³ (airborne). In solution the exposure route is skin and eye contact, or aerosol |
 | Manganese fume and condensate | Arc melting; Mn evaporates, which is why the charge carries extra Mn | Neurotoxic with chronic inhalation | OSHA PEL 5 mg/m³ ceiling; ACGIH TLV 0.02 mg/m³ respirable |
 | Nickel and cobalt dust and fines | Feedstock handling, cutting, grinding, polishing; melter condensate | Skin and respiratory sensitizers; Ni compounds carcinogenic (IARC 1); Co metal probably carcinogenic (IARC 2A) | OSHA PEL: Ni 1 mg/m³; Co 0.1 mg/m³ |
 | Copper fume | Arc melting | Metal fume fever | OSHA PEL 0.1 mg/m³ (fume) |
@@ -33,8 +33,8 @@ The entrant works only under the designated supervisor's direct supervision. Equ
 | Epoxy and mounting resins | Electrode mounting | Skin sensitizers | — |
 | EDM and polishing sludge | Cutting, polishing | Metal fines containing Cr, Ni, Co, Mn | — |
 
-**Quantities are small.**
-- Metal: about 50 g for batch 1.
+**Quantities.**
+- Metal: about 1.2 kg for batch 1 (six 200 g buttons), of which about 200 g is Cr.
 - Electrolyte: one prepared batch of 1 M KOH, sized by the lab (expected ≤ 1 L).
 - Chromate: microgram to milligram amounts per cell. As an order of magnitude, a 0.196 cm² face losing 1 µm of alloy releases about 0.05 mg of Cr.
 
@@ -91,7 +91,7 @@ The diphenylcarbazide test measures the actual amount.
 | Broken reference electrode | Mercury kit, and notify the site EHS |
 | Burns, arc flash, oxygen deficiency | Site emergency procedures |
 
-**Residual risk** with the controls above: low. The quantities are gram-scale metal and milligram-scale chromate, all handled in closed equipment.
+**Residual risk** with the controls above: low. The quantities are about 1.2 kg of metal in six buttons and milligram-scale chromate, all handled in closed equipment.
 
 ## 6. Sign-off
 
@@ -100,4 +100,5 @@ The diphenylcarbazide test measures the actual amount.
 | Entrant | Frank Cai | | |
 | Designated supervisor, Fort Wayne Metals (melting, annealing, cutting) | | | |
 | Designated supervisor, Purdue electrochemistry lab | | | |
+| Designated supervisor, PFW (if cutting or mounting is done there) | | | |
 | Mentor of record, if different | | | |

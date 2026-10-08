@@ -3,10 +3,11 @@
 
 Reuses weigh_sheet.mass_breakdown and its IUPAC molar masses unchanged; the round-1
 MELT_SET in weigh_sheet.py is historical and is not used. Compositions are the exact
-at.% of results/r4_gated.json. The basis and Mn over-charge are the freeze proposal's
-[CONFIRM] values (10 g per button, +4% Mn).
+at.% of results/r4_gated.json. Six alloys (Ni34Fe6Cu29Co31 added 2026-10-08) at the
+200 g button Fort Wayne Metals melts, with the freeze proposal's +4% Mn [CONFIRM].
+The 10 g, five-alloy sheet of 2026-10-07 is reproduced by this script at commit c3a4353.
 
-    PYTHONPATH=src/scripts python src/scripts/weigh_sheet_s8.py > docs/research/s8-weigh-sheet-2026-10-07.md
+    PYTHONPATH=src/scripts python src/scripts/weigh_sheet_s8.py > docs/research/s8-weigh-sheet-2026-10-08.md
 """
 from __future__ import annotations
 
@@ -25,6 +26,7 @@ BATCH_1 = [
     ("Ni31Cr29Cu5Mn35", "candidate (August screen leader)"),
     ("Fe25Co25Ni25Cr25", "candidate (August screen #2)"),
     ("Cu26Ni9Cr31Co33", "candidate (strict-policy leader)"),
+    ("Ni34Fe6Cu29Co31", "set member (sixth gated alloy; no Cr or Mn; added 2026-10-08)"),
     ("Cu22Fe30Co32Mn15", "anchor (predicted poor by both MLIP arms)"),
 ]
 
@@ -43,7 +45,7 @@ def compositions() -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--basis", type=float, default=10.0, help="charge mass per button (g)")
+    parser.add_argument("--basis", type=float, default=200.0, help="charge mass per button (g)")
     parser.add_argument("--mn-overcharge", type=float, default=4.0, help="extra Mn, %% (evaporation)")
     args = parser.parse_args()
     try:
@@ -51,9 +53,11 @@ def main() -> None:
     except Exception:  # pragma: no cover
         pass
     basis, extra = args.basis, args.mn_overcharge
-    out = ["# S8 batch-1 weigh sheet, 2026-10-07", "",
-           f"Status: proposed; basis **{basis:.1f} g** per button and **+{extra:.0f}% Mn** are [CONFIRM] values in the "
+    out = ["# S8 batch-1 weigh sheet, 2026-10-08", "",
+           f"Status: proposed; basis **{basis:.1f} g** per button (the button Fort Wayne Metals melts; Song Cai, 2026-10-07) "
+           f"and **+{extra:.0f}% Mn** are [CONFIRM] values in the "
            "[stage-1 freeze proposal](s8-stage1-freeze-proposal-2026-10-07.md). Nothing is melted before the freeze is deposited. "
+           "Supersedes the 10 g, five-alloy [sheet of 2026-10-07](s8-weigh-sheet-2026-10-07.md). "
            "Compositions are the exact at.% of `results/r4_gated.json`; molar masses are IUPAC standard atomic weights "
            "(`src/scripts/weigh_sheet.py`). Reproduce with `PYTHONPATH=src/scripts python src/scripts/weigh_sheet_s8.py`.", "",
            "Mass fraction w_i = x_i M_i / Σ_j x_j M_j; nominal mass = basis × w_i; the Mn weigh target adds the over-charge. "
@@ -75,12 +79,12 @@ def main() -> None:
             cell = f"**{target:.3f}** (+{extra:.0f}% Mn)" if el == "Mn" else f"**{target:.3f}**"
             out.append(f"| {el} | {at[el]:.3f} | {MOLAR_MASS[el]:.3f} | {100 * mass / basis:.3f} | {mass:.3f} | {cell} |")
         out += [f"| **Σ** | 100.000 | — | 100.000 | {basis:.3f} | **{weigh_total:.3f}** |", ""]
-    out += ["## Feedstock for one batch-1 melt of all five", "",
+    out += ["## Feedstock for one batch-1 melt of all six", "",
             "| Element | Weigh total (g) |", "|---|---|"]
     out += [f"| {el} | {mass:.3f} |" for el, mass in sorted(totals.items())]
     out += [f"| **Σ** | **{sum(totals.values()):.3f}** |", "",
             "Allow extra for possible re-melts (one per alloy that misses ±2 at.%; most likely the two ~35 at.% Mn alloys).", "",
-            "**Safety:** four of the five alloys contain 22.6–31.5 at.% Cr (Cu22Fe30Co32Mn15 has none). A dated, "
+            "**Safety:** four of the six alloys contain 22.6–31.5 at.% Cr (Cu22Fe30Co32Mn15 and Ni34Fe6Cu29Co31 have none). A dated, "
             "mentor-signed Cr(VI) risk assessment is required before the first melt (freeze proposal §7)."]
     print("\n".join(out))
 
