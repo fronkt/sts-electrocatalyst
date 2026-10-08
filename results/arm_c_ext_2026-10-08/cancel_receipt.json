@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-08T19:58:25.306662+00:00",
+  "job": "21181503",
+  "steps": [
+    {
+      "command": "squeue -h -j 21181503 -o '%i|%T|%r'",
+      "rc": 0,
+      "stdout": "21181503_[1-11%11]|PENDING|JobHeldUser\n",
+      "stderr": ""
+    },
+    {
+      "command": "scancel 21181503",
+      "rc": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "sacct -X -n -P -j 21181503 -o JobID,State",
+      "rc": 0,
+      "stdout": "21181503_[1-11%11]|PENDING\n",
+      "stderr": ""
+    }
+  ],
+  "cancelled": false
+}

@@ -1,0 +1,45 @@
+{
+  "at": "2026-10-08T19:58:40.720957+00:00",
+  "readonly": true,
+  "rc": 0,
+  "stderr": "",
+  "jobs": {
+    "ext_canary": "21181502",
+    "ext_main": "21181503"
+  },
+  "remote": {
+    "commands": {
+      "squeue": {
+        "rc": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "sacct": {
+        "rc": 0,
+        "stdout": "21181502_1|arm-c-ext-canary|FAILED|00:13:05|10:0|100480|a753\n21181502_2|arm-c-ext-canary|FAILED|00:20:41|10:0|158848|a755\n21181503_[1-11%11]|arm-c-ext-main|CANCELLED by 8320357|00:00:00|0:0|0|None assigned\n",
+        "stderr": ""
+      },
+      "balance": {
+        "rc": 0,
+        "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    100000.0     82296.8    82296.8     17703.2\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+        "stderr": ""
+      }
+    },
+    "receipts": {
+      "hea/arm_c_ext_2026-10-08/canary/Cu8Cr23Mn35Co34__s16_site2/slab__atomic_seeded.qc.json": {
+        "status": "REJECTED",
+        "reason": "SCF iteration ceiling",
+        "energy_Ry": null,
+        "iterations": null,
+        "wall_seconds": 775.0093023220543
+      },
+      "hea/arm_c_ext_2026-10-08/canary/Fe25Co25Ni25Cr25__s13_site0/OOH__atomic_seeded.qc.json": {
+        "status": "REJECTED",
+        "reason": "wall-time ceiling",
+        "energy_Ry": null,
+        "iterations": null,
+        "wall_seconds": 1231.4163611768745
+      }
+    }
+  }
+}

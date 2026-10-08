@@ -1,6 +1,6 @@
 # S8 arm C extension — seeded SCFs for Cu8 and Fe25, 2026-10-08
 
-Status: **canary failed, 2026-10-08: the seeded start ran behind production's atomic start; main array 21181503 held, not released ([Canary readout](#canary-readout-2026-10-08-failed-main-held)).** Built, tested and independently reviewed before launch.
+Status: **round 2 built and independently reviewed (no blockers; findings folded in), 2026-10-08 (Frank: "repair"): the seed densities are moved onto the target's atoms; offline, on 7 converged pairs (14 directions) at two sites, the moved start lies 31–77× closer to the converged density than production's atomic start ([Round 2](#round-2-repair-2026-10-08)). Round 1's canary failed and its main array was cancelled before it ran.**
 
 Decision of record: Frank, 2026-10-08: "Let's rerun DFT for those and get values for them." It came after arm C's final readout (`results/arm_c_2026-10-07_rerun/readout.json`, commit 2229549; [design doc](s8-arm-c-dft-design-2026-10-07.md) §7) left Cu8Cr23Mn35Co34 and Fe25Co25Ni25Cr25 without a value.
 
@@ -199,10 +199,84 @@ Fe25 still had the much larger error.
 
 **Consequence.** The 11 states stay failed, and Cu8 and Fe25 still have no value. Arm C's registered readings are unchanged.
 
-**Repair candidate (not adopted).** Move the density with the atoms, as QE does between ionic steps (`pot_extrapolation = 'atomic'`): subtract the superposed atomic densities at the seed's atoms and add them at the target's, using each species' UPF atomic density.
+**Repair candidate (adopted as round 2, below).** Move the density with the atoms, as QE does between ionic steps (`pot_extrapolation = 'atomic'`): subtract the superposed atomic densities at the seed's atoms and add them at the target's, using each species' UPF atomic density.
 - The result integrates to the target's electron count, so no rescaling is needed, and the adsorbate's charge sits on its atoms.
 - The rebuilt occupations and becsum stay as they are.
 - It needs the five seed densities and the UPFs from Anvil.
 - It needs a new canary, with a wall that allows the slower first iteration from a file density, and the gate unchanged.
 
 Ceilings: about 190 SU for the canary and 5,280 SU for the main array. With the 17,471.8 SU spent so far, the campaign bound is about 22,940 SU, inside the approved 23,680.
+
+## Round 2 (repair), 2026-10-08
+
+Decision of record: Frank, 2026-10-08: "repair".
+- Round 1's main array 21181503 was cancelled before it ran: 0 SU (`results/arm_c_ext_2026-10-08/cancel_receipt.json`, status snapshot 19:58Z).
+- Round 2 runs the same 11 SCFs from the same seeds, changing only the density each job reads.
+
+**The move.** `src/dft/qe_density_move.py` puts each seed's converged density on the target's atoms:
+
+ρ(G) = ρ_seed(G) − Σ_seed atoms f_s(|G|) e^(−iG·τ)/Ω + Σ_target atoms f_s(|G|) e^(−iG·τ)/Ω
+
+- This is QE's own charge extrapolation between ionic steps (`update_pot.f90`, `pot_extrapolation = 'atomic'`), extended to atoms that appear or vanish.
+- f_s is QE's atomic charge form factor: the UPF `PP_RHOATOM` integrated with QE's Simpson rule over QE's msh points (the first mesh point beyond 10 bohr, rounded down to an odd count).
+- The moved density integrates to the target's electron count, within 1.2×10⁻⁵, so QE no longer rescales it.
+- The magnetization density is carried over unchanged. QE's own extrapolation instead keeps ζ = m/(ρ + ρ_core) fixed (`update_pot.f90`). Here atoms are added in vacuum, where ζ is a ratio of two vanishing densities, so the added charge would take an arbitrary polarisation; carried over, it starts unpolarised.
+- The occupations and becsum are round 1's, byte for byte. Both are atom-centred, so they already moved with their atoms.
+- The file is the seed file with only the stored `rhotot_g` values replaced.
+
+**Offline validation, before any SU** (`results/arm_c_ext_r2_2026-10-08/density_validation.json`):
+- The atomic charges reproduce the starting charge QE printed for all eight production atomic starts used here, to 10⁻⁴ (for example 631.9986 for the Cu8 s20/2 slab).
+  - The GBRV metal pseudopotentials' atomic densities hold 0.5–2 electrons fewer than their valence charge, which is why every production start is rescaled by 3–4%.
+- Each fetched density integrates to its state's electron count, and its magnetization to the run's final moment.
+- Moving a density onto its own atoms returns it exactly.
+- The distance from each start to the converged density was measured for 7 pairs of converged states, in both directions (14):
+  - Cu8Cr23Mn35Co34 s20/2: all 12 directions between its four states;
+  - Fe25Co25Ni25Cr25 s25/2: slab ↔ OOH.
+  - The distance is the plane-wave part of QE's measure behind "estimated scf accuracy" (`rho_ddot`, over the G vectors QE mixes). QE also adds Hubbard and PAW terms, left out here.
+  - The moved residual only changes sign with the direction, so the 14 directions hold 7 independent moved distances.
+
+| Start | Distance to the converged density | Charge part only |
+|---|---|---|
+| Round 1: seed density copied and rescaled | 41–144 Ry | 41–143 Ry |
+| Production: superposed atomic densities, deck moments, rescaled | 21.5–29.0 Ry | 4.4–8.3 Ry |
+| Round 2: seed density moved | 0.29–0.70 Ry | 0.11–0.31 Ry |
+
+The two pairs in the canaries' directions:
+- Cu8 s20/2 O → slab (one O removed): copied 141.1, atomic 21.5, moved 0.70 Ry.
+- Fe25 s25/2 slab → OOH (three atoms added): copied 127.4, atomic 29.0, moved 0.45 Ry.
+
+**What this shows and what it does not.**
+- It does show:
+  - Round 1's copied start was far worse than the atomic start, matching the canary.
+  - The moved start begins 31–77× closer to a converged density than production's start, on the 7 pairs tested.
+- It does not show that the 11 stalled states will converge, nor test the launch densities themselves (no converged reference exists for them):
+  - Their stalls arose from atomic starts. Converged-density restarts of the same structure converged 17 of 17; the closest precedent with a different seed converged 2 of 4.
+  - The canary tests the start inside QE first.
+
+**Negative spin density in the moved starts.** Where an atom is removed, or a site metal moved, the magnetization stays where the charge was taken out, leaving negative spin density (`canary_expectations.json`):
+- Fe25 s25/2 O 0.46 e, Fe25 s13/0 O 0.34 e, Cu8 s16/2 slab (a canary) 0.32 e, Cu8 s26/1 O 0.27 e; the other seven 0.02–0.17 e.
+- The seeds hold 0.005–0.025 e.
+- QE prints this and continues (`v_of_rho.f90`); round 1's Fe25 canary ran on through 10.6 e. The Cu8 canary tests this case.
+
+**Launch design (round 2).**
+- **Names.** Root `sts_arm_c_ext_r2_2026-10-08`, jobs `<state>__atomic_moved` and Slurm `anvil/97_arm_c_ext_r2.slurm`, which pins the round-2 spec and the unchanged seeded runner. The resources and the exclusion list are round 1's.
+- **Staging.** The 11 moved densities (about 153 MB each, outside git) are uploaded and checked against the spec's sha256 pins before and after transfer. The seeds' XML files are copied on Anvil, as in round 1.
+- **Canary.** Eight iterations with a 2,400 s SCF wall and a 45 min Slurm wall. Round 1's first iteration from a file density took up to 738 s, because QE starts the diagonalisation at ethr 1e-5.
+  - The gate is round 1's (the seed is read, no QE error, no severe IEEE note, at least three iterations, a stop at the iteration ceiling or completion, and a lead over production at the same iteration) plus one line: QE read the moved file as built. Before its first iteration it must print no "renormalised" line, and its "negative rho (up, down)" must match `canary_expectations.json` within 1%: 7.515E-02 3.168E-01 (Cu8 slab) and 4.059E-03 2.258E-02 (Fe25 OOH). The same FFT, rescaled as QE did, reproduces round 1's printed values (6.936E-03 2.243E-02; 4.593E-03 2.202E-02).
+  - The check also records whether each canary stopped gracefully ("JOB DONE."). gfortran prints its IEEE notes only then, so for a killed run the IEEE line shows nothing.
+- **Main array.** Round 1's limits: 200 iterations, a 12,600 s SCF wall and 225 min.
+- **Cost.**
+  - Ceilings: 192 SU (canary) + 5,280 SU (main) = 5,472 SU.
+  - Spent before launch: 17,471.8 SU (arm C 17,399.8 + round-1 canary 72.0).
+  - Campaign bound: 22,943.8 SU, inside the approved 23,680. Balance: 17,703.2 SU.
+- **Readout.** The plan rows carry `seed_density: "moved"`, and the readout records it on each extension attempt (`"copied"` for round-1 plans). The readout command is the one under Readout, with `results/arm_c_ext_r2_2026-10-08/` in place of `results/arm_c_ext_2026-10-08/`.
+
+| Part | Location |
+|---|---|
+| Density move | `src/dft/qe_density_move.py` |
+| Builder | `src/dft/arm_c_ext_r2_build.py`, with `--check` (39 files; also the 11 densities when the seed densities are present) |
+| Inputs | `results/arm_c_ext_r2_2026-10-08/density_fetch.py` and `density_fetch.json` (9 densities, 8 UPFs, sha256-checked; files kept locally) |
+| Validation | `results/arm_c_ext_r2_2026-10-08/density_validation.py` and `density_validation.json`; `canary_expectations.py` and `canary_expectations.json` (the start QE should print for each moved density) |
+| Decks, manifests | `runs/hea/arm_c_ext_r2_2026-10-08/` (11, plus `canary/` 2) and `runs/m_arm_c_ext_r2_2026-10-08_{canary,main}.txt` |
+| Spec, plan, operations | `results/arm_c_ext_r2_2026-10-08/` (`launch_spec.json`, `ext_plan.json`, `launch_ops.py`, `canary_check.py`, `status_once.py`, `collect_terminal.py`) |
+| Tests | `tests/test_arm_c_ext_r2.py`, 20 tests; 188 pass with the arm C and HEA QC suites |

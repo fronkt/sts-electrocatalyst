@@ -31,7 +31,9 @@ Extension (exploratory; Frank, 2026-10-08, "Let's rerun DFT for those and get va
 are still failed, with the same acceptance and substitution rules. The state then carries the recipe
 "seeded" (or "unseeded_fallback" if QE did not report reading the seed). Such a readout is written with
 the schema s8-arm-c-ext-readout-v1 and reports its K1/K2/Ni34 readings as exploratory_predictions;
-arm C's registered readings stay those of the re-run readout.
+arm C's registered readings stay those of the re-run readout. Each attempt records its plan's
+seed_density: "copied" (round 1, arm_c_ext_build.py) or "moved" (round 2, arm_c_ext_r2_build.py, after
+Frank's "repair": the seed density moved onto the target's atoms).
 """
 from __future__ import annotations
 
@@ -128,6 +130,7 @@ def site_result(site: dict, mirror: Path, gas: dict, substitutions: dict | None 
         written = any(own_save in line for line in text.splitlines() if "Writing all to output data dir" in line)
         attempt.update(recipe="seeded" if read else "unseeded_fallback", replaces=states[state]["job"],
                        seed=sub["seed"]["job"], seed_state=sub["seed"]["state"], seed_read=read,
+                       seed_density=sub.get("seed_density", "copied"),
                        save_written=written, beyond_registered_cap=(attempt.get("iterations") or 0) > 126)
         extended.append(dict(attempt, state=state, failure=failure_class(attempt)))
         if attempt["accepted"]:
