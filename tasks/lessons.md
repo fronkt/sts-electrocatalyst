@@ -1471,3 +1471,17 @@ Rule: before claiming an error class does or does not affect a result, list the 
 error classes for that pipeline and scope the claim to each one by name: endmember structural
 traps and basins, OOH repairs, U sensitivity, restart continuity, alloy-chain QC failures.
 "The errors" in Frank's question means the project's history, not just today's topic.
+
+## 2026-10-09 — Check the project's own SCF-stall record before proposing an SCF remedy
+
+After round 2 of the arm-C extension, I offered Frank a round 3 "with gentler mixing (a smaller
+mixing_beta)" and built it at beta 0.1. The independent pre-launch review found that this project
+had already measured beta 0.1 as worse than 0.3 on these same two alloys, and had traced such stalls
+to second self-consistent states that mixing changes do not move
+(docs/research/lowtail-clean-slab-scf-stall-2026-09-19.md, diagnostic of 2026-09-22). Frank
+re-chose (beta 0.3 + mixing_ndim 16) before any SU was spent.
+
+Rule: before proposing or building any SCF-convergence remedy (mixing, smearing, starts, caps),
+grep docs/research for the project's prior stall diagnostics (stall, mixing_beta, ndim, floor) and
+cite what was measured for the same alloys and protocol; a remedy the record contradicts needs the
+contradiction stated up front.
