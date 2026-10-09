@@ -34,6 +34,13 @@ the schema s8-arm-c-ext-readout-v1 and reports its K1/K2/Ni34 readings as explor
 arm C's registered readings stay those of the re-run readout. Each attempt records its plan's
 seed_density: "copied" (round 1, arm_c_ext_build.py) or "moved" (round 2, arm_c_ext_r2_build.py, after
 Frank's "repair": the seed density moved onto the target's atoms).
+Rounds stack (Frank, 2026-10-09, "Lets do a round 3"): repeated --ext-plan/--ext-mirror pairs apply in round
+order, each to the states still failed after the rounds before it, under the same rules. An attempt also
+carries its plan row's round and mixing when the row records them (round 3, arm_c_ext_r3_build.py). From round 3
+on, QE stops itself at its own max_seconds or electron_maxstep and writes its last density: such an attempt
+records qe_stop ("time" or "iterations") and config_written, and its failure counts as CEILING. A converged
+attempt of such a round also records magnetization_vs_site: its total magnetization against the nearest converged
+state at its site, flagged beyond 1.5 uB; an alloy value resting on a flagged state lists it in magnetization_flags.
 """
 from __future__ import annotations
 
@@ -54,6 +61,7 @@ CU8, NI31, FE25, CU22 = "Cu8Cr23Mn35Co34", "Ni31Cr29Cu5Mn35", "Fe25Co25Ni25Cr25"
 RERUN_SLOTS = 6
 RERUN_ROOT = "hea/arm_c_2026-10-07_rerun"
 SEVERE = re.compile(r"IEEE_(?:INVALID|DIVIDE_BY_ZERO|OVERFLOW)")
+MAGNETIZATION_FLAG_UB = 1.5  # round 3 on: a converged state this far (total) from every converged state at its site
 
 
 def accepted(run_dir: Path, job: str) -> dict:
@@ -89,7 +97,7 @@ def failure_class(row: dict) -> str | None:
     if row["accepted"]:
         return None
     reason = row.get("reason") or ""
-    if row["parser_status"] == "KILLED" or "ceiling" in reason.lower():
+    if row["parser_status"] == "KILLED" or "ceiling" in reason.lower() or row.get("qe_stop"):
         return "CEILING"
     # The runner may stop on the marker mid-run ("numerical failure marker"), so read the outputs too.
     if (SEVERE.search(reason) or any(SEVERE.search(str(f).upper()) for f in row.get("severe_failures") or [])
@@ -100,7 +108,8 @@ def failure_class(row: dict) -> str | None:
 
 def site_result(site: dict, mirror: Path, gas: dict, substitutions: dict | None = None,
                 rerun_mirror: Path | None = None, extension: dict | None = None,
-                ext_mirror: Path | None = None) -> dict:
+                ext_mirror: Path | None = None, later: list | None = None) -> dict:
+    """One site; later holds (rows, mirror) of the extension rounds after the first, in round order."""
     run_dir = mirror / "runs" / site["dir"]
     states = {s: accepted(run_dir, site["states"][s]["job"]) for s in STATES}
     out = {k: site[k] for k in ("formula", "seed", "site_index", "site_metal", "roles", "eta_mlip_V", "dir")}
@@ -118,24 +127,40 @@ def site_result(site: dict, mirror: Path, gas: dict, substitutions: dict | None 
     if substitutions:
         out["rerun_attempts"] = attempts
     extended = []
-    for state, sub in (extension or {}).items():
-        if states[state]["accepted"] or ext_mirror is None:
-            continue
-        run_dir = ext_mirror / "runs" / sub["dir"]
-        attempt = accepted(run_dir, sub["job"])
-        output = run_dir / (sub["job"] + ".out")
-        text = output.read_text(errors="replace") if output.exists() else ""
-        read = "The initial density is read from file" in text
-        own_save = "/tmp_" + sub["job"] + "/" + sub["job"] + ".save/"
-        written = any(own_save in line for line in text.splitlines() if "Writing all to output data dir" in line)
-        attempt.update(recipe="seeded" if read else "unseeded_fallback", replaces=states[state]["job"],
-                       seed=sub["seed"]["job"], seed_state=sub["seed"]["state"], seed_read=read,
-                       seed_density=sub.get("seed_density", "copied"),
-                       save_written=written, beyond_registered_cap=(attempt.get("iterations") or 0) > 126)
-        extended.append(dict(attempt, state=state, failure=failure_class(attempt)))
-        if attempt["accepted"]:
-            states[state] = attempt
-    if extension:
+    layers = [(extension, ext_mirror)] + list(later or [])
+    for rows, layer_mirror in layers:
+        for state, sub in (rows or {}).items():
+            if states[state]["accepted"] or layer_mirror is None:
+                continue
+            run_dir = layer_mirror / "runs" / sub["dir"]
+            attempt = accepted(run_dir, sub["job"])
+            output = run_dir / (sub["job"] + ".out")
+            text = output.read_text(errors="replace") if output.exists() else ""
+            read = "The initial density is read from file" in text
+            own_save = "/tmp_" + sub["job"] + "/" + sub["job"] + ".save/"
+            written = any(own_save in line for line in text.splitlines() if "Writing all to output data dir" in line)
+            attempt.update(recipe="seeded" if read else "unseeded_fallback", replaces=states[state]["job"],
+                           seed=sub["seed"]["job"], seed_state=sub["seed"]["state"], seed_read=read,
+                           seed_density=sub.get("seed_density", "copied"),
+                           save_written=written, beyond_registered_cap=(attempt.get("iterations") or 0) > 126)
+            attempt.update({key: sub[key] for key in ("round", "mixing") if key in sub})
+            if "round" in sub:  # rounds whose decks let QE stop itself and write its last density
+                attempt["config_written"] = any(own_save in line for line in text.splitlines()
+                                                if "Writing config to output data dir" in line)
+                attempt["qe_stop"] = ("time" if "Maximum CPU time exceeded" in text else
+                                      "iterations" if "convergence NOT achieved after" in text else None)
+                moment = attempt.get("total_magnetization")
+                others = {s: r["total_magnetization"] for s, r in states.items()
+                          if s != state and r["accepted"] and r.get("total_magnetization") is not None}
+                if attempt["accepted"] and moment is not None and others:
+                    nearest = min(others, key=lambda s: abs(others[s] - moment))
+                    attempt["magnetization_vs_site"] = {
+                        "nearest_state": nearest, "difference_uB": round(moment - others[nearest], 2),
+                        "flag": abs(moment - others[nearest]) > MAGNETIZATION_FLAG_UB}
+            extended.append(dict(attempt, state=state, failure=failure_class(attempt)))
+            if attempt["accepted"]:
+                states[state] = attempt
+    if any(rows for rows, _ in layers):
         out["extension_attempts"] = extended
     out["states"] = states
     out["failures"] = {s: failure_class(r) for s, r in states.items() if not r["accepted"]}
@@ -297,14 +322,20 @@ def main(argv=None) -> int:
     parser.add_argument("--mirror", type=Path, required=True, help="raw_mirror with runs/ as on Anvil")
     parser.add_argument("--rerun-plan", type=Path, help="rerun_plan.json written by a re-run build")
     parser.add_argument("--rerun-mirror", type=Path, help="raw_mirror of the re-run round")
-    parser.add_argument("--ext-plan", type=Path, help="ext_plan.json written by arm_c_ext_build.py (exploratory)")
-    parser.add_argument("--ext-mirror", type=Path, help="raw_mirror of the extension")
+    parser.add_argument("--ext-plan", type=Path, action="append",
+                        help="ext_plan.json of an extension round (exploratory); repeat in round order")
+    parser.add_argument("--ext-mirror", type=Path, action="append",
+                        help="raw_mirror of that round; one per --ext-plan, in the same order")
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args(argv)
+    ext_plans, ext_mirrors = args.ext_plan or [], args.ext_mirror or []
     if args.rerun_plan and (args.rerun_mirror is None or not (args.rerun_mirror / "runs").is_dir()):
         parser.error("--rerun-plan needs --rerun-mirror pointing at a collected raw_mirror with runs/")
-    if args.ext_plan and (not args.rerun_plan or args.ext_mirror is None or not (args.ext_mirror / "runs").is_dir()):
-        parser.error("--ext-plan needs --rerun-plan and --ext-mirror pointing at a collected raw_mirror with runs/")
+    if ext_mirrors and not ext_plans:
+        parser.error("--ext-mirror needs its --ext-plan")
+    if ext_plans and (not args.rerun_plan or len(ext_mirrors) != len(ext_plans)
+                      or not all((m / "runs").is_dir() for m in ext_mirrors)):
+        parser.error("--ext-plan needs --rerun-plan and, per plan, --ext-mirror pointing at a collected raw_mirror with runs/")
     plan = json.loads(args.plan.read_text(encoding="utf-8"))
     gas_records = hpr.gas_references()
     gas = {g: gas_records[g]["E_eV"] for g in ("H2O", "H2")}
@@ -314,12 +345,19 @@ def main(argv=None) -> int:
         for row in rerun_plan["selection"]:
             substitutions.setdefault(row["site_dir"], {})[row["state"]] = row
         control_rows = rerun_plan.get("controls", [])
-    extension = {}
-    if args.ext_plan:
-        for row in json.loads(args.ext_plan.read_text(encoding="utf-8"))["selection"]:
-            extension.setdefault(row["site_dir"], {})[row["state"]] = row
+    ext = [json.loads(path.read_text(encoding="utf-8")) for path in ext_plans]
+    rounds = [p.get("round") for p in ext]
+    if len(ext) > 1 and (None in rounds or any(a >= b for a, b in zip(rounds, rounds[1:]))):
+        parser.error("stacked --ext-plan files need strictly increasing rounds, found " + repr(rounds))
+    layers = []
+    for p in ext:
+        rows = {}
+        for row in p["selection"]:
+            rows.setdefault(row["site_dir"], {})[row["state"]] = row
+        layers.append(rows)
     sites = [site_result(site, args.mirror, gas, substitutions.get(site["dir"]), args.rerun_mirror,
-                         extension.get(site["dir"]), args.ext_mirror)
+                         layers[0].get(site["dir"]) if layers else None, ext_mirrors[0] if layers else None,
+                         [(rows.get(site["dir"]), m) for rows, m in zip(layers[1:], ext_mirrors[1:])])
              for site in plan["sites"]]
     values = alloy_values(sites)
     probe_result = probe(plan, args.mirror)
@@ -335,7 +373,7 @@ def main(argv=None) -> int:
         result["counts"].update(rerun_attempted=len(attempts), rerun_accepted=sum(a["accepted"] for a in attempts))
         result["recipe_controls"] = [recipe_control(row, args.mirror, args.rerun_mirror, sites, gas)
                                      for row in control_rows]
-    if args.ext_plan:
+    if ext_plans:
         attempts = [a for s in sites for a in s.get("extension_attempts", [])]
         result["schema"] = "s8-arm-c-ext-readout-v1"
         result["exploratory_predictions"] = result.pop("predictions")
@@ -346,6 +384,10 @@ def main(argv=None) -> int:
             supports = [s for s in sites if s["formula"] == formula and {"support_lo", "support_hi"} & set(s["roles"])]
             value["uses_extension"] = any(r["recipe"] in ("seeded", "unseeded_fallback")
                                           for s in supports if s["complete"] for r in s["states"].values())
+            flags = [f"s{s['seed']}/{s['site_index']} {r['state']}" for s in supports if s["complete"]
+                     for r in s.get("extension_attempts", []) if r.get("magnetization_vs_site", {}).get("flag")]
+            if flags:  # the value rests on a state in a different magnetic state from its site's others
+                value["magnetization_flags"] = flags
     args.out.write_bytes((json.dumps(result, indent=2) + "\n").encode("utf-8"))
     print(json.dumps({"counts": result["counts"],
                       "predictions": result.get("predictions", result.get("exploratory_predictions")),

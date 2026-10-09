@@ -1,6 +1,6 @@
 # S8 arm C extension — seeded SCFs for Cu8 and Fe25, 2026-10-08
 
-Status: **round 2 READ OUT, 2026-10-09: main array 21195261 converged 3 of the 11 states; Cu8 and Fe25 still have no value, so K1, K2 and the Ni34 nomination stay not evaluable ([Round 2 main readout](#round-2-main-readout-2026-10-09-3-of-11-converged-no-value)).** Round 2 (Frank: "repair") moves each seed density onto the target's atoms; round 1's canary failed and its main array was cancelled before it ran.
+Status: **round 3 built, 2026-10-09 (Frank: "Lets do a round 3", then "0.3 + longer memory"): the Cu8 s16/2 slab and Fe25 s25/2 O again, from round 2's moved densities with a 16-step mixing history and up to 300 iterations ([Round 3](#round-3-2026-10-09)).** Round 2 read out on 2026-10-09: 3 of the 11 states converged, and Cu8 and Fe25 still have no value, so K1, K2 and the Ni34 nomination stay not evaluable ([Round 2 main readout](#round-2-main-readout-2026-10-09-3-of-11-converged-no-value)). Round 2 (Frank: "repair") moves each seed density onto the target's atoms; round 1's canary failed and its main array was cancelled before it ran.
 
 Decision of record: Frank, 2026-10-08: "Let's rerun DFT for those and get values for them." It came after arm C's final readout (`results/arm_c_2026-10-07_rerun/readout.json`, commit 2229549; [design doc](s8-arm-c-dft-design-2026-10-07.md) §7) left Cu8Cr23Mn35Co34 and Fe25Co25Ni25Cr25 without a value.
 
@@ -317,8 +317,8 @@ The two pairs in the canaries' directions:
 - There were no QE errors. The only IEEE notes are underflow and denormal; none is invalid, divide-by-zero or overflow.
 
 **Cost.**
-- Round 2 used 3,416.8 SU (sacct CPU time), inside its 5,472 SU ceiling: canary 43.6, main 3,373.2.
-- The campaign has used 20,888.6 SU of the approved 23,680.
+- Round 2 used 3,416.7 SU (sacct CPU time), inside its 5,472 SU ceiling: canary 43.59, main 3,373.16.
+- The campaign has used 20,888.5 SU of the approved 23,680.
 - Balance: 16,776.5 SU (`mybalance`, 2026-10-09 04:32Z).
 
 **Readout.** `readout.json` comes from the command under Readout, with this round's plan and mirror.
@@ -375,10 +375,10 @@ The two pairs in the canaries' directions:
 - One state per alloy would complete a support site and give that alloy a single-site value (`SINGLE_SITE`): the Cu8 s16/2 slab and Fe25 s25/2 O. K1 needs both.
 - Each of the two has now stopped short from three starts: production's atomic start, the ndim16 re-run and the moved seed.
 - A further round would have to change the SCF path, not only the start; for example, a smaller mixing_beta with a higher iteration cap. Mixing changes the path, not the equations solved, though it can change which magnetic state a run lands in.
-- At 57–63 s per iteration on 128 cores, 400 iterations cost about 850 SU per state, about 1,700 SU for the two. That fits inside the 2,791.4 SU left under the approved 23,680.
+- At 57–63 s per iteration on 128 cores, 400 iterations cost about 850 SU per state, about 1,700 SU for the two. That fits inside the 2,791.5 SU left under the approved 23,680.
 - No such round is planned.
 
-**Open for Frank.** Stop here and deposit the freeze, arm C and the extension readouts as planned (before any OER measurement; Oct 21 fallback), or approve a narrow third round on those two states.
+**Open for Frank.** Stop here and deposit the freeze, arm C and the extension readouts as planned (before any OER measurement; Oct 21 fallback), or approve a narrow third round on those two states. Frank chose the third round on 2026-10-09 ([Round 3](#round-3-2026-10-09)).
 
 | Part | Location |
 |---|---|
@@ -386,3 +386,89 @@ The two pairs in the canaries' directions:
 | Mirror | `results/arm_c_ext_r2_2026-10-08/raw_mirror/`: outputs, inputs, receipts and Slurm logs, sha256-matched to Anvil; projection outputs kept local |
 | Trajectories | `results/arm_c_ext_r2_2026-10-08/trajectories.py` and `trajectories.json` |
 | Tests | `tests/test_arm_c_ext_r2.py`, 23 tests (the readout reproduction skips without the local projection outputs); 191 pass with the arm C and HEA QC suites |
+
+## Round 3, 2026-10-09
+
+Decisions of record: Frank, 2026-10-09: "Lets do a round 3" (the alternative was to stop and deposit), then "0.3 + longer memory" after the pre-launch review below.
+
+**Targets.** The Cu8 and Fe25 support sites still missing exactly one state after round 2: the Cu8 s16/2 slab and Fe25 s25/2 O.
+- Either one converging completes its site and gives its alloy a single-site value.
+- K1 needs both.
+
+**What changes.** Each job is round 2's job with the same start, byte for byte: the moved density, the XML, occup.txt and paw.txt. Three deck lines differ from round 2's:
+- its own prefix (`<state>__atomic_moved_ndim16`);
+- an added `mixing_ndim = 16`, instead of QE's default 8: the mixer keeps 16 past steps (arm C's ndim16 re-run setting). `mixing_beta` stays at production's 0.3;
+- `max_seconds = 18400` instead of 165000 (below).
+
+The runner's ceiling rises from round 2's 200 iterations to 300.
+
+**Mixing, after the pre-launch review.** As first built, round 3 lowered `mixing_beta` to 0.1. The review found that this project had already measured that setting on these two alloys (`lowtail-clean-slab-scf-stall-2026-09-19.md`, diagnostic of 2026-09-22):
+- At fixed geometry, with this protocol, 0.1 was worse everywhere it was tried:
+  - Cu8Cr23Mn35Co34 s20/2 slab: stalled at 2.7×10⁻⁴ Ry, where 0.3 converged in 68 iterations;
+  - Fe25Co25Ni25Cr25 s2/0 slab: stalled at 1.2×10⁻⁵ Ry; 0.3 had stalled near 6×10⁻⁶.
+- The stalls diagnosed there are second self-consistent states, not transients of the mixing history. On the Cu8 s20/2 slab, the stall state sits 95 meV above the converged one through an orbital reorientation on one surface Co. From their own densities, changing the mixing did not move them.
+
+Frank then chose production mixing with the longer history.
+- In the ndim16 re-run, this setting took the Cu8 s16/2 slab to 2.9×10⁻⁴ Ry at the 126-iteration cap, still falling; production reached 1.8×10⁻³.
+- Round 2's Fe25 s25/2 O was still improving at its 200-iteration cutoff (4.7×10⁻⁶ Ry at iteration 195).
+- If either state is stuck in a second self-consistent state, no mixing setting is expected to free it.
+
+**Why max_seconds.** The runner stops a job at its ceiling by touching QE's EXIT file, and kills it if QE has not exited 30 s later.
+- An iteration of these slabs takes about 60 s. Six of round 2's eight stopped runs exited in time and wrote their last density, but the two runs of these states were killed mid-iteration and wrote nothing to continue from.
+- With `max_seconds` below the runner's 19,000 s wall, and `electron_maxstep` (300) equal to the runner's iteration ceiling, QE stops itself either way and writes its last density.
+- In this repository, QE needed 3–6 s from such a stop to its final clock, well inside the runner's 30 s.
+- Round 2's Fe25 O ran at about 62.4 s per iteration, so `max_seconds` will stop it near iteration 293 rather than 300.
+
+**Limits and cost.**
+- Runner: 300 iterations, a 19,000 s SCF wall (the runner's maximum for an SCF) and a 600 s projection. Slurm: 345 min.
+- Ceiling: 2 × 345 min × 128 cores = 1,472 SU.
+- Spent before launch: 20,888.5 SU (17,471.8 before round 2, plus round 2's 3,416.7). Campaign bound: 22,360.5 SU, inside the approved 23,680.
+- When round 3 was proposed, the plan was 400 iterations for about 1,700 SU. That does not fit the runner's 19,000 s SCF maximum at about 60 s per iteration; 300 iterations do, at a lower ceiling.
+
+**No canary; a start check instead.**
+- QE already read these exact files as built in round 2: the Cu8 slab file in the canary, and both files in the main array.
+- QE computes the first iteration's accuracy before any mixing. Round 2's canary and main array printed it to the same 8 digits on different nodes.
+- A few minutes after release, `start_check.py` reads each job's first "negative rho (up, down)" and "estimated scf accuracy" lines on Anvil (read-only). They must equal round 2's:
+  - Cu8 s16/2 slab: 7.515E-02 3.168E-01 and 3.43867242 Ry;
+  - Fe25 s25/2 O: 4.686E-03 4.562E-01 and 38.00323795 Ry.
+- On a mismatch, the array is cancelled and the mismatch investigated.
+
+**Staging.** No density is uploaded. The two densities and XMLs are copied on Anvil from round 2's root, each checked against round 2's pin before and after the copy. The decks, spec, Slurm script, seed text files and runner go by sftp, as in earlier rounds.
+
+**Checks written down before any result.**
+- **Magnetic state.** A converged state counts toward a value only if it lies in the magnetic state of the site's other states. The site's converged states:
+  - Cu8 s16/2: O, OH and OOH at 49.6–50.1 μB total (absolute 68.0–69.2). Round 2's slab sat at 51.25 / 69.17 μB, and production's slab trajectory near 45 μB.
+  - Fe25 s25/2: slab 41.98, OH 44.44, OOH 43.40 μB. Round 2's O sat at 42.63 μB, production's near 40.5.
+  - The readout sets each converged round-3 state's total magnetization against the nearest converged state at its site (`magnetization_vs_site`) and flags a difference above 1.5 μB. An alloy value resting on a flagged state lists it in `magnetization_flags`, and that value is reported as resting on a state in a different magnetic state.
+- **A stalled run.** `collect_terminal.py` also mirrors each run's saved Hubbard occupations (`occup.txt`, about 35 KB), as QE wrote them when it stopped. They can be compared with the site's converged states for a single-site orbital difference like the one diagnosed on 2026-09-22, at no compute cost.
+
+**Readout.**
+- `arm_c_readout.py` now takes repeated `--ext-plan`/`--ext-mirror` pairs. It applies them in order of the plans' `round`, which must increase strictly, each to the states still failed after the rounds before it.
+- An attempt from a plan row that records its round also records:
+  - the round and the mixing;
+  - `qe_stop` ("time" or "iterations"), when QE stopped itself;
+  - `config_written`: QE wrote its last density to its own save;
+  - for a converged state, `magnetization_vs_site` (above).
+- Such a stop counts as CEILING. The runner itself labels it "numerical failure marker".
+- With one pair, the earlier readouts reproduce byte for byte (tested).
+
+Round 3's readout stacks rounds 2 and 3:
+
+```
+python src/dft/arm_c_readout.py --plan results/arm_c_2026-10-07/site_plan.json \
+  --mirror results/arm_c_2026-10-07/raw_mirror \
+  --rerun-plan results/arm_c_2026-10-07_rerun/rerun_plan.json \
+  --rerun-mirror results/arm_c_2026-10-07_rerun/raw_mirror \
+  --ext-plan results/arm_c_ext_r2_2026-10-08/ext_plan.json --ext-mirror results/arm_c_ext_r2_2026-10-08/raw_mirror \
+  --ext-plan results/arm_c_ext_r3_2026-10-09/ext_plan.json --ext-mirror results/arm_c_ext_r3_2026-10-09/raw_mirror \
+  --out results/arm_c_ext_r3_2026-10-09/readout.json
+```
+
+| Part | Location |
+|---|---|
+| Builder | `src/dft/arm_c_ext_r3_build.py`, with `--check` (9 files) |
+| Decks, manifest | `runs/hea/arm_c_ext_r3_2026-10-09/` (2) and `runs/m_arm_c_ext_r3_2026-10-09_main.txt` |
+| Spec, plan, seed text files | `results/arm_c_ext_r3_2026-10-09/` (`launch_spec.json`, `ext_plan.json`, `seeds/`) |
+| Slurm | `anvil/98_arm_c_ext_r3.slurm`, with round 2's resources |
+| Operations | `results/arm_c_ext_r3_2026-10-09/launch_ops.py` (stage with copies on Anvil, preflight, held submit, validate, release), `start_check.py`, `status_once.py`, `collect_terminal.py` |
+| Tests | `tests/test_arm_c_ext_r3.py`, 15 tests; 206 pass with the arm C and HEA QC suites |

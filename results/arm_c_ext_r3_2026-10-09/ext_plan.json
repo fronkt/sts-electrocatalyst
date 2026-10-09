@@ -1,0 +1,100 @@
+{
+  "schema": "s8-arm-c-ext-plan-v1",
+  "date": "2026-10-09",
+  "design": "docs/research/s8-arm-c-extension-2026-10-08.md",
+  "decision_ref": "Frank, 2026-10-09: \"Lets do a round 3\" (after round 2's readout), then \"0.3 + longer memory\" (after the pre-launch review)",
+  "source_readout": {
+    "path": "results/arm_c_ext_r2_2026-10-08/readout.json",
+    "sha256": "70a2d49c2e06be69bbbfc5cbb44bd4a40531a00e6e5df1935c0d22c105018f74"
+  },
+  "round": 3,
+  "round_2": {
+    "spec": "results/arm_c_ext_r2_2026-10-08/launch_spec.json",
+    "spec_sha256": "6e9c7058e96c1dd60b10a5e9b8b6a0e401a650a586a1ea19ec4074398872a06b",
+    "plan": "results/arm_c_ext_r2_2026-10-08/ext_plan.json",
+    "main": "21195261 read out: 3 of 11 converged; Cu8 and Fe25 still without a value"
+  },
+  "rule": "the Cu8 and Fe25 support sites still missing exactly one state after round 2; round 2's job and start (moved density, XML, occup.txt, paw.txt) byte for byte, with mixing_ndim 16 at production's mixing_beta 0.3 and max_seconds 18400 so that QE stops itself and writes its last density before the runner's wall; runner ceiling 300 iterations, QE's own electron_maxstep",
+  "mixing": {
+    "mixing_beta": 0.3,
+    "mixing_ndim": 16
+  },
+  "qe_max_seconds": 18400,
+  "status": "exploratory; arm C's registered readings stay final",
+  "selection": [
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s16_site2",
+      "formula": "Cu8Cr23Mn35Co34",
+      "state": "slab",
+      "failure": "CEILING",
+      "seed": {
+        "state": "O",
+        "job": "O__atomic_ndim16",
+        "recipe": "ndim16",
+        "root": "hea/arm_c_2026-10-07_rerun",
+        "id": "Cu8Cr23Mn35Co34__s16_site2__O__atomic_ndim16"
+      },
+      "dir": "hea/arm_c_ext_r3_2026-10-09/Cu8Cr23Mn35Co34__s16_site2",
+      "job": "slab__atomic_moved_ndim16",
+      "round": 3,
+      "round_2_job": "slab__atomic_moved",
+      "round_2_failure": "CEILING",
+      "seed_density": "moved",
+      "bundle": "results/arm_c_ext_r3_2026-10-09/seeds/Cu8Cr23Mn35Co34__s16_site2/slab",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_ext_r2_2026-10-08/results/arm_c_ext_r2_2026-10-08/seeds/Cu8Cr23Mn35Co34__s16_site2/slab/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_ext_r2_2026-10-08/results/arm_c_ext_r2_2026-10-08/seeds/Cu8Cr23Mn35Co34__s16_site2/slab/data-file-schema.xml"
+      },
+      "mixing": {
+        "mixing_beta": 0.3,
+        "mixing_ndim": 16
+      },
+      "density": {
+        "seed_density_sha256": "046d8663341e8eb946949bf0bfb9e8cf2070d3a9edb89351c7db178df5ca359d",
+        "sha256": "ed06742ebc6a36301ed65c82f59c76c75cfd3e74af37b263c567679c9fdf3bfb",
+        "bytes": 149764564,
+        "seed_electrons": 656.0,
+        "electrons": 650.000001,
+        "target_valence_electrons": 650.0,
+        "moment_carried_over": 49.632465
+      }
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2",
+      "formula": "Fe25Co25Ni25Cr25",
+      "state": "O",
+      "failure": "CEILING",
+      "seed": {
+        "state": "slab",
+        "job": "slab__atomic",
+        "recipe": "production",
+        "root": "hea/arm_c_2026-10-07",
+        "id": "Fe25Co25Ni25Cr25__s25_site2__slab__atomic"
+      },
+      "dir": "hea/arm_c_ext_r3_2026-10-09/Fe25Co25Ni25Cr25__s25_site2",
+      "job": "O__atomic_moved_ndim16",
+      "round": 3,
+      "round_2_job": "O__atomic_moved",
+      "round_2_failure": "CEILING",
+      "seed_density": "moved",
+      "bundle": "results/arm_c_ext_r3_2026-10-09/seeds/Fe25Co25Ni25Cr25__s25_site2/O",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_ext_r2_2026-10-08/results/arm_c_ext_r2_2026-10-08/seeds/Fe25Co25Ni25Cr25__s25_site2/O/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_ext_r2_2026-10-08/results/arm_c_ext_r2_2026-10-08/seeds/Fe25Co25Ni25Cr25__s25_site2/O/data-file-schema.xml"
+      },
+      "mixing": {
+        "mixing_beta": 0.3,
+        "mixing_ndim": 16
+      },
+      "density": {
+        "seed_density_sha256": "7bff1dee7b9cedbe11def78332b2c09fa8c759ce30d51592594747b9e8f6bc7b",
+        "sha256": "dd5cc45618e0cfa793146a002b9a27e6cffd63dcfb52a8f795535509d1f27626",
+        "bytes": 153285444,
+        "seed_electrons": 678.0,
+        "electrons": 683.999999,
+        "target_valence_electrons": 684.0,
+        "moment_carried_over": 41.984278
+      }
+    }
+  ]
+}
