@@ -1,6 +1,6 @@
 # S8 arm C extension — seeded SCFs for Cu8 and Fe25, 2026-10-08
 
-Status: **round 2 canary PASSED, 2026-10-08 (21195260): both moved-seed starts read as built and ran far ahead of production; main array 21195261 released ([Round 2 canary readout](#round-2-canary-readout-2026-10-08-passed-main-released)).** Round 2 (Frank: "repair") moves each seed density onto the target's atoms; round 1's canary failed and its main array was cancelled before it ran.
+Status: **round 2 READ OUT, 2026-10-09: main array 21195261 converged 3 of the 11 states; Cu8 and Fe25 still have no value, so K1, K2 and the Ni34 nomination stay not evaluable ([Round 2 main readout](#round-2-main-readout-2026-10-09-3-of-11-converged-no-value)).** Round 2 (Frank: "repair") moves each seed density onto the target's atoms; round 1's canary failed and its main array was cancelled before it ran.
 
 Decision of record: Frank, 2026-10-08: "Let's rerun DFT for those and get values for them." It came after arm C's final readout (`results/arm_c_2026-10-07_rerun/readout.json`, commit 2229549; [design doc](s8-arm-c-dft-design-2026-10-07.md) §7) left Cu8Cr23Mn35Co34 and Fe25Co25Ni25Cr25 without a value.
 
@@ -305,3 +305,84 @@ The two pairs in the canaries' directions:
 **What it does not show.**
 - The production runs of these states stalled with the accuracy hovering around 10⁻³–10⁻² Ry (Cu8 slab: median of the last 40 iterations 1.4×10⁻²; its ndim16 re-run 1.8×10⁻³) and 10⁻⁴–10⁻³ Ry (Fe25 OOH: 9.9×10⁻⁴; re-run 7.8×10⁻⁴), never reaching conv_thr 10⁻⁶ in 126 iterations.
 - The canaries reached 0.011 and 0.007 Ry in eight iterations; production and its ndim16 re-runs first reached those levels at iterations 20–29, then stalled. Whether the seeded runs get past the level where production stalled is what the main array shows.
+
+## Round 2 main readout, 2026-10-09: 3 of 11 converged; no value
+
+**Runs.** Main array 21195261 ran its 11 tasks on 11 nodes between a604 and a616. Slurm lists the runner's rejections as `FAILED` (exit 10).
+- Converged:
+  - Cu8 s16/2 OH and OOH: 33 and 31 iterations, about 32 min each;
+  - Fe25 s25/2 OH: 61 iterations, 60 min.
+  - All three converged inside arm C's registered 126-iteration cap and wrote their own saves.
+- The other eight stopped at the 200-iteration ceiling after 2.6–3.5 h.
+- There were no QE errors. The only IEEE notes are underflow and denormal; none is invalid, divide-by-zero or overflow.
+
+**Cost.**
+- Round 2 used 3,416.8 SU (sacct CPU time), inside its 5,472 SU ceiling: canary 43.6, main 3,373.2.
+- The campaign has used 20,888.6 SU of the approved 23,680.
+- Balance: 16,776.5 SU (`mybalance`, 2026-10-09 04:32Z).
+
+**Readout.** `readout.json` comes from the command under Readout, with this round's plan and mirror.
+- 43 of 64 SCFs are accepted, up from 40.
+- 6 of 16 sites are complete, unchanged.
+- Every extension job read its moved file.
+
+| Support site | Accepted before round 2 | Round 2 | Still missing |
+|---|---|---|---|
+| Cu8 s16/2 | O (ndim16 re-run) | OH and OOH converged; slab stopped | slab |
+| Cu8 s26/1 | OH (production) | slab, O and OOH stopped | slab, O, OOH |
+| Fe25 s13/0 | slab (ndim16 re-run) | O, OH and OOH stopped | O, OH, OOH |
+| Fe25 s25/2 | slab, OOH (production) | OH converged; O stopped | O |
+
+**Consequence.**
+- Every support site of Cu8 and Fe25 still lacks at least one state, so both alloys stay `NO_VALUE`.
+- K1, K2 and the Ni34 nomination stay `NOT_EVALUABLE_UNDER_ARM_C`, and arm C's registered readings are unchanged.
+- The three converged states stay in the record. They count only if the last state at their site converges.
+
+**Trajectories.** `trajectories.py` reads the committed mirrors and writes `trajectories.json`. Accuracy is QE's "estimated scf accuracy" in Ry; conv_thr is 10⁻⁶. Production and the ndim16 re-run each ran 126 iterations.
+
+| Converged state | Iterations | Production / re-run, best in 126 | Total magnetization, μB (seed) |
+|---|---|---|---|
+| Cu8 s16/2 OH | 33 | 6.3×10⁻⁴ / 1.1×10⁻³ | 50.13 (O, 49.63) |
+| Cu8 s16/2 OOH | 31 | 1.0×10⁻⁵ / 9.3×10⁻⁶ | 50.00 (O, 49.63) |
+| Fe25 s25/2 OH | 61 | 2.4×10⁻⁶ / 3.9×10⁻⁶ | 44.44 (OOH, 43.40) |
+
+| Stopped state | Moved: best in 126 | Production / re-run: best in 126 | Moved: best in 200 (iteration) | Moved: median, iterations 151–200 |
+|---|---|---|---|---|
+| Cu8 s16/2 slab | 1.2×10⁻⁵ | 1.8×10⁻³ / 2.9×10⁻⁴ | 1.2×10⁻⁵ (56) | 2.5×10⁻⁴ |
+| Cu8 s26/1 slab | 4.9×10⁻⁶ | 1.7×10⁻⁴ / 1.5×10⁻⁴ | 1.3×10⁻⁶ (200) | 2.8×10⁻⁶ |
+| Cu8 s26/1 O | 2.0×10⁻⁴ | 1.8×10⁻⁴ / 1.3×10⁻⁴ | 2.0×10⁻⁴ (28) | 6.8×10⁻³ |
+| Cu8 s26/1 OOH | 8.1×10⁻⁵ | 1.6×10⁻⁴ / 4.5×10⁻⁴ | 8.1×10⁻⁵ (65) | 5.8×10⁻⁴ |
+| Fe25 s13/0 OH | 4.7×10⁻⁶ | 2.4×10⁻⁵ / 3.5×10⁻⁵ | 4.0×10⁻⁶ (200) | 4.2×10⁻⁶ |
+| Fe25 s13/0 O | 2.6×10⁻⁴ | 1.2×10⁻⁶ / 9.1×10⁻⁴ | 2.6×10⁻⁴ (77) | 4.8×10⁻³ |
+| Fe25 s13/0 OOH | 4.7×10⁻⁵ | 4.1×10⁻⁴ / 1.2×10⁻⁴ | 4.7×10⁻⁵ (85) | 3.5×10⁻⁴ |
+| Fe25 s25/2 O | 1.2×10⁻⁵ | 1.3×10⁻⁵ / 1.3×10⁻⁵ | 4.7×10⁻⁶ (195) | 6.5×10⁻⁶ |
+
+**What this shows.**
+- The moved start converged three states that no earlier start had converged in 126 iterations. Each ended within about 1 μB of its seed's total magnetization (0.4–1.0).
+- Within 126 iterations, the moved start beat production and the re-run by 2–31× on five of the eight others. It matched them on two (Cu8 s26/1 O, Fe25 s25/2 O).
+- On one it fell far short: production's Fe25 s13/0 O reached 1.2×10⁻⁶ at its 126-iteration cap, just above conv_thr, while the moved start stalled near 10⁻³.
+- Over 200 iterations the eight split three ways:
+  - still improving at the ceiling: Cu8 s26/1 slab (1.3×10⁻⁶ at iteration 200) and Fe25 s25/2 O (4.7×10⁻⁶ at 195);
+  - flat: Fe25 s13/0 OH, at 4–5×10⁻⁶ from about iteration 50;
+  - stalled or drifting back up to 10⁻⁴–10⁻²: the Cu8 s16/2 slab (after 1.2×10⁻⁵ at iteration 56), Cu8 s26/1 O and OOH, and Fe25 s13/0 O and OOH.
+- The start sets how fast a run reaches 10⁻⁴–10⁻⁵ Ry. For five of these eight states, something else stops it there.
+
+**Competing explanations for the late stalls.**
+- *The SCF hops between nearby magnetic configurations.* In iterations 101–200, the cell's total moment wandered by 0.6–0.8 μB in three of the runs that drifted back up: Cu8 s26/1 O and OOH, and Fe25 s13/0 O. In the three that crept down or held flat (Cu8 s26/1 slab, Fe25 s25/2 O, Fe25 s13/0 OH), it held within 0.1 μB.
+- *Charge sloshing or an orbital-occupation change that the total moment does not show.* The Cu8 s16/2 slab drifted back up while its total moment stayed within 0.2 μB, so the total alone cannot separate the two explanations for it. Per-atom moments would, but these runs print none at this verbosity.
+
+**What a value still needs.**
+- One state per alloy would complete a support site and give that alloy a single-site value (`SINGLE_SITE`): the Cu8 s16/2 slab and Fe25 s25/2 O. K1 needs both.
+- Each of the two has now stopped short from three starts: production's atomic start, the ndim16 re-run and the moved seed.
+- A further round would have to change the SCF path, not only the start; for example, a smaller mixing_beta with a higher iteration cap. Mixing changes the path, not the equations solved, though it can change which magnetic state a run lands in.
+- At 57–63 s per iteration on 128 cores, 400 iterations cost about 850 SU per state, about 1,700 SU for the two. That fits inside the 2,791.4 SU left under the approved 23,680.
+- No such round is planned.
+
+**Open for Frank.** Stop here and deposit the freeze, arm C and the extension readouts as planned (before any OER measurement; Oct 21 fallback), or approve a narrow third round on those two states.
+
+| Part | Location |
+|---|---|
+| Readout | `results/arm_c_ext_r2_2026-10-08/readout.json` (`readout.job.json`); `terminal_collection.json`; `status_snapshot_20261009T043156Z.json` |
+| Mirror | `results/arm_c_ext_r2_2026-10-08/raw_mirror/`: outputs, inputs, receipts and Slurm logs, sha256-matched to Anvil; projection outputs kept local |
+| Trajectories | `results/arm_c_ext_r2_2026-10-08/trajectories.py` and `trajectories.json` |
+| Tests | `tests/test_arm_c_ext_r2.py`, 23 tests (the readout reproduction skips without the local projection outputs); 191 pass with the arm C and HEA QC suites |

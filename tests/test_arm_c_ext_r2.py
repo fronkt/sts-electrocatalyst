@@ -387,3 +387,28 @@ def test_the_readout_records_whether_the_seed_density_was_copied_or_moved(tmp_pa
     copied = readout.site_result(site, production, gas, {}, None, {"O": row}, extension)
     assert moved["complete"] and moved["extension_attempts"][0]["seed_density"] == "moved"
     assert copied["extension_attempts"][0]["seed_density"] == "copied"
+
+
+# ---------------------------------------------------------------- the round-2 terminal readout
+def test_the_round_2_readout_reproduces_the_committed_readout(tmp_path):
+    mirrors = (ROOT / "results/arm_c_2026-10-07/raw_mirror", ROOT / "results/arm_c_2026-10-07_rerun/raw_mirror",
+               PACKAGE / "raw_mirror")
+    if not all(any(m.rglob("*.projwfc.out")) for m in mirrors):
+        pytest.skip("projection outputs are kept local, outside git")
+    out = tmp_path / "readout.json"
+    readout.main(["--plan", str(ROOT / "results/arm_c_2026-10-07/site_plan.json"), "--mirror", str(mirrors[0]),
+                  "--rerun-plan", str(ROOT / "results/arm_c_2026-10-07_rerun/rerun_plan.json"),
+                  "--rerun-mirror", str(mirrors[1]), "--ext-plan", str(PACKAGE / "ext_plan.json"),
+                  "--ext-mirror", str(mirrors[2]), "--out", str(out)])
+    assert out.read_bytes() == (PACKAGE / "readout.json").read_bytes()
+
+
+def test_the_trajectory_comparison_reproduces_from_the_committed_mirrors():
+    spec = importlib.util.spec_from_file_location("arm_c_ext_r2_trajectories", PACKAGE / "trajectories.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    built = module.build()
+    assert json.dumps(built, indent=1) + "\n" == (PACKAGE / "trajectories.json").read_text(encoding="utf-8")
+    ends = [t["round_2"]["end"] for t in built["targets"]]
+    assert len(ends) == 11 and ends.count("converged") == 3
+    assert all(e == "converged" or e == "killed: SCF iteration ceiling" for e in ends)

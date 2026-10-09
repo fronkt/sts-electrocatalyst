@@ -1,0 +1,122 @@
+{
+  "at": "2026-10-09T04:31:59.107536+00:00",
+  "readonly": true,
+  "rc": 0,
+  "stderr": "",
+  "jobs": {
+    "r2_canary": "21195260",
+    "r2_main": "21195261"
+  },
+  "remote": {
+    "commands": {
+      "squeue": {
+        "rc": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "sacct": {
+        "rc": 0,
+        "stdout": "21195260_1|arm-c-ext-r2-canary|FAILED|00:09:08|10:0|70144|a303\n21195260_2|arm-c-ext-r2-canary|FAILED|00:11:18|10:0|86784|a310\n21195261_1|arm-c-ext-r2-main|COMPLETED|00:32:31|0:0|249728|a604\n21195261_2|arm-c-ext-r2-main|COMPLETED|00:31:01|0:0|238208|a605\n21195261_3|arm-c-ext-r2-main|FAILED|03:09:03|10:0|1451904|a608\n21195261_4|arm-c-ext-r2-main|FAILED|03:00:48|10:0|1388544|a609\n21195261_5|arm-c-ext-r2-main|FAILED|02:48:26|10:0|1293568|a610\n21195261_6|arm-c-ext-r2-main|FAILED|02:35:46|10:0|1196288|a611\n21195261_7|arm-c-ext-r2-main|FAILED|03:00:02|10:0|1382656|a612\n21195261_8|arm-c-ext-r2-main|FAILED|03:07:17|10:0|1438336|a613\n21195261_9|arm-c-ext-r2-main|FAILED|03:06:36|10:0|1433088|a614\n21195261_10|arm-c-ext-r2-main|COMPLETED|01:00:19|0:0|463232|a615\n21195261_11|arm-c-ext-r2-main|FAILED|03:29:21|10:0|1607808|a616\n",
+        "stderr": ""
+      },
+      "balance": {
+        "rc": 0,
+        "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    102490.0     85713.6    85713.6     16776.5\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+        "stderr": ""
+      }
+    },
+    "receipts": {
+      "hea/arm_c_ext_r2_2026-10-08/Cu8Cr23Mn35Co34__s16_site2/OH__atomic_moved.qc.json": {
+        "status": "COMPLETE",
+        "reason": null,
+        "energy_Ry": -7594.51720109,
+        "iterations": 33,
+        "wall_seconds": 1890.547994970053
+      },
+      "hea/arm_c_ext_r2_2026-10-08/Cu8Cr23Mn35Co34__s16_site2/OOH__atomic_moved.qc.json": {
+        "status": "COMPLETE",
+        "reason": null,
+        "energy_Ry": -7636.04159369,
+        "iterations": 31,
+        "wall_seconds": 1797.281503282953
+      },
+      "hea/arm_c_ext_r2_2026-10-08/Cu8Cr23Mn35Co34__s16_site2/slab__atomic_moved.qc.json": {
+        "status": "REJECTED",
+        "reason": "SCF iteration ceiling",
+        "energy_Ry": null,
+        "iterations": null,
+        "wall_seconds": 11334.19720821199
+      },
+      "hea/arm_c_ext_r2_2026-10-08/Cu8Cr23Mn35Co34__s26_site1/OOH__atomic_moved.qc.json": {
+        "status": "REJECTED",
+        "reason": "SCF iteration ceiling",
+        "energy_Ry": null,
+        "iterations": null,
+        "wall_seconds": 10840.957456848002
+      },
+      "hea/arm_c_ext_r2_2026-10-08/Cu8Cr23Mn35Co34__s26_site1/O__atomic_moved.qc.json": {
+        "status": "REJECTED",
+        "reason": "SCF iteration ceiling",
+        "energy_Ry": null,
+        "iterations": null,
+        "wall_seconds": 10098.721415803011
+      },
+      "hea/arm_c_ext_r2_2026-10-08/Cu8Cr23Mn35Co34__s26_site1/slab__atomic_moved.qc.json": {
+        "status": "REJECTED",
+        "reason": "SCF iteration ceiling",
+        "energy_Ry": null,
+        "iterations": null,
+        "wall_seconds": 9339.054355671979
+      },
+      "hea/arm_c_ext_r2_2026-10-08/Fe25Co25Ni25Cr25__s13_site0/OH__atomic_moved.qc.json": {
+        "status": "REJECTED",
+        "reason": "SCF iteration ceiling",
+        "energy_Ry": null,
+        "iterations": null,
+        "wall_seconds": 10795.611565396015
+      },
+      "hea/arm_c_ext_r2_2026-10-08/Fe25Co25Ni25Cr25__s13_site0/OOH__atomic_moved.qc.json": {
+        "status": "REJECTED",
+        "reason": "SCF iteration ceiling",
+        "energy_Ry": null,
+        "iterations": null,
+        "wall_seconds": 11230.467434335034
+      },
+      "hea/arm_c_ext_r2_2026-10-08/Fe25Co25Ni25Cr25__s13_site0/O__atomic_moved.qc.json": {
+        "status": "REJECTED",
+        "reason": "SCF iteration ceiling",
+        "energy_Ry": null,
+        "iterations": null,
+        "wall_seconds": 11187.07114587701
+      },
+      "hea/arm_c_ext_r2_2026-10-08/Fe25Co25Ni25Cr25__s25_site2/OH__atomic_moved.qc.json": {
+        "status": "COMPLETE",
+        "reason": null,
+        "energy_Ry": -8915.23056145,
+        "iterations": 61,
+        "wall_seconds": 3555.317630172998
+      },
+      "hea/arm_c_ext_r2_2026-10-08/Fe25Co25Ni25Cr25__s25_site2/O__atomic_moved.qc.json": {
+        "status": "REJECTED",
+        "reason": "SCF iteration ceiling",
+        "energy_Ry": null,
+        "iterations": null,
+        "wall_seconds": 12552.316362907994
+      },
+      "hea/arm_c_ext_r2_2026-10-08/canary/Cu8Cr23Mn35Co34__s16_site2/slab__atomic_moved.qc.json": {
+        "status": "REJECTED",
+        "reason": "SCF iteration ceiling",
+        "energy_Ry": null,
+        "iterations": null,
+        "wall_seconds": 540.6771792229265
+      },
+      "hea/arm_c_ext_r2_2026-10-08/canary/Fe25Co25Ni25Cr25__s13_site0/OOH__atomic_moved.qc.json": {
+        "status": "REJECTED",
+        "reason": "SCF iteration ceiling",
+        "energy_Ry": null,
+        "iterations": null,
+        "wall_seconds": 669.498275305843
+      }
+    }
+  }
+}

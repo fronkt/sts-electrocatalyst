@@ -1,0 +1,2705 @@
+{
+  "schema": "s8-arm-c-ext-readout-v1",
+  "design": "docs/research/s8-arm-c-dft-design-2026-10-07.md",
+  "gas_references": {
+    "H2O": {
+      "E_Ry": -44.04119711,
+      "E_eV": -599.2110126041732,
+      "path": "runs/Cr_slab/H2O.out"
+    },
+    "H2": {
+      "E_Ry": -2.33323818,
+      "E_eV": -31.745322657613798,
+      "path": "runs/Cr_slab/H2.out"
+    }
+  },
+  "sites": [
+    {
+      "formula": "Cu8Cr23Mn35Co34",
+      "seed": 16,
+      "site_index": 2,
+      "site_metal": "Cr",
+      "roles": {
+        "support_lo": {
+          "weight": "1/2",
+          "p10_V": 0.38354839936178386,
+          "n_intact": 16
+        }
+      },
+      "eta_mlip_V": 0.380804196547869,
+      "dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s16_site2",
+      "original_failures": {
+        "slab": "CEILING",
+        "OH": "CEILING",
+        "O": "CEILING",
+        "OOH": "CEILING"
+      },
+      "rerun_attempts": [
+        {
+          "job": "slab__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 47.35,
+          "absolute_magnetization": 68.69,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "slab__atomic",
+          "state": "slab",
+          "failure": "CEILING"
+        },
+        {
+          "job": "OH__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 46.75,
+          "absolute_magnetization": 66.82,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "OH__atomic",
+          "state": "OH",
+          "failure": "CEILING"
+        },
+        {
+          "job": "O__atomic_ndim16",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 52,
+          "total_magnetization": 49.63,
+          "absolute_magnetization": 67.96,
+          "E_eV": -103311.51296221041,
+          "accepted": true,
+          "recipe": "ndim16",
+          "replaces": "O__atomic",
+          "state": "O",
+          "failure": null
+        },
+        {
+          "job": "OOH__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 48.57,
+          "absolute_magnetization": 68.12,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "OOH__atomic",
+          "state": "OOH",
+          "failure": "CEILING"
+        }
+      ],
+      "extension_attempts": [
+        {
+          "job": "OH__atomic_moved",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 33,
+          "total_magnetization": 50.13,
+          "absolute_magnetization": 68.62,
+          "E_eV": -103328.6704477809,
+          "accepted": true,
+          "recipe": "seeded",
+          "replaces": "OH__atomic",
+          "seed": "O__atomic_ndim16",
+          "seed_state": "O",
+          "seed_read": true,
+          "seed_density": "moved",
+          "save_written": true,
+          "beyond_registered_cap": false,
+          "state": "OH",
+          "failure": null
+        },
+        {
+          "job": "OOH__atomic_moved",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 31,
+          "total_magnetization": 50.0,
+          "absolute_magnetization": 69.15,
+          "E_eV": -103893.63859057394,
+          "accepted": true,
+          "recipe": "seeded",
+          "replaces": "OOH__atomic",
+          "seed": "O__atomic_ndim16",
+          "seed_state": "O",
+          "seed_read": true,
+          "seed_density": "moved",
+          "save_written": true,
+          "beyond_registered_cap": false,
+          "state": "OOH",
+          "failure": null
+        },
+        {
+          "job": "slab__atomic_moved",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 51.25,
+          "absolute_magnetization": 69.17,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "seeded",
+          "replaces": "slab__atomic",
+          "seed": "O__atomic_ndim16",
+          "seed_state": "O",
+          "seed_read": true,
+          "seed_density": "moved",
+          "save_written": false,
+          "beyond_registered_cap": false,
+          "state": "slab",
+          "failure": "CEILING"
+        }
+      ],
+      "states": {
+        "slab": {
+          "job": "slab__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 45.47,
+          "absolute_magnetization": 68.47,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "OH": {
+          "job": "OH__atomic_moved",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 33,
+          "total_magnetization": 50.13,
+          "absolute_magnetization": 68.62,
+          "E_eV": -103328.6704477809,
+          "accepted": true,
+          "recipe": "seeded",
+          "replaces": "OH__atomic",
+          "seed": "O__atomic_ndim16",
+          "seed_state": "O",
+          "seed_read": true,
+          "seed_density": "moved",
+          "save_written": true,
+          "beyond_registered_cap": false
+        },
+        "O": {
+          "job": "O__atomic_ndim16",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 52,
+          "total_magnetization": 49.63,
+          "absolute_magnetization": 67.96,
+          "E_eV": -103311.51296221041,
+          "accepted": true,
+          "recipe": "ndim16",
+          "replaces": "O__atomic"
+        },
+        "OOH": {
+          "job": "OOH__atomic_moved",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 31,
+          "total_magnetization": 50.0,
+          "absolute_magnetization": 69.15,
+          "E_eV": -103893.63859057394,
+          "accepted": true,
+          "recipe": "seeded",
+          "replaces": "OOH__atomic",
+          "seed": "O__atomic_ndim16",
+          "seed_state": "O",
+          "seed_read": true,
+          "seed_density": "moved",
+          "save_written": true,
+          "beyond_registered_cap": false
+        }
+      },
+      "failures": {
+        "slab": "CEILING"
+      },
+      "recipes": [
+        "ndim16",
+        "production",
+        "seeded"
+      ],
+      "mixed_recipe": true,
+      "complete": false
+    },
+    {
+      "formula": "Cu8Cr23Mn35Co34",
+      "seed": 26,
+      "site_index": 1,
+      "site_metal": "Cr",
+      "roles": {
+        "support_hi": {
+          "weight": "1/2",
+          "p10_V": 0.38354839936178386,
+          "n_intact": 16
+        }
+      },
+      "eta_mlip_V": 0.3862926021756987,
+      "dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s26_site1",
+      "original_failures": {
+        "slab": "CEILING",
+        "O": "CEILING",
+        "OOH": "CEILING"
+      },
+      "rerun_attempts": [
+        {
+          "job": "slab__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 46.95,
+          "absolute_magnetization": 66.54,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "slab__atomic",
+          "state": "slab",
+          "failure": "CEILING"
+        },
+        {
+          "job": "O__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 46.8,
+          "absolute_magnetization": 66.8,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "O__atomic",
+          "state": "O",
+          "failure": "CEILING"
+        },
+        {
+          "job": "OOH__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 50.07,
+          "absolute_magnetization": 67.98,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "OOH__atomic",
+          "state": "OOH",
+          "failure": "CEILING"
+        }
+      ],
+      "extension_attempts": [
+        {
+          "job": "OOH__atomic_moved",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 46.53,
+          "absolute_magnetization": 68.29,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "seeded",
+          "replaces": "OOH__atomic",
+          "seed": "OH__atomic",
+          "seed_state": "OH",
+          "seed_read": true,
+          "seed_density": "moved",
+          "save_written": false,
+          "beyond_registered_cap": false,
+          "state": "OOH",
+          "failure": "CEILING"
+        },
+        {
+          "job": "O__atomic_moved",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 45.78,
+          "absolute_magnetization": 67.39,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "seeded",
+          "replaces": "O__atomic",
+          "seed": "OH__atomic",
+          "seed_state": "OH",
+          "seed_read": true,
+          "seed_density": "moved",
+          "save_written": false,
+          "beyond_registered_cap": false,
+          "state": "O",
+          "failure": "CEILING"
+        },
+        {
+          "job": "slab__atomic_moved",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 47.46,
+          "absolute_magnetization": 68.29,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "seeded",
+          "replaces": "slab__atomic",
+          "seed": "OH__atomic",
+          "seed_state": "OH",
+          "seed_read": true,
+          "seed_density": "moved",
+          "save_written": false,
+          "beyond_registered_cap": false,
+          "state": "slab",
+          "failure": "CEILING"
+        }
+      ],
+      "states": {
+        "slab": {
+          "job": "slab__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 47.04,
+          "absolute_magnetization": 66.58,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "OH": {
+          "job": "OH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 54,
+          "total_magnetization": 46.67,
+          "absolute_magnetization": 67.93,
+          "E_eV": -103330.21592050348,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "O": {
+          "job": "O__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 47.04,
+          "absolute_magnetization": 66.71,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "OOH": {
+          "job": "OOH__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 48.26,
+          "absolute_magnetization": 67.82,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        }
+      },
+      "failures": {
+        "slab": "CEILING",
+        "O": "CEILING",
+        "OOH": "CEILING"
+      },
+      "recipes": [
+        "production"
+      ],
+      "mixed_recipe": false,
+      "complete": false
+    },
+    {
+      "formula": "Cu8Cr23Mn35Co34",
+      "seed": 20,
+      "site_index": 2,
+      "site_metal": "Cr",
+      "roles": {
+        "best": {
+          "n_intact": 16
+        }
+      },
+      "eta_mlip_V": 0.3622195377546671,
+      "dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s20_site2",
+      "original_failures": {},
+      "states": {
+        "slab": {
+          "job": "slab__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 70,
+          "total_magnetization": 49.9,
+          "absolute_magnetization": 68.45,
+          "E_eV": -102747.63031549282,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "OH": {
+          "job": "OH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 80,
+          "total_magnetization": 46.52,
+          "absolute_magnetization": 66.45,
+          "E_eV": -103329.70704962121,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "O": {
+          "job": "O__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 55,
+          "total_magnetization": 45.76,
+          "absolute_magnetization": 66.13,
+          "E_eV": -103312.36231433856,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "OOH": {
+          "job": "OOH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 97,
+          "total_magnetization": 48.49,
+          "absolute_magnetization": 68.15,
+          "E_eV": -103894.1997139846,
+          "accepted": true,
+          "recipe": "production"
+        }
+      },
+      "failures": {},
+      "recipes": [
+        "production"
+      ],
+      "mixed_recipe": false,
+      "complete": true,
+      "eta_dft_V": 0.6209516293230268,
+      "dG_dft_eV": {
+        "OH": 1.6116171469727534,
+        "O": 2.7836911008137575,
+        "OOH": 4.634642730136784
+      },
+      "steps_eV": [
+        1.6116171469727534,
+        1.172073953841004,
+        1.8509516293230268,
+        0.28535726986321563
+      ],
+      "potential_limiting_step": 3,
+      "informative_dft_minus_mlip": {
+        "eta_V": 0.25873209156835975,
+        "dG_eV": {
+          "OH": 0.03325150501599339,
+          "O": -0.3868940788976696,
+          "OOH": 0.09792366636590799
+        }
+      }
+    },
+    {
+      "formula": "Ni31Cr29Cu5Mn35",
+      "seed": 1,
+      "site_index": 0,
+      "site_metal": "Cr",
+      "roles": {
+        "support_lo": {
+          "weight": "3/10",
+          "p10_V": 0.4729863773328665,
+          "n_intact": 8
+        },
+        "best": {
+          "n_intact": 8
+        }
+      },
+      "eta_mlip_V": 0.4399960638886986,
+      "dir": "hea/arm_c_2026-10-07/Ni31Cr29Cu5Mn35__s1_site0",
+      "original_failures": {},
+      "states": {
+        "slab": {
+          "job": "slab__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 38,
+          "total_magnetization": 37.32,
+          "absolute_magnetization": 68.6,
+          "E_eV": -107104.01925630328,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "OH": {
+          "job": "OH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 38,
+          "total_magnetization": 36.29,
+          "absolute_magnetization": 68.33,
+          "E_eV": -107685.70984194895,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "O": {
+          "job": "O__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 36,
+          "total_magnetization": 35.35,
+          "absolute_magnetization": 67.43,
+          "E_eV": -107668.23587013298,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "OOH": {
+          "job": "OOH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 37,
+          "total_magnetization": 36.3,
+          "absolute_magnetization": 68.65,
+          "E_eV": -108250.40496963845,
+          "accepted": true,
+          "recipe": "production"
+        }
+      },
+      "failures": {},
+      "recipes": [
+        "production"
+      ],
+      "mixed_recipe": false,
+      "complete": true,
+      "eta_dft_V": 0.7677656296939359,
+      "dG_dft_eV": {
+        "OH": 1.997765629693936,
+        "O": 3.299076116856031,
+        "OOH": 4.8183278867553785
+      },
+      "steps_eV": [
+        1.997765629693936,
+        1.301310487162095,
+        1.5192517698993475,
+        0.10167211324462144
+      ],
+      "potential_limiting_step": 1,
+      "informative_dft_minus_mlip": {
+        "eta_V": 0.3277695658052373,
+        "dG_eV": {
+          "OH": 0.3277695658052373,
+          "O": 0.13003335626292678,
+          "OOH": 0.34813390635073205
+        }
+      }
+    },
+    {
+      "formula": "Ni31Cr29Cu5Mn35",
+      "seed": 10,
+      "site_index": 2,
+      "site_metal": "Cr",
+      "roles": {
+        "support_hi": {
+          "weight": "7/10",
+          "p10_V": 0.4729863773328665,
+          "n_intact": 8
+        }
+      },
+      "eta_mlip_V": 0.48712508309465274,
+      "dir": "hea/arm_c_2026-10-07/Ni31Cr29Cu5Mn35__s10_site2",
+      "original_failures": {
+        "slab": "CEILING"
+      },
+      "rerun_attempts": [
+        {
+          "job": "slab__atomic_ndim16",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 84,
+          "total_magnetization": 36.82,
+          "absolute_magnetization": 68.18,
+          "E_eV": -107103.8189063495,
+          "accepted": true,
+          "recipe": "ndim16",
+          "replaces": "slab__atomic",
+          "state": "slab",
+          "failure": null
+        }
+      ],
+      "states": {
+        "slab": {
+          "job": "slab__atomic_ndim16",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 84,
+          "total_magnetization": 36.82,
+          "absolute_magnetization": 68.18,
+          "E_eV": -107103.8189063495,
+          "accepted": true,
+          "recipe": "ndim16",
+          "replaces": "slab__atomic"
+        },
+        "OH": {
+          "job": "OH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 39,
+          "total_magnetization": 35.83,
+          "absolute_magnetization": 68.19,
+          "E_eV": -107685.27168080623,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "O": {
+          "job": "O__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 45,
+          "total_magnetization": 34.82,
+          "absolute_magnetization": 67.14,
+          "E_eV": -107667.92796227701,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "OOH": {
+          "job": "OOH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 35,
+          "total_magnetization": 35.83,
+          "absolute_magnetization": 68.6,
+          "E_eV": -108249.97733413204,
+          "accepted": true,
+          "recipe": "production"
+        }
+      },
+      "failures": {},
+      "recipes": [
+        "ndim16",
+        "production"
+      ],
+      "mixed_recipe": true,
+      "complete": true,
+      "eta_dft_V": 1.0055768186350589,
+      "dG_dft_eV": {
+        "OH": 2.235576818635059,
+        "O": 3.4066340190413937,
+        "OOH": 5.045613439379759
+      },
+      "steps_eV": [
+        2.235576818635059,
+        1.1710572004063349,
+        1.638979420338365,
+        -0.12561343937975877
+      ],
+      "potential_limiting_step": 1,
+      "informative_dft_minus_mlip": {
+        "eta_V": 0.5184517355404061,
+        "dG_eV": {
+          "OH": 0.5184517355404061,
+          "O": 0.13487159679699712,
+          "OOH": 0.5358846095563408
+        }
+      }
+    },
+    {
+      "formula": "Fe25Co25Ni25Cr25",
+      "seed": 13,
+      "site_index": 0,
+      "site_metal": "Cr",
+      "roles": {
+        "support_lo": {
+          "weight": "1/5",
+          "p10_V": 0.5543729731738457,
+          "n_intact": 19
+        }
+      },
+      "eta_mlip_V": 0.5430917214803648,
+      "dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s13_site0",
+      "original_failures": {
+        "slab": "CEILING",
+        "OH": "CEILING",
+        "O": "CEILING",
+        "OOH": "CEILING"
+      },
+      "rerun_attempts": [
+        {
+          "job": "slab__atomic_ndim16",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 111,
+          "total_magnetization": 51.34,
+          "absolute_magnetization": 67.26,
+          "E_eV": -120715.26520983604,
+          "accepted": true,
+          "recipe": "ndim16",
+          "replaces": "slab__atomic",
+          "state": "slab",
+          "failure": null
+        },
+        {
+          "job": "OH__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 51.62,
+          "absolute_magnetization": 66.62,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "OH__atomic",
+          "state": "OH",
+          "failure": "CEILING"
+        },
+        {
+          "job": "O__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 48.92,
+          "absolute_magnetization": 65.77,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "O__atomic",
+          "state": "O",
+          "failure": "CEILING"
+        },
+        {
+          "job": "OOH__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 49.57,
+          "absolute_magnetization": 66.87,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "OOH__atomic",
+          "state": "OOH",
+          "failure": "CEILING"
+        }
+      ],
+      "extension_attempts": [
+        {
+          "job": "OH__atomic_moved",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 50.34,
+          "absolute_magnetization": 66.04,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "seeded",
+          "replaces": "OH__atomic",
+          "seed": "slab__atomic_ndim16",
+          "seed_state": "slab",
+          "seed_read": true,
+          "seed_density": "moved",
+          "save_written": false,
+          "beyond_registered_cap": false,
+          "state": "OH",
+          "failure": "CEILING"
+        },
+        {
+          "job": "OOH__atomic_moved",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 50.32,
+          "absolute_magnetization": 66.7,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "seeded",
+          "replaces": "OOH__atomic",
+          "seed": "slab__atomic_ndim16",
+          "seed_state": "slab",
+          "seed_read": true,
+          "seed_density": "moved",
+          "save_written": false,
+          "beyond_registered_cap": false,
+          "state": "OOH",
+          "failure": "CEILING"
+        },
+        {
+          "job": "O__atomic_moved",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 49.0,
+          "absolute_magnetization": 65.38,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "seeded",
+          "replaces": "O__atomic",
+          "seed": "slab__atomic_ndim16",
+          "seed_state": "slab",
+          "seed_read": true,
+          "seed_density": "moved",
+          "save_written": false,
+          "beyond_registered_cap": false,
+          "state": "O",
+          "failure": "CEILING"
+        }
+      ],
+      "states": {
+        "slab": {
+          "job": "slab__atomic_ndim16",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 111,
+          "total_magnetization": 51.34,
+          "absolute_magnetization": 67.26,
+          "E_eV": -120715.26520983604,
+          "accepted": true,
+          "recipe": "ndim16",
+          "replaces": "slab__atomic"
+        },
+        "OH": {
+          "job": "OH__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 51.6,
+          "absolute_magnetization": 66.66,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "O": {
+          "job": "O__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 49.5,
+          "absolute_magnetization": 66.07,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "OOH": {
+          "job": "OOH__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 49.62,
+          "absolute_magnetization": 66.87,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        }
+      },
+      "failures": {
+        "OH": "CEILING",
+        "O": "CEILING",
+        "OOH": "CEILING"
+      },
+      "recipes": [
+        "ndim16",
+        "production"
+      ],
+      "mixed_recipe": true,
+      "complete": false
+    },
+    {
+      "formula": "Fe25Co25Ni25Cr25",
+      "seed": 25,
+      "site_index": 2,
+      "site_metal": "Cr",
+      "roles": {
+        "support_hi": {
+          "weight": "4/5",
+          "p10_V": 0.5543729731738457,
+          "n_intact": 19
+        }
+      },
+      "eta_mlip_V": 0.557193286097216,
+      "dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2",
+      "original_failures": {
+        "OH": "CEILING",
+        "O": "CEILING",
+        "OOH": "IEEE"
+      },
+      "rerun_attempts": [
+        {
+          "job": "OH__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 44.74,
+          "absolute_magnetization": 62.62,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "OH__atomic",
+          "state": "OH",
+          "failure": "CEILING"
+        },
+        {
+          "job": "O__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 42.49,
+          "absolute_magnetization": 60.85,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "O__atomic",
+          "state": "O",
+          "failure": "CEILING"
+        },
+        {
+          "job": "OOH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 57,
+          "total_magnetization": 43.4,
+          "absolute_magnetization": 61.85,
+          "E_eV": -121862.60691740233,
+          "accepted": true,
+          "recipe": "production",
+          "replaces": "OOH__atomic",
+          "state": "OOH",
+          "failure": null
+        }
+      ],
+      "extension_attempts": [
+        {
+          "job": "OH__atomic_moved",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 61,
+          "total_magnetization": 44.44,
+          "absolute_magnetization": 61.31,
+          "E_eV": -121297.89113096446,
+          "accepted": true,
+          "recipe": "seeded",
+          "replaces": "OH__atomic",
+          "seed": "OOH__atomic",
+          "seed_state": "OOH",
+          "seed_read": true,
+          "seed_density": "moved",
+          "save_written": true,
+          "beyond_registered_cap": false,
+          "state": "OH",
+          "failure": null
+        },
+        {
+          "job": "O__atomic_moved",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 42.63,
+          "absolute_magnetization": 60.92,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "seeded",
+          "replaces": "O__atomic",
+          "seed": "slab__atomic",
+          "seed_state": "slab",
+          "seed_read": true,
+          "seed_density": "moved",
+          "save_written": false,
+          "beyond_registered_cap": false,
+          "state": "O",
+          "failure": "CEILING"
+        }
+      ],
+      "states": {
+        "slab": {
+          "job": "slab__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 69,
+          "total_magnetization": 41.98,
+          "absolute_magnetization": 61.79,
+          "E_eV": -120716.3259394683,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "OH": {
+          "job": "OH__atomic_moved",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 61,
+          "total_magnetization": 44.44,
+          "absolute_magnetization": 61.31,
+          "E_eV": -121297.89113096446,
+          "accepted": true,
+          "recipe": "seeded",
+          "replaces": "OH__atomic",
+          "seed": "OOH__atomic",
+          "seed_state": "OOH",
+          "seed_read": true,
+          "seed_density": "moved",
+          "save_written": true,
+          "beyond_registered_cap": false
+        },
+        "O": {
+          "job": "O__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 40.5,
+          "absolute_magnetization": 60.75,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "OOH": {
+          "job": "OOH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 57,
+          "total_magnetization": 43.4,
+          "absolute_magnetization": 61.85,
+          "E_eV": -121862.60691740233,
+          "accepted": true,
+          "recipe": "production",
+          "replaces": "OOH__atomic"
+        }
+      },
+      "failures": {
+        "O": "CEILING"
+      },
+      "recipes": [
+        "production",
+        "seeded"
+      ],
+      "mixed_recipe": true,
+      "complete": false
+    },
+    {
+      "formula": "Fe25Co25Ni25Cr25",
+      "seed": 2,
+      "site_index": 0,
+      "site_metal": "Cr",
+      "roles": {
+        "best": {
+          "n_intact": 19
+        }
+      },
+      "eta_mlip_V": 0.4530565522419163,
+      "dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s2_site0",
+      "original_failures": {
+        "slab": "CEILING",
+        "OH": "IEEE"
+      },
+      "rerun_attempts": [
+        {
+          "job": "slab__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 37.78,
+          "absolute_magnetization": 65.77,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "slab__atomic",
+          "state": "slab",
+          "failure": "CEILING"
+        },
+        {
+          "job": "OH__atomic",
+          "parser_status": "REJECTED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF not complete/clean: ['IEEE_INVALID_FLAG']",
+          "severe_failures": [
+            "floating-point exception",
+            "IEEE_INVALID_FLAG"
+          ],
+          "projection_ieee": [],
+          "iterations": 61,
+          "total_magnetization": 40.74,
+          "absolute_magnetization": 66.55,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production",
+          "replaces": "OH__atomic",
+          "state": "OH",
+          "failure": "IEEE"
+        }
+      ],
+      "states": {
+        "slab": {
+          "job": "slab__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 37.78,
+          "absolute_magnetization": 65.79,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "OH": {
+          "job": "OH__atomic",
+          "parser_status": "REJECTED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF not complete/clean: ['IEEE_INVALID_FLAG']",
+          "severe_failures": [
+            "floating-point exception",
+            "IEEE_INVALID_FLAG"
+          ],
+          "projection_ieee": [],
+          "iterations": 61,
+          "total_magnetization": 38.75,
+          "absolute_magnetization": 66.27,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "O": {
+          "job": "O__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 58,
+          "total_magnetization": 39.8,
+          "absolute_magnetization": 64.64,
+          "E_eV": -121279.0606922249,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "OOH": {
+          "job": "OOH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 62,
+          "total_magnetization": 34.9,
+          "absolute_magnetization": 66.88,
+          "E_eV": -121861.6726396262,
+          "accepted": true,
+          "recipe": "production"
+        }
+      },
+      "failures": {
+        "slab": "CEILING",
+        "OH": "IEEE"
+      },
+      "recipes": [
+        "production"
+      ],
+      "mixed_recipe": false,
+      "complete": false
+    },
+    {
+      "formula": "Cu26Ni9Cr31Co33",
+      "seed": 1,
+      "site_index": 0,
+      "site_metal": "Cr",
+      "roles": {
+        "support_lo": {
+          "weight": "4/5",
+          "p10_V": 0.5020926149051025,
+          "n_intact": 13
+        }
+      },
+      "eta_mlip_V": 0.4791918879560475,
+      "dir": "hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s1_site0",
+      "original_failures": {
+        "O": "CEILING"
+      },
+      "rerun_attempts": [
+        {
+          "job": "O__atomic_ndim16",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 61,
+          "total_magnetization": 26.73,
+          "absolute_magnetization": 48.6,
+          "E_eV": -106024.76546333464,
+          "accepted": true,
+          "recipe": "ndim16",
+          "replaces": "O__atomic",
+          "state": "O",
+          "failure": null
+        }
+      ],
+      "states": {
+        "slab": {
+          "job": "slab__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 76,
+          "total_magnetization": 27.65,
+          "absolute_magnetization": 49.98,
+          "E_eV": -105460.34475431198,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "OH": {
+          "job": "OH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 119,
+          "total_magnetization": 27.69,
+          "absolute_magnetization": 49.6,
+          "E_eV": -106042.19024716853,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "O": {
+          "job": "O__atomic_ndim16",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 61,
+          "total_magnetization": 26.73,
+          "absolute_magnetization": 48.6,
+          "E_eV": -106024.76546333464,
+          "accepted": true,
+          "recipe": "ndim16",
+          "replaces": "O__atomic"
+        },
+        "OOH": {
+          "job": "OOH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 58,
+          "total_magnetization": 26.66,
+          "absolute_magnetization": 49.91,
+          "E_eV": -106606.83131386092,
+          "accepted": true,
+          "recipe": "production"
+        }
+      },
+      "failures": {},
+      "recipes": [
+        "ndim16",
+        "production"
+      ],
+      "mixed_recipe": true,
+      "complete": true,
+      "eta_dft_V": 0.6128584188184005,
+      "dG_dft_eV": {
+        "OH": 1.8428584188184005,
+        "O": 3.0949809239039494,
+        "OOH": 4.71748167298656
+      },
+      "steps_eV": [
+        1.8428584188184005,
+        1.252122505085549,
+        1.6225007490826107,
+        0.20251832701343986
+      ],
+      "potential_limiting_step": 1,
+      "informative_dft_minus_mlip": {
+        "eta_V": 0.13366653086235303,
+        "dG_eV": {
+          "OH": 0.13366653086235303,
+          "O": -0.2292172284505094,
+          "OOH": 0.22369430905265375
+        }
+      }
+    },
+    {
+      "formula": "Cu26Ni9Cr31Co33",
+      "seed": 17,
+      "site_index": 1,
+      "site_metal": "Cr",
+      "roles": {
+        "support_hi": {
+          "weight": "1/5",
+          "p10_V": 0.5020926149051025,
+          "n_intact": 13
+        }
+      },
+      "eta_mlip_V": 0.5936955227013225,
+      "dir": "hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s17_site1",
+      "original_failures": {
+        "slab": "CEILING",
+        "OH": "CEILING",
+        "O": "CEILING"
+      },
+      "rerun_attempts": [
+        {
+          "job": "slab__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 30.28,
+          "absolute_magnetization": 47.91,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "slab__atomic",
+          "state": "slab",
+          "failure": "CEILING"
+        },
+        {
+          "job": "OH__atomic_ndim16",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 50,
+          "total_magnetization": 30.46,
+          "absolute_magnetization": 46.98,
+          "E_eV": -106041.94833018958,
+          "accepted": true,
+          "recipe": "ndim16",
+          "replaces": "OH__atomic",
+          "state": "OH",
+          "failure": null
+        },
+        {
+          "job": "O__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 27.41,
+          "absolute_magnetization": 47.21,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "O__atomic",
+          "state": "O",
+          "failure": "CEILING"
+        }
+      ],
+      "states": {
+        "slab": {
+          "job": "slab__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 30.87,
+          "absolute_magnetization": 47.87,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "OH": {
+          "job": "OH__atomic_ndim16",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 50,
+          "total_magnetization": 30.46,
+          "absolute_magnetization": 46.98,
+          "E_eV": -106041.94833018958,
+          "accepted": true,
+          "recipe": "ndim16",
+          "replaces": "OH__atomic"
+        },
+        "O": {
+          "job": "O__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 29.15,
+          "absolute_magnetization": 46.97,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "OOH": {
+          "job": "OOH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 65,
+          "total_magnetization": 26.57,
+          "absolute_magnetization": 47.85,
+          "E_eV": -106607.07115774041,
+          "accepted": true,
+          "recipe": "production"
+        }
+      },
+      "failures": {
+        "slab": "CEILING",
+        "O": "CEILING"
+      },
+      "recipes": [
+        "ndim16",
+        "production"
+      ],
+      "mixed_recipe": true,
+      "complete": false
+    },
+    {
+      "formula": "Cu26Ni9Cr31Co33",
+      "seed": 5,
+      "site_index": 2,
+      "site_metal": "Cr",
+      "roles": {
+        "best": {
+          "n_intact": 13
+        }
+      },
+      "eta_mlip_V": 0.4491684937492817,
+      "dir": "hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s5_site2",
+      "original_failures": {
+        "slab": "CEILING",
+        "O": "IEEE"
+      },
+      "rerun_attempts": [
+        {
+          "job": "slab__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 25.95,
+          "absolute_magnetization": 45.28,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "slab__atomic",
+          "state": "slab",
+          "failure": "CEILING"
+        },
+        {
+          "job": "O__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 58,
+          "total_magnetization": 24.52,
+          "absolute_magnetization": 43.36,
+          "E_eV": -106023.93192877714,
+          "accepted": true,
+          "recipe": "production",
+          "replaces": "O__atomic",
+          "state": "O",
+          "failure": null
+        }
+      ],
+      "states": {
+        "slab": {
+          "job": "slab__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 25.76,
+          "absolute_magnetization": 45.13,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "OH": {
+          "job": "OH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 50,
+          "total_magnetization": 23.7,
+          "absolute_magnetization": 45.25,
+          "E_eV": -106041.30677386683,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "O": {
+          "job": "O__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 58,
+          "total_magnetization": 24.52,
+          "absolute_magnetization": 43.36,
+          "E_eV": -106023.93192877714,
+          "accepted": true,
+          "recipe": "production",
+          "replaces": "O__atomic"
+        },
+        "OOH": {
+          "job": "OOH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 52,
+          "total_magnetization": 25.7,
+          "absolute_magnetization": 45.92,
+          "E_eV": -106605.72516461543,
+          "accepted": true,
+          "recipe": "production"
+        }
+      },
+      "failures": {
+        "slab": "CEILING"
+      },
+      "recipes": [
+        "production"
+      ],
+      "mixed_recipe": false,
+      "complete": false
+    },
+    {
+      "formula": "Cu22Fe30Co32Mn15",
+      "seed": 6,
+      "site_index": 1,
+      "site_metal": "Co",
+      "roles": {
+        "support_lo": {
+          "weight": "3/10",
+          "p10_V": 0.8309741687940214,
+          "n_intact": 38
+        }
+      },
+      "eta_mlip_V": 0.8051510012673742,
+      "dir": "hea/arm_c_2026-10-07/Cu22Fe30Co32Mn15__s6_site1",
+      "original_failures": {
+        "slab": "CEILING",
+        "O": "CEILING",
+        "OOH": "CEILING"
+      },
+      "rerun_attempts": [
+        {
+          "job": "slab__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 57.69,
+          "absolute_magnetization": 64.92,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "slab__atomic",
+          "state": "slab",
+          "failure": "CEILING"
+        },
+        {
+          "job": "O__atomic_ndim16",
+          "parser_status": "REJECTED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF not complete/clean: ['IEEE_INVALID_FLAG']",
+          "severe_failures": [
+            "floating-point exception",
+            "IEEE_INVALID_FLAG"
+          ],
+          "projection_ieee": [],
+          "iterations": 92,
+          "total_magnetization": 55.83,
+          "absolute_magnetization": 63.22,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "O__atomic",
+          "state": "O",
+          "failure": "IEEE"
+        },
+        {
+          "job": "OOH__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 58.17,
+          "absolute_magnetization": 65.36,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "OOH__atomic",
+          "state": "OOH",
+          "failure": "CEILING"
+        }
+      ],
+      "states": {
+        "slab": {
+          "job": "slab__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 56.34,
+          "absolute_magnetization": 63.86,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "OH": {
+          "job": "OH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 37,
+          "total_magnetization": 55.32,
+          "absolute_magnetization": 63.06,
+          "E_eV": -117544.93311487649,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "O": {
+          "job": "O__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 56.94,
+          "absolute_magnetization": 64.01,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "OOH": {
+          "job": "OOH__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 58.13,
+          "absolute_magnetization": 65.38,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        }
+      },
+      "failures": {
+        "slab": "CEILING",
+        "O": "CEILING",
+        "OOH": "CEILING"
+      },
+      "recipes": [
+        "production"
+      ],
+      "mixed_recipe": false,
+      "complete": false
+    },
+    {
+      "formula": "Cu22Fe30Co32Mn15",
+      "seed": 24,
+      "site_index": 3,
+      "site_metal": "Co",
+      "roles": {
+        "support_hi": {
+          "weight": "7/10",
+          "p10_V": 0.8309741687940214,
+          "n_intact": 38
+        }
+      },
+      "eta_mlip_V": 0.8420412405911559,
+      "dir": "hea/arm_c_2026-10-07/Cu22Fe30Co32Mn15__s24_site3",
+      "original_failures": {},
+      "states": {
+        "slab": {
+          "job": "slab__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 82,
+          "total_magnetization": 52.59,
+          "absolute_magnetization": 65.7,
+          "E_eV": -116962.66266751537,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "OH": {
+          "job": "OH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 67,
+          "total_magnetization": 51.91,
+          "absolute_magnetization": 64.86,
+          "E_eV": -117544.17906341764,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "O": {
+          "job": "O__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 90,
+          "total_magnetization": 52.77,
+          "absolute_magnetization": 65.56,
+          "E_eV": -117526.03533965685,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "OOH": {
+          "job": "OOH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 56,
+          "total_magnetization": 50.79,
+          "absolute_magnetization": 64.97,
+          "E_eV": -118109.07940047028,
+          "accepted": true,
+          "recipe": "production"
+        }
+      },
+      "failures": {},
+      "recipes": [
+        "production"
+      ],
+      "mixed_recipe": false,
+      "complete": true,
+      "eta_dft_V": 0.9419553730906456,
+      "dG_dft_eV": {
+        "OH": 2.1719553730906456,
+        "O": 4.1430178050734865,
+        "OOH": 4.787308267016579
+      },
+      "steps_eV": [
+        2.1719553730906456,
+        1.971062431982841,
+        0.6442904619430925,
+        0.13269173298342096
+      ],
+      "potential_limiting_step": 1,
+      "informative_dft_minus_mlip": {
+        "eta_V": 0.09991413249948966,
+        "dG_eV": {
+          "OH": 0.2436758807913968,
+          "O": 0.1426970721830818,
+          "OOH": -0.03398514046930501
+        }
+      }
+    },
+    {
+      "formula": "Cu22Fe30Co32Mn15",
+      "seed": 27,
+      "site_index": 3,
+      "site_metal": "Fe",
+      "roles": {
+        "best": {
+          "n_intact": 38
+        }
+      },
+      "eta_mlip_V": 0.6855536132758706,
+      "dir": "hea/arm_c_2026-10-07/Cu22Fe30Co32Mn15__s27_site3",
+      "original_failures": {
+        "slab": "CEILING",
+        "OH": "CEILING",
+        "O": "CEILING",
+        "OOH": "CEILING"
+      },
+      "rerun_attempts": [
+        {
+          "job": "slab__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 58.03,
+          "absolute_magnetization": 65.09,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "slab__atomic",
+          "state": "slab",
+          "failure": "CEILING"
+        },
+        {
+          "job": "OH__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 57.47,
+          "absolute_magnetization": 65.04,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "OH__atomic",
+          "state": "OH",
+          "failure": "CEILING"
+        },
+        {
+          "job": "O__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 57.03,
+          "absolute_magnetization": 65.04,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "O__atomic",
+          "state": "O",
+          "failure": "CEILING"
+        },
+        {
+          "job": "OOH__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 55.51,
+          "absolute_magnetization": 64.64,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "OOH__atomic",
+          "state": "OOH",
+          "failure": "CEILING"
+        }
+      ],
+      "states": {
+        "slab": {
+          "job": "slab__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 58.04,
+          "absolute_magnetization": 65.11,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "OH": {
+          "job": "OH__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 57.48,
+          "absolute_magnetization": 65.04,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "O": {
+          "job": "O__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 57.13,
+          "absolute_magnetization": 64.93,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "OOH": {
+          "job": "OOH__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 55.52,
+          "absolute_magnetization": 64.65,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        }
+      },
+      "failures": {
+        "slab": "CEILING",
+        "OH": "CEILING",
+        "O": "CEILING",
+        "OOH": "CEILING"
+      },
+      "recipes": [
+        "production"
+      ],
+      "mixed_recipe": false,
+      "complete": false
+    },
+    {
+      "formula": "Ni34Fe6Cu29Co31",
+      "seed": 22,
+      "site_index": 0,
+      "site_metal": "Ni",
+      "roles": {
+        "support_lo": {
+          "weight": "3/5",
+          "p10_V": 0.7387097348381626,
+          "n_intact": 15
+        }
+      },
+      "eta_mlip_V": 0.7072184007671347,
+      "dir": "hea/arm_c_2026-10-07/Ni34Fe6Cu29Co31__s22_site0",
+      "original_failures": {
+        "slab": "CEILING"
+      },
+      "rerun_attempts": [
+        {
+          "job": "slab__atomic_ndim16",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 31.59,
+          "absolute_magnetization": 41.11,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "ndim16",
+          "replaces": "slab__atomic",
+          "state": "slab",
+          "failure": "CEILING"
+        }
+      ],
+      "states": {
+        "slab": {
+          "job": "slab__atomic",
+          "parser_status": "KILLED",
+          "receipt_status": "REJECTED",
+          "reason": "SCF iteration ceiling",
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": null,
+          "total_magnetization": 33.56,
+          "absolute_magnetization": 40.13,
+          "E_eV": null,
+          "accepted": false,
+          "recipe": "production"
+        },
+        "OH": {
+          "job": "OH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 58,
+          "total_magnetization": 29.08,
+          "absolute_magnetization": 42.39,
+          "E_eV": -122733.28326960071,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "O": {
+          "job": "O__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 68,
+          "total_magnetization": 27.85,
+          "absolute_magnetization": 43.58,
+          "E_eV": -122716.4644791207,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "OOH": {
+          "job": "OOH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 56,
+          "total_magnetization": 30.86,
+          "absolute_magnetization": 42.84,
+          "E_eV": -123298.18963465569,
+          "accepted": true,
+          "recipe": "production"
+        }
+      },
+      "failures": {
+        "slab": "CEILING"
+      },
+      "recipes": [
+        "production"
+      ],
+      "mixed_recipe": false,
+      "complete": false
+    },
+    {
+      "formula": "Ni34Fe6Cu29Co31",
+      "seed": 29,
+      "site_index": 1,
+      "site_metal": "Ni",
+      "roles": {
+        "support_hi": {
+          "weight": "2/5",
+          "p10_V": 0.7387097348381626,
+          "n_intact": 15
+        }
+      },
+      "eta_mlip_V": 0.7859467359447043,
+      "dir": "hea/arm_c_2026-10-07/Ni34Fe6Cu29Co31__s29_site1",
+      "original_failures": {},
+      "states": {
+        "slab": {
+          "job": "slab__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 40,
+          "total_magnetization": 34.19,
+          "absolute_magnetization": 39.43,
+          "E_eV": -122152.80061494176,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "OH": {
+          "job": "OH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 40,
+          "total_magnetization": 32.74,
+          "absolute_magnetization": 38.59,
+          "E_eV": -122733.978407592,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "O": {
+          "job": "O__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 44,
+          "total_magnetization": 30.38,
+          "absolute_magnetization": 39.22,
+          "E_eV": -122716.84773081531,
+          "accepted": true,
+          "recipe": "production"
+        },
+        "OOH": {
+          "job": "OOH__atomic",
+          "parser_status": "CONVERGED",
+          "receipt_status": "COMPLETE",
+          "reason": null,
+          "severe_failures": [],
+          "projection_ieee": [],
+          "iterations": 45,
+          "total_magnetization": 33.48,
+          "absolute_magnetization": 39.58,
+          "E_eV": -123298.88011337737,
+          "accepted": true,
+          "recipe": "production"
+        }
+      },
+      "failures": {},
+      "recipes": [
+        "production"
+      ],
+      "mixed_recipe": false,
+      "complete": true,
+      "eta_dft_V": 1.2805586251263277,
+      "dG_dft_eV": {
+        "OH": 2.5105586251263277,
+        "O": 3.468574073014042,
+        "OOH": 5.124542786322218
+      },
+      "steps_eV": [
+        2.5105586251263277,
+        0.9580154478877145,
+        1.6559687133081757,
+        -0.204542786322218
+      ],
+      "potential_limiting_step": 1,
+      "informative_dft_minus_mlip": {
+        "eta_V": 0.49461188918162335,
+        "dG_eV": {
+          "OH": 0.49461188918162335,
+          "O": 0.6032975717701694,
+          "OOH": 0.40820323083985244
+        }
+      }
+    }
+  ],
+  "alloys": {
+    "Cu8Cr23Mn35Co34": {
+      "C_V": null,
+      "status": "NO_VALUE",
+      "mixed_recipe": false,
+      "supports": [
+        {
+          "site": "s16/2",
+          "weight": 0.5,
+          "eta_dft_V": null,
+          "complete": false,
+          "recipes": [
+            "ndim16",
+            "production",
+            "seeded"
+          ]
+        },
+        {
+          "site": "s26/1",
+          "weight": 0.5,
+          "eta_dft_V": null,
+          "complete": false,
+          "recipes": [
+            "production"
+          ]
+        }
+      ],
+      "p10_mlip_V": 0.38354839936178386,
+      "best_site": {
+        "site": "s20/2",
+        "eta_dft_V": 0.6209516293230268,
+        "eta_mlip_V": 0.3622195377546671,
+        "complete": true
+      },
+      "uses_extension": false
+    },
+    "Ni31Cr29Cu5Mn35": {
+      "C_V": 0.9342334619527219,
+      "status": "TWO_SITE",
+      "mixed_recipe": true,
+      "supports": [
+        {
+          "site": "s1/0",
+          "weight": 0.3,
+          "eta_dft_V": 0.7677656296939359,
+          "complete": true,
+          "recipes": [
+            "production"
+          ]
+        },
+        {
+          "site": "s10/2",
+          "weight": 0.7,
+          "eta_dft_V": 1.0055768186350589,
+          "complete": true,
+          "recipes": [
+            "ndim16",
+            "production"
+          ]
+        }
+      ],
+      "p10_mlip_V": 0.4729863773328665,
+      "best_site": {
+        "site": "s1/0",
+        "eta_dft_V": 0.7677656296939359,
+        "eta_mlip_V": 0.4399960638886986,
+        "complete": true
+      },
+      "uses_extension": false
+    },
+    "Fe25Co25Ni25Cr25": {
+      "C_V": null,
+      "status": "NO_VALUE",
+      "mixed_recipe": false,
+      "supports": [
+        {
+          "site": "s13/0",
+          "weight": 0.2,
+          "eta_dft_V": null,
+          "complete": false,
+          "recipes": [
+            "ndim16",
+            "production"
+          ]
+        },
+        {
+          "site": "s25/2",
+          "weight": 0.8,
+          "eta_dft_V": null,
+          "complete": false,
+          "recipes": [
+            "production",
+            "seeded"
+          ]
+        }
+      ],
+      "p10_mlip_V": 0.5543729731738457,
+      "best_site": {
+        "site": "s2/0",
+        "eta_dft_V": null,
+        "eta_mlip_V": 0.4530565522419163,
+        "complete": false
+      },
+      "uses_extension": false
+    },
+    "Cu26Ni9Cr31Co33": {
+      "C_V": 0.6128584188184005,
+      "status": "SINGLE_SITE",
+      "mixed_recipe": true,
+      "supports": [
+        {
+          "site": "s1/0",
+          "weight": 0.8,
+          "eta_dft_V": 0.6128584188184005,
+          "complete": true,
+          "recipes": [
+            "ndim16",
+            "production"
+          ]
+        },
+        {
+          "site": "s17/1",
+          "weight": 0.2,
+          "eta_dft_V": null,
+          "complete": false,
+          "recipes": [
+            "ndim16",
+            "production"
+          ]
+        }
+      ],
+      "p10_mlip_V": 0.5020926149051025,
+      "best_site": {
+        "site": "s5/2",
+        "eta_dft_V": null,
+        "eta_mlip_V": 0.4491684937492817,
+        "complete": false
+      },
+      "uses_extension": false
+    },
+    "Cu22Fe30Co32Mn15": {
+      "C_V": 0.9419553730906456,
+      "status": "SINGLE_SITE",
+      "mixed_recipe": false,
+      "supports": [
+        {
+          "site": "s6/1",
+          "weight": 0.3,
+          "eta_dft_V": null,
+          "complete": false,
+          "recipes": [
+            "production"
+          ]
+        },
+        {
+          "site": "s24/3",
+          "weight": 0.7,
+          "eta_dft_V": 0.9419553730906456,
+          "complete": true,
+          "recipes": [
+            "production"
+          ]
+        }
+      ],
+      "p10_mlip_V": 0.8309741687940214,
+      "best_site": {
+        "site": "s27/3",
+        "eta_dft_V": null,
+        "eta_mlip_V": 0.6855536132758706,
+        "complete": false
+      },
+      "uses_extension": false
+    },
+    "Ni34Fe6Cu29Co31": {
+      "C_V": 1.2805586251263277,
+      "status": "SINGLE_SITE",
+      "mixed_recipe": false,
+      "supports": [
+        {
+          "site": "s22/0",
+          "weight": 0.6,
+          "eta_dft_V": null,
+          "complete": false,
+          "recipes": [
+            "production"
+          ]
+        },
+        {
+          "site": "s29/1",
+          "weight": 0.4,
+          "eta_dft_V": 1.2805586251263277,
+          "complete": true,
+          "recipes": [
+            "production"
+          ]
+        }
+      ],
+      "p10_mlip_V": 0.7387097348381626,
+      "best_site": null,
+      "uses_extension": false
+    }
+  },
+  "probe": {
+    "control": {
+      "job": "slab__atomic",
+      "parser_status": "KILLED",
+      "receipt_status": "REJECTED",
+      "reason": "SCF iteration ceiling",
+      "severe_failures": [],
+      "projection_ieee": [],
+      "iterations": null,
+      "total_magnetization": 37.78,
+      "absolute_magnetization": 65.79,
+      "E_eV": null,
+      "accepted": false,
+      "recipe": "production"
+    },
+    "variants": {
+      "ndim16": {
+        "job": "slab__atomic_ndim16",
+        "parser_status": "CONVERGED",
+        "receipt_status": "COMPLETE",
+        "reason": null,
+        "severe_failures": [],
+        "projection_ieee": [],
+        "iterations": 51,
+        "total_magnetization": 35.95,
+        "absolute_magnetization": 65.42,
+        "E_eV": -120715.49031534846,
+        "accepted": true,
+        "recipe": "production"
+      },
+      "hs": {
+        "job": "slab__atomic_hs",
+        "parser_status": "KILLED",
+        "receipt_status": "REJECTED",
+        "reason": "SCF iteration ceiling",
+        "severe_failures": [],
+        "projection_ieee": [],
+        "iterations": null,
+        "total_magnetization": 24.23,
+        "absolute_magnetization": 61.18,
+        "E_eV": null,
+        "accepted": false,
+        "recipe": "production"
+      }
+    },
+    "rerun_recipe_for_ceiling_stops": "ndim16"
+  },
+  "rerun_selection": null,
+  "counts": {
+    "scf_total": 64,
+    "scf_accepted": 43,
+    "sites_complete": 6,
+    "rerun_attempted": 31,
+    "rerun_accepted": 7,
+    "ext_attempted": 11,
+    "ext_accepted": 3,
+    "ext_seed_read": 11
+  },
+  "recipe_controls": [
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2",
+      "state": "slab",
+      "recipe": "ndim16",
+      "production": {
+        "job": "slab__atomic",
+        "parser_status": "CONVERGED",
+        "receipt_status": "COMPLETE",
+        "reason": null,
+        "severe_failures": [],
+        "projection_ieee": [],
+        "iterations": 69,
+        "total_magnetization": 41.98,
+        "absolute_magnetization": 61.79,
+        "E_eV": -120716.3259394683,
+        "accepted": true,
+        "recipe": "production"
+      },
+      "control": {
+        "job": "slab__atomic_ndim16",
+        "parser_status": "CONVERGED",
+        "receipt_status": "COMPLETE",
+        "reason": null,
+        "severe_failures": [],
+        "projection_ieee": [],
+        "iterations": 66,
+        "total_magnetization": 41.99,
+        "absolute_magnetization": 61.8,
+        "E_eV": -120716.32604273553,
+        "accepted": true,
+        "recipe": "production"
+      },
+      "energy_control_minus_production_meV": -0.10326722986064851,
+      "total_magnetization_control_minus_production": 0.010000000000005116,
+      "absolute_magnetization_control_minus_production": 0.00999999999999801
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s1_site0",
+      "state": "slab",
+      "recipe": "ndim16",
+      "production": {
+        "job": "slab__atomic",
+        "parser_status": "CONVERGED",
+        "receipt_status": "COMPLETE",
+        "reason": null,
+        "severe_failures": [],
+        "projection_ieee": [],
+        "iterations": 76,
+        "total_magnetization": 27.65,
+        "absolute_magnetization": 49.98,
+        "E_eV": -105460.34475431198,
+        "accepted": true,
+        "recipe": "production"
+      },
+      "control": {
+        "job": "slab__atomic_ndim16",
+        "parser_status": "CONVERGED",
+        "receipt_status": "COMPLETE",
+        "reason": null,
+        "severe_failures": [],
+        "projection_ieee": [],
+        "iterations": 63,
+        "total_magnetization": 27.65,
+        "absolute_magnetization": 49.98,
+        "E_eV": -105460.34467417446,
+        "accepted": true,
+        "recipe": "production"
+      },
+      "energy_control_minus_production_meV": 0.08013752812985331,
+      "total_magnetization_control_minus_production": 0.0,
+      "absolute_magnetization_control_minus_production": 0.0,
+      "eta_dft_V_with_control": 0.6127782812902707
+    }
+  ],
+  "exploratory_predictions": {
+    "order_all_with_values": [
+      "Cu26Ni9Cr31Co33",
+      "Ni31Cr29Cu5Mn35",
+      "Cu22Fe30Co32Mn15",
+      "Ni34Fe6Cu29Co31"
+    ],
+    "order_batch_1": [
+      "Cu26Ni9Cr31Co33",
+      "Ni31Cr29Cu5Mn35",
+      "Cu22Fe30Co32Mn15"
+    ],
+    "missing": [
+      "Cu8Cr23Mn35Co34",
+      "Fe25Co25Ni25Cr25"
+    ],
+    "K1": "NOT_EVALUABLE_UNDER_ARM_C",
+    "K2": "NOT_EVALUABLE_UNDER_ARM_C",
+    "ni34_batch_2": "NOT_EVALUABLE_UNDER_ARM_C"
+  },
+  "extension_status": "exploratory; arm C's registered readings are those of the re-run readout"
+}
