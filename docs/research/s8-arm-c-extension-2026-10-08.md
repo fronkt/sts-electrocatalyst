@@ -746,3 +746,88 @@ It also led to the shorter hold and to the start check's matrix comparison and p
 | Start check | `results/arm_c_ext_r4_2026-10-10/start_check_20261010T211017Z.json`, run after the job had ended |
 | Checks | `results/arm_c_ext_r4_2026-10-10/checks.py` (`checks.job.json`) and `checks.json` |
 | Tests | `tests/test_arm_c_ext_r4.py`, 17 tests (the readout reproduction skips without the local projection outputs); 227 pass with the arm C and HEA QC suites |
+
+## Round 5, 2026-10-10
+
+Decision of record: Frank, 2026-10-10: "Just do the test since its so small", after the Round 4 readout. The alternative was to deposit.
+
+**The question.** Fe25's 0.893 V is set by step 1 (slab to OH). That step includes Fe 22's change between the slab's configuration and the one the adsorbed states share (Round 4 readout). Round 5 asks whether the slab holds Fe 22 in the adsorbed states' configuration at a lower energy. If it does, the production slab was not the lowest slab state found, and ΔG1 rises by the difference.
+
+**The run.** A second start of the Fe25 s25/2 slab, by round 4's method.
+- *Start.* The production slab's own converged save (arm C, 2026-10-07).
+  - `start_sources.json` pins it on Anvil: its density, XML, `occup.txt` and `paw.txt` match round 1's pins, and its `occup.txt` matches round 3's mirror.
+  - The density and XML are copied on Anvil.
+- *Fe 22.* Its blocks in `occup.txt` and `paw.txt`, both spins, come from the converged OH state, as in round 4. Every other atom keeps the production slab's converged values.
+- *Deck.* The production slab's, with round 4's edits: its own prefix, `startingpot = 'file'`, `max_seconds = 18400`, `mixing_ndim = 16` and `mixing_fixed_ns = 5`.
+  - Applied to the production O deck, the same edits give round 4's deck exactly (tested).
+  - Everything that sets the energy (geometry, PBE+U, cutoffs, smearing, conv_thr) is the production deck's, so the two slab energies compare directly. The ndim16 control of this slab reproduced it within 0.10 meV (design doc §7).
+- *Limits.* Round 4's: 300 iterations, a 19,000 s SCF wall and 345 min.
+  - Ceiling: 736 SU.
+  - Spent before launch: 22,179.7 SU (22,129.7 before round 4, plus its 49.96).
+  - Campaign bound: 22,915.7 SU, inside the approved 23,680.
+- *Start check.* Round 4's, against this run's files.
+
+**Readout rule, set before launch.** The plan row marks the run as a second start of an accepted state (`second_start`) and names the first run, the production slab.
+- `arm_c_readout.py` applies such a row only if the state is accepted from that run; otherwise it stops with an error. It records the run's energy and total moment against the first run's (`energy_vs_first_meV`, `magnetization_vs_first_uB`).
+- The run replaces the accepted slab only if it is accepted itself (converged after the held iterations) and lies more than 1 meV lower (`lower`, then `replaces`). Repeats of one state agree within about 0.1 meV, so a run more than 1 meV lower sits in a different state.
+- If it replaces the slab, the site also records the value with the first slab (`eta_dft_V_with_first`).
+- An accepted second start counts among the accepted extension attempts even when the first run is kept; the counts also give `ext_second_starts` and `ext_second_starts_used`. Its magnetic-state flag counts toward an alloy's value only if the run is used.
+- Earlier readouts reproduce byte for byte (tested).
+
+**What a result means.** Each energy outcome is read together with where Fe 22 ends.
+- Fe 22 is in the slab's or OH's configuration if its occupations lie within 0.47 of that state's, half the 0.94 between the two; otherwise it is in another configuration. Round 4's O, at 0.11 from OH's, and round 3's stall, at 0.77 and 0.90, would read as OH's and another.
+- *More than 1 meV lower, with Fe 22 in OH's configuration:* the production slab was not the lowest slab state found, and Fe 22's configuration is what lowers it.
+  - Fe25's value rises by the difference: ΔG1 rises, ΔG4 falls by the same amount, and step 1 still limits.
+  - A rise of more than 41.1 mV puts Fe25 after Ni31 (0.934 V), and one of more than 48.8 mV after Cu22 (0.942 V) as well.
+  - All four states then share Fe 22's configuration, and Fe 22's change drops out of every step.
+- *More than 1 meV lower, with Fe 22 in another configuration or back in the slab's:* the value rises the same way, by the rule. But other atoms carry the difference, so it is not Fe 22's term; the atoms that moved are reported.
+- *Within 1 meV:* 0.893 V stands.
+  - With Fe 22 back in the slab's configuration, it is the same state: the slab holds against a start with OH's Fe 22.
+  - With Fe 22 still in OH's configuration, it is a second state within 1 meV. In the bare slab, Fe 22's configuration then costs less than 1 meV, so the slab side of the spectator term is negligible.
+- *Higher by Δ, with Fe 22 in OH's configuration:* 0.893 V stands by the rule; it is not confirmed.
+  - Δ is what OH's configuration of Fe 22 costs in the bare slab.
+  - If the adsorbate, 4.2 Å away, does not change which configuration Fe 22 prefers, OH, O and OOH could each be about Δ lower with Fe 22 in the slab's configuration. That would lower the value by up to Δ, to 0.543 V at most, where ΔG3 limits.
+  - Only runs of the adsorbed states with Fe 22 in the slab's configuration would tell. None is planned.
+- *Higher, with Fe 22 in another configuration or back in the slab's:* 0.893 V stands, and other atoms carry the difference; the atoms that moved are reported.
+- *Stopped without converging, or converged within the hold (HELD):* 0.893 V stands, and nothing is learned about the spectator term. As in round 4, a continuation without the hold would need a separate approval.
+- *The search is one-sided.* The rule can only raise the value. No adsorbed state has been started with Fe 22 in the slab's configuration. Such starts could only lower the value: to 0.543 V at most if OH, O and OOH shift together or OH alone, while a lower O alone would raise ΔG3 instead.
+- Reported with any result: Fe 22's occupations at the stop against the site's converged states; every slab Hubbard atom's change from the production slab; and the cell's total moment against the production slab's 41.98 μB.
+
+**Readout.** The command stacks rounds 2 to 5:
+
+```
+python src/dft/arm_c_readout.py --plan results/arm_c_2026-10-07/site_plan.json \
+  --mirror results/arm_c_2026-10-07/raw_mirror \
+  --rerun-plan results/arm_c_2026-10-07_rerun/rerun_plan.json \
+  --rerun-mirror results/arm_c_2026-10-07_rerun/raw_mirror \
+  --ext-plan results/arm_c_ext_r2_2026-10-08/ext_plan.json --ext-mirror results/arm_c_ext_r2_2026-10-08/raw_mirror \
+  --ext-plan results/arm_c_ext_r3_2026-10-09/ext_plan.json --ext-mirror results/arm_c_ext_r3_2026-10-09/raw_mirror \
+  --ext-plan results/arm_c_ext_r4_2026-10-10/ext_plan.json --ext-mirror results/arm_c_ext_r4_2026-10-10/raw_mirror \
+  --ext-plan results/arm_c_ext_r5_2026-10-10/ext_plan.json --ext-mirror results/arm_c_ext_r5_2026-10-10/raw_mirror \
+  --out results/arm_c_ext_r5_2026-10-10/readout.json
+```
+
+**Pre-launch review.** An independent review found no blocker. It confirmed:
+- the save pins;
+- that the first 72 atoms of the slab and OH decks match in species and order, with Fe 22 0.029 Å apart between them;
+- that only Fe 22's 50 occupation values and its two 171-value PAW blocks change;
+- that the deck differs from production's in the five lines only;
+- that QE 7.5 reads the start through `read_scf` (`potinit.f90`) and holds the occupations the same way for a bare slab as for round 4's O.
+
+Folded in from it:
+- an unused second start's magnetic-state flag no longer reaches an alloy's value;
+- each outcome is read with where Fe 22 ends;
+- "higher" keeps 0.893 V by the rule, not as confirmed;
+- a second start whose first run is not the accepted one stops the readout;
+- `replaces`, the value with the first slab, and the second-start counts.
+
+| Part | Location |
+|---|---|
+| Builder | `src/dft/arm_c_ext_r5_build.py`, with `--check` (6 files) |
+| Start sources | `results/arm_c_ext_r5_2026-10-10/start_sources.py`, `start_sources.json` and `sources/` |
+| Deck, manifest | `runs/hea/arm_c_ext_r5_2026-10-10/` and `runs/m_arm_c_ext_r5_2026-10-10_main.txt` |
+| Spec, plan, rebuilt files | `results/arm_c_ext_r5_2026-10-10/` (`launch_spec.json`, `ext_plan.json`, `seeds/`: `occup.txt` and `paw.txt`) |
+| Slurm | `anvil/100_arm_c_ext_r5.slurm`, with round 4's resources |
+| Operations | `results/arm_c_ext_r5_2026-10-10/launch_ops.py`, `start_check.py`, `status_once.py`, `collect_terminal.py` (round 4's, for this run) |
+| Readout rule | `src/dft/arm_c_readout.py` (`second_start`, `SECOND_START_MEV`) |
+| Tests | `tests/test_arm_c_ext_r5.py`, 16 tests; 243 pass with the arm C and HEA QC suites |

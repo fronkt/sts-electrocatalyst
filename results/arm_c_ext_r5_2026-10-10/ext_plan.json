@@ -1,0 +1,95 @@
+{
+  "schema": "s8-arm-c-ext-plan-v1",
+  "date": "2026-10-10",
+  "design": "docs/research/s8-arm-c-extension-2026-10-08.md",
+  "decision_ref": "Frank, 2026-10-10: \"Just do the test since its so small\" (after round 4's readout)",
+  "source_readout": {
+    "path": "results/arm_c_ext_r4_2026-10-10/readout.json",
+    "sha256": "84824cba9e843034ed6fb9680e65158ee0ab0e5d43a06a674fde7d29f5040efa"
+  },
+  "round": 5,
+  "round_4": {
+    "spec": "results/arm_c_ext_r4_2026-10-10/launch_spec.json",
+    "spec_sha256": "78cef35f84ac14a2049fa97df603a01a1df5f5e99e33ba76f03f02beafd48511",
+    "plan": "results/arm_c_ext_r4_2026-10-10/ext_plan.json",
+    "main": "21224301 read out: the Fe25 s25/2 O converged; Fe25 0.893 V single-site, set by step 1, which includes Fe 22's change between the slab and the adsorbed states"
+  },
+  "rule": "a second start of the Fe25 s25/2 slab: the production slab's deck with round 4's changes (mixing_ndim 16, mixing_fixed_ns 5, max_seconds 18400, startingpot 'file'), from its own converged save (density and XML copied on Anvil; occup.txt and paw.txt rebuilt) with Fe 22's Hubbard occupations and PAW block (both spins) from the converged OH state; it replaces the production slab only if it converges after the held iterations more than 1 meV lower",
+  "mixing": {
+    "mixing_beta": 0.3,
+    "mixing_ndim": 16,
+    "mixing_fixed_ns": 5
+  },
+  "qe_max_seconds": 18400,
+  "status": "exploratory; arm C's registered readings stay final",
+  "selection": [
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2",
+      "formula": "Fe25Co25Ni25Cr25",
+      "state": "slab",
+      "second_start": true,
+      "first": {
+        "job": "slab__atomic",
+        "recipe": "production",
+        "E_eV": -120716.3259394683,
+        "total_magnetization": 41.98
+      },
+      "seed": {
+        "state": "slab",
+        "job": "slab__atomic",
+        "recipe": "production",
+        "root": "hea/arm_c_2026-10-07",
+        "id": "Fe25Co25Ni25Cr25__s25_site2__slab__atomic"
+      },
+      "dir": "hea/arm_c_ext_r5_2026-10-10/Fe25Co25Ni25Cr25__s25_site2",
+      "job": "slab__atomic_fe22oh_fixns5",
+      "round": 5,
+      "seed_density": "own_converged",
+      "bundle": "results/arm_c_ext_r5_2026-10-10/seeds/Fe25Co25Ni25Cr25__s25_site2/slab",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2/tmp_slab__atomic/slab__atomic.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2/tmp_slab__atomic/slab__atomic.save/data-file-schema.xml"
+      },
+      "mixing": {
+        "mixing_beta": 0.3,
+        "mixing_ndim": 16,
+        "mixing_fixed_ns": 5
+      },
+      "occupations": {
+        "start": "results/arm_c_ext_r3_2026-10-09/site_occupations/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2/slab__atomic.occup.txt",
+        "start_sha256": "94cac77949243e39a17d8453f9dcd3b38eb2bab85502b31dd3d74821c6b24c28",
+        "atoms_replaced": [
+          22
+        ],
+        "from": {
+          "state": "OH",
+          "job": "OH__atomic_moved",
+          "recipe": "seeded",
+          "path": "results/arm_c_ext_r3_2026-10-09/site_occupations/arm_c_ext_r2_2026-10-08/Fe25Co25Ni25Cr25__s25_site2/OH__atomic_moved.occup.txt",
+          "sha256": "6fad6d08e3f2b3685bfe5186cdaaa4afa534b989de7007e4cd37b36454b1ea31"
+        },
+        "sha256": "2ba86c4f136bbf25e404ae75277042ed2106f40567dd3ea66c1315db833341fb"
+      },
+      "paw": {
+        "start": "results/arm_c_ext_r5_2026-10-10/sources/slab_paw.txt",
+        "start_sha256": "f0753af00809d6fd439d5eee6aa635799c09dcb849f50a154ff04030d317623f",
+        "atoms_replaced": [
+          22
+        ],
+        "from": {
+          "state": "OH",
+          "job": "OH__atomic_moved",
+          "path": "results/arm_c_ext_r4_2026-10-10/sources/oh_paw.txt",
+          "remote": "/anvil/projects/x-che260157/sts_arm_c_ext_r2_2026-10-08/runs/hea/arm_c_ext_r2_2026-10-08/Fe25Co25Ni25Cr25__s25_site2/tmp_OH__atomic_moved/OH__atomic_moved.save/paw.txt",
+          "sha256": "c1e97c995681be165962914a4f521211d81eea44df6f2343b3545e6b30a32752"
+        },
+        "sha256": "ac3554acd1488231a007650a5df48cad2bf4d79c491b0f18a307e16e5c34ee9f"
+      },
+      "density": {
+        "source": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2/tmp_slab__atomic/slab__atomic.save/charge-density.hdf5",
+        "sha256": "7bff1dee7b9cedbe11def78332b2c09fa8c759ce30d51592594747b9e8f6bc7b",
+        "bytes": 153285444
+      }
+    }
+  ]
+}

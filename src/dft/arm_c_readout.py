@@ -46,6 +46,12 @@ Round 4 (Frank, 2026-10-10, "Do the Fe25 O run"; arm_c_ext_r4_build.py) starts f
 them, QE 7.5 resets them to their input before mixing, so its convergence test ignores them: an attempt whose
 mixing holds the occupations and that converges within those iterations is not accepted (held_occupations) and
 fails as HELD.
+Round 5 (Frank, 2026-10-10, "Just do the test since its so small"; arm_c_ext_r5_build.py) starts an accepted state
+again, from its own converged density with one atom's occupations changed. Its plan row carries second_start and its
+first run; the state must be accepted from that run. It records energy_vs_first_meV and magnetization_vs_first_uB,
+and replaces the accepted run only if it is accepted itself (the held-occupations rule included) and lies more than
+SECOND_START_MEV lower ("lower", then "replaces"; the site then also records eta_dft_V_with_first). An accepted
+second start counts as accepted even when the first run is kept; its magnetization flag counts only if it is used.
 """
 from __future__ import annotations
 
@@ -67,6 +73,7 @@ RERUN_SLOTS = 6
 RERUN_ROOT = "hea/arm_c_2026-10-07_rerun"
 SEVERE = re.compile(r"IEEE_(?:INVALID|DIVIDE_BY_ZERO|OVERFLOW)")
 MAGNETIZATION_FLAG_UB = 1.5  # round 3 on: a converged state this far (total) from every converged state at its site
+SECOND_START_MEV = 1.0  # round 5 on: a second start replaces an accepted state only if this much lower
 
 
 def accepted(run_dir: Path, job: str) -> dict:
@@ -133,11 +140,19 @@ def site_result(site: dict, mirror: Path, gas: dict, substitutions: dict | None 
             states[state] = rerun
     if substitutions:
         out["rerun_attempts"] = attempts
-    extended = []
+    extended, firsts = [], {}
     layers = [(extension, ext_mirror)] + list(later or [])
     for rows, layer_mirror in layers:
         for state, sub in (rows or {}).items():
-            if states[state]["accepted"] or layer_mirror is None:
+            second = sub.get("second_start", False)  # round 5 on: another start of an accepted state
+            if layer_mirror is None:
+                continue
+            if second:
+                first_job = (sub.get("first") or {}).get("job")
+                if not states[state]["accepted"] or (first_job and states[state]["job"] != first_job):
+                    raise ValueError(f"{site['dir']} {state}: a second start needs the accepted first run "
+                                     f"{first_job}, found {states[state]['job']}")
+            elif states[state]["accepted"]:
                 continue
             run_dir = layer_mirror / "runs" / sub["dir"]
             attempt = accepted(run_dir, sub["job"])
@@ -169,8 +184,21 @@ def site_result(site: dict, mirror: Path, gas: dict, substitutions: dict | None 
                     attempt["magnetization_vs_site"] = {
                         "nearest_state": nearest, "difference_uB": round(moment - others[nearest], 2),
                         "flag": abs(moment - others[nearest]) > MAGNETIZATION_FLAG_UB}
+            if second:
+                # Repeats of one state agree within about 0.1 meV, so only a run this much lower sits in a
+                # different, lower self-consistent state; it then replaces the first.
+                first = states[state]
+                gap = 1000 * (attempt["E_eV"] - first["E_eV"]) if attempt["accepted"] else None
+                lower = gap is not None and gap < -SECOND_START_MEV
+                moments = (attempt.get("total_magnetization"), first.get("total_magnetization"))
+                attempt.update(second_start=True, first_job=first["job"], energy_vs_first_meV=gap, lower=lower,
+                               replaces=first["job"] if lower else None,
+                               magnetization_vs_first_uB=(round(moments[0] - moments[1], 2)
+                                                          if attempt["accepted"] and None not in moments else None))
+                if lower:
+                    firsts[state] = first
             extended.append(dict(attempt, state=state, failure=failure_class(attempt)))
-            if attempt["accepted"]:
+            if attempt["accepted"] and (not second or attempt["lower"]):
                 states[state] = attempt
     if any(rows for rows, _ in layers):
         out["extension_attempts"] = extended
@@ -186,10 +214,20 @@ def site_result(site: dict, mirror: Path, gas: dict, substitutions: dict | None 
     che = hpr.che_from_energies(energies, gas)
     out.update(complete=True, eta_dft_V=che["eta"], dG_dft_eV=che["dG"], steps_eV=che["steps"],
                potential_limiting_step=che["pls"])
+    if firsts:  # a second start replaced a state: the value with the first run, beside it
+        out["eta_dft_V_with_first"] = hpr.che_from_energies(
+            dict(energies, **{s: r["E_eV"] for s, r in firsts.items()}), gas)["eta"]
     out["informative_dft_minus_mlip"] = {
         "eta_V": che["eta"] - site["eta_mlip_V"],
         "dG_eV": {s: che["dG"][s] - site["dG_mlip_eV"][s] for s in ("OH", "O", "OOH")}}
     return out
+
+
+def magnetization_flags(supports: list) -> list:
+    """Flagged extension states that a complete support site's value rests on (an unused second start never counts)."""
+    return [f"s{s['seed']}/{s['site_index']} {r['state']}" for s in supports if s["complete"]
+            for r in s.get("extension_attempts", []) if r.get("magnetization_vs_site", {}).get("flag")
+            and s["states"][r["state"]]["job"] == r["job"]]
 
 
 def eval_fraction(text: str) -> float:
@@ -392,12 +430,14 @@ def main(argv=None) -> int:
         result["extension_status"] = "exploratory; arm C's registered readings are those of the re-run readout"
         result["counts"].update(ext_attempted=len(attempts), ext_accepted=sum(a["accepted"] for a in attempts),
                                 ext_seed_read=sum(a["seed_read"] for a in attempts))
+        seconds = [a for a in attempts if a.get("second_start")]
+        if seconds:  # an accepted second start counts above even when the first run is kept
+            result["counts"].update(ext_second_starts=len(seconds), ext_second_starts_used=sum(a["lower"] for a in seconds))
         for formula, value in values.items():
             supports = [s for s in sites if s["formula"] == formula and {"support_lo", "support_hi"} & set(s["roles"])]
             value["uses_extension"] = any(r["recipe"] in ("seeded", "unseeded_fallback")
                                           for s in supports if s["complete"] for r in s["states"].values())
-            flags = [f"s{s['seed']}/{s['site_index']} {r['state']}" for s in supports if s["complete"]
-                     for r in s.get("extension_attempts", []) if r.get("magnetization_vs_site", {}).get("flag")]
+            flags = magnetization_flags(supports)
             if flags:  # the value rests on a state in a different magnetic state from its site's others
                 value["magnetization_flags"] = flags
     args.out.write_bytes((json.dumps(result, indent=2) + "\n").encode("utf-8"))
