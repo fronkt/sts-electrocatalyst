@@ -41,6 +41,11 @@ on, QE stops itself at its own max_seconds or electron_maxstep and writes its la
 records qe_stop ("time" or "iterations") and config_written, and its failure counts as CEILING. A converged
 attempt of such a round also records magnetization_vs_site: its total magnetization against the nearest converged
 state at its site, flagged beyond 1.5 uB; an alloy value resting on a flagged state lists it in magnetization_flags.
+Round 4 (Frank, 2026-10-10, "Do the Fe25 O run"; arm_c_ext_r4_build.py) starts from round 3's stopped density
+(seed_density "stopped") and holds the Hubbard occupations for the first mixing_fixed_ns iterations. While it holds
+them, QE 7.5 resets them to their input before mixing, so its convergence test ignores them: an attempt whose
+mixing holds the occupations and that converges within those iterations is not accepted (held_occupations) and
+fails as HELD.
 """
 from __future__ import annotations
 
@@ -93,9 +98,11 @@ def accepted(run_dir: Path, job: str) -> dict:
 
 
 def failure_class(row: dict) -> str | None:
-    """CEILING (probe-recipe re-run), IEEE (identical re-run) or OTHER; None if accepted."""
+    """CEILING (probe-recipe re-run), IEEE (identical re-run), HELD (round 4 on) or OTHER; None if accepted."""
     if row["accepted"]:
         return None
+    if row.get("held_occupations"):
+        return "HELD"
     reason = row.get("reason") or ""
     if row["parser_status"] == "KILLED" or "ceiling" in reason.lower() or row.get("qe_stop"):
         return "CEILING"
@@ -149,6 +156,11 @@ def site_result(site: dict, mirror: Path, gas: dict, substitutions: dict | None 
                                                 if "Writing config to output data dir" in line)
                 attempt["qe_stop"] = ("time" if "Maximum CPU time exceeded" in text else
                                       "iterations" if "convergence NOT achieved after" in text else None)
+                held = (sub.get("mixing") or {}).get("mixing_fixed_ns", 0)
+                if held and attempt["accepted"] and (attempt.get("iterations") or 0) <= held:
+                    # While iter <= mixing_fixed_ns, QE resets ns to its input before mixing, so the
+                    # convergence test ignores the occupations: such a stop is not self-consistent.
+                    attempt.update(accepted=False, E_eV=None, held_occupations=True)
                 moment = attempt.get("total_magnetization")
                 others = {s: r["total_magnetization"] for s, r in states.items()
                           if s != state and r["accepted"] and r.get("total_magnetization") is not None}

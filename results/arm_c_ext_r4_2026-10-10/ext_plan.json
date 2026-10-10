@@ -1,0 +1,91 @@
+{
+  "schema": "s8-arm-c-ext-plan-v1",
+  "date": "2026-10-10",
+  "design": "docs/research/s8-arm-c-extension-2026-10-08.md",
+  "decision_ref": "Frank, 2026-10-10: \"Do the Fe25 O run\" (after round 3's readout)",
+  "source_readout": {
+    "path": "results/arm_c_ext_r3_2026-10-09/readout.json",
+    "sha256": "1e564a25bd4b6b9f5bdbc5cdc3108a577bb5f724f4db8db995d222591a4ac8a5"
+  },
+  "round": 4,
+  "round_3": {
+    "spec": "results/arm_c_ext_r3_2026-10-09/launch_spec.json",
+    "spec_sha256": "0fda5b375b40b7fbe61a15f35e101dbc47c4d84cb450523cbe593942a5224f45",
+    "plan": "results/arm_c_ext_r3_2026-10-09/ext_plan.json",
+    "main": "21199937 read out: neither state converged in 300 iterations; the Fe25 O stopped with Fe 22 in a configuration no converged state at its site has"
+  },
+  "rule": "the Fe25 s25/2 O, its site's last missing state after round 3: round 3's job with mixing_fixed_ns 5 added, from round 3's stopped save (density and XML copied on Anvil; occup.txt and paw.txt rebuilt) with Fe 22's Hubbard occupations and PAW block (both spins) from the converged OH state; a convergence within the first 5 iterations is not accepted (held occupations); runner ceiling 300 iterations, QE's own electron_maxstep; max_seconds 18400",
+  "mixing": {
+    "mixing_beta": 0.3,
+    "mixing_ndim": 16,
+    "mixing_fixed_ns": 5
+  },
+  "qe_max_seconds": 18400,
+  "status": "exploratory; arm C's registered readings stay final",
+  "selection": [
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Fe25Co25Ni25Cr25__s25_site2",
+      "formula": "Fe25Co25Ni25Cr25",
+      "state": "O",
+      "failure": "CEILING",
+      "seed": {
+        "state": "O",
+        "job": "O__atomic_moved_ndim16",
+        "recipe": "seeded",
+        "root": "hea/arm_c_ext_r3_2026-10-09",
+        "id": "Fe25Co25Ni25Cr25__s25_site2__O__atomic_moved_ndim16"
+      },
+      "dir": "hea/arm_c_ext_r4_2026-10-10/Fe25Co25Ni25Cr25__s25_site2",
+      "job": "O__atomic_fe22oh_fixns5",
+      "round": 4,
+      "round_3_job": "O__atomic_moved_ndim16",
+      "round_3_failure": "CEILING",
+      "seed_density": "stopped",
+      "bundle": "results/arm_c_ext_r4_2026-10-10/seeds/Fe25Co25Ni25Cr25__s25_site2/O",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_ext_r3_2026-10-09/runs/hea/arm_c_ext_r3_2026-10-09/Fe25Co25Ni25Cr25__s25_site2/tmp_O__atomic_moved_ndim16/O__atomic_moved_ndim16.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_ext_r3_2026-10-09/runs/hea/arm_c_ext_r3_2026-10-09/Fe25Co25Ni25Cr25__s25_site2/tmp_O__atomic_moved_ndim16/O__atomic_moved_ndim16.save/data-file-schema.xml"
+      },
+      "mixing": {
+        "mixing_beta": 0.3,
+        "mixing_ndim": 16,
+        "mixing_fixed_ns": 5
+      },
+      "occupations": {
+        "start": "results/arm_c_ext_r3_2026-10-09/raw_mirror/runs/hea/arm_c_ext_r3_2026-10-09/Fe25Co25Ni25Cr25__s25_site2/tmp_O__atomic_moved_ndim16/O__atomic_moved_ndim16.save/occup.txt",
+        "start_sha256": "42c3b8def34ac54a86bab01fb6e54fd5f58ad6e2682454a84582ac6a36947b75",
+        "atoms_replaced": [
+          22
+        ],
+        "from": {
+          "state": "OH",
+          "job": "OH__atomic_moved",
+          "recipe": "seeded",
+          "path": "results/arm_c_ext_r3_2026-10-09/site_occupations/arm_c_ext_r2_2026-10-08/Fe25Co25Ni25Cr25__s25_site2/OH__atomic_moved.occup.txt",
+          "sha256": "6fad6d08e3f2b3685bfe5186cdaaa4afa534b989de7007e4cd37b36454b1ea31"
+        },
+        "sha256": "ec62a999ce5a537ce26b4cc8003d5a6bb5036301ade65853124487594568cdb0"
+      },
+      "paw": {
+        "start": "results/arm_c_ext_r4_2026-10-10/sources/r3_stop_paw.txt",
+        "start_sha256": "5fc544e98760556d658d0d82258f94a1924530e7d2bec41dcddbd49a8b063bd5",
+        "atoms_replaced": [
+          22
+        ],
+        "from": {
+          "state": "OH",
+          "job": "OH__atomic_moved",
+          "path": "results/arm_c_ext_r4_2026-10-10/sources/oh_paw.txt",
+          "remote": "/anvil/projects/x-che260157/sts_arm_c_ext_r2_2026-10-08/runs/hea/arm_c_ext_r2_2026-10-08/Fe25Co25Ni25Cr25__s25_site2/tmp_OH__atomic_moved/OH__atomic_moved.save/paw.txt",
+          "sha256": "c1e97c995681be165962914a4f521211d81eea44df6f2343b3545e6b30a32752"
+        },
+        "sha256": "747dfe87189892343d0a16bc0ff2ad8fd20f0fb6bce0c59dc0add0e383e6ff08"
+      },
+      "density": {
+        "source": "/anvil/projects/x-che260157/sts_arm_c_ext_r3_2026-10-09/runs/hea/arm_c_ext_r3_2026-10-09/Fe25Co25Ni25Cr25__s25_site2/tmp_O__atomic_moved_ndim16/O__atomic_moved_ndim16.save/charge-density.hdf5",
+        "sha256": "3458c5cb76d2bec6abc41d2ddc12b968951ef48c536e939f76a48fb71cd34c96",
+        "bytes": 153285444
+      }
+    }
+  ]
+}

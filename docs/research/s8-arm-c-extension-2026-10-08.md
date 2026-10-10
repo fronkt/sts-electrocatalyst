@@ -558,3 +558,87 @@ Round 2's medians for iterations 151–200 were 2.5×10⁻⁴ and 6.5×10⁻⁶ 
 | Site occupations | `results/arm_c_ext_r3_2026-10-09/site_occupations.py` (`site_occupations.job.json`), `site_occupations.json` and `site_occupations/` |
 | Trajectories and occupations | `results/arm_c_ext_r3_2026-10-09/trajectories.py` and `trajectories.json` |
 | Tests | `tests/test_arm_c_ext_r3.py`, 19 tests (the readout reproduction skips without the local projection outputs); 210 pass with the arm C and HEA QC suites |
+
+## Round 4, 2026-10-10
+
+Decision of record: Frank, 2026-10-10: "Do the Fe25 O run", after the Round 3 readout. The alternative was to stop and deposit.
+
+**Target.** The Fe25 s25/2 O, its site's last missing state.
+- If it converges, the site is complete and Fe25 gets a single-site value (`SINGLE_SITE`).
+- K1 still needs the Cu8 s16/2 slab.
+
+**The test.** At its stop, round 3's Fe25 O had Fe 22 in an occupation configuration that none of the site's converged states has (Round 3 readout). Round 4 starts Fe 22's Hubbard occupations, and so its +U potential, in the configuration the converged OH and OOH share. It holds the occupations while the density settles around them.
+
+**What changes.**
+- *Start.* Round 3's save, as QE wrote it when it stopped at iteration 300. Its density and XML are copied on Anvil; `start_sources.json` pins them and mirrors round 3's and the OH state's `paw.txt`.
+- *Fe 22.* Its blocks in `occup.txt` (the Hubbard occupations) and in `paw.txt` (the PAW on-site block; Fe uses a PAW potential) are both taken from the converged OH state, for both spins. Round 1 rebuilt these two files together for every seeded state in the same way.
+  - Fe 22 then starts at Tr[ns] 4.908 (up) and 1.292 (down); round 3 stopped at 4.800 and 1.624.
+  - So OH's block has 0.22 fewer d electrons and a 0.44 μB larger d moment: it differs in more than orientation. With these non-orthogonalized atomic projectors, the d count alone does not establish a change of oxidation state.
+  - OH's Fe 22 sits 0.14 Å from its place in the O structure, so the transferred blocks belong to a slightly different geometry. Round 1's seeding made the same approximation.
+- *Everything else.* Every other atom keeps round 3's last occupations and PAW blocks. That includes Co 20 and Ni 18, which also lay outside the converged states' spread, so they are held at their stalled values. The plane-wave density everywhere, Fe 22's surroundings included, starts as the stalled run left it and relaxes from iteration 1.
+- *Deck.* Round 3's, with its own prefix and one added line, `mixing_fixed_ns = 5`. QE keeps the occupations at their starting values for the first 5 iterations, so the density settles around them before they may move.
+  - mixing_beta 0.3, mixing_ndim 16, electron_maxstep 300 and max_seconds 18,400 stay as in round 3.
+  - The Round 3 readout said the deck template would have to admit this setting. It does not: the extension builders patch each round's deck, and the production template is not involved.
+- *After the hold.* At iteration 6 the mixer's history holds no occupation steps, so the occupations first move by plain mixing at beta 0.3. The held steps leave the 16-step history by about iteration 21, so a transient after the release is expected.
+
+**Held occupations: a rule set before launch.**
+- While QE holds the occupations, it resets them to their input values before mixing (QE 7.5, `electrons_scf`). Its convergence test then ignores them, so a run could stop as converged inside those iterations with occupations that are not self-consistent.
+- `arm_c_readout.py` therefore does not accept a convergence within the held iterations: the attempt records `held_occupations` and fails as HELD. Earlier readouts reproduce byte for byte (tested).
+- With the occupations held, what remains is a density-only problem that starts near convergence and is disturbed at one atom, so it may converge fast.
+  - The hold is 5 iterations rather than the 10 first built, to make such a stop less likely. From an error of 10⁻² Ry at the first iteration, converging within 5 would need the error to fall about 10× per iteration.
+  - A shorter hold leaves the density less settled when the occupations are released. That is the price of the change.
+- *If it stops as HELD anyway,* the run ends within about 20 minutes, projection included (under 50 SU). Its save, a density converged around the held occupations, is then the start of a continuation without the hold, under the same limits. That needs a separate approval; about 1,500 SU would remain under the approved 23,680.
+
+**Limits and cost.**
+- Runner: 300 iterations, a 19,000 s SCF wall and a 600 s projection. Slurm: 345 min, one task.
+- Ceiling: 345 min × 128 cores = 736 SU.
+- Spent before launch: 22,129.7 SU (20,888.5 before round 3, plus round 3's 1,241.2). Campaign bound: 22,865.7 SU, inside the approved 23,680.
+
+**Start check.** A few minutes after the job starts, `start_check.py` reads the head of its output on Anvil (read-only).
+- QE's "STARTING HUBBARD OCCUPATIONS" must equal the built `occup.txt`:
+  - every Hubbard atom's Tr[ns] (up, down and total) within 10⁻⁵;
+  - Fe 22's two 5×5 matrices within 1.5×10⁻³.
+  - Round 3 printed its own start to within 5×10⁻⁶ and 5×10⁻⁴ (tested).
+- Once the first iteration has finished, "The initial density is read from file" and "RESET ns to initial values (iter <= mixing_fixed_ns)" must both appear. Until then the check reports no verdict, unless the starting block already disagrees.
+- It also records Fe 22's occupations as QE printed them after the first iteration.
+- On a mismatch, the job is cancelled and the mismatch investigated.
+
+**What a result means.**
+- *Converged after the hold:* a self-consistent O state, with Fe 22 started in OH's configuration. The readout gives Fe25 a single-site value, exploratory like the rest of the extension.
+  - If the cell's total moment lies more than 1.5 μB from the nearest converged state at the site, the value is flagged as resting on a state in a different magnetic state. The flag reports; it does not withhold the value.
+- *That value would rest on a state chosen by its start.* Nothing shows that it is the O state's lowest-energy solution. Round 3 started Fe 22 in the slab's configuration, 0.94 from OH's, and stopped 0.90 from OH's in a configuration of its own, while its energy fell by about 0.8 mRy between iterations 109 and 300. Three checks are therefore reported with any value, set before the run:
+  - *Energy against round 3.* The reference is the median of round 3's last 50 total energies, −8913.94359 Ry. A converged energy more than 1 mRy (13.6 meV) above it marks the state as metastable relative to round 3's trajectory. An error in E(O) shifts ΔG2 and ΔG3 one for one.
+  - *Occupations at the stop.* Fe 22, Co 20 and Ni 18 are set against the site's converged states, as in the Round 3 readout: does Fe 22 stay in OH's configuration, and do Co 20 and Ni 18 return within the converged states' spread?
+  - *A spectator term.* The site's slab has Fe 22 0.94 from the configuration its OH and OOH share. So ΔG1 and ΔG4 already include a change at Fe 22, 4.2 Å from the adsorbate, in any value at this site.
+- *What a convergence would not show:* that Fe 22 was the obstacle. The run also restarts the mixing from a nearly converged density and holds every atom's occupations, not only Fe 22's. A control from the same start with Fe 22 unchanged (about 650 SU) would separate these; it is not planned.
+- *Stopped again:* holding Fe 22 in the OH and OOH configuration for 5 iterations did not free the state. The occupations at the stop show whether Fe 22 stayed there or went back.
+
+**Readout.** The command stacks rounds 2, 3 and 4:
+
+```
+python src/dft/arm_c_readout.py --plan results/arm_c_2026-10-07/site_plan.json \
+  --mirror results/arm_c_2026-10-07/raw_mirror \
+  --rerun-plan results/arm_c_2026-10-07_rerun/rerun_plan.json \
+  --rerun-mirror results/arm_c_2026-10-07_rerun/raw_mirror \
+  --ext-plan results/arm_c_ext_r2_2026-10-08/ext_plan.json --ext-mirror results/arm_c_ext_r2_2026-10-08/raw_mirror \
+  --ext-plan results/arm_c_ext_r3_2026-10-09/ext_plan.json --ext-mirror results/arm_c_ext_r3_2026-10-09/raw_mirror \
+  --ext-plan results/arm_c_ext_r4_2026-10-10/ext_plan.json --ext-mirror results/arm_c_ext_r4_2026-10-10/raw_mirror \
+  --out results/arm_c_ext_r4_2026-10-10/readout.json
+```
+
+**Pre-launch review.** An independent review found no blocker. It confirmed from the QE 7.5 source that `read_scf` loads `occup.txt` into the occupations QE starts from and holds, that iteration 5 itself is held, and that the start check's text and tolerances fit. Its three record changes are folded in above:
+- what a convergence would and would not show, with the three checks;
+- the case of a stop within the hold;
+- the wording on Fe 22.
+
+It also led to the shorter hold and to the start check's matrix comparison and pending state. Its note that Fe 22's PAW block would start in the stalled configuration led to taking that block from OH as well.
+
+| Part | Location |
+|---|---|
+| Builder | `src/dft/arm_c_ext_r4_build.py`, with `--check` (6 files) |
+| Start sources | `results/arm_c_ext_r4_2026-10-10/start_sources.py`, `start_sources.json` and `sources/` |
+| Deck, manifest | `runs/hea/arm_c_ext_r4_2026-10-10/` and `runs/m_arm_c_ext_r4_2026-10-10_main.txt` |
+| Spec, plan, rebuilt files | `results/arm_c_ext_r4_2026-10-10/` (`launch_spec.json`, `ext_plan.json`, `seeds/`: `occup.txt` and `paw.txt`) |
+| Slurm | `anvil/99_arm_c_ext_r4.slurm`, with round 3's resources |
+| Operations | `results/arm_c_ext_r4_2026-10-10/launch_ops.py` (stage with copies on Anvil, preflight, held submit, validate, release), `start_check.py`, `status_once.py`, `collect_terminal.py` |
+| Tests | `tests/test_arm_c_ext_r4.py`, 13 tests; 223 pass with the arm C and HEA QC suites |
