@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-10T16:47:57.702286+00:00",
+  "readonly": true,
+  "rc": 0,
+  "stderr": "",
+  "jobs": {
+    "r4_main": "21224301"
+  },
+  "remote": {
+    "commands": {
+      "squeue": {
+        "rc": 0,
+        "stdout": "21224301_1|arm-c-ext-r4-main|PENDING|0:00|5:45:00|(Priority)\n",
+        "stderr": ""
+      },
+      "sacct": {
+        "rc": 0,
+        "stdout": "21224301_1|arm-c-ext-r4-main|PENDING|00:00:00|0:0|0|None assigned\n",
+        "stderr": ""
+      },
+      "balance": {
+        "rc": 0,
+        "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    102490.0     86954.8    86954.8     15535.2\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+        "stderr": ""
+      }
+    },
+    "receipts": {}
+  }
+}

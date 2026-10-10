@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-10T21:09:34.744246+00:00",
+  "readonly": true,
+  "rc": 0,
+  "stderr": "",
+  "jobs": {
+    "r4_main": "21224301"
+  },
+  "remote": {
+    "commands": {
+      "squeue": {
+        "rc": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "sacct": {
+        "rc": 0,
+        "stdout": "21224301_1|arm-c-ext-r4-main|COMPLETED|00:23:25|0:0|179840|a317\n",
+        "stderr": ""
+      },
+      "balance": {
+        "rc": 0,
+        "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    102490.0     87004.8    87004.8     15485.2\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+        "stderr": ""
+      }
+    },
+    "receipts": {
+      "hea/arm_c_ext_r4_2026-10-10/Fe25Co25Ni25Cr25__s25_site2/O__atomic_fe22oh_fixns5.qc.json": {
+        "status": "COMPLETE",
+        "reason": null,
+        "energy_Ry": -8913.96641764,
+        "iterations": 20,
+        "wall_seconds": 1345.9347875809763
+      }
+    }
+  }
+}

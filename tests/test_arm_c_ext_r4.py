@@ -1,6 +1,7 @@
 """Offline checks for round 4 of the S8 arm-C extension (the Fe25 s25/2 O from round 3's stopped density, with
 Fe 22's Hubbard occupations and PAW block from the converged OH state, the occupations held for the first 5
-iterations) and for the readout's held-occupations rule; never launch QE/Slurm or open a network connection."""
+iterations), for the readout's held-occupations rule and for round 4's readout and checks; never launch QE/Slurm
+or open a network connection. The readout reproduction needs the local projection outputs and skips without them."""
 import hashlib
 import importlib.util
 import json
@@ -279,3 +280,80 @@ def test_a_convergence_within_the_held_iterations_is_not_accepted(tmp_path):
     assert results["O_late"]["complete"] and "held_occupations" not in results["O_late"]["extension_attempts"][0]
     assert results["O_unheld"]["complete"]  # the rule needs held occupations
     assert readout.failure_class({"accepted": False, "held_occupations": True, "parser_status": "CONVERGED"}) == "HELD"
+
+
+# ---------------------------------------------------------------- the round-4 terminal readout
+def test_the_collection_matches_anvil_and_the_start_check_passed():
+    collection = json.loads((PACKAGE / "terminal_collection.json").read_text(encoding="utf-8"))
+    assert collection["all_match"] and len(collection["files"]) == 7
+    kept = [f for f in collection["files"] if not f["path"].endswith(".projwfc.out")]  # projection: local only
+    assert all(sha(PACKAGE / "raw_mirror" / f["path"]) == f["remote_sha256"] for f in kept)
+    receipt = json.loads((PACKAGE / "start_check_20261010T211017Z.json").read_text(encoding="utf-8"))
+    assert receipt["all_match"] and not receipt["any_mismatch"]
+    job = receipt["jobs"][0]
+    assert job["density_read"] and job["held"] and job["fe22_printed"] == job["fe22_expected"]
+
+
+def test_the_round_4_readout_reproduces_the_committed_readout(tmp_path):
+    mirrors = (ROOT / "results/arm_c_2026-10-07/raw_mirror", ROOT / "results/arm_c_2026-10-07_rerun/raw_mirror",
+               ROOT / r2.PACKAGE / "raw_mirror", PACKAGE / "raw_mirror")
+    if not all(any(m.rglob("*.projwfc.out")) for m in mirrors):
+        pytest.skip("projection outputs are kept local, outside git")
+    out = tmp_path / "readout.json"
+    readout.main(["--plan", str(ROOT / "results/arm_c_2026-10-07/site_plan.json"), "--mirror", str(mirrors[0]),
+                  "--rerun-plan", str(ROOT / "results/arm_c_2026-10-07_rerun/rerun_plan.json"),
+                  "--rerun-mirror", str(mirrors[1]),
+                  "--ext-plan", str(ROOT / r2.PACKAGE / "ext_plan.json"), "--ext-mirror", str(mirrors[2]),
+                  "--ext-plan", str(ROOT / r3.PACKAGE / "ext_plan.json"),
+                  "--ext-mirror", str(ROOT / r3.PACKAGE / "raw_mirror"),
+                  "--ext-plan", str(PACKAGE / "ext_plan.json"), "--ext-mirror", str(mirrors[3]),
+                  "--out", str(out)])
+    assert out.read_bytes() == (PACKAGE / "readout.json").read_bytes()
+
+
+def test_round_4_completes_the_fe25_s25_2_site_and_changes_nothing_else():
+    stacked = json.loads((PACKAGE / "readout.json").read_text(encoding="utf-8"))
+    before = json.loads((ROOT / r3.PACKAGE / "readout.json").read_text(encoding="utf-8"))
+    changed = [k for k, (now, then) in enumerate(zip(stacked["sites"], before["sites"], strict=True)) if now != then]
+    assert [Path(stacked["sites"][k]["dir"]).name for k in changed] == [r4.TARGET[0]]
+    site, then = stacked["sites"][changed[0]], before["sites"][changed[0]]
+    attempt = site["extension_attempts"][-1]
+    assert site["extension_attempts"][:-1] == then["extension_attempts"]
+    assert (attempt["job"], attempt["round"], attempt["accepted"], attempt["iterations"], attempt["failure"]) == (
+        "O" + r4.JOB_SUFFIX, 4, True, 20, None)
+    assert attempt["mixing"] == r4.MIXING and attempt["seed_read"] and not attempt["severe_failures"]
+    assert not attempt["projection_ieee"] and not attempt["magnetization_vs_site"]["flag"]
+    assert site["complete"] and site["failures"] == {} and site["potential_limiting_step"] == 1
+    assert {s: v["job"] for s, v in site["states"].items() if s != "O"} == {
+        s: v["job"] for s, v in then["states"].items() if s != "O"}
+    alloy = stacked["alloys"]["Fe25Co25Ni25Cr25"]
+    assert alloy["status"] == "SINGLE_SITE" and alloy["C_V"] == site["eta_dft_V"] and alloy["uses_extension"]
+    assert {k: v for k, v in stacked["alloys"].items() if k != "Fe25Co25Ni25Cr25"} == {
+        k: v for k, v in before["alloys"].items() if k != "Fe25Co25Ni25Cr25"}
+    assert stacked["counts"] == dict(before["counts"], scf_accepted=44, sites_complete=7, ext_attempted=14,
+                                     ext_accepted=4, ext_seed_read=14)
+    predictions = stacked["exploratory_predictions"]
+    assert predictions["missing"] == ["Cu8Cr23Mn35Co34"]
+    assert {predictions[k] for k in ("K1", "K2", "ni34_batch_2")} == {"NOT_EVALUABLE_UNDER_ARM_C"}
+    controls = [dict(c) for c in stacked["recipe_controls"]]
+    controls[0].pop("eta_dft_V_with_control")  # the Fe25 s25/2 control slab's site is now complete
+    assert controls == before["recipe_controls"]
+    rest = [k for k in before if k not in ("sites", "counts", "alloys", "exploratory_predictions", "recipe_controls")]
+    assert sorted(stacked) == sorted(before) and all(stacked[k] == before[k] for k in rest)
+
+
+def test_the_round_4_checks_reproduce_from_the_committed_mirrors():
+    module = load("checks.py")
+    built = module.build()
+    assert json.dumps(built, indent=1) + "\n" == (PACKAGE / "checks.json").read_text(encoding="utf-8")
+    run, energy, spectator = built["scf"], built["energy"], built["spectator"]
+    assert run["held_iterations"] == list(range(1, r4.FIXED_NS + 1)) and run["converged_in"] == 20
+    assert energy["reference_set_Ry"] == round(energy["reference_Ry"], 5) and not energy["flag"]
+    assert energy["converged_Ry"] < energy["round_3_last_50_range_Ry"][0]  # below each of round 3's last 50
+    fe22, co20, ni18 = built["occupations"]["named"]
+    assert fe22["nearest_state"] == "OH" and fe22["end_to_state"]["slab"] > 0.9 and fe22["end_to_round_3_stop"] > 0.85
+    for atom in (co20, ni18):  # still at round 3's values, outside the converged states' spread
+        assert atom["end_to_start"] < 0.03 and atom["end_to_nearest"] > atom["spread_converged"]
+    assert spectator["adsorbed_states_share_fe22"] and spectator["potential_limiting_step"] == 1
+    low, high = spectator["E_O_shift_window_eV"]
+    assert low < -energy["difference_eV"] < high  # round 3's energy as E(O) would leave eta unchanged
