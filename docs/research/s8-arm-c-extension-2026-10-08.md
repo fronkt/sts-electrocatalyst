@@ -1,6 +1,6 @@
 # S8 arm C extension — seeded SCFs for Cu8 and Fe25, 2026-10-08
 
-Status: **round 4 read out, 2026-10-10: the Fe25 s25/2 O converged in 20 iterations, so Fe25 has an exploratory single-site value, 0.893 V. Cu8 still has none, so K1, K2 and the Ni34 nomination stay not evaluable ([Round 4 readout](#round-4-readout-2026-10-10-the-fe25-o-converged-fe25-has-a-single-site-value)).** Round 4 (Frank: "Do the Fe25 O run") started Fe 22 in the configuration the site's OH and OOH share. Before it:
+Status: **round 5 launched, 2026-10-10 (Frank: "Just do the test since its so small"): a second start of the Fe25 s25/2 slab with Fe 22 in the adsorbed states' configuration, array 21234401 released 22:24Z ([Round 5](#round-5-2026-10-10)).** Round 4 read out the same day: the Fe25 s25/2 O converged in 20 iterations, so Fe25 has an exploratory single-site value, 0.893 V. Cu8 still has none, so K1, K2 and the Ni34 nomination stay not evaluable ([Round 4 readout](#round-4-readout-2026-10-10-the-fe25-o-converged-fe25-has-a-single-site-value)). Round 4 (Frank: "Do the Fe25 O run") started Fe 22 in the configuration the site's OH and OOH share. Before it:
 - round 3 converged neither of its two states ([Round 3 readout](#round-3-readout-2026-10-10-neither-state-converged-no-value));
 - round 2 converged 3 of 11 ([Round 2 main readout](#round-2-main-readout-2026-10-09-3-of-11-converged-no-value)). Round 2 (Frank: "repair") moves each seed density onto the target's atoms;
 - round 1's canary failed, and its main array was cancelled before it ran.
