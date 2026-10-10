@@ -472,3 +472,89 @@ python src/dft/arm_c_readout.py --plan results/arm_c_2026-10-07/site_plan.json \
 | Slurm | `anvil/98_arm_c_ext_r3.slurm`, with round 2's resources |
 | Operations | `results/arm_c_ext_r3_2026-10-09/launch_ops.py` (stage with copies on Anvil, preflight, held submit, validate, release), `start_check.py`, `status_once.py`, `collect_terminal.py` |
 | Tests | `tests/test_arm_c_ext_r3.py`, 15 tests; 206 pass with the arm C and HEA QC suites |
+
+## Round 3 readout, 2026-10-10: neither state converged; no value
+
+**Runs.** Array 21199937 waited 19.6 h after its release: priority on the busy `wholenode` partition comes mostly from age, and round 2 had started within minutes. Its two tasks then ran on a477 and a268 from 01:44Z and 01:48Z on 2026-10-10.
+- The start check passed at 03:07Z: both jobs printed round 2's first "negative rho" and accuracy lines exactly (`start_check_20261010T030728Z.json`).
+- Neither state reached conv_thr 10⁻⁶ Ry. Each ran all 300 iterations, and QE then stopped itself ("convergence NOT achieved after 300 iterations: stopping").
+  - Each wrote its last density and occupations ("Writing config") and ended normally: the Cu8 slab after 4 h 37 min, the Fe25 O after 5 h 4 min.
+  - The Fe25 O ran at about 61 s per iteration, so it reached the iteration cap before `max_seconds`. The design had expected a time stop near iteration 293.
+- The runner labels QE's own stop "numerical failure marker", and Slurm lists the rejections as `FAILED` (exit 10). There were no QE errors; the only IEEE notes are underflow and denormal.
+
+**Cost.**
+- Round 3 used 1,241.2 SU (sacct CPU time: 591.6 and 649.7), inside its 1,472 SU ceiling.
+- The campaign has used 22,129.7 SU of the approved 23,680, leaving 1,550.3.
+- Balance: 15,535.2 SU (`mybalance`, 2026-10-10 13:42Z). Its drop since round 2's readout, 1,241.3 SU, matches round 3's use.
+
+**Readout.** `readout.json` comes from the stacked command under Round 3.
+- It is round 2's readout plus the two new attempts. Only the extension counts change: 13 attempted, 3 accepted. A test checks this.
+- 43 of 64 SCFs are accepted and 6 of 16 sites are complete, unchanged.
+- Each new attempt records round 3, beta 0.3 with ndim 16, `qe_stop` "iterations", `config_written`, and failure CEILING.
+
+**Consequence.**
+- The Cu8 s16/2 slab and Fe25 s25/2 O are still missing, so Cu8 and Fe25 stay `NO_VALUE`.
+- K1, K2 and the Ni34 nomination stay `NOT_EVALUABLE_UNDER_ARM_C`, and arm C's registered readings are unchanged.
+- The magnetic-state check covers converged states only, so it did not apply. Both runs stopped in round 2's magnetic state: 51.18 μB total (round 2: 51.25) and 42.63 μB (42.63).
+
+**Trajectories.** `trajectories.py` reads the committed mirrors and seed files and writes `trajectories.json`. Accuracy is QE's "estimated scf accuracy" in Ry.
+
+| Stopped state | Round 2 (ndim 8): best in 200 (iteration) | Round 3 (ndim 16): best in 300 (iteration) | Round 3: iterations below 10⁻⁵ | Round 3 median, iterations 51–100 / 151–200 / 251–300 | Total magnetization from iteration 101, μB: round 3 (round 2) |
+|---|---|---|---|---|---|
+| Cu8 s16/2 slab | 1.2×10⁻⁵ (56) | 5.3×10⁻⁶ (68) | 32, iterations 48–79 | 8.5×10⁻⁶ / 8.8×10⁻⁵ / 1.2×10⁻⁴ | 51.08–51.25 (51.06–51.25) |
+| Fe25 s25/2 O | 4.7×10⁻⁶ (195) | 7.6×10⁻⁶ (293) | 11, iterations 172–293 | 2.1×10⁻⁵ / 2.8×10⁻⁵ / 1.9×10⁻⁵ | 42.52–42.66 (42.55–42.65) |
+
+Round 2's medians for iterations 151–200 were 2.5×10⁻⁴ and 6.5×10⁻⁶ (Round 2 main readout). Its Fe25 O spent 48 iterations below 10⁻⁵, from iteration 129 to its cutoff.
+
+**What this shows.**
+- The Cu8 slab followed round 2's path at two to three times lower accuracy values. Between iterations 48 and 79 it was below 10⁻⁵ Ry, closer to conv_thr than any earlier run of this state. It then drifted back up and held near 10⁻⁴ Ry for its last 200 iterations.
+- The Fe25 O did worse than round 2. It dipped below 10⁻⁵ in only 11 of 300 iterations and held at 2–3×10⁻⁵ to the end. Round 2 had been creeping down through 10⁻⁵ at its 200-iteration cutoff.
+- Neither run hopped between magnetic states: from iteration 101, each cell's total moment held within 0.17 μB.
+- The two mixing histories cannot be ranked from these runs.
+  - Through iteration 9 the mixer holds at most 8 past steps, so ndim 8 and ndim 16 do the same arithmetic.
+  - Even so, round 3's accuracies differ from round 2's by 1–5×10⁻⁸ (relative) at iteration 2 and by 0.1–6% at iterations 3–8.
+  - Round 2's canary and main array, run from identical inputs, differ the same way: 2×10⁻⁸ at iteration 2 and up to 4% at iterations 4–8.
+  - Runs of these states amplify rounding differences within a few iterations, so one run per setting cannot attribute a difference to the mixing.
+
+**Occupations at the stop.** This is the stalled-run check written down before launch: each run's last Hubbard occupations, against the site's converged states, for a single-site orbital difference like the one diagnosed on 2026-09-22. There, a minority-spin reorientation on one surface Co held the Cu8 s20/2 slab in a second self-consistent state.
+- `site_occupations.py` mirrors the occupations of every converged state at the two sites: six files, sha256-matched to Anvil. `trajectories.json` sets each run's `occup.txt` (from its own save) against them.
+- The distance between two occupation sets at one atom is the Frobenius norm of their difference over both spins. Each run's start is one of these converged states: the O state's occupations for the Cu8 slab, the slab's for the Fe25 O.
+
+| Run | Atom | Stalled run to each converged state | Converged states to each other |
+|---|---|---|---|
+| Cu8 slab | Co 13, 15, 21, 23 | O: 0.28–0.48; OH and OOH: 0.03–0.14 | O to OH and OOH: 0.27–0.49; OH to OOH: 0.03–0.10 |
+| Fe25 O | Fe 22 | slab: 0.77; OH and OOH: 0.90 | slab to OH and OOH: 0.94; OH to OOH: 0.02 |
+| Fe25 O | Co 20; Ni 18 | 0.15–0.17; 0.10–0.11 | at most 0.03; at most 0.02 |
+
+- **Cu8 slab: no single-site difference.**
+  - Starting from the O state's occupations, the slab turned the minority-spin orbitals of Co 13, 15, 21 and 23 into the configuration that the converged OH and OOH states share. The O state differs from both of them at those atoms.
+  - At every atom, the stalled slab lies within the spread of the site's converged states. Its median distance to the nearest is 0.025, against a median spread of 0.097.
+- **Fe25 O: a difference at Fe 22, of uncertain origin.**
+  - At Fe 22 (top layer, 4.2 Å from the O), the stalled run is in a third configuration: 0.77 from the slab's and 0.90 from the one OH and OOH share. Halfway between those two would be about 0.47 from each.
+  - It also lies outside the converged states' spread at Co 20 and Ni 18.
+  - No O state at this site has converged, and the Cu8 site shows a bound O turning neighbouring orbitals away from the OH and OOH configuration. So this cannot separate a stalled configuration from the O's own effect.
+
+**Competing explanations for the stalls.**
+- *A second self-consistent state, held by an orbital configuration.*
+  - For the Cu8 slab, the occupations show none. The run reached the configuration the site's converged states share and still held near 10⁻⁴ Ry.
+  - For the Fe25 O, Fe 22 is a candidate. The steady moments while the accuracy plateaus also fit, and no mixing setting is expected to free such a state.
+- *Slow charge sloshing, or a near-degeneracy the occupations do not show.* For the Cu8 slab this now fits better. But beta 0.1 measured worse on these alloys (2026-09-22), and the longer history did not help here.
+
+**What a value still needs.**
+- Each of the two states has now stopped short in four attempts: production's atomic start, the ndim16 re-run, round 2's moved seed, and round 3's moved seed with ndim 16 (126, 126, 200 and 300 iterations).
+- For the Fe25 O, the occupations suggest a targeted test.
+  - Start Fe 22 in the configuration that OH and OOH share, for example from the OH state's occupations, and hold the occupations for the first iterations (`mixing_fixed_ns`, protocol P-B of `lowtail-stall-robust-protocol-plan-2026-09-22.md`).
+  - The deck template would have to admit that setting. If the run converges, Fe 22's configuration was the obstacle.
+- For the Cu8 slab, the occupations point at nothing to change.
+- 1,550.3 SU is left under the approved 23,680. One state at this length costs about 650 SU.
+- No such round is planned.
+
+**Open for Frank.** Stop here and deposit the freeze, arm C and the extension readouts as planned (before any OER measurement; Oct 21 fallback), or approve a further round on these two states.
+
+| Part | Location |
+|---|---|
+| Readout | `results/arm_c_ext_r3_2026-10-09/readout.json` (`readout.job.json`); `terminal_collection.json`; `status_snapshot_20261010T134221Z.json` |
+| Mirror | `results/arm_c_ext_r3_2026-10-09/raw_mirror/`: outputs, inputs, receipts, stop markers, Slurm logs and each run's `occup.txt`, sha256-matched to Anvil |
+| Site occupations | `results/arm_c_ext_r3_2026-10-09/site_occupations.py` (`site_occupations.job.json`), `site_occupations.json` and `site_occupations/` |
+| Trajectories and occupations | `results/arm_c_ext_r3_2026-10-09/trajectories.py` and `trajectories.json` |
+| Tests | `tests/test_arm_c_ext_r3.py`, 19 tests (the readout reproduction skips without the local projection outputs); 210 pass with the arm C and HEA QC suites |

@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-10T13:42:23.607160+00:00",
+  "readonly": true,
+  "rc": 0,
+  "stderr": "",
+  "jobs": {
+    "r3_main": "21199937"
+  },
+  "remote": {
+    "commands": {
+      "squeue": {
+        "rc": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "sacct": {
+        "rc": 0,
+        "stdout": "21199937_1|arm-c-ext-r3-main|FAILED|04:37:18|10:0|2129664|a477\n21199937_2|arm-c-ext-r3-main|FAILED|05:04:32|10:0|2338816|a268\n",
+        "stderr": ""
+      },
+      "balance": {
+        "rc": 0,
+        "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    102490.0     86954.8    86954.8     15535.2\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+        "stderr": ""
+      }
+    },
+    "receipts": {
+      "hea/arm_c_ext_r3_2026-10-09/Cu8Cr23Mn35Co34__s16_site2/slab__atomic_moved_ndim16.qc.json": {
+        "status": "REJECTED",
+        "reason": "numerical failure marker",
+        "energy_Ry": null,
+        "iterations": null,
+        "wall_seconds": 16630.19126906502
+      },
+      "hea/arm_c_ext_r3_2026-10-09/Fe25Co25Ni25Cr25__s25_site2/O__atomic_moved_ndim16.qc.json": {
+        "status": "REJECTED",
+        "reason": "numerical failure marker",
+        "energy_Ry": null,
+        "iterations": null,
+        "wall_seconds": 18263.821263296995
+      }
+    }
+  }
+}

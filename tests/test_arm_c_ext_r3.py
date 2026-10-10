@@ -1,5 +1,5 @@
 """Offline checks for round 3 of the S8 arm-C extension (the last missing state of one Cu8 and one Fe25 support
-site, from round 2's moved densities with gentler density mixing) and for the readout's stacked rounds; never
+site, from round 2's moved densities with a longer mixing history) and for the readout's stacked rounds; never
 launch QE/Slurm or open a network connection. The runner check needs round 2's local densities (never in git)
 and skips without them."""
 import hashlib
@@ -338,3 +338,66 @@ def test_the_readout_needs_one_mirror_per_extension_round(tmp_path):
     with pytest.raises(SystemExit):
         readout.main(base + ["--ext-mirror", str(tmp_path / "m2")])
     assert not (tmp_path / "out.json").exists()
+
+
+# ---------------------------------------------------------------- the round-3 terminal readout
+def test_the_round_3_readout_reproduces_the_committed_readout(tmp_path):
+    mirrors = (ROOT / "results/arm_c_2026-10-07/raw_mirror", ROOT / "results/arm_c_2026-10-07_rerun/raw_mirror",
+               ROOT / r2.PACKAGE / "raw_mirror")
+    if not all(any(m.rglob("*.projwfc.out")) for m in mirrors):
+        pytest.skip("projection outputs are kept local, outside git")
+    out = tmp_path / "readout.json"
+    readout.main(["--plan", str(ROOT / "results/arm_c_2026-10-07/site_plan.json"), "--mirror", str(mirrors[0]),
+                  "--rerun-plan", str(ROOT / "results/arm_c_2026-10-07_rerun/rerun_plan.json"),
+                  "--rerun-mirror", str(mirrors[1]),
+                  "--ext-plan", str(ROOT / r2.PACKAGE / "ext_plan.json"), "--ext-mirror", str(mirrors[2]),
+                  "--ext-plan", str(PACKAGE / "ext_plan.json"), "--ext-mirror", str(PACKAGE / "raw_mirror"),
+                  "--out", str(out)])
+    assert out.read_bytes() == (PACKAGE / "readout.json").read_bytes()
+
+
+def test_round_3_adds_only_its_two_stopped_attempts_to_round_2_s_readout():
+    stacked = json.loads((PACKAGE / "readout.json").read_text(encoding="utf-8"))
+    before = json.loads((ROOT / r2.PACKAGE / "readout.json").read_text(encoding="utf-8"))
+    added = []
+    for now, then in zip(stacked["sites"], before["sites"], strict=True):
+        new = [a for a in now.get("extension_attempts", []) if a.get("round") == 3]
+        if new:
+            added += new
+            now = dict(now, extension_attempts=[a for a in now["extension_attempts"] if a.get("round") != 3])
+        assert now == then
+    assert [(a["job"], a["failure"], a["qe_stop"], a["config_written"], a["iterations"], a["accepted"]) for a in added] == [
+        ("slab" + r3.JOB_SUFFIX, "CEILING", "iterations", True, 300, False),
+        ("O" + r3.JOB_SUFFIX, "CEILING", "iterations", True, 300, False)]
+    assert all(a["mixing"] == r3.MIXING and a["seed_read"] and not a["severe_failures"] for a in added)
+    assert stacked["counts"] == dict(before["counts"], ext_attempted=13, ext_seed_read=13)
+    rest = [k for k in before if k not in ("sites", "counts")]
+    assert sorted(stacked) == sorted(before) and all(stacked[k] == before[k] for k in rest)
+    assert stacked["exploratory_predictions"]["missing"] == ["Cu8Cr23Mn35Co34", "Fe25Co25Ni25Cr25"]
+
+
+def test_the_round_3_trajectories_reproduce_from_the_committed_mirrors():
+    module = load("trajectories.py")
+    built = module.build()
+    assert json.dumps(built, indent=1) + "\n" == (PACKAGE / "trajectories.json").read_text(encoding="utf-8")
+    for target in built["targets"]:
+        run, before = target["round_3"], target["round_2"]
+        assert run["end"] == "rejected: numerical failure marker" and run["iterations"] == 300
+        assert run["qe_stop"] == "convergence NOT achieved after 300 iterations: stopping"
+        assert run["best"] > module.CONV_THR and before["end"] == "killed: SCF iteration ceiling"
+        assert target["round_3_vs_round_2_first"][0] == 0  # the same start prints the same first accuracy
+        assert target["occupations"]["hubbard_atoms"] in (22, 24)
+    assert built["run_to_run_control"]["first"][0] == 0
+    cu8, fe25 = (t["site_comparison"] for t in built["targets"])
+    assert cu8["converged_states"] == ["O", "OH", "OOH"] and fe25["converged_states"] == ["OH", "OOH", "slab"]
+    assert all(a["stop_to_nearest"] <= a["spread_converged"] for a in cu8["atoms"])  # no single-site difference
+    assert fe25["atoms"][0]["atom"] == 22 and fe25["atoms"][0]["stop_to_nearest"] > 0.7
+
+
+def test_site_occupations_are_the_accepted_states_mirrored_intact():
+    module = load("site_occupations.py")
+    receipt = json.loads((PACKAGE / "site_occupations.json").read_text(encoding="utf-8"))
+    files = receipt["files"]
+    assert receipt["all_match"] and len(files) == 6
+    assert [(f["site"], f["state"], f["recipe"], f["job"]) for f in files] == module.accepted_states()
+    assert all(sha(PACKAGE / f["local"]) == f["sha256"] for f in files)
