@@ -1,0 +1,23 @@
+{
+  "phase": "validate",
+  "at": "2026-10-10T15:03:49.615897+00:00",
+  "commands": {
+    "held:r4_main": {
+      "command": "scontrol show job 21224301 -o",
+      "stdout": "JobId=21224301 ArrayJobId=21224301 ArrayTaskId=1%1 ArrayTaskThrottle=1 JobName=arm-c-ext-r4-main UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=05:45:00 TimeMin=N/A SubmitTime=2026-10-10T11:03:49 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-10T11:03:49 Scheduler=Main Partition=wholenode AllocNode:Sid=login03:2130540 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=200G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=200G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NODE Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts_arm_c_ext_r4_2026-10-10/anvil/99_arm_c_ext_r4.slurm SubmitLine=sbatch --hold --parsable --no-requeue --array=1-1%1 --time=05:45:00 --job-name=arm-c-ext-r4-main --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --export=ALL,STAGE=r4_main /anvil/projects/x-che260157/sts_arm_c_ext_r4_2026-10-10/anvil/99_arm_c_ext_r4.slurm WorkDir=/home/x-fcai3 StdErr=/anvil/projects/x-che260157/sts_arm_c_ext_r4_2026-10-10/logs/arm_c_ext_r4_21224301_4294967294.log StdIn=/dev/null StdOut=/anvil/projects/x-che260157/sts_arm_c_ext_r4_2026-10-10/logs/arm_c_ext_r4_21224301_4294967294.log TresPerTask=cpu=1\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-10T15:03:51.278349+00:00"
+    }
+  },
+  "checks": {
+    "r4_main": {
+      "job": "21224301",
+      "mismatches": {},
+      "held": true,
+      "ceiling_cpu_su": 736
+    }
+  },
+  "launch_ceiling_cpu_su": 736,
+  "passed": true
+}

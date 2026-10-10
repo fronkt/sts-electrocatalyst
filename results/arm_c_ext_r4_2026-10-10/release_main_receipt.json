@@ -1,0 +1,24 @@
+{
+  "phase": "release",
+  "array": "r4_main",
+  "at": "2026-10-10T15:03:58.435721+00:00",
+  "commands": {
+    "release:r4_main": {
+      "command": "scontrol release 21224301",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-10T15:03:59.435781+00:00"
+    },
+    "after": {
+      "command": "squeue -u x-fcai3 -o '%i|%j|%T|%M|%l|%R'",
+      "stdout": "JOBID|NAME|STATE|TIME|TIME_LIMIT|NODELIST(REASON)\n21224301_[1%1]|arm-c-ext-r4-main|PENDING|0:00|5:45:00|(None)\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-10T15:04:01.492486+00:00"
+    }
+  },
+  "released": {
+    "r4_main": "21224301"
+  }
+}
