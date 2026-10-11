@@ -1,0 +1,45 @@
+{
+  "at": "2026-10-11T04:10:32.405257+00:00",
+  "readonly": true,
+  "rc": 0,
+  "stderr": "",
+  "jobs": {
+    "r6_ni31": "21244521",
+    "r6_cu26": "21244522"
+  },
+  "remote": {
+    "commands": {
+      "squeue": {
+        "rc": 0,
+        "stdout": "21244522_2|arm-c-ext-r6-cu26|PENDING|0:00|3:00:00|(Priority)\n21244522_1|arm-c-ext-r6-cu26|PENDING|0:00|3:00:00|(Priority)\n",
+        "stderr": ""
+      },
+      "sacct": {
+        "rc": 0,
+        "stdout": "21244521_1|arm-c-ext-r6-ni31|COMPLETED|00:32:32|0:0|249856|a795\n21244521_2|arm-c-ext-r6-ni31|COMPLETED|00:27:58|0:0|214784|a795\n21244522_2|arm-c-ext-r6-cu26|PENDING|00:00:00|0:0|0|None assigned\n",
+        "stderr": ""
+      },
+      "balance": {
+        "rc": 0,
+        "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    102490.0     87268.4    87268.4     15221.6\nche260157-gpu   GPU       150.0         0.0        0.0       150.0\n\n",
+        "stderr": ""
+      }
+    },
+    "receipts": {
+      "hea/arm_c_ext_r6_2026-10-11/Ni31Cr29Cu5Mn35__s1_site0/OH__atomic_cr19slab_fixns5.qc.json": {
+        "status": "COMPLETE",
+        "reason": null,
+        "energy_Ry": -7914.75369043,
+        "iterations": 28,
+        "wall_seconds": 1616.3337449529208
+      },
+      "hea/arm_c_ext_r6_2026-10-11/Ni31Cr29Cu5Mn35__s1_site0/slab__atomic_cr19oh_fixns5.qc.json": {
+        "status": "COMPLETE",
+        "reason": null,
+        "energy_Ry": -7872.00022133,
+        "iterations": 35,
+        "wall_seconds": 1892.725745582953
+      }
+    }
+  }
+}
