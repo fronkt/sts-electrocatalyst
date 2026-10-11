@@ -1,0 +1,536 @@
+{
+  "schema": "s8-arm-c-ext-plan-v1",
+  "date": "2026-10-11",
+  "design": "docs/research/s8-arm-c-extension-2026-10-08.md",
+  "decision_ref": "Frank, 2026-10-10: \"Go ahead with other values\" (after round 5's readout)",
+  "source_readout": {
+    "path": "results/arm_c_ext_r5_2026-10-10/readout.json",
+    "sha256": "bf6a5caab3136b804a7e44bc3e271273fab2a5d305c25dd8ce614edcbbdf56c6"
+  },
+  "round": 6,
+  "round_5": {
+    "spec": "results/arm_c_ext_r5_2026-10-10/launch_spec.json",
+    "spec_sha256": "309aed128870e430fb8c2c4b91ab53716d46c95bb54385d2be7bc61cb2b04d1b",
+    "plan": "results/arm_c_ext_r5_2026-10-10/ext_plan.json",
+    "main": "21234401 read out: the Fe25 s25/2 slab, restarted with Fe 22 in OH's configuration, converged 259 meV below the production slab and replaced it; Fe25 0.893 -> 1.152 V"
+  },
+  "rule": "second starts of the slab and the OH at each value site whose slab and OH occupations differ by more than 0.2 at a Hubbard atom more than 2.5 A from the adsorbate's O: each state's production deck with round 5's changes (mixing_ndim 16, mixing_fixed_ns 5, startingpot 'file') and QE's own stop 600 s before the runner's SCF wall (120 min per run at Ni31 s1/0, 180 min at Cu26 s1/0), from its own converged save (density and XML copied on Anvil; occup.txt and paw.txt rebuilt) with that atom's Hubbard occupations and PAW block (both spins; Cr is ultrasoft, so only its occupations act) from the other state; a run replaces its state only if it converges after the held iterations more than 1 meV lower",
+  "screen": {
+    "states": [
+      "slab",
+      "OH"
+    ],
+    "min_distance": 0.2,
+    "bonded_A": 2.5,
+    "sites": {
+      "Ni31Cr29Cu5Mn35__s1_site0": {
+        "jobs": {
+          "slab": "slab__atomic",
+          "OH": "OH__atomic"
+        },
+        "occupations": {
+          "slab": "results/arm_c_ext_r6_2026-10-11/sources/Ni31Cr29Cu5Mn35__s1_site0/slab__atomic.occup.txt",
+          "OH": "results/arm_c_ext_r6_2026-10-11/sources/Ni31Cr29Cu5Mn35__s1_site0/OH__atomic.occup.txt"
+        },
+        "printed_final_max_difference": {
+          "slab": 0.0005,
+          "OH": 0.0005
+        },
+        "potential_limiting_step": 1,
+        "hubbard_atoms": 23,
+        "bonded": {
+          "atom": 17,
+          "species": "Cr",
+          "distance_to_O1_A": 1.864,
+          "slab_to_OH": 0.3284
+        },
+        "selected": [
+          {
+            "atom": 19,
+            "species": "Cr",
+            "distance_to_O1_A": 3.676,
+            "slab_to_OH": 0.4124
+          }
+        ],
+        "largest_unselected": {
+          "atom": 23,
+          "species": "Ni",
+          "distance_to_O1_A": 4.06,
+          "slab_to_OH": 0.1281
+        }
+      },
+      "Ni31Cr29Cu5Mn35__s10_site2": {
+        "jobs": {
+          "slab": "slab__atomic_ndim16",
+          "OH": "OH__atomic"
+        },
+        "occupations": {
+          "slab": "results/arm_c_ext_r6_2026-10-11/sources/Ni31Cr29Cu5Mn35__s10_site2/slab__atomic_ndim16.occup.txt",
+          "OH": "results/arm_c_ext_r6_2026-10-11/sources/Ni31Cr29Cu5Mn35__s10_site2/OH__atomic.occup.txt"
+        },
+        "printed_final_max_difference": {
+          "slab": 0.000499,
+          "OH": 0.000499
+        },
+        "potential_limiting_step": 1,
+        "hubbard_atoms": 23,
+        "bonded": {
+          "atom": 19,
+          "species": "Cr",
+          "distance_to_O1_A": 1.894,
+          "slab_to_OH": 0.2234
+        },
+        "selected": [],
+        "largest_unselected": {
+          "atom": 17,
+          "species": "Mn",
+          "distance_to_O1_A": 3.526,
+          "slab_to_OH": 0.1347
+        }
+      },
+      "Fe25Co25Ni25Cr25__s25_site2": {
+        "jobs": {
+          "slab": "slab__atomic_fe22oh_fixns5",
+          "OH": "OH__atomic_moved"
+        },
+        "occupations": {
+          "slab": "results/arm_c_ext_r5_2026-10-10/raw_mirror/runs/hea/arm_c_ext_r5_2026-10-10/Fe25Co25Ni25Cr25__s25_site2/tmp_slab__atomic_fe22oh_fixns5/slab__atomic_fe22oh_fixns5.save/occup.txt",
+          "OH": "results/arm_c_ext_r3_2026-10-09/site_occupations/arm_c_ext_r2_2026-10-08/Fe25Co25Ni25Cr25__s25_site2/OH__atomic_moved.occup.txt"
+        },
+        "printed_final_max_difference": {
+          "slab": 0.0005,
+          "OH": 0.000499
+        },
+        "potential_limiting_step": 1,
+        "hubbard_atoms": 24,
+        "bonded": {
+          "atom": 19,
+          "species": "Cr",
+          "distance_to_O1_A": 1.846,
+          "slab_to_OH": 0.3724
+        },
+        "selected": [],
+        "largest_unselected": {
+          "atom": 12,
+          "species": "Co",
+          "distance_to_O1_A": 6.103,
+          "slab_to_OH": 0.1676
+        }
+      },
+      "Cu26Ni9Cr31Co33__s1_site0": {
+        "jobs": {
+          "slab": "slab__atomic",
+          "OH": "OH__atomic"
+        },
+        "occupations": {
+          "slab": "results/arm_c_ext_r6_2026-10-11/sources/Cu26Ni9Cr31Co33__s1_site0/slab__atomic.occup.txt",
+          "OH": "results/arm_c_ext_r6_2026-10-11/sources/Cu26Ni9Cr31Co33__s1_site0/OH__atomic.occup.txt"
+        },
+        "printed_final_max_difference": {
+          "slab": 0.000498,
+          "OH": 0.000497
+        },
+        "potential_limiting_step": 1,
+        "hubbard_atoms": 18,
+        "bonded": {
+          "atom": 17,
+          "species": "Cr",
+          "distance_to_O1_A": 1.854,
+          "slab_to_OH": 0.2503
+        },
+        "selected": [
+          {
+            "atom": 19,
+            "species": "Cr",
+            "distance_to_O1_A": 3.687,
+            "slab_to_OH": 0.281
+          }
+        ],
+        "largest_unselected": {
+          "atom": 22,
+          "species": "Cr",
+          "distance_to_O1_A": 4.004,
+          "slab_to_OH": 0.1336
+        }
+      },
+      "Cu22Fe30Co32Mn15__s24_site3": {
+        "jobs": {
+          "slab": "slab__atomic",
+          "OH": "OH__atomic"
+        },
+        "occupations": {
+          "slab": "results/arm_c_ext_r6_2026-10-11/sources/Cu22Fe30Co32Mn15__s24_site3/slab__atomic.occup.txt",
+          "OH": "results/arm_c_ext_r6_2026-10-11/sources/Cu22Fe30Co32Mn15__s24_site3/OH__atomic.occup.txt"
+        },
+        "printed_final_max_difference": {
+          "slab": 0.000499,
+          "OH": 0.0005
+        },
+        "potential_limiting_step": 1,
+        "hubbard_atoms": 19,
+        "bonded": {
+          "atom": 20,
+          "species": "Co",
+          "distance_to_O1_A": 1.801,
+          "slab_to_OH": 0.5023
+        },
+        "selected": [],
+        "largest_unselected": {
+          "atom": 4,
+          "species": "Co",
+          "distance_to_O1_A": 8.191,
+          "slab_to_OH": 0.1546
+        }
+      },
+      "Ni34Fe6Cu29Co31__s29_site1": {
+        "jobs": {
+          "slab": "slab__atomic",
+          "OH": "OH__atomic"
+        },
+        "occupations": {
+          "slab": "results/arm_c_ext_r6_2026-10-11/sources/Ni34Fe6Cu29Co31__s29_site1/slab__atomic.occup.txt",
+          "OH": "results/arm_c_ext_r6_2026-10-11/sources/Ni34Fe6Cu29Co31__s29_site1/OH__atomic.occup.txt"
+        },
+        "printed_final_max_difference": {
+          "slab": 0.0005,
+          "OH": 0.000499
+        },
+        "potential_limiting_step": 1,
+        "hubbard_atoms": 17,
+        "bonded": {
+          "atom": 18,
+          "species": "Ni",
+          "distance_to_O1_A": 1.879,
+          "slab_to_OH": 0.3602
+        },
+        "selected": [],
+        "largest_unselected": {
+          "atom": 21,
+          "species": "Co",
+          "distance_to_O1_A": 4.114,
+          "slab_to_OH": 0.063
+        }
+      }
+    }
+  },
+  "mixing": {
+    "mixing_beta": 0.3,
+    "mixing_ndim": 16,
+    "mixing_fixed_ns": 5
+  },
+  "qe_max_seconds": {
+    "r6_ni31": 4900,
+    "r6_cu26": 8500
+  },
+  "status": "exploratory; arm C's registered readings stay final",
+  "selection": [
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Ni31Cr29Cu5Mn35__s1_site0",
+      "formula": "Ni31Cr29Cu5Mn35",
+      "state": "slab",
+      "second_start": true,
+      "first": {
+        "job": "slab__atomic",
+        "recipe": "production",
+        "E_eV": -107104.01925630328,
+        "total_magnetization": 37.32
+      },
+      "seed": {
+        "state": "slab",
+        "job": "slab__atomic",
+        "recipe": "production",
+        "root": "hea/arm_c_2026-10-07",
+        "id": "Ni31Cr29Cu5Mn35__s1_site0__slab__atomic"
+      },
+      "dir": "hea/arm_c_ext_r6_2026-10-11/Ni31Cr29Cu5Mn35__s1_site0",
+      "job": "slab__atomic_cr19oh_fixns5",
+      "round": 6,
+      "stage": "r6_ni31",
+      "qe_max_seconds": 4900,
+      "seed_density": "own_converged",
+      "bundle": "results/arm_c_ext_r6_2026-10-11/seeds/Ni31Cr29Cu5Mn35__s1_site0/slab",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Ni31Cr29Cu5Mn35__s1_site0/tmp_slab__atomic/slab__atomic.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Ni31Cr29Cu5Mn35__s1_site0/tmp_slab__atomic/slab__atomic.save/data-file-schema.xml"
+      },
+      "mixing": {
+        "mixing_beta": 0.3,
+        "mixing_ndim": 16,
+        "mixing_fixed_ns": 5
+      },
+      "screen": {
+        "atom": 19,
+        "species": "Cr",
+        "distance_to_O1_A": 3.676,
+        "slab_to_OH": 0.4124,
+        "half_way": 0.2062
+      },
+      "occupations": {
+        "start": "results/arm_c_ext_r6_2026-10-11/sources/Ni31Cr29Cu5Mn35__s1_site0/slab__atomic.occup.txt",
+        "start_sha256": "f970885f6d8ac1280525eb5b37f8358658e8f4b0414768caf7fe03675e717743",
+        "atoms_replaced": [
+          19
+        ],
+        "from": {
+          "state": "OH",
+          "job": "OH__atomic",
+          "recipe": "production",
+          "path": "results/arm_c_ext_r6_2026-10-11/sources/Ni31Cr29Cu5Mn35__s1_site0/OH__atomic.occup.txt",
+          "sha256": "cfcfcc43b769df49974c9793234c492a9526e4342f4db1bd337f73814f5cdc41"
+        },
+        "sha256": "51c760f18bf160256db4a976824909909f0b51639694bf54ec3e186070a9bb2c"
+      },
+      "paw": {
+        "start": "results/arm_c_ext_r6_2026-10-11/sources/Ni31Cr29Cu5Mn35__s1_site0/slab__atomic.paw.txt",
+        "start_sha256": "30c329391939ab67d3fb7d440ba0f038741a9d3d78498c896494e954aae2c345",
+        "atoms_replaced": [
+          19
+        ],
+        "from": {
+          "state": "OH",
+          "job": "OH__atomic",
+          "path": "results/arm_c_ext_r6_2026-10-11/sources/Ni31Cr29Cu5Mn35__s1_site0/OH__atomic.paw.txt",
+          "remote": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Ni31Cr29Cu5Mn35__s1_site0/tmp_OH__atomic/OH__atomic.save/paw.txt",
+          "sha256": "f91fa56b474b22f2476d8e3e1b750f645988699e0f5672e5964b66c31243e77f"
+        },
+        "sha256": "fa0b5955fdc8975e430824b958745e93e55297b5429a09ce0d98b9e5960837eb"
+      },
+      "density": {
+        "source": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Ni31Cr29Cu5Mn35__s1_site0/tmp_slab__atomic/slab__atomic.save/charge-density.hdf5",
+        "sha256": "a21b75d35202d2c8a5b2b0edb5e42a91eab2cd09502c8f0009ffbbebee98d463",
+        "bytes": 148853940
+      }
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Ni31Cr29Cu5Mn35__s1_site0",
+      "formula": "Ni31Cr29Cu5Mn35",
+      "state": "OH",
+      "second_start": true,
+      "first": {
+        "job": "OH__atomic",
+        "recipe": "production",
+        "E_eV": -107685.70984194895,
+        "total_magnetization": 36.29
+      },
+      "seed": {
+        "state": "OH",
+        "job": "OH__atomic",
+        "recipe": "production",
+        "root": "hea/arm_c_2026-10-07",
+        "id": "Ni31Cr29Cu5Mn35__s1_site0__OH__atomic"
+      },
+      "dir": "hea/arm_c_ext_r6_2026-10-11/Ni31Cr29Cu5Mn35__s1_site0",
+      "job": "OH__atomic_cr19slab_fixns5",
+      "round": 6,
+      "stage": "r6_ni31",
+      "qe_max_seconds": 4900,
+      "seed_density": "own_converged",
+      "bundle": "results/arm_c_ext_r6_2026-10-11/seeds/Ni31Cr29Cu5Mn35__s1_site0/OH",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Ni31Cr29Cu5Mn35__s1_site0/tmp_OH__atomic/OH__atomic.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Ni31Cr29Cu5Mn35__s1_site0/tmp_OH__atomic/OH__atomic.save/data-file-schema.xml"
+      },
+      "mixing": {
+        "mixing_beta": 0.3,
+        "mixing_ndim": 16,
+        "mixing_fixed_ns": 5
+      },
+      "screen": {
+        "atom": 19,
+        "species": "Cr",
+        "distance_to_O1_A": 3.676,
+        "slab_to_OH": 0.4124,
+        "half_way": 0.2062
+      },
+      "occupations": {
+        "start": "results/arm_c_ext_r6_2026-10-11/sources/Ni31Cr29Cu5Mn35__s1_site0/OH__atomic.occup.txt",
+        "start_sha256": "cfcfcc43b769df49974c9793234c492a9526e4342f4db1bd337f73814f5cdc41",
+        "atoms_replaced": [
+          19
+        ],
+        "from": {
+          "state": "slab",
+          "job": "slab__atomic",
+          "recipe": "production",
+          "path": "results/arm_c_ext_r6_2026-10-11/sources/Ni31Cr29Cu5Mn35__s1_site0/slab__atomic.occup.txt",
+          "sha256": "f970885f6d8ac1280525eb5b37f8358658e8f4b0414768caf7fe03675e717743"
+        },
+        "sha256": "3f33078a83b08abe7c8d28d988cab61dac34a085e8811ff813ffe5d8c134a313"
+      },
+      "paw": {
+        "start": "results/arm_c_ext_r6_2026-10-11/sources/Ni31Cr29Cu5Mn35__s1_site0/OH__atomic.paw.txt",
+        "start_sha256": "f91fa56b474b22f2476d8e3e1b750f645988699e0f5672e5964b66c31243e77f",
+        "atoms_replaced": [
+          19
+        ],
+        "from": {
+          "state": "slab",
+          "job": "slab__atomic",
+          "path": "results/arm_c_ext_r6_2026-10-11/sources/Ni31Cr29Cu5Mn35__s1_site0/slab__atomic.paw.txt",
+          "remote": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Ni31Cr29Cu5Mn35__s1_site0/tmp_slab__atomic/slab__atomic.save/paw.txt",
+          "sha256": "30c329391939ab67d3fb7d440ba0f038741a9d3d78498c896494e954aae2c345"
+        },
+        "sha256": "a33dd2095bb9fefadf9360d81850580943051950596928a1d38fa69f3d08d737"
+      },
+      "density": {
+        "source": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Ni31Cr29Cu5Mn35__s1_site0/tmp_OH__atomic/OH__atomic.save/charge-density.hdf5",
+        "sha256": "d3d94adcf3b5b742a10cc26522ad616264a57a903879dc21b8b47237e11fa91a",
+        "bytes": 148853940
+      }
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s1_site0",
+      "formula": "Cu26Ni9Cr31Co33",
+      "state": "slab",
+      "second_start": true,
+      "first": {
+        "job": "slab__atomic",
+        "recipe": "production",
+        "E_eV": -105460.34475431198,
+        "total_magnetization": 27.65
+      },
+      "seed": {
+        "state": "slab",
+        "job": "slab__atomic",
+        "recipe": "production",
+        "root": "hea/arm_c_2026-10-07",
+        "id": "Cu26Ni9Cr31Co33__s1_site0__slab__atomic"
+      },
+      "dir": "hea/arm_c_ext_r6_2026-10-11/Cu26Ni9Cr31Co33__s1_site0",
+      "job": "slab__atomic_cr19oh_fixns5",
+      "round": 6,
+      "stage": "r6_cu26",
+      "qe_max_seconds": 8500,
+      "seed_density": "own_converged",
+      "bundle": "results/arm_c_ext_r6_2026-10-11/seeds/Cu26Ni9Cr31Co33__s1_site0/slab",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s1_site0/tmp_slab__atomic/slab__atomic.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s1_site0/tmp_slab__atomic/slab__atomic.save/data-file-schema.xml"
+      },
+      "mixing": {
+        "mixing_beta": 0.3,
+        "mixing_ndim": 16,
+        "mixing_fixed_ns": 5
+      },
+      "screen": {
+        "atom": 19,
+        "species": "Cr",
+        "distance_to_O1_A": 3.687,
+        "slab_to_OH": 0.281,
+        "half_way": 0.1405
+      },
+      "occupations": {
+        "start": "results/arm_c_ext_r6_2026-10-11/sources/Cu26Ni9Cr31Co33__s1_site0/slab__atomic.occup.txt",
+        "start_sha256": "c7bd27d379400df09c7efdcc291029290a6481fb18200a8488197487fd6a7ded",
+        "atoms_replaced": [
+          19
+        ],
+        "from": {
+          "state": "OH",
+          "job": "OH__atomic",
+          "recipe": "production",
+          "path": "results/arm_c_ext_r6_2026-10-11/sources/Cu26Ni9Cr31Co33__s1_site0/OH__atomic.occup.txt",
+          "sha256": "f3eb70633b4b173e15f2294e6cc3af2cb1e798e631ed60980f612e26d19095bd"
+        },
+        "sha256": "c73812d03abfc7064c48c0970179a3bcafd76a7514f371ba4b91beb59d1474a6"
+      },
+      "paw": {
+        "start": "results/arm_c_ext_r6_2026-10-11/sources/Cu26Ni9Cr31Co33__s1_site0/slab__atomic.paw.txt",
+        "start_sha256": "457ad7af6ed9be4b1b50eca6e800f057d6b35afc1477f58bb6ac9e6427a6e751",
+        "atoms_replaced": [
+          19
+        ],
+        "from": {
+          "state": "OH",
+          "job": "OH__atomic",
+          "path": "results/arm_c_ext_r6_2026-10-11/sources/Cu26Ni9Cr31Co33__s1_site0/OH__atomic.paw.txt",
+          "remote": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s1_site0/tmp_OH__atomic/OH__atomic.save/paw.txt",
+          "sha256": "18834a842229b3979da158735f6db6dd7dd76d3fad983b94248a829427cc9a1b"
+        },
+        "sha256": "8a1fec8a8480be5d7d9af64040fae73347f67454cfe5882322f4ff612d544b94"
+      },
+      "density": {
+        "source": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s1_site0/tmp_slab__atomic/slab__atomic.save/charge-density.hdf5",
+        "sha256": "2d5b2efdbccd883805a63b60ce9217b967d85cf1b8551ff861a48e788803436b",
+        "bytes": 152630724
+      }
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s1_site0",
+      "formula": "Cu26Ni9Cr31Co33",
+      "state": "OH",
+      "second_start": true,
+      "first": {
+        "job": "OH__atomic",
+        "recipe": "production",
+        "E_eV": -106042.19024716853,
+        "total_magnetization": 27.69
+      },
+      "seed": {
+        "state": "OH",
+        "job": "OH__atomic",
+        "recipe": "production",
+        "root": "hea/arm_c_2026-10-07",
+        "id": "Cu26Ni9Cr31Co33__s1_site0__OH__atomic"
+      },
+      "dir": "hea/arm_c_ext_r6_2026-10-11/Cu26Ni9Cr31Co33__s1_site0",
+      "job": "OH__atomic_cr19slab_fixns5",
+      "round": 6,
+      "stage": "r6_cu26",
+      "qe_max_seconds": 8500,
+      "seed_density": "own_converged",
+      "bundle": "results/arm_c_ext_r6_2026-10-11/seeds/Cu26Ni9Cr31Co33__s1_site0/OH",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s1_site0/tmp_OH__atomic/OH__atomic.save/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s1_site0/tmp_OH__atomic/OH__atomic.save/data-file-schema.xml"
+      },
+      "mixing": {
+        "mixing_beta": 0.3,
+        "mixing_ndim": 16,
+        "mixing_fixed_ns": 5
+      },
+      "screen": {
+        "atom": 19,
+        "species": "Cr",
+        "distance_to_O1_A": 3.687,
+        "slab_to_OH": 0.281,
+        "half_way": 0.1405
+      },
+      "occupations": {
+        "start": "results/arm_c_ext_r6_2026-10-11/sources/Cu26Ni9Cr31Co33__s1_site0/OH__atomic.occup.txt",
+        "start_sha256": "f3eb70633b4b173e15f2294e6cc3af2cb1e798e631ed60980f612e26d19095bd",
+        "atoms_replaced": [
+          19
+        ],
+        "from": {
+          "state": "slab",
+          "job": "slab__atomic",
+          "recipe": "production",
+          "path": "results/arm_c_ext_r6_2026-10-11/sources/Cu26Ni9Cr31Co33__s1_site0/slab__atomic.occup.txt",
+          "sha256": "c7bd27d379400df09c7efdcc291029290a6481fb18200a8488197487fd6a7ded"
+        },
+        "sha256": "ecdc76a03b96a55475b65868f95f92416ad3bc2070d53f1fbeba3de2c7ea2aa2"
+      },
+      "paw": {
+        "start": "results/arm_c_ext_r6_2026-10-11/sources/Cu26Ni9Cr31Co33__s1_site0/OH__atomic.paw.txt",
+        "start_sha256": "18834a842229b3979da158735f6db6dd7dd76d3fad983b94248a829427cc9a1b",
+        "atoms_replaced": [
+          19
+        ],
+        "from": {
+          "state": "slab",
+          "job": "slab__atomic",
+          "path": "results/arm_c_ext_r6_2026-10-11/sources/Cu26Ni9Cr31Co33__s1_site0/slab__atomic.paw.txt",
+          "remote": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s1_site0/tmp_slab__atomic/slab__atomic.save/paw.txt",
+          "sha256": "457ad7af6ed9be4b1b50eca6e800f057d6b35afc1477f58bb6ac9e6427a6e751"
+        },
+        "sha256": "cf148c3b4e728b7cbcef587755716269fbddd116119dac87bae1098b7cb3bfb0"
+      },
+      "density": {
+        "source": "/anvil/projects/x-che260157/sts_arm_c_2026-10-07/runs/hea/arm_c_2026-10-07/Cu26Ni9Cr31Co33__s1_site0/tmp_OH__atomic/OH__atomic.save/charge-density.hdf5",
+        "sha256": "7bb2a787288e3189aa22293338429ff2b191099191f7ef4d59fec712be97e199",
+        "bytes": 152630724
+      }
+    }
+  ]
+}

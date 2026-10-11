@@ -918,3 +918,133 @@ The outcome is the first one set before launch: more than 1 meV lower, with Fe 2
 | Start check | `results/arm_c_ext_r5_2026-10-10/start_check_20261011T003235Z.json`, run after the job had ended |
 | Checks | `results/arm_c_ext_r5_2026-10-10/checks.py` (`checks.job.json`) and `checks.json` |
 | Tests | `tests/test_arm_c_ext_r5.py`, 20 tests (the readout reproduction skips without the local projection outputs); 247 pass with the arm C and HEA QC suites |
+
+## Round 6, 2026-10-11
+
+Decision of record: Frank, 2026-10-10: "Go ahead with other values", after the Round 5 readout. The alternative was to deposit.
+
+**The question.** Round 5 found the Fe25 s25/2 production slab 259 meV above a lower slab, and Fe25's value rose by that much. No other state behind an alloy's value had been started from a second configuration. Round 6 asks the same question at the other value sites, where the data point to one.
+
+**The screen.** Step 1 (slab to OH) limits at all six complete sites behind the alloys' values, so the slab and the OH set each value.
+- At each site, every Hubbard atom more than 2.5 Å from the adsorbate's O is screened. Exactly one metal per site binds the O, at 1.80–1.89 Å, and every other Hubbard atom lies 3.5 Å or more away.
+- The distance is between the slab's and the OH's occupations of that atom: the Frobenius norm over both spins, from the saved `occup.txt` of each accepted run. Each file matches its run's final printed occupations to 5×10⁻⁴, QE's printing precision.
+- An atom whose distance exceeds 0.2 is selected. That threshold was set after the scan, in the gap it found; any value from 0.17 to 0.28 selects the same atoms.
+
+| Site | Largest distance away from the adsorbate | Selected |
+|---|---|---|
+| Ni31 s1/0 | Cr 19, 0.41 (3.7 Å from the O); next Ni 23, 0.13 | Cr 19 |
+| Cu26 s1/0 | Cr 19, 0.28 (3.7 Å); next Cr 22, 0.13 | Cr 19 |
+| Fe25 s25/2 (after round 5) | Co 12, 0.17 | — |
+| Cu22 s24/3 | Co 4, 0.15 (bottom layer) | — |
+| Ni31 s10/2 | Mn 17, 0.13 | — |
+| Ni34 s29/1 | Co 21, 0.06 | — |
+
+- At both selected sites, Cr 19's d moment (Tr up − Tr down) is lower in OH than in the slab: 1.77 against 2.63 at Ni31, 1.79 against 2.40 at Cu26. The Cr bound to the O, Cr 17, moves the other way, so the two Cr appear to trade a charge between the slab and OH.
+- For comparison, Fe 22 at Fe25 s25/2 differed by 0.94 between the production slab and OH.
+- *Cr 19 is a weaker candidate than Fe 22 was.*
+  - Each state's structure was relaxed on its own, and Cr 19 sits 0.20 Å apart between the slab and OH structures at Ni31 s1/0 and 0.15 Å apart at Cu26 s1/0. Fe 22 sat 0.03 Å apart.
+  - At both sites, Cr 19 is the most displaced Hubbard atom not bonded to the O.
+  - Across those atoms, the slab-to-OH distance tracks the displacement (correlation 0.83 at Ni31 s1/0, 0.93 at Cu26 s1/0).
+  - So Cr 19's difference may follow the geometry rather than mark a second electronic state at one geometry.
+- *Scope.* The screen compares only the slab with the OH, the two states that set every value here. Other states differ elsewhere (final printed occupations):
+  - At Cu26 s1/0, Co 6 in the bottom layer, 9.1 Å from the O and not displaced at all, differs by 1.1 between {slab, OH} and {O, OOH}.
+  - At Cu22 s24/3, the OOH's Co 23 lies 0.82 from the slab's and the OH's.
+  - At Fe25 s25/2, the O's Co 12 lies 0.26–0.40 from the other states'.
+  - These enter only steps that do not limit, ΔG2–ΔG4, and none comes near making them limit. Cu atoms (no U) and O atoms carry no Hubbard occupations and cannot be screened this way.
+- At the four other sites the screen finds no slab-to-OH difference of round 5's kind. That does not show their slabs and OHs are the lowest states: a configuration that neither state reached cannot show up in this screen.
+
+**The runs.** Four second starts, each of an accepted production state, by round 5's method.
+
+| Site | State | Cr 19 taken from | Job |
+|---|---|---|---|
+| Ni31 s1/0 | slab | OH | `slab__atomic_cr19oh_fixns5` |
+| Ni31 s1/0 | OH | slab | `OH__atomic_cr19slab_fixns5` |
+| Cu26 s1/0 | slab | OH | `slab__atomic_cr19oh_fixns5` |
+| Cu26 s1/0 | OH | slab | `OH__atomic_cr19slab_fixns5` |
+
+- *Start.* Each run starts from its own state's converged save (arm C, 2026-10-07).
+  - `start_sources.json` pins all four saves on Anvil and mirrors their `occup.txt` and `paw.txt`, sha256-matched.
+  - The density and XML are copied on Anvil.
+  - In `occup.txt` and `paw.txt`, Cr 19's blocks (both spins) come from the other state; every other atom keeps the run's own values.
+  - Cr is an ultrasoft species here, so QE uses only its occupations. Its `paw.txt` block is carried, as in rounds 1–5, but has no effect. Unlike round 5's Fe 22, which is PAW, the start differs from the run's own state only in Cr 19's occupations, held for 5 iterations.
+- *Deck.* The production deck with round 5's edits: its own prefix, `startingpot = 'file'`, `mixing_ndim = 16` and `mixing_fixed_ns = 5`. The one change from round 5 is QE's own stop, `max_seconds`.
+- *Limits.* One array of two runs per site, each run's wall set by how slowly that site converged in production.
+  - Production took 38 and 38 iterations at Ni31 s1/0 (slab, OH) and 76 and 119 at Cu26 s1/0. Round 5's restart took about as many as its production run (65 against 69).
+  - Ni31 s1/0: 120 min per run, a 5,500 s SCF wall, `max_seconds = 4900`.
+  - Cu26 s1/0: 180 min per run, a 9,100 s SCF wall, `max_seconds = 8500`.
+  - Both sites: up to 300 iterations. QE stops itself 600 s before the SCF wall, and 1,100 s of each wall stays outside the SCF and projection walls, as in rounds 3–5.
+  - At the 55–61 s per iteration of rounds 3 and 5, that allows some 80–90 iterations at Ni31 s1/0 and 140–155 at Cu26 s1/0.
+  - Ceiling: 2 × 256 + 2 × 384 = 1,280 SU.
+  - Spent before launch: 22,314.3 SU.
+  - Campaign bound: 23,594.3 SU, inside the approved 23,680.
+- *Start check.* Round 5's, for each run's own atom.
+
+**Readout rule, set before launch.** Round 5's `second_start` rule, unchanged.
+- A run replaces its state only if it converges after the held iterations and lies more than 1 meV below the first run.
+- A replaced slab raises ΔG1. A replaced OH lowers ΔG1 and raises ΔG2. If both states at a site are replaced, ΔG1 moves by the OH's change minus the slab's.
+- The site then records its value with the first runs (`eta_dft_V_with_first`).
+
+**What a result means.** Each energy outcome is read together with where Cr 19 ends.
+- Cr 19 is in the slab's or the OH's configuration if its occupations lie within half the distance between the two: 0.21 at Ni31 s1/0, 0.14 at Cu26 s1/0. Otherwise it is in another configuration. The two configurations were taken at different geometries, so these labels are approximate.
+- *The expected outcome if the difference follows the geometry:* each run returns to its own state's Cr 19 configuration and converges within 1 meV of its first run, and the value stands. A return does not show that the other configuration is higher at that geometry; it may not exist there as a separate state.
+- *Slab more than 1 meV lower:* the site's value rises by the difference, and step 1 still limits.
+  - Ni31's value is 0.3 × s1/0 + 0.7 × s10/2, so it rises by 0.3 × that. More than 25.7 mV at s1/0 puts Ni31 after Cu22 (0.942 V).
+  - Cu26's value is its one site's. A rise of more than 321 mV puts it after Ni31, and more than 329 mV after Cu22.
+- *OH more than 1 meV lower:* the site's value falls by the difference, until another step limits. Beyond that, the value rises again with ΔG2.
+  - At Ni31 s1/0 the floor is 0.420 V, reached at 0.35 eV, where ΔG2 takes over. The site regains its present value at 0.70 eV. Ni31's value falls by at most 0.104 V, to 0.830 V, and Ni31 keeps its place for any OH lowering below 0.72 eV.
+  - At Cu26 s1/0 the floor is 0.393 V, from 0.22 eV (ΔG3 limits) to 0.37 eV (ΔG2 takes over). The site regains its present value at 0.59 eV, and Cu26 stays first for any OH lowering below 0.91 eV.
+  - A replaced OH carries its new Cr 19 configuration, while the O and OOH keep theirs. Past the floor, where ΔG2 or ΔG3 limits, that difference would enter the limiting step.
+- *Lower, with Cr 19 in the configuration it started in:* the state was not the lowest found, and the other state's Cr 19 configuration is lower for it too, at its own geometry.
+- *Lower, with Cr 19 back in its own configuration or in another:* the value moves by the rule, but other atoms carry the difference; those atoms are reported.
+- *Within 1 meV:* the value stands. If Cr 19 went back, it is the same state. If it stayed, it is a second state within 1 meV, and Cr 19's configuration costs that state almost nothing.
+- *Higher, with Cr 19 still in the configuration it started in:* the value stands by the rule. That configuration costs this state the difference at its geometry. Other configurations stay untested.
+- *Higher, with Cr 19 back in its own configuration or in another:* the value stands by the rule, and other atoms carry the difference; those atoms are reported.
+- *Stopped without converging, or converged within the hold (HELD):* the value stands, and nothing is learned from that run. A continuation would need a separate approval and SU beyond the 85.7 left in the approved total.
+- *The search is still partial.* Round 6 tests only the configuration of Cr 19 that the other of slab and OH reached at each site. If no run converges lower, every value stands as read out after round 5.
+- Reported with any result:
+  - each run's energy and total moment against its first run's;
+  - Cr 19's occupations at the end against the site's converged states;
+  - every Hubbard atom's change from the run's own start;
+  - each site's and alloy's value with the first runs and with any replacement.
+
+**Readout.** The command stacks rounds 2 to 6:
+
+```
+python src/dft/arm_c_readout.py --plan results/arm_c_2026-10-07/site_plan.json \
+  --mirror results/arm_c_2026-10-07/raw_mirror \
+  --rerun-plan results/arm_c_2026-10-07_rerun/rerun_plan.json \
+  --rerun-mirror results/arm_c_2026-10-07_rerun/raw_mirror \
+  --ext-plan results/arm_c_ext_r2_2026-10-08/ext_plan.json --ext-mirror results/arm_c_ext_r2_2026-10-08/raw_mirror \
+  --ext-plan results/arm_c_ext_r3_2026-10-09/ext_plan.json --ext-mirror results/arm_c_ext_r3_2026-10-09/raw_mirror \
+  --ext-plan results/arm_c_ext_r4_2026-10-10/ext_plan.json --ext-mirror results/arm_c_ext_r4_2026-10-10/raw_mirror \
+  --ext-plan results/arm_c_ext_r5_2026-10-10/ext_plan.json --ext-mirror results/arm_c_ext_r5_2026-10-10/raw_mirror \
+  --ext-plan results/arm_c_ext_r6_2026-10-11/ext_plan.json --ext-mirror results/arm_c_ext_r6_2026-10-11/raw_mirror \
+  --out results/arm_c_ext_r6_2026-10-11/readout.json
+```
+
+**Pre-launch review.** An independent review found no mechanical blocker. It confirmed:
+- the transplant: only atom 19's 50 occupation values and its two PAW blocks change, at the right offsets for 72 and 74 atoms;
+- that each deck differs from production in the five lines only;
+- that QE 7.5 reads the start through `read_scf` and holds every Hubbard atom's occupations alike, ultrasoft or PAW;
+- the screen's accepted runs and their saves;
+- every number in the outcomes above, with the CHE code;
+- the budget, and the ops against round 5's and round 3's.
+
+Folded from it:
+- Cr 19's geometric displacement, and the expected outcome if its difference follows the geometry;
+- that only Cr 19's occupations act;
+- the screen's slab-to-OH scope, and the other states' differences it does not cover;
+- "Higher" read with where Cr 19 ends;
+- the rise past each OH floor, and the spectator term a replaced OH would bring into ΔG2 or ΔG3;
+- walls set per site, after it found that 150 min would allow only 110–120 iterations against Cu26 s1/0's 119 in production;
+- tests of the stacked readout with round 6 as its last layer, of a time stop, and of a hold on an OH row.
+
+| Part | Location |
+|---|---|
+| Builder | `src/dft/arm_c_ext_r6_build.py`, with `--check` (16 files); the screen is in `ext_plan.json` (`screen`) |
+| Start sources | `results/arm_c_ext_r6_2026-10-11/start_sources.py`, `start_sources.json` and `sources/` |
+| Decks, manifests | `runs/hea/arm_c_ext_r6_2026-10-11/`; `runs/m_arm_c_ext_r6_2026-10-11_ni31.txt` and `_cu26.txt` |
+| Spec, plan, rebuilt files | `results/arm_c_ext_r6_2026-10-11/` (`launch_spec.json`, `ext_plan.json`, `seeds/`: `occup.txt` and `paw.txt`) |
+| Slurm | `anvil/101_arm_c_ext_r6.slurm`: stages `r6_ni31` and `r6_cu26`, with round 5's resources |
+| Operations | `results/arm_c_ext_r6_2026-10-11/launch_ops.py` (two arrays; round 3's check of a multi-task array), `start_check.py` (round 5's, for each run's atom), `status_once.py`, `collect_terminal.py` |
+| Tests | `tests/test_arm_c_ext_r6.py`, 18 tests (the stacked readout skips without the local projection outputs); 265 pass with the arm C and HEA QC suites |
