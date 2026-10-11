@@ -1,8 +1,8 @@
 """Offline checks for round 6 of the S8 arm-C extension (second starts of the slab and the OH at Ni31 s1/0 and Cu26
 s1/0, each from its own converged density with Cr 19's Hubbard occupations and PAW block from the other state, the
-occupations held for the first 5 iterations), for the screen that selected them and for the readout's second-start
-rule applied to an OH; never launch QE/Slurm or open a network connection. The stacked readout with round 6 as its
-last layer needs the local projection outputs of the earlier layers and skips without them."""
+occupations held for the first 5 iterations), for the screen that selected them, for the readout's second-start
+rule applied to an OH, and for round 6's terminal readout and checks; never launch QE/Slurm or open a network
+connection. The stacked readouts need the local projection outputs and skip without them."""
 import hashlib
 import importlib.util
 import json
@@ -422,3 +422,100 @@ def test_the_stacked_readout_takes_round_6_as_its_last_layer(tmp_path):
         k: v for k, v in before.items() if k not in ("Ni31Cr29Cu5Mn35", "Cu26Ni9Cr31Co33")}  # Fe25 keeps round 5's slab
     assert stacked["counts"] == dict(R5_READOUT["counts"], ext_attempted=19, ext_accepted=9, ext_seed_read=19,
                                      ext_second_starts=5, ext_second_starts_used=3)
+
+
+# ---------------------------------------------------------------- the round-6 terminal readout
+def test_the_collection_matches_anvil_and_every_start_check_passed():
+    collection = json.loads((PACKAGE / "terminal_collection.json").read_text(encoding="utf-8"))
+    assert collection["all_match"] and len(collection["files"]) == 28
+    kept = [f for f in collection["files"] if not f["path"].endswith(".projwfc.out")]  # projection: local only
+    assert len(kept) == 24 and all(sha(PACKAGE / "raw_mirror" / f["path"]) == f["remote_sha256"] for f in kept)
+    arrays = json.loads((PACKAGE / "submit_receipt.json").read_text(encoding="utf-8"))["jobs"]
+    tasks = [line.split("|") for line in collection["sacct"].splitlines() if "." not in line.split("|")[0]]
+    assert [(t[0], t[2], t[6]) for t in tasks] == [(arrays[stage] + f"_{k}", "COMPLETED", "0:0")
+                                                    for stage in ("r6_ni31", "r6_cu26") for k in (1, 2)]
+    first = json.loads((PACKAGE / "start_check_20261011T041033Z.json").read_text(encoding="utf-8"))
+    assert [j["match"] for j in first["jobs"]] == [True, True, None, None] and not first["any_mismatch"]
+    last = json.loads((PACKAGE / "start_check_20261011T205750Z.json").read_text(encoding="utf-8"))
+    assert last["all_started"] and last["all_match"] and not last["any_mismatch"]
+    for job, row in zip(last["jobs"], ROWS, strict=True):
+        assert (job["job"], job["dir"]) == (row["job"], row["dir"]) and job["density_read"] and job["held"]
+        assert job["atom"] == 19 and job["atom_printed"] == job["atom_expected"] and not job["over_tolerance"]
+    assert last["jobs"][:2] == first["jobs"][:2]  # Ni31's outputs had ended before the first check
+
+
+def test_the_round_6_readout_reproduces_the_committed_readout(tmp_path):
+    packages = ("results/arm_c_2026-10-07", "results/arm_c_2026-10-07_rerun", r2.PACKAGE, r4.PACKAGE, r5.PACKAGE,
+                r6.PACKAGE)
+    if not all(any((ROOT / p / "raw_mirror").rglob("*.projwfc.out")) for p in packages):
+        pytest.skip("projection outputs are kept local, outside git")
+    out = tmp_path / "readout.json"
+    args = ["--plan", "results/arm_c_2026-10-07/site_plan.json", "--mirror", "results/arm_c_2026-10-07/raw_mirror",
+            "--rerun-plan", "results/arm_c_2026-10-07_rerun/rerun_plan.json",
+            "--rerun-mirror", "results/arm_c_2026-10-07_rerun/raw_mirror"]
+    for package in (r2.PACKAGE, r3.PACKAGE, r4.PACKAGE, r5.PACKAGE, r6.PACKAGE):
+        args += ["--ext-plan", package + "/ext_plan.json", "--ext-mirror", package + "/raw_mirror"]
+    readout.main([a if a.startswith("--") else str(ROOT / a) for a in args] + ["--out", str(out)])
+    assert out.read_bytes() == (PACKAGE / "readout.json").read_bytes()
+
+
+def test_round_6_adds_four_unused_second_starts_and_changes_nothing_else():
+    stacked = json.loads((PACKAGE / "readout.json").read_text(encoding="utf-8"))
+    changed = [k for k, (now, then) in enumerate(zip(stacked["sites"], R5_READOUT["sites"], strict=True)) if now != then]
+    assert [r1.site_name(stacked["sites"][k]["dir"]) for k in changed] == list(SITES)
+    for k in changed:
+        site, then = stacked["sites"][k], R5_READOUT["sites"][k]
+        before = then.get("extension_attempts", [])
+        assert site["extension_attempts"][:len(before)] == before
+        new = site["extension_attempts"][len(before):]
+        assert [(a["state"], a["job"], a["round"]) for a in new] == [
+            ("slab", "slab__atomic_cr19oh" + r6.JOB_SUFFIX, 6), ("OH", "OH__atomic_cr19slab" + r6.JOB_SUFFIX, 6)]
+        for a in new:
+            assert a["accepted"] and a["failure"] is None and a["second_start"] and not a["lower"]
+            assert a["replaces"] is None and a["first_job"] == a["state"] + "__atomic"
+            assert abs(a["energy_vs_first_meV"]) < 0.2 and a["magnetization_vs_first_uB"] == 0.0
+            assert a["seed_read"] and a["seed_density"] == "own_converged" and not a["severe_failures"]
+            assert not a["magnetization_vs_site"]["flag"] and a["iterations"] > r6.MIXING["mixing_fixed_ns"]
+        assert {key: v for key, v in site.items() if key != "extension_attempts"} == {
+            key: v for key, v in then.items() if key != "extension_attempts"}
+        assert "eta_dft_V_with_first" not in site
+    assert stacked["alloys"] == R5_READOUT["alloys"]
+    assert stacked["counts"] == dict(R5_READOUT["counts"], ext_attempted=19, ext_accepted=9, ext_seed_read=19,
+                                     ext_second_starts=5, ext_second_starts_used=1)
+    assert {k: v for k, v in stacked.items() if k not in ("sites", "counts")} == {
+        k: v for k, v in R5_READOUT.items() if k not in ("sites", "counts")}
+
+
+def test_the_round_6_checks_reproduce_from_the_committed_mirrors():
+    module = load("checks.py")
+    built = module.build()
+    assert json.dumps(built, indent=1) + "\n" == (PACKAGE / "checks.json").read_text(encoding="utf-8")
+    assert [(r["site"], r["state"]) for r in built["runs"]] == [(r1.site_name(r["site_dir"]), r["state"]) for r in ROWS]
+    for run in built["runs"]:
+        energy, cr19, scf = run["energy"], run["cr19"], run["scf"]
+        assert energy["outcome"] == "within" and abs(energy["difference_meV"]) < 0.2
+        assert scf["held_iterations"] == [1, 2, 3, 4, 5] and scf["converged_in"] == scf["iterations"] > 5
+        assert cr19["started_in"] != run["state"] and cr19["returned"] and cr19["configuration"] == run["state"]
+        assert cr19["end_to_state"][run["state"]] < 0.002 < cr19["half_way"] < cr19["end_to_start"]
+        assert cr19["end_to_start"] == pytest.approx(cr19["slab_to_OH"], abs=1e-3)
+        assert cr19["between_converged"]["OH-OOH"] < 0.025  # the adsorbed states share Cr 19's configuration
+        assert run["occupations"]["largest_change_from_own"] < 0.02 and run["moments"]["total_change_uB"] == 0.0
+    assert [r["scf"]["rediagonalized_iterations"] for r in built["runs"]] == [[], [], [], [1]]
+    assert [r["occupations"]["atoms_over_0.01"] for r in built["runs"]] == [[], [], [6], [6]]  # Cu26's bottom Co 6
+    assert built["value"]["unchanged"] and built["value"]["order"] == built["value"]["order_round_5"]
+    assert built["cost"]["total_su"] == pytest.approx(226.42, abs=0.01)
+
+
+def test_a_second_reset_in_a_held_iteration_needs_qe_s_re_diagonalization(tmp_path):
+    module = load("checks.py")
+    row = ROWS[3]
+    assert (r1.site_name(row["site_dir"]), row["state"]) == (SITES[1], "OH")
+    out = PACKAGE / "raw_mirror/runs" / row["dir"] / (row["job"] + ".out")
+    text = out.read_text(errors="replace")
+    assert text.count(module.r4c.RESET) == 6 and text.count(module.LOWERED) == 1
+    with pytest.raises(ValueError, match="held iterations"):
+        module.r4c.scf(out, 5)  # round 4's parser expects one reset per held iteration
+    bare = tmp_path / out.name
+    bare.write_text(text.replace(module.LOWERED, "Diagonalizing"), encoding="utf-8")
+    with pytest.raises(ValueError, match="iteration 1 printed 2 resets with 0 re-diagonalizations"):
+        module.scf(bare, 5)

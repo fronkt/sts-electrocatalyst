@@ -1,6 +1,6 @@
 # S8 arm C extension — seeded SCFs for Cu8 and Fe25, 2026-10-08
 
-Status: **round 6 running, 2026-10-11 (Frank: "Go ahead with other values"): second starts of the slab and the OH at Ni31 s1/0 and Cu26 s1/0 with Cr 19 from the other state ([Round 6](#round-6-2026-10-11)). Ni31 s1/0's two runs (array 21244521, 129.1 SU) passed the start check and converged in 35 and 28 iterations, 0.011 and 0.006 meV below their first runs, with Cr 19 back in its own state's configuration (0.001 and 0.0003 from it, 0.41 from the other's). By the rule set before launch, Ni31's value stands. Cu26 s1/0's two runs (array 21244522) were still queued at 04:13Z; the readout waits for them.** Round 5 read out on 2026-10-10. The Fe25 s25/2 slab, restarted with Fe 22 in the adsorbed states' configuration, converged 259 meV below the production slab. By the rule set before launch, Fe25's exploratory single-site value rose from 0.893 to 1.152 V, fourth of the five values ([Round 5 readout](#round-5-readout-2026-10-10-the-slab-converged-259-mev-lower-fe25-rises-to-1152-v)). Cu8 still has no value, so K1, K2 and the Ni34 nomination stay not evaluable. Round 5 (Frank: "Just do the test since its so small") tested the spectator term at Fe 22 ([Round 5](#round-5-2026-10-10)). Before it:
+Status: **round 6 read out, 2026-10-11: all four second starts converged within 0.13 meV of their first runs, with Cr 19 back in its own state's configuration. By the rule set before launch, every value stands as read out after round 5 ([Round 6 readout](#round-6-readout-2026-10-11-every-run-returned-to-its-own-state-the-values-stand)).** Round 6 (Frank: "Go ahead with other values") restarted the slab and the OH at Ni31 s1/0 and Cu26 s1/0 with Cr 19 from the other state ([Round 6](#round-6-2026-10-11)). Round 5 read out on 2026-10-10. The Fe25 s25/2 slab, restarted with Fe 22 in the adsorbed states' configuration, converged 259 meV below the production slab. By the rule set before launch, Fe25's exploratory single-site value rose from 0.893 to 1.152 V, fourth of the five values ([Round 5 readout](#round-5-readout-2026-10-10-the-slab-converged-259-mev-lower-fe25-rises-to-1152-v)). Cu8 still has no value, so K1, K2 and the Ni34 nomination stay not evaluable. Round 5 (Frank: "Just do the test since its so small") tested the spectator term at Fe 22 ([Round 5](#round-5-2026-10-10)). Before it:
 - round 4 converged the Fe25 s25/2 O, which gave Fe25 its first value, 0.893 V ([Round 4 readout](#round-4-readout-2026-10-10-the-fe25-o-converged-fe25-has-a-single-site-value)). Round 4 (Frank: "Do the Fe25 O run") started Fe 22 in the configuration the site's OH and OOH share;
 - round 3 converged neither of its two states ([Round 3 readout](#round-3-readout-2026-10-10-neither-state-converged-no-value));
 - round 2 converged 3 of 11 ([Round 2 main readout](#round-2-main-readout-2026-10-09-3-of-11-converged-no-value)). Round 2 (Frank: "repair") moves each seed density onto the target's atoms;
@@ -1049,3 +1049,95 @@ Folded from it:
 | Operations | `results/arm_c_ext_r6_2026-10-11/launch_ops.py` (two arrays; round 3's check of a multi-task array), `start_check.py` (round 5's, for each run's atom), `status_once.py`, `collect_terminal.py` |
 | Launch | Commit 2f45a0f; staged (20 files, and each run's density and XML copied on Anvil from its own save, pins verified); preflight passed (balance 15,350.6 SU, queue empty, 0.8 TB free); held arrays 21244521 (`r6_ni31`, 512 SU) and 21244522 (`r6_cu26`, 768 SU) validated and released 2026-10-11 01:52Z (`stage_receipt.json` … `release_cu26_receipt.json`) |
 | Tests | `tests/test_arm_c_ext_r6.py`, 18 tests (the stacked readout skips without the local projection outputs); 265 pass with the arm C and HEA QC suites |
+
+## Round 6 readout, 2026-10-11: every run returned to its own state; the values stand
+
+**Runs.**
+- Array 21244521 (Ni31 s1/0) started 61 min after its release. Both runs ran on a795, one after the other, from 02:52Z to 03:54Z.
+- Array 21244522 (Cu26 s1/0) waited longer. Its slab ran on a825 from 08:27Z to 08:50Z, and its OH on a863 from 13:34Z to 13:57Z.
+- All four converged after the 5 held iterations, so the HELD rule did not apply:
+  - Ni31 s1/0: the slab in 35 iterations, the OH in 28;
+  - Cu26 s1/0: the slab in 24, the OH in 23.
+- Each runner receipt is COMPLETE, and each projection ran.
+- There were no QE errors; the only IEEE notes are underflow and denormal.
+- In its first iteration, QE re-diagonalized the Cu26 s1/0 OH with a lowered threshold, as it does when the threshold is too large. It mixed again and printed the RESET line a second time in that iteration.
+  - Round 4's trajectory parser expects one RESET per held iteration and rejects this output.
+  - `checks.py` allows the second line only with the re-diagonalization; a test covers this.
+- The start check passed for all four, each time after the runs it covered had ended:
+  - `start_check_20261011T041033Z.json` covers Ni31 s1/0, when Cu26 s1/0 was still queued;
+  - `start_check_20261011T205750Z.json` covers all four.
+  - QE printed the built occupations: traces within 5.0×10⁻⁶, Cr 19's matrices within 5.0×10⁻⁴.
+  - Each run read its density from file and held the occupations for iterations 1–5.
+
+**Cost.**
+- Round 6 used 226.42 SU (sacct CPU time: 815,104 core-seconds):
+  - Ni31 s1/0: 129.07 SU, inside its 512 SU ceiling;
+  - Cu26 s1/0: 97.35 SU, inside its 768 SU ceiling.
+- The campaign has used 22,540.7 SU of the approved 23,680, leaving 1,139.3.
+- Balance: 15,124.2 SU (`mybalance`, 2026-10-11 20:57Z). Its drop since the Round 5 readout, 226.4 SU, matches round 6's use.
+
+**Readout.** `readout.json` comes from the stacked command under Round 6.
+- It is round 5's readout with four second starts added and none used. A test checks that nothing else changed.
+- 44 of 64 SCFs are accepted and 7 of 16 sites complete, as before.
+- Extension: 19 attempted, 9 accepted. Five second starts in all; one is used, round 5's.
+- Each run lies within 0.13 meV of its first run (`energy_vs_first_meV`). So `lower` is false and `replaces` is empty.
+- Each total moment equals its first run's: 37.32 and 36.29 μB at Ni31 s1/0, 27.65 and 27.69 μB at Cu26 s1/0. No magnetic-state flag.
+- Every site and alloy value is round 5's.
+
+| Alloy | Value (V) | Basis |
+|---|---|---|
+| Cu26Ni9Cr31Co33 | 0.613 | one site (s1/0); its slab and OH were restarted in round 6 |
+| Ni31Cr29Cu5Mn35 | 0.934 | two sites; s1/0 (0.768 V, weight 0.3) was restarted in round 6 |
+| Cu22Fe30Co32Mn15 | 0.942 | one site (s24/3) |
+| Fe25Co25Ni25Cr25 | 1.152 | one site: s25/2, weight 0.8 (s13/0 incomplete); 0.893 with the production slab |
+| Ni34Fe6Cu29Co31 | 1.281 | one site (s29/1) |
+| Cu8Cr23Mn35Co34 | — | no value: s16/2 and s26/1 both incomplete |
+
+**The checks set before launch.** `checks.py` reads the committed mirrors, the start sources, the first runs' outputs and the readout, and writes `checks.json`.
+
+| Run | Energy against its first run | Cr 19 at the end | Largest change of another Hubbard atom |
+|---|---|---|---|
+| Ni31 s1/0 slab, Cr 19 from OH | −0.011 meV | 0.001 from the slab's, 0.41 from OH's: the slab's | 0.004 (Ni 18) |
+| Ni31 s1/0 OH, Cr 19 from the slab | −0.006 meV | 0.0003 from OH's, 0.41 from the slab's: OH's | 0.002 (Ni 18) |
+| Cu26 s1/0 slab, Cr 19 from OH | −0.078 meV | 0.002 from the slab's, 0.28 from OH's: the slab's | 0.013 (Co 6) |
+| Cu26 s1/0 OH, Cr 19 from the slab | −0.123 meV | 0.0004 from OH's, 0.28 from the slab's: OH's | 0.019 (Co 6) |
+
+The outcome is the one expected before launch. Each run converged within 1 meV of its first run, with Cr 19 back in its own state's configuration.
+- *Energy.* Each run approached its first run's energy from above. It passed below only in its last three iterations or fewer, by 0.006–0.123 meV. Each run reached its first run's state again.
+- *SCF path.*
+  - QE computes Cr 19's occupations in every held iteration and then resets them. After iteration 1, its d moment had already moved 60–71% of the way back to its own state's in all four runs.
+  - By iteration 5, the accuracy had fallen to 7×10⁻⁴–6×10⁻⁵ Ry, with Cr 19 still held in the other state's configuration.
+  - When the hold ended at iteration 6, the accuracy rose to 4–9×10⁻³ Ry, then fell to convergence.
+  - At its own geometry, each state pulled Cr 19 back from the first iteration.
+- *Occupations.*
+  - At Ni31 s1/0, every other Hubbard atom ended within 0.004 of its own state's.
+  - At Cu26 s1/0, only Co 6 moved more than 0.01 (0.013 and 0.019). This is the bottom-layer Co, 9.1 Å from the O, whose configuration differs by 1.1 between {slab, OH} and {O, OOH} (Round 6, "Scope"). Its d moment stayed at its own state's, 1.40 in the slab and 1.42 in OH.
+- *Moments.* No atom's sphere moment moved more than 0.0022 μB from its first run's; Cr 19's moved at most 0.0012 μB.
+- *Cr 19 in the other states* (the O's and OOH's as QE last printed them, to 3 decimals):
+  - At both sites, OOH's Cr 19 lies within 0.02 of OH's.
+  - O's lies between the slab's and OH's: 0.31 and 0.15 from them at Ni31 s1/0, 0.14 and 0.15 at Cu26 s1/0.
+  - So the three adsorbed states share roughly one configuration and the bare slab has another. Fe 22 showed the same pattern at Fe25 s25/2 before round 5. There, the slab restarted in the adsorbed states' configuration kept it and went 259 meV lower. Here, both slabs went back to their own configuration.
+
+**Consequence.**
+- By the rule set before launch, no state is replaced. Every value stands as read out after round 5, and the order is unchanged.
+- K1, K2 and the Ni34 nomination stay `NOT_EVALUABLE_UNDER_ARM_C`; each needs Cu8.
+- The returns fit the reading that Cr 19's difference follows the 0.15–0.20 Å it moves between the slab and OH structures, rather than a second electronic state at one geometry.
+- As set before launch, a return does not show that the other configuration is higher at a given geometry; it may not exist there as a separate state.
+
+**What the screen and round 6 cover.**
+- Every slab-to-OH difference of round 5's kind at the six value sites has now been restarted: Fe 22 at Fe25 s25/2 in round 5, and Cr 19 at Ni31 s1/0 and Cu26 s1/0 here. Only Fe 22's gave a lower state.
+- They do not cover:
+  - the O and OOH, which enter only steps that do not limit;
+  - a configuration that neither the slab nor the OH reached;
+  - Cu and O atoms, which carry no Hubbard occupations.
+- Round 5's 259 meV remains the only lower state found. The order stays descriptive only, as in §7.
+
+**Open for Frank.** Deposit the freeze, arm C and the extension readouts through round 6, as planned: before any OER measurement, with the Oct 21 fallback. The screen has no candidate left, and no further run is designed.
+
+| Part | Location |
+|---|---|
+| Readout | `results/arm_c_ext_r6_2026-10-11/readout.json` (`readout.job.json`); `terminal_collection.json`; `status_snapshot_20261011T041030Z.json`, `…T054941Z.json` and `…T205747Z.json` |
+| Mirror | `results/arm_c_ext_r6_2026-10-11/raw_mirror/`: each run's output, inputs, receipt, Slurm log and `occup.txt`, sha256-matched to Anvil; the projection outputs kept local |
+| Start check | `results/arm_c_ext_r6_2026-10-11/start_check_20261011T041033Z.json` (Ni31 s1/0), `…T054944Z.json` (unchanged) and `…T205750Z.json` (all four) |
+| Checks | `results/arm_c_ext_r6_2026-10-11/checks.py` (`checks.job.json`) and `checks.json` |
+| Tests | `tests/test_arm_c_ext_r6.py`, 23 tests (the readout reproductions skip without the local projection outputs); 270 pass with the arm C and HEA QC suites |
