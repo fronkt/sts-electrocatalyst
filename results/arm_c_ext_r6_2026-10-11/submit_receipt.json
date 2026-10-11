@@ -1,0 +1,25 @@
+{
+  "phase": "submit",
+  "at": "2026-10-11T01:51:23.207794+00:00",
+  "commands": {
+    "sbatch:r6_ni31": {
+      "command": "sbatch --hold --parsable --no-requeue --array=1-2%2 --time=02:00:00 --job-name=arm-c-ext-r6-ni31 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --export=ALL,STAGE=r6_ni31 /anvil/projects/x-che260157/sts_arm_c_ext_r6_2026-10-11/anvil/101_arm_c_ext_r6.slurm",
+      "stdout": "21244521\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-11T01:51:25.548717+00:00"
+    },
+    "sbatch:r6_cu26": {
+      "command": "sbatch --hold --parsable --no-requeue --array=1-2%2 --time=03:00:00 --job-name=arm-c-ext-r6-cu26 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --export=ALL,STAGE=r6_cu26 /anvil/projects/x-che260157/sts_arm_c_ext_r6_2026-10-11/anvil/101_arm_c_ext_r6.slurm",
+      "stdout": "21244522\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-11T01:51:26.263367+00:00"
+    }
+  },
+  "jobs": {
+    "r6_ni31": "21244521",
+    "r6_cu26": "21244522"
+  },
+  "spec_sha256": "ae56df7eed746f8989bc0c9bec0cd9b3ed325aa1ce4c98577d52185deaa1846d"
+}

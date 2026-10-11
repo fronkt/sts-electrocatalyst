@@ -1,0 +1,36 @@
+{
+  "phase": "validate",
+  "at": "2026-10-11T01:51:26.674716+00:00",
+  "commands": {
+    "held:r6_ni31": {
+      "command": "scontrol show job 21244521 -o",
+      "stdout": "JobId=21244521 ArrayJobId=21244521 ArrayTaskId=1-2%2 ArrayTaskThrottle=2 JobName=arm-c-ext-r6-ni31 UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=02:00:00 TimeMin=N/A SubmitTime=2026-10-10T21:51:25 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-10T21:51:25 Scheduler=Main Partition=wholenode AllocNode:Sid=login04:61588 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=200G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=200G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NODE Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts_arm_c_ext_r6_2026-10-11/anvil/101_arm_c_ext_r6.slurm SubmitLine=sbatch --hold --parsable --no-requeue --array=1-2%2 --time=02:00:00 --job-name=arm-c-ext-r6-ni31 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --export=ALL,STAGE=r6_ni31 /anvil/projects/x-che260157/sts_arm_c_ext_r6_2026-10-11/anvil/101_arm_c_ext_r6.slurm WorkDir=/home/x-fcai3 StdErr=/anvil/projects/x-che260157/sts_arm_c_ext_r6_2026-10-11/logs/arm_c_ext_r6_21244521_4294967294.log StdIn=/dev/null StdOut=/anvil/projects/x-che260157/sts_arm_c_ext_r6_2026-10-11/logs/arm_c_ext_r6_21244521_4294967294.log TresPerTask=cpu=1\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-11T01:51:27.660099+00:00"
+    },
+    "held:r6_cu26": {
+      "command": "scontrol show job 21244522 -o",
+      "stdout": "JobId=21244522 ArrayJobId=21244522 ArrayTaskId=1-2%2 ArrayTaskThrottle=2 JobName=arm-c-ext-r6-cu26 UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=03:00:00 TimeMin=N/A SubmitTime=2026-10-10T21:51:26 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-10T21:51:26 Scheduler=Main Partition=wholenode AllocNode:Sid=login04:62088 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=200G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=200G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NODE Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts_arm_c_ext_r6_2026-10-11/anvil/101_arm_c_ext_r6.slurm SubmitLine=sbatch --hold --parsable --no-requeue --array=1-2%2 --time=03:00:00 --job-name=arm-c-ext-r6-cu26 --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --export=ALL,STAGE=r6_cu26 /anvil/projects/x-che260157/sts_arm_c_ext_r6_2026-10-11/anvil/101_arm_c_ext_r6.slurm WorkDir=/home/x-fcai3 StdErr=/anvil/projects/x-che260157/sts_arm_c_ext_r6_2026-10-11/logs/arm_c_ext_r6_21244522_4294967294.log StdIn=/dev/null StdOut=/anvil/projects/x-che260157/sts_arm_c_ext_r6_2026-10-11/logs/arm_c_ext_r6_21244522_4294967294.log TresPerTask=cpu=1\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-11T01:51:28.132667+00:00"
+    }
+  },
+  "checks": {
+    "r6_ni31": {
+      "job": "21244521",
+      "mismatches": {},
+      "held": true,
+      "ceiling_cpu_su": 512
+    },
+    "r6_cu26": {
+      "job": "21244522",
+      "mismatches": {},
+      "held": true,
+      "ceiling_cpu_su": 768
+    }
+  },
+  "launch_ceiling_cpu_su": 1280,
+  "passed": true
+}

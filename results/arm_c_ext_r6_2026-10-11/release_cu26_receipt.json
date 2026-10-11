@@ -1,0 +1,24 @@
+{
+  "phase": "release",
+  "array": "r6_cu26",
+  "at": "2026-10-11T01:51:37.093434+00:00",
+  "commands": {
+    "release:r6_cu26": {
+      "command": "scontrol release 21244522",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-11T01:51:38.071442+00:00"
+    },
+    "after": {
+      "command": "squeue -u x-fcai3 -o '%i|%j|%T|%M|%l|%R'",
+      "stdout": "JOBID|NAME|STATE|TIME|TIME_LIMIT|NODELIST(REASON)\n21244521_2|arm-c-ext-r6-ni31|PENDING|0:00|2:00:00|(None)\n21244522_[1-2%2]|arm-c-ext-r6-cu26|PENDING|0:00|3:00:00|(None)\n21244521_1|arm-c-ext-r6-ni31|PENDING|0:00|2:00:00|(None)\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-11T01:51:38.656196+00:00"
+    }
+  },
+  "released": {
+    "r6_cu26": "21244522"
+  }
+}
