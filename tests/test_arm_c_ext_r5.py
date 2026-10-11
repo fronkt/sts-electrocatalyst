@@ -1,6 +1,8 @@
 """Offline checks for round 5 of the S8 arm-C extension (a second start of the Fe25 s25/2 slab from its own converged
 density, with Fe 22's Hubbard occupations and PAW block from the converged OH state, the occupations held for the
-first 5 iterations) and for the readout's second-start rule; never launch QE/Slurm or open a network connection."""
+first 5 iterations), for the readout's second-start rule and for round 5's readout and checks; never launch
+QE/Slurm or open a network connection. The readout reproduction needs the local projection outputs and skips
+without them."""
 import hashlib
 import importlib.util
 import json
@@ -15,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src/dft"))
 import arm_c_ext_build as r1  # noqa: E402
 import arm_c_ext_r2_build as r2  # noqa: E402
+import arm_c_ext_r3_build as r3  # noqa: E402
 import arm_c_ext_r4_build as r4  # noqa: E402
 import arm_c_ext_r5_build as r5  # noqa: E402
 import arm_c_readout as readout  # noqa: E402
@@ -329,3 +332,91 @@ def test_an_unused_second_start_never_flags_the_value_s_magnetic_state(tmp_path)
     quiet = second_start(tmp_path / "quiet", -5.0, moment=42.1)
     assert quiet["extension_attempts"][0]["magnetization_vs_first_uB"] == 0.12
     assert readout.magnetization_flags([quiet]) == []
+
+
+# ---------------------------------------------------------------- the round-5 terminal readout
+def test_the_collection_matches_anvil_and_the_start_check_passed():
+    collection = json.loads((PACKAGE / "terminal_collection.json").read_text(encoding="utf-8"))
+    assert collection["all_match"] and len(collection["files"]) == 7
+    kept = [f for f in collection["files"] if not f["path"].endswith(".projwfc.out")]  # projection: local only
+    assert all(sha(PACKAGE / "raw_mirror" / f["path"]) == f["remote_sha256"] for f in kept)
+    array = json.loads((PACKAGE / "submit_receipt.json").read_text(encoding="utf-8"))["jobs"]["r5_main"]
+    job_line = collection["sacct"].splitlines()[0].split("|")
+    assert (job_line[0], job_line[2], job_line[6]) == (array + "_1", "COMPLETED", "0:0")
+    receipt = json.loads((PACKAGE / "start_check_20261011T003235Z.json").read_text(encoding="utf-8"))
+    assert receipt["all_match"] and not receipt["any_mismatch"]
+    job = receipt["jobs"][0]
+    assert job["density_read"] and job["held"] and job["fe22_printed"] == job["fe22_expected"]
+
+
+def test_the_round_5_readout_reproduces_the_committed_readout(tmp_path):
+    mirrors = (ROOT / "results/arm_c_2026-10-07/raw_mirror", ROOT / "results/arm_c_2026-10-07_rerun/raw_mirror",
+               ROOT / r2.PACKAGE / "raw_mirror", ROOT / r4.PACKAGE / "raw_mirror", PACKAGE / "raw_mirror")
+    if not all(any(m.rglob("*.projwfc.out")) for m in mirrors):
+        pytest.skip("projection outputs are kept local, outside git")
+    out = tmp_path / "readout.json"
+    readout.main(["--plan", str(ROOT / "results/arm_c_2026-10-07/site_plan.json"), "--mirror", str(mirrors[0]),
+                  "--rerun-plan", str(ROOT / "results/arm_c_2026-10-07_rerun/rerun_plan.json"),
+                  "--rerun-mirror", str(mirrors[1]),
+                  "--ext-plan", str(ROOT / r2.PACKAGE / "ext_plan.json"), "--ext-mirror", str(mirrors[2]),
+                  "--ext-plan", str(ROOT / r3.PACKAGE / "ext_plan.json"),
+                  "--ext-mirror", str(ROOT / r3.PACKAGE / "raw_mirror"),
+                  "--ext-plan", str(ROOT / r4.PACKAGE / "ext_plan.json"), "--ext-mirror", str(mirrors[3]),
+                  "--ext-plan", str(PACKAGE / "ext_plan.json"), "--ext-mirror", str(mirrors[4]),
+                  "--out", str(out)])
+    assert out.read_bytes() == (PACKAGE / "readout.json").read_bytes()
+
+
+def test_round_5_replaces_the_fe25_s25_2_slab_and_changes_nothing_else():
+    stacked = json.loads((PACKAGE / "readout.json").read_text(encoding="utf-8"))
+    before = json.loads((ROOT / r4.PACKAGE / "readout.json").read_text(encoding="utf-8"))
+    changed = [k for k, (now, then) in enumerate(zip(stacked["sites"], before["sites"], strict=True)) if now != then]
+    assert [Path(stacked["sites"][k]["dir"]).name for k in changed] == [SITE]
+    site, then = stacked["sites"][changed[0]], before["sites"][changed[0]]
+    attempt = site["extension_attempts"][-1]
+    assert site["extension_attempts"][:-1] == then["extension_attempts"]
+    assert (attempt["job"], attempt["round"], attempt["accepted"], attempt["iterations"], attempt["failure"]) == (
+        "slab" + r5.JOB_SUFFIX, 5, True, 65, None)
+    assert attempt["second_start"] and attempt["lower"] and attempt["replaces"] == attempt["first_job"] == "slab__atomic"
+    assert attempt["energy_vs_first_meV"] == pytest.approx(-259.06, abs=0.01)
+    assert attempt["magnetization_vs_first_uB"] == 0.98 and not attempt["magnetization_vs_site"]["flag"]
+    assert attempt["seed_read"] and attempt["seed_density"] == "own_converged" and not attempt["severe_failures"]
+    assert site["states"]["slab"] == {k: v for k, v in attempt.items() if k not in ("state", "failure")}
+    assert {s: v for s, v in site["states"].items() if s != "slab"} == {
+        s: v for s, v in then["states"].items() if s != "slab"}
+    # the lower slab raises dG1, the limiting step, one for one; the production slab's value is kept beside it
+    assert site["eta_dft_V_with_first"] == then["eta_dft_V"]
+    assert site["eta_dft_V"] - then["eta_dft_V"] == pytest.approx(-attempt["energy_vs_first_meV"] / 1000, abs=1e-9)
+    assert site["potential_limiting_step"] == then["potential_limiting_step"] == 1
+    alloy = stacked["alloys"]["Fe25Co25Ni25Cr25"]
+    assert alloy["status"] == "SINGLE_SITE" and alloy["C_V"] == site["eta_dft_V"] and alloy["uses_extension"]
+    assert {k: v for k, v in stacked["alloys"].items() if k != "Fe25Co25Ni25Cr25"} == {
+        k: v for k, v in before["alloys"].items() if k != "Fe25Co25Ni25Cr25"}
+    assert stacked["counts"] == dict(before["counts"], ext_attempted=15, ext_accepted=5, ext_seed_read=15,
+                                     ext_second_starts=1, ext_second_starts_used=1)
+    predictions = stacked["exploratory_predictions"]
+    assert predictions["order_all_with_values"] == ["Cu26Ni9Cr31Co33", "Ni31Cr29Cu5Mn35", "Cu22Fe30Co32Mn15",
+                                                    "Fe25Co25Ni25Cr25", "Ni34Fe6Cu29Co31"]
+    assert {k: v for k, v in predictions.items() if not k.startswith("order")} == {
+        k: v for k, v in before["exploratory_predictions"].items() if not k.startswith("order")}
+    rest = [k for k in before if k not in ("sites", "counts", "alloys", "exploratory_predictions")]
+    assert sorted(stacked) == sorted(before) and all(stacked[k] == before[k] for k in rest)
+
+
+def test_the_round_5_checks_reproduce_from_the_committed_mirrors():
+    module = load("checks.py")
+    built = module.build()
+    assert json.dumps(built, indent=1) + "\n" == (PACKAGE / "checks.json").read_text(encoding="utf-8")
+    run, energy, fe22, value = built["scf"], built["energy"], built["fe22"], built["value"]
+    assert run["held_iterations"] == list(range(1, ROW["mixing"]["mixing_fixed_ns"] + 1)) and run["converged_in"] == 65
+    assert energy["outcome"] == "lower" and energy["first_iteration_below_production"] == 2
+    assert energy["hubbard_difference_meV"] > 0 > energy["rest_difference_meV"]  # the Hubbard term rises
+    assert fe22["configuration"] == "OH" and fe22["all_states_share_it"] and fe22["end_to_state"]["slab"] > 0.9
+    atoms = built["occupations"]["atoms"]
+    assert [a["atom"] for a in atoms[:4]] == [22, 12, 15, 13] and all(a["end_to_production"] < 0.04 for a in atoms[4:])
+    co12 = atoms[1]  # 3.5 A from Fe 22, now nearest the adsorbed states' configuration
+    assert co12["nearest_state"] == "OOH" and co12["end_to_state"]["OOH"] < 0.1 < co12["end_to_production"]
+    assert built["moments"]["total_change_uB"] == 0.98
+    assert value["potential_limiting_step"] == 1 and value["rise_mV"] == pytest.approx(-energy["difference_meV"])
+    low, high = value["E_O_shift_window_eV"]
+    assert low < 0 < high and value["eta_floor_V"] < value["eta_with_production_slab_V"] < value["eta_V"]
