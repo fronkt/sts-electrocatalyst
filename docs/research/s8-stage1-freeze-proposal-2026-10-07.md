@@ -1,10 +1,11 @@
-# S8 stage-1 melt freeze — proposal for the entrant's confirmation, 2026-10-07 (revised 2026-10-08)
+# S8 stage-1 melt freeze — proposal for the entrant's confirmation, 2026-10-07 (revised 2026-10-08 and 2026-10-11)
 
-Status: **proposed, not frozen, not deposited.** Frank's decisions of 2026-10-08 are recorded in place. Every item still marked **[CONFIRM]** needs his dated decision. The freeze takes effect only when the confirmed text is deposited (Zenodo, restricted, under concept 10.5281/zenodo.21963143, with a per-file manifest in `docs/deposits/`) **before the first ingot**, as required by roadmap §5 ("Retain the S8 freeze/deposit before first ingot") and the S8 rule "FREEZE BEFORE FIRE … No prediction may be revised after any measurement exists" (round-2 synthesis:600–626).
+Status: **proposed, not frozen, not deposited.** Frank's decisions of 2026-10-08 are recorded in place. The arm C extension's final readout of 2026-10-11 is in §3 and §4b. Every item still marked **[CONFIRM]** needs his dated decision. The freeze takes effect only when the confirmed text is deposited (Zenodo, restricted, under concept 10.5281/zenodo.21963143, with a per-file manifest in `docs/deposits/`) **before the first ingot**, as required by roadmap §5 ("Retain the S8 freeze/deposit before first ingot") and the S8 rule "FREEZE BEFORE FIRE … No prediction may be revised after any measurement exists" (round-2 synthesis:600–626).
 
 Revisions:
 - 2026-10-07: five alloys and three prediction arms (Frank: "Add Fe25."). The four-alloy version is archived at [s8-stage1-freeze-proposal-2026-10-07-archive-four-alloy.md](s8-stage1-freeze-proposal-2026-10-07-archive-four-alloy.md).
 - 2026-10-08: six alloys, arm C final, and the re-rank gate and IrO2 decisions. The five-alloy version is archived at [s8-stage1-freeze-proposal-2026-10-07-archive-five-alloy.md](s8-stage1-freeze-proposal-2026-10-07-archive-five-alloy.md).
+- 2026-10-11: the arm C extension's final readout (§3, §4b), and one deposit for the freeze and both readouts (§8). The 2026-10-08 version is archived at [s8-stage1-freeze-proposal-2026-10-07-archive-pre-extension-readout.md](s8-stage1-freeze-proposal-2026-10-07-archive-pre-extension-readout.md).
 
 Decisions of record (Frank, 2026-10-08):
 
@@ -22,13 +23,15 @@ Scope line [CONFIRM wording]: *"S8 is a declared exploratory validation set comp
 
 What the arms test:
 - **A vs B.** Both use the same machine-learned potential (MACE-MPA-0). They differ in how much of each alloy's surface they sample (12 vs 120 sites) and in the statistic (best site vs the 10th percentile of adsorbate-intact sites). Comparing them asks whether broader site sampling predicts measured activity better.
-- **C vs A and B.** Asks whether DFT refinement adds predictive value over the MLIP. Arm C's registered tests cannot be evaluated (§4), so it enters as an exploratory partial order over four alloys.
+- **C vs A and B.** Asks whether DFT refinement adds predictive value over the MLIP. Arm C's registered tests cannot be evaluated (§4), so it enters as an exploratory partial order over four alloys. Its extension adds Fe25, for an exploratory order over five (§4b); Cu8 has no DFT alloy value.
 
 Arm A was recorded on 2026-08-05 (`docs/37-hea-screen-result-and-melt-list.md`, commit 96b1cb1) before any melt or measurement, and is not revised here. It was never deposited as a freeze, so it enters as a **dated historical prediction**, labelled as such.
 
 **Blinding rule:** no OER measurement of any of the six alloys before two deposits:
 - this freeze, which carries arm C's final readout (§4);
 - the arm C extension's readout (§4b).
+
+Both readouts are final, so one deposit carries the freeze and both (§8).
 
 If the extension's readout is not deposited by **Oct 21** (roadmap sample-readiness date), OER measurements start anyway. The extension is then reported as not tested, and any later DFT result is labelled post hoc.
 
@@ -93,6 +96,17 @@ Batch 1 is all six chemically clean ("gated") compositions. The five-alloy rule 
 | Ni34Fe6Cu29Co31 | 1.281 | one site (s29/1) |
 | Cu8Cr23Mn35Co34, Fe25Co25Ni25Cr25 | none | no complete support site |
 
+**Arm C extension (exploratory, final 2026-10-11, §4b):** the same quantity with the extension's converged states added. It gives Fe25 a value; the other four values are arm C's.
+
+| Alloy | C extension (V) | Basis |
+|---|---|---|
+| Cu26Ni9Cr31Co33 | 0.613 | one site (s1/0), as in arm C |
+| Ni31Cr29Cu5Mn35 | 0.934 | two sites, as in arm C |
+| Cu22Fe30Co32Mn15 | 0.942 | one site (s24/3), as in arm C |
+| Fe25Co25Ni25Cr25 | 1.152 | one site (s25/2), with round 5's slab; 0.893 with the production slab |
+| Ni34Fe6Cu29Co31 | 1.281 | one site (s29/1), as in arm C |
+| Cu8Cr23Mn35Co34 | none | no complete support site |
+
 Predicted orders, where "<" means a lower overpotential, i.e. more active:
 
 | Arm | Order |
@@ -101,6 +115,7 @@ Predicted orders, where "<" means a lower overpotential, i.e. more active:
 | B primary | Cu8 < Ni31 < Cu26 < Fe25 < Ni34 < Cu22 |
 | B secondary | Cu26 < Cu8 < Ni34 < Cu22 < Fe25 < Ni31 |
 | C (exploratory, four alloys) | Cu26 < Ni31 < Cu22 < Ni34 |
+| C extension (exploratory, five alloys) | Cu26 < Ni31 < Cu22 < Fe25 < Ni34 |
 
 Registered hypotheses for the measured endpoint. K1 and K2 are judged on the five K-set alloys; Ni34 is excluded from them by rule (§2).
 
@@ -116,7 +131,7 @@ Registered hypotheses for the measured endpoint. K1 and K2 are judged on the fiv
 - **Exploratory:**
   - arm B's leader (Cu8 most active of the six; its interval lies below all five others);
   - arm A's leader (Ni31 most active);
-  - each arm's full order over the alloys it ranks (A and B: six; C: four);
+  - each arm's full order over the alloys it ranks (A and B: six; C: four; the C extension: five);
   - Ni34's measured position.
 - **Chance levels under a random order:**
 
@@ -138,7 +153,7 @@ Uncertainty frozen with the predictions:
 - **The models disagree.** At twelve shared sites, four MLIP models name 2–4 different leaders.
 - **Cu8's lead is narrow and Cr-based.** Its arm-B p10 rests on two reconstructed-Cr sites (seed16/site2, seed26/site1).
 - **The descriptor favours Cr more than experiment does.** The DFT reference panel the MLIP was validated against (rutile endmembers, `tier_v2`) puts CrO2 first: η 0.330 V, ahead of IrO2 at 0.781 V and RuO2 at 0.787 V. That inverts the experimental ordering (docs/36:191). K1 therefore also tests whether the descriptor's Cr preference survives in a real alloy.
-- **DFT sits above the MLIP.** At the six sites with complete DFT, DFT η is 0.10–0.52 V higher than the MLIP's, by a site-dependent amount (arm C design doc §7).
+- **DFT sits above the MLIP.** At arm C's six sites with complete DFT, DFT η is 0.10–0.52 V higher than the MLIP's, by a site-dependent amount (arm C design doc §7). At the extension's Fe25 s25/2 it is 0.60 V higher (§4b).
 - **Predictions are ordinal only.** The computational-hydrogen-electrode descriptor leaves out kinetics, surface reconstruction and conductivity.
 
 ## 4. Arm C — as built and final
@@ -155,17 +170,43 @@ Uncertainty frozen with the predictions:
 
 **Batch 2: none.** Ni34, the only alloy arm C could have nominated, is in batch 1 (§2), and arm C cannot nominate in any case. No later batch is part of S8.
 
-### 4b. Arm C extension (exploratory)
+### 4b. Arm C extension (exploratory): final readout, 2026-10-11
 
-Decision (Frank, 2026-10-08): "Let's rerun DFT for those and get values for them."
-- **Scope:** the 11 SCFs still missing at Cu8's and Fe25's support sites:
+Decision (Frank, 2026-10-08): "Let's rerun DFT for those and get values for them." Each later round was his decision after the previous readout: "repair" (round 2), "Lets do a round 3", "Do the Fe25 O run" (round 4), "Just do the test since its so small" (round 5) and "Go ahead with other values" (round 6).
+- **Scope:** first, the 11 SCFs still missing at Cu8's and Fe25's support sites:
   - Cu8 s16/2: slab, OH, OOH;
   - Cu8 s26/1: slab, O, OOH;
   - Fe25 s13/0: OH, O, OOH;
   - Fe25 s25/2: OH, O.
-- **Recipe:** chosen for the observed failure modes (magnetic-state wandering and stalls). It is fixed, with its acceptance rule, before launch in the extension's design record.
-- **Status:** the extension was decided after the arm C readout, so it cannot change arm C's registered readings, which stay final.
-- **What it can add:** values for Cu8 and Fe25, a six-alloy DFT order, and DFT readings of K1 and K2. All are exploratory predictions, frozen when the extension's readout is deposited, before any OER measurement.
+
+  Then second starts of accepted states behind the values: the Fe25 s25/2 slab (round 5), and the slab and the OH at Ni31 s1/0 and Cu26 s1/0 (round 6).
+- **Record:** the design, each round's rules (each set before that round's launch) and every readout are in [s8-arm-c-extension-2026-10-08.md](s8-arm-c-extension-2026-10-08.md). The final readout stacks rounds 2–6: `results/arm_c_ext_r6_2026-10-11/readout.json` (commit f944a91).
+- **Status:** the extension was decided after arm C's readout, so it cannot change arm C's registered readings, which stay final (§4).
+
+| Round | What ran | Outcome |
+|---|---|---|
+| 1 | a 2-task canary of the 11 seeded SCFs | failed: the copied seed density kept the seed's adsorbate charge. The main array was cancelled before it ran |
+| 2 | the 11 SCFs, each from the converged density of a neighbouring state at its site, moved onto its atoms | 3 converged: Cu8 s16/2 OH and OOH, Fe25 s25/2 OH |
+| 3 | the Cu8 s16/2 slab and the Fe25 s25/2 O, up to 300 iterations | neither converged |
+| 4 | the Fe25 s25/2 O, with Fe 22's occupations taken from the converged OH | converged; Fe25 gets a single-site value, 0.893 V |
+| 5 | a second start of the Fe25 s25/2 slab, with Fe 22's occupations from OH | converged 259 meV below the production slab. By the rule set before launch it replaces that slab, and Fe25 rises to 1.152 V |
+| 6 | second starts of the slab and the OH at Ni31 s1/0 and Cu26 s1/0, each with Cr 19's occupations from the other state | all four returned to their own states, within 0.13 meV; no value changed |
+
+- **Cost:** 5,140.9 SU. With arm C, the campaign used 22,540.7 SU of the approved 23,680.
+- **Result:** exploratory values for five alloys (§3). Cu8 has none: neither of its support sites is complete, because the s16/2 slab and the s26/1 slab, O and OOH never converged. The exploratory order is Cu26 < Ni31 < Cu22 < Fe25 < Ni34.
+- **K1, K2 and the Ni34 nomination stay not evaluable** under the registered rules, here as in arm C. Each needs a value for every alloy it compares (K1: Cu8, Ni31 and Fe25; K2: the five K-set alloys; the nomination: all six), and Cu8 has none.
+  - K1 turns on Cu8 itself.
+  - For K2 and the nomination, the five values already fix the outcome whatever Cu8's value. Fe25 ranks after Cu22, so Cu22 cannot be the least active of the five K-set alloys. Four alloys rank ahead of Ni34, so it cannot be first or second of the six. These are exploratory readings, not registered ones.
+- **Caveats frozen with it:**
+  - Fe25's value rests on one support site, s25/2, and on round 5's slab; with the production slab it is 0.893 V.
+  - The search at Fe25 s25/2 is one-sided. Round 5 restarted only the slab, and no adsorbed state there was started outside the configuration it converged to. A lower OH would lower Fe25's value, to 0.543 V at most.
+  - Rounds 5 and 6 restarted every slab-to-OH difference of round 5's kind (one atom away from the adsorbate in a different configuration) at the six complete sites behind the values. Only Fe25's gave a lower state. Untested: the O and OOH states, configurations that neither the slab nor the OH reached, and Cu and O atoms, which carry no Hubbard occupations.
+  - DFT − MLIP at Fe25 s25/2 is +0.60 V, above the +0.10 to +0.52 V of arm C's six complete sites (§3).
+  - Ni31 and Cu22 differ by 8 mV, far inside DFT+U error. The order is descriptive only.
+- **Departures recorded:**
+  - Every round after the first was chosen after the previous readout was known, to test a question that readout raised. This is a further reason the extension is exploratory.
+  - Round 6's selection threshold was set after its screen was run, inside the gap the screen found; any threshold from 0.17 to 0.28 selects the same atoms.
+- **When frozen:** every value was computed before any OER measurement of these alloys. The values are frozen when this freeze is deposited (§8).
 
 ## 5. Processing [CONFIRM values]
 
@@ -187,6 +228,7 @@ Decision (Frank, 2026-10-08): "Let's rerun DFT for those and get values for them
 - **Lab:** the Tackett group, Purdue (reply of 2026-10-07). Stationary electrodes only; the lab's students run the measurements.
 - **Cell:** 1 M KOH (one batch for the campaign), Hg/HgO reference calibrated to RHE each bench day (E_RHE = E_Hg/HgO + 0.098 + 0.059·pH), graphite counter.
 - **Electrode:** a 5.00 mm disk (0.196 cm² face) with a silver-painted back wire, potted in epoxy and polished flush, so the exposed area is the disk face (melt plan, "Electrode format").
+  - [CONFIRM format] Since 2026-10-09 the melt plan specifies 5.00 × 4.00 mm press-fit rotating-disk inserts at 1600 rpm, pending Tackett's shroud confirmation, with this potted stationary disk as the fallback. This line, "Stationary electrodes only" above, and the EC-MS disk below follow whichever format is confirmed.
 - **Primary endpoint:** η at 10 mA cm⁻² (geometric) from LSV at **5 mV s⁻¹** after a fixed CV activation, with R_u measured by EIS before each LSV and **90%** iR compensation.
 - **Secondary endpoints:**
   - η at 1 mA cm⁻², which is less disturbed by bubbles on a stationary electrode;
@@ -201,7 +243,7 @@ Decision (Frank, 2026-10-08): "Let's rerun DFT for those and get values for them
   - Caveats frozen with it: IrO2 is a weak benchmark in alkaline solution (the lab's own note; a Ni or NiFe standard may be added as an extra column). The alloy surfaces become oxyhydroxides in KOH, so a result describes that surface, not the bare alloy.
 - **Electrolyte check:** Cr(VI) in the spent electrolyte (diphenylcarbazide).
 - **Replicates:** **≥ 3 coupons per alloy** (≥ 18 in total), measured in randomized order across **≥ 2 bench days**. Each bench day also runs IrO2 and a blank. The unit of replication is the coupon, and batch is recorded.
-- **Analysis:** K1, K2 and the IrO2 comparison are judged on mean η. A difference counts only if it exceeds twice the pooled coupon-to-coupon SD [CONFIRM criterion]. Spearman ρ of the measured order against each arm's order is reported over the alloys each arm ranks (A and B: six; C: four); it is exploratory.
+- **Analysis:** K1, K2 and the IrO2 comparison are judged on mean η. A difference counts only if it exceeds twice the pooled coupon-to-coupon SD [CONFIRM criterion]. Spearman ρ of the measured order against each arm's order is reported over the alloys each arm ranks (A and B: six; C: four; the C extension: five); it is exploratory.
 - **O2 / Faradaic efficiency [CONFIRM]:**
   - The lab advises against O2 quantification for the main set.
   - One bare 5.0 mm disk per alloy is supplied for the optional EC-MS O2 measurement, Cu8 first.
@@ -218,10 +260,9 @@ A dated, mentor-signed Cr(VI) risk assessment is required before the first melt 
 
 ## 8. Before the deposit
 
-1. Frank confirms or edits the remaining **[CONFIRM]** items: the scope wording, the processing values with FWM, the electrochemistry values and the O2 framing.
+1. Frank confirms or edits the remaining **[CONFIRM]** items: the scope wording, the processing values with FWM, the electrode format, the electrochemistry values and the O2 framing.
 2. The weigh sheet is computed for the six compositions at 200 g: done ([s8-weigh-sheet-2026-10-08.md](s8-weigh-sheet-2026-10-08.md)).
-3. Deposit the confirmed freeze with arm C's readout: Zenodo restricted version, manifest, and a dated line in docs/45 and docs/43.
+3. Deposit the confirmed freeze with arm C's final readout and the extension's final readout, as one Zenodo restricted version with its manifest and a dated line in docs/45 and docs/43. This makes both deposits of the blinding rule (§1). The package is [s8-freeze-deposit-package-2026-10-11.md](s8-freeze-deposit-package-2026-10-11.md).
 4. The Cr(VI) risk assessment is signed and dated. Then melt.
-5. Before any OER measurement, deposit the arm C extension's readout as a further version, or apply the Oct 21 fallback (§1).
 
 This also resolves the conflict between research-decisions 2026-09-16 (":45", no deposit task as an execution gate) and roadmap §5 (deposit before first ingot): the later roadmap governs, and the deposit is made.

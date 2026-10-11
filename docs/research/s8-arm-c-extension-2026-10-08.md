@@ -143,6 +143,7 @@ python src/dft/arm_c_readout.py --plan results/arm_c_2026-10-07/site_plan.json \
 - **Branch inheritance.** A seeded state usually keeps the seed's magnetic branch, and seeding does not break a tie between branches.
   - Seeded or restarted runs in this project have landed −77 and +173 meV from independent runs.
   - Same-geometry branch gaps reached −384.3 meV (Fe s0_OOH, tasks/todo.md, 2026-08-26) and +747.4 meV (Co s0_OOH, `docs/45-error-ledger.md`:847, 923).
+    - *Added 2026-10-11:* a second cold start of that Co s0_OOH geometry converged +870.8 meV from its parent (`docs/45-error-ledger.md`:1586–1596), so +747.4 meV was not the largest.
   - Fe25 s2/0's two branches differ by 33.8 meV (arm C design doc §7).
 - **The active site starts misplaced.** The adsorption-site metal moves 0.57–0.89 Å between seed and target in 6 of the 11 pairs, so the copied density and that metal's occupations start in the wrong place exactly where the chemistry is:
   - Cu8 s16/2: slab, OH, OOH;
@@ -898,7 +899,10 @@ The outcome is the first one set before launch: more than 1 meV lower, with Fe 2
 - DFT − MLIP at this site is now +0.60 V, above the +0.10 to +0.52 V of the six complete sites in §7 (informative).
 
 **What this says about the other values.**
-- 259 meV is the largest energy found in this project between two converged states of one structure. The reoriented surface Co on the Cu8 s20/2 slab cost 95 meV (2026-09-22).
+- 259 meV is the largest energy found in arm C and its extension between two converged states of one structure. The reoriented surface Co on the Cu8 s20/2 slab cost 95 meV (2026-09-22).
+  - *Corrected 2026-10-11:* this line first said "in this project". Larger gaps exist elsewhere in it:
+    - in the August rutile work, cold starts at one relaxed geometry converged up to +870.8 meV from their parent (Co s0_OOH, `docs/45-error-ledger.md`:1586–1596) and −384.3 meV (Fe s0_OOH);
+    - in the HEA follow-up's start-state factorial (finished 2026-09-08), two starts at one Ni31 geometry converged 422.8 meV apart ([hea-followup-2026-09-07.md](hea-followup-2026-09-07.md):89).
 - No other state in the table has been started from a second configuration, as this slab was. A lower state missed at another site would move that site's value by up to its energy, in either direction.
 - The five values span 0.67 V, and Ni31 and Cu22 lie 8 mV apart. The order stays descriptive only, as in §7, and a missed state of this size could reorder it.
 

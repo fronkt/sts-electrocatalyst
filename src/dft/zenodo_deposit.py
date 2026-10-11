@@ -14,6 +14,10 @@ WHAT IT GUARANTEES
 
   * DRY RUN BY DEFAULT. It will not create, upload, or publish anything unless
     given --create / --upload / --publish explicitly, in that order.
+  * It writes no manifest and creates, uploads or publishes nothing while a
+    PENDING_ placeholder remains in the deposit's file names or metadata, or
+    while the freeze text still carries a [CONFIRM] marker or its proposal
+    status line (pending()).
   * It NEVER prints the token, and never puts it in a URL or an argv.
   * The manifest it writes lists the GIT-BLOB (LF) serialization, and says so.
     The 2026-08-31 manifest called its rows "the working-tree serialization"
@@ -39,6 +43,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 import urllib.error
@@ -55,9 +60,18 @@ CONCEPT_RECID = "21963143"
 # The most recently published version; the new version drafts off it.
 LATEST_PUBLISHED_RECID = "22884160"
 
-# repo path -> name the file carries in the deposit
+# The deposit this script is set up for: the S8 stage-1 melt freeze with arm C's and the arm C extension's final
+# readouts (docs/research/s8-freeze-deposit-package-2026-10-11.md). Each PENDING_ value is filled when the entrant
+# settles it; --manifest, --create, --upload and --publish refuse while any remains (pending()).
+LABEL = "S8"
+CONFIRMED = "PENDING_CONFIRMATION_DATE"  # the entrant's dated confirmation of the freeze text, YYYY-MM-DD
+# "before the first ingot", or the recorded departure if a button was melted before the deposit
+FIRST_INGOT = "PENDING_FIRST_INGOT"
+
+# repo path -> name the file carries in the deposit. A new version replaces the whole fileset, so every earlier
+# version's files are carried forward and the S8 files are added after them.
 FILESET = [
-    ("docs/43-prereg-week1-factorial.md", "43-prereg-week1-factorial-A1-A13-plus-A10.md"),
+    ("docs/43-prereg-week1-factorial.md", "43-prereg-week1-factorial-A1-A13-plus-A10-plus-S8.md"),
     ("docs/45-error-ledger.md", "45-error-ledger.md"),
     ("docs/74-amendment-10-DRAFT.md", "74-amendment-10-DRAFT-v2-as-adopted-2026-09-21.md"),
     ("docs/88-a10-signature-sheet-2026-09-05.md", "88-a10-signature-sheet-filled-2026-09-21.md"),
@@ -69,6 +83,17 @@ FILESET = [
     ("docs/81-zpe-decomposition-of-a71-2026-09-04.md", "81-zpe-decomposition-of-a71-2026-09-04.md"),
     ("runs/a0/m_pproj6.txt", "m_pproj6.txt"),
     ("runs/a0/m_pproj_cell.txt", "m_pproj_cell.txt"),
+    # S8: the freeze, the records arms B and C rest on, and the plan and weigh sheet its processing cites. Arm A is
+    # dated by commit 96b1cb1 and its values are in the freeze; its record has changed since and is not deposited.
+    ("docs/research/s8-stage1-freeze-proposal-2026-10-07.md", f"s8-stage1-freeze-as-confirmed-{CONFIRMED}.md"),
+    ("docs/95-census-2-3-readout-2026-09-13.md", "95-census-2-3-readout-2026-09-13.md"),
+    ("results/s8_ranking_statistic_2026-09-19/ranking_statistics.md", "s8-ranking-statistics-2026-09-19.md"),
+    ("docs/research/s8-arm-c-dft-design-2026-10-07.md", "s8-arm-c-dft-design-2026-10-07.md"),
+    ("results/arm_c_2026-10-07_rerun/readout.json", "s8-arm-c-final-readout-2026-10-07.json"),
+    ("docs/research/s8-arm-c-extension-2026-10-08.md", "s8-arm-c-extension-2026-10-08.md"),
+    ("results/arm_c_ext_r6_2026-10-11/readout.json", "s8-arm-c-extension-final-readout-2026-10-11.json"),
+    ("docs/research/s8-melt-plan-2026-10-07.md", "s8-melt-plan-2026-10-07.md"),
+    ("docs/research/s8-weigh-sheet-2026-10-08.md", "s8-weigh-sheet-2026-10-08.md"),
 ]
 
 STATE_PATH = os.path.join(ROOT, "docs", "deposits", ".draft_state.json")
@@ -138,6 +163,138 @@ def check_clean():
                  "must name a commit.\n" + dirty)
 
 
+def manifest_path(commit: str) -> str:
+    """The manifest's repo path, dated by the commit the deposited blobs come from."""
+    date = git("log", "-1", "--format=%cs", commit).decode().strip()
+    return f"docs/deposits/{date}-{LABEL}.manifest.txt"
+
+
+def metadata(commit: str) -> dict:
+    # Metadata follows the convention of the published versions exactly:
+    # same title stem, same upload_type/publication_type, same keywords, same
+    # creators, restricted access, a "version" string naming the amendment span,
+    # and a dated "New version" paragraph appended to the standing description.
+    # Renaming a concept record between versions makes it read as a different
+    # object, so the stem is not touched.
+    return {
+        "metadata": {
+            "title": (
+                "Pre-registration record, DFT error-budget campaign "
+                "(sts-electrocatalyst): Week-1 factorial, Hessian test, U gate "
+                "— Amendments 1-13 complete (A10 adopted 2026-09-21), the "
+                "Hubbard-projector arms, and the S8 stage-1 melt freeze "
+                f"(confirmed {CONFIRMED})"),
+            "version": "A1-A13-plus-A10-plus-S8",
+            "upload_type": "publication",
+            "publication_type": "other",
+            "access_right": "restricted",
+            "keywords": ["pre-registration", "DFT", "DFT+U", "OER",
+                         "electrocatalysis", "error budget", "Quantum ESPRESSO",
+                         "reproducibility"],
+            "creators": [{"name": "Cai, Frank",
+                          "affiliation": "Purdue University",
+                          "orcid": "0009-0003-0041-1459"}],
+            "description": (
+                "Dated pre-registration document for a computational catalysis "
+                "error-budget campaign (Quantum ESPRESSO, rutile MO2(110) OER): "
+                "registered predictions, thresholds, capability gates, and "
+                "corrections of record. Files are closed until report submission "
+                "(planned November 2026); the record exists to give the "
+                "pre-registration chain an immutable third-party timestamp. "
+                "Contact the author for access."
+                "<p>New version, 2026-08-31: Amendment 11 (spin-treatment "
+                "equalisation, adopted with all entrant elections), the "
+                "P-DISPOSITION date amendment (Oct 15 → REPORT LOCK, backstop "
+                "Nov 5 2026 8:00 pm ET), the countersigned docs/59 roster "
+                "correction, the election record (docs/66), and the Mn AFM arm "
+                "design of record (docs/67).</p>"
+                "<p>New version, 2026-09-04: Amendment 12 (P-PROJ-6, the "
+                "six-metal Hubbard-projector contrast at U = 7.50 eV; "
+                "|Δη| primary, five blind metals, Cr excluded as "
+                "calibration, four bands including a named middle band, and "
+                "pseudopotential / spin confound clauses); Amendment 12b (CrO2 "
+                "bulk one-shot linear-response U under both projectors, with the "
+                "countersigned readout — 6.1635 eV atomic vs 7.2677 eV "
+                "ortho-atomic) and its correction of record that these are "
+                "one-shot, not self-consistent, U values; and Amendment 13 "
+                "(the projector contrast repeated in the adopted 2×1v cell, "
+                "registering no new threshold and disclosing its non-blind half "
+                "in advance), together with a disclosure decomposing the flagship "
+                "0.487 V projector effect into its electronic and ZPE/TS "
+                "constants halves. RECORDED DEPARTURE: amendments 12 and 12b were "
+                "adopted and committed before their jobs were submitted, but this "
+                "deposit follows those submissions rather than preceding them; "
+                "the departure and its consequences are stated in the document at "
+                "section A12-A13.DEP. Amendment 10 remains undrafted as registered "
+                "text. Files are the git-blob (LF) serialization of commit "
+                "72aeee9 (branch r0-catalysis-revival); per-file md5 and sha256 "
+                "manifest committed in-repo at "
+                "docs/deposits/2026-09-04-A13.manifest.txt.</p>"
+                "<p>New version, 2026-09-21: Amendment 10 (the S5 BEEF-vdW σ row: "
+                "what σ_BEEF(η) is, Ladder B with the < 0.25 V / ≥ 0.30 V bands, the "
+                "descriptive U-sensitivity comparison, scope label XC-only "
+                "non-magnetic Ru/Ir/Ti, no Cr extension), adopted by the entrant on "
+                "2026-09-21 by the same instrument as Amendment 8 (the fifteen "
+                "operating decisions adopted as proposed; signature sheet docs/88 "
+                "filled), together with the dated claim-sentence re-test line of "
+                "2026-09-21 (the sentence of record and its constraint verdicts) and "
+                "the error ledger. RECORDED DEPARTURE: the fourteen S5 decks ran on "
+                "2026-09-17, before Amendment 10 was adopted and before this deposit, "
+                "and their result (P-BEEF CONFIRMED 3/3) was known when the amendment "
+                "was adopted; the thresholds stood in written draft before the run "
+                "and were not changed after it; the departure is stated in the "
+                "document at the dated addendum of 2026-09-21. Files are the "
+                "git-blob (LF) serialization of commit cccdbc8 (branch "
+                "r0-catalysis-revival); per-file md5 and sha256 manifest committed "
+                "in-repo at docs/deposits/2026-09-21-A10.manifest.txt.</p>"
+                f"<p>New version, {CONFIRMED}: the S8 stage-1 melt freeze, "
+                f"confirmed by the entrant on {CONFIRMED} and deposited "
+                f"{FIRST_INGOT} and before any OER measurement of its six alloys. "
+                "It freezes three predictions of their OER activity: (A) the "
+                "August 5 MLIP screen, a dated historical prediction (commit "
+                "96b1cb1); (B) the September MLIP site census, which is also the "
+                "re-rank of record; (C) DFT+U values at fixed census geometries "
+                "(arm C), whose registered readings (K1, K2, the Ni34 nomination) "
+                "are not evaluable, entering as an exploratory partial order over "
+                "four alloys, with the arm C extension's exploratory values for five "
+                "alloys (Cu8Cr23Mn35Co34 has no DFT alloy value). Of the registered "
+                "primary hypotheses, K1 decides between arms A and B and K2 is shared "
+                "by them; a same-bench comparison with IrO2 is a registered secondary "
+                "outcome. RECORDED DEPARTURES: the re-rank gate departs from the "
+                "registered S8 rule in three places (freeze section 1a); every "
+                "extension round after the first was chosen after the previous "
+                "readout was known; and the last round's selection threshold was set "
+                "after its screen was run (freeze section 4b). docs/43 also carries its four dated addenda "
+                "of 2026-09-22 (three licensed compute additions under A11.R3 and "
+                "the entrant's election \"Protocol research first, freeze later\"), "
+                "deposited here for the first time. Files are the git-blob (LF) serialization of "
+                f"commit {commit[:7]} (branch r0-catalysis-revival); per-file md5 "
+                "and sha256 manifest committed in-repo at "
+                f"{manifest_path(commit)}.</p>"),
+        }
+    }
+
+
+FREEZE = "docs/research/s8-stage1-freeze-proposal-2026-10-07.md"
+UNCONFIRMED = ("[CONFIRM", "proposed, not frozen")  # left in the freeze text until the entrant confirms it
+
+
+def pending(commit: str = "") -> list:
+    """What still blocks the deposit; nothing is written while any remains.
+
+    Placeholders in the deposit's names or metadata, a confirmation date that is not YYYY-MM-DD, and a freeze text
+    at the commit that still carries a [CONFIRM] marker or its proposal status line.
+    """
+    commit = commit or head()
+    text = json.dumps([FILESET, metadata(commit)], ensure_ascii=False)
+    found = sorted(set(re.findall(r"PENDING_[A-Z_]+", text)))
+    if "PENDING_CONFIRMATION_DATE" not in found and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", CONFIRMED):
+        found.append(f"CONFIRMED is not a YYYY-MM-DD date: {CONFIRMED!r}")
+    freeze = blob(FREEZE, commit).decode("utf-8")
+    found += [f"the freeze at {commit[:9]} still contains {marker!r}" for marker in UNCONFIRMED if marker in freeze]
+    return found
+
+
 def cmd_manifest(commit):
     rows = []
     print(f"fileset at {commit[:9]} (git-blob / LF bytes):\n")
@@ -149,15 +306,16 @@ def cmd_manifest(commit):
         if name != os.path.basename(path):
             print(f"  {'':>9}  {'':32}  -> deposited as {name}")
 
-    date = subprocess.run(["git", "-C", ROOT, "log", "-1", "--format=%cs", commit],
-                          check=True, stdout=subprocess.PIPE).stdout.decode().strip()
-    out = os.path.join(ROOT, "docs", "deposits", f"{date}-A10.manifest.txt")
+    out = os.path.join(ROOT, manifest_path(commit))
+    date = os.path.basename(out)[:10]
+    names = dict(FILESET)
     lines = [
-        f"# Zenodo deposit fileset manifest -- {date} A10 deposit (adopted 2026-09-21 by the A8 instrument;"
-        f" the S5 decks ran 2026-09-17 before adoption and deposit -- correction of record in docs/43)",
+        f"# Zenodo deposit fileset manifest -- {date} {LABEL} deposit (the S8 stage-1 melt freeze, confirmed by the"
+        f" entrant on {CONFIRMED}, with arm C's final readout and the arm C extension's final readout)",
         f"# All files: the GIT-BLOB (LF) serialization at commit {commit}. Not the CRLF"
         f" working tree; the two differ by one CR per line on the authoring machine."
-        f" Deposit name for docs/43: 43-prereg-week1-factorial-A1-A13-plus-A10.md",
+        f" Deposit name for docs/43: {names['docs/43-prereg-week1-factorial.md']}; for the freeze:"
+        f" {names['docs/research/s8-stage1-freeze-proposal-2026-10-07.md']}",
         "# columns: bytes  md5  sha256  repo-path",
     ]
     for n, m, s, path, _name in rows:
@@ -231,84 +389,7 @@ def cmd_upload(commit):
         api("PUT", f"{bucket}/{name}", data=b, ctype="application/octet-stream")
         print("ok")
 
-    # Metadata follows the convention of the three published versions exactly:
-    # same title stem, same upload_type/publication_type, same keywords, same
-    # creators, restricted access, a "version" string naming the amendment span,
-    # and a dated "New version" paragraph appended to the standing description.
-    # Renaming a concept record between versions makes it read as a different
-    # object, so the stem is not touched.
-    meta = {
-        "metadata": {
-            "title": (
-                "Pre-registration record, DFT error-budget campaign "
-                "(sts-electrocatalyst): Week-1 factorial, Hessian test, U gate "
-                "— Amendments 1-13 complete (A10 adopted 2026-09-21) + the "
-                "Hubbard-projector arms, frozen 2026-09-21"),
-            "version": "A1-A13-plus-A10",
-            "upload_type": "publication",
-            "publication_type": "other",
-            "access_right": "restricted",
-            "keywords": ["pre-registration", "DFT", "DFT+U", "OER",
-                         "electrocatalysis", "error budget", "Quantum ESPRESSO",
-                         "reproducibility"],
-            "creators": [{"name": "Cai, Frank",
-                          "affiliation": "Purdue University",
-                          "orcid": "0009-0003-0041-1459"}],
-            "description": (
-                "Dated pre-registration document for a computational catalysis "
-                "error-budget campaign (Quantum ESPRESSO, rutile MO2(110) OER): "
-                "registered predictions, thresholds, capability gates, and "
-                "corrections of record. Files are closed until report submission "
-                "(planned November 2026); the record exists to give the "
-                "pre-registration chain an immutable third-party timestamp. "
-                "Contact the author for access."
-                "<p>New version, 2026-08-31: Amendment 11 (spin-treatment "
-                "equalisation, adopted with all entrant elections), the "
-                "P-DISPOSITION date amendment (Oct 15 → REPORT LOCK, backstop "
-                "Nov 5 2026 8:00 pm ET), the countersigned docs/59 roster "
-                "correction, the election record (docs/66), and the Mn AFM arm "
-                "design of record (docs/67).</p>"
-                "<p>New version, 2026-09-04: Amendment 12 (P-PROJ-6, the "
-                "six-metal Hubbard-projector contrast at U = 7.50 eV; "
-                "|Δη| primary, five blind metals, Cr excluded as "
-                "calibration, four bands including a named middle band, and "
-                "pseudopotential / spin confound clauses); Amendment 12b (CrO2 "
-                "bulk one-shot linear-response U under both projectors, with the "
-                "countersigned readout — 6.1635 eV atomic vs 7.2677 eV "
-                "ortho-atomic) and its correction of record that these are "
-                "one-shot, not self-consistent, U values; and Amendment 13 "
-                "(the projector contrast repeated in the adopted 2×1v cell, "
-                "registering no new threshold and disclosing its non-blind half "
-                "in advance), together with a disclosure decomposing the flagship "
-                "0.487 V projector effect into its electronic and ZPE/TS "
-                "constants halves. RECORDED DEPARTURE: amendments 12 and 12b were "
-                "adopted and committed before their jobs were submitted, but this "
-                "deposit follows those submissions rather than preceding them; "
-                "the departure and its consequences are stated in the document at "
-                "section A12-A13.DEP. Amendment 10 remains undrafted as registered "
-                "text. Files are the git-blob (LF) serialization of commit "
-                "72aeee9 (branch r0-catalysis-revival); per-file md5 and sha256 "
-                "manifest committed in-repo at "
-                "docs/deposits/2026-09-04-A13.manifest.txt.</p>"
-                "<p>New version, 2026-09-21: Amendment 10 (the S5 BEEF-vdW σ row: "
-                "what σ_BEEF(η) is, Ladder B with the < 0.25 V / ≥ 0.30 V bands, the "
-                "descriptive U-sensitivity comparison, scope label XC-only "
-                "non-magnetic Ru/Ir/Ti, no Cr extension), adopted by the entrant on "
-                "2026-09-21 by the same instrument as Amendment 8 (the fifteen "
-                "operating decisions adopted as proposed; signature sheet docs/88 "
-                "filled), together with the dated claim-sentence re-test line of "
-                "2026-09-21 (the sentence of record and its constraint verdicts) and "
-                "the error ledger. RECORDED DEPARTURE: the fourteen S5 decks ran on "
-                "2026-09-17, before Amendment 10 was adopted and before this deposit, "
-                "and their result (P-BEEF CONFIRMED 3/3) was known when the amendment "
-                "was adopted; the thresholds stood in written draft before the run "
-                "and were not changed after it; the departure is stated in the "
-                "document at the dated addendum of 2026-09-21. Files are the "
-                "git-blob (LF) serialization of commit cccdbc8 (branch "
-                "r0-catalysis-revival); per-file md5 and sha256 manifest committed "
-                "in-repo at docs/deposits/2026-09-21-A10.manifest.txt.</p>"),
-        }
-    }
+    meta = metadata(commit)
     api("PUT", f"{API}/deposit/depositions/{did}", data=meta)
 
     after = api("GET", f"{API}/deposit/depositions/{did}")
@@ -347,13 +428,17 @@ def cmd_publish(commit):
     save_state(st)
 
 
-def main():
+def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--manifest", action="store_true")
     ap.add_argument("--create", action="store_true")
     ap.add_argument("--upload", action="store_true")
     ap.add_argument("--publish", action="store_true")
-    a = ap.parse_args()
+    a = ap.parse_args(argv)
+    left = pending()
+    if left and any([a.manifest, a.create, a.upload, a.publish]):
+        sys.exit("REFUSING: the deposit is not ready: " + "; ".join(left)
+                 + ". Settle these (see LABEL above FILESET) and commit first.")
     sys.stdout.reconfigure(encoding="utf-8")
 
     check_clean()
@@ -385,6 +470,8 @@ def cmd_manifest_dry(commit):
     print(f"\n  {total:>9,}  bytes total, {len(FILESET)} files")
     print(f"\nconcept record {CONCEPT_RECID}; new version drafts off "
           f"{LATEST_PUBLISHED_RECID}; access_right=restricted")
+    left = pending(commit)
+    print(f"{LABEL} deposit; still to settle: " + ("; ".join(left) if left else "nothing"))
 
 
 if __name__ == "__main__":
