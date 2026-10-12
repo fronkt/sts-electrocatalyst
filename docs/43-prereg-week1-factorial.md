@@ -5048,3 +5048,23 @@ Scope: numerical diagnostic outcomes only; arrays 20813525, 20840139 and 2084536
 
 Scope: numerical protocol outcomes only; no census result, adsorption reference or claim; a converged Arm A geometry is a checked trajectory, not a ground-state assertion; arrays 20813525, 20840139, 20845364, 20851753 and 20851756 untouched; the generalization row stays NOT LICENSED.
 
+## 2026-10-12 — S8 stage-1 melt freeze: confirmed by the entrant and deposited
+
+**The entrant's confirmation of 2026-10-12** of `docs/research/s8-stage1-freeze-proposal-2026-10-07.md`, with the five items it marked for confirmation in §1, §5 and §6 confirmed as written ("keep everything as written"): the scope line; the processing values (Mn over-charge +4%; homogenization at 1,050 °C for 24 h under Ar); the electrode format (the melt plan's 5.00 × 4.00 mm rotating-disk insert at 1600 rpm if Tackett's shroud takes it, otherwise the potted stationary disk, set by his answer before any measurement); the electrochemistry values, including the criterion that a difference counts only if it exceeds twice the pooled coupon-to-coupon SD; and the O2 framing.
+
+**What is frozen.** Three predictions of OER activity for the six batch-1 alloys (freeze §2–§3):
+- (A) the August 5 MLIP screen, a dated historical prediction (commit 96b1cb1);
+- (B) the September census's 10th-percentile statistic, the re-rank of record;
+- (C) arm C's DFT+U values, whose registered readings (K1, K2, the Ni34 nomination) are NOT_EVALUABLE_UNDER_ARM_C and which enter as an exploratory partial order over four alloys. With them come the arm C extension's exploratory values for five alloys (`results/arm_c_ext_r6_2026-10-11/readout.json`, commit f944a91); Cu8Cr23Mn35Co34 has no DFT alloy value.
+
+Of the primary hypotheses, K1 decides between arms A and B and K2 is shared by them (freeze §3). The same-bench comparison with IrO2 is a registered secondary outcome (freeze §6).
+
+**Departures recorded in the freeze.**
+- The re-rank gate departs from the S8 rule of 2026-08-16 in three places (freeze §1a).
+- Every extension round after the first was chosen after the previous readout was known.
+- The last round's selection threshold was set after its screen was run (freeze §4b).
+- The deposit follows the first ingot (freeze §1b). Fort Wayne Metals melted Cu8Cr23Mn35Co34, Ni31Cr29Cu5Mn35 and Fe25Co25Ni25Cr25 on 2026-10-09 and 2026-10-12, and nothing had been measured on them when the freeze was confirmed. Arms A, B and C were committed before 2026-10-09; the extension's Fe25 value (read out 2026-10-10) was computed after the first melt. A dated note after the scope line (freeze §1) says arm B is frozen before any OER measurement, not before the first ingot.
+
+**Timing.** Deposited after three of the six buttons were melted and before any OER measurement of these alloys. This makes both deposits of the freeze's blinding rule.
+
+**Deposit.** A new restricted version of concept record 21963143: DOI S8-DEPOSIT-PENDING, from commit S8-COMMIT-PENDING (manifest `docs/deposits/2026-10-12-S8.manifest.txt`).

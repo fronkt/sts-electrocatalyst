@@ -1,25 +1,29 @@
-# S8 stage-1 melt freeze — proposal for the entrant's confirmation, 2026-10-07 (revised 2026-10-08 and 2026-10-11)
+# S8 stage-1 melt freeze — confirmed by the entrant 2026-10-12 (proposed 2026-10-07, revised 2026-10-08 and 2026-10-11)
 
-Status: **proposed, not frozen, not deposited.** Frank's decisions of 2026-10-08 are recorded in place. The arm C extension's final readout of 2026-10-11 is in §3 and §4b. Every item still marked **[CONFIRM]** needs his dated decision. The freeze takes effect only when the confirmed text is deposited (Zenodo, restricted, under concept 10.5281/zenodo.21963143, with a per-file manifest in `docs/deposits/`) **before the first ingot**, as required by roadmap §5 ("Retain the S8 freeze/deposit before first ingot") and the S8 rule "FREEZE BEFORE FIRE … No prediction may be revised after any measurement exists" (round-2 synthesis:600–626).
+Status: **confirmed by Frank on 2026-10-12, as written** ("keep everything as written"). The freeze takes effect when this text is deposited: Zenodo, restricted, under concept 10.5281/zenodo.21963143, with a per-file manifest in `docs/deposits/` (DOI S8-DEPOSIT-PENDING, from commit S8-COMMIT-PENDING). Roadmap §5 ("Retain the S8 freeze/deposit before first ingot") and the S8 rule "FREEZE BEFORE FIRE … No prediction may be revised after any measurement exists" (round-2 synthesis:600–626) place the deposit before the first ingot. It follows the melting of three of the six buttons, a recorded departure (§1b). Frank's decisions of 2026-10-08 are recorded in place. The arm C extension's final readout of 2026-10-11 is in §3 and §4b.
 
 Revisions:
 - 2026-10-07: five alloys and three prediction arms (Frank: "Add Fe25."). The four-alloy version is archived at [s8-stage1-freeze-proposal-2026-10-07-archive-four-alloy.md](s8-stage1-freeze-proposal-2026-10-07-archive-four-alloy.md).
 - 2026-10-08: six alloys, arm C final, and the re-rank gate and IrO2 decisions. The five-alloy version is archived at [s8-stage1-freeze-proposal-2026-10-07-archive-five-alloy.md](s8-stage1-freeze-proposal-2026-10-07-archive-five-alloy.md).
 - 2026-10-11: the arm C extension's final readout (§3, §4b), and one deposit for the freeze and both readouts (§8). The 2026-10-08 version is archived at [s8-stage1-freeze-proposal-2026-10-07-archive-pre-extension-readout.md](s8-stage1-freeze-proposal-2026-10-07-archive-pre-extension-readout.md).
+- 2026-10-12: confirmed by Frank as written. The confirmation markers are removed, and the electrode-format line states how the format is set (§6). Three buttons had been melted before the deposit, so §1b records that departure, and a dated note after the scope line corrects its "frozen here before the first ingot". No prediction, hypothesis, value or rule changed. The 2026-10-11 proposal is archived at [s8-stage1-freeze-proposal-2026-10-07-archive-pre-confirmation.md](s8-stage1-freeze-proposal-2026-10-07-archive-pre-confirmation.md).
 
-Decisions of record (Frank, 2026-10-08):
+Decisions of record (Frank):
 
 | Decision | His words | Where |
 |---|---|---|
-| The September census is the re-rank of record, and S8 is a declared exploratory set | "Let's rerank gate." | §1, §1a |
-| Ni34Fe6Cu29Co31 is melted in batch 1 as a sixth alloy | "Your call on Ni34" (decided in §2) | §2 |
-| The same-bench comparison with IrO2 is a registered secondary outcome | "yes IrO2" | §1, §6 |
+| The September census is the re-rank of record, and S8 is a declared exploratory set | "Let's rerank gate." (2026-10-08) | §1, §1a |
+| Ni34Fe6Cu29Co31 is melted in batch 1 as a sixth alloy | "Your call on Ni34" (2026-10-08; decided in §2) | §2 |
+| The same-bench comparison with IrO2 is a registered secondary outcome | "yes IrO2" (2026-10-08) | §1, §6 |
+| The five items marked for confirmation in §1, §5 and §6 are confirmed as written: the scope wording, the processing values, the electrode format, the electrochemistry values and the O2 framing | "keep everything as written" (2026-10-12) | §1, §5, §6 |
 
 The practical plan is [s8-melt-plan-2026-10-07.md](s8-melt-plan-2026-10-07.md). The weigh sheet is [s8-weigh-sheet-2026-10-08.md](s8-weigh-sheet-2026-10-08.md).
 
 ## 1. Scope and design
 
-Scope line [CONFIRM wording]: *"S8 is a declared exploratory validation set comparing three frozen predictions of OER activity for six alloys against one measurement: (A) the August 5 MLIP screen, dated by commit 96b1cb1; (B) the September MLIP site census, frozen here before the first ingot, which is also the re-rank of record for the selection; (C) DFT values computed before any OER measurement of these alloys. Apart from the registered same-bench comparison with IrO2, no alloy is claimed superior on the basis of this set."*
+Scope line: *"S8 is a declared exploratory validation set comparing three frozen predictions of OER activity for six alloys against one measurement: (A) the August 5 MLIP screen, dated by commit 96b1cb1; (B) the September MLIP site census, frozen here before the first ingot, which is also the re-rank of record for the selection; (C) DFT values computed before any OER measurement of these alloys. Apart from the registered same-bench comparison with IrO2, no alloy is claimed superior on the basis of this set."*
+
+Dated note, 2026-10-12: arm B is frozen here before any OER measurement, but not before the first ingot. Three buttons were melted before this deposit (§1b).
 
 What the arms test:
 - **A vs B.** Both use the same machine-learned potential (MACE-MPA-0). They differ in how much of each alloy's surface they sample (12 vs 120 sites) and in the statistic (best site vs the 10th percentile of adsorbate-intact sites). Comparing them asks whether broader site sampling predicts measured activity better.
@@ -47,6 +51,17 @@ The S8 rule of 2026-08-16 requires, before any melt, a re-score of the surviving
   - The census is a fixed-protocol MLIP re-score, without the rule's "symmetry-released multi-start relaxations, fresh-density basin gates, stated coverage" (round-2 synthesis:603–604).
   - The DFT spot checks are complete for two of the top four best sites.
   - The melt set is the whole gated six: four candidates, one set member (§2) and the anchor. The rule asks for "Top 2–4 of the re-ranked list plus one predicted-poor anchor" (round-2 synthesis:607), and the roadmap sets "2–4 candidate alloys + a predicted-poor anchor" (roadmap §5).
+
+### 1b. Timing of the deposit (dated, 2026-10-12)
+
+**Departure recorded: the deposit follows the first ingot.** The S8 rule and roadmap §5 place the deposit before the first ingot (status line). Fort Wayne Metals melted the first three alloys of the melt list, Cu8Cr23Mn35Co34, Ni31Cr29Cu5Mn35 and Fe25Co25Ni25Cr25, on 2026-10-09 and 2026-10-12, before this deposit (Frank, 2026-10-12: "Yes. The first 3", confirmed as Cu8, Ni31 and Fe25; "Friday and today").
+- **Processing of the three.** Frank confirmed §5's values as written. How Fort Wayne Metals processed the three buttons (charges, remelts, anneal) is not yet recorded here. §5's acceptance checks apply to them as to the other three.
+- **Nothing measured.** Nothing had been measured on the three buttons when the freeze was confirmed (Frank, 2026-10-12: "Nothing measured yet"). The blinding rule (§1) concerns OER measurements, and no OER measurement of any of the six alloys precedes this deposit.
+- **Before the first melt.** Arms A, B and C were committed before 2026-10-09:
+  - arm A on 2026-08-05 (96b1cb1);
+  - arm B's census readout on 2026-09-13 (aa5c10e) and its ranking statistic on 2026-09-19 (da8e866);
+  - arm C's final readout on 2026-10-08 (2229549).
+- **After it.** The extension's only new value, Fe25's, was computed after the first melt: 0.893 V in round 4 and 1.152 V in round 5, both read out on 2026-10-10. Round 6 (2026-10-11) changed no value. The 2026-10-11 revision of this text and its confirmation also came after the first melt. No measurement of any button existed at any of these points.
 
 ## 2. Batch 1 samples
 
@@ -208,14 +223,14 @@ Decision (Frank, 2026-10-08): "Let's rerun DFT for those and get values for them
   - Round 6's selection threshold was set after its screen was run, inside the gap the screen found; any threshold from 0.17 to 0.28 selects the same atoms.
 - **When frozen:** every value was computed before any OER measurement of these alloys. The values are frozen when this freeze is deposited (§8).
 
-## 5. Processing [CONFIRM values]
+## 5. Processing
 
 - **Weigh sheet:** freshly computed for the six compositions at **200 g per button** ([s8-weigh-sheet-2026-10-08.md](s8-weigh-sheet-2026-10-08.md)), about 1.2 kg of metal for batch 1.
   - The basis is what Fort Wayne Metals will melt (Song Cai, 2026-10-07: "We will melt a 200 gram for each alloy. they will be ~2” diameter button").
   - Historical sheets, the 10 g sheet of 2026-10-07 and `weigh_sheet.py`'s built-in round-1 set are not reused.
-  - Mn over-charge **+4%** (tool default; historical range 3–5%) [CONFIRM with FWM for a 200 g button].
+  - Mn over-charge **+4%** (tool default; historical range 3–5%).
 - **Arc melting** (Fort Wayne Metals, supervised): Ar, flip and remelt **4×** within each melt.
-- **Homogenization:** **1,050 °C, 24 h, Ar** (historical 1,000–1,100 °C), then quench [CONFIRM with FWM].
+- **Homogenization:** **1,050 °C, 24 h, Ar** (historical 1,000–1,100 °C), then quench.
 - **Acceptance:**
   - SEM-EDS composition within **±2 at.%** of nominal per element, and XRD phases recorded.
   - A sample out of tolerance is re-melted once.
@@ -223,12 +238,12 @@ Decision (Frank, 2026-10-08): "Let's rerun DFT for those and get values for them
   - It is never replaced by a different composition.
 - **Batch 1:** all six alloys are melted and annealed in one batch, with the same feedstock lots, recorded.
 
-## 6. Electrochemistry [CONFIRM values]
+## 6. Electrochemistry
 
 - **Lab:** the Tackett group, Purdue (reply of 2026-10-07). Stationary electrodes only; the lab's students run the measurements.
 - **Cell:** 1 M KOH (one batch for the campaign), Hg/HgO reference calibrated to RHE each bench day (E_RHE = E_Hg/HgO + 0.098 + 0.059·pH), graphite counter.
 - **Electrode:** a 5.00 mm disk (0.196 cm² face) with a silver-painted back wire, potted in epoxy and polished flush, so the exposed area is the disk face (melt plan, "Electrode format").
-  - [CONFIRM format] Since 2026-10-09 the melt plan specifies 5.00 × 4.00 mm press-fit rotating-disk inserts at 1600 rpm, pending Tackett's shroud confirmation, with this potted stationary disk as the fallback. This line, "Stationary electrodes only" above, and the EC-MS disk below follow whichever format is confirmed.
+  - **Format rule.** Since 2026-10-09 the melt plan specifies 5.00 × 4.00 mm press-fit rotating-disk inserts at 1600 rpm, pending Tackett's shroud confirmation, with this potted stationary disk as the fallback. Tackett's answer sets the format before any measurement: the rotating insert if his shroud takes it, this stationary disk if not, recorded in a dated line. This line, "Stationary electrodes only" above, and the EC-MS disk below follow that choice.
 - **Primary endpoint:** η at 10 mA cm⁻² (geometric) from LSV at **5 mV s⁻¹** after a fixed CV activation, with R_u measured by EIS before each LSV and **90%** iR compensation.
 - **Secondary endpoints:**
   - η at 1 mA cm⁻², which is less disturbed by bubbles on a stationary electrode;
@@ -243,8 +258,8 @@ Decision (Frank, 2026-10-08): "Let's rerun DFT for those and get values for them
   - Caveats frozen with it: IrO2 is a weak benchmark in alkaline solution (the lab's own note; a Ni or NiFe standard may be added as an extra column). The alloy surfaces become oxyhydroxides in KOH, so a result describes that surface, not the bare alloy.
 - **Electrolyte check:** Cr(VI) in the spent electrolyte (diphenylcarbazide).
 - **Replicates:** **≥ 3 coupons per alloy** (≥ 18 in total), measured in randomized order across **≥ 2 bench days**. Each bench day also runs IrO2 and a blank. The unit of replication is the coupon, and batch is recorded.
-- **Analysis:** K1, K2 and the IrO2 comparison are judged on mean η. A difference counts only if it exceeds twice the pooled coupon-to-coupon SD [CONFIRM criterion]. Spearman ρ of the measured order against each arm's order is reported over the alloys each arm ranks (A and B: six; C: four; the C extension: five); it is exploratory.
-- **O2 / Faradaic efficiency [CONFIRM]:**
+- **Analysis:** K1, K2 and the IrO2 comparison are judged on mean η. A difference counts only if it exceeds twice the pooled coupon-to-coupon SD. Spearman ρ of the measured order against each arm's order is reported over the alloys each arm ranks (A and B: six; C: four; the C extension: five); it is exploratory.
+- **O2 / Faradaic efficiency:**
   - The lab advises against O2 quantification for the main set.
   - One bare 5.0 mm disk per alloy is supplied for the optional EC-MS O2 measurement, Cu8 first.
   - Without it, currents are reported as anodic activity in the OER window, checked by the Tafel slope. An OER-specific claim is limited to alloys measured by EC-MS, because roadmap §5 requires an O2 method for an OER activity claim.
@@ -256,13 +271,13 @@ A dated, mentor-signed Cr(VI) risk assessment is required before the first melt 
 - Cr(VI) formation in alkaline OER and the disposal of spent KOH as Cr(VI) hazardous waste;
 - KOH handling.
 
-[s8-cr6-risk-assessment-2026-10-07.md](s8-cr6-risk-assessment-2026-10-07.md) covers these three hazards, plus Ni/Co dust, the Hg/HgO reference and the waste streams, for six 200 g buttons. It still needs the supervisors' names, signatures and dates [CONFIRM names].
+[s8-cr6-risk-assessment-2026-10-07.md](s8-cr6-risk-assessment-2026-10-07.md) covers these three hazards, plus Ni/Co dust, the Hg/HgO reference and the waste streams, for six 200 g buttons. It still needs the supervisors' names, signatures and dates.
 
 ## 8. Before the deposit
 
-1. Frank confirms or edits the remaining **[CONFIRM]** items: the scope wording, the processing values with FWM, the electrode format, the electrochemistry values and the O2 framing.
+1. Frank confirms the items marked for confirmation: the scope wording, the processing values, the electrode format, the electrochemistry values and the O2 framing. Done 2026-10-12, as written ("keep everything as written").
 2. The weigh sheet is computed for the six compositions at 200 g: done ([s8-weigh-sheet-2026-10-08.md](s8-weigh-sheet-2026-10-08.md)).
-3. Deposit the confirmed freeze with arm C's final readout and the extension's final readout, as one Zenodo restricted version with its manifest and a dated line in docs/45 and docs/43. This makes both deposits of the blinding rule (§1). The package is [s8-freeze-deposit-package-2026-10-11.md](s8-freeze-deposit-package-2026-10-11.md).
+3. Deposit the confirmed freeze with arm C's final readout and the extension's final readout, as one Zenodo restricted version with its manifest and a dated line in docs/45 and docs/43. This makes both deposits of the blinding rule (§1). It follows the melting of three buttons (§1b). The package is [s8-freeze-deposit-package-2026-10-11.md](s8-freeze-deposit-package-2026-10-11.md).
 4. The Cr(VI) risk assessment is signed and dated. Then melt.
 
-This also resolves the conflict between research-decisions 2026-09-16 (":45", no deposit task as an execution gate) and roadmap §5 (deposit before first ingot): the later roadmap governs, and the deposit is made.
+This also resolves the conflict between research-decisions 2026-09-16 (":45", no deposit task as an execution gate) and roadmap §5 (deposit before first ingot): the later roadmap governs, and the deposit is made, after the first ingot (§1b).

@@ -1,6 +1,6 @@
 # S8 freeze deposit package, 2026-10-11
 
-Status: **ready to run once Frank has settled the items below. Nothing has been created on Zenodo.**
+Status: **settled 2026-10-12** ("Settled, 2026-10-12" below). Three buttons were melted before the deposit, a departure recorded in freeze §1b. Publishing waits for Frank's go.
 
 Decision of record: Frank, 2026-10-11: "Yes, start on the deposit package", after the arm C extension's last readout ([s8-arm-c-extension-2026-10-08.md](s8-arm-c-extension-2026-10-08.md), "Round 6 readout").
 
@@ -66,9 +66,21 @@ The script refuses to write a manifest, create a draft, upload or publish while 
 - `CONFIRMED` is not a YYYY-MM-DD date;
 - the committed freeze still carries a [CONFIRM] marker or its "proposed, not frozen" status line.
 
+### Settled, 2026-10-12
+
+- **Items 1, 2 and 4:** "keep everything as written". `CONFIRMED` is 2026-10-12. As written, the electrode-format item is a rule: the rotating insert if Tackett's shroud takes it, otherwise the stationary disk, set by his answer before any measurement (freeze §6).
+- **Item 3:** Fort Wayne Metals had melted three buttons: Cu8Cr23Mn35Co34, Ni31Cr29Cu5Mn35 and Fe25Co25Ni25Cr25, on 2026-10-09 and 2026-10-12, with nothing measured on them (Frank: "Yes. The first 3"; "Friday and today"; "Nothing measured yet").
+  - `FIRST_INGOT` records this, and freeze §1b records the departure.
+  - docs/43, docs/45, the melt plan, the weigh sheet and the Zenodo description carry it too.
+  - Arms A, B and C were committed before the first melt; the extension's Fe25 value came after it.
+- **The scope line stays as written.** Its "frozen here before the first ingot" is no longer true, so a dated note after it says arm B is frozen before any OER measurement, not before the first ingot (freeze §1).
+- **"As written" covers the five items in §1, §5 and §6.** §7's supervisor names are still open; the freeze says so as written.
+- **Guard:** the script now refuses while any deposited file carries a [CONFIRM] marker (the melt plan and weigh sheet had them too), and `--manifest` refuses unless docs/43 names the manifest it writes. Only a modified deposited file or the draft state blocks it; other sessions' unrelated edits in this worktree are listed, not deposited.
+- The texts below were the templates. The committed docs/43 addendum and docs/45 rows add the melt departure.
+
 ## Run sequence
 
-Each command is `PYTHONPATH=src python src/dft/zenodo_deposit.py …`. The script refuses while any tracked file is modified, so every step runs from a committed tree. `docs/deposits/.draft_state.json` is tracked, and `--create` rewrites it, so the draft is created and uploaded in one invocation, as for A10 (27ced99, e4b3e65).
+Each command is `PYTHONPATH=src python src/dft/zenodo_deposit.py …`. The script refuses while any deposited file is modified, so every step runs from a committed fileset. `docs/deposits/.draft_state.json` is tracked, and `--create` rewrites it, so the draft is created and uploaded in one invocation, as for A10 (27ced99, e4b3e65).
 1. **Settle and commit.**
    - Fill `CONFIRMED` and `FIRST_INGOT`.
    - Edit the freeze: the settled [CONFIRM] items, and a status line saying it was frozen on the confirmation date. Every "[CONFIRM" must go, including the mentions in the status line and §8, or the script refuses.
@@ -82,6 +94,7 @@ Each command is `PYTHONPATH=src python src/dft/zenodo_deposit.py …`. The scrip
    - The manifest, the draft and the description all name that one commit. Nothing is published.
 4. **Commit** the manifest and `docs/deposits/.draft_state.json`.
 5. **Publish, on Frank's go:** `--publish`. This mints the DOI.
+   - Just before, check with Frank that nothing has changed since 2026-10-12: no further button melted, and nothing measured, composition and XRD included. The record states both as of the deposit. If either changed, revise the record and redo steps 1–4.
 6. **Fill in and close.**
    - Replace `S8-DEPOSIT-PENDING` and `S8-COMMIT-PENDING` in docs/43, docs/45 and the freeze's status line with the DOI and the step-1 commit.
    - Set `LATEST_PUBLISHED_RECID` to the new record.

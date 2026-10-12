@@ -1,6 +1,6 @@
 # S8 batch-1 weigh sheet, 2026-10-08
 
-Status: proposed; basis **200.0 g** per button (the button Fort Wayne Metals melts; Song Cai, 2026-10-07) and **+4% Mn** are [CONFIRM] values in the [stage-1 freeze proposal](s8-stage1-freeze-proposal-2026-10-07.md). Nothing is melted before the freeze is deposited. Supersedes the 10 g, five-alloy [sheet of 2026-10-07](s8-weigh-sheet-2026-10-07.md). Compositions are the exact at.% of `results/r4_gated.json`; molar masses are IUPAC standard atomic weights (`src/scripts/weigh_sheet.py`). Reproduce with `PYTHONPATH=src/scripts python src/scripts/weigh_sheet_s8.py`.
+Status: basis **200.0 g** per button (the button Fort Wayne Metals melts; Song Cai, 2026-10-07) and **+4% Mn**, confirmed with the [stage-1 freeze](s8-stage1-freeze-proposal-2026-10-07.md) on 2026-10-12. Three buttons were melted before the freeze was deposited (freeze §1b). Supersedes the 10 g, five-alloy [sheet of 2026-10-07](s8-weigh-sheet-2026-10-07.md). Compositions are the exact at.% of `results/r4_gated.json`; molar masses are IUPAC standard atomic weights (`src/scripts/weigh_sheet.py`). Reproduce with `PYTHONPATH=src/scripts python src/scripts/weigh_sheet_s8.py`.
 
 Mass fraction w_i = x_i M_i / Σ_j x_j M_j; nominal mass = basis × w_i; the Mn weigh target adds the over-charge. The at.% is the design target: verify the actual composition by SEM-EDS after melting.
 
@@ -84,4 +84,4 @@ Mass fraction w_i = x_i M_i / Σ_j x_j M_j; nominal mass = basis × w_i; the Mn 
 
 Allow extra for possible re-melts (one per alloy that misses ±2 at.%; most likely the two ~35 at.% Mn alloys).
 
-**Safety:** four of the six alloys contain 22.6–31.5 at.% Cr (Cu22Fe30Co32Mn15 and Ni34Fe6Cu29Co31 have none). A dated, mentor-signed Cr(VI) risk assessment is required before the first melt (freeze proposal §7).
+**Safety:** four of the six alloys contain 22.6–31.5 at.% Cr (Cu22Fe30Co32Mn15 and Ni34Fe6Cu29Co31 have none). A dated, mentor-signed Cr(VI) risk assessment is required before the first melt (freeze §7).

@@ -64,9 +64,11 @@ LATEST_PUBLISHED_RECID = "22884160"
 # readouts (docs/research/s8-freeze-deposit-package-2026-10-11.md). Each PENDING_ value is filled when the entrant
 # settles it; --manifest, --create, --upload and --publish refuse while any remains (pending()).
 LABEL = "S8"
-CONFIRMED = "PENDING_CONFIRMATION_DATE"  # the entrant's dated confirmation of the freeze text, YYYY-MM-DD
-# "before the first ingot", or the recorded departure if a button was melted before the deposit
-FIRST_INGOT = "PENDING_FIRST_INGOT"
+CONFIRMED = "2026-10-12"  # the entrant's dated confirmation of the freeze text ("keep everything as written")
+# The deposit's timing against the melt (the entrant, 2026-10-12: "Yes. The first 3", "Friday and today",
+# "Nothing measured yet"); the departure is recorded in freeze section 1b.
+FIRST_INGOT = ("after three of its six buttons (Cu8Cr23Mn35Co34, Ni31Cr29Cu5Mn35, Fe25Co25Ni25Cr25) were melted "
+               "on 2026-10-09 and 2026-10-12, with nothing yet measured on them")
 
 # repo path -> name the file carries in the deposit. A new version replaces the whole fileset, so every earlier
 # version's files are carried forward and the S8 files are added after them.
@@ -157,10 +159,16 @@ def load_state():
 
 
 def check_clean():
-    dirty = git("status", "--porcelain", "--untracked-files=no").decode().strip()
+    # Only a modified deposited file (or the draft state) blocks: the deposit is read from blobs at the commit, and
+    # other sessions share this worktree, so their unrelated edits are reported, not deposited.
+    dirty = git("status", "--porcelain", "--untracked-files=no").decode().splitlines()
+    ours = {p for p, _ in FILESET} | {os.path.relpath(STATE_PATH, ROOT).replace(os.sep, "/")}
+    blocking = [line for line in dirty if line[3:].strip() in ours]
+    if blocking:
+        sys.exit("REFUSING: deposited files are modified. Commit first -- a deposit "
+                 "must name a commit.\n" + "\n".join(blocking))
     if dirty:
-        sys.exit("REFUSING: tracked files are modified. Commit first -- a deposit "
-                 "must name a commit.\n" + dirty)
+        print("modified tracked files outside the deposit (not deposited):\n" + "\n".join(dirty))
 
 
 def manifest_path(commit: str) -> str:
@@ -249,7 +257,7 @@ def metadata(commit: str) -> dict:
                 "in-repo at docs/deposits/2026-09-21-A10.manifest.txt.</p>"
                 f"<p>New version, {CONFIRMED}: the S8 stage-1 melt freeze, "
                 f"confirmed by the entrant on {CONFIRMED} and deposited "
-                f"{FIRST_INGOT} and before any OER measurement of its six alloys. "
+                f"{FIRST_INGOT}, and before any OER measurement of its six alloys. "
                 "It freezes three predictions of their OER activity: (A) the "
                 "August 5 MLIP screen, a dated historical prediction (commit "
                 "96b1cb1); (B) the September MLIP site census, which is also the "
@@ -263,8 +271,11 @@ def metadata(commit: str) -> dict:
                 "outcome. RECORDED DEPARTURES: the re-rank gate departs from the "
                 "registered S8 rule in three places (freeze section 1a); every "
                 "extension round after the first was chosen after the previous "
-                "readout was known; and the last round's selection threshold was set "
-                "after its screen was run (freeze section 4b). docs/43 also carries its four dated addenda "
+                "readout was known; the last round's selection threshold was set "
+                "after its screen was run (freeze section 4b); and the deposit follows "
+                "the first ingot, while the S8 rule requires it before (freeze section 1b): "
+                "arms A, B and C were committed before the first melt, and the extension's "
+                "Fe25 value after it. docs/43 also carries its four dated addenda "
                 "of 2026-09-22 (three licensed compute additions under A11.R3 and "
                 "the entrant's election \"Protocol research first, freeze later\"), "
                 "deposited here for the first time. Files are the git-blob (LF) serialization of "
@@ -276,26 +287,39 @@ def metadata(commit: str) -> dict:
 
 
 FREEZE = "docs/research/s8-stage1-freeze-proposal-2026-10-07.md"
-UNCONFIRMED = ("[CONFIRM", "proposed, not frozen")  # left in the freeze text until the entrant confirms it
+DOCS43 = "docs/43-prereg-week1-factorial.md"
+UNCONFIRMED = "[CONFIRM"  # marks an item the entrant has not confirmed, in any deposited file
+PROPOSED = "proposed, not frozen"  # the freeze's status line until the entrant confirms it
 
 
 def pending(commit: str = "") -> list:
     """What still blocks the deposit; nothing is written while any remains.
 
-    Placeholders in the deposit's names or metadata, a confirmation date that is not YYYY-MM-DD, and a freeze text
-    at the commit that still carries a [CONFIRM] marker or its proposal status line.
+    Placeholders in the deposit's names or metadata, a confirmation date that is not YYYY-MM-DD, a deposited file at
+    the commit that still carries a [CONFIRM] marker, and a freeze that still carries its proposal status line.
     """
     commit = commit or head()
     text = json.dumps([FILESET, metadata(commit)], ensure_ascii=False)
     found = sorted(set(re.findall(r"PENDING_[A-Z_]+", text)))
     if "PENDING_CONFIRMATION_DATE" not in found and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", CONFIRMED):
         found.append(f"CONFIRMED is not a YYYY-MM-DD date: {CONFIRMED!r}")
-    freeze = blob(FREEZE, commit).decode("utf-8")
-    found += [f"the freeze at {commit[:9]} still contains {marker!r}" for marker in UNCONFIRMED if marker in freeze]
+    files = {path: blob(path, commit).decode("utf-8", errors="replace") for path, _ in FILESET}
+    found += [f"{path} at {commit[:9]} still contains {UNCONFIRMED!r}"
+              for path, t in files.items() if UNCONFIRMED in t]
+    if PROPOSED in files[FREEZE]:
+        found.append(f"the freeze at {commit[:9]} still contains {PROPOSED!r}")
     return found
 
 
+def names_manifest(commit) -> bool:
+    """docs/43's addendum names the manifest this deposit writes, so the deposited record points at it."""
+    return manifest_path(commit) in blob(DOCS43, commit).decode("utf-8", errors="replace")
+
+
 def cmd_manifest(commit):
+    if not names_manifest(commit):
+        sys.exit(f"REFUSING: docs/43 at {commit[:9]} does not name the manifest {manifest_path(commit)}. "
+                 "Its addendum must name the manifest of the commit being deposited.")
     rows = []
     print(f"fileset at {commit[:9]} (git-blob / LF bytes):\n")
     for path, name in FILESET:
@@ -472,6 +496,7 @@ def cmd_manifest_dry(commit):
           f"{LATEST_PUBLISHED_RECID}; access_right=restricted")
     left = pending(commit)
     print(f"{LABEL} deposit; still to settle: " + ("; ".join(left) if left else "nothing"))
+    print(f"docs/43 names the manifest {manifest_path(commit)}: {'yes' if names_manifest(commit) else 'NO'}")
 
 
 if __name__ == "__main__":
