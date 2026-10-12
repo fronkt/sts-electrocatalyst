@@ -1,6 +1,6 @@
 # S8 freeze deposit package, 2026-10-11
 
-Status: **settled 2026-10-12** ("Settled, 2026-10-12" below). Three buttons were melted before the deposit, a departure recorded in freeze §1b. Publishing waits for Frank's go.
+Status: **settled 2026-10-12** ("Settled, 2026-10-12" below); steps 1–4 done. The draft is Zenodo 23327000, from commit 1265ac2, with all 21 files verified and nothing published. Three buttons were melted before the deposit, a departure recorded in freeze §1b. Step 5, publishing, waits for Frank's go.
 
 Decision of record: Frank, 2026-10-11: "Yes, start on the deposit package", after the arm C extension's last readout ([s8-arm-c-extension-2026-10-08.md](s8-arm-c-extension-2026-10-08.md), "Round 6 readout").
 
