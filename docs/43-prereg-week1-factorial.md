@@ -5067,4 +5067,4 @@ Of the primary hypotheses, K1 decides between arms A and B and K2 is shared by t
 
 **Timing.** Deposited after three of the six buttons were melted and before any OER measurement of these alloys. This makes both deposits of the freeze's blinding rule.
 
-**Deposit.** A new restricted version of concept record 21963143: DOI S8-DEPOSIT-PENDING, from commit S8-COMMIT-PENDING (manifest `docs/deposits/2026-10-12-S8.manifest.txt`).
+**Deposit.** A new restricted version of concept record 21963143: **DOI 10.5281/zenodo.23327000** (record 23327000, published 2026-10-12), files as the git blobs of commit 1265ac2 (manifest `docs/deposits/2026-10-12-S8.manifest.txt`, committed at 4ba80a6).

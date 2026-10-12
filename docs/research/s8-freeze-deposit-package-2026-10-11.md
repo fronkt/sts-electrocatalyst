@@ -1,6 +1,6 @@
 # S8 freeze deposit package, 2026-10-11
 
-Status: **settled 2026-10-12** ("Settled, 2026-10-12" below); steps 1–4 done. The draft is Zenodo 23327000, from commit 1265ac2, with all 21 files verified and nothing published. Three buttons were melted before the deposit, a departure recorded in freeze §1b. Step 5, publishing, waits for Frank's go.
+Status: **published 2026-10-12** ("Settled, 2026-10-12" and "Published, 2026-10-12" below); steps 1–6 done. DOI 10.5281/zenodo.23327000 (record 23327000, restricted), from commit 1265ac2, with all 21 files verified on the published record. Three buttons were melted before the deposit, a departure recorded in freeze §1b.
 
 Decision of record: Frank, 2026-10-11: "Yes, start on the deposit package", after the arm C extension's last readout ([s8-arm-c-extension-2026-10-08.md](s8-arm-c-extension-2026-10-08.md), "Round 6 readout").
 
@@ -77,6 +77,14 @@ The script refuses to write a manifest, create a draft, upload or publish while 
 - **"As written" covers the five items in §1, §5 and §6.** §7's supervisor names are still open; the freeze says so as written.
 - **Guard:** the script now refuses while any deposited file carries a [CONFIRM] marker (the melt plan and weigh sheet had them too), and `--manifest` refuses unless docs/43 names the manifest it writes. Only a modified deposited file or the draft state blocks it; other sessions' unrelated edits in this worktree are listed, not deposited.
 - The texts below were the templates. The committed docs/43 addendum and docs/45 rows add the melt departure.
+
+### Published, 2026-10-12
+
+- **Go:** Frank, "go". Asked just before whether anything had changed since his answers earlier that day (more buttons melted, or anything measured on the three: composition, XRD or OER), he answered "Nothing changed".
+- **Check before publishing** (read-only): 22884160 was still the latest published version and 23327000 the only open draft. The draft's 21 files matched the git blobs at 1265ac2 by md5, its metadata equalled `metadata(1265ac2)`, and no deposited blob had changed between 1265ac2 and 4ba80a6.
+- **Published** with `--publish`: DOI 10.5281/zenodo.23327000, record 23327000, concept 10.5281/zenodo.21963143, publication date 2026-10-12, restricted.
+- **Check after publishing** (read-only): submitted and done; 21 files, every md5 equal to the blob at 1265ac2; 23327000 the latest of six published versions, with no draft open.
+- **Step 6:** the DOI and commit are filled in docs/43 (the addendum's "Deposit" line), docs/45 (§D and §E) and the freeze's status line, and `LATEST_PUBLISHED_RECID` is 23327000. The deposited blobs of these three files carry the placeholders; the repo's files differ from them only by these fills, as docs/43 and docs/45 did after A10 (643bf99).
 
 ## Run sequence
 

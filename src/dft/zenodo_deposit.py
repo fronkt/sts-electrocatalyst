@@ -58,7 +58,7 @@ API = "https://zenodo.org/api"
 # The concept record. Versions attach to THIS, not to any version DOI.
 CONCEPT_RECID = "21963143"
 # The most recently published version; the new version drafts off it.
-LATEST_PUBLISHED_RECID = "22884160"
+LATEST_PUBLISHED_RECID = "23327000"
 
 # The deposit this script is set up for: the S8 stage-1 melt freeze with arm C's and the arm C extension's final
 # readouts (docs/research/s8-freeze-deposit-package-2026-10-11.md). Each PENDING_ value is filled when the entrant
