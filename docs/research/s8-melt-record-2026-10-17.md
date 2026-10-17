@@ -76,4 +76,10 @@ Both look like the mold did not fill completely (misruns): thin, necked and step
 | Separation | Samples separated from each other by stainless steel foil | The order of the alloys in the boat, and how each is marked |
 | Getter | Two Ti chunks at the ends of the boat, kept well away from the samples by a fibre insulation spacer | The spacer material: refractory ceramic fibre is rated above 1,050 °C, while glass fibre softens below it |
 | Hold | 24 h counted from the load reaching 1,040 °C | Pull time |
-| Quench | Water, boat pulled by the wires | Transfer time, and the condition of the pieces after the quench |
+| Quench | Planned: water, boat pulled by the wires. Song Cai (2026-10-17) raised thermal-shock cracking | The medium used, transfer time, and a crack check of every piece (loupe or dye penetrant) before machining |
+
+**Quench choice (open, 2026-10-17).** Freeze §5 says "then quench" and does not fix the medium.
+- **Why fast cooling matters.** Slow cooling through about 900–500 °C can grow Cu-rich particles (Cu8, Cu22, Cu26, Ni34) and gives Cr- and Mn-rich alloys time to form σ.
+- **Cracking risk.** FCC CoCrFeNi-type alloys are routinely water-quenched from 1,000–1,200 °C after homogenization. Cracks would start at casting defects (the laps and necks in Ni31 and Cu22), which are not disk material.
+- **Options:** water (the plan), warm water (about 60–80 °C) or oil, which are milder and still a quench; cooling in air or Ar (a weak quench, better recorded as a departure); furnace cooling (a departure).
+- All six alloys are in one boat, so they cool the same way whichever is chosen.
