@@ -9,7 +9,7 @@
 | Item | State | Source |
 |---|---|---|
 | Cu8Cr23Mn35Co34, Ni31Cr29Cu5Mn35, Fe25Co25Ni25Cr25 | Melted 2026-10-09 and 2026-10-12. Charges, remelts and any anneal not recorded | freeze §1b |
-| Cu26Ni9Cr31Co33, Ni34Fe6Cu29Co31, Cu22Fe30Co32Mn15 | Melt status not recorded | |
+| Cu26Ni9Cr31Co33, Ni34Fe6Cu29Co31, Cu22Fe30Co32Mn15 | Melted by 2026-10-17 (Frank, 2026-10-17: "All alloys were melted."). Dates, charges, remelts and any anneal not recorded | Frank |
 | OER measurements | None recorded | [lock rule](s8-electrode-lock-rule-2026-10-16.md) |
 | Machining request to Song Cai (FWM) | Sent 2026-10-13: 5 mm × 4 mm wire-EDM cores after the 1,050 °C / 24 h homogenization, about 0.1 mm off the front face, 3 + 1 spare per alloy plus an offcut. No reply recorded | Frank's Gmail |
 | Tackett, 2026-10-13 | Machine the samples to Pine's quick-change disk (AFED) drawing: "If you can get something close, that should be ok." One rotator, so samples run one at a time. Timeline "a little tight" | Frank's paste |
@@ -32,7 +32,7 @@ Pine's drawing is vendor material and stays out of this repository. FWM has it f
 - Before any anneal, cut one 3 mm slice from the rim (wire EDM or a wet abrasive saw).
 - Polish one piece. Take BSE images and an EDS map at the top, middle and bottom, and measure the secondary dendrite arm spacing λ. λ decides how much the 24 h anneal can do (step 4).
 - Keep one piece as the as-cast reference for the report. The rest goes to step 3.
-- For the three melted buttons: the same, if they have not been annealed. If they have, record what was done (temperature, time, atmosphere, cooling) and go to step 5.
+- For every button: the same, if it has not been annealed. If it has, record what was done (temperature, time, atmosphere, cooling) and go to step 5.
 
 ### 3. Check for local melting at 1,050 °C (record; the five Cu-bearing alloys)
 
@@ -52,7 +52,11 @@ Pine's drawing is vendor material and stays out of this repository. FWM has it f
 
 ### 4. Homogenize (frozen: 1,050 °C, 24 h, Ar, then quench; freeze §5)
 
-- **One load** for every button not yet annealed (freeze §5: "all six alloys are melted and annealed in one batch").
+- **One load** for every button not yet annealed (freeze §5: "all six alloys are melted and annealed in one batch"). All six are melted, so all six can go in together.
+- **One temperature for all six (frozen).** Freeze §5 gives a single schedule, not one per alloy, and one load needs one temperature.
+  - The ceiling is set by the Cu alloys: their last-to-freeze regions melt lowest (step 3). Cu26's Cu–Cr margin is about 26 °C.
+  - Fe25Co25Ni25Cr25 (no Cu, no Mn) melts far above 1,050 °C and could take a hotter anneal. It also diffuses slowest of the measured alloys (CoCrFeNi rows below). Its four elements usually segregate only weakly on casting, so 1,050 °C should still be enough; step 2 measures it.
+  - A per-alloy temperature would be a departure: a second load, and different thermal histories for the alloys being compared.
 - **Argon, not vacuum (record).** Mn has the highest vapour pressure of the six elements. Under vacuum it evaporates freely; under argon its loss is limited by diffusion through the gas. Use flowing high-purity Ar with Ti getter chips upstream, or a sealed quartz tube back-filled with Ar if the 51 mm buttons fit.
 - **Temperature (record).** Thermocouple at the load. Count the 24 h from the load reaching 1,040 °C. Overshoot no more than 10 °C, because Cu26's Cu–Cr margin is about 26 °C. Keep the trace.
 - **Separation (record).** Buttons must not touch each other. Stand them on an alumina plate or Mo/Ta foil.
@@ -163,7 +167,7 @@ Best case, starting Monday:
 
 | Day | Work |
 |---|---|
-| Mon 10-19 | Song: melt status of all six buttons and the processing of the first three. Melt any that are left. Log masses, cut as-cast slices, run DSC or the 1 h trials |
+| Mon 10-19 | Song: melt dates and processing of all six buttons. Log masses, cut as-cast slices, run DSC or the 1 h trials |
 | Tue 10-20 | Trial SEM in the morning; homogenization load in (24 h) |
 | Wed 10-21 | Quench, trim, acceptance slab, EDS and XRD; EDM starts |
 | Thu 10-22 | EDM and slicing, face prep; format decision |
@@ -180,14 +184,14 @@ Even in the best case the first measurement is on Oct 24. Neither set can be com
 
 1. **The lock date, now, before any data exist.** Moving it before any measurement does not depend on the data. The STS entry is due about Nov 5.
 2. **Electrode format, by Oct 22.** With the Oct 25 lock, only stationary disks on parallel channels could come close. With a later lock, the rotating insert is the cleaner measurement.
-3. **K1 first?** Only relevant if the other three buttons are not melted yet. Annealing the K1 trio now saves a day or more, but it splits the anneal into two loads, a departure from §5's one batch. K1 would sit within one load; K2 would span two.
+3. ~~**K1 first?**~~ Resolved 2026-10-17: all six are melted, so all six go in one load as frozen.
 4. **A longer anneal**, if λ is above about 40 µm. It costs two days.
 5. **A new anneal schedule**, if step 3 shows local melting.
 
 ## Questions for Song (only what is not yet recorded)
 
-- Are Cu26Ni9Cr31Co33, Ni34Fe6Cu29Co31 and Cu22Fe30Co32Mn15 melted? If not, when?
-- For Cu8, Ni31 and Fe25: the charged masses, the number of remelts, the button masses, and whether any anneal was done (temperature, time, atmosphere, cooling).
+- When were Cu26Ni9Cr31Co33, Ni34Fe6Cu29Co31 and Cu22Fe30Co32Mn15 melted?
+- For all six: the charged masses, the number of remelts, the button masses, and whether any anneal was done (temperature, time, atmosphere, cooling).
 - Is a DSC available at FWM?
 - The furnace: argon flow or sealed? A thermocouple at the load? A water quench tank next to it?
 - The 2026-10-13 questions (EDM diameter tolerance, timing), if still open.

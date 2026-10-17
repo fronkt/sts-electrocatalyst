@@ -8,7 +8,8 @@ Plan: `docs/research/s8-processing-plan-2026-10-17.md`. No frozen value changed.
 - [x] Diffusion check of the frozen 24 h at 1,050 °C (Vaidya et al. radiotracer Arrhenius data): removes λ ≈ 20 µm segregation, leaves much of λ ≥ 50 µm.
 - [ ] Frank: lock date (best-case first measurement is Oct 24, so nothing can be complete by Oct 25 on one rotator).
 - [ ] Frank: electrode format by about Oct 22 (cylinders are the same either way).
-- [ ] Song: melt status of Cu26, Ni34, Cu22; processing of Cu8, Ni31, Fe25 (freeze §1b); DSC; furnace details.
+- [x] All six melted (Frank, 2026-10-17: "All alloys were melted.") -> one anneal load for all six, as frozen; "K1 first" decision dropped.
+- [ ] Song: melt dates of Cu26, Ni34, Cu22; processing of all six (charges, remelts, masses, any anneal); DSC; furnace details.
 - [ ] Before any OER measurement: freeze §1b processing line, freeze §6 format line, disk position rule, per-button record.
 
 ## 2026-10-08 — S8 freeze revision after Frank's decisions
