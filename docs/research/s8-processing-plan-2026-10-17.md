@@ -89,6 +89,12 @@ Pine's drawing is vendor material and stays out of this repository. FWM has it f
     - Samples sit on ceramic if the shop has any (an alumina boat or plate, a crucible, or ceramic fibre paper), under a loose stainless foil tent. The tent's Cr takes up residual O₂ and keeps Mn vapour near the samples.
     - Without ceramic, a direct wrap is acceptable for the thick rods, not for Ni31's thin pieces.
     - Ti chips, if used, go in their own stainless foil packet beside the samples.
+  - **Setup chosen (Frank, 2026-10-17):** a stainless steel boat with stainless wires to pull it in and out of the argon furnace, and Ti chips as oxygen getters, not touching the samples.
+    - **Alloys apart.** Alloys do not touch each other in the boat: space them out, or use bent-wire dividers.
+    - **Marks that survive the heat.** Ink burns off, so mark the alloys with filed notches or different cut lengths on ends that are cut off later, and record the key. Cu8, Fe25 and Ni34 are similar long rods.
+    - **The pull.** Use a doubled or heavy wire, since stainless softens at 1,050 °C. Rehearse the pull while cold, and keep a large water bucket at the furnace mouth so the boat goes from the hot zone into the water within about 10 s. Wear a face shield and gloves.
+    - **Ti chips.** They sit near the Ar inlet, on a sacrificial scrap of stainless foil rather than on the sample boat, because Ti can stick to or react with stainless at 1,050 °C.
+    - **Optional:** a loose stainless foil lid, and Ni31's pieces resting on bent wires so they touch the boat only at a few points (its usable metal is the thick stubs).
   - **Record exactly what was used:** furnace atmosphere, foil grade, separator, getter. Freeze §5 says "Ar". An Ar-flushed pouch in an air furnace keeps the samples under Ar, but write it down as such.
   - **Quench with the foil on:** drop the pouch into the water and open it underwater; a single loose wrap lets water in fast. The few extra seconds do not matter for σ, which forms over hours.
 - **Argon, not vacuum (record).** Mn has the highest vapour pressure of the six elements. Under vacuum it evaporates freely; under argon its loss is limited by diffusion through the gas.
