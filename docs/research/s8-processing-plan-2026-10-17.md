@@ -103,7 +103,7 @@ The frozen checks:
 Added (record):
 - **EDS fields.** At least 6 area fields, each at least 0.5 × 0.5 mm, at 20 kV, on the slab: top, middle and bottom, each at the centre and the edge. Judge pass/fail on the mean per element, and report mean ± SD.
 - **EDS overlaps.** The K lines of neighbouring elements overlap: Cr Kβ with Mn Kα, Mn Kβ with Fe Kα, Fe Kβ with Co Kα, Co Kβ with Ni Kα. Standardless EDS on these alloys can be off by 1–2 at.% for major elements, which is comparable to the tolerance. A result within 1 at.% of a limit gets a second method (XRF or ICP-OES) if FWM has one.
-- **Residual segregation.** An EDS line scan across at least 5 dendrite arms at the top (coarsest) and at mid-height. Report max − min per element.
+- **Residual segregation.** An EDS line scan at least 5λ long (λ from the as-cast slice, step 2) at the top (coarsest) and at mid-height. A complete homogenization leaves no dendrite contrast in BSE and a flat profile, so the scan length comes from the as-cast λ. Report max − min per element.
 - **BSE.** Second phases (Cu-rich, σ), porosity, and any sign of local melting.
 - **XRD on a polished face, 20–100° 2θ.**
   - Under Cu Kα, Cr, Mn, Fe and Co fluoresce and raise the background. Use an energy-discriminating detector, or a Co or Mo tube, if one is available.
