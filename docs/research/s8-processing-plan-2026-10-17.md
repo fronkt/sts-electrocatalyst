@@ -148,6 +148,11 @@ Added (record):
   - Undissolved Cr particles (Ni31).
   - Oxide or carbide inclusions from the crucible.
   - Any sign of local melting.
+- **XRD may not be possible at FWM; EDS will be (Frank, 2026-10-17).**
+  - Acceptance pass/fail is EDS only, so it is unaffected. XRD is a record ("XRD phases recorded"), and no decision before OER depends on it.
+  - Keep one polished homogenized slice per alloy for XRD elsewhere (Purdue, the electrochemistry lab or PFW), any time before the report lock.
+  - Only if no XRD is done before the report does it become a departure, needing a dated line.
+  - Meanwhile, BSE and EDS maps show second phases and their composition. EBSD, if FWM's SEM has it, identifies crystal structure (FCC, BCC, σ) on the same slice.
 - **XRD on a polished transverse slice, 20–100° 2θ.**
   - Under Cu Kα, Cr, Mn, Fe and Co fluoresce and raise the background. Use an energy-discriminating detector, or a Co or Mo tube, if one is available.
   - A Cu-rich FCC phase (a = 3.615 Å) sits close to the matrix peaks (about 3.56–3.60 Å). In the five Cu alloys, scan slowly around (111) and (200) to look for a shoulder.
