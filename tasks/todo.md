@@ -1,5 +1,16 @@
 # STS 2027 — TODO
 
+## 2026-10-17 — S8 processing plan, button to electrode (Frank: "give me the full processing plan. homogenization plan, etc...")
+
+Plan: `docs/research/s8-processing-plan-2026-10-17.md`. No frozen value changed. Additions are marked record or departure.
+
+- [x] Plan written: 11 steps per button (log, as-cast slice, local-melting check, homogenize, trim, acceptance, cut, face prep, mount, ship, records), schedule against the Oct 25 lock, decisions, questions for Song.
+- [x] Diffusion check of the frozen 24 h at 1,050 °C (Vaidya et al. radiotracer Arrhenius data): removes λ ≈ 20 µm segregation, leaves much of λ ≥ 50 µm.
+- [ ] Frank: lock date (best-case first measurement is Oct 24, so nothing can be complete by Oct 25 on one rotator).
+- [ ] Frank: electrode format by about Oct 22 (cylinders are the same either way).
+- [ ] Song: melt status of Cu26, Ni34, Cu22; processing of Cu8, Ni31, Fe25 (freeze §1b); DSC; furnace details.
+- [ ] Before any OER measurement: freeze §1b processing line, freeze §6 format line, disk position rule, per-button record.
+
 ## 2026-10-08 — S8 freeze revision after Frank's decisions
 
 Decisions (Frank, 2026-10-08): "Let's rerank gate." (census = re-rank of record, S8 exploratory); "Your call on Ni34" (added as sixth alloy; K1/K2 stay on the five); "yes IrO2" (registered secondary outcome). "Song knows as we've talked in person." Gmail: Song (FWM) melts 200 g buttons (10-07).
