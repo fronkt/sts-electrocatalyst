@@ -121,3 +121,18 @@ The experiment-version manuscript is not changed by B1 unless Frank asks.
   per leg, stage 1 should use about 1,000–3,100 SU, and stage 2 about 200 SU.
 - docs/76 §Cost records a billed-to-measured factor of 1.658 on earlier arrays. The ceiling is enforced by the job
   walls, not by that estimate.
+
+## Pre-launch review, folded 2026-10-16 (before submission)
+
+- **Review.** Codex `gpt-6.1-sol` (xhigh, read-only; `results/b1_relaxed_projector_2026-10-16/PRELAUNCH_REVIEW.md`)
+  found the decks, timing, hashes and launch gates correct.
+- **Scorer changes.** Four were made before any output exists:
+  - banked references are checked against the runner's numerical-failure markers;
+  - an unregistered H criterion is removed;
+  - unresolved arms report every available diagnostic;
+  - the fixed η pair is printed.
+- **A pre-existing caveat it surfaced.** The banked atomic *OH single point behind the fixed-geometry 0.1725 V,
+  `runs/a0/cell/s0_OH__2x1v_mir__u715.out`, carries an `IEEE_INVALID_FLAG` note. Under B1's policy that run would be
+  rejected. B1's relaxed atomic *OH leg is an independent value.
+- **Scorer test.** With the banked single points standing in for the terminal SCFs, the scorer reproduces Δη
+  +0.1725164 V exactly.

@@ -1,0 +1,183 @@
+{
+  "schema": "research-batch-2026-09-16",
+  "np": 128,
+  "exclusions": "a024,a049,a050,a088,a196,a220,a223,a171,a120,a200",
+  "date": "2026-10-16",
+  "design": "docs/research/b1-relaxed-projector-2026-10-16.md",
+  "decision_ref": "Frank, 2026-10-16: \"Go ahead\" (B1 of the DFT contingency plan)",
+  "allocation": {
+    "account": "che260157",
+    "partition": "wholenode",
+    "cores_per_task": 128,
+    "balance_note": "live mybalance 2026-10-17 03:43Z: che260157 CPU balance 15,124.2 SU",
+    "launch_ceiling_cpu_su": 7488,
+    "stage_ceilings_cpu_su": {
+      "b1_relax": 6144,
+      "b1_scf": 768,
+      "repair": 576
+    }
+  },
+  "qe_binaries_sha256": {
+    "pw.x": "1d66c7856f5d6b3cd9c66b8578e01512b16bbe907b4360e54234890712ccd6a1",
+    "projwfc.x": "456387be5ee32f358bc9835240b2e8bd1f8144a27a8e116731a1463dbf78ac85",
+    "mpirun": "a256bdcef89bdc61ba870e823056c51df868b4db48ab345a14278a7fe79ed75d"
+  },
+  "files": {
+    "runs/b1_relaxed_projector_2026-10-16/ref__2x1v__u715_atomic_relax.in": "c34eb0bf6bad99e9fc34832da38f7d0410c8ea31524533bace2e2a67023cd262",
+    "runs/b1_relaxed_projector_2026-10-16/ref__2x1v__u715_ortho_relax.in": "c3e9e1cf1f0c27771018ee9295a2dc29ad53696516791d6c4699e34b14493c99",
+    "runs/b1_relaxed_projector_2026-10-16/s0_OH__2x1v_mir__u715_atomic_relax.in": "67dc76e446ed49228c1528bab4b7a6363020e2ca37d82dd68c2a807c38e4ff2e",
+    "runs/b1_relaxed_projector_2026-10-16/s0_OH__2x1v_mir__u715_ortho_relax.in": "b1bcf3f5d77c9c34c367d299331914e5b05d2d6eb63764c31020a69a04c65f5e",
+    "runs/b1_relaxed_projector_2026-10-16/s0_OOH__2x1v_escape__u715_atomic_relax.in": "b1a08c387b04e43c6759b12736528f7c81e647b7f6855b54f2c3fed98f97f701",
+    "runs/b1_relaxed_projector_2026-10-16/s0_OOH__2x1v_escape__u715_ortho_relax.in": "638bf9a456cde33cb605e45a96a57bb5b00a5b1454711df19cbba293f970192f",
+    "runs/b1_relaxed_projector_2026-10-16/s0_O__2x1v_mir__u715_atomic_relax.in": "57c1149f283ec55890e6669a4a5e51b4a923acb08e7e95137225f282365b9fe1",
+    "runs/b1_relaxed_projector_2026-10-16/s0_O__2x1v_mir__u715_ortho_relax.in": "1dee7ac0a3da610e24d5c3d4e419ba0bfc63e193d189acb23cb5298502abeb96",
+    "runs/m_b1_relaxed_projector_2026-10-16_relax.txt": "ac046a89ae0e1f93b4518ebff0a116eada465caa68cd123a4706e48ee0970a8e",
+    "src/dft/hea_geometry.py": "ddfba096967680486f6202e222207aec4517866e7fc4c93f6acbfd372b8f6bad",
+    "src/dft/hea_panel_readout.py": "f0deef7a465db98e55bd1549c95c1cf9338c9c5b28885e06433d3157834cad57",
+    "src/dft/projection_qc.py": "dfc075634a99cee71e7287ea7868f62c59aa2666e4a593c61470b43d1bdd50f4",
+    "src/dft/research_batch_seeded.py": "32d705a5cda6467d6f0b48bbc274abd751ed6959e583375bd62de9d1ce0a7231"
+  },
+  "pseudo_md5": {
+    "cr_pbe_v1.5.uspp.F.UPF": "0d52af634a40206e4dee301ad30da4bf",
+    "O.pbe-n-kjpaw_psl.0.1.UPF": "0234752ac141de4415c5fc33072bef88",
+    "H.pbe-rrkjus_psl.1.0.0.UPF": "f52b6d4d1c606e5624b1dc7b2218f220"
+  },
+  "stages": {
+    "b1_relax": {
+      "kind": "relax",
+      "manifest": "runs/m_b1_relaxed_projector_2026-10-16_relax.txt",
+      "concurrency": 8,
+      "wall_minutes": 360,
+      "jobs": [
+        {
+          "dir": "b1_relaxed_projector_2026-10-16",
+          "job": "ref__2x1v__u715_atomic_relax",
+          "sha256": "c34eb0bf6bad99e9fc34832da38f7d0410c8ea31524533bace2e2a67023cd262",
+          "nk": 8,
+          "scf_seconds": 20700,
+          "projection_seconds": 600,
+          "max_iterations": 126,
+          "recipe": "relax",
+          "role": "b1",
+          "source_deck": "runs/a0/cell/ref__2x1v__u715.in",
+          "source_sha256": "d3b6743b22f2c08d85f6b69dda7845f5511398d1bf85f9bd7c7de15fd3d2cdbe",
+          "off_plane_kick": null
+        },
+        {
+          "dir": "b1_relaxed_projector_2026-10-16",
+          "job": "ref__2x1v__u715_ortho_relax",
+          "sha256": "c3e9e1cf1f0c27771018ee9295a2dc29ad53696516791d6c4699e34b14493c99",
+          "nk": 8,
+          "scf_seconds": 20700,
+          "projection_seconds": 600,
+          "max_iterations": 126,
+          "recipe": "relax",
+          "role": "b1",
+          "source_deck": "runs/a0/pproj_cell/ref__2x1v__u715_ortho.in",
+          "source_sha256": "ab5b064d1e00143c0b16b6cd0dc514c349ce2318942a63d74518129e2bb998ab",
+          "off_plane_kick": null
+        },
+        {
+          "dir": "b1_relaxed_projector_2026-10-16",
+          "job": "s0_O__2x1v_mir__u715_atomic_relax",
+          "sha256": "57c1149f283ec55890e6669a4a5e51b4a923acb08e7e95137225f282365b9fe1",
+          "nk": 8,
+          "scf_seconds": 20700,
+          "projection_seconds": 600,
+          "max_iterations": 126,
+          "recipe": "relax",
+          "role": "b1",
+          "source_deck": "runs/a0/cell/s0_O__2x1v_mir__u715.in",
+          "source_sha256": "8ea7c900f0aa66af5bcf8696254529b81487fde3a51c7f33f9a38756eeb8d685",
+          "off_plane_kick": {
+            "atom": "O",
+            "y_from": "1.56305954",
+            "y_to": "1.86305954"
+          }
+        },
+        {
+          "dir": "b1_relaxed_projector_2026-10-16",
+          "job": "s0_O__2x1v_mir__u715_ortho_relax",
+          "sha256": "1dee7ac0a3da610e24d5c3d4e419ba0bfc63e193d189acb23cb5298502abeb96",
+          "nk": 8,
+          "scf_seconds": 20700,
+          "projection_seconds": 600,
+          "max_iterations": 126,
+          "recipe": "relax",
+          "role": "b1",
+          "source_deck": "runs/a0/pproj_cell/s0_O__2x1v_mir__u715_ortho.in",
+          "source_sha256": "baad34addeabddacb2ba25c4b307cc241c5acd69a097e3b6dca00a8c0cf3d8e3",
+          "off_plane_kick": {
+            "atom": "O",
+            "y_from": "1.56305954",
+            "y_to": "1.86305954"
+          }
+        },
+        {
+          "dir": "b1_relaxed_projector_2026-10-16",
+          "job": "s0_OH__2x1v_mir__u715_atomic_relax",
+          "sha256": "67dc76e446ed49228c1528bab4b7a6363020e2ca37d82dd68c2a807c38e4ff2e",
+          "nk": 8,
+          "scf_seconds": 20700,
+          "projection_seconds": 600,
+          "max_iterations": 126,
+          "recipe": "relax",
+          "role": "b1",
+          "source_deck": "runs/a0/cell/s0_OH__2x1v_mir__u715.in",
+          "source_sha256": "10848a43b52250db2952b417feb281ac1dd69916db72bef5535c9a190dfc53a9",
+          "off_plane_kick": {
+            "atom": "H",
+            "y_from": "1.56305954",
+            "y_to": "1.86305954"
+          }
+        },
+        {
+          "dir": "b1_relaxed_projector_2026-10-16",
+          "job": "s0_OH__2x1v_mir__u715_ortho_relax",
+          "sha256": "b1bcf3f5d77c9c34c367d299331914e5b05d2d6eb63764c31020a69a04c65f5e",
+          "nk": 8,
+          "scf_seconds": 20700,
+          "projection_seconds": 600,
+          "max_iterations": 126,
+          "recipe": "relax",
+          "role": "b1",
+          "source_deck": "runs/a0/pproj_cell/s0_OH__2x1v_mir__u715_ortho.in",
+          "source_sha256": "4d77ff77d130fa8cd46a507ac0f0f2a147f2830852ceed1b373703be82824eb7",
+          "off_plane_kick": {
+            "atom": "H",
+            "y_from": "1.56305954",
+            "y_to": "1.86305954"
+          }
+        },
+        {
+          "dir": "b1_relaxed_projector_2026-10-16",
+          "job": "s0_OOH__2x1v_escape__u715_atomic_relax",
+          "sha256": "b1a08c387b04e43c6759b12736528f7c81e647b7f6855b54f2c3fed98f97f701",
+          "nk": 8,
+          "scf_seconds": 20700,
+          "projection_seconds": 600,
+          "max_iterations": 126,
+          "recipe": "relax",
+          "role": "b1",
+          "source_deck": "runs/a0/cell/s0_OOH__2x1v_escape__u715.in",
+          "source_sha256": "6c733dd9c138d7f42ddedc065dce991c155e1aeef64369d8a475f59384e1797d",
+          "off_plane_kick": null
+        },
+        {
+          "dir": "b1_relaxed_projector_2026-10-16",
+          "job": "s0_OOH__2x1v_escape__u715_ortho_relax",
+          "sha256": "638bf9a456cde33cb605e45a96a57bb5b00a5b1454711df19cbba293f970192f",
+          "nk": 8,
+          "scf_seconds": 20700,
+          "projection_seconds": 600,
+          "max_iterations": 126,
+          "recipe": "relax",
+          "role": "b1",
+          "source_deck": "runs/a0/pproj_cell/s0_OOH__2x1v_escape__u715_ortho.in",
+          "source_sha256": "d47358ae35ef123a075c3653a8dacde5aea9536518805f7770c8f8fc0bb3bbda",
+          "off_plane_kick": null
+        }
+      ]
+    }
+  }
+}
