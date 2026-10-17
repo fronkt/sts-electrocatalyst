@@ -136,3 +136,11 @@ The experiment-version manuscript is not changed by B1 unless Frank asks.
   rejected. B1's relaxed atomic *OH leg is an independent value.
 - **Scorer test.** With the banked single points standing in for the terminal SCFs, the scorer reproduces Δη
   +0.1725164 V exactly.
+
+## Launch, 2026-10-17 UTC (Frank, 2026-10-16: "launch B1 on Anvil")
+
+- **Steps:** staged from 6a3da59 (15 files, sha256-verified, read-only); preflight passed; held array **21411373**
+  (`1-8%8`, 06:00:00, wholenode, 128 cores) validated, then released.
+- **Preflight checks:** runner VALID, imports OK, QE binaries matched, `mybalance` 15,124.2 SU, empty queue, 0.7 TB free.
+- **Ceiling:** 6,144 SU for this stage.
+- **Receipts:** `results/b1_relaxed_projector_2026-10-16/*_receipt.json`.

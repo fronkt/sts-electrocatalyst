@@ -1,0 +1,83 @@
+{
+  "phase": "preflight",
+  "at": "2026-10-17T03:59:14.916906+00:00",
+  "commands": {
+    "preflight:b1_relax": {
+      "command": "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 -B /anvil/projects/x-che260157/sts_b1_relaxed_projector_2026-10-16/src/dft/research_batch_seeded.py --spec /anvil/projects/x-che260157/sts_b1_relaxed_projector_2026-10-16/results/b1_relaxed_projector_2026-10-16/launch_spec.json --root /anvil/projects/x-che260157/sts_b1_relaxed_projector_2026-10-16 --stage b1_relax --pseudo /anvil/projects/x-che260157/pseudo --preflight",
+      "stdout": "VALID\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-17T03:59:16.091331+00:00"
+    },
+    "imports": {
+      "command": "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 -B -c 'import sys; sys.path.insert(0, sys.argv[1]); import research_batch_seeded, projection_qc, hea_panel_readout; print('\"'\"'IMPORTS_OK'\"'\"')' /anvil/projects/x-che260157/sts_b1_relaxed_projector_2026-10-16/src/dft",
+      "stdout": "IMPORTS_OK\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-17T03:59:16.589517+00:00"
+    },
+    "qe_binaries": {
+      "command": "test -x /anvil/projects/x-che260157/qe/env/bin/pw.x -a -x /anvil/projects/x-che260157/qe/env/bin/projwfc.x -a -x /anvil/projects/x-che260157/qe/env/bin/mpirun",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-17T03:59:17.057864+00:00"
+    },
+    "logs_dir": {
+      "command": "test -d /anvil/projects/x-che260157/sts_b1_relaxed_projector_2026-10-16/logs -a -w /anvil/projects/x-che260157/sts_b1_relaxed_projector_2026-10-16/logs",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-17T03:59:17.530482+00:00"
+    },
+    "qe_sha": {
+      "command": "sha256sum /anvil/projects/x-che260157/qe/env/bin/pw.x /anvil/projects/x-che260157/qe/env/bin/projwfc.x /anvil/projects/x-che260157/qe/env/bin/mpirun",
+      "stdout": "1d66c7856f5d6b3cd9c66b8578e01512b16bbe907b4360e54234890712ccd6a1  /anvil/projects/x-che260157/qe/env/bin/pw.x\n456387be5ee32f358bc9835240b2e8bd1f8144a27a8e116731a1463dbf78ac85  /anvil/projects/x-che260157/qe/env/bin/projwfc.x\na256bdcef89bdc61ba870e823056c51df868b4db48ab345a14278a7fe79ed75d  /anvil/projects/x-che260157/qe/env/bin/mpirun\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-17T03:59:18.100261+00:00"
+    },
+    "myquota": {
+      "command": "bash -lc myquota",
+      "stdout": "\nType       Location             Size    Limit    Use   Files   Limit    Use\n===========================================================================\nhome       x-fcai3             3.3GB   25.0GB  13.6%      -       -      - \nscratch    x-fcai3             8.7GB  100.0TB   0.0%    9.7K    1.0M   1.0%\nprojects   x-che260157         4.3TB    5.0TB  87.4%  310.0K    1.0M  29.6%\n\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-17T03:59:19.110721+00:00"
+    },
+    "mybalance": {
+      "command": "mybalance",
+      "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    102490.0     87365.8    87365.8     15124.2\nche260157-gpu   GPU       150.0         6.9        6.9       143.1\n\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-17T03:59:19.686630+00:00"
+    },
+    "squeue": {
+      "command": "squeue -u x-fcai3 -h -o '%i|%j|%T'",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-17T03:59:20.204238+00:00"
+    },
+    "remote_sha": {
+      "command": "sha256sum /anvil/projects/x-che260157/sts_b1_relaxed_projector_2026-10-16/results/b1_relaxed_projector_2026-10-16/launch_spec.json /anvil/projects/x-che260157/sts_b1_relaxed_projector_2026-10-16/anvil/102_b1_relax.slurm",
+      "stdout": "5d445c40ce34cf44da3cb533fdb10bf40e6e7789ec84db8ad64727e1ccfb63ba  /anvil/projects/x-che260157/sts_b1_relaxed_projector_2026-10-16/results/b1_relaxed_projector_2026-10-16/launch_spec.json\na0197acf43afb780f4b4ef001aaaba534cb3bd59572e97b5c967d25809e271d2  /anvil/projects/x-che260157/sts_b1_relaxed_projector_2026-10-16/anvil/102_b1_relax.slurm\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-17T03:59:20.671492+00:00"
+    },
+    "slurm_syntax": {
+      "command": "bash -n /anvil/projects/x-che260157/sts_b1_relaxed_projector_2026-10-16/anvil/102_b1_relax.slurm",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-17T03:59:21.137463+00:00"
+    }
+  },
+  "spec_sha256": "5d445c40ce34cf44da3cb533fdb10bf40e6e7789ec84db8ad64727e1ccfb63ba",
+  "slurm_sha256": "a0197acf43afb780f4b4ef001aaaba534cb3bd59572e97b5c967d25809e271d2",
+  "balance_su": 15124.2,
+  "queued_jobs": [],
+  "qe_binaries_match": true,
+  "project_free_TB": 0.7000000000000002,
+  "passed": true
+}

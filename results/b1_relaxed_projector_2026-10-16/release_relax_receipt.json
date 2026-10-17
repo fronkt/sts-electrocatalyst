@@ -1,0 +1,24 @@
+{
+  "phase": "release",
+  "array": "b1_relax",
+  "at": "2026-10-17T03:59:35.603645+00:00",
+  "commands": {
+    "release:b1_relax": {
+      "command": "scontrol release 21411373",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-17T03:59:39.140697+00:00"
+    },
+    "after": {
+      "command": "squeue -u x-fcai3 -o '%i|%j|%T|%M|%l|%R'",
+      "stdout": "JOBID|NAME|STATE|TIME|TIME_LIMIT|NODELIST(REASON)\n21411373_[1-8%8]|b1-relax|PENDING|0:00|6:00:00|(None)\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-17T03:59:41.187080+00:00"
+    }
+  },
+  "released": {
+    "b1_relax": "21411373"
+  }
+}
