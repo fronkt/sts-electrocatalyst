@@ -75,6 +75,16 @@ Pine's drawing is vendor material and stays out of this repository. FWM has it f
   - Fe25Co25Ni25Cr25 (no Cu, no Mn) melts far above 1,050 °C and could take a hotter anneal. It also diffuses slowest of the measured alloys (CoCrFeNi rows below). Its four elements usually segregate only weakly on casting, so 1,050 °C should still be enough; step 2 measures it.
   - A per-alloy temperature would be a departure: a second load, and different thermal histories for the alloys being compared.
 - **Rods fit sealed tubes (record).** Cut the sound sections into lengths that fit a quartz tube, one tube per alloy. Back-fill with Ar and add Ti getter chips. The alloys never touch.
+- **Getters and wraps never touch the samples (record).**
+  - Ti (or Zr) getter chips sit in their own alumina cup or foil packet. Ti forms liquid with Ni and Cu below 1,050 °C (Ti–Ni eutectic about 942 °C), and Co is close, so a chip touching a sample would melt into it.
+  - **Stainless steel foil wrap** (Frank's question, 2026-10-17) is acceptable as an oxidation barrier, especially in an air furnace:
+    - Use a grade rated above 1,050 °C.
+    - Put a separator between sample and foil: alumina paper, a small alumina boat, or an inner wrap of Ta or Mo foil. Otherwise the foil diffusion-bonds to the sample and exchanges Fe, Ni, Cr, Mn and Cu with its surface.
+    - Flush the pouch with Ar before folding it shut, and put Ti chips inside, separated from the samples.
+    - No paper, charcoal or other carbon inside: Cr and Mn would pick up carbon.
+    - Use one pouch per alloy, labelled by position on the tray (marker ink burns off).
+  - **Record exactly what was used:** furnace atmosphere, foil grade, separator, getter. Freeze §5 says "Ar". An Ar-flushed pouch in an air furnace keeps the samples under Ar, but write it down as such.
+  - **Quench with the foil on:** drop the pouch into the water and open it underwater; a single loose wrap lets water in fast. The few extra seconds do not matter for σ, which forms over hours.
 - **Argon, not vacuum (record).** Mn has the highest vapour pressure of the six elements. Under vacuum it evaporates freely; under argon its loss is limited by diffusion through the gas.
 - **Temperature (record).** Thermocouple at the load. Count the 24 h from the load reaching 1,040 °C. Overshoot no more than 10 °C. Keep the trace.
 - **Quench (frozen; details are a record).** Break the tubes in agitated water. A rod 8–11 mm across cools quickly through its whole section. The quench keeps the 1,050 °C state; σ phase and other intermetallics form at lower temperatures in Cr- and Mn-rich alloys.
