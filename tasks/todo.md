@@ -9,7 +9,11 @@ Plan: `docs/research/s8-processing-plan-2026-10-17.md`. No frozen value changed.
 - [ ] Frank: lock date (best-case first measurement is Oct 24, so nothing can be complete by Oct 25 on one rotator).
 - [ ] Frank: electrode format by about Oct 22 (cylinders are the same either way).
 - [x] All six melted (Frank, 2026-10-17: "All alloys were melted.") -> one anneal load for all six, as frozen; "K1 first" decision dropped.
-- [ ] Song: melt dates of Cu26, Ni34, Cu22; processing of all six (charges, remelts, masses, any anneal); DSC; furnace details.
+- [x] Melt photos (Frank 2026-10-17) recorded in `docs/research/s8-melt-record-2026-10-17.md`: FWM cast RODS (ARC00149-154) from a 250 g crucible melt, much scrapped (scraps retrievable). Ni31 (ARC00154) and Cu22 (ARC00153) cast badly; Cu26 has a copper-coloured skin. Photos private: `D:\sts-electrocatalyst\melt-photos-2026-10-17\`.
+- [x] Processing plan rewritten for rods (button version archived): scraps take the destructive tests, rods make disks (turn to 5.00 mm, part 4.00 mm), about 4 cm of sound rod per alloy.
+- [ ] Measure every rod: mass, diameter, sound length at least 5.5 mm across. Ni31 re-melt decision (K1).
+- [ ] Label dates (Cu8 10/8, Cu26 10/12, Fe25/Ni34/Cu22 10/13, Ni31 10/14) vs freeze §1b (Cu8/Ni31/Fe25 on 10-09/10-12): confirm with Song, then a dated §1b correction.
+- [ ] Song: melter, crucible material, charge mass, casting method, what went wrong on Ni31/Cu22, the scraps by alloy, any anneal, DSC, tube sealing, turning to 5.00 mm.
 - [ ] Before any OER measurement: freeze §1b processing line, freeze §6 format line, disk position rule, per-button record.
 
 ## 2026-10-08 — S8 freeze revision after Frank's decisions

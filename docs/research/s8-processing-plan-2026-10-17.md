@@ -1,17 +1,21 @@
-# S8 processing plan: from button to electrode, 2026-10-17
+# S8 processing plan: from cast rod to electrode, 2026-10-17
 
-**Status.** Working plan for turning the six batch-1 buttons into electrodes. It changes no frozen value. Frozen values are quoted from the [stage-1 freeze](s8-stage1-freeze-proposal-2026-10-07.md) (published 2026-10-12, 10.5281/zenodo.23327000) and the [melt plan](s8-melt-plan-2026-10-07.md). Each addition here is marked:
+**Status.** Working plan for turning the six batch-1 castings into electrodes. It changes no frozen value. Frozen values are quoted from the [stage-1 freeze](s8-stage1-freeze-proposal-2026-10-07.md) (published 2026-10-12, 10.5281/zenodo.23327000) and the [melt plan](s8-melt-plan-2026-10-07.md). Each addition here is marked:
 - **record:** an extra measurement or record; it changes nothing frozen;
 - **departure:** it would change a frozen value, so it needs Frank's dated line before any OER measurement.
+
+> **Revised 2026-10-17, same day.** Frank's melt photos show that Fort Wayne Metals cast **rods** from a 250 g crucible melt, not 200 g buttons, and that much of the metal went to scrap that can come back for testing ([melt record](s8-melt-record-2026-10-17.md)). The button version is archived at [s8-processing-plan-2026-10-17-archive-button-version.md](s8-processing-plan-2026-10-17-archive-button-version.md).
 
 ## Where things stand (2026-10-17)
 
 | Item | State | Source |
 |---|---|---|
-| Cu8Cr23Mn35Co34, Ni31Cr29Cu5Mn35, Fe25Co25Ni25Cr25 | Melted 2026-10-09 and 2026-10-12. Charges, remelts and any anneal not recorded | freeze §1b |
-| Cu26Ni9Cr31Co33, Ni34Fe6Cu29Co31, Cu22Fe30Co32Mn15 | Melted by 2026-10-17 (Frank, 2026-10-17: "All alloys were melted."). Dates, charges, remelts and any anneal not recorded | Frank |
+| Castings | All six melted and cast as rods (FWM IDs ARC00149–ARC00154). Ni31 and Cu22 cast badly (thin, necked or stepped sections); Cu26 is two short pieces with a copper-coloured skin; Cu8, Fe25 and Ni34 are full-length rods | [melt record](s8-melt-record-2026-10-17.md) |
+| Scrap | "A lot of it has been scrapped, but we can get those scraps back to test" (Frank) | Frank, 2026-10-17 |
+| Melt dates | Labels: Cu8 10/8, Cu26 10/12, Fe25/Ni34/Cu22 10/13, Ni31 10/14. Freeze §1b records Cu8, Ni31 and Fe25 on 10-09 and 10-12. To confirm with Song | melt record |
+| Any anneal | Not recorded | |
 | OER measurements | None recorded | [lock rule](s8-electrode-lock-rule-2026-10-16.md) |
-| Machining request to Song Cai (FWM) | Sent 2026-10-13: 5 mm × 4 mm wire-EDM cores after the 1,050 °C / 24 h homogenization, about 0.1 mm off the front face, 3 + 1 spare per alloy plus an offcut. No reply recorded | Frank's Gmail |
+| Machining request to Song Cai (FWM) | Sent 2026-10-13, written for buttons (cores through the button height). Needs restating for rods (step 7). No reply recorded | Frank's Gmail |
 | Tackett, 2026-10-13 | Machine the samples to Pine's quick-change disk (AFED) drawing: "If you can get something close, that should be ok." One rotator, so samples run one at a time. Timeline "a little tight" | Frank's paste |
 | Electrode format | Open: rotating insert, or the frozen potted stationary disk | freeze §6 format rule |
 | Lab location | Open: the 2026-10-07 ship-to is Purdue (Forney Hall), and Tackett's signature now reads University of Pittsburgh | |
@@ -19,49 +23,61 @@
 
 Pine's drawing is vendor material and stays out of this repository. FWM has it from the 2026-10-13 email.
 
-## Sequence for each button
+## Material rule (record)
 
-### 1. Log the as-melted button (record)
+- **Rods make disks.** Only sound rod at least 5.5 mm across becomes electrodes, and the composition acceptance (step 6) is done on rod material.
+- **Scraps take the destructive tests:** the as-cast reference (step 2) and the local-melting check (step 3). That leaves all the sound rod for disks, which matters most for Ni31.
+- Scrap is used only if it is labelled by alloy. If a scrap is crucible remnant (the last metal to freeze, possibly reacted with the crucible), its composition is not taken as the alloy's.
 
-- Stamp or scribe a button ID. Photograph both sides and note which side faced the hearth.
-- Weigh to 0.01 g and compare with the charge on the [weigh sheet](s8-weigh-sheet-2026-10-08.md). Mn accounts for most of the evaporation, so the mass loss is an upper bound on the Mn loss (spatter also counts).
-- **Mn pre-check from the mass.** The +4% Mn over-charge is 2.73 g (Cu8, Ni31) and 1.17 g (Cu22), so a button whose Mn loss equals the over-charge weighs 200.0 g. Each extra gram lost lowers Mn by about 0.33 at.% (Cu8, Ni31) or 0.45 at.% (Cu22). A button of at least 199.0 g therefore has a mean Mn within about −0.5 to +0.9 at.% of target, well inside ±2 at.%, before any EDS. This assumes spatter has the bulk composition.
+## Sequence for each alloy
 
-### 2. Cut an as-cast slice (record)
+### 1. Log the castings (record)
 
-- Before any anneal, cut one 3 mm slice from the rim (wire EDM or a wet abrasive saw).
-- Polish one piece. Take BSE images and an EDS map at the top, middle and bottom, and measure the secondary dendrite arm spacing λ. λ decides how much the 24 h anneal can do (step 4).
-- Keep one piece as the as-cast reference for the report. The rest goes to step 3.
-- For every button: the same, if it has not been annealed. If it has, record what was done (temperature, time, atmosphere, cooling) and go to step 5.
+- Photograph every piece (done 2026-10-17; photos held privately).
+- For each piece, measure:
+  - mass (0.01 g);
+  - length;
+  - diameter, with calipers at least every 2 cm;
+  - **the sound length at least 5.5 mm across** (no necks, laps, cracks or visible pores). This sets how many 5.00 mm disks the alloy can give (step 7).
+- **Mn check from mass.** It works only if every piece is weighed, scrap included. The total against the charge then bounds the Mn loss, as in the archived button version. Otherwise Mn is judged by EDS (step 6).
 
-### 3. Check for local melting at 1,050 °C (record; the five Cu-bearing alloys)
+### 2. As-cast reference (record)
 
-**Why.** In the Cu alloys the last metal to freeze is Cu-rich, and in three of them it is also Mn-rich. Cu–Mn has a congruent melting minimum near 873 °C at about 38 at.% Mn (refs 1, 2). Cu–Cr has a eutectic near 1,076 °C (ref 3). If those regions melt locally during the anneal, they leave pores and Cu-rich films, which is worse than the as-cast state. Dissolved Co, Cr, Fe and Ni raise these temperatures, so local melting is possible but not expected.
+- Use a scrap piece of the alloy, or, if there is none, a 2 mm transverse slice cut from the end of a rod.
+- Polish it, take BSE images and an EDS map, and measure the secondary dendrite arm spacing λ.
+- Rods cast into a mold freeze faster than a 200 g button, so λ should be finer, and the 24 h anneal more complete (step 4). The measurement decides.
+- Keep the piece as the as-cast reference for the report.
+
+### 3. Check for local melting at 1,050 °C (record; Cu-bearing alloys, on scrap)
+
+**Why.** In the Cu alloys the last metal to freeze is Cu-rich, and in three of them it is also Mn-rich. Cu–Mn has a congruent melting minimum near 873 °C at about 38 at.% Mn (refs 1, 2). Cu–Cr has a eutectic near 1,076 °C (ref 3). If those regions melt locally during the anneal, they leave pores and Cu-rich films. Dissolved Co, Cr, Fe and Ni raise these temperatures, so local melting is possible but not certain.
 
 | Alloy | Concern | Check |
 |---|---|---|
-| Cu8Cr23Mn35Co34, Ni31Cr29Cu5Mn35, Cu22Fe30Co32Mn15 | Cu-rich and Mn-rich last liquid | Yes |
-| Cu26Ni9Cr31Co33 | Cu–Cr eutectic about 26 °C above the anneal | Yes |
-| Ni34Fe6Cu29Co31 | Cu-rich, no Mn or Cr | Yes (cheap) |
+| Cu22Fe30Co32Mn15 | Cu-rich and Mn-rich last liquid; Fe and Co barely dissolve Cu | Yes |
+| Cu26Ni9Cr31Co33 | Cu–Cr margin about 26 °C; copper-coloured skin shows Cu separating | Yes |
+| Cu8Cr23Mn35Co34 | Cu-rich and Mn-rich last liquid | Yes |
+| Ni31Cr29Cu5Mn35 | 5% Cu in a Ni-rich matrix | If step 2 shows separate Cu-rich pockets |
+| Ni34Fe6Cu29Co31 | Cu-rich; Ni dissolves Cu; no Mn or Cr | If step 2 shows separate Cu-rich pockets |
 | Fe25Co25Ni25Cr25 | No Cu | No |
 
-- **Preferred: DSC.** About 50 mg of as-cast metal, 10 K/min to 1,150 °C under Ar. The onset of the first endotherm is the local melting temperature. Pass if it is at or above 1,075 °C (a 25 °C margin).
-- **Without DSC: a 1 h trial.** 1 h at 1,050 °C in the same furnace and atmosphere, water quench, section, BSE at 500–2,000×. Fail if it shows rounded pores or re-solidified pockets in the interdendritic regions, or Cu-rich films along grain boundaries, that the as-cast slice does not show.
-- **Pass:** step 4 as frozen. **Fail:** stop that button. The schedule is then set from the measured onset (a departure, needing Frank's dated line).
+- **Preferred: DSC.** About 50 mg of scrap, 10 K/min to 1,150 °C under Ar. The onset of the first endotherm is the local melting temperature. Pass if it is at or above 1,075 °C (a 25 °C margin).
+- **Without DSC: a 1 h trial.** One furnace run at 1,050 °C for all trial pieces together, with the same atmosphere as step 4, then a water quench, a section, and BSE at 500–2,000×. Fail if it shows rounded pores or re-solidified pockets in the interdendritic regions, or Cu-rich films along grain boundaries, that the as-cast reference does not show.
+- **Scrap makes a conservative test.** A scrap that cooled slowly is coarser and more segregated than the rods, so if it does not melt, the rods will not.
+- **Pass:** step 4 as frozen. **Fail:** stop that alloy. The schedule is set from the measured onset (a departure, needing Frank's dated line).
 - **A low-temperature pre-hold is not a fix.** With the diffusion data in step 4, diffusion at 850 °C is about 50–200 times slower than at 1,050 °C, so 12 h at 850 °C moves atoms only 0.3–1.3 µm. A pre-hold helps only just below the measured onset.
 
 ### 4. Homogenize (frozen: 1,050 °C, 24 h, Ar, then quench; freeze §5)
 
-- **One load** for every button not yet annealed (freeze §5: "all six alloys are melted and annealed in one batch"). All six are melted, so all six can go in together.
-- **One temperature for all six (frozen).** Freeze §5 gives a single schedule, not one per alloy, and one load needs one temperature.
-  - The ceiling is set by the Cu alloys: their last-to-freeze regions melt lowest (step 3). Cu26's Cu–Cr margin is about 26 °C.
+- **One furnace run for all six** (freeze §5: "all six alloys are melted and annealed in one batch").
+- **One temperature for all six (frozen).** Freeze §5 gives a single schedule, and one load needs one temperature.
+  - The ceiling is set by the Cu alloys (step 3). Cu26's Cu–Cr margin is about 26 °C.
   - Fe25Co25Ni25Cr25 (no Cu, no Mn) melts far above 1,050 °C and could take a hotter anneal. It also diffuses slowest of the measured alloys (CoCrFeNi rows below). Its four elements usually segregate only weakly on casting, so 1,050 °C should still be enough; step 2 measures it.
   - A per-alloy temperature would be a departure: a second load, and different thermal histories for the alloys being compared.
-- **Argon, not vacuum (record).** Mn has the highest vapour pressure of the six elements. Under vacuum it evaporates freely; under argon its loss is limited by diffusion through the gas. Use flowing high-purity Ar with Ti getter chips upstream, or a sealed quartz tube back-filled with Ar if the 51 mm buttons fit.
-- **Temperature (record).** Thermocouple at the load. Count the 24 h from the load reaching 1,040 °C. Overshoot no more than 10 °C, because Cu26's Cu–Cr margin is about 26 °C. Keep the trace.
-- **Separation (record).** Buttons must not touch each other. Stand them on an alumina plate or Mo/Ta foil.
-- **Quench (frozen; details are a record).** Agitated water, with no more than 10 s from furnace to water. The quench keeps the 1,050 °C state; σ phase and other intermetallics form at lower temperatures in Cr- and Mn-rich alloys.
-- **Mass after the quench (record).**
+- **Rods fit sealed tubes (record).** Cut the sound sections into lengths that fit a quartz tube, one tube per alloy. Back-fill with Ar and add Ti getter chips. The alloys never touch.
+- **Argon, not vacuum (record).** Mn has the highest vapour pressure of the six elements. Under vacuum it evaporates freely; under argon its loss is limited by diffusion through the gas.
+- **Temperature (record).** Thermocouple at the load. Count the 24 h from the load reaching 1,040 °C. Overshoot no more than 10 °C. Keep the trace.
+- **Quench (frozen; details are a record).** Break the tubes in agitated water. A rod 8–11 mm across cools quickly through its whole section. The quench keeps the 1,050 °C state; σ phase and other intermetallics form at lower temperatures in Cr- and Mn-rich alloys.
 
 **What 24 h at 1,050 °C can do (record).** These are bulk tracer diffusion coefficients from radiotracer measurements on CoCrFeNi and CoCrFeMnNi (refs 4, 5), using the Arrhenius parameters tabulated in ref 6 (Table 4), evaluated at 1,323 K. The fraction of segregation left is exp(−4π²Dt/λ²), for a sinusoidal profile whose wavelength λ is the dendrite arm spacing.
 
@@ -81,22 +97,18 @@ These numbers are proxies. None of the six alloys is one of these two, Cu is not
 
 How to read the table:
 - **Fine dendrites (λ ≈ 20 µm) are removed.** At most 5% of the segregation is left, except Ni and Co in CoCrFeNi (27–38%).
-- **Coarse dendrites (λ of 50–100 µm) are not.** Between 2% and 96% is left. The top of a 200 g button cools slowest and has the coarsest dendrites.
-- So step 2 measures λ, and step 6 measures what is left.
-- **Option (a departure; Frank's call): a longer hold if λ is above about 40 µm.** 72 h triples Dt (λ = 50 µm, Cr in CoCrFeMnNi: 24% left becomes 1.4%), but it costs two days that the Oct 25 lock cannot absorb.
+- **Coarse dendrites (λ of 50–100 µm) are not.** Between 2% and 96% is left.
+- Rod castings should be at the fine end; step 2 measures λ, and step 6 measures what is left.
+- **Option (a departure; Frank's call): a longer hold if λ is above about 40 µm.** 72 h triples Dt (λ = 50 µm, Cr in CoCrFeMnNi: 24% left becomes 1.4%), but it costs two days.
 - **Default:** keep 24 h as frozen, and report the residual segregation as part of the material state.
 
-**Does it matter for OER?** The 5 mm face spans about 100–250 dendrite arms across, so each disk averages to the button's composition. Residual segregation changes the surface locally: Cr-rich dendrite cores sit next to Cu- and Mn-rich interdendritic regions. It is reported as a property of the material ("homogenized cast alloy, residual segregation X at.%"). Disk-to-disk differences come mainly from where in the button a disk was cut (macro-segregation), which annealing does not remove; step 7 handles that.
+**Does it matter for OER?** The 5 mm face spans hundreds of dendrite arms, so each disk averages to the rod's composition. Residual segregation changes the surface locally; it is reported as a property of the material ("homogenized cast alloy, residual segregation X at.%"). Disk-to-disk differences come mainly from where along the rod a disk was cut, which annealing does not remove; step 7 handles that.
 
-### 5. Trim and section (record)
+### 5. Trim (record)
 
-- Remove at least 1 mm from the top, bottom and rim. This takes off:
-  - the oxide scale;
-  - the Mn-depleted skin (Mn's diffusion distance in 24 h is about 16 µm, plus evaporation);
-  - the hearth chill zone;
-  - the top shrinkage.
-- Cut one 3 mm slab through the centre, top to bottom. This is the acceptance offcut for step 6.
-- Mark the core positions on both halves, and photograph them before cutting.
+- Cut about 5 mm off each end of every sound section: the shrinkage end, the chill end, and any stub or broken tip.
+- Cut out laps, necks, cracks and pitted lengths (Ni31, Cu22).
+- The as-cast surface comes off in step 7, when the rod is turned down to 5.00 mm.
 
 ### 6. Acceptance checks (frozen; freeze §5)
 
@@ -105,31 +117,48 @@ The frozen checks:
 - A miss is re-melted once. If it misses again, it is kept, flagged and analysed at its measured composition. It is never replaced by another composition.
 
 Added (record):
-- **EDS fields.** At least 6 area fields, each at least 0.5 × 0.5 mm, at 20 kV, on the slab: top, middle and bottom, each at the centre and the edge. Judge pass/fail on the mean per element, and report mean ± SD.
+- **Where.** A transverse slice from each end of the sound section, and from the middle if it is longer than 6 cm, because the two ends of a rod can differ. On each slice, take at least 3 area fields (centre, mid-radius, edge), each at least 0.5 × 0.5 mm, at 20 kV. Judge pass/fail on the mean per element, and report mean ± SD.
 - **EDS overlaps.** The K lines of neighbouring elements overlap: Cr Kβ with Mn Kα, Mn Kβ with Fe Kα, Fe Kβ with Co Kα, Co Kβ with Ni Kα. Standardless EDS on these alloys can be off by 1–2 at.% for major elements, which is comparable to the tolerance. A result within 1 at.% of a limit gets a second method (XRF or ICP-OES) if FWM has one.
-- **Residual segregation.** An EDS line scan at least 5λ long (λ from the as-cast slice, step 2) at the top (coarsest) and at mid-height. A complete homogenization leaves no dendrite contrast in BSE and a flat profile, so the scan length comes from the as-cast λ. Report max − min per element.
-- **BSE.** Second phases (Cu-rich, σ), porosity, and any sign of local melting.
-- **XRD on a polished face, 20–100° 2θ.**
+- **Residual segregation.** An EDS line scan at least 5λ long (λ from step 2) on each slice. A complete homogenization leaves no dendrite contrast in BSE and a flat profile. Report max − min per element.
+- **BSE: what to look for in these castings.**
+  - Internal porosity and laps (Ni31, Cu22).
+  - Cu-rich phase (Cu26, Cu22, Ni34).
+  - Undissolved Cr particles (Ni31).
+  - Oxide or carbide inclusions from the crucible.
+  - Any sign of local melting.
+- **XRD on a polished transverse slice, 20–100° 2θ.**
   - Under Cu Kα, Cr, Mn, Fe and Co fluoresce and raise the background. Use an energy-discriminating detector, or a Co or Mo tube, if one is available.
   - A Cu-rich FCC phase (a = 3.615 Å) sits close to the matrix peaks (about 3.56–3.60 Å). In the five Cu alloys, scan slowly around (111) and (200) to look for a shoulder.
-- **A re-melted button** gets its own anneal, recorded as a separate load.
+- **A re-melt** gets its own anneal, recorded as a separate load.
 
-### 7. Cut the electrodes (frozen: at least 3 test + 1 spare per alloy, 5.00 mm × 4.00 mm cylinders, 0.196 cm² face, wire EDM; freeze §6, melt plan)
+### 7. Make the disks (frozen: at least 3 test + 1 spare per alloy, 5.00 mm × 4.00 mm, 0.196 cm² face; freeze §6, melt plan)
 
-- Wire-EDM cores parallel to the button axis, at least 3 mm from the rim and from the acceptance slab. Use a rough cut plus skim passes to reach the drawing's diameter tolerance.
-- Slice the cores to 4.00 mm. After trimming, each core gives two or three cylinders.
-- **Which positions become test disks (record).** Take all test cylinders from **mid-height**, from cores spread around the button. Top and bottom differ most from each other (chill zone, coarse top dendrites, macro-segregation). Taking every test disk from one height keeps those differences out of the disk-to-disk SD, which is the yardstick of every comparison (2× pooled SD, freeze §6). Spreading the cores around the button still samples the whole button. Top and bottom cylinders become spares. This rule must be fixed before any measurement.
-- Label each cylinder on its back face with alloy, core and height (for example `CU8-K2-M`).
-- Cut 6 per alloy: 3 test, 1 spare, and 1 or 2 more so a damaged disk can be replaced from the same height. Cu8 also supplies the optional EC-MS disk (freeze §6).
+- **Turn or centerless-grind** the trimmed sound section down to 5.00 mm, to the drawing's diameter tolerance, then part off 4.00 mm slices. Wire EDM also works. Turning removes the outer 1.5–3 mm: the as-cast skin, the Mn-depleted layer, the fume coating and Cu26's copper-coloured skin.
+- The working face is a **transverse cross-section** of the rod.
+- **Material needed per alloy:** 6 disks × (4 mm + about 1 mm kerf) = about 30 mm of sound rod at least 5.5 mm across, plus about 10 mm for the acceptance slices. That is **about 4 cm**.
 
-### 8. Prepare the working face (frozen: one face polished below the EDM recast layer, the same finish on every disk; melt plan)
+| Alloy | From the photos (to be measured) |
+|---|---|
+| Cu8Cr23Mn35Co34 | Full-length rod: enough |
+| Fe25Co25Ni25Cr25 | Full-length rod: enough |
+| Ni34Fe6Cu29Co31 | Full-length rod: enough, avoiding the lapped length |
+| Cu26Ni9Cr31Co33 | Two short pieces: probably enough; measure |
+| Cu22Fe30Co32Mn15 | Thick section: probably enough; check inside for pores |
+| **Ni31Cr29Cu5Mn35** | **Thin sections may be below 5 mm; only the stubs and bulges may qualify. At risk** |
 
-- Remove at least 0.1 mm from the working face. This takes off the EDM recast layer and the Cu/Zn picked up from brass wire.
+- **If an alloy is short:** fewer disks (3 test disks is the frozen minimum; the spare goes first), or a re-melt of the same composition. That is Frank's call and needs a dated line; it is a new casting, not a new composition. Ni31 is in K1, so a short Ni31 decides K1.
+- **Which disks become test disks (record).** Take the test disks from consecutive positions in the middle of the longest sound section. Record each disk's distance from the rod's bottom end. Disks from the ends become spares. This keeps end-to-end differences out of the disk-to-disk SD, which is the yardstick of every comparison (2× pooled SD, freeze §6). This rule must be fixed before any measurement.
+- Label each disk on its back face with alloy and position (for example `CU8-R1-075` = rod 1, 75 mm from the bottom).
+- Cu8 also supplies the optional EC-MS disk (freeze §6).
+
+### 8. Prepare the working face (frozen: polished below any machining damage, the same finish on every disk; melt plan)
+
+- Remove at least 0.1 mm from the working face. After EDM this takes off the recast layer and the Cu/Zn picked up from brass wire; after turning it removes the parting marks.
 - **The same sequence for every disk:** SiC 320, 600, 1200 (wet), then 3 µm diamond, then 0.05 µm alumina on a cloth. The drawing allows either a 0.05 µm polish or a 600-grit face; use one for all.
 - **Clean:** 5 min ultrasonic in DI water, then 5 min in ethanol; dry.
 - **Consistency (record):** the same person, day and consumables for every disk, written down.
 - **Drawing checks:** face flatness, parallelism to the back, and the back-edge chamfer.
-- **Diameter (record).** Measure each one with a micrometer, three readings. The area error is small (±0.02 mm gives ±0.8%), but the record removes it.
+- **Diameter (record).** Measure each one with a micrometer, three readings.
 - **Ask the lab** whether they re-polish with 0.05 µm alumina just before each run (common RDE practice). If so, that last step happens there, and every disk starts from a fresh surface.
 - **Storage:** each disk in its own labelled vial, in a desiccator. Polish all the disks of a batch on the same day, so they age alike.
 
@@ -142,8 +171,8 @@ Added (record):
 | Throughput | One rotator, one disk at a time | Parallel channels, if the lab has them |
 | Bubbles at 10 mA cm⁻² | Cleared by rotation | Present; η at 1 mA cm⁻² is the cleaner secondary |
 
-- **Steps 1–8 don't wait for the choice:** the cylinders are the same either way. The choice is needed before step 9, by about Oct 22.
-- **Potted:** a 4 mm tall cylinder can be potted as it is (the freeze specifies a 5.00 mm disk, not its thickness).
+- **Steps 1–8 don't wait for the choice:** the disks are the same either way. The choice is needed before step 9, by about Oct 22.
+- **Potted:** a 4 mm tall disk can be potted as it is (the freeze specifies a 5.00 mm disk, not its thickness).
 - **Insert:** test-fit one disk per alloy in the shroud on arrival.
 
 ### 10. Ship (record)
@@ -154,9 +183,10 @@ Added (record):
 
 ### 11. Records before the first OER measurement
 
-- Freeze §1b: how the first three buttons were processed.
-- Freeze §6 format rule: the format chosen, Tackett's answer and the reason, in a dated line.
-- **Per button (record):** masses, furnace load and trace, the DSC or trial result, λ, the EDS table, XRD, and the disk map.
+- **Freeze §1b:** how the castings were made, and the confirmed melt dates (the labels and §1b disagree; [melt record](s8-melt-record-2026-10-17.md)).
+- **Freeze §6 format rule:** the format chosen, Tackett's answer and the reason, in a dated line.
+- **Any re-melt or short alloy:** a dated line.
+- **Per alloy (record):** piece masses and sound lengths, the furnace load and trace, the DSC or trial result, λ, the EDS table, XRD, and the disk map.
 - **Optional (record):**
   - A seeded random run order (alloy × bench day), committed before the disks arrive, so that alloy and day are not confounded on one rotator.
   - Coded vial labels (A–F), with the key kept by Frank, so the operators don't know the predictions.
@@ -167,10 +197,10 @@ Best case, starting Monday:
 
 | Day | Work |
 |---|---|
-| Mon 10-19 | Song: melt dates and processing of all six buttons. Log masses, cut as-cast slices, run DSC or the 1 h trials |
-| Tue 10-20 | Trial SEM in the morning; homogenization load in (24 h) |
-| Wed 10-21 | Quench, trim, acceptance slab, EDS and XRD; EDM starts |
-| Thu 10-22 | EDM and slicing, face prep; format decision |
+| Mon 10-19 | Get the scraps back. Measure every rod and its sound length; decide on a Ni31 re-melt. As-cast references and DSC or 1 h trials on scrap. Restate the machining request for rods |
+| Tue 10-20 | Trial SEM in the morning; homogenization run in (24 h). A Ni31 re-melt, if chosen, happens now and needs its own anneal |
+| Wed 10-21 | Quench, trim, acceptance slices, EDS and XRD; turning starts |
+| Thu 10-22 | Turning and parting, face prep; format decision |
 | Fri 10-23 | Final polish (and potting, if stationary); delivery |
 | Sat–Sun 10-24/25 | First measurements |
 
@@ -178,30 +208,31 @@ Rotator time needed, assuming about 2 h per disk for activation CV, EIS, LSV and
 - **Full set:** 18 test disks (about 36 h), plus IrO₂ and a blank each bench day, plus a 12 h hold on at least one disk per alloy (72 h). That is about 4.5–5 days of continuous rotator time.
 - **K1 only** (Cu8, Ni31, Fe25): 9 disks (about 18 h) plus 3 holds (36 h), about 2.5 days.
 
-Even in the best case the first measurement is on Oct 24. Neither set can be complete by Oct 25, so under the lock rule (2026-10-16) every comparison would be reported as not evaluated.
+Even in the best case the first measurement is on Oct 24. Neither set can be complete by Oct 25, so under the lock rule (2026-10-16) every comparison would be reported as not evaluated. A Ni31 re-melt adds at least a day to Ni31.
 
 ## Decisions for Frank
 
 1. **The lock date, now, before any data exist.** Moving it before any measurement does not depend on the data. The STS entry is due about Nov 5.
-2. **Electrode format, by Oct 22.** With the Oct 25 lock, only stationary disks on parallel channels could come close. With a later lock, the rotating insert is the cleaner measurement.
-3. ~~**K1 first?**~~ Resolved 2026-10-17: all six are melted, so all six go in one load as frozen.
+2. **Ni31: re-melt or not, on Monday, once its sound length is measured.** Ni31 is in K1. If it can't give at least 3 sound disks, K1 needs a new Ni31 casting.
+3. **Electrode format, by Oct 22.** With the Oct 25 lock, only stationary disks on parallel channels could come close. With a later lock, the rotating insert is the cleaner measurement.
 4. **A longer anneal**, if λ is above about 40 µm. It costs two days.
 5. **A new anneal schedule**, if step 3 shows local melting.
 
 ## Questions for Song (only what is not yet recorded)
 
-- When were Cu26Ni9Cr31Co33, Ni34Fe6Cu29Co31 and Cu22Fe30Co32Mn15 melted?
-- For all six: the charged masses, the number of remelts, the button masses, and whether any anneal was done (temperature, time, atmosphere, cooling).
-- Is a DSC available at FWM?
-- The furnace: argon flow or sealed? A thermocouple at the load? A water quench tank next to it?
-- The 2026-10-13 questions (EDM diameter tolerance, timing), if still open.
+- **The melt:** melter (arc or induction), crucible material, charge mass per alloy (the 250 g crucible), how the rods were cast (mold diameter, drop, suction or pour), and the number of remelts.
+- **Ni31 (ARC00154) and Cu22 (ARC00153):** what went wrong during melting or casting?
+- **Scrap:** what went to scrap for each alloy (crucible remnant, failed pours, trimmed ends), and can all of it come back, labelled by alloy?
+- **Dates:** are the label dates (10/8, 10/12, 10/13, 10/14) the melt dates? §1b records Cu8, Ni31 and Fe25 on 10-09 and 10-12.
+- **Anneal:** was any casting annealed?
+- **Equipment:** is a DSC available? Can FWM seal quartz tubes, or run a flowing-Ar furnace with a water quench? Can FWM turn or centerless-grind rods to 5.00 mm and part off 4.00 mm slices?
 
 The anneal plan, the Mn over-charge, the hold and the safety items are not re-asked; Song knows them from in-person talks (Frank, 2026-10-08).
 
 ## Open items from other documents
 
-- Cr(VI) risk assessment: supervisor names, signatures and dates are still blank (freeze §7). The anneal, EDM and polishing steps are listed in it.
-- Post-mortem XRD and SEM-EDS after OER (freeze §6): keep the spare disks and the as-cast and homogenized offcuts as references.
+- Cr(VI) risk assessment: supervisor names, signatures and dates are still blank (freeze §7). The anneal, machining and polishing steps are listed in it.
+- Post-mortem XRD and SEM-EDS after OER (freeze §6): keep the spare disks, the scraps and the as-cast and homogenized slices as references.
 
 ## References
 
