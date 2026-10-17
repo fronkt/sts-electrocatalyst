@@ -79,10 +79,16 @@ Pine's drawing is vendor material and stays out of this repository. FWM has it f
   - Ti (or Zr) getter chips sit in their own alumina cup or foil packet. Ti forms liquid with Ni and Cu below 1,050 °C (Ti–Ni eutectic about 942 °C), and Co is close, so a chip touching a sample would melt into it.
   - **Stainless steel foil wrap** (Frank's question, 2026-10-17) is acceptable as an oxidation barrier, especially in an air furnace:
     - Use a grade rated above 1,050 °C.
-    - Put a separator between sample and foil: alumina paper, a small alumina boat, or an inner wrap of Ta or Mo foil. Otherwise the foil diffusion-bonds to the sample and exchanges Fe, Ni, Cr, Mn and Cu with its surface.
+    - A separator between sample and foil (alumina paper, a small alumina boat, or an inner wrap of Ta or Mo foil) stops the foil diffusion-bonding to the sample. Without one, the foil exchanges Fe, Ni, Cr, Mn and Cu with the outer tens of µm. Machining removes that ("fine too, since we'll machine the surface off": Zonkai, 2026-10-17, relayed by Frank).
+    - **Exception: Ni31's thin sections.** Turning them to 5.00 mm may remove only about 0.25 mm per side. Keep them off the foil (on ceramic, or loosely wrapped), and check the affected depth on a cross-section after the anneal.
     - Flush the pouch with Ar before folding it shut, and put Ti chips inside, separated from the samples.
     - No paper, charcoal or other carbon inside: Cr and Mn would pick up carbon.
     - Use one pouch per alloy, labelled by position on the tray (marker ink burns off).
+  - **Setup available (Frank, 2026-10-17):** an argon furnace and stainless foil; no Ta or Mo foil.
+    - Purge well with Ar before heating, and keep it flowing for the 24 h.
+    - Samples sit on ceramic if the shop has any (an alumina boat or plate, a crucible, or ceramic fibre paper), under a loose stainless foil tent. The tent's Cr takes up residual O₂ and keeps Mn vapour near the samples.
+    - Without ceramic, a direct wrap is acceptable for the thick rods, not for Ni31's thin pieces.
+    - Ti chips, if used, go in their own stainless foil packet beside the samples.
   - **Record exactly what was used:** furnace atmosphere, foil grade, separator, getter. Freeze §5 says "Ar". An Ar-flushed pouch in an air furnace keeps the samples under Ar, but write it down as such.
   - **Quench with the foil on:** drop the pouch into the water and open it underwater; a single loose wrap lets water in fast. The few extra seconds do not matter for σ, which forms over hours.
 - **Argon, not vacuum (record).** Mn has the highest vapour pressure of the six elements. Under vacuum it evaporates freely; under argon its loss is limited by diffusion through the gas.
