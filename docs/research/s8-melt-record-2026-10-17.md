@@ -64,3 +64,16 @@ Both look like the mold did not fill completely (misruns): thin, necked and step
 - **The scraps take the destructive tests:** the as-cast reference and the local-melting check. A scrap that cooled slowly is a conservative local-melting test, because its structure is coarser and more segregated than the rods'.
 - **Composition is checked on rod material,** because that is what becomes disks.
 - **The surface comes off when the rods are turned to 5.00 mm.** That removes the as-cast skin, the fume coating and Cu26's copper-coloured skin.
+
+## Homogenization log (freeze §5: 1,050 °C, 24 h, Ar, then quench)
+
+**Load in: 2026-10-17, 18:51 Eastern (EDT; 22:51 UTC)** (Frank).
+
+| Item | As done | Still to record |
+|---|---|---|
+| Furnace | Argon furnace | Setpoint, Ar flow, preheated or ramped from cold, the time the load reached 1,040 °C |
+| Load | All the pieces to be homogenized, in one stainless steel boat, pulled with stainless wires | Which pieces of each alloy went in, with lengths; the as-cast pieces kept out |
+| Separation | Samples separated from each other by stainless steel foil | The order of the alloys in the boat, and how each is marked |
+| Getter | Two Ti chunks at the ends of the boat, kept well away from the samples by a fibre insulation spacer | The spacer material: refractory ceramic fibre is rated above 1,050 °C, while glass fibre softens below it |
+| Hold | 24 h counted from the load reaching 1,040 °C | Pull time |
+| Quench | Water, boat pulled by the wires | Transfer time, and the condition of the pieces after the quench |
