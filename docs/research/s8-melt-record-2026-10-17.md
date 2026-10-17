@@ -83,3 +83,8 @@ Both look like the mold did not fill completely (misruns): thin, necked and step
 - **Cracking risk.** FCC CoCrFeNi-type alloys are routinely water-quenched from 1,000–1,200 °C after homogenization. Cracks would start at casting defects (the laps and necks in Ni31 and Cu22), which are not disk material.
 - **Options:** water (the plan), warm water (about 60–80 °C) or oil, which are milder and still a quench; cooling in air or Ar (a weak quench, better recorded as a departure); furnace cooling (a departure).
 - All six alloys are in one boat, so they cool the same way whichever is chosen.
+
+**Notes (2026-10-17).**
+- **Oxidation during the transfer.** The seconds between furnace and water grow a thin oxide film (microns), far less than the machining allowance (1.5–3 mm on the thick rods, at least 0.5 mm on faces, about 0.25 mm on Ni31's thin sections).
+- **No further heat treatment.** The homogenization and quench are the only heat treatment in freeze §5. The one exception is a Ni31 re-melt, which would get its own 1,050 °C / 24 h anneal.
+- **No local-melting check before this anneal.** None is recorded (processing plan, step 3). Step 6's BSE therefore checks for local melting instead, especially in Cu22, Cu26 and Cu8: rounded interdendritic pores, re-solidified pockets, and Cu-rich films along grain boundaries.
