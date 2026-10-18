@@ -23,6 +23,9 @@ WHAT IS REPORTED, NOT SCORED.
 A missing, rejected or numerically failed leg makes the arm UNRESOLVED: all four states under both projectors are
 scored, or none.
 
+CHANGE OF RECORD, 2026-10-18 (registered Repair, before any repair output existed): each leg's relaxation is the
+first COMPLETE one of stage 1 (`_relax`), T1 (`_relax_t1`) and T2 (`_relax_t2`); readings are unchanged.
+
 Usage:
   PYTHONPATH=src python src/dft/b1_relaxed_projector_readout.py [--json docs/figs/b1_relaxed_projector_readout.json]
 """
@@ -64,7 +67,24 @@ def _load(name):
     return mod
 
 
+REPAIR_ORDER = ("", "_t1", "_t2")  # registered selection order (B1 doc, Repair): stage 1, then T1, then T2
+
+
+def relax_attempts(stem, leg):
+    """(name, complete, reason) for every relaxation of this leg that has a runner receipt, in selection order."""
+    out = []
+    for suffix in REPAIR_ORDER:
+        name = f"{stem}__u715_{leg}_relax{suffix}"
+        if os.path.exists(os.path.join(RUNS, name + ".qc.json")):
+            out.append((name,) + receipt_complete(os.path.join(RUNS, name)))
+    return out
+
+
 def relax_name(stem, leg):
+    """The leg's selected relaxation: the first COMPLETE attempt, else the stage-1 one."""
+    for name, ok, _ in relax_attempts(stem, leg):
+        if ok:
+            return name
     return f"{stem}__u715_{leg}_relax"
 
 
@@ -163,12 +183,14 @@ def main():
         for leg in LEGS:
             rbase = os.path.join(RUNS, relax_name(stem, leg))
             sbase = os.path.join(RUNS, scf_name(stem, leg))
-            rec = {}
+            rec = {"relaxation": os.path.basename(rbase),
+                   "attempts": {n: (why if not ok else "COMPLETE") for n, ok, why in relax_attempts(stem, leg)}}
             ok_r, why_r = receipt_complete(rbase)
             ok_s, why_s = receipt_complete(sbase) if ok_r else (False, "relaxation not complete")
             rec.update(relax=why_r if not ok_r else "COMPLETE", scf=why_s if not ok_s else "COMPLETE")
             if not (ok_r and ok_s):
-                unresolved.append(f"{st}/{leg}: relax {rec['relax']}; scf {rec['scf']}")
+                tried = "; ".join(f"{n.rsplit('_relax', 1)[1] or 'stage1'} {w}" for n, w in rec["attempts"].items())
+                unresolved.append(f"{st}/{leg}: relax [{tried or rec['relax']}]; scf {rec['scf']}")
                 status[(st, leg)] = rec
                 continue
             e = qc.trusted_energy_ev(sbase + ".out", sbase + ".in", strict=True)

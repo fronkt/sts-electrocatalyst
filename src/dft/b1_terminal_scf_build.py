@@ -3,8 +3,10 @@
 Registration: docs/research/b1-relaxed-projector-2026-10-16.md. Each deck is its stage-1 relaxation deck with only
 calculation 'relax' -> 'scf', the prefix -> `<stem>__u715_<leg>_scf`, max_seconds -> MAX_SECONDS, and the
 ATOMIC_POSITIONS coordinates replaced by the relaxation's "Begin final coordinates" block. Species order and every
-if_pos flag are kept from the relaxation deck; fixed atoms must not have moved. A relaxation whose runner receipt is
-not COMPLETE gets no deck. Writes the decks, a manifest and launch_spec.json once (refuses to overwrite).
+if_pos flag are kept from the relaxation deck; fixed atoms must not have moved. Each leg's relaxation is the first
+COMPLETE, BFGS-converged one of stage 1 (`_relax`), T1 (`_relax_t1`) and T2 (`_relax_t2`) (registered Repair,
+2026-10-18); its mixing is inherited. A leg with none gets no deck. Writes the decks, a manifest and launch_spec.json
+once (refuses to overwrite).
 
 Usage: python src/dft/b1_terminal_scf_build.py [--check]
 """
@@ -41,7 +43,7 @@ def final_coordinates(out_text):
     return [(r[0], [float(x) for x in r[1:4]], r[4:]) for r in rows]
 
 
-def build(job):
+def build(job, name):
     relax_deck = ROOT / "runs" / job["dir"] / (job["job"] + ".in")
     out = ROOT / "runs" / job["dir"] / (job["job"] + ".out")
     text = relax_deck.read_text(encoding="utf-8")
@@ -57,7 +59,6 @@ def build(job):
             assert flags == ["0", "0", "0"], "fixed flags differ"
             assert all(abs(a - float(b)) < 1e-6 for a, b in zip(xyz, parts[1:4])), "a fixed atom moved"
         new_rows.append(f"  {sym}  {xyz[0]:.8f}  {xyz[1]:.8f}  {xyz[2]:.8f}  {' '.join(parts[4:])}")
-    name = job["job"].replace("_relax", "_scf")
     assert name.endswith("_scf") and name != job["job"]
     new = text[:block.start(1)] + "\n".join(new_rows) + "\n" + text[block.end(1):]
     for key, value in (("prefix", f"'{name}'"), ("calculation", "'scf'"), ("max_seconds", str(MAX_SECONDS))):
@@ -73,13 +74,19 @@ def main(argv=None):
     sys.stdout.reconfigure(encoding="utf-8")
     relax = json.loads(RELAX_SPEC.read_text(encoding="utf-8"))
     decks, skipped = [], []
-    for job in relax["stages"]["b1_relax"]["jobs"]:
-        qc = ROOT / "runs" / job["dir"] / (job["job"] + ".qc.json")
-        rec = json.loads(qc.read_text(encoding="utf-8")) if qc.exists() else {}
-        if rec.get("status") != "COMPLETE" or not rec.get("relaxation", {}).get("bfgs_converged"):
-            skipped.append(f"{job['job']}: {rec.get('status', 'no receipt')} {rec.get('reason', '')}".strip())
+    for stage1 in relax["stages"]["b1_relax"]["jobs"]:
+        tried = []
+        for suffix in ("", "_t1", "_t2"):
+            job = dict(stage1, job=stage1["job"] + suffix)
+            qc = ROOT / "runs" / job["dir"] / (job["job"] + ".qc.json")
+            rec = json.loads(qc.read_text(encoding="utf-8")) if qc.exists() else {}
+            if rec.get("status") == "COMPLETE" and rec.get("relaxation", {}).get("bfgs_converged"):
+                break
+            tried.append(f"{job['job']}: {rec.get('status', 'no receipt')} {rec.get('reason') or ''}".strip())
+        else:
+            skipped.append("; ".join(tried))
             continue
-        name, text = build(job)
+        name, text = build(job, stage1["job"].replace("_relax", "_scf"))
         decks.append((job, name, text))
         print(f"{name}: from {job['job']} ({rec['relaxation']['ionic_steps']} ionic steps)")
     for s in skipped:
@@ -101,8 +108,8 @@ def main(argv=None):
     manifest = ROOT / MANIFEST_REL
     with manifest.open("x", encoding="utf-8", newline="\n") as fh:
         fh.write("# APPROVED 2026-10-16: docs/research/b1-relaxed-projector-2026-10-16.md (Frank: \"Go ahead\"; "
-                 "\"launch B1 on Anvil\")\n")
-        fh.write("# B1 stage 2: fresh-start SCF at each converged stage-1 endpoint (GATE-1); no automatic retries.\n")
+                 "\"launch B1 on Anvil\"; 2026-10-18 \"Repair\")\n")
+        fh.write("# B1 stage 2: fresh-start SCF at each selected relaxation endpoint (GATE-1); no automatic retries.\n")
         fh.write(f"# SUBMIT WITH EXCLUDE={relax['exclusions']}\n# NP=128 NCONC=1\n")
         for j in jobs:
             fh.write(f"{j['dir']} {j['job']} .in {j['nk']}\n")
