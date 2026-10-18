@@ -11,7 +11,7 @@
 | Item | State | Source |
 |---|---|---|
 | Castings | All six melted and cast as rods (FWM IDs ARC00149–ARC00154). Ni31 and Cu22 cast badly (thin, necked or stepped sections); Cu26 is two short pieces with a copper-coloured skin; Cu8, Fe25 and Ni34 are full-length rods | [melt record](s8-melt-record-2026-10-17.md) |
-| Scrap | "A lot of it has been scrapped, but we can get those scraps back to test" (Frank) | Frank, 2026-10-17 |
+| Scrap | Back 2026-10-17: one crucible skull per alloy, plus thin broken pieces for Cu22, Cu26 and Ni31. Earlier: "A lot of it has been scrapped, but we can get those scraps back to test" (Frank) | [melt record](s8-melt-record-2026-10-17.md), "The scraps" |
 | Melt dates | Labels: Cu8 10/8, Cu26 10/12, Fe25/Ni34/Cu22 10/13, Ni31 10/14. Freeze §1b records Cu8, Ni31 and Fe25 on 10-09 and 10-12. To confirm with Song | melt record |
 | Any anneal | Not recorded | |
 | OER measurements | None recorded | [lock rule](s8-electrode-lock-rule-2026-10-16.md) |
@@ -27,7 +27,10 @@ Pine's drawing is vendor material and stays out of this repository. FWM has it f
 
 - **Rods make disks.** Only sound rod at least 5.5 mm across becomes electrodes, and the composition acceptance (step 6) is done on rod material.
 - **Scraps take the destructive tests:** the as-cast reference (step 2) and the local-melting check (step 3). That leaves all the sound rod for disks, which matters most for Ni31.
-- Scrap is used only if it is labelled by alloy. If a scrap is crucible remnant (the last metal to freeze, possibly reacted with the crucible), its composition is not taken as the alloy's.
+  - **Corrected 2026-10-17, once the scraps came back:** most of the scrap is thin crucible skulls, which cooled differently from the rods and may differ in composition.
+  - The as-cast reference now comes from each alloy's as-cast keeper rod (step 2), and any local-melting check uses an as-cast rod offcut (step 3).
+  - The skulls serve for EDS of their coatings and as spare material ([melt record](s8-melt-record-2026-10-17.md), "The scraps").
+- Scrap is used only if it is labelled by alloy. If a scrap is crucible remnant (metal frozen against the crucible wall, possibly reacted with it or Mn-depleted at its surface), its composition is not taken as the alloy's.
 
 ## Sequence for each alloy
 
@@ -43,7 +46,7 @@ Pine's drawing is vendor material and stays out of this repository. FWM has it f
 
 ### 2. As-cast reference (record)
 
-- Use a scrap piece of the alloy, or, if there is none, a 2 mm transverse slice cut from the end of a rod.
+- Use a 2 mm transverse slice cut from the end of the alloy's as-cast keeper rod (the piece kept out of the anneal). *Changed 2026-10-17:* this step said to use scrap first. The scraps are thin skulls with a different cooling history, so they do not show the rods' λ.
 - Polish it, take BSE images and an EDS map, and measure the secondary dendrite arm spacing λ.
 - Rods cast into a mold freeze faster than a 200 g button, so λ should be finer, and the 24 h anneal more complete (step 4). The measurement decides.
 - Keep the piece as the as-cast reference for the report.
@@ -63,7 +66,7 @@ Pine's drawing is vendor material and stays out of this repository. FWM has it f
 
 - **Preferred: DSC.** About 50 mg of scrap, 10 K/min to 1,150 °C under Ar. The onset of the first endotherm is the local melting temperature. Pass if it is at or above 1,075 °C (a 25 °C margin).
 - **Without DSC: a 1 h trial.** One furnace run at 1,050 °C for all trial pieces together, with the same atmosphere as step 4, then a water quench, a section, and BSE at 500–2,000×. Fail if it shows rounded pores or re-solidified pockets in the interdendritic regions, or Cu-rich films along grain boundaries, that the as-cast reference does not show.
-- **Scrap makes a conservative test.** A scrap that cooled slowly is coarser and more segregated than the rods, so if it does not melt, the rods will not.
+- **Scrap makes a conservative test.** A scrap that cooled slowly is coarser and more segregated than the rods, so if it does not melt, the rods will not. **Corrected 2026-10-17:** the returned scraps are thin skulls that probably cooled faster than the rods, so they are not a conservative test. Use an as-cast rod offcut instead, for the DSC sample as well.
 - **Pass:** step 4 as frozen. **Fail:** stop that alloy. The schedule is set from the measured onset (a departure, needing Frank's dated line).
 - **A low-temperature pre-hold is not a fix.** With the diffusion data in step 4, diffusion at 850 °C is about 50–200 times slower than at 1,050 °C, so 12 h at 850 °C moves atoms only 0.3–1.3 µm. A pre-hold helps only just below the measured onset.
 
@@ -220,6 +223,8 @@ Added (record):
 
 ## Schedule against the Oct 25 data lock
 
+*Overtaken 2026-10-17:* the anneal started Sat 10-17 at 18:51 EDT, and the scraps came back the same day. The days below are kept as planned.
+
 Best case, starting Monday:
 
 | Day | Work |
@@ -247,9 +252,10 @@ Even in the best case the first measurement is on Oct 24. Neither set can be com
 
 ## Questions for Song (only what is not yet recorded)
 
-- **The melt:** melter (arc or induction), crucible material, charge mass per alloy (the 250 g crucible), how the rods were cast (mold diameter, drop, suction or pour), and the number of remelts.
+- **The melt:** melter (arc or induction), crucible material, charge mass per alloy (the 250 g crucible), how the rods were cast (mold diameter, drop, suction or pour), and the number of remelts. The skulls and the ARC IDs suggest arc melting in a water-cooled copper crucible with a tilt pour (melt record, "The scraps").
 - **Ni31 (ARC00154) and Cu22 (ARC00153):** what went wrong during melting or casting?
-- **Scrap:** what went to scrap for each alloy (crucible remnant, failed pours, trimmed ends), and can all of it come back, labelled by alloy?
+- **Scrap:** returned 2026-10-17. Is anything else still at FWM, such as saw offcuts or swarf?
+- **Furnace:** the uniform hot-zone length, and where the thermocouple sits relative to the boat.
 - **Dates:** are the label dates (10/8, 10/12, 10/13, 10/14) the melt dates? §1b records Cu8, Ni31 and Fe25 on 10-09 and 10-12.
 - **Anneal:** was any casting annealed?
 - **Equipment:** is a DSC available? Can FWM seal quartz tubes, or run a flowing-Ar furnace with a water quench? Can FWM turn or centerless-grind rods to 5.00 mm and part off 4.00 mm slices?
