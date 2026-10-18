@@ -172,3 +172,68 @@ The experiment-version manuscript is not changed by B1 unless Frank asks.
 - **State under the readings above.** Four of eight legs failed numerically, so B1 is **unresolved**. Stage 2 is
   not built. Any rerun would change registered settings (mixing or the SCF threshold schedule) or the
   failure-marker rule, so the next step is Frank's.
+
+## Repair, registered 2026-10-18 before any repair deck exists (Frank: "Repair")
+
+**Decision of record.** Offered the same morning: stop with the registered "unresolved" clause, or repair the failed
+legs with changed SCF mixing (about 1,600 SU expected, about 3,300 SU cap). The atomic *OH leg was flagged as staying
+rejected unless a rerun comes out clean, because the failure-marker rule is not changed. Frank: "Repair".
+
+**What is repaired, and how.** Each failed leg is continued from where stage 1 left it, with BFGS restarted:
+- **The three ortho-atomic adsorbate legs** restart from the geometry of their stalled SCF, which is the last
+  `ATOMIC_POSITIONS` block their stage-1 output printed.
+- **The atomic *OH leg** restarts from its converged final coordinates. Its stage-1 run converged, so the
+  continuation should only confirm the endpoint. It counts only if it carries no failure marker.
+
+**Recipes.** Each repair deck is its stage-1 deck with only these changes:
+- the new geometry;
+- a new prefix;
+- `max_seconds` set for its wall;
+- the mixing below.
+
+| Recipe | `mixing_mode` | `mixing_beta` | `mixing_ndim` |
+|---|---|---|---|
+| Stage 1 (unchanged legs) | local-TF | 0.3 | 8 (default) |
+| T1 | local-TF | 0.1 | 16 |
+| T2 | plain | 0.1 | 16 |
+
+T2 tests whether the local-TF preconditioner is behind the stall or the *OH flag.
+
+Everything else stays as in stage 1:
+- `conv_thr` 10⁻⁶ Ry and pw.x's default tightening during relaxation;
+- the 126-iteration SCF ceiling;
+- forc_conv_thr, nstep, symmetry, spin start, cutoffs, k-mesh, fixed atoms and the projectors;
+- the failure-marker rule.
+
+**Launch (one package, three arrays, all of runner kind `relax`):**
+
+| Array | Legs | Wall | Cap (SU) |
+|---|---|---|---|
+| long | *OOH ortho-atomic, T1 | 8 h | 1,024 |
+| mid | *O and *OH ortho-atomic, T1 | 5 h | 1,280 |
+| short | *OH atomic, T1 and T2 | 1 h | 256 |
+
+**Selection, fixed now.** For each of the eight legs, the relaxation that feeds stage 2 is the first COMPLETE one in
+this order: stage 1, then T1, then T2.
+- A T1 ortho continuation that fails gets one T2 continuation, from the last geometry it printed, if the ceiling
+  allows.
+- A leg with no COMPLETE relaxation leaves B1 unresolved.
+- No other reruns are made.
+
+**Legs kept from stage 1.** The atomic *O and *OOH legs and both clean-slab legs keep their stage-1 relaxations.
+Mixing changes only how the SCF reaches its solution, not the solution itself. The GATE-1 terminal SCFs still test
+every endpoint.
+
+**Stage 2 and readings.** Stage 2 is unchanged: a fresh-start terminal SCF at each selected endpoint, with the deck's
+mixing inherited from its relaxation. The readings are unchanged. The scorer is changed only to read each leg's
+selected relaxation and its terminal SCF.
+
+**Budget.**
+- Stage 1 used 1,653.2 SU.
+- This repair is capped at 2,560 SU, with stage 2 at 768 SU (8 × 45 min).
+- That makes 4,981.2 SU in all, inside the registered 7,488 SU ceiling, which leaves 2,506.8 SU for a T2 fallback or
+  a GATE-1 re-relaxation.
+- Expected use: about 1,450 SU for the repair and 200 SU for stage 2.
+
+**Reporting.** If B1 completes, the report says three ortho-atomic legs and the atomic *OH leg were completed by
+continuation with stronger SCF damping after numerical failures.
