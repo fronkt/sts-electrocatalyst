@@ -240,3 +240,11 @@ selected relaxation and its terminal SCF.
 
 **Reporting.** If B1 completes, the report says three ortho-atomic legs and the atomic *OH leg were completed by
 continuation with stronger SCF damping after numerical failures.
+
+**Repair launch, 2026-10-18.**
+- **Steps:** staged from 13a26d8 (13 files, sha256-verified, read-only); preflight passed.
+- **Preflight checks:** runner VALID on both arrays, imports OK, QE binaries matched, `mybalance` 13,471.0 SU, empty
+  queue, 0.6 TB free.
+- **Arrays:** held arrays **21475905** (`b1r_ortho`, 1-3%3, 08:00:00) and **21475906** (`b1r_short`, 1-2%2,
+  01:00:00) validated (ceiling 3,328 SU), then released.
+- **Receipts:** `results/b1_repair_2026-10-18/*_receipt.json`.

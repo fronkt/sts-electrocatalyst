@@ -1,0 +1,36 @@
+{
+  "phase": "validate",
+  "at": "2026-10-18T08:16:47.859992+00:00",
+  "commands": {
+    "held:b1r_ortho": {
+      "command": "scontrol show job 21475905 -o",
+      "stdout": "JobId=21475905 ArrayJobId=21475905 ArrayTaskId=1-3%3 ArrayTaskThrottle=3 JobName=b1r-ortho UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=08:00:00 TimeMin=N/A SubmitTime=2026-10-18T04:16:46 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-18T04:16:46 Scheduler=Main Partition=wholenode AllocNode:Sid=login01:1844230 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=200G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=200G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NODE Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts_b1_repair_2026-10-18/anvil/104_b1_repair.slurm SubmitLine=sbatch --hold --parsable --no-requeue --array=1-3%3 --time=08:00:00 --job-name=b1r-ortho --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --export=ALL,STAGE=b1r_ortho /anvil/projects/x-che260157/sts_b1_repair_2026-10-18/anvil/104_b1_repair.slurm WorkDir=/home/x-fcai3 StdErr=/anvil/projects/x-che260157/sts_b1_repair_2026-10-18/logs/b1_repair_21475905_4294967294.log StdIn=/dev/null StdOut=/anvil/projects/x-che260157/sts_b1_repair_2026-10-18/logs/b1_repair_21475905_4294967294.log TresPerTask=cpu=1\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-18T08:16:48.922947+00:00"
+    },
+    "held:b1r_short": {
+      "command": "scontrol show job 21475906 -o",
+      "stdout": "JobId=21475906 ArrayJobId=21475906 ArrayTaskId=1-2%2 ArrayTaskThrottle=2 JobName=b1r-short UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=01:00:00 TimeMin=N/A SubmitTime=2026-10-18T04:16:47 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-18T04:16:47 Scheduler=Main Partition=wholenode AllocNode:Sid=login01:1844353 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=200G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=200G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NODE Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts_b1_repair_2026-10-18/anvil/104_b1_repair.slurm SubmitLine=sbatch --hold --parsable --no-requeue --array=1-2%2 --time=01:00:00 --job-name=b1r-short --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --export=ALL,STAGE=b1r_short /anvil/projects/x-che260157/sts_b1_repair_2026-10-18/anvil/104_b1_repair.slurm WorkDir=/home/x-fcai3 StdErr=/anvil/projects/x-che260157/sts_b1_repair_2026-10-18/logs/b1_repair_21475906_4294967294.log StdIn=/dev/null StdOut=/anvil/projects/x-che260157/sts_b1_repair_2026-10-18/logs/b1_repair_21475906_4294967294.log TresPerTask=cpu=1\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-18T08:16:49.433044+00:00"
+    }
+  },
+  "checks": {
+    "b1r_ortho": {
+      "job": "21475905",
+      "mismatches": {},
+      "held": true,
+      "ceiling_cpu_su": 3072
+    },
+    "b1r_short": {
+      "job": "21475906",
+      "mismatches": {},
+      "held": true,
+      "ceiling_cpu_su": 256
+    }
+  },
+  "launch_ceiling_cpu_su": 3328,
+  "passed": true
+}

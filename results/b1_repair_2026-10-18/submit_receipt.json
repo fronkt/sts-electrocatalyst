@@ -1,0 +1,25 @@
+{
+  "phase": "submit",
+  "at": "2026-10-18T08:16:45.387995+00:00",
+  "commands": {
+    "sbatch:b1r_ortho": {
+      "command": "sbatch --hold --parsable --no-requeue --array=1-3%3 --time=08:00:00 --job-name=b1r-ortho --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --export=ALL,STAGE=b1r_ortho /anvil/projects/x-che260157/sts_b1_repair_2026-10-18/anvil/104_b1_repair.slurm",
+      "stdout": "21475905\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-18T08:16:46.835701+00:00"
+    },
+    "sbatch:b1r_short": {
+      "command": "sbatch --hold --parsable --no-requeue --array=1-2%2 --time=01:00:00 --job-name=b1r-short --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --export=ALL,STAGE=b1r_short /anvil/projects/x-che260157/sts_b1_repair_2026-10-18/anvil/104_b1_repair.slurm",
+      "stdout": "21475906\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-18T08:16:47.333781+00:00"
+    }
+  },
+  "jobs": {
+    "b1r_ortho": "21475905",
+    "b1r_short": "21475906"
+  },
+  "spec_sha256": "46c81ec57bc9403d5e5c001ca2883a11786006c97a2c4146ddc3a175bd233d0e"
+}

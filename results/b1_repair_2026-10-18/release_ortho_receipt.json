@@ -1,0 +1,24 @@
+{
+  "phase": "release",
+  "array": "b1r_ortho",
+  "at": "2026-10-18T08:16:54.885202+00:00",
+  "commands": {
+    "release:b1r_ortho": {
+      "command": "scontrol release 21475905",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-18T08:16:55.983254+00:00"
+    },
+    "after": {
+      "command": "squeue -u x-fcai3 -o '%i|%j|%T|%M|%l|%R'",
+      "stdout": "JOBID|NAME|STATE|TIME|TIME_LIMIT|NODELIST(REASON)\n21475905_3|b1r-ortho|PENDING|0:00|8:00:00|(None)\n21475905_2|b1r-ortho|PENDING|0:00|8:00:00|(None)\n21475905_1|b1r-ortho|PENDING|0:00|8:00:00|(None)\n21475906_[1-2%2]|b1r-short|PENDING|0:00|1:00:00|(JobHeldUser)\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-18T08:16:56.478007+00:00"
+    }
+  },
+  "released": {
+    "b1r_ortho": "21475905"
+  }
+}
