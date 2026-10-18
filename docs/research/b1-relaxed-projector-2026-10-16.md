@@ -205,13 +205,16 @@ Everything else stays as in stage 1:
 - forc_conv_thr, nstep, symmetry, spin start, cutoffs, k-mesh, fixed atoms and the projectors;
 - the failure-marker rule.
 
-**Launch (one package, three arrays, all of runner kind `relax`):**
+**Launch (one package, two arrays, both of runner kind `relax`):**
 
 | Array | Legs | Wall | Cap (SU) |
 |---|---|---|---|
-| long | *OOH ortho-atomic, T1 | 8 h | 1,024 |
-| mid | *O and *OH ortho-atomic, T1 | 5 h | 1,280 |
+| ortho | *O, *OH and *OOH ortho-atomic, T1 | 8 h | 3,072 |
 | short | *OH atomic, T1 and T2 | 1 h | 256 |
+
+As first registered, the ortho legs were split into an 8 h array (*OOH) and a 5 h array (*O, *OH). They were merged
+before any deck was built. A one-task array would have needed a held-shape check that launch_ops has not been tested
+on. The merge raises only the cap; billing follows the actual run time.
 
 **Selection, fixed now.** For each of the eight legs, the relaxation that feeds stage 2 is the first COMPLETE one in
 this order: stage 1, then T1, then T2.
@@ -230,8 +233,8 @@ selected relaxation and its terminal SCF.
 
 **Budget.**
 - Stage 1 used 1,653.2 SU.
-- This repair is capped at 2,560 SU, with stage 2 at 768 SU (8 × 45 min).
-- That makes 4,981.2 SU in all, inside the registered 7,488 SU ceiling, which leaves 2,506.8 SU for a T2 fallback or
+- This repair is capped at 3,328 SU, with stage 2 at 768 SU (8 × 45 min).
+- That makes 5,749.2 SU in all, inside the registered 7,488 SU ceiling, which leaves 1,738.8 SU for a T2 fallback or
   a GATE-1 re-relaxation.
 - Expected use: about 1,450 SU for the repair and 200 SU for stage 2.
 
