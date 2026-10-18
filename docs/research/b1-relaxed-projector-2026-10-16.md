@@ -144,3 +144,31 @@ The experiment-version manuscript is not changed by B1 unless Frank asks.
 - **Preflight checks:** runner VALID, imports OK, QE binaries matched, `mybalance` 15,124.2 SU, empty queue, 0.7 TB free.
 - **Ceiling:** 6,144 SU for this stage.
 - **Receipts:** `results/b1_relaxed_projector_2026-10-16/*_receipt.json`.
+
+## Stage 1 outcome, 2026-10-18 (array 21411373; outputs collected, nothing scored)
+
+- **Ran.** Task 1 backfilled at 17:25Z on 10-17; tasks 2–8 ran 01:24–04:53Z on 10-18. Billed 1,653.2 SU
+  (`mybalance` 15,124.2 → 13,471.0), equal to the summed sacct walls × 128.
+- **Runner COMPLETE, BFGS converged (4 legs):**
+
+  | Leg | Ionic steps (SCF cycles) | Max SCF iterations | Wall |
+  |---|---|---|---|
+  | clean slab, atomic | 18 | 23 | 1 h 35 min |
+  | clean slab, ortho-atomic | 17 | 27 | 2 h 01 min |
+  | *O, atomic | 23 | 27 | 1 h 31 min |
+  | *OOH, atomic | 50 | 26 | 3 h 28 min |
+
+- **KILLED at the 126-iteration SCF ceiling (3 legs): *O, *OH and *OOH under ortho-atomic.**
+  - Each stopped in the SCF of ionic step 3 (*O, *OH) or 4 (*OOH). Every earlier SCF converged.
+  - pw.x tightens `conv_thr` during a relaxation (to 8.4 × 10⁻⁸ Ry at the *OOH step 4). The *O and *OOH SCFs
+    stalled near 10⁻⁶ and 5 × 10⁻⁷ Ry, with the total energy jittering by about 10⁻⁴ Ry. The *OH SCF reached
+    6.8 × 10⁻⁵ Ry by iteration 10, then rose to 10⁻² Ry.
+  - Total magnetization stayed at 22 or 23 μB throughout, so no magnetic flip was involved.
+  - The paired atomic legs met the same tightened thresholds in 10–20 iterations at every step.
+- **REJECTED (1 leg): *OH, atomic.**
+  - BFGS converged in 22 ionic steps and JOB DONE printed once, but the exit notice carries `IEEE_INVALID_FLAG`.
+  - The same flag is on the banked atomic *OH single point (`runs/a0/cell/s0_OH__2x1v_mir__u715.out`).
+  - None of the other seven banked U = 7.15 eV single points, and none of the other seven B1 outputs, carries it.
+- **State under the readings above.** Four of eight legs failed numerically, so B1 is **unresolved**. Stage 2 is
+  not built. Any rerun would change registered settings (mixing or the SCF threshold schedule) or the
+  failure-marker rule, so the next step is Frank's.
