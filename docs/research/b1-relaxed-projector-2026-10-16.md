@@ -333,7 +333,8 @@ The fixed-geometry pair (0.9240 / 1.0965 V, Δη +0.1725 V) is unchanged; it rem
   - O₂ formation: O–O shortens to 1.22–1.23 Å, an O₂-like bond, by step 25.
   - Lift-off: the O₂ rises off the Cr (2.29 → 3.50 Å).
 - **Ortho leg (T1):** the same sequence, about five steps earlier.
-- **Energy:** it falls monotonically along the way, by about 1.25 eV (atomic) and 1.40 eV (ortho T1, from its own start).
+- **Energy:** it falls by 1.259 eV over the atomic leg's 50 SCFs, rising once, by 29.7 meV. Over the 60 SCFs of the
+  ortho T1 leg it falls by 1.410 eV from its own start and never rises.
 - **Same failure mode as the alloy screen:** the MLIP screen's dominant one (H on a lattice O, O₂ gone; 573 and 525 of
   720 *OOH), here in DFT+U at U = 7.15 eV under both projectors.
 
