@@ -25,6 +25,10 @@ scored, or none.
 
 CHANGE OF RECORD, 2026-10-18 (registered Repair, before any repair output existed): each leg's relaxation is the
 first COMPLETE one of stage 1 (`_relax`), T1 (`_relax_t1`) and T2 (`_relax_t2`); readings are unchanged.
+CHANGE OF RECORD, 2026-10-19 (registered GATE-1 re-relaxation, before any re-relaxation output existed): a leg whose
+stage-2 SCF triggered GATE-1 reads `_rerelax` (and `_rescf` if run); a non-intact re-relaxed endpoint closes GATE-1 as
+a chemical result, an intact one needs its terminal SCF within 5 meV. An arm blocked only by chemical results is
+labelled NO_PAIR_CHEMICAL instead of UNRESOLVED (labelling only; never scored either way).
 
 Usage:
   PYTHONPATH=src python src/dft/b1_relaxed_projector_readout.py [--json docs/figs/b1_relaxed_projector_readout.json]
@@ -126,9 +130,23 @@ def dist(p, q, a, b):
     return math.sqrt(dx * dx + dy * dy + dz * dz)
 
 
-def chemistry(state, deck, thresholds):
-    """Endpoint class from the terminal SCF deck, whose positions are the relaxation's final coordinates."""
-    a, b, atoms = deck_cell_positions(deck)
+def final_atoms(out_path):
+    """The "Begin final coordinates" positions of a relaxation output, or None."""
+    text = open(out_path, encoding="utf-8", errors="replace").read()
+    m = re.search(r"Begin final coordinates.*?ATOMIC_POSITIONS \(angstrom\)\s*\n(.*?)End final coordinates", text, re.S)
+    if not m:
+        return None
+    rows = [r.split() for r in m.group(1).splitlines() if r.split()]
+    return [(r[0], tuple(float(x) for x in r[1:4])) for r in rows]
+
+
+def chemistry(state, deck, thresholds, atoms=None):
+    """Endpoint class from the terminal SCF deck, whose positions are the relaxation's final coordinates (or from
+    `atoms`, a re-relaxation's final coordinates, in the cell of `deck`)."""
+    a, b, deck_atoms = deck_cell_positions(deck)
+    if atoms is not None:
+        assert [s for s, _ in atoms] == [s for s, _ in deck_atoms], "species order differs"
+    atoms = atoms if atoms is not None else deck_atoms
     if state == "slab":
         return dict(intact=True)
     slab, ads = atoms[:SLAB_NAT], atoms[SLAB_NAT:]
@@ -153,6 +171,49 @@ def chemistry(state, deck, thresholds):
         out["adsorbate_abs_dy_A"] = dys
         out["returned_to_plane"] = max(dys) < ON_PLANE_A
     return out
+
+
+def gate1_rerelaxation(st, stem, leg, rec, E, mag, chem, unresolved, qc, thresholds):
+    """Registered GATE-1 re-relaxation (B1 doc, 2026-10-19). `rec["gate1_rerelax"]` stays True (blocking) unless the
+    re-relaxation resolves it: a non-intact endpoint closes GATE-1 as a chemical result; an intact one needs a terminal
+    SCF within 5 meV of the re-relaxation's final energy, which then supplies the leg's energy."""
+    rr = os.path.join(RUNS, f"{stem}__u715_{leg}_rerelax")
+    if not os.path.exists(rr + ".qc.json"):
+        rec["rerelax"] = "not run"
+        return
+    ok, why = receipt_complete(rr)
+    rec["rerelax"] = "COMPLETE" if ok else why
+    if not ok:
+        unresolved.append(f"{st}/{leg}: GATE-1 re-relaxation {why}")
+        rec["gate1_rerelax"] = False  # reported through `unresolved`, not twice
+        return
+    text = open(rr + ".out", encoding="utf-8", errors="replace").read()
+    energies = [float(x) * qc.RY_EV for x in re.findall(r"^!\s+total energy\s*=\s*([-\d.]+)\s+Ry", text, re.M)]
+    # the converged moment of the first SCF is printed after its "!" line, before the next SCF starts
+    first = re.search(r"^!\s+total energy.*?total magnetization\s*=\s*([-\d.]+)", text, re.M | re.S)
+    rec["rerelax_first_scf_vs_stage2_meV"] = (energies[0] - rec["scf_eV"]) * 1000.0  # reported, not gating
+    rec["rerelax_first_scf_magnetization"] = float(first.group(1)) if first else None
+    rec["rerelax_ionic_steps"] = len(energies)
+    rec["rerelax_final_eV"] = energies[-1]
+    rec["rerelax_chemistry"] = chemistry(st, rr + ".in", thresholds, final_atoms(rr + ".out"))
+    chem[(st, leg)] = rec["rerelax_chemistry"]
+    if not rec["rerelax_chemistry"]["intact"]:
+        rec["gate1_rerelax"] = False  # closed: the chemical result is final and no eta exists to guard
+        return
+    rs = os.path.join(RUNS, f"{stem}__u715_{leg}_rescf")
+    ok_s, why_s = receipt_complete(rs)
+    e = qc.trusted_energy_ev(rs + ".out", rs + ".in", strict=True) if ok_s else None
+    rec["rescf"] = "COMPLETE" if e is not None else why_s
+    if e is None:
+        return  # gate1_rerelax stays True: an intact re-relaxed endpoint without its terminal SCF blocks the arm
+    rec["rescf_eV"] = e
+    rec["gate1_second_meV"] = (e - energies[-1]) * 1000.0
+    if rec["gate1_second_meV"] <= -GATE1_MEV:
+        unresolved.append(f"{st}/{leg}: second terminal SCF {rec['gate1_second_meV']:.2f} meV below the "
+                          f"re-relaxation -- unresolved (no second re-relaxation)")
+    else:
+        E[(st, leg)], mag[(st, leg)] = e, totmag(rs + ".out")
+    rec["gate1_rerelax"] = False
 
 
 def main():
@@ -215,6 +276,8 @@ def main():
             E[(st, leg)], mag[(st, leg)] = e, totmag(sbase + ".out")
             chem[(st, leg)] = rec["chemistry"]
             status[(st, leg)] = rec
+            if rec["gate1_rerelax"]:
+                gate1_rerelaxation(st, stem, leg, rec, E, mag, chem, unresolved, qc, DEFAULT_THRESHOLDS)
 
     for (st, leg), rec in status.items():
         rec["total_magnetization"] = mag.get((st, leg))
@@ -259,6 +322,16 @@ def main():
     print(f"\n  fixed geometry (A13): atomic {FIXED['eta_atomic']:.7f} V, ortho {FIXED['eta_ortho']:.7f} V, "
           f"d-eta {FIXED['d_eta']:+.7f} V, both pls {FIXED['pls']}")
 
+    for (st, leg), r in status.items():
+        if "rerelax" in r:
+            c = r.get("rerelax_chemistry")
+            print(f"  GATE-1 re-relaxation {st}/{leg}: {r['rerelax']}"
+                  + (f"; {r['rerelax_ionic_steps']} SCFs, first SCF {r['rerelax_first_scf_vs_stage2_meV']:+.2f} meV vs "
+                     f"stage-2 SCF at {r['rerelax_first_scf_magnetization']} muB; endpoint M-O {c['m_o_A']:.3f}, "
+                     f"H-O(ads) {c.get('h_to_adsorbate_O_A', float('nan')):.3f}, O-O {c.get('o_o_A', float('nan')):.3f}"
+                     + ("" if c["intact"] else "  NOT INTACT") if c else "")
+                  + (f"; terminal SCF {r['rescf']}" if "rescf" in r else ""))
+
     blocked = list(unresolved)
     chemical = [f"{st}/{leg}" for (st, leg), c in chem.items() if not c.get("intact", True)]
     rerelax = [f"{st}/{leg}" for (st, leg), r in status.items() if r.get("gate1_rerelax")]
@@ -267,12 +340,15 @@ def main():
     for k in rerelax:
         blocked.append(f"{k}: GATE-1 terminal SCF >= {GATE1_MEV:g} meV below the relaxation -- re-relax")
     if blocked:
-        print("\nARM UNRESOLVED -- eta is not scored (all four states under both projectors, or none):")
+        # labelling only (2026-10-19): an arm blocked by chemical results alone has no relaxed pair, which is a
+        # finding; any numerical or GATE-1 blocker leaves it unresolved. Neither is ever scored.
+        verdict = "NO_PAIR_CHEMICAL" if len(blocked) == len(chemical) else "UNRESOLVED"
+        print(f"\nARM {verdict} -- eta is not scored (all four states under both projectors, or none):")
         for x in blocked:
             print("  " + x)
         if args.json:
             with open(args.json, "w", encoding="utf-8") as fh:
-                json.dump(payload(dict(verdict="UNRESOLVED", reasons=blocked)), fh, indent=2)
+                json.dump(payload(dict(verdict=verdict, reasons=blocked)), fh, indent=2)
         sys.exit(2)
 
     legs = {}

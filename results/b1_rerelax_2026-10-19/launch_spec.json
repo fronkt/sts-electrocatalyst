@@ -1,0 +1,78 @@
+{
+  "schema": "research-batch-2026-09-16",
+  "np": 128,
+  "exclusions": "a024,a049,a050,a088,a196,a220,a223,a171,a120,a200",
+  "date": "2026-10-19",
+  "design": "docs/research/b1-relaxed-projector-2026-10-16.md",
+  "decision_ref": "Frank, 2026-10-19: \"do the extra OOH relaxation\"",
+  "allocation": {
+    "account": "che260157",
+    "partition": "wholenode",
+    "cores_per_task": 128,
+    "launch_ceiling_cpu_su": 1536,
+    "stage_ceilings_cpu_su": {
+      "b1_rerelax": 1536
+    },
+    "b1_total_ceiling_cpu_su": 7488,
+    "b1_used_cpu_su": 4113.0
+  },
+  "qe_binaries_sha256": {
+    "pw.x": "1d66c7856f5d6b3cd9c66b8578e01512b16bbe907b4360e54234890712ccd6a1",
+    "projwfc.x": "456387be5ee32f358bc9835240b2e8bd1f8144a27a8e116731a1463dbf78ac85",
+    "mpirun": "a256bdcef89bdc61ba870e823056c51df868b4db48ab345a14278a7fe79ed75d"
+  },
+  "files": {
+    "runs/b1_relaxed_projector_2026-10-16/s0_OOH__2x1v_escape__u715_atomic_rerelax.in": "d4270237c6ccc70b4291dece53672e9a3fb849951f63c6df5fc654572e14336d",
+    "runs/b1_relaxed_projector_2026-10-16/s0_OOH__2x1v_escape__u715_ortho_rerelax.in": "f5ece39b1d5fa5cf383a9ab7c1e140374dd61fa0c67a93f662d3585eb9e98429",
+    "runs/m_b1_rerelax_2026-10-19.txt": "0ba63f8b336c6844fcd5adb60428a40f28767ee33839ef1173aa31e19150fed1",
+    "src/dft/hea_geometry.py": "ddfba096967680486f6202e222207aec4517866e7fc4c93f6acbfd372b8f6bad",
+    "src/dft/hea_panel_readout.py": "f0deef7a465db98e55bd1549c95c1cf9338c9c5b28885e06433d3157834cad57",
+    "src/dft/projection_qc.py": "dfc075634a99cee71e7287ea7868f62c59aa2666e4a593c61470b43d1bdd50f4",
+    "src/dft/research_batch_seeded.py": "32d705a5cda6467d6f0b48bbc274abd751ed6959e583375bd62de9d1ce0a7231"
+  },
+  "pseudo_md5": {
+    "cr_pbe_v1.5.uspp.F.UPF": "0d52af634a40206e4dee301ad30da4bf",
+    "O.pbe-n-kjpaw_psl.0.1.UPF": "0234752ac141de4415c5fc33072bef88",
+    "H.pbe-rrkjus_psl.1.0.0.UPF": "f52b6d4d1c606e5624b1dc7b2218f220"
+  },
+  "stages": {
+    "b1_rerelax": {
+      "kind": "relax",
+      "manifest": "runs/m_b1_rerelax_2026-10-19.txt",
+      "concurrency": 2,
+      "wall_minutes": 360,
+      "jobs": [
+        {
+          "dir": "b1_relaxed_projector_2026-10-16",
+          "job": "s0_OOH__2x1v_escape__u715_atomic_rerelax",
+          "sha256": "d4270237c6ccc70b4291dece53672e9a3fb849951f63c6df5fc654572e14336d",
+          "nk": 8,
+          "scf_seconds": 20700,
+          "projection_seconds": 600,
+          "max_iterations": 126,
+          "recipe": "relax",
+          "role": "b1",
+          "gate1_source_scf": "runs/b1_relaxed_projector_2026-10-16/s0_OOH__2x1v_escape__u715_atomic_scf.out",
+          "gate1_source_scf_sha256": "f886f86dd28768a1df0aebc305c84e63262ddda2f60d51f0e6b5cf0c40acc264",
+          "source_deck": "runs/b1_relaxed_projector_2026-10-16/s0_OOH__2x1v_escape__u715_atomic_scf.in",
+          "source_deck_sha256": "72a7ab12995e92073ad32cb5c7cfe092fe7083854935820e0277389839ad55fd"
+        },
+        {
+          "dir": "b1_relaxed_projector_2026-10-16",
+          "job": "s0_OOH__2x1v_escape__u715_ortho_rerelax",
+          "sha256": "f5ece39b1d5fa5cf383a9ab7c1e140374dd61fa0c67a93f662d3585eb9e98429",
+          "nk": 8,
+          "scf_seconds": 20700,
+          "projection_seconds": 600,
+          "max_iterations": 126,
+          "recipe": "relax",
+          "role": "b1",
+          "gate1_source_scf": "runs/b1_relaxed_projector_2026-10-16/s0_OOH__2x1v_escape__u715_ortho_scf.out",
+          "gate1_source_scf_sha256": "a2be92313301a4d3134a96b7fc2aaa3eca638a5ac5dfa5c1381b5b6f5c8d8721",
+          "source_deck": "runs/b1_relaxed_projector_2026-10-16/s0_OOH__2x1v_escape__u715_ortho_scf.in",
+          "source_deck_sha256": "3def030eee9d9a500ac558e7aba09687623aa36387d07549c6814bae2bdc582d"
+        }
+      ]
+    }
+  }
+}
