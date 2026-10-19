@@ -178,7 +178,7 @@ def test_cdl_midpoint_outside_a_branch_gives_no_point():
     I = np.concatenate([np.full(100, 1e-6), np.full(30, -1e-6)])
     out = ro.cdl_point({"t": np.arange(len(E)), "E": E, "I": I, "cycle": None, "control": None, "ns": None},
                        {"cycle": None})
-    assert out["cdl_half_delta_I_A"] is None and "midpoint" in out["cdl_note"]
+    assert out["cdl_half_delta_I_A"] is None and "central band" in out["cdl_note"]
 
 
 # ------------------------------------------------------------------------------------------------ judging

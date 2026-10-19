@@ -26,8 +26,8 @@ WHAT IS COMPUTED, PER RUN.
     x = 10, secondary x = 1 (geometric). A sweep that does not end above x gives no eta_x (reported, never imputed).
   Tafel slope (holds): steady current = mean over the last 20% of each hold of at least 30 s; slope of eta against
     log10 j over the holds between 0.05 and 10 mA cm-2 (at least 3).
-  C_dl (non-faradaic CVs): half the anodic - cathodic current at the window's midpoint (inside both branches), against
-    scan rate (at least 3 rates, one disk on one day). Roughness factor with C_s = 0.040 mF cm-2, the middle of the
+  C_dl (non-faradaic CVs): half the anodic - cathodic current, each branch averaged over the central 20% of the window
+    (which both branches must cover), against scan rate (at least 3 rates, one disk on one day). Roughness factor with C_s = 0.040 mF cm-2, the middle of the
     0.020-0.060 mF cm-2 range used for flat surfaces in alkaline electrolyte (as in arXiv:2102.08062, SI; its primary
     source is still to be confirmed before the report cites one); specific activity = j at eta = 0.35 V divided by
     the roughness factor. Reported only.
@@ -80,6 +80,7 @@ HOLD_TAIL = 0.20
 HOLD_MIN_S = 30.0
 DRIFT_SKIP_S = 600.0
 REDOX_FLAG_V = 0.005
+CDL_BAND = 0.20                  # C_dl currents are averaged over the central 20% of the CV window
 TURN_TOL_V = 0.002               # hysteresis when splitting a potential trace into sweeps
 MIN_SWEEP_V = 0.05               # an anodic run shorter than this is not a sweep
 MIN_POINTS = 20
@@ -376,21 +377,21 @@ def _r2(x, y, slope, icpt):
 
 
 def cdl_point(curve, run):
-    """Half the anodic - cathodic current (A) at the midpoint of the CV window, or None (with the reason) when either
-    branch does not span the midpoint."""
+    """Half the anodic - cathodic current (A) at the middle of the CV window: each branch's current averaged over the
+    central CDL_BAND of the window, or None (with the reason) when either branch does not cover that band."""
     if curve["ns"] is not None and len(np.unique(curve["ns"])) > 1:
         raise InputError("several linked techniques (Ns) in one C_dl file; export one CV per scan rate")
     idx = _cycle_index(curve, run["cycle"])
     drive = curve["control"] if curve["control"] is not None else curve["E"]
     E, I, d = curve["E"][idx], curve["I"][idx], np.sign(np.gradient(drive[idx]))
-    mid = (E.min() + E.max()) / 2
+    mid, half = (E.min() + E.max()) / 2, CDL_BAND * (E.max() - E.min()) / 2
     branch = []
     for sign in (1, -1):
         m = d == sign
-        if m.sum() < 3 or not E[m].min() < mid < E[m].max():
-            return {"cdl_half_delta_I_A": None, "cdl_note": "a branch does not span the window midpoint"}
-        order = np.argsort(E[m])
-        branch.append(float(np.interp(mid, E[m][order], I[m][order])))
+        band = m & (np.abs(E - mid) <= half)
+        if band.sum() < 3 or not (E[m].min() <= mid - half and E[m].max() >= mid + half):
+            return {"cdl_half_delta_I_A": None, "cdl_note": "a branch does not cover the central band of the window"}
+        branch.append(float(I[band].mean()))
     return {"cdl_half_delta_I_A": (branch[0] - branch[1]) / 2}
 
 
@@ -606,7 +607,7 @@ def readout(manifest, lock, key_path=None, ir_hw_verified=None):
         "parameters": {"E_eq_V": E_EQ, "ir_total": IR_TOTAL, "targets_mA_cm2": list(TARGETS),
                        "eta_specific_V": ETA_SPECIFIC, "C_s_F_cm2": CS_F_CM2, "default_area_cm2": AREA_CM2,
                        "tafel_window_mA_cm2": list(TAFEL_WINDOW), "hold_tail": HOLD_TAIL, "hold_min_s": HOLD_MIN_S,
-                       "drift_skip_s": DRIFT_SKIP_S, "redox_flag_V": REDOX_FLAG_V},
+                       "drift_skip_s": DRIFT_SKIP_S, "redox_flag_V": REDOX_FLAG_V, "cdl_band": CDL_BAND},
         "days": days,
         "runs": [{k: v for k, v in r.items() if k != "curve"} for r in runs],
         "disks": disks,

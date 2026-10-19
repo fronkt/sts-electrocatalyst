@@ -66,8 +66,8 @@ to fix a bug, and each fix is recorded below with its reason.
 10. **Tafel slope.** The steady current is the mean over the last 20% of each hold of at least 30 s. The fit uses the
     holds between 0.05 and 10 mA cm⁻², at least 3 of them.
 11. **C_dl.**
-    - The point per scan rate is half the anodic minus cathodic current at the window's midpoint. Both branches must
-      span the midpoint, or there is no point.
+    - The point per scan rate is half the anodic minus cathodic current, each branch's current averaged over the
+      central 20% of the window. Both branches must cover that band, or there is no point.
     - C_dl is the slope against scan rate, from at least 3 rates, one disk on one day.
     - The roughness factor uses C_s = 0.040 mF cm⁻². Specific activity is j at η = 0.35 V divided by the roughness
       factor.
@@ -168,6 +168,13 @@ Also fixed:
 
 The tests then found one more: an unreadable cycle number was cast to a garbage integer. Every column used now counts
 toward the unreadable rows.
+
+**After the first commit, still before any data (2026-10-19).** Commit 6bb3d49 was pushed with one failing test,
+because a shell pipeline hid pytest's exit code. The failure was C_dl recovered 2% low on one synthetic disk. Each
+point read one interpolated current, which carries the full per-point noise.
+- **Fix.** Each branch's current is now averaged over the central 20% of the window (choice 11).
+- **Check.** Over five synthetic noise seeds, the worst roughness-factor error is 0.34% (2.0% before), and all 35 tests
+  pass.
 
 ## Changes after data (bug fixes only, each with its reason)
 
