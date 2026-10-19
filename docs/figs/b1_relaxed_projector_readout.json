@@ -167,7 +167,7 @@
       "relax_final_eV": -43355.825892051296,
       "scf_eV": -43355.85294615573,
       "gate1_meV": -27.05410443013534,
-      "gate1_rerelax": true,
+      "gate1_rerelax": false,
       "banked_reference_flags": [],
       "relaxation_energy_meV": -1285.97215400805,
       "chemistry": {
@@ -180,7 +180,21 @@
         "o_o_cleaved": false,
         "intact": false
       },
-      "rerelax": "not run",
+      "rerelax": "COMPLETE",
+      "rerelax_first_scf_vs_stage2_meV": 0.0019047947716899216,
+      "rerelax_first_scf_magnetization": 22.81,
+      "rerelax_ionic_steps": 5,
+      "rerelax_final_eV": -43355.859454983256,
+      "rerelax_chemistry": {
+        "m_o_A": 3.4919441840540504,
+        "desorbed": true,
+        "h_to_adsorbate_O_A": 2.6821035263681137,
+        "h_to_slab_O_A": 0.9761696912497053,
+        "h_on_adsorbate": false,
+        "o_o_A": 1.2346255149868193,
+        "o_o_cleaved": false,
+        "intact": false
+      },
       "total_magnetization": 22.81
     },
     "s0_OOH/ortho": {
@@ -194,7 +208,7 @@
       "relax_final_eV": -43364.2450923701,
       "scf_eV": -43364.26734448121,
       "gate1_meV": -22.252111106354278,
-      "gate1_rerelax": true,
+      "gate1_rerelax": false,
       "banked_reference_flags": [],
       "relaxation_energy_meV": -1716.4151951947133,
       "chemistry": {
@@ -207,15 +221,27 @@
         "o_o_cleaved": false,
         "intact": false
       },
-      "rerelax": "not run",
+      "rerelax": "COMPLETE",
+      "rerelax_first_scf_vs_stage2_meV": 23.239748370542657,
+      "rerelax_first_scf_magnetization": 27.0,
+      "rerelax_ionic_steps": 1,
+      "rerelax_final_eV": -43364.24410473284,
+      "rerelax_chemistry": {
+        "m_o_A": 3.7270581793905033,
+        "desorbed": true,
+        "h_to_adsorbate_O_A": 2.4817570102011044,
+        "h_to_slab_O_A": 0.9757447134147759,
+        "h_on_adsorbate": false,
+        "o_o_A": 1.2227216649232617,
+        "o_o_cleaved": false,
+        "intact": false
+      },
       "total_magnetization": 22.83
     }
   },
-  "verdict": "UNRESOLVED",
+  "verdict": "NO_PAIR_CHEMICAL",
   "reasons": [
     "s0_OOH/atomic: CHEMICAL RESULT (adsorbate not intact) -- no eta for this leg",
-    "s0_OOH/ortho: CHEMICAL RESULT (adsorbate not intact) -- no eta for this leg",
-    "s0_OOH/atomic: GATE-1 terminal SCF >= 5 meV below the relaxation -- re-relax",
-    "s0_OOH/ortho: GATE-1 terminal SCF >= 5 meV below the relaxation -- re-relax"
+    "s0_OOH/ortho: CHEMICAL RESULT (adsorbate not intact) -- no eta for this leg"
   ]
 }

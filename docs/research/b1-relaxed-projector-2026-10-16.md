@@ -415,3 +415,39 @@ The experiment-version manuscript is not changed.
 - **Preflight checks:** runner VALID, imports OK, QE binaries matched, `mybalance` 11,011.2 SU, empty queue, 0.5 TB free.
 - **Array:** held array **21520196** (`b1_rerelax`, 1-2%2, 06:00:00) validated (ceiling 1,536 SU), then released.
 - **Receipts:** `results/b1_rerelax_2026-10-19/*_receipt.json`.
+
+## GATE-1 re-relaxation outcome, 2026-10-19 (array 21520196)
+
+**Ran.** Both tasks started at 11:11–11:14 EDT, well ahead of Slurm's 10-20 estimate, and finished COMPLETE with BFGS
+converged after 20.7 and 18.3 min.
+- **Flags:** no IEEE_INVALID.
+- **Billed:** 83.2 SU (`mybalance` 11,011.2 → 10,928.0). B1 in all has used 4,196.2 of its 7,488 SU ceiling.
+
+| Leg | First SCF vs stage-2 SCF | First-SCF moment | SCFs | Energy change | Endpoint |
+|---|---|---|---|---|---|
+| atomic | +0.002 meV (reproduced) | 22.81 μB (stage 2: 22.81) | 5 | −6.51 meV | **not intact**: Cr–O 3.492 Å, H 2.682 Å from its O, O–O 1.235 Å; ends at 22.79 μB |
+| ortho | **+23.24 meV (not reproduced)** | **27.00 μB** (stage 2: 22.83) | 1 | 0 | **not intact**: geometry unchanged (Cr–O 3.727 Å, H 2.482 Å, O–O 1.223 Å) |
+
+Energy change is relative to the first SCF.
+
+**Readout.** `docs/figs/b1_relaxed_projector_readout.json` gives verdict **NO_PAIR_CHEMICAL**, exit 2.
+- **Under the registered reading:** both re-relaxed endpoints are not intact. The chemical result is therefore final
+  for both *OOH legs, and GATE-1 is closed. There is no η, no relaxed pair and no Δη_relaxed.
+- **What remains:** the fixed-geometry pair (Δη +0.1725 V).
+
+**Ortho caveat (the first-SCF check, reported and not gating).**
+- **What happened:** the ortho re-relaxation's fresh start had the terminal SCF's inputs, but on a different node it
+  converged to a third SCF solution. That solution has 27.00 μB, and its energy is 23.24 meV above the terminal SCF
+  (22.83 μB) and 0.99 meV above the T1 relaxation's end (23.00 μB). BFGS then stopped at once, because the forces
+  were below threshold.
+- **What it means:** for the ortho leg, the re-relaxation did not run on the lower electronic state, so the
+  mechanical GATE-1 question was not actually tested there. It is closed by the registered rule (non-intact endpoint),
+  not by a relaxation on the 22.83 μB surface.
+- **The landscape:** three SCF solutions lie within 24 meV of each other at this geometry, at 23.00, 22.83 and
+  27.00 μB.
+- **Atomic leg:** it did reproduce its lower state and relaxed on it, moving only 6.5 meV.
+- **Why the chemistry stands:** neither electronic state can affect the chemical classification. The H transfer and
+  O₂ lift-off happened with a 1.26–1.41 eV energy drop, against differences of tens of meV between states.
+
+**Reporting.** Both endpoints stayed not intact, so the manuscript gains no new claim, as registered. This record is
+the only change. No further B1 runs are registered.
