@@ -355,3 +355,53 @@ chemical result the readings tell the report to state. It goes in:
 - the Conclusion's "Next" sentence.
 
 The experiment-version manuscript is not changed.
+
+## GATE-1 re-relaxation of *OOH, registered 2026-10-19 before any deck exists (Frank: "do the extra OOH relaxation")
+
+**Decision of record.**
+- **Offered:** the registered GATE-1 re-relaxation of both *OOH legs, up to 1,536 SU. It was flagged as unable to
+  produce an η unless the H returns to its O.
+- **Frank:** "do the extra OOH relaxation".
+
+**What is run.** One re-relaxation per *OOH leg, `s0_OOH__2x1v_escape__u715_{atomic,ortho}_rerelax`.
+- **Deck:** the leg's terminal SCF deck, with three lines changed:
+  - `calculation = 'scf'` → `'relax'`;
+  - a new prefix;
+  - `max_seconds`.
+- **Kept unchanged:** positions, if_pos flags, mixing (stage-1 for atomic, T1 for ortho), thresholds, `&IONS`, k-mesh,
+  spin start.
+- **Start:** fresh, with no density copy. The first SCF of the relaxation has the terminal SCF's inputs, so it should
+  find the same electronic state. That is the sense in which it relaxes "from that SCF".
+- **Check, reported and not gating:** the first SCF energy and total magnetization against the terminal SCF
+  (−43355.8529 eV at 22.81 μB atomic; −43364.2673 eV at 22.83 μB ortho).
+- **Run settings:** one wholenode node per leg, as one 2-task array; 6 h wall (`scf_seconds` 20,700,
+  `max_seconds` 20,000); the 126-iteration SCF ceiling. No automatic retries.
+
+**Reading** (the chemistry thresholds and the GATE-1 rule are unchanged). The re-relaxed endpoint is classified with
+`hea_oer.site_integrity.DEFAULT_THRESHOLDS`, as before.
+- **Not intact:** the chemical result is final for that leg. No η exists, and GATE-1 is closed, since it only guards
+  an η.
+- **Intact:**
+  - a fresh-start terminal SCF follows (2 × 45 min, 192 SU cap), and the leg's η comes from it;
+  - if that SCF again lands ≥ 5 meV below the re-relaxation's final energy, the state is unresolved, with no second
+    re-relaxation.
+- **Re-relaxation not COMPLETE** (ceiling, failure marker or wall): the state is unresolved. The stage-2 chemistry is
+  still reported.
+
+**Scorer change, made before any re-relaxation output exists.**
+- **Inputs:** `b1_relaxed_projector_readout.py` reads `_rerelax`, and `_rescf` if one is run, for a leg whose stage-2
+  SCF triggered GATE-1. It takes the re-relaxed endpoint's chemistry from that output's final coordinates.
+- **Verdict label:** the scorer labels an arm whose only blockers are chemical results `NO_PAIR_CHEMICAL` instead of
+  `UNRESOLVED`. Exit 2 and "never scored" are unchanged.
+
+**Budget.** B1 has used 4,113.0 SU against the 7,488 SU ceiling, which leaves 3,375.0 SU.
+
+| Part | SU |
+|---|---|
+| This re-relaxation, cap | 1,536 |
+| Possible terminal SCF, cap | 192 |
+| **Total cap** | **1,728** |
+
+**Reporting.** The DFT-only sentences change only if the outcome changes.
+- If both endpoints stay not intact, Section 4.4 gains no new claim.
+- The restart and re-relaxation are recorded here.
