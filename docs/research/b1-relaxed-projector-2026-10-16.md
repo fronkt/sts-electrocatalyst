@@ -248,3 +248,44 @@ continuation with stronger SCF damping after numerical failures.
 - **Arrays:** held arrays **21475905** (`b1r_ortho`, 1-3%3, 08:00:00) and **21475906** (`b1r_short`, 1-2%2,
   01:00:00) validated (ceiling 3,328 SU), then released.
 - **Receipts:** `results/b1_repair_2026-10-18/*_receipt.json`.
+
+## Repair outcome, 2026-10-18 (arrays 21475905 and 21475906; outputs collected, nothing scored)
+
+All five continuations finished COMPLETE with BFGS converged. None printed IEEE_INVALID; the only floating-point
+notices are DENORMAL and UNDERFLOW.
+
+| Continuation | Array task | Ionic steps | Max SCF iterations | Final energy (Ry) | Runner wall (s) |
+|---|---|---|---|---|---|
+| `s0_OOH__2x1v_escape__u715_ortho_relax_t1` | 21475905_1 | 60 | 47 | −3187.21322784 | 25,241 |
+| `s0_O__2x1v_mir__u715_ortho_relax_t1` | 21475905_2 | 26 | 46 | −3144.25229012 | 10,503 |
+| `s0_OH__2x1v_mir__u715_ortho_relax_t1` | 21475905_3 | 66 | 79 | −3145.61672831 | 26,553 |
+| `s0_OH__2x1v_mir__u715_atomic_relax_t1` | 21475906_1 | 1 | 48 | −3145.01357772 | 633 |
+| `s0_OH__2x1v_mir__u715_atomic_relax_t2` | 21475906_2 | 1 | 33 | −3145.01357712 | 487 |
+
+- **Selection (registered order):** T1 for all three ortho-atomic adsorbate legs and for atomic *OH. The T2
+  fallback was not needed, so no further continuation was run.
+- **Atomic *OH:** T1 and T2 agree to 6 × 10⁻⁷ Ry. The flag recurred in neither rerun, so this test does not tie
+  the stage-1 IEEE_INVALID to local-TF mixing.
+- **Magnetization:** at the relaxation level, each state's final total magnetization is the same under the two
+  projectors: slab 24, *O 22, *OH 23, *OOH 23 μB/cell. The registered branch check is applied to the terminal SCFs.
+- **Billed:** 2,261.0 SU (balance 13,471.0 → 11,210.0; elapsed 17.66 node-h), against the 3,328 SU cap. The
+  1,450 SU expectation was low because the two long ortho legs each ran about 7 h.
+- **B1 to date:** 3,914.2 SU used. Adding the 768 SU stage-2 cap gives 4,682.2 SU, inside the 7,488 SU ceiling.
+- **Files:** outputs, receipts and logs are committed at 6029a0c.
+
+## Stage 2 launch, 2026-10-19 UTC (2026-10-18 21:23 EDT)
+
+`src/dft/b1_terminal_scf_build.py` built eight fresh-start terminal SCF decks:
+- four from stage-1 relaxations (both slab legs, atomic *O, atomic *OOH);
+- four from repair T1 relaxations (ortho *O, *OH, *OOH, and atomic *OH).
+
+Each deck differs from its relaxation deck only in `calculation`, `prefix`, `max_seconds` and the positions. Mixing is
+inherited.
+- **Spec:** `results/b1_terminal_scf_2026-10-17/launch_spec.json`, sha256 9b945f97…; Slurm `anvil/103_b1_scf.slurm`.
+- **Wall:** 45 min (SCF 1,980 s, projection 600 s). The first, fresh-start SCF of each T1 relaxation took about
+  640 s.
+- **Steps:** staged from 1c6f4b9 (14 files, sha256-verified, read-only); preflight passed.
+- **Preflight checks:** runner VALID, imports OK, QE binaries matched, `mybalance` 11,210.0 SU, empty queue, 0.6 TB
+  free.
+- **Array:** held array **21509674** (`b1_scf`, 1-8%8, 00:45:00) validated (ceiling 768 SU), then released.
+- **Receipts:** `results/b1_terminal_scf_2026-10-17/*_receipt.json`.

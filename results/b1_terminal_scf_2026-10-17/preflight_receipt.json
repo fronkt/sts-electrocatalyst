@@ -1,0 +1,83 @@
+{
+  "phase": "preflight",
+  "at": "2026-10-19T01:23:02.941104+00:00",
+  "commands": {
+    "preflight:b1_scf": {
+      "command": "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 -B /anvil/projects/x-che260157/sts_b1_terminal_scf_2026-10-17/src/dft/research_batch_seeded.py --spec /anvil/projects/x-che260157/sts_b1_terminal_scf_2026-10-17/results/b1_terminal_scf_2026-10-17/launch_spec.json --root /anvil/projects/x-che260157/sts_b1_terminal_scf_2026-10-17 --stage b1_scf --pseudo /anvil/projects/x-che260157/pseudo --preflight",
+      "stdout": "VALID\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-19T01:23:04.492954+00:00"
+    },
+    "imports": {
+      "command": "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 -B -c 'import sys; sys.path.insert(0, sys.argv[1]); import research_batch_seeded, projection_qc, hea_force_audit; print('\"'\"'IMPORTS_OK'\"'\"')' /anvil/projects/x-che260157/sts_b1_terminal_scf_2026-10-17/src/dft",
+      "stdout": "IMPORTS_OK\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-19T01:23:05.043900+00:00"
+    },
+    "qe_binaries": {
+      "command": "test -x /anvil/projects/x-che260157/qe/env/bin/pw.x -a -x /anvil/projects/x-che260157/qe/env/bin/projwfc.x -a -x /anvil/projects/x-che260157/qe/env/bin/mpirun",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-19T01:23:05.513225+00:00"
+    },
+    "logs_dir": {
+      "command": "test -d /anvil/projects/x-che260157/sts_b1_terminal_scf_2026-10-17/logs -a -w /anvil/projects/x-che260157/sts_b1_terminal_scf_2026-10-17/logs",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-19T01:23:05.978665+00:00"
+    },
+    "qe_sha": {
+      "command": "sha256sum /anvil/projects/x-che260157/qe/env/bin/pw.x /anvil/projects/x-che260157/qe/env/bin/projwfc.x /anvil/projects/x-che260157/qe/env/bin/mpirun",
+      "stdout": "1d66c7856f5d6b3cd9c66b8578e01512b16bbe907b4360e54234890712ccd6a1  /anvil/projects/x-che260157/qe/env/bin/pw.x\n456387be5ee32f358bc9835240b2e8bd1f8144a27a8e116731a1463dbf78ac85  /anvil/projects/x-che260157/qe/env/bin/projwfc.x\na256bdcef89bdc61ba870e823056c51df868b4db48ab345a14278a7fe79ed75d  /anvil/projects/x-che260157/qe/env/bin/mpirun\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-19T01:23:07.452143+00:00"
+    },
+    "myquota": {
+      "command": "bash -lc myquota",
+      "stdout": "\nType       Location             Size    Limit    Use   Files   Limit    Use\n===========================================================================\nhome       x-fcai3             3.3GB   25.0GB  13.6%      -       -      - \nscratch    x-fcai3             8.7GB  100.0TB   0.0%    9.7K    1.0M   1.0%\nprojects   x-che260157         4.4TB    5.0TB  88.7%  313.0K    1.0M  29.9%\n\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-19T01:23:08.886816+00:00"
+    },
+    "mybalance": {
+      "command": "mybalance",
+      "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    102490.0     91279.9    91279.9     11210.0\nche260157-gpu   GPU       150.0         6.9        6.9       143.1\n\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-19T01:23:09.650174+00:00"
+    },
+    "squeue": {
+      "command": "squeue -u x-fcai3 -h -o '%i|%j|%T'",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-19T01:23:10.113165+00:00"
+    },
+    "remote_sha": {
+      "command": "sha256sum /anvil/projects/x-che260157/sts_b1_terminal_scf_2026-10-17/results/b1_terminal_scf_2026-10-17/launch_spec.json /anvil/projects/x-che260157/sts_b1_terminal_scf_2026-10-17/anvil/103_b1_scf.slurm",
+      "stdout": "9b945f97a67debc4c9287e33984d033b0d451d3fd7bc620c45abceb1080f40d6  /anvil/projects/x-che260157/sts_b1_terminal_scf_2026-10-17/results/b1_terminal_scf_2026-10-17/launch_spec.json\n2bb439d441022e8c23c2f237cbe9c7f37351d26352f7d26ded4140f6fabba78d  /anvil/projects/x-che260157/sts_b1_terminal_scf_2026-10-17/anvil/103_b1_scf.slurm\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-19T01:23:10.572199+00:00"
+    },
+    "slurm_syntax": {
+      "command": "bash -n /anvil/projects/x-che260157/sts_b1_terminal_scf_2026-10-17/anvil/103_b1_scf.slurm",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-19T01:23:11.043068+00:00"
+    }
+  },
+  "spec_sha256": "9b945f97a67debc4c9287e33984d033b0d451d3fd7bc620c45abceb1080f40d6",
+  "slurm_sha256": "2bb439d441022e8c23c2f237cbe9c7f37351d26352f7d26ded4140f6fabba78d",
+  "balance_su": 11210.0,
+  "queued_jobs": [],
+  "qe_binaries_match": true,
+  "project_free_TB": 0.5999999999999996,
+  "passed": true
+}
