@@ -405,3 +405,13 @@ The experiment-version manuscript is not changed.
 **Reporting.** The DFT-only sentences change only if the outcome changes.
 - If both endpoints stay not intact, Section 4.4 gains no new claim.
 - The restart and re-relaxation are recorded here.
+
+**Re-relaxation launch, 2026-10-19 05:05 EDT.**
+- **Package:** spec `results/b1_rerelax_2026-10-19/launch_spec.json`, sha256 5af07cea…; Slurm `anvil/105_b1_rerelax.slurm`.
+  Each deck differs from its terminal SCF deck in exactly `calculation`, `prefix` and `max_seconds`.
+- **Scorer:** the change was tested on fakes for three cases: not intact, intact with no terminal SCF, and a rejected
+  re-relaxation. The current readout is unchanged apart from a `rerelax: "not run"` field.
+- **Steps:** staged from f91608c (9 files, sha256-verified, read-only); preflight passed.
+- **Preflight checks:** runner VALID, imports OK, QE binaries matched, `mybalance` 11,011.2 SU, empty queue, 0.5 TB free.
+- **Array:** held array **21520196** (`b1_rerelax`, 1-2%2, 06:00:00) validated (ceiling 1,536 SU), then released.
+- **Receipts:** `results/b1_rerelax_2026-10-19/*_receipt.json`.

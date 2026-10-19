@@ -1,0 +1,23 @@
+{
+  "phase": "validate",
+  "at": "2026-10-19T09:05:46.344495+00:00",
+  "commands": {
+    "held:b1_rerelax": {
+      "command": "scontrol show job 21520196 -o",
+      "stdout": "JobId=21520196 ArrayJobId=21520196 ArrayTaskId=1-2%2 ArrayTaskThrottle=2 JobName=b1-rerelax UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=06:00:00 TimeMin=N/A SubmitTime=2026-10-19T05:05:46 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-19T05:05:46 Scheduler=Main Partition=wholenode AllocNode:Sid=login00:2176984 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=200G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=200G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NODE Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts_b1_rerelax_2026-10-19/anvil/105_b1_rerelax.slurm SubmitLine=sbatch --hold --parsable --no-requeue --array=1-2%2 --time=06:00:00 --job-name=b1-rerelax --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --export=ALL,STAGE=b1_rerelax /anvil/projects/x-che260157/sts_b1_rerelax_2026-10-19/anvil/105_b1_rerelax.slurm WorkDir=/home/x-fcai3 StdErr=/anvil/projects/x-che260157/sts_b1_rerelax_2026-10-19/logs/b1_rerelax_21520196_4294967294.log StdIn=/dev/null StdOut=/anvil/projects/x-che260157/sts_b1_rerelax_2026-10-19/logs/b1_rerelax_21520196_4294967294.log TresPerTask=cpu=1\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-10-19T09:05:47.383270+00:00"
+    }
+  },
+  "checks": {
+    "b1_rerelax": {
+      "job": "21520196",
+      "mismatches": {},
+      "held": true,
+      "ceiling_cpu_su": 1536
+    }
+  },
+  "launch_ceiling_cpu_su": 1536,
+  "passed": true
+}
