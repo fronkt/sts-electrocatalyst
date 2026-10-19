@@ -289,3 +289,68 @@ inherited.
   free.
 - **Array:** held array **21509674** (`b1_scf`, 1-8%8, 00:45:00) validated (ceiling 768 SU), then released.
 - **Receipts:** `results/b1_terminal_scf_2026-10-17/*_receipt.json`.
+
+## Stage 2 outcome and readout, 2026-10-19 (array 21509674)
+
+- **Ran.** All 8 terminal SCFs finished COMPLETE in 7–20 min each (21:29–21:59 EDT, 10-18), with no IEEE_INVALID and
+  no unconverged SCF.
+- **Billed.** 198.8 SU (`mybalance` 11,210.0 → 11,011.2). B1 in all has used 4,113.0 of its 7,488 SU ceiling.
+- **Readout.** `PYTHONPATH=src python src/dft/b1_relaxed_projector_readout.py --json
+  docs/figs/b1_relaxed_projector_readout.json` exits 2 (UNRESOLVED). No η is computed for either leg.
+
+| State | Leg (selected relaxation) | GATE-1 (meV) | vs banked SP (meV) | μB/cell | Endpoint |
+|---|---|---|---|---|---|
+| slab | atomic (stage 1) | +0.01 | −404.3 | 24.00 | — |
+| slab | ortho (stage 1) | +0.01 | −494.0 | 24.00 | — |
+| *O | atomic (stage 1) | 0.00 | −601.4 | 22.00 | intact; Cr–O 1.670 Å; off plane, \|dy\| 0.109 Å |
+| *O | ortho (T1) | +0.01 | −741.6 | 22.00 | intact; Cr–O 1.666 Å; off plane, \|dy\| 0.154 Å |
+| *OH | atomic (T1) | 0.00 | n/a (banked SP flagged) | 23.00 | intact; Cr–O 1.924 Å; off plane, \|dy\| O 0.091, H 0.300 Å |
+| *OH | ortho (T1) | 0.00 | −960.9 | 23.00 | intact; Cr–O 1.979 Å; off plane, \|dy\| O 0.975, H 1.260 Å |
+| *OOH | atomic (stage 1) | **−27.05** | −1,286.0 | 22.81 | **not intact**: nearest Cr–O 3.500 Å, H 2.687 Å from its O, O–O 1.223 Å |
+| *OOH | ortho (T1) | **−22.25** | −1,716.4 | 22.83 | **not intact**: nearest Cr–O 3.727 Å, H 2.482 Å from its O, O–O 1.223 Å |
+
+Column notes:
+- **GATE-1** is the terminal SCF minus the relaxation's final energy.
+- **vs banked SP** is the terminal SCF minus the banked U = 7.15 eV single point at the same projector. It includes the
+  slab's own relaxation at U = 7.15 eV, so for *O and *OH it is not the off-plane gain alone.
+
+**Branch.** No mismatch: every pair agrees within 0.02 μB.
+
+**What the readings give.** Under both projectors the *OOH endpoint is desorbed (Cr–O ≥ 3.00 Å) and dissociated (H
+more than 1.15 Å from its own O). Under the registered chemistry reading this is a **chemical result**, not a numerical
+failure:
+- neither *OOH leg gives an η;
+- so no relaxed pair and no Δη_relaxed exist, and no band applies.
+
+The fixed-geometry pair (0.9240 / 1.0965 V, Δη +0.1725 V) is unchanged; it remains a fixed-geometry result.
+
+**How the *OOH came apart.** The trajectory comes from the printed geometries
+(scratch analysis using the readout's own `chemistry`/`dist` functions).
+- **Start, both legs:** the banked fixed-geometry *OOH, the U = 3.70 eV atomic relaxation, is intact (Cr–O 2.013 Å,
+  O–O 1.339 Å, H 1.036 Å from its O and 1.612 Å from a lattice O).
+- **Atomic leg:**
+  - H transfer: by ionic step 15–20 the H has moved onto the lattice O (1.08 → 1.00 Å).
+  - O₂ formation: O–O shortens to 1.22–1.23 Å, an O₂-like bond, by step 25.
+  - Lift-off: the O₂ rises off the Cr (2.29 → 3.50 Å).
+- **Ortho leg (T1):** the same sequence, about five steps earlier.
+- **Energy:** it falls monotonically along the way, by about 1.25 eV (atomic) and 1.40 eV (ortho T1, from its own start).
+- **Same failure mode as the alloy screen:** the MLIP screen's dominant one (H on a lattice O, O₂ gone; 573 and 525 of
+  720 *OOH), here in DFT+U at U = 7.15 eV under both projectors.
+
+**GATE-1 on *OOH, not acted on.**
+- **What it found:** both *OOH terminal SCFs found an electronic solution 22–27 meV below the relaxation's end, with
+  the moment going from 23.00 to 22.81/22.83 μB.
+- **What the rule says:** relax once more from that SCF inside the ceiling.
+- **Why it is not run:** it cannot give either leg an η. A re-relaxation descends from an endpoint where the O₂ is
+  3.5–3.7 Å off the Cr and the H sits 0.98 Å from a lattice O. Rebuilding *OOH would need the H to climb back over the
+  ~1.3 eV it released.
+- **Status:** left for Frank. A cap of 2 × 6 h × 128 = 1,536 SU fits in the 3,375 SU left under the ceiling.
+
+**Reporting (DFT-only manuscript).** The registered rule names "complete" and "incomplete". This outcome is the
+chemical result the readings tell the report to state. It goes in:
+- Section 4.4: the relaxed repeat gave no pair because *OOH decomposed under both projectors, and four of the eight
+  relaxations finished only after a restart with stronger SCF damping;
+- the Figure 6h caption: one clause;
+- the Conclusion's "Next" sentence.
+
+The experiment-version manuscript is not changed.
