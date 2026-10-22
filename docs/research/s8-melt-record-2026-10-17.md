@@ -133,7 +133,7 @@ Frank got the scraps back on 2026-10-17, one labelled bag per alloy (photos held
 | Getter | A Ti chunk at each end of the boat, behind a plug of white fibre wool; no piece touches the Ti (photos) | The wool product. White fits refractory ceramic fibre, rated above 1,050 °C; building glass fibre is usually yellow or pink and softens below it |
 | Hot zone | The pieces are spread along a long stretch of the boat (photos) | The furnace's uniform hot-zone length, where the thermocouple sits, and each piece's position along the boat. A piece outside the uniform zone ran colder, which matters if that alloy fails the homogeneity check (processing plan, step 6) |
 | Hold | 24 h counted from the load reaching 1,040 °C | Pull time |
-| Quench | Planned: water, boat pulled by the wires; two buckets of water stood by the furnace (photos). Song Cai (2026-10-17) raised thermal-shock cracking | The medium used, transfer time, and a crack check of every piece (loupe or dye penetrant) before machining |
+| Quench | **Water** (Frank, 2026-10-22), as planned; boat pulled by the wires; two buckets of water stood by the furnace (photos). Song Cai (2026-10-17) raised thermal-shock cracking | Transfer time, and a crack check of every piece (loupe or dye penetrant) before machining |
 
 **Quench choice (open, 2026-10-17).** Freeze §5 says "then quench" and does not fix the medium.
 - **Why fast cooling matters.** Slow cooling through about 900–500 °C can grow Cu-rich particles (Cu8, Cu22, Cu26, Ni34) and gives Cr- and Mn-rich alloys time to form σ.
@@ -146,3 +146,10 @@ Frank got the scraps back on 2026-10-17, one labelled bag per alloy (photos held
 - **No further heat treatment.** The homogenization and quench are the only heat treatment in freeze §5. The one exception is a Ni31 re-melt, which would get its own 1,050 °C / 24 h anneal.
 - **No local-melting check before this anneal.** None is recorded (processing plan, step 3). Step 6's BSE therefore checks for local melting instead, especially in Cu22, Cu26 and Cu8: rounded interdendritic pores, re-solidified pockets, and Cu-rich films along grain boundaries.
 - **XRD may not be possible at FWM; EDS will be** (Frank, 2026-10-17). Acceptance (EDS, ±2 at.%) is unaffected. One homogenized slice per alloy is kept for XRD elsewhere before the report lock. EBSD on FWM's SEM, if available, gives the phases in the meantime (processing plan, step 6).
+
+**Notes (2026-10-22).**
+- **Quench medium: water** (Frank). Report Section 3.7 now says so.
+- **ARC00149 (Cu8) was hot-rolled after the homogenization.** Song Cai (email, 2026-10-22): the homogenized alloy split into two pieces during hot rolling at 850 °C, and 850 °C "is not a good temperature for hot forming and annealing for these alloys". **None of the electrode disks came from rolled material** (Frank): every disk was cut from homogenized stock that was never rolled. The freeze §5 heat treatment of the disks is therefore unchanged. The rolled pieces were reheated through the range where Cu-rich particles and σ can form, so they must not be used as the SEM-EDS/XRD acceptance sample for Cu8.
+- **Disks: all six alloys machined** (Frank, 2026-10-22). Cut by wire EDM; the working faces are still as cut. Before measurement, at least 0.1 mm comes off each working face (EDM recast layer plus Cu/Zn from the brass wire), and the face is ground and polished. The cylindrical wall is left as cut, because it sets the press fit in the Pine holder.
+- **SEM-EDS at FWM the week of 2026-10-26** (Frank). Where the XRD will be done is still not recorded.
+- **Still open:** melting method and number of remelts (to ask Song Cai).
