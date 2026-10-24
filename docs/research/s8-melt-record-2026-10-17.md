@@ -153,3 +153,6 @@ Frank got the scraps back on 2026-10-17, one labelled bag per alloy (photos held
 - **Disks: all six alloys machined** (Frank, 2026-10-22). Cut by wire EDM; the working faces are still as cut. Before measurement, at least 0.1 mm comes off each working face (EDM recast layer plus Cu/Zn from the brass wire), and the face is ground and polished. The cylindrical wall is left as cut, because it sets the press fit in the Pine holder.
 - **SEM-EDS at FWM the week of 2026-10-26** (Frank). Where the XRD will be done is still not recorded.
 - **Still open:** melting method and number of remelts (to ask Song Cai).
+
+**Notes (2026-10-23).**
+- **SEM-EDS done at FWM on 2026-10-23** (Frank), ahead of the planned week of 10-26. The session recorded spot analyses only, with no area analyses and no XRD. Readout and open items: [s8-sem-eds-record-2026-10-23.md](s8-sem-eds-record-2026-10-23.md).
