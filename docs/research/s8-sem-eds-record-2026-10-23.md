@@ -1,6 +1,6 @@
 # S8 SEM-EDS of the six alloys, 2026-10-23
 
-Status: first readout of Fort Wayne Metals' SEM-EDS session of 2026-10-23 (Frank; done earlier than the planned week of 10-26). **These are spot analyses only. Freeze §5's acceptance (±2 at.% of nominal per element) is a bulk test and needs area analyses, which this session did not record.** Nothing here changes a frozen value.
+Status: first readout of the SEM-EDS session of 2026-10-23, which Frank ran himself on Fort Wayne Metals' Phenom SEM (earlier than the planned week of 10-26; operator confirmed 2026-10-25). **These are spot analyses only. Freeze §5's acceptance (±2 at.% of nominal per element) is a bulk test and needs area analyses, which this session did not record.** Nothing here changes a frozen value.
 
 **Update (2026-10-23, Frank): more EDS is probably not possible before the bench; XRD comes soon.** The spots below and the lever-rule estimates are therefore the final composition evidence for these six alloys. The area-EDS asks in the last section are withdrawn, and each alloy's acceptance has to be read from the estimates and stated with their uncertainty.
 
