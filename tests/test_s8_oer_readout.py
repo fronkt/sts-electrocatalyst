@@ -68,8 +68,9 @@ def curve_from(cols, **extra):
     return c
 
 
-def run_for(day, R_u, cycle=None):
-    return {"offset": syn.OFFSETS[day], "R_u": R_u, "ir_hw": syn.IR_HW[day], "area": ro.AREA_CM2, "cycle": cycle}
+def run_for(day, R_u, cycle=None, sweep=None):
+    return {"offset": syn.OFFSETS[day], "R_u": R_u, "ir_hw": syn.IR_HW[day], "area": ro.AREA_CM2, "cycle": cycle,
+            "sweep": sweep}
 
 
 # ------------------------------------------------------------------------------------------------ endpoints
@@ -133,6 +134,23 @@ def test_instrument_ir_share_is_not_applied_twice():
     assert etas == pytest.approx([expected, expected], abs=2e-4)
 
 
+def test_overcompensated_share_is_added_back_to_the_registered_90pct():
+    """Instrument share h, exported Ewe excluding it: Ewe = E_true - offset + (1 - h) R_u I. The readout leaves the
+    registered 10% residual for any h, including h above 0.90 (the bench applied 1.18 on 2026-10-24)."""
+    eta = np.linspace(0.20, 0.45, 600)
+    j = 10.0 * 10 ** ((eta - 0.35) / 0.060)                     # mA cm-2, eta_10 = 0.35 V
+    I = j * ro.AREA_CM2 / 1e3
+    R_u, offset = 5.5, 0.924
+    out = []
+    for h in (0.0, 0.85, 1.18):
+        E = eta + ro.E_EQ - offset + (1 - h) * R_u * I
+        curve = {"t": np.arange(len(E)), "E": E, "I": I, "cycle": None, "control": None, "ns": None,
+                 "rows_dropped": 0}
+        run = {"offset": offset, "R_u": R_u, "ir_hw": h, "area": ro.AREA_CM2, "cycle": None, "sweep": None}
+        out.append(ro.lsv_endpoints(curve, run)["eta_10_V"])
+    assert out == pytest.approx([0.35 + (1 - ro.IR_TOTAL) * R_u * I10] * 3, abs=1e-4)
+
+
 def test_last_crossing_ignores_a_redox_peak_above_the_target():
     rng = np.random.default_rng(2)
     p = dict(syn.TRUTH["Ni31"], peak=1.5)                       # the peak crosses 1 mA cm-2 before OER does
@@ -167,6 +185,11 @@ def test_sweep_selection_refuses_ambiguous_files():
     shifted = dict(two, **{"I/mA": np.concatenate([one["I/mA"], one["I/mA"][::-1], one["I/mA"]])})
     picked = ro.lsv_endpoints(curve_from(shifted, cycle=cyc), run_for(0, 4.0, cycle=2))
     assert picked["eta_10_V"] == pytest.approx(0.40 + 0.1 * I10 * 4.0, abs=3e-4)
+    alone = ro.lsv_endpoints(curve_from(one), run_for(0, 4.0))["eta_10_V"]
+    for k in (1, 2):                                                      # a named sweep of a multi-sweep file
+        assert ro.lsv_endpoints(curve_from(two), run_for(0, 4.0, sweep=k))["eta_10_V"] == pytest.approx(alone, abs=1e-9)
+    with pytest.raises(ro.InputError, match="sweep 3"):                   # more than the file holds
+        ro.lsv_endpoints(curve_from(two), run_for(0, 4.0, sweep=3))
     with pytest.raises(ro.InputError):                                    # linked techniques
         ro.lsv_endpoints(curve_from(one, ns=np.arange(len(one["Ewe/V"])) % 2), run_for(0, 4.0))
     with pytest.raises(ro.InputError):                                    # cathodic-positive export
@@ -230,12 +253,41 @@ def test_lock_date_is_inclusive_and_excludes_later_days(campaign):
     assert res["k1"]["class"] == res["k2"]["class"] == "not_evaluated" and res["exploratory"] is None
 
 
-def test_day_without_iro2_does_not_count(campaign, tmp_path):
+def test_day_without_iro2_or_blank_still_counts(campaign, tmp_path):
+    """Choice 7 as amended 2026-10-25: a measured calibration makes the day count; IrO2 and blanks are optional."""
     def edit(rows):
-        row(rows, "d3_IrO2_lsv")["status"] = "failed: reference electrode"
+        for r in rows:
+            if r["day"] == syn.DAYS[2] and r["sample"] in (ro.IRO2, ro.BLANK):
+                r["status"] = "not run"
     res = readout(variant(campaign, tmp_path, edit), campaign_dir=campaign[0])
-    assert res["days"][syn.DAYS[2]]["counted"] is False
+    day3 = res["days"][syn.DAYS[2]]
+    assert day3["counted"] is True and day3["calibration"] == "measured" and day3["reference_run"] is None
+    assert all(g["n"] == 3 and g["complete"] for g in res["alloys"].values())
+    ni31 = res["alloys"]["Ni31"]["iro2"]
+    assert ni31["days_without_reference"] == [syn.DAYS[2]] and len(ni31["runs"]) == 2 and ni31["class"] is not None
+
+
+def test_day_on_the_ph_formula_alone_does_not_count(campaign, tmp_path):
+    def edit(rows):
+        for r in rows:
+            if r["day"] == syn.DAYS[2]:
+                r["rhe_offset_V"], r["pH"] = "", "14"
+    res = readout(variant(campaign, tmp_path, edit), campaign_dir=campaign[0])
+    assert res["days"][syn.DAYS[2]]["counted"] is False and res["days"][syn.DAYS[2]]["calibration"] == "pH formula"
     assert all(g["n"] == 2 and not g["complete"] for g in res["alloys"].values())
+
+
+def test_no_iro2_at_all_leaves_the_iro2_comparison_not_evaluated(campaign, tmp_path):
+    def edit(rows):
+        for r in rows:
+            if r["sample"] == ro.IRO2:
+                r["status"] = "not run"
+    res = readout(variant(campaign, tmp_path, edit), campaign_dir=campaign[0])
+    assert all(g["complete"] for g in res["alloys"].values()) and res["iro2_runs"] == []
+    for g in res["alloys"].values():
+        assert g["iro2"]["class"] is None and g["iro2"]["eta_10_mean_V"] is None and "not evaluable" in g["iro2"]["note"]
+    base = readout(campaign[0] / "manifest.csv")
+    assert (res["k1"], res["k2"]) == (base["k1"], base["k2"])        # alloy-to-alloy tests never needed IrO2
 
 
 def test_incomplete_alloy_blocks_what_involves_it_and_its_numbers_stay_out(campaign, tmp_path):
@@ -349,7 +401,8 @@ def test_ph_formula_and_day_normalization(campaign, tmp_path):
 
 
 @pytest.mark.parametrize("run_id,field,value", [
-    ("d1_A1_lsv", "sample", "G1"), ("d1_A1_lsv", "ir_hw_pct", "95"), ("d1_A1_lsv", "ir_hw_pct", ""),
+    ("d1_A1_lsv", "sample", "G1"), ("d1_A1_lsv", "ir_hw_pct", "151"), ("d1_A1_lsv", "ir_hw_pct", ""),
+    ("d1_A1_lsv", "ir_hw_pct", "-5"), ("d1_A1_lsv", "sweep", "0"),
     ("d1_A1_lsv", "technique", "chrono"), ("d1_A1_lsv", "status", ""), ("d1_A1_lsv", "day", "Oct 26"),
     ("d1_IrO2_lsv", "area_cm2", ""), ("d1_A1_lsv", "rhe_offset_V", "-0.9260"), ("d1_A1_lsv", "rhe_offset_V", "0.9300"),
     ("d1_A1_lsv", "file", "")])
@@ -358,6 +411,14 @@ def test_manifest_refusals(campaign, tmp_path, run_id, field, value):
         row(rows, run_id)[field] = value
     with pytest.raises(ro.InputError):
         ro.read_manifest(variant(campaign, tmp_path, edit))
+
+
+def test_overcompensation_is_accepted_and_flagged(campaign, tmp_path):
+    def edit(rows):
+        row(rows, "d1_A1_lsv")["ir_hw_pct"] = "117.8"
+    recs, _ = ro.read_manifest(variant(campaign, tmp_path, edit))
+    flags = {r["run_id"]: r.get("ir_overcompensated") for r in recs if r["technique"] == "lsv"}
+    assert flags["d1_A1_lsv"] is True and flags["d1_B1_lsv"] is False
 
 
 def test_missing_offset_refused(campaign, tmp_path):

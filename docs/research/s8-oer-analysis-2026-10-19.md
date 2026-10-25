@@ -57,7 +57,8 @@ to fix a bug, and each fix is recorded below with its reason.
    - A spare (`AS`–`FS`) counts as one of its alloy's disks.
    - Tafel and drift take the disk's first ok run of that technique.
 7. **Counted day.** A bench day counts if its first ok IrO₂ sweep reaches 10 mA cm⁻² and it has an ok blank sweep.
-   That IrO₂ sweep is the day's reference.
+   That IrO₂ sweep is the day's reference. *(Amended 2026-10-25, see the dated decisions below: a day counts with a
+   measured RHE calibration; IrO₂ and blanks are optional.)*
 8. **IrO₂ comparison.** Each complete alloy's mean is compared with the mean of the references from the days its
    counted disks were measured, using the same threshold. The classes are lower, not distinguishable and higher. The
    C_dl-normalized version is reported per disk as specific activity, with no class.
@@ -89,8 +90,9 @@ to fix a bug, and each fix is recorded below with its reason.
 - **Calibration.** An RHE calibration outside 0.85–1.00 V, or more than one calibration on one day.
 - **Manifest values.** A day that is not a date, an unknown sample code or technique, or a duplicate run_id.
 - **Unreadable rows.** More than max(5, 1%) unreadable rows in a file. Fewer are dropped and counted (`rows_dropped`).
-- **Sweep selection.** An LSV file must hold exactly one anodic sweep in the selected cycle. The readout stops on:
-  - more than one sweep, or none;
+- **Sweep selection.** An LSV file must hold exactly one anodic sweep in the selected cycle, unless the manifest's
+  `sweep` names one (added 2026-10-25). The readout stops on:
+  - more than one sweep with none named, or none, or fewer sweeps than the one named;
   - a cycle requested from a file without a cycle column;
   - several linked techniques (`Ns`) in one file;
   - fewer than 20 points;
@@ -126,9 +128,10 @@ are comments; a comment containing "SYNTHETIC" marks synthetic data.
 | `rhe_offset_V` | E_RHE − E_Hg/HgO measured that day, one value per day; if empty, `pH` is used through the freeze's formula, and the readout records which |
 | `pH` | electrolyte pH, used only when `rhe_offset_V` is empty |
 | `R_u_ohm` | R_u from the EIS before this run |
-| `ir_hw_pct` | % iR compensation the instrument applied live (0 if none; at most 90) |
+| `ir_hw_pct` | % iR compensation the instrument applied live (0 if none; at most 150; above 90 is flagged as over-compensation and added back) |
 | `area_cm2` | required for IrO₂; default 0.19635 for coded disks |
 | `rpm`, `cycle` | rotation; the cycle to use (default: the last) |
+| `sweep` | for a file holding several anodic sweeps: which one (1 = the first); empty when the file holds one |
 | `status` | `ok`, or the reason the run fails a check (the run is then reported, not used) |
 | `notes` | free text |
 
@@ -143,8 +146,11 @@ PYTHONPATH=src python src/echem/s8_oer_readout.py --manifest <data>/manifest.csv
 PYTHONPATH=src python src/echem/s8_oer_readout.py --manifest <data>/manifest.csv --lock <lock date> --key <private key> [--ir-hw-verified "<how>"] --out results/s8_oer/readout.json
 ```
 
-- **Lock date.** The registered lock is 2026-10-25 (lock rule). The readout reports whether `--lock` matches it. Moving
-  the lock is Frank's decision and needs a dated line before any measurement.
+- **Lock date.** The registered lock was 2026-10-25 (lock rule); the dated line of 2026-10-25 moved it to 2026-11-03.
+  The readout reports whether `--lock` matches it. Moving the lock is Frank's decision and needs a dated line.
+- **Native .mpr files.** `src/echem/s8_mpr_export.py` writes them out unchanged as CSV under EC-Lab's column names, and
+  logs each source file's SHA-256. `--concat` joins consecutive techniques of one sequence, such as a series of holds
+  saved one file per step, into one table.
 - **Figure 8.** The report's `fig8_alloy_test.py` reads `results/s8_oer/readout.json`. Until data exist, it draws a
   synthetic campaign under a SYNTHETIC banner.
 
@@ -213,4 +219,39 @@ bench supplies its RHE calibration. Its files are kept as received.
 
 ## Changes after data (bug fixes only, each with its reason)
 
-None.
+**2026-10-25, after the bench's first files (disk A1, 2026-10-24), before any readout of them.** Each change follows the
+dated decisions above or the form of the bench's files; no decision rule moves.
+
+1. **Named sweep.** The bench's LSV files hold several sweeps back to back, with no cycle column, which the readout
+   refused. A new manifest column, `sweep`, names the anodic sweep to use (1 = the first). Several sweeps with none
+   named still stop the readout, so no sweep is ever picked by the code. Each sweep is its own manifest row; the first
+   ok one on a counted day stays the disk's primary sweep (choice 6), and the others are reported as repeats.
+2. **Counted day (choice 7 as amended).** A day counts when every analysed run used that day has a measured RHE
+   calibration. IrO₂ and blanks are no longer required. The day's first ok IrO₂ sweep that reaches 10 mA cm⁻² is still
+   its reference when one exists. An alloy's IrO₂ comparison uses the references of its days where they exist, lists
+   the days without one, and is not evaluated when there are none. `counted_day_rule`, each day's `calibration` and
+   the list of blank runs are written to the readout.
+3. **Instrument share above 90%.** On 2026-10-24 the bench's live compensation was Rcmp = 6.545 Ω against an R_u of
+   5.558 Ω from the EIS right after the LSVs, a share of 118%. The manifest check allowed at most 90%, a plausibility
+   bound. The correction itself, E − (0.90 − share) × I × R_u, is exact for any share when the exported Ewe excludes
+   the compensated drop, so a share above 0.90 is added back to the registered 90%. The bound is now 150%, to catch
+   typing errors, and each run above 90% is flagged (`ir_overcompensated`).
+4. **Registered lock** set to 2026-11-03, per the dated decisions.
+5. **Export of native files.** `src/echem/s8_mpr_export.py` (new) writes the bench's `.mpr` files out unchanged as
+   CSV, which the readout already reads.
+
+**The export check for live iR (choice 4)**, recorded with `--ir-hw-verified`, rests on two observations in the
+2026-10-24 files:
+- Under live compensation the exported Ewe follows the programmed potential to within 0.9 mV, while Rcmp × I reaches
+  about 70 mV. So Ewe does not include the compensated drop.
+- At matched current, the compensated CVs (Rcmp 6.545 Ω, cycles 2–3) sit below the uncompensated activation CVs
+  (cycles 61–63, about 25 min earlier) by 0.9 mV + 7.45 Ω × I over 5–30 mA cm⁻². The offset is linear in I with a
+  near-zero intercept, as expected only if the compensation was applied and left out of Ewe. Had it not been applied,
+  the two would coincide.
+
+**Check.** The sweep-selection test now also checks that a named sweep of a multi-sweep file gives the single sweep's
+η₁₀, and that a sweep number beyond the file stops the readout. New tests: a day without IrO₂ or blank still counts;
+a day on the pH formula alone does not; with no IrO₂ at all, K1 and K2 are unchanged and the IrO₂ comparison is not
+evaluated; shares of 0, 85% and 118% all leave the registered 10% residual; 117.8% is accepted and flagged; 151%, a
+negative share and sweep 0 are refused. The test of the old rule (a day without IrO₂ does not count) was replaced by
+the first of these. All 41 tests pass.

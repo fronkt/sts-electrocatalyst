@@ -13,14 +13,15 @@ AS-FS). Without the key the readout stays blinded: everything is reported per co
 identity (K1, K2, the arm comparisons) is computed.
 
 BAD INPUT STOPS THE READOUT. A manifest field missing, an implausible or inconsistent RHE calibration, more than a few
-unreadable rows in a file, a file holding more or fewer than one anodic sweep, several linked techniques in one LSV
-file, no anodic current, or live iR compensation without a recorded check of how the instrument exports Ewe: each
-raises with the run named. A run that genuinely failed is given a non-"ok" status in the manifest (decided blinded),
+unreadable rows in a file, a file holding more or fewer than one anodic sweep when the manifest names none (or fewer
+sweeps than the one it names), several linked techniques in one LSV file, no anodic current, or live iR compensation
+without a recorded check of how the instrument exports Ewe: each raises with the run named. A run that genuinely failed is given a non-"ok" status in the manifest (decided blinded),
 not left for the code to judge.
 
 WHAT IS COMPUTED, PER RUN.
   Potential: E_RHE = E(Hg/HgO) + that day's calibration (one value per day, 0.85-1.00 V; or 0.098 + 0.059 pH,
-    flagged). iR to IR_TOTAL (90%) in all: the code removes (0.90 - instrument share) x I x R_u.
+    flagged). iR to IR_TOTAL (90%) in all: the code removes (0.90 - instrument share) x I x R_u. A share above 0.90
+    (over-compensation by the instrument) is added back by the same formula and flagged per run.
   eta_x (LSV) = E at the LAST upward crossing of x mA cm-2 on the anodic sweep - 1.23 V; a pre-OER redox peak can
     cross first, so the first crossing is reported beside it and flagged when they differ by more than 5 mV. Primary
     x = 10, secondary x = 1 (geometric). A sweep that does not end above x gives no eta_x (reported, never imputed).
@@ -35,8 +36,9 @@ WHAT IS COMPUTED, PER RUN.
 
 WHAT IS JUDGED. Only alloys complete under the lock rule, from runs on or before the lock date, in time order (day,
 then manifest row).
-  A bench day counts when its first ok IrO2 sweep reaches 10 mA cm-2 and it has an ok blank sweep; that IrO2 sweep is
-  the day's reference.
+  A bench day counts when every analysed run used that day carries a measured RHE calibration (choice 7 as amended on
+  2026-10-25; a day on the pH formula alone does not count). IrO2 and blanks are not required. The day's first ok IrO2
+  sweep that reaches 10 mA cm-2, if any, is its reference.
   A disk's primary sweep is its first ok sweep on a counted day; later sweeps are reported, never averaged in.
   An alloy is complete with at least 3 disks that have eta_10, over at least 2 counted days. An incomplete alloy's
   numbers are kept under "kept_not_reported" and nowhere else.
@@ -44,11 +46,12 @@ then manifest row).
   SD is pooled over the complete K-set alloys only, so Ni34 changes no primary test (freeze §2); the same yardstick
   serves every comparison.
   K1 (Cu8 against Ni31 and Fe25), K2 (Cu22 least active of the five K-set alloys), the IrO2 comparison per complete
-  alloy (against the reference sweeps of the days its disks were measured), and the exploratory items: each arm's
+  alloy (against the reference sweeps of the days its disks were measured, where such references exist; with none it
+  is not evaluated), and the exploratory items: each arm's
   leader, Spearman rho of the measured order against each arm, and Ni34's position. Each needs every alloy it involves.
 
 Usage:
-  PYTHONPATH=src python src/echem/s8_oer_readout.py --manifest DATA/manifest.csv --lock 2026-10-25 \\
+  PYTHONPATH=src python src/echem/s8_oer_readout.py --manifest DATA/manifest.csv --lock 2026-11-03 \\
       [--key PATH/key.csv] [--ir-hw-verified "how the export convention was checked"] --out results/s8_oer/readout.json
 """
 from __future__ import annotations
@@ -66,9 +69,11 @@ from datetime import date
 import numpy as np
 from scipy.stats import spearmanr
 
-REGISTERED_LOCK = "2026-10-25"   # lock rule; a different --lock is reported as such
+REGISTERED_LOCK = "2026-11-03"   # lock rule, moved from 2026-10-25 by the dated line of 2026-10-25; a different
+                                 # --lock is reported as such
 E_EQ = 1.23                      # V vs RHE
 IR_TOTAL = 0.90                  # freeze §6: 90% iR compensation
+IR_HW_MAX = 1.50                 # largest instrument share accepted; above IR_TOTAL is flagged as over-compensation
 TARGETS = (10.0, 1.0)            # mA cm-2, primary then secondary
 ETA_SPECIFIC = 0.35              # V, the potential at which specific activity is read
 CS_F_CM2 = 40e-6                 # F cm-2, flat-surface specific capacitance in alkaline electrolyte (see header)
@@ -108,7 +113,7 @@ ARM_LEADER = {"A": "Ni31", "B": "Cu8"}
 TECHNIQUES = ("lsv", "hold", "cdl", "stability", "eis", "activation")
 ANALYSED = ("lsv", "hold", "cdl", "stability")
 MANIFEST_COLUMNS = ("run_id", "file", "sample", "day", "technique", "scan_rate_mV_s", "rhe_offset_V", "pH",
-                    "R_u_ohm", "ir_hw_pct", "area_cm2", "rpm", "cycle", "status", "notes")
+                    "R_u_ohm", "ir_hw_pct", "area_cm2", "rpm", "cycle", "sweep", "status", "notes")
 COLUMN_NAMES = {   # lower-cased header names accepted for each quantity; current in mA unless CURRENT_IN_A
     "t": ("time/s", "time (s)", "t/s", "t (s)", "time", "elapsed time (s)"),
     "E": ("ewe/v", "ewe (v)", "e/v", "e (v)", "potential/v", "potential (v)", "we(1).potential (v)", "vf"),
@@ -211,7 +216,10 @@ def read_manifest(path):
                    status=status, ok=status == "ok", notes=r["notes"], order=n,
                    rpm=float(r["rpm"]) if r["rpm"] else None,
                    cycle=int(r["cycle"]) if r["cycle"] else None,
+                   sweep=int(r["sweep"]) if r["sweep"] else None,
                    scan_rate=float(r["scan_rate_mV_s"]) / 1e3 if r["scan_rate_mV_s"] else None)
+        if rec["sweep"] is not None and rec["sweep"] < 1:
+            raise InputError(f"{where}: sweep {rec['sweep']} must be 1 or more (the first anodic sweep is 1)")
         if r["technique"] in ANALYSED:
             need("file", "an analysed technique")
             if r["area_cm2"]:
@@ -231,8 +239,9 @@ def read_manifest(path):
         if r["technique"] in ("lsv", "hold", "stability"):
             rec["R_u"] = float(need("R_u_ohm", "iR correction"))
             rec["ir_hw"] = float(need("ir_hw_pct", "write 0 if the instrument compensated nothing live")) / 100
-            if not 0 <= rec["ir_hw"] <= IR_TOTAL:
-                raise InputError(f"{where}: instrument iR share {rec['ir_hw']:.2f} outside 0-{IR_TOTAL}")
+            if not 0 <= rec["ir_hw"] <= IR_HW_MAX:
+                raise InputError(f"{where}: instrument iR share {rec['ir_hw']:.2f} outside 0-{IR_HW_MAX}")
+            rec["ir_overcompensated"] = rec["ir_hw"] > IR_TOTAL
         if r["technique"] == "cdl" and rec["scan_rate"] is None:
             raise InputError(f"{where}: cdl run without scan_rate_mV_s")
         out.append(rec)
@@ -293,16 +302,24 @@ def sweeps(x, tol=TURN_TOL_V):
     return out
 
 
-def anodic_sweep(curve, cycle=None):
-    """Indices of the one anodic sweep in the selected cycle; anything else raises."""
+def anodic_sweep(curve, cycle=None, sweep=None):
+    """Indices of one anodic sweep in the selected cycle: the only one, or the sweep-th (1-based) when the manifest
+    names it. Several sweeps with none named, or fewer than the one named, raise."""
     if curve["ns"] is not None and len(np.unique(curve["ns"])) > 1:
         raise InputError("several linked techniques (Ns) in one file; export the LSV alone")
     idx = _cycle_index(curve, cycle)
     drive = (curve["control"] if curve["control"] is not None else curve["E"])[idx]
     ups = [(a, b) for a, b, d in sweeps(drive) if d == 1 and drive[b] - drive[a] > MIN_SWEEP_V]
-    if len(ups) != 1:
-        raise InputError(f"{len(ups)} anodic sweeps in the selected data; export one sweep or give its cycle")
-    sel = idx[ups[0][0]:ups[0][1] + 1]
+    if sweep is None:
+        if len(ups) != 1:
+            raise InputError(f"{len(ups)} anodic sweeps in the selected data; export one sweep or give its cycle or "
+                             "sweep number")
+        pick = ups[0]
+    else:
+        if sweep > len(ups):
+            raise InputError(f"sweep {sweep} requested but the selected data hold {len(ups)} anodic sweeps")
+        pick = ups[sweep - 1]
+    sel = idx[pick[0]:pick[1] + 1]
     if len(sel) < MIN_POINTS:
         raise InputError(f"anodic sweep has {len(sel)} points")
     return sel
@@ -322,7 +339,7 @@ def crossings(x, y, level):
 
 
 def lsv_endpoints(curve, run):
-    sel = anodic_sweep(curve, run["cycle"])
+    sel = anodic_sweep(curve, run["cycle"], run.get("sweep"))
     E, j = _corrected(curve, run)
     E, j = E[sel], j[sel]
     if j.max() <= 0:
@@ -561,8 +578,9 @@ def readout(manifest, lock, key_path=None, ir_hw_verified=None):
         iro2 = [r for r in usable if r["day"] == d and r["sample"] == IRO2 and r["technique"] == "lsv"]
         blank = [r for r in usable if r["day"] == d and r["sample"] == BLANK and r["technique"] == "lsv"]
         ref = iro2[0] if iro2 and iro2[0].get("eta_10_V") is not None else None
+        sources = {r["offset_source"] for r in usable if r["day"] == d and "offset_source" in r}
         days[d] = {"iro2_sweeps": len(iro2), "blank_sweeps": len(blank), "reference_run": ref and ref["run_id"],
-                   "counted": bool(ref and blank)}
+                   "calibration": "/".join(sorted(sources)) or None, "counted": sources == {"measured"}}
         if ref:
             reference[d] = ref
 
@@ -604,7 +622,9 @@ def readout(manifest, lock, key_path=None, ir_hw_verified=None):
         "schema": "s8-oer-readout/1", "synthetic": synthetic, "lock_date": lock, "registered_lock": REGISTERED_LOCK,
         "lock_is_registered": lock == REGISTERED_LOCK, "ir_hw_verified": ir_hw_verified,
         "manifest": {"path": os.path.abspath(manifest), "sha256": sha256(manifest)},
-        "parameters": {"E_eq_V": E_EQ, "ir_total": IR_TOTAL, "targets_mA_cm2": list(TARGETS),
+        "counted_day_rule": "every analysed run used that day has a measured RHE calibration; IrO2 and blank optional",
+        "blank_runs": [r["run_id"] for r in usable if r["sample"] == BLANK],
+        "parameters": {"E_eq_V": E_EQ, "ir_total": IR_TOTAL, "ir_hw_max": IR_HW_MAX, "targets_mA_cm2": list(TARGETS),
                        "eta_specific_V": ETA_SPECIFIC, "C_s_F_cm2": CS_F_CM2, "default_area_cm2": AREA_CM2,
                        "tafel_window_mA_cm2": list(TAFEL_WINDOW), "hold_tail": HOLD_TAIL, "hold_min_s": HOLD_MIN_S,
                        "drift_skip_s": DRIFT_SKIP_S, "redox_flag_V": REDOX_FLAG_V, "cdl_band": CDL_BAND},
@@ -622,10 +642,15 @@ def readout(manifest, lock, key_path=None, ir_hw_verified=None):
         threshold = 2 * sd_p if sd_p is not None else None
         for c, g in groups.items():
             if g["complete"]:
-                ref = [reference[d] for d in g["days"]]
+                ref = [reference[d] for d in g["days"] if d in reference]
                 ir = _mean([r["eta_10_V"] for r in ref])
                 g["iro2"] = {"runs": [r["run_id"] for r in ref], "eta_10_mean_V": ir,
-                             "class": compare(g["eta_10_mean_V"], ir, threshold) if threshold is not None else None}
+                             "days_without_reference": [d for d in g["days"] if d not in reference],
+                             "class": (compare(g["eta_10_mean_V"], ir, threshold)
+                                       if threshold is not None and ir is not None else None)}
+                if ir is None:
+                    g["iro2"]["note"] = ("no same-bench IrO2 on this alloy's days: the freeze §6 IrO2 comparison is "
+                                         "not evaluable as registered (dated line of 2026-10-25)")
         return {"rule": "difference in mean eta_10 > 2 x pooled disk-to-disk SD (freeze §6)",
                 "pooled_over": [names_by_code[c] for c in pool_codes], "pooled_sd_V": sd_p, "df": df,
                 "threshold_V": threshold}, threshold
@@ -684,6 +709,12 @@ def main(argv=None):
           f"threshold {res['criterion']['threshold_V']}")
     if not res["lock_is_registered"]:
         print(f"NOTE: lock {res['lock_date']} is not the registered {REGISTERED_LOCK}")
+    for d, info in res["days"].items():
+        if not info["counted"]:
+            print(f"NOTE: day {d} not counted (calibration: {info['calibration']}; a measured RHE calibration is needed)")
+    over = [r["run_id"] for r in res["runs"] if r.get("ir_overcompensated")]
+    if over:
+        print(f"NOTE: instrument share above {IR_TOTAL:.0%} (over-compensation, added back): {over}")
     for c, g in groups.items():
         if g["no_eta10_disks"]:
             print(f"NOTE: {c}: disks without eta_10 (sweep never reached 10 mA cm-2): {g['no_eta10_disks']}")
