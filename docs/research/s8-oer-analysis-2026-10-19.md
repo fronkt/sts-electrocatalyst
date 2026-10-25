@@ -176,6 +176,41 @@ point read one interpolated current, which carries the full per-point noise.
 - **Check.** Over five synthetic noise seeds, the worst roughness-factor error is 0.34% (2.0% before), and all 35 tests
   pass.
 
+## Dated decisions, 2026-10-25 (Frank), after one disk was measured
+
+**What already exists.** One disk of code A was measured on 2026-10-24 (Tackett group, Purdue, BioLogic EC-Lab 11.62), the
+day before this line. Nobody ran IrO2 or a blank that day. Under choice 7 as amended below (item 4), the day counts once the
+bench supplies its RHE calibration. Its files are kept as received.
+
+1. **Lock date.** The data lock moves from 2026-10-25 to **2026-11-03**, the deadline the bench was given on 10-22. The
+   lock rule (s8-electrode-lock-rule-2026-10-16.md) is otherwise unchanged. The readout is run with `--lock 2026-11-03`.
+2. **Electrode format.** Rotating inserts (5.00 mm faces, wire-EDM cut, Pine-type RDE holder) at **1,600 rpm**, in
+   **1 M KOH purged with argon**, against a carbon counter electrode and an Hg/HgO reference. The frozen potted stationary disk
+   is not used.
+3. **Blinding departure.** On 2026-10-25 I sent the operator (a) the element set of each code and (b) the three registered
+   predicted orders (arm B primary, arm A, and the arm C DFT+U order), while codes B-F were still unmeasured. From that day
+   on, the operator is no longer blind to the prediction. The code-to-alloy key with compositions was not sent. Statuses and
+   re-run decisions are still made blinded in the readout (run blinded, then unblind once).
+4. **The 14 readout choices** (s8-oer-analysis-2026-10-19.md) are **confirmed as proposed**, with these specifics:
+   - Choice 4 (iR): the bench uses live compensation (EC-Lab MIR). In the 10-24 files the exported Ewe follows the
+     programmed potential to within 0.9 mV, while I x Rcmp reaches about 70 mV. So the exported Ewe already excludes the
+     compensated drop, and the code's formula applies with `ir_hw_pct` = 100 x Rcmp / R_u per run. This is the
+     `--ir-hw-verified` record. The bench was asked to keep Rcmp near 85% of the R_u measured before each LSV.
+   - Choice 5: a sweep that never reaches 10 mA cm-2 gives no eta_10 (not censored).
+   - The RHE calibration is the bench's value for each day. If one is missing, the day uses 0.098 + 0.059 pH, flagged.
+   - **Choice 7 amended:** a bench day counts if it has a valid RHE calibration. A blank is run once on the bench setup and
+     again only if the holder or electrolyte batch changes; it is not required per day. IrO2 is used when it exists but is
+     not required. If no same-bench IrO2 is run, the freeze §6 IrO2 comparison is not evaluable as registered, and the
+     report compares measured eta_10 with published IrO2 values in 1 M KOH as descriptive context only (departure from
+     freeze §6). The readout's counted-day check changes to match (recorded under "Changes after data").
+5. **Per-disk routine from 2026-10-25 on**, kept identical for every disk: EIS; about 20 activation CVs in the bench's
+   window (-1.25 to 0.75 V vs Hg/HgO, 50 mV/s); EIS; 2 LSV sweeps at 5 mV/s; C_dl CVs (6 rates, -0.10 to 0.20 V vs Hg/HgO);
+   holds on one disk per code only; one blank per setup (item 4); IrO2 if the bench can run it. Each disk's primary sweep stays its first ok sweep
+   (choice 6).
+6. **Readout fix owed before it runs** (recorded under "Changes after data" when made): the bench's LSV files hold several
+   sweeps with no cycle column, which the readout currently refuses. The fix lets the manifest name the sweep (first sweep =
+   primary) and leaves every other rule unchanged.
+
 ## Changes after data (bug fixes only, each with its reason)
 
 None.
