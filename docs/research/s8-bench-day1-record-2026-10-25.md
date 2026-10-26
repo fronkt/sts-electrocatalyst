@@ -1,8 +1,9 @@
 # S8 bench, day 1 (2026-10-24): disk A1 (record of 2026-10-25)
 
-Status: **blinded** (per code; the code key is private). The registered readout has been run on these files; the day is
-**not counted** yet, because the bench has not supplied its RHE calibration (choice 7 as amended on 2026-10-25,
-[s8-oer-analysis-2026-10-19.md](s8-oer-analysis-2026-10-19.md)). Everything under "Exploratory" is outside the
+Status: **blinded** (per code; the code key is private). The registered readout has been run on these files. On
+2026-10-25 the day was **not counted**, because the bench had not supplied its RHE calibration (choice 7 as amended on
+2026-10-25, [s8-oer-analysis-2026-10-19.md](s8-oer-analysis-2026-10-19.md)); since 2026-10-26 it **counts** on the
+bench's stated reference value (update at the end). Everything under "Exploratory" is outside the
 registered endpoints. Under lock-rule item 3 ([s8-electrode-lock-rule-2026-10-16.md](s8-electrode-lock-rule-2026-10-16.md))
 the numbers of an incomplete alloy are kept here, dated, and do not enter the report.
 
@@ -106,3 +107,17 @@ registered rule: the primary sweep is each disk's first, and every disk gets the
   each LSV, IrO2 if possible, one blank per setup.
 - **Not asked:** holds at lower potentials. Without at least three holds in the window, the registered Tafel slope stays
   empty for that disk.
+
+## Update 2026-10-26: the bench's reference value; the day counts
+
+- **Bench reply (2026-10-26).** Reference: use +0.098 V vs SHE for Hg/HgO (its stated potential, not a measurement
+  against RHE). IrO2: the bench will check whether it has IrO2 or NiFe for a comparison; otherwise literature. The
+  priority order and the short routine are accepted.
+- **Decision** (dated line of 2026-10-26 in s8-oer-analysis-2026-10-19.md): the stated value counts as each day's
+  calibration, so `rhe_offset_V` = 0.924 V on the 11 day-1 rows that convert potential.
+- **Readout rerun:** `results/s8_oer/day1_2026-10-24/readout_blinded_2026-10-26.json` (manifest
+  `manifest_2026-10-26.csv`). Day 2026-10-24 counted (calibration: bench). A1's primary sweep is sweep 1: η₁₀
+  0.3650 V, η₁ 0.3223 V; every value is as on 2026-10-25. Code A has 1 of the 3 disks it needs, so its numbers stay
+  kept, not reported.
+- **A NiFe run**, if the bench has one, is context like the literature values: it does not make the registered IrO2
+  comparison evaluable.

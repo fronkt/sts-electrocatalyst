@@ -1,0 +1,21 @@
+# S8 bench campaign, Tackett group (Purdue, Forney Hall), BioLogic EC-Lab 11.62. One row per exported file.
+# Day 1 (2026-10-24): disk A1 only. RHE value from the bench (2026-10-26: Hg/HgO = +0.098 V vs SHE, its stated potential, not measured against RHE) -> rhe_offset_V = 0.098 + 0.059 x 14 = 0.924 V on every run that converts potential; counts as the day's calibration (dated decision 2026-10-26).
+# R_u = high-frequency intercept of the nearest EIS at 0.70 V vs Hg/HgO; ir_hw_pct = 100 x Rcmp / R_u.
+run_id,file,sample,day,technique,scan_rate_mV_s,rhe_offset_V,pH,R_u_ohm,ir_hw_pct,area_cm2,rpm,cycle,sweep,status,notes
+d1_A1_activation,day1_2026-10-24_sampleA/csv/SampleA_1MKOH_CECarbon_REHgHgO_CV1-BeginningActivation_C01.csv,A1,2026-10-24,activation,,,,,,,1600,,,ok,"63 CVs at 50 mV/s; window widened stepwise over the first ~15 cycles to -1.25..0.75 V vs Hg/HgO; no live iR"
+d1_A1_cv_pre,day1_2026-10-24_sampleA/csv/SampleA_EIS-MIR-LSV-2-smallerwindowrepeat2_02_CV_C01.csv,A1,2026-10-24,activation,,,,,,,1600,,,ok,"3 CVs -1.25..0.70 V vs Hg/HgO, 50 mV/s, Rcmp 6.545 ohm"
+d1_A1_lsv_s1,day1_2026-10-24_sampleA/csv/SampleA_EIS-MIR-LSV-2-smallerwindowrepeat2_03_LSV_C01.csv,A1,2026-10-24,lsv,,0.924,14,5.558,117.76,,1600,,1,ok,"sweep 1 of 4 (-1.20..0.70 V vs Hg/HgO, 5 mV/s); R_u from the EIS right after the LSVs (none before them in the files); Rcmp 6.545 ohm = 118% of it"
+d1_A1_lsv_s2,day1_2026-10-24_sampleA/csv/SampleA_EIS-MIR-LSV-2-smallerwindowrepeat2_03_LSV_C01.csv,A1,2026-10-24,lsv,,0.924,14,5.558,117.76,,1600,,2,ok,"sweep 2 of 4; repeat"
+d1_A1_lsv_s3,day1_2026-10-24_sampleA/csv/SampleA_EIS-MIR-LSV-2-smallerwindowrepeat2_03_LSV_C01.csv,A1,2026-10-24,lsv,,0.924,14,5.558,117.76,,1600,,3,ok,"sweep 3 of 4; repeat"
+d1_A1_lsv_s4,day1_2026-10-24_sampleA/csv/SampleA_EIS-MIR-LSV-2-smallerwindowrepeat2_03_LSV_C01.csv,A1,2026-10-24,lsv,,0.924,14,5.558,117.76,,1600,,4,ok,"sweep 4 of 4; repeat"
+d1_A1_eis_post_lsv,day1_2026-10-24_sampleA/csv/SampleA_EIS-MIR-LSV-2-smallerwindowrepeat2_05_PEIS_C01.csv,A1,2026-10-24,eis,,,,,,,1600,,,ok,"200 kHz-100 mHz at 0.70 V vs Hg/HgO; R_hf 5.558 ohm"
+d1_A1_cv_runaway,day1_2026-10-24_sampleA/csv/SampleA_EIS-MIR-LSV-2-smallerwindowrepeat2_06_CV_C01.csv,A1,2026-10-24,activation,,,,,,,1600,,,failed: current runaway at the upper vertex (Rcmp 118% of R_u),"2 CVs to 0.75 V set, stopped near 0.717 V; 250 mA excursions"
+d1_A1_cdl_5,day1_2026-10-24_sampleA/csv/EIS-CdlCVs-repeat_02_CV_C01.csv,A1,2026-10-24,cdl,5,0.924,14,,,,1600,,,ok,"-0.10..0.20 V vs Hg/HgO"
+d1_A1_cdl_10,day1_2026-10-24_sampleA/csv/EIS-CdlCVs-repeat_03_CV_C01.csv,A1,2026-10-24,cdl,10,0.924,14,,,,1600,,,ok,
+d1_A1_cdl_25,day1_2026-10-24_sampleA/csv/EIS-CdlCVs-repeat_04_CV_C01.csv,A1,2026-10-24,cdl,25,0.924,14,,,,1600,,,ok,
+d1_A1_cdl_50,day1_2026-10-24_sampleA/csv/EIS-CdlCVs-repeat_05_CV_C01.csv,A1,2026-10-24,cdl,50,0.924,14,,,,1600,,,ok,
+d1_A1_cdl_75,day1_2026-10-24_sampleA/csv/EIS-CdlCVs-repeat_06_CV_C01.csv,A1,2026-10-24,cdl,75,0.924,14,,,,1600,,,ok,
+d1_A1_cdl_100,day1_2026-10-24_sampleA/csv/EIS-CdlCVs-repeat_07_CV_C01.csv,A1,2026-10-24,cdl,100,0.924,14,,,,1600,,,ok,
+d1_A1_hold,day1_2026-10-24_sampleA/csv/CAHolds_02-05_series.csv,A1,2026-10-24,hold,,0.924,14,5.398,81.88,,1600,,,ok,"four 15-min holds at 0.64/0.66/0.68/0.70 V vs Hg/HgO joined in time order; R_u from the end-of-day EIS (the nearest); Rcmp 4.42 ohm"
+d1_A1_eis_end,day1_2026-10-24_sampleA/csv/CVLast_01_PEIS_C01.csv,A1,2026-10-24,eis,,,,,,,1600,,,ok,"200 kHz-100 mHz at 0.70 V vs Hg/HgO; R_hf 5.398 ohm"
+d1_A1_cv_last,day1_2026-10-24_sampleA/csv/CVLast_03_CV_C01.csv,A1,2026-10-24,activation,,,,,,,1600,,,ok,"4 CVs -1.25..0.70 V vs Hg/HgO, 50 mV/s, Rcmp 4.42 ohm"

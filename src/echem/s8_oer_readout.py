@@ -36,8 +36,8 @@ WHAT IS COMPUTED, PER RUN.
 
 WHAT IS JUDGED. Only alloys complete under the lock rule, from runs on or before the lock date, in time order (day,
 then manifest row).
-  A bench day counts when every analysed run used that day carries a measured RHE calibration (choice 7 as amended on
-  2026-10-25; a day on the pH formula alone does not count). IrO2 and blanks are not required. The day's first ok IrO2
+  A bench day counts when every analysed run used that day carries the bench's RHE value (choice 7 as amended on
+  2026-10-25 and 2026-10-26; a day on the pH formula alone does not count). IrO2 and blanks are not required. The day's first ok IrO2
   sweep that reaches 10 mA cm-2, if any, is its reference.
   A disk's primary sweep is its first ok sweep on a counted day; later sweeps are reported, never averaged in.
   An alloy is complete with at least 3 disks that have eta_10, over at least 2 counted days. An incomplete alloy's
@@ -229,7 +229,7 @@ def read_manifest(path):
             else:
                 rec["area"] = AREA_CM2
             if r["rhe_offset_V"]:
-                rec["offset"], rec["offset_source"] = float(r["rhe_offset_V"]), "measured"
+                rec["offset"], rec["offset_source"] = float(r["rhe_offset_V"]), "bench"
             elif r["pH"]:
                 rec["offset"], rec["offset_source"] = PH_FORMULA[0] + PH_FORMULA[1] * float(r["pH"]), "pH formula"
             else:
@@ -580,7 +580,7 @@ def readout(manifest, lock, key_path=None, ir_hw_verified=None):
         ref = iro2[0] if iro2 and iro2[0].get("eta_10_V") is not None else None
         sources = {r["offset_source"] for r in usable if r["day"] == d and "offset_source" in r}
         days[d] = {"iro2_sweeps": len(iro2), "blank_sweeps": len(blank), "reference_run": ref and ref["run_id"],
-                   "calibration": "/".join(sorted(sources)) or None, "counted": sources == {"measured"}}
+                   "calibration": "/".join(sorted(sources)) or None, "counted": sources == {"bench"}}
         if ref:
             reference[d] = ref
 
@@ -622,7 +622,7 @@ def readout(manifest, lock, key_path=None, ir_hw_verified=None):
         "schema": "s8-oer-readout/1", "synthetic": synthetic, "lock_date": lock, "registered_lock": REGISTERED_LOCK,
         "lock_is_registered": lock == REGISTERED_LOCK, "ir_hw_verified": ir_hw_verified,
         "manifest": {"path": os.path.abspath(manifest), "sha256": sha256(manifest)},
-        "counted_day_rule": "every analysed run used that day has a measured RHE calibration; IrO2 and blank optional",
+        "counted_day_rule": "every analysed run used that day has the bench's RHE value; IrO2 and blank optional",
         "blank_runs": [r["run_id"] for r in usable if r["sample"] == BLANK],
         "parameters": {"E_eq_V": E_EQ, "ir_total": IR_TOTAL, "ir_hw_max": IR_HW_MAX, "targets_mA_cm2": list(TARGETS),
                        "eta_specific_V": ETA_SPECIFIC, "C_s_F_cm2": CS_F_CM2, "default_area_cm2": AREA_CM2,
@@ -711,7 +711,7 @@ def main(argv=None):
         print(f"NOTE: lock {res['lock_date']} is not the registered {REGISTERED_LOCK}")
     for d, info in res["days"].items():
         if not info["counted"]:
-            print(f"NOTE: day {d} not counted (calibration: {info['calibration']}; a measured RHE calibration is needed)")
+            print(f"NOTE: day {d} not counted (calibration: {info['calibration']}; the bench's RHE value is needed)")
     over = [r["run_id"] for r in res["runs"] if r.get("ir_overcompensated")]
     if over:
         print(f"NOTE: instrument share above {IR_TOTAL:.0%} (over-compensation, added back): {over}")

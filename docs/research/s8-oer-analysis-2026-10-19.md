@@ -58,7 +58,8 @@ to fix a bug, and each fix is recorded below with its reason.
    - Tafel and drift take the disk's first ok run of that technique.
 7. **Counted day.** A bench day counts if its first ok IrO₂ sweep reaches 10 mA cm⁻² and it has an ok blank sweep.
    That IrO₂ sweep is the day's reference. *(Amended 2026-10-25, see the dated decisions below: a day counts with a
-   measured RHE calibration; IrO₂ and blanks are optional.)*
+   measured RHE calibration; IrO₂ and blanks are optional. Amended again 2026-10-26: the bench's stated reference
+   value counts as each day's calibration.)*
 8. **IrO₂ comparison.** Each complete alloy's mean is compared with the mean of the references from the days its
    counted disks were measured, using the same threshold. The classes are lower, not distinguishable and higher. The
    C_dl-normalized version is reported per disk as specific activity, with no class.
@@ -217,6 +218,26 @@ bench supplies its RHE calibration. Its files are kept as received.
    sweeps with no cycle column, which the readout currently refuses. The fix lets the manifest name the sweep (first sweep =
    primary) and leaves every other rule unchanged.
 
+## Dated decision, 2026-10-26 (Frank): the bench's reference value
+
+Asked for its RHE calibration, the bench replied on 2026-10-26: use +0.098 V vs SHE for the Hg/HgO reference. That is
+the standard potential of Hg/HgO in 1 M hydroxide, the same 0.098 V already in the freeze's conversion, not a
+calibration of this electrode against RHE.
+
+**Decision.** The bench's stated value counts as each day's calibration. Every day on this reference and electrolyte
+uses 0.098 + 0.059 × 14 = 0.924 V, entered in the manifest as `rhe_offset_V`, so each day counts from 2026-10-24 on.
+No value changes (the readout already used 0.924 V, flagged); the days now count. If the bench later measures a
+calibration, it is reported beside the readout as a check and does not replace the stated value. This departs from
+freeze §3 ("calibrated each bench day") and from choice 7 as amended on 2026-10-25 (a measured calibration).
+
+What the stated value leaves open:
+- **A shared offset error** moves every η₁₀ equally and cancels in K1 and K2, which compare alloys measured on one
+  reference in one electrolyte. It enters the absolute η₁₀ and the literature IrO₂ context. The pH of 1 M KOH is nearer
+  13.9 than 14 (mean activity coefficient about 0.76), which alone would lower the offset by about 7 mV.
+- **Drift of the reference between days** is not measured. The codes go on different days in the bench's order (B, D,
+  E, C, A, F), so drift would read as a difference between alloys; spreading each alloy's disks over at least two days
+  moves part of it into the pooled SD.
+
 ## Changes after data (bug fixes only, each with its reason)
 
 **2026-10-25, after the bench's first files (disk A1, 2026-10-24), before any readout of them.** Each change follows the
@@ -255,3 +276,11 @@ a day on the pH formula alone does not; with no IrO₂ at all, K1 and K2 are unc
 evaluated; shares of 0, 85% and 118% all leave the registered 10% residual; 117.8% is accepted and flagged; 151%, a
 negative share and sweep 0 are refused. The test of the old rule (a day without IrO₂ does not count) was replaced by
 the first of these. All 41 tests pass.
+
+**2026-10-26, after the dated decision of the same day.**
+
+6. **Calibration label.** A manifest `rhe_offset_V` is labelled `bench` in the readout (it was `measured`), since the
+   code cannot tell a measured calibration from a stated one; `counted_day_rule` reads "every analysed run used that
+   day has the bench's RHE value". The logic is unchanged: a value from the bench makes the day count, the pH formula
+   alone does not. The two tests that named the label now read `bench`; all 41 pass. Rerun on day 1:
+   `readout_blinded_2026-10-26.json`, day 2026-10-24 counted, every value as on 2026-10-25.

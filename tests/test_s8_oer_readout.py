@@ -254,14 +254,14 @@ def test_lock_date_is_inclusive_and_excludes_later_days(campaign):
 
 
 def test_day_without_iro2_or_blank_still_counts(campaign, tmp_path):
-    """Choice 7 as amended 2026-10-25: a measured calibration makes the day count; IrO2 and blanks are optional."""
+    """Choice 7 as amended: the bench's RHE value makes the day count; IrO2 and blanks are optional."""
     def edit(rows):
         for r in rows:
             if r["day"] == syn.DAYS[2] and r["sample"] in (ro.IRO2, ro.BLANK):
                 r["status"] = "not run"
     res = readout(variant(campaign, tmp_path, edit), campaign_dir=campaign[0])
     day3 = res["days"][syn.DAYS[2]]
-    assert day3["counted"] is True and day3["calibration"] == "measured" and day3["reference_run"] is None
+    assert day3["counted"] is True and day3["calibration"] == "bench" and day3["reference_run"] is None
     assert all(g["n"] == 3 and g["complete"] for g in res["alloys"].values())
     ni31 = res["alloys"]["Ni31"]["iro2"]
     assert ni31["days_without_reference"] == [syn.DAYS[2]] and len(ni31["runs"]) == 2 and ni31["class"] is not None
