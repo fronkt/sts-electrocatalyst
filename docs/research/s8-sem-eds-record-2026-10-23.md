@@ -109,8 +109,9 @@ The bulk estimate is the BSE area fraction of each phase (multi-Otsu threshold, 
   - Each set matches its alloy's BSE description, so the identity above holds.
 - **Condition.** Frank: "these were as-cast (homogenized as well)". This is read as cast and then homogenized at 1,050 °C, the condition of the disks. The zip's "as-cast" is taken as cast rather than wrought.
 - **Etchant (Frank, 2026-10-26):** a superalloy etch for cobalt–chromium alloys, used on some of the pieces, not all.
-  - Which images are etched is not recorded. The notes below that mention etching (Cu26's dark pools, Ni31's dendritic segregation in 154-2 and 154-3) judge it by eye.
-  - On an etched field the Otsu dark fraction also counts etched boundaries and grain outlines, so the fractions below compare only between fields in the same state.
+  - **Etched** (Frank, 2026-10-26): the three Co–Cr alloys, Cu8 (149), Cu26 (150) and Fe25 (151). **Not etched:** Cu22 (153), Ni34 (152) and Ni31 (154).
+  - On an etched field the Otsu dark fraction also counts etched boundaries and grain outlines. Each alloy's set is in one state, so the within-alloy fractions below are unaffected; etched and unetched alloys are not compared on them.
+  - Boundary and segregation contrast in the unetched sets (Ni34's grains, Ni31's dendrites, Cu22's grain outlines) comes from something other than an etch, such as polishing relief or staining, so readings that rest on it (Ni34's grain size) are tentative.
 - **Scale and measurements:** `python src/scripts/s8_optical_measure.py "D:\STS Electrocatalyst EDS & SEM\Optical-as-cast-2026-10-26"`.
   - The bar is 299–301 px long (340 px on the 500 µm bars).
   - Fields run from 185 µm wide (40 µm bar) to 2.0 mm (500 µm bar).
@@ -137,7 +138,7 @@ The bulk estimate is the BSE area fraction of each phase (multi-Otsu threshold, 
   - In the 2 mm fields (152, 152-2), dark particles or pits are strung along the boundaries of cells about 0.5 mm across. Optical cannot tell a pore from a pulled-out particle.
   - "152-4-close center" shows a cluster of irregular black pores, consistent with centreline shrinkage.
 - **Ni31 (154): matrix and dispersed particles.**
-  - The particles are irregular, 10–60 µm across and unevenly spread. The matrix shows dendritic segregation once etched (154-2, 154-3).
+  - The particles are irregular, 10–60 µm across and unevenly spread. The matrix shows dendritic segregation in 154-2 and 154-3. (Corrected 2026-10-26: "once etched" was a reading by eye; Frank says the Ni31 pieces were not etched.)
   - The particles hold dark specks, as the BSE's dark Cr-rich regions hold bright ones.
   - They cover 10–23% of the two 0.93 mm fields (154-5, 154-6), depending on the threshold (histogram valley or upper multi-Otsu level). The BSE gives 29% for the dark Cr-rich regions.
   - The match between the optical particles and the BSE's Cr-rich phase rests on shape alone, so this does not settle Ni31's estimate.
@@ -188,4 +189,4 @@ More EDS is probably not possible before the bench (Frank, 2026-10-23). The firs
 3. **Only if it needs no new acquisition:** requantify the saved spectra with Ni deselected for Cu8 and Cu22 (this removes the Ni artifact without the correction used here).
 4. **Only if SEM imaging, not EDS, is still possible:** a BSE image of an as-cast keeper rod of Cu8 and Cu22, for the local-melting question. *2026-10-26: an optical image is enough, since the test is the grain shape. The optical set of 10-26 was homogenized, so the test is still open.*
 5. **Etchant used for the optical micrographs of 2026-10-26** (Frank to send). *2026-10-26: a superalloy etch for
-   cobalt–chromium alloys, on some pieces, not all (see above). Still open: which pieces were etched.*
+   cobalt–chromium alloys, on Cu8, Cu26 and Fe25 only (see above).*
