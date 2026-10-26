@@ -108,7 +108,9 @@ The bulk estimate is the BSE area fraction of each phase (multi-Otsu threshold, 
   - Files are named by melt number: 149 ×3, 150 ×9, 151 ×4, 152 ×4, 153 ×4, 154 ×5.
   - Each set matches its alloy's BSE description, so the identity above holds.
 - **Condition.** Frank: "these were as-cast (homogenized as well)". This is read as cast and then homogenized at 1,050 °C, the condition of the disks. The zip's "as-cast" is taken as cast rather than wrought.
-- **Etchant:** to come from Frank.
+- **Etchant (Frank, 2026-10-26):** a superalloy etch for cobalt–chromium alloys, used on some of the pieces, not all.
+  - Which images are etched is not recorded. The notes below that mention etching (Cu26's dark pools, Ni31's dendritic segregation in 154-2 and 154-3) judge it by eye.
+  - On an etched field the Otsu dark fraction also counts etched boundaries and grain outlines, so the fractions below compare only between fields in the same state.
 - **Scale and measurements:** `python src/scripts/s8_optical_measure.py "D:\STS Electrocatalyst EDS & SEM\Optical-as-cast-2026-10-26"`.
   - The bar is 299–301 px long (340 px on the 500 µm bars).
   - Fields run from 185 µm wide (40 µm bar) to 2.0 mm (500 µm bar).
@@ -185,4 +187,5 @@ More EDS is probably not possible before the bench (Frank, 2026-10-23). The firs
    - for Cu8, confirmation that it is not the hot-rolled material.
 3. **Only if it needs no new acquisition:** requantify the saved spectra with Ni deselected for Cu8 and Cu22 (this removes the Ni artifact without the correction used here).
 4. **Only if SEM imaging, not EDS, is still possible:** a BSE image of an as-cast keeper rod of Cu8 and Cu22, for the local-melting question. *2026-10-26: an optical image is enough, since the test is the grain shape. The optical set of 10-26 was homogenized, so the test is still open.*
-5. **Etchant used for the optical micrographs of 2026-10-26** (Frank to send).
+5. **Etchant used for the optical micrographs of 2026-10-26** (Frank to send). *2026-10-26: a superalloy etch for
+   cobalt–chromium alloys, on some pieces, not all (see above). Still open: which pieces were etched.*
