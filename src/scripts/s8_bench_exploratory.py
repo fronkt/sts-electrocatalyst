@@ -52,6 +52,27 @@ DAYS = {
         "compensated_cycles": (2, 3),
         "Rcmp_cv": 6.545,
     },
+    # Disk B1 (full routine) and disk D1 (activation CVs only). B1's activation CVs ran under live compensation and
+    # no uncompensated steady CVs follow them, so the matched-current iR check is not repeated; the Ewe-control check
+    # is. LSV sweeps 2 and 4 stopped early (failed in the manifest). The Ni(II)/Ni(III) wave sits under the OER foot
+    # on the anodic branch, so its charge is taken on the cathodic branch.
+    "2026-10-30": {
+        "disk": "B1",
+        "activation": "SampleB_CVLSV_03_CV_C01.mpr",
+        "activation_live_iR": True,
+        "lsv": "SampleB_CVLSV_04_LSV_C01.mpr",
+        "lsv_ok_sweeps": (1, 3),
+        "lsv_R_u": 8.642,        # ohm, EIS before the activation CVs (the nearest before the LSVs)
+        "tafel_windows": ((1.0, 10.0), (10.0, 100.0)),
+        "eis": [("SampleB_CVLSV_01_PEIS_C01.mpr", "before activation"),
+                ("SampleB_CVCdlscans-REPEAT_01_PEIS_C01.mpr", "2 h after the LSVs")],
+        "holds": [],
+        "cdl": ["SampleB_CVCdlscans-REPEAT_0%d_CV_C01.mpr" % k for k in range(4, 10)],
+        "cv_last": "SampleB_CVCdlscans-REPEAT_03_CV_C01.mpr",
+        "redox": {"branch": "cathodic", "window": (1.15, 1.45)},
+        "other_disks": {"D1": "SampleD-CVTry1_C01.mpr"},
+        "other_R_u_range": (7.32, 8.64),   # ohm, B1's two EIS on the same setup (D1 has none)
+    },
 }
 
 
@@ -138,6 +159,74 @@ def redox_wave(d, offset, rate=0.050):
             "near 1.3-1.47 V, so the charge is rough (factor of 2)"}, q / F, (Ew, Iw, base)
 
 
+def cathodic_wave(d, offset, cycle, window, rate=0.050):
+    """Charge of the reduction wave (NiOOH -> Ni(OH)2-like) on one cycle's cathodic branch, linear baseline between
+    the window ends; free of the oxygen-evolution current that overlaps the anodic wave."""
+    s = d["cycle number"] == cycle
+    E, I, c, t = d["Ewe/V"][s] + offset, d["<I>/mA"][s], d["control/V"][s], d["time/s"][s]
+    w = (np.gradient(c, t) < 0) & (E > window[0]) & (E < window[1])
+    if w.sum() < 10:
+        return None
+    o = np.argsort(E[w])
+    Ew, Iw = E[w][o], I[w][o]
+    base = np.interp(Ew, [Ew[0], Ew[-1]], [Iw[:5].mean(), Iw[-5:].mean()])
+    q = float(np.trapezoid(np.clip(base - Iw, 0, None) / 1e3, Ew) / rate)
+    return {"cycle": int(cycle), "peak_V_RHE": float(Ew[np.argmin(Iw - base)]), "charge_mC_cm2": q * 1e3 / AREA,
+            "sites_nmol_cm2_one_electron": q / F / AREA * 1e9, "_q_C": q, "_curve": (Ew, Iw, base)}
+
+
+def ewe_tracking(d):
+    """Largest |programmed - exported| potential and largest Rcmp x I in a live-compensated file (mV)."""
+    out = {"max_abs_control_minus_Ewe_mV": float(np.max(np.abs(d["control/V"] - d["Ewe/V"])) * 1e3)}
+    if "Rcmp/Ohm" in d:
+        out["max_Rcmp_x_I_mV"] = float(np.max(np.abs(d["<I>/mA"])) * float(d["Rcmp/Ohm"][0]))
+        out["Rcmp_ohm"] = float(d["Rcmp/Ohm"][0])
+    return out
+
+
+def trajectory(d, E_ctrl, tol=0.004):
+    """Mean current density at a programmed potential on each anodic branch: [(cycle, j)]."""
+    out = []
+    for k in range(1, int(d["cycle number"].max()) + 1):
+        s = d["cycle number"] == k
+        if s.sum() < 10:
+            continue
+        up = np.gradient(d["control/V"][s], d["time/s"][s]) > 0
+        mm = up & (np.abs(d["control/V"][s] - E_ctrl) < tol)
+        if mm.any():
+            out.append((k, float(d["<I>/mA"][s][mm].mean() / AREA)))
+    return out
+
+
+def other_disk(raw, name, offset, R_u_range):
+    """A disk with activation CVs only (no live iR): trajectory at fixed potentials, high-frequency current noise per
+    cycle, and the largest current reached on the last cycle with the potential bracketed by the setup's R_u range.
+    If that current is below 10 mA cm-2, the potential bracket is a lower bound on the disk's eta_10 in this state."""
+    d = load(raw, name)
+    cyc = []
+    for k in range(1, int(d["cycle number"].max()) + 1):
+        s = d["cycle number"] == k
+        if s.sum() < 50:
+            continue
+        I = d["<I>/mA"][s]
+        res = (I - np.convolve(I, np.ones(15) / 15, mode="same"))[10:-10]
+        cyc.append({"cycle": k, "E_upper_V_vs_HgHgO": float(d["control/V"][s].max()),
+                    "E_lower_V_vs_HgHgO": float(d["control/V"][s].min()), "hf_noise_uA": float(res.std() * 1e3)})
+    last = d["cycle number"] == d["cycle number"].max()
+    i_top = int(np.argmax(d["<I>/mA"][last]))
+    I_top, E_top = float(d["<I>/mA"][last][i_top]), float(d["Ewe/V"][last][i_top])
+    eta = [E_top + offset - I_top / 1e3 * r - E_EQ for r in R_u_range]
+    out = {"file": name, "cycles": cyc, "live_iR": "Rcmp/Ohm" in d,
+           "j_at_0.60V_vs_HgHgO": trajectory(d, 0.60), "j_at_0.65V_vs_HgHgO": trajectory(d, 0.65),
+           "last_cycle_top": {"E_V_vs_HgHgO": E_top, "j_mA_cm2": I_top / AREA,
+                              "eta_V_iR_free_bracket": [min(eta), max(eta)], "R_u_range_ohm": list(R_u_range)}}
+    if I_top / AREA < 10:
+        out["eta_10_lower_bound_V"] = min(eta)
+        out["note"] = ("50 mV/s CV current includes charging and redox current, so the oxygen current at the top is no "
+                       "larger; the surface may still change with further activation")
+    return out, d
+
+
 def holds(raw, cfg, offset, Rcmp):
     out = []
     for name in cfg["holds"]:
@@ -177,24 +266,37 @@ def main(argv=None):
 
     # LSV sweeps (live Rcmp only; the registered 90% correction is the readout's)
     lsv = load(raw, cfg["lsv"])
-    sw = lsv_sweeps(lsv, off)
+    sw_all = lsv_sweeps(lsv, off)
+    ok = cfg.get("lsv_ok_sweeps", tuple(range(1, len(sw_all) + 1)))
+    sw = [sw_all[k - 1] for k in ok]
+    windows = cfg.get("tafel_windows", ((1.0, 10.0),))
     rcmp_lsv = float(lsv["Rcmp/Ohm"][0])
     res["lsv"] = {"Rcmp_ohm": rcmp_lsv, "sweeps": []}
+    if "lsv_ok_sweeps" in cfg:
+        res["lsv"]["sweeps_used"] = list(ok)
+        res["lsv"]["sweeps_in_file"] = len(sw_all)
     for E, I in sw:
         j = I / AREA
-        m = (j > 1) & (j < 10) & (E > 1.4)
-        slope = float(np.polyfit(np.log10(j[m]), E[m], 1)[0] * 1e3)
-        res["lsv"]["sweeps"].append({"tafel_1to10_mA_cm2_mV_dec": slope, "j_max_mA_cm2": float(j.max())})
+        row = {}
+        for lo, hi in windows:
+            m = (j > lo) & (j < hi) & (E > 1.4)
+            row["tafel_%gto%g_mA_cm2_mV_dec" % (lo, hi)] = float(np.polyfit(np.log10(j[m]), E[m], 1)[0] * 1e3)
+        row["j_max_mA_cm2"] = float(j.max())
+        res["lsv"]["sweeps"].append(row)
 
     # live-iR export check
     act = load(raw, cfg["activation"])
-    comp = load(raw, cfg["cv_compensated"])
-    res["ir_export_check"] = ir_export_check(act, comp, cfg)
-    res["ir_export_check"]["max_abs_control_minus_Ewe_mV_lsv"] = float(np.max(np.abs(lsv["control/V"] - lsv["Ewe/V"])) * 1e3)
-    res["ir_export_check"]["max_Rcmp_x_I_mV_lsv_anodic"] = float(lsv["<I>/mA"].max() * rcmp_lsv)
-    res["ir_export_check"]["max_Rcmp_x_I_mV_lsv_cathodic"] = float(-lsv["<I>/mA"].min() * rcmp_lsv)
+    if "cv_compensated" in cfg:
+        comp = load(raw, cfg["cv_compensated"])
+        res["ir_export_check"] = ir_export_check(act, comp, cfg)
+        res["ir_export_check"]["max_abs_control_minus_Ewe_mV_lsv"] = float(np.max(np.abs(lsv["control/V"] - lsv["Ewe/V"])) * 1e3)
+        res["ir_export_check"]["max_Rcmp_x_I_mV_lsv_anodic"] = float(lsv["<I>/mA"].max() * rcmp_lsv)
+        res["ir_export_check"]["max_Rcmp_x_I_mV_lsv_cathodic"] = float(-lsv["<I>/mA"].min() * rcmp_lsv)
+    else:
+        res["ir_export_check"] = {"fit": "not repeated (no uncompensated steady CVs beside the compensated ones)",
+                                  "lsv": ewe_tracking(lsv), "activation_cvs": ewe_tracking(act)}
 
-    # activation trajectory (uncompensated current at 0.70 V vs Hg/HgO on each anodic branch)
+    # activation trajectory (current at 0.70 V vs Hg/HgO on each anodic branch; live iR if the CVs had it)
     traj = []
     for k in range(1, int(act["cycle number"].max()) + 1):
         s = act["cycle number"] == k
@@ -207,19 +309,43 @@ def main(argv=None):
                          "first_cycle_reaching_0.70V": int(traj[0, 0]), "j_first_mA_cm2": float(traj[0, 1]),
                          "j_peak_mA_cm2": float(traj[:, 1].max()), "cycle_of_peak": int(traj[np.argmax(traj[:, 1]), 0]),
                          "j_last_mA_cm2": float(traj[-1, 1])}
+    if cfg.get("activation_live_iR"):
+        res["activation"]["live_iR_ohm"] = float(act["Rcmp/Ohm"][0])
+        res["activation"]["duration_min"] = float((act["time/s"].max() - act["time/s"].min()) / 60)
 
     # redox wave and TOF lower bound
-    last = load(raw, cfg["cv_last"])
-    res["redox_wave"], n_sites, wave = redox_wave(last, off)
     E1, I1 = sw[0]
     m1 = E1 > 1.45
     i35 = float(np.interp(E_EQ + 0.35, E1[m1], I1[m1]))
+    redox_cfg = cfg.get("redox", {"branch": "anodic"})
+    if redox_cfg["branch"] == "anodic":
+        last = load(raw, cfg["cv_last"])
+        res["redox_wave"], n_sites, wave = redox_wave(last, off)
+        wave_label = "last CV, anodic"
+    else:
+        per_cycle = [cathodic_wave(act, off, k, redox_cfg["window"]) for k in range(1, int(act["cycle number"].max()) + 1)]
+        per_cycle = [w for w in per_cycle if w is not None]
+        before_lsv = per_cycle[-1]
+        later = load(raw, cfg["cv_last"])
+        after = cathodic_wave(later, off, int(later["cycle number"].max()), redox_cfg["window"])
+        res["redox_wave"] = {
+            "branch": "cathodic", "window_V_RHE": list(redox_cfg["window"]),
+            "before_lsv": {k: v for k, v in before_lsv.items() if not k.startswith("_")},
+            "two_h_later": {k: v for k, v in after.items() if not k.startswith("_")},
+            "per_activation_cycle": [{"cycle": w["cycle"], "charge_mC_cm2": w["charge_mC_cm2"],
+                                      "peak_V_RHE": w["peak_V_RHE"]} for w in per_cycle],
+            "note": "linear baseline; the activation CVs ran under live compensation (Rcmp in ir_export_check)"}
+        n_sites = before_lsv["_q_C"] / F
+        wave = before_lsv["_curve"]
+        wave_label = "last activation CV, cathodic"
     res["tof_lower_bound"] = {"eta_V": 0.35, "I_mA": i35, "TOF_s-1": i35 / 1e3 / (4 * F * n_sites),
                               "note": "every redox-wave site assumed active, one electron each"}
 
     # holds: steady state, two-hold Tafel (unregistered), holds against the LSV
-    rcmp_hold = float(load(raw, cfg["holds"][0])["Rcmp/Ohm"][0])
-    hs = holds(raw, cfg, off, rcmp_hold)
+    hs = []
+    if cfg["holds"]:
+        rcmp_hold = float(load(raw, cfg["holds"][0])["Rcmp/Ohm"][0])
+        hs = holds(raw, cfg, off, rcmp_hold)
     for h in hs:
         h["j_lsv_same_E_mA_cm2"] = float(np.interp(h["E_V_vs_HgHgO"] + off, E1[m1], I1[m1] / AREA))
         h["hold_over_lsv"] = h["j_tail_mA_cm2"] / h["j_lsv_same_E_mA_cm2"]
@@ -229,6 +355,13 @@ def main(argv=None):
     res["tafel_two_hold"] = ({"mV_dec": (inw[1][1] - inw[0][1]) / (inw[1][0] - inw[0][0]) * 1e3, "holds_in_window": 2,
                               "note": "unregistered: the readout needs at least 3 holds in the window"}
                              if len(inw) == 2 else {"mV_dec": None, "holds_in_window": len(inw)})
+
+    # other disks of the day (activation CVs only)
+    others = {}
+    for disk, name in cfg.get("other_disks", {}).items():
+        others[disk] = other_disk(raw, name, off, cfg["other_R_u_range"])
+    if others:
+        res["other_disks"] = {k: v[0] for k, v in others.items()}
 
     # figures
     fig, ax = plt.subplots(1, len(eis_curves), figsize=(4.5 * len(eis_curves), 3.8))
@@ -242,29 +375,49 @@ def main(argv=None):
 
     fig, ax = plt.subplots(1, 3, figsize=(13, 3.8))
     Ew, Iw, base = wave
-    ax[0].plot(Ew, Iw / AREA, label="last CV, anodic"); ax[0].plot(Ew, base / AREA, "--", label="baseline")
-    ax[0].fill_between(Ew, base / AREA, Iw / AREA, where=Iw > base, alpha=0.3)
+    ax[0].plot(Ew, Iw / AREA, label=wave_label); ax[0].plot(Ew, base / AREA, "--", label="baseline")
+    if redox_cfg["branch"] == "anodic":
+        ax[0].fill_between(Ew, base / AREA, Iw / AREA, where=Iw > base, alpha=0.3)
+    else:
+        ax[0].fill_between(Ew, base / AREA, Iw / AREA, where=Iw < base, alpha=0.3)
     ax[0].set(xlabel="E / V vs RHE", ylabel="j / mA cm$^{-2}$", title="pre-OER redox wave"); ax[0].legend(fontsize=7)
-    ax[1].semilogy(E1[m1], I1[m1] / AREA, label="LSV sweep 1 (5 mV/s, live Rcmp)")
-    ax[1].semilogy([h["E_V_vs_HgHgO"] + off for h in hs], [h["j_tail_mA_cm2"] for h in hs], "o", label="holds (tail)")
-    ax[1].set(xlabel="E / V vs RHE", ylabel="j / mA cm$^{-2}$", title="steady state vs sweep"); ax[1].legend(fontsize=7)
+    ax[1].semilogy(E1[m1], I1[m1] / AREA, label="LSV sweep %d (5 mV/s, live Rcmp)" % ok[0])
+    if hs:
+        ax[1].semilogy([h["E_V_vs_HgHgO"] + off for h in hs], [h["j_tail_mA_cm2"] for h in hs], "o", label="holds (tail)")
+    ax[1].set(xlabel="E / V vs RHE", ylabel="j / mA cm$^{-2}$",
+              title="steady state vs sweep" if hs else "LSV (no holds)"); ax[1].legend(fontsize=7)
     ax[2].plot(traj[:, 0], traj[:, 1], "o-", ms=3)
-    ax[2].set(xlabel="activation cycle", ylabel="j at 0.70 V vs Hg/HgO (no iR) / mA cm$^{-2}$", title="activation")
+    ax[2].set(xlabel="activation cycle", title="activation",
+              ylabel="j at 0.70 V vs Hg/HgO (%s) / mA cm$^{-2}$" % ("live iR" if cfg.get("activation_live_iR") else "no iR"))
+    if redox_cfg["branch"] == "cathodic":
+        tw = ax[2].twinx()
+        pc = res["redox_wave"]["per_activation_cycle"]
+        tw.plot([w["cycle"] for w in pc], [w["charge_mC_cm2"] for w in pc], "s-", ms=3, c="C3")
+        tw.set_ylabel("cathodic wave charge / mC cm$^{-2}$", color="C3")
     fig.tight_layout(); fig.savefig(os.path.join(a.out, "exploratory_redox_holds_activation.png"), dpi=140)
     plt.close(fig)
 
     fig, ax = plt.subplots(1, 2, figsize=(10, 3.8))
-    for k, (E, I) in enumerate(sw, 1):
+    for k, (E, I) in zip(ok, sw):
         m = E > 1.25
         ax[0].plot(E[m], I[m] / AREA, lw=1, label=f"sweep {k}")
     ax[0].axhline(10, ls=":", c="k", lw=0.8)
     ax[0].set(xlabel="E / V vs RHE (live Rcmp only)", ylabel="j / mA cm$^{-2}$", title="LSV, 5 mV/s"); ax[0].legend(fontsize=7)
-    t0 = 0.0
-    for h in hs:
-        t, j = h["_trace"]
-        ax[1].plot(t - t[0] + t0, j, lw=0.8)
-        t0 += t[-1] - t[0]
-    ax[1].set(xlabel="time / s", ylabel="j / mA cm$^{-2}$", title="15-min holds")
+    if hs:
+        t0 = 0.0
+        for h in hs:
+            t, j = h["_trace"]
+            ax[1].plot(t - t[0] + t0, j, lw=0.8)
+            t0 += t[-1] - t[0]
+        ax[1].set(xlabel="time / s", ylabel="j / mA cm$^{-2}$", title="15-min holds")
+    else:
+        for k, (E, I) in zip(ok, sw):
+            m = (E > 1.25) & (I > 0)
+            ax[1].semilogy(E[m], I[m] / AREA, lw=1, label=f"sweep {k}")
+        for lo, hi in windows:
+            ax[1].axhspan(lo, hi, alpha=0.08)
+        ax[1].set(xlabel="E / V vs RHE (live Rcmp only)", ylabel="j / mA cm$^{-2}$", title="LSV, log scale (Tafel windows shaded)")
+        ax[1].legend(fontsize=7)
     fig.tight_layout(); fig.savefig(os.path.join(a.out, "exploratory_lsv_holds.png"), dpi=140); plt.close(fig)
 
     rates, half = [], []
@@ -280,6 +433,24 @@ def main(argv=None):
     ax.plot(rates, np.array(half) * 1e3, "o-")
     ax.set(xlabel="scan rate / mV s$^{-1}$", ylabel="half (I$_a$ - I$_c$) / uA", title="C_dl (readout gives the fit)")
     fig.tight_layout(); fig.savefig(os.path.join(a.out, "exploratory_cdl.png"), dpi=140); plt.close(fig)
+
+    if others:
+        fig, ax = plt.subplots(1, 2 * len(others), figsize=(10 * len(others), 3.8))
+        for n, (disk, (info, d)) in enumerate(others.items()):
+            a0, a1 = ax[2 * n], ax[2 * n + 1]
+            cmax = int(d["cycle number"].max())
+            cm = plt.cm.viridis(np.linspace(0, 1, cmax))
+            for k in range(1, cmax + 1):
+                s = d["cycle number"] == k
+                a0.plot(d["Ewe/V"][s] + off, d["<I>/mA"][s] / AREA, lw=0.7, c=cm[k - 1])
+            a0.set(xlabel="E / V vs RHE (no iR)", ylabel="j / mA cm$^{-2}$", title=f"{disk}: activation CVs, 50 mV/s")
+            for key, lab in (("j_at_0.60V_vs_HgHgO", "0.60 V"), ("j_at_0.65V_vs_HgHgO", "0.65 V")):
+                tr = np.array(info[key])
+                if len(tr):
+                    a1.plot(tr[:, 0], tr[:, 1], "o-", ms=3, label=f"{lab} vs Hg/HgO")
+            a1.set(xlabel="cycle", ylabel="j / mA cm$^{-2}$ (no iR)", title=f"{disk}: current at fixed potential")
+            a1.legend(fontsize=7)
+        fig.tight_layout(); fig.savefig(os.path.join(a.out, "exploratory_other_disks.png"), dpi=140); plt.close(fig)
 
     with open(os.path.join(a.out, "exploratory.json"), "w", encoding="utf-8", newline="\n") as f:
         json.dump(res, f, indent=1)
