@@ -1,0 +1,109 @@
+{
+  "schema": "s8-arm-c-ext-plan-v1",
+  "date": "2026-11-01",
+  "design": "docs/research/s8-arm-c-extension-2026-10-08.md",
+  "decision_ref": "Frank, 2026-11-01: \"yeah launch the two Cu8 runs\" (two solver variants of the Cu8 s16/2 slab, about 600 SU each)",
+  "source_readout": {
+    "path": "results/arm_c_ext_r3_2026-10-09/launch_spec.json",
+    "sha256": "0fda5b375b40b7fbe61a15f35e101dbc47c4d84cb450523cbe593942a5224f45"
+  },
+  "round": 7,
+  "round_3": {
+    "spec": "results/arm_c_ext_r3_2026-10-09/launch_spec.json",
+    "spec_sha256": "0fda5b375b40b7fbe61a15f35e101dbc47c4d84cb450523cbe593942a5224f45",
+    "plan": "results/arm_c_ext_r3_2026-10-09/ext_plan.json",
+    "main": "21199937 read out: neither state converged (Cu8 s16/2 slab best 5.3e-6 Ry at iteration 68)"
+  },
+  "rule": "the Cu8 s16/2 slab, round 3's job and start byte for byte, once with diagonalization 'cg' and once with nbnd 470 and diago_full_acc; max_seconds 16800 so QE stops itself before the runner's 17,400 s wall; a converged slab counts only in the site's magnetic state (49.6-50.1 muB, flag above 1.5 muB); if both converge there, the lower total energy is used",
+  "after_measurement": "computed after the first Cu8 electrode was measured (2026-10-30, activation CVs only)",
+  "qe_max_seconds": 16800,
+  "status": "exploratory; arm C's registered readings stay final",
+  "selection": [
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s16_site2",
+      "formula": "Cu8Cr23Mn35Co34",
+      "state": "slab",
+      "failure": "CEILING",
+      "seed": {
+        "state": "O",
+        "job": "O__atomic_ndim16",
+        "recipe": "ndim16",
+        "root": "hea/arm_c_2026-10-07_rerun",
+        "id": "Cu8Cr23Mn35Co34__s16_site2__O__atomic_ndim16"
+      },
+      "dir": "hea/arm_c_ext_r7_2026-11-01/Cu8Cr23Mn35Co34__s16_site2",
+      "job": "slab__atomic_moved_cg",
+      "round": 7,
+      "round_3_job": "slab__atomic_moved_ndim16",
+      "seed_density": "moved",
+      "bundle": "results/arm_c_ext_r7_2026-11-01/seeds/Cu8Cr23Mn35Co34__s16_site2/slab",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_ext_r3_2026-10-09/results/arm_c_ext_r3_2026-10-09/seeds/Cu8Cr23Mn35Co34__s16_site2/slab/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_ext_r3_2026-10-09/results/arm_c_ext_r3_2026-10-09/seeds/Cu8Cr23Mn35Co34__s16_site2/slab/data-file-schema.xml"
+      },
+      "mixing": {
+        "mixing_beta": 0.3,
+        "mixing_ndim": 16
+      },
+      "solver": {
+        "electrons_add": [
+          "  diagonalization = 'cg'"
+        ],
+        "system_add": []
+      },
+      "density": {
+        "seed_density_sha256": "046d8663341e8eb946949bf0bfb9e8cf2070d3a9edb89351c7db178df5ca359d",
+        "sha256": "ed06742ebc6a36301ed65c82f59c76c75cfd3e74af37b263c567679c9fdf3bfb",
+        "bytes": 149764564,
+        "seed_electrons": 656.0,
+        "electrons": 650.000001,
+        "target_valence_electrons": 650.0,
+        "moment_carried_over": 49.632465
+      }
+    },
+    {
+      "site_dir": "hea/arm_c_2026-10-07/Cu8Cr23Mn35Co34__s16_site2",
+      "formula": "Cu8Cr23Mn35Co34",
+      "state": "slab",
+      "failure": "CEILING",
+      "seed": {
+        "state": "O",
+        "job": "O__atomic_ndim16",
+        "recipe": "ndim16",
+        "root": "hea/arm_c_2026-10-07_rerun",
+        "id": "Cu8Cr23Mn35Co34__s16_site2__O__atomic_ndim16"
+      },
+      "dir": "hea/arm_c_ext_r7_2026-11-01/Cu8Cr23Mn35Co34__s16_site2",
+      "job": "slab__atomic_moved_nbnd470",
+      "round": 7,
+      "round_3_job": "slab__atomic_moved_ndim16",
+      "seed_density": "moved",
+      "bundle": "results/arm_c_ext_r7_2026-11-01/seeds/Cu8Cr23Mn35Co34__s16_site2/slab",
+      "remote_copy": {
+        "charge-density.hdf5": "/anvil/projects/x-che260157/sts_arm_c_ext_r3_2026-10-09/results/arm_c_ext_r3_2026-10-09/seeds/Cu8Cr23Mn35Co34__s16_site2/slab/charge-density.hdf5",
+        "data-file-schema.xml": "/anvil/projects/x-che260157/sts_arm_c_ext_r3_2026-10-09/results/arm_c_ext_r3_2026-10-09/seeds/Cu8Cr23Mn35Co34__s16_site2/slab/data-file-schema.xml"
+      },
+      "mixing": {
+        "mixing_beta": 0.3,
+        "mixing_ndim": 16
+      },
+      "solver": {
+        "electrons_add": [
+          "  diago_full_acc = .true."
+        ],
+        "system_add": [
+          "  nbnd = 470"
+        ]
+      },
+      "density": {
+        "seed_density_sha256": "046d8663341e8eb946949bf0bfb9e8cf2070d3a9edb89351c7db178df5ca359d",
+        "sha256": "ed06742ebc6a36301ed65c82f59c76c75cfd3e74af37b263c567679c9fdf3bfb",
+        "bytes": 149764564,
+        "seed_electrons": 656.0,
+        "electrons": 650.000001,
+        "target_valence_electrons": 650.0,
+        "moment_carried_over": 49.632465
+      }
+    }
+  ]
+}

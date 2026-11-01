@@ -1145,3 +1145,45 @@ The outcome is the one expected before launch. Each run converged within 1 meV o
 | Start check | `results/arm_c_ext_r6_2026-10-11/start_check_20261011T041033Z.json` (Ni31 s1/0), `…T054944Z.json` (unchanged) and `…T205750Z.json` (all four) |
 | Checks | `results/arm_c_ext_r6_2026-10-11/checks.py` (`checks.job.json`) and `checks.json` |
 | Tests | `tests/test_arm_c_ext_r6.py`, 23 tests (the readout reproductions skip without the local projection outputs); 270 pass with the arm C and HEA QC suites |
+
+## Round 7, 2026-11-01
+
+Decision of record: Frank, 2026-11-01, "yeah launch the two Cu8 runs". This followed a proposal of two attempts at
+the one SCF that keeps Cu8 without a value, about 600 SU each, so that arm C could be set beside arm A on the
+measured order. **This round runs after the first Cu8 electrode was measured** (2026-10-30, activation CVs only;
+s8-bench-day2-record-2026-11-01.md). The calculation does not read any measurement, but a value from it is
+reported as computed after that measurement, not as a prediction.
+
+**Target.** The Cu8 s16/2 clean slab. Its O, OH and OOH converged in round 2. The slab stalled in rounds 2 and 3;
+round 3 reached 5.3×10⁻⁶ Ry at iteration 68, then drifted back up. One converged slab completes the site and gives
+Cu8 a single-site value.
+
+**What changes.** Two jobs, each round 3's job with the same start, byte for byte (the moved density, the XML,
+occup.txt and paw.txt). Each changes only its prefix, QE's `max_seconds` (16,800 s) and one solver setting that
+leaves the converged energy unchanged:
+- `slab__atomic_moved_cg`: `diagonalization = 'cg'`. CG was proposed as arm C probe (b) and dropped then only
+  because it runs about 3× slower per iteration than Davidson; it has not been run on these states.
+- `slab__atomic_moved_nbnd470`: `nbnd = 470` (QE's default here is 390, 1.2 × 325 occupied) and
+  `diago_full_acc = .true.`, so the partly filled states near the Fermi level are converged fully at every
+  iteration.
+
+Mixing stays round 3's (local-TF, β 0.3, `mixing_ndim` 16). A two-stage smearing start, proposed first, was dropped
+before the build: it needs two queued jobs in sequence, and wholenode waits of up to 19.6 h (round 3) would push it
+past the bench's next data.
+
+**Limits and cost.** Runner: 300 iterations, a 17,400 s SCF wall, a 600 s projection; Slurm 300 min. Ceiling:
+2 × 300 min × 128 cores = 1,280 SU. Spent before launch: 22,540.7 SU (22,314.3 before round 6, plus round 6's
+226.4). The campaign ceiling rises from 23,680 to 23,821 SU with this approval.
+
+**Rule written before launch.** A converged slab counts only in the magnetic state of the site's converged states
+(O, OH and OOH at 49.6–50.1 μB total; a difference above 1.5 μB is flagged, as in round 3). If both jobs converge in
+that state, the lower total energy is used, as in round 5. Acceptance is unchanged (one converged SCF, no failure or
+IEEE marker, the force audit, the projection, the complete HEA QC, density retention).
+
+| Part | Location |
+|---|---|
+| Builder | `src/dft/arm_c_ext_r7_build.py`, with `--check` (7 files) |
+| Decks, manifest | `runs/hea/arm_c_ext_r7_2026-11-01/` (2) and `runs/m_arm_c_ext_r7_2026-11-01_main.txt` |
+| Spec, plan, seed text files | `results/arm_c_ext_r7_2026-11-01/` (`launch_spec.json`, `ext_plan.json`, `seeds/`) |
+| Slurm | `anvil/102_arm_c_ext_r7.slurm` |
+| Operations | `results/arm_c_ext_r7_2026-11-01/launch_ops.py` (round 3's, with round 7's constants; one seed copy for the shared bundle; other projects' queued jobs allowed, arm-C jobs not) |
