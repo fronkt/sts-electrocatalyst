@@ -1,6 +1,6 @@
 """Offline checks for the S8 electrode readout (src/echem/s8_oer_readout.py): endpoints recovered from synthetic
-campaigns (src/echem/s8_oer_synthetic.py) and hand-built curves, the refusals on bad input, the lock-rule
-completeness logic, the K1/K2/IrO2 classes, the blinded mode, and the frozen predictions against the freeze document.
+campaigns (src/echem/s8_oer_synthetic.py) and hand-built curves, the refusals on bad input, the use of every
+measured disk (dated decision 2026-11-01), the K1/K2/IrO2 classes, the blinded mode, and the frozen predictions against the freeze document.
 No bench file is needed. The synthetic generator shares the readout's iR export convention, so these tests cannot
 check that convention; the bench check recorded with --ir-hw-verified does."""
 import csv
@@ -211,7 +211,8 @@ def test_end_to_end_classes_and_criterion(keyed):
     assert res["synthetic"] is True and res["blinded"] is False and res["lock_is_registered"] is False
     assert res["criterion"]["pooled_over"] == list(ro.K_SET) and res["criterion"]["df"] == 10
     assert res["criterion"]["pooled_sd_V"] == pytest.approx(syn.DISK_SD, abs=3e-4)
-    assert all(g["complete"] for g in res["alloys"].values())
+    assert res["criterion"]["basis"] == "2 x pooled SD"
+    assert all(g["n"] == 3 and g["measured"] for g in res["alloys"].values())
     # invented truth: Cu8 0.400 sits between Ni31 0.360 and Fe25 0.450; Cu22 0.490 is last by > 0.024 V
     assert res["k1"] == {"class": "mixed_or_unresolved", "Cu8_vs": {"Ni31": "higher", "Fe25": "lower"}}
     assert res["k2"]["class"] == "supported"
@@ -239,18 +240,34 @@ def test_blinded_readout_has_no_identity_dependent_result(campaign):
     res = readout(d / "manifest.csv", key=False)
     assert res["blinded"] and res["k1"] is None and res["k2"] is None and res["exploratory"] is None
     assert "alloys" not in res and sorted(res["codes"]) == list("ABCDEF")
-    assert all(g["complete"] and g["iro2"]["class"] for g in res["codes"].values())
+    assert all(g["n"] == 3 and g["iro2"]["class"] for g in res["codes"].values())
     assert res["criterion"]["df"] == 12 and "provisional" in res["criterion"]["note"]
 
 
 def test_lock_date_is_inclusive_and_excludes_later_days(campaign):
     d, _ = campaign
     res = readout(d / "manifest.csv", lock=syn.DAYS[1])
-    assert all(g["n"] == 2 and not g["complete"] for g in res["alloys"].values())
+    assert all(g["n"] == 2 and g["eta_10_mean_V"] is not None for g in res["alloys"].values())
     used_days = {r["day"] for r in res["runs"] if r["used"]}
     assert used_days == set(syn.DAYS[:2])
-    assert res["criterion"]["threshold_V"] is None
-    assert res["k1"]["class"] == res["k2"]["class"] == "not_evaluated" and res["exploratory"] is None
+    assert res["criterion"]["basis"] == "2 x pooled SD" and res["criterion"]["df"] == 5   # K-set, 1 df each
+    assert res["k1"]["class"] != "not_evaluated" and res["k2"]["class"] != "not_evaluated"
+    assert res["exploratory"]["alloys_measured"] == 6
+
+
+def test_single_disks_are_judged_by_their_ordering(campaign):
+    """Dated decision 2026-11-01: one disk per alloy is used. No replicate spread exists, so the threshold is 0 and
+    the classes are the ordering of the values (criterion basis 'ordering')."""
+    d, _ = campaign
+    res = readout(d / "manifest.csv", lock=syn.DAYS[0])
+    assert all(g["n"] == 1 and g["eta_10_sd_V"] is None for g in res["alloys"].values())
+    crit = res["criterion"]
+    assert crit["basis"] == "ordering" and crit["threshold_V"] is None and crit["df"] == 0 and crit["pooled_over"] == []
+    m = {a: g["eta_10_mean_V"] for a, g in res["alloys"].items()}
+    want = {o: ("lower" if m["Cu8"] < m[o] else "higher") for o in ("Ni31", "Fe25")}
+    assert res["k1"]["Cu8_vs"] == want
+    assert res["exploratory"]["measured_order"] == sorted(m, key=m.get)
+    assert all(g["iro2"]["class"] in ("lower", "higher") for g in res["alloys"].values())
 
 
 def test_day_without_iro2_or_blank_still_counts(campaign, tmp_path):
@@ -262,7 +279,7 @@ def test_day_without_iro2_or_blank_still_counts(campaign, tmp_path):
     res = readout(variant(campaign, tmp_path, edit), campaign_dir=campaign[0])
     day3 = res["days"][syn.DAYS[2]]
     assert day3["counted"] is True and day3["calibration"] == "bench" and day3["reference_run"] is None
-    assert all(g["n"] == 3 and g["complete"] for g in res["alloys"].values())
+    assert all(g["n"] == 3 for g in res["alloys"].values())
     ni31 = res["alloys"]["Ni31"]["iro2"]
     assert ni31["days_without_reference"] == [syn.DAYS[2]] and len(ni31["runs"]) == 2 and ni31["class"] is not None
 
@@ -274,7 +291,7 @@ def test_day_on_the_ph_formula_alone_does_not_count(campaign, tmp_path):
                 r["rhe_offset_V"], r["pH"] = "", "14"
     res = readout(variant(campaign, tmp_path, edit), campaign_dir=campaign[0])
     assert res["days"][syn.DAYS[2]]["counted"] is False and res["days"][syn.DAYS[2]]["calibration"] == "pH formula"
-    assert all(g["n"] == 2 and not g["complete"] for g in res["alloys"].values())
+    assert all(g["n"] == 2 for g in res["alloys"].values())
 
 
 def test_no_iro2_at_all_leaves_the_iro2_comparison_not_evaluated(campaign, tmp_path):
@@ -283,28 +300,40 @@ def test_no_iro2_at_all_leaves_the_iro2_comparison_not_evaluated(campaign, tmp_p
             if r["sample"] == ro.IRO2:
                 r["status"] = "not run"
     res = readout(variant(campaign, tmp_path, edit), campaign_dir=campaign[0])
-    assert all(g["complete"] for g in res["alloys"].values()) and res["iro2_runs"] == []
+    assert all(g["n"] == 3 for g in res["alloys"].values()) and res["iro2_runs"] == []
     for g in res["alloys"].values():
         assert g["iro2"]["class"] is None and g["iro2"]["eta_10_mean_V"] is None and "not evaluable" in g["iro2"]["note"]
     base = readout(campaign[0] / "manifest.csv")
     assert (res["k1"], res["k2"]) == (base["k1"], base["k2"])        # alloy-to-alloy tests never needed IrO2
 
 
-def test_incomplete_alloy_blocks_what_involves_it_and_its_numbers_stay_out(campaign, tmp_path):
+def test_alloy_with_fewer_disks_is_still_judged(campaign, tmp_path):
+    """Dated decision 2026-11-01: an alloy with 2 disks is used like the others and pools its 1 df."""
     def edit(rows):
         row(rows, "d1_A1_lsv")["status"] = "failed: disk cracked"
     res = readout(variant(campaign, tmp_path, edit), campaign_dir=campaign[0])
     cu8 = res["alloys"]["Cu8"]
-    assert not cu8["complete"] and cu8["n"] == 2
-    assert cu8["eta_10_mean_V"] is None and cu8["eta_10_V"] is None and "iro2" not in cu8
-    assert cu8["kept_not_reported"]["eta_10_mean_V"] is not None
-    assert res["criterion"]["pooled_over"] == ["Ni31", "Fe25", "Cu26", "Cu22"] and res["criterion"]["df"] == 8
-    assert res["k1"]["class"] == res["k2"]["class"] == "not_evaluated"
-    assert res["alloys"]["Ni31"]["iro2"]["class"] == "lower"
+    assert cu8["measured"] and cu8["n"] == 2 and len(cu8["eta_10_V"]) == 2 and cu8["eta_10_mean_V"] is not None
+    assert cu8["iro2"]["class"] is not None
+    assert res["criterion"]["pooled_over"] == list(ro.K_SET) and res["criterion"]["df"] == 9
+    assert res["k1"]["class"] != "not_evaluated" and res["k2"]["class"] != "not_evaluated"
     ex = res["exploratory"]
-    assert "measured_order" not in ex
-    assert ex["spearman"]["A"]["rho"] is None and ex["spearman"]["A"]["missing"] == ["Cu8"]
-    assert ex["spearman"]["C"]["rho"] is not None and ex["spearman"]["C_ext"]["rho"] is not None
+    assert len(ex["measured_order"]) == 6 and ex["spearman"]["A"]["n"] == 6 and ex["spearman"]["A"]["missing"] == []
+
+
+def test_an_alloy_with_no_disk_blocks_only_what_involves_it(campaign, tmp_path):
+    def edit(rows):
+        for r in rows:
+            if r["sample"].startswith("A") and r["technique"] == "lsv":
+                r["status"] = "failed: disk cracked"
+    res = readout(variant(campaign, tmp_path, edit), campaign_dir=campaign[0])
+    assert not res["alloys"]["Cu8"]["measured"] and res["alloys"]["Cu8"]["eta_10_mean_V"] is None
+    assert "iro2" not in res["alloys"]["Cu8"]
+    assert res["k1"] == {"class": "not_evaluated", "needs": ["Cu8"]}
+    assert res["k2"] == {"class": "not_evaluated", "needs": ["Cu8"]}   # Cu8 is in the K-set
+    ex = res["exploratory"]
+    assert ex["missing"] == ["Cu8"] and "Cu8" not in ex["measured_order"]
+    assert ex["spearman"]["A"]["n"] == 5 and ex["spearman"]["A"]["missing"] == ["Cu8"] and ex["spearman"]["A"]["rho"] is not None
 
 
 def test_a_spare_replaces_a_failed_disk(campaign, tmp_path):
@@ -313,7 +342,7 @@ def test_a_spare_replaces_a_failed_disk(campaign, tmp_path):
         i = rows.index(row(rows, "d1_A1_lsv"))
         rows.insert(i + 1, dict(rows[i], run_id="d1_AS_lsv", sample="AS", status="ok", notes="spare for A1"))
     res = readout(variant(campaign, tmp_path, edit), campaign_dir=campaign[0])
-    assert res["alloys"]["Cu8"]["complete"] and sorted(res["alloys"]["Cu8"]["disks"]) == ["A2", "A3", "AS"]
+    assert res["alloys"]["Cu8"]["n"] == 3 and sorted(res["alloys"]["Cu8"]["disks"]) == ["A2", "A3", "AS"]
 
 
 def test_primary_sweep_follows_days_not_row_order(campaign, tmp_path):

@@ -238,6 +238,22 @@ What the stated value leaves open:
   E, C, A, F), so drift would read as a difference between alloys; spreading each alloy's disks over at least two days
   moves part of it into the pooled SD.
 
+## Dated decision, 2026-11-01 (Frank): every measured disk is used
+
+Frank, 2026-11-01: "remove the rule and we use all data given to us." Made after day 2 (2026-10-30: disk B1, and
+activation CVs on disk D1) was read out, with codes A and B at one disk each and the bench planning one disk for each
+remaining code by 2026-11-02.
+
+1. **The lock rule's completeness requirement is withdrawn** (s8-electrode-lock-rule-2026-10-16.md, items 1-3, and
+   the replicate rule of freeze §6 as a condition for reporting). An alloy is measured with one disk that has η₁₀; its
+   value is the mean over its disks, and every alloy's values are reported, with n.
+2. **Criterion.** The freeze §6 yardstick stays where it can be computed: twice the disk-to-disk SD pooled over the
+   K-set alloys that have at least two disks. Until any alloy has two, there is no SD, and every comparison (K1, K2,
+   IrO₂, the measured order) is the ordering of the values, marked `basis: ordering` in the readout.
+3. **Lock date** 2026-11-05 (the report date), so no disk the bench sends before the report is left out.
+4. **Unchanged:** the primary sweep (choice 6), the counted-day rule, statuses decided blinded from the files,
+   blinded readout until the single unblinding, and K1 and K2 still need every alloy they involve to have a disk.
+
 ## Changes after data (bug fixes only, each with its reason)
 
 **2026-10-25, after the bench's first files (disk A1, 2026-10-24), before any readout of them.** Each change follows the
@@ -284,3 +300,14 @@ the first of these. All 41 tests pass.
    day has the bench's RHE value". The logic is unchanged: a value from the bench makes the day count, the pH formula
    alone does not. The two tests that named the label now read `bench`; all 41 pass. Rerun on day 1:
    `readout_blinded_2026-10-26.json`, day 2026-10-24 counted, every value as on 2026-10-25.
+
+**2026-11-01, after the dated decision of the same day** (a rule change, not a bug fix; listed here with the code).
+
+7. **Every measured disk used.** `_group` reports each code's values for any n ≥ 1 (`measured`; `complete` and
+   `kept_not_reported` are gone). The pooled SD takes the codes with at least two disks; with none, the comparison
+   threshold is 0 and the criterion's `basis` reads `ordering`. The IrO₂ comparison runs for every measured alloy.
+   K1 and K2 run when each alloy they involve is measured (`needs` lists the missing ones). The exploratory items run
+   over the alloys measured (Spearman ρ with at least 3 of an arm's alloys; `missing` listed). `REGISTERED_LOCK` is
+   2026-11-05. Tests: the lock-date test now checks 2-disk alloys are judged on a 5-df SD; new tests for one disk
+   per alloy (ordering) and for an alloy with no disk (blocks K1 and K2 only); the incomplete-alloy test became an
+   alloy-with-fewer-disks test. All 43 pass.

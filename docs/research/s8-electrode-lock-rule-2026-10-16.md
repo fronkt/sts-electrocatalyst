@@ -28,3 +28,9 @@ be an undisclosed analysis choice. This line fixes it first.
      repository.
 4. This rule adds no threshold and changes no criterion. K1, K2, the IrO₂ comparison and the twice-pooled-SD rule
    stand as frozen in §3 and §6.
+
+## Withdrawn 2026-11-01 (Frank)
+
+"Remove the rule and we use all data given to us." Items 1-3 no longer apply: every measured disk is used and every
+alloy's values are reported. The replacement criterion and lock date are in the dated decision of 2026-11-01 in
+[s8-oer-analysis-2026-10-19.md](s8-oer-analysis-2026-10-19.md).

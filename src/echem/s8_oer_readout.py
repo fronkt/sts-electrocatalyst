@@ -34,21 +34,23 @@ WHAT IS COMPUTED, PER RUN.
     the roughness factor. Reported only.
   Drift (12 h hold): slope of the iR-corrected potential after the first 10 min, mV/h. Reported only.
 
-WHAT IS JUDGED. Only alloys complete under the lock rule, from runs on or before the lock date, in time order (day,
-then manifest row).
+WHAT IS JUDGED. Every alloy with at least one disk that has eta_10, from runs on or before the lock date, in time
+order (day, then manifest row). The lock rule's completeness requirement (3 disks over 2 days) was removed by the
+dated decision of 2026-11-01: all data received are used.
   A bench day counts when every analysed run used that day carries the bench's RHE value (choice 7 as amended on
   2026-10-25 and 2026-10-26; a day on the pH formula alone does not count). IrO2 and blanks are not required. The day's first ok IrO2
   sweep that reaches 10 mA cm-2, if any, is its reference.
   A disk's primary sweep is its first ok sweep on a counted day; later sweeps are reported, never averaged in.
-  An alloy is complete with at least 3 disks that have eta_10, over at least 2 counted days. An incomplete alloy's
-  numbers are kept under "kept_not_reported" and nowhere else.
+  An alloy is measured with at least 1 disk that has eta_10; its mean over its disks is its value.
   Criterion (freeze §6): a difference in mean eta_10 counts only if it exceeds twice the pooled disk-to-disk SD. The
-  SD is pooled over the complete K-set alloys only, so Ni34 changes no primary test (freeze §2); the same yardstick
-  serves every comparison.
-  K1 (Cu8 against Ni31 and Fe25), K2 (Cu22 least active of the five K-set alloys), the IrO2 comparison per complete
+  SD is pooled over the measured K-set alloys that have at least 2 disks, so Ni34 changes no primary test (freeze
+  §2); the same yardstick serves every comparison. With no replicate disks yet there is no SD, and comparisons are the
+  ordering of the values alone (criterion "basis": "ordering").
+  K1 (Cu8 against Ni31 and Fe25), K2 (Cu22 least active of the five K-set alloys), the IrO2 comparison per measured
   alloy (against the reference sweeps of the days its disks were measured, where such references exist; with none it
-  is not evaluated), and the exploratory items: each arm's
-  leader, Spearman rho of the measured order against each arm, and Ni34's position. Each needs every alloy it involves.
+  is not evaluated), and the exploratory items: the measured order and leader over the alloys measured, each arm's
+  leader, Spearman rho against each arm over its measured alloys (at least 3), and Ni34's position. K1 and K2 need
+  every alloy they involve to be measured.
 
 Usage:
   PYTHONPATH=src python src/echem/s8_oer_readout.py --manifest DATA/manifest.csv --lock 2026-11-03 \\
@@ -69,8 +71,8 @@ from datetime import date
 import numpy as np
 from scipy.stats import spearmanr
 
-REGISTERED_LOCK = "2026-11-03"   # lock rule, moved from 2026-10-25 by the dated line of 2026-10-25; a different
-                                 # --lock is reported as such
+REGISTERED_LOCK = "2026-11-05"   # moved from 2026-10-25 (dated line of 2026-10-25, to 11-03) and to the report date
+                                 # by the dated decision of 2026-11-01; a different --lock is reported as such
 E_EQ = 1.23                      # V vs RHE
 IR_TOTAL = 0.90                  # freeze §6: 90% iR compensation
 IR_HW_MAX = 1.50                 # largest instrument share accepted; above IR_TOTAL is flagged as over-compensation
@@ -486,25 +488,25 @@ def classify_k2(means, threshold):
 
 
 def exploratory(means, threshold):
-    out = {}
-    if all(a in means for a in ALLOYS):
-        order = sorted(ALLOYS, key=lambda a: means[a])
+    """Over the alloys measured: order, leader, each arm's leader, Spearman rho per arm (at least 3 of its alloys)
+    and Ni34's position; every item lists what is missing."""
+    order = sorted((a for a in ALLOYS if a in means), key=lambda a: means[a])
+    out = {"alloys_measured": len(order), "missing": [a for a in ALLOYS if a not in means]}
+    if len(order) >= 2:
         leader, second = order[0], order[1]
         out["measured_order"] = order
         out["measured_leader"] = leader
         out["leader_distinguishable"] = compare(means[leader], means[second], threshold) == "lower"
-        out["arm_leaders"] = {arm: {"predicted": a, "measured_first": a == leader,
+        out["arm_leaders"] = {arm: {"predicted": a, "measured": a in means, "measured_first": a == leader,
                                     "distinguishably_first": a == leader and out["leader_distinguishable"]}
                               for arm, a in ARM_LEADER.items()}
-        out["Ni34_position"] = order.index("Ni34") + 1
+        out["Ni34_position"] = order.index("Ni34") + 1 if "Ni34" in means else None
     rho = {}
     for arm, pred in PREDICTIONS.items():
-        names = sorted(pred)
-        if all(a in means for a in names):
-            r = float(spearmanr([pred[a] for a in names], [means[a] for a in names])[0])
-            rho[arm] = {"rho": r if math.isfinite(r) else None, "n": len(names)}
-        else:
-            rho[arm] = {"rho": None, "n": len(names), "missing": [a for a in names if a not in means]}
+        names = sorted(a for a in pred if a in means)
+        r = float(spearmanr([pred[a] for a in names], [means[a] for a in names])[0]) if len(names) >= 3 else math.nan
+        rho[arm] = {"rho": r if math.isfinite(r) else None, "n": len(names),
+                    "missing": [a for a in sorted(pred) if a not in means]}
     out["spearman"] = rho
     return out
 
@@ -528,10 +530,6 @@ def run_endpoints(run, base):
     return cdl_point(curve, run)
 
 
-GROUP_STATS = ("eta_10_V", "eta_10_mean_V", "eta_10_sd_V", "eta_1_mean_V", "tafel_mV_dec_mean", "cdl_F_mean",
-               "specific_activity_mean_mA_cm2", "drift_mV_h")
-
-
 def _group(disks, code):
     counted = [d for d in disks.values() if d["alloy_code"] == code and d.get("eta_10_V") is not None]
     days = sorted({d["day"] for d in counted})
@@ -542,14 +540,10 @@ def _group(disks, code):
              "cdl_F_mean": _mean([d.get("cdl_F") for d in counted]),
              "specific_activity_mean_mA_cm2": _mean([d.get("specific_activity_mA_cm2") for d in counted]),
              "drift_mV_h": [d["drift_mV_h"] for d in counted if d.get("drift_mV_h") is not None]}
-    g = {"disks": [d["code"] for d in counted], "n": len(counted), "days": days,
-         "complete": len(counted) >= 3 and len(days) >= 2,
+    g = {"disks": [d["code"] for d in counted], "n": len(counted), "days": days, "measured": len(counted) >= 1,
          "no_eta10_disks": [d["code"] for d in disks.values() if d["alloy_code"] == code
                             and d["primary_run"] and d.get("eta_10_V") is None]}
-    if g["complete"]:
-        g.update(stats)
-    else:                                                     # lock rule 3: kept, dated, not reported
-        g.update({k: None for k in GROUP_STATS}, kept_not_reported=stats)
+    g.update(stats)                                           # every value reported (dated decision 2026-11-01)
     return g
 
 
@@ -638,43 +632,46 @@ def readout(manifest, lock, key_path=None, ir_hw_verified=None):
     }
 
     def judge(names_by_code, pool_codes):
+        """Pooled SD over the given codes' replicate disks (single-disk codes add nothing). With no replicates, the
+        comparison threshold is 0: the ordering of the values alone."""
         sd_p, df = pooled_sd([groups[c]["eta_10_V"] for c in pool_codes])
         threshold = 2 * sd_p if sd_p is not None else None
+        use = threshold if threshold is not None else 0.0
         for c, g in groups.items():
-            if g["complete"]:
+            if g["measured"]:
                 ref = [reference[d] for d in g["days"] if d in reference]
                 ir = _mean([r["eta_10_V"] for r in ref])
                 g["iro2"] = {"runs": [r["run_id"] for r in ref], "eta_10_mean_V": ir,
                              "days_without_reference": [d for d in g["days"] if d not in reference],
-                             "class": (compare(g["eta_10_mean_V"], ir, threshold)
-                                       if threshold is not None and ir is not None else None)}
+                             "class": compare(g["eta_10_mean_V"], ir, use) if ir is not None else None}
                 if ir is None:
                     g["iro2"]["note"] = ("no same-bench IrO2 on this alloy's days: the freeze §6 IrO2 comparison is "
                                          "not evaluable as registered (dated line of 2026-10-25)")
-        return {"rule": "difference in mean eta_10 > 2 x pooled disk-to-disk SD (freeze §6)",
-                "pooled_over": [names_by_code[c] for c in pool_codes], "pooled_sd_V": sd_p, "df": df,
-                "threshold_V": threshold}, threshold
+        return {"rule": "difference in mean eta_10 > 2 x pooled disk-to-disk SD (freeze §6); with no replicate "
+                        "disks, the ordering of the values (dated decision 2026-11-01)",
+                "basis": "2 x pooled SD" if threshold is not None else "ordering",
+                "pooled_over": [names_by_code[c] for c in pool_codes if len(groups[c]["eta_10_V"]) > 1],
+                "pooled_sd_V": sd_p, "df": df, "threshold_V": threshold}, use
 
     if key_path is None:
-        crit, _ = judge({c: c for c in CODES}, [c for c in CODES if groups[c]["complete"]])
-        crit["note"] = ("blinded: pooled over every complete code; the keyed readout pools the complete K-set alloys "
-                        "only (freeze §2), so blinded classes are provisional")
+        crit, _ = judge({c: c for c in CODES}, [c for c in CODES if groups[c]["measured"]])
+        crit["note"] = ("blinded: pooled over every measured code; the keyed readout pools the K-set alloys only "
+                        "(freeze §2), so blinded classes are provisional")
         result.update(blinded=True, criterion=crit, codes=groups, k1=None, k2=None, exploratory=None)
         return result
 
     key = read_key(key_path)
     code_of = {a: c for c, a in key.items()}
-    crit, threshold = judge(key, [code_of[a] for a in K_SET if groups[code_of[a]]["complete"]])
+    crit, threshold = judge(key, [code_of[a] for a in K_SET if groups[code_of[a]]["measured"]])
     alloys = {a: dict(groups[code_of[a]], code=code_of[a]) for a in ALLOYS}
-    means = {a: g["eta_10_mean_V"] for a, g in alloys.items() if g["complete"]}
-    ok = threshold is not None
+    means = {a: g["eta_10_mean_V"] for a, g in alloys.items() if g["measured"]}
     result.update(
         blinded=False, key={"sha256": sha256(key_path)}, criterion=crit, alloys=alloys,
-        k1=(classify_k1(means, threshold) if ok and all(a in means for a in ("Cu8", "Ni31", "Fe25"))
-            else {"class": "not_evaluated", "needs": ["Cu8", "Ni31", "Fe25"]}),
-        k2=(classify_k2(means, threshold) if ok and all(a in means for a in K_SET)
-            else {"class": "not_evaluated", "needs": list(K_SET)}),
-        exploratory=exploratory(means, threshold) if ok else None)
+        k1=(classify_k1(means, threshold) if all(a in means for a in ("Cu8", "Ni31", "Fe25"))
+            else {"class": "not_evaluated", "needs": [a for a in ("Cu8", "Ni31", "Fe25") if a not in means]}),
+        k2=(classify_k2(means, threshold) if all(a in means for a in K_SET)
+            else {"class": "not_evaluated", "needs": [a for a in K_SET if a not in means]}),
+        exploratory=exploratory(means, threshold))
     return result
 
 
@@ -704,9 +701,9 @@ def main(argv=None):
         json.dump(res, f, indent=1, ensure_ascii=False)
         f.write("\n")
     groups = res.get("codes") or res.get("alloys")
-    done = [c for c, g in groups.items() if g["complete"]]
-    print(f"{'BLINDED ' if res['blinded'] else ''}readout -> {a.out}; complete: {done or 'none'}; "
-          f"threshold {res['criterion']['threshold_V']}")
+    done = [f"{c} (n={g['n']})" for c, g in groups.items() if g["measured"]]
+    print(f"{'BLINDED ' if res['blinded'] else ''}readout -> {a.out}; measured: {done or 'none'}; "
+          f"criterion {res['criterion']['basis']}, threshold {res['criterion']['threshold_V']}")
     if not res["lock_is_registered"]:
         print(f"NOTE: lock {res['lock_date']} is not the registered {REGISTERED_LOCK}")
     for d, info in res["days"].items():

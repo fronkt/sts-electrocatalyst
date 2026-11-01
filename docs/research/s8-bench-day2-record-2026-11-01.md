@@ -127,3 +127,11 @@ would separate the two.
   disk each, so by the 2026-11-03 lock only code A can be complete, and K1, K2 and every ranking are not evaluable as
   registered. Either the registered outcome stands (the report says the measurements were not complete at the lock),
   or a dated departure, written before the remaining disks are measured, sets what single-disk values may show.
+
+## Update 2026-11-01 (later): every measured disk used
+
+Frank withdrew the lock rule's completeness requirement the same day (dated decision of 2026-11-01 in
+s8-oer-analysis-2026-10-19.md; the "kept, not reported" status and the open question above no longer apply). Rerun:
+`results/s8_oer/day2_2026-10-30/readout_blinded_2026-11-01_all-data.json` (lock 2026-11-05). Codes A and B are
+measured (n = 1 each: η₁₀ 0.3650 and 0.3160 V), C–F not yet; criterion basis `ordering` (no replicate disks, so no
+pooled SD). Every disk value is as in the earlier readout.
