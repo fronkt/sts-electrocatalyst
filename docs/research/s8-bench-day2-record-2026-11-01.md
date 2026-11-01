@@ -135,3 +135,9 @@ s8-oer-analysis-2026-10-19.md; the "kept, not reported" status and the open ques
 `results/s8_oer/day2_2026-10-30/readout_blinded_2026-11-01_all-data.json` (lock 2026-11-05). Codes A and B are
 measured (n = 1 each: η₁₀ 0.3650 and 0.3160 V), C–F not yet; criterion basis `ordering` (no replicate disks, so no
 pooled SD). Every disk value is as in the earlier readout.
+
+## Update 2026-11-01 (later): codes A, B and D unblinded for the report
+
+At Frank's request to report code B's result, codes A, B and D were unblinded the same day, and their values went into
+the report (Section 4.6) under alloy names. The code-to-alloy map stays in the private key. Codes C, E and F stay
+blinded; runs of every code are still accepted or rejected from the instrument record before their values are read.
