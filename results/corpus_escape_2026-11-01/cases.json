@@ -1,0 +1,3399 @@
+{
+  "schema": "corpus-escape-cases-v1",
+  "date": "2026-11-01",
+  "design": "docs/research/corpus-escape-2026-11-01.md",
+  "census": {
+    "path": "results/s2_2026-09-18/xu_census.json",
+    "sha256": "63519dfb513878b95b3a0559b5a18844344296dbf996d6f06333a6564756119f"
+  },
+  "corpus_root_default": "C:\\Users\\frank\\sts-corpora\\xu\\extracted\\zhongnanxu-rutile-OER-c4cb892",
+  "selection": {
+    "tier1": {
+      "states": [
+        "OOH"
+      ],
+      "expected": 10,
+      "per_metal": 1
+    },
+    "tier2": {
+      "states": [
+        "OH"
+      ],
+      "expected": 20,
+      "per_metal": 2
+    }
+  },
+  "launch_groups": {
+    "tier1a": {
+      "tier": "tier1",
+      "deposited_converged": true
+    },
+    "tier1b": {
+      "tier": "tier1",
+      "deposited_converged": false
+    },
+    "tier2": {
+      "tier": "tier2",
+      "deposited_converged": null
+    }
+  },
+  "displacement_A": {
+    "O_bind": 0.05,
+    "O_distal": 0.075,
+    "H": 0.1
+  },
+  "deviations": {
+    "prefix/outdir/pseudo_dir": "runner contract: prefix = job name; outdir and pseudo_dir rewritten at execution",
+    "disk_io": "runner retains density/XML and projwfc.x needs wavefunctions; default 'low'",
+    "nbnd": "pw.x default (1.2 x occupied); deposited count is unaffordable (cost_estimate.json)",
+    "Hubbard_U(i), Hubbard_alpha(i)": "all zero and lda_plus_u never set: inert; pw.x 7.5 reads DFT+U only from a HUBBARD card",
+    "&CELL": "empty and ignored for 'relax' (deposited output: 'Warning: card &CELL ignored')",
+    "forc_conv_thr": "1.0d-4 Ry/bohr (deposited default 1e-3): stall guard at the 0.10 A start",
+    "nstep": "100 (deposited default 50): more BFGS steps at the tighter threshold",
+    "escape: nosym": ".true. in the escape arm only; noinv unset (registered change S0(b))",
+    "ATOMIC_SPECIES UPF files": "current GBRV v1.5 in place of the deposited v1/v1.01 files, which are no longer distributed (Frank, 2026-11-01; SUBSTITUTE); Mo and Nb byte-identical"
+  },
+  "nk": 8,
+  "wall_minutes": {
+    "tier1a_held": 180,
+    "tier1a_escape": 360,
+    "tier1b_held": 420,
+    "tier1b_escape": 420,
+    "tier2_held": 180,
+    "tier2_escape": 360
+  },
+  "stage_ceilings_cpu_su": {
+    "tier1a_held": 2304,
+    "tier1a_escape": 4608,
+    "tier1b_held": 3584,
+    "tier1b_escape": 3584,
+    "tier2_held": 7680,
+    "tier2_escape": 15360
+  },
+  "cases": [
+    {
+      "tier": "tier1",
+      "metal": "CrO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49,
+        50
+      ],
+      "adsorbate_index1": [
+        49,
+        50,
+        51
+      ],
+      "census_output": "supporting-data/CrO2/Eads-4-layers/OOH-relax/pwscf.out",
+      "census_input": "supporting-data/CrO2/Eads-4-layers/OOH-relax/pwscf.in",
+      "deposited_output_sha256": "03c6338f147e8857809fdc50691989007541e6bbd28e15bdf6fcea7b27b08e28",
+      "deposited_input_sha256": "a75b5cac8560b73fe5d3e1ffea5b51b43bed40551bac4bc56744c68f0b068956",
+      "deposited_geometry_source": "last printed geometry (15 printed; run stopped before converging)",
+      "deposited_converged": false,
+      "deposited_final_energy_Ry": null,
+      "deposited_scf_iterations": [
+        48,
+        13,
+        20,
+        21,
+        22,
+        28,
+        29,
+        25,
+        28,
+        25,
+        25,
+        25,
+        25,
+        21,
+        20
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 18,
+      "deposited_nelec": 429.0,
+      "deposited_nbnd": 619,
+      "deposited_absmag_last": 36.42,
+      "nat": 51,
+      "nspin": 2,
+      "tot_magnetization": "31",
+      "cell_lengths_A": [
+        5.8,
+        6.19425540319,
+        35.7690852661
+      ],
+      "volume_A3": 1285.064528,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Cr1": {
+          "deposited_upf": "cr_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "68b6f918d1762dccfb11451fe85b0e0e",
+          "run_upf": "cr_pbe_v1.5.uspp.F.UPF",
+          "run_md5": "0d52af634a40206e4dee301ad30da4bf"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 1.609823385706477e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.008620689655
+        },
+        "51": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.01724137931
+        },
+        "50": {
+          "role": "O_distal",
+          "species": "O0",
+          "angstrom": 0.075,
+          "crystal": 0.012931034483
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 1.609823385706477e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999998,
+          "start_reflection_mismatch_A": 0.19999999640000002
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/CrO2__OOH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/CrO2__OOH-relax__escape.in"
+      },
+      "launch_group": "tier1b"
+    },
+    {
+      "tier": "tier1",
+      "metal": "IrO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49,
+        50
+      ],
+      "adsorbate_index1": [
+        49,
+        50,
+        51
+      ],
+      "census_output": "supporting-data/IrO2/Eads-4-layers/OOH-relax/pwscf.out",
+      "census_input": "supporting-data/IrO2/Eads-4-layers/OOH-relax/pwscf.in",
+      "deposited_output_sha256": "8904b685a18bc78b0b6e36057fc959afd51965805674cd5b9d6090794863b972",
+      "deposited_input_sha256": "bc4896d2faf0e216f4292e42641f32989d5c2b948c413811cb9662da5b38410e",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-4075.12794715",
+      "deposited_scf_iterations": [
+        38,
+        19,
+        19,
+        18,
+        19,
+        18,
+        18,
+        18,
+        20,
+        19,
+        17,
+        20,
+        17,
+        19,
+        20,
+        19,
+        19,
+        20,
+        21,
+        19,
+        19,
+        17,
+        17,
+        18,
+        19,
+        19
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 445.0,
+      "deposited_nbnd": 667,
+      "deposited_absmag_last": null,
+      "nat": 51,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        6.36,
+        6.42052957317,
+        36.0705955976
+      ],
+      "volume_A3": 1472.927192,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Ir1": {
+          "deposited_upf": "ir_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "abf987a9674477536ede83817f8f8b70",
+          "run_upf": "ir_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "8836f839c3459d2b385c504ce6d91f2c"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 7.061018436615996e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.00786163522
+        },
+        "51": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.01572327044
+        },
+        "50": {
+          "role": "O_distal",
+          "species": "O0",
+          "angstrom": 0.075,
+          "crystal": 0.01179245283
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 7.061018436615996e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999997,
+          "start_reflection_mismatch_A": 0.19999999439999944
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/IrO2__OOH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/IrO2__OOH-relax__escape.in"
+      },
+      "launch_group": "tier1a"
+    },
+    {
+      "tier": "tier1",
+      "metal": "MnO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49,
+        50
+      ],
+      "adsorbate_index1": [
+        49,
+        50,
+        51
+      ],
+      "census_output": "supporting-data/MnO2/Eads-4-layers/OOH-relax/pwscf.out",
+      "census_input": "supporting-data/MnO2/Eads-4-layers/OOH-relax/pwscf.in",
+      "deposited_output_sha256": "4f52b0e1d1bc040ba5610eb472c6e8a5ebb42bc4c4eabd34caf1928a3d819fe3",
+      "deposited_input_sha256": "2d00a730f00955a666441c9972d0d2643267d569d4203fe1927e82f90922bb9f",
+      "deposited_geometry_source": "last printed geometry (13 printed; run stopped before converging)",
+      "deposited_converged": false,
+      "deposited_final_energy_Ry": null,
+      "deposited_scf_iterations": [
+        48,
+        18,
+        26,
+        23,
+        26,
+        28,
+        25,
+        32,
+        29,
+        28,
+        26,
+        30,
+        34
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 18,
+      "deposited_nelec": 445.0,
+      "deposited_nbnd": 643,
+      "deposited_absmag_last": 48.76,
+      "nat": 51,
+      "nspin": 2,
+      "tot_magnetization": "47",
+      "cell_lengths_A": [
+        5.68,
+        6.16597113195,
+        35.7153451507
+      ],
+      "volume_A3": 1250.848391,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Mn1": {
+          "deposited_upf": "mn_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "5fd7c7b5c956fd19902447332617373a",
+          "run_upf": "mn_pbe_v1.5.uspp.F.UPF",
+          "run_md5": "82ef2b46521d7a7d9e736dc3972e4928"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 3.1530333899354444e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.008802816901
+        },
+        "51": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.017605633803
+        },
+        "50": {
+          "role": "O_distal",
+          "species": "O0",
+          "angstrom": 0.075,
+          "crystal": 0.013204225352
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 3.1530333899354444e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.100000001,
+          "start_reflection_mismatch_A": 0.20000000224000042
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/MnO2__OOH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/MnO2__OOH-relax__escape.in"
+      },
+      "launch_group": "tier1b"
+    },
+    {
+      "tier": "tier1",
+      "metal": "MoO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49,
+        50
+      ],
+      "adsorbate_index1": [
+        49,
+        50,
+        51
+      ],
+      "census_output": "supporting-data/MoO2/Eads-4-layers/OOH-relax/pwscf.out",
+      "census_input": "supporting-data/MoO2/Eads-4-layers/OOH-relax/pwscf.in",
+      "deposited_output_sha256": "f8ad861f0d8e1735921687c310152a184a3d513798b7ab935d5ad520497d24e7",
+      "deposited_input_sha256": "78487e785ebeccce562b8eade720e9d133b6b2f42b1c99193aa583d2d1751ceb",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-3327.57216432",
+      "deposited_scf_iterations": [
+        36,
+        18,
+        20,
+        22,
+        20,
+        16,
+        18,
+        18,
+        16,
+        19,
+        19,
+        20,
+        16,
+        20,
+        19,
+        20,
+        20,
+        19,
+        18,
+        18,
+        19,
+        20,
+        20,
+        20,
+        17
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 429.0,
+      "deposited_nbnd": 643,
+      "deposited_absmag_last": null,
+      "nat": 51,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        5.46,
+        7.00035713375,
+        37.5806928395
+      ],
+      "volume_A3": 1436.407361,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Mo1": {
+          "deposited_upf": "mo_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "30c4dcd161f5d35cd49bb5239c51a633",
+          "run_upf": "mo_pbe_v1.uspp.F.UPF",
+          "run_md5": "30c4dcd161f5d35cd49bb5239c51a633"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 6.061817714453355e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.009157509158
+        },
+        "51": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.018315018315
+        },
+        "50": {
+          "role": "O_distal",
+          "species": "O0",
+          "angstrom": 0.075,
+          "crystal": 0.013736263736
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 6.061817714453355e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999998,
+          "start_reflection_mismatch_A": 0.19999999656000017
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/MoO2__OOH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/MoO2__OOH-relax__escape.in"
+      },
+      "launch_group": "tier1a"
+    },
+    {
+      "tier": "tier1",
+      "metal": "NbO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49,
+        50
+      ],
+      "adsorbate_index1": [
+        49,
+        50,
+        51
+      ],
+      "census_output": "supporting-data/NbO2/Eads-4-layers/OOH-relax/pwscf.out",
+      "census_input": "supporting-data/NbO2/Eads-4-layers/OOH-relax/pwscf.in",
+      "deposited_output_sha256": "8152fb36bf6e03099de482d3061c23365ce64b2b7f3d5ad156f13684b374e4a6",
+      "deposited_input_sha256": "e589ba332f276771e2fb0186cfa0be8fc7c93beca0873d7aa07860b5d302e364",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-2987.50254070",
+      "deposited_scf_iterations": [
+        23,
+        7,
+        11
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 413.0,
+      "deposited_nbnd": 619,
+      "deposited_absmag_last": null,
+      "nat": 51,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        5.92,
+        6.98621499812,
+        37.4135327964
+      ],
+      "volume_A3": 1547.363585,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Nb1": {
+          "deposited_upf": "nb_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "573aab8a2fa660278ed4a62cd769473f",
+          "run_upf": "nb_pbe_v1.uspp.F.UPF",
+          "run_md5": "573aab8a2fa660278ed4a62cd769473f"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 6.572520305780927e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.008445945946
+        },
+        "51": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.016891891892
+        },
+        "50": {
+          "role": "O_distal",
+          "species": "O0",
+          "angstrom": 0.075,
+          "crystal": 0.012668918919
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 6.572520305780927e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.100000001,
+          "start_reflection_mismatch_A": 0.20000000127999956
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/NbO2__OOH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/NbO2__OOH-relax__escape.in"
+      },
+      "launch_group": "tier1a"
+    },
+    {
+      "tier": "tier1",
+      "metal": "PtO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49,
+        50
+      ],
+      "adsorbate_index1": [
+        49,
+        50,
+        51
+      ],
+      "census_output": "supporting-data/PtO2/Eads-4-layers/OOH-relax/pwscf.out",
+      "census_input": "supporting-data/PtO2/Eads-4-layers/OOH-relax/pwscf.in",
+      "deposited_output_sha256": "5b89ed5f9d4753004fbdbd6851802fbfa0aab6a0b7524440cb1a7fd60d861b00",
+      "deposited_input_sha256": "acc2ec61d05829fd4da1c1f220a960343f91cafec133d4c6e5744f8c1a181fd6",
+      "deposited_geometry_source": "last printed geometry (24 printed; run stopped before converging)",
+      "deposited_converged": false,
+      "deposited_final_energy_Ry": null,
+      "deposited_scf_iterations": [
+        32,
+        14,
+        18,
+        19,
+        20,
+        21,
+        21,
+        21,
+        19,
+        26,
+        20,
+        18,
+        18,
+        20,
+        17,
+        19,
+        19,
+        19,
+        17,
+        20,
+        20,
+        19,
+        22,
+        21
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 461.0,
+      "deposited_nbnd": 691,
+      "deposited_absmag_last": null,
+      "nat": 51,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        6.46,
+        6.49124025129,
+        36.2035316724
+      ],
+      "volume_A3": 1518.13761,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Pt1": {
+          "deposited_upf": "pt_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "4c71d6ad5ef119f1eb26a4d0b7884226",
+          "run_upf": "pt_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "f09d6de1a584b5a045c4fc126da2d0c4"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 7.172040739078511e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.00773993808
+        },
+        "51": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.015479876161
+        },
+        "50": {
+          "role": "O_distal",
+          "species": "O0",
+          "angstrom": 0.075,
+          "crystal": 0.011609907121
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 7.172040739078511e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999999,
+          "start_reflection_mismatch_A": 0.19999999792000003
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/PtO2__OOH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/PtO2__OOH-relax__escape.in"
+      },
+      "launch_group": "tier1b"
+    },
+    {
+      "tier": "tier1",
+      "metal": "ReO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49,
+        50
+      ],
+      "adsorbate_index1": [
+        49,
+        50,
+        51
+      ],
+      "census_output": "supporting-data/ReO2/Eads-4-layers/OOH-relax/pwscf.out",
+      "census_input": "supporting-data/ReO2/Eads-4-layers/OOH-relax/pwscf.in",
+      "deposited_output_sha256": "3bffef68e01dd4a3e1c340f273e0181cb491b93e39c858d77294fbbf7efb12d7",
+      "deposited_input_sha256": "bd9ec7b1bb8962397951795852ae3c67f15bf6e1658e58482a60dc786bc727ad",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-4213.28921048",
+      "deposited_scf_iterations": [
+        33,
+        12,
+        21,
+        26,
+        27,
+        27,
+        27,
+        31,
+        27,
+        27,
+        26,
+        21,
+        21,
+        20,
+        20
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 445.0,
+      "deposited_nbnd": 667,
+      "deposited_absmag_last": null,
+      "nat": 51,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        5.36,
+        7.00035713375,
+        37.5806928395
+      ],
+      "volume_A3": 1410.099534,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Re1": {
+          "deposited_upf": "re_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "6f5a5dcaf9c96c20d0ffdde0de57afc6",
+          "run_upf": "re_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "85f993410f3e006da9d71c142b4ad953"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 5.950795411990839e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.009328358209
+        },
+        "51": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.018656716418
+        },
+        "50": {
+          "role": "O_distal",
+          "species": "O0",
+          "angstrom": 0.075,
+          "crystal": 0.013992537313
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 5.950795411990839e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999998,
+          "start_reflection_mismatch_A": 0.1999999955199996
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/ReO2__OOH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/ReO2__OOH-relax__escape.in"
+      },
+      "launch_group": "tier1a"
+    },
+    {
+      "tier": "tier1",
+      "metal": "RhO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49,
+        50
+      ],
+      "adsorbate_index1": [
+        49,
+        50,
+        51
+      ],
+      "census_output": "supporting-data/RhO2/Eads-4-layers/OOH-relax/pwscf.out",
+      "census_input": "supporting-data/RhO2/Eads-4-layers/OOH-relax/pwscf.in",
+      "deposited_output_sha256": "c37c5f6ea882939e3b056f26b1e10d513278c0c71c581dbde5c04107a02290e7",
+      "deposited_input_sha256": "1e632934c8d6dafc10a4620f42aa7f40b075e43369547f73bc7c886ed13a0de5",
+      "deposited_geometry_source": "last printed geometry (19 printed; run stopped before converging)",
+      "deposited_converged": false,
+      "deposited_final_energy_Ry": null,
+      "deposited_scf_iterations": [
+        48,
+        16,
+        28,
+        27,
+        20,
+        26,
+        27,
+        25,
+        25,
+        25,
+        26,
+        27,
+        28,
+        28,
+        27,
+        27,
+        26,
+        21,
+        27
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 445.0,
+      "deposited_nbnd": 667,
+      "deposited_absmag_last": null,
+      "nat": 51,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        6.22,
+        6.4346717088,
+        36.0971828125
+      ],
+      "volume_A3": 1444.741301,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Rh1": {
+          "deposited_upf": "rh_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "37b626987ad0dd8ec6bf4cc9ef289918",
+          "run_upf": "rh_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761627e959a2e3a1f56b0b5fe687810e"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 6.905587213168473e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.008038585209
+        },
+        "51": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.016077170418
+        },
+        "50": {
+          "role": "O_distal",
+          "species": "O0",
+          "angstrom": 0.075,
+          "crystal": 0.012057877814
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 6.905587213168473e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999997,
+          "start_reflection_mismatch_A": 0.19999999479999966
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/RhO2__OOH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/RhO2__OOH-relax__escape.in"
+      },
+      "launch_group": "tier1b"
+    },
+    {
+      "tier": "tier1",
+      "metal": "RuO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49,
+        50
+      ],
+      "adsorbate_index1": [
+        49,
+        50,
+        51
+      ],
+      "census_output": "supporting-data/RuO2/Eads-4-layers/OOH-relax/pwscf.out",
+      "census_input": "supporting-data/RuO2/Eads-4-layers/OOH-relax/pwscf.in",
+      "deposited_output_sha256": "2b9bc0dd56c79b93dfa3b7539f8b128dac8dd6ac61f36c0a22b4814ad3e6c620",
+      "deposited_input_sha256": "447b73e34bca7eabdfea9627c1243dcbbdc54e7f045a86c11dd0dbbf8a1dc0e8",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-4189.73475922",
+      "deposited_scf_iterations": [
+        53,
+        15,
+        27,
+        30,
+        30,
+        28,
+        29,
+        31,
+        29,
+        29,
+        29,
+        31,
+        31,
+        29,
+        31,
+        27,
+        26
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 461.0,
+      "deposited_nbnd": 667,
+      "deposited_absmag_last": null,
+      "nat": 51,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        6.24,
+        6.40638743755,
+        36.0440083826
+      ],
+      "volume_A3": 1440.890147,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Ru1": {
+          "deposited_upf": "ru_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "df00be1c11b23341d9806d8f1dfa10cf",
+          "run_upf": "ru_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "7158a806dd851261a58e6920c40ebe78"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 6.927791673660977e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.008012820513
+        },
+        "51": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.016025641026
+        },
+        "50": {
+          "role": "O_distal",
+          "species": "O0",
+          "angstrom": 0.075,
+          "crystal": 0.012019230769
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 6.927791673660977e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.1,
+          "start_reflection_mismatch_A": 0.19999999968000043
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/RuO2__OOH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/RuO2__OOH-relax__escape.in"
+      },
+      "launch_group": "tier1a"
+    },
+    {
+      "tier": "tier1",
+      "metal": "TiO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49,
+        50
+      ],
+      "adsorbate_index1": [
+        49,
+        50,
+        51
+      ],
+      "census_output": "supporting-data/TiO2/Eads-4-layers/OOH-relax/pwscf.out",
+      "census_input": "supporting-data/TiO2/Eads-4-layers/OOH-relax/pwscf.in",
+      "deposited_output_sha256": "b7b5c1f879b6bf3707fe20ce2205b067986ce5b83411dce899e4dac91375c8ec",
+      "deposited_input_sha256": "efd433c4c6be09aba786f85906748fe8e7d9c298cef77c391a6300de453c31c5",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-2996.99987383",
+      "deposited_scf_iterations": [
+        31,
+        21,
+        18,
+        19,
+        22,
+        15,
+        14,
+        14,
+        14,
+        15,
+        17,
+        15,
+        12,
+        12,
+        12,
+        13,
+        16,
+        18,
+        18,
+        18,
+        15,
+        14,
+        14,
+        13,
+        13,
+        13,
+        12,
+        12,
+        11,
+        11,
+        10,
+        10,
+        10,
+        10,
+        11
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 397.0,
+      "deposited_nbnd": 571,
+      "deposited_absmag_last": null,
+      "nat": 51,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        5.94,
+        6.57609306503,
+        36.3630549623
+      ],
+      "volume_A3": 1420.413391,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Ti1": {
+          "deposited_upf": "ti_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "bcc8f6961b3b91f0cac3ca967d22d0fb",
+          "run_upf": "ti_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "88a00a6731bd790ddea75d31a80cb452"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 6.59472476627343e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.008417508418
+        },
+        "51": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.016835016835
+        },
+        "50": {
+          "role": "O_distal",
+          "species": "O0",
+          "angstrom": 0.075,
+          "crystal": 0.012626262626
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 6.59472476627343e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.100000001,
+          "start_reflection_mismatch_A": 0.20000000196000012
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/TiO2__OOH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/TiO2__OOH-relax__escape.in"
+      },
+      "launch_group": "tier1a"
+    },
+    {
+      "tier": "tier2",
+      "metal": "CrO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/CrO2/Eads-4-layers/OH/pwscf.out",
+      "census_input": "supporting-data/CrO2/Eads-4-layers/OH/pwscf.in",
+      "deposited_output_sha256": "1f73e93284fc7b83976b740ee81c6ed6c54c2f99c8afd5a410419f553fa853bd",
+      "deposited_input_sha256": "d7c2615492e5148a2bc88971d9561cde38fae5da8340b264926d6b8f23f43bc1",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-3882.34472000",
+      "deposited_scf_iterations": [
+        44,
+        13,
+        30,
+        27,
+        19,
+        21,
+        22,
+        28,
+        20,
+        16,
+        17,
+        18,
+        19
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 18,
+      "deposited_nelec": 423.0,
+      "deposited_nbnd": 610,
+      "deposited_absmag_last": 36.48,
+      "nat": 50,
+      "nspin": 2,
+      "tot_magnetization": "31",
+      "cell_lengths_A": [
+        5.8,
+        6.19425540319,
+        35.7690852661
+      ],
+      "volume_A3": 1285.064528,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Cr1": {
+          "deposited_upf": "cr_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "68b6f918d1762dccfb11451fe85b0e0e",
+          "run_upf": "cr_pbe_v1.5.uspp.F.UPF",
+          "run_md5": "0d52af634a40206e4dee301ad30da4bf"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 3.43850248451516e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.008071995219
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.016143990438
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 3.43850248451516e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999997,
+          "start_reflection_mismatch_A": 0.19999999457309062
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/CrO2__OH__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/CrO2__OH__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "CrO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/CrO2/Eads-4-layers/OH-relax/pwscf.out",
+      "census_input": "supporting-data/CrO2/Eads-4-layers/OH-relax/pwscf.in",
+      "deposited_output_sha256": "df64612d1bba4bcf05c8f116a54eaaf62fc0e261d32e5002721206de93ad3422",
+      "deposited_input_sha256": "6143353c59bfdeb0a6579f2e906e4e6660bf152abdb3560d80fb090d62139605",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-3882.40874041",
+      "deposited_scf_iterations": [
+        47,
+        16,
+        28,
+        28,
+        26,
+        17,
+        21,
+        29,
+        21,
+        21,
+        27,
+        20,
+        20,
+        21
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 18,
+      "deposited_nelec": 423.0,
+      "deposited_nbnd": 610,
+      "deposited_absmag_last": 36.02,
+      "nat": 50,
+      "nspin": 2,
+      "tot_magnetization": "31",
+      "cell_lengths_A": [
+        5.8,
+        6.19425540319,
+        35.7690852661
+      ],
+      "volume_A3": 1285.064528,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Cr1": {
+          "deposited_upf": "cr_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "68b6f918d1762dccfb11451fe85b0e0e",
+          "run_upf": "cr_pbe_v1.5.uspp.F.UPF",
+          "run_md5": "0d52af634a40206e4dee301ad30da4bf"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 3.43850248451516e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.008071995219
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.016143990438
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 3.43850248451516e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999997,
+          "start_reflection_mismatch_A": 0.19999999457309062
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/CrO2__OH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/CrO2__OH-relax__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "IrO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/IrO2/Eads-4-layers/OH/pwscf.out",
+      "census_input": "supporting-data/IrO2/Eads-4-layers/OH/pwscf.in",
+      "deposited_output_sha256": "0ecb0c41ac8889da3764617b939bb7faf2beac4573aa009eaf14f653386f1346",
+      "deposited_input_sha256": "42e9357893c0b6f571588fed4fcbd726335c46c1ee9be33c2ad0e3c044020147",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-4043.09308682",
+      "deposited_scf_iterations": [
+        31,
+        23,
+        20,
+        19,
+        19,
+        18,
+        19,
+        17,
+        16,
+        17,
+        19,
+        19,
+        19,
+        20,
+        19,
+        19,
+        16,
+        17,
+        17
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 439.0,
+      "deposited_nbnd": 658,
+      "deposited_absmag_last": null,
+      "nat": 50,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        6.36,
+        6.42052957317,
+        36.0705955976
+      ],
+      "volume_A3": 1472.927192,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Ir1": {
+          "deposited_upf": "ir_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "abf987a9674477536ede83817f8f8b70",
+          "run_upf": "ir_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "8836f839c3459d2b385c504ce6d91f2c"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 7.128219762420062e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.007787519617
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.015575039233
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 7.128219762420062e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999999,
+          "start_reflection_mismatch_A": 0.19999999700555235
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/IrO2__OH__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/IrO2__OH__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "IrO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/IrO2/Eads-4-layers/OH-relax/pwscf.out",
+      "census_input": "supporting-data/IrO2/Eads-4-layers/OH-relax/pwscf.in",
+      "deposited_output_sha256": "fc67d127c466931226b1d9faec20fb63474401724f876299556154817b0b8181",
+      "deposited_input_sha256": "9edd25f601b3e2dbe2e37db6841aab8ce2e17ef4aac4486168c79b0b8c06a5ce",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-4043.10567399",
+      "deposited_scf_iterations": [
+        32,
+        18,
+        16,
+        16,
+        19,
+        16,
+        18,
+        19,
+        19,
+        19,
+        19,
+        16,
+        16,
+        16
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 439.0,
+      "deposited_nbnd": 658,
+      "deposited_absmag_last": null,
+      "nat": 50,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        6.36,
+        6.42052957317,
+        36.0705955976
+      ],
+      "volume_A3": 1472.927192,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Ir1": {
+          "deposited_upf": "ir_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "abf987a9674477536ede83817f8f8b70",
+          "run_upf": "ir_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "8836f839c3459d2b385c504ce6d91f2c"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 3.564109881210031e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.007787519617
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.015575039233
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 3.564109881210031e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999999,
+          "start_reflection_mismatch_A": 0.19999999700555235
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/IrO2__OH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/IrO2__OH-relax__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "MnO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/MnO2/Eads-4-layers/OH/pwscf.out",
+      "census_input": "supporting-data/MnO2/Eads-4-layers/OH/pwscf.in",
+      "deposited_output_sha256": "2cddd0665921965f7ce0a28f061223e75120d2c6b066b54082e31f9f60777819",
+      "deposited_input_sha256": "96c5a1966b7bb9afedc905b814815e9d57d37863d9c7216e988bc0685a37e8fa",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-4472.72734135",
+      "deposited_scf_iterations": [
+        40,
+        10,
+        20,
+        17,
+        17,
+        15,
+        17,
+        19,
+        15
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 18,
+      "deposited_nelec": 439.0,
+      "deposited_nbnd": 634,
+      "deposited_absmag_last": 49.46,
+      "nat": 50,
+      "nspin": 2,
+      "tot_magnetization": "47",
+      "cell_lengths_A": [
+        5.68,
+        6.16597113195,
+        35.7153451507
+      ],
+      "volume_A3": 1250.848391,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Mn1": {
+          "deposited_upf": "mn_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "5fd7c7b5c956fd19902447332617373a",
+          "run_upf": "mn_pbe_v1.5.uspp.F.UPF",
+          "run_md5": "82ef2b46521d7a7d9e736dc3972e4928"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 6.845603119864929e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.00810902272
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.01621804544
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 6.845603119864929e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999997,
+          "start_reflection_mismatch_A": 0.19999999457333226
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/MnO2__OH__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/MnO2__OH__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "MnO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/MnO2/Eads-4-layers/OH-relax/pwscf.out",
+      "census_input": "supporting-data/MnO2/Eads-4-layers/OH-relax/pwscf.in",
+      "deposited_output_sha256": "d4d28346a129808d0f31a3db2531fe62b034472dbe45f1c5867717bc9a08f108",
+      "deposited_input_sha256": "4e0969be03fa9541a68d0191c89223fcec9faa28e9ab889a0b0c34bd9a19ce78",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-4472.78102874",
+      "deposited_scf_iterations": [
+        41,
+        9,
+        18,
+        11
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 18,
+      "deposited_nelec": 439.0,
+      "deposited_nbnd": 634,
+      "deposited_absmag_last": 48.78,
+      "nat": 50,
+      "nspin": 2,
+      "tot_magnetization": "47",
+      "cell_lengths_A": [
+        5.68,
+        6.16597113195,
+        35.7153451507
+      ],
+      "volume_A3": 1250.848391,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Mn1": {
+          "deposited_upf": "mn_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "5fd7c7b5c956fd19902447332617373a",
+          "run_upf": "mn_pbe_v1.5.uspp.F.UPF",
+          "run_md5": "82ef2b46521d7a7d9e736dc3972e4928"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 3.4228015599324647e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.00810902272
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.01621804544
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 3.4228015599324647e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999997,
+          "start_reflection_mismatch_A": 0.19999999457333226
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/MnO2__OH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/MnO2__OH-relax__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "MoO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/MoO2/Eads-4-layers/OH/pwscf.out",
+      "census_input": "supporting-data/MoO2/Eads-4-layers/OH/pwscf.in",
+      "deposited_output_sha256": "c6dff3e7b8b2cd8a73fb1078e940f24bb02ecf771075946f8bfc3cd6daa8a2c3",
+      "deposited_input_sha256": "8f9be966eb35dc6a41e514df3e55f152dd2ee303223b044f2599e6b09dc5fd2a",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-3295.48141933",
+      "deposited_scf_iterations": [
+        30,
+        19,
+        18,
+        17,
+        18,
+        19,
+        19,
+        16,
+        18,
+        18,
+        19,
+        18,
+        19,
+        15,
+        19,
+        19,
+        19,
+        18,
+        15
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 423.0,
+      "deposited_nbnd": 634,
+      "deposited_absmag_last": null,
+      "nat": 50,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        5.46,
+        7.00035713375,
+        37.5806928395
+      ],
+      "volume_A3": 1436.407361,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Mo1": {
+          "deposited_upf": "mo_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "30c4dcd161f5d35cd49bb5239c51a633",
+          "run_upf": "mo_pbe_v1.uspp.F.UPF",
+          "run_md5": "30c4dcd161f5d35cd49bb5239c51a633"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 1.942989417622054e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.007142492739
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.014284985479
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 1.942989417622054e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999997,
+          "start_reflection_mismatch_A": 0.1999999933005231
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/MoO2__OH__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/MoO2__OH__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "MoO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/MoO2/Eads-4-layers/OH-relax/pwscf.out",
+      "census_input": "supporting-data/MoO2/Eads-4-layers/OH-relax/pwscf.in",
+      "deposited_output_sha256": "112bf34ff3aded211a16af6d9ab8b904eb551b36a54bbf19386706de9cd48644",
+      "deposited_input_sha256": "05d05efe20e67f80823fff7e0e0d905f624e1af523d929e2e865b6b387f25be8",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-3295.60465533",
+      "deposited_scf_iterations": [
+        30,
+        19,
+        18,
+        21,
+        21,
+        21,
+        20,
+        20,
+        19,
+        17,
+        18,
+        18,
+        19,
+        17,
+        16,
+        17,
+        19,
+        18,
+        18,
+        17,
+        17,
+        17,
+        18,
+        17,
+        18,
+        16,
+        16,
+        17,
+        16
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 423.0,
+      "deposited_nbnd": 634,
+      "deposited_absmag_last": null,
+      "nat": 50,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        5.46,
+        7.00035713375,
+        37.5806928395
+      ],
+      "volume_A3": 1436.407361,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Mo1": {
+          "deposited_upf": "mo_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "30c4dcd161f5d35cd49bb5239c51a633",
+          "run_upf": "mo_pbe_v1.uspp.F.UPF",
+          "run_md5": "30c4dcd161f5d35cd49bb5239c51a633"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 7.771957670488216e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.007142492739
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.014284985479
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 7.771957670488216e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999997,
+          "start_reflection_mismatch_A": 0.1999999933005231
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/MoO2__OH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/MoO2__OH-relax__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "NbO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/NbO2/Eads-4-layers/OH/pwscf.out",
+      "census_input": "supporting-data/NbO2/Eads-4-layers/OH/pwscf.in",
+      "deposited_output_sha256": "f402d11b99e05abc3a50ade236f49263817696e60f6d40f2a78b4e892588f55d",
+      "deposited_input_sha256": "3956c688d13d0185b339482a37040e70cf4062860226e84be1dfddeccfea7e24",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-2955.40603302",
+      "deposited_scf_iterations": [
+        26,
+        19,
+        16,
+        16,
+        16,
+        16,
+        15,
+        15,
+        16,
+        15,
+        16,
+        16,
+        15,
+        15,
+        15,
+        15,
+        16,
+        17,
+        16,
+        14,
+        14,
+        16,
+        15
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 407.0,
+      "deposited_nbnd": 610,
+      "deposited_absmag_last": null,
+      "nat": 50,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        5.92,
+        6.98621499812,
+        37.4135327964
+      ],
+      "volume_A3": 1547.363585,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Nb1": {
+          "deposited_upf": "nb_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "573aab8a2fa660278ed4a62cd769473f",
+          "run_upf": "nb_pbe_v1.uspp.F.UPF",
+          "run_md5": "573aab8a2fa660278ed4a62cd769473f"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 3.8781283729472096e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.007156951227
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.014313902453
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 3.8781283729472096e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999997,
+          "start_reflection_mismatch_A": 0.19999999366804036
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/NbO2__OH__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/NbO2__OH__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "NbO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/NbO2/Eads-4-layers/OH-relax/pwscf.out",
+      "census_input": "supporting-data/NbO2/Eads-4-layers/OH-relax/pwscf.in",
+      "deposited_output_sha256": "e4a7ff36e0698f5c3918cf9f1109c7d842e2f878c76f8def9f82f09f9dd8b33f",
+      "deposited_input_sha256": "b91ccc440f14373b1d2514445729a2f97670dd98e54c5f15a587903844cc5c30",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-2955.50153477",
+      "deposited_scf_iterations": [
+        26,
+        8,
+        15,
+        11
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 407.0,
+      "deposited_nbnd": 610,
+      "deposited_absmag_last": null,
+      "nat": 50,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        5.92,
+        6.98621499812,
+        37.4135327964
+      ],
+      "volume_A3": 1547.363585,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Nb1": {
+          "deposited_upf": "nb_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "573aab8a2fa660278ed4a62cd769473f",
+          "run_upf": "nb_pbe_v1.uspp.F.UPF",
+          "run_md5": "573aab8a2fa660278ed4a62cd769473f"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 3.8781283729472096e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.007156951227
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.014313902453
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 3.8781283729472096e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999997,
+          "start_reflection_mismatch_A": 0.19999999366804036
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/NbO2__OH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/NbO2__OH-relax__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "PtO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/PtO2/Eads-4-layers/OH/pwscf.out",
+      "census_input": "supporting-data/PtO2/Eads-4-layers/OH/pwscf.in",
+      "deposited_output_sha256": "18875b50700eac5633be617dd9f5c3a24379203ca69f22ea9a3476a060a5377d",
+      "deposited_input_sha256": "abba7f040e82e7b32dc10cf627a54be281e5692958e2435a1953f007af0ff854",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-4392.52896246",
+      "deposited_scf_iterations": [
+        35,
+        26,
+        23,
+        19,
+        21,
+        21,
+        18,
+        19,
+        18,
+        16,
+        18,
+        18,
+        18,
+        18,
+        19,
+        21,
+        17,
+        17,
+        16
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 455.0,
+      "deposited_nbnd": 682,
+      "deposited_absmag_last": null,
+      "nat": 50,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        6.46,
+        6.49124025129,
+        36.2035316724
+      ],
+      "volume_A3": 1518.13761,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Pt1": {
+          "deposited_upf": "pt_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "4c71d6ad5ef119f1eb26a4d0b7884226",
+          "run_upf": "pt_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "f09d6de1a584b5a045c4fc126da2d0c4"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 3.6033621926778724e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.007702688248
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.015405376496
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 3.6033621926778724e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999997,
+          "start_reflection_mismatch_A": 0.1999999935549142
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/PtO2__OH__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/PtO2__OH__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "PtO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/PtO2/Eads-4-layers/OH-relax/pwscf.out",
+      "census_input": "supporting-data/PtO2/Eads-4-layers/OH-relax/pwscf.in",
+      "deposited_output_sha256": "0437d00c6c4858b2587291417d13bd627b95bafcd700f140ec84661ff939125e",
+      "deposited_input_sha256": "595b2ca0ccde70a4641101c7414414d1a85f879ef6481773b367e4d7ce4faf35",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-4392.53833499",
+      "deposited_scf_iterations": [
+        32,
+        17,
+        19,
+        17,
+        18,
+        17,
+        16,
+        17,
+        18,
+        18,
+        17,
+        17,
+        17,
+        20,
+        20,
+        19
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 455.0,
+      "deposited_nbnd": 682,
+      "deposited_absmag_last": null,
+      "nat": 50,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        6.46,
+        6.49124025129,
+        36.2035316724
+      ],
+      "volume_A3": 1518.13761,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Pt1": {
+          "deposited_upf": "pt_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "4c71d6ad5ef119f1eb26a4d0b7884226",
+          "run_upf": "pt_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "f09d6de1a584b5a045c4fc126da2d0c4"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 7.206724385355745e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.007702688248
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.015405376496
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 7.206724385355745e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999997,
+          "start_reflection_mismatch_A": 0.1999999935549142
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/PtO2__OH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/PtO2__OH-relax__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "ReO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/ReO2/Eads-4-layers/OH/pwscf.out",
+      "census_input": "supporting-data/ReO2/Eads-4-layers/OH/pwscf.in",
+      "deposited_output_sha256": "235414db562d0a221d98b604e075b32525924026a867341a575ca3d383988a79",
+      "deposited_input_sha256": "0b9bf288a0e1b301f56b070f70e3982e6ffd9c4915051e03fc622757ea0fed19",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-4181.24440180",
+      "deposited_scf_iterations": [
+        31,
+        21,
+        26,
+        20,
+        21,
+        19,
+        20,
+        21,
+        20,
+        21,
+        22,
+        20,
+        20,
+        26,
+        21,
+        20,
+        21,
+        20,
+        19
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 439.0,
+      "deposited_nbnd": 658,
+      "deposited_absmag_last": null,
+      "nat": 50,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        5.36,
+        7.00035713375,
+        37.5806928395
+      ],
+      "volume_A3": 1410.099534,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Re1": {
+          "deposited_upf": "re_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "6f5a5dcaf9c96c20d0ffdde0de57afc6",
+          "run_upf": "re_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "85f993410f3e006da9d71c142b4ad953"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 1.942989417622054e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.007142492739
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.014284985479
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 1.942989417622054e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999997,
+          "start_reflection_mismatch_A": 0.1999999933005231
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/ReO2__OH__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/ReO2__OH__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "ReO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/ReO2/Eads-4-layers/OH-relax/pwscf.out",
+      "census_input": "supporting-data/ReO2/Eads-4-layers/OH-relax/pwscf.in",
+      "deposited_output_sha256": "e70ce133122830bf9e513e1124f28cf094db4fcb679e6b2dd8e124d003cb3e28",
+      "deposited_input_sha256": "0ef46dbab9ea1caa37b9f4dfefbb8e4c39266476d7114c9efb73e9da076d1095",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-4181.26748071",
+      "deposited_scf_iterations": [
+        34,
+        25,
+        21,
+        27,
+        21,
+        22,
+        28,
+        28,
+        22,
+        21,
+        21,
+        21,
+        20,
+        20,
+        19
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 439.0,
+      "deposited_nbnd": 658,
+      "deposited_absmag_last": null,
+      "nat": 50,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        5.36,
+        7.00035713375,
+        37.5806928395
+      ],
+      "volume_A3": 1410.099534,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Re1": {
+          "deposited_upf": "re_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "6f5a5dcaf9c96c20d0ffdde0de57afc6",
+          "run_upf": "re_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "85f993410f3e006da9d71c142b4ad953"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 3.885978835244108e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.007142492739
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.014284985479
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 3.885978835244108e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999997,
+          "start_reflection_mismatch_A": 0.1999999933005231
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/ReO2__OH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/ReO2__OH-relax__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "RhO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/RhO2/Eads-4-layers/OH/pwscf.out",
+      "census_input": "supporting-data/RhO2/Eads-4-layers/OH/pwscf.in",
+      "deposited_output_sha256": "60c0d03339678d94382fde9321513d92930edf226f2cfe5ba11baa9aded49f9c",
+      "deposited_input_sha256": "21f11ab1f3f50416538793dd0da9cc9d794b89bfaf9f71f3bc53a34f28206222",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-3791.49754082",
+      "deposited_scf_iterations": [
+        47,
+        39,
+        26,
+        28,
+        31,
+        26,
+        27,
+        20,
+        19,
+        19,
+        26,
+        25,
+        20,
+        20,
+        24,
+        26,
+        26,
+        25,
+        19
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 439.0,
+      "deposited_nbnd": 658,
+      "deposited_absmag_last": null,
+      "nat": 50,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        6.22,
+        6.4346717088,
+        36.0971828125
+      ],
+      "volume_A3": 1444.741301,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Rh1": {
+          "deposited_upf": "rh_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "37b626987ad0dd8ec6bf4cc9ef289918",
+          "run_upf": "rh_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761627e959a2e3a1f56b0b5fe687810e"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 3.57196034350693e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.007770404189
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.015540808378
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 3.57196034350693e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999998,
+          "start_reflection_mismatch_A": 0.19999999513898564
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/RhO2__OH__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/RhO2__OH__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "RhO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/RhO2/Eads-4-layers/OH-relax/pwscf.out",
+      "census_input": "supporting-data/RhO2/Eads-4-layers/OH-relax/pwscf.in",
+      "deposited_output_sha256": "7d9c9454147f7c529bcacd9090e9c81f079f146a58b965bd0935aa6bd9346352",
+      "deposited_input_sha256": "1504ccc2217a1462219563a51cee9e72cfe8f5a305c5671829e5e30cd97b9beb",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-3791.51494553",
+      "deposited_scf_iterations": [
+        45,
+        27,
+        25,
+        21,
+        21,
+        18,
+        21,
+        20,
+        20,
+        21,
+        21,
+        21,
+        20,
+        21,
+        21,
+        21,
+        20
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 439.0,
+      "deposited_nbnd": 658,
+      "deposited_absmag_last": null,
+      "nat": 50,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        6.22,
+        6.4346717088,
+        36.0971828125
+      ],
+      "volume_A3": 1444.741301,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Rh1": {
+          "deposited_upf": "rh_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "37b626987ad0dd8ec6bf4cc9ef289918",
+          "run_upf": "rh_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761627e959a2e3a1f56b0b5fe687810e"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 7.14392068701386e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.007770404189
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.015540808378
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 7.14392068701386e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999998,
+          "start_reflection_mismatch_A": 0.19999999513898564
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/RhO2__OH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/RhO2__OH-relax__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "RuO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/RuO2/Eads-4-layers/OH/pwscf.out",
+      "census_input": "supporting-data/RuO2/Eads-4-layers/OH/pwscf.in",
+      "deposited_output_sha256": "f0a290ded0f3bc7ba978661a490652e10163e929672c55199104d09fe249b93e",
+      "deposited_input_sha256": "7d69b3a1841a318a02a77c79db4dda5c54904e66b3d8ab69581a83ffa1a5415d",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-4157.69728555",
+      "deposited_scf_iterations": [
+        47,
+        39,
+        37,
+        30,
+        31,
+        22,
+        30,
+        27,
+        21,
+        21,
+        28,
+        28,
+        26,
+        27,
+        31,
+        30,
+        30,
+        36,
+        20,
+        26
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 455.0,
+      "deposited_nbnd": 658,
+      "deposited_absmag_last": null,
+      "nat": 50,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        6.24,
+        6.40638743755,
+        36.0440083826
+      ],
+      "volume_A3": 1440.890147,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Ru1": {
+          "deposited_upf": "ru_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "df00be1c11b23341d9806d8f1dfa10cf",
+          "run_upf": "ru_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "7158a806dd851261a58e6920c40ebe78"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 7.112518837837367e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.007804710609
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.015609421218
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 7.112518837837367e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999999,
+          "start_reflection_mismatch_A": 0.19999999720365777
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/RuO2__OH__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/RuO2__OH__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "RuO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/RuO2/Eads-4-layers/OH-relax/pwscf.out",
+      "census_input": "supporting-data/RuO2/Eads-4-layers/OH-relax/pwscf.in",
+      "deposited_output_sha256": "7fdbf2530fcd6bcb59dedb2c715512ee56093f5953570eccdaf33b13bcab8a51",
+      "deposited_input_sha256": "b90dd57b627ee5a0b6bed2049b96b711f1629d268c005a1b1b6bedcf34cbe5ca",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-4157.71713875",
+      "deposited_scf_iterations": [
+        41,
+        32,
+        27,
+        26,
+        31,
+        32,
+        35,
+        35,
+        37,
+        37,
+        26,
+        30,
+        21,
+        28,
+        28,
+        25,
+        21
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 455.0,
+      "deposited_nbnd": 658,
+      "deposited_absmag_last": null,
+      "nat": 50,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        6.24,
+        6.40638743755,
+        36.0440083826
+      ],
+      "volume_A3": 1440.890147,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Ru1": {
+          "deposited_upf": "ru_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "df00be1c11b23341d9806d8f1dfa10cf",
+          "run_upf": "ru_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "7158a806dd851261a58e6920c40ebe78"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 7.112518837837367e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.007804710609
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.015609421218
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 7.112518837837367e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999999,
+          "start_reflection_mismatch_A": 0.19999999720365777
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/RuO2__OH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/RuO2__OH-relax__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "TiO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/TiO2/Eads-4-layers/OH/pwscf.out",
+      "census_input": "supporting-data/TiO2/Eads-4-layers/OH/pwscf.in",
+      "deposited_output_sha256": "f2ce94ef8e58c1385e2ddb1e5aa7bb43b613b907006da9eeb50a4b3db6dbf7b0",
+      "deposited_input_sha256": "fa9e608cc2065315aa1bd59cb0d54d3369f3c03f34d11a4b8666e5219df79904",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-2964.90602425",
+      "deposited_scf_iterations": [
+        19,
+        17,
+        17,
+        16,
+        20,
+        14,
+        10,
+        14,
+        12,
+        15,
+        16,
+        20,
+        9,
+        9,
+        10,
+        11,
+        11,
+        12,
+        12,
+        11,
+        8
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 391.0,
+      "deposited_nbnd": 562,
+      "deposited_absmag_last": null,
+      "nat": 50,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        5.94,
+        6.57609306503,
+        36.3630549623
+      ],
+      "volume_A3": 1420.413391,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Ti1": {
+          "deposited_upf": "ti_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "bcc8f6961b3b91f0cac3ca967d22d0fb",
+          "run_upf": "ti_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "88a00a6731bd790ddea75d31a80cb452"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 7.300929932874123e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.007603298722
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.015206597445
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 7.300929932874123e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999997,
+          "start_reflection_mismatch_A": 0.1999999941488126
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/TiO2__OH__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/TiO2__OH__escape.in"
+      },
+      "launch_group": "tier2"
+    },
+    {
+      "tier": "tier2",
+      "metal": "TiO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49
+      ],
+      "adsorbate_index1": [
+        49,
+        50
+      ],
+      "census_output": "supporting-data/TiO2/Eads-4-layers/OH-relax/pwscf.out",
+      "census_input": "supporting-data/TiO2/Eads-4-layers/OH-relax/pwscf.in",
+      "deposited_output_sha256": "db1244b91c8432d44521de6fd75a6e8c41e028d204c9d1f87bebcb8813fd913c",
+      "deposited_input_sha256": "0ef97a87255077d66dd450a37616e746114e18aa6d4822d5df1a1568bfef6428",
+      "deposited_geometry_source": "final coordinates (bfgs converged)",
+      "deposited_converged": true,
+      "deposited_final_energy_Ry": "-2964.97399953",
+      "deposited_scf_iterations": [
+        27,
+        17,
+        18,
+        16,
+        14,
+        14,
+        12,
+        11,
+        12,
+        12,
+        12,
+        13,
+        13,
+        11,
+        11,
+        10,
+        11,
+        11,
+        11,
+        10,
+        11,
+        11,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        11,
+        11,
+        11,
+        11,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "deposited_n_symops": 2,
+      "deposited_nks_printed": 9,
+      "deposited_nelec": 391.0,
+      "deposited_nbnd": 562,
+      "deposited_absmag_last": null,
+      "nat": 50,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        5.94,
+        6.57609306503,
+        36.3630549623
+      ],
+      "volume_A3": 1420.413391,
+      "kmesh": "4 4 1 0 0 0",
+      "pseudopotentials": {
+        "O0": {
+          "deposited_upf": "o_pbe_v1.01.uspp.F.UPF",
+          "deposited_md5": "2bcb18d16ea4b960afae9ec6d52f22d2",
+          "run_upf": "o_pbe_v1.2.uspp.F.UPF",
+          "run_md5": "734c27235a0248c51dbae37a1fbe46ec"
+        },
+        "Ti1": {
+          "deposited_upf": "ti_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "bcc8f6961b3b91f0cac3ca967d22d0fb",
+          "run_upf": "ti_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "88a00a6731bd790ddea75d31a80cb452"
+        },
+        "H2": {
+          "deposited_upf": "h_pbe_v1.uspp.F.UPF",
+          "deposited_md5": "3408e3ff4ec8b0a4e358431e7e038a48",
+          "run_upf": "h_pbe_v1.4.uspp.F.UPF",
+          "run_md5": "761ae9a214b05c3daf00ab9f6b793d6f"
+        }
+      },
+      "deposited_final_reflection_mismatch_A": 3.6504649664370616e-16,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.007603298722
+        },
+        "50": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.015206597445
+        }
+      },
+      "start_checks": {
+        "held": {
+          "start_max_adsorbate_off_plane_A": 0.0,
+          "start_reflection_mismatch_A": 3.6504649664370616e-16
+        },
+        "escape": {
+          "start_max_adsorbate_off_plane_A": 0.099999997,
+          "start_reflection_mismatch_A": 0.1999999941488126
+        }
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/TiO2__OH-relax__held.in",
+        "escape": "runs/corpus_escape_2026-11-01/TiO2__OH-relax__escape.in"
+      },
+      "launch_group": "tier2"
+    }
+  ]
+}
