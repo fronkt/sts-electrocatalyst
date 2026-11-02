@@ -316,3 +316,25 @@ GBRV v1.5 energy surface, a close but not identical surface to the deposited one
 symmetry kept. The decision rule above is unchanged, including INVALID when the held arm no longer reproduces the lock.
 Results are reported with this substitution stated. Launch scope (Frank, 2026-11-01): tier1a now; tier1b only if the
 balance after tier1a covers its reservation; tier2 not launched.
+
+## Tier 1b launch rule (Frank, 2026-11-01, before any tier 1a run started)
+
+Frank, 2026-11-01: "run tier 1b if there's room". At the decision the balance was 9,727.4 SU (round 7 had
+finished) and tier 1a's 12 tasks were still queued, so room exists only after tier 1a ends. The whole of tier 1b
+(7,168 SU) fits then only if tier 1a spends at most 2,559 SU; its planning figure is 2,603, its floor 1,348. Tier 1b's
+7 h walls also sit below every row's ceiling wall (3 x planning), so tier 1a's measured speed decides which rows can
+finish. The rule, fixed now, before any tier 1a output exists:
+
+1. After tier 1a's arrays have left the queue, r = the median over its 12 runs of (elapsed wall / planning wall),
+   from sacct and cost_estimate.json. Runs stopped at their Slurm wall count at their wall.
+2. A tier 1b oxide is eligible if r x its planning wall is at most 6.3 h (90 % of the 7 h wall). Both arms of an
+   oxide share one planning wall.
+3. Eligible oxides launch in order of planning wall, shortest first (PtO2 2.74 h, RhO2 3.30 h, CrO2 4.48 h, MnO2
+   5.32 h), as many as the live balance covers at 1,792 SU each (two 7 h tasks of 128 cores). Both arms of an
+   oxide always launch together.
+4. If every oxide is eligible and covered, tier 1b launches whole (`launch_ops.py preflight tier1b`); otherwise as
+   a row subset (`launch_ops.py preflight tier1b <rows>`, manifest rows CrO2 1, MnO2 2, PtO2 3, RhO2 4). If none is
+   eligible or the balance is below 1,792 SU, tier 1b is not launched, and that is reported.
+
+Results are reported as k of the n oxides run, with the oxides not run and the reason listed. A subset changes only
+the Slurm array list and the reservation; the spec, manifests, decks, Slurm script and runner are unchanged.

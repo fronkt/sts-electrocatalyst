@@ -46,16 +46,43 @@ STAGE[SPEC_REL] = None
 STAGE[SLURM_REL] = None
 
 
-def arrays(group):
-    """Stage name -> Slurm shape for one launch group (all rows of a stage run at once)."""
+def arrays(group, rows=None):
+    """Stage name -> Slurm shape for one launch group (all rows of a stage run at once).
+
+    rows (2026-11-01, Frank: "run tier 1b if there's room"): an optional subset of the group's 1-based rows, the same
+    rows in both stages, for when the balance holds less than the whole group's reservation. Rows keep their manifest
+    numbers, so the runner, manifests, decks and spec are unchanged."""
     out = {}
     for stage in GROUPS[group]["stages"]:
         g = SPEC["stages"][stage]
         n, minutes = len(g["jobs"]), g["wall_minutes"]
-        out[stage] = {"array": "1-%d%%%d" % (n, n), "tasks": n, "throttle": str(n), "minutes": minutes,
+        if rows:
+            array, tasks = ",".join(map(str, rows)) + "%%%d" % len(rows), len(rows)
+        else:
+            array, tasks = "1-%d%%%d" % (n, n), n
+        out[stage] = {"array": array, "tasks": tasks, "throttle": str(tasks), "minutes": minutes,
                       "time": "%02d:%02d:00" % divmod(minutes, 60),
                       "name": "%s-%s" % (NAMES[stage.rsplit("_", 1)[1]], group)}
     return out
+
+
+def ceiling(shape):
+    """Slurm reservation of a shape in CPU SU: tasks x wall minutes x 128 cores."""
+    return sum(s["tasks"] * s["minutes"] * 128 // 60 for s in shape.values())
+
+
+def rows_arg(group, value):
+    """'3,4' -> [3, 4]: distinct rows of the group, in manifest order."""
+    n = len(SPEC["stages"][GROUPS[group]["stages"][0]]["jobs"])
+    rows = sorted({int(x) for x in value.split(",") if x.strip()})
+    if not rows or rows[0] < 1 or rows[-1] > n or len(rows) == n:
+        raise SystemExit("rows must be a proper subset of 1-%d" % n)
+    return rows
+
+
+def chosen_rows(group):
+    """The rows the passed preflight receipt recorded; submit, validate and release cannot choose others."""
+    return json.loads((HERE / ("preflight_%s_receipt.json" % group)).read_text()).get("rows")   # absent before rows
 
 
 def now():
@@ -172,13 +199,13 @@ def project_free_tb(text):
     return limit - size
 
 
-def preflight(group):
+def preflight(group, rows=None):
     staged = json.loads((HERE / "stage_receipt.json").read_text(encoding="utf-8"))
     if not staged.get("completed") or staged.get("spec_sha256") != sha(SPEC_REL):
         raise SystemExit("staging is not complete for this spec")
-    shape = arrays(group)
-    receipt = {"phase": "preflight", "group": group, "at": now(), "commands": {}, "spec_sha256": sha(SPEC_REL),
-               "slurm_sha256": sha(SLURM_REL)}
+    shape = arrays(group, rows)
+    receipt = {"phase": "preflight", "group": group, "rows": rows, "at": now(), "commands": {},
+               "spec_sha256": sha(SPEC_REL), "slurm_sha256": sha(SLURM_REL)}
     client = connect()
     runner = REMOTE + "/src/dft/research_batch_seeded.py"
     spec = REMOTE + "/" + SPEC_REL
@@ -203,7 +230,9 @@ def preflight(group):
     balance = [line.split() for line in receipt["commands"]["mybalance"]["stdout"].splitlines()
                if line.startswith("che260157 ")]
     receipt["balance_su"] = float(balance[0][-1]) if balance else None
-    receipt["reservation_su"] = SPEC["allocation"]["group_ceilings_cpu_su"][group]
+    receipt["reservation_su"] = ceiling(shape)
+    if not rows and receipt["reservation_su"] != SPEC["allocation"]["group_ceilings_cpu_su"][group]:
+        raise SystemExit("whole-group reservation differs from the spec")
     receipt["queued_jobs"] = [line for line in queue["stdout"].splitlines() if line.strip()]
     receipt["queued_corpus_escape_jobs"] = [line for line in receipt["queued_jobs"]
                                             if "|ce-held-" in line or "|ce-esc-" in line]
@@ -229,8 +258,10 @@ def preflight(group):
 def submit(group):
     if not json.loads((HERE / ("preflight_%s_receipt.json" % group)).read_text())["passed"]:
         raise SystemExit("preflight has not passed for " + group)
-    shape = arrays(group)
-    receipt = {"phase": "submit", "group": group, "at": now(), "commands": {}, "jobs": {}, "spec_sha256": sha(SPEC_REL)}
+    rows = chosen_rows(group)
+    shape = arrays(group, rows)
+    receipt = {"phase": "submit", "group": group, "rows": rows, "at": now(), "commands": {}, "jobs": {},
+               "spec_sha256": sha(SPEC_REL)}
     with (HERE / ("submit_%s_intent.json" % group)).open("x", encoding="utf-8", newline="\n") as stream:
         stream.write(json.dumps({"at": now(), "arrays": shape}) + "\n")
     client = connect()
@@ -250,11 +281,12 @@ def submit(group):
 
 
 def validate(group):
-    shape = arrays(group)
+    rows = chosen_rows(group)
+    shape = arrays(group, rows)
     jobs = json.loads((HERE / ("submit_%s_receipt.json" % group)).read_text())["jobs"]
     if set(jobs) != set(shape):
         raise SystemExit("exactly the group's arrays are required, found " + json.dumps(jobs))
-    receipt = {"phase": "validate", "group": group, "at": now(), "commands": {}, "checks": {}}
+    receipt = {"phase": "validate", "group": group, "rows": rows, "at": now(), "commands": {}, "checks": {}}
     client = connect()
     for stage_name, job in jobs.items():
         s = shape[stage_name]
@@ -267,9 +299,11 @@ def validate(group):
         expected = {"JobState": "PENDING", "Account": "che260157", "Partition": "wholenode",
                     "NumCPUs": "128", "NumTasks": "128", "CPUs/Task": "1", "Requeue": "0",
                     "Dependency": "(null)", "TimeLimit": s["time"], "JobName": s["name"],
-                    "Command": REMOTE + "/" + SLURM_REL, "ArrayTaskId": s["array"],
-                    "ArrayTaskThrottle": s["throttle"]}
+                    "Command": REMOTE + "/" + SLURM_REL, "ArrayTaskThrottle": s["throttle"]}
         bad.update({k: fields.get(k) for k, v in expected.items() if fields.get(k) != v})
+        # A pending array prints its task list with the throttle ("1-6%6"); a one-task subset may print it bare.
+        if fields.get("ArrayTaskId") not in ({s["array"], s["array"].split("%")[0]} if rows else {s["array"]}):
+            bad["ArrayTaskId"] = fields.get("ArrayTaskId")
         if fields.get("NumNodes") not in {"1", "1-1"}:
             bad["NumNodes"] = fields.get("NumNodes")
         tres = dict(part.split("=", 1) for part in fields.get("ReqTRES", "").split(",") if "=" in part)
@@ -281,14 +315,15 @@ def validate(group):
             bad["ExcNodeList"] = fields.get("ExcNodeList")
         held = fields.get("Reason") == "JobHeldUser" or fields.get("Priority") == "0"
         su = s["tasks"] * s["minutes"] * 128 // 60
-        if su != SPEC["allocation"]["stage_ceilings_cpu_su"][stage_name]:
+        full = SPEC["allocation"]["stage_ceilings_cpu_su"][stage_name]
+        if su != (full * s["tasks"] // len(SPEC["stages"][stage_name]["jobs"]) if rows else full):
             bad["ceiling"] = su
         receipt["checks"][stage_name] = {"job": job, "mismatches": bad, "held": held, "ceiling_cpu_su": su}
     client.close()
     total = sum(c["ceiling_cpu_su"] for c in receipt["checks"].values())
     receipt["group_ceiling_cpu_su"] = total
     receipt["passed"] = (len(receipt["checks"]) == len(shape)
-                         and total == SPEC["allocation"]["group_ceilings_cpu_su"][group]
+                         and total == (ceiling(shape) if rows else SPEC["allocation"]["group_ceilings_cpu_su"][group])
                          and all(not c["mismatches"] and c["held"] for c in receipt["checks"].values()))
     write("validate_%s_receipt.json" % group, receipt)
     if not receipt["passed"]:
@@ -298,7 +333,7 @@ def validate(group):
 def release(group):
     if not json.loads((HERE / ("validate_%s_receipt.json" % group)).read_text())["passed"]:
         raise SystemExit("held shape not validated")
-    shape = arrays(group)
+    shape = arrays(group, chosen_rows(group))
     jobs = json.loads((HERE / ("submit_%s_receipt.json" % group)).read_text())["jobs"]
     if set(jobs) != set(shape):
         raise SystemExit("exactly the group's arrays are required")
@@ -320,5 +355,7 @@ if __name__ == "__main__":
     phase = sys.argv[1]
     if phase == "stage":
         stage(sys.argv[2])
+    elif phase == "preflight" and len(sys.argv) > 3:
+        preflight(group_arg(sys.argv[2]), rows_arg(sys.argv[2], sys.argv[3]))
     else:
         {"preflight": preflight, "submit": submit, "validate": validate, "release": release}[phase](group_arg(sys.argv[2]))
