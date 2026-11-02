@@ -1187,3 +1187,56 @@ IEEE marker, the force audit, the projection, the complete HEA QC, density reten
 | Spec, plan, seed text files | `results/arm_c_ext_r7_2026-11-01/` (`launch_spec.json`, `ext_plan.json`, `seeds/`) |
 | Slurm | `anvil/102_arm_c_ext_r7.slurm` |
 | Operations | `results/arm_c_ext_r7_2026-11-01/launch_ops.py` (round 3's, with round 7's constants; one seed copy for the shared bundle; other projects' queued jobs allowed, arm-C jobs not) |
+
+## Round 7 readout, 2026-11-01: neither run converged; Cu8 still has no value
+
+**Runs.** Array 21852915 started within minutes of its release: tasks on a350 and a991 from 13:53Z and 13:54Z. Both
+reached QE's `max_seconds` (16,800 s) and stopped themselves ("Maximum CPU time exceeded"), wrote their last
+density and occupations ("Writing config") and ended at 18:35Z and 18:34Z. The runner labels that stop "numerical
+failure marker", so Slurm lists both as `FAILED` (exit 10). There were no QE errors.
+
+**Cost.** 1,200.6 SU (sacct CPU time: 602.0 and 598.6), inside the 1,280 SU ceiling. The campaign has used
+23,741.3 SU of the approved 23,821, leaving 79.7. Balance: 9,727.4 SU (`mybalance`, 2026-11-02 01:13Z).
+
+**Trajectories** (`trajectories.py`, from the sha256-matched mirror; accuracy is QE's "estimated scf accuracy" in Ry):
+
+| Run | Iterations | s per iteration | Best (iteration) | Iterations below 10⁻⁴ / 10⁻⁵ | Last | Total magnetization, last two thirds, μB |
+|---|---|---|---|---|---|---|
+| Round 3, Davidson, 390 bands | 300 | ~55 | 5.3×10⁻⁶ (68) | – / 32 | ~10⁻⁴ | 51.08–51.25 (from iteration 101) |
+| `slab__atomic_moved_cg` | 23 | 710 | 1.0×10⁻⁴ (21) | 0 / 0 | 1.1×10⁻⁴ | 50.96–51.10 |
+| `slab__atomic_moved_nbnd470` | 262 | 64 | 5.7×10⁻⁵ (63) | 27 / 0 | 4.9×10⁻⁴ | 51.06–51.23 |
+
+**What this shows.**
+- CG ran about 13 times slower per iteration than round 3's Davidson, not the 3 times expected, so it reached only
+  23 iterations. Its accuracy reached 1.0–1.2×10⁻⁴ over its last five (median 1.7×10⁻³ over the run), so this run
+  cannot say whether CG converges this state; at this speed 300 iterations would take about 59 h.
+- 470 bands with full-accuracy Davidson did worse than round 3 from the same start: it never went below 10⁻⁵ Ry
+  (round 3: 32 iterations) and its median held at 1.3–1.6×10⁻⁴ in every 50–100-iteration window. More empty bands
+  and tighter diagonalization at every step did not remove the stall, which argues against unconverged states near
+  the Fermi level as its cause.
+- Both runs stayed in the magnetic state of every stalled attempt at this slab: 51.0–51.2 μB total, about 1 μB above
+  the site's converged O, OH and OOH (49.6–50.1). Neither hopped between states.
+
+**Consequence.**
+- The Cu8 s16/2 slab is still missing, so Cu8 stays `NO_VALUE` under arm C. Arm C's registered readings, K1, K2 and
+  the Ni34 nomination are unchanged.
+- No value exists to label as computed after the first Cu8 measurement.
+- The report does not use this round.
+
+**Competing explanations, updated.**
+- *Slow charge sloshing:* round 3 fits it; the extra bands and full-accuracy diagonalization neither help nor rule it out.
+- *A second self-consistent state:* every stalled slab run with a recorded moment (rounds 2, 3 and 7: four runs, two
+  solvers, two mixing histories) holds 51.0–51.25 μB, while the site's converged O, OH and OOH hold 49.6–50.1. If the
+  slab's converged state lies near the adsorbate states' moment, these runs never reached it. A run with the total
+  moment fixed near 50 μB (QE `tot_magnetization`), then a free restart from its density, would test that. It is not
+  planned: 79.7 SU is left under the approved ceiling, and the pair would cost about 1,200 SU at this length.
+
+**Open for Frank.** Leave Cu8 without an arm C value (the default), or approve the fixed-moment pair (about 1,200 SU,
+outside the current ceiling; it would compete with the corpus escape test, whose tier 1a holds a 6,912 SU
+reservation against the 9,727.4 SU balance).
+
+| Part | Location |
+|---|---|
+| Collection | `results/arm_c_ext_r7_2026-11-01/collect_terminal.py` (round 6's, with round 7's path) and `terminal_collection.json`: sacct, `mybalance` and 12 files, sha256-matched to Anvil |
+| Mirror | `results/arm_c_ext_r7_2026-11-01/raw_mirror/`: runtime inputs, outputs, QC receipts, stop markers, Slurm logs and each run's `occup.txt` |
+| Trajectories | `results/arm_c_ext_r7_2026-11-01/trajectories.py` and `trajectories.json` |

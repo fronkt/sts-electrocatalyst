@@ -1,0 +1,24 @@
+{
+  "phase": "release",
+  "array": "r7_main",
+  "at": "2026-11-01T10:39:48.669203+00:00",
+  "commands": {
+    "release:r7_main": {
+      "command": "scontrol release 21852915",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-01T10:39:49.637572+00:00"
+    },
+    "after": {
+      "command": "squeue -u x-fcai3 -o '%i|%j|%T|%M|%l|%R'",
+      "stdout": "JOBID|NAME|STATE|TIME|TIME_LIMIT|NODELIST(REASON)\n21587499_[0-12]|pxrd-v30-eval|PENDING|0:00|2:00:00|(DependencyNeverSatisfied)\n21571229|n3-s5M|PENDING|0:00|1-00:00:00|(DependencyNeverSatisfied)\n21852915_2|arm-c-ext-r7-main|PENDING|0:00|5:00:00|(None)\n21852915_1|arm-c-ext-r7-main|PENDING|0:00|5:00:00|(None)\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-01T10:39:50.165073+00:00"
+    }
+  },
+  "released": {
+    "r7_main": "21852915"
+  }
+}
