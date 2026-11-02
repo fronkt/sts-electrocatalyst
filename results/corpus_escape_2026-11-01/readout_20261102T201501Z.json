@@ -1,0 +1,913 @@
+{
+  "schema": "corpus-escape-readout-v1",
+  "at": "20261102T201501Z",
+  "design": "docs/research/corpus-escape-2026-11-01.md",
+  "rule": {
+    "harmful": "dE < -10 meV and d_off > 0.10 A",
+    "benign": "|dE| <= 10 meV and d_off <= 0.05 A",
+    "unresolved": "every other valid outcome; nspin 2 with |d absmag| > 1.0 muB"
+  },
+  "downloaded": [
+    "runs/corpus_escape_2026-11-01/IrO2__OOH-relax__held.out",
+    "runs/corpus_escape_2026-11-01/IrO2__OOH-relax__held.qc.json",
+    "runs/corpus_escape_2026-11-01/IrO2__OOH-relax__held.run.in",
+    "runs/corpus_escape_2026-11-01/IrO2__OOH-relax__held.projwfc.in",
+    "runs/corpus_escape_2026-11-01/IrO2__OOH-relax__held.projwfc.out",
+    "runs/corpus_escape_2026-11-01/MoO2__OOH-relax__held.out",
+    "runs/corpus_escape_2026-11-01/MoO2__OOH-relax__held.qc.json",
+    "runs/corpus_escape_2026-11-01/MoO2__OOH-relax__held.run.in",
+    "runs/corpus_escape_2026-11-01/MoO2__OOH-relax__held.projwfc.in",
+    "runs/corpus_escape_2026-11-01/MoO2__OOH-relax__held.projwfc.out",
+    "runs/corpus_escape_2026-11-01/NbO2__OOH-relax__held.out",
+    "runs/corpus_escape_2026-11-01/NbO2__OOH-relax__held.qc.json",
+    "runs/corpus_escape_2026-11-01/NbO2__OOH-relax__held.run.in",
+    "runs/corpus_escape_2026-11-01/NbO2__OOH-relax__held.projwfc.in",
+    "runs/corpus_escape_2026-11-01/NbO2__OOH-relax__held.projwfc.out",
+    "runs/corpus_escape_2026-11-01/ReO2__OOH-relax__held.out",
+    "runs/corpus_escape_2026-11-01/ReO2__OOH-relax__held.qc.json",
+    "runs/corpus_escape_2026-11-01/ReO2__OOH-relax__held.run.in",
+    "runs/corpus_escape_2026-11-01/ReO2__OOH-relax__held.projwfc.in",
+    "runs/corpus_escape_2026-11-01/ReO2__OOH-relax__held.projwfc.out",
+    "runs/corpus_escape_2026-11-01/RuO2__OOH-relax__held.out",
+    "runs/corpus_escape_2026-11-01/RuO2__OOH-relax__held.qc.json",
+    "runs/corpus_escape_2026-11-01/RuO2__OOH-relax__held.run.in",
+    "runs/corpus_escape_2026-11-01/RuO2__OOH-relax__held.projwfc.in",
+    "runs/corpus_escape_2026-11-01/RuO2__OOH-relax__held.projwfc.out",
+    "runs/corpus_escape_2026-11-01/TiO2__OOH-relax__held.out",
+    "runs/corpus_escape_2026-11-01/TiO2__OOH-relax__held.qc.json",
+    "runs/corpus_escape_2026-11-01/TiO2__OOH-relax__held.run.in",
+    "runs/corpus_escape_2026-11-01/TiO2__OOH-relax__held.projwfc.in",
+    "runs/corpus_escape_2026-11-01/TiO2__OOH-relax__held.projwfc.out",
+    "runs/corpus_escape_2026-11-01/IrO2__OOH-relax__escape.out",
+    "runs/corpus_escape_2026-11-01/IrO2__OOH-relax__escape.qc.json",
+    "runs/corpus_escape_2026-11-01/IrO2__OOH-relax__escape.run.in",
+    "runs/corpus_escape_2026-11-01/IrO2__OOH-relax__escape.REJECTED",
+    "runs/corpus_escape_2026-11-01/MoO2__OOH-relax__escape.out",
+    "runs/corpus_escape_2026-11-01/MoO2__OOH-relax__escape.qc.json",
+    "runs/corpus_escape_2026-11-01/MoO2__OOH-relax__escape.run.in",
+    "runs/corpus_escape_2026-11-01/MoO2__OOH-relax__escape.REJECTED",
+    "runs/corpus_escape_2026-11-01/NbO2__OOH-relax__escape.out",
+    "runs/corpus_escape_2026-11-01/NbO2__OOH-relax__escape.qc.json",
+    "runs/corpus_escape_2026-11-01/NbO2__OOH-relax__escape.run.in",
+    "runs/corpus_escape_2026-11-01/NbO2__OOH-relax__escape.REJECTED",
+    "runs/corpus_escape_2026-11-01/ReO2__OOH-relax__escape.out",
+    "runs/corpus_escape_2026-11-01/ReO2__OOH-relax__escape.qc.json",
+    "runs/corpus_escape_2026-11-01/ReO2__OOH-relax__escape.run.in",
+    "runs/corpus_escape_2026-11-01/ReO2__OOH-relax__escape.REJECTED",
+    "runs/corpus_escape_2026-11-01/RuO2__OOH-relax__escape.out",
+    "runs/corpus_escape_2026-11-01/RuO2__OOH-relax__escape.qc.json",
+    "runs/corpus_escape_2026-11-01/RuO2__OOH-relax__escape.run.in",
+    "runs/corpus_escape_2026-11-01/RuO2__OOH-relax__escape.KILLED",
+    "runs/corpus_escape_2026-11-01/TiO2__OOH-relax__escape.out",
+    "runs/corpus_escape_2026-11-01/TiO2__OOH-relax__escape.qc.json",
+    "runs/corpus_escape_2026-11-01/TiO2__OOH-relax__escape.run.in",
+    "runs/corpus_escape_2026-11-01/TiO2__OOH-relax__escape.REJECTED",
+    "results/corpus_escape_2026-11-01/logs/corpus_escape_21870322_2.log",
+    "results/corpus_escape_2026-11-01/logs/corpus_escape_21870322_1.log",
+    "results/corpus_escape_2026-11-01/logs/corpus_escape_21870322_3.log",
+    "results/corpus_escape_2026-11-01/logs/corpus_escape_21870323_4.log",
+    "results/corpus_escape_2026-11-01/logs/corpus_escape_21870323_2.log",
+    "results/corpus_escape_2026-11-01/logs/corpus_escape_21870322_5.log",
+    "results/corpus_escape_2026-11-01/logs/corpus_escape_21870323_1.log",
+    "results/corpus_escape_2026-11-01/logs/corpus_escape_21870323_6.log",
+    "results/corpus_escape_2026-11-01/logs/corpus_escape_21870322_6.log",
+    "results/corpus_escape_2026-11-01/logs/corpus_escape_21870323_5.log",
+    "results/corpus_escape_2026-11-01/logs/corpus_escape_21870323_3.log",
+    "results/corpus_escape_2026-11-01/logs/corpus_escape_21870322_4.log"
+  ],
+  "counts": {
+    "tier1 NOT RUN": 4,
+    "tier1 INVALID": 6,
+    "tier2 NOT RUN": 20
+  },
+  "rows": [
+    {
+      "tier": "tier1",
+      "launch_group": "tier1b",
+      "metal": "CrO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "held": {
+        "job": "CrO2__OOH-relax__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "CrO2__OOH-relax__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier1",
+      "launch_group": "tier1a",
+      "metal": "IrO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "held": {
+        "job": "IrO2__OOH-relax__held",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -4005.20859765,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 2,
+        "header_form": "count-first, no-inversion",
+        "silentgate_verdict": "LOCKED",
+        "locked_axes": [
+          "x"
+        ],
+        "n_force_steps": 37,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.0,
+          "50": 0.0,
+          "51": 0.0
+        },
+        "d_off_A": 0.0
+      },
+      "escape": {
+        "job": "IrO2__OOH-relax__escape",
+        "present": true,
+        "receipt_status": "REJECTED",
+        "receipt_reason": "relaxation not complete/clean: NOT CONVERGED",
+        "readout_status": "REJECTED",
+        "E_Ry": null,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 1,
+        "header_form": "no-symmetry",
+        "silentgate_verdict": "not-LOCKED",
+        "locked_axes": [],
+        "n_force_steps": 100,
+        "bfgs_converged": false
+      },
+      "decision": {
+        "class": "INVALID",
+        "reasons": [
+          "escape not COMPLETE/CONVERGED (REJECTED, REJECTED)"
+        ]
+      }
+    },
+    {
+      "tier": "tier1",
+      "launch_group": "tier1b",
+      "metal": "MnO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "held": {
+        "job": "MnO2__OOH-relax__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "MnO2__OOH-relax__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier1",
+      "launch_group": "tier1a",
+      "metal": "MoO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "held": {
+        "job": "MoO2__OOH-relax__held",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -3330.04409719,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 2,
+        "header_form": "count-first, no-inversion",
+        "silentgate_verdict": "LOCKED",
+        "locked_axes": [
+          "x"
+        ],
+        "n_force_steps": 38,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.0,
+          "50": 0.0,
+          "51": 0.0
+        },
+        "d_off_A": 0.0
+      },
+      "escape": {
+        "job": "MoO2__OOH-relax__escape",
+        "present": true,
+        "receipt_status": "REJECTED",
+        "receipt_reason": "relaxation not complete/clean: NOT CONVERGED",
+        "readout_status": "REJECTED",
+        "E_Ry": null,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 1,
+        "header_form": "no-symmetry",
+        "silentgate_verdict": "not-LOCKED",
+        "locked_axes": [],
+        "n_force_steps": 100,
+        "bfgs_converged": false
+      },
+      "decision": {
+        "class": "INVALID",
+        "reasons": [
+          "escape not COMPLETE/CONVERGED (REJECTED, REJECTED)"
+        ]
+      }
+    },
+    {
+      "tier": "tier1",
+      "launch_group": "tier1a",
+      "metal": "NbO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "held": {
+        "job": "NbO2__OOH-relax__held",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -2989.97100138,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 2,
+        "header_form": "count-first, no-inversion",
+        "silentgate_verdict": "LOCKED",
+        "locked_axes": [
+          "x"
+        ],
+        "n_force_steps": 70,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.0,
+          "50": 0.0,
+          "51": 0.0
+        },
+        "d_off_A": 0.0
+      },
+      "escape": {
+        "job": "NbO2__OOH-relax__escape",
+        "present": true,
+        "receipt_status": "REJECTED",
+        "receipt_reason": "relaxation not complete/clean: NOT CONVERGED",
+        "readout_status": "REJECTED",
+        "E_Ry": null,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 1,
+        "header_form": "no-symmetry",
+        "silentgate_verdict": "not-LOCKED",
+        "locked_axes": [],
+        "n_force_steps": 100,
+        "bfgs_converged": false
+      },
+      "decision": {
+        "class": "INVALID",
+        "reasons": [
+          "escape not COMPLETE/CONVERGED (REJECTED, REJECTED)"
+        ]
+      }
+    },
+    {
+      "tier": "tier1",
+      "launch_group": "tier1b",
+      "metal": "PtO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "held": {
+        "job": "PtO2__OOH-relax__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "PtO2__OOH-relax__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier1",
+      "launch_group": "tier1a",
+      "metal": "ReO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "held": {
+        "job": "ReO2__OOH-relax__held",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -4149.28179839,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 2,
+        "header_form": "count-first, no-inversion",
+        "silentgate_verdict": "LOCKED",
+        "locked_axes": [
+          "x"
+        ],
+        "n_force_steps": 40,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.0,
+          "50": 0.0,
+          "51": 0.0
+        },
+        "d_off_A": 0.0
+      },
+      "escape": {
+        "job": "ReO2__OOH-relax__escape",
+        "present": true,
+        "receipt_status": "REJECTED",
+        "receipt_reason": "relaxation not complete/clean: NOT CONVERGED",
+        "readout_status": "REJECTED",
+        "E_Ry": null,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 1,
+        "header_form": "no-symmetry",
+        "silentgate_verdict": "not-LOCKED",
+        "locked_axes": [],
+        "n_force_steps": 100,
+        "bfgs_converged": false
+      },
+      "decision": {
+        "class": "INVALID",
+        "reasons": [
+          "escape not COMPLETE/CONVERGED (REJECTED, REJECTED)"
+        ]
+      }
+    },
+    {
+      "tier": "tier1",
+      "launch_group": "tier1b",
+      "metal": "RhO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "held": {
+        "job": "RhO2__OOH-relax__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "RhO2__OOH-relax__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier1",
+      "launch_group": "tier1a",
+      "metal": "RuO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "held": {
+        "job": "RuO2__OOH-relax__held",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -4205.80842551,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 2,
+        "header_form": "count-first, no-inversion",
+        "silentgate_verdict": "LOCKED",
+        "locked_axes": [
+          "x"
+        ],
+        "n_force_steps": 40,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.0,
+          "50": 0.0,
+          "51": 0.0
+        },
+        "d_off_A": 0.0
+      },
+      "escape": {
+        "job": "RuO2__OOH-relax__escape",
+        "present": true,
+        "receipt_status": "REJECTED",
+        "receipt_reason": "wall-time ceiling",
+        "readout_status": "KILLED",
+        "E_Ry": null,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 1,
+        "header_form": "no-symmetry",
+        "silentgate_verdict": "not-LOCKED",
+        "locked_axes": [],
+        "n_force_steps": 92,
+        "bfgs_converged": false
+      },
+      "decision": {
+        "class": "INVALID",
+        "reasons": [
+          "escape not COMPLETE/CONVERGED (REJECTED, KILLED)"
+        ]
+      }
+    },
+    {
+      "tier": "tier1",
+      "launch_group": "tier1a",
+      "metal": "TiO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "held": {
+        "job": "TiO2__OOH-relax__held",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -3012.74839489,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 2,
+        "header_form": "count-first, no-inversion",
+        "silentgate_verdict": "LOCKED",
+        "locked_axes": [
+          "x"
+        ],
+        "n_force_steps": 43,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.0,
+          "50": 0.0,
+          "51": 0.0
+        },
+        "d_off_A": 0.0
+      },
+      "escape": {
+        "job": "TiO2__OOH-relax__escape",
+        "present": true,
+        "receipt_status": "REJECTED",
+        "receipt_reason": "relaxation not complete/clean: NOT CONVERGED",
+        "readout_status": "REJECTED",
+        "E_Ry": null,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 1,
+        "header_form": "no-symmetry",
+        "silentgate_verdict": "not-LOCKED",
+        "locked_axes": [],
+        "n_force_steps": 100,
+        "bfgs_converged": false
+      },
+      "decision": {
+        "class": "INVALID",
+        "reasons": [
+          "escape not COMPLETE/CONVERGED (REJECTED, REJECTED)"
+        ]
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "CrO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "CrO2__OH__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "CrO2__OH__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "CrO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "CrO2__OH-relax__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "CrO2__OH-relax__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "IrO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "IrO2__OH__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "IrO2__OH__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "IrO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "IrO2__OH-relax__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "IrO2__OH-relax__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "MnO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "MnO2__OH__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "MnO2__OH__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "MnO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "MnO2__OH-relax__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "MnO2__OH-relax__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "MoO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "MoO2__OH__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "MoO2__OH__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "MoO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "MoO2__OH-relax__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "MoO2__OH-relax__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "NbO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "NbO2__OH__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "NbO2__OH__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "NbO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "NbO2__OH-relax__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "NbO2__OH-relax__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "PtO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "PtO2__OH__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "PtO2__OH__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "PtO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "PtO2__OH-relax__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "PtO2__OH-relax__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "ReO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "ReO2__OH__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "ReO2__OH__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "ReO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "ReO2__OH-relax__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "ReO2__OH-relax__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "RhO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "RhO2__OH__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "RhO2__OH__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "RhO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "RhO2__OH-relax__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "RhO2__OH-relax__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "RuO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "RuO2__OH__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "RuO2__OH__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "RuO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "RuO2__OH-relax__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "RuO2__OH-relax__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "TiO2",
+      "job": "OH",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "TiO2__OH__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "TiO2__OH__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    },
+    {
+      "tier": "tier2",
+      "launch_group": "tier2",
+      "metal": "TiO2",
+      "job": "OH-relax",
+      "state": "OH",
+      "locked_axis": "y",
+      "held": {
+        "job": "TiO2__OH-relax__held",
+        "present": false,
+        "status": "MISSING"
+      },
+      "escape": {
+        "job": "TiO2__OH-relax__escape",
+        "present": false,
+        "status": "MISSING"
+      },
+      "decision": {
+        "class": "NOT RUN"
+      }
+    }
+  ]
+}

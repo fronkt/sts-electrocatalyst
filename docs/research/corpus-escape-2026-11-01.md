@@ -338,3 +338,89 @@ finish. The rule, fixed now, before any tier 1a output exists:
 
 Results are reported as k of the n oxides run, with the oxides not run and the reason listed. A subset changes only
 the Slurm array list and the reservation; the spec, manifests, decks, Slurm script and runner are unchanged.
+
+## Tier 1a readout, 2026-11-02: every lock reproduced, no escape arm converged
+
+**Runs.** Held array 21870322 and escape array 21870323 (wholenode, 128 cores) started 2026-11-02 between 05:03 and
+08:10 EST and had left the queue by 15:13 EST. sacct: held 1:01:48-2:01:54, all COMPLETED; escape 3:16:11-5:40:08, all
+FAILED (the runner's exit after a REJECTED or KILLED receipt). Cost 4,283.0 SU from CPUTimeRAW (held 1,091.4, escape
+3,191.6). That equals the balance change, 9,727.4 to 5,444.4 SU (mybalance, 2026-11-02 20:13Z). The reservation was 6,912.
+
+**By the rule** (`collect.py`, `readout_20261102T201501Z.json`): 6 of 6 INVALID, none scored.
+
+- Held: all six COMPLETE, `bfgs converged` in 37-70 steps, 2 operations in the header, silentgate LOCKED on x. Every
+  deposited lock reproduces on GBRV v1.5.
+- Escape: IrO2, MoO2, NbO2, ReO2 and TiO2 stopped at nstep = 100 without converging (receipt REJECTED, "relaxation not
+  complete/clean: NOT CONVERGED"). RuO2 stopped at the runner's wall ceiling after 92 steps (KILLED). All six headers
+  read "No symmetry found".
+
+**Escape trajectories** (`escape_trajectories.py` writes `escape_trajectories.json`; descriptive only, classifies nothing).
+ΔE = each escape SCF's energy minus the held arm's final energy; d_off is defined as in the rule.
+
+| oxide | stop | steps | ΔE step 1 (meV) | ΔE step 20 (meV) | ΔE last (meV) | d_off last (Å) | slope, last 10 (meV/step) | total force last (Ry/bohr) | O-O held / last (Å) | distal O's nearest slab atom, last |
+|---|---|---|---|---|---|---|---|---|---|---|
+| IrO2 | nstep | 100 | +6.4 | -2.9 | -270.3 | 1.65 | -0.17 | 0.0033 | 1.458 / 1.466 | O, 2.73 Å |
+| MoO2 | nstep | 100 | +5.4 | -478.9 | -1,314.4 | 2.02 | -0.54 | 0.0034 | 1.447 / 1.480 | Mo, 2.34 Å |
+| NbO2 | nstep | 100 | +6.0 | -8.6 | -462.3 | 2.23 | -3.42 | 0.0201 | 1.441 / 1.475 | Nb, 2.38 Å |
+| ReO2 | nstep | 100 | +3.8 | -1.7 | -4,359.3 | 2.63 | -0.12 | 0.0015 | 1.794 / 2.572 | Re, 1.87 Å |
+| RuO2 | runner wall | 92 | +5.7 | -23.0 | -365.6 | 1.31 | -0.02 | 0.0007 | 1.448 / 1.447 | O, 2.82 Å |
+| TiO2 | nstep | 100 | +6.0 | -4.4 | -113.2 | 1.02 | -0.29 | 0.0024 | 1.374 / 1.377 | O, 2.94 Å |
+
+What the trajectories show:
+
+1. Both arms share one energy scale. At step 1, with the adsorbate 0.10 Å off the plane, every escape arm sits 3.8-6.4
+   meV above the held minimum, as a small displacement from a minimum on the plane should. A k-set or SCF offset of the
+   size of the later drops would show here.
+2. In every case the energy kept falling once the adsorbate left the plane (from about step 15-20), and it was still
+   falling at the stop. The last values are 11 to 436 times the rule's 10 meV threshold. Because no run converged,
+   they are not ΔE in the rule's sense. A BFGS run lowers its energy step by step, so a converged escape would probably
+   end at or below them, but that is not shown.
+3. Ir, Ru, Ti: the *OOH stayed intact (O-O 1.38-1.47 Å, O-H 0.99 Å), turned 1.0-1.65 Å off the plane and fell 0.11-0.37
+   eV, close to a plateau (-0.02 to -0.29 meV per step). The IrO2 value, -270 meV and still falling, is near the 291 meV
+   measured on the program's own IrO2 *OOH lock (sts-report, Section 4.4), which is a different cell (the 18-atom
+   1 x 1 slab of the U ladder, not this 51-atom four-layer slab).
+4. Mo, Nb: the distal O bonded to a second metal (2.34, 2.38 Å) with the O-O bond intact, giving a bridging *OOH. Re: the
+   O-O bond broke (2.57 Å) and the distal O bound a second Re (1.87 Å), giving O* + OH*, not *OOH. The deposited
+   ReO2 *OOH already had a stretched O-O bond (1.80 Å at the deposited final geometry, 1.79 Å after the held
+   re-relaxation), so the stretched state was already in the corpus and was not introduced by the pseudopotential
+   substitution.
+5. MoO2 had fallen 479 meV by step 20 while the adsorbate was still within 0.10-0.11 Å of the plane and no slab atom was
+   more than 0.15 Å from the held structure. The slab atoms of Mo and Nb moved 3-5 times as far as those of Ir, Ru and Ti
+   (RMS 0.08-0.11 Å against 0.02-0.04 Å at the last step). The held Mo, Nb and Re slabs already have short metal-metal
+   distances (shortest 2.42-2.66 Å, against 2.94-3.16 Å for Ir, Ru, Ti), and the escapes change the shortest by at most
+   0.09 Å, so this is not a new pairing.
+
+Competing explanations for the size of the drops:
+
+- A lock cost on the intended intermediate (most direct for Ir, Ru, Ti): the held geometry is a stationary point on
+  the plane, with a lower *OOH off it.
+- A change of intermediate (Re, and arguably Mo and Nb): the escape left the monodentate *OOH state. The rule's numbers
+  would read HARMFUL; what the trajectory shows is that the locked geometry is not a stable monodentate *OOH there.
+- Slab relaxation the mirror also forbids on the clean slab (most plausible for Mo and Nb, item 5). That part would
+  partly cancel in an adsorption energy; separating it needs a symmetry-free clean-slab run, which this test did not
+  include.
+- The pseudopotential substitution. The held arms reproduce every deposited lock and both arms share the same files,
+  but the test does not measure how far the v1.5 surface differs from the deposited one.
+
+**Why the step cap bound.** The plan priced 30 BFGS cycles per escape (`cost_estimate.json`); the escapes needed more
+than 92-100. The adsorbate spent its first 10 steps within 0.01 Å of its starting offset, then travelled 1.0-2.6 Å
+off the plane (IrO2's trust radius was 0.01-0.04 bohr over its last 15 steps). The held arms needed 37-70 steps against 12 priced. The planning per-iteration
+time was conservative, so elapsed walls stayed near plan (r below) even though the step counts did not.
+
+**Tier 1b under its launch rule.** r = 1.604, the median of the 12 elapsed/planning ratios (1.031, 1.225, 1.263, 1.268,
+1.469, 1.594, 1.614, 1.638, 1.675, 2.235, 2.777, 3.368). RuO2's escape stopped at the runner's ceiling, below its Slurm
+wall, so it enters at its elapsed time. Eligible: PtO2 (4.40 h) and RhO2 (5.30 h). Not eligible: CrO2 (7.18 h) and MnO2
+(8.54 h). The balance, 5,444.4 SU, covers both eligible oxides (3,584).
+
+**Tier 1b not launched; held for Frank.** Tier 1b's escape decks carry the same nstep = 100, and r measures time to
+stop, not time to converge: all six tier 1a escape arms stopped unconverged. PtO2 and RhO2 would most likely end
+INVALID the same way, using 66 % of the remaining balance. Frank's go-ahead ("run tier 1b if there's room") came
+before this was known.
+
+Open for Frank:
+
+1. Continue tier 1a's six escape arms from their last geometries: same settings and files, nstep 100, 7 h walls,
+   held arms unchanged, recorded as a deviation decided after these results. Reservation 6 x 896 = 5,376 SU (of
+   5,444.4). The spend should be lower: 4.2-7.9 SU per step, and four of the six are near a plateau.
+2. Launch tier 1b (PtO2, RhO2) under the rule as it stands: 3,584 SU, and most likely INVALID escape arms again.
+3. Stop and report tier 1a as INVALID by the rule, with the trajectories above.

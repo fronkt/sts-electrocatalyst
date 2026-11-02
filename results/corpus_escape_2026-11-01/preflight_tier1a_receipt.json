@@ -1,0 +1,98 @@
+{
+  "phase": "preflight",
+  "group": "tier1a",
+  "at": "2026-11-01T23:33:22.012285+00:00",
+  "commands": {
+    "preflight:tier1a_held": {
+      "command": "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 -B /anvil/projects/x-che260157/sts_corpus_escape_2026-11-01/src/dft/research_batch_seeded.py --spec /anvil/projects/x-che260157/sts_corpus_escape_2026-11-01/results/corpus_escape_2026-11-01/launch_spec.json --root /anvil/projects/x-che260157/sts_corpus_escape_2026-11-01 --stage tier1a_held --pseudo /anvil/projects/x-che260157/sts_corpus_escape_2026-11-01/pseudo --preflight",
+      "stdout": "VALID\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-01T23:33:23.239236+00:00"
+    },
+    "preflight:tier1a_escape": {
+      "command": "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 -B /anvil/projects/x-che260157/sts_corpus_escape_2026-11-01/src/dft/research_batch_seeded.py --spec /anvil/projects/x-che260157/sts_corpus_escape_2026-11-01/results/corpus_escape_2026-11-01/launch_spec.json --root /anvil/projects/x-che260157/sts_corpus_escape_2026-11-01 --stage tier1a_escape --pseudo /anvil/projects/x-che260157/sts_corpus_escape_2026-11-01/pseudo --preflight",
+      "stdout": "VALID\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-01T23:33:23.738224+00:00"
+    },
+    "imports": {
+      "command": "/apps/spack/anvil/apps/python/3.9.5-gcc-11.2.0-vtey2yv/bin/python3 -B -c 'import sys; sys.path.insert(0, sys.argv[1]); import research_batch_seeded, projection_qc, hea_panel_readout, hea_geometry; print('\"'\"'IMPORTS_OK'\"'\"')' /anvil/projects/x-che260157/sts_corpus_escape_2026-11-01/src/dft",
+      "stdout": "IMPORTS_OK\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-01T23:33:24.210360+00:00"
+    },
+    "qe_binaries": {
+      "command": "test -x /anvil/projects/x-che260157/qe/env/bin/pw.x -a -x /anvil/projects/x-che260157/qe/env/bin/projwfc.x -a -x /anvil/projects/x-che260157/qe/env/bin/mpirun",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-01T23:33:24.640536+00:00"
+    },
+    "logs_dir": {
+      "command": "test -d /anvil/projects/x-che260157/sts_corpus_escape_2026-11-01/logs -a -w /anvil/projects/x-che260157/sts_corpus_escape_2026-11-01/logs",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-01T23:33:25.115049+00:00"
+    },
+    "qe_sha": {
+      "command": "sha256sum /anvil/projects/x-che260157/qe/env/bin/pw.x /anvil/projects/x-che260157/qe/env/bin/projwfc.x /anvil/projects/x-che260157/qe/env/bin/mpirun",
+      "stdout": "1d66c7856f5d6b3cd9c66b8578e01512b16bbe907b4360e54234890712ccd6a1  /anvil/projects/x-che260157/qe/env/bin/pw.x\n456387be5ee32f358bc9835240b2e8bd1f8144a27a8e116731a1463dbf78ac85  /anvil/projects/x-che260157/qe/env/bin/projwfc.x\na256bdcef89bdc61ba870e823056c51df868b4db48ab345a14278a7fe79ed75d  /anvil/projects/x-che260157/qe/env/bin/mpirun\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-01T23:33:25.616777+00:00"
+    },
+    "myquota": {
+      "command": "bash -lc myquota",
+      "stdout": "\nType       Location             Size    Limit    Use   Files   Limit    Use\n===========================================================================\nhome       x-fcai3             3.3GB   25.0GB  13.6%      -       -      - \nscratch    x-fcai3            13.5GB  100.0TB   0.0%   13.2K    1.0M   1.3%\nprojects   x-che260157         4.5TB    5.0TB  90.2%  385.5K    1.0M  36.8%\n\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-01T23:33:26.544228+00:00"
+    },
+    "mybalance": {
+      "command": "mybalance",
+      "stdout": "\nAllocation     Type    SU Limit    SU Usage   SU Usage  SU Balance\nAccount                           (account)     (user)            \n=============  ====  ==========  ========== ==========  ==========\nche260157       CPU    102490.0     92740.1    92740.1      9750.0\nche260157-gpu   GPU      1485.0        20.4       20.4      1464.6\n\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-01T23:33:27.086411+00:00"
+    },
+    "squeue": {
+      "command": "squeue -u x-fcai3 -h -o '%i|%j|%T'",
+      "stdout": "21587499_[0-12]|pxrd-v30-eval|PENDING\n21571229|n3-s5M|PENDING\n21852915_2|arm-c-ext-r7-main|RUNNING\n21852915_1|arm-c-ext-r7-main|RUNNING\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-01T23:33:27.508229+00:00"
+    },
+    "remote_sha": {
+      "command": "sha256sum /anvil/projects/x-che260157/sts_corpus_escape_2026-11-01/results/corpus_escape_2026-11-01/launch_spec.json /anvil/projects/x-che260157/sts_corpus_escape_2026-11-01/anvil/106_corpus_escape.slurm",
+      "stdout": "32558d0bdca3bfc13cd1e8a8c5109efd496182e2390da12c2d79ceaab556c094  /anvil/projects/x-che260157/sts_corpus_escape_2026-11-01/results/corpus_escape_2026-11-01/launch_spec.json\nc5dc4059b9ab48b192e47c8d206e5c2cd17be45250b0ca41d650b0bdfd14d851  /anvil/projects/x-che260157/sts_corpus_escape_2026-11-01/anvil/106_corpus_escape.slurm\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-01T23:33:28.129374+00:00"
+    },
+    "slurm_syntax": {
+      "command": "bash -n /anvil/projects/x-che260157/sts_corpus_escape_2026-11-01/anvil/106_corpus_escape.slurm",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-01T23:33:28.550255+00:00"
+    }
+  },
+  "spec_sha256": "32558d0bdca3bfc13cd1e8a8c5109efd496182e2390da12c2d79ceaab556c094",
+  "slurm_sha256": "c5dc4059b9ab48b192e47c8d206e5c2cd17be45250b0ca41d650b0bdfd14d851",
+  "balance_su": 9750.0,
+  "reservation_su": 6912,
+  "queued_jobs": [
+    "21587499_[0-12]|pxrd-v30-eval|PENDING",
+    "21571229|n3-s5M|PENDING",
+    "21852915_2|arm-c-ext-r7-main|RUNNING",
+    "21852915_1|arm-c-ext-r7-main|RUNNING"
+  ],
+  "queued_corpus_escape_jobs": [],
+  "qe_binaries_match": true,
+  "project_free_TB": 0.5,
+  "passed": true
+}
