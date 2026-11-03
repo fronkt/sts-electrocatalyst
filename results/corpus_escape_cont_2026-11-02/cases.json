@@ -1,0 +1,425 @@
+{
+  "schema": "corpus-escape-cont-cases-v1",
+  "date": "2026-11-02",
+  "design": "docs/research/corpus-escape-2026-11-01.md",
+  "continues": "results/corpus_escape_2026-11-01/cases.json",
+  "wall_minutes": 420,
+  "scf_seconds": 24000,
+  "group_ceiling_cpu_su": 5376,
+  "cases": [
+    {
+      "tier": "tier1",
+      "metal": "IrO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49,
+        50
+      ],
+      "adsorbate_index1": [
+        49,
+        50,
+        51
+      ],
+      "nat": 51,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        6.36,
+        6.42052957317,
+        36.0705955976
+      ],
+      "deposited_n_symops": 2,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.00786163522
+        },
+        "51": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.01572327044
+        },
+        "50": {
+          "role": "O_distal",
+          "species": "O0",
+          "angstrom": 0.075,
+          "crystal": 0.01179245283
+        }
+      },
+      "census_output": "supporting-data/IrO2/Eads-4-layers/OOH-relax/pwscf.out",
+      "launch_group": "tier1a_cont",
+      "continues": {
+        "job": "IrO2__OOH-relax__escape",
+        "deck": "runs/corpus_escape_2026-11-01/IrO2__OOH-relax__escape.in",
+        "deck_sha256": "8d335f5ea744aec1baf991cf6accdbeccf4a67266d056e193f013dc12b5a2f1b",
+        "output": "runs/corpus_escape_2026-11-01/IrO2__OOH-relax__escape.out",
+        "output_sha256": "ecb0fd4d1efd38f4c0d2df16f3fdd4470219a4616587334efc03c56a01fb6029",
+        "receipt_status": "REJECTED",
+        "receipt_reason": "relaxation not complete/clean: NOT CONVERGED",
+        "n_scf": 100,
+        "last_E_Ry": -4005.22846343,
+        "geometry": "last geometry with an energy (block printed before the last '!' line)"
+      },
+      "start": {
+        "max_adsorbate_off_plane_A": 1.646212
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/IrO2__OOH-relax__held.in",
+        "escape": "runs/corpus_escape_cont_2026-11-02/IrO2__OOH-relax__cont.in",
+        "escape_tier1a": "runs/corpus_escape_2026-11-01/IrO2__OOH-relax__escape.in"
+      }
+    },
+    {
+      "tier": "tier1",
+      "metal": "MoO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49,
+        50
+      ],
+      "adsorbate_index1": [
+        49,
+        50,
+        51
+      ],
+      "nat": 51,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        5.46,
+        7.00035713375,
+        37.5806928395
+      ],
+      "deposited_n_symops": 2,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.009157509158
+        },
+        "51": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.018315018315
+        },
+        "50": {
+          "role": "O_distal",
+          "species": "O0",
+          "angstrom": 0.075,
+          "crystal": 0.013736263736
+        }
+      },
+      "census_output": "supporting-data/MoO2/Eads-4-layers/OOH-relax/pwscf.out",
+      "launch_group": "tier1a_cont",
+      "continues": {
+        "job": "MoO2__OOH-relax__escape",
+        "deck": "runs/corpus_escape_2026-11-01/MoO2__OOH-relax__escape.in",
+        "deck_sha256": "ffac52a4a72754ea761f22c11306919167bfdb4e9e0ea9ca5a78a0252b2f5c72",
+        "output": "runs/corpus_escape_2026-11-01/MoO2__OOH-relax__escape.out",
+        "output_sha256": "293a626b29ebc830b49a1251c8c82c0252a30e249db34f2429fe9b3966ef48d1",
+        "receipt_status": "REJECTED",
+        "receipt_reason": "relaxation not complete/clean: NOT CONVERGED",
+        "n_scf": 100,
+        "last_E_Ry": -3330.14070684,
+        "geometry": "last geometry with an energy (block printed before the last '!' line)"
+      },
+      "start": {
+        "max_adsorbate_off_plane_A": 2.016542
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/MoO2__OOH-relax__held.in",
+        "escape": "runs/corpus_escape_cont_2026-11-02/MoO2__OOH-relax__cont.in",
+        "escape_tier1a": "runs/corpus_escape_2026-11-01/MoO2__OOH-relax__escape.in"
+      }
+    },
+    {
+      "tier": "tier1",
+      "metal": "NbO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49,
+        50
+      ],
+      "adsorbate_index1": [
+        49,
+        50,
+        51
+      ],
+      "nat": 51,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        5.92,
+        6.98621499812,
+        37.4135327964
+      ],
+      "deposited_n_symops": 2,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.008445945946
+        },
+        "51": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.016891891892
+        },
+        "50": {
+          "role": "O_distal",
+          "species": "O0",
+          "angstrom": 0.075,
+          "crystal": 0.012668918919
+        }
+      },
+      "census_output": "supporting-data/NbO2/Eads-4-layers/OOH-relax/pwscf.out",
+      "launch_group": "tier1a_cont",
+      "continues": {
+        "job": "NbO2__OOH-relax__escape",
+        "deck": "runs/corpus_escape_2026-11-01/NbO2__OOH-relax__escape.in",
+        "deck_sha256": "fe5de38400faaaccad5f231c6e3f3dc33a85fbde307ffa537547ddc2a3fe0615",
+        "output": "runs/corpus_escape_2026-11-01/NbO2__OOH-relax__escape.out",
+        "output_sha256": "c4059fab479c45999555890872d57277f8b9d558d7455e6b984e3f5db8485f33",
+        "receipt_status": "REJECTED",
+        "receipt_reason": "relaxation not complete/clean: NOT CONVERGED",
+        "n_scf": 100,
+        "last_E_Ry": -2990.0049783,
+        "geometry": "last geometry with an energy (block printed before the last '!' line)"
+      },
+      "start": {
+        "max_adsorbate_off_plane_A": 2.228613
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/NbO2__OOH-relax__held.in",
+        "escape": "runs/corpus_escape_cont_2026-11-02/NbO2__OOH-relax__cont.in",
+        "escape_tier1a": "runs/corpus_escape_2026-11-01/NbO2__OOH-relax__escape.in"
+      }
+    },
+    {
+      "tier": "tier1",
+      "metal": "ReO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49,
+        50
+      ],
+      "adsorbate_index1": [
+        49,
+        50,
+        51
+      ],
+      "nat": 51,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        5.36,
+        7.00035713375,
+        37.5806928395
+      ],
+      "deposited_n_symops": 2,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.009328358209
+        },
+        "51": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.018656716418
+        },
+        "50": {
+          "role": "O_distal",
+          "species": "O0",
+          "angstrom": 0.075,
+          "crystal": 0.013992537313
+        }
+      },
+      "census_output": "supporting-data/ReO2/Eads-4-layers/OOH-relax/pwscf.out",
+      "launch_group": "tier1a_cont",
+      "continues": {
+        "job": "ReO2__OOH-relax__escape",
+        "deck": "runs/corpus_escape_2026-11-01/ReO2__OOH-relax__escape.in",
+        "deck_sha256": "5cb5a65e8de9250f58bc7e6f7a18eb71d3669ff117128f641767e0d407f39511",
+        "output": "runs/corpus_escape_2026-11-01/ReO2__OOH-relax__escape.out",
+        "output_sha256": "ea500cdf91713f35d89276bb255f31cc208100d42ca76b345fbe99ce9adb3b44",
+        "receipt_status": "REJECTED",
+        "receipt_reason": "relaxation not complete/clean: NOT CONVERGED",
+        "n_scf": 100,
+        "last_E_Ry": -4149.60219702,
+        "geometry": "last geometry with an energy (block printed before the last '!' line)"
+      },
+      "start": {
+        "max_adsorbate_off_plane_A": 2.626172
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/ReO2__OOH-relax__held.in",
+        "escape": "runs/corpus_escape_cont_2026-11-02/ReO2__OOH-relax__cont.in",
+        "escape_tier1a": "runs/corpus_escape_2026-11-01/ReO2__OOH-relax__escape.in"
+      }
+    },
+    {
+      "tier": "tier1",
+      "metal": "RuO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49,
+        50
+      ],
+      "adsorbate_index1": [
+        49,
+        50,
+        51
+      ],
+      "nat": 51,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        6.24,
+        6.40638743755,
+        36.0440083826
+      ],
+      "deposited_n_symops": 2,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.008012820513
+        },
+        "51": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.016025641026
+        },
+        "50": {
+          "role": "O_distal",
+          "species": "O0",
+          "angstrom": 0.075,
+          "crystal": 0.012019230769
+        }
+      },
+      "census_output": "supporting-data/RuO2/Eads-4-layers/OOH-relax/pwscf.out",
+      "launch_group": "tier1a_cont",
+      "continues": {
+        "job": "RuO2__OOH-relax__escape",
+        "deck": "runs/corpus_escape_2026-11-01/RuO2__OOH-relax__escape.in",
+        "deck_sha256": "ac8b4914e69d0ee62cef7e21b8c79815dd1a1856f1b64eba6b2d2cfc23ea5440",
+        "output": "runs/corpus_escape_2026-11-01/RuO2__OOH-relax__escape.out",
+        "output_sha256": "489ccd5d2433a76c777ee94bd30898a4944ffd892e920e238a476aa53d70058b",
+        "receipt_status": "REJECTED",
+        "receipt_reason": "wall-time ceiling",
+        "n_scf": 92,
+        "last_E_Ry": -4205.83529315,
+        "geometry": "last geometry with an energy (block printed before the last '!' line)"
+      },
+      "start": {
+        "max_adsorbate_off_plane_A": 1.30497
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/RuO2__OOH-relax__held.in",
+        "escape": "runs/corpus_escape_cont_2026-11-02/RuO2__OOH-relax__cont.in",
+        "escape_tier1a": "runs/corpus_escape_2026-11-01/RuO2__OOH-relax__escape.in"
+      }
+    },
+    {
+      "tier": "tier1",
+      "metal": "TiO2",
+      "job": "OOH-relax",
+      "state": "OOH",
+      "locked_axis": "x",
+      "plane_crystal": 0.5,
+      "adsorbate_index0": [
+        48,
+        49,
+        50
+      ],
+      "adsorbate_index1": [
+        49,
+        50,
+        51
+      ],
+      "nat": 51,
+      "nspin": 1,
+      "tot_magnetization": null,
+      "cell_lengths_A": [
+        5.94,
+        6.57609306503,
+        36.3630549623
+      ],
+      "deposited_n_symops": 2,
+      "displacement": {
+        "49": {
+          "role": "O_bind",
+          "species": "O0",
+          "angstrom": 0.05,
+          "crystal": 0.008417508418
+        },
+        "51": {
+          "role": "H",
+          "species": "H2",
+          "angstrom": 0.1,
+          "crystal": 0.016835016835
+        },
+        "50": {
+          "role": "O_distal",
+          "species": "O0",
+          "angstrom": 0.075,
+          "crystal": 0.012626262626
+        }
+      },
+      "census_output": "supporting-data/TiO2/Eads-4-layers/OOH-relax/pwscf.out",
+      "launch_group": "tier1a_cont",
+      "continues": {
+        "job": "TiO2__OOH-relax__escape",
+        "deck": "runs/corpus_escape_2026-11-01/TiO2__OOH-relax__escape.in",
+        "deck_sha256": "f946ef46e76bc2e1a8539842d25cef02096c9158ddff703e1ede2215fa30b4fa",
+        "output": "runs/corpus_escape_2026-11-01/TiO2__OOH-relax__escape.out",
+        "output_sha256": "2022e6c7b0f7c634e3634709be41f268729351f1b983b56f32fe78dd081b2214",
+        "receipt_status": "REJECTED",
+        "receipt_reason": "relaxation not complete/clean: NOT CONVERGED",
+        "n_scf": 100,
+        "last_E_Ry": -3012.75671464,
+        "geometry": "last geometry with an energy (block printed before the last '!' line)"
+      },
+      "start": {
+        "max_adsorbate_off_plane_A": 1.022356
+      },
+      "decks": {
+        "held": "runs/corpus_escape_2026-11-01/TiO2__OOH-relax__held.in",
+        "escape": "runs/corpus_escape_cont_2026-11-02/TiO2__OOH-relax__cont.in",
+        "escape_tier1a": "runs/corpus_escape_2026-11-01/TiO2__OOH-relax__escape.in"
+      }
+    }
+  ]
+}

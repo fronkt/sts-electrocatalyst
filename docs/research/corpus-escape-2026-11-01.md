@@ -355,13 +355,14 @@ FAILED (the runner's exit after a REJECTED or KILLED receipt). Cost 4,283.0 SU f
   read "No symmetry found".
 
 **Escape trajectories** (`escape_trajectories.py` writes `escape_trajectories.json`; descriptive only, classifies nothing).
-ΔE = each escape SCF's energy minus the held arm's final energy; d_off is defined as in the rule.
+ΔE = each escape SCF's energy minus the held arm's final energy; d_off is defined as in the rule. "Last" is the last
+geometry with an energy; the block printed after it is the optimizer's next proposal and was never computed.
 
 | oxide | stop | steps | ΔE step 1 (meV) | ΔE step 20 (meV) | ΔE last (meV) | d_off last (Å) | slope, last 10 (meV/step) | total force last (Ry/bohr) | O-O held / last (Å) | distal O's nearest slab atom, last |
 |---|---|---|---|---|---|---|---|---|---|---|
 | IrO2 | nstep | 100 | +6.4 | -2.9 | -270.3 | 1.65 | -0.17 | 0.0033 | 1.458 / 1.466 | O, 2.73 Å |
 | MoO2 | nstep | 100 | +5.4 | -478.9 | -1,314.4 | 2.02 | -0.54 | 0.0034 | 1.447 / 1.480 | Mo, 2.34 Å |
-| NbO2 | nstep | 100 | +6.0 | -8.6 | -462.3 | 2.23 | -3.42 | 0.0201 | 1.441 / 1.475 | Nb, 2.38 Å |
+| NbO2 | nstep | 100 | +6.0 | -8.6 | -462.3 | 2.23 | -3.42 | 0.0201 | 1.441 / 1.477 | Nb, 2.40 Å |
 | ReO2 | nstep | 100 | +3.8 | -1.7 | -4,359.3 | 2.63 | -0.12 | 0.0015 | 1.794 / 2.572 | Re, 1.87 Å |
 | RuO2 | runner wall | 92 | +5.7 | -23.0 | -365.6 | 1.31 | -0.02 | 0.0007 | 1.448 / 1.447 | O, 2.82 Å |
 | TiO2 | nstep | 100 | +6.0 | -4.4 | -113.2 | 1.02 | -0.29 | 0.0024 | 1.374 / 1.377 | O, 2.94 Å |
@@ -379,16 +380,16 @@ What the trajectories show:
    eV, close to a plateau (-0.02 to -0.29 meV per step). The IrO2 value, -270 meV and still falling, is near the 291 meV
    measured on the program's own IrO2 *OOH lock (sts-report, Section 4.4), which is a different cell (the 18-atom
    1 x 1 slab of the U ladder, not this 51-atom four-layer slab).
-4. Mo, Nb: the distal O bonded to a second metal (2.34, 2.38 Å) with the O-O bond intact, giving a bridging *OOH. Re: the
+4. Mo, Nb: the distal O bonded to a second metal (2.34, 2.40 Å) with the O-O bond intact, giving a bridging *OOH. Re: the
    O-O bond broke (2.57 Å) and the distal O bound a second Re (1.87 Å), giving O* + OH*, not *OOH. The deposited
    ReO2 *OOH already had a stretched O-O bond (1.80 Å at the deposited final geometry, 1.79 Å after the held
    re-relaxation), so the stretched state was already in the corpus and was not introduced by the pseudopotential
    substitution.
 5. MoO2 had fallen 479 meV by step 20 while the adsorbate was still within 0.10-0.11 Å of the plane and no slab atom was
-   more than 0.15 Å from the held structure. The slab atoms of Mo and Nb moved 3-5 times as far as those of Ir, Ru and Ti
-   (RMS 0.08-0.11 Å against 0.02-0.04 Å at the last step). The held Mo, Nb and Re slabs already have short metal-metal
+   more than 0.15 Å from the held structure. The slab atoms of Mo and Nb moved two to four times as far as those of Ir,
+   Ru and Ti (RMS 0.08-0.09 Å against 0.02-0.04 Å at the last step). The held Mo, Nb and Re slabs already have short metal-metal
    distances (shortest 2.42-2.66 Å, against 2.94-3.16 Å for Ir, Ru, Ti), and the escapes change the shortest by at most
-   0.09 Å, so this is not a new pairing.
+   0.092 Å (MoO2, 2.550 to 2.458 Å), so this is not a new pairing.
 
 Competing explanations for the size of the drops:
 
@@ -424,3 +425,35 @@ Open for Frank:
    5,444.4). The spend should be lower: 4.2-7.9 SU per step, and four of the six are near a plateau.
 2. Launch tier 1b (PtO2, RhO2) under the rule as it stands: 3,584 SU, and most likely INVALID escape arms again.
 3. Stop and report tier 1a as INVALID by the rule, with the trajectories above.
+
+## Tier 1a continuation (Frank, 2026-11-02, before any continuation run)
+
+Frank, 2026-11-02, choosing option 1: "continue then". This is a deviation decided after the tier 1a readout. Tier
+1b is not launched; tier 2 is not launched.
+
+**What runs.** One array of six tasks, `<metal>__OOH-relax__cont` (package `results/corpus_escape_cont_2026-11-02/`,
+builder `src/dft/corpus_escape_cont_build.py`, Slurm `anvil/107_corpus_escape_cont.slurm`, Anvil root
+`sts_corpus_escape_cont_2026-11-02`). Each deck is its tier 1a escape deck except for two things: the prefix (the new
+job name) and every free atom's coordinates, which are the escape run's last geometry with an energy. That geometry
+is the block printed before the last `!` line, at step 100 (RuO2: step 92). The block printed after it is the
+optimizer's next proposal, which was never computed. Fixed atoms are checked unmoved and kept verbatim. Everything
+else is unchanged: nosym, forc_conv_thr 1e-4, nstep 100, k mesh, cutoffs, smearing, mixing, the GBRV v1.5 files, the
+runner and its pins, the QE binaries and the node exclusions. The builder's guard re-parses each deck to prove this.
+The BFGS history is not carried over: each continuation starts with a fresh Hessian from the same point. Walls are
+7 h (SCF ceiling 24,000 s); RuO2, the slowest, used 222 s per step, so 100 steps fit. Reservation 6 x 896 = 5,376 SU,
+against a balance of 5,444.4.
+
+**How it is scored, fixed now.** The decision rule above, unchanged, with held = the tier 1a held output (already
+valid for all six) and escape = the continuation output. ΔE = E_cont,final - E_held,final; d_off from the
+continuation's final coordinates. The continuation must meet the escape validity conditions (COMPLETE receipt, `bfgs
+converged`, "No symmetry found"). `results/corpus_escape_cont_2026-11-02/collect.py` imports the tier 1a scorer
+(`arm_record`, `decide`) rather than copying it. Reported beside each class, never changing it:
+
+- continuity: the continuation's first SCF energy minus the tier 1a escape's last energy, both at the same geometry. A
+  difference above 1 meV would mean the fresh SCF found a different electronic state, and it is reported as such;
+- the final O-O distance and the distal O's nearest slab atom. A broken O-O bond (ReO2 at step 100) is a change of
+  intermediate, and the rule's class is printed with that fact beside it;
+- the BFGS steps used in tier 1a and in the continuation.
+
+A continuation that again stops unconverged is INVALID and is not continued further. The results are reported
+whatever they show, with the post-readout origin of this step stated wherever they appear.

@@ -99,7 +99,9 @@ def trajectory(case):
                       "dE_vs_held_final_meV": round((float(m.group(1)) - held_E) * RY_MEV, 2),
                       "total_force_Ry_bohr": f[0] if f else None, "d_off_A": round(d_off(pos, case), 4)})
     best = min(steps, key=lambda s: s["E_Ry"])
-    last_pos = positions(text, blocks[-1][1], case["nat"])
+    # the last geometry with an energy (the block after the last "!" is the optimizer's next, uncomputed proposal)
+    last_e = list(ENERGY.finditer(text))[-1].start()
+    last_pos = positions(text, [b for b in blocks if b[0] < last_e][-1][1], case["nat"])
     last10 = steps[-10:]
     slope = (last10[-1]["E_Ry"] - last10[0]["E_Ry"]) * RY_MEV / (len(last10) - 1)
     return {"metal": case["metal"], "job": case["job"], "held_final_E_Ry": held_E, "n_scf": len(steps),
