@@ -1190,9 +1190,10 @@ IEEE marker, the force audit, the projection, the complete HEA QC, density reten
 
 ## Round 7 readout, 2026-11-01: neither run converged; Cu8 still has no value
 
-**Runs.** Array 21852915 started within minutes of its release: tasks on a350 and a991 from 13:53Z and 13:54Z. Both
+**Runs.** Array 21852915 started within minutes of its release: tasks on a350 and a991 from 18:53Z and 18:54Z
+(sacct's 13:53 and 13:54 are Anvil local time, EST). Both
 reached QE's `max_seconds` (16,800 s) and stopped themselves ("Maximum CPU time exceeded"), wrote their last
-density and occupations ("Writing config") and ended at 18:35Z and 18:34Z. The runner labels that stop "numerical
+density and occupations ("Writing config") and ended at 23:35Z and 23:34Z. The runner labels that stop "numerical
 failure marker", so Slurm lists both as `FAILED` (exit 10). There were no QE errors.
 
 **Cost.** 1,200.6 SU (sacct CPU time: 602.0 and 598.6), inside the 1,280 SU ceiling. The campaign has used
