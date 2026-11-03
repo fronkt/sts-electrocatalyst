@@ -1,0 +1,24 @@
+{
+  "phase": "release",
+  "group": "tier1a_cont",
+  "at": "2026-11-03T02:13:30.623834+00:00",
+  "commands": {
+    "release:tier1a_cont_escape": {
+      "command": "scontrol release 21903693",
+      "stdout": "",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-03T02:13:31.753982+00:00"
+    },
+    "after": {
+      "command": "squeue -u x-fcai3 -o '%i|%j|%T|%M|%l|%R'",
+      "stdout": "JOBID|NAME|STATE|TIME|TIME_LIMIT|NODELIST(REASON)\n21898968|n3-s5I|PENDING|0:00|4:00:00|(Priority)\n21898967|n3-gateCb|PENDING|0:00|1:15:00|(Priority)\n21898969|n3-s5M|PENDING|0:00|1-00:00:00|(Dependency)\n21901736|pxrd-v30-chain|PENDING|0:00|30:00|(Priority)\n21903693_6|ce-esc-tier1a_cont|PENDING|0:00|7:00:00|(None)\n21903693_5|ce-esc-tier1a_cont|PENDING|0:00|7:00:00|(None)\n21903693_4|ce-esc-tier1a_cont|PENDING|0:00|7:00:00|(None)\n21903693_3|ce-esc-tier1a_cont|PENDING|0:00|7:00:00|(None)\n21903693_2|ce-esc-tier1a_cont|PENDING|0:00|7:00:00|(None)\n21903693_1|ce-esc-tier1a_cont|PENDING|0:00|7:00:00|(None)\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-03T02:13:32.297275+00:00"
+    }
+  },
+  "released": {
+    "tier1a_cont_escape": "21903693"
+  }
+}

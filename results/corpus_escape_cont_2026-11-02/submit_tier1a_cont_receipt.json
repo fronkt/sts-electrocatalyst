@@ -1,0 +1,19 @@
+{
+  "phase": "submit",
+  "group": "tier1a_cont",
+  "rows": null,
+  "at": "2026-11-03T02:13:20.849978+00:00",
+  "commands": {
+    "sbatch:tier1a_cont_escape": {
+      "command": "sbatch --hold --parsable --no-requeue --array=1-6%6 --time=07:00:00 --job-name=ce-esc-tier1a_cont --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --export=ALL,STAGE=tier1a_cont_escape /anvil/projects/x-che260157/sts_corpus_escape_cont_2026-11-02/anvil/107_corpus_escape_cont.slurm",
+      "stdout": "21903693\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-03T02:13:21.972334+00:00"
+    }
+  },
+  "jobs": {
+    "tier1a_cont_escape": "21903693"
+  },
+  "spec_sha256": "7c57d1f827805b61632efbd06954a18f29b0eb2359374ab5149f1bac18dcbc93"
+}

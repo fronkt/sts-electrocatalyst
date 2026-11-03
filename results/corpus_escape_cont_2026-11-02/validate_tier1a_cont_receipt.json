@@ -1,0 +1,25 @@
+{
+  "phase": "validate",
+  "group": "tier1a_cont",
+  "rows": null,
+  "at": "2026-11-03T02:13:22.875152+00:00",
+  "commands": {
+    "held:tier1a_cont_escape": {
+      "command": "scontrol show job 21903693 -o",
+      "stdout": "JobId=21903693 ArrayJobId=21903693 ArrayTaskId=1-6%6 ArrayTaskThrottle=6 JobName=ce-esc-tier1a_cont UserId=x-fcai3(8320357) GroupId=x-che260157(7026335) MCS_label=N/A Priority=0 Nice=0 Account=che260157 QOS=cpu JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=07:00:00 TimeMin=N/A SubmitTime=2026-11-02T21:13:21 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-02T21:13:21 Scheduler=Main Partition=wholenode AllocNode:Sid=login03:2867800 ReqNodeList=(null) ExcNodeList=a[024,049-050,088,120,171,196,200,220,223] NodeList= NumNodes=1-1 NumCPUs=128 NumTasks=128 CPUs/Task=1 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=128,mem=200G,node=1,billing=128 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=1 MinMemoryNode=200G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NODE Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/anvil/projects/x-che260157/sts_corpus_escape_cont_2026-11-02/anvil/107_corpus_escape_cont.slurm SubmitLine=sbatch --hold --parsable --no-requeue --array=1-6%6 --time=07:00:00 --job-name=ce-esc-tier1a_cont --exclude=a024,a049,a050,a088,a196,a220,a223,a171,a120,a200 --export=ALL,STAGE=tier1a_cont_escape /anvil/projects/x-che260157/sts_corpus_escape_cont_2026-11-02/anvil/107_corpus_escape_cont.slurm WorkDir=/home/x-fcai3 StdErr=/anvil/projects/x-che260157/sts_corpus_escape_cont_2026-11-02/logs/corpus_escape_cont_21903693_4294967294.log StdIn=/dev/null StdOut=/anvil/projects/x-che260157/sts_corpus_escape_cont_2026-11-02/logs/corpus_escape_cont_21903693_4294967294.log TresPerTask=cpu=1\n",
+      "stderr": "",
+      "rc": 0,
+      "at": "2026-11-03T02:13:23.947395+00:00"
+    }
+  },
+  "checks": {
+    "tier1a_cont_escape": {
+      "job": "21903693",
+      "mismatches": {},
+      "held": true,
+      "ceiling_cpu_su": 5376
+    }
+  },
+  "group_ceiling_cpu_su": 5376,
+  "passed": true
+}
