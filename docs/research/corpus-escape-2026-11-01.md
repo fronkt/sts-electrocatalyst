@@ -457,3 +457,75 @@ converged`, "No symmetry found"). `results/corpus_escape_cont_2026-11-02/collect
 
 A continuation that again stops unconverged is INVALID and is not continued further. The results are reported
 whatever they show, with the post-readout origin of this step stated wherever they appear.
+
+## Tier 1a continuation readout, 2026-11-03: five HARMFUL, one INVALID
+
+**Runs.** Array 21903693 (six tasks, wholenode, 128 cores) waited about 20 h in the queue, started 2026-11-03 between
+13:11 and 13:20 EST and had left the queue by 17:19 EST. sacct: MoO2, NbO2, ReO2, RuO2, TiO2 COMPLETED in 1:28:12-2:02:13;
+IrO2 FAILED at 3:59:20 (the runner's exit after a REJECTED receipt, "relaxation not complete/clean: NOT CONVERGED").
+Cost 1,617.0 SU from CPUTimeRAW, against a reservation of 5,376; balance 3,824.1 SU afterwards (mybalance, 2026-11-03
+22:19Z). The whole test so far: 5,900.0 SU (tier 1a 4,283.0, continuation 1,617.0).
+
+**By the rule** (`collect.py`, `readout_20261103T222023Z.json`; held = the tier 1a held output, escape = the
+continuation): 5 HARMFUL (MoO2, NbO2, ReO2, RuO2, TiO2) and 1 INVALID (IrO2: stopped at nstep = 100 again). Against the
+selection rule: 5 HARMFUL of the 10 locked *OOH outputs, 6 of them run; CrO2, MnO2, PtO2 and RhO2 (tier 1b) and the 20
+*OH outputs (tier 2) were not run. Every HARMFUL case passed the escape validity checks (COMPLETE, `bfgs converged`,
+"No symmetry found"); every held arm had already reproduced its lock.
+
+Beside the class (`cont_trajectories.py` writes `cont_trajectories.json`; descriptive, classifies nothing):
+
+| oxide | class | BFGS steps, tier 1a + cont | ΔE (meV) | d_off (Å) | continuity (meV) | O-O final (Å) | distal O's nearest slab atom | slab shift vs held, max / RMS (Å) | adsorbate at the end |
+|---|---|---|---|---|---|---|---|---|---|
+| IrO2 | INVALID | 100 + 100 | (last: -1,686.9) | (last: 3.09) | +0.007 | 3.145 | Ir, 1.93 Å | 0.153 / 0.051 | O* + OH*, still falling 6.2 meV per step |
+| MoO2 | HARMFUL | 100 + 62 | -1,319.4 | 2.005 | +0.005 | 1.480 | Mo, 2.34 Å | 0.326 / 0.092 | *OOH bridging two Mo |
+| NbO2 | HARMFUL | 100 + 71 | -501.9 | 2.298 | +0.005 | 1.472 | Nb, 2.40 Å | 0.276 / 0.086 | *OOH bridging two Nb |
+| ReO2 | HARMFUL | 100 + 43 | -4,360.4 | 2.629 | +0.002 | 2.572 | Re, 1.87 Å | 0.139 / 0.046 | O* + OH* |
+| RuO2 | HARMFUL | 92 + 41 | -365.9 | 1.304 | +0.006 | 1.447 | Ru, 2.83 Å | 0.095 / 0.027 | monodentate *OOH |
+| TiO2 | HARMFUL | 100 + 79 | -116.1 | 1.015 | +0.001 | 1.377 | O, 2.98 Å | 0.036 / 0.012 | monodentate *OOH |
+
+Continuity = the continuation's first SCF energy minus the tier 1a escape's last, at the same geometry. For IrO2 the
+ΔE and d_off columns give the last geometry with an energy, which the rule does not score.
+
+What the continuation shows:
+
+1. Each restart found the same electronic state: continuity 0.001-0.007 meV, against the 1 meV check.
+2. The five converged escapes ended 0.3 to 39.6 meV below where tier 1a stopped (MoO2 -5.0, NbO2 -39.6, ReO2 -1.2,
+   RuO2 -0.3, TiO2 -2.9 meV). For these five, tier 1a's last values were within 40 meV of the converged ones, as its
+   observation 2 expected.
+3. IrO2 did not settle. For its first 46 steps it stayed an intact *OOH at -270 to -274 meV (O-O 1.47 Å). From about
+   step 50 the O-O bond stretched (1.48 Å at step 51, 1.61 at 71, 1.82 at 76) and by step 86 it had broken (3.08 Å),
+   with the distal O bound to a second Ir at 1.93 Å; at step 100 the energy was -1,686.9 meV and still falling (total
+   force 0.020 Ry/bohr). Tier 1a's observation 3 grouped Ir with Ru and Ti as an intact *OOH near a plateau; that was
+   true at its step 100 and is not true afterwards. Its comparison of -270 meV with the U ladder's 291 meV describes only
+   the intact stretch of this trajectory, not where the trajectory goes.
+4. The monodentate *OOH survives on RuO2 and TiO2 only: the distal O ends 2.83 and 2.98 Å from the nearest slab atom,
+   not bonded, with O-H 0.99 Å. On MoO2 and NbO2 the distal O binds a second metal with the O-O bond intact. On ReO2 and
+   IrO2 the O-O bond breaks and the H stays on the distal O (O-H 1.01 and 0.99 Å), leaving O* and OH* on neighbouring
+   metals.
+5. The slabs of MoO2 and NbO2 moved the most (RMS 0.09 Å against 0.01-0.05 Å); TiO2 and RuO2 moved least (0.012 and
+   0.027 Å).
+
+How far each case speaks to a lock cost:
+
+- RuO2 and TiO2 are the closest to a direct lock cost on the intended intermediate. The *OOH stays intact and
+  monodentate, the slab barely moves, and the drops (366 and 116 meV) are 37 and 12 times the rule's threshold. Some of
+  each could still be slab relaxation that the mirror also forbids on the clean slab; no symmetry-free clean slab was
+  run, so that part is not separated.
+- MoO2 and NbO2: HARMFUL by the rule, but the drop mixes a change of binding mode (bridging) with the largest slab
+  relaxation of the six. Separating them needs a symmetry-free clean-slab run.
+- ReO2 (and IrO2, unscored): a change of intermediate. The rule reads HARMFUL; what the run shows is that without the
+  mirror the locked geometry does not stay *OOH. ReO2's deposited *OOH already had a stretched O-O bond (1.80 Å).
+- On every case the energy surface is GBRV v1.5. The Mo and Nb UPFs are byte-identical to the deposited ones (only O
+  and H differ); for the other four every file differs.
+
+What this does not show. The original study's adsorption energies and descriptors are not recomputed, so no claim is
+made about its results. No Hessian was computed at a held geometry, so whether each is a saddle or a minimum with a
+small barrier is not determined: every escape started 3.8-6.4 meV above its held minimum and spent about 10 steps
+within 0.01 Å of its start before leaving the plane. The test covers six of the ten locked *OOH outputs and none of
+the 40 locked *O and *OH. The continuation itself was decided after the tier 1a readout; the classes depend on it.
+
+Following the rule fixed before the run, IrO2 is not continued further. Evidence-based next steps, none launched:
+(a) symmetry-free clean slabs for RuO2, TiO2, MoO2 and NbO2, to split the slab part of each drop from the adsorbate
+part; (b) the RuO2 and TiO2 *OOH adsorption energies with symmetry-free references, to put the lock cost on the
+descriptor; (c) tier 1b under its launch rule, which now has a measured step count (133-179 BFGS steps per converged
+escape) to price against. The CPU balance is 3,824.1 SU.

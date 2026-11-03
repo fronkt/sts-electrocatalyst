@@ -1,0 +1,439 @@
+{
+  "schema": "corpus-escape-cont-readout-v1",
+  "at": "20261103T222023Z",
+  "design": "docs/research/corpus-escape-2026-11-01.md",
+  "rule": "results/corpus_escape_2026-11-01/collect.py decide(), unchanged; held = tier 1a held output, escape = this continuation",
+  "downloaded": [
+    "runs/corpus_escape_cont_2026-11-02/IrO2__OOH-relax__cont.out",
+    "runs/corpus_escape_cont_2026-11-02/IrO2__OOH-relax__cont.qc.json",
+    "runs/corpus_escape_cont_2026-11-02/IrO2__OOH-relax__cont.run.in",
+    "runs/corpus_escape_cont_2026-11-02/IrO2__OOH-relax__cont.REJECTED",
+    "runs/corpus_escape_cont_2026-11-02/MoO2__OOH-relax__cont.out",
+    "runs/corpus_escape_cont_2026-11-02/MoO2__OOH-relax__cont.qc.json",
+    "runs/corpus_escape_cont_2026-11-02/MoO2__OOH-relax__cont.run.in",
+    "runs/corpus_escape_cont_2026-11-02/MoO2__OOH-relax__cont.projwfc.in",
+    "runs/corpus_escape_cont_2026-11-02/MoO2__OOH-relax__cont.projwfc.out",
+    "runs/corpus_escape_cont_2026-11-02/NbO2__OOH-relax__cont.out",
+    "runs/corpus_escape_cont_2026-11-02/NbO2__OOH-relax__cont.qc.json",
+    "runs/corpus_escape_cont_2026-11-02/NbO2__OOH-relax__cont.run.in",
+    "runs/corpus_escape_cont_2026-11-02/NbO2__OOH-relax__cont.projwfc.in",
+    "runs/corpus_escape_cont_2026-11-02/NbO2__OOH-relax__cont.projwfc.out",
+    "runs/corpus_escape_cont_2026-11-02/ReO2__OOH-relax__cont.out",
+    "runs/corpus_escape_cont_2026-11-02/ReO2__OOH-relax__cont.qc.json",
+    "runs/corpus_escape_cont_2026-11-02/ReO2__OOH-relax__cont.run.in",
+    "runs/corpus_escape_cont_2026-11-02/ReO2__OOH-relax__cont.projwfc.in",
+    "runs/corpus_escape_cont_2026-11-02/ReO2__OOH-relax__cont.projwfc.out",
+    "runs/corpus_escape_cont_2026-11-02/RuO2__OOH-relax__cont.out",
+    "runs/corpus_escape_cont_2026-11-02/RuO2__OOH-relax__cont.qc.json",
+    "runs/corpus_escape_cont_2026-11-02/RuO2__OOH-relax__cont.run.in",
+    "runs/corpus_escape_cont_2026-11-02/RuO2__OOH-relax__cont.projwfc.in",
+    "runs/corpus_escape_cont_2026-11-02/RuO2__OOH-relax__cont.projwfc.out",
+    "runs/corpus_escape_cont_2026-11-02/TiO2__OOH-relax__cont.out",
+    "runs/corpus_escape_cont_2026-11-02/TiO2__OOH-relax__cont.qc.json",
+    "runs/corpus_escape_cont_2026-11-02/TiO2__OOH-relax__cont.run.in",
+    "runs/corpus_escape_cont_2026-11-02/TiO2__OOH-relax__cont.projwfc.in",
+    "runs/corpus_escape_cont_2026-11-02/TiO2__OOH-relax__cont.projwfc.out",
+    "results/corpus_escape_cont_2026-11-02/logs/corpus_escape_cont_21903693_6.log",
+    "results/corpus_escape_cont_2026-11-02/logs/corpus_escape_cont_21903693_4.log",
+    "results/corpus_escape_cont_2026-11-02/logs/corpus_escape_cont_21903693_1.log",
+    "results/corpus_escape_cont_2026-11-02/logs/corpus_escape_cont_21903693_2.log",
+    "results/corpus_escape_cont_2026-11-02/logs/corpus_escape_cont_21903693_3.log",
+    "results/corpus_escape_cont_2026-11-02/logs/corpus_escape_cont_21903693_5.log"
+  ],
+  "counts": {
+    "INVALID": 1,
+    "HARMFUL": 5
+  },
+  "rows": [
+    {
+      "metal": "IrO2",
+      "job": "OOH-relax",
+      "held": {
+        "job": "IrO2__OOH-relax__held",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -4005.20859765,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 2,
+        "header_form": "count-first, no-inversion",
+        "silentgate_verdict": "LOCKED",
+        "locked_axes": [
+          "x"
+        ],
+        "n_force_steps": 37,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.0,
+          "50": 0.0,
+          "51": 0.0
+        },
+        "d_off_A": 0.0
+      },
+      "escape_cont": {
+        "job": "IrO2__OOH-relax__cont",
+        "present": true,
+        "receipt_status": "REJECTED",
+        "receipt_reason": "relaxation not complete/clean: NOT CONVERGED",
+        "readout_status": "REJECTED",
+        "E_Ry": null,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 1,
+        "header_form": "no-symmetry",
+        "silentgate_verdict": "not-LOCKED",
+        "locked_axes": [],
+        "n_force_steps": 100,
+        "bfgs_converged": false
+      },
+      "decision": {
+        "class": "INVALID",
+        "reasons": [
+          "escape not COMPLETE/CONVERGED (REJECTED, REJECTED)"
+        ]
+      },
+      "side": {
+        "bfgs_steps_cont": 100,
+        "bfgs_steps_tier1a": 100,
+        "continuity_first_scf_minus_tier1a_last_meV": 0.007
+      }
+    },
+    {
+      "metal": "MoO2",
+      "job": "OOH-relax",
+      "held": {
+        "job": "MoO2__OOH-relax__held",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -3330.04409719,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 2,
+        "header_form": "count-first, no-inversion",
+        "silentgate_verdict": "LOCKED",
+        "locked_axes": [
+          "x"
+        ],
+        "n_force_steps": 38,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.0,
+          "50": 0.0,
+          "51": 0.0
+        },
+        "d_off_A": 0.0
+      },
+      "escape_cont": {
+        "job": "MoO2__OOH-relax__cont",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -3330.14107248,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 1,
+        "header_form": "no-symmetry",
+        "silentgate_verdict": "not-LOCKED",
+        "locked_axes": [],
+        "n_force_steps": 62,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.4259,
+          "50": 1.8881,
+          "51": 2.0052
+        },
+        "d_off_A": 2.0052
+      },
+      "decision": {
+        "dE_meV": -1319.42,
+        "d_off_A": 2.0052,
+        "held_d_off_A": 0.0,
+        "class": "HARMFUL"
+      },
+      "side": {
+        "bfgs_steps_cont": 62,
+        "bfgs_steps_tier1a": 100,
+        "continuity_first_scf_minus_tier1a_last_meV": 0.005,
+        "final_O_O_A": 1.48,
+        "final_distal_O_nearest_slab": {
+          "atom": 21,
+          "species": "Mo1",
+          "A": 2.337
+        }
+      }
+    },
+    {
+      "metal": "NbO2",
+      "job": "OOH-relax",
+      "held": {
+        "job": "NbO2__OOH-relax__held",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -2989.97100138,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 2,
+        "header_form": "count-first, no-inversion",
+        "silentgate_verdict": "LOCKED",
+        "locked_axes": [
+          "x"
+        ],
+        "n_force_steps": 70,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.0,
+          "50": 0.0,
+          "51": 0.0
+        },
+        "d_off_A": 0.0
+      },
+      "escape_cont": {
+        "job": "NbO2__OOH-relax__cont",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -2990.00788714,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 1,
+        "header_form": "no-symmetry",
+        "silentgate_verdict": "not-LOCKED",
+        "locked_axes": [],
+        "n_force_steps": 71,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.6874,
+          "50": 2.1527,
+          "51": 2.2982
+        },
+        "d_off_A": 2.2982
+      },
+      "decision": {
+        "dE_meV": -501.86,
+        "d_off_A": 2.2982,
+        "held_d_off_A": 0.0,
+        "class": "HARMFUL"
+      },
+      "side": {
+        "bfgs_steps_cont": 71,
+        "bfgs_steps_tier1a": 100,
+        "continuity_first_scf_minus_tier1a_last_meV": 0.005,
+        "final_O_O_A": 1.472,
+        "final_distal_O_nearest_slab": {
+          "atom": 21,
+          "species": "Nb1",
+          "A": 2.395
+        }
+      }
+    },
+    {
+      "metal": "ReO2",
+      "job": "OOH-relax",
+      "held": {
+        "job": "ReO2__OOH-relax__held",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -4149.28179839,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 2,
+        "header_form": "count-first, no-inversion",
+        "silentgate_verdict": "LOCKED",
+        "locked_axes": [
+          "x"
+        ],
+        "n_force_steps": 40,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.0,
+          "50": 0.0,
+          "51": 0.0
+        },
+        "d_off_A": 0.0
+      },
+      "escape_cont": {
+        "job": "ReO2__OOH-relax__cont",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -4149.60228221,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 1,
+        "header_form": "no-symmetry",
+        "silentgate_verdict": "not-LOCKED",
+        "locked_axes": [],
+        "n_force_steps": 43,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.0585,
+          "50": 2.6294,
+          "51": 1.7103
+        },
+        "d_off_A": 2.6294
+      },
+      "decision": {
+        "dE_meV": -4360.4,
+        "d_off_A": 2.6294,
+        "held_d_off_A": 0.0,
+        "class": "HARMFUL"
+      },
+      "side": {
+        "bfgs_steps_cont": 43,
+        "bfgs_steps_tier1a": 100,
+        "continuity_first_scf_minus_tier1a_last_meV": 0.002,
+        "final_O_O_A": 2.572,
+        "final_distal_O_nearest_slab": {
+          "atom": 21,
+          "species": "Re1",
+          "A": 1.869
+        }
+      }
+    },
+    {
+      "metal": "RuO2",
+      "job": "OOH-relax",
+      "held": {
+        "job": "RuO2__OOH-relax__held",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -4205.80842551,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 2,
+        "header_form": "count-first, no-inversion",
+        "silentgate_verdict": "LOCKED",
+        "locked_axes": [
+          "x"
+        ],
+        "n_force_steps": 40,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.0,
+          "50": 0.0,
+          "51": 0.0
+        },
+        "d_off_A": 0.0
+      },
+      "escape_cont": {
+        "job": "RuO2__OOH-relax__cont",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -4205.83531606,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 1,
+        "header_form": "no-symmetry",
+        "silentgate_verdict": "not-LOCKED",
+        "locked_axes": [],
+        "n_force_steps": 41,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.0074,
+          "50": 1.3039,
+          "51": 1.1008
+        },
+        "d_off_A": 1.3039
+      },
+      "decision": {
+        "dE_meV": -365.86,
+        "d_off_A": 1.3039,
+        "held_d_off_A": 0.0,
+        "class": "HARMFUL"
+      },
+      "side": {
+        "bfgs_steps_cont": 41,
+        "bfgs_steps_tier1a": 92,
+        "continuity_first_scf_minus_tier1a_last_meV": 0.006,
+        "final_O_O_A": 1.447,
+        "final_distal_O_nearest_slab": {
+          "atom": 45,
+          "species": "Ru1",
+          "A": 2.825
+        }
+      }
+    },
+    {
+      "metal": "TiO2",
+      "job": "OOH-relax",
+      "held": {
+        "job": "TiO2__OOH-relax__held",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -3012.74839489,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 2,
+        "header_form": "count-first, no-inversion",
+        "silentgate_verdict": "LOCKED",
+        "locked_axes": [
+          "x"
+        ],
+        "n_force_steps": 43,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.0,
+          "50": 0.0,
+          "51": 0.0
+        },
+        "d_off_A": 0.0
+      },
+      "escape_cont": {
+        "job": "TiO2__OOH-relax__cont",
+        "present": true,
+        "receipt_status": "COMPLETE",
+        "receipt_reason": null,
+        "readout_status": "CONVERGED",
+        "E_Ry": -3012.75692618,
+        "absmag": null,
+        "totmag": null,
+        "n_symops": 1,
+        "header_form": "no-symmetry",
+        "silentgate_verdict": "not-LOCKED",
+        "locked_axes": [],
+        "n_force_steps": 79,
+        "bfgs_converged": true,
+        "final_off_plane_A": {
+          "49": 0.1681,
+          "50": 1.0153,
+          "51": 0.6971
+        },
+        "d_off_A": 1.0153
+      },
+      "decision": {
+        "dE_meV": -116.07,
+        "d_off_A": 1.0153,
+        "held_d_off_A": 0.0,
+        "class": "HARMFUL"
+      },
+      "side": {
+        "bfgs_steps_cont": 79,
+        "bfgs_steps_tier1a": 100,
+        "continuity_first_scf_minus_tier1a_last_meV": 0.001,
+        "final_O_O_A": 1.377,
+        "final_distal_O_nearest_slab": {
+          "atom": 46,
+          "species": "O0",
+          "A": 2.978
+        }
+      }
+    }
+  ]
+}
