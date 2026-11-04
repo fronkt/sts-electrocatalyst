@@ -9,6 +9,10 @@ Ns, ...). Each export is logged with the source file's SHA-256 in OUT_DIR/export
   python src/echem/s8_mpr_export.py OUT_DIR --concat NAME.csv FILE.mpr [FILE.mpr ...]
       consecutive techniques of one sequence (for example a series of constant-potential holds saved one file per
       step) joined into one table in time order; every file must have the same columns
+  python src/echem/s8_mpr_export.py OUT_DIR --window LO HI FILE.mpr [FILE.mpr ...]
+      only the rows whose programmed potential (control/V) lies between the CV's programmed vertices LO and HI
+      (V vs reference, 1 mV tolerance), written as NAME_window.csv: for a C_dl CV that starts from and returns to open
+      circuit, this drops the approach and return legs so the table holds the cycling between the vertices only
 
 Needs galvani (pip install galvani).
 """
@@ -45,12 +49,28 @@ def _sha256(path):
     return hashlib.sha256(open(path, "rb").read()).hexdigest()
 
 
+WINDOW_TOL_V = 0.001
+
+
+def in_window(arrays, lo, hi, tol=WINDOW_TOL_V):
+    """Rows whose programmed potential (control/V) lies in [lo - tol, hi + tol]."""
+    if "control/V" not in arrays:
+        raise ValueError("--window needs the control/V column")
+    c = np.asarray(arrays["control/V"], float)
+    keep = (c >= min(lo, hi) - tol) & (c <= max(lo, hi) + tol)
+    return {k: v[keep] for k, v in arrays.items()}, int(keep.sum()), int((~keep).sum())
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("out_dir")
     ap.add_argument("--concat", metavar="NAME.csv", help="join the files into one table instead")
+    ap.add_argument("--window", nargs=2, type=float, metavar=("LO", "HI"),
+                    help="keep only rows with control/V between the programmed vertices LO and HI (V)")
     ap.add_argument("files", nargs="+")
     a = ap.parse_args(argv)
+    if a.concat and a.window:
+        sys.exit("--concat and --window do not combine")
     os.makedirs(a.out_dir, exist_ok=True)
     log_path = os.path.join(a.out_dir, "export_log.json")
     log = json.load(open(log_path, encoding="utf-8")) if os.path.isfile(log_path) else {}
@@ -69,10 +89,17 @@ def main(argv=None):
     else:
         for f in a.files:
             cols, arrays = _table(f)
-            name = os.path.splitext(os.path.basename(f))[0] + ".csv"
+            stem = os.path.splitext(os.path.basename(f))[0]
+            extra = {}
+            if a.window:
+                arrays, kept, dropped = in_window(arrays, *a.window)
+                stem += "_window"
+                extra = {"window_control_V": list(a.window), "tolerance_V": WINDOW_TOL_V, "rows_dropped": dropped}
+            name = stem + ".csv"
             n = _write(os.path.join(a.out_dir, name), cols, arrays)
-            log[name] = {"sources": [{"file": os.path.basename(f), "sha256": _sha256(f)}], "rows": n, "columns": cols}
-            print(f"{name}: {n} rows")
+            log[name] = {"sources": [{"file": os.path.basename(f), "sha256": _sha256(f)}], "rows": n, "columns": cols,
+                         **extra}
+            print(f"{name}: {n} rows" + (f" ({extra['rows_dropped']} outside the window dropped)" if extra else ""))
     with open(log_path, "w", encoding="utf-8", newline="\n") as fh:
         json.dump(log, fh, indent=1, ensure_ascii=False)
         fh.write("\n")
