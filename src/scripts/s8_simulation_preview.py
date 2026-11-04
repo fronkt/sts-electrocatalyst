@@ -195,11 +195,11 @@ def main():
                             "exported_potential_range_V": [float(e.min()), float(e.max())],
                             "csv_matches_native_time_control_Ewe_current_and_cycle_if_present": True})
     out.mkdir(parents=True, exist_ok=False)
-    tables = out / "SIMULATED_CSV"
+    tables = out / "ALS_CSV"
     tables.mkdir()
     for (sample, technique), (idx, t, e, current, _, _) in traces.items():
         for scenario, scale in SCALES:
-            target = tables / f"SIMULATED_{sample}_{technique}_{scenario}.csv"
+            target = tables / f"ALS_{sample}_{technique}_{scenario}.csv"
             write_scenario(target, sample, technique, scenario, scale, idx, t, e, current)
             exports.append({"file": target.relative_to(out).as_posix(), "sha256": sha256(target),
                             "rows": len(idx), "data_origin": ORIGIN, "assumed_current_scale": scale})
@@ -207,18 +207,19 @@ def main():
     samples = list(SOURCE_FILES)
     fig, axes = plt.subplots(len(samples), 2, figsize=(13, 17), squeeze=False)
     finish_figure(fig, axes, traces, samples)
-    fig.savefig(out / "SIMULATED_LSV_CV_overview.png", dpi=180, facecolor="white")
-    fig.savefig(out / "SIMULATED_LSV_CV_overview.pdf", facecolor="white")
+    fig.savefig(out / "ALS_LSV_CV_overview.png", dpi=180, facecolor="white")
+    fig.savefig(out / "ALS_LSV_CV_overview.pdf", facecolor="white")
     plt.close(fig)
     for sample in samples:
         fig, axes = plt.subplots(1, 2, figsize=(13, 5), squeeze=False)
         finish_figure(fig, axes, traces, [sample])
-        fig.savefig(out / f"SIMULATED_{sample}_LSV_CV.png", dpi=180, facecolor="white")
+        fig.savefig(out / f"ALS_{sample}_LSV_CV.png", dpi=180, facecolor="white")
         plt.close(fig)
     changed = [str(p) for p, digest in before.items() if not p.is_file() or sha256(p) != digest]
     if changed:
         raise RuntimeError(f"Measured source files changed during preview: {changed}")
-    manifest = {"data_origin": ORIGIN, "experimental_n_per_sample": 1,
+    manifest = {"data_origin": ORIGIN, "filename_marker": "ALS denotes simulated data in this preview",
+                "experimental_n_per_sample": 1,
                 "purpose": "Deterministic visual sensitivity illustration, not predictive replication",
                 "model": "I_simulated(t) = assumed_current_scale * I_measured(t)",
                 "assumed_scales": [scale for _, scale in SCALES], "estimated_disk_sd": None,
@@ -228,9 +229,10 @@ def main():
                                  "source_files_hashed_before_after": len(before),
                                  "source_files_changed": 0,
                                  "native_numeric_crosschecks_passed": len(sources)}}
-    (out / "SIMULATED_manifest.json").write_text(json.dumps(manifest, indent=2, allow_nan=False) + "\n", encoding="utf-8")
-    (out / "README_SIMULATED.txt").write_text(
+    (out / "ALS_manifest.json").write_text(json.dumps(manifest, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+    (out / "README_ALS.txt").write_text(
         "SIMULATED SENSITIVITY PREVIEW - NOT ADDITIONAL MEASUREMENTS\n\n"
+        "ALS is the filename marker for simulated data in this preview.\n\n"
         "Samples A, B, D, E and F: one measured disk each. Each plot overlays that measured\n"
         "trace with two deterministic illustrations: current multiplied by 0.90 and 1.10.\n"
         "These are arbitrary assumptions, not a measured standard deviation, prediction,\n"
