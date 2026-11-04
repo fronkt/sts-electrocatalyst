@@ -1485,3 +1485,7 @@ Rule: before proposing or building any SCF-convergence remedy (mixing, smearing,
 grep docs/research for the project's prior stall diagnostics (stall, mixing_beta, ndim, floor) and
 cite what was measured for the same alloys and protocol; a remedy the record contradicts needs the
 contradiction stated up front.
+
+## 2026-11-04 - Answer the requested feasibility question directly
+
+The user corrected a competition-rule lookup and asked for a direct answer. Answer technical and statistical feasibility first; do not browse rules when the user explicitly declines that lookup. For a later simulation preview, distinguish arbitrary sensitivity assumptions from measured replication, and state native-format writing limitations before generating deliverables.
