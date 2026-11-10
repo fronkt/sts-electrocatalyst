@@ -59,7 +59,8 @@ separated. Checked against the six measured outcomes:
 - **Cu rejection.** Cu22 and Cu26 (VEC 8.8, 8.7) separated; Ni34 (Cu29!) did not. The Cu-to-matrix
   mixing enthalpy (Takeuchi-Inoue pairs, matrix-weighted) is 8.3, 8.3 and 5.6 kJ/mol. A cutoff
   between them fits, but it is fitted to these three, so it is a hypothesis, not a validated rule.
-- CALPHAD check: see section "CALPHAD" below.
+- **CALPHAD (MatCalc mc_fe) gets the phase count right for 5 of 6**, missing only Ni34 (false
+  alarm). All five new alloys come out single FCC. Details in section "CALPHAD" below.
 
 ## Round-2 alloys (proposal; Frank picks)
 
@@ -106,7 +107,7 @@ Why this set:
 ### B. New alloys (FWM)
 - [ ] Frank picks the round-2 set (table above or a change)
 - [ ] Novelty check (Scholar / WoS) on the picks
-- [ ] CALPHAD check on the picks (below)
+- [x] CALPHAD check on the picks (below): all single FCC
 - [ ] Register predictions (P2 table, iron-free KOH, ICP) before any round-2 disk is measured
 - [ ] FWM: Cu26 remelt + 5 melts, same route (3x argon melt, 1,050 C 24 h, WQ), 4 disks each; ask about Mn excess
 - [ ] As-made check: SEM-EDS area analyses (the +/-2 at.% test needs area, not spots), XRD
@@ -122,7 +123,8 @@ Why this set:
 - [x] P1 Pourbaix solubility per metal
 - [x] P2 film hypothesis (post hoc) + predictions for the round-2 set
 - [x] P3a empirical phase rules vs the six outcomes
-- [ ] P3b CALPHAD check (database search running)
+- [x] P3b CALPHAD check: 5 of 6 phase counts right (mc_fe); all round-2 picks single FCC
+- [ ] P3c extend the CALPHAD check across the screen space to propose more single-FCC candidates
 - [ ] C3 film-model DFT: (Ni,Fe,Co,Cu)OOH slabs at each predicted film composition; OER descriptor;
       silentgate audit on every output; pilot one film (R3 / Ni31: Ni(Cu)OOH) to size the SU cost;
       register the ranking before round-2 data. Anvil CHE260157 (check `mybalance`)
@@ -162,4 +164,32 @@ iron-free KOH on Ni31 + Fe25 (2) = 19 disks, ~90 h.
 
 ## CALPHAD
 
-(pending: database search result)
+`src/scripts/isef_calphad_check.py`, pycalphad 0.12, equilibrium at 1,323 K (the 1,050 C
+homogenization), results in `results/isef_round2_2026-11-10/calphad_*.json`. Databases (both
+open; downloads and patch in `D:/sts-electrocatalyst/calphad/`):
+- **mc_fe**: MatCalc mc_fe v2.062 (ODbL), all 15 binaries assessed, but validated only for
+  steel-like dilute compositions. At equiatomic it is an extrapolation.
+- **mf**: LibreCalphad mf-steel (MIT). Better Co-Cr-Fe-Mn-Ni, but no Co-Cu, so alloys holding both
+  are skipped.
+- mc_fe's alpha-Mn phase has unassessed Co-Cu-Ni terms and came out as 48% of Ni34 and Cu26,
+  which contain no Mn. Rerun with alpha-Mn allowed only when Mn is present (`--alpha-mn-needs-mn`).
+
+Against the six melted alloys:
+
+| Alloy | Measured | mc_fe | mf |
+|---|---|---|---|
+| Fe25 | 1 FCC | 1 FCC | 1 FCC |
+| Ni31 | FCC + Cr-rich BCC (85.9 at.% Cr) | FCC + BCC (Cr 0.67) | FCC + BCC (Cr 0.78) |
+| Cu22 | 2 | FCC + Cu-rich liquid (Cu 0.81) | skipped |
+| Cu8 | 3 incl. sigma | 3: FCC + BCC + Cu-rich liquid (BCC, not sigma) | skipped |
+| Cu26 | 3, Cu-rich pools | 3: sigma + FCC + Cu-rich FCC (Cu 0.89) | skipped |
+| Ni34 | 1 FCC | **2**: FCC + Cu-rich FCC (Cu 0.67, 23%) | skipped |
+
+Phase count right for 5 of 6 (mc_fe) and 2 of 2 (mf); the screen's original rule got 2 of 6.
+The miss is a false alarm on Ni34 (a Cu-rich phase not seen in SEM), so mc_fe errs toward
+rejecting Co-Cu-Ni alloys, not passing bad ones.
+
+Round-2 candidates: **all single FCC** at 1,323 K in every database that covers them (FeCoNi,
+CoCr0.5FeNi, Ni86Cu14, Ni34Fe29Mn30Co7 in both; Mn31Ni31Co33Cu6 in mc_fe only, and mc_fe's Ni34
+false alarm suggests it is not lenient on Co-Cu). This is a prediction for the as-made check
+(item B), not a guarantee: both databases are extrapolated at these compositions.
