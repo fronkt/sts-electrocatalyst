@@ -118,6 +118,29 @@ had finished, so no dG or eta could be computed.
   reader fails on these outputs; (c) ionic steps are counted over the restart chain. Tested on a
   snapshot of the live outputs. Criteria unchanged.
 
+## Amendment 7 (2026-11-15 15:08Z, before any eta existed)
+Per-metal moments (integrated in pw.x's atomic spheres) show that the states of a film are not in
+one magnetic configuration, so a CHE difference between them would include a configuration-change
+energy as well as the adsorption energy:
+- NiOOH: clean slab 20.0 muB, with the four middle-layer Ni (z = 5.3 and 7.1 A, both columns) at
+  1.92-1.94 against 1.24-1.32 in the *OH state (11.0 muB); *O and *OOH states sit at 11.4-12.3 muB.
+- Ni(Fe)OOH: the finished clean slab (`_r2`, 14 muB) has one top-edge Ni antiparallel (-1.12);
+  Fe-site *O has none, *OH one (the same atom), *OOH three. Across the slab's own restart
+  (16 muB, no flip -> 14 muB, one flip, one BFGS step apart) the energy changed by -0.84 mRy
+  (-11 meV), about one BFGS step's decrease, so a flip there is nearly free.
+- CoOOH: bulk-like Co near 0 muB as expected; the second top-edge Co varies between 0.04 and 1.75.
+Actions: queue-5 launches stopped (every remaining queued job would need a controlled magnetic
+start); the stalled NiOOH Ni-site *O and *OOH first SCFs (no geometry yet) and NiFeOOH__Ni1_O
+(not V1/V2) stopped. Relaxations making geometry progress keep running, as their geometries seed
+any rerun. Two single points measure the size of the NiOOH effect at fixed geometry:
+`NiOOH__slab_magLS` (r4 start geometry, all Ni started at 0.05, vs. r4's first energy) and
+`NiOOH__Ni0_OH_magHS` (Ni0_OH_r2's step-7 geometry, the four middle Ni started at 0.17, vs.
+Ni0_OH_r2's 7th energy) (`src/dft/film_box/make_magdiag.py`, `amend7_magdiag.sh`). A first launch of
+the second had the new species out of order (0.17 put on O) and was stopped after 1.5 min; the
+relaunch was checked against pw.x's printed starting moments. The fix for the whole set (one
+magnetic configuration per film, imposed on every state, plus a moment-consistency QC) is to be
+registered before any rerun. Criteria V1/V2 unchanged.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
