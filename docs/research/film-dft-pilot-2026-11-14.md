@@ -80,6 +80,17 @@ One queue (`box_run2.sh` with `jobs3.txt`, 24 ranks x 8 jobs), V1-critical state
 Criteria unchanged. If the CoOOH clean slab still fails, its sites are reported only through the
 slab-independent steps (dG2, dG3) as a bound on eta, labelled as such, and V2 is "not evaluable".
 
+## Amendment 5 (2026-11-15 09:25Z, before any relaxation finished)
+With upscale fixed, the restarted relaxations progressed (NiOOH and Ni(Fe)OOH slabs, Fe-site *O and
+*OH), but four states that had to converge a first PBE+U SCF from atomic densities did not in
+120-137 iterations: NiOOH Ni-site *O (0.8-1.1 Ry), *OH (0.03-0.04 Ry), *OOH (~9e-5 Ry), and
+Ni(Fe)OOH Fe-site *OOH (~1.3e-4 Ry). These four, and every job not yet started, now use a U-ramp:
+a U = 0 SCF at the same geometry (conv_thr 1e-5), then the PBE+U relaxation starting from its
+wavefunctions and density (`src/dft/film_box/make_ramp.py`, queue `box_run3.sh`, `jobs4.txt`).
+If the U = 0 SCF fails, the relaxation starts normally. Final energies are PBE+U as registered; the
+ramp changes only the SCF starting point, so a state may settle into a different magnetic solution
+than a cold start would: final moments are reported per state. Criteria unchanged.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
