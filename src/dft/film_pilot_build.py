@@ -43,6 +43,15 @@ EMAXPOS = 0.80                      # sawtooth at 0.80-0.825 c (~21 A; adsorbate
 SEED = 20261114
 
 M_O = {"O": 1.80, "OH": 1.95, "OOH": 1.95}   # starting metal-O distances (A)
+
+# Starting moments (fraction of valence electrons), set for oxyhydroxide spin states:
+# Ni3+ low-spin ~1 muB (18 e: 0.10 -> 1.8), Fe3+ high-spin ~5 muB (16 e: 0.30 -> 4.8),
+# Co3+ low-spin ~0 muB (17 e: 0.05 -> 0.85, small enough not to bias toward high spin).
+# Attempt 1 (2026-11-14) used qe_slab's rutile values (Ni 0.3, Fe 0.5, Co 0.4 -> 5-8 muB) with
+# mixing_beta 0.3: no slab SCF converged in 56-83 iterations, CoOOH sat high-spin (~33 muB/cell).
+FILM_MAG = {"Ni": 0.10, "Fe": 0.30, "Co": 0.05}
+for _el, _m in FILM_MAG.items():
+    qe_slab.ELEMENTS[_el]["mag"] = _m
 D_OH, D_OO = 0.98, 1.45
 
 
@@ -166,7 +175,7 @@ def finish_input(text, atoms):
     text = text.replace("  degauss = 0.01\n",
                         f"  degauss = 0.01\n  edir = 3\n  emaxpos = {emaxpos:.4f}\n"
                         "  eopreg = 0.0250\n  eamp = 0.0\n", 1)
-    text = text.replace("  conv_thr = 1.0d-6\n", "  conv_thr = 1.0d-7\n", 1)
+    text = text.replace("  mixing_beta = 0.3\n", "  mixing_beta = 0.1\n  mixing_ndim = 12\n", 1)
     k = list(KPTS)
     head, _, tail = text.partition("K_POINTS automatic\n")
     tail = tail.split("\n", 1)[1]
@@ -196,7 +205,8 @@ def main():
     plan = {"NiOOH": [("Ni", 0)], "CoOOH": [("Co", 0)], "NiFeOOH": [("Fe", 0), ("Ni", 1)]}
     manifest = {"created": "2026-11-14", "ecutwfc": ECUTWFC, "ecutrho": ECUTRHO,
                 "kpts": list(KPTS), "seed": SEED, "pseudo_dir": args.pseudo_dir,
-                "u_ev": {e: qe_slab.ELEMENTS[e]["U"] for e in ("Ni", "Fe", "Co")}, "jobs": []}
+                "u_ev": {e: qe_slab.ELEMENTS[e]["U"] for e in ("Ni", "Fe", "Co")},
+                "starting_magnetization": FILM_MAG, "mixing_beta": 0.1, "attempt": 2, "jobs": []}
 
     def emit(name, atoms, kind, **meta):
         txt = qe_slab.write_slab_input(atoms, name, args.pseudo_dir, ECUTWFC, ECUTRHO, nosym=True)
