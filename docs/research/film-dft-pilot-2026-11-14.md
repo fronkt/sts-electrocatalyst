@@ -280,7 +280,11 @@ Actions (21:26-21:37Z, `src/dft/film_box/amend9_b.sh`, `amend9_launcher.sh`):
 - `NiOOH__slab_r5` (PBE+U) finished at 20:09Z (30 steps, -5130.41446 Ry, all Ni low-spin and
   parallel); it is reported only.
 
-Spend: the cap stays at 2026-11-16T08:00Z unless Frank extends it.
+Spend: Frank extended the cap from 2026-11-16T08:00Z to 14:00Z (22:08Z; +6 instance-hours,
+~$59, ~37 instance-hours / ~$363 in all), so the V1 single points and the CoOOH relaxations can finish.
+Check (21:51Z): `u0__NiOOH__Ni0_O_r2`'s first SCF converged in 14 iterations at -5173.76326 Ry,
+0.07 mRy below the ramp stage at the same geometry. Every non-site Ni is parallel and within
+0.24 muB of the slab's moment.
 
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
