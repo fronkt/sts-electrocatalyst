@@ -210,6 +210,78 @@ starting moments). Start geometries: NiOOH *O and *OOH from their input geometri
 run after the deadline). Still running on the A path: `NiOOH__slab_r5`, `NiOOH__Ni0_OH_r2`. Nothing
 is evaluated and the A/B choice is pending. CoOOH (V2) has no U = 0 run yet.
 
+## Amendment 9 (2026-11-15 21:40Z, before any eta existed)
+Frank chose B. From here the pilot's model is PBE with U = 0 (1e-8 eV in the HUBBARD card, as in
+the ramp stage), spin-polarized; prototype, (012) edge slabs, cutoffs, k-mesh, smearing, dipole
+correction, CHE corrections and the gas references (`gas__H2O`, `gas__H2`, no Hubbard species) are
+as registered; conv_thr 5e-6 Ry (amendment 6), forc_conv_thr 2e-3 Ry/bohr. Evaluated runs are the
+`u0__` relaxations.
+- Why: at PBE+U each film state has magnetic solutions 0.3-1.7 eV apart (amendments 7-8b), larger
+  than the V1 gap being tested, and NiOOH *O did not converge at PBE+U from three starts. At U = 0
+  the SCFs converge and the moments differ by tenths of a muB, not by spin state.
+- Cost: without U, PBE over-delocalizes the 3d electrons and shifts oxyhydroxide adsorption
+  energetics relative to PBE+U. A V1 pass says the U = 0 model ranks these films in the
+  experimental order; it says nothing about PBE+U.
+- The PBE+U runs are kept as the record of why A was dropped; no eta is computed from them. The
+  Ni(Fe)OOH Ni-site states (`Ni1`) enter no criterion and are not run at U = 0.
+
+Magnetic configuration. This replaces amendment 8's fixed-reference QC. At U = 0 the Ni(Fe)OOH
+relaxations do not all hold the clean slab's configuration (pw.x 1-based atoms; Fe = atom 6, the
+Fe site; atom 1 is a fixed bottom-layer Ni):
+- the slab is in C1 (Fe +2.6; Ni 5, 29, 30 at -1.0, -1.0, -0.4; every other Ni +0.3 to +0.85);
+- Fe-site *O started in C1 and was in C2 by step 4 (Fe -1.7; every Ni +0.5 to +0.8);
+- *OOH was in C3 at step 1 (Fe +2.3; Ni 5 and 29 at -1.1 and -1.0; Ni 30 +0.7).
+
+Under amendment 8's rule *O and *OOH would not be evaluable. Each state's energy is what decides
+which configuration is right for it. Rule:
+1. A film's candidate configurations are the sign patterns its U = 0 relaxations end in. Patterns
+   are taken over metals with |m| >= 0.25 muB, relative to atom 1, so a global flip is the same
+   configuration.
+   - Ni(Fe)OOH: C1, C2, C3, plus any new pattern a Ni(Fe)OOH relaxation ends in. Every state then
+     gets a single point in the new pattern too.
+   - NiOOH: all Ni parallel (the slab and every U = 0 SCF so far).
+   - CoOOH: set from its relaxations, the same way.
+2. Each converged Ni(Fe)OOH relaxation gets fixed-geometry single points in C1, C2 and C3 at its
+   final geometry: cold start from signed starting moments (`src/dft/film_box/make_cfg_sp.sh`),
+   launched ahead of the CoOOH runs by `post_relax.sh`. Two checks apply:
+   - The single point in the state's own configuration must reproduce its last relaxation energy
+     within 1 mRy; this tests the procedure.
+   - A single point whose SCF leaves its target pattern is recorded and does not count as that
+     configuration.
+3. A state's energy is the lowest of its relaxed energy and its counting single points. A single
+   point at the relaxed geometry is an upper bound on that configuration's relaxed energy, so the
+   error is at most the relaxation energy the other configuration would gain (reported). Each
+   state's configuration is reported.
+4. V1 and V2 are also computed with each state as its relaxation ended ("as relaxed"). V1 passes
+   only if it passes both ways. If the two disagree, V1 is reported as configuration-sensitive,
+   not a pass.
+
+Reruns. A rerun replaces its predecessor in two cases:
+- the predecessor completed no SCF;
+- it started from the predecessor's last geometry and its first energy is at most 1 mRy above the
+  predecessor's last (the same solution).
+
+Otherwise the run with the lower last energy is used and both are reported. QC is otherwise as
+registered: a trusted energy (SCF and relaxation converged) and adsorbate integrity. A relaxation
+that the cap stops before it converges is not evaluable unless continued under this rule. Readout:
+`python src/dft/film_pilot_readout.py --model u0` implements rules 1-4 and the rerun rule.
+
+Actions (21:26-21:37Z, `src/dft/film_box/amend9_b.sh`, `amend9_launcher.sh`):
+- Stopped `NiOOH__Ni0_OH_r2` (PBE+U, not needed). Stopped `u0__NiOOH__Ni0_O`: its first SCF sat
+  at 2.4-3.5e-4 Ry for the last ~60 of 146 iterations.
+- Started `u0__NiOOH__Ni0_O_r2`, the same input started from the converged U = 0 density at the
+  same geometry: `NiOOH__Ni0_O_r2`'s ramp stage, -5173.76319 Ry, every non-site Ni parallel.
+  Positions were checked identical, and the stored U was checked as 1e-8 eV. It replaces its
+  predecessor under the first rerun case.
+- `u0__NiFeOOH__Fe0_OH` started from the amendment-8b queue.
+- CoOOH (V2): `u0__CoOOH__slab` comes from the `slab_r2` input (beta 0.05, ndim 20; not the
+  tot_magnetization-constrained `_r3`). Co-site *O, *OH and *OOH come from their PBE+U runs' last
+  geometries. All are cold starts with Co 0.05, queued behind the single points.
+- `NiOOH__slab_r5` (PBE+U) finished at 20:09Z (30 steps, -5130.41446 Ry, all Ni low-spin and
+  parallel); it is reported only.
+
+Spend: the cap stays at 2026-11-16T08:00Z unless Frank extends it.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
