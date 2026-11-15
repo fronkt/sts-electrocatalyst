@@ -232,3 +232,33 @@ This is more than one person's bench time before a February regional fair. Prior
 4. Paper split: round 1 now vs one paper after round 2
 5. Can Frank run disks himself under Josh's supervision
 6. Oxide DFT: film-model predictor (section 5) or not at all
+
+## 10. Do broadly, filter for the poster (Frank 11-14)
+
+Run the work broadly; decide in February what the ISEF poster shows. Last year's ISEF board went
+deep into a computational pipeline and judges lost the thread. The Indiana STS poster
+(experimental only, photo-led) took first place, which supports the same approach.
+
+- **Filter rule (Feb):** a panel stays on the board only if it answers the one question and a
+  non-specialist gets it in ~30 s. Everything else goes to the paper, the notebook, and Q&A backup.
+- **The one question (draft):** these alloys rebuild themselves into a film in KOH; does predicting
+  that film, and controlling it through processing, tell us which cheap alloys work?
+- **Likely board:** how the alloys were made (photos) -> the surprise (film growth) -> the blind
+  test on new alloys -> as-cast vs worked -> benchmark vs nickel / stainless / published IrOx.
+  Compute = at most one panel, in plain words ("I predicted which alloys would work; here is how
+  the prediction did").
+- **Likely off the board (paper / Q&A only):** Hubbard-U sensitivity, symmetry-lock detector, EIS
+  model fits, R_ct x I, percolation modeling.
+- Run order follows poster value per bench hour, so whatever is finished by February is the strongest part.
+
+### Processing study run order (section 3)
+1. Now: polish pilot on a re-polished tested Fe25 disk (ask FWM's metallography lab whether a
+   vibratory polisher or electropolishing is available).
+2. With the round-2 melt request: one extra ingot each of Fe25 and Ni34, sized for 4 states x
+   3 disks + metallography pieces; ask FWM rolling vs swaging/drawing to ~5 mm rod (rod slices fit
+   the RDE insert directly).
+3. Split each ingot: AC piece cut before homogenizing; Frank homogenizes the rest; FWM cold works
+   part (~60-70%); Frank anneals part of that (RX temperature from a hardness series on small
+   coupons, e.g. 700 / 800 / 900 / 1,000 C for 1 h).
+4. Per state: hardness, optical/EBSD grains, XRD peak width. Register predictions.
+5. January bench: 2 disks per state, Protocol v2.
