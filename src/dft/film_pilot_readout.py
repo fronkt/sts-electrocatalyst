@@ -90,10 +90,12 @@ def main():
     jobs = json.load(open(args.manifest))["jobs"]
     # Reruns that changed only SCF mixing (amendment 2): same structure, same converged energy
     # target, so the rerun's energy stands in for the original state.
+    # Amendment 3: _r2/_r3 also cover restarts from the last geometry and a fixed-moment rerun;
+    # a later suffix overrides an earlier one when both have a trusted energy.
     for j in list(jobs):
-        r2 = j["name"] + "_r2"
-        if os.path.isdir(os.path.join(args.runs, r2)):
-            jobs.append(dict(j, name=r2, rerun_of=j["name"]))
+        for suf in ("_r2", "_r3"):
+            if os.path.isdir(os.path.join(args.runs, j["name"] + suf)):
+                jobs.append(dict(j, name=j["name"] + suf, rerun_of=j["name"]))
     recs = {j["name"]: state_record(args.runs, j) for j in jobs}
     E = {n: r.get("energy_ev") for n, r in recs.items()}
     for j in jobs:

@@ -55,6 +55,19 @@ mixing_beta 0.05 and mixing_ndim 20 only (structure, smearing, moments, U unchan
 converged energy is the same quantity), on 12 otherwise idle cores. The readout uses the rerun's
 energy for the CoOOH clean slab.
 
+## Amendment 3 (2026-11-15 04:45Z, before any relaxation finished)
+- NiOOH clean slab: the third SCF of its relaxation sat at 2.5-3e-6 Ry for ~100 iterations against
+  conv_thr 1e-6 (a noise floor; 1e-6 Ry is ~1e-5 eV). Restarted as `NiOOH__slab_r2` from the
+  geometry of its last BFGS step with conv_thr 5e-6 Ry (`src/dft/film_box/qe_restart_input.py`).
+- conv_thr 5e-6 Ry also for every job not yet started (8 Ni(Fe)OOH / NiOOH adslabs). The energy
+  error this allows (~7e-5 eV) is far below the CHE and DFT+U uncertainties.
+- CoOOH clean slab: the mixing-only rerun (`_r2`) went flat at 1.4e-4 Ry with a total moment of
+  ~7.8 muB, i.e. four bare CN-5 edge Co (two per face) at ~2 muB with bulk-like Co3+ near 0. Rerun as
+  `CoOOH__slab_r3` with tot_magnetization = 8 (the value the free SCF drifted to). Reported as a
+  fixed-moment state; if the CoOOH sites become evaluable this is stated next to V2.
+- The queue was handed to `box_run2.sh`, which schedules by live pw.x ranks and finishes only when
+  no pw.x is left on the box. Criteria unchanged.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
