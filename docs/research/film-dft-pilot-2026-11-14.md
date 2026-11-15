@@ -189,6 +189,27 @@ Actions:
 - Spend guard: every run stops at 2026-11-16T08:00Z unless extended (`src/dft/film_box/deadline.sh`);
   the idle watchdog then packages, the local loop pulls, and the box stops (~31 instance-hours).
 
+## Amendment 8b (2026-11-15 19:03Z, before any eta existed)
+Provisional-run results:
+- A: `NiOOH__slab_r5` step 1 = -5130.39863 Ry, reproducing `slab_magLS` to 6e-6 Ry; all Ni
+  low-spin and parallel through 18 steps (-5130.41324 Ry, total force 0.013 Ry/bohr).
+  `NiOOH__Ni0_O_r3` (PBE+U, Ni 0.05, cold start): first-SCF error between 0.17 and 5 Ry over 150
+  iterations, the third PBE+U start of NiOOH *O that fails. `NiOOH__Ni0_OOH_r3`: first SCF converged
+  with Ni 5 and 29 antiparallel (7.4 muB), inconsistent with the all-parallel slab. Both stopped.
+- B: `u0__NiOOH__slab`: all Ni parallel (0.49-0.85 muB) through 5 steps. `u0__NiFeOOH__slab`
+  (ferromagnetic start): Ni 5, 29, 30 antiparallel (-0.54 to -1.19) from its first SCF on, the
+  pattern Ni(Fe)OOH *OOH shows at U = 0 and at PBE+U.
+- `NiFeOOH__Fe0_OH` stopped itself at 16:57Z (7th SCF flat at 5.6-6.4e-6 Ry vs. 5e-6; the
+  amendment-6 case). Not restarted: it is a PBE+U state.
+Actions (`src/dft/film_box/amend8b_u0_adslabs.sh`): provisional U = 0 relaxations of the six V1
+adslab states, each started in its film's U = 0 slab configuration (NiOOH: all Ni parallel, Ni 0.1;
+Ni(Fe)OOH: Ni 5, 29, 30 relabelled with a -0.1 start, checked in the input and in pw.x's printed
+starting moments). Start geometries: NiOOH *O and *OOH from their input geometries; NiOOH *OH from
+`Ni0_OH_r2`'s latest; Ni(Fe)OOH *O from the original run's last (the lower PBE+U solution); *OH and
+*OOH from their PBE+U runs' last. Three started; three queued (`side_queue.sh`, which never starts a
+run after the deadline). Still running on the A path: `NiOOH__slab_r5`, `NiOOH__Ni0_OH_r2`. Nothing
+is evaluated and the A/B choice is pending. CoOOH (V2) has no U = 0 run yet.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
