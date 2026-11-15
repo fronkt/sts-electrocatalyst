@@ -91,6 +91,13 @@ If the U = 0 SCF fails, the relaxation starts normally. Final energies are PBE+U
 ramp changes only the SCF starting point, so a state may settle into a different magnetic solution
 than a cold start would: final moments are reported per state. Criteria unchanged.
 
+## Amendment 5b (2026-11-15 11:28Z)
+The first three ramped relaxations stopped at start-up with `read_scf: Reading ldaU ns`: a PBE+U run
+starting from a saved density also reads the Hubbard occupation matrices, which a run without a
+HUBBARD card does not write. Stage A now keeps the card with U = 1e-8 eV (numerically zero, but the
+occupations are computed and saved). A three-iteration stage A followed by a stage B reading it was
+run on the box before the queue was relaunched (`src/dft/film_box/fix_ramp.sh`).
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
