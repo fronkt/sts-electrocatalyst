@@ -29,8 +29,11 @@ def last_positions(out_text, nat):
 def main():
     args = sys.argv[1:]
     conv = None
+    upscale = None
     if "--conv-thr" in args:
         i = args.index("--conv-thr"); conv = args[i + 1]; del args[i:i + 2]
+    if "--upscale" in args:
+        i = args.index("--upscale"); upscale = args[i + 1]; del args[i:i + 2]
     src_in, src_out, dst_in, prefix = args
     text = open(src_in).read()
     nat = int(re.search(r"nat\s*=\s*(\d+)", text).group(1))
@@ -43,6 +46,11 @@ def main():
         text, n = re.subn(r"(?m)^(\s*)conv_thr = \S+", r"\g<1>conv_thr = " + conv, text, count=1)
         if n != 1:
             raise SystemExit("no conv_thr line at the start of a line")
+    if upscale and "upscale" not in text:
+        # Keep pw.x from tightening conv_thr (default up to 100x) as forces shrink; amendment 4.
+        text, n = re.subn(r"(?m)^(\s*)ion_dynamics = 'bfgs'\n", r"\g<0>\g<1>upscale = " + upscale + "\n", text, count=1)
+        if n != 1:
+            raise SystemExit("no ion_dynamics line to attach upscale to")
     open(dst_in, "w", newline="\n").write(text)
     print(f"{dst_in}: {nat} atoms from the last block of {src_out}; prefix {prefix}; conv_thr {conv or 'unchanged'}")
 

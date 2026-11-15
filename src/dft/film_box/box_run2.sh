@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Second-stage queue that takes over from box_run.sh mid-run (amendment 3).
 # Schedules by free cores (counts live pw.x ranks), so jobs left running by the first queue and
-# side reruns are respected. Job list: $W/jobs2.txt (one name per line, inputs in $W/inputs/).
+# side reruns are respected. Job list: $JOBS_FILE (default $W/jobs2.txt) (one name per line, inputs in $W/inputs/).
 # At the end it waits until NO pw.x is left anywhere, then packages, touches RUN_DONE, waits up
 # to 3 h for PULLED, and shuts down (instance STOPS).
 set -u
@@ -10,6 +10,7 @@ RUNS=$W/runs
 NP=${NP:-30}
 NK=${NK:-3}
 MAXCORES=${MAXCORES:-192}
+JOBS=${JOBS_FILE:-$W/jobs2.txt}
 export PATH=$W/qe/env/bin:$PATH
 export LD_LIBRARY_PATH=$W/qe/env/lib:${LD_LIBRARY_PATH:-}
 export OMP_NUM_THREADS=1
@@ -32,7 +33,7 @@ run_one() {
   rm -rf "$d/tmp"
 }
 
-log "QUEUE2_START NP=$NP MAXCORES=$MAXCORES jobs=$(grep -c . "$W/jobs2.txt")"
+log "QUEUE2_START NP=$NP MAXCORES=$MAXCORES jobs=$(grep -c . "$JOBS")"
 PIDS=""
 while read -r name; do
   [ -z "$name" ] && continue
@@ -40,7 +41,7 @@ while read -r name; do
   run_one "$name" "$NP" "$NK" < /dev/null &
   PIDS="$PIDS $!"
   sleep 30            # let the ranks appear before the next core count
-done < "$W/jobs2.txt"
+done < "$JOBS"
 # shellcheck disable=SC2086
 wait $PIDS
 while pgrep -x pw.x > /dev/null; do sleep 60; done

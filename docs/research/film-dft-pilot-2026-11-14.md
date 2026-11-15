@@ -68,6 +68,18 @@ energy for the CoOOH clean slab.
 - The queue was handed to `box_run2.sh`, which schedules by live pw.x ranks and finishes only when
   no pw.x is left on the box. Criteria unchanged.
 
+## Amendment 4 (2026-11-15 07:20Z, before any relaxation finished)
+Root cause of the SCF stalls: pw.x's default `upscale` (100) lowers conv_thr as forces shrink during
+a relaxation; NiOOH__slab_r2 printed `new conv_thr = 7.988e-7 Ry` and then sat at ~1.7e-6 Ry, the
+SCF noise floor of these magnetic slabs. Every live relaxation (NiOOH and Ni(Fe)OOH slabs,
+Ni(Fe)OOH Fe-site *O, the three CoOOH adslabs) was restarted from its last geometry with
+`upscale = 1` and conv_thr 5e-6 Ry; the eight adslabs not yet started got the same settings, so
+every final energy is computed under identical SCF settings. CoOOH clean slab, which never finished
+an SCF: `_r4` = same geometry, CG diagonalization, mixing_beta 0.02, tot_magnetization 8.
+One queue (`box_run2.sh` with `jobs3.txt`, 24 ranks x 8 jobs), V1-critical states first.
+Criteria unchanged. If the CoOOH clean slab still fails, its sites are reported only through the
+slab-independent steps (dG2, dG3) as a bound on eta, labelled as such, and V2 is "not evaluable".
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.

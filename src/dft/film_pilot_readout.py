@@ -93,7 +93,7 @@ def main():
     # Amendment 3: _r2/_r3 also cover restarts from the last geometry and a fixed-moment rerun;
     # a later suffix overrides an earlier one when both have a trusted energy.
     for j in list(jobs):
-        for suf in ("_r2", "_r3"):
+        for suf in ("_r2", "_r3", "_r4"):
             if os.path.isdir(os.path.join(args.runs, j["name"] + suf)):
                 jobs.append(dict(j, name=j["name"] + suf, rerun_of=j["name"]))
     recs = {j["name"]: state_record(args.runs, j) for j in jobs}
