@@ -46,6 +46,15 @@ mixing_ndim 12, conv_thr 1e-6 (the project default; attempt 1 had 1e-7). Attempt
 in `attempt1/` on the box. Criteria V1/V2 and QC are unchanged. Spin states are reported for every
 state (expected: Ni ~1 muB, Fe ~4-5 muB, Co ~0 muB in the bulk-like layers).
 
+## Amendment 2 (2026-11-15 02:54Z, before any slab energy existed)
+In attempt 2 every state's first SCF converged or was converging except the clean CoOOH slab, whose
+SCF error oscillated between 0.01 and 0.17 Ry with no trend over 85 iterations (total moment
+3.4-3.9 muB; likely the bare CN-5 edge Co hopping between spin states; the adsorbate states, where
+that site is 6-coordinated, converged). It was stopped and rerun as `CoOOH__slab_r2` with
+mixing_beta 0.05 and mixing_ndim 20 only (structure, smearing, moments, U unchanged, so the
+converged energy is the same quantity), on 12 otherwise idle cores. The readout uses the rerun's
+energy for the CoOOH clean slab.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.

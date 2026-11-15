@@ -88,8 +88,17 @@ def main():
     ap.add_argument("--out", default=os.path.join(REPO, "results", "film_pilot_2026-11-14", "readout.json"))
     args = ap.parse_args()
     jobs = json.load(open(args.manifest))["jobs"]
+    # Reruns that changed only SCF mixing (amendment 2): same structure, same converged energy
+    # target, so the rerun's energy stands in for the original state.
+    for j in list(jobs):
+        r2 = j["name"] + "_r2"
+        if os.path.isdir(os.path.join(args.runs, r2)):
+            jobs.append(dict(j, name=r2, rerun_of=j["name"]))
     recs = {j["name"]: state_record(args.runs, j) for j in jobs}
     E = {n: r.get("energy_ev") for n, r in recs.items()}
+    for j in jobs:
+        if j.get("rerun_of") and E.get(j["name"]) is not None:
+            E[j["rerun_of"]] = E[j["name"]]
     EH2O, EH2 = E.get("gas__H2O"), E.get("gas__H2")
 
     sites = {}
