@@ -98,6 +98,26 @@ HUBBARD card does not write. Stage A now keeps the card with U = 1e-8 eV (numeri
 occupations are computed and saved). A three-iteration stage A followed by a stage B reading it was
 run on the box before the queue was relaunched (`src/dft/film_box/fix_ramp.sh`).
 
+## Amendment 6 (2026-11-15 14:57Z, before any eta existed)
+Trusted energies at this point: Ni(Fe)OOH clean slab (`_r2`, 18 BFGS steps), H2O, H2; no adslab
+had finished, so no dG or eta could be computed.
+- NiOOH clean slab: the 11th SCF of `NiOOH__slab_r3` sat at 5.06-5.18e-6 Ry for 200 iterations
+  against conv_thr 5e-6 (a noise floor just above the threshold; the earlier floor was 1.7e-6) and
+  pw.x stopped. Restarted as `NiOOH__slab_r4` from its last geometry with conv_thr 1e-5 Ry; nothing
+  else changed. The energy precision this allows (~1e-4 eV) is still far below 1 meV. Energy over the
+  r3 steps was still falling ~0.6-1.1 mRy per step (total force 0.045 -> 0.016 Ry/bohr).
+- Rule from here on: a relaxation stopped by an SCF that is flat within 4x of its conv_thr is
+  restarted the same way (last geometry, conv_thr 1e-5). An SCF that fails far above its threshold
+  is handled case by case and recorded here.
+- `NiFeOOH__Ni1_OH` (not a V1 or V2 state) was stopped 19 min into its U = 0 stage to free cores
+  for the V1-critical slab and re-queued last.
+- Readout (`src/dft/film_pilot_readout.py`): (a) each state is evaluated on ONE run, energy and
+  adsorbate integrity alike: the latest rerun with a trusted energy, else the original (previously
+  the rerun's energy was paired with the original's integrity record); (b) final geometry is read
+  from the output's last ATOMIC_POSITIONS block with the input cell, because ase's espresso-out
+  reader fails on these outputs; (c) ionic steps are counted over the restart chain. Tested on a
+  snapshot of the live outputs. Criteria unchanged.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
