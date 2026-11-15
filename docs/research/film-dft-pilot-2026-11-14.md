@@ -141,6 +141,54 @@ relaunch was checked against pw.x's printed starting moments. The fix for the wh
 magnetic configuration per film, imposed on every state, plus a moment-consistency QC) is to be
 registered before any rerun. Criteria V1/V2 unchanged.
 
+## Amendment 8 (2026-11-15 16:45Z, before any eta existed)
+Diagnostic results (same geometry and Hamiltonian within each pair; moments as in amendment 7;
+"high-spin" Ni ~1.9 muB, low-spin ~1.3):
+- NiOOH clean slab: all Ni low-spin (`slab_magLS`, 12.0 muB, every Ni 1.24-1.42) -5130.39864 Ry
+  vs. `slab_r4` step 1 (16.0 muB; the z = 7.1 A Ni pair at 1.88) -5130.28714 Ry: low-spin is lower by
+  0.1115 Ry = 1.52 eV. `slab_r3`'s last step (20.0 muB; the z = 5.3 and 7.1 A pairs at 1.91-1.92),
+  one BFGS step before r4's start, was a further 0.1139 Ry (1.55 eV) higher. Each high-spin Ni costs
+  ~0.75 eV; the slab relaxations followed a metastable configuration.
+- NiOOH *OH: the middle Ni started high-spin (`Ni0_OH_magHS`; only the z = 7.1 A pair went high,
+  1.87-1.88; 15.0 muB) -5173.00123 Ry vs. `Ni0_OH_r2` step 7 (all low-spin, 11.0 muB)
+  -5173.12400 Ry: 1.67 eV higher. The NiOOH adslab states are all-low-spin; with r4 as the
+  reference, dG(*OH) would have carried an error of ~1.5 eV.
+Per-metal moments of every other state:
+- Ni(Fe)OOH Fe-site *O has two solutions. The original run (14.0 muB) reached -5157.86364 Ry at step
+  8 and was stopped mid-SCF at amendment 4; `_r2` restarted from exactly its last geometry
+  (max |dx| = 0) and its first SCF landed at 12.0 muB, -5157.82838 Ry, 0.48 eV above the original's
+  step 8; after 10 steps `_r2` is at -5157.84168 Ry, still 0.30 eV above. The metal moments of the
+  two agree (sphere sums 16.45 vs. 16.42 muB), so the 2 muB differ off the metals. The readout's
+  "latest rerun with a trusted energy" rule (amendment 6) would have used the higher solution.
+- Ni(Fe)OOH: the trusted slab `_r2` (14.0 muB) has top-edge Ni 30 antiparallel (-1.12) and is
+  6.4 mRy (86 meV) below the unflipped original's last step; *OH has the same single flip; both *O
+  runs have none; *OOH `_r2` has Ni 5, 29 and 30 antiparallel.
+- CoOOH: the clean slab has not finished an SCF (`slab`, `_r2`, `_r3`); the non-site top-edge Co 30
+  is 1.66 / 1.75 / 0.04 muB in *O / *OH / *OOH.
+- U = 0 stage SCFs (same geometries): NiOOH Ni-site *O / *OH / *OOH, every Ni 0.62-0.84 muB except
+  the site Ni (0.06-0.12), no high/low-spin split, all converged (73-150 iterations); Ni(Fe)OOH
+  *OOH again has Ni 5, 29, 30 antiparallel (-0.73 to -0.83).
+Actions:
+- Stopped as unusable under any fix: `NiOOH__slab_r4` (metastable configuration),
+  `NiFeOOH__Fe0_O_r2` (the higher *O solution), `NiFeOOH__Fe0_OOH_r2` (three flips). Still running:
+  `NiFeOOH__Fe0_OH`, `NiOOH__Ni0_OH_r2`.
+- Provisional runs on the freed cores, pending the choice between (A) PBE+U as registered with
+  magnetic control and (B) the pilot at U = 0 (`src/dft/film_box/make_variant.py`,
+  `amend8_provisional.sh`): A: `NiOOH__slab_r5` (the `slab_magLS` input run as a relaxation; its
+  first energy must reproduce slab_magLS), `NiOOH__Ni0_O_r3` and `NiOOH__Ni0_OOH_r3` (cold PBE+U
+  start, Ni 0.05, from the input geometry; tests whether a low-spin start converges the SCFs that
+  stalled). B: `u0__NiOOH__slab` (r4 start geometry) and `u0__NiFeOOH__slab` (slab_r2 final
+  geometry, ferromagnetic start), U = 1e-8 as in the ramp stage. `u0__` runs are outside the
+  readout's rerun chains.
+- No eta is computed until the fix is registered here. Under either option it includes: one
+  reference configuration per film from its clean slab; every state started in it; a per-state QC
+  that the non-site metals match the reference in sign and spin state; and a rule for reruns: a
+  rerun replaces its predecessor only if it is the same solution (its first energy at the
+  predecessor's last geometry not higher), otherwise the lower solution stands and both are
+  reported. The readout gets the same rules.
+- Spend guard: every run stops at 2026-11-16T08:00Z unless extended (`src/dft/film_box/deadline.sh`);
+  the idle watchdog then packages, the local loop pulls, and the box stops (~31 instance-hours).
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
