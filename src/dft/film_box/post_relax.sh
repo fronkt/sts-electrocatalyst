@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Amendment 9 launcher (replaces the side_queue_b.txt queue; the only launcher while it runs).
-# v2 (2026-11-16 ~03:30Z) adds automatic reruns of relaxations whose SCF stops unconverged.
+# v2 (2026-11-16 ~03:30Z) adds automatic reruns of relaxations whose SCF stops unconverged;
+# v3 (~04:15Z) queues C4 too and applies amendment 10 (conv_thr 1e-5 at the noise floor).
 # Every 30 s:
 #   - keep/RUN holds hardlinks to the density files (charge-density.hdf5, occup.txt, paw.txt) of
 #     every relaxation in rescue_watch.txt, so they survive run_side.sh deleting tmp/;
@@ -9,7 +10,7 @@
 #     kept density, staged in stage/RUN_rK for run_side.sh. The rerun goes to the top of
 #     cfg_queue.txt (co_queue.txt for CoOOH) and inherits RUN's cfg_watch / rescue_watch entries.
 #     At most 3 automatic reruns per chain; none for a rerun that again finishes no step;
-#   - each relaxation listed in cfg_watch.txt that has converged gets its C1-C3 single points
+#   - each relaxation listed in cfg_watch.txt that has converged gets its C1-C4 single points
 #     (make_cfg_sp.sh), appended to cfg_queue.txt; one that ended without converging is skipped
 #     (marker files CFG_QUEUED / CFG_SKIPPED in its run dir);
 #   - when 24 cores are free, the next unlaunched run starts: cfg_queue.txt first (V1), then
@@ -63,11 +64,22 @@ rescue() {  # $1 = watched relaxation that stopped with an unconverged SCF
   k=$(ls -d "runs/${b}_r"* "stage/${b}_r"* 2>/dev/null | sed -E 's/.*_r([0-9]+)$/\1/' | grep -E '^[0-9]+$' | sort -n | tail -1)
   k=$(( ${k:-1} + 1 ))
   n=${b}_r$k
+  # amendment 10: an SCF whose last 30 iterations all sat below 1e-5 Ry is at this setup's noise
+  # floor; its rerun uses conv_thr 1e-5 (the amendment-6 value)
+  local L ct="" floor
+  L=$(grep -a -n '^!' "runs/$r/$r.out" | tail -1 | cut -d: -f1)
+  floor=$(tail -n +"${L:-1}" "runs/$r/$r.out" | grep -a 'estimated scf accuracy' | tail -30 \
+    | awk '{n++; if ($5 + 0 >= 1e-5) bad = 1} END {print (n == 30 && !bad) ? 1 : 0}')
+  [ "$floor" = 1 ] && ct=1.0d-5
   if [ "$steps" -ge 1 ]; then
-    python3 qe_restart_input.py "runs/$r/$r.in" "runs/$r/$r.out" "inputs/$n.in" "$n" >> post_relax.log 2>&1 \
+    python3 qe_restart_input.py "runs/$r/$r.in" "runs/$r/$r.out" "inputs/$n.in" "$n" ${ct:+--conv-thr $ct} >> post_relax.log 2>&1 \
       || { log "RESCUE_FAIL $r: qe_restart_input.py (see post_relax.log)"; return; }
   else
     sed "s/prefix = '[^']*'/prefix = '$n'/" "runs/$r/$r.in" > "inputs/$n.in"
+    [ -n "$ct" ] && sed -i "s/^\( *\)conv_thr = [^ ]*/\1conv_thr = $ct/" "inputs/$n.in"
+  fi
+  if [ -n "$ct" ] && [ "$(grep -c "conv_thr = $ct" "inputs/$n.in")" != 1 ]; then
+    log "RESCUE_FAIL $r: conv_thr edit for $n"; return
   fi
   grep -q "startingpot = 'file'" "inputs/$n.in" \
     || sed -i "s/^\( *\)mixing_mode = /\1startingpot = 'file'\n&/" "inputs/$n.in"
@@ -81,7 +93,7 @@ rescue() {  # $1 = watched relaxation that stopped with an unconverged SCF
   echo "$n" >> rescue_watch.txt
   grep -qx "$r" cfg_watch.txt && echo "$n" >> cfg_watch.txt
   local g="last geometry"; [ "$steps" -eq 0 ] && g="input geometry"
-  log "RESCUE $r (SCF not converged at step $((steps + 1))) -> $n: $g, startingpot=file from its kept density; top of $q"
+  log "RESCUE $r (SCF not converged at step $((steps + 1))) -> $n: $g, startingpot=file from its kept density${ct:+, conv_thr $ct (amendment 10)}; top of $q"
 }
 scan_failed() {
   local r
@@ -108,8 +120,8 @@ while true; do
     [ -f "$d/CFG_QUEUED" ] || [ -f "$d/CFG_SKIPPED" ] && continue
     if grep -q "bfgs converged" "$d/$r.out" 2>/dev/null; then
       if bash make_cfg_sp.sh "$r" >> post_relax.log 2>&1; then
-        printf '%s\n' "C1__$r" "C2__$r" "C3__$r" >> cfg_queue.txt; touch "$d/CFG_QUEUED"
-        log "CFG_SP queued C1__$r C2__$r C3__$r"
+        printf '%s\n' "C1__$r" "C2__$r" "C3__$r" "C4__$r" >> cfg_queue.txt; touch "$d/CFG_QUEUED"
+        log "CFG_SP queued C1__$r C2__$r C3__$r C4__$r"
       else
         touch "$d/CFG_SKIPPED"; log "CFG_SP input failed for $r (see post_relax.log)"
       fi

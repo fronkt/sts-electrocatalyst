@@ -331,6 +331,35 @@ SCF plateaus inside relaxations (03:15-03:25Z, `rescue_0320.sh`, `post_relax.sh`
   sandbox-tested on copies of the failed slab (25 steps) and of the Fe0_OH run with no completed
   step, before deployment.
 
+New candidate configuration C4 (03:55Z, rule 1). `u0__NiFeOOH__Fe0_OH_r4`'s first SCF converged in
+36 iterations at -5161.26683 Ry. That is 1.1 mRy below the cold run's plateau energy at the same
+geometry. In pw.x 1-based atoms, it has Fe6 +1.85, Ni5 +0.81 and Ni29 +1.15, and only Ni30 at
+-0.69; every other Ni is +0.50 to +0.86. This is none of C1-C3. Rule 1 takes every observed
+pattern, so the NiFeOOH candidates are now:
+- C1: Fe +, Ni 5/29/30 -
+- C2: Fe -, all Ni +
+- C3: Fe +, Ni 5/29 -
+- C4: Fe +, Ni 30 -
+
+Each converged Ni(Fe)OOH relaxation gets C1-C4 single points (`make_cfg_sp.sh`, `post_relax.sh`
+v3; the readout labels C4). No relaxation had converged, and no single point had been queued.
+
+## Amendment 10 (2026-11-16 04:00Z, before any eta existed)
+Noise floor. Some SCFs stall just above 5e-6 Ry with their energy fixed. `u0__NiOOH__Ni0_OOH` step
+8 ran about 190 iterations at 5.3-8e-6 Ry. Its rerun at the same geometry, from that density, sat at
+5.1-6.2e-6 Ry with the energy constant to 0.003 mRy. Amendment 6 met the same behaviour (5.06-5.18e-6
+for 200 iterations) and set 1e-5 for that rerun. Here:
+- An SCF whose last 30 iterations all lie below 1e-5 Ry is at the noise floor. Its rerun (amendment-9
+  rerun rule) uses conv_thr 1e-5 Ry and changes nothing else. `post_relax.sh` v3 applies this
+  automatically. `u0__NiOOH__Ni0_OOH_r3` was started by hand at 04:00Z: r2's input and geometry
+  with conv_thr 1e-5, from the same density.
+- The C1-C4 single points use conv_thr 1e-5. They only need to resolve the 1 mRy reproduction
+  tolerance and the sub-meV-to-10s-of-meV gaps between configurations.
+
+The cost is at most ~1e-5 Ry (0.14 meV) per energy, under 1% of the 1 mRy tolerance and far below any
+eta resolution this pilot claims. Relaxation thresholds (forc_conv_thr 2e-3, upscale 1) are
+unchanged.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.

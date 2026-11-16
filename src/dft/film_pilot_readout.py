@@ -114,7 +114,8 @@ M_SIGN = 0.25      # muB: smaller moments carry no sign in a configuration patte
 METALS = {"Ni", "Fe", "Co"}
 # amendment 9, Ni(Fe)OOH candidate configurations (pw.x 1-based atoms; Fe = atom 6, the Fe site):
 # (sign of Fe, set of Ni antiparallel to the bulk-like bottom Ni, atom 1)
-NIFE_CFG = {"C1": ("+", frozenset({5, 29, 30})), "C2": ("-", frozenset()), "C3": ("+", frozenset({5, 29}))}
+NIFE_CFG = {"C1": ("+", frozenset({5, 29, 30})), "C2": ("-", frozenset()), "C3": ("+", frozenset({5, 29})),
+            "C4": ("+", frozenset({30}))}  # C4: Fe0_OH_r4's first SCF (2026-11-16); rule 1 adds every pattern seen
 
 
 def bang_energies(out):
