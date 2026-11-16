@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 """FWM weigh sheet for the ISEF round-2 melt request (2026-11-16).
 
-Three round-2 melts: R0, R1, R3 (tasks/isef-2027-master-plan-2026-11-14.md section 2.2). Frank
-(2026-11-16): narrow the round to 3 alloys, so R2, R4 and R5 are dropped (R2 is the first to add back).
-The processing study (section 3) uses leftover round-1 Fe25 and Ni34 rod, so it needs no new melt.
+Three round-2 melts: R1, R2, R3 (tasks/isef-2027-master-plan-2026-11-14.md section 2.2). Frank
+(2026-11-16): narrow the round to 3 alloys; R4 and R5 are dropped. R0 (Cu26 remelt) is dropped too:
+Frank has leftover round-1 rod of every alloy, so Cu26 gets new disks from leftover ARC00150 rod, and
+the processing study uses leftover Fe25 and Ni34 rod. None of these need a new melt.
 
     PYTHONPATH=src/scripts python src/scripts/weigh_sheet_round2.py \
         > docs/research/isef-round2-weigh-sheet-2026-11-16.md
@@ -23,17 +24,18 @@ MN_OVERCHARGE_PCT = 25.0
 
 # (code, name, role, {element: at.%})
 MELTS = [
-    ("R0", "Cu26Ni9Cr31Co33", "round-1 alloy C, fresh melt at the same aim (completes round 1)",
-     {"Cu": 25.780, "Ni": 9.393, "Cr": 31.466, "Co": 33.362}),
     ("R1", "FeCoNi", "Fe25 without Cr (Cr 0 on the Fe:Co:Ni backbone)",
      {"Fe": 100 / 3, "Co": 100 / 3, "Ni": 100 / 3}),
+    ("R2", "CoCr0.5FeNi", "Cr 14.3 at.%, midpoint between R1 and Fe25",
+     {"Co": 200 / 7, "Cr": 100 / 7, "Fe": 200 / 7, "Ni": 200 / 7}),
     ("R3", "Ni34Fe29Mn30Co7", "sharpest test: old screen ranked it last, film rule puts it on top",
      {"Ni": 34, "Fe": 29, "Mn": 30, "Co": 7}),
 ]
 # Dropped 2026-11-16 (round narrowed to 3); aims kept for round 3:
-#   R2 CoCr0.5FeNi      {"Co": 200/7, "Cr": 100/7, "Fe": 200/7, "Ni": 200/7}
 #   R4 Ni86Cu14         {"Ni": 86, "Cu": 14}
 #   R5 Mn31Ni31Co33Cu6  {"Mn": 31, "Ni": 31, "Co": 33, "Cu": 6}
+# Not melted: R0 Cu26 {"Cu": 25.780, "Ni": 9.393, "Cr": 31.466, "Co": 33.362} -> new disks from
+#   Frank's leftover round-1 ARC00150 rod (Frank 2026-11-16).
 
 
 def final_mn(x_target: float, k: float, loss: float) -> float:
@@ -86,7 +88,7 @@ def main() -> None:
         w(f"| {el} | {totals[el]:.1f} |")
     w(f"| **Sum** | **{sum(totals.values()):.1f}** |")
     w("")
-    w("Allow extra for one re-melt of any charge that misses +/-2 at.% (most likely R3 on Mn, R0 on Cu).")
+    w("Allow extra for one re-melt of any charge that misses +/-2 at.% (most likely R3 on Mn).")
     print("\n".join(out))
 
 

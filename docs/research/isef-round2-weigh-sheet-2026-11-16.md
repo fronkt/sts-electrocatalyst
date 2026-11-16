@@ -2,17 +2,6 @@
 
 Reproduce with `PYTHONPATH=src/scripts python src/scripts/weigh_sheet_round2.py`. Basis **200 g** per charge; **+25% Mn** over-charge (round 1 used +4% and came out Mn-low). Mass fraction w_i = x_i M_i / sum_j x_j M_j; nominal mass = basis x w_i. The at.% is the aim; the as-made composition is measured after melting (chip ICP-OES or SEM-EDS area analyses).
 
-## R0: Cu26Ni9Cr31Co33
-*round-1 alloy C, fresh melt at the same aim (completes round 1)*  -  mean molar mass 57.917 g/mol  -  charge 200.0 g
-
-| Element | at.% | wt.% | Nominal mass (g) | **Weigh target (g)** |
-|---|---|---|---|---|
-| Cu | 25.780 | 28.285 | 56.571 | **56.571** |
-| Ni | 9.393 | 9.519 | 19.038 | **19.038** |
-| Cr | 31.466 | 28.249 | 56.498 | **56.498** |
-| Co | 33.362 | 33.947 | 67.894 | **67.894** |
-| **Sum** | 100.000 | 100.000 | 200.000 | **200.000** |
-
 ## R1: FeCoNi
 *Fe25 without Cr (Cr 0 on the Fe:Co:Ni backbone)*  -  mean molar mass 57.824 g/mol  -  charge 200.0 g
 
@@ -21,6 +10,17 @@ Reproduce with `PYTHONPATH=src/scripts python src/scripts/weigh_sheet_round2.py`
 | Fe | 33.333 | 32.193 | 64.385 | **64.385** |
 | Co | 33.333 | 33.973 | 67.946 | **67.946** |
 | Ni | 33.333 | 33.834 | 67.669 | **67.669** |
+| **Sum** | 100.000 | 100.000 | 200.000 | **200.000** |
+
+## R2: CoCr0.5FeNi
+*Cr 14.3 at.%, midpoint between R1 and Fe25*  -  mean molar mass 56.991 g/mol  -  charge 200.0 g
+
+| Element | at.% | wt.% | Nominal mass (g) | **Weigh target (g)** |
+|---|---|---|---|---|
+| Co | 28.571 | 29.545 | 59.090 | **59.090** |
+| Cr | 14.286 | 13.034 | 26.067 | **26.067** |
+| Fe | 28.571 | 27.997 | 55.994 | **55.994** |
+| Ni | 28.571 | 29.425 | 58.849 | **58.849** |
 | **Sum** | 100.000 | 100.000 | 200.000 | **200.000** |
 
 ## R3: Ni34Fe29Mn30Co7
@@ -40,12 +40,11 @@ Expected Mn after melting (aim 30.0 at.%): 10% loss -> 32.5, 13% loss -> 31.8, 2
 
 | Element | Weigh total (g) |
 |---|---|
-| Co | 150.4 |
-| Cr | 56.5 |
-| Cu | 56.6 |
-| Fe | 121.5 |
+| Co | 141.6 |
+| Cr | 26.1 |
+| Fe | 177.4 |
 | Mn | 72.6 |
-| Ni | 157.0 |
+| Ni | 196.8 |
 | **Sum** | **614.5** |
 
-Allow extra for one re-melt of any charge that misses +/-2 at.% (most likely R3 on Mn, R0 on Cu).
+Allow extra for one re-melt of any charge that misses +/-2 at.% (most likely R3 on Mn).

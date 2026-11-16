@@ -1485,3 +1485,14 @@ Rule: before proposing or building any SCF-convergence remedy (mixing, smearing,
 grep docs/research for the project's prior stall diagnostics (stall, mixing_beta, ndim, floor) and
 cite what was measured for the same alloys and protocol; a remedy the record contradicts needs the
 contradiction stated up front.
+
+## 2026-11-16 — Apply a material-on-hand statement to every item it covers
+
+Frank said "I have extras of the prior melts" while the round-2 request still listed R0, a remelt of
+round-1 Cu26 (ARC00150). I applied it only to the processing study (Fe25, Ni34) and kept R0 as a
+melt, then picked R0 as one of three melts when the round was narrowed. Frank: "we dont need to
+remelt the arc00150, we already have left overs."
+
+Rule: when Frank says what material exists ("extras of the prior melts", "leftovers", "stock"),
+re-check every line of the current request against it, and drop any melt or purchase it makes
+unnecessary, in the same turn, saying which lines changed.

@@ -19,9 +19,10 @@ ISEF). Round-2 melt request: `docs/research/isef-round2-melt-plan-2026-11-16.md`
 melt pick does not wait on the film-DFT pilot (section 5). Version before this update:
 `isef-2027-master-plan-archive-2026-11-16-pre-feb6.md`.
 
-**Update 2026-11-16, later.** Frank: narrow round 2 to three alloys. Set = **R0, R1, R3**; R2, R4, R5
-dropped (R2 first to add back in round 3). Sections 2.2, 7, 8 and 9 follow. Version before this
-update: `isef-2027-master-plan-archive-2026-11-16-pre-three-melts.md`.
+**Update 2026-11-16, later.** Frank: narrow round 2 to three alloys. Set = **R1, R2, R3**; R4, R5
+dropped. R0 is not melted: Frank has leftover round-1 rod of every alloy, so Cu26 gets new disks from
+leftover ARC00150 rod (a brief R0/R1/R3 version is commit 65b9cc22). Sections 2.2, 7, 8 and 9 follow.
+Version before this update: `isef-2027-master-plan-archive-2026-11-16-pre-three-melts.md`.
 
 ---
 
@@ -64,17 +65,17 @@ update: `isef-2027-master-plan-archive-2026-11-16-pre-three-melts.md`.
 
 ### 2.2 Merged recommendation, narrowed to 3 melts + free stock (11-16) - RECOMMENDED; melt request written 11-16 (`docs/research/isef-round2-melt-plan-2026-11-16.md`), becomes the pick when Frank sends it to FWM
 
-**11-16 later: DECIDED (Frank) to narrow to three alloys: R0, R1, R3.** Kept: R3 (the one melt where
-the predictors disagree), R1 (same film as Fe25, no Cr: does Cr do anything besides leaching out?),
-R0 (already DECIDED; completes round 1 for Paper B; low end of film Ni+Fe, 0.14 vs 0.67 and 0.90).
-Dropped: R2 (first to add back; it turns R1 + Fe25 into a 3-point Cr ladder), R4 (Gate 2 may settle
-Ni31 first), R5 (weakest case).
+**11-16 later: DECIDED (Frank) to narrow to three melts: R1, R2, R3.** Kept: R3 (the one melt where
+the predictors disagree), R1 + R2 (same film as Fe25 at 0 and 14.3 at.% Cr: with Fe25, a 3-point Cr
+ladder). R0 not melted (Frank: leftover round-1 rod of every alloy): Cu26 is completed with new disks
+from leftover ARC00150 rod. Dropped: R4 (Gate 2 may settle Ni31 first), R5 (weakest case); both are
+round-3 candidates, since R3 is now the only new film composition in round 2.
 
 | # | Alloy (at.%) | Role |
 |---|---|---|
-| R0 | Cu26Ni9Cr31Co33 (remelt) | **DECIDED**: completes round 1; old button was ~9 at.% Cu low with Cu pools to ~100 um |
+| R0 | Cu26Ni9Cr31Co33 (remelt) | **NOT MELTED 11-16**: new disks from Frank's leftover ARC00150 rod instead. Completes round 1; old button was ~9 at.% Cu low with Cu pools to ~100 um |
 | R1 | FeCoNi | Fe25 with Cr removed; in both designs |
-| R2 | CoCr0.5FeNi (Cr 14.3) | **DROPPED 11-16** (round 3 first pick). With R1 (Cr 0) and Fe25 (Cr 25), a 3-point Cr ladder on a fixed Fe:Co:Ni backbone - the ladder question at 2 melts instead of 6 |
+| R2 | CoCr0.5FeNi (Cr 14.3) | **KEPT 11-16** (replaces R0). With R1 (Cr 0) and Fe25 (Cr 25), a 3-point Cr ladder on a fixed Fe:Co:Ni backbone - the ladder question at 2 melts instead of 6 |
 | R3 | Ni34Fe29Mn30Co7 | in both designs; old screen ranked it last of 12, film hypothesis puts it on top - sharpest test; also the Mn comparator |
 | R4 | Ni86Cu14 | **DROPPED 11-16.** Ni31's film twin, single phase; drop if Gate 2 settles the Ni31 question first |
 | R5 | Mn31Ni31Co33Cu6 | **DROPPED 11-16.** mid-range anchor |
@@ -231,29 +232,30 @@ x 2 = 6 disks (~28 h) + the polish pilot (2 disks, ~10 h).
 | Repeats, 5 alloys x 2 | 10 | 47 |
 | Cu26 x 3 | 3 | 14 |
 | Gates 1 + 2 | ~8 | ~38 |
-| Round 2, 2 new (R1, R3) x 2-3 | 4-6 | 19-28 |
+| Round 2, 3 new (R1, R2, R3) x 2-3 | 6-9 | 28-42 |
 | Commercial benchmarks (Ni 200, 316L) x 2 | 4 | 19 |
 | Processing study (min / full) | 8 / 18 | 38 / 85 |
 | Stability holds | - | 20-36 |
-| **Total** | **~37-49** | **~195-270** |
+| **Total** | **~39-52** | **~205-280** |
 
-(11-16: round 2 narrowed to R0, R1, R3; R0 is the Cu26 row above. Six-melt totals were ~43-58 disks, ~220-310 h.)
+(11-16: round 2 narrowed to R1, R2, R3; Cu26 (row above) now comes from leftover ARC00150 rod. Six-melt totals were ~43-58 disks, ~220-310 h.)
 
 This is more than one person's bench time before NEIRSEF (Feb 6), so the work runs in two stages
 (11-16, Frank: keep improving after the regional fair, up to ISEF).
 
-**Stage 1: by February 6 (~151 h core + ~9 h stretch; 11-16, three melts)**
+**Stage 1: by February 6 (~160 h core + ~9 h stretch; 11-16, three melts)**
 
 | Block | When | Disks | Hours |
 |---|---|---|---|
 | Gates 1 + 2 on existing disks | Dec | ~8 | ~38 |
 | Repeats, 5 alloys x 2 (+ Cu8 sweep to 10 mA/cm2) | Dec | 10 | 47 |
-| Round 2: R0, R1, R3 x 2 | Jan | 6 | 28 |
+| Round 2: R1, R2, R3 x 2 | Jan | 6 | 28 |
 | Ni 200 + 316L x 2 | Jan | 4 | 19 |
 | Fe25 (P1) H vs CW x 2 (core now; needs the CW rod by early Jan) | Jan | 4 | 19 |
+| Cu26 x 2, new disks from leftover ARC00150 rod | Jan (or Dec) | 2 | 9 |
 | Stretch: third disk of R3 and R1 | Jan | 2 | 9 |
 
-January order: R3, R1, Ni 200 + 316L, R0, P1 H vs CW, then third disks (melt plan section 4).
+January order: R3, R1, Ni 200 + 316L, R2, P1 H vs CW, Cu26, then third disks (melt plan section 4).
 Whether Stage 1 fits depends on rotator time: Josh's hours, and whether Frank can run disks
 under his supervision (section 9, item 5). That is the biggest lever.
 
@@ -268,9 +270,9 @@ under his supervision (section 9, item 5). That is the biggest lever.
 
 | When | What |
 |---|---|
-| Nov 16-24 | Send the melt request to FWM (3 melts at 200 g: R0, R1, R3; cold work of leftover round-1 Fe25 / Ni34 rod, Ni 200 / 316L stock); Tackett/Josh call (December bench, Frank on the rotator, iron-free KOH supplies); film-pilot V1 readout, then terminate the AWS box; novelty check on R3; register round-2 predictions; ask the Pitt contact |
+| Nov 16-24 | Send the melt request to FWM (3 melts at 200 g: R1, R2, R3; Cu26 disks from leftover rod; cold work of leftover round-1 Fe25 / Ni34 rod, Ni 200 / 316L stock); Tackett/Josh call (December bench, Frank on the rotator, iron-free KOH supplies); film-pilot V1 readout, then terminate the AWS box; novelty check on R3; register round-2 predictions; ask the Pitt contact |
 | Nov 25 - Dec 23 | Josh (+ Frank?): Gates 1 + 2, repeats, Cu8 sweep, C_dl, polish pilot. FWM: melts, then Frank homogenizes; machining; P1/P2 cold work + RX hardness series. Film-DFT production on the round-2 films if V1 passes and compute is approved |
-| by ~Dec 18 | R0, R1, R3 + benchmark disks to Josh |
+| by ~Dec 18 | R1, R2, R3, Cu26 (leftover rod) + benchmark disks to Josh |
 | Jan 4-29 | Round-2 bench (2 disks each, Stage 1 order); as-made SEM-EDS / XRD |
 | Jan 22 | NEIRSEF registration: research plan, abstract, ISEF forms, fee (through the teacher) |
 | Jan 30 | Data freeze for the regional poster |
@@ -280,7 +282,7 @@ under his supervision (section 9, item 5). That is the biggest lever.
 
 ## 9. Open decisions (Frank)
 1. Alloy set: merged 6 (section 2.2) or the Cr ladder. 11-16: melt request written for the merged 6.
-   11-16 later: DECIDED (Frank) three alloys, R0, R1, R3
+   11-16 later: DECIDED (Frank) three melts, R1, R2, R3; Cu26 from leftover rod, no remelt
 2. Processing study: alloys (Fe25 + Ni34 suggested), working route, reduction %. 11-16: in the melt
    request as P1 + P2, cold swage/draw to ~6 mm (~64%), FWM to confirm route. 11-16 later: P1 + P2 =
    Frank's leftover round-1 Fe25 / Ni34 rod (no new melt); same ingots as the round-1 disks
