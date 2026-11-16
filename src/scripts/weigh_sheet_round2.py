@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 """FWM weigh sheet for the ISEF round-2 melt request (2026-11-16).
 
-Six round-2 melts (R0-R5, tasks/isef-2027-master-plan-2026-11-14.md section 2.2) plus two
-processing-study ingots (Fe25, Ni34 at their round-1 aim compositions, section 3).
+Six round-2 melts (R0-R5, tasks/isef-2027-master-plan-2026-11-14.md section 2.2). The processing
+study (section 3) uses leftover round-1 Fe25 and Ni34 rod, so it needs no new melt (Frank, 2026-11-16).
 
     PYTHONPATH=src/scripts python src/scripts/weigh_sheet_round2.py \
         > docs/research/isef-round2-weigh-sheet-2026-11-16.md
 
-Basis: 250 g per charge (the crucible FWM melted round 1 in; s8-melt-record-2026-10-17.md).
+Basis: 200 g per charge, as in round 1 (200 g rods; Frank, 2026-11-16).
 Mn over-charge: +25% Mn mass. Round 1 charged +4% and lost roughly 13-25% of the charged Mn
 (SEM-EDS spot estimates, Cu8 and Cu22). Charging Mn x 1.25 lands within +/-2 at.% of a 30-31 at.%
 Mn target for any loss between ~13% and ~27% of the charged Mn (checked below), so the as-made
@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from weigh_sheet import MOLAR_MASS, mass_breakdown
 
-BASIS_G = 250.0
+BASIS_G = 200.0
 MN_OVERCHARGE_PCT = 25.0
 
 # (code, name, role, {element: at.%})
@@ -34,10 +34,6 @@ MELTS = [
      {"Ni": 86, "Cu": 14}),
     ("R5", "Mn31Ni31Co33Cu6", "mid-range anchor",
      {"Mn": 31, "Ni": 31, "Co": 33, "Cu": 6}),
-    ("P1", "Fe25Co25Ni25Cr25", "processing study (as-cast / homogenized / cold-worked / recrystallized)",
-     {"Fe": 25, "Co": 25, "Ni": 25, "Cr": 25}),
-    ("P2", "Ni34Fe6Cu29Co31", "processing study, Cr- and Mn-free partner",
-     {"Ni": 33.877, "Fe": 5.962, "Cu": 29.423, "Co": 30.738}),
 ]
 
 
@@ -83,7 +79,7 @@ def main() -> None:
             w("")
             w(f"Expected Mn after melting (aim {xmn:.1f} at.%): {rows} at.%.")
         w("")
-    w("## Feedstock for all eight charges")
+    w(f"## Feedstock for all {len(MELTS)} charges")
     w("")
     w("| Element | Weigh total (g) |")
     w("|---|---|")

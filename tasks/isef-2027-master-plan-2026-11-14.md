@@ -255,7 +255,7 @@ under his supervision (section 9, item 5). That is the biggest lever.
 
 | When | What |
 |---|---|
-| Nov 16-24 | Send the melt request to FWM (6 melts, P1 + P2, Ni 200 / 316L stock); Tackett/Josh call (December bench, Frank on the rotator, iron-free KOH supplies); film-pilot V1 readout, then terminate the AWS box; novelty check on R3 / R5; register round-2 predictions; ask the Pitt contact |
+| Nov 16-24 | Send the melt request to FWM (6 melts at 200 g, cold work of leftover round-1 Fe25 / Ni34 rod, Ni 200 / 316L stock); Tackett/Josh call (December bench, Frank on the rotator, iron-free KOH supplies); film-pilot V1 readout, then terminate the AWS box; novelty check on R3 / R5; register round-2 predictions; ask the Pitt contact |
 | Nov 25 - Dec 23 | Josh (+ Frank?): Gates 1 + 2, repeats, Cu8 sweep, C_dl, polish pilot. FWM: melts, then Frank homogenizes; machining; P1/P2 cold work + RX hardness series. Film-DFT production on the round-2 films if V1 passes and compute is approved |
 | by ~Dec 18 | R0-R5 + benchmark disks to Josh |
 | Jan 4-29 | Round-2 bench (2 disks each, Stage 1 order); as-made SEM-EDS / XRD |
@@ -268,7 +268,8 @@ under his supervision (section 9, item 5). That is the biggest lever.
 ## 9. Open decisions (Frank)
 1. Alloy set: merged 6 (section 2.2) or the Cr ladder. 11-16: melt request written for the merged 6
 2. Processing study: alloys (Fe25 + Ni34 suggested), working route, reduction %. 11-16: in the melt
-   request as P1 + P2, cold swage/draw to ~6 mm (~64%), FWM to confirm route
+   request as P1 + P2, cold swage/draw to ~6 mm (~64%), FWM to confirm route. 11-16 later: P1 + P2 =
+   Frank's leftover round-1 Fe25 / Ni34 rod (no new melt); same ingots as the round-1 disks
 3. ISEF category: Energy vs Materials Science
 4. Paper split: round 1 now vs one paper after round 2
 5. Can Frank run disks himself under Josh's supervision
@@ -300,8 +301,10 @@ deep into a computational pipeline and judges lost the thread. The Indiana STS p
    vibratory polisher or electropolishing is available).
 2. With the round-2 melt request: one extra ingot each of Fe25 and Ni34, sized for 4 states x
    3 disks + metallography pieces; ask FWM rolling vs swaging/drawing to ~5 mm rod (rod slices fit
-   the RDE insert directly). 11-16 melt request: P1 + P2, 250 g each, swage/draw to ~6 mm (~64%),
-   then machine to 5.00 mm; two charges each if a charge gives < ~18 cm of sound rod.
+   the RDE insert directly). 11-16 melt request: P1 + P2 come from Frank's leftover round-1 Fe25 /
+   Ni34 rod (no new melt; the H state then links to the round-1 disks and the December repeats);
+   swage/draw to ~6 mm (~64%), then machine to 5.00 mm. Needs ~15 cm sound rod per alloy, ~4 cm of it
+   never annealed (AC); a 200 g melt of one alloy only if its leftovers fall short.
 3. Split each ingot: AC piece cut before homogenizing; Frank homogenizes the rest; FWM cold works
    part (~60-70%); Frank anneals part of that (RX temperature from a hardness series on small
    coupons, e.g. 700 / 800 / 900 / 1,000 C for 1 h).
