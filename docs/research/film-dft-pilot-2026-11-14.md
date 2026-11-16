@@ -766,6 +766,35 @@ step 45's converged geometry would head back into the same region. r5 runs on.
 Freed slots went to `co_queue.txt`: `u0__CoOOH__Co0_O` (19:11Z) and `u0__CoOOH__Co0_OH` (19:14Z)
 restarted fresh, with upscale 1 (amendment 13).
 
+`C4__u0__NiFeOOH__Fe0_OOH` reached electron_maxstep (200) at 19:59Z without converging. It does
+not count (rule 2), so Fe0_OOH has 5 of its 6 points. Lowest: C2, -5202.82269956 Ry.
+
+## Amendment 15 (2026-11-16 20:13Z; V2, before any V2 eta exists)
+Since C4 ended, one 24-rank slot is idle until the 22:00Z deadline, with no V1 run waiting. The
+12:48Z V2 note left the clean CoOOH slab needing a different SCF start.
+- Its cold SCF held the energy steady to 0.4 mRy and the total moment at -0.20 to -0.26 muB.
+- It never got below 5e-3 Ry over iterations 40-200.
+- A steady energy with a residual that will not fall is the usual sign of fractional occupations
+  flipping near the Fermi level. Larger smearing damps that.
+
+Test (`src/dft/film_box/amend15_coslab.sh`): `u0__CoOOH__slab_smear3` is the slab's input with
+`calculation = 'scf'` and MV smearing 0.03 Ry (registered: 0.01).
+- Numerics only. Its density is a starting density for the slab's registered relaxation
+  (startingpot = 'file', degauss 0.01). Its energy enters nothing.
+- Nothing else changes: positions, k-points, cutoffs, spin, dipole correction, conv_thr 5e-6,
+  local-TF, beta 0.05, ndim 20.
+- Its outdir is in `scratch/`, so run_side.sh's removal of the run's tmp/ cannot delete the
+  density. A waiter (box pid 261287) copies the density into `keep/`, which the deadline pull
+  includes, if the SCF converged.
+- It goes to the top of `co_queue.txt`. `post_relax.sh` launches it, and `yield_co` stops it first
+  if V1 work waits for cores.
+- A converged SCF answers whether this start works, and the registered relaxation can begin from
+  it wherever V2 continues. If it does not converge by 22:00Z, the SCF trace is reported.
+- Dry run (20:12Z): the input differs from the slab's only in calculation, prefix, outdir and
+  degauss, plus the removed &IONS namelist. Positions and k-points are identical.
+- Order: it was queued at 20:13Z and launched at 20:13:54Z. This text was committed shortly after
+  (the first commit carried only the script). Its first iteration was the only output then.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
