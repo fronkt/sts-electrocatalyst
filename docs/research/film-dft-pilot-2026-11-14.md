@@ -804,6 +804,32 @@ Spend (20:20Z). Frank extended the cap from 22:00Z to 2026-11-17T06:00Z ("a, ext
 - When V1's last run finishes, the deadline is brought forward so the box stops then.
 - V2 continues off AWS.
 
+Automation for that step (`src/dft/film_box/v1done.sh`, a box-side watcher polling every 60 s).
+V1 counts as done when, for 5 consecutive minutes:
+- no NiOOH or Ni(Fe)OOH pw.x job runs, single points included;
+- `cfg_queue.txt` has no unlaunched entry;
+- every relaxation in `cfg_watch.txt` carries CFG_QUEUED or CFG_SKIPPED, so `post_relax.sh` has
+  queued or skipped its single points.
+
+The 5 minutes cover `post_relax.sh`'s 30 s cycle between a relaxation converging and its single
+points being queued. When V1 is done, DEADLINE is set to now, and the registered sequence follows:
+- every run stops, the CoOOH (V2) runs included;
+- the outputs are packaged, pulled, and the instance terminated;
+- `keep/` is copied.
+
+The same watcher applies amendment 12's rule that the first Ni0_OOH run to converge stands. When
+r4 or r5 converges, the other is stopped (RESCUE_HANDLED first, so no rerun follows), and both
+last energies are logged.
+
+Dry run (20:19Z): it lists the four running V1 relaxations, leaves out the four CoOOH runs, and
+reports Fe0_O_r2 and Fe0_OH_r5 as not yet handled. In a test work dir, an unlaunched single point
+and an unhandled relaxation each block "done".
+
+The SSO access token for the final terminate expired at 18:35Z, and the cached role credentials
+expire at 21:35Z. If the pull loop cannot terminate the instance at the end, the box stops itself
+after the pull (shutdown behavior STOP). It then bills only its disk until it is terminated by
+hand after the next `aws sso login`.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
