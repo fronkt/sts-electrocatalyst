@@ -694,6 +694,32 @@ energy -5216.68849 Ry, 2.9 mRy below its step 13). If an SCF of r4 now stalls, r
 electron_maxstep with no rerun and r5 carries Ni0_OOH, the outcome the watcher would have given.
 It holds its 24-rank slot longer, which costs nothing while no run waits for a slot.
 
+## Single points, 19:10-19:14Z (before any eta existed)
+`C5__u0__NiFeOOH__Fe0_OOH` left its target: -5202.80568566 Ry, 76 iterations, force 0.031 at the
+fixed geometry.
+- Moments: Fe6 -0.49, Ni30 -0.22, Ni29 +0.21, Ni4 +0.22, every other Ni +0.75 to +0.96.
+- Under the 0.25 muB cutoff that is Fe -, no Ni antiparallel: C2.
+- It is not the C2 point's solution, though. Fe is at -0.49 against -1.37 there, and the energy is
+  17.0 mRy higher. The pattern labels record only signs, so two solutions 17 mRy apart share a
+  label.
+- The readout takes the lowest counted energy, so Fe0_OOH's value is unchanged (the C2 point,
+  -5202.82269956 Ry). Both points are reported.
+
+`C6__u0__NiFeOOH__slab` left its target and landed in C1: Fe6 +2.56, Ni5 -1.13, Ni29 -0.72,
+Ni30 -1.11. Energy -5118.50258004 Ry, 0.002 mRy from the relaxed energy; no metal is more than
+0.02 muB from it.
+- The slab's set is now complete. C1, C3, C4 and C6 all end in C1. C2 ends in C5, 5.29 mRy
+  higher, and stands as the slab's C5 point (amendment 11).
+- The slab's lowest is its relaxed C1 energy.
+
+Still running for Fe0_OOH:
+- C6, the own-configuration check: 78 iterations, 3.9e-5 Ry at 19:18Z.
+- C4: 162 iterations, 2e-3 to 2e-2 Ry. It may reach electron_maxstep (200), and then it does not
+  count.
+
+Freed slots went to `co_queue.txt`: `u0__CoOOH__Co0_O` (19:11Z) and `u0__CoOOH__Co0_OH` (19:14Z)
+restarted fresh, with upscale 1 (amendment 13).
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
