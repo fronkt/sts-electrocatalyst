@@ -286,6 +286,24 @@ Check (21:51Z): `u0__NiOOH__Ni0_O_r2`'s first SCF converged in 14 iterations at 
 0.07 mRy below the ramp stage at the same geometry. Every non-site Ni is parallel and within
 0.24 muB of the slab's moment.
 
+Fe0_OH rerun (2026-11-16 00:45-01:04Z, `fe0oh_r2_test.sh`, `fe0oh_r3.sh`, `map_restart.py`, `yield_co.sh`):
+- `u0__NiFeOOH__Fe0_OH` completed no SCF. Its first SCF reached 2e-4 Ry by iteration ~70, then sat at
+  3.4-14e-5 Ry (conv_thr 5e-6) through iteration 200. The energy moved within 0.2 mRy of
+  -5161.2657 Ry, and total/absolute magnetization was steady at 5.80/13.71 muB. `run_side.sh` deleted
+  its density at exit.
+- `_r2` is the same input with startingpot = 'file' from the converged `u0__NiFeOOH__slab` density
+  (BFGS step 25, C1, which is the pattern the original was seeded with). It stopped in read_scf
+  after 6 s because QE also reads occup.txt (Hubbard ns) and paw.txt (PAW becsum) with
+  startingpot = 'file'. Both are per-atom, and the slab has 48 atoms against Fe0_OH's 50.
+- `_r3` is the same restart with both files mapped onto the 50 atoms by `map_restart.py`. Each atom
+  gets the nearest same-element slab atom (max 0.49 A); ns = 0 on the adsorbate O and H, and becsum
+  is taken from the top hydroxyl O/H. QE read it ("starting charge 370.0, renormalised to 377.0").
+  Only the starting guess differs; the input, geometry and thresholds are the original's. It
+  replaces its predecessors under the first rerun case and is on the C1-C3 single-point watch list.
+- V1 before V2: `u0__CoOOH__slab` (started 00:47Z, first SCF unfinished) was stopped to free r3's
+  cores. Its dir is in `runs_stopped/`, and `post_relax.sh` relaunches it from `co_queue.txt` when
+  cores free.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
