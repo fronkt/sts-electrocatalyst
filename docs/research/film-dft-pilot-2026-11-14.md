@@ -417,6 +417,18 @@ parallel (site Ni6 +1.16; Ni5 -0.01, below the cutoff). The *O stays atop Ni6, w
 from 1.83 to 1.65 A. At their 10:24Z steps the other NiOOH states are all parallel under the
 cutoff too, and the slab's Ni29 moment has gone from -0.30 to -0.10.
 
+V1 before V2, automated (10:39Z, `post_relax.sh` v5, `deploy_pr5.sh`). With no V1 run waiting, the
+two freed slots went to `u0__CoOOH__slab` (10:23Z) and `u0__CoOOH__Co0_O` (10:34Z). Each Fe-site
+state queues five single points as soon as it converges. Now, when a V1 run is waiting and no
+cores are free, `post_relax.sh` stops the most recently started CoOOH run. As `yield_co.sh` did by
+hand at 01:03Z, it moves that run's dir to `runs_stopped/` so it relaunches from `co_queue.txt` (a
+fresh start), and logs YIELD. It does this only while at least 75 min remain before the deadline
+guard stops every run, so the single point (~66 min) can finish, and at most once per 5 min. It
+was sandbox-tested with stand-in processes:
+- V1 waiting with 3 h left: yields the later-started run;
+- 60 min left: no yield;
+- nothing waiting: no yield.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.

@@ -2,7 +2,8 @@
 # Amendment 9 launcher (replaces the side_queue_b.txt queue; the only launcher while it runs).
 # v2 (2026-11-16 ~03:30Z) adds automatic reruns of relaxations whose SCF stops unconverged;
 # v3 (~04:15Z) queues C4 too and applies amendment 10 (conv_thr 1e-5 at the noise floor);
-# v4 (08:32Z) queues C5 too (amendment 11).
+# v4 (08:32Z) queues C5 too (amendment 11); v5 (10:39Z) gives waiting V1 work a running CoOOH
+# run's cores (V1 before V2, as yield_co.sh did at 01:03Z) while >= 75 min remain to the deadline.
 # Every 30 s:
 #   - keep/RUN holds hardlinks to the density files (charge-density.hdf5, occup.txt, paw.txt) of
 #     every relaxation in rescue_watch.txt, so they survive run_side.sh deleting tmp/;
@@ -18,7 +19,8 @@
 #     co_queue.txt (CoOOH, V2). A run counts as launched once runs/NAME exists.
 # Never starts a run at or after the DEADLINE. Exits when nothing is left to watch or launch.
 #   setsid nohup bash post_relax.sh > /dev/null 2>&1 < /dev/null &
-# Test knobs: PR_W (work dir), PR_MAXCORES (0 = never launch), PR_ONCE=1 (one cycle).
+# Test knobs: PR_W (work dir), PR_MAXCORES (0 = never launch), PR_ONCE=1 (one cycle, no launch
+# step), PR_ONCE=2 (one cycle including the launch/yield step).
 set -u
 W=${PR_W:-$HOME/film}
 cd "$W" || exit 1
@@ -96,6 +98,22 @@ rescue() {  # $1 = watched relaxation that stopped with an unconverged SCF
   local g="last geometry"; [ "$steps" -eq 0 ] && g="input geometry"
   log "RESCUE $r (SCF not converged at step $((steps + 1))) -> $n: $g, startingpot=file from its kept density${ct:+, conv_thr $ct (amendment 10)}; top of $q"
 }
+last_yield=0
+yield_co() {  # $1 = waiting V1 run. V1 before V2: stop the most recently started running CoOOH run
+  local c best="" pid i
+  for c in $(sed -n 's/^BEGIN \(u0__CoOOH__[^ ]*\) .*/\1/p' queue.log); do
+    pgrep -f "prterun .*-in $c[.]in" > /dev/null && best=$c
+  done
+  [ -n "$best" ] || return 1
+  pid=$(pgrep -f "prterun .*-in $best[.]in" | head -1)
+  kill "$pid" || return 1
+  last_yield=$(date +%s)
+  for i in $(seq 1 60); do pgrep -f "run_side[.]sh $best " > /dev/null || break; sleep 2; done
+  pgrep -f "run_side[.]sh $best " > /dev/null && { log "YIELD_FAIL $best: run_side.sh still alive"; return 1; }
+  mkdir -p runs_stopped && mv "runs/$best" "runs_stopped/${best}__stopped_$(date -u +%H%MZ)" \
+    || { log "YIELD_FAIL $best: could not move its dir"; return 1; }
+  log "YIELD $best (V1 before V2) for $1: stopped, dir moved to runs_stopped/, relaunches from co_queue.txt"
+}
 scan_failed() {
   local r
   while read -r r; do
@@ -106,7 +124,7 @@ scan_failed() {
     fi
   done < <(cat rescue_watch.txt)
 }
-log "POST_RELAX v4 started (watch: $(tr '\n' ' ' < cfg_watch.txt); rescue: $(tr '\n' ' ' < rescue_watch.txt); CoOOH: $(tr '\n' ' ' < co_queue.txt))"
+log "POST_RELAX v5 started (watch: $(tr '\n' ' ' < cfg_watch.txt); rescue: $(tr '\n' ' ' < rescue_watch.txt); CoOOH: $(tr '\n' ' ' < co_queue.txt))"
 while true; do
   dl=$(cat DEADLINE 2>/dev/null || echo 0)
   if [ -f DEADLINE_HIT ] || { [ "$dl" -gt 0 ] && [ "$(date +%s)" -ge "$dl" ]; }; then
@@ -142,8 +160,15 @@ while true; do
       sleep 90  # let the ranks appear before the next core count
       continue
     fi
+    # v5: V1 work waiting and no cores: take a CoOOH slot, if the V1 run can finish (~66 min) before
+    # the deadline kills it, and at most once per 5 min (the stopped ranks need a moment to exit)
+    v=$(next cfg_queue.txt); now=$(date +%s)
+    if [ -n "$v" ] && [ $(( now - last_yield )) -ge 300 ] && { [ "$dl" -eq 0 ] || [ $(( dl - now )) -ge 4500 ]; }; then
+      yield_co "$v"
+    fi
   elif [ "$watching" -eq 0 ] && ! pgrep -x pw.x > /dev/null; then
     log "POST_RELAX done: nothing left to watch or launch"; exit 0
   fi
+  [ "${PR_ONCE:-0}" = 2 ] && exit 0
   sleep 30
 done
