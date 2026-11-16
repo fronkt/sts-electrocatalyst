@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Amendment 14 (2026-11-16 ~18:20Z): u0__NiFeOOH__Fe0_OH_r4's step-46 SCF (after a BFGS step with
+# Amendment 14 (2026-11-16 18:15Z): u0__NiFeOOH__Fe0_OH_r4's step-46 SCF (after a BFGS step with
 # trust radius 0.141 bohr) reached 5.4e-5 Ry at iteration 22 and then drifted back to 3e-4 to 1e-3 Ry
 # for 20 iterations, with the total moment wandering 11.0-11.2 muB. That matches Fe0_O's step-43 SCF
 # (amendment 13). Its settings are the registered ones (conv_thr 5e-6, upscale 1, beta 0.1, ndim 12).

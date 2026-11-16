@@ -652,7 +652,7 @@ Fe0_OOH single points C1 and C3 (17:50Z and 18:02Z):
 - Fe0_OOH so far: C2 lowest (-5202.82269956), C6 relaxed and C3 within 0.006 mRy of it, C1 2.27 mRy
   above. C4, C5 and C6 are running.
 
-## Amendment 14 (2026-11-16 18:20Z, before any eta existed)
+## Amendment 14 (2026-11-16 18:15Z, before any eta existed)
 `u0__NiFeOOH__Fe0_OH_r4`'s step-46 SCF has the symptom amendment 13 stopped in Fe0_O.
 - It follows BFGS steps with a growing trust radius: 0.043, 0.094, then 0.141 bohr.
 - It reached 5.4e-5 Ry at iteration 22. Over the next 20 iterations it drifted back to 3e-4 to
@@ -662,7 +662,7 @@ Fe0_OOH single points C1 and C3 (17:50Z and 18:02Z):
 - The registered automatic rerun fires only at electron_maxstep (200), about 2.5 h away at ~1 min
   per iteration. That would use nearly all the time left before the 22:00Z deadline.
 
-Rule (`src/dft/film_box/amend14_fe0oh.sh`, a box-side watcher, armed ~18:20Z):
+Rule (`src/dft/film_box/amend14_fe0oh.sh`, a box-side watcher, armed 18:15:06Z):
 - If any SCF of r4 reaches 60 iterations without converging, r4 is stopped. Fe0_O was stopped at
   54.
 - It is rerun as `u0__NiFeOOH__Fe0_OH_r5` (amendment-9 rerun rule) from its last printed geometry
