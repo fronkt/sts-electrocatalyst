@@ -442,6 +442,14 @@ dirs (charge density, occup.txt, paw.txt, schema; about 1 GB with `keep/`) to
 restart from the last geometry with startingpot = 'file'. The script never touches PULLED, so it
 cannot delay the box's release. Tested on one 86 MB density: 25 s end to end.
 
+V2 note (12:48Z). `u0__CoOOH__slab`, a cold start (Co 0.05; local-TF, beta 0.05, ndim 20), finished
+no SCF. It reached about 1e-2 Ry by iteration 40, then sat at 5e-3 to 1e-2 Ry through iteration
+200, with the energy within 0.4 mRy and the total moment at -0.24 to -0.26 muB. No step finished,
+so no density was kept, and `post_relax.sh` gave up the automatic rerun. Its slot went to
+`u0__CoOOH__Co0_OOH`. Low-spin Co(III) is near nonmagnetic, so this looks like charge sloshing
+rather than the slow magnetic modes behind the Ni(Fe)OOH stalls. A V2 continuation needs a
+different SCF start for this slab, decided before any V2 eta exists.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
