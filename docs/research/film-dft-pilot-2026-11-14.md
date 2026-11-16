@@ -360,6 +360,17 @@ The cost is at most ~1e-5 Ry (0.14 meV) per energy, under 1% of the 1 mRy tolera
 eta resolution this pilot claims. Relaxation thresholds (forc_conv_thr 2e-3, upscale 1) are
 unchanged.
 
+Rerun checks (04:11Z):
+- `u0__NiOOH__slab_r2`'s first energy is -5132.42380 Ry, 2.57 mRy below `u0__NiOOH__slab`'s last.
+  `u0__NiOOH__Ni0_OOH_r3`'s is -5216.66508 Ry, 3.19 mRy below `u0__NiOOH__Ni0_OOH`'s last.
+  Both started at their predecessor's last geometry, so both replace it.
+- `slab_r2` came out with Ni29 -0.30 and Ni5 -0.17 muB, and every other Ni is +0.42 to +0.89.
+  Ni29 is past the rule-1 cutoff of |m| >= 0.25, so the NiOOH slab is no longer all-parallel at this
+  step. `Ni0_OOH_r3` is all-parallel (site Ni6 +0.04, below the cutoff).
+- Open: if a converged NiOOH state keeps a non-parallel pattern, the NiOOH states need the same
+  multi-pattern single points so that "lowest" is taken the same way on both sides of V1. This is
+  to be settled when the NiOOH relaxations converge, before any eta exists.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
