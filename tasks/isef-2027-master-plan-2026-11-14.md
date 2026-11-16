@@ -320,7 +320,9 @@ deep into a computational pipeline and judges lost the thread. The Indiana STS p
    the RDE insert directly). 11-16 melt request: P1 + P2 come from Frank's leftover round-1 Fe25 /
    Ni34 rod (no new melt; the H state then links to the round-1 disks and the December repeats);
    swage/draw to ~6 mm (~64%), then machine to 5.00 mm. Needs ~15 cm sound rod per alloy, ~4 cm of it
-   never annealed (AC); a 200 g melt of one alloy only if its leftovers fall short.
+   never annealed (AC); a 200 g melt of one alloy only if its leftovers fall short. 11-16 (Frank):
+   every leftover round-1 rod is half as-cast, half homogenized, so AC is covered; need >= ~4 cm
+   as-cast + ~10 cm homogenized per alloy (lengths not yet measured).
 3. Split each ingot: AC piece cut before homogenizing; Frank homogenizes the rest; FWM cold works
    part (~60-70%); Frank anneals part of that (RX temperature from a hardness series on small
    coupons, e.g. 700 / 800 / 900 / 1,000 C for 1 h).

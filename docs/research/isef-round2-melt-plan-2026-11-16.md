@@ -53,9 +53,10 @@ about 3 cm of each.
 
 P1 and P2 come from the same round-1 ingots as the disks Josh already measured, so the processing
 study's homogenized state (H) links directly to the round-1 data and the December repeats, and the
-composition is already checked (SEM-EDS; both single FCC). Only the as-cast (AC) state needs material
-that was never annealed. If either alloy's leftover rod is too short (section 2, "Material needed"),
-melt a 200 g charge of that alloy only, at the round-1 aim.
+composition is already checked (SEM-EDS; both single FCC). Every leftover round-1 rod is split into
+an as-cast half and a homogenized half (Frank, 2026-11-16), so the as-cast (AC) state is covered.
+If either alloy's leftover rod is too short (section 2, "Material needed"), melt a 200 g charge of
+that alloy only, at the round-1 aim.
 
 ## 2. Route (same as round 1 unless marked)
 
@@ -68,8 +69,8 @@ melt a 200 g charge of that alloy only, at the round-1 aim.
      differs from round 1.
    - **No hot working (new).** Round-1 Cu8 split when hot rolled at 850 C.
 2. **As-cast pieces.** Before homogenizing, cut about 2 cm off every rod as the as-cast reference.
-   For P1 and P2, the AC state (3 disks + a metallography slice, about 4 cm) comes from leftover
-   round-1 rod that was never annealed.
+   For P1 and P2, the AC state (3 disks + a metallography slice, about 4 cm) comes from the as-cast
+   half of the leftover round-1 rod.
 3. **Homogenize** (Frank): 1,050 C / 24 h in Ar, water quench; all charges except the AC pieces.
    Cu26: the leftover ARC00150 rod is half homogenized, half as-cast (Frank, 2026-11-16). The 4 disks
    come from the homogenized half, so they match the round-1 disk. The as-cast half stays uncut in
@@ -92,8 +93,11 @@ melt a 200 g charge of that alloy only, at the round-1 aim.
 
 **Material needed for P1 and P2.** The AC piece (about 4 cm), the H stock (about 3 cm), the CW stock
 (about 6 cm of 10 mm rod, which swages to about 16 cm of 6 mm rod for the CW disks, the RX disks and the
-four hardness coupons), plus trim. That is about 15 cm of sound rod per alloy from the leftovers
-(about 4 cm of it never annealed). Fallback if the homogenized rod is too short to swage: cold roll it
+four hardness coupons), plus trim. Per alloy that is at least about 4 cm of the as-cast half and
+about 10 cm of the homogenized half (H + CW stock + trim). If the homogenized half is short but the
+as-cast half is longer than 4 cm, Frank homogenizes the extra as-cast rod with the round-2 charges
+(same 1,050 C / 24 h / WQ; keep the original homogenized half for the H disks, since it is the same
+batch as the round-1 disks). Fallback if the homogenized rod is still too short to swage: cold roll it
 flat to about 4 mm thick (about 60%) and wire-EDM the disks straight out of the plate (working face =
 rolling plane). Skull pieces and already-cut disks are not usable as CW stock. Cu26 needs about 2.5 cm
 of the homogenized half for 4 disks.
