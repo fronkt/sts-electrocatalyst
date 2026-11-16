@@ -987,7 +987,7 @@ final energy -5160.04053567 Ry.
 
 At 23:41Z, r6's step-9 SCF was at 99 iterations, with accuracy near 1e-4 Ry.
 
-## Amendment 17 (2026-11-17 00:05Z, before any eta existed)
+## Amendment 17 (2026-11-16 23:57Z, before any eta existed)
 C7 = Fe +, every Ni + joins the Ni(Fe)OOH candidates. This applies amendment 11's rule 3: a
 pattern that a relaxation's SCF enters adds a candidate, as C4 did.
 - r6's step-8 SCF (`u0__NiFeOOH__Fe0_OH_r6`, converged 22:05Z, -5161.31328997 Ry) has Ni30 at
@@ -1021,8 +1021,8 @@ What follows:
   `film_pilot_readout.py` (C7 label) carry it.
 - `deploy_pr7.sh` stops post_relax v6, installs v7 and the new `make_cfg_sp.sh`, writes the three C7
   inputs and appends them to `cfg_queue.txt`.
-- Dry run (23:59Z): every C7 and C2 input pair differs as stated, and the full C1-C7 set for r6
-  builds and passes the encoding check.
+- Dry run (about 23:56Z): every C7 and C2 input pair differs as stated, and the full C1-C7 set for
+  r6 builds and passes the encoding check.
 
 Cost: three cold single points now, about 66-85 min on 24 ranks each, and one more for Fe0_OH. They
 run in V1 slots inside the existing 06:00Z cap, so the cap does not move.
@@ -1035,6 +1035,15 @@ relaxed".
 
 r6 itself is unchanged by this amendment. Its step-9 SCF is still running, and an SCF failure gets
 `post_relax.sh`'s automatic rerun.
+
+Deployed 23:57:51Z. This amendment was committed at 23:57:01Z (410b08ce), the code at 23:57:31Z
+(33795299). Its heading first gave 2026-11-17 00:05Z, a clock error, corrected here.
+- The box copies match the committed scripts (md5).
+- post_relax v7 is running.
+- `cfg_queue.txt` ends C5, C6 (Fe0_O_r2), then C7 for the slab, Fe0_OOH and Fe0_O_r2.
+- C5 of Fe0_O_r2 had started at 23:56:53Z, under v6.
+- The header comments of `post_relax.sh` v7 and `deploy_pr7.sh` say "2026-11-17 ~00:30Z", an
+  estimate written in advance. The running scripts are not edited.
 
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
