@@ -712,10 +712,37 @@ Ni30 -1.11. Energy -5118.50258004 Ry, 0.002 mRy from the relaxed energy; no meta
   higher, and stands as the slab's C5 point (amendment 11).
 - The slab's lowest is its relaxed C1 energy.
 
-Still running for Fe0_OOH:
-- C6, the own-configuration check: 78 iterations, 3.9e-5 Ry at 19:18Z.
+Still running for Fe0_OOH at 19:18Z:
+- C6, the own-configuration check: 78 iterations, 3.9e-5 Ry.
 - C4: 162 iterations, 2e-3 to 2e-2 Ry. It may reach electron_maxstep (200), and then it does not
   count.
+
+`C6__u0__NiFeOOH__Fe0_OOH` finished at 19:23Z (81 iterations) and left its target.
+- Fe started at +0.3 and ended at -1.33. The point landed at Fe6 -1.33, Ni5 -0.68, Ni29 +0.19,
+  Ni30 -0.17: Fe -, Ni 5 -.
+- This is the C1 point's solution: -5202.81929921 Ry against -5202.81930116 Ry, with the moments
+  within 0.01 muB. It is 2.27 mRy above the relaxed energy.
+- **Fe0_OOH's own-configuration check (rule 2) is therefore not met.** No single point has
+  target = landed = C6. Rule 2 tests the procedure, a cold start at the fixed relaxed geometry.
+- The C3 point is the evidence available on that question. It started with Fe + and Ni5 and Ni29
+  negative, and it landed in C6, the relaxed solution. Its energy reproduces the relaxed one to
+  0.006 mRy, with the moments within 0.01 muB.
+- The cold-start procedure reproduces the relaxed state when it lands there. But the C6 start,
+  which differs from C3's only in Ni29's starting sign, went elsewhere.
+- Both are reported. Rule 2 as registered stays unmet for Fe0_OOH, and no further point is added.
+- `film_pilot_readout.py` still reports rule 2's check as defined: None for Fe0_OOH. It also
+  reports, for the record only, every counted point that landed in the state's own configuration
+  whatever its target (`own_config_landed_mry`; Fe0_OOH: C3 0.006 mRy).
+
+Fe0_OOH points, 5 of 6 done (C4 still running):
+
+| Target | Landed | E (Ry) | vs relaxed (mRy) |
+|---|---|---|---|
+| C1 | Fe -, Ni 5 - (closure) | -5202.81930116 | +2.27 |
+| C2 | C2 (Fe -1.37) | -5202.82269956 | -1.13 (lowest) |
+| C3 | C6 | -5202.82156818 | +0.006 |
+| C5 | C2 (Fe -0.49) | -5202.80568566 | +15.89 |
+| C6 | Fe -, Ni 5 - (closure) | -5202.81929921 | +2.27 |
 
 Freed slots went to `co_queue.txt`: `u0__CoOOH__Co0_O` (19:11Z) and `u0__CoOOH__Co0_OH` (19:14Z)
 restarted fresh, with upscale 1 (amendment 13).

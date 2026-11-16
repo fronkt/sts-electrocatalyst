@@ -190,6 +190,20 @@ def choose_run(runs, links):
     return cur, notes
 
 
+def own_checks(sps, config, energy_ev):
+    """Rule 2 (amendment 9, as amendment 11 restates it): the single point with target = landed = the
+    state's configuration, in mRy from the relaxed energy (None if there is none). Also returned, for
+    the report only: {target: mRy} for every counted point that landed in the state's configuration
+    whatever its target (2026-11-16: Fe0_OOH's C6 point left C6; its C3 point landed there)."""
+    if energy_ev is None:
+        return None, {}
+    def mry(s):
+        return round((s["energy_ev"] - energy_ev) / RY_EV * 1000, 3)
+    own = [s for s in sps if s["counts"] and s["target"] == s["landed"] == config]
+    landed = {s["target"]: mry(s) for s in sps if s["counts"] and s["landed"] == config}
+    return (mry(own[0]) if own else None), landed
+
+
 def main_u0(args, jobs):
     """Amendment 9 readout: U = 0 runs (u0__NAME, reruns u0__NAME_rK), each state in the lowest of its
     relaxed energy and its fixed-geometry configuration single points (CK__RUN); V1/V2 also as relaxed."""
@@ -231,9 +245,8 @@ def main_u0(args, jobs):
                 sps.append(dict(run=k, target=target, landed=got, energy_ev=e,
                                 counts=bool(e is not None and got is not None)))
             rec["single_points"] = sps
-            own = [s for s in sps if s["counts"] and s["target"] == s["landed"] == rec.get("config")]
-            if own and rec.get("energy_ev") is not None:
-                rec["own_config_check_mry"] = round((own[0]["energy_ev"] - rec["energy_ev"]) / RY_EV * 1000, 3)
+            rec["own_config_check_mry"], rec["own_config_landed_mry"] = own_checks(
+                sps, rec.get("config"), rec.get("energy_ev"))
             cand = [(rec.get("energy_ev"), "relaxed")] + [(s["energy_ev"], s["run"]) for s in sps if s["counts"]]
             cand = [c for c in cand if c[0] is not None]
             if rec.get("energy_ev") is not None and cand:
@@ -278,6 +291,7 @@ def main_u0(args, jobs):
         print(f"{n:20s} run={use[n]:26s} {r.get('qc', r.get('status')):10s} E={r.get('energy_ev')} "
               f"steps={r.get('n_ionic')} config={r.get('config')} intact={r.get('intact')} "
               f"lowest={r.get('energy_lowest_ev')} ({r.get('lowest_from')}) own-check={r.get('own_config_check_mry')}"
+              f" landed-in-own={r.get('own_config_landed_mry')}"
               + (f" SP: {sp}" if sp else ""))
         for t in notes[n]:
             print(f"    {t}")
