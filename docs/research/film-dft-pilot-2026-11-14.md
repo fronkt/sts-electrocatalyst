@@ -508,6 +508,15 @@ Code:
 - `film_pilot_readout.py`'s rerun chain, for runs that did not start from each other's last
   geometry, prefers a converged relaxation and otherwise takes the lower last energy.
 
+First SCFs (14:16Z):
+- `_r5`'s first energy is -5216.66409753 Ry, 0.43 mRy above r3's last, so it replaces r3. FIRE is
+  running with its defaults (dt 20 a.u.). Total force 0.0365, SCF correction 0.0131.
+- `_r4`'s first SCF reached 6.95e-6 Ry at iteration 17 and then sat at 7.0-7.9e-6 against 5e-6,
+  with the energy constant to 0.2 microRy. The new mixing did not get under the floor.
+  `floorwatch_r4.sh` (on the box) stops r4 once amendment 10's noise-floor test holds (the
+  current SCF's last 30 iterations all < 1e-5 Ry, not converged), and leaves it running if an
+  SCF converges first. After that, r5 alone carries Ni0_OOH.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
