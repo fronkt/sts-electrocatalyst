@@ -917,6 +917,56 @@ Everything else is the registered relaxation: MV 0.01, local-TF, beta 0.05, ndim
 - Dry run (21:19Z): the input differs from the slab's only in prefix, startingpot and upscale.
   Positions and k-points are identical.
 
+## Progress at 23:05Z (before any eta existed)
+`u0__NiFeOOH__Fe0_OH_r6` (FIRE), steps 5-8 (21:31-22:40Z):
+
+| Step | E (Ry) | Total force | SCF iterations | Ni30 (muB) |
+|---|---|---|---|---|
+| 5 | -5161.31274402 | 0.0098 | 13 | -0.30 |
+| 6 | -5161.31288579 | 0.0112 | 8 | -0.29 |
+| 7 | -5161.31307368 | 0.0092 | 12 | -0.27 |
+| 8 | -5161.31328997 | 0.0091 | 12 | -0.24 |
+
+- Fe6 +1.50 to +1.53, Ni5 +0.09 to +0.11 and Ni29 +0.72 throughout.
+- Ni30's moment is shrinking with the relaxation, from -0.32 at step 1 to -0.24 at step 8. Under
+  rule 1's 0.25 muB cutoff, step 8's pattern is Fe +, no Ni antiparallel. That pattern is none of
+  C1-C6; C2 is the all-parallel pattern with Fe antiparallel. The configuration is assigned from
+  the converged state, so it is not yet known whether r6 stays in C4 or ends in a pattern that rule
+  1 adds as a candidate.
+- Step 9's SCF is slow. At 23:05Z it had run 61 iterations, against electron_maxstep 200.
+  - For about 40 iterations the accuracy oscillated near 1e-3 Ry while the total magnetization
+    rose from 11.0 to 11.3.
+  - It then fell to 6.5e-5 Ry, with the magnetization back at 11.09.
+  - No 30-iteration run below 1e-5 has occurred, so amendment 10's floor does not apply.
+  - r6 is in `rescue_watch.txt`: an SCF failure gives an automatic rerun from the kept density.
+
+`u0__NiOOH__Ni0_OOH`, amendment 12 (the first of r4 and r5 to converge stands):
+- r4 (BFGS): 23 steps, -5216.70229592 Ry, total force 0.024, falling about 1 mRy per step.
+- r5 (FIRE): 48 steps, -5216.69467215 Ry, total force 0.0093, falling 0.1-0.3 mRy per step.
+- Both are all-parallel: every Ni moment is positive, and the site Ni6 is +0.02 (r4) and +0.04
+  (r5), below the cutoff.
+- The 7.6 mRy (0.10 eV) gap is a geometry difference: r4 is further down the same descent. Both
+  started near r3's last energy (-5216.664 Ry).
+- The two may still end in different minima. r5 has the lower force and may converge first at a
+  higher energy. The rule is unchanged, and both final energies are reported with the readout.
+
+`u0__NiFeOOH__Fe0_O_r2`: 25 steps, -5160.04014416 Ry, total force 0.0101.
+
+`u0__CoOOH__slab_r2` (V2), the registered relaxation from the MV 0.03 bootstrap density:
+- Its first SCF converged in 41 iterations. That is the first SCF of the CoOOH slab to converge at
+  MV 0.01; `u0__CoOOH__slab`'s stalled.
+- The bootstrap's weakly magnetic state did not hold. Total magnetization by step:
+  - step 1: 0.25 muB (absolute 0.37);
+  - steps 2-6: 0.23, 0.15, 0.12, 0.10, 0.09.
+- At step 6 every Co moment is within 0.02 muB of zero. That is consistent with low-spin Co(III)
+  (t2g6), the expected state of CoOOH. The 1.33 muB bootstrap state was a property of the 0.03 Ry
+  smearing.
+- Energies, steps 1-6: -4595.46506298, -4595.46802484, -4595.51156084, -4595.51691030,
+  -4595.51918224, -4595.52216108 Ry.
+- Total force 0.43 to 0.046; SCFs of 41, 29, 20, 16, 14 and 14 iterations.
+
+V2 adsorbate runs: `Co0_O` 13 steps (force 0.041), `Co0_OH` 15 (0.037), `Co0_OOH` 13 (0.044).
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
