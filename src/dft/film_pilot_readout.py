@@ -115,7 +115,8 @@ METALS = {"Ni", "Fe", "Co"}
 # amendment 9, Ni(Fe)OOH candidate configurations (pw.x 1-based atoms; Fe = atom 6, the Fe site):
 # (sign of Fe, set of Ni antiparallel to the bulk-like bottom Ni, atom 1)
 NIFE_CFG = {"C1": ("+", frozenset({5, 29, 30})), "C2": ("-", frozenset()), "C3": ("+", frozenset({5, 29})),
-            "C4": ("+", frozenset({30}))}  # C4: Fe0_OH_r4's first SCF (2026-11-16); rule 1 adds every pattern seen
+            "C4": ("+", frozenset({30})),  # C4: Fe0_OH_r4's first SCF (2026-11-16); rule 1 adds every pattern seen
+            "C5": ("-", frozenset({30}))}  # C5: where the clean slab's C2 single point landed (amendment 11)
 
 
 def bang_energies(out):
@@ -215,10 +216,12 @@ def main_u0(args, jobs):
                 _, sm = magnetics(so) if os.path.exists(so) else (None, None)
                 got = nife_label(sym, sm) if sm and len(sm) == len(sym) else None
                 target = k.split("__")[0]
+                # amendment 11: a trusted single point counts as the configuration it landed in (a
+                # converged SCF of the state at its relaxed geometry), not as its target if it left it
                 sps.append(dict(run=k, target=target, landed=got, energy_ev=e,
-                                counts=bool(e is not None and got == target)))
+                                counts=bool(e is not None and got is not None)))
             rec["single_points"] = sps
-            own = [s for s in sps if s["counts"] and s["target"] == rec.get("config")]
+            own = [s for s in sps if s["counts"] and s["target"] == s["landed"] == rec.get("config")]
             if own and rec.get("energy_ev") is not None:
                 rec["own_config_check_mry"] = round((own[0]["energy_ev"] - rec["energy_ev"]) / RY_EV * 1000, 3)
             cand = [(rec.get("energy_ev"), "relaxed")] + [(s["energy_ev"], s["run"]) for s in sps if s["counts"]]

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Amendment 9 launcher (replaces the side_queue_b.txt queue; the only launcher while it runs).
 # v2 (2026-11-16 ~03:30Z) adds automatic reruns of relaxations whose SCF stops unconverged;
-# v3 (~04:15Z) queues C4 too and applies amendment 10 (conv_thr 1e-5 at the noise floor).
+# v3 (~04:15Z) queues C4 too and applies amendment 10 (conv_thr 1e-5 at the noise floor);
+# v4 (08:32Z) queues C5 too (amendment 11).
 # Every 30 s:
 #   - keep/RUN holds hardlinks to the density files (charge-density.hdf5, occup.txt, paw.txt) of
 #     every relaxation in rescue_watch.txt, so they survive run_side.sh deleting tmp/;
@@ -10,7 +11,7 @@
 #     kept density, staged in stage/RUN_rK for run_side.sh. The rerun goes to the top of
 #     cfg_queue.txt (co_queue.txt for CoOOH) and inherits RUN's cfg_watch / rescue_watch entries.
 #     At most 3 automatic reruns per chain; none for a rerun that again finishes no step;
-#   - each relaxation listed in cfg_watch.txt that has converged gets its C1-C4 single points
+#   - each relaxation listed in cfg_watch.txt that has converged gets its C1-C5 single points
 #     (make_cfg_sp.sh), appended to cfg_queue.txt; one that ended without converging is skipped
 #     (marker files CFG_QUEUED / CFG_SKIPPED in its run dir);
 #   - when 24 cores are free, the next unlaunched run starts: cfg_queue.txt first (V1), then
@@ -105,7 +106,7 @@ scan_failed() {
     fi
   done < <(cat rescue_watch.txt)
 }
-log "POST_RELAX v2 started (watch: $(tr '\n' ' ' < cfg_watch.txt); rescue: $(tr '\n' ' ' < rescue_watch.txt); CoOOH: $(tr '\n' ' ' < co_queue.txt))"
+log "POST_RELAX v4 started (watch: $(tr '\n' ' ' < cfg_watch.txt); rescue: $(tr '\n' ' ' < rescue_watch.txt); CoOOH: $(tr '\n' ' ' < co_queue.txt))"
 while true; do
   dl=$(cat DEADLINE 2>/dev/null || echo 0)
   if [ -f DEADLINE_HIT ] || { [ "$dl" -gt 0 ] && [ "$(date +%s)" -ge "$dl" ]; }; then
@@ -120,8 +121,8 @@ while true; do
     [ -f "$d/CFG_QUEUED" ] || [ -f "$d/CFG_SKIPPED" ] && continue
     if grep -q "bfgs converged" "$d/$r.out" 2>/dev/null; then
       if bash make_cfg_sp.sh "$r" >> post_relax.log 2>&1; then
-        printf '%s\n' "C1__$r" "C2__$r" "C3__$r" "C4__$r" >> cfg_queue.txt; touch "$d/CFG_QUEUED"
-        log "CFG_SP queued C1__$r C2__$r C3__$r C4__$r"
+        printf '%s\n' "C1__$r" "C2__$r" "C3__$r" "C4__$r" "C5__$r" >> cfg_queue.txt; touch "$d/CFG_QUEUED"
+        log "CFG_SP queued C1__$r C2__$r C3__$r C4__$r C5__$r"
       else
         touch "$d/CFG_SKIPPED"; log "CFG_SP input failed for $r (see post_relax.log)"
       fi

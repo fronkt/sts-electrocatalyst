@@ -371,6 +371,41 @@ Rerun checks (04:11Z):
   multi-pattern single points so that "lowest" is taken the same way on both sides of V1. This is
   to be settled when the NiOOH relaxations converge, before any eta exists.
 
+## Amendment 11 (2026-11-16 08:32Z, before any eta existed)
+First converged relaxation and its single points:
+- `u0__NiFeOOH__slab` converged at 06:09Z: 54 steps, -5118.50258 Ry. It ended in C1 (Fe +2.56;
+  Ni5 -1.11, Ni29 -0.72, Ni30 -1.11; Ni28 +0.15, below the cutoff).
+- C1, the slab's own configuration: -5118.50258 Ry, 0.0004 mRy from the relaxed energy, with
+  pattern C1 kept (no metal moved by more than 0.01 muB). Rule 2's reproduction check passes. It
+  was a cold start: 62 iterations, 66 min on 24 ranks.
+- C2 left its target. It converged in 66 iterations with Fe -2.60 and Ni30 -1.18, every other Ni
+  +0.25 to +1.08 (Ni5 +1.08, Ni29 +0.70). Its energy is -5118.49729 Ry, 5.29 mRy above C1. Fe and
+  Ni30 are both antiparallel to the rest, which is none of C1-C4.
+- Running relaxations at 08:27Z: Fe0_O step 27 in C2 (Fe -1.56, every Ni +); Fe0_OH_r4 step 13 in
+  C4; Fe0_OOH step 32 in C3 (Ni29 -0.27, close to the cutoff).
+
+Rule changes:
+1. A trusted single point counts as the configuration it lands in. Rule 2's exclusion still stops
+   a point that left its target from standing in for that target. Its energy is a converged SCF of
+   the state at its relaxed geometry, so it bounds the landed configuration's relaxed energy from
+   above, the same bound rule 3 relies on. Targets and landed patterns are both reported. The
+   own-configuration check still needs target = landed = the state's configuration.
+2. C5 = Fe -, Ni 30 - joins the Ni(Fe)OOH candidates (rule 1 as applied for C4: every observed
+   pattern). Every converged Ni(Fe)OOH relaxation gets a C5 single point (`make_cfg_sp.sh`,
+   `post_relax.sh` v4, `deploy_pr4.sh`; dry-run on the slab and the three running Fe-site states).
+   The slab's C2 point stands as its C5 point, so the slab gets no separate C5 run.
+3. Closure. A pattern first seen in a single point after this amendment counts for the state it
+   landed in (by 1) and is reported. It adds no single points for the other states. A pattern
+   that a relaxation's SCF enters still adds a candidate, as C4 did. This keeps the single-point
+   set finite under the cap.
+
+Reason: C5 is a stable SCF solution of the clean slab, one Ni flip away from C2, the configuration
+Fe-site *O is relaxing in. It is a plausible lower configuration for the Fe-site states, so leaving
+it out could bias "lowest" upward. The cost is three more cold single points, about 66 min on 24
+ranks each. "As relaxed" (rule 4) is unchanged, so this can move only the "lowest" readout, and V1
+has to pass both. `film_pilot_readout.py` labels C5 and counts each single point by where it
+landed.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
