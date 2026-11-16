@@ -967,6 +967,26 @@ Everything else is the registered relaxation: MV 0.01, local-TF, beta 0.05, ndim
 
 V2 adsorbate runs: `Co0_O` 13 steps (force 0.041), `Co0_OH` 15 (0.037), `Co0_OOH` 13 (0.044).
 
+## Fe-site *O converged in C5 (2026-11-16 23:38Z, before any eta existed)
+`u0__NiFeOOH__Fe0_O_r2` (amendment 13) converged at 23:38:27Z: 28 SCF cycles and 27 BFGS steps,
+final energy -5160.04053567 Ry.
+- Criteria met: energy change < 1e-4 Ry and every force component < 2e-3 Ry/Bohr. The last step
+  lowered the energy by 0.09 mRy and the total force was 0.0077.
+- Energy fell 4.95 mRy from the first step (-5160.03558531 Ry). It went down steadily at 0.1-0.4
+  mRy per step, and the total force stayed between 0.007 and 0.020 throughout.
+- Moments at the end: Fe6 -1.62, Ni30 -0.30, Ni5 +0.65, Ni29 +0.17 (below the cutoff); every other
+  Ni is +0.33 to +0.87. That is C5 (Fe -, Ni30 -), the configuration the run started in (step 1:
+  Fe6 -1.58, Ni30 -0.46). Rule 1 adds no candidate.
+- Adsorbate: the *O sits atop Fe6 at d(Fe6-O) = 1.637 A, a terminal oxo. Its nearest O neighbours
+  are 2.60 and 2.61 A away, so there is no O-O bond. The input geometry had 1.637 A too.
+- `post_relax.sh` queued the C1-C6 single points at 23:38:52Z. C1 started at 23:38:57Z.
+- C2 started at 23:41:09Z, in the slot of `u0__CoOOH__slab_r2`. `yield_co` stopped the slab at step
+  8 (V1 before V2), moved its directory to `runs_stopped/` and left it to relaunch from
+  `co_queue.txt`.
+- C5 is the rule-2 own-configuration check.
+
+At 23:41Z, r6's step-9 SCF was at 99 iterations, with accuracy near 1e-4 Ry.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
