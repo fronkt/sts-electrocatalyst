@@ -406,6 +406,17 @@ ranks each. "As relaxed" (rule 4) is unchanged, so this can move only the "lowes
 has to pass both. `film_pilot_readout.py` labels C5 and counts each single point by where it
 landed.
 
+Slab single points complete (10:34Z). C3 (Fe +, Ni 5/29 -) and C4 (Fe +, Ni 30 -) both left their
+targets and converged to C1, at -5118.50258168 and -5118.50258140 Ry (59 and 63 iterations). Both
+are within 0.0004 mRy of the C1 point, and no metal is more than 0.02 muB from it. At the slab's
+geometry, three of the four starts end in C1 and the C2 start ends in C5, 5.29 mRy higher. The
+slab's lowest energy is its relaxed C1 energy.
+
+NiOOH Ni-site *O (`u0__NiOOH__Ni0_O_r2`) converged at 10:22Z: 43 steps, -5173.86502 Ry, all
+parallel (site Ni6 +1.16; Ni5 -0.01, below the cutoff). The *O stays atop Ni6, with d(Ni6-O) going
+from 1.83 to 1.65 A. At their 10:24Z steps the other NiOOH states are all parallel under the
+cutoff too, and the slab's Ni29 moment has gone from -0.30 to -0.10.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
