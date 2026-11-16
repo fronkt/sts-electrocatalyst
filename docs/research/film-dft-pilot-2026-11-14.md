@@ -456,6 +456,29 @@ relaxations still running, then five single points each). When V1's last run fin
 deadline is brought forward so the box stops. V2 continues off AWS, since its relaxations cannot
 finish by 22:00Z.
 
+`u0__NiOOH__Ni0_OOH_r3` is stuck (diagnosed 13:15-13:25Z). Its BFGS repeats a 4-step cycle with
+energies -5216.66506, -.66453, -.66410, -.66392 Ry (steps 50-53, again at 54-57). Steps 50 and 54
+agree to 1e-8 Ry. In each cycle the trust radius shrinks from 0.012 to 0.0003 bohr while the
+energy stays up to 1.14 mRy above the cycle's lowest, and then the BFGS history resets (13 resets
+so far). Every SCF converges cleanly (7-13 iterations, with identical total/absolute moments
+10.95/11.44 muB and the Ni moments unchanged). The largest free force is 0.017-0.020 Ry/bohr on
+O49, and the total force has been 0.035-0.038 since step 19. pw.x warned 54 times that the SCF
+correction is large compared to the forces: the total SCF correction is 0.011-0.022 against a
+total force of 0.035. Reading: at conv_thr 1e-5 (amendment 10), the forces and energies at this
+geometry are too noisy for BFGS's energy-based line search. Shrinking steps hit apparent energy
+differences of about 1 mRy that no 0.0003-bohr displacement can produce, so the run cannot reach
+forc_conv_thr 2e-3. It needs a rerun from its lowest-energy geometry, with a cleaner SCF or a
+force-only optimizer. The rerun waits on SSH access: from about 13:25Z the box stopped answering
+on port 22, most likely because this machine's public IP changed (the security group admits only
+the launch IP). The runs on the box continue on their own.
+
+The other slow runs, by largest free force component (Ry/bohr) at 13:15Z:
+- Fe0_O 0.0029-0.0037, -0.15 mRy/step;
+- Fe0_OOH 0.0024-0.0051;
+- Ni0_OH 0.0026-0.0037;
+- Fe0_OH_r4 0.005-0.008, -0.4 to -0.9 mRy/step. Its adsorbed OH is reorienting (H50 0.39 A, O49
+  0.30 A over 8 steps; d(Fe6-O49) 1.76 A, intact).
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
