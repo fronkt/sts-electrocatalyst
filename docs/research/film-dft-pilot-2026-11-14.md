@@ -524,6 +524,50 @@ At 14:27Z:
 - r5 (FIRE) steps 1-3 run -5216.66409753, -.66464868, -.66562707 Ry. Step 3 is already 0.55 mRy
   below the lowest energy r3 reached in 59 steps.
 
+## Fe-site *OOH converged; candidate C6 (2026-11-16 16:24Z, rule 1, before any eta existed)
+`u0__NiFeOOH__Fe0_OOH` converged at 16:18Z: 69 steps, -5202.82157378 Ry, conv_thr 5e-6, total
+force 0.0069 at the last step.
+- Moments at the last step: Fe6 +1.38, Ni5 -0.84, Ni29 -0.19, Ni30 +0.25. Every other Ni is +0.72
+  to +0.97, except Ni4 at +0.16 (below the cutoff).
+- Ni29 was -0.27 at step 32 (C3 then), -0.23 at step 40, and -0.18 to -0.21 from step 50 on.
+- Under rule 1's 0.25 muB cutoff, the state ended in Fe +, Ni 5 -. That is none of C1-C5: C3 needs
+  Ni29 antiparallel too.
+- *OOH is intact at the final geometry: O49-O50 1.387 A, O50-H 1.006 A, Fe6-O49 1.816 A. The H
+  hydrogen-bonds to lattice O48 at 1.75 A. The readout's adsorbate QC applies after the pull.
+
+C6 = Fe +, Ni 5 - joins the Ni(Fe)OOH candidates (rule 1). Every converged Ni(Fe)OOH state gets a
+C6 single point:
+- Fe0_OOH, where C6 is the own-configuration check: target = landed = C6, within 1 mRy of
+  -5202.82157 Ry;
+- the clean slab;
+- Fe0_O and Fe0_OH_r4, with their C1-C5 points, when they converge.
+
+Fe0_OOH's C3 and C6 inputs differ only in atom 29's starting sign. C3 starts it negative, so at
+this geometry it may land in the relaxed solution, which counts as C6 under amendment 11 rule 1.
+C6 starts it positive. Targets and landed patterns are both reported.
+
+Code (`src/dft/film_box/deploy_pr6.sh`, deployed 16:24:50Z):
+- `make_cfg_sp.sh` encodes C6 by returning atoms 29 and 30 to species Ni, so only Ni5 carries the
+  negative start. Its default is now C1-C6.
+- `post_relax.sh` v6 queues C1-C6 for each relaxation that converges.
+- `film_pilot_readout.py` labels C6.
+- Dry run first: C6 for Fe0_OOH and the slab, plus C1-C6 for the running Fe0_O and Fe0_OH_r4
+  (FORCE=1). Each input encodes its target. C6 differs from the queued C3 input only in atom 29's
+  species.
+- C6 for Fe0_OOH and for the slab were appended to `cfg_queue.txt`.
+
+The cost is four more cold single points (~66 min on 24 ranks each), inside the 22:00Z cap.
+`post_relax.sh` stopped `u0__CoOOH__Co0_OOH` (16:20Z, step 10) and `u0__CoOOH__Co0_OH` (16:24Z,
+step 6) for Fe0_OOH's C2 and C3. They restart fresh from `co_queue.txt` only if cores free up
+before the deadline.
+
+Running at 16:25Z:
+- Fe0_O: step 42, C2.
+- Fe0_OH_r4: step 40, C4.
+- Ni0_OOH r4: step 9, BFGS.
+- Ni0_OOH r5: step 11, FIRE, total force 0.030.
+- Fe0_OOH single points C1-C3.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
