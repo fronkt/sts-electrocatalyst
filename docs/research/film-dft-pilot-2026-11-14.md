@@ -918,7 +918,7 @@ Everything else is the registered relaxation: MV 0.01, local-TF, beta 0.05, ndim
   Positions and k-points are identical.
 
 ## Progress at 23:05Z (before any eta existed)
-`u0__NiFeOOH__Fe0_OH_r6` (FIRE), steps 5-8 (21:31-22:40Z):
+`u0__NiFeOOH__Fe0_OH_r6` (FIRE), steps 5-8 (21:31-22:05Z):
 
 | Step | E (Ry) | Total force | SCF iterations | Ni30 (muB) |
 |---|---|---|---|---|
@@ -986,6 +986,55 @@ final energy -5160.04053567 Ry.
 - C5 is the rule-2 own-configuration check.
 
 At 23:41Z, r6's step-9 SCF was at 99 iterations, with accuracy near 1e-4 Ry.
+
+## Amendment 17 (2026-11-17 00:05Z, before any eta existed)
+C7 = Fe +, every Ni + joins the Ni(Fe)OOH candidates. This applies amendment 11's rule 3: a
+pattern that a relaxation's SCF enters adds a candidate, as C4 did.
+- r6's step-8 SCF (`u0__NiFeOOH__Fe0_OH_r6`, converged 22:05Z, -5161.31328997 Ry) has Ni30 at
+  -0.2442 muB, below rule 1's 0.25 muB cutoff.
+- Fe6 is +1.52, and every other Ni is either parallel to atom 1 or below the cutoff. That pattern
+  is none of C1-C6.
+
+Scan of every completed SCF of every U = 0 Ni(Fe)OOH relaxation (`patscan.py`, the readout's
+pattern definition):
+
+| Run | Steps | Patterns entered |
+|---|---|---|
+| slab | 54 | C1 throughout |
+| Fe0_O | 42 | C2 throughout |
+| Fe0_O_r2 | 28 | C5 throughout |
+| Fe0_OH_r4 | 45 | C4 throughout |
+| Fe0_OH_r6 | 8 | C4 for steps 1-7, C7 at step 8 |
+| Fe0_OOH | 69 | C3 for steps 1-38, C6 for steps 39-69 |
+
+Fe0_OH, Fe0_OH_r2, Fe0_OH_r3 and Fe0_OH_r5 completed no SCF. So C7 is the only pattern a relaxation
+has entered that is not already a candidate.
+
+What follows:
+- Every converged Ni(Fe)OOH relaxation gets a C7 single point: the clean slab, Fe0_OOH and
+  Fe0_O_r2 now, and Fe0_OH (r6) with its C1-C7 set when it converges. No existing single point
+  landed in C7, so none stands in for one.
+- The C7 encoding sets Fe's start to +0.3 and every Ni's to +, with the cold start and conv_thr 1e-5
+  of the other single points. Each C7 input differs from the same state's queued C2 input only in
+  prefix and Fe's starting sign (C2 = Fe -, every Ni +).
+- `make_cfg_sp.sh` (C7, default C1-C7), `post_relax.sh` v7 (queues C1-C7) and
+  `film_pilot_readout.py` (C7 label) carry it.
+- `deploy_pr7.sh` stops post_relax v6, installs v7 and the new `make_cfg_sp.sh`, writes the three C7
+  inputs and appends them to `cfg_queue.txt`.
+- Dry run (23:59Z): every C7 and C2 input pair differs as stated, and the full C1-C7 set for r6
+  builds and passes the encoding check.
+
+Cost: three cold single points now, about 66-85 min on 24 ranks each, and one more for Fe0_OH. They
+run in V1 slots inside the existing 06:00Z cap, so the cap does not move.
+
+Cutoff fragility. The scan's largest unsigned moment per run (|m| < 0.25) was 0.241-0.247 in every
+run but r6's first seven steps. So the 0.25 muB cutoff sits in a band where Ni moments often lie,
+and r6's step-8 crossing is 0.006 muB below it. The cutoff and rules are left as registered. This
+fragility is the reason both readouts exist: "lowest" over every counted single point, and "as
+relaxed".
+
+r6 itself is unchanged by this amendment. Its step-9 SCF is still running, and an SCF failure gets
+`post_relax.sh`'s automatic rerun.
 
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
