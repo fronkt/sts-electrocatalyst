@@ -512,10 +512,17 @@ First SCFs (14:16Z):
 - `_r5`'s first energy is -5216.66409753 Ry, 0.43 mRy above r3's last, so it replaces r3. FIRE is
   running with its defaults (dt 20 a.u.). Total force 0.0365, SCF correction 0.0131.
 - `_r4`'s first SCF reached 6.95e-6 Ry at iteration 17 and then sat at 7.0-7.9e-6 against 5e-6,
-  with the energy constant to 0.2 microRy. The new mixing did not get under the floor.
-  `floorwatch_r4.sh` (on the box) stops r4 once amendment 10's noise-floor test holds (the
-  current SCF's last 30 iterations all < 1e-5 Ry, not converged), and leaves it running if an
-  SCF converges first. After that, r5 alone carries Ni0_OOH.
+  with the energy constant to 0.2 microRy. `floorwatch_r4.sh` (on the box) checks each of r4's
+  SCFs in turn, and stops r4 when the SCF in progress meets amendment 10's noise-floor test (its
+  last 30 iterations all < 1e-5 Ry, not converged). Such an SCF would otherwise fail at
+  electron_maxstep with no automatic rerun. After that, r5 alone carries Ni0_OOH.
+
+At 14:27Z:
+- r4's first SCF converged after all (25 iterations): -5216.66410077 Ry, 0.43 mRy above r3's last,
+  so it too replaces r3. Its SCF correction is 0.0052 against r5's 0.0131 and r3's 0.011-0.022, so
+  the forces are cleaner at 5e-6.
+- r5 (FIRE) steps 1-3 run -5216.66409753, -.66464868, -.66562707 Ry. Step 3 is already 0.55 mRy
+  below the lowest energy r3 reached in 59 steps.
 
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,

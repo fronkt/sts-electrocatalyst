@@ -2,7 +2,8 @@
 # Amendment 12: u0__NiOOH__Ni0_OOH_r4 (BFGS at conv_thr 5e-6, mixing beta 0.05 / ndim 20) tests
 # whether new mixing gets Ni0_OOH's SCF under its noise floor. If its current SCF meets amendment
 # 10's noise-floor test (last 30 iterations all < 1e-5 Ry, not converged), it cannot converge at
-# 5e-6: stop it, and r5 (FIRE) carries Ni0_OOH. Exits without stopping it if the SCF converges.
+# 5e-6 (it would fail at electron_maxstep, with no automatic rerun): stop it, and r5 (FIRE)
+# carries Ni0_OOH. Each later SCF of r4 is checked the same way, until r4 ends or 4 h pass.
 # Runs on the box (setsid), so a lost SSH connection does not affect it. Polls every 60 s, up to 4 h.
 set -u
 W=$HOME/film; cd "$W" || exit 1
