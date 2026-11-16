@@ -873,6 +873,15 @@ Dry run (20:29Z): r6's input differs from r4's in prefix, mixing_beta, mixing_nd
 ion_dynamics. Its positions match block 44 to 5e-9 A and are 0.065 A from block 45, the trial
 geometry.
 
+Deployed 20:29:47Z:
+- r5 was stopped after 121 iterations of its first SCF.
+- r6 launched at 20:30:12Z and read its density from file.
+- Readout: the rerun check (`choose_run`) compared a rerun's start only with the predecessor's
+  last printed geometry. That is a never-completed trial when the predecessor was stopped
+  mid-step. It now also accepts the geometry of the predecessor's last completed SCF, the one its
+  last energy belongs to (`completed_positions`; tested on stopped and converged outputs). So r6
+  gets the same-solution test against r4's step 45, not the fallback "lower last energy" branch.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.

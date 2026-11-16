@@ -120,6 +120,23 @@ NIFE_CFG = {"C1": ("+", frozenset({5, 29, 30})), "C2": ("-", frozenset()), "C3":
             "C6": ("+", frozenset({5}))}   # C6: the pattern Fe0_OOH's relaxation ended in (rule 1, 16:18Z)
 
 
+def completed_positions(inp_positions, out_text):
+    """Positions of the SCF behind the output's last '!' (its last completed SCF). The first SCF runs
+    at the input geometry; the block printed after step j is step j+1's geometry, and a converged relax
+    prints its final coordinates (the last SCF's geometry) instead of a new trial. None if the output
+    has no completed SCF or too few blocks."""
+    nb = len(re.findall(r"(?m)^!", out_text))
+    if nb == 0:
+        return None
+    if nb == 1:
+        return np.array(inp_positions, dtype=float)
+    starts = [m.end() for m in re.finditer(r"ATOMIC_POSITIONS \(angstrom\)\n", out_text)]
+    if len(starts) < nb - 1:
+        return None
+    rows = [r.split() for r in out_text[starts[nb - 2]:].split("\n")[:len(inp_positions)]]
+    return np.array([[float(x) for x in r[1:4]] for r in rows])
+
+
 def bang_energies(out):
     """Every '!' total energy (Ry) in a pw.x output, in order."""
     if not os.path.exists(out):
@@ -164,7 +181,12 @@ def choose_run(runs, links):
         try:
             start = read(os.path.join(runs, nxt, nxt + ".in"), format="espresso-in").positions
             last = final_atoms(os.path.join(runs, cur, cur + ".in"), p_out).positions
-            same_geom = start.shape == last.shape and float(np.abs(start - last).max()) < 1e-3
+            # the predecessor's last printed geometry, or (amendment 16) the geometry of its last
+            # completed SCF, which pe[-1] belongs to
+            done = completed_positions(read(os.path.join(runs, cur, cur + ".in"), format="espresso-in").positions,
+                                       open(p_out, errors="replace").read())
+            same_geom = any(g is not None and start.shape == g.shape and float(np.abs(start - g).max()) < 1e-3
+                            for g in (last, done))
         except Exception:
             same_geom = False
         if same_geom:
