@@ -568,6 +568,43 @@ Running at 16:25Z:
 - Ni0_OOH r5: step 11, FIRE, total force 0.030.
 - Fe0_OOH single points C1-C3.
 
+## Amendment 13 (2026-11-16 16:35Z, before any eta existed)
+`u0__NiFeOOH__Fe0_O` has run since its launch (2026-11-15 19:03Z) without amendment 4's
+`upscale = 1.d0`. Every other Ni(Fe)OOH and NiOOH U = 0 relaxation has it. The four CoOOH U = 0
+inputs lack it too.
+- pw.x's default upscale (100) tightened its SCF target from 5e-6 to 7e-8 to 1.3e-7 Ry as forces
+  shrank.
+- Each step then took 20-32 SCF iterations, about 60 s each. Fe0_OH_r4 takes 11-21 iterations at
+  5e-6, and Ni0_OOH r4 and r5 take 8-19.
+- Its step-43 SCF began after a BFGS step with trust radius 0.127 bohr, which followed a failed
+  curvature check. It did not converge: after 54 iterations the accuracy still wandered between
+  3e-4 and 2e-2 Ry, the total moment between 6.0 and 7.2 muB, and the energy between -5160.0288
+  and -5160.0307 Ry.
+- At ~60 s per iteration, reaching electron_maxstep (200) would have used about 2.5 more hours of
+  the slot before the automatic rerun.
+
+It was stopped after 42 completed steps (last E -5160.02948414 Ry; the last moments are C2). The
+rerun `u0__NiFeOOH__Fe0_O_r2` (`src/dft/film_box/amend13_fe0o.sh`) starts from its last printed
+geometry (to 5e-9 A) and its kept step-42 density (startingpot = 'file'). It differs from the
+original in:
+- `upscale = 1.d0`, so conv_thr stays at the registered 5e-6 (amendment 4);
+- mixing_beta 0.05 and mixing_ndim 20, SCF numerics as in amendment 12's r4, to damp the moment
+  oscillation.
+
+The model, cutoffs, smearing, dipole correction and forc_conv_thr 2e-3 are unchanged.
+- Amendment-9 rerun rule: r2 replaces Fe0_O if its first energy is at most 1 mRy above
+  -5160.02948 Ry.
+- r2 is in `cfg_watch.txt` (C1-C6 single points when it converges) and `rescue_watch.txt`
+  (automatic rerun if an SCF fails).
+- It was put at the top of `cfg_queue.txt` with its density staged, and `post_relax.sh` launched
+  it into the freed slot at 16:35:50Z.
+- The forces of Fe0_O's first 42 steps came from SCFs converged tighter than registered. Their
+  accuracy is better, not worse, so they stand.
+- CoOOH (V2): `upscale = 1.d0` was added at 16:40Z to the Co0_O, Co0_OH and Co0_OOH inputs, which
+  relaunch from `co_queue.txt` if cores free up. `u0__CoOOH__slab` keeps its failed run dir and
+  does not relaunch; its continuation needs a new SCF start anyway (12:48Z note) and adds upscale
+  then.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
