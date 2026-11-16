@@ -683,6 +683,17 @@ Dry run (18:14Z): r5's input differs from r4's only in prefix, mixing_beta and m
 already had startingpot = 'file' and upscale 1). Positions match r4's last printed geometry to
 4.9e-9 A.
 
+The rule fired at ~18:28Z: the step-46 SCF reached 60 iterations with its last 10 accuracies at
+2.4e-4 to 6.1e-4 Ry, never back under the 5.4e-5 of iteration 22. r4 was stopped after 45 completed
+steps (last E -5161.31207972 Ry, F 0.020, C4). `u0__NiFeOOH__Fe0_OH_r5` launched at 18:28:27Z on
+24 ranks and read its starting density from file.
+
+Ni0_OOH_r4's amendment-12 noise-floor watcher reached its registered 4 h limit at 18:17:36Z
+without firing. Its step-14 SCF was still improving then (30 iterations, 1.5e-5 to 5e-6 Ry,
+energy -5216.68849 Ry, 2.9 mRy below its step 13). If an SCF of r4 now stalls, r4 fails at
+electron_maxstep with no rerun and r5 carries Ni0_OOH, the outcome the watcher would have given.
+It holds its 24-rank slot longer, which costs nothing while no run waits for a slot.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
