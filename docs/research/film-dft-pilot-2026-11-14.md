@@ -605,6 +605,41 @@ The model, cutoffs, smearing, dipole correction and forc_conv_thr 2e-3 are uncha
   does not relaunch; its continuation needs a new SCF start anyway (12:48Z note) and adds upscale
   then.
 
+## First single point at Fe0_OOH; Fe0_O_r2's first step (2026-11-16 17:50Z, before any eta existed)
+`C2__u0__NiFeOOH__Fe0_OOH` finished at 17:44Z: one SCF, 5023 s, -5202.82269956 Ry, total force
+0.0099.
+- Landed moments: Fe6 -1.37, Ni30 -0.23, Ni29 +0.23, Ni4 +0.23, Ni5 +0.82. Every other Ni is +0.77
+  to +0.96.
+- Under the 0.25 muB cutoff that is Fe -, no Ni antiparallel: C2, so target = landed. Ni30 sits
+  0.02 muB under the cutoff. At -0.25 or beyond it would read C5, so the label is close to the
+  cutoff.
+- It is 1.13 mRy (15 meV) below the relaxed C6 state (-5202.82157378 Ry). The readout takes each
+  state in the lowest of its relaxed energy and its counted single points, so C2 is Fe0_OOH's
+  energy so far. C1 and C3-C6 are still running or queued.
+- Uncertainty: the single point uses the geometry relaxed in C6. A C2 relaxation could go lower, by
+  an amount this pilot does not measure. Rule 1 asks only for single points.
+
+`u0__NiFeOOH__Fe0_O_r2` finished its first SCF: -5160.03558531 Ry, total force 0.0197, total
+moment 5.94 muB.
+- Amendment-9 rerun rule: that is 6.10 mRy below Fe0_O's last (-5160.02948414 Ry), far inside the
+  1 mRy-above limit. r2 replaces Fe0_O.
+- The geometry is the same to 5e-9 A, but the magnetic state is not. Ni30 went from +0.29 to -0.46
+  and Fe6 from -1.63 to -1.58, while Ni5 (+0.68) and Ni29 (+0.21) stayed. Fe -, Ni30 - is C5, the
+  pattern the clean slab's C2 single point also landed in (amendment 11).
+- The 6 mRy cannot come from the looser SCF threshold: at conv_thr 5e-6 the energy error is in the
+  micro-Ry range. It means Fe0_O's C2 state was metastable at this geometry. Its non-converging
+  step-43 SCF, with the total moment wandering 6.0-7.2 muB, was already moving between the two.
+- Its C1-C6 single points follow when r2 converges, as for every Ni(Fe)OOH state.
+
+Ni0_OOH at 17:48Z: r4 (BFGS) is at step 12, -5216.68559957 Ry, F 0.030. r5 (FIRE) is at step 20,
+-5216.68332519 Ry, F 0.014. Both are all parallel, with Ni6 at +0.04.
+- r5 is nearer the force threshold, but r4 is 2.27 mRy (31 meV) lower.
+- The registered rule (amendment 12) stands: the first to converge is used. If that is r5 and it
+  ends above r4's last energy, both are reported. The gap then bounds how much the Ni0_OOH energy
+  depends on the optimizer path.
+
+Fe0_OH_r4 at 17:48Z: step 45, -5161.31207972 Ry, F 0.020, C4 (Fe6 +1.49, Ni30 -0.32).
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
