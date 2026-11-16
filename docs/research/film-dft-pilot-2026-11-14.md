@@ -882,6 +882,14 @@ Deployed 20:29:47Z:
   last energy belongs to (`completed_positions`; tested on stopped and converged outputs). So r6
   gets the same-solution test against r4's step 45, not the fallback "lower last energy" branch.
 
+r6's first SCF converged in 11 iterations (20:44Z): -5161.31208067 Ry, -0.0009 mRy from r4's
+step-45 energy at the same geometry, total force 0.020.
+- Moments: Fe6 +1.50, Ni30 -0.32, Ni5 +0.10, Ni29 +0.72. That is C4, r4's configuration, with
+  every moment within 0.01 muB of r4's step 45.
+- r6 replaces r4 under the amendment-9 rerun rule (same solution).
+- The open question is r6's SCFs near the region where r4's step 46 and r5 stalled. FIRE's steps
+  are reported as they come.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
