@@ -252,7 +252,7 @@ This is more than one person's bench time before NEIRSEF (Feb 6), so the work ru
 | Round 2: R1, R2, R3 x 2 | Jan | 6 | 28 |
 | Ni 200 + 316L x 2 | Jan | 4 | 19 |
 | Fe25 (P1) H vs CW x 2 (core now; needs the CW rod by early Jan) | Jan | 4 | 19 |
-| Cu26 x 2, new disks from leftover ARC00150 rod | Jan (or Dec) | 2 | 9 |
+| Cu26 x 2, new disks from the homogenized half of the leftover ARC00150 rod (other half as-cast, kept in reserve) | Jan (or Dec) | 2 | 9 |
 | Stretch: third disk of R3 and R1 | Jan | 2 | 9 |
 
 January order: R3, R1, Ni 200 + 316L, R2, P1 H vs CW, Cu26, then third disks (melt plan section 4).

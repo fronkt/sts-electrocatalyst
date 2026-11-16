@@ -71,8 +71,10 @@ melt a 200 g charge of that alloy only, at the round-1 aim.
    For P1 and P2, the AC state (3 disks + a metallography slice, about 4 cm) comes from leftover
    round-1 rod that was never annealed.
 3. **Homogenize** (Frank): 1,050 C / 24 h in Ar, water quench; all charges except the AC pieces.
-   Cu26: if the leftover ARC00150 rod is homogenized, its disks match the round-1 disk; if it is
-   as-cast, Frank homogenizes it with the round-2 charges first (Frank to check which).
+   Cu26: the leftover ARC00150 rod is half homogenized, half as-cast (Frank, 2026-11-16). The 4 disks
+   come from the homogenized half, so they match the round-1 disk. The as-cast half stays uncut in
+   reserve (Stage 2 option: a Cu26 AC-vs-H pair, or a metallography slice showing whether homogenizing
+   shrank the Cu-rich pools).
 4. **Cold work, P1 and P2 only (new).** Cold swage or draw part of each homogenized rod to about 6 mm
    (about 64% area reduction from 10 mm), no anneal = state CW. Rolling is acceptable if swaging is not
    available; round rod is preferred because its slices fit the RDE holder directly.
@@ -82,7 +84,7 @@ melt a 200 g charge of that alloy only, at the round-1 aim.
 6. **Machine.** 5.00 mm diameter x 4.00 mm disks by wire EDM, as in round 1. Remove at least 0.1 mm from
    each working face, then grind and polish.
    - R1, R2, R3: 4 disks each.
-   - Cu26 (leftover ARC00150 rod): 4 disks.
+   - Cu26 (homogenized half of the leftover ARC00150 rod): 4 disks.
    - P1, P2: 3 disks per state (AC, H, CW, RX) plus a hardness/metallography slice per state.
    - Benchmarks: 2-3 disks each.
 7. **As-made check before testing.** SEM-EDS area analyses (at least 3 fields at 250x or lower), checking for Zn from the brass EDM wire. Chip ICP-OES from top and bottom if FWM can run it. XRD.
@@ -94,7 +96,7 @@ four hardness coupons), plus trim. That is about 15 cm of sound rod per alloy fr
 (about 4 cm of it never annealed). Fallback if the homogenized rod is too short to swage: cold roll it
 flat to about 4 mm thick (about 60%) and wire-EDM the disks straight out of the plate (working face =
 rolling plane). Skull pieces and already-cut disks are not usable as CW stock. Cu26 needs about 2.5 cm
-of leftover rod for 4 disks.
+of the homogenized half for 4 disks.
 
 ## 3. Schedule to February 6
 
