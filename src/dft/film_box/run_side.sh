@@ -12,6 +12,10 @@ log() { echo "$* $(date -u +%FT%TZ)" >> "$W/queue.log"; }
 [ -f "$W/inputs/$n.in" ] || { log "SIDE_MISSING_INPUT $n"; exit 1; }
 mkdir -p "$d" && cd "$d" || exit 2
 cp -f "$W/inputs/$n.in" "$n.in"
+# a rerun staged by post_relax.sh (amendment 9): its starting density becomes tmp/NAME.save
+if [ -d "$W/stage/$n" ]; then
+  mkdir -p tmp && rm -rf "tmp/$n.save" && mv "$W/stage/$n" "tmp/$n.save" || { log "SIDE_STAGE_FAIL $n"; exit 3; }
+fi
 t0=$(date +%s)
 log "BEGIN $n np=$np nk=$nk (side run)"
 mpirun --bind-to none -np "$np" pw.x -nk "$nk" -in "$n.in" > "$n.out" 2>&1 < /dev/null

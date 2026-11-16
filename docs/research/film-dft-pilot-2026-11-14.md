@@ -304,6 +304,33 @@ Fe0_OH rerun (2026-11-16 00:45-01:04Z, `fe0oh_r2_test.sh`, `fe0oh_r3.sh`, `map_r
   cores. Its dir is in `runs_stopped/`, and `post_relax.sh` relaunches it from `co_queue.txt` when
   cores free.
 
+SCF plateaus inside relaxations (03:15-03:25Z, `rescue_0320.sh`, `post_relax.sh` v2, `run_side.sh` v2):
+- `_r3` failed. Its first iteration was 1.4e5 Ry and -5254 Ry, with negative rho up to 3 e. After 108
+  iterations it was still at 6.5 Ry and 3 Ry below the cold run's energy. The mapped occupations did
+  not give a usable start, so it was stopped.
+- Two more relaxations hit the same wall partway through:
+  - `u0__NiOOH__slab`, step 26: 173 iterations at 4e-5 to 1.5e-3 Ry, total moment wandering
+    9.29-9.65 muB.
+  - `u0__NiOOH__Ni0_OOH`, step 8: about 190 iterations at 5.3-8e-6 Ry against 5e-6, energy steady
+    to 0.02 mRy.
+  Both finished their earlier steps at 5e-6, and nothing in the model or thresholds changed. The
+  stalls look like slow magnetic (moment-sloshing) modes at particular geometries.
+- `u0__NiOOH__slab_r2`: the last (step-26) geometry, startingpot = 'file' from its own step-25
+  density. The density was hardlinked to `keep/` before `run_side.sh` could delete it. The atoms
+  are the same, so nothing is mapped.
+- `u0__NiFeOOH__Fe0_OH_r4`: the original input and geometry, startingpot = 'file' from the PBE+U
+  `NiFeOOH__Fe0_OH` save. It has the same 50 atoms and its step-6 density; the U = 1e-8 run
+  rebuilds the moments. Its first iterations were 0.93 and 0.35 Ry.
+- `post_relax.sh` v2 keeps hardlinks to every watched relaxation's density files in `keep/`. When a
+  relaxation logs DONE with SCF_FAIL > 0, it writes `RUN_rK`: the last geometry (the input geometry
+  if no step finished) and startingpot = 'file' from the kept density, staged in `stage/`.
+  `run_side.sh` v2 moves the staged density into tmp/. The rerun goes to the top of the queue
+  (CoOOH: top of `co_queue.txt`) and takes over RUN's watch entries. The cap is three automatic
+  reruns per chain, and none for an automatic rerun that again finishes no step. These are reruns
+  under the amendment-9 rerun rule; model, thresholds and evaluation are unchanged. It was
+  sandbox-tested on copies of the failed slab (25 steps) and of the Fe0_OH run with no completed
+  step, before deployment.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
