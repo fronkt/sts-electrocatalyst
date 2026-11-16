@@ -640,6 +640,49 @@ Ni0_OOH at 17:48Z: r4 (BFGS) is at step 12, -5216.68559957 Ry, F 0.030. r5 (FIRE
 
 Fe0_OH_r4 at 17:48Z: step 45, -5161.31207972 Ry, F 0.020, C4 (Fe6 +1.49, Ni30 -0.32).
 
+Fe0_OOH single points C1 and C3 (17:50Z and 18:02Z):
+- C1 left its target: -5202.81930116 Ry, with Fe6 -1.32, Ni5 -0.68, Ni29 +0.18, Ni30 -0.17. That
+  is Fe -, Ni 5 -, a pattern first seen here. Under amendment 11 rule 3 (closure), it counts for
+  Fe0_OOH, where it is 2.27 mRy above the relaxed state, and is reported. It adds no candidate and
+  no single points for the other states.
+- C3 left its target and landed in C6, the relaxed solution, as expected above: -5202.82156818 Ry,
+  0.006 mRy from the relaxed energy. Fe6 +1.38, Ni5 -0.84, Ni29 -0.18; the moments match the
+  relaxed ones to 0.01 muB. The own-configuration check is still the C6 point, since it needs
+  target = landed.
+- Fe0_OOH so far: C2 lowest (-5202.82269956), C6 relaxed and C3 within 0.006 mRy of it, C1 2.27 mRy
+  above. C4, C5 and C6 are running.
+
+## Amendment 14 (2026-11-16 18:20Z, before any eta existed)
+`u0__NiFeOOH__Fe0_OH_r4`'s step-46 SCF has the symptom amendment 13 stopped in Fe0_O.
+- It follows BFGS steps with a growing trust radius: 0.043, 0.094, then 0.141 bohr.
+- It reached 5.4e-5 Ry at iteration 22. Over the next 20 iterations it drifted back to 3e-4 to
+  1e-3 Ry, with the total moment wandering 11.0-11.2 muB. Its previous 8 steps took 10-17
+  iterations each.
+- Unlike Fe0_O, its settings are the registered ones: conv_thr 5e-6, upscale 1, beta 0.1, ndim 12.
+- The registered automatic rerun fires only at electron_maxstep (200), about 2.5 h away at ~1 min
+  per iteration. That would use nearly all the time left before the 22:00Z deadline.
+
+Rule (`src/dft/film_box/amend14_fe0oh.sh`, a box-side watcher, armed ~18:20Z):
+- If any SCF of r4 reaches 60 iterations without converging, r4 is stopped. Fe0_O was stopped at
+  54.
+- It is rerun as `u0__NiFeOOH__Fe0_OH_r5` (amendment-9 rerun rule) from its last printed geometry
+  and its kept density. The density is the last converged SCF, now step 45: written 17:27:10, at
+  its '!' at ~17:27:07Z.
+- The rerun uses mixing_beta 0.05 and mixing_ndim 20, the SCF numerics of amendment 12's r4 and
+  amendment 13's r2.
+- The model, cutoffs, smearing, dipole correction, conv_thr 5e-6, upscale 1 and forc_conv_thr
+  2e-3 are unchanged.
+- If the SCF recovers, or r4 converges, nothing happens.
+- r5 replaces r4 if its first energy is at most 1 mRy above r4's last.
+- r5 is in `cfg_watch.txt` and `rescue_watch.txt`, and it goes to the top of `cfg_queue.txt`.
+- The 60-iteration threshold is a judgment. It gives the SCF about 15 more minutes to recover,
+  since Broyden mixing sometimes does, and bounds the loss at that.
+- Cost: a rerun loses r4's BFGS history, so the first steps of r5 are slower.
+
+Dry run (18:14Z): r5's input differs from r4's only in prefix, mixing_beta and mixing_ndim (r4
+already had startingpot = 'file' and upscale 1). Positions match r4's last printed geometry to
+4.9e-9 A.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
