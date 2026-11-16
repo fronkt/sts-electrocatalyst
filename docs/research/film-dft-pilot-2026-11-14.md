@@ -429,6 +429,19 @@ was sandbox-tested with stand-in processes:
 - 60 min left: no yield;
 - nothing waiting: no yield.
 
+NiOOH clean slab (`u0__NiOOH__slab_r2`) converged at 12:17Z: 38 steps, -5132.43330 Ry, all parallel
+(Ni5 and Ni29 -0.12, below the cutoff). At 12:18Z, Ni0_OH (step 48) and Ni0_OOH_r3 (step 50) were
+also all parallel. If they end that way, every NiOOH state is all parallel, and NiOOH needs no
+multi-pattern single points.
+
+Hand-off at the deadline. `out.tgz` excludes `*/tmp`, so it carries no densities. The guard kills
+each job shell before its pw.x, so `run_side.sh` never deletes tmp/, and the last-step densities of
+the stopped runs survive. `density_pull.sh` waits for DEADLINE_HIT, then copies the U = 0 save
+dirs (charge density, occup.txt, paw.txt, schema; about 1 GB with `keep/`) to
+`D:/sts-electrocatalyst/film_pilot/out/densities` with an md5 check. That way any continuation can
+restart from the last geometry with startingpot = 'file'. The script never touches PULLED, so it
+cannot delay the box's release. Tested on one 86 MB density: 25 s end to end.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
