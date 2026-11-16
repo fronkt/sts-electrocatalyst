@@ -744,6 +744,25 @@ Fe0_OOH points, 5 of 6 done (C4 still running):
 | C5 | C2 (Fe -0.49) | -5202.80568566 | +15.89 |
 | C6 | Fe -, Ni 5 - (closure) | -5202.81929921 | +2.27 |
 
+Fe0_OH_r5's first SCF at 19:34Z: 62 iterations in 66 min, not converged.
+- It fell to 8e-4 Ry by iteration 24. It then oscillated between 6e-4 and 2.5e-3 Ry to iteration
+  54, and has fallen slowly since: 3.3e-4 to 1.6e-4 Ry over iterations 55-62.
+- The total moment moved between 10.92 and 11.28 muB. The SCF energy has stayed between
+  -5161.3126 and -5161.3133 Ry, 0.6-1.3 mRy below r4's last energy.
+- At this geometry, r4's beta 0.1 / ndim 12 SCF and r5's beta 0.05 / ndim 20 SCF both wander. That
+  points to the geometry rather than the mixing: two or more magnetic solutions within about
+  1 mRy, which the SCF moves between.
+- Ni30, at -0.32 muB in C4 and close to the 0.25 cutoff, is the likely soft moment. Site moments
+  print only at SCF end, so this is not yet checked.
+- If so, which of these solutions the state settles in moves its energy by about 1 mRy (14 meV).
+  That is an inference, reported as one.
+
+No intervention. Fe0_OH could not converge, and get its single points, before the 22:00Z deadline
+under any option: at -0.6 mRy and 16 min per step, plus ~85 min of single points. A rerun from
+step 45's converged geometry would head back into the same region. r5 runs on.
+- The end-of-run pull copies all of `keep/`, including r4's step-45 density (17:27:10).
+- Any continuation can start from r5's first converged step if one exists, or from r4's step 45.
+
 Freed slots went to `co_queue.txt`: `u0__CoOOH__Co0_O` (19:11Z) and `u0__CoOOH__Co0_OH` (19:14Z)
 restarted fresh, with upscale 1 (amendment 13).
 
