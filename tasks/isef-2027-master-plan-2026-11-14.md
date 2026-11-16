@@ -10,6 +10,15 @@ computational materials scientist, and a merged alloy set.
 
 Status labels: **DECIDED** = Frank said so; **PROPOSED** = in a plan, not yet picked; **NEW** = 11-14.
 
+**Update 2026-11-16.** NEIRSEF 2027 is **Saturday, February 6, 2027**; registration (Senior Division:
+research plan, abstract, ISEF forms) and the fee are due **January 22, 2027**
+(https://www.pfw.edu/etcs/science-fair/schedules). Frank (11-16): not everything (all new melts plus
+processed vs not) will be finished by February 6; the project keeps improving after the regional fair,
+up to ISEF. Sections 7, 8 and 10 now split the work into Stage 1 (by Feb 6) and Stage 2 (Feb 6 to
+ISEF). Round-2 melt request: `docs/research/isef-round2-melt-plan-2026-11-16.md` + weigh sheet. The
+melt pick does not wait on the film-DFT pilot (section 5). Version before this update:
+`isef-2027-master-plan-archive-2026-11-16-pre-feb6.md`.
+
 ---
 
 ## 0. Where round 1 stands
@@ -49,7 +58,7 @@ Status labels: **DECIDED** = Frank said so; **PROPOSED** = in a plan, not yet pi
   Built to measure a Cr "percolation threshold"; the 11-11 review found round-1 data don't support
   that threshold, and Frank thought the Materials Science framing behind it was a bad move.
 
-### 2.2 Merged recommendation (6 melts + free stock) - PROPOSED, Frank picks
+### 2.2 Merged recommendation (6 melts + free stock) - RECOMMENDED; melt request written 11-16 (`docs/research/isef-round2-melt-plan-2026-11-16.md`), becomes the pick when Frank sends it to FWM
 
 | # | Alloy (at.%) | Role |
 |---|---|---|
@@ -66,6 +75,8 @@ where it covers them). Same route as round 1 (3x argon melt, 1,050 C / 24 h, WQ)
 
 ### 2.3 Melt-side items
 - Weigh Mn high: round-1 Mn melts lost ~22% of their Mn (Cu8 35 -> 29.5 at.%); ~36 at.% weighed lands near 30.
+  11-16 weigh sheet: +25% Mn mass (R3 charged at 34.9 at.%), which lands within +/-2 at.% of the aim
+  for any loss of 13-27% of the charged Mn (`docs/research/isef-round2-weigh-sheet-2026-11-16.md`).
 - Chip ICP-OES (top and bottom of each ingot) for bulk composition; SEM-EDS **area** analyses + XRD
   for the as-made check.
 - Register predictions (film-hypothesis table, Fe-free KOH, ICP) before any round-2 disk is measured.
@@ -180,6 +191,11 @@ x 2 = 6 disks (~28 h) + the polish pilot (2 disks, ~10 h).
     dislocations (processing study is experiment-only); NiFe(Co)OOH trends are already in the literature.
   - Timing: a film pilot (Ni(Cu)OOH for Ni31 / R4) to size the Anvil SU cost; it will not finish
     before the ~Nov 24 melt pick, so it registers predictions before the January bench instead.
+  - 11-16: the pilot running on AWS (NiOOH / Ni(Fe)OOH / CoOOH, `docs/research/film-dft-pilot-2026-11-14.md`)
+    only tests the model (V1 gate); it computes no candidate alloy, so the round-2 melts do not depend
+    on it. If V1 passes, production runs need the melt list (the round-2 film compositions) and
+    register a ranking before the January bench; if that ranking beats the film Ni+Fe rule, it picks
+    round 3 (Stage 2).
 
 ## 6. Papers and ISEF
 
@@ -189,7 +205,8 @@ x 2 = 6 disks (~28 h) + the polish pilot (2 disks, ~10 h).
   Suggestion: keep round 1 completed (six alloys, repeats, Cu26, C_dl, Fe-free KOH) as this paper so
   it doesn't wait on round 2; round 2 + processing feed ISEF and a follow-up.
 - **Paper A (computational: silentgate + rutile/MLIP audit)** - PROPOSED: submit Dec-Jan so ISEF can
-  cite it as under review.
+  cite it as under review. 11-16 suggestion: move it to February-March, after NEIRSEF. It is still
+  under review by ISEF in May, and December-January belong to the bench and the regional poster.
 - **ISEF category** - OPEN: Frank leaning Energy (11-11), not Materials Science. For Energy: Ni 200 /
   316L benchmark under the same protocol, long hold + ICP, Co-free argument. The processing study
   fits either category.
@@ -210,24 +227,48 @@ x 2 = 6 disks (~28 h) + the polish pilot (2 disks, ~10 h).
 | Stability holds | - | 20-36 |
 | **Total** | **~43-58** | **~220-310** |
 
-This is more than one person's bench time before a February regional fair. Priority tiers:
-1. Gates 1 + 2, repeats, Cu26, Cu8 full sweep (paper core)
-2. Round-2 melts at 2 disks each, processing study minimum, Ni 200 / 316L
-3. Stability + ICP holds, XPS / Raman / FIB, SRO pair, thermal oxide, synchrotron
+This is more than one person's bench time before NEIRSEF (Feb 6), so the work runs in two stages
+(11-16, Frank: keep improving after the regional fair, up to ISEF).
 
-## 8. Timeline (targets; regional fair date still unknown)
+**Stage 1: by February 6 (~165 h core + ~19 h stretch)**
+
+| Block | When | Disks | Hours |
+|---|---|---|---|
+| Gates 1 + 2 on existing disks | Dec | ~8 | ~38 |
+| Repeats, 5 alloys x 2 (+ Cu8 sweep to 10 mA/cm2) | Dec | 10 | 47 |
+| Round 2: R0-R5 x 2 | Jan | 12 | 56 |
+| Ni 200 + 316L x 2 | Jan | 4 | 19 |
+| Stretch: Fe25 (P1) H vs CW x 2 | Jan | 4 | 19 |
+
+January order: R3, R1, Ni 200 + 316L, R2, R0, R5, R4, then P1 H vs CW (melt plan section 4).
+Whether Stage 1 fits depends on rotator time: Josh's hours, and whether Frank can run disks
+under his supervision (section 9, item 5). That is the biggest lever.
+
+**Stage 2: February 6 to ISEF (May)**
+- Full processing study (P1 + P2, 4 states x 2-3 disks) and the polish-layer control
+- Third disks on round 2; stability + ICP holds (is leaching self-limiting?)
+- XPS / Raman / FIB, synchrotron if beamtime; SRO pair and thermal-oxide control only if they still answer a question
+- Round 3 melts, chosen by whichever predictor won round 2 (film rule or film DFT)
+- Paper B; Paper A submission
+
+## 8. Timeline (NEIRSEF = Sat Feb 6, 2027; updated 11-16)
 
 | When | What |
 |---|---|
-| Nov 14-24 | Pick alloy set + processing alloys; Tackett/Josh call; ask the Pitt contact; FWM melt + working request; polish pilot; zero-cost scripts |
-| Late Nov - Dec | Josh: Gates 1 + 2, repeats on existing disks. FWM: melts, homogenize, roll/swage, anneal, machine. Paper A submission |
-| Jan | Round-2 + processing bench; characterization |
-| Feb | Analysis, poster, regional fair |
-| Mar-May | Paper B; XPS / synchrotron if available; ISEF (May) |
+| Nov 16-24 | Send the melt request to FWM (6 melts, P1 + P2, Ni 200 / 316L stock); Tackett/Josh call (December bench, Frank on the rotator, iron-free KOH supplies); film-pilot V1 readout, then terminate the AWS box; novelty check on R3 / R5; register round-2 predictions; ask the Pitt contact |
+| Nov 25 - Dec 23 | Josh (+ Frank?): Gates 1 + 2, repeats, Cu8 sweep, C_dl, polish pilot. FWM: melts, then Frank homogenizes; machining; P1/P2 cold work + RX hardness series. Film-DFT production on the round-2 films if V1 passes and compute is approved |
+| by ~Dec 18 | R0-R5 + benchmark disks to Josh |
+| Jan 4-29 | Round-2 bench (2 disks each, Stage 1 order); as-made SEM-EDS / XRD |
+| Jan 22 | NEIRSEF registration: research plan, abstract, ISEF forms, fee (through the teacher) |
+| Jan 30 | Data freeze for the regional poster |
+| Feb 1-5 | Poster, print, speaker notes |
+| **Feb 6** | **NEIRSEF** |
+| Feb - May | Stage 2 (section 7); HSEF (~Apr 3, unverified); ISEF (May) |
 
 ## 9. Open decisions (Frank)
-1. Alloy set: merged 6 (section 2.2) or the Cr ladder
-2. Processing study: alloys (Fe25 + Ni34 suggested), working route, reduction %
+1. Alloy set: merged 6 (section 2.2) or the Cr ladder. 11-16: melt request written for the merged 6
+2. Processing study: alloys (Fe25 + Ni34 suggested), working route, reduction %. 11-16: in the melt
+   request as P1 + P2, cold swage/draw to ~6 mm (~64%), FWM to confirm route
 3. ISEF category: Energy vs Materials Science
 4. Paper split: round 1 now vs one paper after round 2
 5. Can Frank run disks himself under Josh's supervision
@@ -235,7 +276,8 @@ This is more than one person's bench time before a February regional fair. Prior
 
 ## 10. Do broadly, filter for the poster (Frank 11-14)
 
-Run the work broadly; decide in February what the ISEF poster shows. Last year's ISEF board went
+Run the work broadly; decide at the January 30 data freeze what the regional (NEIRSEF, Feb 6) poster
+shows, then rebuild the board for ISEF with the Stage 2 data. Last year's ISEF board went
 deep into a computational pipeline and judges lost the thread. The Indiana STS poster
 (experimental only, photo-led) took first place, which supports the same approach.
 
@@ -249,16 +291,20 @@ deep into a computational pipeline and judges lost the thread. The Indiana STS p
   the prediction did").
 - **Likely off the board (paper / Q&A only):** Hubbard-U sensitivity, symmetry-lock detector, EIS
   model fits, R_ct x I, percolation modeling.
-- Run order follows poster value per bench hour, so whatever is finished by February is the strongest part.
+- Run order follows poster value per bench hour, so whatever is finished by January 30 is the strongest part.
+- If the processing study isn't ready by February 6, the regional board shows it as "in progress" at most;
+  it becomes an ISEF panel after Stage 2.
 
 ### Processing study run order (section 3)
 1. Now: polish pilot on a re-polished tested Fe25 disk (ask FWM's metallography lab whether a
    vibratory polisher or electropolishing is available).
 2. With the round-2 melt request: one extra ingot each of Fe25 and Ni34, sized for 4 states x
    3 disks + metallography pieces; ask FWM rolling vs swaging/drawing to ~5 mm rod (rod slices fit
-   the RDE insert directly).
+   the RDE insert directly). 11-16 melt request: P1 + P2, 250 g each, swage/draw to ~6 mm (~64%),
+   then machine to 5.00 mm; two charges each if a charge gives < ~18 cm of sound rod.
 3. Split each ingot: AC piece cut before homogenizing; Frank homogenizes the rest; FWM cold works
    part (~60-70%); Frank anneals part of that (RX temperature from a hardness series on small
    coupons, e.g. 700 / 800 / 900 / 1,000 C for 1 h).
 4. Per state: hardness, optical/EBSD grains, XRD peak width. Register predictions.
-5. January bench: 2 disks per state, Protocol v2.
+5. January bench: 2 disks per state, Protocol v2. 11-16: by Feb 6 only P1 H vs CW (stretch); the
+   full 2 alloys x 4 states runs in Stage 2.
