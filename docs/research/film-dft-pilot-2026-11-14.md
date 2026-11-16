@@ -795,6 +795,15 @@ Test (`src/dft/film_box/amend15_coslab.sh`): `u0__CoOOH__slab_smear3` is the sla
 - Order: it was queued at 20:13Z and launched at 20:13:54Z. This text was committed shortly after
   (the first commit carried only the script). Its first iteration was the only output then.
 
+Spend (20:20Z). Frank extended the cap from 22:00Z to 2026-11-17T06:00Z ("a, extend to 06:00Z"):
++8 instance-hours, ~$79, about 53 instance-hours / ~$520 in all.
+- The V1 estimate at 16:38Z was 23:00Z to 05:00Z: Fe0_O_r2, Fe0_OH (now r5) and Ni0_OOH still
+  relaxing, then six single points (about 85 min each) for each Fe-site state.
+- DEADLINE becomes 1794895200 (06:00Z). The OS shutdown moves from 01:10Z to 07:10Z, so a hard
+  stop stays in place if every guard fails.
+- When V1's last run finishes, the deadline is brought forward so the box stops then.
+- V2 continues off AWS.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
