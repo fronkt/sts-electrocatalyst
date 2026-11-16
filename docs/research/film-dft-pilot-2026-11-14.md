@@ -450,6 +450,12 @@ so no density was kept, and `post_relax.sh` gave up the automatic rerun. Its slo
 rather than the slow magnetic modes behind the Ni(Fe)OOH stalls. A V2 continuation needs a
 different SCF start for this slab, decided before any V2 eta exists.
 
+Spend (13:10Z). Frank extended the cap from 14:00Z to 2026-11-16T22:00Z: +8 instance-hours, ~$79,
+~45 instance-hours / ~$441 in all. The estimate for a complete V1 was 19:00-21:00Z (three Fe-site
+relaxations still running, then five single points each). When V1's last run finishes, the
+deadline is brought forward so the box stops. V2 continues off AWS, since its relaxations cannot
+finish by 22:00Z.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
