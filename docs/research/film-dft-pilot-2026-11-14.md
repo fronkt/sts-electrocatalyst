@@ -479,6 +479,35 @@ The other slow runs, by largest free force component (Ry/bohr) at 13:15Z:
 - Fe0_OH_r4 0.005-0.008, -0.4 to -0.9 mRy/step. Its adsorbed OH is reorienting (H50 0.39 A, O49
   0.30 A over 8 steps; d(Fe6-O49) 1.76 A, intact).
 
+SSH access came back at 13:49Z after Frank's SSO login. The security group had admitted only the
+launch IP (68.45.14.207/32), and this machine is now 168.102.134.128/32, which was added. The
+instance had kept running throughout. `u0__NiOOH__Ni0_OH` converged at 13:45Z (55 steps).
+
+## Amendment 12 (2026-11-16 13:53Z, before any eta existed)
+Ni0_OOH reruns (`src/dft/film_box/amend12_ni0ooh.sh`). `u0__NiOOH__Ni0_OOH_r3` was stopped after 59
+steps; its last energy was -5216.66453 Ry. Two reruns run side by side from its last printed
+geometry (to 5e-9 A) and its last-step density (startingpot = 'file'):
+- `_r4`: BFGS, conv_thr 5e-6 (the registered value; amendment 10's 1e-5 is what made its forces too
+  noisy). The SCF mixing is mixing_beta 0.05 and mixing_ndim 20 (from 0.1 and 12), aimed at the
+  5.1-8e-6 floor that stalled Ni0_OOH at step 8. These are SCF numerics only.
+- `_r5`: FIRE (ion_dynamics = 'fire', pw.x 7.5), with r3's SCF settings (conv_thr 1e-5). FIRE steps
+  on forces alone, so the energy noise that defeats BFGS's line search does not stop it.
+
+Model, cutoffs, smearing, dipole correction, forc_conv_thr 2e-3 and etot_conv_thr are unchanged
+in both. Rules:
+- The first to converge stands, and the other is stopped then and reported.
+- Each replaces r3 under the amendment-9 rerun rule (r3's last geometry; first energy within
+  1 mRy of r3's last).
+- Neither gets an automatic `post_relax.sh` rerun.
+
+Code:
+- `qe_qc.py` accepts FIRE's convergence line ("FIRE: convergence achieved in N steps") as a
+  converged relaxation. Its "Final energy = ... Ry" already matched. Tested on synthetic converged,
+  nstep-limited and unconverged outputs; `tests/test_qe_qc.py` and `tests/test_adsorbate_qc.py`
+  pass (22).
+- `film_pilot_readout.py`'s rerun chain, for runs that did not start from each other's last
+  geometry, prefers a converged relaxation and otherwise takes the lower last energy.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.

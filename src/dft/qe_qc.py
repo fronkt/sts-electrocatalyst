@@ -57,6 +57,10 @@ _RE_FORCE_ATOM = re.compile(
 _RE_TOTAL_FORCE = re.compile(r"Total force\s+=\s+(\d+\.\d+)")
 _RE_CALC = re.compile(r"^\s*calculation\s*=\s*['\"]?(\w+)", re.M | re.I)
 _RE_BFGS_CONV = re.compile(r"bfgs converged in\s+(\d+) scf cycles and\s+(\d+) bfgs steps")
+# pw.x's FIRE relaxation (ion_dynamics = 'fire') reports convergence with its own line; it then
+# prints "End of FIRE minimization" and "Final energy = ... Ry" (matched by _RE_FINAL_E). FIRE's
+# convergence test uses the same forc_conv_thr / etot_conv_thr as BFGS.
+_RE_FIRE_CONV = re.compile(r"FIRE: convergence achieved in\s+(\d+) steps")
 _RE_MAXSTEP = re.compile(r"The maximum number of steps has been reached")
 _RE_FINAL_E = re.compile(r"Final energy\s+=\s+(-?\d+\.\d+)\s+Ry")
 _RE_NAT = re.compile(r"number of atoms/cell\s+=\s+(\d+)")
@@ -126,7 +130,8 @@ def scan(outfile: str, infile: str | None = None) -> dict:
     rec["job_done"] = "JOB DONE" in txt
     rec["n_scf_ok"] = len(_RE_SCF_OK.findall(txt))
     rec["n_scf_fail"] = len(_RE_SCF_BAD.findall(txt))
-    rec["bfgs_converged"] = bool(_RE_BFGS_CONV.search(txt))
+    # "relaxation converged": BFGS's line, or FIRE's (the key name predates FIRE runs)
+    rec["bfgs_converged"] = bool(_RE_BFGS_CONV.search(txt) or _RE_FIRE_CONV.search(txt))
     rec["max_steps_reached"] = bool(_RE_MAXSTEP.search(txt))
     rec["user_stopped"] = bool(_RE_USER_STOP.search(txt))
     m = _RE_NAT.search(txt)

@@ -174,8 +174,17 @@ def choose_run(runs, links):
             else:
                 notes.append(f"{nxt} landed {d:+.2f} mRy above {cur}'s last energy at the same geometry; {cur} stands")
         else:
-            low = nxt if ne[-1] < pe[-1] else cur
-            notes.append(f"{nxt} did not start from {cur}'s last geometry; the lower last energy ({low}) is used")
+            # amendment 12: sibling reruns (e.g. Ni0_OOH r4 BFGS and r5 FIRE, both from r3's last
+            # geometry): a converged relaxation is preferred over one that did not converge, since
+            # QC needs one; otherwise the lower last energy
+            conv = {n: qe_qc.trusted_energy_ev(os.path.join(runs, n, n + ".out"),
+                                               os.path.join(runs, n, n + ".in")) is not None for n in (cur, nxt)}
+            if conv[cur] != conv[nxt]:
+                low = nxt if conv[nxt] else cur
+                notes.append(f"{nxt} did not start from {cur}'s last geometry; {low} is the converged one and is used")
+            else:
+                low = nxt if ne[-1] < pe[-1] else cur
+                notes.append(f"{nxt} did not start from {cur}'s last geometry; the lower last energy ({low}) is used")
             cur = low
     return cur, notes
 
