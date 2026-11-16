@@ -830,6 +830,49 @@ expire at 21:35Z. If the pull loop cannot terminate the instance at the end, the
 after the pull (shutdown behavior STOP). It then bills only its disk until it is terminated by
 hand after the next `aws sso login`.
 
+## Amendment 16 (2026-11-16 20:30Z, before any eta existed)
+`u0__NiFeOOH__Fe0_OH_r5` (amendment 14) had not finished its first SCF at r4's step-46 trial
+geometry after 117 iterations (19:26Z to 20:26Z).
+- From iteration ~60 its accuracy sat at 3e-5 to 2e-4 Ry, and from iteration 99 at 2.9e-5 to
+  7.7e-5, with no downward trend.
+- Its energy stayed at -5161.31267 to -5161.31277 Ry, fixed to 0.1 mRy, and its total moment at
+  10.98 to 11.07 muB.
+- This floor is 3-20x above conv_thr 5e-6. Amendment 10's noise-floor rule (last 30 iterations
+  below 1e-5, then conv_thr 1e-5) does not cover it.
+- Relaxing conv_thr this far would touch force accuracy, not only the energy.
+- At electron_maxstep (200), about 80 min on, the automatic rerun would repeat the same SCF at the
+  same geometry with the same numerics.
+
+At the step-46 trial geometry, r4's SCF (beta 0.1, ndim 12) and r5's (beta 0.05, ndim 20) both
+fail to settle. r4's SCF at step 45's geometry converged in 13 iterations. Both failing SCFs
+started from a density at a geometry 0.065 A away (trust radius 0.141 bohr).
+- The difficulty is local to that region of geometry. A soft magnetic mode is the likely cause, an
+  inference.
+- Fe0_OH is V1's critical path to the 06:00Z deadline.
+
+Rule: `u0__NiFeOOH__Fe0_OH_r6` (`src/dft/film_box/amend16_fe0oh.sh`) restarts from r4's step-45
+geometry (block 44 of its output, matched to 5e-9 A). It uses that step's density (`keep/`,
+written 17:27:10 at its '!' at ~17:27:07Z), with:
+- ion_dynamics = 'fire', as amendment 12's Ni0_OOH_r5, which has converged steadily. FIRE's small
+  steps let each SCF start from a density at a nearby geometry, so the magnetic state can be
+  followed instead of jumped into.
+- mixing_beta 0.05 and mixing_ndim 20, as r5.
+- conv_thr 5e-6 and upscale 1, the registered values.
+
+The model, cutoffs, smearing, dipole correction and forc_conv_thr 2e-3 are unchanged.
+- r5 is stopped, with RESCUE_HANDLED set first so no automatic rerun of it follows.
+- Replacement: r6 replaces r4 if its first energy, at step 45's geometry, is at most 1 mRy above
+  r4's step-45 energy (-5161.31207972 Ry), the same solution. r5 completed no SCF, so it replaces
+  nothing.
+- r6 is in `cfg_watch.txt` and `rescue_watch.txt` and goes to the top of `cfg_queue.txt` with its
+  density staged.
+- Cost: FIRE starts with a fresh velocity history and r4's BFGS history is lost. r5's SCF energy
+  at the trial geometry was 0.65 mRy below step 45, the energy still to be recovered.
+
+Dry run (20:29Z): r6's input differs from r4's in prefix, mixing_beta, mixing_ndim and
+ion_dynamics. Its positions match block 44 to 5e-9 A and are 0.065 A from block 45, the trial
+geometry.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
