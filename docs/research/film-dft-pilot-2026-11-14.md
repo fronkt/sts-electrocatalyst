@@ -890,6 +890,33 @@ step-45 energy at the same geometry, total force 0.020.
 - The open question is r6's SCFs near the region where r4's step 46 and r5 stalled. FIRE's steps
   are reported as they come.
 
+r6 at 21:18Z: 4 steps, -5161.31208067, -5161.31223519, -5161.31242626, -5161.31260204 Ry (0.15-0.19
+mRy per step). Its SCFs took 11, 8, 12 and 12 iterations, and the total force is down to 0.0126.
+
+## Amendment 15b (2026-11-16 21:20Z; V2, before any V2 eta exists)
+Amendment 15's bootstrap SCF `u0__CoOOH__slab_smear3` converged at 21:13Z, in 79 iterations at
+MV 0.03 Ry.
+- Its energy, -4595.41595798 Ry, is numerics only and enters nothing.
+- Its total magnetization is 1.33 muB (absolute 1.42). The 0.01 Ry cold SCF stalled at -0.20 to
+  -0.26 muB.
+- Its density is in `keep/u0__CoOOH__slab_smear3`.
+
+The slab's registered relaxation starts from it (`src/dft/film_box/amend15b_coslab.sh`).
+`u0__CoOOH__slab_r2` is `u0__CoOOH__slab`'s input with:
+- `startingpot = 'file'`, from smear3's density, staged;
+- `upscale = 1.d0` (amendment 4; the slab's input lacked it, as amendment 13 noted).
+
+Everything else is the registered relaxation: MV 0.01, local-TF, beta 0.05, ndim 20, conv_thr
+5e-6, forc_conv_thr 2e-3, BFGS. The slab finished no step, so it starts from its input geometry.
+- Amendment-9 rerun rule: `u0__CoOOH__slab` completed no SCF, so r2 replaces it.
+- Whether the registered SCF holds the bootstrap's weakly magnetic state or moves away is reported
+  with its first step.
+- r2 is in `rescue_watch.txt` and at the top of `co_queue.txt`. `post_relax.sh` launches it into
+  the slot smear3 freed, and `yield_co` can stop it for V1 work. It stops with the other V2 runs
+  when V1 is done, and its density and output are kept for the V2 continuation.
+- Dry run (21:19Z): the input differs from the slab's only in prefix, startingpot and upscale.
+  Positions and k-points are identical.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
