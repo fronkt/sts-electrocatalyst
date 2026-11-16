@@ -117,7 +117,8 @@ METALS = {"Ni", "Fe", "Co"}
 NIFE_CFG = {"C1": ("+", frozenset({5, 29, 30})), "C2": ("-", frozenset()), "C3": ("+", frozenset({5, 29})),
             "C4": ("+", frozenset({30})),  # C4: Fe0_OH_r4's first SCF (2026-11-16); rule 1 adds every pattern seen
             "C5": ("-", frozenset({30})),  # C5: where the clean slab's C2 single point landed (amendment 11)
-            "C6": ("+", frozenset({5}))}   # C6: the pattern Fe0_OOH's relaxation ended in (rule 1, 16:18Z)
+            "C6": ("+", frozenset({5})),   # C6: the pattern Fe0_OOH's relaxation ended in (rule 1, 16:18Z)
+            "C7": ("+", frozenset())}      # C7: the pattern Fe0_OH_r6's step-8 SCF entered (rule 3, amendment 17)
 
 
 def completed_positions(inp_positions, out_text):

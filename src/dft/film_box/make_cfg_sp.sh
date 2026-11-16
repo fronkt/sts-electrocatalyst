@@ -7,7 +7,8 @@
 #   C4  Fe +, Ni 30 -          (Fe0_OH_r4's first SCF, 2026-11-16; rule 1 adds every pattern seen)
 #   C5  Fe -, Ni 30 -          (where the clean slab's C2 single point landed, 2026-11-16; amendment 11)
 #   C6  Fe +, Ni 5 -           (the pattern Fe0_OOH's relaxation ended in, 2026-11-16 16:18Z; rule 1)
-# Writes inputs/CK__RUN.in for K in $CFGS (default C1-C6; scf, conv_thr 1e-5 per amendment 10, cold
+#   C7  Fe +, every Ni +       (the pattern Fe0_OH_r6's step-8 SCF entered, 2026-11-16 22:05Z; rule 3)
+# Writes inputs/CK__RUN.in for K in $CFGS (default C1-C7; scf, conv_thr 1e-5 per amendment 10, cold
 # start) from RUN's last printed geometry.
 #   bash make_cfg_sp.sh RUN [OUTDIR]      (FORCE=1 skips the converged-relaxation check, for dry runs)
 set -u
@@ -24,7 +25,7 @@ case "$sp" in
   *) echo "$r: unexpected species order: $sp"; exit 1 ;;
 esac
 L=$(grep -n "^ATOMIC_POSITIONS angstrom" "/tmp/${r}_last.in" | cut -d: -f1)
-for c in ${CFGS:-C1 C2 C3 C4 C5 C6}; do
+for c in ${CFGS:-C1 C2 C3 C4 C5 C6 C7}; do
   N=${c}__$r
   a=/tmp/${N}_a.in
   cp "/tmp/${r}_last.in" "$a"
@@ -36,6 +37,7 @@ for c in ${CFGS:-C1 C2 C3 C4 C5 C6}; do
       C4) sed -i -e "$((L + 5))s/ Ni2 / Ni /" -e "$((L + 29))s/ Ni2 / Ni /" "$a"; m="--species-mag 1=0.3 --species-mag 5=-0.1" ;;
       C5) sed -i -e "$((L + 5))s/ Ni2 / Ni /" -e "$((L + 29))s/ Ni2 / Ni /" "$a"; m="--species-mag 1=-0.3 --species-mag 5=-0.1" ;;
       C6) sed -i -e "$((L + 29))s/ Ni2 / Ni /" -e "$((L + 30))s/ Ni2 / Ni /" "$a"; m="--species-mag 1=0.3 --species-mag 5=-0.1" ;;
+      C7) m="--species-mag 1=0.3 --species-mag 5=0.1" ;;
     esac
   else
     case $c in
@@ -45,6 +47,7 @@ for c in ${CFGS:-C1 C2 C3 C4 C5 C6}; do
       C4) m="--species-mag 1=0.3 --relabel 30:Ni2:-0.1" ;;
       C5) m="--species-mag 1=-0.3 --relabel 30:Ni2:-0.1" ;;
       C6) m="--species-mag 1=0.3 --relabel 5:Ni2:-0.1" ;;
+      C7) m="--species-mag 1=0.3 --species-mag 3=0.1" ;;
     esac
   fi
   # shellcheck disable=SC2086
@@ -60,7 +63,7 @@ for c in ${CFGS:-C1 C2 C3 C4 C5 C6}; do
   calc=$(grep -o "calculation = '[a-z]*'" "$od/$N.in")
   echo "$od/$N.in: $calc, Fe start $fe, Ni2 start ${n2:-none} on atoms ${neg:-none}"
   case "$c:$fe:$n2:$neg" in
-    C1:0.3:-0.1:5,29,30,|C2:-0.3:0.1:5,29,30,|C2:-0.3::|C3:0.3:-0.1:5,29,|C4:0.3:-0.1:30,|C5:-0.3:-0.1:30,|C6:0.3:-0.1:5,) ;;
+    C1:0.3:-0.1:5,29,30,|C2:-0.3:0.1:5,29,30,|C2:-0.3::|C3:0.3:-0.1:5,29,|C4:0.3:-0.1:30,|C5:-0.3:-0.1:30,|C6:0.3:-0.1:5,|C7:0.3:0.1:5,29,30,|C7:0.3::) ;;
     *) echo "$N: input does not encode $c; removing it"; rm -f "$od/$N.in"; exit 1 ;;
   esac
 done
