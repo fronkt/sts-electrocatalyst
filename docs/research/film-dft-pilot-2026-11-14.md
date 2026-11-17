@@ -1232,7 +1232,7 @@ Other runs at 01:21-01:25Z:
     stands either way.
 - Still queued: C6 and C7 at Fe0_O_r2, and C7 at the slab and at Fe0_OOH.
 
-## Amendment 19: one diagnostic SCF, entering no criterion (2026-11-17 02:05Z, before any eta existed)
+## Amendment 19: one diagnostic SCF, entering no criterion (2026-11-17 02:01Z, before any eta existed)
 
 The restart was clean. At 01:32:26Z the watcher stopped r7, with step 3's SCF at 60 iterations, and
 r8 began at 01:32:52Z. r8's input differs from r7's only in the prefix. Its positions match r7's
@@ -1282,6 +1282,13 @@ Dry run (02:01:01Z, md5 6401ef81 on the box):
 - The input differs from r7's in calculation, prefix and mixing_beta, and &IONS is dropped.
 - Positions match r7's block 2 to 4.8e-9 A, 0.0020 A from block 1 (step 2's geometry).
 - The kept density is from 00:31:50Z, r7's step 2 (-5161.31334576 Ry). All input checks passed.
+
+Deployed 02:01:37Z, after this record (19fa74f1, 02:01:25Z) and the code (cd56b777, md5-matched on the
+box):
+- The input is in `inputs/`, the density in `stage/`, and the run at the top of `co_queue.txt`.
+  `queue.log` has the DIAG19 line.
+- This heading first read 02:05Z, and the script's header comment still does. Both were advance
+  estimates; the record time is 02:01Z.
 
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
