@@ -1576,6 +1576,14 @@ Staging (22:11Z, local, nothing on Anvil touched):
   written 00:31:50Z, and step 2 at about 00:31:49Z.
 - `anvil_stage.tar` is 171 MB, md5 3e41dffc.
 
+Deployed 22:14Z, after this record (854cd809, 22:12:34Z) and the code (b4bf97d5):
+- The tarball was md5-verified on Anvil (OK) and unpacked to `$PROJECT/film/runs/`.
+- Neither input has CRLF. The pseudo paths resolve. `anvil_film.slurm` md5 3836037f matches on both
+  ends.
+- Jobs: 22283892 (`u0__NiOOH__Ni0_OOH_r6`) and 22283893 (`u0__NiFeOOH__Fe0_OH_r11`). Both are
+  PENDING (Priority) in `shared`, with no start estimate yet. The partition had about 12,000 pending
+  jobs.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
