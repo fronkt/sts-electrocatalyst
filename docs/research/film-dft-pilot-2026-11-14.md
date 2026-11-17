@@ -1078,6 +1078,61 @@ md5).
 post_relax v8 and v1done v2 are running, and no CFG_SKIPPED marker was removed. The header
 comments' "~00:05Z" / "~00:15Z" are advance estimates.
 
+## Amendment 18 (2026-11-17 00:08Z, before any eta existed)
+r6's step-9 SCF stalled. At 00:06Z it had run 124 iterations:
+- since about iteration 65, accuracy 1.0-1.1e-4 Ry with excursions to 3e-4, against conv_thr 5e-6;
+- total magnetization 11.06-11.08 muB, with excursions from 11.00 to 11.15.
+
+This is the signature of r5's floor (amendment 16). It would fail at electron_maxstep 200, at about
+01:15Z. `post_relax.sh`'s automatic rerun would then restart at the same trial geometry, where r5's
+SCF floored.
+
+Evidence that the trial step is the cause:
+- FIRE's moves grew every step as its velocity built up. The largest atomic displacement between
+  successive geometries was 0.0029, 0.0036, 0.0042, 0.0052, 0.0063, 0.0077 and 0.0099 A. Step 9's
+  trial is the largest, 0.0071 A in the largest Cartesian component from step 8.
+- pw.x prints Ni30's projected (Hubbard-projector) moment twice per step: at SCF convergence, and
+  at the start of the next SCF, from the extrapolated starting density.
+
+| Value of Ni30's projected moment | muB |
+|---|---|
+| Converged, step 1 | -0.328 |
+| Converged, step 7 | -0.278 |
+| Converged, step 8 | -0.253 |
+| Start of step 8's SCF | -0.247 (0.03 from step 7's converged value) |
+| Start of step 9's SCF | -0.154 (0.10 from step 8's converged value) |
+
+So step 9's SCF began well off the branch it had followed, in a moment that is soft (it is shrinking
+along the path; amendment 17).
+
+Rule (`src/dft/film_box/amend18_fe0oh.sh`, applied by `amend18_watch.sh`):
+- When the newest Fe0_OH FIRE run has completed at least 2 steps and its current SCF passes 60
+  iterations, it is stopped (RESCUE_HANDLED first, so no automatic rerun at the trial geometry).
+- It restarts as the next run (r6 -> r7 -> r8 -> r9, r9 last), from its last completed geometry and
+  that step's kept density.
+- The input is otherwise unchanged: FIRE, beta 0.05, ndim 20, conv_thr 5e-6, upscale 1, startingpot
+  'file'; same model, cutoffs, smearing, dipole correction and forc_conv_thr 2e-3.
+- A FIRE restart has zero velocity and the initial time step, so its first move is much smaller than
+  the accelerated step that stalled.
+- At least 2 completed steps are required: from 1, a restart would repeat the first FIRE move
+  exactly.
+- Normal SCFs of r6 took 8-13 iterations, and every stall so far (r4's step 46, r5, r6's step 9) was
+  unconverged at 60.
+- Each new run is in `cfg_watch.txt` and `rescue_watch.txt` and goes to the top of `cfg_queue.txt`
+  with its density staged.
+- Amendment-9 rerun rule: it replaces its predecessor if its first energy, at the predecessor's last
+  completed geometry, is at most 1 mRy above that step's energy. The readout chains `_rK` reruns
+  already.
+
+Cost: r6's step 9 is abandoned after about 2 h. Each restart repeats one SCF at an already-completed
+geometry, about 11 iterations.
+
+Dry run (00:06:36Z), r6 -> r7:
+- r7's input differs from r6's only in prefix among the non-position lines.
+- Positions match block 7, step 8's geometry, to 5e-9 A, and are 0.0071 A from block 8, the stalled
+  trial.
+- Kept density: written 22:05:31Z, step 8's '!'. Step 8 is -5161.31328997 Ry.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
