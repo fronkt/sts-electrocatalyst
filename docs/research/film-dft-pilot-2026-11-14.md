@@ -1133,6 +1133,13 @@ Dry run (00:06:36Z), r6 -> r7:
   trial.
 - Kept density: written 22:05:31Z, step 8's '!'. Step 8 is -5161.31328997 Ry.
 
+Deployed 00:07:51Z, after this record (ec1d9fd2) and the code (239a2d90, md5-matched on the box).
+- The watcher's first poll stopped r6 at 00:07:54Z, with step 9's SCF at 125 iterations.
+- r7 launched at 00:07:58Z.
+- `post_relax.sh` marked r6 CFG_SKIPPED (stopped unconverged), and RESCUE_HANDLED blocked the
+  automatic rerun.
+- The header comments' "~00:15Z" are advance estimates.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
