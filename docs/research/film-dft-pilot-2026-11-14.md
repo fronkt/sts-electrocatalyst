@@ -1591,6 +1591,15 @@ AWS cleanup, after Frank's SSO login (2026-11-17 ~22:25Z):
 - No pilot-tagged instance remains.
 - Everything was pulled to D: before this: `out.tgz` and the densities, both md5-verified.
 
+Cross-machine parity, from r6's first SCF (job 22283892, node a201, began 22:35:26Z):
+- It converged in 11 iterations, from the kept density, at -5216.71414921 Ry.
+- r4's step 44 on AWS, same geometry, was -5216.71414840. The difference is -0.0008 mRy.
+- Total force 0.011724 Ry/Bohr against 0.011752. Total magnetization 9.42 muB against 9.41.
+- So the Anvil build reproduces the AWS box's energy to well below the amendment-9 tolerance. r6
+  replaces r4 under the rerun rule (same solution).
+- Speed: about 60 s per SCF iteration at 48 ranks, about 0.8 SU per iteration, not the 0.5
+  estimated. An 8 h job holds about 480 iterations, roughly 25-30 BFGS steps. The 1,800 SU cap stands.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
