@@ -1232,6 +1232,57 @@ Other runs at 01:21-01:25Z:
     stands either way.
 - Still queued: C6 and C7 at Fe0_O_r2, and C7 at the slab and at Fe0_OOH.
 
+## Amendment 19: one diagnostic SCF, entering no criterion (2026-11-17 02:05Z, before any eta existed)
+
+The restart was clean. At 01:32:26Z the watcher stopped r7, with step 3's SCF at 60 iterations, and
+r8 began at 01:32:52Z. r8's input differs from r7's only in the prefix. Its positions match r7's
+step-2 geometry to 5e-9 A, and its density is r7's kept step-2 density (00:31:50Z).
+
+r8's first SCF is a control, and it has not converged:
+- It repeats r7's step 2 at the same geometry, from that step's converged density.
+- r7 reached step 2's SCF in 13 iterations from the extrapolated density.
+- At 02:00Z r8 had run 25 iterations. Its accuracy has stayed between 7.9e-6 and 3.6e-5 Ry since
+  iteration 7, against conv_thr 5e-6.
+- Its total magnetization wandered between 11.06 and 11.13 muB. Step 2 converged at 11.06.
+- Its wavefunctions restart from atomic+random. So an SCF that started from a density converged to
+  5e-6 at this geometry does not settle there again.
+
+C2 at Fe0_O_r2 converged at 01:49:57Z (rc 0, 7728 s). Its readout comes with the pull.
+
+Purpose: tell explanations 1 and 2 of the previous section apart. Explanation 1 is two
+near-degenerate solutions as Ni30's moment collapses. Explanation 2 is SCF numerics that cannot settle
+a soft moment.
+
+Run (`src/dft/film_box/diag19.sh`):
+- `diag19__NiFeOOH__Fe0_OH_r7s3` is an SCF at r7's step-3 trial geometry, the one whose SCF floored
+  (r7's block 2).
+- It starts from r7's step-2 kept density, with mixing_beta 0.02 in place of 0.05.
+- Everything else is r7's input: local-TF, ndim 20, conv_thr 5e-6, MV 0.01 Ry, cutoffs, dipole
+  correction, electron_maxstep 200, tprnfor. calculation = 'scf', so &IONS is dropped.
+- It goes to the top of `co_queue.txt`. It takes the first 24 free cores after `cfg_queue.txt`'s
+  entries, the three C7 points (V1 first), and ahead of CoOOH's relaunches.
+- It is expected to start when Fe0_O_r2's C1-C5 points end, at about 03:00-03:20Z. The deadline
+  allows it about 160 iterations.
+- Its name has no `u0__` prefix. So `v1done.sh` does not count it as V1 work, and the readout never
+  reads it. It enters no criterion.
+
+How it will be read (fixed now, before it runs):
+- Converges within 60 iterations: supports explanation 2. The continuation would restart Fe0_OH's
+  chain from r8's state with beta 0.02. That is a mixing-only change, which amendment 2 lets stand
+  for the same state, and it would be registered then.
+- Floors like r7's step 3 (accuracy at or above 1e-5 past 60 iterations): supports explanation 1. The
+  continuation would then need a treatment of Ni30's moment, not a mixing change.
+- In-between results are reported as they are, with no verdict.
+- Either way, its Ni30 moment, total magnetization and forces show which way the C7 branch goes at
+  that geometry.
+- The comparison is not fully controlled. r7's step-3 SCF started from the extrapolated density;
+  this one starts from step 2's converged density.
+
+Dry run (02:01:01Z, md5 6401ef81 on the box):
+- The input differs from r7's in calculation, prefix and mixing_beta, and &IONS is dropped.
+- Positions match r7's block 2 to 4.8e-9 A, 0.0020 A from block 1 (step 2's geometry).
+- The kept density is from 00:31:50Z, r7's step 2 (-5161.31334576 Ry). All input checks passed.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
