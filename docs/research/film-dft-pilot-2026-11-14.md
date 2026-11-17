@@ -1045,6 +1045,34 @@ Deployed 23:57:51Z. This amendment was committed at 23:57:01Z (410b08ce), the co
 - The header comments of `post_relax.sh` v7 and `deploy_pr7.sh` say "2026-11-17 ~00:30Z", an
   estimate written in advance. The running scripts are not edited.
 
+## FIRE convergence was not recognized by the box scripts (found 2026-11-17 00:00Z, before any eta existed)
+pw.x's FIRE optimizer (`ion_dynamics = 'fire'`) reports convergence with "FIRE: convergence achieved
+in N steps" and "End of FIRE minimization". It never prints "bfgs converged". The strings are from
+the running pw.x binary. Three box scripts tested only for "bfgs converged":
+- `post_relax.sh`: a converged FIRE relaxation in `cfg_watch.txt` would be logged as "finished
+  without a converged relaxation", marked CFG_SKIPPED and given no single points. Fe0_OH_r6
+  (amendment 16) is a FIRE run.
+- `make_cfg_sp.sh`: it would refuse to build that run's single points.
+- `v1done.sh`: amendment 12's first-to-converge rule would miss Ni0_OOH_r5 (FIRE) converging, and
+  r4 would not be stopped.
+
+`qe_qc.py` (the readout's convergence test) and `film_pilot_readout.py` already accept both lines.
+No FIRE run had converged at 00:02Z: none of r5, r6, or any CFG_SKIPPED run in `cfg_watch.txt` has
+the FIRE line. Nothing had been mis-marked.
+
+Fix: each of the three scripts accepts either line (`post_relax.sh` v8, `make_cfg_sp.sh`,
+`v1done.sh` v2). `deploy_pr8.sh` does the rest:
+- stops post_relax v7 and v1done v1, installs the new copies and restarts both;
+- removes CFG_SKIPPED from any cfg_watch run whose output has the FIRE line (none at 00:02Z).
+
+Dry run (00:02:57Z):
+- each new script carries the two-pattern test and no BFGS-only test;
+- the pattern accepts a FIRE and a BFGS convergence line and rejects an SCF convergence line;
+- `v1done.sh` v2's conditions evaluate as expected:
+  - V1 running: r4, r5, r6, and C1-C5 of Fe0_O_r2;
+  - unlaunched: C6 of Fe0_O_r2 and the three C7 points;
+  - unhandled: r6.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
