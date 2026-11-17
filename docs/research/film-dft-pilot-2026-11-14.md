@@ -1458,6 +1458,53 @@ Fe0_OOH's C7 single point converged at 04:37:49Z (5476 s):
 
 The next free cores went to CoOOH's `Co0_O` relaunch (V2), at 04:38:08Z.
 
+## Deadline, pull and readout (2026-11-17; the readout is the first time any eta could exist)
+
+The box stopped at the 06:00Z cap. Events, from `queue.log` and the pull logs:
+
+| Time | Event |
+|---|---|
+| 04:55:07Z | Fe0_O_r2's C6 point failed at 200 iterations. |
+| 05:58:27Z | r9's first SCF reached electron_maxstep 200 unconverged (last accuracy 1.7e-5 Ry). `post_relax.sh`'s automatic rescue queued r10, an exact copy (input geometry, kept density). |
+| 05:58:45Z | r10 began. |
+| 06:00:15Z | `post_relax.sh` stopped at the deadline. |
+| 06:02:26Z | `deadline.sh` stopped every run. Cut short: r10 (1 iteration), Ni0_OOH r4 and r5, the diagnostic (153 iterations, 5.2e-5 Ry, never converged), Fe0_O_r2's C7 point (174 iterations, 17 Ry), and CoOOH's relaunches. |
+| 06:25:55Z | Restart densities pulled to `D:/sts-electrocatalyst/film_pilot/out/densities` (4.1 GB, md5 OK). |
+| 06:38:44Z | `out.tgz` pulled and extracted (md5 OK). PULLED touched. |
+| After the pull | The box shut itself down. The instance is stopped, not terminated: the SSO token had expired, so `terminate-instances`, security-group and key-pair deletion still need a fresh `aws sso login`. |
+
+Ni0_OOH at the deadline:
+- r4 (BFGS): 44 steps, -5216.71414840 Ry. The last four steps fell 0.10-0.17 mRy each, against
+  BFGS's default etot_conv_thr of 0.1 mRy. The largest free-atom forces were 0.0021-0.0034 Ry/Bohr,
+  against forc_conv_thr 2e-3.
+- r5 (FIRE): 86 steps, -5216.70419515 Ry. The last four steps fell 0.03-0.05 mRy each. The largest
+  free-atom forces were 0.0031-0.0044.
+- r4 is 9.95 mRy below r5. Neither converged.
+
+Readout (`film_pilot_readout.py --model u0`, run on the pulled outputs):
+- V1: not evaluable, in both the lowest and the as-relaxed readouts.
+  - Ni0_OOH: r4 is INCOMPLETE. The chain notes: r3 replaced the original, r4 replaced r3, and r5
+    did not start from r4's last geometry, so the lower last energy, r4, is used.
+  - Fe0_OH: r7 is INCOMPLETE. r8, r9 and r10 completed no SCF, so r7 stands, with 2 steps in C7.
+- V2: not evaluable. CoOOH's slab and Co0_OH are POISONED, Co0_O is INCOMPLETE, and Co0_OOH is
+  missing.
+- TRUSTWORTHY states:
+  - NiOOH: slab_r2, Ni0_OH, Ni0_O_r2.
+  - Ni(Fe)OOH:
+    - slab (C1). Own check 0.0 mRy; five targets land in C1 within 0.003 mRy.
+    - Fe0_O_r2 (C5). No own check; C2's point landed in C5 at +0.001 mRy.
+    - Fe0_OOH (C6). The lowest is C2's point, its own C2 solution, -1.13 mRy.
+  - Gas references: H2O, H2.
+- No eta exists for any site.
+
+So V1 needs exactly two more converged relaxations, Ni0_OOH and Fe0_OH. Every other V1 state is in
+hand.
+- Ni0_OOH r4 is a few BFGS steps from both thresholds.
+- Fe0_OH is blocked by the SCF floor at Ni30's soft moment (amendments 18-20). The SCF does not
+  settle below about 1e-5 Ry at its current geometry, with either beta.
+- Continuing needs compute off this box (Anvil) and a registered treatment of the Fe0_OH SCF. Both are
+  Frank's decision.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
