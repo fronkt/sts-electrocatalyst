@@ -1227,7 +1227,8 @@ Other runs at 01:21-01:25Z:
   - The earlier single points converged in 59-88 iterations, except C4 at Fe0_OOH, which failed at
     200.
   - C5 is the rule-2 own-configuration check for Fe0_O (relaxed in C5). If C5 reaches
-    electron_maxstep 200 unconverged, at about 02:45Z, Fe0_O has no rule-2 check. Its relaxed energy
+    electron_maxstep 200 unconverged, at about 03:20Z (about 1 min per iteration), Fe0_O has no
+    rule-2 check. Its relaxed energy
     stands either way.
 - Still queued: C6 and C7 at Fe0_O_r2, and C7 at the slab and at Fe0_OOH.
 
