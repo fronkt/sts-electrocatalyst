@@ -1412,6 +1412,40 @@ Others at 03:40Z:
 - Ni0_OOH r5: step 73, total force 0.0081.
 - C7 single points: the slab at 41 iterations, Fe0_OOH at 30.
 
+## Amendment 19's reading; C7 at the slab (2026-11-17 04:34Z, before any eta existed)
+
+The diagnostic, `diag19__NiFeOOH__Fe0_OH_r7s3`, had not converged at 60 iterations. At iteration 60
+its accuracy was 1.4e-4 Ry. From iteration 39 to 68 it stayed between 1.5e-5 (best, iteration 45)
+and 1.0e-3, with total magnetization 10.98-11.05 muB. That is amendment 19's second reading: it
+floors like r7's step 3, which supports explanation 1.
+
+Together with amendment 20, beta 0.02 settled neither geometry where beta 0.05 floored: r7's step-2
+geometry (r9 against r8) or its step-3 trial (this run against r7's step 3). The record still carries
+these limits:
+- Only beta was varied. Local-TF, ndim and smearing were not.
+- This run started farther from self-consistency than r7's step 3 did (see above).
+
+For the continuation, the evidence points to treating Ni30's soft moment, not to further mixing
+changes.
+
+The slab's C7 single point converged at 04:12:05Z (4424 s):
+- It landed in C1, the slab's relaxed configuration (largest unsigned moment 0.152).
+- -5118.50257912 Ry, +0.003 mRy from the relaxed slab (-5118.50258211). Total magnetization 7.15 muB.
+- Five of the slab's six targets (C1, C3, C4, C6, C7) now land in C1, within 0.003 mRy of the relaxed
+  energy. C2 is 5.29 mRy above, at 4.85 muB, as recorded earlier.
+- So rule 3's new candidate does not lower the slab.
+
+The freed cores went, as registered, to the next entry in `co_queue.txt`: CoOOH's `slab_r2`
+relaunch (V2), at 04:12:40Z.
+
+At 04:33Z:
+- Fe0_OOH's C7 point: 4.9e-5 Ry at iteration 81.
+- Fe0_O_r2's C7 point: 13 Ry at iteration 75.
+- Fe0_O_r2's C6 point: 0.86 Ry at iteration 177.
+- r9: 116 iterations, about 2e-5 Ry.
+- Ni0_OOH r4: step 39, total force 0.0100.
+- Ni0_OOH r5: step 77, total force 0.020 (it has been 0.008-0.020 over its last steps).
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
