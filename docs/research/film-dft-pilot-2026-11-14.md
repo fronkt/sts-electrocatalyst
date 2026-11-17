@@ -1073,6 +1073,11 @@ Dry run (00:02:57Z):
   - unlaunched: C6 of Fe0_O_r2 and the three C7 points;
   - unhandled: r6.
 
+Deployed 00:03:38Z, after this record (9071241f) and the code (6eb2ee25; the box copies match it by
+md5).
+post_relax v8 and v1done v2 are running, and no CFG_SKIPPED marker was removed. The header
+comments' "~00:05Z" / "~00:15Z" are advance estimates.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
