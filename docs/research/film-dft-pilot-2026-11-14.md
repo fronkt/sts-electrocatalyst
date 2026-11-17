@@ -1140,6 +1140,12 @@ Deployed 00:07:51Z, after this record (ec1d9fd2) and the code (239a2d90, md5-mat
   automatic rerun.
 - The header comments' "~00:15Z" are advance estimates.
 
+r7's first SCF converged in 7 iterations, by 00:18Z:
+- Energy -5161.31329176 Ry, -0.0018 mRy from r6's step-8 energy at the same geometry. r7 replaces r6
+  under the amendment-9 rerun rule (same solution).
+- Total magnetization 11.03. Moments: Fe6 +1.53, Ni30 -0.24, Ni5 +0.09, Ni29 +0.72. That is r6's
+  step-8 state, pattern C7 under the cutoff.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
