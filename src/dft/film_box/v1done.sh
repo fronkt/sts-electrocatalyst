@@ -13,6 +13,7 @@
 #     included, as registered (V2 continues off AWS); the watchdog packages after 30 min, the
 #     local loop pulls and terminates, density_pull.sh copies keep/.
 # Exits at DEADLINE_HIT or once it has set the deadline.
+# v2 (2026-11-17 ~00:15Z): FIRE's convergence line counts too (r5 is a FIRE run).
 #   DRY=1 bash v1done.sh     (evaluate every condition once and print it; touch nothing)
 #   setsid nohup bash v1done.sh > /dev/null 2>&1 < /dev/null &
 set -u
@@ -35,7 +36,7 @@ first_converged() {  # amendment 12: stop the other Ni0_OOH run once one has con
   local a b p
   for a in $N4 $N5; do
     b=$N5; [ "$a" = "$N5" ] && b=$N4
-    grep -q "bfgs converged" "runs/$a/$a.out" 2>/dev/null || continue
+    grep -q -e "bfgs converged" -e "FIRE: convergence achieved" "runs/$a/$a.out" 2>/dev/null || continue  # v2: r5 is FIRE
     p=$(prt $b); [ -n "$p" ] || continue
     if [ "${DRY:-0}" = 1 ]; then echo "would stop $b ($a converged)"; return; fi
     touch "runs/$b/RESCUE_HANDLED"; kill "$p"

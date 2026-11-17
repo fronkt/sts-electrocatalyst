@@ -16,7 +16,7 @@ W=$HOME/film
 cd "$W" || exit 1
 r=$1 od=${2:-inputs}
 f=runs/$r/$r.out
-[ "${FORCE:-0}" = 1 ] || grep -q "bfgs converged" "$f" || { echo "$r: relaxation has not converged; no single points"; exit 1; }
+[ "${FORCE:-0}" = 1 ] || grep -q -e "bfgs converged" -e "FIRE: convergence achieved" "$f" || { echo "$r: relaxation has not converged; no single points"; exit 1; }
 python3 qe_restart_input.py "runs/$r/$r.in" "$f" "/tmp/${r}_last.in" x > /dev/null || exit 1
 sp=$(sed -n '/^ATOMIC_SPECIES/,+5p' "/tmp/${r}_last.in" | awk 'NR > 1 {print $1}' | tr '\n' ' ')
 case "$sp" in

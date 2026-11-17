@@ -6,6 +6,8 @@
 # run's cores (V1 before V2, as yield_co.sh did at 01:03Z) while >= 75 min remain to the deadline;
 # v6 (16:40Z) queues C6 too (rule 1: the pattern Fe0_OOH's relaxation ended in);
 # v7 (2026-11-17 ~00:30Z, amendment 17) queues C7 too (rule 3: the pattern Fe0_OH_r6's step-8 SCF entered).
+# v8 (2026-11-17 ~00:15Z) counts FIRE's convergence line too ('FIRE: convergence achieved'), not
+# only BFGS's ('bfgs converged'): Fe0_OH_r6 is a FIRE run (amendment 16).
 # Every 30 s:
 #   - keep/RUN holds hardlinks to the density files (charge-density.hdf5, occup.txt, paw.txt) of
 #     every relaxation in rescue_watch.txt, so they survive run_side.sh deleting tmp/;
@@ -127,7 +129,7 @@ scan_failed() {
     fi
   done < <(cat rescue_watch.txt)
 }
-log "POST_RELAX v7 started (watch: $(tr '\n' ' ' < cfg_watch.txt); rescue: $(tr '\n' ' ' < rescue_watch.txt); CoOOH: $(tr '\n' ' ' < co_queue.txt))"
+log "POST_RELAX v8 started (watch: $(tr '\n' ' ' < cfg_watch.txt); rescue: $(tr '\n' ' ' < rescue_watch.txt); CoOOH: $(tr '\n' ' ' < co_queue.txt))"
 while true; do
   dl=$(cat DEADLINE 2>/dev/null || echo 0)
   if [ -f DEADLINE_HIT ] || { [ "$dl" -gt 0 ] && [ "$(date +%s)" -ge "$dl" ]; }; then
@@ -140,7 +142,7 @@ while true; do
     [ -z "$r" ] && continue
     d=runs/$r
     [ -f "$d/CFG_QUEUED" ] || [ -f "$d/CFG_SKIPPED" ] && continue
-    if grep -q "bfgs converged" "$d/$r.out" 2>/dev/null; then
+    if grep -q -e "bfgs converged" -e "FIRE: convergence achieved" "$d/$r.out" 2>/dev/null; then
       if bash make_cfg_sp.sh "$r" >> post_relax.log 2>&1; then
         for c in $CFG_LIST; do echo "${c}__$r"; done >> cfg_queue.txt; touch "$d/CFG_QUEUED"
         log "CFG_SP queued $(for c in $CFG_LIST; do printf '%s ' "${c}__$r"; done)"
