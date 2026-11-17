@@ -1146,6 +1146,91 @@ r7's first SCF converged in 7 iterations, by 00:18Z:
 - Total magnetization 11.03. Moments: Fe6 +1.53, Ni30 -0.24, Ni5 +0.09, Ni29 +0.72. That is r6's
   step-8 state, pattern C7 under the cutoff.
 
+## Fe-site *OH: r7's step-3 floor; force noise near Ni30 (2026-11-17 01:25Z, before any eta existed)
+
+r7's step 2 converged:
+- Energy -5161.31334576 Ry, -0.054 mRy from step 1.
+- Total force went from 0.0111 to 0.0086 Ry/Bohr. The largest free-atom component went from 0.0061 to
+  0.0031, on Ni30 both times.
+
+Step 3's SCF then floored again. At 01:25Z it had run 53 iterations. Accuracy reached 9e-6 Ry near
+iteration 24 (conv_thr 5e-6), then wandered between 1e-5 and 4.5e-4 Ry. Amendment 18's watcher
+restarts it as r8 when the count passes 60, at about 01:32Z.
+
+This floor does not fit amendment 18's explanation, which blamed an accelerated FIRE step. Step 3's
+trial geometry is 0.0020 A from step 2, the largest atomic displacement, and step 2 was 0.0014 A from
+step 1. Both are smaller than every r6 move (0.0029-0.0099 A). So the floor goes with where the
+relaxation is, not with how big its step was.
+
+Ni30's converged projected moment, in muB, along the whole path:
+
+| Run, step | Converged Ni30 moment |
+|---|---|
+| r6, steps 1-8 | -0.328, -0.326, -0.320, -0.313, -0.305, -0.295, -0.278, -0.253 |
+| r7, step 1 (r6 step 8's geometry) | -0.246 |
+| r7, step 2 | -0.222 |
+| r7, start of step 3's SCF (extrapolated) | -0.185 |
+
+The moment falls faster per step even as the steps shrink. At r7's step 2 it dropped 0.024 muB over a
+0.0014 A move. Ni30's moment is collapsing along the relaxation path, and the SCFs floor where it
+changes fastest.
+
+The forces near Ni30 are noisier than the force threshold:
+- r6's step 8 and r7's step 1 are SCFs at the same geometry (positions agree to 5e-9 A).
+- Their energies differ by 0.0018 mRy, and their Ni30 moments are -0.253 and -0.246.
+- Their largest free-atom force components are 0.0033 Ry/Bohr (H35, the bulk hydroxyl H below Ni30)
+  and 0.0061 (Ni30). Their total forces are 0.0091 and 0.0111.
+- So at conv_thr 5e-6, free-atom forces near Ni30 are uncertain by about 0.003 Ry/Bohr. That is
+  above forc_conv_thr 2e-3.
+- pw.x printed "SCF correction compared to forces is large: reduce conv_thr to get better values" at
+  every step of r6 (8 of 8) and r7 (2 of 2). r6's total SCF corrections were 0.004-0.013 Ry/Bohr,
+  against total forces of 0.009-0.020.
+
+Over r6 and r7's ten completed steps the energy fell 1.27 mRy (17 meV), from -5161.31208067 to
+-5161.31334576 Ry. The last two steps gave 0.054 mRy.
+
+There are three competing explanations:
+1. Ni30's moment goes to zero, or changes sign, at a nearby geometry. That is a magnetic transition
+   on the path, and SCFs near the crossing have two nearly degenerate solutions. The steady collapse
+   and its growing rate support this.
+2. The SCF numerics cannot settle a soft moment: Broyden with beta 0.05, ndim 20, local-TF, and MV
+   smearing 0.01 Ry. A smaller beta or a larger ndim might converge. Not tested.
+3. The C7 branch is unstable, and the relaxation would land in a different pattern (Ni30 positive
+   or zero). Rule 3 (amendment 11) would then add that pattern as a candidate.
+
+What this means for the registered process:
+- Amendment 18's restarts continue as registered (r8, then r9).
+- Each restart gains steps only while the SCFs of its first moves converge. r7 gained one step.
+- Under explanation 1, r8 and r9 floor near the same geometry and the chain ends unconverged.
+- The readout takes a state's energy only from a converged relaxation (`qe_qc.trusted_energy_ev`).
+  So Fe0_OH would have no energy, and V1 would not be evaluable from this box.
+- Nothing is changed tonight. Ni0_OOH (below) would not converge by 06:00Z either, so a protocol
+  change for Fe0_OH could not deliver V1 tonight. The options for continuing go to Frank with the
+  readout.
+
+Other runs at 01:21-01:25Z:
+- Ni0_OOH r4 (BFGS):
+  - Step 29, -5216.70735955 Ry. Energy still falls 0.6-1.1 mRy per step.
+  - Largest free-atom force 0.0106 Ry/Bohr, on H35, the bulk hydroxyl H below Ni30. Total force
+    0.0247.
+  - About 24 min per step (steps 26-29 took 00:08-01:21Z).
+- Ni0_OOH r5 (FIRE):
+  - Step 58, -5216.69932541 Ry. The last three steps lie within 0.1 mRy.
+  - Largest free-atom force 0.0035-0.0205 Ry/Bohr, on the *OOH hydrogen (atom 51) or its O (atom 50).
+  - r4 is 8.03 mRy below r5. Amendment 12 still applies: the first to converge stands, and both are
+    reported.
+- Fe0_O_r2's single points C1-C5 run from atomic densities and had run 82-104 iterations, all
+  unconverged:
+  - C2 is nearest to convergence, at an accuracy of 0.02-0.03 Ry at iterations 95-96.
+  - C1 and C3 are at 1-6 Ry.
+  - C4 and C5 are at 30-120 Ry. C5's total magnetization swings between +5.3 and -2.5 muB.
+  - The earlier single points converged in 59-88 iterations, except C4 at Fe0_OOH, which failed at
+    200.
+  - C5 is the rule-2 own-configuration check for Fe0_O (relaxed in C5). If C5 reaches
+    electron_maxstep 200 unconverged, at about 02:45Z, Fe0_O has no rule-2 check. Its relaxed energy
+    stands either way.
+- Still queued: C6 and C7 at Fe0_O_r2, and C7 at the slab and at Fe0_OOH.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
