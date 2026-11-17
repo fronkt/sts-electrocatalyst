@@ -1446,6 +1446,18 @@ At 04:33Z:
 - Ni0_OOH r4: step 39, total force 0.0100.
 - Ni0_OOH r5: step 77, total force 0.020 (it has been 0.008-0.020 over its last steps).
 
+Fe0_OOH's C7 single point converged at 04:37:49Z (5476 s):
+- It landed in C2 (largest unsigned moment 0.223): -5202.80568746 Ry, total magnetization 8.93 muB.
+- That is +15.89 mRy from relaxed Fe0_OOH (C6, -5202.82157378).
+- It is the C5 point's solution again: the C5 point also landed in C2, at -5202.80568566 and 8.93
+  muB, 0.002 mRy away.
+- So it does not lower Fe0_OOH. The lowest remains the C2 point's own C2 solution, -5202.82269956 Ry
+  (-1.13 mRy, 6.92 muB).
+- Two different solutions both read as C2 under the 0.25 muB cutoff, 17.0 mRy apart. The pattern key
+  does not tell them apart; the energies and total magnetizations do.
+
+The next free cores went to CoOOH's `Co0_O` relaunch (V2), at 04:38:08Z.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
