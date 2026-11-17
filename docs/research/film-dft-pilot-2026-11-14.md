@@ -1600,6 +1600,22 @@ Cross-machine parity, from r6's first SCF (job 22283892, node a201, began 22:35:
 - Speed: about 60 s per SCF iteration at 48 ranks, about 0.8 SU per iteration, not the 0.5
   estimated. An 8 h job holds about 480 iterations, roughly 25-30 BFGS steps. The 1,800 SU cap stands.
 
+r11's first SCF (job 22283893, node a103, began 23:22:10Z):
+- It converged at conv_thr 1e-5 in 7 iterations, from the kept density. The trace up to iteration
+  6: 5.8e-4, 3.5e-4, 8.6e-5, 3.9e-5, 2.7e-5, 2.1e-5 Ry. It is r8's trace again (identical start).
+- -5161.31335239 Ry, -0.0066 mRy from r7's step 2 (-5161.31334576). r11 replaces r7 under the rerun
+  rule.
+- It reached one of the nearby solutions amendment 20 described, not r7's exact one:
+  - Ni30's converged projected moment -0.205 against r7's -0.222.
+  - Total magnetization 11.09 against 11.06 muB.
+  - Total force 0.0106 against 0.0086 Ry/Bohr. pw.x again warns that the SCF correction is large
+    (0.0078).
+- The energy spread between these solutions is 0.007 mRy, as amendment 20 bounded it. The force
+  difference is again about 0.002.
+
+Ni0_OOH r6 by 23:36Z: 5 steps, -5216.71457617 Ry, falling about 0.1 mRy per step; total force
+0.0074-0.0093.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
