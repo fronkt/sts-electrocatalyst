@@ -1344,6 +1344,74 @@ Deployed 02:15:04Z, after this record (16da8feb, 02:14:53Z) and the code (d85498
 the box). The watcher is running, and `queue.log` has its start line. This heading first read 02:16Z,
 an advance estimate; the record time is 02:14Z.
 
+## r9's first SCF: beta 0.02 does not settle it; Fe0_O single points (2026-11-17 03:41Z, before any eta existed)
+
+Amendment 20 acted as registered:
+- At 02:34:10Z it stopped r8, with the first SCF at 60 iterations.
+- r9 began at 02:34:23Z.
+- `post_relax.sh` marked r8 CFG_SKIPPED, and no automatic rescue followed.
+
+r9's first SCF had not converged at 60 iterations. This is amendment 20's second reading: beta 0.02
+does not fix it.
+
+| SCF | Iteration 1 | Best accuracy (Ry) | Then | Total magnetization (muB) |
+|---|---|---|---|---|
+| r8 (beta 0.05) | 5.7e-4, 11.09 | 7.9e-6, iteration 12 | wandered 8e-6 to 5.6e-5 up to iteration 60 | 11.03-11.13 |
+| r9 (beta 0.02) | 5.7e-4, 11.09 (identical) | 8.6e-6, iteration 11 | wandered 1e-5 to 1.0e-4; 2.2e-5 at iteration 63 | 11.00-11.11 |
+
+r7's own step 2 converged at this geometry in 13 iterations, from the extrapolated density, at 11.06
+muB. r9 runs on under the usual rules. It cannot reach electron_maxstep 200 before the 06:00Z
+deadline.
+
+Reading:
+- At r7's step-2 geometry and from that step's converged density, both betas get within a factor of
+  2 of conv_thr in about 10 iterations, then wander.
+- While they wander, the total magnetization moves over about 0.1 muB with residuals near 1e-5 Ry.
+- So this SCF has no well-isolated fixed point at the 5e-6 level. Halving the mixing does not change
+  that.
+- This favors explanation 1, near-degenerate solutions, over a plain mixing problem. It is one
+  geometry and one parameter. Local-TF, ndim and smearing were not varied.
+- The residual bounds the energy spread among these near-solutions at roughly 0.01 mRy, far below the
+  resolution eta needs. The failure is the solver's stopping test, not an undetermined energy.
+- Amendment 10 already treats 1e-5 Ry as this setup's noise floor for reruns. Tonight's Fe0_OH SCFs
+  floor at or just below it.
+
+Amendment 19's diagnostic began at 03:23:48Z. It took the first free slot after cfg_queue's C7
+points.
+- Its first iteration has accuracy 0.46 Ry, against r9's 5.7e-4 from the same density.
+- The reason: an `scf` run that reads a density at a new geometry uses it as is. A relaxation's
+  trial step instead extrapolates it, swapping the old atomic superposition for the new one. So the
+  diagnostic starts farther from self-consistency than r7's step-3 SCF did (9.6e-3 at its second
+  iteration).
+- That is a further confound for amendment 19's comparison, besides the starting density it already
+  names.
+- By iteration 14 it was at 1.8e-3 Ry, total magnetization 10.83-11.38. Its 60-iteration reading
+  comes at about 04:30Z.
+
+Fe0_O_r2's single points:
+
+| Target | Result | Landed | Energy (Ry) | From relaxed Fe0_O_r2 (C5, -5160.04053567 Ry) |
+|---|---|---|---|---|
+| C1 | SCF failed at 200 (02:58Z) | - | - | - |
+| C2 | converged in 120 iterations (01:49Z), total magnetization 5.94 | C5 (largest unsigned moment 0.177) | -5160.04053489 | +0.0008 mRy |
+| C3 | converged in 194 iterations (03:06Z), total magnetization 1.75 | other: Fe -, Ni5 and Ni28 - (signs relative to atom 1; largest unsigned moment 0.213) | -5160.03324440 | +7.29 mRy |
+| C4 | SCF failed at 200 (03:23Z) | - | - | - |
+| C5 | SCF failed at 200 (03:20Z) | - | - | - |
+
+What the table means:
+- Rule 2: C5's point, Fe0_O's own-configuration check, did not converge, so Fe0_O has no rule-2
+  check. Its relaxed energy stands; rule 2 is reported, not a gate.
+- C2's point landed in C5 at +0.0008 mRy: the relaxed state, reached again from a different start.
+  It is reported as landed in the state's own configuration.
+- C3's point found a new pattern. Under rule 3 a pattern first seen in a single point counts only for
+  that state. At +7.29 mRy it does not lower Fe0_O.
+- C6 and C7 are running: C6 at 119 iterations, C7 at 16, at 03:40Z.
+
+Others at 03:40Z:
+- Ni0_OOH r4: step 36, total force 0.0171.
+- Ni0_OOH r5: step 73, total force 0.0081.
+- C7 single points: the slab at 41 iterations, Fe0_OOH at 30.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
