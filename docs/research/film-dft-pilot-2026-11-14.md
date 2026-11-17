@@ -1290,7 +1290,7 @@ box):
 - This heading first read 02:05Z, and the script's header comment still does. Both were advance
   estimates; the record time is 02:01Z.
 
-## Amendment 20: r9 with mixing_beta 0.02 if r8's first SCF stalls (2026-11-17 02:16Z, before any eta existed)
+## Amendment 20: r9 with mixing_beta 0.02 if r8's first SCF stalls (2026-11-17 02:14Z, before any eta existed)
 
 r8's first SCF, the control in amendment 19, has drifted away from convergence:
 
@@ -1339,6 +1339,10 @@ Dry run (02:14:30Z, md5 93d08203 on the box):
 - r9's input differs from r8's only in the prefix and mixing_beta 0.05 -> 0.02.
 - The positions are r8's exactly.
 - The kept density is r7's step-2 density, from 00:31:50Z, -5161.31334576 Ry.
+
+Deployed 02:15:04Z, after this record (16da8feb, 02:14:53Z) and the code (d85498be, md5-matched on
+the box). The watcher is running, and `queue.log` has its start line. This heading first read 02:16Z,
+an advance estimate; the record time is 02:14Z.
 
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
