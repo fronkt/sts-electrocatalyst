@@ -1584,6 +1584,13 @@ Deployed 22:14Z, after this record (854cd809, 22:12:34Z) and the code (b4bf97d5)
   PENDING (Priority) in `shared`, with no start estimate yet. The partition had about 12,000 pending
   jobs.
 
+AWS cleanup, after Frank's SSO login (2026-11-17 ~22:25Z):
+- The stopped instance i-0fda1e34af116d88b (c7a.48xlarge, tag `Purpose=sts-film-dft-pilot`) is
+  terminated. Its 150 GB root volume was deleted with it (DeleteOnTermination true).
+- Its security group and key pair are deleted.
+- No pilot-tagged instance remains.
+- Everything was pulled to D: before this: `out.tgz` and the densities, both md5-verified.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
