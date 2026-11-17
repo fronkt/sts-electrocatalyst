@@ -1505,6 +1505,77 @@ hand.
 - Continuing needs compute off this box (Anvil) and a registered treatment of the Fe0_OH SCF. Both are
   Frank's decision.
 
+## Amendment 21: V1's two open relaxations continue on Anvil (2026-11-17 22:12Z, before any eta existed)
+
+Frank, 2026-11-17: "Continue on Anvil then". That answers the continuation question in the status
+report, which recommended conv_thr 1e-5 for Fe0_OH. The scope is V1. V2 (CoOOH) is not continued
+here; it needs its own SU estimate and Frank's OK.
+
+Venue and parity:
+- Anvil, CHE260157 CPU allocation. `mybalance` at 22:08Z: 3,824.1 SU left.
+- QE 7.5 from conda-forge (`qe-7.5-h19104ac_2`, HDF5 build, OpenMPI 5) at
+  `$PROJECT/qe/env`. The AWS box installed conda-forge `qe=7.5` on 2026-11-14; its build string is
+  not in the outputs.
+- The four pseudopotentials on Anvil match the MD5 sums pw.x printed on the box:
+  - Fe.pbe-spn-kjpaw_psl.0.2.1: e8661842...
+  - H.pbe-rrkjus_psl.1.0.0: f52b6d4d...
+  - ni_pbe_v1.4.uspp.F: 1ee80287...
+  - O.pbe-n-kjpaw_psl.0.1: 0234752a...
+- Parity check: each run's first SCF repeats the box's last completed SCF, at the same geometry and
+  from that SCF's kept density. The amendment-9 rerun rule (at most 1 mRy above) decides whether it
+  stands. The actual difference is reported as the cross-machine parity.
+
+Runs (`src/dft/film_box/anvil_stage.sh`, `anvil_film.slurm`):
+1. `u0__NiOOH__Ni0_OOH_r6`:
+   - Restarts r4 (BFGS) from its last completed geometry (step 44, -5216.71414840 Ry) and that step's
+     kept density.
+   - r4's input is otherwise unchanged: conv_thr 5e-6, beta 0.05, ndim 20, upscale 1, forc_conv_thr
+     2e-3.
+   - BFGS restarts with a fresh Hessian.
+   - Amendment 12's race between r4 and r5 ends here. Only r4's branch continues: it is 9.95 mRy
+     lower and nearer both thresholds, and the budget is limited.
+   - r5 is not continued. Both branches' energies are reported.
+   - The readout keeps r4 over r5 (neither converged, lower last energy). r6 replaces r4 under the
+     rerun rule.
+2. `u0__NiFeOOH__Fe0_OH_r11`:
+   - Restarts r7 (FIRE) from its last completed geometry (step 2, -5161.31334576 Ry) and that step's
+     kept density.
+   - conv_thr is 1e-5 in place of 5e-6. That is amendment 10's noise-floor value: amendments 18-20
+     showed this SCF wanders at 1e-5 to 1e-4 Ry below about 1e-5 with either beta.
+   - r7's input is otherwise unchanged: beta 0.05, ndim 20, upscale 1, forc_conv_thr 2e-3.
+   - The readout keeps r7 over r8-r10, which completed no SCF. r11 replaces r7 under the rerun rule.
+   - Known risk: the free-atom forces near Ni30 carry about 0.003 Ry/Bohr of SCF noise, above
+     forc_conv_thr. FIRE may not meet the threshold even with every SCF converging. No other
+     acceptance criterion is adopted now. If r11 has not converged when its job ends, the data goes
+     back to Frank before further SU are spent on it.
+3. After Fe0_OH converges:
+   - The C1-C7 single points at its final geometry, as `make_cfg_sp.sh` builds them: scf, conv_thr
+     1e-5, cold start, built locally from the pulled output.
+   - Then the readout, unchanged.
+   - Ni0_OOH has no configuration single points (NiOOH).
+
+Rules while running:
+- A run whose job ends unconverged after at least 2 completed steps is restarted from its last
+  completed geometry and density as the next `_rK`, with the same input. That is amendment 18's
+  restart, applied by hand.
+- For Fe0_OH this happens once at most before it goes back to Frank (above).
+- An SCF that fails at electron_maxstep is treated the same way.
+
+Resources:
+- Each job: `shared` partition, 48 ranks, `-nk 3` (16 per pool), 8 h limit, so at most 384 SU per job.
+  Node a171 is excluded.
+- Expected: about 0.5 core-h per SCF iteration, about 700-1,100 SU in all.
+- Hard cap for this amendment: 1,800 SU, with single points included (7 x at most 3 h x 48).
+
+Staging (22:11Z, local, nothing on Anvil touched):
+- Both inputs differ from their predecessors only in prefix and pseudo_dir, plus conv_thr for r11.
+- Positions:
+  - r6 matches r4's block 43 (step 44's geometry) to 5e-9 A; the stalled trial is 0.0189 A away.
+  - r11 matches r7's block 1 (step 2's geometry) to 4.7e-9 A; the trial is 0.0020 A away.
+- Kept densities: r4's was written 05:45:18Z, and step 44 was reached at about 05:45:17Z. r7's was
+  written 00:31:50Z, and step 2 at about 00:31:49Z.
+- `anvil_stage.tar` is 171 MB, md5 3e41dffc.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
