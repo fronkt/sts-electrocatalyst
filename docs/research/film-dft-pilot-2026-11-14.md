@@ -1290,6 +1290,56 @@ box):
 - This heading first read 02:05Z, and the script's header comment still does. Both were advance
   estimates; the record time is 02:01Z.
 
+## Amendment 20: r9 with mixing_beta 0.02 if r8's first SCF stalls (2026-11-17 02:16Z, before any eta existed)
+
+r8's first SCF, the control in amendment 19, has drifted away from convergence:
+
+| Time | Iterations | Accuracy (Ry) |
+|---|---|---|
+| 02:00Z | 25 | 7.9e-6 to 1e-5 (closest approach) |
+| 02:12Z | 37 | 2.5e-5 to 4.5e-5 |
+| 02:14Z | 39 | 3.8e-5 |
+
+Total magnetization has been 11.02-11.13 muB. Amendment 18's watcher cannot act on r8, because it
+needs at least 2 completed steps.
+
+If nothing is done:
+- r8 runs to electron_maxstep 200, at about 04:55Z.
+- `post_relax.sh`'s automatic rescue then queues an exact copy of r8 as r9: same input geometry and
+  density, and conv_thr 5e-6 unless amendment 10's floor rule applies.
+- So the beta-0.05 chain cannot advance tonight.
+
+Rule (`src/dft/film_box/amend20_r9.sh`, a one-shot watcher on the box):
+- If r8's first SCF passes 60 iterations unconverged (amendment 18's stall threshold), r8 is stopped.
+  RESCUE_HANDLED is touched first, so no automatic rescue follows.
+- r9 starts from r8's input, changing only the prefix and mixing_beta, 0.02 in place of 0.05.
+  - Same geometry: r7's step 2, which is r8's input.
+  - Same density: `keep/u0__NiFeOOH__Fe0_OH_r7`, r7's step-2 density (00:31:50Z), which r8 was
+    staged from.
+- Amendment 2 lets a mixing-only change stand for the same state.
+- r9 is in `cfg_watch.txt` and `rescue_watch.txt`, at the top of `cfg_queue.txt`, and is the last
+  member of amendment 18's chain, which follows it as usual.
+- Readout: r8 completed no SCF, so r7 stands over r8. r9 started from r7's last completed geometry,
+  so it replaces r7 if its first energy is at most 1 mRy above r7's step 2 (amendment-9 rerun rule).
+- The watcher exits with no action if r8's first SCF converges first, if r8 ends, or at the deadline.
+
+This brings forward the beta-0.02 restart that amendment 19 left for the continuation:
+- r9's first SCF is a controlled A/B against r8's first SCF. They have the same geometry, the same
+  starting density and the same input, except beta.
+- If it converges, the FIRE relaxation continues from there.
+- Amendment 19's diagnostic still runs. It covers the harder geometry, r7's step-3 trial.
+
+How r9's first SCF will be read (fixed now):
+- Converges within 60 iterations: beta 0.02 settles the step-2 geometry where 0.05 did not. That is
+  one pair, so it is suggestive, not conclusive: r7's own step 2 converged with 0.05, starting from
+  the extrapolated density.
+- Does not converge within 60: beta 0.02 does not fix it. r9 runs on under the usual rules.
+
+Dry run (02:14:30Z, md5 93d08203 on the box):
+- r9's input differs from r8's only in the prefix and mixing_beta 0.05 -> 0.02.
+- The positions are r8's exactly.
+- The kept density is r7's step-2 density, from 00:31:50Z, -5161.31334576 Ry.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
