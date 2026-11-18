@@ -2338,6 +2338,98 @@ SU left.
 
 **What happens to B goes back to Frank.** Nothing further runs without his decision.
 
+## Amendment 24: B's five failed states rerun to a 1e-3 Ry target from settled densities (2026-11-18 ~20:55Z, before any PBE+U dG or eta existed)
+
+Frank, 2026-11-18: "c". He chose to rerun the five failed points with a looser target, under a rule
+fixed before any eta is seen, and a cap of 600 SU. The three options went to him after the follow-up
+readout. No PBE+U dG or eta has been computed from any B energy.
+
+### One change to (c) as offered
+
+The offer was conv_thr 1e-3 Ry from the same U = 0 starts, with a 2.5 h wall. Before staging, the
+amendment-23 traces of the five failed SCFs were checked: per-iteration energies only, no dG. Each SCF
+falls below 1e-3 Ry at some iteration, and pw.x would stop there. The table shows how far that energy
+sits from what the same SCF reached later:
+
+| State | First < 1e-3 at iteration | Later iterations, relative to that energy |
+|---|---|---|
+| NiOOH *OH | 44 of 200 | -0.86 to 0 mRy |
+| NiOOH *O | 39 of 200 | -0.91 to 0 mRy |
+| NiOOH *OOH | 25 of 200 | -1.41 to 0 mRy |
+| Fe0_OH | 39 of 77 | -0.41 to +0.75 mRy |
+| Fe0_OOH | 25 of 172 | **-7.79 to 0 mRy**, still falling about 0.3 mRy per 15 iterations at the end |
+
+So a 1e-3 stop from the U = 0 start would put Fe0_OOH about 0.1 eV above where its SCF was heading.
+The rerun therefore starts the 1e-3 SCF from a density that has already settled.
+
+### Rerun
+
+Stage 1, a settling run. It is the amendment-23 input unchanged (conv_thr 1e-5), run until it reaches
+its electron_maxstep and writes its density:
+- NiOOH *OH, *O and *OOH: stage 1 is the amendment-23 run itself. Each ran 200 iterations, and its save
+  now holds that final density (md5 9d366f22, 97eaa8ee, 93cba936; the U = 0 starts were bb380348,
+  525afdfa and r7's).
+- Fe0_OH and Fe0_OOH timed out in amendment 23 and wrote nothing. They start again from the same U = 0
+  densities: the C2 point's save, cmp-equal to amendment 23's copy; and Fe0_OOH's kept density,
+  e1baf5e0 / 5ba13638 / d4d5444e, unchanged on Anvil.
+  - `A24S__u0__NiFeOOH__Fe0_OH_r11`: electron_maxstep 200, 4 h wall.
+  - `A24S__u0__NiFeOOH__Fe0_OOH`: electron_maxstep 400, 6 h wall. It was still falling at 172.
+
+Stage 2, the measurement. For each of the five, `A24U__RUN` is the amendment-23 input with conv_thr
+1.0d-3 and electron_maxstep 100. It restarts from stage 1's written density, with a 30 min wall.
+Nothing else changes: U, mixing, smearing and geometry are as in amendment 23.
+
+QC per state (`src/dft/film_a24_readout.py`):
+1. If stage 1 converged at 1e-5, its energy is used with a band of 0. Otherwise stage 1 must have run to
+   its electron_maxstep, and its last 50 energies must span at most 2 mRy.
+2. Stage 2 converged.
+3. |E(stage 2) - mean of stage 1's last 50| <= 2 mRy.
+4. Every Ni is low-spin, |m| < 1.6 muB, from stage 2's printed moments.
+
+A state that fails any of these is not evaluable, and nothing is rerun. The sign pattern and Fe moment
+are reported. The three states that converged in amendment 23 (both slabs and Fe0_O) are used as they
+are, with a band of 0.
+
+Band and decision:
+- Each rerun state carries +/- 2 mRy (27.2 meV). That is the largest last-50 span seen in amendment 23
+  (2.07 mRy), rounded down to the stationarity limit. It replaces the +/- 14 meV offered with (c).
+- A step's band is the sum of the bands of the two states in it; the gas references are exact.
+- eta is an interval: from the largest lower step end to the largest upper step end, minus 1.23.
+- The ordering is "kept" if eta_Fe0's upper end is below eta_Ni0's lower end, and "reversed" if
+  eta_Fe0's lower end is at or above eta_Ni0's upper end. Otherwise it is "not determined".
+- Resolution, if the limiting steps stay where they are at U = 0:
+  - Ni0's *OH -> *O step involves two rerun states, so it carries +/- 54 meV.
+  - Fe0's *O -> *OOH step involves one rerun state (Fe0_O converged), so it carries +/- 27 meV.
+  - The ordering can then be called if the PBE+U margin exceeds about 0.08 V. With other limiting steps
+    the threshold would lie between 0.05 and 0.11 V.
+- Amendment 23's interpretation stands. V1 (U = 0) is unchanged. A "kept" or "reversed" is the ordering
+  with U at the U = 0 geometries, with each state's configuration inherited from U = 0.
+
+Tests of the readout. They use U = 0 stand-ins only, so no PBE+U energy was read:
+- Every point a converged U = 0 output: eta 0.959 / 0.393 V, "kept".
+- The banded path, with synthetic stage-1 traces spanning 0.8 mRy and U = 0 stage-2 points:
+  - Ni0 0.959 [0.905, 1.013] V, step bands 27 / 54 / 54 / 27 meV.
+  - Fe0 0.393 [0.365, 0.420] V, "kept".
+- Fe0_OOH's synthetic trace widened to 3 mRy: Fe0 is not evaluable, and the ordering "not determined".
+
+Cost:
+- Expected: stage 1 about 107 SU (Fe0_OH) and 215 SU (Fe0_OOH), and stage 2 about 10 SU each, so about
+  370 SU.
+- Bound by the walls: 192 + 288 + 5 x 24 = 600 SU, Frank's cap. Balance 2,070.4.
+
+Order:
+- `anvil_a24.sh deploy1` submits both stage-1 runs and the three NiOOH stage-2 runs.
+- `deploy2 RUN` submits a Fe-side stage 2 only after its stage 1 has ended at its maxstep (or
+  converged). Its density is copied and checked with cmp.
+- The readout runs once, after all seven have ended.
+
+Staging (`src/dft/film_box/anvil_a24.sh stage`, local, from the staged amendment-23 inputs). Each input
+differs only in prefix and outdir, plus electron_maxstep 400 for Fe0_OOH's stage 1, or conv_thr
+1.0d-3 and electron_maxstep 100 for the stage-2 runs. md5:
+- A24S Fe0_OH_r11 16332440, Fe0_OOH 346d2b9c.
+- A24U Ni0_OH 8ab2f0c6, Ni0_O_r2 2321674a, Ni0_OOH_r7 a4656e98, Fe0_OH_r11 a23b4032, Fe0_OOH f175a386.
+- Code: `fb89ac23`.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
