@@ -1815,6 +1815,12 @@ The relaunch:
 - Cost: the failed launches used about 1.5 SU. The relaunch stays inside the registered estimate for
   the seven single points (340-1,120 SU), so the worst case stays about 1,770 of the 1,800 cap.
 
+Deployed ~05:15Z, after this record (ea84777a):
+- `anvil_film_scr.slurm` is on scratch; its md5 29c8144b matches the repo copy.
+- The three inputs were copied from the project run directories into the scratch run directories:
+  md5 unchanged, no CRLF.
+- Jobs 22289317 (C5), 22289319 (C6) and 22289320 (C7) are PENDING (Priority), 4 h each.
+
 r7 at 05:02Z: 5 BFGS steps, about 8 min each. E -5216.71582631 Ry, falling 0.08-0.10 mRy per step;
 total force 0.0085.
 
