@@ -1883,6 +1883,39 @@ iterations in 108 min, about 0.43 SU per iteration, so the five running points n
 
 The readout runs once, when these five end.
 
+### C2 and C3 (2026-11-18 06:55Z, before any eta existed)
+
+Pulled. The md5s match Anvil: C2 081b3003 / c45b9699, C3 4a85c61d / 664d5966.
+
+**C2 (job 22286627) converged in 157 iterations, left its target (Fe -) and landed in C7:**
+- -5161.31338924 Ry, 0.013 mRy below the accepted relaxed energy.
+- Ni30 -0.202 (relaxed -0.224); every metal within 0.03 muB of the relaxation; total magnetization
+  11.08 vs 11.05.
+- From a different cold start, the SCF reached the relaxation's own solution and reproduced its
+  energy well inside 1 mRy. This is the report-only "landed in own configuration" entry. Rule 2
+  proper still needs target = landed = C7, which is the C7 point.
+- So both C7-labelled solutions at this geometry were reached from cold starts: the relaxation's
+  (C2's start) and the one 3.3 mRy lower (C4's start).
+
+**C3 (job 22286628) did not converge:** 200 iterations, stuck at 3-4e-4 Ry estimated accuracy with
+total magnetization 5.37, a low-moment region none of the converged points is in. It does not count
+and is not rerun.
+
+**C7 (job 22289320) is slow:**
+- It shares node a094 with other users' jobs (load about 96 of 128 cores).
+- Its iterations take 30-217 s and are getting slower, against a steady 29 s for C6. Davidson
+  averages 1.1-1.3 sub-iterations, so the extra time comes from the node, not the SCF.
+- At 46 iterations (06:50Z) the estimated accuracy is still 2-7 Ry.
+- At this rate the 4 h limit (09:43Z) stops it before 200 iterations. It would then have ended
+  unconverged, so it does not count and is not rerun (amendment 11).
+- Rule 2 (reported, not a gate) would then have no own-configuration check for Fe0_OH. C2 still
+  reproduces the relaxed energy from another start, reported as above.
+
+C5 (135 iterations) and C6 (131) are running at 29-39 s per iteration.
+
+SU: balance 3,037.3 at 06:51Z (786.8 spent). At most about 190 more: C5 and C6 to 200 iterations,
+and C7 to its time limit.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
