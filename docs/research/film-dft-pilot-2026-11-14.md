@@ -1985,6 +1985,93 @@ path still holds the AWS readout of 2026-11-17 16:43 local, which is copied to
 SU: balance 2,855.9. The film jobs on Anvil, summed from sacct, used 20.17 h x 48 cores = 968.1 SU,
 which matches the balance drop of 968.2 since the start. That leaves 832 of the 1,800 cap.
 
+## Readout: V1 passes (2026-11-18 ~09:55Z; the first eta of the Anvil continuation)
+
+**Run:**
+- Command: `film_pilot_readout.py --model u0 --runs D:/sts-electrocatalyst/film_pilot/out/runs`. It ran
+  once and exited 0.
+- Results: `results/film_pilot_2026-11-14/readout_u0.json`, md5 4b2d683e.
+  - Copies on D: `film_pilot/out/readout_u0_anvil-2026-11-18.json` and its console log `.log`
+    (md5 404fbc21).
+  - The AWS readout of 2026-11-17 is kept as `readout_u0_aws-2026-11-17.json` (md5 6c5464cf), in both
+    places.
+
+**Runs used:**
+- Ni0_OOH: r7, TRUSTWORTHY, 6 steps, *OOH intact, all parallel.
+  - The chain note says r7 "did not start from r6's last geometry". The reason is that r6's step-12 SCF
+    completed without forces (see "r7's first SCF").
+  - r7 is the converged run, so it is used under either branch of the rerun rule.
+- Fe0_OH: r11, accepted at step 2 under amendment 22 (dE -0.0242 mRy, largest free-atom force
+  component 0.00306 on H35). C7, *OH intact.
+  - The output's QC label is POISONED, which comes from step 3's unconverged SCF. The readout uses the
+    accepted step-2 energy, as amendment 22 registers.
+- The other V1 states are unchanged since the AWS readout, all TRUSTWORTHY:
+  - NiOOH: slab_r2, Ni0_OH, Ni0_O_r2.
+  - Ni(Fe)OOH: slab (C1), Fe0_O_r2 (C5), Fe0_OOH (C6).
+  - Gas references: H2O, H2.
+
+**Energies entering each readout:**
+- Fe0_OH: the lowest readout uses C5's point, -70223.31621 eV, 0.0703 eV below the relaxed C7 energy.
+- Fe0_OOH: the lowest readout uses C2's point, its own C2 solution, 0.0153 eV below the relaxed C6
+  energy.
+- Every other state uses its relaxed energy in both readouts.
+
+| Site | Readout | dG *OH | dG *O | dG *OOH | Steps 1-4 (eV) | eta (V) | Limiting step |
+|---|---|---|---|---|---|---|---|
+| NiOOH Ni0 | both | 1.619 | 3.808 | 4.481 | 1.619 / 2.189 / 0.673 / 0.439 | **0.959** | 2 (*OH -> *O) |
+| Ni(Fe)OOH Fe0 | lowest | 1.148 | 2.363 | 3.970 | 1.148 / 1.215 / 1.607 / 0.950 | **0.377** | 3 (*O -> *OOH) |
+| Ni(Fe)OOH Fe0 | as relaxed | 1.218 | 2.363 | 3.986 | 1.218 / 1.145 / 1.623 / 0.934 | **0.393** | 3 (*O -> *OOH) |
+
+**Verdicts:**
+- V1 holds in the lowest readout (0.377 < 0.959) and in the as-relaxed readout (0.393 < 0.959).
+- The two readouts agree, so under rule 4 the registered V1 is **pass**.
+- V2 is not evaluable (CoOOH, out of scope).
+
+**Own-configuration checks** (rule 2; reported, not a gate):
+- Ni(Fe)OOH slab: 0.0 mRy. Five targets land in C1 within 0.003 mRy.
+- Fe0_OH: there is no own check, because the C7 point did not converge. Two other points landed in
+  C7:
+  - C2, at -0.012 mRy, reproduces the relaxed solution.
+  - C4, at -3.31 mRy, is a second C7-labelled solution. Its Ni30 moment is +0.30 against -0.20 in the
+    relaxed solution; the 0.25 muB cutoff gives both the same label.
+- Fe0_O: C2 landed in C5 at +0.001 mRy.
+- Fe0_OOH: C3 landed in C6 at +0.006 mRy.
+
+**Arithmetic check:** dG and eta were recomputed from the JSON energies with plain computational
+hydrogen electrode references (`verify_readout.py`, outside the repo). The implied ZPE - TS terms are
+the same at both sites: 0.35, 0.05 and 0.40 eV. Every eta is reproduced to 1 meV.
+
+**How robust the margin is:**
+- eta_Ni - eta_Fe is 0.582 V in the lowest readout and 0.566 V in the as-relaxed readout.
+- Fe0_OH does not set eta_Fe. That state needed amendment 22 and is configuration-sensitive at 0.070
+  eV.
+  - It enters only steps 1 and 2.
+  - dG *OH would have to move by +0.41 or -0.39 eV before either step limits.
+  - It would have to move by about +/-1.0 eV to change V1.
+- Fe0_OOH's lowest-vs-relaxed difference (-15 meV) moves eta_Fe by 0.016 V.
+- Most of the difference comes from *O. It binds 1.45 eV more strongly at Fe0 than at Ni0 (dG 2.363
+  vs 3.808 eV).
+  - That shortens the Fe site's *OH -> *O step and moves its limit to *O -> *OOH.
+  - *OH is also 0.40-0.47 eV more strongly bound at Fe0.
+
+**What this does not establish:**
+- One level of theory: PBE, U = 0 (amendment 9). Absolute eta values depend on U, and the PBE+U runs
+  were superseded. V1 is an ordering claim at this level only.
+- One cell, one Fe position and one coverage.
+- The NiOOH states were not probed with configuration single points; they are all parallel
+  throughout.
+  - Among the Ni(Fe)OOH points, the energies of other configurations spread up to 0.23 eV.
+  - Flipping V1 through Ni0 would take a configuration effect of about 0.57 eV on its *OH -> *O step.
+    That is not ruled out by a calculation, only by scale.
+- Fe0_OH is accepted at 3.06e-3 against forc_conv_thr 2e-3, under amendment 22's noise-aware bound.
+  C5's energy is an upper bound, since its Fe force is 0.0091.
+- dG *OOH - dG *OH is 2.86 eV at Ni0 and 2.77-2.82 eV at Fe0. That is below the commonly quoted
+  *OH/*OOH scaling value of about 3.2 eV. Hydrogen bonding of *OOH to lattice O would be one
+  explanation; it was not tested here.
+
+**Closure:** amendment 11 ends the pilot's V1 with this readout. There are no new relaxations, and the
+unconverged single points (C1, C3, C6, C7) are not rerun. Anvil: 968.1 of 1,800 SU.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
