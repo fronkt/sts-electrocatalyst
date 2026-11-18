@@ -1765,6 +1765,17 @@ Deployed 02:19Z, after this record (ab7c45b7) and the code (82099f96):
 - Jobs 22286624 (C1), 22286627 (C2), 22286628 (C3), 22286630 (C4), 22286631 (C5), 22286633 (C6) and
   22286634 (C7) are PENDING (Priority) in `shared`, 4 h each. Ni0_OOH r7 (22286398) is still PENDING.
 
+### r7's first SCF: parity with r6 step 11 (2026-11-18 04:30Z, before any eta existed)
+
+- Job 22286398 started 04:23:16Z on a211. Its first SCF converged in 12 iterations (restart from
+  step 11's density) at -5216.71545978 Ry, total magnetization 9.46 muB.
+- r6's step 11 was -5216.71545856 Ry, so r7 starts 0.0012 mRy lower. That is well within the
+  rerun rule's 1 mRy (amendment 9), so r7 replaces r6.
+- The parity also checks the outdir move: scratch instead of the project fileset changed nothing in
+  the physics.
+- The seven single points are still PENDING (Priority). Slurm's estimated starts are 05:13-05:48Z.
+- SU balance 3,554.2 at 04:31Z.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
