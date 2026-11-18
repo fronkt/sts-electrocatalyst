@@ -1686,6 +1686,12 @@ Under amendment 21's rules:
   cap used after r7.
 - If r7 ends unconverged after at least 2 steps, the same rule restarts it as r8, within the cap.
 
+Deployed 01:57Z, after this record (c6a6d62a) and the code (efaa37a3):
+- On Anvil, the `.in` md5 matched and the input has no CRLF.
+- r6's step-11 `charge-density.hdf5`, `occup.txt` and `paw.txt` were copied to r7's scratch save
+  directory and compared byte for byte. `anvil_film.slurm` md5 3836037f is unchanged.
+- Job 22286398 is PENDING (Priority) in `shared`.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
