@@ -2251,6 +2251,39 @@ Staging (`src/dft/film_box/anvil_a23.sh stage`, local; nothing on Anvil has been
 - On Anvil, all 16 input md5s equal the staged ones above. All 16 jobs are PENDING (Priority).
 - `mybalance` at 15:47Z: 2,855.9 SU.
 
+### A's eight points have ended (2026-11-18 17:20Z; no follow-up readout yet)
+
+All eight converged. Each is pulled to `D:/sts-electrocatalyst/film_pilot/out/runs/`, and the md5s of
+the `.in` and `.out` match Anvil. Energies are relative to the state's relaxed U = 0 energy at the same
+geometry. Patterns use the 0.25 muB cutoff, relative to atom 1.
+
+| State | Point | Iterations | Landed in | E - relaxed (meV) | `.out` md5 |
+|---|---|---|---|---|---|
+| Ni0_OH | C1 | 107 | Ni29, Ni30 antiparallel (-0.67, -0.27) | +11.0 | 0106d38c |
+| Ni0_OH | C3 | 89 | Ni29 antiparallel (-0.70) | +18.4 | 73e56f32 |
+| Ni0_OH | C4 | 77 | Ni30 antiparallel (-0.33), its target | **-16.0** | cf59bd1c |
+| Ni0_O | C1 | 53 | Ni29 antiparallel (-0.67) | +56.5 | 9b2dac6b |
+| Ni0_O | C2 | 63 | all parallel, the relaxed pattern (site +1.17) | 0.0 | 845ce332 |
+| Ni0_O | C3 | 51 | Ni29 antiparallel (-0.69) | +34.2 | cbf21dac |
+| Ni0_O | C4 | 52 | all parallel (Ni30 -0.17, below the cutoff) | +9.5 | db8bcc57 |
+| Ni0_O | C5 | 52 | site -1.08, Ni30 -0.35, its target | +6.2 | 9a690beb |
+
+- Every point counts (amendment 11).
+  - Ni0_OH's lowest energy is now C4's, 16.0 meV below the relaxed one.
+  - Ni0_O's lowest energy stays the relaxed one: no point lands below it.
+- C2's start had the site antiparallel, yet it landed back in the relaxed solution at 0.0 meV. That
+  reproduces the relaxed energy from a different cold start.
+- Under A's rule, V1 can change only if *O drops by more than 0.582 eV plus *OH's drop. *O did not drop,
+  so A cannot change V1.
+  - The recomputed lowest-readout eta_Ni0 is the follow-up readout's job. It runs once, after B ends.
+- Run times were 28-77 min (C1 for Ni0_OH, 107 iterations), well under the estimate.
+- B at 17:19Z:
+  - The NiOOH slab converged (46 iterations).
+  - Ni0_OH is at 5.2e-4 Ry after 128 iterations, flat for the last tens of iterations.
+  - Ni0_O started at 17:15Z.
+  - The five Ni(Fe)OOH-side and Ni0_OOH points are pending.
+- `mybalance` at 16:49Z: 2,570.7 SU (285.2 spent since deploy).
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
