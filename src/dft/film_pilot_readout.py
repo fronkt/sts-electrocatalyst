@@ -39,8 +39,13 @@ ads_qc = _load("adsorbate_qc")
 N_SLAB = 48
 
 
-def magnetics(outfile):
+def magnetics(outfile, upto_step=None):
+    """Last total magnetization and per-site moments; with upto_step=k, those of ionic step k's SCF
+    (the text before step k's force block)."""
     txt = open(outfile, errors="replace").read()
+    if upto_step:
+        hdr = [m.start() for m in re.finditer(r"Forces acting on atoms", txt)]
+        txt = txt[:hdr[upto_step - 1]]
     tot = re.findall(r"total magnetization\s+=\s+([-\d.]+)", txt)
     blocks = txt.split("Magnetic moment per site")
     site = None
@@ -72,8 +77,10 @@ def ionic_steps(runs, name):
     return len(re.findall(r"^!", open(out, errors="replace").read(), re.M)) if os.path.exists(out) else 0
 
 
-def state_record(runs, job, prior_steps=0):
-    """prior_steps: ionic steps of the earlier runs this one restarted from (same relaxation)."""
+def state_record(runs, job, prior_steps=0, accept=None):
+    """prior_steps: ionic steps of the earlier runs this one restarted from (same relaxation).
+    accept: an amendment-22 acceptance (a22_accept) -- energy, moments and geometry are then those
+    of the accepted step, not of the run's end."""
     name = job["name"]
     out = os.path.join(runs, name, name + ".out")
     inp = os.path.join(runs, name, name + ".in")
@@ -83,12 +90,18 @@ def state_record(runs, job, prior_steps=0):
     scan = qe_qc.scan(out, inp if os.path.exists(inp) else None)
     rec.update(qc=scan["verdict"], energy_ev=qe_qc.trusted_energy_ev(out, inp if os.path.exists(inp) else None),
                n_ionic=len(re.findall(r"^!", open(out, errors="replace").read(), re.M)))
-    tot, site = magnetics(out)
+    if accept:
+        rec.update(energy_ev=accept["energy_ev"], accepted=dict(accept, rule="amendment 22"))
+    tot, site = magnetics(out, accept["step"] if accept else None)
     rec["mag_total"] = tot
     if job["kind"] != "adslab":
         return rec
     try:
         atoms = final_atoms(inp, out)
+        if accept:
+            from ase.io import read
+            atoms.positions = step_positions(read(inp, format="espresso-in").positions,
+                                             open(out, errors="replace").read(), accept["step"])
     except Exception as e:  # e.g. a run stopped before its first geometry; it has no trusted energy anyway
         rec.update(intact=False, warnings=[f"no final geometry: {type(e).__name__}: {e}"]); return rec
     s = job["site_index"]
@@ -136,6 +149,53 @@ def completed_positions(inp_positions, out_text):
         return None
     rows = [r.split() for r in out_text[starts[nb - 2]:].split("\n")[:len(inp_positions)]]
     return np.array([[float(x) for x in r[1:4]] for r in rows])
+
+
+def step_positions(inp_positions, out_text, k):
+    """Geometry of ionic step k (1-based): the input's for k = 1, else the block printed after step k-1."""
+    if k == 1:
+        return np.array(inp_positions, dtype=float)
+    starts = [m.end() for m in re.finditer(r"ATOMIC_POSITIONS \(angstrom\)\n", out_text)]
+    rows = [r.split() for r in out_text[starts[k - 2]:].split("\n")[:len(inp_positions)]]
+    return np.array([[float(x) for x in r[1:4]] for r in rows])
+
+
+# Amendment 22 (2026-11-18, before any eta existed): noise-aware acceptance for the Fe-site *OH
+# relaxation only. There, two converged SCF solutions at one geometry differ in force by up to
+# 0.0028 Ry/Bohr (Ni30 z), above forc_conv_thr (2e-3), so pw.x's own test cannot be met reliably.
+# A relaxation that pw.x did not converge is accepted at its last completed step k (an SCF energy
+# and forces) if k >= 2, |E_k - E_(k-1)| < etot_conv_thr (1e-4 Ry), and the largest free-atom force
+# component is <= 3.5e-3 Ry/Bohr. Every other state keeps pw.x's convergence.
+A22_STATES = {"NiFeOOH__Fe0_OH"}
+A22_DE_RY = 1e-4
+A22_FMAX_RY_AU = 3.5e-3
+
+
+def a22_accept(out, inp):
+    """Amendment 22 acceptance of a relaxation output: dict(step, energy_ev, energy_ry, dE_mry,
+    fmax_component, fmax_atom), or None if it does not qualify."""
+    txt = open(out, errors="replace").read()
+    nat = int(re.search(r"number of atoms/cell\s+=\s+(\d+)", txt).group(1))
+    E = bang_energies(out)
+    forces = []
+    for m in re.finditer(r"Forces acting on atoms", txt):
+        rows = re.findall(r"(?m)^\s*atom\s+\d+\s+type\s+\d+\s+force\s+=\s+(\S+)\s+(\S+)\s+(\S+)",
+                          txt[m.end():m.end() + 200 * nat])[:nat]
+        forces.append(np.array(rows, dtype=float))
+    k = len(forces)
+    if k < 2 or len(E) < k or forces[-1].shape != (nat, 3):
+        return None
+    mask = qe_qc.free_mask(inp)
+    if not mask or len(mask) != nat:
+        return None
+    f = np.abs(forces[-1][np.array(mask)])
+    free_idx = [i for i, fr in enumerate(mask) if fr]
+    fmax = float(f.max())
+    de = E[k - 1] - E[k - 2]
+    if abs(de) >= A22_DE_RY or fmax > A22_FMAX_RY_AU:
+        return None
+    return dict(step=k, energy_ry=E[k - 1], energy_ev=E[k - 1] * RY_EV, dE_mry=round(de * 1000, 4),
+                fmax_component=round(fmax, 5), fmax_atom=free_idx[int(f.max(axis=1).argmax())] + 1)
 
 
 def bang_energies(out):
@@ -244,13 +304,19 @@ def main_u0(args, jobs):
         links = [base] + [d for _, d in sorted(reruns)]
         name, nt = choose_run(args.runs, links)
         use[j["name"]], notes[j["name"]] = name, nt
-        rec = state_record(args.runs, dict(j, name=name))
-        rec["chain"] = links
         out, inp = (os.path.join(args.runs, name, name + s) for s in (".out", ".in"))
+        acc = None
+        if j["name"] in A22_STATES and os.path.exists(out) and qe_qc.trusted_energy_ev(out, inp) is None:
+            acc = a22_accept(out, inp)
+            nt.append(f"amendment 22: {name} accepted at step {acc['step']} (dE {acc['dE_mry']} mRy, "
+                      f"max free-atom force component {acc['fmax_component']} on atom {acc['fmax_atom']})"
+                      if acc else f"amendment 22: {name} does not qualify")
+        rec = state_record(args.runs, dict(j, name=name), accept=acc)
+        rec["chain"] = links
         if j["kind"] != "gas" and os.path.exists(out):
             from ase.io import read
             sym = read(inp, format="espresso-in").get_chemical_symbols()
-            _, mom = magnetics(out)
+            _, mom = magnetics(out, acc["step"] if acc else None)
             rec["moments"] = mom
             if mom and len(mom) == len(sym):
                 neg = [i for i, sg in pattern(sym, mom) if sg == "-"]
@@ -303,7 +369,8 @@ def main_u0(args, jobs):
     v1_final = (None if v1 is None or verdict["as_relaxed"]["V1"] is None else
                 "configuration-sensitive (not a pass)" if v1 != verdict["as_relaxed"]["V1"] else
                 ("pass" if v1 else "fail"))
-    result = dict(model="PBE (U = 0), amendment 9", runs_used=use, rerun_notes=notes, states=recs,
+    result = dict(model="PBE (U = 0), amendment 9; amendment 22 acceptance for " + ", ".join(sorted(A22_STATES)),
+                  runs_used=use, rerun_notes=notes, states=recs,
                   sites=sites, verdicts=verdict, V1=v1_final)
     out = args.out.replace(".json", "_u0.json") if args.out.endswith("readout.json") else args.out
     os.makedirs(os.path.dirname(out), exist_ok=True)
@@ -311,7 +378,8 @@ def main_u0(args, jobs):
         json.dump(result, f, indent=2)
     for n, r in recs.items():
         sp = "; ".join(f"{s['target']}->{s['landed']} E={s['energy_ev']}" for s in r.get("single_points", []))
-        print(f"{n:20s} run={use[n]:26s} {r.get('qc', r.get('status')):10s} E={r.get('energy_ev')} "
+        a22 = f" [amendment 22: step {r['accepted']['step']}]" if r.get("accepted") else ""
+        print(f"{n:20s} run={use[n]:26s} {r.get('qc', r.get('status')):10s}{a22} E={r.get('energy_ev')} "
               f"steps={r.get('n_ionic')} config={r.get('config')} intact={r.get('intact')} "
               f"lowest={r.get('energy_lowest_ev')} ({r.get('lowest_from')}) own-check={r.get('own_config_check_mry')}"
               f" landed-in-own={r.get('own_config_landed_mry')}"
