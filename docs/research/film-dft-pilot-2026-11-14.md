@@ -1759,6 +1759,12 @@ Single points (amendment 21 item 3, now at the accepted geometry; `src/dft/film_
 The readout runs once, when the single points have ended and Ni0_OOH has converged. V1 needs both
 sites. It is not run before then.
 
+Deployed 02:19Z, after this record (ab7c45b7) and the code (82099f96):
+- The seven inputs' md5 on Anvil equal the staged ones: C1 e19960fb, C2 081b3003, C3 4a85c61d, C4
+  15b4ef41, C5 8374c0d7, C6 5676a360, C7 91e12f2c.
+- Jobs 22286624 (C1), 22286627 (C2), 22286628 (C3), 22286630 (C4), 22286631 (C5), 22286633 (C6) and
+  22286634 (C7) are PENDING (Priority) in `shared`, 4 h each. Ni0_OOH r7 (22286398) is still PENDING.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
