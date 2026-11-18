@@ -1616,6 +1616,76 @@ r11's first SCF (job 22283893, node a103, began 23:22:10Z):
 Ni0_OOH r6 by 23:36Z: 5 steps, -5216.71457617 Ry, falling about 0.1 mRy per step; total force
 0.0074-0.0093.
 
+### Both Anvil jobs end early (2026-11-18 01:43Z and 01:47Z)
+
+Outputs pulled to `D:\sts-electrocatalyst\film_pilot\out\runs\` (md5 equal to Anvil's). Forces below
+are on free atoms only. pw.x prints the fixed bottom-layer forces too; atom 25's 0.088 Ry/Bohr is one
+of those. `mybalance` at 01:52Z: 3,557.3 SU, so 266.8 SU since 22:08Z (r6 150.3, r11 116.4). That
+leaves 1,533 of the 1,800 cap.
+
+r6 (`u0__NiOOH__Ni0_OOH_r6`, job 22283892, a201, 3:07:53):
+- It had 12 SCFs and 11 completed BFGS steps. It stopped at 01:43:13Z on a write error, after step 12's
+  SCF converged (-5216.71565881 Ry, 26 iterations) and before step 12's forces:
+  `create_directory: ./tmp/u0__NiOOH__Ni0_OOH_r6.save/ non existent or non writable`, error 28.
+  16 ranks wrote it to `CRASH`. The directory existed and still exists.
+- The cause is not established:
+  - pw.x sums each rank's I/O status for this check. Under gfortran that status is errno, so 28 is
+    ENOSPC on one rank, or ENOENT on 14 ranks.
+  - The project fileset is at 4.5 of 5.0 TB (92%) and is shared with other jobs.
+  - A pxrd-diff array task in the same project failed at 01:36-01:37Z. Its log was not found.
+  - r11 wrote its 6.6 GB final state to the same fileset at 01:46:57Z without error.
+  - Most likely, then, a transient write failure on the project fileset. Neither pw.x nor the input
+    is at fault.
+- Trajectory:
+  - The energy fell monotonically, from -5216.71414921 (step 1) to -5216.71565881 (step 12): -1.51
+    mRy in 11 steps. It fell 0.09-0.13 mRy per step through step 9, and 0.20-0.22 since.
+  - BFGS energy error was 0.8-2.2e-4 Ry, against etot_conv_thr 1e-4 (the default). Gradient error was
+    2.1-3.5e-3 Ry/Bohr, against 2e-3.
+  - Max |F| was 0.0021-0.0035 (H35, O50, Ni5/Ni6, O22/O23). At step 7 only one atom was above 2e-3.
+  - The largest move each step is H11, the hydroxyl H on O23, and it grows: 0.007 A at step 6, about
+    0.020 A at steps 10-11.
+  - So this is a slow, soft rearrangement under flat forces, not SCF noise: the energy only falls and
+    every SCF converges. Ni0_OOH is not near convergence on the energy criterion.
+
+r11 (`u0__NiFeOOH__Fe0_OH_r11`, job 22283893, a103, 2:25:30):
+- It completed 2 FIRE steps.
+- Step 2: -5161.31337660 Ry (-0.024 mRy from step 1), converged at 1e-5 in 28 iterations. Total force
+  0.0086. Max |F| 0.0031 (H35 z), down from step 1's 0.0060 (Ni30 z). 3 atoms were above 2e-3.
+- Step 3's trial geometry is at most 0.0019 A (H35) from step 2's. Its SCF did not reach 1e-5 in 200
+  iterations (electron_maxstep):
+  - The accuracy bottomed at 3.6e-5 (iteration 22), then wandered between 5.7e-5 and 5.1e-4 to the
+    end (8.0e-5 at iteration 200).
+  - Total magnetization was 11.01-11.20 muB after iteration 50.
+  - pw.x stopped, wrote its unconverged state, and ended normally at 01:47:00Z.
+- That final write replaced step 2's density in r11's save directory, so step 2's own density no
+  longer exists.
+- This is r7's step-3 floor again, now at conv_thr 1e-5: 0.002 A away from a geometry whose SCF
+  converged in 28 iterations. At this site, whether the SCF reaches 1e-5 depends on which nearby
+  magnetic solution the mixing falls into, not on the geometry.
+
+Under amendment 21's rules:
+- r6 ended unconverged after 11 completed steps, so it restarts as r7 (below).
+- r11 ended unconverged on an SCF at electron_maxstep. Item 2 sends its data back to Frank before
+  further SU are spent on it, so no r12 is started.
+
+### Restart: `u0__NiOOH__Ni0_OOH_r7` (registered before deploy, 2026-11-18 ~02:00Z)
+
+- r7 restarts r6 from step 11, the last step with forces (-5216.71545856 Ry), and step 11's density.
+  That density was written 01:16:57.49Z (Anvil mtime), when step 11's SCF ended by the pw.x clock.
+  Step 12's density was never written.
+- Staging (`src/dft/film_box/anvil_restart.sh stage`, local): positions match r6's block 10 (step
+  11's geometry) to 4.9e-9 A. Step 12's geometry is 0.0161 A away. `u0__NiOOH__Ni0_OOH_r7.in` md5
+  7f38ae79.
+- The input differs from r6's only in prefix and outdir. outdir moves off the shared, 92%-full
+  project fileset, so the per-step density writes no longer depend on it: from `./tmp` to
+  `/anvil/scratch/x-fcai3/film/u0__NiOOH__Ni0_OOH_r7/tmp` (user scratch, 100 TB quota, 0% used). The
+  `.out` stays in `$PROJECT/film/runs/`. The physics is unchanged, and the first SCF's parity against
+  step 11 tests that.
+- BFGS restarts with a fresh Hessian, as r6 did.
+- Expected: about 16 min per step, at most 384 SU (8 h). That leaves at most about 650 of the 1,800
+  cap used after r7.
+- If r7 ends unconverged after at least 2 steps, the same rule restarts it as r8, within the cap.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
