@@ -2072,6 +2072,169 @@ the same at both sites: 0.35, 0.05 and 0.40 eV. Every eta is reproduced to 1 meV
 **Closure:** amendment 11 ends the pilot's V1 with this readout. There are no new relaxations, and the
 unconverged single points (C1, C3, C6, C7) are not rerun. Anvil: 968.1 of 1,800 SU.
 
+## Amendment 23: two follow-up checks of V1 (2026-11-18 ~15:45Z, before any follow-up energy existed)
+
+Frank, 2026-11-18: "go ahead with the follow ups". These are the two follow-ups named after the readout:
+(A) the NiOOH states in other magnetic configurations, and (B) the ordering with Hubbard U. Both are
+fixed-geometry single points. Neither reruns an SCF that ran, and neither adds a relaxation. The
+readout above (891cc664) and its verdict stand until A or B changes them under the rules below.
+
+### A. NiOOH configuration single points (U = 0)
+
+Which states. At Ni0 the steps are s1 = dG(*OH) = 1.619, s2 = dG(*O) - dG(*OH) = 2.189,
+s3 = dG(*OOH) - dG(*O) = 0.673 and s4 = 4.92 - dG(*OOH) = 0.439 eV. A single point can only lower a
+state's lowest energy, by some delta >= 0:
+- Lowering the slab raises every dG by delta: s1 rises, s4 falls, s2 and s3 do not change.
+- Lowering *OOH lowers s3 and raises s4. s2 does not change.
+- Neither can lower eta_Ni0 below s2 - 1.23 = 0.959 V, so the slab and *OOH are not probed.
+- Lowering *O lowers s2 and raises s3. Lowering *OH lowers s1 and raises s2.
+- The as-relaxed readout does not use single points, so V1 can change only in the lowest readout.
+  There eta_Fe0 is 0.377 V (largest step 1.607 eV), and eta_Ni0 drops below it only if all four
+  steps fall below 1.607 eV:
+  - *OH must drop by more than 0.012 eV (s1);
+  - *O must drop by more than 0.582 eV plus *OH's drop (s2), and by less than 0.934 eV (s3).
+  So V1 changes only if *OH and *O both have lower configurations, *O's by about 0.6 eV or more.
+
+Configurations. These are the Ni(Fe)OOH candidates C1-C7 (`make_cfg_sp.sh`) carried over to NiOOH, with
+the site Ni (atom 6) taking Fe's role:
+- C1: site +, Ni 5, 29, 30 -
+- C2: site -
+- C3: site +, Ni 5, 29 -
+- C4: site +, Ni 30 -
+- C5: site -, Ni 30 -
+- C6: site +, Ni 5 -
+- C7: all parallel, which is both relaxed states' own pattern
+
+A start is skipped when it equals the relaxed pattern on the metals that carry a sign in the relaxed
+state (|m| >= 0.25 muB, rule 1's cutoff):
+- Ni5's moment is -0.01 muB in both states, so C6 is the same as C7.
+- The site's moment is -0.01 in *OH, so there C2 equals C7 and C5 equals C4.
+- The site carries +1.16 in *O, and Ni30 +0.29 / +0.28 in the two states, so those starts are kept.
+
+That leaves 8 single points:
+- `u0__NiOOH__Ni0_OH`: C1, C3 and C4.
+- `u0__NiOOH__Ni0_O_r2`: C1, C2, C3, C4 and C5.
+
+Recipe: `make_cfg_sp.sh`'s, unchanged in substance:
+- scf, conv_thr 1e-5, electron_maxstep 200, cold start, at the relaxed geometry;
+- the relaxation's own mixing (beta 0.1, ndim 12, local-TF);
+- Ni starts at +0.1 as in the relaxations. The antiparallel atoms, the site included where it is
+  negative, are relabelled Ni2 at -0.1, with the same pseudopotential and U (1e-8).
+
+Counting follows amendment 11. A converged point counts as the pattern it landed in. An unconverged
+point does not count and is not rerun. Each state's lowest energy is the minimum of its relaxed energy
+and its counting points.
+
+Rule:
+- The lowest-readout eta_Ni0 is recomputed from these energies; every other energy is the readout's.
+- If V1 still holds in the lowest readout, V1 stays a pass.
+- If it does not, V1 is configuration-sensitive under rule 4, and the pass is withdrawn.
+
+### B. PBE+U single points at the U = 0 geometries
+
+Why this check. The registered decision step was a Hubbard-U sensitivity check by single points on the
+relaxed geometries (Zeng's suggestion). Since amendment 9 the model is U = 0, so the mirror of that
+check is PBE+U single points on the U = 0 relaxed geometries.
+
+States: the eight V1 states as the readout used them. The gas references are unchanged (no Hubbard
+species).
+
+| State | Run | Density the SCF starts from (U = 0, same geometry) |
+|---|---|---|
+| NiOOH slab | `u0__NiOOH__slab_r2` | kept final density (written 2 s before the run ended; no stored geometry) |
+| NiOOH *OH | `u0__NiOOH__Ni0_OH` | kept final density (stored geometry = final block to 5e-11 A) |
+| NiOOH *O | `u0__NiOOH__Ni0_O_r2` | kept final density (5e-11 A) |
+| NiOOH *OOH | `u0__NiOOH__Ni0_OOH_r7` | r7's final save on Anvil scratch (5e-11 A) |
+| Ni(Fe)OOH slab | `u0__NiFeOOH__slab` | kept final density (5e-11 A) |
+| Ni(Fe)OOH *OH | `u0__NiFeOOH__Fe0_OH_r11`, accepted step 2 | the C2 point's save: the relaxed C7 solution at that geometry (-0.013 mRy; 5e-9 A) |
+| Ni(Fe)OOH *O | `u0__NiFeOOH__Fe0_O_r2` | kept final density (written 2 s before the run ended) |
+| Ni(Fe)OOH *OOH | `u0__NiFeOOH__Fe0_OOH` | kept final density (5e-11 A) |
+
+Input (`src/dft/film_box/make_u_sp.py`): the state's U = 0 input at its final geometry (accepted, for
+Fe0_OH). The staging diff shows it differs only in:
+- calculation 'scf', prefix, outdir and pseudo_dir;
+- startingpot = 'file', with the density's occup.txt and paw.txt;
+- conv_thr 1e-5;
+- mixing beta 0.05, ndim 20, local-TF for all eight. This is the setting that converged the hardest
+  U = 0 SCFs. It changes only the path to the solution (amendment 2's precedent). The only earlier PBE+U
+  SCF of NiOOH *O that started from a U = 0 density (`NiOOH__Ni0_O_r2`'s PBE+U stage, beta 0.1,
+  ndim 12) was at 7e-5 Ry when amendment 7 stopped it at iteration 63;
+- the U values, set to the registered PBE+U values (Dudarev, atomic projectors): Ni 6.2 eV (Ni2 6.2) and
+  Fe 5.3 eV.
+
+Starting from the state's own density carries its U = 0 moment pattern into the PBE+U SCF.
+
+QC per state:
+1. The SCF converged.
+2. Every Ni is low-spin, |m| < 1.6 muB. At PBE+U, low-spin Ni is 1.24-1.42 and high-spin about 1.9, and
+   each high-spin Ni costs about 0.75 eV (amendment 8).
+
+A state that fails either is not evaluable at PBE+U and is not rerun. The sign pattern and the Fe
+moment are reported. A pattern different from the state's U = 0 pattern is reported, and the energy is
+still used.
+
+Readout:
+- CHE as registered: the same ZPE - TS terms and the same gas references.
+- One readout: each state in its U = 0 relaxed solution, carried to PBE+U. The lowest-readout solutions
+  of Fe0_OH (C5) and Fe0_OOH (C2's) are not carried over.
+- A site whose slab is not evaluable is reported through its slab-independent steps (s2, s3), as a lower
+  bound on its eta (amendment 4).
+- The result is one of three: "ordering kept at PBE+U" (eta_Fe0 < eta_Ni0), "ordering reversed", or
+  "not determined".
+
+Interpretation:
+- B does not change V1's verdict, which is a U = 0 claim.
+- If the ordering is kept, V1 is reported as holding at U = 0, with the ordering kept in PBE+U single
+  points at the U = 0 geometries.
+- If it is reversed, V1 is reported as holding at U = 0 only, and the ordering is U-sensitive.
+- B is not a PBE+U V1:
+  - the geometries are not relaxed at U;
+  - each state has one PBE+U solution, inherited from U = 0;
+  - amendments 7-8b found PBE+U solutions 0.3-1.7 eV apart, so a PBE+U ground state is not established.
+
+### Resources, cap, staging
+
+- 16 jobs on `shared`: 48 ranks, `-nk 3`, a 2 h limit each, `anvil_film_scr.slurm` (scratch only).
+- Rate on Anvil: 31-33 s and 0.43 SU per iteration (C1, C5, C6), so 200 iterations take about 110 min.
+- Expected cost:
+  - A: cold starts took 147-200 iterations on Anvil and 73-150 for NiOOH at U = 0 on AWS. At 30-86 SU
+    each, the eight cost 240-690 SU.
+  - B: warm starts, about 40-200 iterations. At 17-86 SU each, the eight cost 140-690 SU.
+  - About 380-1,380 SU in all, most likely 700-800.
+- The time limits bound the spend at 16 x 2 h x 48 = 1,536 SU.
+  - That would take the CPU balance from 2,855.9 to no less than 1,320.
+  - It passes amendment 21's 1,800 SU cap, which these checks were not part of.
+  - Nothing beyond these 16 jobs runs without Frank: no reruns, relaxations or further configurations.
+
+Readout (`src/dft/film_followup_readout.py`):
+- It runs once, after all 16 jobs have ended, and writes `results/film_pilot_2026-11-14/followup_a23.json`.
+- Every other energy comes from `readout_u0.json` (md5 4b2d683e). It first checks that it recomputes that
+  readout's four etas from its energies.
+- It was tested on stand-in outputs, so no follow-up energy exists yet:
+  - With each U = 0 output standing in for its own PBE+U point, and the relaxed outputs standing in for two
+    A points, it returns eta_Ni0 0.959 V, eta_Fe0 0.393 V (as relaxed) and 0.377 V (lowest). The
+    ordering is "kept", and V1 "pass".
+  - With the NiOOH slab missing and Fe0_OH unconverged, Ni0 becomes the bound s2 = 2.189 (0.959 V), Fe0
+    is not evaluable, and the ordering is "not determined".
+
+Staging (`src/dft/film_box/anvil_a23.sh stage`, local; nothing on Anvil has been written):
+- Every check passed:
+  - The configuration encodings are correct: atoms relabelled Ni2 at -0.1, every other Ni at +0.1.
+  - Every input appears exactly once: prefix, calculation, conv_thr, outdir, pseudo_dir, mixing, maxstep
+    and U lines.
+  - A is a cold start, and B starts from file. No input has CRLF.
+  - Positions equal the final block, or for Fe0_OH the accepted block 1, to 5e-9 A.
+  - The densities' stored geometries match where they were stored.
+- md5 of the inputs:
+  - A23C1/C3/C4 `__u0__NiOOH__Ni0_OH`: 181ed28e, a2bf0578, 0b7129d1.
+  - A23C1-C5 `__u0__NiOOH__Ni0_O_r2`: d1e2b7bf, 3f059bc7, 72e42322, 468c8d42, c4b5160b.
+  - A23U `__u0__NiOOH__`: slab_r2 7c4228cb, Ni0_OH e2e3fdde, Ni0_O_r2 176cab55, Ni0_OOH_r7 7073dbea.
+  - A23U `__u0__NiFeOOH__`: slab 9e0447b4, Fe0_OH_r11 eb267801, Fe0_O_r2 1a35ff60, Fe0_OOH 62b2bf55.
+- At deploy:
+  - The six kept densities are uploaded and checked by md5 (charge-density.hdf5, occup.txt, paw.txt).
+  - The two Anvil densities are copied in place and checked with cmp.
+  - Each input's md5 is checked on Anvil before its sbatch.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
