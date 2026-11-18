@@ -1824,6 +1824,65 @@ Deployed ~05:15Z, after this record (ea84777a):
 r7 at 05:02Z: 5 BFGS steps, about 8 min each. E -5216.71582631 Ry, falling 0.08-0.10 mRy per step;
 total force 0.0085.
 
+## Ni0_OOH converged; C1 and C4 single points (2026-11-18 06:30Z, before any eta existed)
+
+Pulled to `D:/sts-electrocatalyst/film_pilot/out/runs/`. The md5 of every `.in` and `.out` matches
+Anvil: r7 7f38ae79 / 361aca0a, C1 e19960fb / 0d9e62bd, C4 15b4ef41 / 8b094638. QC below uses the
+readout's own functions (`qe_qc.trusted_energy_ev`, `state_record`, `choose_run`, `nife_label`), not
+`main_u0`, so no eta was computed.
+
+**`u0__NiOOH__Ni0_OOH_r7` converged** (job 22286398, 04:23-05:05Z, 42 min):
+- "bfgs converged in 6 scf cycles and 5 bfgs steps". Final energy -5216.71588713 Ry; last dE -0.061
+  mRy.
+- The largest free-atom force component is 0.00168 (atom 11, the H of the *OOH; it was 0.002-0.0035
+  in r6). Total force 0.0063. Every SCF converged, in 7-22 iterations.
+- QC: TRUSTWORTHY. *OOH bound and intact (d(Ni-O) 1.867 A, d(O-O) 1.375 A, d(O-H) 0.987 A).
+  Total magnetization 9.44 muB, every Ni parallel (smallest moment -0.020 on the site Ni).
+- The "only 6 ionic steps" warning counts r7 alone; the U = 0 readout passes no chain count. It is
+  report-only. The chain is r3, r4 (44 BFGS steps), r6 (11) and r7 (6).
+- Rerun chain: the readout uses r7. Its note says r7 "did not start from r6's last geometry". That is
+  because r6's last completed SCF, step 12 (-5216.71565881 Ry), has no forces: the density write
+  failed right after it. r7 restarted from step 11, the last step with forces, as registered. The
+  readout then takes the branch for sibling reruns (amendment 12) and uses the converged run, r7. Its
+  final energy is 0.23 mRy below r6's step 12 and 0.43 mRy below step 11, so the parity branch would
+  pick r7 too.
+
+**C1 (job 22286624) did not converge:** 200 iterations; last estimated accuracy 0.12 Ry; total
+magnetization 8.34. It does not count and is not rerun (amendment 11).
+
+**C4 (job 22286630) converged in 147 iterations and left its target (Fe +, Ni30 -). It landed in C7,
+the relaxed state's own label:**
+- -5161.31668723 Ry. That is 3.311 mRy (45 meV) below the accepted relaxed energy at the same
+  geometry, r11 step 2 at -5161.31337660.
+- Only Ni30 changes materially. It is +0.299 here and -0.224 in the relaxation; every other metal is
+  within 0.07 muB. Total magnetization 11.74 vs 11.05 muB.
+- So at this geometry, the label C7 covers two distinct SCF solutions:
+  - Ni30 weakly antiparallel, below the 0.25 muB cutoff: the relaxation's solution.
+  - Ni30 weakly parallel: this point's solution, 3.3 mRy lower.
+  - The settings are identical (the single point copies r11's input, cold start, conv_thr 1e-5). The
+    difference is which solution the SCF reached.
+- Its forces are larger: the largest free-atom component is 0.00515 (Fe) vs 0.00306. So the geometry
+  is not relaxed for this solution, and its energy is an upper bound on that solution's relaxed
+  energy (rule 3).
+
+What the registered rules do with C4 (no rule changes):
+- It counts as C7 (amendment 11 rule 1). Under rule 3, Fe0_OH's "lowest" energy is this point's,
+  unless a later point lands lower.
+- "As relaxed" (rule 4) keeps -5161.31337660. V1 passes only if it passes in both readouts; if they
+  disagree, it is configuration-sensitive, not a pass.
+- Rule 2's own check needs a point with target = landed = C7. That is the C7 point, still running.
+- The readout reports C4's landing in C7 at -3.311 mRy (report-only). That is outside the 1 mRy
+  tolerance, so the relaxed solution is not the lowest C7-labelled solution at this geometry.
+- No re-relaxation in the lower solution is added (closure, amendment 11 rule 3; the cap).
+
+Still running at 06:25Z: C2 (153 iterations), C3 (167), C5 (90), C6 (81) and C7 (36).
+
+SU: balance 3,120.3 at 06:27Z, so 703.8 of the 1,800 cap has been spent on Anvil. C1 took 200
+iterations in 108 min, about 0.43 SU per iteration, so the five running points need at most about
+200 SU more.
+
+The readout runs once, when these five end.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
