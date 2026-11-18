@@ -1938,6 +1938,17 @@ Ni30 -):**
 Still running at 07:02Z: C6 (153 iterations, estimated accuracy 1.9 Ry) and C7 (54 iterations, 2.0
 Ry). SU balance 3,004.2 (819.9 spent).
 
+### C6 (2026-11-18 07:35Z, before any eta existed)
+
+**C6 (job 22289319, a083, 05:43-07:26Z) did not converge.**
+- md5 `.in` 5676a360 (the deploy record's), `.out` d8cb690e, matching Anvil.
+- 200 iterations; the best estimated accuracy was 0.21 Ry, and the last was 0.87 Ry. Total
+  magnetization wandered near 9.2-9.3 muB.
+- It does not count and is not rerun (amendment 11).
+
+C7 at 07:33Z: 77 iterations (2.1 Ry), now about 63 s per iteration. That pace reaches 200 iterations
+close to the 4 h limit at 09:43Z. SU balance 2,961.1 (863.0 spent).
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
