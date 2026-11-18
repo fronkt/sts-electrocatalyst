@@ -1916,6 +1916,28 @@ C5 (135 iterations) and C6 (131) are running at 29-39 s per iteration.
 SU: balance 3,037.3 at 06:51Z (786.8 spent). At most about 190 more: C5 and C6 to 200 iterations,
 and C7 to its time limit.
 
+### C5 (2026-11-18 07:05Z, before any eta existed)
+
+Pulled from scratch. The md5s match Anvil: `.in` 8374c0d7 (the deploy record's), `.out` 4215cc97.
+
+**C5 (job 22289317, a188, 05:37-06:58Z) converged in 147 iterations and kept its target, C5 (Fe -,
+Ni30 -):**
+- -5161.31854339 Ry. That is 5.167 mRy (70 meV) below the accepted relaxed C7 energy at the same
+  geometry, and 1.86 mRy below the C4 point's C7 solution.
+- Moments: Fe -1.535, Ni30 -0.358, every other Ni parallel. Total magnetization 6.94 muB.
+- Forces are larger than at the relaxed solution. The largest free-atom component is 0.00911 on Fe;
+  the next are O45 0.00538, O21 0.00391 and Ni29 0.00390. So the geometry is not relaxed for C5. Its
+  energy is an upper bound on Fe0_OH's relaxed C5 energy (rule 3).
+- C5 is the configuration that Fe-site *O relaxed in (Fe0_O_r2). It is also where the clean slab's
+  C2 point landed (amendment 11).
+- Under the registered rules it counts. Fe0_OH's "lowest" energy is now this point's, unless C6 or C7
+  lands lower. "As relaxed" (rule 4) keeps the C7 relaxation.
+- So for Fe0_OH the two readouts now differ by at least 5.17 mRy (0.070 eV). Rule 4 is the guard for
+  this: V1 must pass in both.
+
+Still running at 07:02Z: C6 (153 iterations, estimated accuracy 1.9 Ry) and C7 (54 iterations, 2.0
+Ry). SU balance 3,004.2 (819.9 spent).
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
