@@ -1949,6 +1949,42 @@ Ry). SU balance 3,004.2 (819.9 spent).
 C7 at 07:33Z: 77 iterations (2.1 Ry), now about 63 s per iteration. That pace reaches 200 iterations
 close to the 4 h limit at 09:43Z. SU balance 2,961.1 (863.0 spent).
 
+### C7; the single points have ended (2026-11-18 09:50Z, before any eta existed)
+
+**C7 (job 22289320, a094, 05:43-09:43Z) hit its 4 h wall limit at iteration 188 without converging.**
+- md5 `.in` 91e12f2c (the deploy record's), `.out` 39a1e8a1, matching Anvil.
+- The best estimated accuracy was 3.6e-3 Ry, and the last was 4.8e-3 Ry. Total magnetization was
+  near 9.6 muB at the end.
+- Slurm killed the job, so the output has no "convergence NOT achieved" line. It has no converged
+  SCF either, so `trusted_energy_ev` returns None.
+- It does not count and is not rerun (amendment 11).
+
+**Fe0_OH single points at r11 step 2 (accepted energy -5161.31337660 Ry), final tally:**
+
+| Point | Iterations | Result | Landed in | E - accepted (mRy) | Counts |
+|---|---|---|---|---|---|
+| C1 | 200 | unconverged | - | - | no |
+| C2 | 157 | converged | C7 | -0.013 | yes |
+| C3 | 200 | unconverged | - | - | no |
+| C4 | 147 | converged | C7 | -3.311 | yes |
+| C5 | 147 | converged | C5 | -5.167 | yes |
+| C6 | 200 | unconverged | - | - | no |
+| C7 | 188 (timeout) | unconverged | - | - | no |
+
+All three conditions for the readout now hold:
+- the single points have ended;
+- Ni0_OOH has converged (r7);
+- Fe0_OH is accepted under amendment 22.
+
+The readout runs next, once, with the registered command (`--model u0`, default paths).
+
+`results/` is gitignored, and the readout writes `results/film_pilot_2026-11-14/readout_u0.json`. That
+path still holds the AWS readout of 2026-11-17 16:43 local, which is copied to
+`readout_u0_aws-2026-11-17.json` first so it is kept.
+
+SU: balance 2,855.9. The film jobs on Anvil, summed from sacct, used 20.17 h x 48 cores = 968.1 SU,
+which matches the balance drop of 968.2 since the start. That leaves 832 of the 1,800 cap.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
