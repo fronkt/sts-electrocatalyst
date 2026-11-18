@@ -36,14 +36,17 @@ names() {
 
 if [ "$MODE" = deploy ]; then
   [ -f "$S/STAGED" ] || { echo "not staged"; exit 1; }
-  for N in $(names); do
+  # ONLY="NAME ..." deploys a subset (a resumed deploy); default: all 16
+  for N in ${ONLY:-$(names)}; do
     ssh $SO $A "test -e $SCR/$N && { echo $N EXISTS; exit 1; }; mkdir -p $SCR/$N/tmp" || exit 1
     scp -q $SO "$S/$N.in" "$A:$SCR/$N/$N.in" || exit 1
     if [ -d "$S/dens/$N" ]; then  # B, kept density from D:
       ssh $SO $A "mkdir -p $SCR/$N/tmp/$N.save" || exit 1
       scp -q $SO "$S/dens/$N/charge-density.hdf5" "$S/dens/$N/occup.txt" "$S/dens/$N/paw.txt" "$A:$SCR/$N/tmp/$N.save/" || exit 1
       ssh $SO $A "cd $SCR/$N/tmp/$N.save && md5sum charge-density.hdf5 occup.txt paw.txt" > "$S/dens/$N/remote.md5" || exit 1
-      diff <(awk '{print $1, $2}' "$S/dens/$N/local.md5") <(awk '{print $1, $2}' "$S/dens/$N/remote.md5") || { echo "$N: density md5 mismatch"; exit 1; }
+      # Windows md5sum marks binary mode with '*' before the name; Linux does not
+      diff <(awk '{sub(/^\*/, "", $2); print $1, $2}' "$S/dens/$N/local.md5") \
+           <(awk '{sub(/^\*/, "", $2); print $1, $2}' "$S/dens/$N/remote.md5") || { echo "$N: density md5 mismatch"; exit 1; }
     elif [ -f "$S/src_$N" ]; then  # B, density already on Anvil
       src=$(cat "$S/src_$N")
       ssh $SO $A "set -e; mkdir -p $SCR/$N/tmp/$N.save; cd $SCR/$N/tmp/$N.save

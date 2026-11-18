@@ -2235,6 +2235,22 @@ Staging (`src/dft/film_box/anvil_a23.sh stage`, local; nothing on Anvil has been
   - The two Anvil densities are copied in place and checked with cmp.
   - Each input's md5 is checked on Anvil before its sbatch.
 
+### Deployed (2026-11-18 15:44-15:47Z, after this record, 3e95b933, and the code, bd7e1d63)
+
+- A: jobs 22297447 (C1), 22297450 (C3) and 22297453 (C4) for Ni0_OH, and 22297454-22297459 (C1, C2, C3,
+  C4, C5) for Ni0_O, submitted at the first pass.
+- B: the first pass stopped at its first density check, `A23U__u0__NiOOH__slab_r2`. The hashes were
+  equal; the check compared whole lines, and Windows md5sum writes `*name` where Linux writes `name`.
+  - That job had not been submitted. Its scratch directory held only the uploaded input and density, and
+    it was removed.
+  - The comparison now strips the `*`, and `ONLY=` deploys a subset.
+  - The eight B jobs were then deployed: 22297464 (NiOOH slab), 22297469 (Ni0_OH), 22297476 (Ni0_O),
+    22297477 (Ni0_OOH), 22297480 (Ni(Fe)OOH slab), 22297482 (Fe0_OH), 22297491 (Fe0_O) and 22297492
+    (Fe0_OOH).
+  - Every density md5 matched, and the two Anvil copies passed cmp.
+- On Anvil, all 16 input md5s equal the staged ones above. All 16 jobs are PENDING (Priority).
+- `mybalance` at 15:47Z: 2,855.9 SU.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
