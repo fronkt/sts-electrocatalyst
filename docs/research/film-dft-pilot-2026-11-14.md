@@ -1692,6 +1692,73 @@ Deployed 01:57Z, after this record (c6a6d62a) and the code (efaa37a3):
   directory and compared byte for byte. `anvil_film.slurm` md5 3836037f is unchanged.
 - Job 22286398 is PENDING (Priority) in `shared`.
 
+## Amendment 22: noise-aware acceptance for Fe0_OH (2026-11-18 ~02:20Z, before any eta existed)
+
+Frank, 2026-11-18, shortly after 02:00Z: "b". That picks option (b) of the three put to him after r11 ended: accept
+Fe0_OH under a criterion set by the measured SCF force noise. The other two were (a), a second
+restart at the same settings, and (c), a change of electronic setup that would rerun every state.
+
+Why pw.x's own test cannot be met here:
+- r7's step 2 and r11's step 1 share one geometry (positions equal to output precision). Both SCFs
+  converged at conv_thr 1e-5, into neighbouring solutions:
+  - The energies differ by 0.0066 mRy.
+  - Free-atom force components differ by up to 0.0028 Ry/Bohr (Ni30 z), with 0.0019 on Fe z and at
+    most 0.0012 elsewhere.
+- That noise exceeds forc_conv_thr (2e-3). Which solution the mixing lands in is not controlled, so a
+  relaxation can sit at a minimum and still fail the force test. At the next geometry the SCF may also
+  not converge at all, as at r7's and r11's step 3.
+
+The criterion, for `NiFeOOH__Fe0_OH` only. A relaxation that pw.x did not converge is accepted at its
+last completed step k (an SCF energy and forces) if all of these hold:
+1. k >= 2;
+2. |E_k - E_(k-1)| < 1e-4 Ry (etot_conv_thr, pw.x's own energy test);
+3. the largest free-atom force component is at most 3.5e-3 Ry/Bohr: the measured 0.0028, rounded up.
+
+The state's energy, moments, configuration label and adsorbate integrity are then step k's. Every other
+state, Ni0_OOH included, keeps pw.x's convergence. Ni0_OOH's energy still falls 0.2 mRy per step, so
+it would fail test 2 anyway.
+
+Applied to the Fe0_OH chain (the rerun rule picks r11):
+- r11's step 2 qualifies: -5161.31337660 Ry, dE -0.024 mRy. The largest component is 0.00306 (H35 z).
+  Components above 2e-3: H11 0.00225, Ni29 0.00234, H35 0.00306. Configuration C7 (Ni30 -0.224 muB);
+  *OH bound, d(Fe-O) 1.768 A.
+- Caveat: H35's 0.00306 is not noise. Its force differs by under 0.0007 between the two solutions, so
+  it is a small real residual. For a mode stiffness of at least 0.1 Ry/Bohr^2, the energy left in
+  forces this size is F^2/2k <= 0.05 mRy per atom, under 1 meV. The FIRE steps since r6 lowered the
+  energy by only 0.054 mRy (r7) and 0.024 mRy (r11).
+- The chain has 54 distinct steps (r4 45 BFGS, r6 8 FIRE, r7 2, r11 2; each restart repeats one SCF).
+  Over them the energy fell from -5161.26683 to -5161.31338 Ry. The adsorbate-QC warning "only 2
+  ionic steps" counts r11 alone, because the U = 0 readout passes no chain count. It is report-only.
+- r7's step 2 would also qualify (dE -0.054 mRy, 0.00314 on Ni30), but r11 replaces r7.
+
+Readout (`src/dft/film_pilot_readout.py`):
+- Adds `A22_STATES`, `a22_accept`, `step_positions`, `magnetics(upto_step)` and
+  `state_record(accept=...)`. They apply only where the strict QC energy is None.
+- Tested on the pulled outputs through these functions only, not `main_u0`, so no eta was computed:
+  - r11 is accepted at step 2, as above.
+  - r6 and r4 (Ni0_OOH) and r8 do not qualify.
+  - The rerun chain still ends at r11.
+
+Single points (amendment 21 item 3, now at the accepted geometry; `src/dft/film_box/anvil_cfg_sp.sh`):
+- C1-C7 at r11's step-2 geometry, with `make_cfg_sp.sh`'s recipe unchanged:
+  - scf, conv_thr 1e-5, cold start.
+  - The same seven starting configurations and the same encoding check (all seven pass).
+  - Positions equal r11's block 1 to 5e-9 A.
+  - Mixing comes from r11's input (beta 0.05, ndim 20), since `make_cfg_sp.sh` copies the
+    relaxation's own input.
+  - outdir is on user scratch.
+- Each job: 48 ranks, `-nk 3`, 4 h limit (electron_maxstep 200 at about 60 s per iteration is about
+  3.3 h).
+- Expected cost:
+  - Cold starts on AWS took 59-194 iterations, and 5 of the 20 that finished hit 200.
+  - At about 0.8 SU per iteration, the seven cost 340-1,120 SU.
+  - With 266.8 SU spent and r7's at most 384, the worst case comes to about 1,770 of the 1,800 cap.
+  - So if r7 needs an r8, or any spend would pass 1,800 SU, it goes back to Frank first.
+- Single points that end unconverged do not count (amendment 11), as before. They are not rerun.
+
+The readout runs once, when the single points have ended and Ni0_OOH has converged. V1 needs both
+sites. It is not run before then.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
