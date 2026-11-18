@@ -2284,6 +2284,60 @@ geometry. Patterns use the 0.25 muB cutoff, relative to atom 1.
   - The five Ni(Fe)OOH-side and Ni0_OOH points are pending.
 - `mybalance` at 16:49Z: 2,570.7 SU (285.2 spent since deploy).
 
+## Follow-up readout (2026-11-18 ~20:20Z): A keeps V1 a pass; B is not determined
+
+**Run.** All 16 jobs had ended by 20:04Z, and every output is pulled with md5s equal to Anvil's.
+- Command: `film_followup_readout.py` with the default paths. It ran once and exited 0.
+- Its base is `readout_u0.json` (md5 4b2d683e).
+- Result: `results/film_pilot_2026-11-14/followup_a23.json`, md5 de45dace. A copy and the console log
+  are in `D:/sts-electrocatalyst/film_pilot/out/` as `followup_a23_anvil-2026-11-18.{json,log}`.
+
+**A (NiOOH configurations, U = 0).**
+- Ni0_OH: the lowest is C4's point, -15.97 meV. Ni0_O: the lowest stays the relaxed energy, since C2 lands
+  in it at +0.02 meV and no point lies below it.
+- At Ni0 (lowest readout) the steps are 1.603 / 2.205 / 0.673 / 0.439 eV, so eta_Ni0 is **0.975 V**
+  (it was 0.959). The limiting step is still 2 (*OH -> *O).
+- eta_Fe0 (lowest) is 0.377 V. **V1 holds in the lowest readout (0.377 < 0.975) and as relaxed (0.393 <
+  0.959), so V1 stays a pass.**
+- The lower *OH raises eta_Ni0. The margin in the lowest readout grows from 0.582 to 0.598 V; the
+  as-relaxed margin is unchanged at 0.566 V.
+
+**B (PBE+U single points at the U = 0 geometries).** Three of the eight are evaluable.
+
+| State | Job end | Iterations | Result | Last 50 iterations: SCF accuracy (Ry), E range |
+|---|---|---|---|---|
+| NiOOH slab | COMPLETED | 46 | converged; all parallel, Ni max 1.41 | - |
+| NiOOH *OH | COMPLETED | 200 | **not converged** | 2.6e-4 to 8.2e-4; 0.46 mRy |
+| NiOOH *O | COMPLETED | 200 | **not converged** | 2.1e-5 to 4.9e-5; 0.64 mRy |
+| NiOOH *OOH | COMPLETED | 200 | **not converged** | 2.1e-4 to 4.5e-4; 0.63 mRy |
+| Ni(Fe)OOH slab | COMPLETED | 39 | converged; C1 kept, Fe +3.08, Ni max 1.53 (Ni30) | - |
+| Fe0_OH | TIMEOUT (2 h) | 78 | **not converged** (slow node, ~70 s per iteration) | 8.8e-5 to 2.5e-2; 2.07 mRy |
+| Fe0_O | COMPLETED | 76 | converged; Fe -2.08, Ni max 1.40; Ni30 -0.30 -> -0.14, so the pattern goes from C5 to C2 (reported) | - |
+| Fe0_OOH | TIMEOUT (2 h) | 173 | **not converged** | 1.9e-4 to 5.6e-4; 2.06 mRy |
+
+- Both sites are not evaluable. Every adsorbate state at Ni0 failed, as did *OH and *OOH at Fe0. **The
+  ordering at PBE+U is "not determined".**
+- Under amendment 23, V1 (U = 0) is unchanged. No B point is rerun.
+- The unconverged energies are not used, and no PBE+U dG has been computed from them.
+- pw.x prints per-site moments only for a converged SCF. So the low-spin QC cannot be applied to the five
+  failed points; only their total magnetization is known, and it was steady over the last 50 iterations.
+
+What B's failure shows:
+- Started from the U = 0 densities, the PBE+U SCFs of the adsorbate states sit on floors of 2e-5 to 8e-4
+  Ry. Those floors are 2-80 times conv_thr, while the two slabs and Fe0_O converge in 39-76 iterations.
+- The registered conv_thr (1e-5, the U = 0 value) was too strict for PBE+U here. Amendments 3-7 had
+  already shown PBE+U floors of 1e-6 to 1e-4 Ry in these slabs.
+- The 2 h limit also stopped two points before 200 iterations, Fe0_OH on a node running at about half
+  speed.
+- This is the fourth PBE+U attempt on NiOOH *O that does not converge (cold, ramped and low-spin starts
+  in amendments 5-8b, and this one). It came closest: 2-5e-5 Ry.
+
+**Spend.** The 16 jobs used 785.6 core-hours (sacct), and `mybalance` reads 2,070.4 SU, so 785.5 since
+deploy. That is inside the expected 700-800 SU and under the 1,536 bound. The CPU allocation has 2,070.4
+SU left.
+
+**What happens to B goes back to Frank.** Nothing further runs without his decision.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
