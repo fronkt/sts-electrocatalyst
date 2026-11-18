@@ -1776,6 +1776,48 @@ Deployed 02:19Z, after this record (ab7c45b7) and the code (82099f96):
 - The seven single points are still PENDING (Priority). Slurm's estimated starts are 05:13-05:48Z.
 - SU balance 3,554.2 at 04:31Z.
 
+### C5-C7 failed at launch; relaunched from scratch (2026-11-18 ~05:10Z, before any eta existed)
+
+What happened:
+- C5 (22286631, a173), C6 (22286633, a133) and C7 (22286634, a133) ended FAILED with exit 0:53. They
+  ran 5, 32 and 73 s, between 04:54 and 04:58Z.
+- Neither a Slurm log nor a `.out` exists for any of them. Slurm could not create the log on the
+  project fileset, so the batch script never ran and pw.x never started. No SCF exists for these three.
+- C1-C4 started 04:37-04:51Z and are running. C4's log was created at 04:51:46Z.
+
+The cause, as far as tested (05:02Z):
+- `touch` in `$PROJECT/film/logs` and in `$PROJECT` returns "No space left on device".
+- `myquota` shows the project at 4.5 of 5.0 TB (91.7%) and 37.6% of its file limit; `df` shows 423 GB
+  free.
+- Creating files on user scratch works.
+- So the project fileset refuses new files below its nominal quota. Why is not established.
+- r6's error 28 at 01:43Z is consistent with the same condition.
+
+Risk to the running jobs:
+- Files already open keep growing: the `.out` files of r7 and C1-C4 were appended at 05:02Z.
+- If appends also start failing, those runs could die at a write. That cannot be prevented without
+  stopping them. Their densities and wavefunctions go to scratch, so a restart point would survive.
+
+The relaunch:
+- These are launch failures, not single points that ended unconverged. Amendment 11's no-rerun rule
+  covers SCFs that ran and did not converge, so it does not apply here.
+- The same three inputs run unchanged: md5 C5 8374c0d7, C6 5676a360, C7 91e12f2c, matching the deploy
+  record.
+- The new script `src/dft/film_box/anvil_film_scr.slurm` writes nothing to the project fileset:
+  - The run directory is `/anvil/scratch/x-fcai3/film/NAME`. It holds NAME.in and the outdir `tmp/`
+    that the inputs already name.
+  - The log goes to `/anvil/scratch/x-fcai3/film/logs/`.
+  - Reads (the QE env and pseudopotentials) stay on the project fileset.
+  - It is otherwise identical to `anvil_film.slurm`, which the running jobs use (md5 3836037f,
+    unchanged).
+- `sbatch -t 04:00:00` as before. The outputs are pulled to the same local directories, so the readout
+  is unaffected.
+- Cost: the failed launches used about 1.5 SU. The relaunch stays inside the registered estimate for
+  the seven single points (340-1,120 SU), so the worst case stays about 1,770 of the 1,800 cap.
+
+r7 at 05:02Z: 5 BFGS steps, about 8 min each. E -5216.71582631 Ry, falling 0.08-0.10 mRy per step;
+total force 0.0085.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
