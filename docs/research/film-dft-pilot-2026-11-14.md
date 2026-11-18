@@ -1839,7 +1839,7 @@ readout's own functions (`qe_qc.trusted_energy_ev`, `state_record`, `choose_run`
 - QC: TRUSTWORTHY. *OOH bound and intact (d(Ni-O) 1.867 A, d(O-O) 1.375 A, d(O-H) 0.987 A).
   Total magnetization 9.44 muB, every Ni parallel (smallest moment -0.020 on the site Ni).
 - The "only 6 ionic steps" warning counts r7 alone; the U = 0 readout passes no chain count. It is
-  report-only. The chain is r3, r4 (44 BFGS steps), r6 (11) and r7 (6).
+  report-only. The chain behind it is the first run, then r3, r4 (44 BFGS steps), r6 (11) and r7 (6).
 - Rerun chain: the readout uses r7. Its note says r7 "did not start from r6's last geometry". That is
   because r6's last completed SCF, step 12 (-5216.71565881 Ry), has no forces: the density write
   failed right after it. r7 restarted from step 11, the last step with forces, as registered. The
