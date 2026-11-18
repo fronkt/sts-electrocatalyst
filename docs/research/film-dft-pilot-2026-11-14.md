@@ -2430,6 +2430,15 @@ differs only in prefix and outdir, plus electron_maxstep 400 for Fe0_OOH's stage
 - A24U Ni0_OH 8ab2f0c6, Ni0_O_r2 2321674a, Ni0_OOH_r7 a4656e98, Fe0_OH_r11 a23b4032, Fe0_OOH f175a386.
 - Code: `fb89ac23`.
 
+Deployed with `deploy1`, after this record (75c09cb9). Every density was copied on Anvil and cmp-equal
+to its source (charge-density / occup / paw md5 below), and each input's md5 was checked before its
+sbatch.
+- 22302575: `A24S__u0__NiFeOOH__Fe0_OH_r11`, 4 h (f5b03178 / 61eeb3a1 / 50593fe8, the C2 point's save).
+- 22302578: `A24S__u0__NiFeOOH__Fe0_OOH`, 6 h (e1baf5e0 / 5ba13638 / d4d5444e).
+- 22302579: `A24U__u0__NiOOH__Ni0_OH`, 30 min (9d366f22 / fd4d249c / d10f97c8).
+- 22302580: `A24U__u0__NiOOH__Ni0_O_r2`, 30 min (97eaa8ee / 4c7927e6 / 87ee8589).
+- 22302586: `A24U__u0__NiOOH__Ni0_OOH_r7`, 30 min (93cba936 / e42bd0d9 / f4cafa97).
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
