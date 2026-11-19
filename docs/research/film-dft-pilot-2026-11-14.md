@@ -2515,6 +2515,11 @@ input a23b4032). The density was copied from the A24S save and cmp-equal (b3b2a1
 57186310). The readout will not use it (QC 1), but it is one of the seven registered runs, and it checks
 that a 1e-3 restart from a 1e-5 density reads the same energy.
 
+22307173 ran 04:23-04:26Z on a079. It was pulled and is md5-equal (in a23b4032 / out 6a0f3794). It
+converged on its first iteration (est. acc. 1.4e-4 Ry) in the same state: Ni30 -1.11, Fe +2.08, total
+10.92 muB, Ni max 1.398. Its energy is +0.108 mRy from stage 1's converged one. That is the size of
+error a 1e-3 restart from a settled density carries, against the +/- 2 mRy band allowed for it.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
