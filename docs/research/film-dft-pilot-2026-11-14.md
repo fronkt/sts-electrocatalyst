@@ -2464,6 +2464,30 @@ Pulled, md5-equal to Anvil (in a4656e98 / out d0eda793). S1 (A23U) ran 200 of 20
 9.15 muB. It passes, about 2.6 SU. All three NiOOH states are now evaluable, so Ni0 can be read; Fe0
 waits on the two stage-1 runs.
 
+### Fe-side stage 1 started; its SCF path differs from amendment 23's (2026-11-19 01:25Z; no PBE+U dG or eta)
+
+22302575 (Fe0_OH_r11) started at 00:51Z on a218, and 22302578 (Fe0_OOH) at 00:55Z on a194. Both read the
+registered densities with U on. At 01:23Z they had done 55 and 57 iterations, at about 35 and 30 s each. That
+puts 200 iterations at about 2 h (4 h wall) and 400 at about 3.3 h (6 h wall). Amendment 23's Fe0_OH ran
+about 93 s per iteration on its node, which is why it reached only 77.
+
+Each input and start density is the same as in amendment 23, but the iterations are not bit-reproducible
+across nodes (MPI reduction order). Comparing the live traces with amendment 23's, iteration by iteration:
+- Fe0_OOH follows the same path. It is within 0.3 mRy to iteration 41 and within 3 mRy at 57, and the
+  estimated accuracies (4.6e-4 vs 7.1e-4 Ry) and magnetizations (8.78 vs 8.86 muB) are alike.
+- Fe0_OH has gone another way. The two agree to iteration 11. By 21 the accuracies differ by a factor of
+  10 (2.4e-1 vs 2.2e-2 Ry). At 55 the live run is at 4.9e-2 Ry with its total magnetization pinned at
+  11.00 muB. Amendment 23 at the same iteration was at 3.2e-4 Ry and 11.24 muB, and it reached 8.8e-5 Ry
+  by its last iteration, 77. The live energy is 27.7 mRy lower there, but at 5e-2 Ry accuracy that number
+  carries no weight.
+
+So the PBE+U SCF of Fe0_OH has more than one basin within reach of the same start: one near 11.25 muB
+that amendment 23 was closing in on, and one at an integer 11.00 muB. Nothing changes because of this.
+Stage 1 runs to its 200, and the registered QC decides:
+- if its last 50 span more than 2 mRy, Fe0 is not evaluable and the ordering is "not determined";
+- if it settles, stage 2 reads the state it settled in, and the readout reports that state's pattern
+  and Fe moment.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
