@@ -2565,6 +2565,91 @@ Reading:
 f175a386). The density was copied from the A24S save at iteration 400 and cmp-equal (27f49618 / 8f90bce1
 / ec590d58). The readout runs once after it ends, and reports Ni0 at PBE+U with Fe0 not evaluable.
 
+22308726 ran 05:35-05:45Z on a128. It was pulled and is md5-equal (in f175a386 / out cd699573). It
+converged in 9 iterations (est. acc. 9.1e-4 Ry), 0.381 mRy from stage 1's last-50 mean. It landed with Fe
++1.54 and Ni5 and Ni29 antiparallel (C3); U = 0's pattern was C6, Ni5 only. It is not used, because QC 1
+failed.
+
+## Amendment-24 readout (2026-11-19 ~05:50Z): the PBE+U ordering is not determined; Ni0 at PBE+U is 1.415 V
+
+`src/dft/film_a24_readout.py` (code `fb89ac23`) was run once, after all seven runs had ended, and exited
+0. Output `results/film_pilot_2026-11-14/a24_pbeu.json` (md5 0c3fd6a7). Copies are at
+`D:/sts-electrocatalyst/film_pilot/out/a24_pbeu_anvil-2026-11-19.json`, with the log
+`a24_pbeu_anvil-2026-11-19.log` (md5 61cbba96). Ni0's dG were recomputed by hand from the JSON energies
+and the gas references and match: 1.378 / 4.024 / 4.165 eV.
+
+Per state:
+
+| state | source | band | Ni max \|m\| | Fe | pattern (U = 0) | evaluable |
+|---|---|---|---|---|---|---|
+| NiOOH slab | A23, 1e-5 | 0 | 1.408 | - | all + (same) | yes |
+| Ni0_OH | stage 2, 1e-3 | +/- 27 meV | 1.384 | - | site 0, all + (same) | yes |
+| Ni0_O | stage 2, 1e-3 | +/- 27 meV | 1.334 | - | site +, all + (same) | yes |
+| Ni0_OOH | stage 2, 1e-3 | +/- 27 meV | 1.400 | - | site 0, all + (same) | yes |
+| Ni(Fe)OOH slab | A23, 1e-5 | 0 | 1.534 | +3.08 | C1 (same) | yes |
+| Fe0_OH | stage 1 converged, 1e-5 | 0 | 1.397 | +2.08 | C4 (U = 0: all +) | yes |
+| Fe0_O | A23, 1e-5 | 0 | 1.397 | -2.08 | C2 (U = 0: C5) | yes |
+| Fe0_OOH | - | - | 1.417 | +1.54 | (stage 2: C3; U = 0: C6) | no: stage 1 last-50 span 5.485 mRy |
+
+Sites:
+
+| | dG OH / O / OOH (eV) | steps (eV) | step bands (eV) | eta (V) | interval (V) | PLS |
+|---|---|---|---|---|---|---|
+| Ni0, PBE+U | 1.378 / 4.024 / 4.165 | 1.378, 2.645, 0.141, 0.755 | 0.027, 0.054, 0.054, 0.027 | 1.415 | [1.361, 1.470] | *OH -> *O |
+| Ni0, U = 0 (V1) | 1.619 / 3.808 / 4.481 | 1.619, 2.189, 0.673, 0.439 | - | 0.959 | - | *OH -> *O |
+| Fe0, PBE+U | not evaluable (Fe0_OOH) | | | | | |
+| Fe0, U = 0 (V1) | | 1.218, 1.145, 1.623, 0.934 | - | 0.393 | - | *O -> *OOH |
+
+Ordering at PBE+U (U = 0 geometries): **not determined**, because Fe0 is not evaluable.
+
+Reading:
+- **V1 is unchanged.** It passes at U = 0 (readout `891cc664`), and amendment 23's configuration check
+  keeps it a pass. The PBE+U check of the ordering has now been tried twice (amendments 23 and 24) and
+  is not determined either time.
+- **Ni0 with U:** *OH binds 0.24 eV more strongly, *O 0.22 eV more weakly, and *OOH 0.32 eV more
+  strongly. The *OH -> *O step grows from 2.19 to 2.65 eV, so eta rises 0.46 V with the same limiting
+  step. All four NiOOH states keep their U = 0 magnetic pattern, so this shift is the effect of U alone
+  at fixed geometry and state. A likely reading: U favours localized, integer-occupancy Ni d states,
+  which stabilizes Ni(III)-OH against the more oxidized Ni-O formed on deprotonation. This was not
+  tested here, for example by projected occupations.
+- **What the ordering would need** (arithmetic, not a result; Fe0's PBE+U eta was not computed):
+  - "kept" needs Fe0's PBE+U upper end below 1.361 V, a rise of under about 0.97 V from 0.393;
+  - "reversed" needs its lower end at or above 1.470 V.
+- **Fe0 at PBE+U would compare changed states.** All three Ni(Fe)OOH adsorbate states change magnetic
+  pattern under U: OH all + -> C4, O C5 -> C2, OOH C6 -> C3 in its unused stage 2. The slab keeps C1. So
+  even an evaluable Fe0 would mix the effect of U with that of the change in state, unlike Ni0.
+
+Lessons:
+1. A long conv_thr 1e-5 PBE+U run does not reliably settle these slabs:
+   - The NiOOH states settled by 200 iterations (spans 0.46-0.64 mRy).
+   - Fe0_OH converged at 93, on a different SCF path from amendment 23's identical run.
+   - Fe0_OOH was most nearly stationary at iterations 76-150, then degraded to a 5.5 mRy span by 400.
+
+   The rule "the last 50 at maxstep" fits the first two cases and not the third.
+2. Where stage 1 settles, a 1e-3 restart from its density reads its energy closely: 0.005-0.22 mRy from
+   the last-50 means, and 0.108 mRy from Fe0_OH's 1e-5 energy. The two-stage design works when stage
+   1 settles.
+3. PBE+U SCF paths are not bit-reproducible across nodes, and the Fe-containing states have more than
+   one magnetic basin within reach of one start (Fe0_OH: 11.24 muB in amendment 23, 10.93 muB here).
+
+Spend: amendment 24 used 249.8 SU (balance 2,070.4 -> 1,820.6), under Frank's 600 SU cap:
+- stage 1: 1 h 01 min and 3 h 49 min;
+- stage 2: five runs of 3-9 min.
+
+Open, for Frank:
+- (a) Stop the PBE+U check here. V1 stands at U = 0, with the configuration check. The PBE+U check is
+  reported as not determined after two attempts, stating Ni0's PBE+U eta and Fe0_OOH's SCF failure as a
+  limitation.
+- (b) A new amendment for Fe0_OOH alone, registered before it runs:
+  - a fresh PBE+U SCF with a mixing change aimed at the breakdown seen here, such as a shorter Broyden
+    history, or mixing restarted every 100 iterations;
+  - a stationarity rule fixed beforehand, such as stopping at the first 50-iteration window that spans
+    at most 2 mRy.
+  
+  It must not be applied to the existing trace, whose good window has been seen. Expected about 90 SU,
+  bound about 170 SU, within the 350 SU left of the cap. The changed-state caveat above would still
+  apply to Fe0.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
