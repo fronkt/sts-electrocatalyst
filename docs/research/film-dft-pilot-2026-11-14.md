@@ -2456,6 +2456,14 @@ density to within that target, so stage 2 reads its energy rather than moving it
 `A24U__u0__NiOOH__Ni0_OOH_r7` started at 00:10Z. The two stage-1 runs are pending, with Slurm now
 estimating starts of about 06:55Z and 07:30Z.
 
+### NiOOH *OOH stage 2 ended (2026-11-19 00:17Z; no PBE+U dG or eta yet)
+
+Pulled, md5-equal to Anvil (in a4656e98 / out d0eda793). S1 (A23U) ran 200 of 200, last-50 span
+0.626 mRy. S2 converged on its first iteration (est. acc. 2.1e-4 Ry), 3 min. S2 - S1 last-50 mean
++0.121 mRy. Ni max |m| 1.400. Pattern site 0, none antiparallel, the same as U = 0. Total magnetization
+9.15 muB. It passes, about 2.6 SU. All three NiOOH states are now evaluable, so Ni0 can be read; Fe0
+waits on the two stage-1 runs.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
