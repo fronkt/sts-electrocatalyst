@@ -2488,6 +2488,33 @@ Stage 1 runs to its 200, and the registered QC decides:
 - if it settles, stage 2 reads the state it settled in, and the readout reports that state's pattern
   and Fe moment.
 
+### Fe0_OH stage 1 converged at 1e-5 (2026-11-19 01:58Z; no PBE+U dG or eta yet)
+
+22302575 ended COMPLETED at 01:51Z after 1 h 0 min: "convergence has been achieved in 93 iterations",
+estimated accuracy 9.7e-6 Ry. Pulled, md5-equal to Anvil (in 16332440 / out 4af9fc96). By QC 1 its
+energy is used with a band of 0, and stage 2 is not read.
+
+The state it converged to is not U = 0's:
+- At U = 0 (and in the C2 point whose density it started from) Fe0_OH was all parallel: Fe +1.54,
+  Ni 5/29/30 +.
+- At PBE+U it converged with Ni30 antiparallel, -1.11 muB (Ni5 +0.87, Ni29 +1.23), Fe +2.08 muB, total
+  10.93 muB. That is the C4 pattern, which at U = 0 did not hold: the U = 0 C4 point landed all
+  parallel.
+- Every Ni is low-spin (max |m| 1.397). The readout will report `pattern_changed` true.
+
+It is the second state whose PBE+U pattern differs from its U = 0 one. The first is Fe0_O: amendment 23
+reported it going from C5 to C2 as Ni30 fell from -0.30 to -0.14, under the 0.25 muB threshold. The two
+slabs and the three NiOOH adsorbate states kept theirs. So for Fe0_OH the PBE+U energy is of a different magnetic state from the U = 0 one,
+and the shift against U = 0 mixes the effect of U with that of the change in state. This qualifies the
+amendment-24 phrase "with each state's configuration inherited from U = 0": the start is inherited, but
+the state is where the SCF lands. Fe0_OH enters only steps 1 and 2 of Fe0. At U = 0 Fe0's limiting step
+was *O -> *OOH, which does not involve it.
+
+`deploy2` then submitted its registered stage 2 as 22307173 (`A24U__u0__NiFeOOH__Fe0_OH_r11`, 30 min,
+input a23b4032). The density was copied from the A24S save and cmp-equal (b3b2a13a / 09659dc9 /
+57186310). The readout will not use it (QC 1), but it is one of the seven registered runs, and it checks
+that a 1e-3 restart from a 1e-5 density reads the same energy.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
