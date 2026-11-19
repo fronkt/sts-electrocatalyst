@@ -2439,6 +2439,23 @@ sbatch.
 - 22302580: `A24U__u0__NiOOH__Ni0_O_r2`, 30 min (97eaa8ee / 4c7927e6 / 87ee8589).
 - 22302586: `A24U__u0__NiOOH__Ni0_OOH_r7`, 30 min (93cba936 / e42bd0d9 / f4cafa97).
 
+### NiOOH *OH and *O stage 2 ended (2026-11-19 00:10Z; no PBE+U dG or eta yet)
+
+The jobs started about 00:07Z, far sooner than Slurm's estimate (Nov 19-20). Both outputs were pulled and
+are md5-equal to Anvil (in 8ab2f0c6 / out 2a4d032a; in 2321674a / out ea10be01). QC 1-4 checked per job,
+with the readout's own functions; the readout has not run:
+
+| state | S1 (A23U) | S1 last-50 span | S2 | S2 - S1 last-50 mean | Ni max \|m\| | pattern (U = 0) |
+|---|---|---|---|---|---|---|
+| Ni0_OH | 200 of 200 | 0.456 mRy | converged, 1 iteration (est. acc. 4.3e-4 Ry), 3 min | +0.005 mRy | 1.384 | site 0 (0), none antiparallel; same |
+| Ni0_O_r2 | 200 of 200 | 0.638 mRy | converged, 1 iteration (est. acc. 2.1e-5 Ry), 3 min | +0.219 mRy | 1.334 | site + (+), none antiparallel; same |
+
+Both pass. Stage 2 met 1e-3 on its first iteration: amendment 23's 200 iterations had already settled the
+density to within that target, so stage 2 reads its energy rather than moving it. Total magnetization
+9.25 and 11.23 muB, as at the end of stage 1. Cost about 2.6 SU each.
+`A24U__u0__NiOOH__Ni0_OOH_r7` started at 00:10Z. The two stage-1 runs are pending, with Slurm now
+estimating starts of about 06:55Z and 07:30Z.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
