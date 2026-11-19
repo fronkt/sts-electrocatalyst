@@ -2650,6 +2650,32 @@ Open, for Frank:
   bound about 170 SU, within the 350 SU left of the cap. The changed-state caveat above would still
   apply to Fe0.
 
+## Decision (2026-11-19): (a), the PBE+U check stops here
+
+Frank chose (a). No further PBE+U runs. The pilot's standing result:
+- **V1 passes at U = 0** (readout `891cc664`):
+  - eta Fe0 (Ni(Fe)OOH) is 0.377 V at its lowest configuration and 0.393 V as relaxed;
+  - eta Ni0 (NiOOH) is 0.959 V;
+  - the margin is 0.57-0.58 V.
+- It stays a pass under amendment 23's NiOOH configuration check: eta Ni0 at its lowest is 0.975 V.
+- **V2 is not evaluable** (CoOOH out of scope).
+- **The Hubbard-U check of V1 is not determined**, after two registered attempts (amendments 23 and 24).
+
+Limitation statement, for the report:
+> The Fe-versus-Ni ordering (V1) was established with PBE at U = 0. A PBE+U check at the U = 0 geometries
+> (Ni 6.2, Fe 5.3 eV) was attempted twice and could not be completed. The PBE+U SCF of the *OOH state at
+> the Fe site did not reach a stationary energy, its last 50 of 400 iterations spanning 5.5 mRy against a
+> 2 mRy limit, so the Fe-site overpotential is not available at PBE+U. At the Ni site of NiOOH, PBE+U
+> raises eta from 0.96 to 1.42 V (+/- 0.05 V from the SCF tolerance), with the same limiting step
+> (*OH -> *O) and no change in magnetic state. All three Fe-site adsorbate states change magnetic order
+> under U, so the Fe-site comparison at PBE+U would also mix the effect of U with that of the change in
+> magnetic state. Whether the ordering holds under U is therefore open.
+
+Next, under the registered decision rule ("V1 pass -> ... then production on round-1/round-2 film
+compositions"): production is the next step the registration names. Nothing has been planned or costed
+for it yet, and it starts only with Frank's go-ahead and a cost estimate. Amendments 23 and 24 together
+used 1,035.3 SU (785.5 + 249.8). The CPU balance is 1,820.6.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
