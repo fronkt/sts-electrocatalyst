@@ -2520,6 +2520,51 @@ converged on its first iteration (est. acc. 1.4e-4 Ry) in the same state: Ni30 -
 10.92 muB, Ni max 1.398. Its energy is +0.108 mRy from stage 1's converged one. That is the size of
 error a 1e-3 restart from a settled density carries, against the +/- 2 mRy band allowed for it.
 
+### Fe0_OOH stage 1 ran to 400 and fails stationarity (2026-11-19 04:45Z; no PBE+U dG or eta yet)
+
+22302578 ended COMPLETED at 04:44Z after 3 h 49 min: "convergence NOT achieved after 400 iterations".
+Pulled, md5-equal (in 346d2b9c / out 5747541b). Its last 50 energies span 5.485 mRy, against the 2 mRy
+limit, so it fails QC 1. Fe0_OOH is not evaluable, and with it Fe0. By the registered rule, the PBE+U
+ordering will be "not determined" whatever stage 2 gives, and nothing is rerun.
+
+The trace in 25-iteration blocks (energies relative to the mean of iterations 126-150):
+
+| iterations | mean | range | median est. acc. | magnetization |
+|---|---|---|---|---|
+| 1-25 | +32.20 mRy | 133.91 | 1.0e-2 | 8.82-8.97 |
+| 26-50 | -0.78 | 0.90 | 1.1e-3 | 8.79-8.84 |
+| 51-75 | -0.21 | 0.62 | 4.4e-4 | 8.78-8.80 |
+| 76-100 | -0.13 | 0.35 | 3.7e-4 | 8.79-8.80 |
+| 101-125 | -0.06 | 0.24 | 3.4e-4 | 8.79-8.80 |
+| 126-150 | 0.00 | 0.42 | 3.1e-4 | 8.79-8.80 |
+| 151-175 | +0.34 | 0.56 | 3.2e-4 | 8.80-8.81 |
+| 176-200 | +0.47 | 0.63 | 4.5e-4 | 8.81-8.85 |
+| 201-225 | +0.45 | 0.42 | 4.6e-4 | 8.80-8.84 |
+| 226-250 | +0.52 | 1.51 | 4.8e-4 | 8.80-8.82 |
+| 251-275 | +0.73 | 0.63 | 8.8e-4 | 8.82-8.84 |
+| 276-300 | +0.78 | 1.66 | 1.1e-3 | 8.81-8.86 |
+| 301-325 | +1.13 | 3.08 | 2.0e-3 | 8.85-8.98 |
+| 326-350 | +1.12 | 4.60 | 2.4e-3 | 8.84-8.92 |
+| 351-375 | +1.59 | 4.93 | 2.9e-3 | 8.88-8.94 |
+| 376-400 | +1.69 | 5.48 | 3.4e-3 | 8.86-8.94 |
+
+Reading:
+- The SCF came closest to stationary at iterations 76-150: ranges 0.24-0.42 mRy, accuracy about
+  3e-4 Ry. A 50-iteration window there would have passed.
+- After 150 it degraded steadily. The accuracy grew tenfold, the energy rose about 1.7 mRy, the
+  oscillations widened to 5.5 mRy, and the magnetization drifted from 8.80 to about 8.9 muB.
+- The energy rising with the residual points to the Broyden mixing breaking down over a long run (20-step
+  history, beta 0.05, local-TF), not to a descent into another state.
+- Amendment 24 assumed that running longer settles a density further, and set this run's maxstep to
+  400 because amendment 23's was still falling at 172. For this state that assumption was wrong. The
+  rule as registered stands: the last 50 at maxstep decide.
+- At iteration 146 a check of the live trace had a last-50 span of 0.455 mRy. It was a diagnostic and
+  changed nothing.
+
+`deploy2` submitted its registered stage 2 as 22308726 (`A24U__u0__NiFeOOH__Fe0_OOH`, 30 min, input
+f175a386). The density was copied from the A24S save at iteration 400 and cmp-equal (27f49618 / 8f90bce1
+/ ec590d58). The readout runs once after it ends, and reports Ni0 at PBE+U with Fe0 not evaluable.
+
 ## Compute
 - 83 Sciences AWS account (Frank, 2026-11-14), c7a.48xlarge (192 cores, 384 GiB), on-demand,
   us-east-1; 6 jobs x 30 ranks (-nk 3); gas jobs 8 ranks. Box scripts: `src/dft/film_box/`.
